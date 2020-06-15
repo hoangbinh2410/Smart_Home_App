@@ -1,7 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+		<PackageReference Include="Prism.Unity.Forms" Version="7.2.0.1422" />
+		<PackageReference Include="Realm" Version="4.3.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\BA_MobileGPS.Utilities\BA_MobileGPS.Utilities.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Reference Include="StaxiCrypt">
+	    <HintPath>..\Library\Shared\StaxiCrypt.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
 </Project>

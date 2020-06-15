@@ -1,7 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="9.0.0" />
+		<PackageReference Include="IdentityModel" Version="5.0.0-preview.0" />
+		<PackageReference Include="Microsoft.AspNet.SignalR.Client" Version="2.4.1" />
+		<PackageReference Include="Realm" Version="4.3.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\BA_MobileGPS.Entities\BA_MobileGPS.Entities.csproj" />
+	  <ProjectReference Include="..\BA_MobileGPS.Utilities\BA_MobileGPS.Utilities.csproj" />
+	</ItemGroup>
 </Project>

@@ -1,0 +1,60 @@
+﻿using BA_MobileGPS.Utilities;
+using BA_MobileGPS.Utilities.Constant;
+
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Threading.Tasks;
+
+namespace BA_MobileGPS.Service
+{
+    public class GeocodeService : IGeocodeService
+    {
+        private readonly IRequestProvider requestProvider;
+
+        public GeocodeService(IRequestProvider requestProvider)
+        {
+            this.requestProvider = requestProvider;
+        }
+
+        public async Task<string> GetAddressByLatLng(string lat, string lng)
+        {
+            var respone = string.Empty;
+            try
+            {
+                var URL = string.Format(ApiUri.GET_GETADDRESSBYLATLNG + "/?lat={0}&lng={1}", lat, lng);
+
+                var result = await requestProvider.GetAsync<string>(URL);
+                if (result != null)
+                {
+                    respone = result;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return respone;
+        }
+
+        public async Task<List<string>> GetAddressesByLatLng(string lats, string lngs)
+        {
+            var respone = new List<string>();
+            try
+            {
+                var URL = string.Format(ApiUri.GET_ADDRESSESBYLATLNG + "?lat={0}&lng={1}", lats, lngs);
+
+                var result = await requestProvider.GetAsync<List<string>>(URL);
+                if (result != null)
+                {
+                    respone = result;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return respone;
+        }
+    }
+}
