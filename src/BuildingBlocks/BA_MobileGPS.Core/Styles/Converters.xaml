@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    x:Class="BA_MobileGPS.Core.Styles.Converters"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core">
+
+    <converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
+
+    <converters:AddRootImageConverter x:Key="AddRootImageConverter" />
+
+    <converters:UpperCaseConverter x:Key="UpperCaseConverter" />
+
+    <converters:DateTimeConverter x:Key="DateTimeConverter" />
+
+    <converters:DateConverter x:Key="DateConverter" />
+
+    <converters:TimeConverter x:Key="TimeConverter" />
+
+    <converters:SecondsToStringConverter x:Key="SecondsToStringConverter" />
+
+    <converters:MinutesToStringShortConverter x:Key="MinutesToStringShortConverter" />
+
+    <converters:VelocityConverter x:Key="VelocityConverter" />
+
+    <converters:NullOrEmptyToBoolConverter x:Key="NullOrEmptyToBoolConverter" />
+
+
+    <converters:KmConverter x:Key="KmConverter" />
+
+    <converters:ShowOnOffToBoolConverter x:Key="ShowOnOffToBoolConverter" />
+
+    <converters:FuelConverter x:Key="FuelConverter" />
+
+    <converters:NumberLitsOfPerBottleConverter x:Key="NumberLitsOfPerBottleConverter" />
+
+    <converters:TemperatureConverter x:Key="TemperatureConverter" />
+    <converters:MinutesOfDrivingTimeConverter x:Key="MinutesOfDrivingTimeConverter" />
+
+    <converters:TextChangedEventArgsConverter x:Key="TextChangedEventArgsConverter" />
+    <converters:HasDataConverter x:Key="HasDataConverter" />
+    <converters:IsEmptyDataConverter x:Key="IsEmptyDataConverter" />
+    <converters:ZeroBooleanConverter x:Key="ZeroBooleanConverter" />
+    <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
+</ResourceDictionary>

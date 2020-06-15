@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Utilities.Constant;
+﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Utilities.Constant;
 using Prism;
 using Prism.Events;
 using Prism.Ioc;
@@ -24,7 +25,7 @@ namespace BA_MobileGPS.Core
 
         private readonly IEventAggregator _eventAggregator;
 
-        //public static AppType AppType = AppType.BinhAnh;
+        public static AppType AppType = AppType.BinhAnh;
 
         public virtual string OneSignalKey => Config.OneSignalKey;
 

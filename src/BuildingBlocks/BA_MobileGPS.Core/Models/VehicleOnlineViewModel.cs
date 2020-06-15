@@ -1,0 +1,162 @@
+﻿using BA_MobileGPS.Core;
+using BA_MobileGPS.Core.Extensions;
+using BA_MobileGPS.Core.Resource;
+using BA_MobileGPS.Utilities;
+
+using System;
+
+namespace BA_MobileGPS.Entities
+{
+    public class VehicleOnlineViewModel : BaseModel
+    {
+        public long VehicleId { set; get; }
+
+        public string VehiclePlate { set; get; }
+
+        public string PrivateCode { set; get; }
+
+        private float lat;
+        public float Lat { get => lat; set => SetProperty(ref lat, value); }
+
+        private float lng;
+        public float Lng { get => lng; set => SetProperty(ref lng, value); }
+
+        private int state;
+        public int State { get => state; set => SetProperty(ref state, value); }
+
+        private string iconImage;
+        public string IconImage { get => iconImage; set => SetProperty(ref iconImage, value); }
+
+        private IconCode iconCode;
+        public IconCode IconCode { get => iconCode; set => SetProperty(ref iconCode, value); }
+
+        private int velocity;
+        public int Velocity { get => velocity; set => SetProperty(ref velocity, value); }
+
+        private DateTime _GPSTime;
+        public DateTime GPSTime { get => _GPSTime; set => SetProperty(ref _GPSTime, value); }
+
+        private DateTime vehicleTime;
+        public DateTime VehicleTime { get => vehicleTime; set => SetProperty(ref vehicleTime, value, relatedProperty: nameof(LostGSMTime)); }
+
+        public string GroupIDs { set; get; }
+
+        // Trạng thái máy
+        private string statusEngineer;
+
+        public string StatusEngineer { get => statusEngineer; set => SetProperty(ref statusEngineer, value); }
+
+        private double totalKm;
+        public double TotalKm { get => totalKm; set => SetProperty(ref totalKm, value); }
+
+        private byte messageId;
+        public byte MessageId { get => messageId; set => SetProperty(ref messageId, value, nameof(IsShowDetail), nameof(Message2), nameof(Message4)); }
+
+        public byte KindID { set; get; }
+
+        private DateTime daturityDate;
+        public DateTime MaturityDate { get => daturityDate; set => SetProperty(ref daturityDate, value); }
+
+        private string messageBAP;
+        public string MessageBAP { get => messageBAP; set => SetProperty(ref messageBAP, value); }
+
+        private string messageDetailBAP;
+        public string MessageDetailBAP { get => messageDetailBAP; set => SetProperty(ref messageDetailBAP, value); }
+
+        public int SortOrder { set; get; }
+
+        public bool IsEnableAcc { set; get; }
+
+        private string currentAddress;
+        public string CurrentAddress { get => currentAddress; set => SetProperty(ref currentAddress, value); }
+
+        public int DataExt { set; get; }
+
+        public int LostGSMTime => (int)StaticSettings.TimeServer.Subtract(VehicleTime).TotalSeconds;
+
+        public int stopTime;
+        public int StopTime { get => stopTime; set => SetProperty(ref stopTime, value, relatedProperty: nameof(IsShowStopTime)); }
+
+        public bool isShowStopTime;
+        public bool IsShowStopTime
+        {
+            get
+            {
+                if (StateVehicleExtension.IsStoping(Velocity) && StopTime > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            set => SetProperty(ref isShowStopTime, value);
+        }
+
+        public bool IsShowDetail
+        {
+            get
+            {
+                return (MessageId == 2 || MessageId == 3 || MessageId == 128) ? false : true;
+            }
+        }
+
+        public string Message2
+        {
+            get
+            {
+                switch (MessageId)
+                {
+                    case 0:
+                    case 1:
+                        var countdate = MaturityDate.Subtract(StaticSettings.TimeServer).TotalDays - 1;
+                        //X = Ngày hiện tại – ngày hết hạn -1. Nếu X<=60 ngày(60 là số cấu hình) thì mới hiển thị thông tin đến hạn đóng phí. Còn không thì không hiển thị (Cấu hình bảng [Mobile.Configurations])
+                        if (countdate > 0 && countdate <= CompanyConfigurationHelper.CountDateOfPayment)
+                        {
+                            return MobileResource.ListVehicle_Label_Vehicle_Expired_Date;
+                        }
+                        else
+                        {
+                            return string.Empty;
+                        }
+                    case 2: return MobileResource.ListVehicle_Label_Vehicle_Expiration_Date;
+
+                    case 3: return MobileResource.ListVehicle_Label_Vehicle_Expiration_Date;
+
+                    case 128: return MobileResource.ListVehicle_Label_Vehicle_Stop_Date;
+                }
+                return string.Empty;
+            }
+        }
+
+        public string Message4
+        {
+            get
+            {
+                switch (MessageId)
+                {
+                    case 0:
+                    case 1:
+                        var countdate = MaturityDate.Subtract(StaticSettings.TimeServer).TotalDays - 1;
+                        //X = Ngày hiện tại – ngày hết hạn -1. Nếu X<=60 ngày(60 là số cấu hình) thì mới hiển thị thông tin đến hạn đóng phí. Còn không thì không hiển thị (Cấu hình bảng [Mobile.Configurations])
+                        if (countdate > 0 && countdate <= CompanyConfigurationHelper.CountDateOfPayment)
+                        {
+                            return DateTimeHelper.FormatDate(MaturityDate);
+                        }
+                        else
+                        {
+                            return string.Empty;
+                        }
+                    case 2: return DateTimeHelper.FormatDate(MaturityDate);
+
+                    case 3: return DateTimeHelper.FormatDate(MaturityDate);
+
+                    case 128: return DateTimeHelper.FormatDate(MaturityDate);
+                }
+                return string.Empty;
+            }
+        }
+    }
+}

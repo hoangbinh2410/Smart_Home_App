@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    x:Class="BA_MobileGPS.Core.Styles.Styles"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:res="clr-namespace:BA_MobileGPS.Core.Styles">
+
+    <ResourceDictionary.MergedDictionaries>
+        <res:Fonts />
+        <res:Converters />
+        <res:Text />
+        <res:LightTheme />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style ApplyToDerivedTypes="True" TargetType="{x:Type ContentPage}">
+        <Setter Property="BackgroundColor" Value="{DynamicResource BackgroundColor}" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="NavigationPage">
+        <Setter Property="BarBackgroundColor" Value="{DynamicResource PrimaryColor}" />
+        <Setter Property="BarTextColor" Value="{StaticResource White}" />
+    </Style>
+
+    <!--  Button region  -->
+    <Style ApplyToDerivedTypes="True" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}" />
+        <Setter Property="TextColor" Value="{StaticResource White}" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+    </Style>
+
+    <Style x:Key="ButtonBase" TargetType="Button">
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryColor}" />
+        <Setter Property="FontSize" Value="Medium" />
+        <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        <Setter Property="BorderWidth" Value="1" />
+        <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+        <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
+    </Style>
+
+    <Style
+        x:Key="ButtonCancel"
+        BaseResourceKey="ButtonBase"
+        TargetType="Button">
+        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
+        <Setter Property="BorderColor" Value="{StaticResource Red}" />
+    </Style>
+    <!--  End Button region  -->
+
+    <Style ApplyToDerivedTypes="True" TargetType="Label">
+        <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+        <Setter Property="TextColor" Value="{DynamicResource Secondary}" />
+        <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="Entry">
+        <Setter Property="TextColor" Value="{DynamicResource Secondary}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource Additional}" />
+        <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+        <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
+        <Setter Property="IsSpellCheckEnabled" Value="False" />
+        <Setter Property="IsTextPredictionEnabled" Value="False" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="Editor">
+        <Setter Property="TextColor" Value="{DynamicResource Secondary}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource Additional}" />
+        <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+        <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="DatePicker">
+        <Setter Property="TextColor" Value="{DynamicResource Secondary}" />
+        <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+        <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
+    </Style>
+
+    <Style x:Key="errorDescriptionStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource Red}" />
+        <Setter Property="FontSize" Value="Small" />
+        <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
+        <Setter Property="HorizontalTextAlignment" Value="Start" />
+    </Style>
+
+
+    <!--  Styles  -->
+    <Style x:Key="Header" TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource myFontLatoBold}" />
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="TextColor" Value="{StaticResource White}" />
+    </Style>
+
+    <!--  Styles  -->
+    <Style x:Key="HeaderNavigation" TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource myFontLatoBold}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="TextColor" Value="{StaticResource White}" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="{x:Type ListView}">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+    </Style>
+
+    <!--<Style ApplyToDerivedTypes="True" TargetType="{x:Type SearchBar}">
+        <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+        <Setter Property="CancelButtonColor" Value="{DynamicResource PrimaryTextColor}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="PlaceholderColor" Value="{DynamicResource PrimaryTextColor}" />
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeSmall}" />
+        <Setter Property="Margin">
+            <OnPlatform
+                x:TypeArguments="Thickness"
+                Android="24,8"
+                iOS="16,8" />
+        </Setter>
+    </Style>-->
+</ResourceDictionary>

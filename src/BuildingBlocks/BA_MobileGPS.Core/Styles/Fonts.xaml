@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    x:Class="BA_MobileGPS.Core.Styles.Fonts"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <OnPlatform
+        x:Key="myfontsize-phone"
+        x:TypeArguments="x:Double"
+        Android="14"
+        iOS="14" />
+
+    <OnPlatform
+        x:Key="myfontsize-tablet"
+        x:TypeArguments="x:Double"
+        Android="14"
+        iOS="14" />
+
+    <OnPlatform
+        x:Key="myfontsizesmall-phone"
+        x:TypeArguments="x:Double"
+        Android="12"
+        iOS="12" />
+
+    <OnPlatform
+        x:Key="myfontsizesmall-tablet"
+        x:TypeArguments="x:Double"
+        Android="12"
+        iOS="12" />
+
+    <OnIdiom
+        x:Key="MyFontSize"
+        x:TypeArguments="x:Double"
+        Phone="{StaticResource myfontsize-phone}"
+        Tablet="{StaticResource myfontsize-tablet}" />
+
+    <OnIdiom
+        x:Key="MyFontSizeSmall"
+        x:TypeArguments="x:Double"
+        Phone="{StaticResource myfontsizesmall-phone}"
+        Tablet="{StaticResource myfontsizesmall-tablet}" />
+
+    <OnPlatform
+        x:Key="myFontFamily"
+        x:TypeArguments="x:String"
+        Android="Lato-Regular.ttf#Lato-Regular"
+        iOS="Lato-Regular" />
+
+    <OnPlatform
+        x:Key="myFontLatoBold"
+        x:TypeArguments="x:String"
+        Android="Lato-Bold.ttf#Lato-Bold"
+        iOS="Lato-Bold" />
+
+    <OnPlatform x:Key="FontAwesomeBrands" x:TypeArguments="x:String">
+        <On Platform="Android" Value="FontAwesome5Brands.otf#Regular" />
+        <On Platform="iOS" Value="FontAwesome5Brands-Regular" />
+    </OnPlatform>
+
+    <OnPlatform x:Key="FontAwesomeSolid" x:TypeArguments="x:String">
+        <On Platform="Android" Value="FontAwesome5Solid.otf#Regular" />
+        <On Platform="iOS" Value="FontAwesome5Free-Solid" />
+    </OnPlatform>
+
+    <OnPlatform x:Key="FontAwesomeRegular" x:TypeArguments="x:String">
+        <On Platform="Android" Value="FontAwesome5Regular.otf#Regular" />
+        <On Platform="iOS" Value="FontAwesome5Free-Regular" />
+    </OnPlatform>
+
+    <OnPlatform
+        x:Key="Fabric"
+        x:TypeArguments="x:String"
+        Android="FabMDL2.ttf#Fabric MDL2 Assets"
+        iOS="Fabric MDL2 Assets" />
+
+
+    <!--  Fonts  -->
+    <!--<OnPlatform
+        x:Key="SourceSansRegular"
+        x:TypeArguments="x:String"
+        iOS="sourcesanspro-regular"
+        Android="sourcesanspro-regular.ttf#Source Sans" />-->
+
+    <!--  Font sizes  -->
+    <x:Double x:Key="FontSize8">8</x:Double>
+    <x:Double x:Key="FontSize10">10</x:Double>
+    <x:Double x:Key="FontSize11">11</x:Double>
+    <x:Double x:Key="FontSize12">12</x:Double>
+    <x:Double x:Key="FontSize13">13</x:Double>
+    <x:Double x:Key="FontSize14">14</x:Double>
+    <x:Double x:Key="FontSize15">15</x:Double>
+    <x:Double x:Key="FontSize16">16</x:Double>
+    <x:Double x:Key="FontSize18">18</x:Double>
+    <x:Double x:Key="FontSize20">20</x:Double>
+    <x:Double x:Key="FontSize24">24</x:Double>
+    <x:Double x:Key="FontSize26">26</x:Double>
+    <x:Double x:Key="FontSize28">28</x:Double>
+    <x:Double x:Key="FontSize36">36</x:Double>
+</ResourceDictionary>

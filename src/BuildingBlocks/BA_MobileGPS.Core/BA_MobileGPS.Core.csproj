@@ -13,14 +13,19 @@
 		<PackageReference Include="Plugin.Permissions" Version="6.0.1" />
 		<PackageReference Include="Prism.Unity.Extensions" Version="7.2.0.1054" />
 		<PackageReference Include="Prism.Unity.Forms" Version="7.2.0.1422" />
+		<PackageReference Include="Prism.Plugin.Popups" Version="7.2.0.1046" />
 		<PackageReference Include="Sharpnado.Presentation.Forms" Version="1.6.0" />
 		<PackageReference Include="Shiny.Locations" Version="1.1.0.1570" />
 		<PackageReference Include="Shiny.Prism" Version="7.2.0.1054" />
 		<PackageReference Include="SkiaSharp.Extended" Version="1.60.0" />
 		<PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
 		<PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.3" />
-		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.1.0.54" />
-		<PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="18.1.0.54" />
+		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.1.0.55" />
+		<PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="18.1.0.55" />
+		<PackageReference Include="Syncfusion.Xamarin.SfChart" Version="18.1.0.55" />
+		<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="18.1.0.55" />
+		<PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="18.1.0.55" />
+		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.1.0.55" />
 		<PackageReference Include="Toasts.Forms.Plugin" Version="3.3.2" />
 		<PackageReference Include="Xam.Plugin.Geolocator" Version="4.5.0.6" />
 		<PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
@@ -30,11 +35,43 @@
 		<PackageReference Include="Xamarin.Forms.PancakeView" Version="1.4.2" />
 	</ItemGroup>
 	<ItemGroup>
+	  <ProjectReference Include="..\BA_MobileGPS.Entities\BA_MobileGPS.Entities.csproj" />
+	  <ProjectReference Include="..\BA_MobileGPS.Service\BA_MobileGPS.Service.csproj" />
 	  <ProjectReference Include="..\BA_MobileGPS.Utilities\BA_MobileGPS.Utilities.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Update="App.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Styles\Converters.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Styles\DarkTheme.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Styles\Fonts.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Styles\LightTheme.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Styles\Styles.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Styles\Text.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Common\PinInfowindowActiveView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Common\PinInfowindowView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Behaviors\" />
+	  <Folder Include="ViewModels\" />
+	  <Folder Include="Validations\" />
+	  <Folder Include="Setup\" />
 	</ItemGroup>
 </Project>
