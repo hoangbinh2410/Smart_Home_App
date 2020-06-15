@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "852226933292",
+    "firebase_url": "https://bagpsmobile.firebaseio.com",
+    "project_id": "bagpsmobile",
+    "storage_bucket": "bagpsmobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:852226933292:android:34135667ca7f4d28",
+        "android_client_info": {
+          "package_name": "vn.bagps.gpsmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "852226933292-f9tseh9ruk5m5c9gpns4k5c0pjtk9rqq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADb_57bS2iwSxneluqLce7uQ1r7gaAvs0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "852226933292-f9tseh9ruk5m5c9gpns4k5c0pjtk9rqq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
