@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities.Constant;
 using Prism;
 using Prism.Events;
@@ -35,20 +36,15 @@ namespace BA_MobileGPS.Core
         {
             InitializeComponent();
 
-            //Resources.MergedDictionaries.Add(new Fonts());
-            //Resources.MergedDictionaries.Add(new Styles.Styles());
+            BA_MobileGPSSetup.Initialize();
 
-            //Resources.MergedDictionaries.Add(new Converters());
-
-            //BA_MobileGPSSetup.Initialize();
-
-            //OneSignalHelper.RegisterOneSignal(OneSignalKey);
+            OneSignalHelper.RegisterOneSignal(OneSignalKey);
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            //BA_MobileGPSSetup.RegisterServices(containerRegistry);
-            //BA_MobileGPSSetup.RegisterPages(containerRegistry);
+            BA_MobileGPSSetup.RegisterServices(containerRegistry);
+            BA_MobileGPSSetup.RegisterPages(containerRegistry);
         }
 
         protected override void OnStart()
@@ -59,13 +55,13 @@ namespace BA_MobileGPS.Core
         protected override void OnResume()
         {
             base.OnResume();
-            //_eventAggregator.GetEvent<OnResumeEvent>().Publish(true);
+            _eventAggregator.GetEvent<OnResumeEvent>().Publish(true);
         }
 
         protected override void OnSleep()
         {
             base.OnSleep();
-            //_eventAggregator.GetEvent<OnSleepEvent>().Publish(true);
+            _eventAggregator.GetEvent<OnSleepEvent>().Publish(true);
         }
     }
 }

@@ -72,6 +72,5 @@
 	  <Folder Include="Behaviors\" />
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Validations\" />
-	  <Folder Include="Setup\" />
 	</ItemGroup>
 </Project>

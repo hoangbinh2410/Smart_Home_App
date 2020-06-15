@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical" >
+
+  <RelativeLayout
+      android:layout_width="52dp"
+      android:layout_height="52dp"
+      android:background="@android:color/transparent"
+      android:gravity="center|right" >
+
+    <ImageView
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@drawable/ic_cluster"
+        android:src="@drawable/ic_cluster" />
+
+    <TextView
+        android:id="@+id/amu_text"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:textColor="#FF214270"
+        android:textSize="16sp" />
+  </RelativeLayout>
+
+</LinearLayout>
