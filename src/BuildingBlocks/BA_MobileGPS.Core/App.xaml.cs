@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Helpers;
+﻿using BA_MobileGPS.Core.DependencyServices;
+using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities.Constant;
 using Prism;
@@ -45,6 +46,9 @@ namespace BA_MobileGPS.Core
         {
             BA_MobileGPSSetup.RegisterServices(containerRegistry);
             BA_MobileGPSSetup.RegisterPages(containerRegistry);
+
+            var _themeService = Current.Container.Resolve<IThemeService>();
+            _themeService.UpdateTheme();
         }
 
         protected override void OnStart()
