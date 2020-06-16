@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="BaseDelegate.cs" />
     <Compile Include="CustomRenderer\PageRenderer.cs" />
+    <Compile Include="DependencyServices\StatusBarHelper.cs" />
     <Compile Include="Effects\BorderlessEffect.cs" />
     <Compile Include="Effects\TintImageEffect.cs" />
     <Compile Include="GoogleMaps\Cluster\ClusteredMarker.cs" />

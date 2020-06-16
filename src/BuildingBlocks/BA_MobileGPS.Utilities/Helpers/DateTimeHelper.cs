@@ -90,7 +90,7 @@ namespace BA_MobileGPS.Utilities
         public static DateTime? ParseExactDateTime(string date, string format, IFormatProvider provider)
         {
             try { return DateTime.ParseExact(date, format, provider); }
-            catch(Exception ex) { return null; }
+            catch(Exception) { return null; }
         }
 
         /// <summary>

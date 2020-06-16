@@ -7,6 +7,7 @@ using BA_MobileGPS.Utilities.Enums;
 using Plugin.Permissions;
 using Prism;
 using Prism.Ioc;
+using Rg.Plugins.Popup.Services;
 using Shiny;
 using System;
 
@@ -47,6 +48,15 @@ namespace BA_MobileGPS.Core.Droid
                 //containerRegistry.RegisterInstance<IAudioManager>(new DroidAudioManager());
                 //containerRegistry.RegisterInstance<ITooltipService>(new DroidTooltipService());
                 //containerRegistry.RegisterInstance<IDownloader>(new AndroidDownloader());
+            }
+        }
+
+        public async override void OnBackPressed()
+        {
+            if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
+            {
+                // Do something if there are some pages in the `PopupStack`
+                await PopupNavigation.Instance.PopAsync();
             }
         }
 

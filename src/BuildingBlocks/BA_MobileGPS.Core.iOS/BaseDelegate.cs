@@ -1,4 +1,5 @@
-﻿using Prism;
+﻿using Foundation;
+using Prism;
 using Prism.Ioc;
 
 using UIKit;
@@ -24,6 +25,14 @@ namespace BA_MobileGPS.Core.iOS
             {
                 app.RegisterUserNotificationSettings(UIUserNotificationSettings.GetSettingsForTypes(UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, null));
             }
+        }
+
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            if (Xamarin.Essentials.Platform.OpenUrl(app, url, options))
+                return true;
+
+            return base.OpenUrl(app, url, options);
         }
 
         protected class IOSInitializer : IPlatformInitializer

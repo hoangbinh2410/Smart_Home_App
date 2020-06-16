@@ -5181,15 +5181,6 @@ namespace FontAwesome
         public const string Envira = "\uf299";
 
         /// <summary>
-        /// fa-equals unicode value.
-        /// <para/>
-        /// This icon supports the following styles: Light (Pro), Regular (Pro), Solid
-        /// <para/>
-        /// See https://fontawesome.com/icons/equals
-        /// </summary>
-        public const string Equals = "\uf52c";
-
-        /// <summary>
         /// fa-eraser unicode value.
         /// <para/>
         /// This icon supports the following styles: Light (Pro), Regular (Pro), Solid
