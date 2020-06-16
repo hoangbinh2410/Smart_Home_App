@@ -2,9 +2,8 @@
 {
     public interface IStatusBar
     {
-        void ChangeStatusBarColorToBlack();
-
-        void ChangeStatusBarColorToWhite();
+        void SetLightTheme();
+        void SetDarkTheme();
 
         void HideStatusBar();
     }
