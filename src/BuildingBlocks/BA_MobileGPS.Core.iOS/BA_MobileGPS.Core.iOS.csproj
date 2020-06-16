@@ -44,6 +44,7 @@
     <Compile Include="CustomRenderer\FrameShadowRenderer.cs" />
     <Compile Include="CustomRenderer\PageRenderer.cs" />
     <Compile Include="DependencyServices\DisplayMessageService.cs" />
+    <Compile Include="DependencyServices\iOSTooltipService.cs" />
     <Compile Include="DependencyServices\StatusBarHelper.cs" />
     <Compile Include="Effects\BorderlessEffect.cs" />
     <Compile Include="Effects\TintImageEffect.cs" />
@@ -75,11 +76,14 @@
     <Compile Include="GoogleMaps\MapRender\PlatformConfig.cs" />
     <Compile Include="GoogleMaps\MapRender\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Setup\BA_MobileGPSSetup.cs" />
+    <Compile Include="Setup\ToolSetup.cs" />
     <Compile Include="Utilities\MaterialShowcaseCalculations.cs" />
     <Compile Include="Utilities\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="EasyTipView">
+      <Version>1.0.1</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
       <Version>1.5.3.2</Version>
     </PackageReference>

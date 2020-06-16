@@ -24,7 +24,7 @@ namespace BA_MobileGPS.Droid
             Forms.SetFlags("CollectionView_Experimental");
             Forms.Init(this, bundle);
 
-            BA_MobileGPS_Android_Setup.Initialize(this, bundle);
+            ToolSetup.Initialize(this, bundle);
 
             LoadApplication(new BAGPSApp(new AndroidInitializer()));
         }

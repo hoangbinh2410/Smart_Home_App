@@ -24,7 +24,7 @@ namespace BA_MobileGPS.iOS
         {
             Xamarin.Forms.Forms.Init();
 
-            BA_MobileGPS_iOS_Setup.Initialize(this);
+            ToolSetup.Initialize(this);
 
             UINavigationBar.Appearance.SetBackgroundImage(new UIImage(), UIBarMetrics.Default);
             UINavigationBar.Appearance.ShadowImage = new UIImage();

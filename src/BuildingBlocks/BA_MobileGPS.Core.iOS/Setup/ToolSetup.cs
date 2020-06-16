@@ -16,7 +16,7 @@ using Xamarin.Forms.Platform.iOS;
 
 namespace BA_MobileGPS.Core.iOS.Setup
 {
-    public static class BA_MobileGPS_iOS_Setup
+    public static class ToolSetup
     {
         public static FormsApplicationDelegate AppDelegate;
 

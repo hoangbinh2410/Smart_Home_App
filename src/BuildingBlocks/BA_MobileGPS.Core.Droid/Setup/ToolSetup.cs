@@ -8,7 +8,7 @@ using Plugin.Toasts;
 
 namespace BA_MobileGPS.Droid.Setup
 {
-    public static class BA_MobileGPS_Android_Setup
+    public static class ToolSetup
     {
         public static void Initialize(Activity activity, Bundle bundle)
         {
