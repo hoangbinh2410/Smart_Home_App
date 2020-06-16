@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:res="clr-namespace:BA_MobileGPS.Core.Styles">
 
     <ResourceDictionary.MergedDictionaries>
@@ -12,8 +13,6 @@
         <res:Text />
         <res:LightTheme />
     </ResourceDictionary.MergedDictionaries>
-
-
 
     <!--  Auto set style region  -->
     <Style ApplyToDerivedTypes="True" TargetType="{x:Type ContentPage}">
@@ -32,7 +31,6 @@
     <Style TargetType="StackLayout">
         <Setter Property="Spacing" Value="10" />
     </Style>
-
 
     <Style ApplyToDerivedTypes="True" TargetType="Button">
         <Setter Property="CornerRadius" Value="5" />
@@ -74,6 +72,15 @@
         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
     </Style>
 
+    <Style ApplyToDerivedTypes="True" TargetType="input:SfTextInputLayout">
+        <Setter Property="LeadingViewPosition" Value="Inside" />
+        <Setter Property="ShowHelperText" Value="False" />
+        <Setter Property="ContainerType" Value="Outlined" />
+        <Setter Property="FocusedStrokeWidth" Value="1" />
+        <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        <Setter Property="ErrorColor" Value="{DynamicResource SfTextInputErrColor}" />
+        <Setter Property="FocusedColor" Value="{DynamicResource SfTextInputFocusColor}" />
+    </Style>
     <!--  Class style region  -->
 
     <!--  Button  -->
@@ -100,7 +107,6 @@
         <Setter Property="HeightRequest" Value="50" />
         <Setter Property="WidthRequest" Value="50" />
     </Style>
-    <!--  End Button region  -->
 
     <!--  ffimageloading  -->
     <Style Class="IconImage" TargetType="ffImage:CachedImage">
@@ -114,7 +120,7 @@
     <!--  Label  -->
     <Style Class="GroupTitleLabel" TargetType="Label">
         <Setter Property="FontFamily" Value="{StaticResource myFontLatoBold}" />
-        <Setter Property="FontSize" Value="{StaticResource}" />
+        <Setter Property="FontSize" Value="{StaticResource MyFontSizeLarge}" />
         <Setter Property="TextColor" Value="{DynamicResource GroupTitleTextColor}" />
     </Style>
 
@@ -145,6 +151,10 @@
 
 
 
+    <!--  Sf Text Input Layout  -->
+    <Style Class="PasswordInput" TargetType="input:SfTextInputLayout">
+        <Setter Property="EnablePasswordVisibilityToggle" Value="True" />
+    </Style>
 
 
 
@@ -152,27 +162,4 @@
 
 
 
-
-
-
-
-    <!--  Styles  -->
-
-
-
-
-    <!--<Style ApplyToDerivedTypes="True" TargetType="{x:Type SearchBar}">
-        <Setter Property="HorizontalOptions" Value="FillAndExpand" />
-        <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
-        <Setter Property="CancelButtonColor" Value="{DynamicResource PrimaryTextColor}" />
-        <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="PlaceholderColor" Value="{DynamicResource PrimaryTextColor}" />
-        <Setter Property="FontSize" Value="{DynamicResource TextSizeSmall}" />
-        <Setter Property="Margin">
-            <OnPlatform
-                x:TypeArguments="Thickness"
-                Android="24,8"
-                iOS="16,8" />
-        </Setter>
-    </Style>-->
 </ResourceDictionary>

@@ -49,14 +49,24 @@
         <Thickness.Right>4</Thickness.Right>
         <Thickness.Bottom>0</Thickness.Bottom>
     </Thickness>
-    <Thickness x:Key="MarginPaddingLeftRightMedium">8,0</Thickness>
-    <Thickness x:Key="MarginPaddingLeftRightLarge">16,0</Thickness>
-    <Thickness x:Key="MarginPaddingLeftRightXlarge">24,0</Thickness>
+    <Thickness x:Key="MarginPaddingLeftRightMedium">
+        <Thickness.Left>8</Thickness.Left>
+        <Thickness.Top>0</Thickness.Top>
+        <Thickness.Right>8</Thickness.Right>
+        <Thickness.Bottom>0</Thickness.Bottom>
+    </Thickness>
+    <Thickness x:Key="MarginPaddingLeftRightLarge">
+        <Thickness.Left>16</Thickness.Left>
+        <Thickness.Top>0</Thickness.Top>
+        <Thickness.Right>16</Thickness.Right>
+        <Thickness.Bottom>0</Thickness.Bottom>
+    </Thickness>
+    <!--<Thickness x:Key="MarginPaddingLeftRightXlarge">24,0</Thickness>
     <Thickness x:Key="MarginPaddingLeftRightMediumTopBottomSmall">8,4</Thickness>
     <Thickness x:Key="MarginPaddingLeftRightLargeTopBottomMedium">16,8</Thickness>
     <Thickness x:Key="MarginPaddingLeftRightXlargeTopBottomSmall">24,4</Thickness>
     <Thickness x:Key="MarginPaddingLeftRightXlargeTopBottomMedium">24,8</Thickness>
-    <Thickness x:Key="MarginPaddingLeftRightXlargeTopBottomLarge">24,16</Thickness>
+    <Thickness x:Key="MarginPaddingLeftRightXlargeTopBottomLarge">24,16</Thickness>-->
 
 
 
