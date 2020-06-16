@@ -3,6 +3,7 @@ using Android.Content.Res;
 using Android.OS;
 using Android.Runtime;
 using BA_MobileGPS.Core.DependencyServices;
+using BA_MobileGPS.Core.Droid.DependencyServices;
 using BA_MobileGPS.Utilities.Enums;
 using Plugin.Permissions;
 using Prism;
@@ -40,7 +41,7 @@ namespace BA_MobileGPS.Core.Droid
             public void RegisterTypes(IContainerRegistry containerRegistry)
             {
                 // Register any platform specific implementations
-                //containerRegistry.RegisterInstance<IDisplayMessage>(new DisplayMessageService());
+                containerRegistry.RegisterInstance<IDisplayMessage>(new DisplayMessageService());
                 //containerRegistry.RegisterInstance<ISettingsService>(new SettingsService());
                 //containerRegistry.RegisterInstance<IAppVersionService>(new AppVersionService());
                 //containerRegistry.RegisterInstance<IAccountKitService>(new AccountKitService());
