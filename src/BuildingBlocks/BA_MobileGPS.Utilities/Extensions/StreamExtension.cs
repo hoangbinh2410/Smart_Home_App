@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Xamarin.Forms.Extensions
+namespace BA_MobileGPS.Utilities.Extensions
 {
     public static class StreamExtension
     {
@@ -37,7 +36,6 @@ namespace Xamarin.Forms.Extensions
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Convert to Base64 Error:" + ex.Message);
                 return null;
             }
         }
