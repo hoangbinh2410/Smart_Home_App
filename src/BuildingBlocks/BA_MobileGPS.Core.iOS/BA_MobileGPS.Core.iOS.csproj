@@ -81,6 +81,9 @@
     <Compile Include="Utilities\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView">
+      <Version>18.1.0.56</Version>
+    </PackageReference>
     <PackageReference Include="EasyTipView">
       <Version>1.0.1</Version>
     </PackageReference>
