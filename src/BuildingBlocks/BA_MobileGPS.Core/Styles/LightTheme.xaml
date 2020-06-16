@@ -7,14 +7,6 @@
 
     <ResourceDictionary.MergedDictionaries>
         <syncTheme:LightTheme />
-        <ResourceDictionary>
-
-            <!--  Syncfusion TextInputLayout  -->
-            <Color x:Key="SyncPrimaryLightColor">Green</Color>
-            <Color x:Key="SyncPrimaryColor">Green</Color>
-            <Color x:Key="SfTextInputLayoutHintColor">Blue</Color>
-
-        </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
     <!--  Color Concept  -->
@@ -47,4 +39,13 @@
         x:TypeArguments="Color"
         Android="#e3e3e3"
         iOS="#C8C7CC" />
+
+    <!--  Syncfusion TextInputLayout  -->
+    <Color x:Key="SyncPrimaryLightColor">Green</Color>
+    <Color x:Key="SyncPrimaryColor">Green</Color>
+    <Color x:Key="SfTextInputLayoutHintColor">Blue</Color>
+
+    <Color x:Key="SfTextInputErrColor">Red</Color>
+    <Color x:Key="SfTextInputFocusColor">Blue</Color>
+
 </ResourceDictionary>

@@ -14,8 +14,6 @@
         <res:LightTheme />
     </ResourceDictionary.MergedDictionaries>
 
-
-
     <!--  Auto set style region  -->
     <Style ApplyToDerivedTypes="True" TargetType="{x:Type ContentPage}">
         <Setter Property="BackgroundColor" Value="{DynamicResource BackgoundPageColor}" />
@@ -74,6 +72,15 @@
         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
     </Style>
 
+    <Style ApplyToDerivedTypes="True" TargetType="input:SfTextInputLayout">
+        <Setter Property="LeadingViewPosition" Value="Inside" />
+        <Setter Property="ShowHelperText" Value="False" />
+        <Setter Property="ContainerType" Value="Outlined" />
+        <Setter Property="FocusedStrokeWidth" Value="1" />
+        <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        <Setter Property="ErrorColor" Value="{DynamicResource SfTextInputErrColor}" />
+        <Setter Property="FocusedColor" Value="{DynamicResource SfTextInputFocusColor}" />
+    </Style>
     <!--  Class style region  -->
 
     <!--  Button  -->
@@ -145,13 +152,9 @@
 
 
     <!--  Sf Text Input Layout  -->
-
-
-
-
-
-
-
+    <Style Class="PasswordInput" TargetType="input:SfTextInputLayout">
+        <Setter Property="EnablePasswordVisibilityToggle" Value="True" />
+    </Style>
 
 
 
