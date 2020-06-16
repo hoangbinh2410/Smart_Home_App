@@ -71,8 +71,6 @@
 	  </EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Behaviors\" />
 	  <Folder Include="ViewModels\" />
-	  <Folder Include="Validations\" />
 	</ItemGroup>
 </Project>
