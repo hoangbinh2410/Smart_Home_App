@@ -2,10 +2,22 @@
 <ResourceDictionary
     x:Class="BA_MobileGPS.Core.Styles.LightTheme"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms">
+
+    <ResourceDictionary.MergedDictionaries>
+        <syncTheme:LightTheme />
+        <ResourceDictionary>
+
+            <!--  Syncfusion TextInputLayout  -->
+            <Color x:Key="SyncPrimaryLightColor">Green</Color>
+            <Color x:Key="SyncPrimaryColor">Green</Color>
+            <Color x:Key="SfTextInputLayoutHintColor">Blue</Color>
+
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+
     <!--  Color Concept  -->
-
-
     <Color x:Key="PrimaryColor">#00ADEF</Color>
     <Color x:Key="PrimaryLightColor">#89DFFF</Color>
     <Color x:Key="PrimaryDarkColor">#00709A</Color>
@@ -30,16 +42,9 @@
 
     <Color x:Key="SearchBarBackgroundColor">White</Color>
 
-
     <OnPlatform
         x:Key="Color_Divider"
         x:TypeArguments="Color"
         Android="#e3e3e3"
         iOS="#C8C7CC" />
-
-
-
-
-
-
 </ResourceDictionary>
