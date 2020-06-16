@@ -3,6 +3,7 @@
     public interface IStatusBar
     {
         void SetLightTheme();
+
         void SetDarkTheme();
 
         void HideStatusBar();

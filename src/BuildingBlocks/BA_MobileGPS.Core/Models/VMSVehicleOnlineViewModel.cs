@@ -1,8 +1,5 @@
-﻿using BA_MobileGPS.Core;
-using BA_MobileGPS.Core.Extensions;
-using BA_MobileGPS.Core.Resource;
+﻿using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Utilities;
 
 using System;
 
@@ -79,6 +76,7 @@ namespace BA_MobileGPS.Core.Models
         public int StopTime { get => stopTime; set => SetProperty(ref stopTime, value, relatedProperty: nameof(IsShowStopTime)); }
 
         public bool isShowStopTime;
+
         public bool IsShowStopTime
         {
             get

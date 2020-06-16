@@ -1,7 +1,4 @@
-﻿using BA_MobileGPS.Utilities.Enums;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace BA_MobileGPS.Entities
 {
@@ -46,6 +43,5 @@ namespace BA_MobileGPS.Entities
 
         //Tổng Số lít tiêu hao
         public double SumLiterConsumable { get; set; }
-      
     }
 }

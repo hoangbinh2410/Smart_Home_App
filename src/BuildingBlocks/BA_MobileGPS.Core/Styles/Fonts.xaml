@@ -72,7 +72,6 @@
         Android="FabMDL2.ttf#Fabric MDL2 Assets"
         iOS="Fabric MDL2 Assets" />
 
-
     <!--  Fonts  -->
     <!--<OnPlatform
         x:Key="SourceSansRegular"

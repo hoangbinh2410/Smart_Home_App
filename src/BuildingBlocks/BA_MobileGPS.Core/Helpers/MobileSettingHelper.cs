@@ -104,7 +104,6 @@ namespace BA_MobileGPS.Core
 
         public static string EmailSupport => Get(MobileConfigurationNames.EmailSupport, "");
 
-
         public static string HotlineTeleSaleGps => Get(MobileConfigurationNames.HotlineTeleSaleGps, "");
 
         public static string WebGps => Get(MobileConfigurationNames.WebGps, "https://gps.binhanh.vn/");
@@ -160,7 +159,6 @@ namespace BA_MobileGPS.Core
         public static bool IsStartOnlinePage => Get(MobileConfigurationNames.IsStartOnlinePage, true);
 
         public static int CountVehicleUsingCluster => Get(MobileConfigurationNames.CountVehicleUsingCluster, 500);
-
 
         public static int DefaultMinTimeLossGPS => Get(MobileConfigurationNames.DefaultMinTimeLossGPS, App.AppType == AppType.VMS ? 180 : 5);
 

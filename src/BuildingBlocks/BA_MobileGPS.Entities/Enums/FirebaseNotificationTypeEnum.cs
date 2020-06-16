@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 
 namespace BA_MobileGPS.Entities
 {
@@ -9,8 +6,8 @@ namespace BA_MobileGPS.Entities
     {
         [Description("Alert")]
         Alert = 1,
+
         [Description("Notification")]
         Notification = 2,
-
     }
 }

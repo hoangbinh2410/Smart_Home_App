@@ -5,7 +5,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <!--  Color Concept  -->
 
-
     <Color x:Key="PrimaryColor">#00ADEF</Color>
     <Color x:Key="PrimaryLightColor">#89DFFF</Color>
     <Color x:Key="PrimaryDarkColor">#00709A</Color>
@@ -30,16 +29,9 @@
 
     <Color x:Key="SearchBarBackgroundColor">White</Color>
 
-
     <OnPlatform
         x:Key="Color_Divider"
         x:TypeArguments="Color"
         Android="#e3e3e3"
         iOS="#C8C7CC" />
-
-
-
-
-
-
 </ResourceDictionary>

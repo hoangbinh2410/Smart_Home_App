@@ -1,9 +1,7 @@
-﻿using BA_MobileGPS.Utilities.Constant;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 using System;
 using System.Collections.Generic;
-using Xamarin.Forms;
 
 namespace BA_MobileGPS.Entities
 {
@@ -28,6 +26,7 @@ namespace BA_MobileGPS.Entities
         public bool IsNeedChangePassword { set; get; }
 
         private string avatarUrl;
+
         [JsonProperty("6")]
         public string AvatarUrl { get => avatarUrl; set => SetProperty(ref avatarUrl, value); }
 

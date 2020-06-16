@@ -79,7 +79,6 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("23")]
         public int StopTime { get; set; }
 
-
         /// <summary>
         /// Nếu là 1 thì là Ôtô
         /// Nếu là 2 thì là tầu cá

@@ -33,7 +33,7 @@ namespace BA_MobileGPS
                 Anchor = new Point(0.5, 0.5),
                 Icon = BitmapDescriptorFactory.FromResource(vehicle.IconImage),
                 Tag = vehicle.VehiclePlate,
-                Rotation = StateVehicleExtension.IsLostGPSIcon(vehicle.GPSTime,vehicle.VehicleTime) ? 0 : vehicle.Direction * 45
+                Rotation = StateVehicleExtension.IsLostGPSIcon(vehicle.GPSTime, vehicle.VehicleTime) ? 0 : vehicle.Direction * 45
             };
             Plate = new Pin()
             {

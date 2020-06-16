@@ -139,6 +139,7 @@
         #endregion AppDevice
 
         #region User
+
         public const string GET_USERINFOMATION = "api/user/getuserinfo";
         public const string USER_UPDATE_AVATAR = "api/image/uploadimageuser";
         public const string USER_UPDATE_INFO = "api/user/updateuserinfor";
@@ -211,23 +212,27 @@
         #endregion message
 
         #region sendenginecontrol
+
         public const string GET_SEND_ENGINE_CONTROL = "api/engine/sendenginecontrol";
         public const string GET_LIST_ENGINE = "api/engine/listactiononoffmachine";
-        #endregion
+
+        #endregion sendenginecontrol
 
         #region landmark
+
         public const string GET_ALL_LANDMARK_GROUP_BY_USERID = "api/userlandmarkgroup/getalllandmarkgroupbyuserid";
         public const string GET_ALL_LANDMARK_CATEGORY_BY_USERID = "api/landmarkcategory/getalllandmarkcategorybyuserid";
         public const string INSERT_CONFIG_VISIBLE_GROUP_LANDMARK = "api/configvisiblegrouplandmark/insertconfigvisiblegrouplandmark";
         public const string GET_LANDMARK_BY_GROUPID = "api/landmark/getlandmarkbygroupid";
         public const string GET_LANDMARK_BY_CATEGORY = "api/landmark/getlandmarkbycategory";
-        #endregion
+
+        #endregion landmark
 
         #region ping
 
         public const string GET_PING_SERVER_STATUS = "api/ping/serverstatus";
 
-        #endregion
+        #endregion ping
 
         #region MOTO
 
@@ -239,6 +244,6 @@
 
         public const string GET_SIM_MONEY = "api/vehicles/getsimmoney";
 
-        #endregion
+        #endregion MOTO
     }
 }

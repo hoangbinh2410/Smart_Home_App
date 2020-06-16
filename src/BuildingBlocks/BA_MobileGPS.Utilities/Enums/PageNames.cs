@@ -19,6 +19,7 @@
         PackageInfosPage,
         OffMap
     }
+
     public enum PermissionOfApp
     {
         Camera,

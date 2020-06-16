@@ -590,8 +590,6 @@
         FuelsSummariesReport_CheckBox_QuotaRegulations,
         FuelsSummariesReport_CheckBox_QuotaReality,
 
-
-
         ActivitySummariesReport_Label_TilePage,
         ActivitySummariesReport_Label_TitlePageDetail,
         ActivitySummariesReport_Label_TitleJoinNameDate,
@@ -985,14 +983,14 @@
         ShipOnlineDetail_Label_AtTime,
         #endregion
 
-        #region 
+        #region
         Notification_Label_TilePage,
         Notification_Label_DeleteAllNotice,
         Notification_Label_DeleteAllNoticeAction,
         Notification_Label_DeleteNoticeNotSuccess,
         #endregion
 
-        #region bật tắt từ xa 
+        #region bật tắt từ xa
         SendEngineControl_Label_TilePage,
         SendEngineControl_Label_Search,
         SendEngineControl_Label_On,

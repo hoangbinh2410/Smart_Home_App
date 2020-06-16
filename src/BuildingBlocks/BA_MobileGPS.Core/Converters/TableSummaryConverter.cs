@@ -17,7 +17,7 @@ namespace BA_MobileGPS.Core
             if (data != null)
             {
                 SfDataGrid dataGrid = (SfDataGrid)parameter;
-                var summaryText = Math.Round(decimal.Parse(SummaryCreator.GetSummaryDisplayText(data, ColName, dataGrid.View)),1);
+                var summaryText = Math.Round(decimal.Parse(SummaryCreator.GetSummaryDisplayText(data, ColName, dataGrid.View)), 1);
                 return summaryText.ToString();
             }
             return null;

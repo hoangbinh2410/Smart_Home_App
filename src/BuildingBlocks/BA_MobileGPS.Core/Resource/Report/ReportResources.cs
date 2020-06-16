@@ -233,9 +233,8 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string FuelsSummariesReport_Table_MinuteOfMachineOnStop => Get(MobileResourceNames.FuelsSummariesReport_Table_MinuteOfMachineOnStop, "Thời gian dừng đỗ nổ máy (phút)", "Minutes Of Machine On Stop");
 
-
         public static string FuelsSummariesReport_Table_QuotaRegulations => Get(MobileResourceNames.FuelsSummariesReport_Table_QuotaRegulations, "Định mức quy định", "Quota Regulations");
-       
+
         public static string FuelsSummariesReport_Table_QuotaReality => Get(MobileResourceNames.FuelsSummariesReport_Table_QuotaReality, "Định mức thực tế", "Quota Reality");
 
         public static string FuelsSummariesReport_CheckBox_Serial => Get(MobileResourceNames.FuelsSummariesReport_CheckBox_Serial, "STT", "Serial");
@@ -267,7 +266,8 @@ namespace BA_MobileGPS.Core.Resource
         public static string FuelsSummariesReport_CheckBox_QuotaRegulations => Get(MobileResourceNames.FuelsSummariesReport_CheckBox_QuotaRegulations, "Định mức quy định", "Quota Regulations");
 
         public static string FuelsSummariesReport_CheckBox_QuotaReality => Get(MobileResourceNames.FuelsSummariesReport_CheckBox_QuotaReality, "Định mức thực tế", "Quota Reality");
-        #endregion
+
+        #endregion Báo cáo tiêu hao nhiên liệu
 
         #region Báo cáo tổng hợp
 
@@ -565,6 +565,5 @@ namespace BA_MobileGPS.Core.Resource
         public static string SpeedOversReport_Table_EndAddress => Get(MobileResourceNames.SpeedOversReport_Table_EndAddress, "Điểm kết thúc", "End Address");
 
         #endregion Báo cáo quá tốc độ
-
     }
 }
