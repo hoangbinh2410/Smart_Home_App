@@ -45,6 +45,7 @@ namespace BA_MobileGPS.Core
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>("LoginPage");
+            containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>("HomePage");
         }
     }
 }

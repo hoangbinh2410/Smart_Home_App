@@ -81,6 +81,11 @@
         <Setter Property="ErrorColor" Value="{DynamicResource SfTextInputErrColor}" />
         <Setter Property="FocusedColor" Value="{DynamicResource SfTextInputFocusColor}" />
     </Style>
+
+    <Style TargetType="ffImage:CachedImage">
+        <Setter Property="LoadingPriority" Value="High" />
+    </Style>
+
     <!--  Class style region  -->
 
     <!--  Button  -->

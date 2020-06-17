@@ -69,8 +69,14 @@
 	  <EmbeddedResource Update="Views\Common\PinInfowindowView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Home\HomePage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\LoginPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Views\Home\MenuTab\" />
 	</ItemGroup>
 </Project>

@@ -8,6 +8,7 @@
     <Button
         Clicked="Button_Clicked"
         FontSize="20"
+        HeightRequest="200"
         HorizontalOptions="CenterAndExpand"
         Text="Login to home"
         VerticalOptions="CenterAndExpand" />

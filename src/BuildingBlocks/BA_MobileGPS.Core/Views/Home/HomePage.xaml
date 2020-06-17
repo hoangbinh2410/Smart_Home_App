@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.HomePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:sfListView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ScrollView>
+        <Grid>
+            <Grid Padding="0" BackgroundColor="#F3F3F3">
+                <ff:CachedImage
+                    Aspect="AspectFill"
+                    HeightRequest="200"
+                    LoadingPriority="High"
+                    Source="top_background.jpg"
+                    VerticalOptions="StartAndExpand" />
+            </Grid>
+            <Grid Padding="5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Padding="15,0" HeightRequest="100">
+                    <StackLayout
+                        HeightRequest="25"
+                        Orientation="Horizontal"
+                        VerticalOptions="End">
+                        <ff:CachedImage LoadingPriority="High" Source="hotline_Icon.png">
+                            <ff:CachedImage.Behaviors>
+                                <animation:ViewTappedBehavior AnimationType="Scale" />
+                            </ff:CachedImage.Behaviors>
+                        </ff:CachedImage>
+                    </StackLayout>
+                    <StackLayout
+                        HeightRequest="25"
+                        HorizontalOptions="EndAndExpand"
+                        Orientation="Horizontal"
+                        Spacing="15"
+                        VerticalOptions="End">
+                        <ff:CachedImage LoadingPriority="High" Source="company_Icon.png">
+                            <ff:CachedImage.Behaviors>
+                                <animation:ViewTappedBehavior AnimationType="Scale" />
+                            </ff:CachedImage.Behaviors>
+                        </ff:CachedImage>
+                        <ff:CachedImage LoadingPriority="High" Source="messenger_Icon.png">
+                            <ff:CachedImage.Behaviors>
+                                <animation:ViewTappedBehavior AnimationType="Scale" />
+                            </ff:CachedImage.Behaviors>
+                        </ff:CachedImage>
+                        <ff:CachedImage LoadingPriority="High" Source="notification_Icon.png">
+                            <ff:CachedImage.Behaviors>
+                                <animation:ViewTappedBehavior AnimationType="Scale" />
+                            </ff:CachedImage.Behaviors>
+                        </ff:CachedImage>
+                    </StackLayout>
+                </Grid>
+                <Frame
+                    Grid.Row="1"
+                    Margin="10,5"
+                    Padding="0"
+                    BackgroundColor="White"
+                    CornerRadius="10"
+                    HasShadow="True">
+                    <StackLayout Spacing="0">
+                        <Grid Margin="10">
+                            <Label
+                                FontSize="15"
+                                Text="NỔI BẬT"
+                                TextColor="#4A7AFF" />
+                            <ff:CachedImage
+                                HeightRequest="20"
+                                HorizontalOptions="End"
+                                LoadingPriority="High"
+                                Source="Hobbies_Icon.png"
+                                VerticalOptions="Center">
+                                <ff:CachedImage.Behaviors>
+                                    <animation:ViewTappedBehavior AnimationType="Scale" />
+                                </ff:CachedImage.Behaviors>
+                            </ff:CachedImage>
+                        </Grid>
+
+                        <BoxView class="SlimLine" />
+
+                        <sfListView:SfListView
+                            Margin="0"
+                            Padding="10"
+                            HeightRequest="100"
+                            IsScrollBarVisible="True"
+                            IsScrollingEnabled="True"
+                            IsStickyFooter="True"
+                            IsStickyHeader="True"
+                            ItemSize="80"
+                            ItemSpacing="10,10,0,0"
+                            ItemsSource="{Binding FavouriteMenuItems}"
+                            Orientation="Horizontal"
+                            SelectionBackgroundColor="Transparent"
+                            TapCommand="{Binding FavouriteItemsTappedCommand}">
+                            <sfListView:SfListView.LayoutManager>
+                                <sfListView:GridLayout SpanCount="1" />
+                            </sfListView:SfListView.LayoutManager>
+                            <sfListView:SfListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Spacing="10">
+                                        <ff:CachedImage
+                                            HeightRequest="50"
+                                            Source="{Binding IconMobile}"
+                                            WidthRequest="50" />
+                                        <Label
+                                            FontSize="13"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding NameByCulture}" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </sfListView:SfListView.ItemTemplate>
+
+                        </sfListView:SfListView>
+                    </StackLayout>
+                </Frame>
+                <Grid Grid.Row="2" Padding="20,5">
+                    <Label
+                        FontSize="15"
+                        Text="TIỆN ÍCH"
+                        TextColor="#4A7AFF"
+                        VerticalOptions="Center" />
+                    <ff:CachedImage
+                        HeightRequest="20"
+                        HorizontalOptions="End"
+                        Source="list_Icon.png">
+
+                        <ff:CachedImage.Behaviors>
+                            <animation:ViewTappedBehavior AnimationType="Scale" />
+                        </ff:CachedImage.Behaviors>
+                    </ff:CachedImage>
+                </Grid>
+
+                <BoxView Grid.Row="3" class="SlimLine" />
+
+                <Grid Grid.Row="4" HeightRequest="300">
+                    <CarouselView IndicatorView="indicatorView" ItemsSource="{Binding AllListfeatures}">
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <sfListView:SfListView
+                                        Grid.Row="4"
+                                        Margin="0"
+                                        Padding="10"
+                                        HeightRequest="250"
+                                        IsScrollBarVisible="False"
+                                        IsScrollingEnabled="True"
+                                        ItemSize="120"
+                                        ItemSpacing="10,10,0,0"
+                                        ItemsSource="{Binding FeaturesItem}"
+                                        Orientation="Horizontal"
+                                        SelectionBackgroundColor="Transparent"
+                                        TapCommand="{Binding FavouriteItemsTappedCommand}">
+                                        <sfListView:SfListView.LayoutManager>
+                                            <sfListView:GridLayout SpanCount="{Binding NumberOfColumns}" />
+                                        </sfListView:SfListView.LayoutManager>
+                                        <sfListView:SfListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackLayout Spacing="10">
+                                                    <ff:CachedImage
+                                                        HeightRequest="50"
+                                                        Source="{Binding IconMobile}"
+                                                        WidthRequest="50" />
+                                                    <Label
+                                                        FontSize="13"
+                                                        HorizontalOptions="Center"
+                                                        Text="{Binding NameByCulture}" />
+                                                </StackLayout>
+                                            </DataTemplate>
+                                        </sfListView:SfListView.ItemTemplate>
+                                    </sfListView:SfListView>
+
+                                </StackLayout>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                    <IndicatorView
+                        x:Name="indicatorView"
+                        Margin="0,0,0,40"
+                        IndicatorColor="Gray"
+                        IndicatorsShape="Circle"
+                        SelectedIndicatorColor="Blue"
+                        VerticalOptions="End" />
+                </Grid>
+
+                <Frame
+                    Grid.Row="5"
+                    Margin="15,0"
+                    Padding="0"
+                    CornerRadius="15">
+                    <ff:CachedImage
+                        Aspect="AspectFill"
+                        HeightRequest="200"
+                        Source="bot_background.jpg" />
+                </Frame>
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>
