@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.LoginPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <Button
+        Clicked="Button_Clicked"
+        FontSize="20"
+        HorizontalOptions="CenterAndExpand"
+        Text="Login to home"
+        VerticalOptions="CenterAndExpand" />
+
+</ContentPage>

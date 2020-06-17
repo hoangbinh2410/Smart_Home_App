@@ -48,7 +48,7 @@ namespace BA_MobileGPS.Core
             BA_MobileGPSSetup.RegisterPages(containerRegistry);
 
             var _themeService = Current.Container.Resolve<IThemeService>();
-            _themeService.UpdateTheme();
+            _themeService.UpdateTheme();          
         }
 
         protected override void OnStart()
