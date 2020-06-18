@@ -6,16 +6,8 @@ namespace BA_MobileGPS.Core.Views
     {
         public HomePage()
         {
-            try
-            {
-                InitializeComponent();
-            }
-            catch (System.Exception ex)
-            {
 
-                throw ex;
-            }
-           
+                InitializeComponent();         
         }
     }
 }

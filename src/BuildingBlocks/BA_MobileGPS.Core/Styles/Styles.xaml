@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:res="clr-namespace:BA_MobileGPS.Core.Styles">
 
     <ResourceDictionary.MergedDictionaries>
@@ -44,6 +45,7 @@
         <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
         <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
+        <Setter Property="HorizontalOptions" Value="Center" />
     </Style>
 
     <Style TargetType="SearchBar">
@@ -86,6 +88,19 @@
         <Setter Property="LoadingPriority" Value="High" />
     </Style>
 
+    <Style TargetType="IndicatorView">
+        <Setter Property="IndicatorColor" Value="{DynamicResource SecondaryTextColor}" />
+        <Setter Property="IndicatorsShape" Value="Circle" />
+        <Setter Property="SelectedIndicatorColor" Value="{DynamicResource PrimaryColor}" />
+        <Setter Property="VerticalOptions" Value="End" />
+    </Style>
+
+    <Style TargetType="pancake:PancakeView">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="BackgroundColor" Value="White" />
+        <Setter Property="HasShadow" Value="False" />
+    </Style>
+
     <!--  Class style region  -->
 
     <!--  Button  -->
@@ -124,9 +139,11 @@
 
     <!--  Label  -->
     <Style Class="GroupTitleLabel" TargetType="Label">
-        <Setter Property="FontFamily" Value="{StaticResource myFontLatoBold}" />
+
         <Setter Property="FontSize" Value="{StaticResource MyFontSizeLarge}" />
         <Setter Property="TextColor" Value="{DynamicResource GroupTitleTextColor}" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalOptions" Value="StartAndExpand" />
     </Style>
 
     <Style Class="AwesomeIcon" TargetType="Label" />
