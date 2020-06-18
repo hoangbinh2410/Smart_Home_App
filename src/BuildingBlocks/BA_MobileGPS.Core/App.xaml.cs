@@ -49,7 +49,8 @@ namespace BA_MobileGPS.Core
 
             var _themeService = Current.Container.Resolve<IThemeService>();
             _themeService.UpdateTheme();
-           
+
+            
         }
 
         protected override void OnStart()

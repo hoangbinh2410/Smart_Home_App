@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage
+    x:Class="BA_MobileGPS.Core.Views.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:BA_MobileGPS.Core.Views"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True">
+  
+    <!--<local:HomePage Title="1" />
+    <local:HomePage Title="2" IsVisible="False" />
+    <local:HomePage Title="3" />
+    <local:HomePage Title="4" />-->
+
+</TabbedPage>
