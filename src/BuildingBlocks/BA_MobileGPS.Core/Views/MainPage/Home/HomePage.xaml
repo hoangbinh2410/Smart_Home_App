@@ -54,7 +54,7 @@
                 </Grid.RowDefinitions>
                 <Grid Padding="15,0" HeightRequest="100">
                     <StackLayout
-                        HeightRequest="25"
+                        HeightRequest="35"
                         Orientation="Horizontal"
                         VerticalOptions="End">
                         <ff:CachedImage Source="hotline_Icon.png">
@@ -64,10 +64,10 @@
                         </ff:CachedImage>
                     </StackLayout>
                     <StackLayout
-                        HeightRequest="25"
+                        HeightRequest="35"
                         HorizontalOptions="EndAndExpand"
                         Orientation="Horizontal"
-                        Spacing="15"
+                        Spacing="10"
                         VerticalOptions="End">
                         <ff:CachedImage Source="company_Icon.png">
                             <ff:CachedImage.Behaviors>

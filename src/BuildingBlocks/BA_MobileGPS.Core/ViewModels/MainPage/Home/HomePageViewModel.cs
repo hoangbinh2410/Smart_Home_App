@@ -18,7 +18,6 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class HomePageViewModel : ViewModelBase
     {
-        private IHomeService _homeServices;
         public HomePageViewModel(INavigationService navigationService) : base(navigationService)
         {
      
@@ -80,7 +79,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GenerateFavourites(List<HomeMenuItem> input)
         {
-            var menuFavoriteIds = "122,161,152,153,154";
+            var menuFavoriteIds = "153,154";
             if (!string.IsNullOrEmpty(menuFavoriteIds))
             {
                 var favoritesIdLst = menuFavoriteIds.Split(',').Select(m => int.Parse(m));
