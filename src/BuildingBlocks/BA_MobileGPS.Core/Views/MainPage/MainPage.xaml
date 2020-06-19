@@ -1,15 +1,78 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage
+<ContentPage
     x:Class="BA_MobileGPS.Core.Views.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:local="clr-namespace:BA_MobileGPS.Core.Views"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms"
     prism:ViewModelLocator.AutowireViewModel="True">
-  
-    <!--<local:HomePage Title="1" />
-    <local:HomePage Title="2" IsVisible="False" />
-    <local:HomePage Title="3" />
-    <local:HomePage Title="4" />-->
-
-</TabbedPage>
+    <ContentPage.Resources>
+        <converter:TabItemColorConverter x:Key="TabItemColorConverter" />
+        <converter:TabItemSizeConverter x:Key="TabItemSizeConverter" />
+        <ControlTemplate x:Key="TabItemTemplate">
+            <StackLayout
+                HorizontalOptions="Center"
+                Spacing="0"
+                VerticalOptions="Center">
+                <controls:IconView
+                    x:Name="ic"
+                    Foreground="{TemplateBinding IsSelected,
+                                                 Converter={x:StaticResource TabItemColorConverter}}"
+                    HeightRequest="{TemplateBinding IsSelected,
+                                                    Converter={x:StaticResource TabItemSizeConverter}}"
+                    Source="{TemplateBinding IconImageSource}"
+                    WidthRequest="{TemplateBinding IsSelected,
+                                                   Converter={x:StaticResource TabItemSizeConverter}}" />
+                <Label
+                    FontSize="{TemplateBinding LabelSize}"
+                    Text="{TemplateBinding Label}"
+                    TextColor="{Binding Source={Reference ic}, Path=Foreground, Mode=OneWay}" />
+            </StackLayout>
+        </ControlTemplate>
+        <Style TargetType="tabs:BottomTabItem">
+            <Setter Property="ControlTemplate" Value="{StaticResource TabItemTemplate}" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <tabs:ViewSwitcher
+                x:Name="Switcher"
+                Grid.Row="0"
+                Margin="0,0,0,-10"
+                Animate="True">
+                <local:HomePage />
+                <local:VehiclesPage />
+                <local:MornitoringPage />
+                <local:VoyagePage />
+                <local:AccountsPage />
+            </tabs:ViewSwitcher>
+            <pancake:PancakeView Grid.Row="1" BackgroundColor="White">
+                <tabs:TabHostView
+                    x:Name="TabHost"
+                    Padding="0,5,0,0"
+                    BackgroundColor="Transparent"
+                    HeightRequest="80"
+                    SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}"
+                    ShadowType="Top"
+                    TabType="Fixed">
+                    <tabs:TabHostView.Tabs>
+                        <tabs:BottomTabItem IconImageSource="home_MenuIcon.png" Label="Trang chủ" />
+                        <tabs:BottomTabItem IconImageSource="vehicle_MenuIcon.png" Label="Phương tiện" IsVisible="False"/>
+                        <tabs:BottomTabItem IconImageSource="monitoring_MenuIcon.png" Label="Giám sát" IsVisible="False"/>
+                        <tabs:BottomTabItem IconImageSource="voyage_MenuIcon.png" Label="Hải trình" IsVisible="False"/>
+                        <tabs:BottomTabItem IconImageSource="account_MenuIcon.png" Label="Tài khoản" />
+                    </tabs:TabHostView.Tabs>
+                </tabs:TabHostView>
+            </pancake:PancakeView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

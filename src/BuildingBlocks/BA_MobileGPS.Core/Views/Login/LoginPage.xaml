@@ -6,7 +6,8 @@
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
     <Button
-        Clicked="Button_Clicked"
+        BackgroundColor="Beige"
+        Command="{Binding LoginCommand}"
         FontSize="20"
         HeightRequest="200"
         HorizontalOptions="CenterAndExpand"

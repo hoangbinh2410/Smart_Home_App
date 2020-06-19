@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<ScrollView
     x:Class="BA_MobileGPS.Core.Views.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -9,7 +9,19 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:sfListView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     prism:ViewModelLocator.AutowireViewModel="True">
-    <ContentPage.Resources>
+    <ScrollView.Resources>
+        <DataTemplate x:Key="IconTemplate">
+            <StackLayout Spacing="10">
+                <ff:CachedImage
+                    HeightRequest="50"
+                    Source="{Binding IconMobile}"
+                    WidthRequest="50" />
+                <Label
+                    HorizontalTextAlignment="Center"
+                    LineBreakMode="WordWrap"
+                    Text="{Binding NameByCulture}" />
+            </StackLayout>
+        </DataTemplate>
         <Style TargetType="sfListView:SfListView">
             <Setter Property="IsScrollBarVisible" Value="True" />
             <Setter Property="IsScrollingEnabled" Value="True" />
@@ -18,15 +30,12 @@
             <Setter Property="SelectionBackgroundColor" Value="Transparent" />
             <Setter Property="Padding" Value="10" />
             <Setter Property="Margin" Value="0" />
+            <Setter Property="ItemTemplate" Value="{StaticResource IconTemplate}" />
         </Style>
-        <Style x:Key="icon" TargetType="ff:CachedImage">
-            <Setter Property="HeightRequest" Value="50" />
-            <Setter Property="WidthRequest" Value="50" />
-        </Style>
-    </ContentPage.Resources>
-    <ScrollView>
-        <Grid>
-            <Grid Padding="0" BackgroundColor="#F3F3F3">
+    </ScrollView.Resources>
+    <pancake:PancakeView BackgroundColor="{DynamicResource BackgoundPageColor}">
+        <Grid BackgroundColor="Transparent">
+            <Grid Padding="0">
                 <ff:CachedImage
                     Aspect="AspectFill"
                     HeightRequest="200"
@@ -81,8 +90,8 @@
                     Grid.Row="1"
                     Margin="10,5"
                     CornerRadius="10">
-                    <StackLayout Spacing="0">
-                        <Grid Margin="10">
+                    <StackLayout BackgroundColor="Transparent" Spacing="0">
+                        <Grid Margin="10" BackgroundColor="Transparent">
                             <Label StyleClass="GroupTitleLabel" Text="NỔI BẬT" />
                             <ff:CachedImage
                                 HeightRequest="20"
@@ -98,24 +107,14 @@
                         <BoxView class="SlimLine" />
 
                         <sfListView:SfListView
-                            HeightRequest="100"
+                            x:Name="favouriteListView"
+                            HeightRequest="110"
+                            HorizontalOptions="Center"
                             IsScrollBarVisible="True"
-                            ItemSize="80"
+                            ItemSize="110"
                             ItemsSource="{Binding FavouriteMenuItems}"
-                            TapCommand="{Binding FavouriteItemsTappedCommand}">
-                            <sfListView:SfListView.LayoutManager>
-                                <sfListView:GridLayout SpanCount="1" />
-                            </sfListView:SfListView.LayoutManager>
-                            <sfListView:SfListView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout Spacing="10">
-                                        <ff:CachedImage Source="{Binding IconMobile}" Style="{StaticResource icon}" />
-                                        <Label Text="{Binding NameByCulture}" />
-                                    </StackLayout>
-                                </DataTemplate>
-                            </sfListView:SfListView.ItemTemplate>
-
-                        </sfListView:SfListView>
+                            Loaded="SfListView_Loaded"
+                            TapCommand="{Binding FavouriteItemsTappedCommand}" />
                     </StackLayout>
                 </pancake:PancakeView>
                 <Grid Grid.Row="2" Padding="20,0">
@@ -136,29 +135,23 @@
                     class="SlimLine" />
 
                 <Grid Grid.Row="4" HeightRequest="260">
-                    <CarouselView IndicatorView="indicatorView" ItemsSource="{Binding AllListfeatures}">
+                    <CarouselView
+                        x:Name="list1"
+                        IndicatorView="indicatorView"
+                        ItemsSource="{Binding AllListfeatures}">
                         <CarouselView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout>
                                     <sfListView:SfListView
-                                        AutoFitMode="Height"
                                         HeightRequest="250"
                                         IsScrollBarVisible="False"
-                                        ItemSize="120"
-                                        ItemSpacing="20,0,20,0"
+                                        ItemSize="110"
+                                        ItemSpacing="10,0,5,0"
                                         ItemsSource="{Binding FeaturesItem}"
                                         TapCommand="{Binding FavouriteItemsTappedCommand}">
                                         <sfListView:SfListView.LayoutManager>
                                             <sfListView:GridLayout SpanCount="{Binding NumberOfColumns}" />
                                         </sfListView:SfListView.LayoutManager>
-                                        <sfListView:SfListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackLayout Spacing="10">
-                                                    <ff:CachedImage Source="{Binding IconMobile}" Style="{StaticResource icon}" />
-                                                    <Label Text="{Binding NameByCulture}" />
-                                                </StackLayout>
-                                            </DataTemplate>
-                                        </sfListView:SfListView.ItemTemplate>
                                     </sfListView:SfListView>
 
                                 </StackLayout>
@@ -179,5 +172,6 @@
                 </pancake:PancakeView>
             </Grid>
         </Grid>
-    </ScrollView>
-</ContentPage>
+    </pancake:PancakeView>
+
+</ScrollView>

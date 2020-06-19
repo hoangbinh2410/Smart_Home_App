@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class LoginPageViewModel : BindableBase
+    public class AccountsPageViewModel : BindableBase
     {
-        public LoginPageViewModel()
+        public AccountsPageViewModel()
         {
 
         }

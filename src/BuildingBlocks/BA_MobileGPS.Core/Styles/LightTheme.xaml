@@ -2,12 +2,7 @@
 <ResourceDictionary
     x:Class="BA_MobileGPS.Core.Styles.LightTheme"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms">
-
-    <ResourceDictionary.MergedDictionaries>
-        <syncTheme:LightTheme />
-    </ResourceDictionary.MergedDictionaries>
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <!--  Color Concept  -->
     <Color x:Key="PrimaryColor">#00ADEF</Color>
@@ -40,12 +35,12 @@
         Android="#e3e3e3"
         iOS="#C8C7CC" />
 
-    <!--  Syncfusion TextInputLayout  -->
-    <Color x:Key="SyncPrimaryLightColor">Green</Color>
-    <Color x:Key="SyncPrimaryColor">Green</Color>
-    <Color x:Key="SfTextInputLayoutHintColor">Blue</Color>
-
     <Color x:Key="SfTextInputErrColor">Red</Color>
     <Color x:Key="SfTextInputFocusColor">Blue</Color>
+
+    <Color x:Key="TabItemSelectedColor">#00ADEF</Color>
+    <Color x:Key="TabItemUnSelectedColor">#787878</Color>
+
+
 
 </ResourceDictionary>
