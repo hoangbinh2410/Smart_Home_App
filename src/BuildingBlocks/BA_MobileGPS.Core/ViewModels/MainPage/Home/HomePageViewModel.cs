@@ -19,6 +19,8 @@ using Xamarin.Forms;
 using BA_MobileGPS.Core.Styles;
 using System;
 using BA_MobileGPS.Utilities.Enums;
+using Rg.Plugins.Popup.Services;
+using BA_MobileGPS.Core.Views;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -30,8 +32,8 @@ namespace BA_MobileGPS.Core.ViewModels
             _listfeatures = new ObservableCollection<ItemSupport>();
             FavouriteMenuItems = new ObservableCollection<HomeMenuItem>();
             FavouriteItemsTappedCommand = new DelegateCommand<object>(FavouriteItemsTapped);
-            NumberOfColumns = 2;
             GenerateMenu();
+            OpenDiscoreryBoxCommand = new DelegateCommand(OpenDiscoreryBox);
         }
 
 
@@ -75,19 +77,10 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private int _numberOfColumns;
-
-       
-
-        public int NumberOfColumns
-        {
-            get { return _numberOfColumns; }
-            set { SetProperty(ref _numberOfColumns, value);}
-        }
 
         public ICommand FavouriteItemsTappedCommand { get; }
+        public ICommand OpenDiscoreryBoxCommand { get; }
 
-       
         private  void GenerateMenu()
         {           
             GenerateFavourites(StaticSettings.ListMenu);
@@ -117,7 +110,13 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-      
+        private void OpenDiscoreryBox()
+        {
+            PopupNavigation.Instance.PushAsync(new DiscoveryPopup(StaticSettings.ListMenu));
+        }
+
+
+
     }
     public class ItemSupport
     {

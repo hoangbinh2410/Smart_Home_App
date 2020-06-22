@@ -119,6 +119,7 @@
                             TapCommand="{Binding FavouriteItemsTappedCommand}" />
                     </StackLayout>
                 </pancake:PancakeView>
+
                 <Grid Grid.Row="2" Padding="20,0">
                     <Label StyleClass="GroupTitleLabel" Text="TIỆN ÍCH" />
                     <ff:CachedImage
@@ -128,6 +129,9 @@
                         <ff:CachedImage.Behaviors>
                             <animation:ViewTappedBehavior AnimationType="Scale" />
                         </ff:CachedImage.Behaviors>
+                        <ff:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenDiscoreryBoxCommand}" NumberOfTapsRequired="1" />
+                        </ff:CachedImage.GestureRecognizers>
                     </ff:CachedImage>
                 </Grid>
 
