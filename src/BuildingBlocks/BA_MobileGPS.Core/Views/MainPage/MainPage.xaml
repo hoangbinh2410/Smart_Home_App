@@ -39,25 +39,27 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <tabs:ViewSwitcher
-                x:Name="Switcher"
-                Grid.Row="0"
-                Margin="0,0,0,-10"
-                Animate="True">
-                <local:HomePage />
-                <local:VehiclesPage />
-                <local:MornitoringPage />
-                <local:VoyagePage />
-                <local:AccountsPage />
-            </tabs:ViewSwitcher>
-            <pancake:PancakeView Grid.Row="1" BackgroundColor="White">
+        <pancake:PancakeView Style="{DynamicResource MainBackgroundColor}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <tabs:ViewSwitcher
+                    x:Name="Switcher"
+                    Grid.Row="0"
+                    Margin="0,0,0,-10"
+                    Animate="True">
+                    <local:HomePage />
+                    <local:VehiclesPage />
+                    <local:MornitoringPage />
+                    <local:VoyagePage />
+                    <local:AccountsPage />
+                </tabs:ViewSwitcher>
+
                 <tabs:TabHostView
                     x:Name="TabHost"
+                    Grid.Row="1"
                     Padding="0,5,0,0"
                     BackgroundColor="Transparent"
                     HeightRequest="80"
@@ -66,13 +68,22 @@
                     TabType="Fixed">
                     <tabs:TabHostView.Tabs>
                         <tabs:BottomTabItem IconImageSource="home_MenuIcon.png" Label="Trang chủ" />
-                        <tabs:BottomTabItem IconImageSource="vehicle_MenuIcon.png" Label="Phương tiện" IsVisible="False"/>
-                        <tabs:BottomTabItem IconImageSource="monitoring_MenuIcon.png" Label="Giám sát" IsVisible="False"/>
-                        <tabs:BottomTabItem IconImageSource="voyage_MenuIcon.png" Label="Hải trình" IsVisible="False"/>
+                        <tabs:BottomTabItem
+                            IconImageSource="vehicle_MenuIcon.png"
+                            IsVisible="False"
+                            Label="Phương tiện" />
+                        <tabs:BottomTabItem
+                            IconImageSource="monitoring_MenuIcon.png"
+                            IsVisible="False"
+                            Label="Giám sát" />
+                        <tabs:BottomTabItem
+                            IconImageSource="voyage_MenuIcon.png"
+                            IsVisible="False"
+                            Label="Hải trình" />
                         <tabs:BottomTabItem IconImageSource="account_MenuIcon.png" Label="Tài khoản" />
                     </tabs:TabHostView.Tabs>
                 </tabs:TabHostView>
-            </pancake:PancakeView>
-        </Grid>
+            </Grid>
+        </pancake:PancakeView>
     </ContentPage.Content>
 </ContentPage>

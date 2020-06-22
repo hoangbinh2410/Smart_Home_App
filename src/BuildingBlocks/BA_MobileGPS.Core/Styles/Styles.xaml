@@ -97,7 +97,6 @@
 
     <Style TargetType="pancake:PancakeView">
         <Setter Property="Padding" Value="0" />
-        <Setter Property="BackgroundColor" Value="White" />
         <Setter Property="HasShadow" Value="False" />
     </Style>
 
@@ -149,7 +148,7 @@
     <Style Class="AwesomeIcon" TargetType="Label" />
 
     <Style Class="CircleFrameBackground" TargetType="Frame">
-        <Setter Property="BackgroundColor" Value="{DynamicResource FrameBackgroundColor}" />
+        <Setter Property="BackgroundColor" Value="{DynamicResource CircleFrameBackgroundColor}" />
         <Setter Property="HeightRequest" Value="50" />
         <Setter Property="WidthRequest" Value="50" />
         <Setter Property="CornerRadius" Value="25" />
@@ -162,20 +161,32 @@
         <Setter Property="HorizontalTextAlignment" Value="Start" />
     </Style>
 
-
-    <!--  Search Bar  -->
-
     <!--  Box View draw line below group title  -->
     <Style Class="SlimLine" TargetType="BoxView">
         <Setter Property="HeightRequest" Value="1" />
         <Setter Property="BackgroundColor" Value="{DynamicResource GroupTitleTextColor}" />
     </Style>
 
-
-
     <!--  Sf Text Input Layout  -->
     <Style Class="PasswordInput" TargetType="input:SfTextInputLayout">
         <Setter Property="EnablePasswordVisibilityToggle" Value="True" />
+    </Style>
+
+    <!--  Main  Background Color  -->
+    <Style x:Key="MainBackgroundColor" TargetType="pancake:PancakeView">
+        <Setter Property="BackgroundColor" Value="{DynamicResource BackgoundPageColor}" />
+        <Setter Property="BackgroundGradientAngle" Value="180" />
+        <Setter Property="BackgroundGradientStartColor" Value="{DynamicResource BackgoundPageGradientStartColor}" />
+        <Setter Property="BackgroundGradientEndColor" Value="{DynamicResource BackgoundPageGradientEndColor}" />
+    </Style>
+
+
+    <!--  Favourite background  -->
+    <Style x:Key="FavouriteBackgroundColor" TargetType="pancake:PancakeView">
+        <Setter Property="BackgroundColor" Value="{DynamicResource BackgoundFavouriteColor}" />
+        <Setter Property="BackgroundGradientAngle" Value="90" />
+        <Setter Property="BackgroundGradientStartColor" Value="{DynamicResource BackgoundFavouriteGradientStartColor}" />
+        <Setter Property="BackgroundGradientEndColor" Value="{DynamicResource BackgoundFavouriteGradientEndColor}" />
     </Style>
 
 

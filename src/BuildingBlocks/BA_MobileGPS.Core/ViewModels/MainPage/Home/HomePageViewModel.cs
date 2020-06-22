@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.ViewModels.Base;
+﻿using BA_MobileGPS.Core.DependencyServices;
+using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using Newtonsoft.Json;
@@ -13,6 +14,10 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Prism.Ioc;
+using Xamarin.Forms;
+using BA_MobileGPS.Core.Styles;
+using System;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -31,6 +36,19 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void FavouriteItemsTapped(object obj)
         {
+            var themeService = Prism.PrismApplicationBase.Current.Container.Resolve<IThemeService>();
+
+
+            var mergedDictionaries = Application.Current.Resources.MergedDictionaries;
+            var a = mergedDictionaries.FirstOrDefault(x =>x.GetType() == new DarkTheme().GetType());
+            var b = mergedDictionaries.FirstOrDefault(x => x.GetType() == new LightTheme().GetType());
+
+            if (mergedDictionaries.Contains(new LightTheme()))
+            {
+
+            }
+
+
         }
 
         private ObservableCollection<HomeMenuItem> _favouriteMenuItems;

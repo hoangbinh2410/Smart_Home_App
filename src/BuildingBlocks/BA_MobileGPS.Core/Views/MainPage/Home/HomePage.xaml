@@ -8,6 +8,7 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sfListView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    x:Name="root"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ScrollView.Resources>
         <DataTemplate x:Key="IconTemplate">
@@ -33,13 +34,13 @@
             <Setter Property="ItemTemplate" Value="{StaticResource IconTemplate}" />
         </Style>
     </ScrollView.Resources>
-    <pancake:PancakeView BackgroundColor="{DynamicResource BackgoundPageColor}">
-        <Grid BackgroundColor="Transparent">
+    <pancake:PancakeView>
+        <Grid>
             <Grid Padding="0">
                 <ff:CachedImage
                     Aspect="AspectFill"
                     HeightRequest="200"
-                    Source="top_background.jpg"
+                    Source="{DynamicResource HomePageTopImageSource}"
                     VerticalOptions="StartAndExpand" />
             </Grid>
             <Grid Padding="5,0">
@@ -89,9 +90,10 @@
                 <pancake:PancakeView
                     Grid.Row="1"
                     Margin="10,5"
-                    CornerRadius="10">
-                    <StackLayout BackgroundColor="Transparent" Spacing="0">
-                        <Grid Margin="10" BackgroundColor="Transparent">
+                    CornerRadius="10"
+                    Style="{DynamicResource FavouriteBackgroundColor}">
+                    <StackLayout Spacing="0">
+                        <Grid Margin="10">
                             <Label StyleClass="GroupTitleLabel" Text="NỔI BẬT" />
                             <ff:CachedImage
                                 HeightRequest="20"
@@ -113,7 +115,7 @@
                             IsScrollBarVisible="True"
                             ItemSize="110"
                             ItemsSource="{Binding FavouriteMenuItems}"
-                            Loaded="SfListView_Loaded"
+                            Loaded="Favourite_SfListView_Loaded"
                             TapCommand="{Binding FavouriteItemsTappedCommand}" />
                     </StackLayout>
                 </pancake:PancakeView>
@@ -141,20 +143,17 @@
                         ItemsSource="{Binding AllListfeatures}">
                         <CarouselView.ItemTemplate>
                             <DataTemplate>
-                                <StackLayout>
+                                <Grid>
                                     <sfListView:SfListView
                                         HeightRequest="250"
+                                        HorizontalOptions="CenterAndExpand"
                                         IsScrollBarVisible="False"
                                         ItemSize="110"
-                                        ItemSpacing="10,0,5,0"
+                                        ItemSpacing="10,0,0,0"
                                         ItemsSource="{Binding FeaturesItem}"
-                                        TapCommand="{Binding FavouriteItemsTappedCommand}">
-                                        <sfListView:SfListView.LayoutManager>
-                                            <sfListView:GridLayout SpanCount="{Binding NumberOfColumns}" />
-                                        </sfListView:SfListView.LayoutManager>
-                                    </sfListView:SfListView>
-
-                                </StackLayout>
+                                        Loaded="FeaturesSfListView_Loaded"
+                                        TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.FavouriteItemsTappedCommand}" />
+                                </Grid>
                             </DataTemplate>
                         </CarouselView.ItemTemplate>
                     </CarouselView>
@@ -168,7 +167,7 @@
                     <ff:CachedImage
                         Aspect="AspectFill"
                         HeightRequest="200"
-                        Source="bot_background.jpg" />
+                        Source="{DynamicResource HomePageBotImageSource}" />
                 </pancake:PancakeView>
             </Grid>
         </Grid>

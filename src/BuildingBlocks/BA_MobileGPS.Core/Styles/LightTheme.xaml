@@ -16,6 +16,8 @@
     <Color x:Key="GoogleOrange">#da4453</Color>
 
     <Color x:Key="BackgoundPageColor">#F3F3F3</Color>
+    <Color x:Key="BackgoundPageGradientStartColor">#F3F3F3</Color>
+    <Color x:Key="BackgoundPageGradientEndColor">#F3F3F3</Color>
 
     <Color x:Key="PrimaryTextColor">#484848</Color>
     <Color x:Key="SecondaryTextColor">#787878</Color>
@@ -29,18 +31,23 @@
 
     <Color x:Key="SearchBarBackgroundColor">White</Color>
 
-    <OnPlatform
-        x:Key="Color_Divider"
-        x:TypeArguments="Color"
-        Android="#e3e3e3"
-        iOS="#C8C7CC" />
-
     <Color x:Key="SfTextInputErrColor">Red</Color>
     <Color x:Key="SfTextInputFocusColor">Blue</Color>
 
     <Color x:Key="TabItemSelectedColor">#00ADEF</Color>
     <Color x:Key="TabItemUnSelectedColor">#787878</Color>
 
+
+    <!--  30x30  -->
+    <x:Double x:Key="TabItemNormalSize">30</x:Double>
+    <!--  40x40  -->
+    <x:Double x:Key="TabItemClickedSize">40</x:Double>
+    <FileImageSource x:Key="HomePageTopImageSource" File="top_background.jpg" />
+    <FileImageSource x:Key="HomePageBotImageSource" File="bot_background.jpg" />
+
+    <Color x:Key="BackgoundFavouriteColor">White</Color>
+    <Color x:Key="BackgoundFavouriteGradientStartColor">White</Color>
+    <Color x:Key="BackgoundFavouriteGradientEndColor">White</Color>
 
 
 </ResourceDictionary>
