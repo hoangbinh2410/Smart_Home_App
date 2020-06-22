@@ -18,6 +18,7 @@ using Prism.Ioc;
 using Xamarin.Forms;
 using BA_MobileGPS.Core.Styles;
 using System;
+using BA_MobileGPS.Utilities.Enums;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -40,14 +41,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
 
             var mergedDictionaries = Application.Current.Resources.MergedDictionaries;
-            var a = mergedDictionaries.FirstOrDefault(x =>x.GetType() == new DarkTheme().GetType());
-            var b = mergedDictionaries.FirstOrDefault(x => x.GetType() == new LightTheme().GetType());
+            var dark = mergedDictionaries.FirstOrDefault(x =>x.GetType() == new DarkTheme().GetType());
 
-            if (mergedDictionaries.Contains(new LightTheme()))
+            if (dark == null)
             {
-
+                themeService.UpdateTheme(ThemeMode.Dark);
             }
-
+            else themeService.UpdateTheme(ThemeMode.Light);
 
         }
 

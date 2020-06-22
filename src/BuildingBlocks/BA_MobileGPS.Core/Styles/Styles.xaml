@@ -189,5 +189,13 @@
         <Setter Property="BackgroundGradientEndColor" Value="{DynamicResource BackgoundFavouriteGradientEndColor}" />
     </Style>
 
+    <Style Class="HomePageTopImage" TargetType="ffImage:CachedImage">
+        <Setter Property="Source" Value="{DynamicResource HomePageTopImageSource}" />
+    </Style>
+
+    <Style Class="HomePageBotImage" TargetType="ffImage:CachedImage">
+        <Setter Property="Source" Value="{DynamicResource HomePageBotImageSource}" />
+    </Style>
+
 
 </ResourceDictionary>
