@@ -35,28 +35,28 @@ namespace BA_MobileGPS.Core.DependencyServices
 
         public virtual void UpdateTheme(ThemeMode themeMode = ThemeMode.Auto)
         {
-            switch (AppTheme)
-            {
-                case ThemeMode.Auto:
-                    if (themeMode == ThemeMode.Dark)
-                        goto case ThemeMode.Dark;
-                    else
-                        goto case ThemeMode.Light;
-                case ThemeMode.Dark:
-                    SetTheme(ThemeMode.Dark);
-                    break;
+            //switch (AppTheme)
+            //{
+            //    case ThemeMode.Auto:
+            //        if (themeMode == ThemeMode.Dark)
+            //            goto case ThemeMode.Dark;
+            //        else
+            //            goto case ThemeMode.Light;
+            //    case ThemeMode.Dark:
+            //        SetTheme(ThemeMode.Dark);
+            //        break;
 
-                case ThemeMode.Light:
-                    SetTheme(ThemeMode.Light);
-                    break;
+            //    case ThemeMode.Light:
+            //        SetTheme(ThemeMode.Light);
+            //        break;
 
-                case ThemeMode.Custom:
-                    SetTheme(ThemeMode.Custom);
-                    break;
+            //    case ThemeMode.Custom:
+            //        SetTheme(ThemeMode.Custom);
+            //        break;
 
-                default:
-                    break;
-            }
+            //    default:
+            //        break;
+            //}
         }
 
         private void SetTheme(ThemeMode themeMode)
