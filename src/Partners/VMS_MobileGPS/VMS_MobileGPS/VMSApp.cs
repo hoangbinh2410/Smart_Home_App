@@ -37,7 +37,7 @@ namespace VMS_MobileGPS
             //AppManager.Init();
 
             //await NavigationService.NavigateAsync("/NavigationPage/LandingPage");
-            await NavigationService.NavigateAsync("LoginPage");
+            await NavigationService.NavigateAsync("/LoginPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

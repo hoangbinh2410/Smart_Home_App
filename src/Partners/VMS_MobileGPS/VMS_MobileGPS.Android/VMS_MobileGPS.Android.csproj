@@ -155,7 +155,7 @@
       <Name>BA_MobileGPS.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\VMS_MobileGPS\VMS_MobileGPS.csproj">
-      <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
+      <Project>{C971F261-39AC-42DF-85AC-4C707AB06A54}</Project>
       <Name>VMS_MobileGPS</Name>
     </ProjectReference>
   </ItemGroup>
