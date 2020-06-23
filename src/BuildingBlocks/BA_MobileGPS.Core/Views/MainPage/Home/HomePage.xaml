@@ -62,6 +62,9 @@
                             <ff:CachedImage.Behaviors>
                                 <animation:ViewTappedBehavior AnimationType="Scale" />
                             </ff:CachedImage.Behaviors>
+                            <ff:CachedImage.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding HotLineTapCommand}" NumberOfTapsRequired="1" />
+                            </ff:CachedImage.GestureRecognizers>
                         </ff:CachedImage>
                     </StackLayout>
                     <StackLayout
@@ -74,6 +77,7 @@
                             <ff:CachedImage.Behaviors>
                                 <animation:ViewTappedBehavior AnimationType="Scale" />
                             </ff:CachedImage.Behaviors>
+
                         </ff:CachedImage>
                         <ff:CachedImage Source="messenger_Icon.png">
                             <ff:CachedImage.Behaviors>
