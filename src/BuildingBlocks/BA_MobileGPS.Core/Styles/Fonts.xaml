@@ -29,8 +29,8 @@
     <OnPlatform
         x:Key="myfontsizeLarge-phone"
         x:TypeArguments="x:Double"
-        Android="18"
-        iOS="18" />
+        Android="16"
+        iOS="16" />
 
     <OnPlatform
         x:Key="myfontsizeLarge-tablet"

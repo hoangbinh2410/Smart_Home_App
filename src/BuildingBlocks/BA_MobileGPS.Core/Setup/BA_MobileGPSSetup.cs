@@ -1,4 +1,6 @@
 ﻿using BA_MobileGPS.Core.DependencyServices;
+using BA_MobileGPS.Core.ViewModels;
+using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities.Infrastructure.Repository;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities.Constant;
@@ -42,6 +44,8 @@ namespace BA_MobileGPS.Core
         public static void RegisterPages(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>("LoginPage");
+            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>("MainPage");
         }
     }
 }

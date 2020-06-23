@@ -100,7 +100,7 @@
         <Setter Property="FontSize" Value="{StaticResource TextSizeBody}" />
     </Style>
 
-    <Style Class="TextCaption" TargetType="Label">
+    <Style x:Key="TextCaption" TargetType="Label">
         <Setter Property="TextColor" Value="{DynamicResource TextPrimaryColor}" />
         <Setter Property="FontSize" Value="{StaticResource TextSizeCaption}" />
     </Style>

@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:res="clr-namespace:BA_MobileGPS.Core.Styles">
 
     <ResourceDictionary.MergedDictionaries>
@@ -44,6 +45,7 @@
         <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
         <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
+        <Setter Property="HorizontalOptions" Value="Center" />
     </Style>
 
     <Style TargetType="SearchBar">
@@ -81,6 +83,23 @@
         <Setter Property="ErrorColor" Value="{DynamicResource SfTextInputErrColor}" />
         <Setter Property="FocusedColor" Value="{DynamicResource SfTextInputFocusColor}" />
     </Style>
+
+    <Style TargetType="ffImage:CachedImage">
+        <Setter Property="LoadingPriority" Value="High" />
+    </Style>
+
+    <Style TargetType="IndicatorView">
+        <Setter Property="IndicatorColor" Value="{DynamicResource SecondaryTextColor}" />
+        <Setter Property="IndicatorsShape" Value="Circle" />
+        <Setter Property="SelectedIndicatorColor" Value="{DynamicResource PrimaryColor}" />
+        <Setter Property="VerticalOptions" Value="End" />
+    </Style>
+
+    <Style TargetType="pancake:PancakeView">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HasShadow" Value="False" />
+    </Style>
+
     <!--  Class style region  -->
 
     <!--  Button  -->
@@ -119,15 +138,17 @@
 
     <!--  Label  -->
     <Style Class="GroupTitleLabel" TargetType="Label">
-        <Setter Property="FontFamily" Value="{StaticResource myFontLatoBold}" />
+
         <Setter Property="FontSize" Value="{StaticResource MyFontSizeLarge}" />
         <Setter Property="TextColor" Value="{DynamicResource GroupTitleTextColor}" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalOptions" Value="StartAndExpand" />
     </Style>
 
     <Style Class="AwesomeIcon" TargetType="Label" />
 
     <Style Class="CircleFrameBackground" TargetType="Frame">
-        <Setter Property="BackgroundColor" Value="{DynamicResource FrameBackgroundColor}" />
+        <Setter Property="BackgroundColor" Value="{DynamicResource CircleFrameBackgroundColor}" />
         <Setter Property="HeightRequest" Value="50" />
         <Setter Property="WidthRequest" Value="50" />
         <Setter Property="CornerRadius" Value="25" />
@@ -140,26 +161,41 @@
         <Setter Property="HorizontalTextAlignment" Value="Start" />
     </Style>
 
-
-    <!--  Search Bar  -->
-
     <!--  Box View draw line below group title  -->
     <Style Class="SlimLine" TargetType="BoxView">
         <Setter Property="HeightRequest" Value="1" />
         <Setter Property="BackgroundColor" Value="{DynamicResource GroupTitleTextColor}" />
     </Style>
 
-
-
     <!--  Sf Text Input Layout  -->
     <Style Class="PasswordInput" TargetType="input:SfTextInputLayout">
         <Setter Property="EnablePasswordVisibilityToggle" Value="True" />
     </Style>
 
+    <!--  Main  Background Color  -->
+    <Style x:Key="MainBackgroundColor" TargetType="pancake:PancakeView">
+        <Setter Property="BackgroundColor" Value="{DynamicResource BackgoundPageColor}" />
+        <Setter Property="BackgroundGradientAngle" Value="180" />
+        <Setter Property="BackgroundGradientStartColor" Value="{DynamicResource BackgoundPageGradientStartColor}" />
+        <Setter Property="BackgroundGradientEndColor" Value="{DynamicResource BackgoundPageGradientEndColor}" />
+    </Style>
 
 
+    <!--  Favourite background  -->
+    <Style x:Key="FavouriteBackgroundColor" TargetType="pancake:PancakeView">
+        <Setter Property="BackgroundColor" Value="{DynamicResource BackgoundFavouriteColor}" />
+        <Setter Property="BackgroundGradientAngle" Value="90" />
+        <Setter Property="BackgroundGradientStartColor" Value="{DynamicResource BackgoundFavouriteGradientStartColor}" />
+        <Setter Property="BackgroundGradientEndColor" Value="{DynamicResource BackgoundFavouriteGradientEndColor}" />
+    </Style>
 
+    <Style Class="HomePageTopImage" TargetType="ffImage:CachedImage">
+        <Setter Property="Source" Value="{DynamicResource HomePageTopImageSource}" />
+    </Style>
 
+    <Style Class="HomePageBotImage" TargetType="ffImage:CachedImage">
+        <Setter Property="Source" Value="{DynamicResource HomePageBotImageSource}" />
+    </Style>
 
 
 </ResourceDictionary>
