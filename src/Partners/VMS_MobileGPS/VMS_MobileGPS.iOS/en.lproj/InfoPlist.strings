@@ -1,5 +1,5 @@
-﻿"CFBundleDisplayName" = "BA SAT";
-"CFBundleName" = "BA SAT";
+﻿"CFBundleDisplayName" = "BA-SAT";
+"CFBundleName" = "BA-SAT";
 
 "NSLocationAlwaysUsageDescription" = "This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
 "NSLocationWhenInUseUsageDescription" = "This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
@@ -10,3 +10,5 @@
 "NSPhotoLibraryUsageDescription"="This application needs your permission to access the photo library to get your photos, do you allow the application to access your photo library?";
 "NSMicrophoneUsageDescription"="This application needs you to allow access to your camera to take photos, do you allow the application to access your camera?";
 "NSPhotoLibraryAddUsageDescription"="This application needs your permission to access the photo library to get your photos, do you allow the application to access your photo library?";
+"NSBluetoothAlwaysUsageDescription"="App uses Bluetooth to find, connect and communicate with nearby devices. Please grant access.";
+"NSBluetoothPeripheralUsageDescription"="App needs bluetooth access to connect via bluetooth.";
