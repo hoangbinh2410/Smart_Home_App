@@ -30,6 +30,7 @@
     <CodesignProvision>BASATDEV</CodesignProvision>
     <CodesignKey>iPhone Developer: Tran Quang Trung (9VX33WTXK7)</CodesignKey>
     <MtouchExtraArgs>--registrar:static</MtouchExtraArgs>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -123,6 +124,18 @@
     <BundleResource Include="internetconnection.json" />
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork%402x" />
+    <BundleResource Include="en.lproj\InfoPlist.strings" />
+    <BundleResource Include="vi.lproj\InfoPlist.strings" />
+    <BundleResource Include="Resources\fa-brands-400.ttf" />
+    <BundleResource Include="Resources\fa-regular-400.ttf" />
+    <BundleResource Include="Resources\fa-solid-900.ttf" />
+    <BundleResource Include="Resources\Lato-BlackItalic.ttf" />
+    <BundleResource Include="Resources\Lato-Bold.ttf" />
+    <BundleResource Include="Resources\Lato-Italic.ttf" />
+    <BundleResource Include="Resources\Lato-Light.ttf" />
+    <BundleResource Include="Resources\Lato-Medium.ttf" />
+    <BundleResource Include="Resources\Lato-Regular.ttf" />
+    <BundleResource Include="Resources\Lato-Semibold.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
