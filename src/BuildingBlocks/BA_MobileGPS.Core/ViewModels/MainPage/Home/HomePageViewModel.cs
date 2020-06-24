@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.DependencyServices;
+using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Styles;
 using BA_MobileGPS.Core.ViewModels.Base;
@@ -6,6 +7,7 @@ using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities.Enums;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Ioc;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
@@ -22,18 +24,44 @@ namespace BA_MobileGPS.Core.ViewModels
     public class HomePageViewModel : ViewModelBase
     {
         private readonly IPopupServices _popupServices;
-        public HomePageViewModel(INavigationService navigationService,IPopupServices popupServices) : base(navigationService)
+        private readonly IEventAggregator _eventAggregator;
+        public HomePageViewModel(INavigationService navigationService,IPopupServices popupServices, IEventAggregator eventAggregator) : base(navigationService)
         {
+            _eventAggregator = eventAggregator;
             _popupServices = popupServices;
             _listfeatures = new ObservableCollection<ItemSupport>();
             FavouriteMenuItems = new ObservableCollection<HomeMenuItem>();
-            FavouriteItemsTappedCommand = new DelegateCommand<object>(FavouriteItemsTapped);
+            ItemsTappedCommand = new DelegateCommand<object>(ItemsTapped);
             GenerateMenu();
             OpenDiscoreryBoxCommand = new DelegateCommand(OpenDiscoreryBox);
             HotLineTapCommand = new DelegateCommand(HotLineTap);
+            HobbiesIconTapCommand = new DelegateCommand(HobbiesIconTap);
         }
 
-        private void FavouriteItemsTapped(object obj)
+        private void ItemsTapped(object obj)
+        {
+            var item = (HomeMenuItem)((Syncfusion.ListView.XForms.ItemTappedEventArgs)obj).ItemData;
+
+            _eventAggregator.GetEvent<TabItemSwitchEvent>().Publish(item.PK_MenuItemID);
+            
+           
+        }
+
+        private void HotLineTap()
+        {
+            var mes = "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults";
+            _popupServices.ShowNotificatonPopup("Thông báo", "Cần cập nhật phiên bản mới.....");
+            _popupServices.ShowNotificationIconPopup("Xác nhận", mes, "vehicle_MenuIcon.png", Color.Green, IconPosititon.Left);
+            _popupServices.ShowNotificationIconPopup("Xác nhận", mes, "vehicle_MenuIcon.png", Color.Green, IconPosititon.Right);
+            _popupServices.ShowErrorPopup("Xác nhận", mes);
+            _popupServices.ShowErrorIconPopup("Xác nhận", mes, "vehicle_MenuIcon.png", Color.Green, IconPosititon.Left);
+            _popupServices.ShowErrorIconPopup("Xác nhận",mes, "vehicle_MenuIcon.png", Color.Green, IconPosititon.Right);
+            _popupServices.ShowConfirmIconPopup("Xác nhận", mes, "vehicle_MenuIcon.png", Color.Green,IconPosititon.Left);
+            _popupServices.ShowConfirmIconPopup("Xác nhận", mes, "vehicle_MenuIcon.png", Color.Green, IconPosititon.Right);
+            _popupServices.ShowConfirmPopup("Xác nhận", mes);
+        }
+
+        private void HobbiesIconTap()
         {
             var themeService = Prism.PrismApplicationBase.Current.Container.Resolve<IThemeService>();
 
@@ -45,26 +73,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 themeService.UpdateTheme(ThemeMode.Dark);
             }
             else themeService.UpdateTheme(ThemeMode.Light);
-        }
-
-        private void HotLineTap()
-        {          
-            _popupServices.ShowNotificatonPopup("Thông báo", "Cần cập nhật phiên bản mới.....");
-            _popupServices.ShowNotificationIconPopup("Xác nhận", "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults",
-    "vehicle_MenuIcon.png", Color.Green, IconPosititon.Left);
-            _popupServices.ShowNotificationIconPopup("Xác nhận", "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults",
-"vehicle_MenuIcon.png", Color.Green, IconPosititon.Right);
-            _popupServices.ShowErrorPopup("Xác nhận", "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults");
-            _popupServices.ShowErrorIconPopup("Xác nhận", "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults",
-    "vehicle_MenuIcon.png", Color.Green, IconPosititon.Left);
-            _popupServices.ShowErrorIconPopup("Xác nhận", "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults",
-    "vehicle_MenuIcon.png", Color.Green, IconPosititon.Right);
-            _popupServices.ShowConfirmIconPopup("Xác nhận", "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults",
-                "vehicle_MenuIcon.png", Color.Green,IconPosititon.Left);
-            _popupServices.ShowConfirmIconPopup("Xác nhận", "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults",
-               "vehicle_MenuIcon.png", Color.Green, IconPosititon.Right);
-            _popupServices.ShowConfirmPopup("Xác nhận", "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults");
-
         }
 
         private ObservableCollection<HomeMenuItem> _favouriteMenuItems;
@@ -91,9 +99,10 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        public ICommand FavouriteItemsTappedCommand { get; }
+        public ICommand ItemsTappedCommand { get; }
         public ICommand OpenDiscoreryBoxCommand { get; }
         public ICommand HotLineTapCommand { get; }
+        public ICommand HobbiesIconTapCommand { get; }
 
         private void GenerateMenu()
         {

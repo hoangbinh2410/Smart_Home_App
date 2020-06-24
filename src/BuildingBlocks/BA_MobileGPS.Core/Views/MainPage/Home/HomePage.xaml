@@ -107,6 +107,9 @@
                                 <ff:CachedImage.Behaviors>
                                     <animation:ViewTappedBehavior AnimationType="Scale" />
                                 </ff:CachedImage.Behaviors>
+                                <ff:CachedImage.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding HobbiesIconTapCommand}" NumberOfTapsRequired="1" />
+                                </ff:CachedImage.GestureRecognizers>
                             </ff:CachedImage>
                         </Grid>
 
@@ -120,7 +123,7 @@
                             ItemSize="110"
                             ItemsSource="{Binding FavouriteMenuItems}"
                             Loaded="Favourite_SfListView_Loaded"
-                            TapCommand="{Binding FavouriteItemsTappedCommand}" />
+                            TapCommand="{Binding ItemsTappedCommand}" />
                     </StackLayout>
                 </pancake:PancakeView>
 
@@ -160,7 +163,7 @@
                                         ItemSpacing="5,0,5,0"
                                         ItemsSource="{Binding FeaturesItem}"
                                         Loaded="FeaturesSfListView_Loaded"
-                                        TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.FavouriteItemsTappedCommand}" />
+                                        TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.ItemsTappedCommand}" />
                                 </Grid>
                             </DataTemplate>
                         </CarouselView.ItemTemplate>

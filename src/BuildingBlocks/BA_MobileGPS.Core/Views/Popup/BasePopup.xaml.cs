@@ -46,6 +46,7 @@ namespace BA_MobileGPS.Core.Views
             _buttonColor = buttonColor;
             _buttonTextColor = buttonTextColor;
             _popupType = type;
+            _textColor = textColor;
             DrawPopup();
         }
 
@@ -54,7 +55,6 @@ namespace BA_MobileGPS.Core.Views
             var content = new StackLayout();
             content.Spacing = 10;
             content.HorizontalOptions = LayoutOptions.CenterAndExpand;
-           // content.BackgroundColor = Color.White;
 
             var body = new Grid();
             body.RowDefinitions = new RowDefinitionCollection() { new RowDefinition() { Height = GridLength.Auto}, 
@@ -69,7 +69,6 @@ namespace BA_MobileGPS.Core.Views
             title.FontSize = 16;
             title.HorizontalOptions = LayoutOptions.Center;
             title.VerticalTextAlignment = TextAlignment.Center;
-
 
             var messenger =  new Label();            
             messenger.Text = _messenger;   

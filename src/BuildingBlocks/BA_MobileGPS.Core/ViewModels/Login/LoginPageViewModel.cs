@@ -41,8 +41,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             StaticSettings.User.Permissions = new List<int>() { 0, 1, 6, 61, 161 ,86,91,96,106};
 
-             
-
             var respose = await RequestData();
             var contentStream = await respose.Content.ReadAsStringAsync();
             var allItems = JsonConvert.DeserializeObject<List<HomeMenuItem>>(contentStream);
@@ -65,6 +63,11 @@ namespace BA_MobileGPS.Core.ViewModels
             request.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             return await request.GetAsync(url);
+        }
+
+        private void SetTabItemMenu()
+        {
+
         }
     }
 }
