@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Controls;
 using Rg.Plugins.Popup.Pages;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,19 +26,21 @@ namespace BA_MobileGPS.Core.Views
         public Color? _buttonTextColor { get; set; }
         public Action<bool> _callBack { get; set; }
         public PopupType _popupType { get; set; }
+        public Color? _textColor { get; set; }
 
-        public BasePopup(string title, string messenger, IconPosititon iconPosititon, PopupType type,
-           string noBtnText = null, string yesBtnText = null, Color? iconColor = null,
+        public BasePopup(string title, string messenger, IconPosititon iconPosititon, 
+            PopupType type, string iconSource = null,
+           string noBtnText = null, string yesBtnText = null,Color? textColor = null , Color? iconColor = null,
            Color? buttonColor = null, Color? buttonTextColor = null,
-           string iconSource = null, Action<bool> callBack = null)
+            Action<bool> callBack = null)
         {
             InitializeComponent();
             _title = title;
             _iconPositon = iconPosititon;
             _messenger = messenger;
             _iconImageSource = iconSource;
-            _noBtnText = noBtnText == null ? "Từ chối" : noBtnText;
-            _yesBtnText = yesBtnText == null? "Đồng ý" : yesBtnText;
+            _noBtnText = string.IsNullOrEmpty(noBtnText) ? "Từ chối" : noBtnText;
+            _yesBtnText = string.IsNullOrEmpty(yesBtnText) ? "Đồng ý" : yesBtnText;
             _callBack = callBack;
             _iconColor = iconColor;
             _buttonColor = buttonColor;
@@ -45,47 +48,37 @@ namespace BA_MobileGPS.Core.Views
             _popupType = type;
             DrawPopup();
         }
-        public BasePopup(View content)
-        {
-           
-            panCake.Content = content;         
-            InitializeComponent();        
-        }
 
         private void DrawPopup()
-        {
-            
+        {           
             var content = new StackLayout();
             content.Spacing = 10;
             content.HorizontalOptions = LayoutOptions.CenterAndExpand;
-            content.BackgroundColor = Color.White;
+           // content.BackgroundColor = Color.White;
 
             var body = new Grid();
             body.RowDefinitions = new RowDefinitionCollection() { new RowDefinition() { Height = GridLength.Auto}, 
                                                                   new RowDefinition() { Height = GridLength.Auto}};
             body.ColumnDefinitions = new ColumnDefinitionCollection() { new ColumnDefinition() { Width = GridLength.Auto},
                                                                   new ColumnDefinition() { Width = GridLength.Auto}};
+            body.HorizontalOptions = LayoutOptions.Center; 
 
             var title = new Label();
             title.Margin = new Thickness(0, 10, 25, 0);          
             title.Text = _title;
             title.FontSize = 16;
-            title.HorizontalOptions = LayoutOptions.CenterAndExpand;
+            title.HorizontalOptions = LayoutOptions.Center;
             title.VerticalTextAlignment = TextAlignment.Center;
 
+
             var messenger =  new Label();            
-            messenger.Text = _messenger;
-      
+            messenger.Text = _messenger;   
             messenger.FontSize = 13;
             messenger.HorizontalOptions = LayoutOptions.StartAndExpand;
-            messenger.VerticalOptions = LayoutOptions.CenterAndExpand;
-            messenger.VerticalTextAlignment = TextAlignment.Center;
+              
             messenger.LineBreakMode = LineBreakMode.WordWrap;
 
-
-            var icon = new IconView();
-          
-            icon.Margin = new Thickness(20,20,10,10);                    
+            var icon = new IconView();                                     
             icon.WidthRequest = 60;
             icon.HeightRequest = 60;
             if (!string.IsNullOrEmpty(_iconImageSource))
@@ -96,28 +89,42 @@ namespace BA_MobileGPS.Core.Views
                     icon.Foreground = (Color)_iconColor;
                 }
             }
-
+            var footer = new Grid();
             switch (_iconPositon)
             {
                 case IconPosititon.Left:
+                    icon.Margin = new Thickness(20, 30, 10, 10);
                     title.SetValue(Grid.ColumnProperty, 1);
                     messenger.SetValue(Grid.RowProperty, 1);
                     messenger.SetValue(Grid.ColumnProperty, 1);
-                    icon.SetValue(Grid.RowSpanProperty, 2);
+                    icon.SetValue(Grid.RowSpanProperty, 2);                
                     body.Children.Add(title);
                     body.Children.Add(messenger);
                     body.Children.Add(icon);
                     break;
-                case IconPosititon.Right:                   
+                case IconPosititon.Right:
+                    messenger.Text += "\n";
+                    footer.HeightRequest = 65;
                     messenger.SetValue(Grid.RowProperty, 1);
-                    icon.SetValue(Grid.ColumnProperty, 1);             
+                    messenger.Margin = new Thickness(20, 0, 0, 0);
+                    icon.Margin = new Thickness(0, 20, 20, 0);
+                    icon.HorizontalOptions = LayoutOptions.Center;
+                    icon.VerticalOptions = LayoutOptions.Center;
+                    icon.SetValue(Grid.ColumnProperty, 1);
+                    icon.SetValue(Grid.RowProperty, 0);
                     icon.SetValue(Grid.RowSpanProperty, 2);
                     body.Children.Add(title);
                     body.Children.Add(messenger);
                     body.Children.Add(icon);
                     break;
                 case IconPosititon.None:
+                    panCake.Margin = new Thickness(20, 0);
                     messenger.Margin = new Thickness(20, 0,20,0);
+                    messenger.HorizontalOptions = LayoutOptions.Center;
+                    messenger.HorizontalTextAlignment = TextAlignment.Center;
+                    title.Margin = new Thickness(0, 10, 0, 0);
+                    body.Children.Add(title);
+                    messenger.SetValue(Grid.RowProperty, 1);
                     body.Children.Add(messenger);
                     break;
                 default:
@@ -125,15 +132,18 @@ namespace BA_MobileGPS.Core.Views
             }
 
             content.Children.Add(body);
-
-            var footer = new Grid();
+           
+            footer.HorizontalOptions = LayoutOptions.CenterAndExpand;
+        
+            
             var temp = new StackLayout();
             temp.Orientation = StackOrientation.Horizontal;
             temp.HorizontalOptions = LayoutOptions.CenterAndExpand;
-            temp.Margin = new Thickness(0, 10, 0, 15);
-            temp.Spacing = 40;
+            temp.Margin = new Thickness(0, 10, 0, 15);            
+       
+            temp.Spacing = 30;
 
-            footer.HorizontalOptions = LayoutOptions.CenterAndExpand;
+          
             var btnNo = new Button();
             btnNo.CornerRadius = 5;
             btnNo.Text = _noBtnText;
@@ -148,7 +158,8 @@ namespace BA_MobileGPS.Core.Views
             btnYes.CornerRadius = 5;
             btnYes.Text = _yesBtnText;
             btnYes.BackgroundColor = _buttonColor == null ? Color.Default : (Color)_buttonColor;
-            btnYes.TextColor = _buttonTextColor == null ? Color.Black : (Color)_buttonColor;
+            btnYes.TextColor = _buttonTextColor == null ? Color.Black : (Color)_buttonTextColor;
+         
             btnYes.Padding = 0;
             btnYes.HeightRequest = 25;
             btnYes.FontSize = 13;
@@ -176,11 +187,13 @@ namespace BA_MobileGPS.Core.Views
         private void BtnYes_Clicked(object sender, EventArgs e)
         {
             _callBack?.Invoke(true);
+            PopupNavigation.Instance.PopAsync();
         }
 
         private void BtnNo_Clicked(object sender, EventArgs e)
         {
             _callBack?.Invoke(false);
+            PopupNavigation.Instance.PopAsync();
         }
     }
 

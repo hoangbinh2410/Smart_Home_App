@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.DependencyServices;
+using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Styles;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Core.Views;
@@ -20,8 +21,10 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class HomePageViewModel : ViewModelBase
     {
-        public HomePageViewModel(INavigationService navigationService) : base(navigationService)
+        private readonly IPopupServices _popupServices;
+        public HomePageViewModel(INavigationService navigationService,IPopupServices popupServices) : base(navigationService)
         {
+            _popupServices = popupServices;
             _listfeatures = new ObservableCollection<ItemSupport>();
             FavouriteMenuItems = new ObservableCollection<HomeMenuItem>();
             FavouriteItemsTappedCommand = new DelegateCommand<object>(FavouriteItemsTapped);
@@ -45,14 +48,23 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private void HotLineTap()
-        {
-            PopupNavigation.Instance.PushAsync(new BasePopup("Chú ý",
-                            "gps.basatmobil( 2321): NativeAlloc concurrent copying GC freed 291(65KB) AllocSpace", 
-                            IconPosititon.Left, PopupType.YesNo, null, null, Color.Red, Color.Red, Color.White, "voyage_MenuIcon.png",
-                            callBack: (a) =>
-                            {
+        {          
+            _popupServices.ShowNotificatonPopup("Thông báo", "Cần cập nhật phiên bản mới.....");
+            _popupServices.ShowNotificationIconPopup("Xác nhận", "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults",
+    "vehicle_MenuIcon.png", Color.Green, IconPosititon.Left);
+            _popupServices.ShowNotificationIconPopup("Xác nhận", "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults",
+"vehicle_MenuIcon.png", Color.Green, IconPosititon.Right);
+            _popupServices.ShowErrorPopup("Xác nhận", "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults");
+            _popupServices.ShowErrorIconPopup("Xác nhận", "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults",
+    "vehicle_MenuIcon.png", Color.Green, IconPosititon.Left);
+            _popupServices.ShowErrorIconPopup("Xác nhận", "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults",
+    "vehicle_MenuIcon.png", Color.Green, IconPosititon.Right);
+            _popupServices.ShowConfirmIconPopup("Xác nhận", "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults",
+                "vehicle_MenuIcon.png", Color.Green,IconPosititon.Left);
+            _popupServices.ShowConfirmIconPopup("Xác nhận", "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults",
+               "vehicle_MenuIcon.png", Color.Green, IconPosititon.Right);
+            _popupServices.ShowConfirmPopup("Xác nhận", "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults");
 
-                            }));
         }
 
         private ObservableCollection<HomeMenuItem> _favouriteMenuItems;

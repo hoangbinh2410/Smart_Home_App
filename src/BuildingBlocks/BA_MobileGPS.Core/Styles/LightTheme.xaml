@@ -49,5 +49,14 @@
     <Color x:Key="BackgoundFavouriteGradientStartColor">White</Color>
     <Color x:Key="BackgoundFavouriteGradientEndColor">White</Color>
 
+    <Color x:Key="ErorrPopupTextColor">Red</Color>
+    <Color x:Key="ErorrPopupButtonTextColor">White</Color>
+    <Color x:Key="ErorrPopupButtonBackgroundColor">Red</Color>
+
+    <Color x:Key="PopupYesBtnTextColor">White</Color>
+    <Color x:Key="PopupYesBtnBackgroundColor">#00709A</Color>
+
+
+
 
 </ResourceDictionary>
