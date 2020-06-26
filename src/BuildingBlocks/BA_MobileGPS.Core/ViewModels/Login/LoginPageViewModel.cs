@@ -27,7 +27,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private async void Login()
         {
             await SetUserPermisisonData();
-            await NavigationService.NavigateAsync("MainPage");
+            _ = NavigationService.NavigateAsync("MainPage");
            
         }
 
@@ -46,8 +46,8 @@ namespace BA_MobileGPS.Core.ViewModels
             var allItems = JsonConvert.DeserializeObject<List<HomeMenuItem>>(contentStream);
             var permisisons = UserInfo.Permissions.Distinct();
 
-            StaticSettings.ListMenu = allItems.Where(x => permisisons.Contains(x.PermissionViewID) && x.MenuItemParentID != 0).ToList();
-            foreach (var item in StaticSettings.ListMenu)
+            StaticSettings.ListMenuOriginGroup = allItems.Where(x => permisisons.Contains(x.PermissionViewID) && x.MenuItemParentID != 0).ToList();
+            foreach (var item in StaticSettings.ListMenuOriginGroup)
             {
                 item.IconMobile = "http://api.bagroup.vn" + item.IconMobile;
             }
@@ -58,16 +58,13 @@ namespace BA_MobileGPS.Core.ViewModels
         {
            
             var url = "http://api.bagroup.vn/api/v2/menu/getmenubyculture?culture=vi-vn&appID=0";
-            var token = "Wk5-AKQMk0P2TRZ8wcJn9WaZ8I_NLg_-9Np-8eu4EZiKwr6-1YcEM07Ap5zb9i0YJKXXqhoL8CmMu8D4EATLxyoVDX01vwzGC4USxQk7CZI0PNJ99qtSmXGuvVF6Diq-VF_7yHNOzdO9N7pffgVBj0UGYYGLuR1if-jy2Y4A48ATur3VnhV9_RvAxIoxyZI7anM6Vplo_P-2UfBUr58C24O2aWgMtTdAPj83NLwSk9DuG701epr9xVcRjrMc7WKOqMDAYDl0NQUUaiFyKrNYCSH97U3gmdRzZH0IEQDgJ2v5BBFX7nIxpMFgvOUCP5uEMFcdrfyrYX-w-tJv_YZE9m2QpSjS2JRmQozwAezIXGzNhPDjzp53iYCe4cV6yJLrBCwzRwkUygkAFCf9DF7TVb09aOCElp0if3fWg89ZY2KQUmp78YlWFPvPzjXIbpjWuuJ7vXP7_3F_quvBThM96mIpBmhd0_JQvDAb3MRMUmddLjpmhvQH7WhsTSHlFj4bzuHeS1MZjRUFlIvEG0tZ5R-4L2EzHww2cGJ5Mj8df-cX47scPJlHPtt4B1MTI3wreqzhOD2wuP2rVtNX1d3Nj4S8bjQ0TeUfH5ccrlHnzVRfeDlmDe6ko3o2CAA6oVOLObcVci75VRzLUBLn4k8kGg";
+            var token = "OXomymO1njVtj0nl6lipx7jDENcy-EZdFxmq6ykmh4mgVOD0p-xm_3RDq1wd7oIbcaHO9w1GCr1vC-v2qwxef7-RZY7z9TYZ4ZYR7FVMLdc09l56W3L0CyF2_g7oZnUYw06yJKGyK-1oBgqzCaihKCU9OW0wY8wvduA4jHrAh27yS1nyIJiaDcOM5s0P8XowqSlKQ_ulecgTg7F01-JkWuXwD4bJd-DWQgDTMCPxQx_gNy1vqld5BksdWblKDD88JTpxggnND52AGvu6S5b8gVLOWnYymOxaJ9tB_pUmd4GPJHqbQY4cqFDgXiNAKlHTBqe1rDqGKupVo4uMg3fTkyi1EsAyNflf9wZka6c78ZYziPTOYeF6U6Cs6eTo2Ly_Qr6LFq-JRJ6pEum_SJkx_1m889TOQXzsCwKUAfaY-KDby9wX9Mrn7gbstBFj8Ce4uvDLv6jynky98m27eaAcOtxvhdpW9We8T4EIMnzDkeQT7QvaIwtEGvet8b8eRNegLKx5KK3tUGvAsWB5NpdtWA9MeZ0YkZyeFXJDAanpjAEd4GF6Xdi9eq8L0EIADMrSbS2nBdQCIcpr4rDJfpIdWQwk5CDGZOjCvogRH_xD1KKuK7vxkc5IG19AcK09bynB0ueWTtAmQK_MaHqAdI7Veg";
             var request = new HttpClient();
             request.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             return await request.GetAsync(url);
         }
 
-        private void SetTabItemMenu()
-        {
 
-        }
     }
 }

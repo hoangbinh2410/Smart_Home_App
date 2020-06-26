@@ -12,6 +12,7 @@
 	<ItemGroup>
 		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.3" />
 		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.1.0.57" />
+		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.1.0.57" />
 		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.1.0.57" />
 		<PackageReference Include="Xamarin.Forms" Version="4.7.0.968" />
 		<PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
@@ -95,6 +96,9 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\MainPage\MainPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\MainPage\Monitoring\DetailVehiclePopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\MainPage\Monitoring\MornitoringPage.xaml">

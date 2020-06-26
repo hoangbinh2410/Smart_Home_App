@@ -8,10 +8,10 @@ namespace BA_MobileGPS.Entities
         public static LoginResponse User { get; set; }
 
         public static string Token { get; set; }
-
+        //Bottom TabItem in main page except home & account tab
         public static List<HomeMenuItem> ListMenu { get; set; } = new List<HomeMenuItem>();
 
-        // Lưu menu khi đc trả về từ api
+        // Lưu menu khi đc trả về từ api và lọc qua permisison
         public static List<HomeMenuItem> ListMenuOriginGroup { get; set; } = new List<HomeMenuItem>();
 
         public static List<VehicleOnline> ListVehilceOnline { get; set; }

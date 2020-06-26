@@ -170,23 +170,15 @@
         #endregion Feedback
 
         #region Menu
-        Menu_Label_Home,
-        Menu_Label_About,
-        Menu_Label_Settings,
-        Menu_Label_Feedback,
-        Menu_Label_ChangePassword,
-        Menu_Label_Help,
-        Menu_Label_Share,
-        Menu_Label_Rating,
-        Menu_Label_Upgrade,
-        Menu_Label_Logout,
-        Menu_Label_Log,
-        Menu_Label_MessageWarningLogout,
         Menu_Label_Favorite,
-        Menu_Label_Report,
-        Menu_Lable_Message,
-        Menu_Label_Version,
-        Menu_Label_Notification,
+
+
+        Menu_TabItem_Home,
+        Menu_TabItem_Vehicle,
+        Menu_TabItem_Monitoring,
+        Menu_TabItem_Voyage,
+        Menu_TabItem_Account,
+
         #endregion Menu
 
         #region favorites

@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.DependencyServices;
 using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Core.Styles;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Core.Views;
@@ -41,10 +42,17 @@ namespace BA_MobileGPS.Core.ViewModels
         private void ItemsTapped(object obj)
         {
             var item = (HomeMenuItem)((Syncfusion.ListView.XForms.ItemTappedEventArgs)obj).ItemData;
+            if (StaticSettings.ListMenu.Contains(item))
+            {
+                _eventAggregator.GetEvent<TabItemSwitchEvent>().Publish(item);
+            }
+            else
+            {
+                //Navigation services
+            }
+          
 
-            _eventAggregator.GetEvent<TabItemSwitchEvent>().Publish(item.PK_MenuItemID);
             
-           
         }
 
         private void HotLineTap()
@@ -106,8 +114,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GenerateMenu()
         {
-            GenerateFavourites(StaticSettings.ListMenu);
-            GenerateListFeatures(StaticSettings.ListMenu);
+            GenerateFavourites(StaticSettings.ListMenuOriginGroup);
+            GenerateListFeatures(StaticSettings.ListMenuOriginGroup);
         }
 
         private void GenerateFavourites(List<HomeMenuItem> input)
@@ -133,7 +141,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void OpenDiscoreryBox()
         {
-            PopupNavigation.Instance.PushAsync(new DiscoveryPopup(StaticSettings.ListMenu));
+            PopupNavigation.Instance.PushAsync(new DiscoveryPopup(StaticSettings.ListMenuOriginGroup));
         }
     }
 

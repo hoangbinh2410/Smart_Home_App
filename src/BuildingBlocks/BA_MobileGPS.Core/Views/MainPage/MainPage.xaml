@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:local="clr-namespace:BA_MobileGPS.Core.Views"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
@@ -67,20 +68,20 @@
                     ShadowType="Top"
                     TabType="Fixed">
                     <tabs:TabHostView.Tabs>
-                        <tabs:BottomTabItem IconImageSource="home_MenuIcon.png" Label="Trang chủ" />
+                        <tabs:BottomTabItem IconImageSource="home_MenuIcon.png" Label="{i18n:TranslateResource Menu_TabItem_Home}" />
                         <tabs:BottomTabItem
                             IconImageSource="vehicle_MenuIcon.png"
                             IsVisible="False"
-                            Label="Phương tiện" />
+                            Label="{i18n:TranslateResource Menu_TabItem_Vehicle}" />
                         <tabs:BottomTabItem
                             IconImageSource="monitoring_MenuIcon.png"
                             IsVisible="False"
-                            Label="Giám sát" />
+                            Label="{i18n:TranslateResource Menu_TabItem_Monitoring}" />
                         <tabs:BottomTabItem
                             IconImageSource="voyage_MenuIcon.png"
                             IsVisible="False"
-                            Label="Hải trình" />
-                        <tabs:BottomTabItem IconImageSource="account_MenuIcon.png" Label="Tài khoản" />
+                            Label="{i18n:TranslateResource Menu_TabItem_Voyage}" />
+                        <tabs:BottomTabItem IconImageSource="account_MenuIcon.png" Label="{i18n:TranslateResource Menu_TabItem_Account}" />
                     </tabs:TabHostView.Tabs>
                 </tabs:TabHostView>
             </Grid>

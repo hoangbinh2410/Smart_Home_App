@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.ViewModels.Base;
+using BA_MobileGPS.Core.Views;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -12,16 +13,13 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
-        private readonly IEventAggregator _eventAggregator;
-        public MainPageViewModel(INavigationService navigationService,IEventAggregator eventAggregator) : base(navigationService)
+
+        public MainPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-            _eventAggregator = eventAggregator;
-            _eventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
+ 
+           
         }
 
-        private void TabItemSwitch(int obj)
-        {
 
-        }
     }
 }
