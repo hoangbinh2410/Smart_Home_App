@@ -9,7 +9,9 @@
     <Color x:Key="PrimaryLightColor">#89DFFF</Color>
     <Color x:Key="PrimaryDarkColor">#00709A</Color>
 
-    <Color x:Key="PurpleColor">#4A7AFF</Color>
+    <Color x:Key="FirstOtherColor">#4A7AFF</Color>
+    <Color x:Key="SecondOtherColor">White</Color>
+    <Color x:Key="TopIconForeground">White</Color>
 
     <Color x:Key="HyperLink">#567cd7</Color>
     <Color x:Key="FacebookBlue">#4267B2</Color>
@@ -36,8 +38,6 @@
 
     <Color x:Key="TabItemSelectedColor">#00ADEF</Color>
     <Color x:Key="TabItemUnSelectedColor">#787878</Color>
-
-
     <!--  30x30  -->
     <x:Double x:Key="TabItemNormalSize">30</x:Double>
     <!--  40x40  -->
@@ -48,5 +48,12 @@
     <Color x:Key="BackgoundFavouriteColor">White</Color>
     <Color x:Key="BackgoundFavouriteGradientStartColor">White</Color>
     <Color x:Key="BackgoundFavouriteGradientEndColor">Black</Color>
+
+    <Color x:Key="ErorrPopupTextColor">Red</Color>
+    <Color x:Key="ErorrPopupButtonTextColor">White</Color>
+    <Color x:Key="ErorrPopupButtonBackgroundColor">Red</Color>
+
+    <Color x:Key="PopupYesBtnTextColor">#00709A</Color>
+    <Color x:Key="PopupYesBtnBackgroundColor">#da4453</Color>
 
 </ResourceDictionary>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RgPopup:PopupPage
+    x:Class="BA_MobileGPS.Core.Views.DetailVehiclePopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:RgPopup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:animation="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    BackgroundColor="Transparent"
+    BackgroundInputTransparent="True"
+    CloseWhenBackgroundIsClicked="True"
+    mc:Ignorable="d">
+    <RgPopup:PopupPage.Animation>
+        <animation:MoveAnimation
+            DurationIn="400"
+            DurationOut="400"
+            PositionIn="Bottom"
+            PositionOut="Bottom" />
+    </RgPopup:PopupPage.Animation>
+    <RgPopup:PopupPage.Content>
+        <pancake:PancakeView
+            BackgroundColor="White"
+            CornerRadius="20,20,0,0"
+            HeightRequest="300"
+            VerticalOptions="EndAndExpand">
+            <Label
+                HorizontalOptions="CenterAndExpand"
+                Text="Welcome to Xamarin.Forms!"
+                VerticalOptions="CenterAndExpand" />
+        </pancake:PancakeView>
+    </RgPopup:PopupPage.Content>
+</RgPopup:PopupPage>
