@@ -10,14 +10,18 @@ namespace BA_MobileGPS.Core
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (true)
+            {
+
+            }
             if (value == null)
             {
-                return (Color)Application.Current.Resources["TabItemUnSelectedColor"];
+                return (Color)Application.Current.Resources["DarkTabItemUnSelectedColor"];
             }
             if ((bool)value)
-                return (Color)Application.Current.Resources["TabItemSelectedColor"];
+                return (Color)Application.Current.Resources["DarkTabItemSelectedColor"];
             else
-                return (Color)Application.Current.Resources["TabItemUnSelectedColor"];
+                return (Color)Application.Current.Resources["DarkTabItemUnSelectedColor"];
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -32,12 +36,12 @@ namespace BA_MobileGPS.Core
         {
             if (value == null)
             {
-                return (double)Application.Current.Resources["TabItemNormalSize"];
+                return (double)Application.Current.Resources["DarkTabItemNormalSize"];
             }
             if ((bool)value)
-                return (double)Application.Current.Resources["TabItemClickedSize"];
+                return (double)Application.Current.Resources["DarkTabItemClickedSize"];
             else
-                return (double)Application.Current.Resources["TabItemNormalSize"];
+                return (double)Application.Current.Resources["DarkTabItemNormalSize"];
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

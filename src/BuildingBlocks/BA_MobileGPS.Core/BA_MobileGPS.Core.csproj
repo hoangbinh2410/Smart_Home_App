@@ -62,13 +62,7 @@
 	  <EmbeddedResource Update="Styles\Converters.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Styles\DarkTheme.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
 	  <EmbeddedResource Update="Styles\Fonts.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Styles\LightTheme.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Styles\Styles.xaml">

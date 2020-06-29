@@ -1,12 +1,9 @@
 ﻿using BA_MobileGPS.Core.DependencyServices;
 using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Interfaces;
-using BA_MobileGPS.Core.Resource;
-using BA_MobileGPS.Core.Styles;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Utilities.Enums;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Ioc;
@@ -72,15 +69,23 @@ namespace BA_MobileGPS.Core.ViewModels
         private void HobbiesIconTap()
         {
             var themeService = Prism.PrismApplicationBase.Current.Container.Resolve<IThemeService>();
-
-            var mergedDictionaries = Application.Current.Resources.MergedDictionaries;
-            var dark = mergedDictionaries.FirstOrDefault(x => x.GetType() == new DarkTheme().GetType());
-
-            if (dark == null)
+            switch (Application.Current.UserAppTheme)
             {
-                themeService.UpdateTheme(ThemeMode.Dark);
-            }
-            else themeService.UpdateTheme(ThemeMode.Light);
+                case OSAppTheme.Unspecified:
+                    themeService.UpdateTheme(OSAppTheme.Dark);
+                    _popupServices.ShowNotificatonPopup("Thông báo", "Dark Mode");
+                    break;
+                case OSAppTheme.Light:
+                    themeService.UpdateTheme(OSAppTheme.Unspecified);
+                    _popupServices.ShowNotificatonPopup("Thông báo", "Theo thiết bị");
+                    break;
+                case OSAppTheme.Dark:
+                    themeService.UpdateTheme(OSAppTheme.Light);
+                    _popupServices.ShowNotificatonPopup("Thông báo", "Light Mode");
+                    break;
+                default:
+                    break;
+            }          
         }
 
         private ObservableCollection<HomeMenuItem> _favouriteMenuItems;

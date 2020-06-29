@@ -17,7 +17,8 @@
         </Grid.RowDefinitions>
         <Grid
             Padding="15,5"
-            BackgroundColor="{DynamicResource FirstOtherColor}"
+            BackgroundColor="{AppThemeBinding Light={StaticResource LightFirstOtherColor},
+                                              Dark={StaticResource DarkFirstOtherColor}}"
             HeightRequest="100">
             <StackLayout
                 HeightRequest="35"
@@ -59,7 +60,24 @@
         <cluster:Map
             x:Name="googleMap"
             Grid.Row="1"
-            MapType="Hybrid" />
+            MapType="Hybrid">
+            <cluster:Map.Triggers>
+                <DataTrigger
+                    Binding="{Binding Source={x:Reference botGroup}, Path=Margin}"
+                    TargetType="cluster:Map"
+                    Value="15,30,15,130">
+                    <Setter Property="Margin" Value="0,0,0,110" />
+                    <!--  multiple Setters elements are allowed  -->
+                </DataTrigger>
+                <DataTrigger
+                    Binding="{Binding Source={x:Reference botGroup}, Path=Margin}"
+                    TargetType="cluster:Map"
+                    Value="15,30">
+                    <Setter Property="Margin" Value="0" />
+                    <!--  multiple Setters elements are allowed  -->
+                </DataTrigger>
+            </cluster:Map.Triggers>
+        </cluster:Map>
         <!--  Khung search bar phía trên  -->
         <Grid
             Grid.Row="1"
@@ -71,19 +89,22 @@
             VerticalOptions="StartAndExpand">
             <pancake:PancakeView
                 Padding="0"
-                BackgroundColor="{DynamicResource SecondOtherColor}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
+                                                  Dark={StaticResource DarkSecondOtherColor}}"
                 CornerRadius="22">
                 <StackLayout
                     Padding="0"
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal">
                     <pancake:PancakeView
-                        BackgroundColor="{DynamicResource FirstOtherColor}"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightFirstOtherColor},
+                                                          Dark={StaticResource DarkFirstOtherColor}}"
                         CornerRadius="22"
                         WidthRequest="45">
                         <controls:IconView
                             Margin="10"
-                            Foreground="{DynamicResource SecondOtherColor}"
+                            Foreground="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
+                                                         Dark={StaticResource DarkSecondOtherColor}}"
                             Source="ic_search.png" />
                     </pancake:PancakeView>
                     <Entry
@@ -99,62 +120,73 @@
             <pancake:PancakeView
                 Grid.Column="1"
                 Padding="0"
-                BackgroundColor="{DynamicResource SecondOtherColor}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
+                                                  Dark={StaticResource DarkSecondOtherColor}}"
                 CornerRadius="22"
                 WidthRequest="45">
                 <controls:IconView
                     Margin="2,0,0,10"
-                    Foreground="{DynamicResource FirstOtherColor}"
+                    Foreground="{AppThemeBinding Light={StaticResource LightFirstOtherColor},
+                                                 Dark={StaticResource DarkFirstOtherColor}}"
                     Source="ic_doubleship.png"
                     VerticalOptions="Center" />
             </pancake:PancakeView>
             <pancake:PancakeView
                 Grid.Column="2"
-                BackgroundColor="{DynamicResource SecondOtherColor}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
+                                                  Dark={StaticResource DarkSecondOtherColor}}"
                 CornerRadius="22"
                 WidthRequest="45">
                 <controls:IconView
                     Margin="8"
-                    Foreground="{DynamicResource FirstOtherColor}"
+                    Foreground="{AppThemeBinding Light={StaticResource LightFirstOtherColor},
+                                                 Dark={StaticResource DarkFirstOtherColor}}"
                     Source="ic_list.png" />
             </pancake:PancakeView>
         </Grid>
         <!--  Nhóm button góc dưới  -->
         <StackLayout
+            x:Name="botGroup"
             Grid.Row="1"
             Margin="{Binding BottomGroupMargin}"
             HorizontalOptions="EndAndExpand"
             VerticalOptions="End">
             <pancake:PancakeView
-                BackgroundColor="{DynamicResource SecondOtherColor}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
+                                                  Dark={StaticResource DarkSecondOtherColor}}"
                 CornerRadius="25"
                 HeightRequest="50"
                 WidthRequest="50">
                 <controls:IconView
                     Margin="5"
-                    Foreground="{DynamicResource FirstOtherColor}"
+                    Foreground="{AppThemeBinding Light={StaticResource LightFirstOtherColor},
+                                                 Dark={StaticResource DarkFirstOtherColor}}"
                     Source="ic_vector.png" />
             </pancake:PancakeView>
             <pancake:PancakeView
                 Padding="0"
-                BackgroundColor="{DynamicResource SecondOtherColor}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
+                                                  Dark={StaticResource DarkSecondOtherColor}}"
                 CornerRadius="25"
                 HeightRequest="50"
                 WidthRequest="50">
                 <controls:IconView
                     Margin="8"
-                    Foreground="{DynamicResource FirstOtherColor}"
+                    Foreground="{AppThemeBinding Light={StaticResource LightFirstOtherColor},
+                                                 Dark={StaticResource DarkFirstOtherColor}}"
                     HeightRequest="10"
                     Source="ic_group.png" />
             </pancake:PancakeView>
             <pancake:PancakeView
-                BackgroundColor="{DynamicResource FirstOtherColor}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightFirstOtherColor},
+                                                  Dark={StaticResource DarkFirstOtherColor}}"
                 CornerRadius="25"
                 HeightRequest="50"
                 WidthRequest="50">
                 <controls:IconView
                     Margin="10"
-                    Foreground="{DynamicResource SecondOtherColor}"
+                    Foreground="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
+                                                 Dark={StaticResource DarkSecondOtherColor}}"
                     Source="ic_rectange.png" />
             </pancake:PancakeView>
         </StackLayout>

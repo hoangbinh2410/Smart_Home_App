@@ -14,8 +14,8 @@
     mc:Ignorable="d">
     <RgPopup:PopupPage.Animation>
         <animation:MoveAnimation
-            DurationIn="400"
-            DurationOut="400"
+            DurationIn="50"
+            DurationOut="50"
             PositionIn="Bottom"
             PositionOut="Bottom" />
     </RgPopup:PopupPage.Animation>

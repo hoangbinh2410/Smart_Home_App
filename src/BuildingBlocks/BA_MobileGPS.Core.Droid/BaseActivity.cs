@@ -61,42 +61,20 @@ namespace BA_MobileGPS.Core.Droid
 
         protected override void OnStart()
         {
-            base.OnStart();
-            UpdateTheme(Resources.Configuration);
+            base.OnStart();          
         }
 
         protected override void OnResume()
         {
-            base.OnResume();
-            UpdateTheme(Resources.Configuration);
+            base.OnResume();          
         }
 
         public override void OnConfigurationChanged(Android.Content.Res.Configuration newConfig)
         {
             base.OnConfigurationChanged(newConfig);
-            UpdateTheme(newConfig);
+           
         }
 
-        private void UpdateTheme(Configuration newConfig)
-        {
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.Froyo)
-            {
-                var themeService = Prism.PrismApplicationBase.Current.Container.Resolve<IThemeService>();
-                var uiModeFlags = newConfig.UiMode & UiMode.NightMask;
-                switch (uiModeFlags)
-                {
-                    case UiMode.NightYes:
-                        themeService.UpdateTheme(ThemeMode.Dark);
-                        break;
-
-                    case UiMode.NightNo:
-                        themeService.UpdateTheme(ThemeMode.Light);
-                        break;
-
-                    default:
-                        throw new NotSupportedException($"UiMode {uiModeFlags} not supported");
-                }
-            }
-        }
+      
     }
 }

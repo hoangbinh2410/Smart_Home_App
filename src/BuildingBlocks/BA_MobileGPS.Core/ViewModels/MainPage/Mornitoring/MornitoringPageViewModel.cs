@@ -35,6 +35,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             PopupNavigation.Instance.PushAsync(new DetailVehiclePopup());
             BottomGroupMargin = new Thickness(15, 30,15,130);
+
         }
 
         public ICommand HotlineTapCommand { get; }
@@ -46,10 +47,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
-
+  
         private void DetailVehiclePopupClose()
         {
-            BottomGroupMargin = new Thickness(15, 30);
+     
+                BottomGroupMargin = new Thickness(15, 30);
+        
         }
 
     }

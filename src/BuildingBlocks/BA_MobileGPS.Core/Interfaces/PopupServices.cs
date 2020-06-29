@@ -8,12 +8,12 @@ namespace BA_MobileGPS.Core.Interfaces
 {
     public class PopupServices : IPopupServices
     {
-        Color errorTextColor = (Color)Application.Current.Resources["ErorrPopupTextColor"];
-        Color errorBtnTextColor = (Color)Application.Current.Resources["ErorrPopupButtonTextColor"];
-        Color errorBtnColor = (Color)Application.Current.Resources["ErorrPopupButtonBackgroundColor"];
+        Color errorTextColor = (Color)Application.Current.Resources["DarkErorrPopupTextColor"];
+        Color errorBtnTextColor = (Color)Application.Current.Resources["DarkErorrPopupButtonTextColor"];
+        Color errorBtnColor = (Color)Application.Current.Resources["DarkErorrPopupButtonBackgroundColor"];
 
-        Color yesBtnTextColor = (Color)Application.Current.Resources["PopupYesBtnTextColor"];
-        Color yesBtnBackgroundColor = (Color)Application.Current.Resources["PopupYesBtnBackgroundColor"];
+        Color yesBtnTextColor = (Color)Application.Current.Resources["DarkPopupYesBtnTextColor"];
+        Color yesBtnBackgroundColor = (Color)Application.Current.Resources["DarkPopupYesBtnBackgroundColor"];
 
         public async Task ShowConfirmIconPopup(string title, string content, string iconImageSource, Color iconColor, IconPosititon iconPosititon, Action<bool> callback = null)
         {

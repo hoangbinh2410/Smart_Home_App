@@ -6,6 +6,7 @@ using Prism;
 using Prism.Events;
 using Prism.Ioc;
 using Prism.Unity;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -44,14 +45,12 @@ namespace BA_MobileGPS.Core
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             BA_MobileGPSSetup.RegisterServices(containerRegistry);
-            BA_MobileGPSSetup.RegisterPages(containerRegistry);
-
-            var _themeService = Current.Container.Resolve<IThemeService>();
-            _themeService.UpdateTheme();
+            BA_MobileGPSSetup.RegisterPages(containerRegistry);    
         }
 
         protected override void OnStart()
         {
+            Resources.MergedDictionaries.Add(new Styles.Styles());
             base.OnStart();
         }
 

@@ -23,7 +23,9 @@ namespace VMS_MobileGPS
 
         protected async override void OnInitialized()
         {
-            Resources.MergedDictionaries.Add(new Colors());
+            Resources.MergedDictionaries.Add(new DarkColor());
+            Resources.MergedDictionaries.Add(new LightColor());
+            Resources.MergedDictionaries.Add(new VMS_Styles());
 
             base.OnInitialized();
 
