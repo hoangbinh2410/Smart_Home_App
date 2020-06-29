@@ -3,15 +3,33 @@
     x:Class="BA_MobileGPS.Core.Views.LoginPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
-    <Button 
-        BackgroundColor="Beige"
-        Command="{Binding LoginCommand}"
-        FontSize="20"
-        HeightRequest="200"
-        HorizontalOptions="CenterAndExpand"
-        Text="Login to home"
-        VerticalOptions="CenterAndExpand" />
+
+    <Grid>
+        <ff:CachedImage Aspect="AspectFill" Source="bg_login.png" />
+        <Grid
+            BackgroundColor="#E4859B"
+            HorizontalOptions="Fill"
+            Opacity="0.3"
+            VerticalOptions="Fill" />
+        <StackLayout Padding="30,20">
+            <!--<ff:CachedImage Aspect="AspectFill" Source="bg_login.png" />-->
+            <Button
+                Margin="30,0"
+                BackgroundColor="Beige"
+                Command="{Binding LoginCommand}"
+                CornerRadius="40"
+                FontSize="14"
+                HeightRequest="40"
+                HorizontalOptions="FillAndExpand"
+                Text="Đăng nhập" />
+            <CheckBox Color="White" />
+            <buttons:SfCheckBox CheckedColor="Transparent" TickColor="Red" />
+        </StackLayout>
+    </Grid>
+
 
 </ContentPage>

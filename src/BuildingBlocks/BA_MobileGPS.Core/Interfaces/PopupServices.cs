@@ -8,12 +8,31 @@ namespace BA_MobileGPS.Core.Interfaces
 {
     public class PopupServices : IPopupServices
     {
-        Color errorTextColor = (Color)Application.Current.Resources["DarkErorrPopupTextColor"];
-        Color errorBtnTextColor = (Color)Application.Current.Resources["DarkErorrPopupButtonTextColor"];
-        Color errorBtnColor = (Color)Application.Current.Resources["DarkErorrPopupButtonBackgroundColor"];
-
-        Color yesBtnTextColor = (Color)Application.Current.Resources["DarkPopupYesBtnTextColor"];
-        Color yesBtnBackgroundColor = (Color)Application.Current.Resources["DarkPopupYesBtnBackgroundColor"];
+        Color errorTextColor;
+        Color errorBtnTextColor;
+        Color errorBtnColor;
+        Color yesBtnTextColor;
+        Color yesBtnBackgroundColor;
+        public PopupServices()
+        {
+            if (Application.Current.RequestedTheme == OSAppTheme.Light || Application.Current.RequestedTheme == OSAppTheme.Unspecified)
+            {
+                errorTextColor = (Color)Application.Current.Resources["LightErorrPopupTextColor"];
+                errorBtnTextColor = (Color)Application.Current.Resources["LightErorrPopupButtonTextColor"];
+                errorBtnColor = (Color)Application.Current.Resources["LightErorrPopupButtonBackgroundColor"];
+                yesBtnTextColor = (Color)Application.Current.Resources["LightPopupYesBtnTextColor"];
+                yesBtnBackgroundColor = (Color)Application.Current.Resources["LightPopupYesBtnBackgroundColor"];
+            }
+            else
+            {
+                errorTextColor = (Color)Application.Current.Resources["DarkErorrPopupTextColor"];
+                errorBtnTextColor = (Color)Application.Current.Resources["DarkErorrPopupButtonTextColor"];
+                errorBtnColor = (Color)Application.Current.Resources["DarkErorrPopupButtonBackgroundColor"];
+                yesBtnTextColor = (Color)Application.Current.Resources["DarkPopupYesBtnTextColor"];
+                yesBtnBackgroundColor = (Color)Application.Current.Resources["DarkPopupYesBtnBackgroundColor"];
+            }
+        }
+       
 
         public async Task ShowConfirmIconPopup(string title, string content, string iconImageSource, Color iconColor, IconPosititon iconPosititon, Action<bool> callback = null)
         {

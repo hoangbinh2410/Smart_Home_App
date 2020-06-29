@@ -621,5 +621,8 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_group.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_login.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
