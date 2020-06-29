@@ -7,10 +7,8 @@
     xmlns:cluster="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effect="clr-namespace:BA_MobileGPS.Core.Effects"
-    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
-    xmlns:sfPopup="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
     prism:ViewModelLocator.AutowireViewModel="True">
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
@@ -33,7 +31,6 @@
                         <TapGestureRecognizer Command="{Binding HotlineTapCommand}" NumberOfTapsRequired="1" />
                     </controls:IconView.GestureRecognizers>
                 </controls:IconView>
-
             </StackLayout>
             <StackLayout
                 HeightRequest="35"
@@ -63,7 +60,7 @@
             x:Name="googleMap"
             Grid.Row="1"
             MapType="Hybrid" />
-
+        <!--  Khung search bar phía trên  -->
         <Grid
             Grid.Row="1"
             Margin="10"
@@ -122,9 +119,10 @@
                     Source="ic_list.png" />
             </pancake:PancakeView>
         </Grid>
+        <!--  Nhóm button góc dưới  -->
         <StackLayout
             Grid.Row="1"
-            Margin="15,30"
+            Margin="{Binding BottomGroupMargin}"
             HorizontalOptions="EndAndExpand"
             VerticalOptions="End">
             <pancake:PancakeView
@@ -160,35 +158,5 @@
                     Source="ic_rectange.png" />
             </pancake:PancakeView>
         </StackLayout>
-
-        <sfPopup:SfPopupLayout
-            x:Name="popmenu"
-            ShowOverlayAlways="False"
-            IsOpen="{Binding OpenPopup}"
-            StaysOpen="True">
-            <sfPopup:SfPopupLayout.PopupView>
-                <sfPopup:PopupView
-                    AnimationDuration="300"
-                    AnimationMode="SlideOnBottom"
-                    BackgroundColor="White"
-                    FooterHeight="0"
-                    HeaderHeight="0"
-                    HeightRequest="230"
-                    HorizontalOptions="FillAndExpand"
-                    IsFullScreen="False"
-                    ShowFooter="False"
-                    VerticalOptions="End">
-                    <sfPopup:PopupView.PopupStyle>
-                        <sfPopup:PopupStyle OverlayColor="Transparent" OverlayOpacity="0" />
-                    </sfPopup:PopupView.PopupStyle>
-                    <sfPopup:PopupView.ContentTemplate>
-                        <DataTemplate>
-                            <Label Text="aaaaa" />
-                        </DataTemplate>
-                    </sfPopup:PopupView.ContentTemplate>
-                </sfPopup:PopupView>
-            </sfPopup:SfPopupLayout.PopupView>
-        </sfPopup:SfPopupLayout>
-
     </Grid>
 </ScrollView>

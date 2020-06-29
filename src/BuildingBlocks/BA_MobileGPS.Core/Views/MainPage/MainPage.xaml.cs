@@ -25,6 +25,7 @@ namespace BA_MobileGPS.Core.Views
             TabHost.SelectedIndex = 0;
             var _eventAggregator = Prism.PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             _eventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
+         
         }
 
     

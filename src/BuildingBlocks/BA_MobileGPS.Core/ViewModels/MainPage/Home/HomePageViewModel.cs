@@ -48,7 +48,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else
             {
-                //Navigation services
+                _popupServices.ShowNotificatonPopup("Thông báo", "Chuyển đến " + item.NameByCulture);
             }
           
 
