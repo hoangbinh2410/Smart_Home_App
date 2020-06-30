@@ -120,7 +120,8 @@
                     Orientation="Horizontal"
                     WidthRequest="310">
                     <buttons:SfCheckBox
-                        CheckedColor="White"
+                        CheckedColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
+                                                       Dark={StaticResource DarkSecondOtherColor}}"
                         Text="Ghi nhớ đăng nhập"
                         TextColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
                                                     Dark={StaticResource DarkSecondOtherColor}}"

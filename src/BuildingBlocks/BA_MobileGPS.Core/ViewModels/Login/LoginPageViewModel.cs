@@ -55,7 +55,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 StaticSettings.User = new LoginResponse();
             }
-            StaticSettings.User.Permissions = new List<int>() { 0, 1, 6, 61, 161 ,86,91,96,106};
+            StaticSettings.User.Permissions = new List<int>() { 0, 1, 6, 61, 161 ,86,91,96,106,171,253};
 
             var respose = await RequestData();
             var contentStream = await respose.Content.ReadAsStringAsync();
