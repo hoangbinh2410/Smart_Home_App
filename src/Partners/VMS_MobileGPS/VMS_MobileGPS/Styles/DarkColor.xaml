@@ -23,7 +23,7 @@
     <Color x:Key="DarkBackgoundPageGradientStartColor">#F3F3F3</Color>
     <Color x:Key="DarkBackgoundPageGradientEndColor">Black</Color>
 
-    <Color x:Key="DarkPrimaryTextColor">#89DFFF</Color>
+    <Color x:Key="DarkPrimaryTextColor">#60C5F1</Color>
     <Color x:Key="DarkSecondaryTextColor">#787878</Color>
     <Color x:Key="DarkPlaceHoderTextColor">#C9C9C9</Color>
     <Color x:Key="DarkBarTextColor">White</Color>
@@ -55,6 +55,6 @@
     <Color x:Key="DarkErorrPopupButtonTextColor">White</Color>
     <Color x:Key="DarkErorrPopupButtonBackgroundColor">Red</Color>
 
-    <Color x:Key="DarkPopupYesBtnTextColor">#00709A</Color>
-    <Color x:Key="DarkPopupYesBtnBackgroundColor">#da4453</Color>
+    <Color x:Key="DarkPopupYesBtnTextColor">#F9F9F9</Color>
+    <Color x:Key="DarkPopupYesBtnBackgroundColor">#0C8CC2</Color>
 </ResourceDictionary>

@@ -31,6 +31,7 @@
 
     <Style TargetType="StackLayout">
         <Setter Property="Spacing" Value="10" />
+        <Setter Property="Padding" Value="0" />
     </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="Button">
@@ -53,12 +54,13 @@
     </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="Entry">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkSecondaryTextColor}}" />
         <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource LightPlaceHoderTextColor}, Dark={StaticResource DarkPlaceHoderTextColor}}" />
         <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
         <Setter Property="IsSpellCheckEnabled" Value="False" />
         <Setter Property="IsTextPredictionEnabled" Value="False" />
+
     </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="Editor">
@@ -95,7 +97,7 @@
         <Setter Property="VerticalOptions" Value="End" />
     </Style>
 
-    <Style TargetType="pancake:PancakeView">
+    <Style ApplyToDerivedTypes="True" TargetType="pancake:PancakeView">
         <Setter Property="Padding" Value="0" />
         <Setter Property="HasShadow" Value="False" />
     </Style>
@@ -121,11 +123,7 @@
         <Setter Property="Text" Value="DANGEROUS" />
     </Style>
 
-    <Style Class="CircleButton" TargetType="Button">
-        <Setter Property="CornerRadius" Value="25" />
-        <Setter Property="HeightRequest" Value="50" />
-        <Setter Property="WidthRequest" Value="50" />
-    </Style>
+
 
     <!--  ffimageloading  -->
     <Style Class="IconImage" TargetType="ffImage:CachedImage">
@@ -145,7 +143,11 @@
         <Setter Property="HorizontalOptions" Value="StartAndExpand" />
     </Style>
 
-    <Style Class="AwesomeIcon" TargetType="Label" />
+    <Style Class="IconText" TargetType="Label">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}" />
+        <Setter Property="LineBreakMode" Value="WordWrap" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+    </Style>
 
     <Style Class="CircleFrameBackground" TargetType="Frame">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightCircleFrameBackgroundColor}, Dark={StaticResource DarkCircleFrameBackgroundColor}}" />

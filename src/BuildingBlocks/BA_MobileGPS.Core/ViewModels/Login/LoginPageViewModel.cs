@@ -1,10 +1,13 @@
-﻿using BA_MobileGPS.Core.ViewModels.Base;
+﻿using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Core.ViewModels.Base;
+using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,15 +16,26 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class LoginPageViewModel : ViewModelBase
     {
-        public LoginPageViewModel(INavigationService navigationService) : base(navigationService)
+        private IPopupServices _popupServices;
+        public LoginPageViewModel(INavigationService navigationService,IPopupServices popupServices) : base(navigationService)
         {
+            _popupServices = popupServices;
             LoginCommand = new DelegateCommand(Login);
+            OpenLoginFragmentCommand = new DelegateCommand(OpenLoginFragment);
+            ForgotPasswordCommand = new DelegateCommand(ForgotPassword);
+        }
+
+        private void ForgotPassword()
+        {
+            var color = (Color)Application.Current.Resources["LightFirstOtherColor"];
+            _popupServices.ShowNotificationIconPopup("Quên mật khẩu", "Để đảm bảo an toàn thông tin, Quý khách vui lòng liên hệ <strong>19006464</strong> để được cấp lại mật khẩu. ", "ic_lock.png", color, IconPosititon.Left);
         }
 
         private async void Login()
@@ -32,6 +46,8 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         public ICommand LoginCommand { get; }
+        public ICommand OpenLoginFragmentCommand { get; }
+        public ICommand ForgotPasswordCommand { get; }
 
         private async Task SetUserPermisisonData()
         {
@@ -58,13 +74,17 @@ namespace BA_MobileGPS.Core.ViewModels
         {
            
             var url = "http://api.bagroup.vn/api/v2/menu/getmenubyculture?culture=vi-vn&appID=0";
-            var token = "iFEp1dwf_pZvb7Ud-qlDULOh7Y0kN_0TKn8hwhjRewpl7cOYjgdKuuRBSezQYxL-0gmCBZGSm3QLPJZQOAWvclfMo91FREUoZfKScBFdo4_MaDoH5VHkQoLhKBjMQ3cLMnM2qS5UPfq2JCa-NP83DpSpQ20MIADqw-8GlSZ82_Hk6e_FUNHAnlu2KP_BL6ABCsvs8r6pLYwQFm7Kpb-26YSdnMqOoRGUoxsNvVxoS5U_EGQizjtNDuTNyu4t3Lunuv5i8tcUkhP47KUhwx_feECcz1K6SSvzCdqen9KoRpKxt2MEcz9iqYImTN5niB1i8MK1lQHUSXUIQnQviLJFeMcdbgDUVDEWmZIqZ35Op0pOZjmW3xtoZxL3jQNQpb8Ey0HjXi-RFjYWOyoSRui0-WnRTC3bn3Cc3oZ0SvmVyJMnStVvHEe1C6WQcloVQ6zhxpp3bAo0H7bf1iUZfEYC5a3hwWTjOW4SLDqR8a-Fe-10cqX3hF5HmSixwD-5OkiXfIxha0jLXWrFxO2BYJVU4tHceCTOOChRAt-mAtg_wdO9BIkQr4xbOk_EHhkGofmhou73J3aOj8N8Afi4grMtguEKjehXKf_E1B_8_6wnG90TQV-QsEPVpm-5N34y3sUU7xlMIu7l0BOnk4gylYPusQ";
+            var token = "9lTdZpomSmAm3l5UTKWfvJJ5gckSvgZbb5SXhIaAKw_x2j3awBX32NNsP75MpYMQBHgjraBXWJtAU6Y3RY4OIe0XyGN7_g1NuaupkftZ4DWp2fz40l4iB0QSinrlkvaMz4oyl9kF_o401Ih0z8uUECYiakd1je5lpNlSetBJWEnzY_i5bT9yfsapOBdUFsKDwTCHeCx8U33rNtwRJnxTBnnrFiiPWdXIv6XzHyGkLjahRqS9o2mnLE3mBMyc6r2d1cEAH72_g1Y9jTDqYEPYReLQxfKjNaTPILVfhwSHjFlcCvijqoOACdVPyH4iNfXRLqBj0kljcGw3sLCxgGy0Nbcx3GxMkrUKUyVruDVZEZo08azvATJadC9JAQtd7t1Q1ecvDmUhbgQEbTnVrE-6B8stOBDlztjt7qSPZfagnwtXAB3y5gbqXHB0-nVFpNZnnKvfNJIIGXJqc38Q-2kPT7Lulu9u8YSq6n_xs1CbbSBT7izHk53a6s3PtOqZtaFRCaq9nxY9PFS_2lgk-sOPcSYqpkaykhmEzFGUGBq0lkcbSWrQmyBfm_yPCefRse3Ou3GhIH5Q0y-GPe8Xao7k2pqHHjiZCyg4fWZ3lAtS96RDBKW1JGcOO8lVb__OgJADw14g3gYOGlIue1HXnrKYDw";
             var request = new HttpClient();
             request.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             return await request.GetAsync(url);
         }
 
+        private void OpenLoginFragment()
+        {
+            PopupNavigation.Instance.PushAsync(new NonLoginFeaturesPopup());
+        }
 
     }
 }

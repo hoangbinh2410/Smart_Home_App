@@ -55,15 +55,15 @@ namespace BA_MobileGPS.Core.ViewModels
         private void HotLineTap()
         {
             var mes = "Special care is necessary to ensure that colors will be usable on each platform. Because each platform has different defaults";
-            _popupServices.ShowNotificatonPopup("Thông báo", "Cần cập nhật phiên bản mới.....");
-            _popupServices.ShowNotificationIconPopup("Xác nhận", mes, "vehicle_MenuIcon.png", Color.Green, IconPosititon.Left);
-            _popupServices.ShowNotificationIconPopup("Xác nhận", mes, "vehicle_MenuIcon.png", Color.Green, IconPosititon.Right);
-            _popupServices.ShowErrorPopup("Xác nhận", mes);
-            _popupServices.ShowErrorIconPopup("Xác nhận", mes, "vehicle_MenuIcon.png", Color.Green, IconPosititon.Left);
-            _popupServices.ShowErrorIconPopup("Xác nhận",mes, "vehicle_MenuIcon.png", Color.Green, IconPosititon.Right);
-            _popupServices.ShowConfirmIconPopup("Xác nhận", mes, "vehicle_MenuIcon.png", Color.Green,IconPosititon.Left);
-            _popupServices.ShowConfirmIconPopup("Xác nhận", mes, "vehicle_MenuIcon.png", Color.Green, IconPosititon.Right);
-            _popupServices.ShowConfirmPopup("Xác nhận", mes);
+            _popupServices.ShowNotificatonPopup("Thông báo Noti", "Cần cập nhật phiên bản mới.....");
+            _popupServices.ShowNotificationIconPopup("Xác nhận Noti", mes, "vehicle_MenuIcon.png", Color.Green, IconPosititon.Left);
+            _popupServices.ShowNotificationIconPopup("Xác nhận Noti", mes, "vehicle_MenuIcon.png", Color.Green, IconPosititon.Right);
+            _popupServices.ShowErrorPopup("Xác nhận Err", mes);
+            _popupServices.ShowErrorIconPopup("Xác nhận Err", mes, "vehicle_MenuIcon.png", Color.Green, IconPosititon.Left);
+            _popupServices.ShowErrorIconPopup("Xác nhận Err",mes, "vehicle_MenuIcon.png", Color.Green, IconPosititon.Right);
+            _popupServices.ShowConfirmIconPopup("Xác nhận Cf", mes, "vehicle_MenuIcon.png", Color.Green,IconPosititon.Left);
+            _popupServices.ShowConfirmIconPopup("Xác nhận Cf", mes, "vehicle_MenuIcon.png", Color.Green, IconPosititon.Right);
+            _popupServices.ShowConfirmPopup("Xác nhận Cf", mes);
         }
 
         private void HobbiesIconTap()
