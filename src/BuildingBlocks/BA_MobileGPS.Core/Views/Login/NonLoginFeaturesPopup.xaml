@@ -14,9 +14,9 @@
     CloseWhenBackgroundIsClicked="True">
     <pages:PopupPage.Animation>
         <animation:MoveAnimation
-            DurationIn="300"
-            DurationOut="300"
-            PositionIn="Bottom"
+            DurationIn="100"
+            DurationOut="100"
+            PositionIn="Right"
             PositionOut="Right" />
     </pages:PopupPage.Animation>
     <pages:PopupPage.Resources>
@@ -40,8 +40,9 @@
     </pages:PopupPage.Resources>
     <pages:PopupPage.Content>
         <Grid
-            Margin="20"
+            Margin="40,60"
             ColumnDefinitions="Auto,Auto"
+            ColumnSpacing="10"
             HorizontalOptions="End"
             RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
             VerticalOptions="EndAndExpand">

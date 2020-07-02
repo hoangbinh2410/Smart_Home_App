@@ -15,10 +15,10 @@
     <ContentPage.Resources>
         <converter:HasDataConverter x:Key="HasDataConverter" />
         <Style TargetType="Label">
-            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightSecondOtherColor}, Dark={StaticResource DarkSecondOtherColor}}" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor}, Dark={StaticResource DarkSecondaryOtherColor}}" />
         </Style>
         <Style TargetType="controls:IconView">
-            <Setter Property="Foreground" Value="{AppThemeBinding Light={StaticResource LightSecondOtherColor}, Dark={StaticResource DarkSecondOtherColor}}" />
+            <Setter Property="Foreground" Value="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor}, Dark={StaticResource DarkSecondaryOtherColor}}" />
         </Style>
     </ContentPage.Resources>
     <Grid>
@@ -42,8 +42,8 @@
                     IsVisible="{Binding Source={x:Reference account}, Path=Text, Converter={StaticResource HasDataConverter}}"
                     Spacing="0">
                     <pancake:PancakeView
-                        BorderColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
-                                                      Dark={StaticResource DarkSecondOtherColor}}"
+                        BorderColor="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor},
+                                                      Dark={StaticResource DarkSecondaryOtherColor}}"
                         BorderThickness="2.5"
                         CornerRadius="38"
                         HeightRequest="70"
@@ -66,16 +66,16 @@
                         WidthRequest="150" />
                 </StackLayout>
                 <pancake:PancakeView
-                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
-                                                      Dark={StaticResource DarkSecondOtherColor}}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor},
+                                                      Dark={StaticResource DarkSecondaryOtherColor}}"
                     CornerRadius="20"
                     HeightRequest="40"
                     HorizontalOptions="Center"
                     WidthRequest="300">
                     <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
                         <pancake:PancakeView
-                            BackgroundColor="{AppThemeBinding Light={StaticResource LightFirstOtherColor},
-                                                              Dark={StaticResource DarkFirstOtherColor}}"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryOtherColor},
+                                                              Dark={StaticResource DarkPrimaryOtherColor}}"
                             CornerRadius="20"
                             WidthRequest="40">
                             <controls:IconView Margin="10" Source="ic_account.png" />
@@ -91,16 +91,16 @@
                     </StackLayout>
                 </pancake:PancakeView>
                 <pancake:PancakeView
-                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
-                                                      Dark={StaticResource DarkSecondOtherColor}}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor},
+                                                      Dark={StaticResource DarkSecondaryOtherColor}}"
                     CornerRadius="20"
                     HeightRequest="40"
                     HorizontalOptions="Center"
                     WidthRequest="300">
                     <StackLayout Orientation="Horizontal">
                         <pancake:PancakeView
-                            BackgroundColor="{AppThemeBinding Light={StaticResource LightFirstOtherColor},
-                                                              Dark={StaticResource DarkFirstOtherColor}}"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryOtherColor},
+                                                              Dark={StaticResource DarkPrimaryOtherColor}}"
                             CornerRadius="20"
                             WidthRequest="40">
                             <controls:IconView Margin="10" Source="ic_lock.png" />
@@ -118,16 +118,16 @@
                 <StackLayout
                     HorizontalOptions="CenterAndExpand"
                     Orientation="Horizontal"
-                    WidthRequest="310">
+                    WidthRequest="300">
                     <buttons:SfCheckBox
-                        CheckedColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
-                                                       Dark={StaticResource DarkSecondOtherColor}}"
+                        CheckedColor="{AppThemeBinding Light={StaticResource LightPrimaryOtherColor},
+                                                       Dark={StaticResource DarkPrimaryOtherColor}}"
                         CornerRadius="0"
                         Text="Ghi nhớ đăng nhập"
-                        TextColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
-                                                    Dark={StaticResource DarkSecondOtherColor}}"
-                        UncheckedColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
-                                                         Dark={StaticResource DarkSecondOtherColor}}" />
+                        TextColor="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor},
+                                                    Dark={StaticResource DarkSecondaryOtherColor}}"
+                        UncheckedColor="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor},
+                                                         Dark={StaticResource DarkSecondaryOtherColor}}" />
                     <Label
                         HorizontalOptions="EndAndExpand"
                         Text="Quên mật khẩu?"
@@ -141,23 +141,20 @@
                     </Label>
                 </StackLayout>
                 <Button
-                    BackgroundColor="{AppThemeBinding Light={StaticResource LightFirstOtherColor},
-                                                      Dark={StaticResource DarkFirstOtherColor}}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryOtherColor},
+                                                      Dark={StaticResource DarkPrimaryOtherColor}}"
                     Command="{Binding LoginCommand}"
                     CornerRadius="20"
                     HeightRequest="40"
                     HorizontalOptions="Center"
                     Text="Đăng nhập"
-                    TextColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
-                                                Dark={StaticResource DarkSecondOtherColor}}"
+                    TextColor="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor},
+                                                Dark={StaticResource DarkSecondaryOtherColor}}"
                     WidthRequest="300" />
             </StackLayout>
 
             <!--  Footer  -->
-            <StackLayout
-                Margin="0,0,0,20"
-                Spacing="0"
-                VerticalOptions="EndAndExpand">
+            <StackLayout Margin="0,0,0,20" VerticalOptions="EndAndExpand">
                 <controls:IconView
                     Margin="10"
                     HeightRequest="30"
@@ -172,22 +169,22 @@
                 </controls:IconView>
                 <pancake:PancakeView
                     BackgroundColor="Transparent"
-                    BorderColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
-                                                  Dark={StaticResource DarkSecondOtherColor}}"
+                    BorderColor="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor},
+                                                  Dark={StaticResource DarkSecondaryOtherColor}}"
                     BorderThickness="2"
                     CornerRadius="13"
                     HeightRequest="25"
                     HorizontalOptions="Center">
                     <StackLayout Orientation="Horizontal">
                         <pancake:PancakeView
-                            BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
-                                                              Dark={StaticResource DarkSecondOtherColor}}"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor},
+                                                              Dark={StaticResource DarkSecondaryOtherColor}}"
                             CornerRadius="13"
                             WidthRequest="25">
                             <controls:IconView
                                 Margin="3"
-                                Foreground="{AppThemeBinding Light={StaticResource LightFirstOtherColor},
-                                                             Dark={StaticResource DarkFirstOtherColor}}"
+                                Foreground="{AppThemeBinding Light={StaticResource LightPrimaryOtherColor},
+                                                             Dark={StaticResource DarkPrimaryOtherColor}}"
                                 Source="hotline_Icon.png" />
                         </pancake:PancakeView>
                         <Label
