@@ -22,20 +22,20 @@
     <pages:PopupPage.Resources>
         <Style TargetType="pancake:PancakeView">
             <Setter Property="Grid.Column" Value="1" />
-            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightSecondOtherColor}, Dark={StaticResource DarkSecondOtherColor}}" />
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor}, Dark={StaticResource DarkSecondaryOtherColor}}" />
             <Setter Property="HeightRequest" Value="50" />
             <Setter Property="WidthRequest" Value="50" />
             <Setter Property="CornerRadius" Value="25" />
             <Setter Property="Padding" Value="0" />
         </Style>
         <Style TargetType="controls:IconView">
-            <Setter Property="Foreground" Value="{AppThemeBinding Light={StaticResource LightFirstOtherColor}, Dark={StaticResource DarkFirstOtherColor}}" />
+            <Setter Property="Foreground" Value="{AppThemeBinding Light={StaticResource LightPrimaryOtherColor}, Dark={StaticResource DarkPrimaryOtherColor}}" />
             <Setter Property="Margin" Value="10" />
         </Style>
         <Style TargetType="Label">
             <Setter Property="HorizontalOptions" Value="EndAndExpand" />
             <Setter Property="VerticalOptions" Value="Center" />
-            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightSecondOtherColor}, Dark={StaticResource DarkSecondOtherColor}}" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor}, Dark={StaticResource DarkSecondaryOtherColor}}" />
         </Style>
     </pages:PopupPage.Resources>
     <pages:PopupPage.Content>
@@ -70,11 +70,11 @@
             <pancake:PancakeView Grid.Row="5">
                 <controls:IconView Source="ic_MiniLogo.png" />
             </pancake:PancakeView>
-            <pancake:PancakeView Grid.Row="6" BackgroundColor="{AppThemeBinding Light={StaticResource LightFirstOtherColor}, Dark={StaticResource DarkFirstOtherColor}}">
+            <pancake:PancakeView Grid.Row="6" BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryOtherColor}, Dark={StaticResource DarkPrimaryOtherColor}}">
                 <controls:IconView
                     Margin="15"
-                    Foreground="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
-                                                 Dark={StaticResource DarkSecondOtherColor}}"
+                    Foreground="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor},
+                                                 Dark={StaticResource DarkSecondaryOtherColor}}"
                     Source="ic_Close.png" />
                 <pancake:PancakeView.Behaviors>
                     <animation1:ViewTappedBehavior AnimationType="Rotate" />
