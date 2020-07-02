@@ -41,7 +41,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private async void Login()
         {
             await SetUserPermisisonData();
-            _ = NavigationService.NavigateAsync("MainPage");
+            _ = NavigationService.NavigateAsync("/MainPage");
            
         }
 
