@@ -3,15 +3,201 @@
     x:Class="BA_MobileGPS.Core.Views.LoginPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
+    xmlns:effect="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
-    <Button
-        BackgroundColor="Beige"
-        Command="{Binding LoginCommand}"
-        FontSize="20"
-        HeightRequest="200"
-        HorizontalOptions="CenterAndExpand"
-        Text="Login to home"
-        VerticalOptions="CenterAndExpand" />
+    <ContentPage.Resources>
+        <converter:HasDataConverter x:Key="HasDataConverter" />
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightSecondOtherColor}, Dark={StaticResource DarkSecondOtherColor}}" />
+        </Style>
+        <Style TargetType="controls:IconView">
+            <Setter Property="Foreground" Value="{AppThemeBinding Light={StaticResource LightSecondOtherColor}, Dark={StaticResource DarkSecondOtherColor}}" />
+        </Style>
+    </ContentPage.Resources>
+    <Grid>
+        <ff:CachedImage Aspect="AspectFill" Source="bg_login.png" />
+        <Grid
+            BackgroundColor="Black"
+            HorizontalOptions="Fill"
+            Opacity="0.5"
+            VerticalOptions="Fill" />
+        <StackLayout Spacing="15">
+            <controls:IconView
+                Margin="0,100,0,0"
+                HeightRequest="60"
+                Source="ic_logo.png" />
+            <!--  Body  -->
+            <StackLayout Spacing="15" VerticalOptions="EndAndExpand">
+                <!--  Khung avatar  -->
+                <StackLayout
+                    x:Name="AvatarForm"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding Source={x:Reference account}, Path=Text, Converter={StaticResource HasDataConverter}}"
+                    Spacing="0">
+                    <pancake:PancakeView
+                        BorderColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
+                                                      Dark={StaticResource DarkSecondOtherColor}}"
+                        BorderThickness="2.5"
+                        CornerRadius="38"
+                        HeightRequest="70"
+                        HorizontalOptions="Center"
+                        IsClippedToBounds="True"
+                        WidthRequest="70">
+                        <ff:CachedImage Aspect="AspectFill" Source="bg_login.png" />
+                    </pancake:PancakeView>
+                    <Label
+                        x:Name="account"
+                        HorizontalTextAlignment="Center"
+                        LineBreakMode="HeadTruncation"
+                        StyleClass="GroupTitleLabel"
+                        Text="ĐINH THỊ HỒNG NHUNG"
+                        WidthRequest="160" />
+                    <Label
+                        HorizontalTextAlignment="Center"
+                        LineBreakMode="TailTruncation"
+                        Text="09****2323"
+                        WidthRequest="150" />
+                </StackLayout>
+                <pancake:PancakeView
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
+                                                      Dark={StaticResource DarkSecondOtherColor}}"
+                    CornerRadius="20"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    WidthRequest="300">
+                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                        <pancake:PancakeView
+                            BackgroundColor="{AppThemeBinding Light={StaticResource LightFirstOtherColor},
+                                                              Dark={StaticResource DarkFirstOtherColor}}"
+                            CornerRadius="20"
+                            WidthRequest="40">
+                            <controls:IconView Margin="10" Source="ic_account.png" />
+                        </pancake:PancakeView>
+                        <Entry
+                            Margin="0,0,20,0"
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="Tên đăng nhập">
+                            <Entry.Effects>
+                                <effect:BorderlessEffect />
+                            </Entry.Effects>
+                        </Entry>
+                    </StackLayout>
+                </pancake:PancakeView>
+                <pancake:PancakeView
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
+                                                      Dark={StaticResource DarkSecondOtherColor}}"
+                    CornerRadius="20"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    WidthRequest="300">
+                    <StackLayout Orientation="Horizontal">
+                        <pancake:PancakeView
+                            BackgroundColor="{AppThemeBinding Light={StaticResource LightFirstOtherColor},
+                                                              Dark={StaticResource DarkFirstOtherColor}}"
+                            CornerRadius="20"
+                            WidthRequest="40">
+                            <controls:IconView Margin="10" Source="ic_lock.png" />
+                        </pancake:PancakeView>
+                        <Entry
+                            Margin="0,0,20,0"
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="Mật khẩu">
+                            <Entry.Effects>
+                                <effect:BorderlessEffect />
+                            </Entry.Effects>
+                        </Entry>
+                    </StackLayout>
+                </pancake:PancakeView>
+                <StackLayout
+                    HorizontalOptions="CenterAndExpand"
+                    Orientation="Horizontal"
+                    WidthRequest="310">
+                    <buttons:SfCheckBox
+                        CheckedColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
+                                                       Dark={StaticResource DarkSecondOtherColor}}"
+                        Text="Ghi nhớ đăng nhập"
+                        TextColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
+                                                    Dark={StaticResource DarkSecondOtherColor}}"
+                        UncheckedColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
+                                                         Dark={StaticResource DarkSecondOtherColor}}" />
+                    <Label
+                        HorizontalOptions="EndAndExpand"
+                        Text="Quên mật khẩu?"
+                        VerticalOptions="Center">
+                        <Label.Behaviors>
+                            <animation:ViewTappedBehavior AnimationType="Scale" />
+                        </Label.Behaviors>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+                <Button
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightFirstOtherColor},
+                                                      Dark={StaticResource DarkFirstOtherColor}}"
+                    Command="{Binding LoginCommand}"
+                    CornerRadius="40"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    Text="Đăng nhập"
+                    TextColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
+                                                Dark={StaticResource DarkSecondOtherColor}}"
+                    WidthRequest="300" />
+            </StackLayout>
 
+            <!--  Footer  -->
+            <StackLayout
+                Margin="0,0,0,20"
+                Spacing="0"
+                VerticalOptions="EndAndExpand">
+                <controls:IconView
+                    Margin="10"
+                    HeightRequest="30"
+                    HorizontalOptions="EndAndExpand"
+                    Source="ic_fragment_square.png">
+                    <controls:IconView.Behaviors>
+                        <animation:ViewTappedBehavior AnimationType="Scale" />
+                    </controls:IconView.Behaviors>
+                    <controls:IconView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenLoginFragmentCommand}" NumberOfTapsRequired="1" />
+                    </controls:IconView.GestureRecognizers>
+                </controls:IconView>
+                <pancake:PancakeView
+                    BackgroundColor="Transparent"
+                    BorderColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
+                                                  Dark={StaticResource DarkSecondOtherColor}}"
+                    BorderThickness="2"
+                    CornerRadius="15"
+                    HeightRequest="25"
+                    HorizontalOptions="Center">
+                    <StackLayout Orientation="Horizontal">
+                        <pancake:PancakeView
+                            BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
+                                                              Dark={StaticResource DarkSecondOtherColor}}"
+                            CornerRadius="13"
+                            WidthRequest="25">
+                            <controls:IconView
+                                Margin="3"
+                                Foreground="{AppThemeBinding Light={StaticResource LightFirstOtherColor},
+                                                             Dark={StaticResource DarkFirstOtherColor}}"
+                                Source="hotline_Icon.png" />
+                        </pancake:PancakeView>
+                        <Label
+                            Margin="0,0,20,0"
+                            HorizontalOptions="Center"
+                            Text="19006464"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                </pancake:PancakeView>
+                <Label HorizontalOptions="Center" Text="pcskh@bagroup.vn | www.bagps.vn" />
+            </StackLayout>
+        </StackLayout>
+    </Grid>
 </ContentPage>

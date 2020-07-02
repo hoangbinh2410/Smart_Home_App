@@ -12,6 +12,7 @@
 	<ItemGroup>
 		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.3" />
 		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.1.0.57" />
+		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.1.0.57" />
 		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.1.0.57" />
 		<PackageReference Include="Xamarin.Forms" Version="4.7.0.968" />
 		<PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
@@ -50,19 +51,18 @@
 	  <ProjectReference Include="..\BA_MobileGPS.Utilities\BA_MobileGPS.Utilities.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Update="Views\Popup\BasePopup.xaml.cs">
+	    <DependentUpon>BasePopup.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
 	  <EmbeddedResource Update="App.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Styles\Converters.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Styles\DarkTheme.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
 	  <EmbeddedResource Update="Styles\Fonts.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Styles\LightTheme.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Styles\Styles.xaml">
@@ -71,7 +71,7 @@
 	  <EmbeddedResource Update="Styles\Text.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\MainPage\DiscoveryPopup\DiscoveryPopup.xaml">
+	  <EmbeddedResource Update="Views\MainPage\Home\DiscoveryPopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\MainPage\Accounts\AccountsPage.xaml">
@@ -92,6 +92,9 @@
 	  <EmbeddedResource Update="Views\MainPage\MainPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\MainPage\Monitoring\DetailVehiclePopup.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\MainPage\Monitoring\MornitoringPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -99,6 +102,12 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\MainPage\Voyages\VoyagePage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Login\NonLoginFeaturesPopup.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Popup\BasePopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>

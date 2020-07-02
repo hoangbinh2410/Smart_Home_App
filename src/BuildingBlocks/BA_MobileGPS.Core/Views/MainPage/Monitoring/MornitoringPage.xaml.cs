@@ -7,6 +7,7 @@ namespace BA_MobileGPS.Core.Views
         public MornitoringPage()
         {
             InitializeComponent();
+            googleMap.UiSettings.ZoomControlsEnabled = false;
         }
     }
 }

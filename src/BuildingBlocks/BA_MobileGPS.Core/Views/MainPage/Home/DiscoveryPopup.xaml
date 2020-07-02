@@ -20,10 +20,7 @@
                     HeightRequest="40"
                     Source="{Binding IconMobile}"
                     WidthRequest="40" />
-                <Label
-                    HorizontalTextAlignment="Center"
-                    LineBreakMode="WordWrap"
-                    Text="{Binding NameByCulture}" />
+                <Label StyleClass="IconText" Text="{Binding NameByCulture}" />
             </StackLayout>
         </DataTemplate>
         <Style TargetType="sfListView:SfListView">

@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.DependencyServices;
+using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities.Infrastructure.Repository;
@@ -39,6 +40,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.Register<IPlacesAutocomplete, PlacesAutocomplete>();
             containerRegistry.Register<IPlacesGeocode, PlacesGeocode>();
             containerRegistry.Register<IThemeService, ThemeServiceBase>();
+            containerRegistry.Register<IPopupServices, PopupServices>();
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)

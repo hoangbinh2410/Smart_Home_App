@@ -381,7 +381,6 @@
       <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <BundleResource Include="Resources\top_background.jpg" />
   </ItemGroup>
