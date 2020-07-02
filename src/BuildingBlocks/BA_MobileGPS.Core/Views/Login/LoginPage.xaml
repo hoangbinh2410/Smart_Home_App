@@ -122,6 +122,7 @@
                     <buttons:SfCheckBox
                         CheckedColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
                                                        Dark={StaticResource DarkSecondOtherColor}}"
+                        CornerRadius="0"
                         Text="Ghi nhớ đăng nhập"
                         TextColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
                                                     Dark={StaticResource DarkSecondOtherColor}}"
@@ -143,7 +144,7 @@
                     BackgroundColor="{AppThemeBinding Light={StaticResource LightFirstOtherColor},
                                                       Dark={StaticResource DarkFirstOtherColor}}"
                     Command="{Binding LoginCommand}"
-                    CornerRadius="40"
+                    CornerRadius="20"
                     HeightRequest="40"
                     HorizontalOptions="Center"
                     Text="Đăng nhập"
@@ -163,7 +164,7 @@
                     HorizontalOptions="EndAndExpand"
                     Source="ic_fragment_square.png">
                     <controls:IconView.Behaviors>
-                        <animation:ViewTappedBehavior AnimationType="Scale" />
+                        <animation:ViewTappedBehavior AnimationType="Rotate" />
                     </controls:IconView.Behaviors>
                     <controls:IconView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OpenLoginFragmentCommand}" NumberOfTapsRequired="1" />
@@ -174,7 +175,7 @@
                     BorderColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
                                                   Dark={StaticResource DarkSecondOtherColor}}"
                     BorderThickness="2"
-                    CornerRadius="15"
+                    CornerRadius="13"
                     HeightRequest="25"
                     HorizontalOptions="Center">
                     <StackLayout Orientation="Horizontal">

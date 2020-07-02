@@ -36,6 +36,10 @@ namespace BA_MobileGPS.Core
         protected override void OnInitialized()
         {
             InitializeComponent();
+            Resources.MergedDictionaries.Add(new Styles.Fonts());
+            Resources.MergedDictionaries.Add(new Styles.Styles());
+            Resources.MergedDictionaries.Add(new Styles.Converters());
+            Resources.MergedDictionaries.Add(new Styles.Text());
 
             BA_MobileGPSSetup.Initialize();
 
@@ -50,7 +54,6 @@ namespace BA_MobileGPS.Core
 
         protected override void OnStart()
         {
-            Resources.MergedDictionaries.Add(new Styles.Styles());
             base.OnStart();
         }
 

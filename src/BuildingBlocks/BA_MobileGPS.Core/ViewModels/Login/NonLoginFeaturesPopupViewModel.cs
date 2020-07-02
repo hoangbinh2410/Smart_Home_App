@@ -20,7 +20,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private async void ClosePopup()
         {
-            await Task.Delay(500);
+            await Task.Delay(300);
             await PopupNavigation.Instance.PopAsync();
         }
 
