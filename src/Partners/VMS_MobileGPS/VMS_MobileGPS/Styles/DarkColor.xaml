@@ -11,8 +11,8 @@
     <Color x:Key="DarkPrimaryLightColor">#89DFFF</Color>
     <Color x:Key="DarkPrimaryDarkColor">#00709A</Color>
 
-    <Color x:Key="DarkFirstOtherColor">#404040</Color>
-    <Color x:Key="DarkSecondOtherColor">#BFB995</Color>
+    <Color x:Key="DarkPrimaryOtherColor">#404040</Color>
+    <Color x:Key="DarkSecondaryOtherColor">#BFB995</Color>
     <Color x:Key="DarkTopIconForeground">#79E0DF</Color>
 
     <Color x:Key="DarkHyperLink">#567cd7</Color>
