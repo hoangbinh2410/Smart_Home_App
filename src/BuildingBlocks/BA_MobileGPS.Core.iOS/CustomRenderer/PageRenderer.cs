@@ -21,39 +21,39 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
                 return;
             }
 
-            try
-            {
-                SetAppTheme();
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"\t\t\tERROR: {ex.Message}");
-            }
+            //try
+            //{
+            //    SetAppTheme();
+            //}
+            //catch (Exception ex)
+            //{
+            //    System.Diagnostics.Debug.WriteLine($"\t\t\tERROR: {ex.Message}");
+            //}
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
         {
             base.TraitCollectionDidChange(previousTraitCollection);
-            if (this.TraitCollection.UserInterfaceStyle != previousTraitCollection.UserInterfaceStyle)
-            {
-                SetAppTheme();
-            }
+            //if (this.TraitCollection.UserInterfaceStyle != previousTraitCollection.UserInterfaceStyle)
+            //{
+            //    SetAppTheme();
+            //}
         }
 
-        private void SetAppTheme()
-        {
-            var themeService = Prism.PrismApplicationBase.Current.Container.Resolve<IThemeService>();
-            if (themeService != null)
-            {
-                if (TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark)
-                {
-                    themeService.UpdateTheme(ThemeMode.Dark);
-                }
-                else
-                {
-                    themeService.UpdateTheme(ThemeMode.Light);
-                }
-            }
-        }
+        //private void SetAppTheme()
+        //{
+        //    var themeService = Prism.PrismApplicationBase.Current.Container.Resolve<IThemeService>();
+        //    if (themeService != null)
+        //    {
+        //        if (TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark)
+        //        {
+        //            themeService.UpdateTheme(OSAppTheme.Dark);
+        //        }
+        //        else
+        //        {
+        //            themeService.UpdateTheme(OSAppTheme.Light);
+        //        }
+        //    }
+        //}
     }
 }

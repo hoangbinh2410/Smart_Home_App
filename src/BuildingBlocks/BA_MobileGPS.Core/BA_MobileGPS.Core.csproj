@@ -62,13 +62,7 @@
 	  <EmbeddedResource Update="Styles\Converters.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Styles\DarkTheme.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
 	  <EmbeddedResource Update="Styles\Fonts.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Styles\LightTheme.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Styles\Styles.xaml">
@@ -77,7 +71,7 @@
 	  <EmbeddedResource Update="Styles\Text.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\MainPage\DiscoveryPopup\DiscoveryPopup.xaml">
+	  <EmbeddedResource Update="Views\MainPage\Home\DiscoveryPopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\MainPage\Accounts\AccountsPage.xaml">
@@ -108,6 +102,9 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\MainPage\Voyages\VoyagePage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Login\NonLoginFeaturesPopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Popup\BasePopup.xaml">

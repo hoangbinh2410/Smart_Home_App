@@ -5,9 +5,9 @@ namespace BA_MobileGPS.Core.DependencyServices
 {
     public interface IThemeService
     {
-        ResourceDictionary CustomColors { get; set; }
-        ThemeMode AppTheme { get; set; }
+        //ResourceDictionary CustomColors { get; set; }
+        //ThemeMode AppTheme { get; set; }
 
-        void UpdateTheme(ThemeMode themeMode = ThemeMode.Auto);
+        void UpdateTheme(OSAppTheme oSAppTheme);
     }
 }

@@ -1,11 +1,14 @@
-﻿using Xamarin.Forms.Xaml;
+﻿
+
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace VMS_MobileGPS.Styles
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Colors
+    public partial class DarkColor : ResourceDictionary
     {
-        public Colors()
+        public DarkColor()
         {
             InitializeComponent();
         }

@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Controls;
+using Prism.AppModel;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -28,9 +29,9 @@ namespace BA_MobileGPS.Core.Views
         public PopupType _popupType { get; set; }
         public Color? _textColor { get; set; }
 
-        public BasePopup(string title, string messenger, IconPosititon iconPosititon, 
+        public BasePopup(string title, string messenger, IconPosititon iconPosititon,
             PopupType type, string iconSource = null,
-           string noBtnText = null, string yesBtnText = null,Color? textColor = null , Color? iconColor = null,
+           string noBtnText = null, string yesBtnText = null, Color? textColor = null, Color? iconColor = null,
            Color? buttonColor = null, Color? buttonTextColor = null,
             Action<bool> callBack = null)
         {
@@ -51,43 +52,46 @@ namespace BA_MobileGPS.Core.Views
         }
 
         private void DrawPopup()
-        {           
+        {
             var content = new StackLayout();
             content.Spacing = 10;
             content.HorizontalOptions = LayoutOptions.CenterAndExpand;
 
             var body = new Grid();
-            body.RowDefinitions = new RowDefinitionCollection() { new RowDefinition() { Height = GridLength.Auto}, 
+            body.RowDefinitions = new RowDefinitionCollection() { new RowDefinition() { Height = GridLength.Auto},
                                                                   new RowDefinition() { Height = GridLength.Auto}};
             body.ColumnDefinitions = new ColumnDefinitionCollection() { new ColumnDefinition() { Width = GridLength.Auto},
                                                                   new ColumnDefinition() { Width = GridLength.Auto}};
-            body.HorizontalOptions = LayoutOptions.Center; 
+            body.HorizontalOptions = LayoutOptions.Center;
 
             var title = new Label();
-            title.Margin = new Thickness(0, 10, 25, 0);          
+            title.Margin = new Thickness(0, 10, 25, 0);
             title.Text = _title;
             title.FontSize = 16;
             title.HorizontalOptions = LayoutOptions.Center;
             title.VerticalTextAlignment = TextAlignment.Center;
 
-            var messenger =  new Label();            
-            messenger.Text = _messenger;   
+            var messenger = new Label();
+            messenger.Text = _messenger;
             messenger.FontSize = 13;
             messenger.HorizontalOptions = LayoutOptions.StartAndExpand;
-              
-            messenger.LineBreakMode = LineBreakMode.WordWrap;
+            messenger.TextType = TextType.Html;
+            title.TextColor = _textColor == null ? Color.Black : (Color)_textColor;
+            messenger.TextColor = _textColor == null ? Color.Black : (Color)_textColor;
 
-            var icon = new IconView();                                     
+
+            var icon = new IconView();
             icon.WidthRequest = 60;
             icon.HeightRequest = 60;
             if (!string.IsNullOrEmpty(_iconImageSource))
-            {                
+            {
                 icon.Source = _iconImageSource;
                 if (_iconColor != null)
                 {
                     icon.Foreground = (Color)_iconColor;
                 }
             }
+
             var footer = new Grid();
             switch (_iconPositon)
             {
@@ -96,7 +100,7 @@ namespace BA_MobileGPS.Core.Views
                     title.SetValue(Grid.ColumnProperty, 1);
                     messenger.SetValue(Grid.RowProperty, 1);
                     messenger.SetValue(Grid.ColumnProperty, 1);
-                    icon.SetValue(Grid.RowSpanProperty, 2);                
+                    icon.SetValue(Grid.RowSpanProperty, 2);
                     body.Children.Add(title);
                     body.Children.Add(messenger);
                     body.Children.Add(icon);
@@ -118,7 +122,7 @@ namespace BA_MobileGPS.Core.Views
                     break;
                 case IconPosititon.None:
                     panCake.Margin = new Thickness(20, 0);
-                    messenger.Margin = new Thickness(20, 0,20,0);
+                    messenger.Margin = new Thickness(20, 0, 20, 0);
                     messenger.HorizontalOptions = LayoutOptions.Center;
                     messenger.HorizontalTextAlignment = TextAlignment.Center;
                     title.Margin = new Thickness(0, 10, 0, 0);
@@ -131,18 +135,18 @@ namespace BA_MobileGPS.Core.Views
             }
 
             content.Children.Add(body);
-           
+
             footer.HorizontalOptions = LayoutOptions.CenterAndExpand;
-        
-            
+
+
             var temp = new StackLayout();
             temp.Orientation = StackOrientation.Horizontal;
             temp.HorizontalOptions = LayoutOptions.CenterAndExpand;
-            temp.Margin = new Thickness(0, 10, 0, 15);            
-       
+            temp.Margin = new Thickness(0, 10, 0, 15);
+
             temp.Spacing = 30;
 
-          
+
             var btnNo = new Button();
             btnNo.CornerRadius = 5;
             btnNo.Text = _noBtnText;
@@ -158,7 +162,7 @@ namespace BA_MobileGPS.Core.Views
             btnYes.Text = _yesBtnText;
             btnYes.BackgroundColor = _buttonColor == null ? Color.Default : (Color)_buttonColor;
             btnYes.TextColor = _buttonTextColor == null ? Color.Black : (Color)_buttonTextColor;
-         
+
             btnYes.Padding = 0;
             btnYes.HeightRequest = 25;
             btnYes.FontSize = 13;
@@ -204,7 +208,7 @@ namespace BA_MobileGPS.Core.Views
     }
 
     public enum PopupType
-    {   
+    {
         Yes,
         YesNo
     }

@@ -14,8 +14,8 @@
     mc:Ignorable="d">
     <RgPopup:PopupPage.Animation>
         <animation:MoveAnimation
-            DurationIn="400"
-            DurationOut="400"
+            DurationIn="50"
+            DurationOut="50"
             PositionIn="Bottom"
             PositionOut="Bottom" />
     </RgPopup:PopupPage.Animation>
@@ -23,11 +23,11 @@
         <pancake:PancakeView
             BackgroundColor="White"
             CornerRadius="20,20,0,0"
-            HeightRequest="300"
+            HeightRequest="200"
             VerticalOptions="EndAndExpand">
             <Label
                 HorizontalOptions="CenterAndExpand"
-                Text="Welcome to Xamarin.Forms!"
+                Text="Thông tin chi tiết ở đây"
                 VerticalOptions="CenterAndExpand" />
         </pancake:PancakeView>
     </RgPopup:PopupPage.Content>

@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.ViewModels.Base;
+using BA_MobileGPS.Core.Views;
 using Microsoft.AppCenter;
 using Prism.Commands;
 using Prism.Events;
@@ -21,23 +22,38 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             _eventAggregator = eventAggregator;
             HotlineTapCommand = new DelegateCommand(HotlineTap);
-            OpenPopup = false;
+            _bottomGroupMargin = new Thickness(15, 30);
+            _eventAggregator.GetEvent<DetailVehiclePopupCloseEvent>().Subscribe(DetailVehiclePopupClose);
+   
         }
 
         private void HotlineTap()
         {
-            OpenPopup = true;
+            if (PopupNavigation.Instance.PopupStack.Count > 0)
+            {
+                PopupNavigation.Instance.PopAllAsync();
+            }
+            PopupNavigation.Instance.PushAsync(new DetailVehiclePopup());
+            BottomGroupMargin = new Thickness(15, 30,15,130);
+
         }
 
         public ICommand HotlineTapCommand { get; }
-
-        private bool _openPopup;
-        public bool OpenPopup
+        private Thickness _bottomGroupMargin;
+        public Thickness BottomGroupMargin
         {
-            get { return _openPopup; }
-            set { SetProperty(ref _openPopup, value);
+            get { return _bottomGroupMargin; }
+            set { SetProperty(ref _bottomGroupMargin, value);
                 RaisePropertyChanged();
             }
         }
+  
+        private void DetailVehiclePopupClose()
+        {
+     
+                BottomGroupMargin = new Thickness(15, 30);
+        
+        }
+
     }
 }
