@@ -34,7 +34,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ForgotPassword()
         {
-            var color = (Color)Application.Current.Resources["LightFirstOtherColor"];
+            var color = (Color)Application.Current.Resources["LightPrimaryOtherColor"];
             _popupServices.ShowNotificationIconPopup("Quên mật khẩu", "Để đảm bảo an toàn thông tin, Quý khách vui lòng liên hệ <strong>19006464</strong> để được cấp lại mật khẩu. ", "ic_lock.png", color, IconPosititon.Left);
         }
 
