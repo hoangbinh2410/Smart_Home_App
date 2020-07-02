@@ -5,6 +5,7 @@ using BA_MobileGPS.Core.Droid;
 using FFImageLoading.Forms.Platform;
 
 using Plugin.Toasts;
+using Sharpnado.Presentation.Forms.Droid;
 
 namespace BA_MobileGPS.Droid.Setup
 {
@@ -21,6 +22,8 @@ namespace BA_MobileGPS.Droid.Setup
             Xamarin.Essentials.Platform.Init(activity, bundle); // add this line to your code, it may also be called: bundle
 
             Rg.Plugins.Popup.Popup.Init(activity, bundle);
+
+            SharpnadoInitializer.Initialize();
 
             CachedImageRenderer.Init(enableFastRenderer: true);
             CachedImageRenderer.InitImageViewHandler();
