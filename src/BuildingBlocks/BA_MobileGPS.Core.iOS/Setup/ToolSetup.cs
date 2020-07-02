@@ -4,6 +4,7 @@ using BA_MobileGPS.Utilities.Constant;
 using FFImageLoading.Forms.Platform;
 
 using Plugin.Toasts;
+using Sharpnado.Presentation.Forms.iOS;
 using Shiny;
 using Syncfusion.ListView.XForms.iOS;
 using Syncfusion.SfChart.XForms.iOS.Renderers;
@@ -30,6 +31,8 @@ namespace BA_MobileGPS.Core.iOS.Setup
 
             CachedImageRenderer.Init();
             CachedImageRenderer.InitImageSourceHandler();
+
+            SharpnadoInitializer.Initialize();
 
             // Override default ImageFactory by your implementation.
             FormsGoogleMaps.Init(Config.GoogleMapKeyiOS, new PlatformConfig

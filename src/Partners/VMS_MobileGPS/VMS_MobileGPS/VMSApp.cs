@@ -32,14 +32,14 @@ namespace VMS_MobileGPS
             ServerConfig.ServerTypes = ServerTypes.ServerVMS;
             ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerVMS;
 
-            AppCenter.Start("ios=9a0650ec-057e-4e5a-b8de-4c3fd1fae415;" +
-                  "android=28d78b27-4b62-42e5-8db5-8e2d50de6a3a",
-                  typeof(Analytics), typeof(Crashes));
+            //AppCenter.Start("ios=9a0650ec-057e-4e5a-b8de-4c3fd1fae415;" +
+            //      "android=28d78b27-4b62-42e5-8db5-8e2d50de6a3a",
+            //      typeof(Analytics), typeof(Crashes));
 
             //AppManager.Init();
 
             //await NavigationService.NavigateAsync("/NavigationPage/LandingPage");
-            await NavigationService.NavigateAsync("/LoginPage");
+            await NavigationService.NavigateAsync("/DemoPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
