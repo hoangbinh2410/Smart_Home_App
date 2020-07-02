@@ -3,6 +3,7 @@
     x:Class="BA_MobileGPS.Core.Styles.Styles"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
@@ -33,11 +34,14 @@
         <Setter Property="Spacing" Value="10" />
         <Setter Property="Padding" Value="0" />
     </Style>
-
+    <Style TargetType="buttons:SfCheckBox">
+         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+    </Style>
     <Style ApplyToDerivedTypes="True" TargetType="Button">
         <Setter Property="CornerRadius" Value="5" />
         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
-        <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+        <Setter Property="FontSize" Value="{StaticResource MyFontSizeLarge}" />
         <Setter Property="HeightRequest" Value="40" />
         <Setter Property="WidthRequest" Value="100" />
     </Style>

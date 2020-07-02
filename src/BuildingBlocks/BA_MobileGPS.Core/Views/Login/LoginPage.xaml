@@ -119,9 +119,9 @@
                     HorizontalOptions="CenterAndExpand"
                     Orientation="Horizontal"
                     WidthRequest="310">
-                    <buttons:SfCheckBox
+                    <buttons:SfCheckBox CornerRadius="0"
                         CheckedColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
-                                                       Dark={StaticResource DarkSecondOtherColor}}"
+                                                       Dark={StaticResource DarkSecondOtherColor}}"                 
                         Text="Ghi nhớ đăng nhập"
                         TextColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
                                                     Dark={StaticResource DarkSecondOtherColor}}"
@@ -140,10 +140,11 @@
                     </Label>
                 </StackLayout>
                 <Button
+                   
                     BackgroundColor="{AppThemeBinding Light={StaticResource LightFirstOtherColor},
                                                       Dark={StaticResource DarkFirstOtherColor}}"
                     Command="{Binding LoginCommand}"
-                    CornerRadius="40"
+                    CornerRadius="20"
                     HeightRequest="40"
                     HorizontalOptions="Center"
                     Text="Đăng nhập"
@@ -174,7 +175,7 @@
                     BorderColor="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
                                                   Dark={StaticResource DarkSecondOtherColor}}"
                     BorderThickness="2"
-                    CornerRadius="15"
+                    CornerRadius="13"
                     HeightRequest="25"
                     HorizontalOptions="Center">
                     <StackLayout Orientation="Horizontal">
@@ -193,7 +194,8 @@
                             Margin="0,0,20,0"
                             HorizontalOptions="Center"
                             Text="19006464"
-                            VerticalOptions="Center" />
+                            VerticalOptions="Center"
+                            />
                     </StackLayout>
                 </pancake:PancakeView>
                 <Label HorizontalOptions="Center" Text="pcskh@bagroup.vn | www.bagps.vn" />
