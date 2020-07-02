@@ -10,12 +10,6 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:res="clr-namespace:BA_MobileGPS.Core.Styles">
 
-    <ResourceDictionary.MergedDictionaries>
-        <res:Fonts />
-        <res:Converters />
-        <res:Text />
-    </ResourceDictionary.MergedDictionaries>
-
     <!--  Auto set style region  -->
     <Style ApplyToDerivedTypes="True" TargetType="{x:Type ContentPage}">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightBackgoundPageColor}, Dark={StaticResource DarkBackgoundPageColor}}" />
@@ -35,7 +29,7 @@
         <Setter Property="Padding" Value="0" />
     </Style>
     <Style TargetType="buttons:SfCheckBox">
-         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
+        <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
         <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
     </Style>
     <Style ApplyToDerivedTypes="True" TargetType="Button">

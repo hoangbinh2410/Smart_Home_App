@@ -14,8 +14,8 @@
     CloseWhenBackgroundIsClicked="True">
     <pages:PopupPage.Animation>
         <animation:MoveAnimation
-            DurationIn="350"
-            DurationOut="350"
+            DurationIn="300"
+            DurationOut="300"
             PositionIn="Bottom"
             PositionOut="Right" />
     </pages:PopupPage.Animation>
@@ -23,9 +23,9 @@
         <Style TargetType="pancake:PancakeView">
             <Setter Property="Grid.Column" Value="1" />
             <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightSecondOtherColor}, Dark={StaticResource DarkSecondOtherColor}}" />
-            <Setter Property="HeightRequest" Value="60" />
-            <Setter Property="WidthRequest" Value="60" />
-            <Setter Property="CornerRadius" Value="30" />
+            <Setter Property="HeightRequest" Value="50" />
+            <Setter Property="WidthRequest" Value="50" />
+            <Setter Property="CornerRadius" Value="25" />
             <Setter Property="Padding" Value="0" />
         </Style>
         <Style TargetType="controls:IconView">
@@ -71,7 +71,7 @@
             </pancake:PancakeView>
             <pancake:PancakeView Grid.Row="6" BackgroundColor="{AppThemeBinding Light={StaticResource LightFirstOtherColor}, Dark={StaticResource DarkFirstOtherColor}}">
                 <controls:IconView
-                    Margin="20"
+                    Margin="15"
                     Foreground="{AppThemeBinding Light={StaticResource LightSecondOtherColor},
                                                  Dark={StaticResource DarkSecondOtherColor}}"
                     Source="ic_Close.png" />
