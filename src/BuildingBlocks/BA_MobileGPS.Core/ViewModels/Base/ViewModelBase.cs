@@ -34,7 +34,7 @@ namespace BA_MobileGPS.Core.ViewModels.Base
 
         public virtual Task InitializeAsync(INavigationParameters parameters)
         {
-            return  Task.Run(()=> { });
+            return Task.CompletedTask;
         }
 
         public virtual void OnNavigatedFrom(INavigationParameters parameters)
