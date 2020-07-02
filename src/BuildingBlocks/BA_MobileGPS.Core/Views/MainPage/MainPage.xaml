@@ -65,7 +65,6 @@
                     BackgroundColor="Transparent"
                     HeightRequest="80"
                     SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}"
-                    ShadowType="Top"
                     TabType="Fixed">
                     <tabs:TabHostView.Tabs>
                         <tabs:BottomTabItem IconImageSource="home_MenuIcon.png" Label="{i18n:TranslateResource Menu_TabItem_Home}" />
