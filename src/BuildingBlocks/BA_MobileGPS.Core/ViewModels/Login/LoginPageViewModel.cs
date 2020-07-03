@@ -74,7 +74,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
            
             var url = "http://api.bagroup.vn/api/v2/menu/getmenubyculture?culture=vi-vn&appID=0";
-            var token = "9gXmIZTdV5joZxFhUJR-j2mC3lUJisW9ZaRYyEl1vnyKYma5zuWcIOPWCt9lgn2cy9xzT7-Ph5d6ziht6mtIg4r1evaGRrQ-AhIdtVp1FWIQSVVCp1i4X02PV0GkfwVpuY9s-9Ay8rQf_0w1iyBDwcJ4h1nK08KTdbqYHKhELVQWigrwfdggMU8RI2PPCuBcZqJxOKTlSKGRbjcOwMlUlgsz89am9R8Mg-Pp-RuOvA-f2VDNd7_7OLlEyajhul-uOCYLov9ze0ehSexP-T1BOdjESewOtzM7KFfrf2Bajyy05Awa1HUefAJJ2cgbx1v6aOMsfvX4xoUr3Lfk16E3I5MW-Tlr3jLoXLG-OVX2l03AG8vAtDVWcGqRrX59yrrqt3idhjsl98jV3YjgfBISCE1NJNbSzp9GLqJhO56NfnkYvS4fv5Ry2Xgh3Unc7xganQ3EozbTH2jiFhrN8VnzlBCLa7nH6i6bpRUSIy4V0672SOL0C9t4zo_DXs3taCngJl-U4_5c_AzRCwmmHj59XCgK4eEzCYOJDhwAqi8nox5080JDpeR4sch5R4z0h5lDjNHjImKGdfgFaCFdNsAwAqDKcmVVNsoHTmdsuCRFZFdZOUzKVhU2Y9Bk9nlfDHQFrNiP25sz4Z6PXj55hoXM1g";
+            var token = "7DZh6JiXOSCOGA9zA4CZx4f9PBNWT3jpmbvEWJJ9H_FrLxO4N0fnI1TKC2jLT57AA-oVwC0JzkY7Z8Ba-fzIgWu_Xcbxww_9pqpBpIaY-hHj0nU6ArqHhEd6cICqOb3moWSDyJ94LZX7g-Ksi9L18v3TCzzT7-PzqkVkvwe6Foygs2qJ42FAVlT8hIBE-lPjevWBPnd-Q6TcdT2l4wMG-KWfs3Oixz4jl5yKkqVgRvS_gYVe6dRF9VDXnRiBWg1tnzyYwtz3mdVNMYp7bjHzQpjxiM1iRbvlu783M_etXVmD2-3eNEVfSq8BV3tY4eGd1becCzwgR2Xq8SJAXhjXPQNL4O5PCQ8qDZPWSxIvoQdc4qzR0kba7LmGnZkrO7-3lN7hJ3qK3AjuL6_wfrJ88Xta0Bcdq-veBLV222zKZf5BqU6QK3Fz3wMspLB4Dha6HrKjesgKflm63jp6uYbe98zshRI3McHpSZfoJF7pJyhdg_L0Ra3vdquhnQ02iWRlcZQCSRt6LfjDZgzvsIqGwB2UQNgu4FO4otyc3RPS518h-duT0t5lbSnuFJ2wMoMlGfojS9Y5Va57hgnYXT99XtrgRu6FIqINwHKkwJQD3aiaKKt2trng_jEooORHAYrUgNhcJiM4mOIU13mUpssHjA";
             var request = new HttpClient();
             request.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
