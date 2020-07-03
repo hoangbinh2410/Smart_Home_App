@@ -70,15 +70,15 @@
                         <tabs:BottomTabItem IconImageSource="home_MenuIcon.png" Label="{i18n:TranslateResource Menu_TabItem_Home}" />
                         <tabs:BottomTabItem
                             IconImageSource="vehicle_MenuIcon.png"
-                            IsVisible="False"
+                            IsVisible="True"
                             Label="{i18n:TranslateResource Menu_TabItem_Vehicle}" />
                         <tabs:BottomTabItem
                             IconImageSource="monitoring_MenuIcon.png"
-                            IsVisible="False"
+                            IsVisible="True"
                             Label="{i18n:TranslateResource Menu_TabItem_Monitoring}" />
                         <tabs:BottomTabItem
                             IconImageSource="voyage_MenuIcon.png"
-                            IsVisible="False"
+                            IsVisible="True"
                             Label="{i18n:TranslateResource Menu_TabItem_Voyage}" />
                         <tabs:BottomTabItem IconImageSource="account_MenuIcon.png" Label="{i18n:TranslateResource Menu_TabItem_Account}" />
                     </tabs:TabHostView.Tabs>
