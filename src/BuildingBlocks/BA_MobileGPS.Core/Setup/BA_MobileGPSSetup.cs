@@ -39,8 +39,44 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<IRequestProvider, RequestProvider>();
             containerRegistry.Register<IPlacesAutocomplete, PlacesAutocomplete>();
             containerRegistry.Register<IPlacesGeocode, PlacesGeocode>();
-            containerRegistry.Register<IThemeService, ThemeServiceBase>();
+            containerRegistry.Register<ISignalRServices, SignalRService>();
+            containerRegistry.Register<IAuthenticationService, AuthenticationService>();
+            containerRegistry.Register<IHomeService, HomeService>();
+            containerRegistry.Register<IResourceService, ResourceService>();
+            containerRegistry.Register<IDBVersionService, DBVersionService>();
+            containerRegistry.Register<ILanguageService, LanguageService>();
+            containerRegistry.Register<ICategoryService, CategoryService>();
+            containerRegistry.Register<IFeedbackService, FeedbackService>();
+            containerRegistry.Register<IUserService, UserService>();
+            containerRegistry.Register<IRegisterConsultService, RegisterConsultService>();
+            containerRegistry.Register<IVehicleOnlineService, VehicleOnlineService>();
+            containerRegistry.Register<IGeocodeService, GeocodeService>();
+            containerRegistry.Register<IAlertService, AlertService>();
+            containerRegistry.Register<IVehicleDebtMoneyService, VehicleDebtMoneyService>();
+            containerRegistry.Register<IDetailVehicleService, DetailVehicleService>();
+            containerRegistry.Register<IVehicleRouteService, VehicleRouteService>();
+            containerRegistry.Register<IReportTemperatureService, ReportTemperatureService>();
+            containerRegistry.Register<IMachineVehicleService, MachineVehicleService>();
+            containerRegistry.Register<IFuelChartService, FuelChartService>();
+            containerRegistry.Register<IActivityDetailsService, ActivityDetailsService>();
+            containerRegistry.Register<IActivitySummariesService, ActivitySummariesService>();
+            containerRegistry.Register<IFuelsSummariesService, FuelsSummariesService>();
+            containerRegistry.Register<IFuelsSummariesTotalService, FuelsSummariesTotalService>();
+            containerRegistry.Register<ISpeedOversService, SpeedOversService>();
+            containerRegistry.Register<IStopParkingVehicleService, StopsParkingVehicleService>();
+            containerRegistry.Register<IShowHideColumnService, ShowHideColumnService>();
+            containerRegistry.Register<ICameraService, CameraService>();
+            containerRegistry.Register<IGuideService, GuideService>();
+            containerRegistry.Register<IHelperService, HelperService>();
+            containerRegistry.Register<IHelperAdvanceService, HelperAdvanceService>();
+            containerRegistry.Register<IAppDeviceService, AppDeviceService>();
+            containerRegistry.Register<INotificationService, NotificationService>();
+            containerRegistry.Register<ISendEngineControlService, SendEngineControlService>();
+            containerRegistry.Register<IUserLandmarkGroupService, UserLandmarkGroupService>();
+            containerRegistry.Register<IPingServerService, PingServerService>();
+          
             containerRegistry.Register<IPopupServices, PopupServices>();
+
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)

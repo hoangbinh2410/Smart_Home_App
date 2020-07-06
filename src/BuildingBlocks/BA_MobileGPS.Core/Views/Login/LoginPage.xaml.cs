@@ -7,7 +7,16 @@ namespace BA_MobileGPS.Core.Views
     {
         public LoginPage()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
     }
 }
