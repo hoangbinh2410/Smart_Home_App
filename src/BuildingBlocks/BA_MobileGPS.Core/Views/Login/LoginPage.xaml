@@ -123,7 +123,7 @@
                         CheckedColor="{AppThemeBinding Light={StaticResource LightPrimaryOtherColor},
                                                        Dark={StaticResource DarkPrimaryOtherColor}}"
                         CornerRadius="0"
-                        IsChecked="{Binding RememberMe}"
+                        IsChecked="{Binding Rememberme}"
                         Text="Ghi nhớ đăng nhập"
                         TextColor="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor},
                                                     Dark={StaticResource DarkSecondaryOtherColor}}"

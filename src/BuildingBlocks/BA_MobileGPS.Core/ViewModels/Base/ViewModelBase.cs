@@ -16,6 +16,7 @@ using System.Threading;
 using Xamarin.Forms;
 using BA_MobileGPS.Utilities;
 using Xamarin.Essentials;
+using Prism.Services;
 
 namespace BA_MobileGPS.Core.ViewModels.Base
 {
@@ -25,7 +26,7 @@ namespace BA_MobileGPS.Core.ViewModels.Base
         protected IEventAggregator EventAggregator { get; private set; }
         protected IDisplayMessage DisplayMessage { get; private set; }
 
-
+        protected IPageDialogService PageDialog { get; private set; }
         public PageMode ViewMode { get; set; } = PageMode.View;
 
         public bool IsConnected => Connectivity.NetworkAccess == NetworkAccess.Internet;
@@ -50,7 +51,7 @@ namespace BA_MobileGPS.Core.ViewModels.Base
             NavigationService = navigationService;
 
             EventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
-
+            PageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
             DisplayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
 
             Connectivity.ConnectivityChanged -= OnConnectivityChanged;
