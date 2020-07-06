@@ -168,8 +168,17 @@
     </Style>
 
     <!--  Sf Text Input Layout  -->
-    <Style Class="PasswordInput" TargetType="input:SfTextInputLayout">
-        <Setter Property="EnablePasswordVisibilityToggle" Value="True" />
+    <Style Class="LoginEntry" TargetType="input:SfTextInputLayout">
+        <Setter Property="ContainerBackgroundColor" Value="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor}, Dark={StaticResource DarkSecondaryOtherColor}}" />
+        <Setter Property="ContainerType" Value="Outlined" />
+        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="WidthRequest" Value="300" />
+        <Setter Property="LeadingViewPosition" Value="Inside" />
+        <Setter Property="OutlineCornerRadius" Value="20" />
+        <Setter Property="InputViewPadding" Value="15,0,0,0" />
+        <Setter Property="FocusedColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryOtherColor}, Dark={StaticResource DarkPrimaryOtherColor}}" />
+        <Setter Property="ErrorColor" Value="{AppThemeBinding Light={StaticResource LightDangerousColor}, Dark={StaticResource DarkDangerousColor}}" />
     </Style>
 
     <!--  Main  Background Color  -->
@@ -203,6 +212,7 @@
     <Style Class="HomePageBotImage" TargetType="ffImage:CachedImage">
         <Setter Property="Source" Value="{AppThemeBinding Light={StaticResource LightHomePageBotImageSource}, Dark={StaticResource DarkHomePageBotImageSource}}" />
     </Style>
+
 
 
 </ResourceDictionary>

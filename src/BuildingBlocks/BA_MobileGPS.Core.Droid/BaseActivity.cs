@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Runtime;
 using BA_MobileGPS.Core.DependencyServices;
 using BA_MobileGPS.Core.Droid.DependencyServices;
+using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Utilities.Enums;
 using Plugin.Permissions;
 using Prism;
@@ -47,6 +48,7 @@ namespace BA_MobileGPS.Core.Droid
                 //containerRegistry.RegisterInstance<IAudioManager>(new DroidAudioManager());
                 containerRegistry.RegisterInstance<ITooltipService>(new DroidTooltipService());
                 //containerRegistry.RegisterInstance<IDownloader>(new AndroidDownloader());
+                containerRegistry.RegisterInstance<IAppVersionService>(new AppVersionService());
             }
         }
 
