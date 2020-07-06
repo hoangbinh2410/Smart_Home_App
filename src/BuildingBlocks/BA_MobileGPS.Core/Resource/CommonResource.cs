@@ -63,6 +63,7 @@ namespace BA_MobileGPS.Core.Resource
         public static string Common_Value_SelectGender => Get(MobileResourceNames.Common_Value_SelectGender, "Chọn giới tính", "Select Gender");
         public static string Common_Value_SelectReligion => Get(MobileResourceNames.Common_Value_SelectReligion, "Chọn tôn giáo", "Select Religion");
         public static string Common_Message_Skip => Get(MobileResourceNames.Common_Message_Skip, "Bỏ qua", "Skip");
+
         #region title grid dùng nhiều
 
         public static string Common_Label_TitleGrid_VehiclePlate => Get(MobileResourceNames.Common_Label_TitleGrid_VehiclePlate, "Phương tiện", "Vehicle");

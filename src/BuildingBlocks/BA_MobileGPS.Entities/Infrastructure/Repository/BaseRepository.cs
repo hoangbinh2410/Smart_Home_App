@@ -157,9 +157,7 @@ namespace BA_MobileGPS.Entities.Infrastructure.Repository
                 {
                     return 0;
                 }
-
             }
-
         }
 
         public IEnumerable<TEntity> All<TEntity>() where TEntity : RealmObject, IRealmEntity

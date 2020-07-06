@@ -31,7 +31,6 @@ namespace BA_MobileGPS.Core
 
             CreateMap<HelperAdvanceRealm, HelperAdvance>();
 
-
             if (App.AppType == AppType.VMS)
             {
                 CreateMap<VehicleOnline, VMSVehicleOnlineViewModel>();
@@ -48,7 +47,6 @@ namespace BA_MobileGPS.Core
 
                 CreateMap<FishTripQuantityRealm, FishTripQuantity>();
             }
-
         }
     }
 }

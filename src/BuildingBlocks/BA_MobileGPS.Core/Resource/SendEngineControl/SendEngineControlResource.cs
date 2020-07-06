@@ -37,7 +37,7 @@ namespace BA_MobileGPS.Core.Resource
         public static string SendEngineControl_Popup_HeaderTitle => Get(MobileResourceNames.SendEngineControl_Popup_HeaderTitle, "BA GPS thông báo", "BA GPS Warning");
 
         public static string SendEngineControl_Warning_Off => Get(MobileResourceNames.SendEngineControl_Warning_Off, "Bạn phải chọn phương tiện để thực hiện tắt máy", "You must choose a means to turn off the device");
-       
+
         public static string SendEngineControl_Warning_On => Get(MobileResourceNames.SendEngineControl_Warning_On, "Bạn phải chọn phương tiện để thực hiện bật máy", "You must choose a means to turn on the device");
 
         public static string SendEngineControl_Label_State_0 => Get(MobileResourceNames.SendEngineControl_Label_State_0, "Thành công", "Success");

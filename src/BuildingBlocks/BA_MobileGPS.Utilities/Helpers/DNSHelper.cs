@@ -36,7 +36,6 @@ namespace BA_MobileGPS.Utilities.Helpers
             return result;
         }
 
-
         /// <summary>
         /// Thuc hien connect toi server
         /// </summary>

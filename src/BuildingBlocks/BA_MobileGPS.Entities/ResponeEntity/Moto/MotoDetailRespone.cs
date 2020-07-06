@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BA_MobileGPS.Entities
 {
@@ -47,7 +45,5 @@ namespace BA_MobileGPS.Entities
 
         private string devicePhone;
         public string DevicePhone { get => devicePhone; set => SetProperty(ref devicePhone, value); }
-
     }
-
 }

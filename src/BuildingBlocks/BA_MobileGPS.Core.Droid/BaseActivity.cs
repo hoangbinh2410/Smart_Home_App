@@ -1,10 +1,16 @@
 ﻿using Android.Content;
 using Android.Content.Res;
+using Android.OS;
 using Android.Runtime;
+using BA_MobileGPS.Core.DependencyServices;
+using BA_MobileGPS.Core.Droid.DependencyServices;
+using BA_MobileGPS.Utilities.Enums;
 using Plugin.Permissions;
 using Prism;
 using Prism.Ioc;
+using Rg.Plugins.Popup.Services;
 using Shiny;
+using System;
 
 namespace BA_MobileGPS.Core.Droid
 {
@@ -35,15 +41,40 @@ namespace BA_MobileGPS.Core.Droid
             public void RegisterTypes(IContainerRegistry containerRegistry)
             {
                 // Register any platform specific implementations
-                //containerRegistry.RegisterInstance<IDisplayMessage>(new DisplayMessageService());
+                containerRegistry.RegisterInstance<IDisplayMessage>(new DisplayMessageService());
                 //containerRegistry.RegisterInstance<ISettingsService>(new SettingsService());
-                //containerRegistry.RegisterInstance<IAppVersionService>(new AppVersionService());
-                //containerRegistry.RegisterInstance<IAccountKitService>(new AccountKitService());
                 //containerRegistry.RegisterInstance<ISaveAndView>(new SaveAndViewAndroid());
                 //containerRegistry.RegisterInstance<IAudioManager>(new DroidAudioManager());
-                //containerRegistry.RegisterInstance<ITooltipService>(new DroidTooltipService());
+                containerRegistry.RegisterInstance<ITooltipService>(new DroidTooltipService());
                 //containerRegistry.RegisterInstance<IDownloader>(new AndroidDownloader());
             }
         }
+
+        public async override void OnBackPressed()
+        {
+            if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
+            {
+                // Do something if there are some pages in the `PopupStack`
+                await PopupNavigation.Instance.PopAsync();
+            }
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();          
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();          
+        }
+
+        public override void OnConfigurationChanged(Android.Content.Res.Configuration newConfig)
+        {
+            base.OnConfigurationChanged(newConfig);
+           
+        }
+
+      
     }
 }

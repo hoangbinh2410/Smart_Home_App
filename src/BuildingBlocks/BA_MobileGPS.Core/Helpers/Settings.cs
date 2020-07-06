@@ -189,7 +189,6 @@ namespace BA_MobileGPS.Core
             set => AppSettings.AddOrUpdateValue(FirebaseToken, value);
         }
 
-
         public static string ReceivedNotificationType
         {
             get => AppSettings.GetValueOrDefault(ReceivedNotificationTypeKey, ReceivedNotificationTypeDefault);
@@ -207,6 +206,7 @@ namespace BA_MobileGPS.Core
             get => AppSettings.GetValueOrDefault(ReceivedNotificationTitleKey, ReceivedNotificationTitleDefault);
             set => AppSettings.AddOrUpdateValue(ReceivedNotificationTitleKey, value);
         }
+
         public static string LastImeiVMS
         {
             get => AppSettings.GetValueOrDefault(LastImeiVMSKey, LastImeiVMSDefault);
@@ -230,6 +230,7 @@ namespace BA_MobileGPS.Core
             get => AppSettings.GetValueOrDefault(NoticeIdAfterLoginKey, NoticeIdAfterLoginDefault);
             set => AppSettings.AddOrUpdateValue(NoticeIdAfterLoginKey, value);
         }
+
         /// <summary>
         /// Load Map lan dau
         /// </summary>
@@ -253,7 +254,7 @@ namespace BA_MobileGPS.Core
 
         public static int SortOrder
         {
-            get => AppSettings.GetValueOrDefault(SortOrderKey,SortOrderKeyDefault);
+            get => AppSettings.GetValueOrDefault(SortOrderKey, SortOrderKeyDefault);
             set => AppSettings.AddOrUpdateValue(SortOrderKey, value);
         }
     }

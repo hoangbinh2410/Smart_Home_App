@@ -96,7 +96,6 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("15")]
         public DateTime? MCExpried { get; set; }
 
-
         [JsonProperty("16")]
         public byte MessageId { get; set; }
 

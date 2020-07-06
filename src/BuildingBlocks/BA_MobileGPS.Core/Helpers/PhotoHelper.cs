@@ -18,7 +18,7 @@
 //                 RequestPermission<Plugin.Permissions.CameraPermission>(
 //                            new Views.Permissions.CameraPermission(async () => await RequireStoragePermission(action)),
 //                            async () => await RequireStoragePermission(action));
-           
+
 //        }
 
 //        public static async Task CanPickPhoto(Action action = null)
@@ -34,8 +34,6 @@
 //            await PermissionHelper.
 //                  RequestPermission<Plugin.Permissions.StoragePermission>(new Views.Permissions.StoragePermission(action), action);
 //        }
-
-
 
 //    }
 //}

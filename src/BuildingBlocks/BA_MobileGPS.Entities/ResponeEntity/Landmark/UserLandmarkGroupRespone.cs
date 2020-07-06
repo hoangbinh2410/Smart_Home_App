@@ -1,10 +1,7 @@
-﻿using System;
-
-namespace BA_MobileGPS.Entities
+﻿namespace BA_MobileGPS.Entities
 {
     public class UserLandmarkGroupRespone : BaseModel
     {
-
         public int PK_LandmarksGroupID { get; set; }
 
         public string Name { get; set; }

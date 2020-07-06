@@ -1,7 +1,5 @@
 ﻿using Shiny.Locations;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BA_MobileGPS.Core.Delegates.Shinny
@@ -10,15 +8,14 @@ namespace BA_MobileGPS.Core.Delegates.Shinny
     {
         public event EventHandler<GpsReadingEventArgs> OnReadingReceived;
 
-        void UpdateReading(IGpsReading reading)
+        private void UpdateReading(IGpsReading reading)
         {
             OnReadingReceived?.Invoke(this, new GpsReadingEventArgs(reading));
         }
 
-
         public class LocationDelegate : IGpsDelegate
         {
-            IGpsListener _gpsListener;
+            private IGpsListener _gpsListener;
 
             public LocationDelegate(IGpsListener gpsListener)
             {

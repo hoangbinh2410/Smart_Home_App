@@ -1,14 +1,10 @@
-﻿using BA_MobileGPS.Utilities.Enums;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace BA_MobileGPS.Entities
 {
     [Serializable]
     public class FuelsSummariesModel : ReportBaseResponse
     {
-       
         // STT
         public int RowNumber { get; set; }
 
@@ -16,7 +12,7 @@ namespace BA_MobileGPS.Entities
         public string PrivateCode { get; set; }
 
         //Ngày tháng
-        public DateTime Date { get; set; } 
+        public DateTime Date { get; set; }
 
         //Số lần đổ
         public int PourCount { get; set; }
@@ -53,6 +49,5 @@ namespace BA_MobileGPS.Entities
 
         //Số lít tiêu hao
         public double LiterConsumable { get; set; }
-      
     }
 }

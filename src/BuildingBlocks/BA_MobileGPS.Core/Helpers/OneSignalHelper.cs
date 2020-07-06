@@ -1,11 +1,8 @@
-﻿
-
-using BA_MobileGPS.Service;
-using Com.OneSignal;
+﻿using Com.OneSignal;
 using Com.OneSignal.Abstractions;
-using System.Diagnostics;
-using Prism.Ioc;
 using Prism.Events;
+using Prism.Ioc;
+using System.Diagnostics;
 
 namespace BA_MobileGPS.Core.Helpers
 {
@@ -61,6 +58,5 @@ namespace BA_MobileGPS.Core.Helpers
                 };
             };
         }
-
     }
 }

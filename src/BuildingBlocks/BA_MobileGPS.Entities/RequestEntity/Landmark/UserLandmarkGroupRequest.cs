@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace BA_MobileGPS.Entities
 {
@@ -16,6 +15,5 @@ namespace BA_MobileGPS.Entities
         public bool IsDisplayName { get; set; }
 
         public bool IsVisible { get; set; }
-
     }
 }

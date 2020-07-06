@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Xamarin.Forms;
 
 namespace BA_MobileGPS.Entities
 {
     public class NotificationRespone : BaseModel
     {
         public int PK_NoticeContentID { get; set; }
+
         /// <summary>
         /// Tên loại thông báo
         /// </summary>

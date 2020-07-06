@@ -22,6 +22,5 @@ namespace BA_MobileGPS.Core
             string strFileExcel = $"{name}_{userName}_{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")}.xlsx";
             return strFileExcel;
         }
-
     }
 }

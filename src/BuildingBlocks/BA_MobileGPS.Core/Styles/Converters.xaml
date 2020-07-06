@@ -25,7 +25,6 @@
 
     <converters:NullOrEmptyToBoolConverter x:Key="NullOrEmptyToBoolConverter" />
 
-
     <converters:KmConverter x:Key="KmConverter" />
 
     <converters:ShowOnOffToBoolConverter x:Key="ShowOnOffToBoolConverter" />

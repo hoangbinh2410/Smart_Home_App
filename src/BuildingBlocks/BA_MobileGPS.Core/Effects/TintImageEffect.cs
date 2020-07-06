@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Effects
 {
@@ -12,6 +9,8 @@ namespace BA_MobileGPS.Core.Effects
 
         public Color TintColor { get; set; }
 
-        public TintImageEffect() : base($"{GroupName}.{Name}") { }
+        public TintImageEffect() : base($"{GroupName}.{Name}")
+        {
+        }
     }
 }

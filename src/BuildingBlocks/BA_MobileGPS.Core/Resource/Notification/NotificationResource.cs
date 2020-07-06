@@ -1,7 +1,4 @@
 ﻿using BA_MobileGPS.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BA_MobileGPS.Core.Resource
 {

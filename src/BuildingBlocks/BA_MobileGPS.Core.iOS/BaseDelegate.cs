@@ -1,4 +1,6 @@
-﻿using Prism;
+﻿using BA_MobileGPS.Core.iOS.DependencyServices;
+using Foundation;
+using Prism;
 using Prism.Ioc;
 
 using UIKit;
@@ -26,18 +28,26 @@ namespace BA_MobileGPS.Core.iOS
             }
         }
 
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            if (Xamarin.Essentials.Platform.OpenUrl(app, url, options))
+                return true;
+
+            return base.OpenUrl(app, url, options);
+        }
+
         protected class IOSInitializer : IPlatformInitializer
         {
             public void RegisterTypes(IContainerRegistry containerRegistry)
             {
                 // Register any platform specific implementations
-                //containerRegistry.RegisterInstance<IDisplayMessage>(new DisplayMessageService());
+                containerRegistry.RegisterInstance<IDisplayMessage>(new DisplayMessageService());
                 //containerRegistry.RegisterInstance<ISettingsService>(new SettingsService());
                 //containerRegistry.RegisterInstance<IAppVersionService>(new AppVersionService());
                 //containerRegistry.RegisterInstance<IAccountKitService>(new AccountKitService());
                 //containerRegistry.RegisterInstance<ISaveAndView>(new SaveAndViewIOS());
                 //containerRegistry.RegisterInstance<IAudioManager>(new AppleAudioManager());
-                //containerRegistry.RegisterInstance<ITooltipService>(new iOSTooltipService());
+                containerRegistry.RegisterInstance<ITooltipService>(new iOSTooltipService());
                 //containerRegistry.RegisterInstance<IDownloader>(new IosDownloader());
             }
         }

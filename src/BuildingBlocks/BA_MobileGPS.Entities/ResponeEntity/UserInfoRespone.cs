@@ -28,6 +28,7 @@ namespace BA_MobileGPS.Entities
 
         [JsonProperty("3")]
         public string PhoneNumber { get; set; }
+
         [JsonProperty("4")]
         public string Email { get; set; }
 

@@ -936,7 +936,6 @@ namespace BA_MobileGPS.Utilities
             }
 
             return Regex.Replace(sb.ToString(), @"-+", "-").Trim('-').ToLower();
-
         }
 
         /// <summary>
@@ -960,7 +959,6 @@ namespace BA_MobileGPS.Utilities
             }
 
             return Regex.Replace(sb.ToString(), @"-+", "_").Trim('_').ToLower();
-
         }
     }
 }
