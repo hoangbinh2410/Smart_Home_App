@@ -31,4 +31,5 @@
         x:TypeArguments="Color"
         Android="#e3e3e3"
         iOS="#C8C7CC" />
+    
 </ResourceDictionary>
