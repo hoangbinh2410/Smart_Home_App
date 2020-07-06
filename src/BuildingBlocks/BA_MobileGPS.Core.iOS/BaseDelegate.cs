@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.iOS.DependencyServices;
+﻿using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Core.iOS.DependencyServices;
 using Foundation;
 using Prism;
 using Prism.Ioc;
@@ -43,7 +44,7 @@ namespace BA_MobileGPS.Core.iOS
                 // Register any platform specific implementations
                 containerRegistry.RegisterInstance<IDisplayMessage>(new DisplayMessageService());
                 //containerRegistry.RegisterInstance<ISettingsService>(new SettingsService());
-                //containerRegistry.RegisterInstance<IAppVersionService>(new AppVersionService());
+                containerRegistry.RegisterInstance<IAppVersionService>(new AppVersionService());
                 //containerRegistry.RegisterInstance<IAccountKitService>(new AccountKitService());
                 //containerRegistry.RegisterInstance<ISaveAndView>(new SaveAndViewIOS());
                 //containerRegistry.RegisterInstance<IAudioManager>(new AppleAudioManager());

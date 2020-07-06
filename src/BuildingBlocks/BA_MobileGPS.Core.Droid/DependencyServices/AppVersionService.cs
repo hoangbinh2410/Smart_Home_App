@@ -11,7 +11,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using BA_MobileGPS.Core.Droid.DependencyServices;
-using BA_MobileGPS.Core.Interfaces;
 
 [assembly: Xamarin.Forms.Dependency(typeof(AppVersionService))]
 namespace BA_MobileGPS.Core.Droid.DependencyServices
