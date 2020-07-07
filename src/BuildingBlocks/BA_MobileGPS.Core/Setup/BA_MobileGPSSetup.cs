@@ -82,9 +82,6 @@ namespace BA_MobileGPS.Core
         public static void RegisterPages(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>("LoginPage");
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>("MainPage");
-            containerRegistry.RegisterForNavigation<DemoPage, DemoPageViewModel>();
         }
     }
 }
