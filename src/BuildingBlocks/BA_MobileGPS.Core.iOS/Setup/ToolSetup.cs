@@ -11,6 +11,7 @@ using Syncfusion.ListView.XForms.iOS;
 using Syncfusion.SfChart.XForms.iOS.Renderers;
 using Syncfusion.SfDataGrid.XForms.iOS;
 using Syncfusion.SfImageEditor.XForms.iOS;
+using Syncfusion.XForms.iOS.BadgeView;
 using Syncfusion.XForms.iOS.Border;
 using Syncfusion.XForms.iOS.Buttons;
 using Syncfusion.XForms.iOS.ComboBox;
@@ -56,7 +57,7 @@ namespace BA_MobileGPS.Core.iOS.Setup
             SfButtonRenderer.Init();
             SfImageEditorRenderer.Init();
             //SfCalendarRenderer.Init();
-            //SfBadgeViewRenderer.Init();
+            SfBadgeViewRenderer.Init();
             SfChartRenderer.Init();
             //SfBusyIndicatorRenderer.Init();
             //SfTabViewRenderer.Init();
