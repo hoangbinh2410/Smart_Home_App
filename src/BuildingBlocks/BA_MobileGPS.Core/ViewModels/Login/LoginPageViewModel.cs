@@ -33,6 +33,7 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class LoginPageViewModel : ViewModelBase
     {
+        #region Contructor
         private readonly IAuthenticationService authenticationService;
         private readonly IDBVersionService dBVersionService;
         private readonly IResourceService resourceService;
@@ -40,14 +41,11 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly ILanguageService languageTypeService;
         private readonly INotificationService notificationService;
         private readonly IPingServerService pingServerService;
-        private readonly IPopupServices popupServices;
-
-
 
         public LoginPageViewModel(INavigationService navigationService, IAuthenticationService authenticationService, IAppVersionService appVersionService,
              IDBVersionService dBVersionService,
             IResourceService resourceService, ILanguageService languageTypeService,
-            INotificationService notificationService, IPingServerService pingServerService,IPopupServices popupServices)
+            INotificationService notificationService, IPingServerService pingServerService)
             : base(navigationService)
         {
             this.authenticationService = authenticationService;
@@ -57,7 +55,6 @@ namespace BA_MobileGPS.Core.ViewModels
             this.dBVersionService = dBVersionService;
             this.notificationService = notificationService;
             this.pingServerService = pingServerService;
-            this.popupServices = popupServices;
 
 
             EventAggregator.GetEvent<SelectLanguageTypeEvent>().Subscribe(UpdateLanguage);
@@ -72,6 +69,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             InitValidations();
         }
+        #endregion
 
         public override void Initialize(INavigationParameters parameters)
         {
