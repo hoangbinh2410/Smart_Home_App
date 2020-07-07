@@ -82,9 +82,6 @@ namespace VMS_MobileGPS.ViewModels
         {
             if (!ViewHasAppeared)
             {
-                //smoothing UI
-                //await Task.Delay(TimeSpan.FromMilliseconds(200));
-
                 OnPageAppearingFirstTime();
 
                 ViewHasAppeared = true;

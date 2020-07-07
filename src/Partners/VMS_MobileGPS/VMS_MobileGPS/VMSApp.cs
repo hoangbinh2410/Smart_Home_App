@@ -1,11 +1,7 @@
 ﻿using BA_MobileGPS.Core;
 using BA_MobileGPS.Service;
-using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 using BA_MobileGPS.Utilities.Enums;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
 using Prism;
 using Prism.Ioc;
 
@@ -38,10 +34,9 @@ namespace VMS_MobileGPS
             //      "android=28d78b27-4b62-42e5-8db5-8e2d50de6a3a",
             //      typeof(Analytics), typeof(Crashes));
 
-            //AppManager.Init();
+            AppManager.Init();
 
-            //await NavigationService.NavigateAsync("/NavigationPage/LandingPage");
-            await NavigationService.NavigateAsync("/LoginPage");
+            await NavigationService.NavigateAsync("/NavigationPage/OfflinePage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -59,6 +54,8 @@ namespace VMS_MobileGPS
             containerRegistry.Register<IVehicleDebtBlockService, VehicleDebtBlockService>();
 
             containerRegistry.Register<IServicePackageHistoryService, ServicePackageHistoryService>();
+
+            containerRegistry.RegisterForNavigation<OfflinePage, OfflinePageViewModel>("OfflinePage");
         }
     }
 }

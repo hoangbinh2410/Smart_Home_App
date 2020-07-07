@@ -3,6 +3,12 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Views\Login\**" />
+	  <EmbeddedResource Remove="Views\Login\**" />
+	  <None Remove="Views\Login\**" />
+	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.3" />
 		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.1.0.59" />
@@ -74,8 +80,5 @@
 	  <EmbeddedResource Update="Views\Popup\BasePopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Views\Login\" />
 	</ItemGroup>
 </Project>

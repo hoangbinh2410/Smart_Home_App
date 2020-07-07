@@ -13,6 +13,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Reference Include="Plugin.BLE">
+	    <HintPath>..\..\..\BuildingBlocks\Library\Shared\Plugin.BLE.dll</HintPath>
+	  </Reference>
+	  <Reference Include="Plugin.BLE.Abstractions">
+	    <HintPath>..\..\..\BuildingBlocks\Library\Shared\Plugin.BLE.Abstractions.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <EmbeddedResource Update="Styles\DarkColor.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -22,8 +31,11 @@
 	  <EmbeddedResource Update="Styles\VMS_Styles.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Online\OnlinePage.xaml">
+	  <EmbeddedResource Update="Views\Offline\OfflinePage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Permission\VMSPermissionGranted.xaml">
+	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>
 
