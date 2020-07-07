@@ -7,11 +7,16 @@
     <!--  Color Primary  -->
     <Color x:Key="BlueDarkColor">#004EDA</Color>
     <Color x:Key="BluePrimaryColor">#00AEEF</Color>
+    <Color x:Key="BlueDarkColor">#00709A</Color>
+    <Color x:Key="PrimaryColor">#4A7AFF</Color>
     <Color x:Key="BlueColor">#89DFFF</Color>
     <Color x:Key="WhiteColor">White</Color>
+
+
     <!--  Other Color  -->
     <Color x:Key="PurpleColor">#4A7AFF</Color>
     <Color x:Key="GrayColor">#F3F3F3</Color>
+
     <!--  Text Color  -->
     <Color x:Key="TextPrimaryColor">#484848</Color>
     <Color x:Key="TextSecondaryColor">#7B7B7B</Color>

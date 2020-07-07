@@ -56,6 +56,10 @@ namespace VMS_MobileGPS
             containerRegistry.Register<IServicePackageHistoryService, ServicePackageHistoryService>();
 
             containerRegistry.RegisterForNavigation<OfflinePage, OfflinePageViewModel>("OfflinePage");
+            containerRegistry.RegisterForNavigation<FishQuantityInputPage, FishQuantityInputViewModel>("FishQuantityInputPage");
+            containerRegistry.RegisterForNavigation<FishQuantityDetailPage, FishQuantityDetailViewModel>("FishQuantityDetailPage");
+            containerRegistry.RegisterForNavigation<AddFishQuantityPage, AddFishQuantityViewModel>("AddFishQuantityPage");
+            containerRegistry.RegisterForNavigation<LocationDergeeInputPage, LocationDergeeInputViewModel>("LocationDergeeInputPage");
         }
     }
 }
