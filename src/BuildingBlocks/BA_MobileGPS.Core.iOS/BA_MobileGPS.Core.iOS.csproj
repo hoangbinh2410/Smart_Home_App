@@ -44,6 +44,7 @@
     <Compile Include="CustomRenderer\FrameShadowRenderer.cs" />
     <Compile Include="CustomRenderer\IconViewRenderer.cs" />
     <Compile Include="CustomRenderer\PageRenderer.cs" />
+    <Compile Include="DependencyServices\AppVersionService.cs" />
     <Compile Include="DependencyServices\DisplayMessageService.cs" />
     <Compile Include="DependencyServices\iOSTooltipService.cs" />
     <Compile Include="DependencyServices\StatusBarHelper.cs" />

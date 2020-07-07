@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VMS_MobileGPS.Views.OfflinePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converters="clr-namespace:VMS_MobileGPS.Converter"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:localstatic="clr-namespace:VMS_MobileGPS.Constant;assembly=VMS_MobileGPS"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:switch="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.BackButtonTitle="">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BLEConnectionStateConverter x:Key="BLEConnectionStateConverter" />
+            <converters:BLEConnectionStateColorConverter x:Key="BLEConnectionStateColorConverter" />
+            <converters:BLEConnectionStateTextColorConverter x:Key="BLEConnectionStateTextColorConverter" />
+            <converters:TotalNotificationDisplayConverter x:Key="TotalNotificationDisplayConverter" />
+            <converters:SOSStateColorConverter x:Key="SOSStateColorConverter" />
+            <converters:SOSStateTextColorConverter x:Key="SOSStateTextColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <NavigationPage.TitleView>
+        <Grid ColumnSpacing="10" HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".5*" />
+                <ColumnDefinition Width=".5*" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                HorizontalOptions="StartAndExpand"
+                Source="ic_logo.png"
+                VerticalOptions="FillAndExpand"
+                WidthRequest="80" />
+            <badge:SfBadgeView
+                Grid.Column="1"
+                Margin="5,0,0,5"
+                BadgeText="{Binding TotalMessage, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource TotalNotificationDisplayConverter}}"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="Center">
+                <badge:SfBadgeView.Content>
+                    <controls:FontAwesomeIcon
+                        Margin="10,0,10,0"
+                        FontAttributes="Bold"
+                        FontSize="25"
+                        HorizontalOptions="End"
+                        Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}"
+                        TextColor="White"
+                        VerticalOptions="Center">
+                        <!--<controls:FontAwesomeIcon.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavigateToCommand}" CommandParameter="{x:Static local:PageNames.NotificationMessagePage}" />
+                        </controls:FontAwesomeIcon.GestureRecognizers>-->
+                    </controls:FontAwesomeIcon>
+                </badge:SfBadgeView.Content>
+                <badge:SfBadgeView.BadgeSettings>
+                    <badge:BadgeSetting
+                        BadgePosition="TopRight"
+                        BadgeType="Error"
+                        CornerRadius="12"
+                        FontSize="9"
+                        TextPadding="3"
+                        Offset="-5,5" />
+                </badge:SfBadgeView.BadgeSettings>
+            </badge:SfBadgeView>
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <Grid Padding="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".3*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ffImage:CachedImage
+                    Grid.Column="0"
+                    HeightRequest="150"
+                    HorizontalOptions="StartAndExpand"
+                    Source="ic_vmsdevice.png"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="150" />
+                <StackLayout
+                    Grid.Column="1"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand">
+                    <Label Text="Có tín hiệu" />
+                    <Label Text="BA SAT-012" />
+                </StackLayout>
+
+                <StackLayout
+                    Grid.Column="2"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand">
+                    <switch:SfSwitch IsOn="True" VisualType="Cupertino" />
+                    <Label Text="Đã kết nối" />
+                </StackLayout>
+            </Grid>
+
+            <StackLayout
+                Grid.Row="1"
+                HorizontalOptions="FillAndExpand"
+                Spacing="15"
+                VerticalOptions="FillAndExpand">
+                <Grid ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*" />
+                        <ColumnDefinition Width=".5*" />
+                    </Grid.ColumnDefinitions>
+                    <sharpnado:MaterialFrame Grid.Column="0" CornerRadius="10">
+                        <StackLayout>
+                            <ffImage:CachedImage
+                                Grid.Column="0"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="ic_sos.png"
+                                VerticalOptions="CenterAndExpand" />
+                            <Label
+                                HorizontalOptions="CenterAndExpand"
+                                Text="Cảnh báo SOS"
+                                VerticalOptions="Center" />
+
+                        </StackLayout>
+                    </sharpnado:MaterialFrame>
+                    <sharpnado:MaterialFrame Grid.Column="1" CornerRadius="10">
+                        <StackLayout>
+                            <ffImage:CachedImage
+                                Grid.Column="0"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="ic_mailoffline.png"
+                                VerticalOptions="CenterAndExpand" />
+                            <Label
+                                HorizontalOptions="CenterAndExpand"
+                                Text="Gửi tin nhắn"
+                                VerticalOptions="Center" />
+
+                        </StackLayout>
+                    </sharpnado:MaterialFrame>
+                </Grid>
+
+                <Grid ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*" />
+                        <ColumnDefinition Width=".5*" />
+                    </Grid.ColumnDefinitions>
+                    <sharpnado:MaterialFrame Grid.Column="0" CornerRadius="10">
+                        <StackLayout>
+                            <ffImage:CachedImage
+                                Grid.Column="0"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="ic_meluoi.png"
+                                VerticalOptions="CenterAndExpand" />
+                            <Label
+                                HorizontalOptions="CenterAndExpand"
+                                Text="Mẻ lưới"
+                                VerticalOptions="Center" />
+
+                        </StackLayout>
+                    </sharpnado:MaterialFrame>
+                    <sharpnado:MaterialFrame Grid.Column="1" CornerRadius="10">
+                        <StackLayout>
+                            <ffImage:CachedImage
+                                Grid.Column="0"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="ic_mappoffline.png"
+                                VerticalOptions="CenterAndExpand" />
+                            <Label
+                                HorizontalOptions="CenterAndExpand"
+                                Text="Bản đồ ngoại tuyến"
+                                VerticalOptions="Center" />
+
+                        </StackLayout>
+                    </sharpnado:MaterialFrame>
+                </Grid>
+
+                <Button
+                    Grid.Row="2"
+                    Text="ĐĂNG NHẬP"
+                    VerticalOptions="StartAndExpand" />
+            </StackLayout>
+
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage
+    x:Class="VMS_MobileGPS.Views.Popup.VMSPermissionGranted"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:convertersvms="clr-namespace:VMS_MobileGPS.Converter"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:local="clr-namespace:VMS_MobileGPS.Constant;assembly=VMS_MobileGPS"
+    xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:utilities="clr-namespace:BA_MobileGPS.Utilities;assembly=BA_MobileGPS.Utilities"
+    BackgroundColor="#99000000"
+    CloseWhenBackgroundIsClicked="False"
+    HasSystemPadding="True"
+    SystemPaddingSides="Bottom">
+    <popup:PopupPage.Resources>
+        <ResourceDictionary>
+            <convertersvms:PermisisonTextColorConverter x:Key="PermisisonTextColorConverter" />
+            <convertersvms:PermissionBackgroundColorConverter x:Key="PermissionBackgroundColorConverter" />
+            <convertersvms:GrantPermissionEnableConverter x:Key="GrantPermissionEnableConverter" />
+        </ResourceDictionary>
+    </popup:PopupPage.Resources>
+    <popup:PopupPage.Content>
+        <Grid>
+            <Frame
+                Margin="0,0,0,50"
+                Padding="15"
+                BackgroundColor="White"
+                CornerRadius="10"
+                HeightRequest="350"
+                HorizontalOptions="Center"
+                VerticalOptions="End">
+                <StackLayout Spacing="10">
+                    <StackLayout.Resources>
+                        <Style TargetType="Frame">
+                            <Setter Property="CornerRadius" Value="25" />
+                            <Setter Property="HasShadow" Value="False" />
+                            <Setter Property="HeightRequest" Value="45" />
+                            <Setter Property="BorderColor" Value="{StaticResource Color_Navigation}" />
+                            <Setter Property="Padding" Value="0" />
+                        </Style>
+                    </StackLayout.Resources>
+                    <Frame
+                        Padding="10"
+                        BorderColor="Transparent"
+                        HeightRequest="25"
+                        HorizontalOptions="End">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CloseCommand}" NumberOfTapsRequired="1" />
+                        </Frame.GestureRecognizers>
+                        <controls:FontAwesomeIcon
+                            FontAttributes="Bold"
+                            Text="{x:Static fontawesome:FontAwesomeIcons.Times}"
+                            TextColor="Black" />
+                    </Frame>
+
+                    <Label
+                        Margin="0,-25,0,0"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Start"
+                        Text="Cần được cấp quyền"
+                        VerticalOptions="Start" />
+                    <Label
+                        Margin="10,-5,0,0"
+                        FontSize="14"
+                        Text="  BA-SAT cần có các quyền sau."
+                        TextColor="#99000000" />
+                    <Frame BackgroundColor="{Binding PermissionManager.IsCameraGranted, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource PermissionBackgroundColorConverter}}" IsEnabled="{Binding PermissionManager.IsCameraGranted, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource GrantPermissionEnableConverter}}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding GrantPermissionCommand}"
+                                CommandParameter="{x:Static utilities:PermissionOfApp.Camera}"
+                                NumberOfTapsRequired="1" />
+                        </Frame.GestureRecognizers>
+                        <StackLayout
+                            Padding="20,0,0,0"
+                            Orientation="Horizontal"
+                            Spacing="10">
+                            <controls:FontAwesomeIcon
+                                FontAttributes="Bold"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.Camera}"
+                                TextColor="{Binding PermissionManager.IsCameraGranted, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource PermisisonTextColorConverter}}"
+                                VerticalOptions="Center" />
+                            <Label
+                                Margin="0,0,40,0"
+                                FontAttributes="Bold"
+                                HorizontalOptions="CenterAndExpand"
+                                Text="CAMERA"
+                                TextColor="{Binding PermissionManager.IsCameraGranted, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource PermisisonTextColorConverter}}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                    <Frame BackgroundColor="{Binding PermissionManager.IsStorageGranted, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource PermissionBackgroundColorConverter}}" IsEnabled="{Binding PermissionManager.IsStorageGranted, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource GrantPermissionEnableConverter}}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding GrantPermissionCommand}"
+                                CommandParameter="{x:Static utilities:PermissionOfApp.Storage}"
+                                NumberOfTapsRequired="1" />
+                        </Frame.GestureRecognizers>
+                        <StackLayout
+                            Padding="20,0,0,0"
+                            Orientation="Horizontal"
+                            Spacing="10"
+                            WidthRequest="230">
+                            <controls:FontAwesomeIcon
+                                FontAttributes="Bold"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.Database}"
+                                TextColor="{Binding PermissionManager.IsStorageGranted, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource PermisisonTextColorConverter}}"
+                                VerticalOptions="Center" />
+                            <Label
+                                Margin="0,0,40,0"
+                                FontAttributes="Bold"
+                                HorizontalOptions="CenterAndExpand"
+                                Text="BỘ NHỚ"
+                                TextColor="{Binding PermissionManager.IsStorageGranted, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource PermisisonTextColorConverter}}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                    <Frame BackgroundColor="{Binding PermissionManager.IsPhotoGranted, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource PermissionBackgroundColorConverter}}" IsEnabled="{Binding PermissionManager.IsPhotoGranted, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource GrantPermissionEnableConverter}}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding GrantPermissionCommand}"
+                                CommandParameter="{x:Static utilities:PermissionOfApp.Photo}"
+                                NumberOfTapsRequired="1" />
+                        </Frame.GestureRecognizers>
+                        <StackLayout
+                            Padding="20,0,0,0"
+                            Orientation="Horizontal"
+                            Spacing="10">
+                            <controls:FontAwesomeIcon
+                                FontAttributes="Bold"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.Images}"
+                                TextColor="{Binding PermissionManager.IsPhotoGranted, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource PermisisonTextColorConverter}}"
+                                VerticalOptions="Center" />
+                            <Label
+                                Margin="0,0,40,0"
+                                FontAttributes="Bold"
+                                HorizontalOptions="CenterAndExpand"
+                                Text="TRUY CẬP ẢNH"
+                                TextColor="{Binding PermissionManager.IsPhotoGranted, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource PermisisonTextColorConverter}}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                    <Frame BackgroundColor="{Binding PermissionManager.IsLocationGranted, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource PermissionBackgroundColorConverter}}" IsEnabled="{Binding PermissionManager.IsLocationGranted, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource GrantPermissionEnableConverter}}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding GrantPermissionCommand}"
+                                CommandParameter="{x:Static utilities:PermissionOfApp.Location}"
+                                NumberOfTapsRequired="1" />
+                        </Frame.GestureRecognizers>
+                        <StackLayout
+                            Padding="20,0,0,0"
+                            Orientation="Horizontal"
+                            Spacing="10">
+                            <controls:FontAwesomeIcon
+                                FontAttributes="Bold"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.MapMarkedAlt}"
+                                TextColor="{Binding PermissionManager.IsLocationGranted, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource PermisisonTextColorConverter}}"
+                                VerticalOptions="Center" />
+                            <Label
+                                Margin="0,0,40,0"
+                                FontAttributes="Bold"
+                                HorizontalOptions="CenterAndExpand"
+                                Text="VỊ TRÍ"
+                                TextColor="{Binding PermissionManager.IsLocationGranted, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource PermisisonTextColorConverter}}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                    <Frame BackgroundColor="{StaticResource Color_Navigation}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GrantAllCommand}" NumberOfTapsRequired="1" />
+                        </Frame.GestureRecognizers>
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <Label
+                                FontAttributes="Bold"
+                                HorizontalOptions="CenterAndExpand"
+                                Text="CHO PHÉP TẤT CẢ"
+                                TextColor="White"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </popup:PopupPage.Content>
+</popup:PopupPage>
