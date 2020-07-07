@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.iOS.DependencyServices;
+using UIKit;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(StatusBarHelper))]
@@ -7,19 +8,40 @@ namespace BA_MobileGPS.Core.iOS.DependencyServices
 {
     public class StatusBarHelper : IStatusBar
     {
-        public void ChangeStatusBarColorToWhite()
+        public void SetDarkTheme()
         {
-            UIKit.UIApplication.SharedApplication.StatusBarStyle = UIKit.UIStatusBarStyle.LightContent;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
+                GetCurrentViewController().SetNeedsStatusBarAppearanceUpdate();
+            });
         }
 
-        public void ChangeStatusBarColorToBlack()
+        public void SetLightTheme()
         {
-            UIKit.UIApplication.SharedApplication.StatusBarStyle = UIKit.UIStatusBarStyle.Default;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.Default, false);
+                GetCurrentViewController().SetNeedsStatusBarAppearanceUpdate();
+            });
         }
 
         public void HideStatusBar()
         {
-            UIKit.UIApplication.SharedApplication.StatusBarStyle = UIKit.UIStatusBarStyle.BlackTranslucent;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.BlackTranslucent, false);
+                GetCurrentViewController().SetNeedsStatusBarAppearanceUpdate();
+            });
+        }
+
+        UIViewController GetCurrentViewController()
+        {
+            var window = UIApplication.SharedApplication.KeyWindow;
+            var vc = window.RootViewController;
+            while (vc.PresentedViewController != null)
+                vc = vc.PresentedViewController;
+            return vc;
         }
     }
 }

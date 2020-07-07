@@ -73,7 +73,7 @@ namespace BA_MobileGPS.Core.Resource
         public static string Moto_Label_Turn_Off_Alarm => Get(MobileResourceNames.Moto_Label_Turn_Off_Alarm, "Tắt báo động", "Turn off the alarm");
 
         public static string Moto_Label_Turn_Off_Alarm_Note => Get(MobileResourceNames.Moto_Label_Turn_Off_Alarm_Note, "(Gửi SMS tắt báo động khi xe di chuyển trái phép)", "(Send SMS to turn off the alarm when the car moves illegally)");
-      
+
         public static string Moto_Label_Low_Voltage_Warning => Get(MobileResourceNames.Moto_Label_Low_Voltage_Warning, "Ngưỡng cảnh báo điện áp thấp (mV)", "Low voltage warning threshold (mV)");
 
         public static string Moto_Label_Set_The_Phone => Get(MobileResourceNames.Moto_Label_Set_The_Phone, "Thiết lập số điện thoại nhận cảnh báo", "Set the phone number to receive alerts");
@@ -83,6 +83,5 @@ namespace BA_MobileGPS.Core.Resource
         public static string Moto_Label_Speed => Get(MobileResourceNames.Moto_Label_Speed, "Vận tốc", "Speed");
 
         public static string Moto_Label_Status => Get(MobileResourceNames.Moto_Label_Status, "Trạng thái", "Status");
-
     }
 }

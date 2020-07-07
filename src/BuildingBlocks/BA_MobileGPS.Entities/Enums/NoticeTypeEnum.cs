@@ -27,6 +27,5 @@ namespace BA_MobileGPS.Entities
 
         [Description("Thông báo lâu không đăng nhập")]
         NoLogin = 8
-
     }
 }

@@ -1,5 +1,4 @@
-﻿using BA_MobileGPS.Core.Helpers;
-using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
 
 using System;

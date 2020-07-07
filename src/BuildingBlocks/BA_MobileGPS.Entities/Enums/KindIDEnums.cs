@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BA_MobileGPS.Entities.Enums
+﻿namespace BA_MobileGPS.Entities.Enums
 {
     public enum KindIDEnums : byte
     {

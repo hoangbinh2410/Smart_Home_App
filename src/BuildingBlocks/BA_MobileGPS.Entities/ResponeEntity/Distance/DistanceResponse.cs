@@ -1,7 +1,4 @@
-﻿using BA_MobileGPS.Utilities.Enums;
-
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace BA_MobileGPS.Entities
 {
@@ -15,5 +12,4 @@ namespace BA_MobileGPS.Entities
 
         public string Distance { get; set; }
     }
-
 }

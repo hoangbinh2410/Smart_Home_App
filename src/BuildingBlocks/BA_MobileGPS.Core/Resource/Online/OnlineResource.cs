@@ -61,6 +61,5 @@ namespace BA_MobileGPS.Core.Resource
         public static string Online_Button_HideBorder => Get(MobileResourceNames.Online_Button_HideBorder, "ẨN ĐƯỜNG BAO", "HIDE BORDER");
 
         public static string Online_Button_Option => Get(MobileResourceNames.Online_Button_Option, "Cài đặt", "Option");
-
     }
 }

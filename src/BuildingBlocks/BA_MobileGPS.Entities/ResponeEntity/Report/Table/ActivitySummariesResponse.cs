@@ -24,7 +24,7 @@ namespace BA_MobileGPS.Entities
         public string JoinEndTimes { get; set; }
 
         //Thời gian lăn bánh
-        public TimeSpan ActivityTimes { get; set; } 
+        public TimeSpan ActivityTimes { get; set; }
 
         public string JoinActivityTimes { get; set; }
 
@@ -32,22 +32,23 @@ namespace BA_MobileGPS.Entities
         public TimeSpan TotalTimeStops { get; set; }
 
         public string JoinTotalTimeStops { get; set; }
+
         //Km (GPS)
-        public float TotalKmGps { get; set; } 
+        public float TotalKmGps { get; set; }
 
         //Km cơ
         public double KmOfMechanical { get; set; }
 
         //Số lần dừng đỗ
-        public int StopCount { get; set; } 
+        public int StopCount { get; set; }
 
         //Bật điều hoà khi dùng
         public int MinutesOfAirConditioningOn { get; set; }
 
         //Vận tốc cực đại
-        public int Vmax { get; set; } 
+        public int Vmax { get; set; }
 
         //Vận tốc trung bình
-        public int Varg { get; set; } 
+        public int Varg { get; set; }
     }
 }

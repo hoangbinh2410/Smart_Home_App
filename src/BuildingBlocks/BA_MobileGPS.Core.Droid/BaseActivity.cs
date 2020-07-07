@@ -3,6 +3,8 @@ using Android.Content.Res;
 using Android.OS;
 using Android.Runtime;
 using BA_MobileGPS.Core.DependencyServices;
+using BA_MobileGPS.Core.Droid.DependencyServices;
+using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Utilities.Enums;
 using Plugin.Permissions;
 using Prism;
@@ -40,14 +42,13 @@ namespace BA_MobileGPS.Core.Droid
             public void RegisterTypes(IContainerRegistry containerRegistry)
             {
                 // Register any platform specific implementations
-                //containerRegistry.RegisterInstance<IDisplayMessage>(new DisplayMessageService());
+                containerRegistry.RegisterInstance<IDisplayMessage>(new DisplayMessageService());
                 //containerRegistry.RegisterInstance<ISettingsService>(new SettingsService());
-                //containerRegistry.RegisterInstance<IAppVersionService>(new AppVersionService());
-                //containerRegistry.RegisterInstance<IAccountKitService>(new AccountKitService());
                 //containerRegistry.RegisterInstance<ISaveAndView>(new SaveAndViewAndroid());
                 //containerRegistry.RegisterInstance<IAudioManager>(new DroidAudioManager());
-                //containerRegistry.RegisterInstance<ITooltipService>(new DroidTooltipService());
-                //containerRegistry.RegisterInstance<IDownloader>(new AndroidDownloader());
+                containerRegistry.RegisterInstance<ITooltipService>(new DroidTooltipService());
+                //containerRegistry.RegisterInstance<IDownloader>(new AndroidDownloader());    
+                containerRegistry.RegisterInstance<IAppVersionService>(new AppVersionService());
             }
         }
 
@@ -62,42 +63,20 @@ namespace BA_MobileGPS.Core.Droid
 
         protected override void OnStart()
         {
-            base.OnStart();
-            UpdateTheme(Resources.Configuration);
+            base.OnStart();          
         }
 
         protected override void OnResume()
         {
-            base.OnResume();
-            UpdateTheme(Resources.Configuration);
+            base.OnResume();          
         }
 
         public override void OnConfigurationChanged(Android.Content.Res.Configuration newConfig)
         {
             base.OnConfigurationChanged(newConfig);
-            UpdateTheme(newConfig);
+           
         }
 
-        private void UpdateTheme(Configuration newConfig)
-        {
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.Froyo)
-            {
-                var themeService = Prism.PrismApplicationBase.Current.Container.Resolve<IThemeService>();
-                var uiModeFlags = newConfig.UiMode & UiMode.NightMask;
-                switch (uiModeFlags)
-                {
-                    case UiMode.NightYes:
-                        themeService.UpdateTheme(ThemeMode.Dark);
-                        break;
-
-                    case UiMode.NightNo:
-                        themeService.UpdateTheme(ThemeMode.Light);
-                        break;
-
-                    default:
-                        throw new NotSupportedException($"UiMode {uiModeFlags} not supported");
-                }
-            }
-        }
+      
     }
 }

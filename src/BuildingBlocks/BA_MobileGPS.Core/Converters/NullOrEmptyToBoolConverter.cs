@@ -20,6 +20,7 @@ namespace BA_MobileGPS.Core
                 return true;
             }
         }
+
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             return null;

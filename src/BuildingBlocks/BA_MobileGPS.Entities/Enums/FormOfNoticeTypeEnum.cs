@@ -12,6 +12,5 @@ namespace BA_MobileGPS.Entities
 
         [Description("Hiển thị thông báo Notify")]
         Notice = 3
-
     }
 }

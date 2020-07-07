@@ -26,6 +26,17 @@
         x:TypeArguments="x:Double"
         Android="12"
         iOS="12" />
+    <OnPlatform
+        x:Key="myfontsizeLarge-phone"
+        x:TypeArguments="x:Double"
+        Android="16"
+        iOS="16" />
+
+    <OnPlatform
+        x:Key="myfontsizeLarge-tablet"
+        x:TypeArguments="x:Double"
+        Android="20"
+        iOS="20" />
 
     <OnIdiom
         x:Key="MyFontSize"
@@ -38,6 +49,11 @@
         x:TypeArguments="x:Double"
         Phone="{StaticResource myfontsizesmall-phone}"
         Tablet="{StaticResource myfontsizesmall-tablet}" />
+    <OnIdiom
+        x:Key="MyFontSizeLarge"
+        x:TypeArguments="x:Double"
+        Phone="{StaticResource myfontsizeLarge-phone}"
+        Tablet="{StaticResource myfontsizeLarge-tablet}" />
 
     <OnPlatform
         x:Key="myFontFamily"
@@ -71,7 +87,6 @@
         x:TypeArguments="x:String"
         Android="FabMDL2.ttf#Fabric MDL2 Assets"
         iOS="Fabric MDL2 Assets" />
-
 
     <!--  Fonts  -->
     <!--<OnPlatform

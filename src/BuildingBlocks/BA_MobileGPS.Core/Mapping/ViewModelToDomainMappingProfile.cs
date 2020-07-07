@@ -44,7 +44,7 @@ namespace BA_MobileGPS.Core
                 CreateMap<FishTrip, FishTripRealm>();
 
                 CreateMap<FishTripQuantity, FishTripQuantityRealm>();
-            }       
+            }
         }
     }
 }

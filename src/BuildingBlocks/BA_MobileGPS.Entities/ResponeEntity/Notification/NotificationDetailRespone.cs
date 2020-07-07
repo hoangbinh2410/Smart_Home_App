@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace BA_MobileGPS.Entities
 {
@@ -32,6 +30,5 @@ namespace BA_MobileGPS.Entities
         /// Tên đường link file đính kèm
         /// </summary>
         public List<string> ListFileAttachs { get; set; }
-
     }
 }

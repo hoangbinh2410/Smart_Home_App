@@ -51,6 +51,5 @@ namespace BA_MobileGPS.Core.Helpers
         public static string FilterWord => Get(HostConfigurationNames.FilterWord, string.Empty);
 
         public static int FeedbackNumber => Get(HostConfigurationNames.FeedbackNumber, 10);
-       
     }
 }

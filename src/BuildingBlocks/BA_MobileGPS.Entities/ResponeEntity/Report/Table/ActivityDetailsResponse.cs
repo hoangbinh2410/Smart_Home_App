@@ -21,19 +21,19 @@ namespace BA_MobileGPS.Entities
         public TimeSpan EndTimes { get; set; }
 
         //Thời gian hoạt động
-        public TimeSpan TotalTimes { get; set; } 
-        
+        public TimeSpan TotalTimes { get; set; }
+
         //Km (GPS)
-        public float TotalKm { get; set; } 
-        
+        public float TotalKm { get; set; }
+
         //Km cơ
-        public double KmOfMechanical { get; set; } 
-        
+        public double KmOfMechanical { get; set; }
+
         //Định mức nhiên liệu
-        public double ConstantNorms { get; set; } 
-        
+        public double ConstantNorms { get; set; }
+
         //Nhiên liệu tiêu thụ định mức
-        public double Norms { get; set; } 
+        public double Norms { get; set; }
 
         //Cuốc bù
         public short DataType { get; set; }

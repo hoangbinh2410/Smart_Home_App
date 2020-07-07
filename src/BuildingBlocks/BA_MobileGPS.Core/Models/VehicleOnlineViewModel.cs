@@ -78,6 +78,7 @@ namespace BA_MobileGPS.Entities
         public int StopTime { get => stopTime; set => SetProperty(ref stopTime, value, relatedProperty: nameof(IsShowStopTime)); }
 
         public bool isShowStopTime;
+
         public bool IsShowStopTime
         {
             get

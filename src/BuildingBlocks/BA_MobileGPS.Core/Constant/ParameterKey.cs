@@ -40,7 +40,6 @@
         public const string NotificationKey = "NotificationKey";
         public const string NotificationForm = "NotificationForm";
 
-
         public const string PageMode = "PageMode";
 
         public const string OnlinePage = "OnlinePage";

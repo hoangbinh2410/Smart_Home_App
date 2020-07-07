@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BA_MobileGPS.Entities
 {
@@ -15,6 +13,5 @@ namespace BA_MobileGPS.Entities
         public string body { get; set; }
 
         public Guid userId { get; set; }
-
     }
 }

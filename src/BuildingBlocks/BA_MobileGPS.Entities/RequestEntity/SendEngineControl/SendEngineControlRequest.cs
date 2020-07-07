@@ -8,7 +8,7 @@ namespace BA_MobileGPS.Entities
         public string Imei { get; set; }
         public string VehiclePlate { get; set; }
         public string Command { get; set; }
-        public int XNCode  { get; set; }
+        public int XNCode { get; set; }
     }
 
     public class ActionOnOffMachineLogRequest

@@ -189,7 +189,6 @@ namespace BA_MobileGPS.Entities
         public byte MessageId { get; set; }
 
         [JsonProperty("11")]
-
         public byte KindID { get; set; } = 1;
 
         /// <summary>

@@ -31,46 +31,71 @@
     <x:Int32 x:Key="MarginPaddingXxxxlarge">64</x:Int32>
     <x:Int32 x:Key="MarginPaddingXxxxxlarge">72</x:Int32>
 
-    <Thickness x:Key="MarginPaddingTopBottomMedium">0,8</Thickness>
-    <Thickness x:Key="MarginPaddingTopBottomLarge">0,16</Thickness>
-    <Thickness x:Key="MarginPaddingLeftRightSmall">4,0</Thickness>
-    <Thickness x:Key="MarginPaddingLeftRightMedium">8,0</Thickness>
-    <Thickness x:Key="MarginPaddingLeftRightLarge">16,0</Thickness>
-    <Thickness x:Key="MarginPaddingLeftRightXlarge">24,0</Thickness>
+    <Thickness x:Key="MarginPaddingTopBottomMedium">
+        <Thickness.Left>0</Thickness.Left>
+        <Thickness.Top>8</Thickness.Top>
+        <Thickness.Right>0</Thickness.Right>
+        <Thickness.Bottom>8</Thickness.Bottom>
+    </Thickness>
+    <Thickness x:Key="MarginPaddingTopBottomLarge">
+        <Thickness.Left>0</Thickness.Left>
+        <Thickness.Top>16</Thickness.Top>
+        <Thickness.Right>0</Thickness.Right>
+        <Thickness.Bottom>16</Thickness.Bottom>
+    </Thickness>
+    <Thickness x:Key="MarginPaddingLeftRightSmall">
+        <Thickness.Left>4</Thickness.Left>
+        <Thickness.Top>0</Thickness.Top>
+        <Thickness.Right>4</Thickness.Right>
+        <Thickness.Bottom>0</Thickness.Bottom>
+    </Thickness>
+    <Thickness x:Key="MarginPaddingLeftRightMedium">
+        <Thickness.Left>8</Thickness.Left>
+        <Thickness.Top>0</Thickness.Top>
+        <Thickness.Right>8</Thickness.Right>
+        <Thickness.Bottom>0</Thickness.Bottom>
+    </Thickness>
+    <Thickness x:Key="MarginPaddingLeftRightLarge">
+        <Thickness.Left>16</Thickness.Left>
+        <Thickness.Top>0</Thickness.Top>
+        <Thickness.Right>16</Thickness.Right>
+        <Thickness.Bottom>0</Thickness.Bottom>
+    </Thickness>
+    <!--<Thickness x:Key="MarginPaddingLeftRightXlarge">24,0</Thickness>
     <Thickness x:Key="MarginPaddingLeftRightMediumTopBottomSmall">8,4</Thickness>
     <Thickness x:Key="MarginPaddingLeftRightLargeTopBottomMedium">16,8</Thickness>
     <Thickness x:Key="MarginPaddingLeftRightXlargeTopBottomSmall">24,4</Thickness>
     <Thickness x:Key="MarginPaddingLeftRightXlargeTopBottomMedium">24,8</Thickness>
-    <Thickness x:Key="MarginPaddingLeftRightXlargeTopBottomLarge">24,16</Thickness>
+    <Thickness x:Key="MarginPaddingLeftRightXlargeTopBottomLarge">24,16</Thickness>-->
 
 
 
-    <Style x:Key="TextHeadline" TargetType="Label">
+    <Style Class="TextHeadline" TargetType="Label">
         <Setter Property="TextColor" Value="{DynamicResource TextPrimaryColor}" />
         <Setter Property="FontSize" Value="{StaticResource TextSizeHeadline}" />
     </Style>
 
-    <Style x:Key="TextTitle" TargetType="Label">
+    <Style Class="TextTitle" TargetType="Label">
         <Setter Property="TextColor" Value="{DynamicResource TextPrimaryColor}" />
         <Setter Property="FontSize" Value="{StaticResource TextSizeTitle}" />
     </Style>
 
-    <Style x:Key="TextSubhead" TargetType="Label">
+    <Style Class="TextSubhead" TargetType="Label">
         <Setter Property="TextColor" Value="{DynamicResource TextPrimaryColor}" />
         <Setter Property="FontSize" Value="{StaticResource TextSizeSubhead}" />
     </Style>
 
-    <Style x:Key="TextSubheadSecondary" TargetType="Label">
+    <Style Class="TextSubheadSecondary" TargetType="Label">
         <Setter Property="TextColor" Value="{DynamicResource TextSecondaryColor}" />
         <Setter Property="FontSize" Value="{StaticResource TextSizeSubhead}" />
     </Style>
 
-    <Style x:Key="TextBody" TargetType="Label">
+    <Style Class="TextBody" TargetType="Label">
         <Setter Property="TextColor" Value="{DynamicResource TextPrimaryColor}" />
         <Setter Property="FontSize" Value="{StaticResource TextSizeBody}" />
     </Style>
 
-    <Style x:Key="TextBodySecondary" TargetType="Label">
+    <Style Class="TextBodySecondary" TargetType="Label">
         <Setter Property="TextColor" Value="{DynamicResource TextPrimaryColor}" />
         <Setter Property="FontSize" Value="{StaticResource TextSizeBody}" />
     </Style>
@@ -81,13 +106,13 @@
     </Style>
 
     <Style
-        x:Key="TextSmallCaption"
         BasedOn="{StaticResource TextCaption}"
+        Class="TextSmallCaption"
         TargetType="Label">
         <Setter Property="FontSize" Value="{StaticResource TextSizeSmallCaption}" />
     </Style>
 
-    <Style x:Key="TextCaptionSecondary" TargetType="Label">
+    <Style Class="TextCaptionSecondary" TargetType="Label">
         <Setter Property="TextColor" Value="{DynamicResource TextSecondaryColor}" />
         <Setter Property="FontSize" Value="{StaticResource TextSizeCaption}" />
     </Style>

@@ -10,7 +10,7 @@ namespace BA_MobileGPS.Core.Droid.DependencyServices
 {
     public class StatusBarHelper : IStatusBar
     {
-        public void ChangeStatusBarColorToWhite()
+        public void SetLightTheme()
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
@@ -25,7 +25,7 @@ namespace BA_MobileGPS.Core.Droid.DependencyServices
             }
         }
 
-        public void ChangeStatusBarColorToBlack()
+        public void SetDarkTheme()
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
