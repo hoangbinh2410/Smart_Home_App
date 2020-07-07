@@ -9,6 +9,7 @@
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView">
 
+
     <!--  Auto set style region  -->
     <Style ApplyToDerivedTypes="True" TargetType="{x:Type ContentPage}">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource GrayColor}, Dark={StaticResource GrayColor}}" />
@@ -78,7 +79,7 @@
         <Setter Property="FocusedStrokeWidth" Value="1" />
         <Setter Property="HorizontalOptions" Value="FillAndExpand" />
         <Setter Property="ErrorColor" Value="{AppThemeBinding Light={StaticResource DangerousColor}, Dark={StaticResource DangerousColor}}" />
-        <Setter Property="FocusedColor" Value="{AppThemeBinding Light={StaticResource PurpleColor}, Dark={StaticResource PurpleColor}}" />
+        <Setter Property="FocusedColor" Value="{AppThemeBinding Light={StaticResource BluePrimaryColor}, Dark={StaticResource BluePrimaryColor}}" />
     </Style>
 
     <Style TargetType="ffImage:CachedImage">
@@ -158,10 +159,10 @@
         <Setter Property="HorizontalOptions" Value="Center" />
     </Style>
     <Style Class="LoginAwesomeIcon" TargetType="controls:FontAwesomeIcon">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="VerticalOptions" Value="Center" />
         <Setter Property="HorizontalOptions" Value="Center" />
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
     </Style>
 
     <!--  Main  Background Color  -->

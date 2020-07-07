@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <!--  Color Primary  -->
-    <Color x:Key="BlueDarkColor">#00709A</Color>
+    <Color x:Key="BlueDarkColor">#004EDA</Color>
     <Color x:Key="BluePrimaryColor">#00AEEF</Color>
     <Color x:Key="BlueColor">#89DFFF</Color>
     <Color x:Key="WhiteColor">White</Color>
