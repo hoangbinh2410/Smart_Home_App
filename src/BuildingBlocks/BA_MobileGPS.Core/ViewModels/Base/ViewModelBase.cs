@@ -17,6 +17,8 @@ using Xamarin.Forms;
 using BA_MobileGPS.Utilities;
 using Xamarin.Essentials;
 using Prism.Services;
+using System.Linq;
+using Prism.Common;
 
 namespace BA_MobileGPS.Core.ViewModels.Base
 {
@@ -69,12 +71,12 @@ namespace BA_MobileGPS.Core.ViewModels.Base
 
             if (e.NetworkAccess != NetworkAccess.Internet)
             {
-                // await NavigationService.NavigateAsync("NetworkPage");
+                 await NavigationService.NavigateAsync("NetworkPage");
                 //await PopupNavigation.Instance.PushAsync(new NetworkPage());
             }
             else
             {
-                //await NavigationService.GoBackAsync();
+                await NavigationService.GoBackAsync();
                 //if (PopupNavigation.Instance.PopupStack.Count > 0)
                 //{
                 //    await PopupNavigation.Instance.PopAllAsync();
@@ -251,6 +253,79 @@ namespace BA_MobileGPS.Core.ViewModels.Base
 
                 finalAction?.Invoke();
             }));
+        }
+
+        private LoginResponse userInfo;
+
+        public LoginResponse UserInfo
+        {
+            get
+            {
+                if (StaticSettings.User != null)
+                {
+                    userInfo = StaticSettings.User;
+                }
+                return userInfo;
+            }
+            set
+            {
+                SetProperty(ref userInfo, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        public int CurrentComanyID
+        {
+            get
+            {
+                var currentCompany = Settings.CurrentCompany;
+
+                if (currentCompany != null && StaticSettings.ListCompany != null && StaticSettings.ListCompany.Exists(c => c.FK_CompanyID == currentCompany.FK_CompanyID))
+                    return currentCompany.FK_CompanyID;
+                else
+                    return UserInfo.CompanyId;
+            }
+        }
+
+        public virtual bool CheckPermision(int PermissionKey)
+        {
+            return UserInfo.Permissions.IndexOf(PermissionKey) != -1;
+        }
+        public bool CheckPermision(List<PermissionKeyNames> PermissionKey)
+        {
+            List<int> userPermissionList = PermissionKey.Select(x => (int)x).ToList();
+
+            var rerult = ((userPermissionList != null) && (userPermissionList != null)
+                && (!userPermissionList.Any(x => !UserInfo.Permissions.Contains(x)) || userPermissionList.Contains(0)));
+
+            return rerult;
+        }
+
+        protected TControl GetControl<TControl>(string control)
+        {
+            return PageUtilities.GetCurrentPage(Application.Current.MainPage).FindByName<TControl>(control);
+        }
+
+        public void SetFocus(string control)
+        {
+            TryExecute(() => PageUtilities.GetCurrentPage(Application.Current.MainPage).FindByName<VisualElement>(control)?.Focus());
+        }
+
+        public virtual void UpdateCombobox(ComboboxResponse param)
+        {
+        }
+
+        public void GoBack(bool isModal)
+        {
+            TryExecute(async () => await NavigationService.GoBackAsync(useModalNavigation: isModal));
+        }
+
+        public async void Logout()
+        {
+            StaticSettings.ClearStaticSettings();
+            GlobalResources.Current.TotalAlert = 0;
+            Settings.Rememberme = false;
+            await NavigationService.NavigateAsync("/LoginPage");
         }
     }
 }

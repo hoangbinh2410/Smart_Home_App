@@ -31,11 +31,11 @@
 	  <EmbeddedResource Update="Styles\VMS_Styles.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Offline\OfflinePage.xaml">
+	  <EmbeddedResource Update="Views\Online\BoundaryNameInfoWindow.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Permission\VMSPermissionGranted.xaml">
-	    <Generator>MSBuild:Compile</Generator>
+	  <EmbeddedResource Update="Views\Online\OnlinePage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>
 

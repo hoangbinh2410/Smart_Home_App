@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-    
+
 <ScrollView
     x:Class="VMS_MobileGPS.Views.OnlinePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -8,6 +8,7 @@
     xmlns:cluster="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:effect="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
+    xmlns:mapbindings="clr-namespace:BA_MobileGPS.Core.GoogleMap.Behaviors;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
@@ -61,7 +62,16 @@
         <cluster:Map
             x:Name="googleMap"
             Grid.Row="1"
-            MapType="Hybrid">
+            MapType="{Binding MapType}">
+            <cluster:Map.Behaviors>
+                <mapbindings:MoveToRegionBehavior Request="{Binding MoveToRegionRequest}" />
+                <mapbindings:AnimateCameraBehavior Request="{Binding AnimateCameraRequest}" />
+                <mapbindings:BindingPolygonsBehavior Value="{Binding Boundaries}" />
+                <mapbindings:BindingPolylinesBehavior Value="{Binding Borders}" />
+                <mapbindings:BindingCirclesBehavior Value="{Binding Circles}" />
+                <mapbindings:BindingVisibleRegionBehavior Value="{Binding VisibleRegion}" />
+                <mapbindings:CameraIdledToCommandBehavior Command="{Binding CameraIdledCommand}" />
+            </cluster:Map.Behaviors>
             <cluster:Map.Triggers>
                 <DataTrigger
                     Binding="{Binding Source={x:Reference botGroup}, Path=Margin}"
@@ -182,6 +192,9 @@
                 CornerRadius="25"
                 HeightRequest="50"
                 WidthRequest="50">
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ChangeMapTypeCommand}" />
+                </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Margin="10"
                     Foreground="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor},
