@@ -10,6 +10,8 @@ using Prism;
 using Prism.Ioc;
 
 using VMS_MobileGPS.Styles;
+using VMS_MobileGPS.ViewModels;
+using VMS_MobileGPS.Views;
 
 namespace VMS_MobileGPS
 {
@@ -57,7 +59,6 @@ namespace VMS_MobileGPS
             containerRegistry.Register<IVehicleDebtBlockService, VehicleDebtBlockService>();
 
             containerRegistry.Register<IServicePackageHistoryService, ServicePackageHistoryService>();
-            
         }
     }
 }
