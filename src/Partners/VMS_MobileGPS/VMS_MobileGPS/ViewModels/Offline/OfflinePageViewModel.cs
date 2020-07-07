@@ -27,6 +27,8 @@ namespace VMS_MobileGPS.ViewModels
 {
     public class OfflinePageViewModel : VMSBaseViewModel
     {
+        #region Contructor
+
         private readonly IEventAggregator eventAggregator;
         private readonly IMessageService messageService;
         private readonly IDBVersionService dBVersionService;
@@ -38,8 +40,13 @@ namespace VMS_MobileGPS.ViewModels
         private Timer timer;
         private Timer timerGPSTracking;
 
-        public OfflinePageViewModel(INavigationService navigationService, IEventAggregator eventAggregator, IDBVersionService dBVersionService, IAppVersionService appVersionService,
-            IMessageService messageService, IGpsListener gpsListener, IGpsManager gpsManager)
+        public OfflinePageViewModel(INavigationService navigationService,
+            IEventAggregator eventAggregator,
+            IDBVersionService dBVersionService,
+            IAppVersionService appVersionService,
+            IMessageService messageService,
+            IGpsListener gpsListener,
+            IGpsManager gpsManager)
             : base(navigationService)
         {
             this.messageService = messageService;
@@ -54,18 +61,97 @@ namespace VMS_MobileGPS.ViewModels
             NavigateToCommand = new Command<PageNames>(NavigateTo);
         }
 
-        public string AppVersion => appVersionService.GetAppVersion();
+        #endregion Contructor
+
+        #region Lifecycle
 
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            GetMobileVersion();
+            //GetMobileVersion();
             AppManager.BluetoothService.OnReceiveNotificationBLE -= BluetoothService_OnReceiveNotificationBLE;
             AppManager.BluetoothService.OnReceiveNotificationBLE += BluetoothService_OnReceiveNotificationBLE;
             eventAggregator.GetEvent<StartShinnyEvent>().Subscribe(StartShinyLocation);
             eventAggregator.GetEvent<StopShinyEvent>().Subscribe(StopShinnyLocation);
             GlobalResourcesVMS.Current.PermissionManager = new PermissionManager();
         }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+
+            GetCountMessage();
+        }
+
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                StartTimmerStatusBluetooth();
+            }
+            SafeExecute(async () =>
+            {
+                if (!Settings.IsLoadedMap)
+                {
+                    var result = await NavigationService.NavigateAsync("OffMap");
+                    //Settings.IsLoadedMap = true;
+                }
+
+                var temp = GlobalResourcesVMS.Current.PermissionManager;
+                if (!temp.IsCameraGranted || !temp.IsLocationGranted || !temp.IsPhotoGranted || !temp.IsStorageGranted)
+                {
+                    ShowPermistionPage();
+                }
+            });
+        }
+
+        public override void OnDestroy()
+        {
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                timer.Stop();
+                timer.Dispose();
+            }
+            else
+            {
+                StopTimerGPSTracking();
+            }
+            _gpsListener.OnReadingReceived -= OnReadingReceived;
+            AppManager.BluetoothService.OnReceiveNotificationBLE -= BluetoothService_OnReceiveNotificationBLE;
+            eventAggregator.GetEvent<StartShinnyEvent>().Unsubscribe(StartShinyLocation);
+            eventAggregator.GetEvent<StopShinyEvent>().Unsubscribe(StopShinnyLocation);
+        }
+
+        public override void OnResume()
+        {
+            base.OnResume();
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                var count = PopupNavigation.Instance.PopupStack.Count;
+                if (count > 0)
+                {
+                    PopupNavigation.Instance.PopAllAsync();
+                    GlobalResourcesVMS.Current.PermissionManager = new PermissionManager();
+                    var temp = GlobalResourcesVMS.Current.PermissionManager;
+                    if (!temp.IsCameraGranted || !temp.IsLocationGranted || !temp.IsPhotoGranted || !temp.IsStorageGranted)
+                    {
+                        ShowPermistionPage();
+                    }
+                }
+            }
+        }
+
+        #endregion Lifecycle
+
+        #region Property
+
+        public string AppVersion => appVersionService.GetAppVersion();
+
+        #endregion Property
+
+        #region PrivateMethod
 
         private void StartShinyLocation()
         {
@@ -243,79 +329,12 @@ namespace VMS_MobileGPS.ViewModels
             });
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
-
-            GetCountMessage();
-        }
-
-        public override void OnPageAppearingFirstTime()
-        {
-            base.OnPageAppearingFirstTime();
-
-            if (Device.RuntimePlatform == Device.iOS)
-            {
-                StartTimmerStatusBluetooth();
-            }
-            SafeExecute(async () =>
-            {
-                if (!Settings.IsLoadedMap)
-                {
-                    var result = await NavigationService.NavigateAsync("OffMap");
-                    //Settings.IsLoadedMap = true;
-                }
-
-                var temp = GlobalResourcesVMS.Current.PermissionManager;
-                if (!temp.IsCameraGranted || !temp.IsLocationGranted || !temp.IsPhotoGranted || !temp.IsStorageGranted)
-                {
-                    ShowPermistionPage();
-                }
-            });
-        }
-
         private void ShowPermistionPage()
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
                 await PopupNavigation.Instance.PushAsync(new VMSPermissionGranted());
             });
-        }
-
-        public override void OnDestroy()
-        {
-            if (Device.RuntimePlatform == Device.iOS)
-            {
-                timer.Stop();
-                timer.Dispose();
-            }
-            else
-            {
-                StopTimerGPSTracking();
-            }
-            _gpsListener.OnReadingReceived -= OnReadingReceived;
-            AppManager.BluetoothService.OnReceiveNotificationBLE -= BluetoothService_OnReceiveNotificationBLE;
-            eventAggregator.GetEvent<StartShinnyEvent>().Unsubscribe(StartShinyLocation);
-            eventAggregator.GetEvent<StopShinyEvent>().Unsubscribe(StopShinnyLocation);
-        }
-
-        public override void OnResume()
-        {
-            base.OnResume();
-            if (Device.RuntimePlatform == Device.Android)
-            {
-                var count = PopupNavigation.Instance.PopupStack.Count;
-                if (count > 0)
-                {
-                    PopupNavigation.Instance.PopAllAsync();
-                    GlobalResourcesVMS.Current.PermissionManager = new PermissionManager();
-                    var temp = GlobalResourcesVMS.Current.PermissionManager;
-                    if (!temp.IsCameraGranted || !temp.IsLocationGranted || !temp.IsPhotoGranted || !temp.IsStorageGranted)
-                    {
-                        ShowPermistionPage();
-                    }
-                }
-            }
         }
 
         private void NavigateTo(PageNames args)
@@ -615,5 +634,7 @@ namespace VMS_MobileGPS.ViewModels
                 }
             });
         }
+
+        #endregion PrivateMethod
     }
 }

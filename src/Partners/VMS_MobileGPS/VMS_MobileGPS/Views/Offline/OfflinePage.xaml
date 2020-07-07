@@ -8,6 +8,7 @@
     xmlns:converters="clr-namespace:VMS_MobileGPS.Converter"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:local="clr-namespace:BA_MobileGPS.Utilities;assembly=BA_MobileGPS.Utilities"
     xmlns:localstatic="clr-namespace:VMS_MobileGPS.Constant;assembly=VMS_MobileGPS"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
@@ -115,6 +116,13 @@
                         <ColumnDefinition Width=".5*" />
                     </Grid.ColumnDefinitions>
                     <sharpnado:MaterialFrame Grid.Column="0" CornerRadius="10">
+                        <sharpnado:MaterialFrame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding NavigateToCommand}"
+                                CommandParameter="{x:Static local:PageNames.SOSPage}"
+                                NumberOfTapsRequired="1" />
+                        </sharpnado:MaterialFrame.GestureRecognizers>
+
                         <StackLayout>
                             <ffImage:CachedImage
                                 Grid.Column="0"
@@ -125,10 +133,15 @@
                                 HorizontalOptions="CenterAndExpand"
                                 Text="Cảnh báo SOS"
                                 VerticalOptions="Center" />
-
                         </StackLayout>
                     </sharpnado:MaterialFrame>
                     <sharpnado:MaterialFrame Grid.Column="1" CornerRadius="10">
+                        <sharpnado:MaterialFrame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding NavigateToCommand}"
+                                CommandParameter="{x:Static local:PageNames.MessagesPage}"
+                                NumberOfTapsRequired="1" />
+                        </sharpnado:MaterialFrame.GestureRecognizers>
                         <StackLayout>
                             <ffImage:CachedImage
                                 Grid.Column="0"
@@ -139,7 +152,6 @@
                                 HorizontalOptions="CenterAndExpand"
                                 Text="Gửi tin nhắn"
                                 VerticalOptions="Center" />
-
                         </StackLayout>
                     </sharpnado:MaterialFrame>
                 </Grid>
@@ -150,6 +162,12 @@
                         <ColumnDefinition Width=".5*" />
                     </Grid.ColumnDefinitions>
                     <sharpnado:MaterialFrame Grid.Column="0" CornerRadius="10">
+                        <sharpnado:MaterialFrame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding NavigateToCommand}"
+                                CommandParameter="{x:Static local:PageNames.FishQuantityInputPage}"
+                                NumberOfTapsRequired="1" />
+                        </sharpnado:MaterialFrame.GestureRecognizers>
                         <StackLayout>
                             <ffImage:CachedImage
                                 Grid.Column="0"
@@ -160,10 +178,15 @@
                                 HorizontalOptions="CenterAndExpand"
                                 Text="Mẻ lưới"
                                 VerticalOptions="Center" />
-
                         </StackLayout>
                     </sharpnado:MaterialFrame>
                     <sharpnado:MaterialFrame Grid.Column="1" CornerRadius="10">
+                        <sharpnado:MaterialFrame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding NavigateToCommand}"
+                                CommandParameter="{x:Static local:PageNames.OffMap}"
+                                NumberOfTapsRequired="1" />
+                        </sharpnado:MaterialFrame.GestureRecognizers>
                         <StackLayout>
                             <ffImage:CachedImage
                                 Grid.Column="0"
@@ -174,18 +197,17 @@
                                 HorizontalOptions="CenterAndExpand"
                                 Text="Bản đồ ngoại tuyến"
                                 VerticalOptions="Center" />
-
                         </StackLayout>
                     </sharpnado:MaterialFrame>
                 </Grid>
 
                 <Button
                     Grid.Row="2"
+                    Command="{Binding NavigateToCommand}"
+                    CommandParameter="{x:Static local:PageNames.LoginPage}"
                     Text="ĐĂNG NHẬP"
                     VerticalOptions="StartAndExpand" />
             </StackLayout>
-
-
         </Grid>
     </ContentPage.Content>
 </ContentPage>

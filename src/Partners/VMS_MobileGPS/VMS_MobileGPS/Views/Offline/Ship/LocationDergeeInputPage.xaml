@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="VMS_MobileGPS.Views.LocationDergeeInputPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:BA_MobileGPS.Core.Behaviors;assembly=BA_MobileGPS.Core"
+    xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+    <pages:PopupPage.Content>
+        <Frame
+            Margin="40"
+            Padding="0"
+            BackgroundColor="White"
+            CornerRadius="10"
+            HasShadow="False"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="CenterAndExpand">
+            <StackLayout Spacing="0">
+                <Label
+                    BackgroundColor="{StaticResource PrimaryColor}"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    HeightRequest="45"
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Center"
+                    Text="Nhập toạ độ"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
+                <Label
+                    Margin="10,5,10,0"
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalOptions="Center"
+                    Text="Vĩ độ"
+                    TextColor="{StaticResource PrimaryColor}" />
+                <StackLayout Margin="10,0,10,0" Orientation="Horizontal">
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        Hint="°"
+                        HorizontalOptions="FillAndExpand"
+                        LeadingViewPosition="Inside"
+                        ShowHelperText="False"
+                        VerticalOptions="Start">
+                        <Entry
+                            Keyboard="Numeric"
+                            MaxLength="3"
+                            Text="{Binding Latitude.Dergee}">
+                            <Entry.Behaviors>
+                                <behaviors:QuantityValidatorBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+                    </input:SfTextInputLayout>
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        Hint="'"
+                        HorizontalOptions="FillAndExpand"
+                        LeadingViewPosition="Inside"
+                        ShowHelperText="False"
+                        VerticalOptions="Start">
+                        <Entry
+                            Keyboard="Numeric"
+                            MaxLength="3"
+                            Text="{Binding Latitude.Min}">
+                            <Entry.Behaviors>
+                                <behaviors:QuantityValidatorBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+                    </input:SfTextInputLayout>
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        Hint="&quot;"
+                        HorizontalOptions="FillAndExpand"
+                        LeadingViewPosition="Inside"
+                        ShowHelperText="False"
+                        VerticalOptions="Start">
+                        <Entry
+                            Keyboard="Numeric"
+                            MaxLength="8"
+                            Text="{Binding Latitude.Sec}" />
+                    </input:SfTextInputLayout>
+                </StackLayout>
+                <Label
+                    Margin="10,0,10,0"
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalOptions="Center"
+                    Text="Kinh độ"
+                    TextColor="{StaticResource PrimaryColor}" />
+                <StackLayout Margin="10,0,10,0" Orientation="Horizontal">
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        Hint="°"
+                        HorizontalOptions="FillAndExpand"
+                        LeadingViewPosition="Inside"
+                        ShowHelperText="False"
+                        VerticalOptions="Start">
+                        <Entry
+                            Keyboard="Numeric"
+                            MaxLength="3"
+                            Text="{Binding Longitude.Dergee}">
+                            <Entry.Behaviors>
+                                <behaviors:QuantityValidatorBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+                    </input:SfTextInputLayout>
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        Hint="'"
+                        HorizontalOptions="FillAndExpand"
+                        LeadingViewPosition="Inside"
+                        ShowHelperText="False"
+                        VerticalOptions="Start">
+                        <Entry
+                            Keyboard="Numeric"
+                            MaxLength="3"
+                            Text="{Binding Longitude.Min}">
+                            <Entry.Behaviors>
+                                <behaviors:QuantityValidatorBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+                    </input:SfTextInputLayout>
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        Hint="&quot;"
+                        HorizontalOptions="FillAndExpand"
+                        LeadingViewPosition="Inside"
+                        ShowHelperText="False"
+                        VerticalOptions="Start">
+                        <Entry
+                            Keyboard="Numeric"
+                            MaxLength="8"
+                            Text="{Binding Longitude.Sec}" />
+                    </input:SfTextInputLayout>
+                </StackLayout>
+                <Label
+                    Margin="10,0,10,0"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding ErrorText, Converter={StaticResource HasDataConverter}}"
+                    Text="{Binding ErrorText}"
+                    TextColor="{StaticResource Color_ErrorText}" />
+                <StackLayout
+                    Margin="10"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    Spacing="20">
+                    <Button
+                        BackgroundColor="Orange"
+                        Command="{Binding CancelCommand}"
+                        CornerRadius="5"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Huỷ" />
+                    <Button
+                        Command="{Binding AcceptCommand}"
+                        CornerRadius="5"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Chấp nhận" />
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </pages:PopupPage.Content>
+</pages:PopupPage>

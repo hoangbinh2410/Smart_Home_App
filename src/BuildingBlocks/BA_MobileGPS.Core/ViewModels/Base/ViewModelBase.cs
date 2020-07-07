@@ -18,7 +18,7 @@ using BA_MobileGPS.Utilities;
 using Xamarin.Essentials;
 using Prism.Services;
 
-namespace BA_MobileGPS.Core.ViewModels.Base
+namespace BA_MobileGPS.Core.ViewModels
 {
     public abstract class ViewModelBase : BindableBase, INavigationAware, IInitialize, IInitializeAsync, IDestructible, IApplicationLifecycleAware, IDisposable
     {
