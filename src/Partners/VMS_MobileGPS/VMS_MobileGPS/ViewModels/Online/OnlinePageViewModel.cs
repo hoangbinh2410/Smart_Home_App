@@ -41,8 +41,10 @@ namespace VMS_MobileGPS.ViewModels
 
         public DelegateCommand ShowBorderCommand { get; private set; }
 
-        public OnlinePageViewModel(INavigationService navigationService, IEventAggregator eventAggregator, IUserService userService) : base(navigationService)
+        public OnlinePageViewModel(INavigationService navigationService, IEventAggregator eventAggregator, 
+            IUserService userService, IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository) : base(navigationService)
         {
+            this.boundaryRepository = boundaryRepository;
             this.userService = userService;
             _eventAggregator = eventAggregator;
             HotlineTapCommand = new DelegateCommand(HotlineTap);

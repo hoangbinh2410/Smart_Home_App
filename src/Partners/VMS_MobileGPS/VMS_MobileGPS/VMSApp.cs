@@ -56,6 +56,8 @@ namespace VMS_MobileGPS
             containerRegistry.Register<IServicePackageHistoryService, ServicePackageHistoryService>();
 
             containerRegistry.RegisterForNavigation<OfflinePage, OfflinePageViewModel>("OfflinePage");
+
+            containerRegistry.RegisterForNavigation<OnlinePage, OnlinePageViewModel>("OnlinePage");
         }
     }
 }

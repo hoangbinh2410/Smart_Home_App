@@ -552,7 +552,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
-                        await NavigationService.NavigateAsync("/RootPage/MasterDetailNavigationPage/HomePage");
+                        await NavigationService.NavigateAsync("/OnlinePage");
                     }
                 }
                 catch (Exception ex)
