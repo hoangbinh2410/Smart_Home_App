@@ -4,6 +4,7 @@ using BA_MobileGPS.Utilities.Constant;
 using FFImageLoading.Forms.Platform;
 
 using Plugin.Toasts;
+using Sharpnado.MaterialFrame.iOS;
 using Sharpnado.Presentation.Forms.iOS;
 using Shiny;
 using Syncfusion.ListView.XForms.iOS;
@@ -42,11 +43,14 @@ namespace BA_MobileGPS.Core.iOS.Setup
             });
             iOSShinyHost.Init(new ShinyAppStartup());
 
+            iOSMaterialFrameRenderer.Init();
+
             // Syncfusion
             SfListViewRenderer.Init();
             //SfPickerRenderer.Init();
             SfDataGridRenderer.Init();
             SfCheckBoxRenderer.Init();
+            SfSwitchRenderer.Init();
             SfComboBoxRenderer.Init();
             SfBorderRenderer.Init();
             SfButtonRenderer.Init();

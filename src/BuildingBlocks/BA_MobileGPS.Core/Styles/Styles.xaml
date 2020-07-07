@@ -34,11 +34,13 @@
         <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
     </Style>
     <Style ApplyToDerivedTypes="True" TargetType="Button">
-        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="CornerRadius" Value="25" />
         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
         <Setter Property="FontSize" Value="{StaticResource MyFontSizeLarge}" />
-        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="HeightRequest" Value="50" />
         <Setter Property="WidthRequest" Value="100" />
+        <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
     </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="Label">
@@ -114,7 +116,7 @@
     </Style>
 
     <Style Class="DangerousButton" TargetType="Button">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource DangerousColor}, Dark={StaticResource DarkDangerousColor}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource DangerousColor}, Dark={StaticResource DangerousColor}}" />
         <Setter Property="TextColor" Value="{DynamicResource WhiteColor}" />
     </Style>
 
@@ -146,7 +148,7 @@
     <!--  Box View draw line below group title  -->
     <Style Class="SlimLine" TargetType="BoxView">
         <Setter Property="HeightRequest" Value="1" />
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BluePrimaryColor}, Dark={StaticResource BluePrimaryColor}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
     </Style>
 
     <!--  Sf Text Input Layout  -->
