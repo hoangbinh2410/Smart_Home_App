@@ -6,55 +6,26 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <!--  Dark  -->
-    <Color x:Key="DarkPrimaryColor">#00ADEF</Color>
-    <Color x:Key="DarkPrimaryLightColor">#89DFFF</Color>
-    <Color x:Key="DarkPrimaryDarkColor">#00709A</Color>
+    <!--  Color Primary  -->
+    <Color x:Key="BlueDarkColor">#00709A</Color>
+    <Color x:Key="BluePrimaryColor">#00AEEF</Color>
+    <Color x:Key="BlueColor">#89DFFF</Color>
+    <Color x:Key="WhiteColor">White</Color>
+    <!--  Other Color  -->
+    <Color x:Key="PurpleColor">#4A7AFF</Color>
+    <Color x:Key="GrayColor">#F3F3F3</Color>
+    <!--  Text Color  -->
+    <Color x:Key="TextPrimaryColor">#484848</Color>
+    <Color x:Key="TextSecondaryColor">#7B7B7B</Color>
+    <Color x:Key="TextPlaceHolderColor">#C9C9C9</Color>
 
-    <Color x:Key="DarkPrimaryOtherColor">#404040</Color>
-    <Color x:Key="DarkSecondaryOtherColor">#BFB995</Color>
-    <Color x:Key="DarkTopIconForeground">#79E0DF</Color>
+    <Color x:Key="DangerousColor">Red</Color>
 
-    <Color x:Key="DarkHyperLink">#567cd7</Color>
-    <Color x:Key="DarkFacebookBlue">#4267B2</Color>
-    <Color x:Key="DarkGoogleOrange">#da4453</Color>
+    <Color x:Key="MainTabSelectedColor">#00ADEF</Color>
 
-    <Color x:Key="DarkBackgoundPageColor">#F3F3F3</Color>
-    <Color x:Key="DarkBackgoundPageGradientStartColor">#F3F3F3</Color>
-    <Color x:Key="DarkBackgoundPageGradientEndColor">Black</Color>
+    <FileImageSource x:Key="HomePageTopImageSource" File="top_background.jpg" />
+    <FileImageSource x:Key="HomePageBotImageSource" File="bot_background.jpg" />
 
-    <Color x:Key="DarkPrimaryTextColor">#60C5F1</Color>
-    <Color x:Key="DarkSecondaryTextColor">#787878</Color>
-    <Color x:Key="DarkPlaceHoderTextColor">#C9C9C9</Color>
-    <Color x:Key="DarkBarTextColor">White</Color>
-    <Color x:Key="DarkGroupTitleTextColor">#00ADEF</Color>
-
-    <Color x:Key="DarkDangerousColor">Red</Color>
-
-    <Color x:Key="DarkCircleFrameBackgroundColor">White</Color>
-
-    <Color x:Key="DarkSearchBarBackgroundColor">White</Color>
-
-    <Color x:Key="DarkSfTextInputErrColor">Red</Color>
-    <Color x:Key="DarkSfTextInputFocusColor">Green</Color>
-
-    <Color x:Key="DarkTabItemSelectedColor">#00ADEF</Color>
-    <Color x:Key="DarkTabItemUnSelectedColor">#787878</Color>
-    <!--  30x30  -->
-    <x:Double x:Key="DarkTabItemNormalSize">30</x:Double>
-    <!--  40x40  -->
-    <x:Double x:Key="DarkTabItemClickedSize">40</x:Double>
-    <FileImageSource x:Key="DarkHomePageTopImageSource" File="dark_top_bg.jpg" />
-    <FileImageSource x:Key="DarkHomePageBotImageSource" File="dark_bot_bg.jpg" />
-
-    <Color x:Key="DarkBackgoundFavouriteColor">White</Color>
-    <Color x:Key="DarkBackgoundFavouriteGradientStartColor">White</Color>
-    <Color x:Key="DarkBackgoundFavouriteGradientEndColor">Black</Color>
-
-    <Color x:Key="DarkErorrPopupTextColor">Red</Color>
-    <Color x:Key="DarkErorrPopupButtonTextColor">White</Color>
-    <Color x:Key="DarkErorrPopupButtonBackgroundColor">Red</Color>
-
-    <Color x:Key="DarkPopupYesBtnTextColor">#F9F9F9</Color>
-    <Color x:Key="DarkPopupYesBtnBackgroundColor">#0C8CC2</Color>
+    <Color x:Key="PopupYesBtnTextColor">White</Color>
+    <Color x:Key="PopupYesBtnBackgroundColor">#00709A</Color>
 </ResourceDictionary>

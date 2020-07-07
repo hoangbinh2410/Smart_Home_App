@@ -1,60 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ResourceDictionary
-    x:Class="VMS_MobileGPS.Styles.LightColor"
+    x:Class="VMS_MobileGPS.Styles.Color"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <!--  Light  -->
-    <Color x:Key="LightPrimaryColor">#00ADEF</Color>
-    <Color x:Key="LightPrimaryLightColor">#89DFFF</Color>
-    <Color x:Key="LightPrimaryDarkColor">#00709A</Color>
+    <!--    -->
+    <!--  Color Primary  -->
+    <Color x:Key="BlueDarkColor">#00709A</Color>
+    <Color x:Key="BluePrimaryColor">#00AEEF</Color>
+    <Color x:Key="BlueColor">#89DFFF</Color>
+    <Color x:Key="WhiteColor">White</Color>
+    <!--  Other Color  -->
+    <Color x:Key="PurpleColor">#4A7AFF</Color>
+    <Color x:Key="GrayColor">#F3F3F3</Color>
+    <!--  Text Color  -->
+    <Color x:Key="TextPrimaryColor">#484848</Color>
+    <Color x:Key="TextSecondaryColor">#7B7B7B</Color>
+    <Color x:Key="TextPlaceHolderColor">#C9C9C9</Color>
 
-    <Color x:Key="LightPrimaryOtherColor">#4A7AFF</Color>
-    <Color x:Key="LightSecondaryOtherColor">White</Color>
-    <Color x:Key="LightTopIconForeground">White</Color>
+    <Color x:Key="DangerousColor">Red</Color>
 
-    <Color x:Key="LightHyperLink">#567cd7</Color>
-    <Color x:Key="LightFacebookBlue">#4267B2</Color>
-    <Color x:Key="LightGoogleOrange">#da4453</Color>
+    <Color x:Key="MainTabSelectedColor">#00ADEF</Color>
 
-    <Color x:Key="LightBackgoundPageColor">#F3F3F3</Color>
-    <Color x:Key="LightBackgoundPageGradientStartColor">#F3F3F3</Color>
-    <Color x:Key="LightBackgoundPageGradientEndColor">#F3F3F3</Color>
+    <FileImageSource x:Key="HomePageTopImageSource" File="top_background.jpg" />
+    <FileImageSource x:Key="HomePageBotImageSource" File="bot_background.jpg" />
 
-    <Color x:Key="LightPrimaryTextColor">#484848</Color>
-    <Color x:Key="LightSecondaryTextColor">#787878</Color>
-    <Color x:Key="LightPlaceHoderTextColor">#C9C9C9</Color>
-    <Color x:Key="LightBarTextColor">White</Color>
-    <Color x:Key="LightGroupTitleTextColor">#00ADEF</Color>
+    <Color x:Key="PopupYesBtnTextColor">White</Color>
+    <Color x:Key="PopupYesBtnBackgroundColor">#00709A</Color>
 
-    <Color x:Key="LightDangerousColor">Red</Color>
-
-    <Color x:Key="LightFrameBackgroundColor">White</Color>
-    <Color x:Key="LightCircleFrameBackgroundColor">White</Color>
-    <Color x:Key="LightSearchBarBackgroundColor">White</Color>
-
-    <Color x:Key="LightSfTextInputErrColor">Red</Color>
-    <Color x:Key="LightSfTextInputFocusColor">Blue</Color>
-
-    <Color x:Key="LightTabItemSelectedColor">#00ADEF</Color>
-    <Color x:Key="LightTabItemUnSelectedColor">#787878</Color>
-
-
-    <!--  30x30  -->
-    <x:Double x:Key="LightTabItemNormalSize">30</x:Double>
-    <!--  40x40  -->
-    <x:Double x:Key="LightTabItemClickedSize">40</x:Double>
-    <FileImageSource x:Key="LightHomePageTopImageSource" File="top_background.jpg" />
-    <FileImageSource x:Key="LightHomePageBotImageSource" File="bot_background.jpg" />
-
-    <Color x:Key="LightBackgoundFavouriteColor">White</Color>
-    <Color x:Key="LightBackgoundFavouriteGradientStartColor">White</Color>
-    <Color x:Key="LightBackgoundFavouriteGradientEndColor">White</Color>
-
-    <Color x:Key="LightErorrPopupTextColor">Red</Color>
-    <Color x:Key="LightErorrPopupButtonTextColor">White</Color>
-    <Color x:Key="LightErorrPopupButtonBackgroundColor">Red</Color>
-
-    <Color x:Key="LightPopupYesBtnTextColor">White</Color>
-    <Color x:Key="LightPopupYesBtnBackgroundColor">#00709A</Color>
 
 </ResourceDictionary>
