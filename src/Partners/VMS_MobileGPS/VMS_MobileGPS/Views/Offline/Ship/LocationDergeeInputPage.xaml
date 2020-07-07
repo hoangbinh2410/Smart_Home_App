@@ -137,7 +137,7 @@
                     HorizontalOptions="Center"
                     IsVisible="{Binding ErrorText, Converter={StaticResource HasDataConverter}}"
                     Text="{Binding ErrorText}"
-                    TextColor="{StaticResource Color_ErrorText}" />
+                    TextColor="{StaticResource DangerousColor}" />
                 <StackLayout
                     Margin="10"
                     HorizontalOptions="FillAndExpand"
