@@ -95,6 +95,10 @@ namespace VMS_MobileGPS.ViewModels
 
         public double ZoomLevel { get => zoomLevel; set => SetProperty(ref zoomLevel, value); }
 
+        public string currentAddress = string.Empty;
+
+        public string CurrentAddress { get => currentAddress; set => SetProperty(ref currentAddress, value); }
+
         public ObservableCollection<Circle> Circles { get; set; } = new ObservableCollection<Circle>();
 
         public ObservableCollection<Polygon> Boundaries { get; set; } = new ObservableCollection<Polygon>();
@@ -310,6 +314,13 @@ namespace VMS_MobileGPS.ViewModels
             {
                 ZoomLevel = args.Position.Zoom;
             }
+        }
+
+        public void HideBorder()
+        {
+            Circles.Clear();
+
+            RaisePropertyChanged(nameof(Circles));
         }
 
         #endregion 
