@@ -8,9 +8,11 @@ using Sharpnado.MaterialFrame.iOS;
 using Sharpnado.Presentation.Forms.iOS;
 using Shiny;
 using Syncfusion.ListView.XForms.iOS;
+using Syncfusion.SfCalendar.XForms.iOS;
 using Syncfusion.SfChart.XForms.iOS.Renderers;
 using Syncfusion.SfDataGrid.XForms.iOS;
 using Syncfusion.SfImageEditor.XForms.iOS;
+using Syncfusion.SfPicker.XForms.iOS;
 using Syncfusion.XForms.iOS.BadgeView;
 using Syncfusion.XForms.iOS.Border;
 using Syncfusion.XForms.iOS.Buttons;
@@ -48,7 +50,7 @@ namespace BA_MobileGPS.Core.iOS.Setup
 
             // Syncfusion
             SfListViewRenderer.Init();
-            //SfPickerRenderer.Init();
+            SfPickerRenderer.Init();
             SfDataGridRenderer.Init();
             SfCheckBoxRenderer.Init();
             SfSwitchRenderer.Init();
@@ -56,7 +58,7 @@ namespace BA_MobileGPS.Core.iOS.Setup
             SfBorderRenderer.Init();
             SfButtonRenderer.Init();
             SfImageEditorRenderer.Init();
-            //SfCalendarRenderer.Init();
+            SfCalendarRenderer.Init();
             SfBadgeViewRenderer.Init();
             SfChartRenderer.Init();
             //SfBusyIndicatorRenderer.Init();
