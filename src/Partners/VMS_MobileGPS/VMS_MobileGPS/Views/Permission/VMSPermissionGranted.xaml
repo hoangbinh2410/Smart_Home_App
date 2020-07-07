@@ -36,7 +36,7 @@
                             <Setter Property="CornerRadius" Value="25" />
                             <Setter Property="HasShadow" Value="False" />
                             <Setter Property="HeightRequest" Value="45" />
-                            <Setter Property="BorderColor" Value="{StaticResource Color_Navigation}" />
+                            <Setter Property="BorderColor" Value="{StaticResource PrimaryColor}" />
                             <Setter Property="Padding" Value="0" />
                         </Style>
                     </StackLayout.Resources>
@@ -167,7 +167,7 @@
                                 VerticalOptions="Center" />
                         </StackLayout>
                     </Frame>
-                    <Frame BackgroundColor="{StaticResource Color_Navigation}">
+                    <Frame BackgroundColor="{StaticResource PrimaryColor}">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GrantAllCommand}" NumberOfTapsRequired="1" />
                         </Frame.GestureRecognizers>
