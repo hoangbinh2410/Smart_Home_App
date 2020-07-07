@@ -109,6 +109,11 @@ namespace VMS_MobileGPS.ViewModels
 
         #region Private Method
 
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+        }
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);

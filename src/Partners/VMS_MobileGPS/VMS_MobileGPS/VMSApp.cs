@@ -4,7 +4,7 @@ using BA_MobileGPS.Utilities.Constant;
 using BA_MobileGPS.Utilities.Enums;
 using Prism;
 using Prism.Ioc;
-
+using Prism.Mvvm;
 using VMS_MobileGPS.Styles;
 using VMS_MobileGPS.ViewModels;
 using VMS_MobileGPS.Views;
@@ -57,7 +57,10 @@ namespace VMS_MobileGPS
 
             containerRegistry.RegisterForNavigation<OfflinePage, OfflinePageViewModel>("OfflinePage");
 
-            containerRegistry.RegisterForNavigation<OnlinePage, OnlinePageViewModel>("OnlinePage");
+
+            containerRegistry.RegisterForNavigation<MainPage, BA_MobileGPS.Core.ViewModels.MainPageViewModel >();
+
+            ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
         }
     }
 }

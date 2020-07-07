@@ -7,6 +7,7 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities.Constant;
 
 using Prism.Ioc;
+using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Plugin.Popups;
 
@@ -84,6 +85,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
         }
     }
 }

@@ -9,8 +9,11 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
+using Prism;
+using Prism.Ioc;
 using Prism.Events;
 using Prism.Navigation;
+using Prism.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +23,13 @@ using System.Threading.Tasks;
 using System.Timers;
 using VMS_MobileGPS.ViewModels;
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+
 using Xamarin.Forms.Xaml;
 
 namespace VMS_MobileGPS.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class OnlinePage : ContentPage, IDestructible, INavigationAware
+    public partial class OnlinePage : ContentView, IDestructible, INavigationAware
     {
         private enum States
         {
@@ -39,22 +42,24 @@ namespace VMS_MobileGPS.Views
         private readonly IEventAggregator eventAggregator;
         private readonly IDisplayMessage displayMessage;
         private readonly IHelperAdvanceService helperAdvanceService;
+        private readonly IPageDialogService pageDialog;
 
         private readonly BA_MobileGPS.Core.Animation _animations = new BA_MobileGPS.Core.Animation();
 
         private OnlinePageViewModel vm;
         private Timer timer;
 
-        public OnlinePage(IEventAggregator eventAggregator, IDisplayMessage displayMessage, IHelperAdvanceService helperAdvanceService)
+        public OnlinePage()
         {
             InitializeComponent();
             googleMap.UiSettings.ZoomControlsEnabled = false;
 
-            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
+            //On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
 
-            this.eventAggregator = eventAggregator;
-            this.displayMessage = displayMessage;
-            this.helperAdvanceService = helperAdvanceService;
+            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+            displayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
+            helperAdvanceService = PrismApplicationBase.Current.Container.Resolve<IHelperAdvanceService>();
+            pageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
 
             // Initialize the View Model Object
             vm = (OnlinePageViewModel)BindingContext;
@@ -108,11 +113,18 @@ namespace VMS_MobileGPS.Views
             StartTimmerCaculatorStatus();
 
             InitShowCase();
+
+            InitOnline();
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
         }
+
+        //public void Initialize(INavigationParameters parameters)
+        //{
+
+        //}
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -276,11 +288,7 @@ namespace VMS_MobileGPS.Views
         private void MapOnPinClicked(object sender, PinClickedEventArgs args)
         {
             args.Handled = true;
-            if (IsBusy)
-            {
-                return;
-            }
-            IsBusy = true;
+          
             try
             {
                 if (args.Pin != null && args.Pin.Label != mCarActive.VehiclePlate)
@@ -298,7 +306,7 @@ namespace VMS_MobileGPS.Views
             }
             finally
             {
-                IsBusy = false;
+               
             }
         }
 
@@ -309,11 +317,6 @@ namespace VMS_MobileGPS.Views
         /// <param name="e"></param>
         private void Map_MapClicked(object sender, MapClickedEventArgs e)
         {
-            if (IsBusy)
-            {
-                return;
-            }
-            IsBusy = true;
             try
             {
                 if (mCarActive != null && mCarActive.VehicleId > 0)
@@ -331,7 +334,7 @@ namespace VMS_MobileGPS.Views
             }
             finally
             {
-                IsBusy = false;
+                
             }
         }
 
@@ -372,7 +375,7 @@ namespace VMS_MobileGPS.Views
             //nếu messageId==128 thì là xe dừng dịch vụ
             if (messageId == 128)
             {
-                DisplayAlert(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
+                pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
 
                 return;
             }
@@ -406,7 +409,7 @@ namespace VMS_MobileGPS.Views
             }
             else
             {
-                DisplayAlert(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
+                pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
             }
         }
 
@@ -535,11 +538,6 @@ namespace VMS_MobileGPS.Views
         {
             if (vehicle != null)
             {
-                if (IsBusy)
-                {
-                    return;
-                }
-                IsBusy = true;
                 try
                 {
                     if (vehicle.VehiclePlate != mCarActive.VehiclePlate)
@@ -562,7 +560,7 @@ namespace VMS_MobileGPS.Views
                 }
                 finally
                 {
-                    IsBusy = false;
+                   
                 }
             }
         }
@@ -571,7 +569,7 @@ namespace VMS_MobileGPS.Views
         {
             using (new HUDService())
             {
-                Title = company.CompanyName;
+                //Title = company.CompanyName;
 
                 if (mVehicleList != null && mVehicleList.Count > 0)
                 {
