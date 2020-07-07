@@ -3,5 +3,70 @@
     x:Class="VMS_MobileGPS.Views.OfflinePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converters="clr-namespace:VMS_MobileGPS.Converter"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:local="clr-namespace:BA_MobileGPS.Utilities;assembly=BA_MobileGPS.Utilities"
+    xmlns:localstatic="clr-namespace:VMS_MobileGPS.Constant;assembly=VMS_MobileGPS"
     xmlns:prism="http://prismlibrary.com"
-    prism:ViewModelLocator.AutowireViewModel="True" />
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.BackButtonTitle="">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BLEConnectionStateConverter x:Key="BLEConnectionStateConverter" />
+            <converters:BLEConnectionStateColorConverter x:Key="BLEConnectionStateColorConverter" />
+            <converters:BLEConnectionStateTextColorConverter x:Key="BLEConnectionStateTextColorConverter" />
+            <converters:TotalNotificationDisplayConverter x:Key="TotalNotificationDisplayConverter" />
+            <converters:SOSStateColorConverter x:Key="SOSStateColorConverter" />
+            <converters:SOSStateTextColorConverter x:Key="SOSStateTextColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Aspect="AspectFill"
+                HorizontalOptions="StartAndExpand"
+                Source="ic_logo.png"
+                VerticalOptions="FillAndExpand" />
+            <badge:SfBadgeView
+                Grid.Column="1"
+                Margin="5,0,0,5"
+                BadgeText="{Binding TotalMessage, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource TotalNotificationDisplayConverter}}"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="Center">
+                <badge:SfBadgeView.Content>
+                    <controls:FontAwesomeIcon
+                        Margin="10,0,10,0"
+                        FontAttributes="Bold"
+                        FontSize="25"
+                        HorizontalOptions="End"
+                        Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}"
+                        TextColor="White"
+                        VerticalOptions="Center">
+                        <!--<controls:FontAwesomeIcon.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavigateToCommand}" CommandParameter="{x:Static local:PageNames.NotificationMessagePage}" />
+                        </controls:FontAwesomeIcon.GestureRecognizers>-->
+                    </controls:FontAwesomeIcon>
+                </badge:SfBadgeView.Content>
+                <badge:SfBadgeView.BadgeSettings>
+                    <badge:BadgeSetting
+                        BadgePosition="TopRight"
+                        BadgeType="Error"
+                        CornerRadius="12"
+                        FontSize="9"
+                        TextPadding="3"
+                        Offset="-5,5" />
+                </badge:SfBadgeView.BadgeSettings>
+            </badge:SfBadgeView>
+        </Grid>
+    </NavigationPage.TitleView>
+</ContentPage>
