@@ -359,10 +359,10 @@ namespace VMS_MobileGPS.ViewModels
                 {
                     if (GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.NO_CONNECTION)
                     {
-                        //if (!await UserDialogs.Instance.ConfirmAsync("Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?", "Cảnh báo", "ĐỒNG Ý", "BỎ QUA"))
-                        //{
-                        //    return;
-                        //}
+                        if (!await PageDialog.DisplayAlertAsync("Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?", "Cảnh báo", "ĐỒNG Ý", "BỎ QUA"))
+                        {
+                            return;
+                        }
 
                         result = await NavigationService.NavigateAsync(PageNames.BluetoothPage.ToString());
                     }
