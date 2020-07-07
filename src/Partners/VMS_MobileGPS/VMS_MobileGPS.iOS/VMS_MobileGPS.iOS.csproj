@@ -139,6 +139,12 @@
     <BundleResource Include="vi.lproj\InfoPlist.strings" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Plugin.BLE">
+      <HintPath>..\..\..\BuildingBlocks\Library\IOS\Plugin.BLE.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.BLE.Abstractions">
+      <HintPath>..\..\..\BuildingBlocks\Library\IOS\Plugin.BLE.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
