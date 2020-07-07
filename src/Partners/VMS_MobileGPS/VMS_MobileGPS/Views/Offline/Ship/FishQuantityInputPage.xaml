@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VMS_MobileGPS.Views.FishQuantityInputPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    Title="Mẻ lưới"
+    NavigationPage.BackButtonTitle="">
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label
+                Margin="8,0,0,0"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                Text="Mẻ Lưới"
+                TextColor="White"
+                VerticalOptions="Center" />
+
+            <controls:FontAwesomeIcon
+                Grid.Column="1"
+                Margin="5,0,5,0"
+                FontAttributes="Bold"
+                FontSize="25"
+                HorizontalOptions="End"
+                IsVisible="{Binding IsConnected}"
+                Text="{x:Static fontawesome:FontAwesomeIcons.SyncAlt}"
+                TextColor="White"
+                VerticalOptions="Center">
+                <controls:FontAwesomeIcon.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SyncFishTripCommand}" />
+                </controls:FontAwesomeIcon.GestureRecognizers>
+            </controls:FontAwesomeIcon>
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <Grid>
+            <syncfusion:SfListView
+                x:Name="ListView"
+                AllowSwiping="True"
+                AutoFitMode="DynamicHeight"
+                HorizontalOptions="FillAndExpand"
+                ItemSpacing="0"
+                ItemsSource="{Binding ListFishTrip}"
+                SelectionMode="None"
+                SwipeOffset="60"
+                TapCommand="{Binding ViewDetailCommand}"
+                VerticalOptions="FillAndExpand">
+                <syncfusion:SfListView.RightSwipeTemplate>
+                    <DataTemplate x:Name="RightSwipeTemplate">
+                        <Grid BackgroundColor="#DC595F">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Delete_Tapped" />
+                            </Grid.GestureRecognizers>
+                            <controls:FontAwesomeIcon
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="5,0,5,0"
+                                FontAttributes="Bold"
+                                FontSize="25"
+                                HorizontalOptions="Center"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.Trash}"
+                                TextColor="White"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </syncfusion:SfListView.RightSwipeTemplate>
+                <syncfusion:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid
+                            Padding="5,10,0,0"
+                            BackgroundColor="White"
+                            RowSpacing="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="15" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="5" />
+                            </Grid.RowDefinitions>
+                            <sharpnado:MaterialFrame
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Padding="0"
+                                CornerRadius="5"
+                                HeightRequest="10"
+                                HorizontalOptions="Center"
+                                IsClippedToBounds="True"
+                                IsVisible="{Binding IsSynced, Converter={StaticResource InvertBooleanConverter}}"
+                                LightThemeBackgroundColor="{StaticResource DangerousColor}"
+                                VerticalOptions="Start"
+                                WidthRequest="10" />
+                            <forms:CachedImage
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Grid.Column="1"
+                                HeightRequest="40"
+                                HorizontalOptions="Center"
+                                Source="ic_meluoi.png"
+                                VerticalOptions="Center"
+                                WidthRequest="40" />
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                FontAttributes="Bold"
+                                Text="{Binding ShipPlate}"
+                                TextColor="Black" />
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="3"
+                                Margin="0,0,10,0"
+                                HorizontalOptions="Center"
+                                Text="{Binding EndTime, Converter={StaticResource DateConverter}, ConverterParameter='ToLocal'}"
+                                TextColor="Gray"
+                                VerticalOptions="CenterAndExpand" />
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Margin="0,0,10,0"
+                                LineBreakMode="TailTruncation"
+                                Text="{Binding Imei}"
+                                TextColor="Gray" />
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="3"
+                                Margin="0,0,10,0"
+                                HorizontalOptions="Center"
+                                Text="{Binding EndTime, Converter={StaticResource TimeConverter}, ConverterParameter='ToLocal'}"
+                                TextColor="Gray"
+                                VerticalOptions="CenterAndExpand" />
+                            <!--<controls:FooterDivider
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="3"
+                                VerticalOptions="End" />-->
+                        </Grid>
+                    </DataTemplate>
+                </syncfusion:SfListView.ItemTemplate>
+            </syncfusion:SfListView>
+
+            <StackLayout
+                BackgroundColor="Transparent"
+                HorizontalOptions="Center"
+                IsVisible="{Binding ListFishTrip, Converter={StaticResource IsEmptyDataConverter}}"
+                Spacing="10"
+                VerticalOptions="Center">
+
+                <!--  Image for display svg image  -->
+                <ffImage:CachedImage
+                    BackgroundColor="Transparent"
+                    Source="ic_meluoi.png"
+                    VerticalOptions="Center" />
+
+                <!--  Label to display content  -->
+                <Label
+                    HorizontalOptions="Center"
+                    Text="Bạn chưa có mẻ lưới nào"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center" />
+            </StackLayout>
+
+
+            <sharpnado:MaterialFrame
+                Margin="20"
+                Padding="0"
+                BackgroundColor="{StaticResource PrimaryColor}"
+                CornerRadius="30"
+                HasShadow="False"
+                HeightRequest="60"
+                HorizontalOptions="End"
+                IsClippedToBounds="True"
+                VerticalOptions="End"
+                WidthRequest="60">
+                <sharpnado:MaterialFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding AddFishTripCommand}" />
+                </sharpnado:MaterialFrame.GestureRecognizers>
+                <controls:FontAwesomeIcon
+                    FontAttributes="Bold"
+                    FontSize="25"
+                    HorizontalOptions="Center"
+                    Text="{x:Static fontawesome:FontAwesomeIcons.Plus}"
+                    TextColor="Black"
+                    VerticalOptions="Center" />
+            </sharpnado:MaterialFrame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

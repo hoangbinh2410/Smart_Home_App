@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="VMS_MobileGPS.Views.AddFishQuantityPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:BA_MobileGPS.Core.Behaviors;assembly=BA_MobileGPS.Core"
+    xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+    <pages:PopupPage.Content>
+        <Frame
+            Margin="40"
+            Padding="0"
+            BackgroundColor="White"
+            CornerRadius="10"
+            HasShadow="False"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand">
+            <StackLayout>
+                <Label
+                    BackgroundColor="{StaticResource PrimaryColor}"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    HeightRequest="45"
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Center"
+                    Text="Loài"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
+                <input:SfTextInputLayout
+                    Margin="10,10,10,0"
+                    ContainerType="Outlined"
+                    HorizontalOptions="FillAndExpand"
+                    LeadingViewPosition="Inside"
+                    VerticalOptions="Start">
+                    <input:SfTextInputLayout.LeadingView>
+                        <controls:IconView
+                            Foreground="DimGray"
+                            Source="ic_fish.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="40" />
+                    </input:SfTextInputLayout.LeadingView>
+                    <combobox:SfComboBox
+                        DataSource="{Binding ListFish}"
+                        DisplayMemberPath="Name"
+                        EnableSelectionIndicator="True"
+                        HeightRequest="50"
+                        HorizontalOptions="FillAndExpand"
+                        MaximumDropDownHeight="200"
+                        SelectedItem="{Binding SelectedFish}"
+                        ShowBorder="False" />
+                </input:SfTextInputLayout>
+                <Label
+                    Margin="10,5,10,0"
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalOptions="Center"
+                    Text="Khối lượng (Kg)"
+                    TextColor="{StaticResource PrimaryColor}" />
+                <input:SfTextInputLayout
+                    Margin="10,0,10,0"
+                    ContainerType="Outlined"
+                    HorizontalOptions="FillAndExpand"
+                    LeadingViewPosition="Inside"
+                    VerticalOptions="Start">
+                    <input:SfTextInputLayout.LeadingView>
+                        <controls:IconView
+                            Foreground="DimGray"
+                            Source="ic_meluoivms.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="40" />
+                    </input:SfTextInputLayout.LeadingView>
+                    <Entry
+                        HeightRequest="50"
+                        HorizontalOptions="FillAndExpand"
+                        Keyboard="Numeric"
+                        MaxLength="15"
+                        Text="{Binding Weight}">
+                        <Entry.Behaviors>
+                            <behaviors:QuantityValidatorBehavior />
+                        </Entry.Behaviors>
+                    </Entry>
+                </input:SfTextInputLayout>
+                <Label
+                    Margin="10,0,10,0"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding ErrorText, Converter={StaticResource HasDataConverter}}"
+                    Text="{Binding ErrorText}"
+                    TextColor="{StaticResource DangerousColor}" />
+                <StackLayout
+                    Margin="10"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    Spacing="20">
+                    <Button
+                        BackgroundColor="Orange"
+                        Command="{Binding CancelCommand}"
+                        CornerRadius="5"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Huỷ" />
+                    <Button
+                        Command="{Binding AcceptCommand}"
+                        CornerRadius="5"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Chấp nhận" />
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </pages:PopupPage.Content>
+</pages:PopupPage>

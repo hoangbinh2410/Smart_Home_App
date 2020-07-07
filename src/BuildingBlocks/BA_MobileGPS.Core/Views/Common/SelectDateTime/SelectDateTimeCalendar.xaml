@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="BA_MobileGPS.Core.Views.SelectDateTimeCalendar"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:syncalendar="clr-namespace:Syncfusion.SfCalendar.XForms;assembly=Syncfusion.SfCalendar.XForms"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <pages:PopupPage.Content>
+        <StackLayout
+            Margin="20,50,20,20"
+            Padding="10"
+            BackgroundColor="White"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+            <syncalendar:SfCalendar
+                x:Name="calendar"
+                EnableSwiping="True"
+                HeaderHeight="30"
+                HeightRequest="300"
+                HorizontalOptions="Center"
+                MoveToDate="{Binding SelectDate}"
+                SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
+                SelectionMode="SingleSelection"
+                VerticalOptions="Center"
+                ViewMode="MonthView" />
+            <controls:CustomTimePicker
+                BorderColor="Transparent"
+                ColumnHeaderFontSize="14"
+                ColumnHeaderHeight="30"
+                ColumnHeaderTextColor="{StaticResource PrimaryColor}"
+                HeightRequest="150"
+                HorizontalOptions="Center"
+                PickerHeight="150"
+                PickerMode="Default"
+                SelectedItem="{Binding SelectedTime}"
+                SelectedItemTextColor="{StaticResource PrimaryColor}"
+                ShowColumnHeader="True"
+                ShowFooter="False"
+                ShowHeader="False"
+                VerticalOptions="Center"
+                WidthRequest="150" />
+            <StackLayout
+                HeightRequest="35"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                VerticalOptions="Center">
+                <Button
+                    BackgroundColor="White"
+                    BorderColor="{StaticResource PrimaryColor}"
+                    BorderRadius="0"
+                    BorderWidth="1"
+                    Command="{Binding CancelCommand}"
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    HorizontalOptions="FillAndExpand"
+                    Text="{i18n:TranslateResource Common_Button_Close}"
+                    TextColor="{StaticResource PrimaryColor}" />
+                <Button
+                    BackgroundColor="{StaticResource PrimaryColor}"
+                    BorderRadius="0"
+                    Command="{Binding AggreeCommand}"
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    HorizontalOptions="FillAndExpand"
+                    Text="{i18n:TranslateResource Common_Button_OK}"
+                    TextColor="White" />
+            </StackLayout>
+        </StackLayout>
+    </pages:PopupPage.Content>
+</pages:PopupPage>
