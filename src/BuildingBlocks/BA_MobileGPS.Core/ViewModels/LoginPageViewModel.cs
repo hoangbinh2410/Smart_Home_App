@@ -541,19 +541,19 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Language.CodeName);
                     //nếu cần xác thực OTP thì mở trang xác thực OTP
-                    if (user.IsNeededOtp)
-                    {
-                        await NavigationService.NavigateAsync("MenuNavigationPage/VerifyCodeOtpPage", null, useModalNavigation: true);
-                    }
-                    //nếu cần đổi mật khẩu thì mở trang đổi mật khẩu
-                    else if (user.IsNeedChangePassword)
-                    {
-                        await NavigationService.NavigateAsync("BaseNavigationPage/ChangePasswordPage", useModalNavigation: true);
-                    }
-                    else
-                    {
-                        await NavigationService.NavigateAsync("/RootPage/MasterDetailNavigationPage/HomePage");
-                    }
+                    //if (user.IsNeededOtp)
+                    //{
+                    //    await NavigationService.NavigateAsync("MenuNavigationPage/VerifyCodeOtpPage", null, useModalNavigation: true);
+                    //}
+                    ////nếu cần đổi mật khẩu thì mở trang đổi mật khẩu
+                    //else if (user.IsNeedChangePassword)
+                    //{
+                    //    await NavigationService.NavigateAsync("BaseNavigationPage/ChangePasswordPage", useModalNavigation: true);
+                    //}
+                    //else
+                    //{
+                        await NavigationService.NavigateAsync("/MainPage");
+                   // }
                 }
                 catch (Exception ex)
                 {
