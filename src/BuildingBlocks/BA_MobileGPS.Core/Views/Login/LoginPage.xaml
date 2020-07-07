@@ -9,6 +9,7 @@
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effect="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
@@ -50,14 +51,13 @@
                         HorizontalOptions="Center"
                         IsClippedToBounds="True"
                         WidthRequest="70">
-                        <ff:CachedImage Aspect="AspectFill" Source="bg_login.png" />
+                        <ff:CachedImage Source="bg_login.png" />
                     </pancake:PancakeView>
                     <Label
                         x:Name="account"
                         HorizontalTextAlignment="Center"
                         LineBreakMode="HeadTruncation"
                         StyleClass="GroupTitleLabel"
-                        Text="ĐINH THỊ HỒNG NHUNG"
                         WidthRequest="160" />
                     <Label
                         HorizontalTextAlignment="Center"
@@ -65,56 +65,56 @@
                         Text="09****2323"
                         WidthRequest="150" />
                 </StackLayout>
-                <pancake:PancakeView
-                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor},
-                                                      Dark={StaticResource DarkSecondaryOtherColor}}"
-                    CornerRadius="20"
-                    HeightRequest="40"
-                    HorizontalOptions="Center"
-                    WidthRequest="300">
-                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                <!--  Entry  -->
+                <input:SfTextInputLayout
+                    ErrorText="{Binding UserName.ErrorFirst}"
+                    HasError="{Binding UserName.IsNotValid}"
+                    StyleClass="LoginEntry">
+                    <input:SfTextInputLayout.LeadingView>
                         <pancake:PancakeView
                             BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryOtherColor},
                                                               Dark={StaticResource DarkPrimaryOtherColor}}"
                             CornerRadius="20"
+                            HeightRequest="40"
                             WidthRequest="40">
                             <controls:IconView Margin="10" Source="ic_account.png" />
                         </pancake:PancakeView>
-                        <Entry
-                            Margin="0,0,20,0"
-                            HorizontalOptions="FillAndExpand"
-                            Placeholder="Tên đăng nhập">
+                    </input:SfTextInputLayout.LeadingView>
+                    <input:SfTextInputLayout.InputView>
+                        <Entry Placeholder="Tên đăng nhập" Text="{Binding UserName.Value}">
                             <Entry.Effects>
                                 <effect:BorderlessEffect />
                             </Entry.Effects>
                         </Entry>
-                    </StackLayout>
-                </pancake:PancakeView>
-                <pancake:PancakeView
-                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor},
-                                                      Dark={StaticResource DarkSecondaryOtherColor}}"
-                    CornerRadius="20"
-                    HeightRequest="40"
-                    HorizontalOptions="Center"
-                    WidthRequest="300">
-                    <StackLayout Orientation="Horizontal">
+                    </input:SfTextInputLayout.InputView>
+                </input:SfTextInputLayout>
+                <input:SfTextInputLayout
+                    Margin="0,7"
+                    EnablePasswordVisibilityToggle="True"
+                    ErrorText="{Binding Password.ErrorFirst}"
+                    HasError="{Binding Password.IsNotValid}"
+                    StyleClass="LoginEntry">
+                    <input:SfTextInputLayout.LeadingView>
                         <pancake:PancakeView
                             BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryOtherColor},
                                                               Dark={StaticResource DarkPrimaryOtherColor}}"
                             CornerRadius="20"
+                            HeightRequest="40"
                             WidthRequest="40">
                             <controls:IconView Margin="10" Source="ic_lock.png" />
                         </pancake:PancakeView>
+                    </input:SfTextInputLayout.LeadingView>
+                    <input:SfTextInputLayout.InputView>
                         <Entry
-                            Margin="0,0,20,0"
-                            HorizontalOptions="FillAndExpand"
-                            Placeholder="Mật khẩu">
+                            IsPassword="True"
+                            Placeholder="Mật khẩu"
+                            Text="{Binding Password.Value}">
                             <Entry.Effects>
                                 <effect:BorderlessEffect />
                             </Entry.Effects>
                         </Entry>
-                    </StackLayout>
-                </pancake:PancakeView>
+                    </input:SfTextInputLayout.InputView>
+                </input:SfTextInputLayout>
                 <StackLayout
                     HorizontalOptions="CenterAndExpand"
                     Orientation="Horizontal"
@@ -123,6 +123,7 @@
                         CheckedColor="{AppThemeBinding Light={StaticResource LightPrimaryOtherColor},
                                                        Dark={StaticResource DarkPrimaryOtherColor}}"
                         CornerRadius="0"
+                        IsChecked="{Binding Rememberme}"
                         Text="Ghi nhớ đăng nhập"
                         TextColor="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor},
                                                     Dark={StaticResource DarkSecondaryOtherColor}}"
@@ -141,18 +142,18 @@
                     </Label>
                 </StackLayout>
                 <Button
+                    Padding="0"
                     BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryOtherColor},
                                                       Dark={StaticResource DarkPrimaryOtherColor}}"
                     Command="{Binding LoginCommand}"
                     CornerRadius="20"
-                    HeightRequest="40"
+                    HeightRequest="38"
                     HorizontalOptions="Center"
                     Text="Đăng nhập"
                     TextColor="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor},
                                                 Dark={StaticResource DarkSecondaryOtherColor}}"
                     WidthRequest="300" />
             </StackLayout>
-
             <!--  Footer  -->
             <StackLayout Margin="0,0,0,20" VerticalOptions="EndAndExpand">
                 <controls:IconView
