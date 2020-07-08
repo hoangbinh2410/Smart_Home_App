@@ -97,7 +97,7 @@ namespace VMS_MobileGPS.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var color = (Color)App.Current.Resources["Color_Navigation"];
+            var color = (Color)App.Current.Resources["PrimaryColor"];
 
             if (parameter != null)
             {

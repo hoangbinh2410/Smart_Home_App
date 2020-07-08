@@ -45,7 +45,7 @@ namespace BA_MobileGPS.Core.Droid
                 containerRegistry.RegisterInstance<IDisplayMessage>(new DisplayMessageService());
                 //containerRegistry.RegisterInstance<ISettingsService>(new SettingsService());
                 //containerRegistry.RegisterInstance<ISaveAndView>(new SaveAndViewAndroid());
-                //containerRegistry.RegisterInstance<IAudioManager>(new DroidAudioManager());
+                containerRegistry.RegisterInstance<IAudioManager>(new DroidAudioManager());
                 containerRegistry.RegisterInstance<ITooltipService>(new DroidTooltipService());
                 //containerRegistry.RegisterInstance<IDownloader>(new AndroidDownloader());    
                 containerRegistry.RegisterInstance<IAppVersionService>(new AppVersionService());
