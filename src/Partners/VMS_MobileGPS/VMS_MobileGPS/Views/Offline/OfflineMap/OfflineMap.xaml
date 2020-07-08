@@ -204,13 +204,10 @@
                             <Label Text="{Binding DateTimeN, Converter={StaticResource DateTimeConverter}}" />
                         </StackLayout>
                     </Grid>
-                    <sharpnado:MaterialFrame
+                    <StackLayout
                         Grid.Row="1"
-                        Padding="2"
+                        Padding="1"
                         BackgroundColor="{StaticResource TextSecondaryColor}"
-                        BorderColor="{StaticResource TextPlaceHolderColor}"
-                        CornerRadius="0"
-                        HasShadow="False"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="CenterAndExpand">
                         <Grid
@@ -290,7 +287,7 @@
                                 </StackLayout>
                             </Grid>
                         </Grid>
-                    </sharpnado:MaterialFrame>
+                    </StackLayout>
                     <Grid
                         Grid.Row="2"
                         HorizontalOptions="FillAndExpand"
@@ -305,14 +302,18 @@
                         <Button
                             Grid.Column="0"
                             Command="{Binding CallSOSCommand}"
+                            CornerRadius="20"
                             FontAttributes="Bold"
+                            HeightRequest="40"
                             Text="CẢNH BÁO SOS"
                             TextColor="White" />
 
                         <Button
                             Grid.Column="1"
                             Command="{Binding OpenSettingCommand}"
+                            CornerRadius="20"
                             FontAttributes="Bold"
+                            HeightRequest="40"
                             Text="MẺ LƯỚI"
                             TextColor="White" />
                     </Grid>
