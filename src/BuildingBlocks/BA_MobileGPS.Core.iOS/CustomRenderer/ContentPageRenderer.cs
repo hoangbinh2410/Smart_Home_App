@@ -6,6 +6,7 @@ using System.Reflection;
 using UIKit;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(ContentPage), typeof(ContentPageRenderer))]
 
@@ -96,6 +97,7 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
             //    SetAppTheme();
             //}
         }
+
         //private void SetAppTheme()
         //{
         //    var themeService = Prism.PrismApplicationBase.Current.Container.Resolve<IThemeService>();
