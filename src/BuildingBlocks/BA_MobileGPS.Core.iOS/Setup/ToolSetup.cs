@@ -64,11 +64,11 @@ namespace BA_MobileGPS.Core.iOS.Setup
             SfCalendarRenderer.Init();
             SfBadgeViewRenderer.Init();
             SfChartRenderer.Init();
+            SfMapsRenderer.Init();
             //SfBusyIndicatorRenderer.Init();
             //SfTabViewRenderer.Init();
             //SfRatingRenderer.Init();
             //SfPopupLayoutRenderer.Init();
-            SfMapsRenderer.Init();
             //SfRangeSliderRenderer.Init();
         }
     }
