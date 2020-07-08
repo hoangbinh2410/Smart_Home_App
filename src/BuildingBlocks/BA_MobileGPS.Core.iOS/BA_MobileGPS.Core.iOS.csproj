@@ -105,6 +105,9 @@
     <PackageReference Include="Syncfusion.Xamarin.SfCalendar">
       <Version>18.2.0.44</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfMaps">
+      <Version>18.2.0.44</Version>
+    </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfPicker">
       <Version>18.2.0.44</Version>
     </PackageReference>
