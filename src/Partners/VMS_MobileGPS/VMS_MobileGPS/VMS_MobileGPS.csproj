@@ -49,20 +49,6 @@
 	  <EmbeddedResource Update="Views\Online\BoundaryNameInfoWindow.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Offline\Ship\AddFishQuantityPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Offline\Ship\FishQuantityDetailPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Offline\Ship\FishQuantityInputPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Offline\Ship\LocationDergeeInputPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Permission\VMSPermissionGranted.xaml">
-	    <Generator>MSBuild:Compile</Generator>
 	  <EmbeddedResource Update="Views\Online\OnlineCarInfoView.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
