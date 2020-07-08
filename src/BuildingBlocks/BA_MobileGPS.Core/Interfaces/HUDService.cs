@@ -1,8 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core
 {
+    public interface IHUDProvider
+    {
+        void DisplayProgress(string message);
+
+        void Dismiss();
+    }
+
     public class HUDService : IDisposable
     {
         private bool _cancel;
@@ -23,15 +31,14 @@ namespace BA_MobileGPS.Core
             }
 
             _cancel = false;
-
-            //UserDialogs.Instance.ShowLoading(message, MaskType.Black);
+            DependencyService.Get<IHUDProvider>().DisplayProgress(message);
         }
 
         public void Dispose()
         {
             _cancel = true;
 
-            //UserDialogs.Instance.HideLoading();
+            DependencyService.Get<IHUDProvider>().Dismiss();
         }
     }
 }

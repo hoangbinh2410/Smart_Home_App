@@ -124,8 +124,8 @@
                     VisualType="Cupertino">
                     <switch:SfSwitch.Behaviors>
                         <prismbehaviors:EventToCommandBehavior
-                            Command="{Binding NavigateToCommand}"
-                            CommandParameter="{x:Static local:PageNames.BluetoothPage}"
+                            Command="{Binding ConnectBleCommand}"
+                            EventArgsConverter="{StaticResource SwitchStateChangedEventArgsConverter}"
                             EventName="StateChanged" />
                     </switch:SfSwitch.Behaviors>
 
