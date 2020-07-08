@@ -6,6 +6,7 @@ using System.Reflection;
 using UIKit;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(ContentPage), typeof(ContentPageRenderer))]
 
@@ -13,6 +14,25 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
 {
     public class ContentPageRenderer : PageRenderer
     {
+        protected override void OnElementChanged(VisualElementChangedEventArgs e)
+        {
+            base.OnElementChanged(e);
+
+            if (e.OldElement != null || Element == null)
+            {
+                return;
+            }
+
+            //try
+            //{
+            //    SetAppTheme();
+            //}
+            //catch (Exception ex)
+            //{
+            //    System.Diagnostics.Debug.WriteLine($"\t\t\tERROR: {ex.Message}");
+            //}
+        }
+
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
@@ -68,5 +88,30 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
             // Set the status bar to light.
             //UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
         }
+
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+            //if (this.TraitCollection.UserInterfaceStyle != previousTraitCollection.UserInterfaceStyle)
+            //{
+            //    SetAppTheme();
+            //}
+        }
+
+        //private void SetAppTheme()
+        //{
+        //    var themeService = Prism.PrismApplicationBase.Current.Container.Resolve<IThemeService>();
+        //    if (themeService != null)
+        //    {
+        //        if (TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark)
+        //        {
+        //            themeService.UpdateTheme(OSAppTheme.Dark);
+        //        }
+        //        else
+        //        {
+        //            themeService.UpdateTheme(OSAppTheme.Light);
+        //        }
+        //    }
+        //}
     }
 }
