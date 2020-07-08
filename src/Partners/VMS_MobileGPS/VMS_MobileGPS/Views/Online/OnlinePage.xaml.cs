@@ -25,6 +25,7 @@ using VMS_MobileGPS.ViewModels;
 using Xamarin.Forms;
 
 using Xamarin.Forms.Xaml;
+using System.Threading;
 
 namespace VMS_MobileGPS.Views
 {
@@ -43,11 +44,13 @@ namespace VMS_MobileGPS.Views
         private readonly IDisplayMessage displayMessage;
         private readonly IHelperAdvanceService helperAdvanceService;
         private readonly IPageDialogService pageDialog;
+        private readonly IVehicleOnlineService vehicleOnlineService;
 
         private readonly BA_MobileGPS.Core.Animation _animations = new BA_MobileGPS.Core.Animation();
 
         private OnlinePageViewModel vm;
-        private Timer timer;
+        private System.Timers.Timer timer;
+        private CancellationTokenSource cts;
 
         public OnlinePage()
         {
@@ -60,9 +63,11 @@ namespace VMS_MobileGPS.Views
             displayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
             helperAdvanceService = PrismApplicationBase.Current.Container.Resolve<IHelperAdvanceService>();
             pageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
+            vehicleOnlineService = PrismApplicationBase.Current.Container.Resolve<IVehicleOnlineService>();
 
             // Initialize the View Model Object
             vm = (OnlinePageViewModel)BindingContext;
+
             if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
             {
                 if (StaticSettings.ListVehilceOnline.Count > 1)
@@ -113,18 +118,11 @@ namespace VMS_MobileGPS.Views
             StartTimmerCaculatorStatus();
 
             InitShowCase();
-
-            InitOnline();
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
         }
-
-        //public void Initialize(INavigationParameters parameters)
-        //{
-
-        //}
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -180,7 +178,7 @@ namespace VMS_MobileGPS.Views
 
         private void StartTimmerCaculatorStatus()
         {
-            timer = new Timer
+            timer = new System.Timers.Timer
             {
                 Interval = 15000
             };
@@ -212,14 +210,14 @@ namespace VMS_MobileGPS.Views
         {
             try
             {
-                if (_animations == null)
-                {
-                    return;
-                }
+                //if (_animations == null)
+                //{
+                //    return;
+                //}
 
                 //_animations.Add(States.ShowFilter, new[] {
                 //                                            new ViewTransition(boxInfo, AnimationType.TranslationY, 0, 300, delay: 300), // Active and visible
-				            //                                new ViewTransition(boxInfo, AnimationType.Opacity, 1, 0), // Active and visible
+                //                                new ViewTransition(boxInfo, AnimationType.Opacity, 1, 0), // Active and visible
                 //                                          });
 
                 //_animations.Add(States.HideFilter, new[] {
@@ -227,7 +225,7 @@ namespace VMS_MobileGPS.Views
                 //                                            new ViewTransition(boxInfo, AnimationType.Opacity, 0),
                 //                                          });
 
-                await _animations.Go(States.HideFilter, false);
+                //await _animations.Go(States.HideFilter, false);
 
                 //var pageWidth = Xamarin.Forms.Application.Current?.MainPage?.Width;
 
@@ -288,7 +286,7 @@ namespace VMS_MobileGPS.Views
         private void MapOnPinClicked(object sender, PinClickedEventArgs args)
         {
             args.Handled = true;
-          
+
             try
             {
                 if (args.Pin != null && args.Pin.Label != mCarActive.VehiclePlate)
@@ -306,7 +304,7 @@ namespace VMS_MobileGPS.Views
             }
             finally
             {
-               
+
             }
         }
 
@@ -334,7 +332,7 @@ namespace VMS_MobileGPS.Views
             }
             finally
             {
-                
+
             }
         }
 
@@ -560,7 +558,7 @@ namespace VMS_MobileGPS.Views
                 }
                 finally
                 {
-                   
+
                 }
             }
         }
@@ -646,43 +644,101 @@ namespace VMS_MobileGPS.Views
         {
             try
             {
-                if (!IsInitMarker)
+                if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                 {
-                    using (new HUDService(MobileResource.Common_Message_Processing))
+                    if (!IsInitMarker)
                     {
-                        var list = StaticSettings.ListVehilceOnline;
-                        if (list != null && list.Count > 0)
+                        using (new HUDService(MobileResource.Common_Message_Processing))
                         {
-                            //Nếu là công ty thường thì mặc định load xe của công ty lên bản đồ
-                            if (!UserHelper.isCompanyPartner(StaticSettings.User))
+                            var list = StaticSettings.ListVehilceOnline;
+                            if (list != null && list.Count > 0)
                             {
-                                InitVehicleStatus(list);
-
-                                var listPin = ConvertMarkerPin(list);
-
-                                //Vẽ xe lên bản đồ
-                                InitPinVehicle(listPin);
-                            }
-                            else
-                            {
-                                //nếu trước đó đã chọn 1 công ty nào đó rồi thì load danh sách xe của công ty đó
-                                if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                                //Nếu là công ty thường thì mặc định load xe của công ty lên bản đồ
+                                if (!UserHelper.isCompanyPartner(StaticSettings.User))
                                 {
-                                    UpdateVehicleByCompany(Settings.CurrentCompany);
+                                    InitVehicleStatus(list);
+
+                                    var listPin = ConvertMarkerPin(list);
+
+                                    //Vẽ xe lên bản đồ
+                                    InitPinVehicle(listPin);
                                 }
                                 else
                                 {
-                                    displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
+                                    //nếu trước đó đã chọn 1 công ty nào đó rồi thì load danh sách xe của công ty đó
+                                    if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                                    {
+                                        UpdateVehicleByCompany(Settings.CurrentCompany);
+                                    }
+                                    else
+                                    {
+                                        displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
+                                    }
                                 }
                             }
                         }
                     }
+                }
+                else
+                {
+                    GetListVehicleOnline();
                 }
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
+        }
+
+        private void GetListVehicleOnline()
+        {
+            var userID = StaticSettings.User.UserId;
+            if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+            {
+                userID = Settings.CurrentCompany.UserId;
+            }
+            int vehicleGroup = 0;
+
+            if (cts != null)
+                cts.Cancel(true);
+
+            cts = new CancellationTokenSource();
+
+            Task.Run(async () =>
+            {
+                await Task.Delay(500, cts.Token);
+
+                return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup);
+            }, cts.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
+            {
+                if (task.Status == TaskStatus.RanToCompletion)
+                {
+                    if (task.Result != null && task.Result.Count > 0)
+                    {
+                        task.Result.ForEach(x =>
+                        {
+                            x.IconImage = IconCodeHelper.GetMarkerResource(x);
+                            x.StatusEngineer = StateVehicleExtension.EngineState(x);
+
+                            if (!StateVehicleExtension.IsLostGPS(x.GPSTime, x.VehicleTime) && !StateVehicleExtension.IsLostGSM(x.VehicleTime))
+                            {
+                                x.SortOrder = 1;
+                            }
+                            else
+                            {
+                                x.SortOrder = 0;
+                            }
+                        });
+
+                        StaticSettings.ListVehilceOnline = task.Result;
+                        InitOnline();
+                    }
+                    else
+                    {
+                        StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
+                    }
+                }
+            }));
         }
 
         /// <summary>
@@ -728,7 +784,7 @@ namespace VMS_MobileGPS.Views
                     x.CountCar = StateVehicleExtension.GetCountCarByStatus(vehicleList, (VehicleStatusGroup)x.ID);
                 });
 
-               // lvStatusCar.ItemsSource = listStatus;
+                // lvStatusCar.ItemsSource = listStatus;
             }
         }
 

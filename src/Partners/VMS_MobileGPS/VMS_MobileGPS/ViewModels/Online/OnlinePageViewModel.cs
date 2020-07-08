@@ -1,5 +1,7 @@
 ﻿using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Events;
+using BA_MobileGPS.Core.Extensions;
+using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
@@ -33,6 +35,8 @@ namespace VMS_MobileGPS.ViewModels
 
         private readonly IUserService userService;
 
+        private readonly IVehicleOnlineService vehicleOnlineService;
+
         public ICommand HotlineTapCommand { get; }
 
         public ICommand ChangeMapTypeCommand { get; private set; }
@@ -41,12 +45,16 @@ namespace VMS_MobileGPS.ViewModels
 
         public DelegateCommand ShowBorderCommand { get; private set; }
 
-        public OnlinePageViewModel(INavigationService navigationService, IEventAggregator eventAggregator, 
+        public OnlinePageViewModel(INavigationService navigationService, IEventAggregator eventAggregator, IVehicleOnlineService vehicleOnlineService,
             IUserService userService, IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository) : base(navigationService)
         {
+            this.vehicleOnlineService = vehicleOnlineService;
             this.boundaryRepository = boundaryRepository;
             this.userService = userService;
             _eventAggregator = eventAggregator;
+
+            carActive = new VehicleOnline();
+
             HotlineTapCommand = new DelegateCommand(HotlineTap);
             _bottomGroupMargin = new Thickness(15, 30);
             _eventAggregator.GetEvent<DetailVehiclePopupCloseEvent>().Subscribe(DetailVehiclePopupClose);
@@ -108,11 +116,6 @@ namespace VMS_MobileGPS.ViewModels
         #endregion
 
         #region Private Method
-
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-        }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {

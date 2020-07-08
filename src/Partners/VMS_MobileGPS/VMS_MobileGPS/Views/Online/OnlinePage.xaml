@@ -11,6 +11,7 @@
     xmlns:mapbindings="clr-namespace:BA_MobileGPS.Core.GoogleMap.Behaviors;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:views="clr-namespace:VMS_MobileGPS.Views"
     prism:ViewModelLocator.AutowireViewModel="True">
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
@@ -86,6 +87,10 @@
                 </DataTrigger>
             </cluster:Map.Triggers>
         </cluster:Map>
+        <!--<views:OnlineCarInfoView
+            x:Name="boxInfo"
+            AbsoluteLayout.LayoutBounds="0,1,1,AutoSize"
+            AbsoluteLayout.LayoutFlags="YProportional, WidthProportional" />-->
         <!--  Khung search bar phía trên  -->
         <Grid
             Grid.Row="1"

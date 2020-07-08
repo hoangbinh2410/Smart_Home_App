@@ -11,6 +11,7 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms"
+    x:Name="MainContentPage"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <converter:TabItemIconBackgroundColorConverter x:Key="TabItemIconBackgroundColorConverter" />
@@ -59,7 +60,7 @@
                     Animate="True">
                     <!--<local:HomePage />
                     <local:VehiclesPage />-->
-                    <local:OnlinePage />
+                    <local:OnlinePage prism:ViewModelLocator.AutowirePartialView="{x:Reference MainContentPage}" />
                     <!--<local:VoyagePage />
                     <local:AccountsPage />-->
                 </tabs:ViewSwitcher>
@@ -80,7 +81,7 @@
                         <tabs:BottomTabItem
                             IconImageSource="ic_Mornitoring.png"
                             IsVisible="True"
-                            Label="21233" />
+                            Label="{i18n:TranslateResource Menu_TabItem_Monitoring}" />
                         <!--<tabs:BottomTabItem
                             IconImageSource="ic_Voyage.png"
                             IsVisible="True"

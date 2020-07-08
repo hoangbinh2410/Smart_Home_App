@@ -58,7 +58,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 // Lấy danh sách menu
                 //GetListMenu();
 
-                GetListVehicleOnline();
+                //GetListVehicleOnline();
 
                 // Lấy danh sách cảnh báo
                 GetCountAlert();
