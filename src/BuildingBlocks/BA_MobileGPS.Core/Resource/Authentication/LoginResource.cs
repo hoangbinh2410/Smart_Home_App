@@ -25,5 +25,7 @@ namespace BA_MobileGPS.Core.Resource
         public static string Login_Message_AccountPasswordIncorrect => Get(MobileResourceNames.Login_Message_AccountPasswordIncorrect, "Tài khoản hoặc mật khẩu không chính xác", "Account or password is incorrect");
 
         public static string Login_Message_AccountLocked => Get(MobileResourceNames.Login_Message_AccountLocked, "Tài khoản của bạn đang bị khóa", " Your account is locked");
+        public static string Login_ForgotPassword_PopupTitle => Get(MobileResourceNames.Login_ForgotPassword_PopupTitle, "Quên mật khẩu", " Forgot Password");
+        public static string Login_ForgotPassword_PopupContent => Get(MobileResourceNames.Login_ForgotPassword_PopupContent, "Để đảm bảo an toàn thông tin, Quý khách vui lòng liên hệ <strong> 19006464 </strong> để được cấp lại mật khẩu", " To ensure information security, please contact <strong> 19006464 </strong> for a password reset");
     }
 }

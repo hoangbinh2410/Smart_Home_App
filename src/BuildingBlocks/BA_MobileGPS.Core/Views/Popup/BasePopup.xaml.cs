@@ -65,9 +65,11 @@ namespace BA_MobileGPS.Core.Views
             body.HorizontalOptions = LayoutOptions.Center;
 
             var title = new Label();
-            title.Margin = new Thickness(0, 10, 25, 0);
-            title.Text = _title;
+            title.Margin = new Thickness(20, 10,0, 0);
+            title.TextType = TextType.Html;
+            title.Text = "<strong>" + _title + "</strong>";
             title.FontSize = 16;
+            title.FontAttributes = FontAttributes.Bold; 
             title.HorizontalOptions = LayoutOptions.Center;
             title.VerticalTextAlignment = TextAlignment.Center;
 
@@ -78,6 +80,7 @@ namespace BA_MobileGPS.Core.Views
             messenger.TextType = TextType.Html;
             title.TextColor = _textColor == null ? Color.Black : (Color)_textColor;
             messenger.TextColor = _textColor == null ? Color.Black : (Color)_textColor;
+            messenger.HorizontalTextAlignment = TextAlignment.Start;
 
 
             var icon = new IconView();
@@ -97,10 +100,12 @@ namespace BA_MobileGPS.Core.Views
             {
                 case IconPosititon.Left:
                     icon.Margin = new Thickness(20, 30, 10, 10);
-                    title.SetValue(Grid.ColumnProperty, 1);
+                    title.SetValue(Grid.ColumnProperty, 0);
+                    title.SetValue(Grid.ColumnSpanProperty, 2);
                     messenger.SetValue(Grid.RowProperty, 1);
                     messenger.SetValue(Grid.ColumnProperty, 1);
                     icon.SetValue(Grid.RowSpanProperty, 2);
+                    messenger.Margin = new Thickness(0, 0, 10, 0);
                     body.Children.Add(title);
                     body.Children.Add(messenger);
                     body.Children.Add(icon);
@@ -140,11 +145,12 @@ namespace BA_MobileGPS.Core.Views
 
 
             var temp = new StackLayout();
+            temp.Padding = 0;
             temp.Orientation = StackOrientation.Horizontal;
             temp.HorizontalOptions = LayoutOptions.CenterAndExpand;
-            temp.Margin = new Thickness(0, 10, 0, 15);
+            temp.Margin = new Thickness(0, 5, 0, 15);
 
-            temp.Spacing = 30;
+            temp.Spacing = 25;
 
 
             var btnNo = new Button();
