@@ -17,7 +17,7 @@ using Syncfusion.XForms.iOS.BadgeView;
 using Syncfusion.XForms.iOS.Border;
 using Syncfusion.XForms.iOS.Buttons;
 using Syncfusion.XForms.iOS.ComboBox;
-
+using Xamarin;
 using Xamarin.Forms.Platform.iOS;
 
 namespace BA_MobileGPS.Core.iOS.Setup
@@ -38,6 +38,8 @@ namespace BA_MobileGPS.Core.iOS.Setup
             CachedImageRenderer.InitImageSourceHandler();
 
             SharpnadoInitializer.Initialize();
+
+            IQKeyboardManager.SharedManager.Enable = true;
 
             // Override default ImageFactory by your implementation.
             FormsGoogleMaps.Init(Config.GoogleMapKeyiOS, new PlatformConfig
