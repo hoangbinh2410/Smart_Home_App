@@ -26,8 +26,8 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Command="{Binding SearchBluetoothCommand}"
-            Icon="ic_close.png"
-            IconImageSource="ic_close.png"
+            Icon="ic_bluetooth.png"
+            IconImageSource="ic_bluetooth.png"
             Order="Primary"
             Priority="1"
             Text="Bluetooth" />
@@ -106,14 +106,13 @@
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal"
                     Spacing="10">
-                    <controls:FontAwesomeIcon
-                        FontAttributes="Bold"
-                        FontSize="30"
+                    <controls:IconView
+                        Foreground="{StaticResource PrimaryColor}"
+                        HeightRequest="30"
                         HorizontalOptions="End"
-                        Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}"
-                        TextColor="{StaticResource PrimaryColor}"
-                        VerticalOptions="Center" />
-
+                        Source="ic_bluetooth.png"
+                        VerticalOptions="Center"
+                        WidthRequest="30" />
                     <!--</controls:FontAwesomeIcon>
                         <ffImage:CachedImage
                         HeightRequest="40"
@@ -202,15 +201,15 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal"
                                         Spacing="10">
-                                        <controls:FontAwesomeIcon
-                                            FontAttributes="Bold"
-                                            FontSize="30"
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="30"
                                             HorizontalOptions="End"
-                                            Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}"
-                                            TextColor="{StaticResource PrimaryColor}"
-                                            VerticalOptions="Center" />
+                                            Source="ic_bluetooth.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="30" />
                                         <Label
-                                            FontSize="16"
+                                            FontSize="20"
                                             Text="{Binding Name}"
                                             VerticalOptions="Center" />
                                         <Label

@@ -1,22 +1,19 @@
 ﻿using BA_MobileGPS.Core.Helpers;
-using BA_MobileGPS.Entities;
+using BA_MobileGPS.Utilities;
 using Prism;
 using Prism.AppModel;
 using Prism.Events;
+using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Navigation;
-using Shiny.Caching;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Prism.Ioc;
-using System.Threading;
-using Xamarin.Forms;
-using BA_MobileGPS.Utilities;
-using Xamarin.Essentials;
 using Prism.Services;
+using System;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -251,6 +248,20 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 finalAction?.Invoke();
             }));
+        }
+
+        public ICommand ClosePageCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    SafeExecute(async () =>
+                    {
+                        await NavigationService.GoBackAsync(useModalNavigation: true);
+                    });
+                });
+            }
         }
     }
 }

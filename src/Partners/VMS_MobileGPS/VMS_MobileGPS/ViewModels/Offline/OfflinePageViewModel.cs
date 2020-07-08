@@ -73,8 +73,8 @@ namespace VMS_MobileGPS.ViewModels
         {
             base.Initialize(parameters);
             //GetMobileVersion();
-            AppManager.BluetoothService.OnReceiveNotificationBLE -= BluetoothService_OnReceiveNotificationBLE;
-            AppManager.BluetoothService.OnReceiveNotificationBLE += BluetoothService_OnReceiveNotificationBLE;
+            AppManager.BluetoothService.OnReceiveNotificationBLE -= OnReceiveNotificationBLE;
+            AppManager.BluetoothService.OnReceiveNotificationBLE += OnReceiveNotificationBLE;
             eventAggregator.GetEvent<StartShinnyEvent>().Subscribe(StartShinyLocation);
             eventAggregator.GetEvent<StopShinyEvent>().Subscribe(StopShinnyLocation);
             GlobalResourcesVMS.Current.PermissionManager = new PermissionManager();
@@ -83,7 +83,7 @@ namespace VMS_MobileGPS.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-
+            IsConnectBLE = GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.CONNECTED ? true : false;
             GetCountMessage();
         }
 
@@ -123,7 +123,7 @@ namespace VMS_MobileGPS.ViewModels
                 StopTimerGPSTracking();
             }
             _gpsListener.OnReadingReceived -= OnReadingReceived;
-            AppManager.BluetoothService.OnReceiveNotificationBLE -= BluetoothService_OnReceiveNotificationBLE;
+            AppManager.BluetoothService.OnReceiveNotificationBLE -= OnReceiveNotificationBLE;
             eventAggregator.GetEvent<StartShinnyEvent>().Unsubscribe(StartShinyLocation);
             eventAggregator.GetEvent<StopShinyEvent>().Unsubscribe(StopShinnyLocation);
         }
@@ -289,7 +289,7 @@ namespace VMS_MobileGPS.ViewModels
             }
         }
 
-        private void BluetoothService_OnReceiveNotificationBLE(object sender, string Msg)
+        private void OnReceiveNotificationBLE(object sender, string Msg)
         {
             TryExecute(() =>
             {

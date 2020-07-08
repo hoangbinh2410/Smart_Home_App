@@ -9,12 +9,12 @@ namespace BA_MobileGPS.Core.Droid.DependencyServices
     {
         public void DisplayProgress(string message)
         {
-            AndroidHUD.AndHUD.Shared.Show(Android.App.Application.Context, message);
+            AndroidHUD.AndHUD.Shared.Show(Forms.Context, message);
         }
 
         public void Dismiss()
         {
-            AndroidHUD.AndHUD.Shared.Dismiss(Android.App.Application.Context);
+            AndroidHUD.AndHUD.Shared.Dismiss(Forms.Context);
         }
     }
 }
