@@ -11,7 +11,7 @@
     xmlns:mapbindings="clr-namespace:BA_MobileGPS.Core.GoogleMap.Behaviors;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
-    xmlns:views="clr-namespace:VMS_MobileGPS.Views"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame" xmlns:views="clr-namespace:VMS_MobileGPS.Views"
     prism:ViewModelLocator.AutowireViewModel="True">
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
@@ -87,11 +87,10 @@
                 </DataTrigger>
             </cluster:Map.Triggers>
         </cluster:Map>
-        <!--<views:OnlineCarInfoView
-            x:Name="boxInfo"
-            AbsoluteLayout.LayoutBounds="0,1,1,AutoSize"
-            AbsoluteLayout.LayoutFlags="YProportional, WidthProportional" />-->
+      
         <!--  Khung search bar phía trên  -->
+
+
         <Grid
             Grid.Row="1"
             Margin="10"
@@ -193,5 +192,67 @@
                     Source="ic_rectange.png" />
             </pancake:PancakeView>
         </StackLayout>
+
+        <!--  Thông tin xe  -->
+        <views:OnlineCarInfoView
+            x:Name="boxInfo"
+            AbsoluteLayout.LayoutBounds="0,1,1,AutoSize"
+            AbsoluteLayout.LayoutFlags="YProportional, WidthProportional" />
+
+        <!--<sharpnado:MaterialFrame
+            x:Name="boxInfo"
+            Grid.Row="1"
+            Padding="5"
+            AbsoluteLayout.LayoutBounds="0,1,1,350"
+            AbsoluteLayout.LayoutFlags="YProportional, WidthProportional"
+            HasShadow="False"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="End">
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*" />
+                        <ColumnDefinition Width=".5*" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Start"
+                        Text="{Binding CarActive.PrivateCode}"
+                        TextColor="Black" />
+                    <Label
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        Text="{Binding CarActive.VehicleTime}"
+                        TextColor="Black" />
+                </Grid>
+                <Grid Grid.Row="1">
+
+                    <Label
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Start"
+                        Text="aaaaaaaaaaaaaa"
+                        TextColor="Black" />
+
+                </Grid>
+                <Grid Grid.Row="2">
+
+                    <Label
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Start"
+                        Text="bbbbbbbbbb"
+                        TextColor="Black" />
+
+                </Grid>
+            </Grid>
+        </sharpnado:MaterialFrame>-->
+
     </Grid>
 </ContentView>

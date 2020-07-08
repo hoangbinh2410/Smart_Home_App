@@ -49,6 +49,7 @@ namespace VMS_MobileGPS.Views
         private readonly BA_MobileGPS.Core.Animation _animations = new BA_MobileGPS.Core.Animation();
 
         private OnlinePageViewModel vm;
+
         private System.Timers.Timer timer;
         private CancellationTokenSource cts;
 
@@ -67,7 +68,6 @@ namespace VMS_MobileGPS.Views
 
             // Initialize the View Model Object
             vm = (OnlinePageViewModel)BindingContext;
-
             if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
             {
                 if (StaticSettings.ListVehilceOnline.Count > 1)
@@ -169,12 +169,49 @@ namespace VMS_MobileGPS.Views
             }
         }
 
+        public void OnNavigatingTo(INavigationParameters parameters)
+        {
+        }
+
         public void Destroy()
         {
             timer.Stop();
             timer.Dispose();
             eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
         }
+
+        #region Propety
+
+        /* Xe đang được chọn */
+        private VehicleOnline mCarActive;
+
+        /* Danh sách xe online */
+
+        private List<VehicleOnline> mVehicleList
+        {
+            get
+            {
+                if (StaticSettings.ListVehilceOnline != null)
+                {
+                    //nếu khóa BAP rồi thì ko hiển thị trên Map nữa
+                    return StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                }
+                else
+                {
+                    return new List<VehicleOnline>();
+                }
+            }
+        }
+
+        /* Danh sách xe online */
+        private List<VehicleOnline> mCurrentVehicleList;
+
+        private bool infoStatusIsShown = false;
+        private bool IsInitMarker = false;
+
+        #endregion Propety
+
+        #region Private Method
 
         private void StartTimmerCaculatorStatus()
         {
@@ -195,37 +232,26 @@ namespace VMS_MobileGPS.Views
             }
         }
 
-        private void CacularVehicleStatus()
-        {
-            //if (lvStatusCar.ItemsSource != null && ((List<VehicleStatusViewModel>)(lvStatusCar.ItemsSource)).Count > 0)
-            //{
-            //    ((List<VehicleStatusViewModel>)(lvStatusCar.ItemsSource)).ForEach(x =>
-            //    {
-            //        x.CountCar = StateVehicleExtension.GetCountCarByStatus(mCurrentVehicleList, (VehicleStatusGroup)x.ID);
-            //    });
-            //}
-        }
-
         private async void InitAnimation()
         {
             try
             {
-                //if (_animations == null)
-                //{
-                //    return;
-                //}
+                if (_animations == null)
+                {
+                    return;
+                }
 
-                //_animations.Add(States.ShowFilter, new[] {
-                //                                            new ViewTransition(boxInfo, AnimationType.TranslationY, 0, 300, delay: 300), // Active and visible
-                //                                new ViewTransition(boxInfo, AnimationType.Opacity, 1, 0), // Active and visible
-                //                                          });
+                _animations.Add(States.ShowFilter, new[] {
+                                                            new ViewTransition(boxInfo, AnimationType.TranslationY, 0, 300, delay: 300), // Active and visible
+                                                new ViewTransition(boxInfo, AnimationType.Opacity, 1, 0), // Active and visible
+                                                          });
 
-                //_animations.Add(States.HideFilter, new[] {
-                //                                            new ViewTransition(boxInfo, AnimationType.TranslationY, 300),
-                //                                            new ViewTransition(boxInfo, AnimationType.Opacity, 0),
-                //                                          });
+                _animations.Add(States.HideFilter, new[] {
+                                                            new ViewTransition(boxInfo, AnimationType.TranslationY, 300),
+                                                            new ViewTransition(boxInfo, AnimationType.Opacity, 0),
+                                                          });
 
-                //await _animations.Go(States.HideFilter, false);
+                await _animations.Go(States.HideFilter, false);
 
                 //var pageWidth = Xamarin.Forms.Application.Current?.MainPage?.Width;
 
@@ -258,161 +284,6 @@ namespace VMS_MobileGPS.Views
         }
 
         /// <summary>
-        /// Sự kiện khi click vào Cluster
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Map_ClusterClicked(object sender, ClusterClickedEventArgs e)
-        {
-            e.Handled = true;
-            if (e.Pins != null && e.Pins.Count() > 0)
-            {
-                var listPositon = new List<Position>();
-                e.Pins.ToList().ForEach(x =>
-                {
-                    listPositon.Add(x.Position);
-                });
-                var bounds = GeoHelper.FromPositions(listPositon);
-
-                googleMap.AnimateCamera(CameraUpdateFactory.NewBounds(bounds, 40));
-            }
-        }
-
-        /// <summary>
-        /// Sự kiện khi click vào Pin ko cluster
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        private void MapOnPinClicked(object sender, PinClickedEventArgs args)
-        {
-            args.Handled = true;
-
-            try
-            {
-                if (args.Pin != null && args.Pin.Label != mCarActive.VehiclePlate)
-                {
-                    var car = mVehicleList.FirstOrDefault(x => x.VehiclePlate == args.Pin.Label);
-                    if (car != null)
-                    {
-                        ShowBoxInfoCarActive(car, car.MessageId, car.DataExt);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-            }
-            finally
-            {
-
-            }
-        }
-
-        /// <summary>
-        /// Sự kiện khi click vào map
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Map_MapClicked(object sender, MapClickedEventArgs e)
-        {
-            try
-            {
-                if (mCarActive != null && mCarActive.VehicleId > 0)
-                {
-                    HideBoxInfoCarActive(mCarActive);
-                }
-                else
-                {
-                    HideBoxStatus();
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-            }
-            finally
-            {
-
-            }
-        }
-
-        /// <summary>
-        /// sự kiện khi di chuyển map
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void GoogleMap_CameraIdled(object sender, CameraIdledEventArgs e)
-        {
-            if (Device.RuntimePlatform == Device.Android)
-            {
-                googleMap.Cluster();
-            }
-        }
-
-        /// <summary>
-        /// ẩn thông tin xe đi và remove active xe
-        /// </summary>
-        /// <param name="carinfo"></param>
-        private void HideBoxInfoCarActive(VehicleOnline carinfo)
-        {
-            HideBoxStatus();
-
-            HideBoxInfo();
-
-            if (carinfo.VehicleId > 0)
-            {
-                UpdateBackgroundPinLable(carinfo);
-            }
-
-            vm.CarActive = new VehicleOnline();
-            mCarActive = new VehicleOnline();
-        }
-
-        private void ShowBoxInfoCarActive(VehicleOnline carInfo, int messageId, int dataExt)
-        {
-            //nếu messageId==128 thì là xe dừng dịch vụ
-            if (messageId == 128)
-            {
-                pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
-
-                return;
-            }
-
-            //Nếu messageId=2 hoặc 3 là xe phải thu phí
-            if (!StateVehicleExtension.IsVehicleDebtMoney(messageId, dataExt))
-            {
-                //nếu đang có xe active thì xóa active xe ý đi
-                if (mCarActive != null && mCarActive.VehicleId > 0)
-                {
-                    UpdateBackgroundPinLable(mCarActive);
-                }
-
-                mCarActive = carInfo;
-                vm.CarActive = carInfo;
-                vm.CurrentAddress = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(carInfo.Lat), GeoHelper.LongitudeToDergeeMinSec(carInfo.Lng));
-
-                if (vm.Circles.Count > 0)
-                {
-                    vm.ShowBorder();
-                }
-                else
-                {
-                    vm.HideBorder();
-                }
-
-                //update active xe mới
-                UpdateBackgroundPinLable(carInfo, true);
-
-                ShowBoxInfo();
-            }
-            else
-            {
-                pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
-            }
-        }
-
-
-        /// <summary>
         /// Nhận dữ liệu xe online
         /// </summary>
         /// <param name="e"></param>
@@ -435,107 +306,11 @@ namespace VMS_MobileGPS.Views
             }
         }
 
-        private bool IsInMapScreen(Position latlng)
-        {
-            var result = false;
-            //nhỏ hơn góc trái ở trên và lớn hơn góc phải ở dưới
-            if ((latlng.Latitude <= googleMap.Region.FarLeft.Latitude && latlng.Longitude >= googleMap.Region.FarLeft.Longitude) &&
-                (latlng.Latitude >= googleMap.Region.NearRight.Latitude && latlng.Longitude <= googleMap.Region.NearRight.Longitude))
-                result = true;
-
-            return result;
-        }
-
-        private void UpdateVehicle(VehicleOnline carInfo, Pin item, Pin itemLable, bool carActive = false)
-        {
-            try
-            {
-                if (item == null || itemLable == null || mVehicleList == null || carInfo.MessageId == 128)
-                {
-                    return;
-                }
-
-                if (carActive)
-                {
-                    vm.CarActive = carInfo;
-                }
-
-                carInfo.IconImage = IconCodeHelper.GetMarkerResource(carInfo);
-                item.Icon = BitmapDescriptorFactory.FromResource(carInfo.IconImage);
-
-                // Các xe đang off hoặc khoảng cách quá ngắn thì bỏ qua và nằm trong màn hình
-                if (StateVehicleExtension.IsStopAndEngineOff(carInfo)
-                        && GeoHelper.IsBetweenLatlng(item.Position.Latitude, item.Position.Longitude, carInfo.Lat, carInfo.Lng))
-                {
-                    return;
-                }
-
-                //nếu xe nằm trong màn hình thì mới animation xoay và di chuyển
-                if (IsInMapScreen(new Position(carInfo.Lat, carInfo.Lng)))
-                {
-                    //di chuyển xe
-                    item.Rotate(carInfo.Lat, carInfo.Lng, () =>
-                    {
-                        item.MarkerAnimation(carInfo.Lat, carInfo.Lng, () =>
-                        {
-                            if (carActive)
-                            {
-                                vm.CurrentAddress = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(carInfo.Lat), GeoHelper.LongitudeToDergeeMinSec(carInfo.Lng));
-                            }
-                        });
-                        //di chuyển biển số xe
-                        itemLable.MarkerAnimation(carInfo.Lat, carInfo.Lng, () => { });
-                    });
-                }
-                else
-                {
-                    itemLable.Position = new Position(carInfo.Lat, carInfo.Lng);
-                    item.Position = new Position(carInfo.Lat, carInfo.Lng);
-                    if (carActive)
-                    {
-                        googleMap.AnimateCamera(CameraUpdateFactory.NewPosition(new Position(carInfo.Lat, carInfo.Lng)));
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-        }
-
-        /// <summary>
-        /// Vẽ lại icon biển số xe
-        /// </summary>
-        /// <param name="vehicle"></param>
-        /// <param name="bacground"></param>
-        private void UpdateBackgroundPinLable(VehicleOnline carinfo, bool isActive = false)
-        {
-            var lstpin = googleMap.ClusteredPins.Where(x => x.Label == carinfo.VehiclePlate).ToList();
-            if (lstpin != null && lstpin.Count > 1)
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    if (isActive)
-                    {
-                        lstpin[1].Tag = carinfo.VehiclePlate + "Active";
-                        lstpin[1].Icon = BitmapDescriptorFactory.FromView(new VMSPinInfowindowActiveView(carinfo.PrivateCode));
-                    }
-                    else
-                    {
-                        lstpin[1].Tag = carinfo.VehiclePlate + "Plate";
-
-                        lstpin[1].Icon = BitmapDescriptorFactory.FromView(new VMSPinInfowindowView(carinfo.PrivateCode));
-                    }
-
-                    //googleMap.Cluster();
-                });
-            }
-        }
-
         private void UpdateSelectVehicle(VehicleOnline vehicle)
         {
             if (vehicle != null)
             {
+
                 try
                 {
                     if (vehicle.VehiclePlate != mCarActive.VehiclePlate)
@@ -556,10 +331,7 @@ namespace VMS_MobileGPS.Views
                 {
                     Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
                 }
-                finally
-                {
 
-                }
             }
         }
 
@@ -635,6 +407,63 @@ namespace VMS_MobileGPS.Views
             });
 
             return listmarker;
+        }
+
+        private void UpdateVehicle(VehicleOnline carInfo, Pin item, Pin itemLable, bool carActive = false)
+        {
+            try
+            {
+                if (item == null || itemLable == null || mVehicleList == null || carInfo.MessageId == 128)
+                {
+                    return;
+                }
+
+                if (carActive)
+                {
+                    vm.CarActive = carInfo;
+                }
+
+                carInfo.IconImage = IconCodeHelper.GetMarkerResource(carInfo);
+                item.Icon = BitmapDescriptorFactory.FromResource(carInfo.IconImage);
+
+                // Các xe đang off hoặc khoảng cách quá ngắn thì bỏ qua và nằm trong màn hình
+                if (StateVehicleExtension.IsStopAndEngineOff(carInfo)
+                        && GeoHelper.IsBetweenLatlng(item.Position.Latitude, item.Position.Longitude, carInfo.Lat, carInfo.Lng))
+                {
+                    return;
+                }
+
+                //nếu xe nằm trong màn hình thì mới animation xoay và di chuyển
+                if (IsInMapScreen(new Position(carInfo.Lat, carInfo.Lng)))
+                {
+                    //di chuyển xe
+                    item.Rotate(carInfo.Lat, carInfo.Lng, () =>
+                    {
+                        item.MarkerAnimation(carInfo.Lat, carInfo.Lng, () =>
+                        {
+                            if (carActive)
+                            {
+                                vm.CurrentAddress = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(carInfo.Lat), GeoHelper.LongitudeToDergeeMinSec(carInfo.Lng));
+                            }
+                        });
+                        //di chuyển biển số xe
+                        itemLable.MarkerAnimation(carInfo.Lat, carInfo.Lng, () => { });
+                    });
+                }
+                else
+                {
+                    itemLable.Position = new Position(carInfo.Lat, carInfo.Lng);
+                    item.Position = new Position(carInfo.Lat, carInfo.Lng);
+                    if (carActive)
+                    {
+                        googleMap.AnimateCamera(CameraUpdateFactory.NewPosition(new Position(carInfo.Lat, carInfo.Lng)));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
         }
 
         /// <summary>
@@ -741,6 +570,29 @@ namespace VMS_MobileGPS.Views
             }));
         }
 
+
+
+        /// <summary>
+        /// khởi tạo danh sách trạng thái xe
+        /// </summary>
+        /// <param name="vehicleList"></param>
+        private void InitVehicleStatus(List<VehicleOnline> vehicleList)
+        {
+            //txtCountVehicle.Text = vehicleList.Count().ToString();
+            //mCurrentVehicleList = vehicleList;
+            //// Lấy trạng thái xe
+            //List<VehicleStatusViewModel> listStatus = (new VehicleStatusHelper()).DictVehicleStatus.Values.Where(x => x.IsEnable).ToList();
+            //if (listStatus != null && listStatus.Count > 0)
+            //{
+            //    listStatus.ForEach(x =>
+            //    {
+            //        x.CountCar = StateVehicleExtension.GetCountCarByStatus(vehicleList, (VehicleStatusGroup)x.ID);
+            //    });
+
+            //    lvStatusCar.ItemsSource = listStatus;
+            //}
+        }
+
         /// <summary>
         /// Khởi tạo xe trên mapp
         /// </summary>
@@ -768,27 +620,6 @@ namespace VMS_MobileGPS.Views
         }
 
         /// <summary>
-        /// khởi tạo danh sách trạng thái xe
-        /// </summary>
-        /// <param name="vehicleList"></param>
-        private void InitVehicleStatus(List<VehicleOnline> vehicleList)
-        {
-            //txtCountVehicle.Text = vehicleList.Count().ToString();
-            mCurrentVehicleList = vehicleList;
-            // Lấy trạng thái xe
-            List<VehicleStatusViewModel> listStatus = (new VehicleStatusHelper()).DictVehicleStatus.Values.Where(x => x.IsEnable).ToList();
-            if (listStatus != null && listStatus.Count > 0)
-            {
-                listStatus.ForEach(x =>
-                {
-                    x.CountCar = StateVehicleExtension.GetCountCarByStatus(vehicleList, (VehicleStatusGroup)x.ID);
-                });
-
-                // lvStatusCar.ItemsSource = listStatus;
-            }
-        }
-
-        /// <summary>
         /// Vẽ xe lên map không có cluster
         /// </summary>
         /// <param name="carinfo"></param>
@@ -798,7 +629,180 @@ namespace VMS_MobileGPS.Views
             googleMap.ClusteredPins.Add(carinfo.Plate);
         }
 
-        /* Set padding map khi có thông tin xe ở footer - tracking */
+        /// <summary>
+        /// Vẽ lại icon biển số xe
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <param name="bacground"></param>
+        private void UpdateBackgroundPinLable(VehicleOnline carinfo, bool isActive = false)
+        {
+            var lstpin = googleMap.ClusteredPins.Where(x => x.Label == carinfo.VehiclePlate).ToList();
+            if (lstpin != null && lstpin.Count > 1)
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    if (isActive)
+                    {
+                        lstpin[1].Tag = carinfo.VehiclePlate + "Active";
+                        lstpin[1].Icon = BitmapDescriptorFactory.FromView(new VMSPinInfowindowActiveView(carinfo.PrivateCode));
+                    }
+                    else
+                    {
+                        lstpin[1].Tag = carinfo.VehiclePlate + "Plate";
+
+                        lstpin[1].Icon = BitmapDescriptorFactory.FromView(new VMSPinInfowindowView(carinfo.PrivateCode));
+                    }
+
+                    //googleMap.Cluster();
+                });
+            }
+        }
+
+        private void ShowBoxInfoCarActive(VehicleOnline carInfo, int messageId, int dataExt)
+        {
+            //nếu messageId==128 thì là xe dừng dịch vụ
+            if (messageId == 128)
+            {
+                pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
+
+                return;
+            }
+
+            //Nếu messageId=2 hoặc 3 là xe phải thu phí
+            if (!StateVehicleExtension.IsVehicleDebtMoney(messageId, dataExt))
+            {
+                //nếu đang có xe active thì xóa active xe ý đi
+                if (mCarActive != null && mCarActive.VehicleId > 0)
+                {
+                    UpdateBackgroundPinLable(mCarActive);
+                }
+
+                mCarActive = carInfo;
+                vm.CarActive = carInfo;
+                vm.CurrentAddress = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(carInfo.Lat), GeoHelper.LongitudeToDergeeMinSec(carInfo.Lng));
+
+                if (vm.Circles.Count > 0)
+                {
+                    vm.ShowBorder();
+                }
+                else
+                {
+                    vm.HideBorder();
+                }
+
+                //update active xe mới
+                UpdateBackgroundPinLable(carInfo, true);
+
+                ShowBoxInfo();
+            }
+            else
+            {
+                pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
+            }
+        }
+
+        /// <summary>
+        /// ẩn thông tin xe đi và remove active xe
+        /// </summary>
+        /// <param name="carinfo"></param>
+        private void HideBoxInfoCarActive(VehicleOnline carinfo)
+        {
+            HideBoxStatus();
+
+            HideBoxInfo();
+
+            if (carinfo.VehicleId > 0)
+            {
+                UpdateBackgroundPinLable(carinfo);
+            }
+
+            vm.CarActive = new VehicleOnline();
+            mCarActive = new VehicleOnline();
+        }
+
+        /// <summary>
+        /// sự kiện khi di chuyển map
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GoogleMap_CameraIdled(object sender, CameraIdledEventArgs e)
+        {
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                googleMap.Cluster();
+            }
+        }
+
+        /// <summary>
+        /// Sự kiện khi click vào map
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Map_MapClicked(object sender, MapClickedEventArgs e)
+        {
+            try
+            {
+                if (mCarActive != null && mCarActive.VehicleId > 0)
+                {
+                    HideBoxInfoCarActive(mCarActive);
+                }
+                else
+                {
+                    HideBoxStatus();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            }
+        }
+
+        /// <summary>
+        /// Sự kiện khi click vào Cluster
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Map_ClusterClicked(object sender, ClusterClickedEventArgs e)
+        {
+            e.Handled = true;
+            if (e.Pins != null && e.Pins.Count() > 0)
+            {
+                var listPositon = new List<Position>();
+                e.Pins.ToList().ForEach(x =>
+                {
+                    listPositon.Add(x.Position);
+                });
+                var bounds = GeoHelper.FromPositions(listPositon);
+
+                googleMap.AnimateCamera(CameraUpdateFactory.NewBounds(bounds, 40));
+            }
+        }
+
+        /// <summary>
+        /// Sự kiện khi click vào Pin ko cluster
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void MapOnPinClicked(object sender, PinClickedEventArgs args)
+        {
+            args.Handled = true;
+          
+            try
+            {
+                if (args.Pin != null && args.Pin.Label != mCarActive.VehiclePlate)
+                {
+                    var car = mVehicleList.FirstOrDefault(x => x.VehiclePlate == args.Pin.Label);
+                    if (car != null)
+                    {
+                        ShowBoxInfoCarActive(car, car.MessageId, car.DataExt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            }
+        }
 
         /// <summary>
         /// ẩn box  thông tin  xe
@@ -815,15 +819,17 @@ namespace VMS_MobileGPS.Views
         /// </summary>
         private async void ShowBoxInfo()
         {
-            await _animations.Go(States.ShowFilter, true);
-
+            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(false);
             SetPaddingWithFooter();
+            await _animations.Go(States.ShowFilter, true);
         }
+
+        /* Set padding map khi có thông tin xe ở footer - tracking */
 
         public void SetPaddingWithFooter()
         {
-            //double paddingMap = boxInfo.Height;
-            //googleMap.Padding = new Thickness(0, 0, 0, (int)paddingMap);
+            double paddingMap = boxInfo.Height;
+            googleMap.Padding = new Thickness(0, 0, 0, (int)paddingMap);
             //BoxControls.Margin = new Thickness(20, 0, 20, (int)paddingMap + 20);
         }
 
@@ -831,7 +837,7 @@ namespace VMS_MobileGPS.Views
 
         public void SetNoPaddingWithFooter()
         {
-            //googleMap.Padding = new Thickness(0, 0, 0, 0);
+            googleMap.Padding = new Thickness(0, 0, 0, 0);
             //BoxControls.Margin = new Thickness(20);
         }
 
@@ -846,6 +852,108 @@ namespace VMS_MobileGPS.Views
             await _animations.Go(States.ShowStatus, true);
             infoStatusIsShown = true;
         }
+
+        private void TapStatusVehicel(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs args)
+        {
+            HideBoxStatus();
+
+            HideBoxInfo();
+
+            if ((args as Syncfusion.ListView.XForms.ItemTappedEventArgs).ItemData is VehicleStatusViewModel item)
+            {
+                Device.StartTimer(TimeSpan.FromMilliseconds(300), () =>
+                {
+                    var listFilter = StateVehicleExtension.GetVehicleCarByStatus(mCurrentVehicleList, (VehicleStatusGroup)item.ID);
+                    if (listFilter != null)
+                    {
+                        var listPin = ConvertMarkerPin(listFilter);
+
+                        //Vẽ xe lên bản đồ
+                        InitPinVehicle(listPin);
+
+                        if (listPin.Count > 0)
+                        {
+                            var listPositon = new List<Position>();
+                            listPin.ForEach(x =>
+                            {
+                                listPositon.Add(new Position(x.Lat, x.Lng));
+                            });
+                            var bounds = GeoHelper.FromPositions(listPositon);
+
+                            googleMap.AnimateCamera(CameraUpdateFactory.NewBounds(bounds, 40));
+                        }
+                    }
+                    return false;
+                });
+            }
+        }
+
+        private async void FilterStatusCar(object sender, EventArgs e)
+        {
+            if (infoStatusIsShown)
+            {
+                await _animations.Go(States.HideStatus, true);
+            }
+            else
+            {
+                await _animations.Go(States.ShowStatus, true);
+            }
+
+            infoStatusIsShown = !infoStatusIsShown;
+
+            //InitVehicleStatus(mVehicleList);
+        }
+
+        private bool IsInMapScreen(Position latlng)
+        {
+            var result = false;
+            //nhỏ hơn góc trái ở trên và lớn hơn góc phải ở dưới
+            if ((latlng.Latitude <= googleMap.Region.FarLeft.Latitude && latlng.Longitude >= googleMap.Region.FarLeft.Longitude) &&
+                (latlng.Latitude >= googleMap.Region.NearRight.Latitude && latlng.Longitude <= googleMap.Region.NearRight.Longitude))
+                result = true;
+
+            return result;
+        }
+
+        private void TappedHidenBoxStatus(object sender, EventArgs e)
+        {
+            HideBoxStatus();
+        }
+
+        private void SwipeGestureBoxStatus(object sender, SwipedEventArgs e)
+        {
+            switch (e.Direction)
+            {
+                case SwipeDirection.Right:
+                    HideBoxStatus();
+                    break;
+
+                case SwipeDirection.Left:
+                    break;
+
+                case SwipeDirection.Up:
+                    break;
+
+                case SwipeDirection.Down:
+                    break;
+            }
+        }
+
+        private void CacularVehicleStatus()
+        {
+            //if (lvStatusCar.ItemsSource != null && ((List<VehicleStatusViewModel>)(lvStatusCar.ItemsSource)).Count > 0)
+            //{
+            //    ((List<VehicleStatusViewModel>)(lvStatusCar.ItemsSource)).ForEach(x =>
+            //    {
+            //        x.CountCar = StateVehicleExtension.GetCountCarByStatus(mCurrentVehicleList, (VehicleStatusGroup)x.ID);
+            //    });
+            //}
+        }
+
+        //private void SelectMenuFAB(object sender, XViewEventArgs e)
+        //{
+        //    vm.PushToFABPageCommand.Execute(e.EventIndex);
+        //}
 
         private void InitShowCase()
         {
@@ -934,35 +1042,6 @@ namespace VMS_MobileGPS.Views
             //});
         }
 
-        #region Propety
-
-        private bool infoStatusIsShown = false;
-        private bool IsInitMarker = false;
-
-        private List<VehicleOnline> mCurrentVehicleList;
-
-        /* Xe đang được chọn */
-        private VehicleOnline mCarActive;
-
-
-        /* Danh sách xe online */
-
-        private List<VehicleOnline> mVehicleList
-        {
-            get
-            {
-                if (StaticSettings.ListVehilceOnline != null)
-                {
-                    //nếu khóa BAP rồi thì ko hiển thị trên Map nữa
-                    return StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
-                }
-                else
-                {
-                    return new List<VehicleOnline>();
-                }
-            }
-        }
-
-        #endregion
+        #endregion Private Method
     }
 }

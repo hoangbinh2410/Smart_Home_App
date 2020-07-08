@@ -69,7 +69,9 @@
                     x:Name="TabHost"
                     Grid.Row="1"
                     Padding="0,5,0,0"
+                    BackgroundColor="Black"
                     HeightRequest="60"
+                    IsVisible="{Binding IsVisibleTabItem}"
                     SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}"
                     TabType="Fixed">
                     <tabs:TabHostView.Tabs>

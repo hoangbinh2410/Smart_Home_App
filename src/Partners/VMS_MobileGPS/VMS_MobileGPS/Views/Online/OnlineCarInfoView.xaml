@@ -1,19 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<controls:MaterialFrame
+<sharpnado:MaterialFrame
     x:Class="VMS_MobileGPS.Views.OnlineCarInfoView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     Padding="5"
     BackgroundColor="{StaticResource Color_Background}"
     HasShadow="False">
-    <controls:MaterialFrame.Resources>
+    <sharpnado:MaterialFrame.Resources>
         <ResourceDictionary>
             <converters:NMConverter x:Key="NMConverter" />
         </ResourceDictionary>
-    </controls:MaterialFrame.Resources>
+    </sharpnado:MaterialFrame.Resources>
     <Grid HorizontalOptions="FillAndExpand">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -105,16 +106,16 @@
                 </controls:IconView.GestureRecognizers>
             </controls:IconView>
         </Grid>
-        <controls:MaterialFrame
+        <sharpnado:MaterialFrame
             Grid.Row="1"
             BackgroundColor="{StaticResource Color_Border}"
             CornerRadius="0"
             HasShadow="False"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="CenterAndExpand">
-            <controls:MaterialFrame.Padding x:TypeArguments="Double">
+            <sharpnado:MaterialFrame.Padding x:TypeArguments="Double">
                 <OnPlatform Android="1" iOS="0.5" />
-            </controls:MaterialFrame.Padding>
+            </sharpnado:MaterialFrame.Padding>
             <Grid BackgroundColor="{StaticResource Color_Border}" RowSpacing="0.5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -192,7 +193,7 @@
                     </StackLayout>
                 </Grid>
             </Grid>
-        </controls:MaterialFrame>
+        </sharpnado:MaterialFrame>
         <Grid
             Grid.Row="2"
             HorizontalOptions="FillAndExpand"
@@ -229,4 +230,4 @@
                 TextColor="White" />
         </Grid>
     </Grid>
-</controls:MaterialFrame>
+</sharpnado:MaterialFrame>

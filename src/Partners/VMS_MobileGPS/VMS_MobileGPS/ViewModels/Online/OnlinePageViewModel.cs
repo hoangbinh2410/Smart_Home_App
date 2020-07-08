@@ -1,7 +1,10 @@
 ﻿using BA_MobileGPS.Core;
+using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
+using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
@@ -19,6 +22,7 @@ using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 using VMS_MobileGPS.Views;
@@ -28,94 +32,69 @@ namespace VMS_MobileGPS.ViewModels
 {
    public class OnlinePageViewModel : ViewModelBase
     {
-        #region Contractor
-        public IEventAggregator _eventAggregator;
-
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
-
         private readonly IUserService userService;
 
-        private readonly IVehicleOnlineService vehicleOnlineService;
-
-        public ICommand HotlineTapCommand { get; }
-
-        public ICommand ChangeMapTypeCommand { get; private set; }
-
-        public DelegateCommand<CameraIdledEventArgs> CameraIdledCommand { get; private set; }
-
-        public DelegateCommand ShowBorderCommand { get; private set; }
-
-        public OnlinePageViewModel(INavigationService navigationService, IEventAggregator eventAggregator, IVehicleOnlineService vehicleOnlineService,
-            IUserService userService, IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository) : base(navigationService)
-        {
-            this.vehicleOnlineService = vehicleOnlineService;
-            this.boundaryRepository = boundaryRepository;
-            this.userService = userService;
-            _eventAggregator = eventAggregator;
-
-            carActive = new VehicleOnline();
-
-            HotlineTapCommand = new DelegateCommand(HotlineTap);
-            _bottomGroupMargin = new Thickness(15, 30);
-            _eventAggregator.GetEvent<DetailVehiclePopupCloseEvent>().Subscribe(DetailVehiclePopupClose);
-            ChangeMapTypeCommand = new DelegateCommand(ChangeMapType);
-            CameraIdledCommand = new DelegateCommand<CameraIdledEventArgs>(UpdateMapInfo);
-            ShowBorderCommand = new DelegateCommand(ShowBorder);
-        }
-
-        #endregion
-
-        #region Property
-
-        private MapType mapType;
-        public MapType MapType { get => mapType; set => SetProperty(ref mapType, value); }
-
-        private MapSpan visibleRegion;
-        public MapSpan VisibleRegion { get => visibleRegion; set => SetProperty(ref visibleRegion, value); }
-
-        private Color colorMapType;
-        public Color ColorMapType { get => colorMapType; set => SetProperty(ref colorMapType, value); }
-
-        private Thickness _bottomGroupMargin;
-        public Thickness BottomGroupMargin
-        {
-            get { return _bottomGroupMargin; }
-            set
-            {
-                SetProperty(ref _bottomGroupMargin, value);
-                RaisePropertyChanged();
-            }
-        }
-
-        private VehicleOnline carActive;
-
-        public VehicleOnline CarActive
-        {
-            get { return carActive; }
-            set
-            {
-                SetProperty(ref carActive, value);
-                RaisePropertyChanged();
-            }
-        }
-
-        private double zoomLevel;
-
-        public double ZoomLevel { get => zoomLevel; set => SetProperty(ref zoomLevel, value); }
-
-        public string currentAddress = string.Empty;
-
-        public string CurrentAddress { get => currentAddress; set => SetProperty(ref currentAddress, value); }
-
         public ObservableCollection<Circle> Circles { get; set; } = new ObservableCollection<Circle>();
-
         public ObservableCollection<Polygon> Boundaries { get; set; } = new ObservableCollection<Polygon>();
-
         public ObservableCollection<Polyline> Borders { get; set; } = new ObservableCollection<Polyline>();
 
-        #endregion
+        public ICommand NavigateToSettingsCommand { get; private set; }
+        public ICommand ChangeMapTypeCommand { get; private set; }
+        public ICommand PushToRouterPageCommand { get; private set; }
+        public ICommand PushToFABPageCommand { get; private set; }
+        public DelegateCommand<CameraIdledEventArgs> CameraIdledCommand { get; private set; }
+        public DelegateCommand PushToDetailPageCommand { get; private set; }
+        public DelegateCommand ShowBorderCommand { get; private set; }
+        public DelegateCommand HideBorderCommand { get; private set; }
+        public ICommand MyLocationCommand { get; private set; }
+        public ICommand PushtoListVehicleOnlineCommand { get; private set; }
+        public DelegateCommand GoDistancePageCommand { get; private set; }
 
-        #region Private Method
+        public OnlinePageViewModel(INavigationService navigationService, IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository,
+            IUserService userService)
+            : base(navigationService)
+        {
+            this.boundaryRepository = boundaryRepository;
+            this.userService = userService;
+
+            if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+            {
+                Title = Settings.CurrentCompany.CompanyName;
+            }
+            else
+            {
+                Title = MobileResource.Online_Label_TitlePage;
+            }
+
+            carActive = new VehicleOnline();
+            selectedVehicleGroup = new List<int>();
+
+            //if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
+            //{
+            //    mapType = MapType.Hybrid;
+            //    ColorMapType = (Color)App.Current.Resources["Color_Navigation"];
+            //}
+            //else
+            //{
+            //    mapType = MapType.Street;
+            //    ColorMapType = (Color)App.Current.Resources["Color_Placeholder"];
+            //}
+
+            zoomLevel = MobileUserSettingHelper.Mapzoom;
+
+            NavigateToSettingsCommand = new DelegateCommand(NavigateToSettings);
+            ChangeMapTypeCommand = new DelegateCommand(ChangeMapType);
+            PushToRouterPageCommand = new DelegateCommand(PushtoRouterPage);
+            PushToFABPageCommand = new DelegateCommand<object>(PushtoFABPage);
+            PushToDetailPageCommand = new DelegateCommand(PushtoDetailPage);
+            CameraIdledCommand = new DelegateCommand<CameraIdledEventArgs>(UpdateMapInfo);
+            ShowBorderCommand = new DelegateCommand(ShowBorder);
+            HideBorderCommand = new DelegateCommand(HideBorder);
+            MyLocationCommand = new DelegateCommand(GetMylocation);
+            PushtoListVehicleOnlineCommand = new DelegateCommand(PushtoListVehicleOnlinePage);
+            GoDistancePageCommand = new DelegateCommand(GoDistancePage);
+        }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -150,51 +129,45 @@ namespace VMS_MobileGPS.ViewModels
             }
         }
 
-        private void ChangeMapType()
+        public override void OnPageAppearingFirstTime()
         {
-            SafeExecute(async () =>
-            {
-                if (MapType == MapType.Street)
-                {
-                    MapType = MapType.Hybrid;
-                    ColorMapType = (Color)App.Current.Resources["Color_Navigation"];
-                }
-                else
-                {
-                    ColorMapType = (Color)App.Current.Resources["Color_Placeholder"];
-                    MapType = MapType.Street;
-                }
-                byte maptype = 1;
-                if (MapType == MapType.Hybrid)
-                {
-                    maptype = 4;
-                }
-                var result = await userService.SetAdminUserSettings(new AdminUserConfiguration()
-                {
-                    FK_UserID = UserInfo.UserId,
-                    Latitude = (float)MobileUserSettingHelper.LatCurrent,
-                    Longitude = (float)MobileUserSettingHelper.LngCurrent,
-                    MapType = maptype,
-                    MapZoom = (byte)MobileUserSettingHelper.Mapzoom
-                });
-                MobileUserSettingHelper.Set(MobileUserConfigurationNames.MBMapType, maptype);
-            });
+            base.OnPageAppearingFirstTime();
+
+            //if (PermissionHelper.CheckLocationPermissions(false).Result)
+            //{
+            //    if (GetControl<Map>("googleMap") is Map map)
+            //    {
+            //        TryExecute(() =>
+            //        {
+            //            map.MyLocationEnabled = true;
+            //        });
+            //    }
+
+            //}
         }
 
-        private void HotlineTap()
+        public static int ConvertHexToInt(string value)
         {
-            if (PopupNavigation.Instance.PopupStack.Count > 0)
+            int ret = 0;
+            try
             {
-                PopupNavigation.Instance.PopAllAsync();
+                // strip the leading 0x
+                if (value.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
+                {
+                    value = value.Substring(2);
+                }
+                if (value.StartsWith("#", StringComparison.OrdinalIgnoreCase))
+                {
+                    value = value.Substring(1);
+                }
+
+                ret = int.Parse(value, NumberStyles.HexNumber);
             }
-            //PopupNavigation.Instance.PushAsync(new DetailVehiclePopup());
-            BottomGroupMargin = new Thickness(15, 30, 15, 130);
-
-        }
-
-        private void DetailVehiclePopupClose()
-        {
-            BottomGroupMargin = new Thickness(15, 30);
+            catch
+            {
+                // ignored
+            }
+            return ret;
         }
 
         public static string ConvertIntToHex(int value)
@@ -282,6 +255,58 @@ namespace VMS_MobileGPS.ViewModels
             //}
         }
 
+        #region Property
+
+        public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
+
+        private MapType mapType;
+        public MapType MapType { get => mapType; set => SetProperty(ref mapType, value); }
+
+        private MapSpan visibleRegion;
+        public MapSpan VisibleRegion { get => visibleRegion; set => SetProperty(ref visibleRegion, value); }
+
+        private Color colorMapType;
+        public Color ColorMapType { get => colorMapType; set => SetProperty(ref colorMapType, value); }
+
+        private List<int> selectedVehicleGroup;
+        public List<int> SelectedVehicleGroup { get => selectedVehicleGroup; set => SetProperty(ref selectedVehicleGroup, value); }
+
+        private VehicleOnline carActive;
+
+        public VehicleOnline CarActive
+        {
+            get { return carActive; }
+            set
+            {
+                carActive = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private double zoomLevel;
+
+        public double ZoomLevel { get => zoomLevel; set => SetProperty(ref zoomLevel, value); }
+
+        public string currentAddress = string.Empty;
+        public string CurrentAddress { get => currentAddress; set => SetProperty(ref currentAddress, value); }
+
+        #endregion Property
+
+        #region Private Method
+
+        private void PushtoRouterPage()
+        {
+            SafeExecute(async () =>
+            {
+                var navigationPara = new NavigationParameters
+                {
+                    { ParameterKey.VehicleOnline, CarActive }
+                };
+
+                await NavigationService.NavigateAsync("RoutePage", navigationPara, false);
+            });
+        }
+
         public void ShowBorder()
         {
             Circles.Clear();
@@ -316,6 +341,101 @@ namespace VMS_MobileGPS.ViewModels
             RaisePropertyChanged(nameof(Circles));
         }
 
+        public void HideBorder()
+        {
+            Circles.Clear();
+
+            RaisePropertyChanged(nameof(Circles));
+        }
+
+        public void NavigateToSettings()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("BoundaryPage");
+            });
+        }
+
+        private void ChangeMapType()
+        {
+            SafeExecute(async () =>
+            {
+                if (MapType == MapType.Street)
+                {
+                    MapType = MapType.Hybrid;
+                    ColorMapType = (Color)App.Current.Resources["Color_Navigation"];
+                }
+                else
+                {
+                    ColorMapType = (Color)App.Current.Resources["Color_Placeholder"];
+                    MapType = MapType.Street;
+                }
+                byte maptype = 1;
+                if (MapType == MapType.Hybrid)
+                {
+                    maptype = 4;
+                }
+                var result = await userService.SetAdminUserSettings(new AdminUserConfiguration()
+                {
+                    FK_UserID = UserInfo.UserId,
+                    Latitude = (float)MobileUserSettingHelper.LatCurrent,
+                    Longitude = (float)MobileUserSettingHelper.LngCurrent,
+                    MapType = maptype,
+                    MapZoom = (byte)MobileUserSettingHelper.Mapzoom
+                });
+                MobileUserSettingHelper.Set(MobileUserConfigurationNames.MBMapType, maptype);
+            });
+        }
+
+        private void PushtoFABPage(object index)
+        {
+            SafeExecute(async () =>
+            {
+                switch ((int)index)
+                {
+                    case 1:
+                        await NavigationService.NavigateAsync("ListVehiclePage", null, useModalNavigation: false);
+                        break;
+
+                    case 2:
+
+                        StaticSettings.ClearStaticSettings();
+                        GlobalResources.Current.TotalAlert = 0;
+
+                        await NavigationService.NavigateAsync("/NavigationPage/LandingPage");
+
+                        break;
+
+                    case 3:
+                        await NavigationService.NavigateAsync("MenuNavigationPage/HeplerPage", null, useModalNavigation: true);
+                        break;
+                }
+            });
+        }
+
+        public void GetMylocation()
+        {
+            SafeExecute(async () =>
+            {
+                var mylocation = await LocationHelper.GetGpsLocation();
+
+                if (mylocation != null)
+                {
+                    if (GetControl<Map>("googleMap") is Map map)
+                    {
+                        TryExecute(() =>
+                        {
+                            if (!map.MyLocationEnabled)
+                            {
+                                map.MyLocationEnabled = true;
+                            }
+                        });
+                    }
+                    await AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(new Position(mylocation.Latitude, mylocation.Longitude)), TimeSpan.FromMilliseconds(300));
+                }
+            });
+        }
+
         private void UpdateMapInfo(CameraIdledEventArgs args)
         {
             if (args != null && args.Position != null)
@@ -324,13 +444,48 @@ namespace VMS_MobileGPS.ViewModels
             }
         }
 
-        public void HideBorder()
+        private void PushtoDetailPage()
         {
-            Circles.Clear();
+            SafeExecute(async () =>
+            {
+                var parameters = new NavigationParameters
+                {
+                    { ParameterKey.CarDetail, CarActive }
+                };
 
-            RaisePropertyChanged(nameof(Circles));
+                await NavigationService.NavigateAsync(PageNames.VehicleDetailPage.ToString(), parameters, false);
+            });
         }
 
-        #endregion 
+        private void PushtoListVehicleOnlinePage()
+        {
+            SafeExecute(async () =>
+            {
+                var navigationParameters = new NavigationParameters
+                {
+                    { ParameterKey.OnlinePage, true }
+                };
+                await NavigationService.NavigateAsync("ListVehiclePage", navigationParameters, useModalNavigation: false);
+            });
+        }
+
+        public void GoDistancePage()
+        {
+            SafeExecute(async () =>
+            {
+                var parameters = new NavigationParameters
+                {
+                    { ParameterKey.VehicleOnline, CarActive }
+                };
+
+                await NavigationService.NavigateAsync("DistancePage", parameters, false);
+            });
+        }
+
+        //private void OpenDiscoreryBox()
+        //{
+        //    PopupNavigation.Instance.PushAsync(new OnlineCarInfo());
+        //}
+        #endregion Private Method
     }
 }
