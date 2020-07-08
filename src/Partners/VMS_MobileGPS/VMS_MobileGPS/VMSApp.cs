@@ -62,6 +62,7 @@ namespace VMS_MobileGPS
             containerRegistry.RegisterForNavigation<AddFishQuantityPage, AddFishQuantityViewModel>("AddFishQuantityPage");
             containerRegistry.RegisterForNavigation<LocationDergeeInputPage, LocationDergeeInputViewModel>("LocationDergeeInputPage");
             containerRegistry.RegisterForNavigation<SOSPage, SOSViewModel>(PageNames.SOSPage.ToString());
+            containerRegistry.RegisterForNavigation<BluetoothPage, BluetoothViewModel>(PageNames.BluetoothPage.ToString());
         }
     }
 }

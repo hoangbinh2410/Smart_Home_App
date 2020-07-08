@@ -6,10 +6,12 @@ using BA_MobileGPS.Models;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Plugin.Toasts;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
 using Shiny.Locations;
+using Syncfusion.XForms.Buttons;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -37,6 +39,7 @@ namespace VMS_MobileGPS.ViewModels
         private readonly IGpsManager _gpsManager;
 
         public ICommand NavigateToCommand { get; private set; }
+        public ICommand ConnectBleCommand { get; private set; }
         private Timer timer;
         private Timer timerGPSTracking;
 
@@ -59,6 +62,7 @@ namespace VMS_MobileGPS.ViewModels
             _gpsListener.OnReadingReceived += OnReadingReceived;
 
             NavigateToCommand = new Command<PageNames>(NavigateTo);
+            ConnectBleCommand = new DelegateCommand<SwitchStateChangedEventArgs>(PushBlutoothPage);
         }
 
         #endregion Contructor
@@ -148,6 +152,9 @@ namespace VMS_MobileGPS.ViewModels
         #region Property
 
         public string AppVersion => appVersionService.GetAppVersion();
+
+        private bool isConnectBLE = GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.CONNECTED ? true : false;
+        public bool IsConnectBLE { get => isConnectBLE; set => SetProperty(ref isConnectBLE, value); }
 
         #endregion Property
 
@@ -355,22 +362,22 @@ namespace VMS_MobileGPS.ViewModels
                         result = await NavigationService.NavigateAsync("/LoginPage");
                     }
                 }
-                //else if (PageNames.SOSPage == args || PageNames.MessagesPage == args)
-                //{
-                //    if (GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.NO_CONNECTION)
-                //    {
-                //        if (!await PageDialog.DisplayAlertAsync("Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?", "Cảnh báo", "ĐỒNG Ý", "BỎ QUA"))
-                //        {
-                //            return;
-                //        }
+                else if (PageNames.SOSPage == args || PageNames.MessagesPage == args)
+                {
+                    if (GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.NO_CONNECTION)
+                    {
+                        if (!await PageDialog.DisplayAlertAsync("Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?", "Cảnh báo", "ĐỒNG Ý", "BỎ QUA"))
+                        {
+                            return;
+                        }
 
-                //        result = await NavigationService.NavigateAsync(PageNames.BluetoothPage.ToString());
-                //    }
-                //    else
-                //    {
-                //        result = await NavigationService.NavigateAsync(args.ToString());
-                //    }
-                //}
+                        result = await NavigationService.NavigateAsync(PageNames.BluetoothPage.ToString());
+                    }
+                    else
+                    {
+                        result = await NavigationService.NavigateAsync(args.ToString());
+                    }
+                }
                 else if (PageNames.OffMap == args)
                 {
                     result = await NavigationService.NavigateAsync(args.ToString());
@@ -379,9 +386,27 @@ namespace VMS_MobileGPS.ViewModels
                 {
                     result = await NavigationService.NavigateAsync(args.ToString());
                 }
+            });
+        }
 
-                if (!result.Success)
+        private void PushBlutoothPage(SwitchStateChangedEventArgs args)
+        {
+            SafeExecute(async () =>
+            {
+                if (args != null && args.NewValue.GetValueOrDefault())
                 {
+                    _ = await NavigationService.NavigateAsync("BaseNavigationPage/BluetoothPage", useModalNavigation: true);
+                }
+                else
+                {
+                    if (await PageDialog.DisplayAlertAsync("Bạn có muốn ngắt kết nối thiệt bị không", "Cảnh báo", "ĐỒNG Ý", "BỎ QUA"))
+                    {
+                        await AppManager.BluetoothService.Disconnect();
+                    }
+                    else
+                    {
+                        IsConnectBLE = true;
+                    }
                 }
             });
         }
