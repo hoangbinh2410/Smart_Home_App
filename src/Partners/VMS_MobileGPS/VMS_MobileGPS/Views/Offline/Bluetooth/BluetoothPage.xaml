@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VMS_MobileGPS.Views.BluetoothPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+    xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:local="clr-namespace:VMS_MobileGPS.Constant;assembly=VMS_MobileGPS"
+    xmlns:m="clr-namespace:VMS_MobileGPS.Models;assembly=VMS_MobileGPS"
+    xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:vm="clr-namespace:VMS_MobileGPS.ViewModels"
+    Title="Tìm và kết nối"
+    x:DataType="vm:BluetoothViewModel">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:TextChangedEventArgsConverter x:Key="TextChangedEventArgsConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <OnPlatform.Platforms>
+                        <On Platform="iOS" Value="-20,0,0,0" />
+                        <On Platform="Android" Value="-40,0,0,0" />
+                    </OnPlatform.Platforms>
+                </OnPlatform>
+            </Grid.Margin>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                LineBreakMode="MiddleTruncation"
+                Text="Tìm và kết nối"
+                TextColor="White"
+                VerticalOptions="Center" />
+            <ffImage:CachedImage
+                Grid.Column="1"
+                Margin="5,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="End"
+                Source="ic_bluetooth.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SearchBluetoothCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout
+                Grid.Row="0"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding DeviceManager.DeviceName, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource NullOrEmptyToBoolConverter}}"
+                VerticalOptions="FillAndExpand">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DisconnectBluetoothCommand}" />
+                </StackLayout.GestureRecognizers>
+                <sharpnado:MaterialFrame
+                    Padding="10"
+                    CornerRadius="0"
+                    HasShadow="False"
+                    HorizontalOptions="FillAndExpand"
+                    LightThemeBackgroundColor="{StaticResource TextSecondaryColor}"
+                    VerticalOptions="FillAndExpand">
+                    <sharpnado:MaterialFrame.Content>
+                        <Label
+                            HorizontalOptions="StartAndExpand"
+                            Text="Thiết bị đang kết nối"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center" />
+                    </sharpnado:MaterialFrame.Content>
+                </sharpnado:MaterialFrame>
+                <StackLayout
+                    Padding="10,20,10,20"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <ffImage:CachedImage
+                        HeightRequest="40"
+                        Source="ic_bluetooth_device.png"
+                        WidthRequest="40" />
+                    <Label
+                        FontSize="16"
+                        Text="{Binding DeviceManager.DeviceName, Source={x:Static local:GlobalResourcesVMS.Current}}"
+                        VerticalOptions="Center" />
+                    <Label
+                        HorizontalOptions="End"
+                        HorizontalTextAlignment="End"
+                        Opacity="0.5"
+                        Text="Đang kết nối"
+                        VerticalOptions="Center" />
+                </StackLayout>
+            </StackLayout>
+            <Grid
+                Grid.Row="1"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <sharpnado:MaterialFrame
+                    Grid.Row="0"
+                    Padding="10"
+                    BackgroundColor="{StaticResource TextSecondaryColor}"
+                    CornerRadius="0"
+                    HasShadow="False"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+                    <sharpnado:MaterialFrame.Content>
+                        <Label
+                            HorizontalOptions="StartAndExpand"
+                            Text="Thiết bị không kết nối"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center" />
+                    </sharpnado:MaterialFrame.Content>
+                </sharpnado:MaterialFrame>
+                <inputLayout:SfTextInputLayout
+                    Grid.Row="1"
+                    Margin="10,0,10,0"
+                    Padding="0"
+                    ContainerType="Outlined"
+                    HorizontalOptions="FillAndExpand"
+                    LeadingViewPosition="Inside"
+                    OutlineCornerRadius="5"
+                    ShowHelperText="False"
+                    VerticalOptions="Center">
+                    <inputLayout:SfTextInputLayout.LeadingView>
+                        <controls:FontAwesomeIcon FontAttributes="Bold" Text="{x:Static fontawesome:FontAwesomeIcons.Search}" />
+                    </inputLayout:SfTextInputLayout.LeadingView>
+                    <Entry x:Name="SearchText" Placeholder="Tìm kiếm thiết bị">
+                        <Entry.Behaviors>
+                            <prismbehaviors:EventToCommandBehavior
+                                Command="{Binding SearchCommand}"
+                                EventArgsConverter="{StaticResource TextChangedEventArgsConverter}"
+                                EventName="TextChanged" />
+                        </Entry.Behaviors>
+                    </Entry>
+                </inputLayout:SfTextInputLayout>
+                <Grid Grid.Row="2">
+                    <syncfusionList:SfListView
+                        BackgroundColor="Transparent"
+                        ItemSpacing="5"
+                        ItemsSource="{Binding ListBluetoothDevice}"
+                        SelectionBackgroundColor="Transparent"
+                        TapCommand="{Binding TapListVehicleCommand}">
+                        <syncfusionList:SfListView.ItemTemplate>
+                            <DataTemplate x:DataType="m:BluetoothDevice">
+                                <Grid
+                                    ColumnSpacing="0"
+                                    HorizontalOptions="FillAndExpand"
+                                    RowSpacing="0"
+                                    VerticalOptions="FillAndExpand">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Padding="10,0,10,0"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal"
+                                        Spacing="10">
+                                        <ffImage:CachedImage
+                                            HeightRequest="40"
+                                            Source="ic_bluetooth_device.png"
+                                            WidthRequest="40" />
+                                        <Label
+                                            FontSize="16"
+                                            Text="{Binding Name}"
+                                            VerticalOptions="Center" />
+                                        <Label
+                                            HorizontalOptions="End"
+                                            HorizontalTextAlignment="End"
+                                            Opacity="0.5"
+                                            Text="{Binding Rssi}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                </Grid>
+                            </DataTemplate>
+                        </syncfusionList:SfListView.ItemTemplate>
+                    </syncfusionList:SfListView>
+                    <StackLayout
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding HasBluetooth, Converter={StaticResource InvertBooleanConverter}}"
+                        Orientation="Vertical"
+                        Spacing="0"
+                        VerticalOptions="CenterAndExpand">
+                        <Image
+                            Margin="0,0,0,30"
+                            Aspect="AspectFit"
+                            HorizontalOptions="Center"
+                            Source="notfound_vehicle.png"
+                            WidthRequest="180" />
+                        <Label
+                            FontSize="Large"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="Không tìm thấy thiết bị nào"
+                            TextColor="{StaticResource TextSecondaryColor}" />
+                    </StackLayout>
+                </Grid>
+                <forms:AnimationView
+                    Grid.RowSpan="3"
+                    Animation="bluetooth.json"
+                    AutoPlay="true"
+                    HeightRequest="250"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding HasFindBle}"
+                    Loop="true"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="250" />
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
