@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
-    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
     xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
@@ -229,12 +229,21 @@
                         Orientation="Vertical"
                         Spacing="0"
                         VerticalOptions="CenterAndExpand">
-                        <Image
-                            Margin="0,0,0,30"
-                            Aspect="AspectFit"
-                            HorizontalOptions="Center"
-                            Source="notfound_vehicle.png"
-                            WidthRequest="180" />
+                        <controls:SVGImage
+                            x:Name="ErrorImage"
+                            Margin="{x:OnIdiom Phone='0,0,0,0',
+                                               Desktop='0',
+                                               Tablet='0'}"
+                            HeightRequest="{core:OnPlatformOrientationDoubleValue Default=300,
+                                                                                  AndroidPhonePortrait=200,
+                                                                                  AndroidPhoneLandscape=140,
+                                                                                  iOSPhonePortrait=200,
+                                                                                  iOSPhoneLandscape=140}"
+                            Source="NoItem.svg"
+                            VerticalOptions="Center"
+                            WidthRequest="{x:OnIdiom Phone=200,
+                                                     Desktop=300,
+                                                     Tablet=300}" />
                         <Label
                             FontSize="Large"
                             HorizontalOptions="Center"

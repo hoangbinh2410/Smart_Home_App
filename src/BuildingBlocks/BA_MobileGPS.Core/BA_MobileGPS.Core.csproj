@@ -9,6 +9,28 @@
 	  <EmbeddedResource Remove="Views\Login\**" />
 	  <None Remove="Views\Login\**" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Images\ChooseGradient.svg" />
+	  <None Remove="Images\ConfirmGradient.svg" />
+	  <None Remove="Images\DeliverGradient.svg" />
+	  <None Remove="Images\LocationAccessDenied.svg" />
+	  <None Remove="Images\NoInternet.svg" />
+	  <None Remove="Images\NoItem.svg" />
+	  <None Remove="Images\NoPhotos.svg" />
+	  <None Remove="Images\SomethingWentWrong.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Images\ChooseGradient.svg" />
+	  <EmbeddedResource Include="Images\ConfirmGradient.svg" />
+	  <EmbeddedResource Include="Images\DeliverGradient.svg" />
+	  <EmbeddedResource Include="Images\LocationAccessDenied.svg" />
+	  <EmbeddedResource Include="Images\NoInternet.svg" />
+	  <EmbeddedResource Include="Images\NoItem.svg" />
+	  <EmbeddedResource Include="Images\NoPhotos.svg" />
+	  <EmbeddedResource Include="Images\SomethingWentWrong.svg" />
+	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.3" />
 		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.2.0.44" />
