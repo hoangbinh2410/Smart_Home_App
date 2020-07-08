@@ -1,34 +1,35 @@
-﻿using BA_MobileGPS.Core.Helpers;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Utilities;
 using Prism;
 using Prism.AppModel;
+using Prism.Common;
 using Prism.Events;
+using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Navigation;
-using Shiny.Caching;
+using Prism.Services;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Prism.Ioc;
-using System.Threading;
-using Xamarin.Forms;
-using BA_MobileGPS.Utilities;
-using Xamarin.Essentials;
-using Prism.Services;
 using System.Linq;
-using Prism.Common;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
-namespace BA_MobileGPS.Core.ViewModels.Base
+namespace BA_MobileGPS.Core.ViewModels
 {
     public abstract class ViewModelBase : BindableBase, INavigationAware, IInitialize, IInitializeAsync, IDestructible, IApplicationLifecycleAware, IDisposable
     {
         protected INavigationService NavigationService { get; private set; }
         protected IEventAggregator EventAggregator { get; private set; }
         protected IDisplayMessage DisplayMessage { get; private set; }
-
         protected IPageDialogService PageDialog { get; private set; }
+
         public PageMode ViewMode { get; set; } = PageMode.View;
 
         public bool IsConnected => Connectivity.NetworkAccess == NetworkAccess.Internet;
@@ -71,16 +72,16 @@ namespace BA_MobileGPS.Core.ViewModels.Base
 
             if (e.NetworkAccess != NetworkAccess.Internet)
             {
-                 await NavigationService.NavigateAsync("NetworkPage");
+                // await NavigationService.NavigateAsync("NetworkPage");
                 //await PopupNavigation.Instance.PushAsync(new NetworkPage());
             }
             else
             {
-                await NavigationService.GoBackAsync();
-                //if (PopupNavigation.Instance.PopupStack.Count > 0)
-                //{
-                //    await PopupNavigation.Instance.PopAllAsync();
-                //}
+                //await NavigationService.GoBackAsync();
+                if (PopupNavigation.Instance.PopupStack.Count > 0)
+                {
+                    await PopupNavigation.Instance.PopAllAsync();
+                }
             }
         }
 
@@ -209,8 +210,8 @@ namespace BA_MobileGPS.Core.ViewModels.Base
 
         protected Task RunOnBackground(Action action, Action onComplete = null, Action<Exception> onError = null, Action finalAction = null, CancellationTokenSource cts = null, bool showLoading = false)
         {
-            //if (showLoading)
-            //    UserDialogs.Instance.ShowLoading();
+            if (showLoading)
+                Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("");
 
             return (cts != null ? Task.Run(action, cts.Token) : Task.Run(action)).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
@@ -224,8 +225,8 @@ namespace BA_MobileGPS.Core.ViewModels.Base
                     onError?.Invoke(task.Exception);
                 }
 
-                //if (showLoading)
-                //    UserDialogs.Instance.HideLoading();
+                if (showLoading)
+                    Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
 
                 finalAction?.Invoke();
             }));
@@ -233,8 +234,8 @@ namespace BA_MobileGPS.Core.ViewModels.Base
 
         protected Task RunOnBackground<T>(Func<Task<T>> action, Action<T> onComplete = null, Action<Exception> onError = null, Action finalAction = null, CancellationTokenSource cts = null, bool showLoading = false)
         {
-            //if (showLoading)
-            //    UserDialogs.Instance.ShowLoading();
+            if (showLoading)
+                Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("");
 
             return (cts != null ? Task.Run(action, cts.Token) : Task.Run(action)).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
@@ -248,11 +249,105 @@ namespace BA_MobileGPS.Core.ViewModels.Base
                     onError?.Invoke(task.Exception);
                 }
 
-                //if (showLoading)
-                //    UserDialogs.Instance.HideLoading();
+                if (showLoading)
+                    Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
 
                 finalAction?.Invoke();
             }));
+        }
+
+        public ICommand ClosePageCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    SafeExecute(async () =>
+                    {
+                        await NavigationService.GoBackAsync(useModalNavigation: true);
+                    });
+                });
+            }
+        }
+
+        public ICommand SelectCompanyCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    SafeExecute(async () =>
+                    {
+                        await NavigationService.NavigateAsync("BaseNavigationPage/CompanyLookUp", useModalNavigation: true);
+                    });
+                });
+            }
+        }
+
+        public ICommand SelectVehicleCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    SafeExecute(async () =>
+                    {
+                        await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", useModalNavigation: true, parameters: new NavigationParameters
+                        {
+                            { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleOnline },
+                            {  ParameterKey.VehicleGroupsSelected, VehicleGroups}
+                        });
+                    });
+                });
+            }
+        }
+
+        public ICommand SelectVehicleRouterCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    SafeExecute(async () =>
+                    {
+                        await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", useModalNavigation: true, parameters: new NavigationParameters
+                        {
+                            { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleRoute },
+                              {  ParameterKey.VehicleGroupsSelected, VehicleGroups}
+                        });
+                    });
+                });
+            }
+        }
+
+        public ICommand SelectVehicleGroupCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    var navigationPara = new NavigationParameters
+                    {
+                        { ParameterKey.VehicleGroupsSelected, VehicleGroups }
+                    };
+
+                    await NavigationService.NavigateAsync("BaseNavigationPage/VehicleGroupLookUp", navigationPara, useModalNavigation: true);
+                });
+            }
+        }
+
+        public ICommand PushToAleartPageCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    SafeExecute(async () =>
+                    {
+                        await NavigationService.NavigateAsync("AlertOnlinePage", useModalNavigation: false);
+                    });
+                });
+            }
         }
 
         private LoginResponse userInfo;
@@ -267,11 +362,7 @@ namespace BA_MobileGPS.Core.ViewModels.Base
                 }
                 return userInfo;
             }
-            set
-            {
-                SetProperty(ref userInfo, value);
-                RaisePropertyChanged();
-            }
+            set => SetProperty(ref userInfo, value);
         }
 
         public int CurrentComanyID
@@ -291,6 +382,7 @@ namespace BA_MobileGPS.Core.ViewModels.Base
         {
             return UserInfo.Permissions.IndexOf(PermissionKey) != -1;
         }
+
         public bool CheckPermision(List<PermissionKeyNames> PermissionKey)
         {
             List<int> userPermissionList = PermissionKey.Select(x => (int)x).ToList();

@@ -2,14 +2,18 @@
 using BA_MobileGPS.Utilities.Constant;
 
 using FFImageLoading.Forms.Platform;
-
+using Lottie.Forms.iOS.Renderers;
 using Plugin.Toasts;
+using Sharpnado.MaterialFrame.iOS;
 using Sharpnado.Presentation.Forms.iOS;
 using Shiny;
 using Syncfusion.ListView.XForms.iOS;
+using Syncfusion.SfCalendar.XForms.iOS;
 using Syncfusion.SfChart.XForms.iOS.Renderers;
 using Syncfusion.SfDataGrid.XForms.iOS;
 using Syncfusion.SfImageEditor.XForms.iOS;
+using Syncfusion.SfPicker.XForms.iOS;
+using Syncfusion.XForms.iOS.BadgeView;
 using Syncfusion.XForms.iOS.Border;
 using Syncfusion.XForms.iOS.Buttons;
 using Syncfusion.XForms.iOS.ComboBox;
@@ -27,7 +31,7 @@ namespace BA_MobileGPS.Core.iOS.Setup
             AppDelegate = _AppDelegate;
             Xamarin.Forms.DependencyService.Register<ToastNotification>();
             ToastNotification.Init();
-
+            AnimationViewRenderer.Init();
             Rg.Plugins.Popup.Popup.Init();
 
             CachedImageRenderer.Init();
@@ -42,17 +46,20 @@ namespace BA_MobileGPS.Core.iOS.Setup
             });
             iOSShinyHost.Init(new ShinyAppStartup());
 
+            iOSMaterialFrameRenderer.Init();
+
             // Syncfusion
             SfListViewRenderer.Init();
-            //SfPickerRenderer.Init();
+            SfPickerRenderer.Init();
             SfDataGridRenderer.Init();
             SfCheckBoxRenderer.Init();
+            SfSwitchRenderer.Init();
             SfComboBoxRenderer.Init();
             SfBorderRenderer.Init();
             SfButtonRenderer.Init();
             SfImageEditorRenderer.Init();
-            //SfCalendarRenderer.Init();
-            //SfBadgeViewRenderer.Init();
+            SfCalendarRenderer.Init();
+            SfBadgeViewRenderer.Init();
             SfChartRenderer.Init();
             //SfBusyIndicatorRenderer.Init();
             //SfTabViewRenderer.Init();

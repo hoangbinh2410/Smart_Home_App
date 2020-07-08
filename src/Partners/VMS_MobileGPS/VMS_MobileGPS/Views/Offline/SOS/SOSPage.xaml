@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VMS_MobileGPS.Views.SOSPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converters="clr-namespace:VMS_MobileGPS.Converter"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:local="clr-namespace:VMS_MobileGPS.Constant;assembly=VMS_MobileGPS"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    Title="CẢNH BÁO SOS">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BLEConnectionStateConverter x:Key="BLEConnectionStateConverter" />
+            <converters:BLEConnectionStateColorConverter x:Key="BLEConnectionStateColorConverter" />
+            <converters:BLENameConverter x:Key="BLENameConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid Grid.Row="1" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <sharpnado:MaterialFrame
+                Grid.Row="0"
+                Padding="10"
+                CornerRadius="0"
+                HasShadow="False"
+                HorizontalOptions="FillAndExpand"
+                LightThemeBackgroundColor="{StaticResource GrayColor}"
+                VerticalOptions="FillAndExpand">
+
+                <sharpnado:MaterialFrame.Content>
+                    <Label
+                        HorizontalOptions="StartAndExpand"
+                        Text="Thông Tin Thiết Bị"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center" />
+                </sharpnado:MaterialFrame.Content>
+            </sharpnado:MaterialFrame>
+
+            <sharpnado:MaterialFrame
+                Grid.Row="1"
+                Padding="10,0,10,0"
+                BackgroundColor="White"
+                CornerRadius="0"
+                HasShadow="False"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <sharpnado:MaterialFrame.Content>
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!--  Tên Thiết Bị  -->
+                        <Grid Grid.Row="0" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="1" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackLayout
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Padding="0,10,0,10"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal">
+                                <controls:IconView
+                                    Foreground="{StaticResource PrimaryColor}"
+                                    HeightRequest="25"
+                                    HorizontalOptions="Center"
+                                    Source="ic_devicename.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="25" />
+                                <!--  {Binding InforCommonVehicle.IconVehicle}  -->
+                                <Label
+                                    Text="Tên thiết bị:"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                            </StackLayout>
+
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                HorizontalOptions="EndAndExpand"
+                                Text="{Binding DeviceManager.DeviceName, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource BLENameConverter}}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </Grid>
+                        <!--  Mã Tàu  -->
+                        <Grid Grid.Row="1" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="1" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackLayout
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Padding="0,10,0,10"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal">
+                                <controls:IconView
+                                    Foreground="{StaticResource PrimaryColor}"
+                                    HeightRequest="25"
+                                    HorizontalOptions="Center"
+                                    Source="ic_vehicleplate.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="25" />
+                                <Label
+                                    Text="Mã tàu:"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                            </StackLayout>
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                HorizontalOptions="EndAndExpand"
+                                Text="{Binding DeviceManager.DevicePlate, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource BLENameConverter}}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </Grid>
+                        <!--  Trạng thái  -->
+                        <Grid Grid.Row="2" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="1" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackLayout
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Padding="0,10,0,10"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal">
+                                <controls:IconView
+                                    Foreground="{StaticResource PrimaryColor}"
+                                    HeightRequest="25"
+                                    HorizontalOptions="Center"
+                                    Source="ic_devicestate.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="25" />
+
+                                <Label
+                                    Text="Trạng thái: "
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                            </StackLayout>
+
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                HorizontalOptions="EndAndExpand"
+                                Text="{Binding DeviceManager.State, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource BLEConnectionStateConverter}}"
+                                TextColor="{Binding DeviceManager.State, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource BLEConnectionStateColorConverter}}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </Grid>
+
+                        <Grid Grid.Row="3" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="1" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackLayout
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Padding="0,10,0,10"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal">
+                                <controls:IconView
+                                    Foreground="{StaticResource PrimaryColor}"
+                                    HeightRequest="25"
+                                    HorizontalOptions="Center"
+                                    Source="ic_alarmsos.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="25" />
+                                <Label
+                                    Text="Cảnh báo SOS"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                            </StackLayout>
+
+                            <Button
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Margin="0,10,5,10"
+                                Padding="10"
+                                BackgroundColor="Orange"
+                                Command="{Binding SendSOSCommand}"
+                                CornerRadius="5"
+                                HorizontalOptions="CenterAndExpand"
+                                IsVisible="{Binding DeviceManager.IsSendSOS, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource InvertBooleanConverter}}"
+                                Text="BẬT SOS"
+                                VerticalOptions="Center" />
+
+                            <Button
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Margin="0,10,5,10"
+                                Padding="10"
+                                BackgroundColor="Orange"
+                                Command="{Binding OffSOSCommand}"
+                                CornerRadius="5"
+                                HorizontalOptions="CenterAndExpand"
+                                IsVisible="{Binding DeviceManager.IsSendSOS, Source={x:Static local:GlobalResourcesVMS.Current}}"
+                                Text="TẮT SOS"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </Grid>
+                </sharpnado:MaterialFrame.Content>
+            </sharpnado:MaterialFrame>
+
+            <sharpnado:MaterialFrame
+                Grid.Row="2"
+                Padding="10"
+                CornerRadius="0"
+                HasShadow="False"
+                HorizontalOptions="FillAndExpand"
+                LightThemeBackgroundColor="{StaticResource GrayColor}"
+                VerticalOptions="FillAndExpand">
+                <sharpnado:MaterialFrame.Content>
+                    <Grid Grid.Row="2" RowSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            HorizontalOptions="StartAndExpand"
+                            Text="Danh sách cảnh báo SOS"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center" />
+                        <Grid Grid.Column="2">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding DeleteHistoryCommand}" />
+                            </Grid.GestureRecognizers>
+                            <controls:FontAwesomeIcon
+                                FontSize="25"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.Trash}"
+                                TextColor="{StaticResource PrimaryColor}"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </Grid>
+                </sharpnado:MaterialFrame.Content>
+            </sharpnado:MaterialFrame>
+
+            <syncfusion:SfListView
+                Grid.Row="3"
+                AutoFitMode="Height"
+                BackgroundColor="Transparent"
+                ItemSpacing="5"
+                ItemsSource="{Binding ListSOSHistory, Mode=OneWay}"
+                SelectionBackgroundColor="Transparent">
+                <syncfusion:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <sharpnado:MaterialFrame
+                            Grid.Row="1"
+                            Padding="1"
+                            BackgroundColor="{StaticResource TextSecondaryColor}"
+                            BorderColor="{StaticResource TextSecondaryColor}"
+                            CornerRadius="0"
+                            HasShadow="False"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="CenterAndExpand">
+                            <Grid BackgroundColor="{StaticResource TextSecondaryColor}" RowSpacing="0.5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <StackLayout
+                                    Grid.Row="0"
+                                    BackgroundColor="White"
+                                    Orientation="Horizontal">
+                                    <controls:FontAwesomeIcon
+                                        Margin="5,0,0,0"
+                                        FontSize="20"
+                                        HorizontalOptions="Center"
+                                        Text="{x:Static fontawesome:FontAwesomeIcons.CalendarAlt}"
+                                        TextColor="{StaticResource PrimaryColor}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Margin="5"
+                                        HorizontalOptions="StartAndExpand"
+                                        LineBreakMode="TailTruncation"
+                                        Text="{Binding TimeSOS}" />
+                                </StackLayout>
+                                <Grid
+                                    Grid.Row="1"
+                                    ColumnSpacing="1"
+                                    RowSpacing="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width=".5*" />
+                                        <ColumnDefinition Width=".5*" />
+                                    </Grid.ColumnDefinitions>
+                                    <!--  Trạng thái  -->
+                                    <StackLayout
+                                        Grid.Column="0"
+                                        Padding="5"
+                                        BackgroundColor="White"
+                                        HorizontalOptions="FillAndExpand"
+                                        Spacing="0"
+                                        VerticalOptions="CenterAndExpand">
+                                        <Label
+                                            HorizontalTextAlignment="Center"
+                                            LineBreakMode="TailTruncation"
+                                            Text="Mã tàu"
+                                            TextColor="{StaticResource TextPlaceHolderColor}" />
+                                        <Label
+                                            HorizontalTextAlignment="Center"
+                                            LineBreakMode="TailTruncation"
+                                            Text="{Binding DevicePlate}" />
+                                    </StackLayout>
+                                    <!--  Tên thiết bị  -->
+                                    <StackLayout
+                                        Grid.Column="1"
+                                        Padding="5"
+                                        BackgroundColor="White"
+                                        HorizontalOptions="FillAndExpand"
+                                        Spacing="0"
+                                        VerticalOptions="CenterAndExpand">
+                                        <Label
+                                            HorizontalTextAlignment="Center"
+                                            LineBreakMode="TailTruncation"
+                                            Text="Trạng thái"
+                                            TextColor="{StaticResource TextPlaceHolderColor}" />
+                                        <Label
+                                            HorizontalTextAlignment="Center"
+                                            LineBreakMode="TailTruncation"
+                                            Text="{Binding StatusName}" />
+                                    </StackLayout>
+                                </Grid>
+                            </Grid>
+                        </sharpnado:MaterialFrame>
+                    </DataTemplate>
+                </syncfusion:SfListView.ItemTemplate>
+            </syncfusion:SfListView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

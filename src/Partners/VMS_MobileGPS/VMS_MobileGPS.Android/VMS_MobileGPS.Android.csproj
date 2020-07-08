@@ -196,6 +196,94 @@
     <AndroidResource Include="Resources\xml\file_paths.xml" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_mailoffline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_mappoffline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_meluoi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_sos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_vmsdevice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_mailoffline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_mappoffline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_meluoi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_sos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_vmsdevice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_mailoffline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_mappoffline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_meluoi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_sos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_vmsdevice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_mailoffline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_mappoffline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_meluoi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_sos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_vmsdevice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_vehicleplate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_devicestate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_alarmsos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_devicename.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_bluetooth.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_bluetooth.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_bluetooth.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_bluetooth.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\avatar.jpg" />
     <AndroidResource Include="Resources\drawable-hdpi\car_blue.png" />
   </ItemGroup>
   <ItemGroup>

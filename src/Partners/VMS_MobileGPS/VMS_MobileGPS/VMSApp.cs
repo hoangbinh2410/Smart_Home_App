@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core;
 using BA_MobileGPS.Service;
+using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 using BA_MobileGPS.Utilities.Enums;
 using Prism;
@@ -56,6 +57,16 @@ namespace VMS_MobileGPS
             containerRegistry.Register<IServicePackageHistoryService, ServicePackageHistoryService>();
 
             containerRegistry.RegisterForNavigation<OfflinePage, OfflinePageViewModel>("OfflinePage");
+            containerRegistry.RegisterForNavigation<FishQuantityInputPage, FishQuantityInputViewModel>("FishQuantityInputPage");
+            containerRegistry.RegisterForNavigation<FishQuantityDetailPage, FishQuantityDetailViewModel>("FishQuantityDetailPage");
+            containerRegistry.RegisterForNavigation<AddFishQuantityPage, AddFishQuantityViewModel>("AddFishQuantityPage");
+            containerRegistry.RegisterForNavigation<LocationDergeeInputPage, LocationDergeeInputViewModel>("LocationDergeeInputPage");
+            containerRegistry.RegisterForNavigation<SOSPage, SOSViewModel>(PageNames.SOSPage.ToString());
+            containerRegistry.RegisterForNavigation<BluetoothPage, BluetoothViewModel>(PageNames.BluetoothPage.ToString());
+            containerRegistry.RegisterForNavigation<MessagesPage, MessagesViewModel>(PageNames.MessagesPage.ToString());
+            containerRegistry.RegisterForNavigation<MessageDetailPage, MessageDetailViewModel>(PageNames.MessageDetailPage.ToString());
+            containerRegistry.RegisterForNavigation<MessagesOnlinePage, MessagesOnlineViewModel>(PageNames.MessagesOnlinePage.ToString());
+            containerRegistry.RegisterForNavigation<MessageOnlineDetailPage, MessageOnlineDetailViewModel>(PageNames.MessageOnlineDetailPage.ToString());
 
 
             containerRegistry.RegisterForNavigation<MainPage, BA_MobileGPS.Core.ViewModels.MainPageViewModel >();

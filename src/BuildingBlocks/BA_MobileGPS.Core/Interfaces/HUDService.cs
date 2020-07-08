@@ -1,39 +1,44 @@
-﻿//using Acr.UserDialogs;
+﻿using System;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 
-//using System;
-//using System.Threading.Tasks;
+namespace BA_MobileGPS.Core
+{
+    public interface IHUDProvider
+    {
+        void DisplayProgress(string message);
 
-//namespace BA_MobileGPS.Core
-//{
-//    public class HUDService : IDisposable
-//    {
-//        private bool _cancel;
+        void Dismiss();
+    }
 
-//        public HUDService(string message = "")
-//        {
-//            StartHUD(message);
-//        }
+    public class HUDService : IDisposable
+    {
+        private bool _cancel;
 
-//        private async void StartHUD(string message)
-//        {
-//            await Task.Delay(100);
+        public HUDService(string message = "")
+        {
+            StartHUD(message);
+        }
 
-//            if (_cancel)
-//            {
-//                _cancel = false;
-//                return;
-//            }
+        private async void StartHUD(string message)
+        {
+            await Task.Delay(100);
 
-//            _cancel = false;
+            if (_cancel)
+            {
+                _cancel = false;
+                return;
+            }
 
-//            UserDialogs.Instance.ShowLoading(message, MaskType.Black);
-//        }
+            _cancel = false;
+            DependencyService.Get<IHUDProvider>().DisplayProgress(message);
+        }
 
-//        public void Dispose()
-//        {
-//            _cancel = true;
+        public void Dispose()
+        {
+            _cancel = true;
 
-//            UserDialogs.Instance.HideLoading();
-//        }
-//    }
-//}
+            DependencyService.Get<IHUDProvider>().Dismiss();
+        }
+    }
+}
