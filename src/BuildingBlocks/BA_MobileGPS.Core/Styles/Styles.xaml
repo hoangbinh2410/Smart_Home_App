@@ -32,6 +32,7 @@
     <Style TargetType="buttons:SfCheckBox">
         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
         <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimaryColor}, Dark={StaticResource TextPrimaryColor}}" />
     </Style>
     <Style ApplyToDerivedTypes="True" TargetType="Button">
         <Setter Property="CornerRadius" Value="25" />

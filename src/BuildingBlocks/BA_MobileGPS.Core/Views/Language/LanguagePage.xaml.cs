@@ -2,9 +2,9 @@
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class LoginPage : ContentPage
+    public partial class LanguagePage : ContentPage
     {
-        public LoginPage()
+        public LanguagePage()
         {
             InitializeComponent();
         }
