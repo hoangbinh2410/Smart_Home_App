@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VMS_MobileGPS.Views.OfflineMap"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
+    xmlns:convertersvms="clr-namespace:VMS_MobileGPS.Converter"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:local="clr-namespace:VMS_MobileGPS.Constant;assembly=VMS_MobileGPS"
+    xmlns:maps="clr-namespace:Syncfusion.SfMaps.XForms;assembly=Syncfusion.SfMaps.XForms"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    Title="BẢN ĐỒ NGOẠI TUYẾN"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NMConverter x:Key="NMConverter" />
+            <convertersvms:BLEConnectionStateConverter x:Key="BLEConnectionStateConverter" />
+            <convertersvms:BLEConnectionStateColorConverter x:Key="BLEConnectionStateColorConverter" />
+            <convertersvms:OfflineMapDeviceCodeConverter x:Key="OfflineMapDeviceCodeConverter" />
+            <convertersvms:OffMapBtnZoomInConverter x:Key="OffMapBtnZoomInConverter" />
+            <convertersvms:OffMapBtnZoomOutConverter x:Key="OffMapBtnZoomOutConverter" />
+            <convertersvms:OffMapBtnZoomInIconConverter x:Key="OffMapBtnZoomInIconConverter" />
+            <convertersvms:OffMapBtnZoomOutIconConverter x:Key="OffMapBtnZoomOutIconConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <maps:SfMaps
+                x:Name="SfMap"
+                Grid.Row="0"
+                EnablePanning="True"
+                EnableZooming="True"
+                MaxZoom="{Binding MaxOffMapZoom, Source={x:Static local:GlobalResourcesVMS.Current}}"
+                MinZoom="{Binding MinOffMapZoom, Source={x:Static local:GlobalResourcesVMS.Current}}"
+                ZoomLevel="{Binding OffMapZoomLevel, Source={x:Static local:GlobalResourcesVMS.Current}}">
+                <maps:SfMaps.Layers>
+                    <maps:ImageryLayer
+                        x:Name="Layer"
+                        CanCacheTiles="True"
+                        GeoCoordinates="{Binding LocationMoved, Mode=OneWay}"
+                        Markers="{Binding Markers}"
+                        ResetOnDoubleTap="False"
+                        Sublayers="{Binding OsmMapLayers}"
+                        ZoomLevelChanging="ImageryLayer_ZoomLevelChanging">
+                        <maps:ImageryLayer.MarkerTemplate>
+                            <DataTemplate>
+                                <StackLayout Spacing="0">
+                                    <Label
+                                        Padding="0,1"
+                                        BackgroundColor="#F58B03"
+                                        FontAttributes="Bold"
+                                        FontFamily="{StaticResource myFontLatoBold}"
+                                        FontSize="10"
+                                        HeightRequest="15"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding DeviceManager.DevicePlate, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource OfflineMapDeviceCodeConverter}}"
+                                        VerticalOptions="Center"
+                                        WidthRequest="100">
+                                        <Label.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding Source={RelativeSource Self}, Path=Text.Length}"
+                                                TargetType="Label"
+                                                Value="0">
+                                                <Setter Property="BackgroundColor" Value="Transparent" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Image
+                                        Margin="0,0,0,15"
+                                        Aspect="AspectFit"
+                                        HeightRequest="30"
+                                        HorizontalOptions="Center"
+                                        Rotation="{Binding Rotation}"
+                                        Scale="1"
+                                        Source="car_blue.png"
+                                        VerticalOptions="StartAndExpand"
+                                        WidthRequest="30" />
+                                </StackLayout>
+                            </DataTemplate>
+                        </maps:ImageryLayer.MarkerTemplate>
+
+                    </maps:ImageryLayer>
+                </maps:SfMaps.Layers>
+            </maps:SfMaps>
+            <StackLayout
+                Grid.Row="0"
+                Margin="0,0,15,5"
+                HorizontalOptions="End"
+                VerticalOptions="End">
+                <sharpnado:MaterialFrame
+                    Margin="5,0"
+                    Padding="0"
+                    CornerRadius="5"
+                    HasShadow="False"
+                    HeightRequest="70"
+                    LightThemeBackgroundColor="White">
+                    <StackLayout Spacing="0" WidthRequest="40">
+                        <Frame
+                            x:Name="btnZoomIn"
+                            Padding="0"
+                            BackgroundColor="{Binding OffMapZoomLevel, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource OffMapBtnZoomInConverter}}"
+                            BorderColor="Transparent"
+                            CornerRadius="0"
+                            HasShadow="False"
+                            HeightRequest="40">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ZoomInCommand}" />
+                            </Frame.GestureRecognizers>
+
+                            <controls:FontAwesomeIcon
+                                x:Name="ic_ZoomIn"
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                HorizontalOptions="Center"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.Plus}"
+                                TextColor="{Binding OffMapZoomLevel, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource OffMapBtnZoomInIconConverter}}"
+                                VerticalOptions="Center" />
+                        </Frame>
+
+                        <BoxView BackgroundColor="{StaticResource PrimaryColor}" HeightRequest="1" />
+                        <Frame
+                            x:Name="btnZoomOut"
+                            Padding="0"
+                            BackgroundColor="{Binding OffMapZoomLevel, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource OffMapBtnZoomOutConverter}}"
+                            BorderColor="Transparent"
+                            CornerRadius="0"
+                            HasShadow="False"
+                            HeightRequest="40">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ZoomOutCommand}" />
+                            </Frame.GestureRecognizers>
+                            <controls:FontAwesomeIcon
+                                x:Name="ic_ZoomOut"
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                HorizontalOptions="Center"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.Minus}"
+                                TextColor="{Binding OffMapZoomLevel, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource OffMapBtnZoomOutIconConverter}}"
+                                VerticalOptions="Center" />
+                        </Frame>
+
+                    </StackLayout>
+                </sharpnado:MaterialFrame>
+                <sharpnado:MaterialFrame
+                    Padding="0"
+                    CornerRadius="25"
+                    HasShadow="False"
+                    HeightRequest="50"
+                    LightThemeBackgroundColor="White"
+                    WidthRequest="50">
+                    <sharpnado:MaterialFrame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SwitchToMyLocationCommand}" />
+                    </sharpnado:MaterialFrame.GestureRecognizers>
+                    <controls:FontAwesomeIcon
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        Text="{x:Static fontawesome:FontAwesomeIcons.LocationArrow}"
+                        TextColor="{StaticResource PrimaryColor}"
+                        VerticalOptions="Center" />
+                </sharpnado:MaterialFrame>
+            </StackLayout>
+
+
+            <sharpnado:MaterialFrame
+                Grid.Row="1"
+                Padding="10"
+                HasShadow="False"
+                LightThemeBackgroundColor="White"
+                VerticalOptions="End">
+
+                <Grid HorizontalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <controls:FontAwesomeIcon
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            FontSize="20"
+                            HorizontalOptions="Center"
+                            Text="{x:Static fontawesome:FontAwesomeIcons.CalendarAlt}"
+                            TextColor="{StaticResource PrimaryColor}"
+                            VerticalOptions="Center" />
+                        <StackLayout
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Orientation="Horizontal">
+                            <Label Text="{Binding DateTimeN, Converter={StaticResource DateTimeConverter}}" />
+                        </StackLayout>
+                    </Grid>
+                    <sharpnado:MaterialFrame
+                        Grid.Row="1"
+                        Padding="2"
+                        BackgroundColor="{StaticResource TextSecondaryColor}"
+                        BorderColor="{StaticResource TextPlaceHolderColor}"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="CenterAndExpand">
+                        <Grid
+                            BackgroundColor="{StaticResource TextSecondaryColor}"
+                            ColumnSpacing="1"
+                            RowSpacing="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <StackLayout
+                                Grid.Row="0"
+                                BackgroundColor="White"
+                                Orientation="Horizontal">
+
+                                <controls:FontAwesomeIcon
+                                    Margin="5,0,0,0"
+                                    FontSize="20"
+                                    HorizontalOptions="Start"
+                                    Text="{x:Static fontawesome:FontAwesomeIcons.LocationArrow}"
+                                    TextColor="{StaticResource PrimaryColor}"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Margin="5"
+                                    HorizontalOptions="Start"
+                                    LineBreakMode="TailTruncation"
+                                    Text="{Binding MarkerPosition}" />
+                            </StackLayout>
+                            <Grid
+                                Grid.Row="1"
+                                ColumnSpacing="1"
+                                RowSpacing="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width=".5*" />
+                                    <ColumnDefinition Width=".5*" />
+                                </Grid.ColumnDefinitions>
+                                <!--  Vận tốc  -->
+                                <StackLayout
+                                    Grid.Column="0"
+                                    Padding="5"
+                                    BackgroundColor="White"
+                                    HorizontalOptions="FillAndExpand"
+                                    Spacing="0"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Label
+                                        HorizontalTextAlignment="Center"
+                                        LineBreakMode="TailTruncation"
+                                        Text="{i18n:TranslateResource Online_Label_Velocity,
+                                                                      Converter={StaticResource UpperCaseConverter}}"
+                                        TextColor="{StaticResource TextPlaceHolderColor}" />
+                                    <Label
+                                        HorizontalTextAlignment="Center"
+                                        LineBreakMode="TailTruncation"
+                                        Text="{Binding Speed, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Common_Lable_NMUnit}}" />
+                                </StackLayout>
+                                <!--  Trạng thái bluetooth  -->
+                                <StackLayout
+                                    Grid.Column="1"
+                                    Padding="5"
+                                    BackgroundColor="White"
+                                    HorizontalOptions="FillAndExpand"
+                                    Spacing="0"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Label
+                                        HorizontalTextAlignment="Center"
+                                        LineBreakMode="TailTruncation"
+                                        Text="TRẠNG THÁI THIẾT BỊ"
+                                        TextColor="{StaticResource TextPlaceHolderColor}" />
+                                    <Label
+                                        HorizontalTextAlignment="Center"
+                                        LineBreakMode="TailTruncation"
+                                        Text="{Binding BluetoothStatus}" />
+                                </StackLayout>
+                            </Grid>
+                        </Grid>
+                    </sharpnado:MaterialFrame>
+                    <Grid
+                        Grid.Row="2"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="End">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            Grid.Column="0"
+                            Command="{Binding CallSOSCommand}"
+                            FontAttributes="Bold"
+                            Text="CẢNH BÁO SOS"
+                            TextColor="White" />
+
+                        <Button
+                            Grid.Column="1"
+                            Command="{Binding OpenSettingCommand}"
+                            FontAttributes="Bold"
+                            Text="MẺ LƯỚI"
+                            TextColor="White" />
+                    </Grid>
+                </Grid>
+            </sharpnado:MaterialFrame>
+
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>

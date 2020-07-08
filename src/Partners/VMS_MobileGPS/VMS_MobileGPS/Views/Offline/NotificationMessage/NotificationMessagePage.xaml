@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VMS_MobileGPS.Views.NotificationMessagePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    Title="Hộp thư đến"
+    NavigationPage.BackButtonTitle="">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DateLocaleConverter x:Key="DateLocaleConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <syncfusion:SfListView
+                x:Name="ListView"
+                AllowSwiping="True"
+                AutoFitMode="DynamicHeight"
+                HorizontalOptions="FillAndExpand"
+                ItemSpacing="0"
+                ItemsSource="{Binding ListMessage}"
+                SelectionMode="None"
+                SwipeOffset="60"
+                TapCommand="{Binding ViewDetailCommand}"
+                VerticalOptions="FillAndExpand">
+                <syncfusion:SfListView.RightSwipeTemplate>
+                    <DataTemplate x:Name="RightSwipeTemplate">
+                        <Grid BackgroundColor="#DC595F">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Delete_Tapped" />
+                            </Grid.GestureRecognizers>
+                            <controls:FontAwesomeIcon
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="5,0,5,0"
+                                FontAttributes="Bold"
+                                FontSize="25"
+                                HorizontalOptions="Center"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.Trash}"
+                                TextColor="White"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </syncfusion:SfListView.RightSwipeTemplate>
+                <syncfusion:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="15,10,5,0" RowSpacing="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="5" />
+                            </Grid.RowDefinitions>
+                            <AbsoluteLayout
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Grid.Column="0"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+
+                                <controls:FontAwesomeIcon
+                                    AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                    AbsoluteLayout.LayoutFlags="All"
+                                    FontAttributes="Bold"
+                                    FontSize="40"
+                                    HorizontalOptions="Center"
+                                    Text="{x:Static fontawesome:FontAwesomeIcons.EnvelopeOpenText}"
+                                    TextColor="White"
+                                    VerticalOptions="CenterAndExpand" />
+                                <!--  Đánh dấu đọc  -->
+                                <Frame
+                                    Padding="3"
+                                    AbsoluteLayout.LayoutBounds="0.9,0,10,10"
+                                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                                    BackgroundColor="Red"
+                                    BorderColor="{StaticResource TextSecondaryColor}"
+                                    CornerRadius="5"
+                                    HasShadow="False"
+                                    IsVisible="{Binding IsRead, Converter={StaticResource InvertBooleanConverter}}" />
+                            </AbsoluteLayout>
+
+                            <Label
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Grid.Column="1"
+                                Margin="0,0,10,0"
+                                FontSize="15"
+                                LineBreakMode="TailTruncation"
+                                MaxLines="3"
+                                Text="{Binding Content}"
+                                TextColor="Gray" />
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                FontSize="12"
+                                Text="{Binding CreatedDate, Converter={StaticResource DateTimeConverter}, ConverterParameter='ToLocal'}"
+                                TextColor="Gray"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </syncfusion:SfListView.ItemTemplate>
+            </syncfusion:SfListView>
+            <StackLayout
+                HorizontalOptions="Center"
+                IsVisible="{Binding ListMessage, Converter={StaticResource IsEmptyDataConverter}}"
+                Orientation="Vertical"
+                Spacing="0"
+                VerticalOptions="Center">
+                <controls:SVGImage
+                    x:Name="ErrorImage"
+                    Margin="{x:OnIdiom Phone='0,0,0,0',
+                                       Desktop='0',
+                                       Tablet='0'}"
+                    HeightRequest="300"
+                    Source="NoItem.svg"
+                    VerticalOptions="Center"
+                    WidthRequest="300" />
+                <Label
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="Không có tin nhắn nào"
+                    TextColor="{StaticResource TextSecondaryColor}" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

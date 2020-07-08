@@ -35,6 +35,7 @@
 		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.3" />
 		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.2.0.44" />
 		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="18.2.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="18.2.0.44" />
 		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.2.0.44" />
 		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.2.0.44" />
 		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.2.0.44" />
