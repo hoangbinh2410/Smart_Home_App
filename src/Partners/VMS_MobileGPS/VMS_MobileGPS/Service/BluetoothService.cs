@@ -103,6 +103,8 @@ namespace VMS_MobileGPS.Service
             var state = await GetBluetoothState();
             if (state != BluetoothState.On)
             {
+                var action = await App.Current.MainPage.DisplayAlert("Thông báo", "Hãy bật Bluetooth để quét tìm thiết bị", "Đồng ý", "Bỏ qua");
+                if (action == false) return;
                 DependencyService.Get<ISettingsService>().OpenBluetoothSettings();
             }
             else

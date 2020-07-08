@@ -171,7 +171,7 @@ namespace VMS_MobileGPS.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var color = Color.FromHex("#f76153");
+            var color = (Color)App.Current.Resources["PrimaryColor"];
 
             if (parameter != null)
             {
@@ -179,15 +179,15 @@ namespace VMS_MobileGPS.Converter
             }
             if (value == null)
             {
-                return Color.FromHex("#e2e2e2");
+                return color;
             }
             if ((bool)value)
             {
-                return color;
+                return (Color)App.Current.Resources["DangerousColor"];
             }
             else
             {
-                return Color.FromHex("#e2e2e2");
+                return color;
             }
         }
 
