@@ -103,7 +103,7 @@
                         HorizontalOptions="Center"
                         LightThemeBackgroundColor="Red">
                         <StackLayout Orientation="Horizontal">
-                            <Label Text="Có tín hiệu" TextColor="{Binding DeviceManager.State, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource BLEConnectionStateTextColorConverter}}" />
+                            <Label Text="Có tín hiệu" TextColor="{StaticResource WhiteColor}" />
                             <controls:FontAwesomeIcon
                                 FontAttributes="Bold"
                                 FontSize="15"
@@ -168,7 +168,6 @@
                                 <Label
                                     HorizontalOptions="CenterAndExpand"
                                     Text="Cảnh báo SOS"
-                                    TextColor="{Binding DeviceManager.IsSendSOS, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource SOSStateColorConverter}}"
                                     VerticalOptions="Center" />
                             </StackLayout>
                         </Grid>
