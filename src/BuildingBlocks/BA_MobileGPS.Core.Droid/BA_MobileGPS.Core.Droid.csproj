@@ -54,7 +54,10 @@
     <Compile Include="CustomRender\IconViewRenderer.cs" />
     <Compile Include="DependencyServices\AppVersionService.cs" />
     <Compile Include="DependencyServices\DisplayMessageService.cs" />
+    <Compile Include="DependencyServices\DroidAudioManager.cs" />
     <Compile Include="DependencyServices\DroidTooltipService.cs" />
+    <Compile Include="DependencyServices\HUDService.cs" />
+    <Compile Include="DependencyServices\SettingsService.cs" />
     <Compile Include="DependencyServices\StatusBarHelper.cs" />
     <Compile Include="Effects\BorderlessEffect.cs" />
     <Compile Include="Effects\RoundedEffect.cs" />
@@ -99,6 +102,12 @@
     <None Include="Resources\AboutResources.txt" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AndHUD">
+      <Version>1.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
+      <Version>3.1.2</Version>
+    </PackageReference>
     <PackageReference Include="Rg.Plugins.Popup">
       <Version>2.0.0.3</Version>
     </PackageReference>
@@ -254,6 +263,7 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\flag_nl.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_close.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BA_MobileGPS.Core\BA_MobileGPS.Core.csproj">
@@ -294,6 +304,13 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\flag_vn.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_close.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

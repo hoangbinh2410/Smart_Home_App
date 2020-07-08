@@ -37,16 +37,20 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <BundleResource Include="Resources\ic_close%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDelegate.cs" />
+    <Compile Include="CustomRenderer\ContentPageRenderer.cs" />
+    <Compile Include="CustomRenderer\CustomEditorRenderer.cs" />
     <Compile Include="CustomRenderer\FrameShadowRenderer.cs" />
     <Compile Include="CustomRenderer\IconViewRenderer.cs" />
-    <Compile Include="CustomRenderer\PageRenderer.cs" />
+    <Compile Include="DependencyServices\AppleAudioManager.cs" />
     <Compile Include="DependencyServices\AppVersionService.cs" />
     <Compile Include="DependencyServices\DisplayMessageService.cs" />
+    <Compile Include="DependencyServices\HUDService.cs" />
     <Compile Include="DependencyServices\iOSTooltipService.cs" />
+    <Compile Include="DependencyServices\SettingsService.cs" />
     <Compile Include="DependencyServices\StatusBarHelper.cs" />
     <Compile Include="Effects\BorderlessEffect.cs" />
     <Compile Include="Effects\TintImageEffect.cs" />
@@ -83,6 +87,12 @@
     <Compile Include="Utilities\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="BTProgressHUD">
+      <Version>1.3.2</Version>
+    </PackageReference>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
+      <Version>3.1.2</Version>
+    </PackageReference>
     <PackageReference Include="Rg.Plugins.Popup">
       <Version>2.0.0.3</Version>
     </PackageReference>
@@ -199,6 +209,12 @@
       <Project>{89A997B6-2157-4BAD-A833-D3FA085B54BA}</Project>
       <Name>BA_MobileGPS.Utilities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_close%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -6,10 +6,12 @@ using BA_MobileGPS.Models;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Plugin.Toasts;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
 using Shiny.Locations;
+using Syncfusion.XForms.Buttons;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -37,6 +39,7 @@ namespace VMS_MobileGPS.ViewModels
         private readonly IGpsManager _gpsManager;
 
         public ICommand NavigateToCommand { get; private set; }
+        public ICommand ConnectBleCommand { get; private set; }
         private Timer timer;
         private Timer timerGPSTracking;
 
@@ -59,6 +62,7 @@ namespace VMS_MobileGPS.ViewModels
             _gpsListener.OnReadingReceived += OnReadingReceived;
 
             NavigateToCommand = new Command<PageNames>(NavigateTo);
+            ConnectBleCommand = new DelegateCommand<SwitchStateChangedEventArgs>(PushBlutoothPage);
         }
 
         #endregion Contructor
@@ -69,8 +73,8 @@ namespace VMS_MobileGPS.ViewModels
         {
             base.Initialize(parameters);
             //GetMobileVersion();
-            AppManager.BluetoothService.OnReceiveNotificationBLE -= BluetoothService_OnReceiveNotificationBLE;
-            AppManager.BluetoothService.OnReceiveNotificationBLE += BluetoothService_OnReceiveNotificationBLE;
+            AppManager.BluetoothService.OnReceiveNotificationBLE -= OnReceiveNotificationBLE;
+            AppManager.BluetoothService.OnReceiveNotificationBLE += OnReceiveNotificationBLE;
             eventAggregator.GetEvent<StartShinnyEvent>().Subscribe(StartShinyLocation);
             eventAggregator.GetEvent<StopShinyEvent>().Subscribe(StopShinnyLocation);
             GlobalResourcesVMS.Current.PermissionManager = new PermissionManager();
@@ -79,7 +83,7 @@ namespace VMS_MobileGPS.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-
+            IsConnectBLE = GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.CONNECTED ? true : false;
             GetCountMessage();
         }
 
@@ -119,7 +123,7 @@ namespace VMS_MobileGPS.ViewModels
                 StopTimerGPSTracking();
             }
             _gpsListener.OnReadingReceived -= OnReadingReceived;
-            AppManager.BluetoothService.OnReceiveNotificationBLE -= BluetoothService_OnReceiveNotificationBLE;
+            AppManager.BluetoothService.OnReceiveNotificationBLE -= OnReceiveNotificationBLE;
             eventAggregator.GetEvent<StartShinnyEvent>().Unsubscribe(StartShinyLocation);
             eventAggregator.GetEvent<StopShinyEvent>().Unsubscribe(StopShinnyLocation);
         }
@@ -148,6 +152,9 @@ namespace VMS_MobileGPS.ViewModels
         #region Property
 
         public string AppVersion => appVersionService.GetAppVersion();
+
+        private bool isConnectBLE = GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.CONNECTED ? true : false;
+        public bool IsConnectBLE { get => isConnectBLE; set => SetProperty(ref isConnectBLE, value); }
 
         #endregion Property
 
@@ -282,7 +289,7 @@ namespace VMS_MobileGPS.ViewModels
             }
         }
 
-        private void BluetoothService_OnReceiveNotificationBLE(object sender, string Msg)
+        private void OnReceiveNotificationBLE(object sender, string Msg)
         {
             TryExecute(() =>
             {
@@ -355,7 +362,7 @@ namespace VMS_MobileGPS.ViewModels
                         result = await NavigationService.NavigateAsync("/LoginPage");
                     }
                 }
-                else if (PageNames.SOSPage == args || PageNames.MessagesPage == args)
+                else if (PageNames.SOSPage == args)
                 {
                     if (GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.NO_CONNECTION)
                     {
@@ -379,9 +386,27 @@ namespace VMS_MobileGPS.ViewModels
                 {
                     result = await NavigationService.NavigateAsync(args.ToString());
                 }
+            });
+        }
 
-                if (!result.Success)
+        private void PushBlutoothPage(SwitchStateChangedEventArgs args)
+        {
+            SafeExecute(async () =>
+            {
+                if (args != null && args.NewValue.GetValueOrDefault())
                 {
+                    _ = await NavigationService.NavigateAsync("BaseNavigationPage/BluetoothPage", useModalNavigation: true);
+                }
+                else
+                {
+                    if (await PageDialog.DisplayAlertAsync("Bạn có muốn ngắt kết nối thiệt bị không", "Cảnh báo", "ĐỒNG Ý", "BỎ QUA"))
+                    {
+                        await AppManager.BluetoothService.Disconnect();
+                    }
+                    else
+                    {
+                        IsConnectBLE = true;
+                    }
                 }
             });
         }

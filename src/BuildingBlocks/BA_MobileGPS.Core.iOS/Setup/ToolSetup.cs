@@ -2,7 +2,7 @@
 using BA_MobileGPS.Utilities.Constant;
 
 using FFImageLoading.Forms.Platform;
-
+using Lottie.Forms.iOS.Renderers;
 using Plugin.Toasts;
 using Sharpnado.MaterialFrame.iOS;
 using Sharpnado.Presentation.Forms.iOS;
@@ -31,7 +31,7 @@ namespace BA_MobileGPS.Core.iOS.Setup
             AppDelegate = _AppDelegate;
             Xamarin.Forms.DependencyService.Register<ToastNotification>();
             ToastNotification.Init();
-
+            AnimationViewRenderer.Init();
             Rg.Plugins.Popup.Popup.Init();
 
             CachedImageRenderer.Init();
