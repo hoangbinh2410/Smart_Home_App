@@ -80,6 +80,9 @@
 	  <EmbeddedResource Update="Views\Common\PinInfowindowView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Navigation\BaseNavigationPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Popup\BasePopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>

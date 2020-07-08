@@ -16,13 +16,23 @@
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     xmlns:vm="clr-namespace:VMS_MobileGPS.ViewModels"
     Title="Tìm và kết nối"
-    x:DataType="vm:BluetoothViewModel">
+    x:DataType="vm:BluetoothViewModel"
+    BackgroundColor="White">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:TextChangedEventArgsConverter x:Key="TextChangedEventArgsConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <NavigationPage.TitleView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding SearchBluetoothCommand}"
+            Icon="ic_close.png"
+            IconImageSource="ic_close.png"
+            Order="Primary"
+            Priority="1"
+            Text="Bluetooth" />
+    </ContentPage.ToolbarItems>
+    <!--<NavigationPage.TitleView>
         <Grid
             ColumnSpacing="10"
             HeightRequest="44"
@@ -47,19 +57,21 @@
                 Text="Tìm và kết nối"
                 TextColor="White"
                 VerticalOptions="Center" />
-            <ffImage:CachedImage
+            <controls:FontAwesomeIcon
                 Grid.Column="1"
                 Margin="5,0,5,0"
-                HeightRequest="27"
+                FontAttributes="Bold"
+                FontSize="25"
                 HorizontalOptions="End"
-                Source="ic_bluetooth.png"
+                Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}"
+                TextColor="White"
                 VerticalOptions="Center">
-                <ffImage:CachedImage.GestureRecognizers>
+                <controls:FontAwesomeIcon.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SearchBluetoothCommand}" />
-                </ffImage:CachedImage.GestureRecognizers>
-            </ffImage:CachedImage>
+                </controls:FontAwesomeIcon.GestureRecognizers>
+            </controls:FontAwesomeIcon>
         </Grid>
-    </NavigationPage.TitleView>
+    </NavigationPage.TitleView>-->
     <ContentPage.Content>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
@@ -79,7 +91,7 @@
                     CornerRadius="0"
                     HasShadow="False"
                     HorizontalOptions="FillAndExpand"
-                    LightThemeBackgroundColor="{StaticResource TextSecondaryColor}"
+                    LightThemeBackgroundColor="{StaticResource GrayColor}"
                     VerticalOptions="FillAndExpand">
                     <sharpnado:MaterialFrame.Content>
                         <Label
@@ -94,10 +106,19 @@
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal"
                     Spacing="10">
-                    <ffImage:CachedImage
+                    <controls:FontAwesomeIcon
+                        FontAttributes="Bold"
+                        FontSize="30"
+                        HorizontalOptions="End"
+                        Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}"
+                        TextColor="{StaticResource PrimaryColor}"
+                        VerticalOptions="Center" />
+
+                    <!--</controls:FontAwesomeIcon>
+                        <ffImage:CachedImage
                         HeightRequest="40"
                         Source="ic_bluetooth_device.png"
-                        WidthRequest="40" />
+                        WidthRequest="40" />-->
                     <Label
                         FontSize="16"
                         Text="{Binding DeviceManager.DeviceName, Source={x:Static local:GlobalResourcesVMS.Current}}"
@@ -122,10 +143,10 @@
                 <sharpnado:MaterialFrame
                     Grid.Row="0"
                     Padding="10"
-                    BackgroundColor="{StaticResource TextSecondaryColor}"
                     CornerRadius="0"
                     HasShadow="False"
                     HorizontalOptions="FillAndExpand"
+                    LightThemeBackgroundColor="{StaticResource GrayColor}"
                     VerticalOptions="FillAndExpand">
                     <sharpnado:MaterialFrame.Content>
                         <Label
@@ -181,10 +202,13 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal"
                                         Spacing="10">
-                                        <ffImage:CachedImage
-                                            HeightRequest="40"
-                                            Source="ic_bluetooth_device.png"
-                                            WidthRequest="40" />
+                                        <controls:FontAwesomeIcon
+                                            FontAttributes="Bold"
+                                            FontSize="30"
+                                            HorizontalOptions="End"
+                                            Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}"
+                                            TextColor="{StaticResource PrimaryColor}"
+                                            VerticalOptions="Center" />
                                         <Label
                                             FontSize="16"
                                             Text="{Binding Name}"

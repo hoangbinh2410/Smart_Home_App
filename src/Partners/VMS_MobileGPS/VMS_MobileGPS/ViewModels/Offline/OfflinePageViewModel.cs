@@ -149,6 +149,9 @@ namespace VMS_MobileGPS.ViewModels
 
         public string AppVersion => appVersionService.GetAppVersion();
 
+        private bool isConnectBLE = false;
+        public bool IsConnectBLE { get => isConnectBLE; set => SetProperty(ref isConnectBLE, value); }
+
         #endregion Property
 
         #region PrivateMethod
@@ -355,22 +358,29 @@ namespace VMS_MobileGPS.ViewModels
                         result = await NavigationService.NavigateAsync("/LoginPage");
                     }
                 }
-                //else if (PageNames.SOSPage == args || PageNames.MessagesPage == args)
-                //{
-                //    if (GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.NO_CONNECTION)
-                //    {
-                //        if (!await PageDialog.DisplayAlertAsync("Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?", "Cảnh báo", "ĐỒNG Ý", "BỎ QUA"))
-                //        {
-                //            return;
-                //        }
+                else if (PageNames.SOSPage == args || PageNames.MessagesPage == args)
+                {
+                    if (GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.NO_CONNECTION)
+                    {
+                        if (!await PageDialog.DisplayAlertAsync("Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?", "Cảnh báo", "ĐỒNG Ý", "BỎ QUA"))
+                        {
+                            return;
+                        }
 
-                //        result = await NavigationService.NavigateAsync(PageNames.BluetoothPage.ToString());
-                //    }
-                //    else
-                //    {
-                //        result = await NavigationService.NavigateAsync(args.ToString());
-                //    }
-                //}
+                        result = await NavigationService.NavigateAsync(PageNames.BluetoothPage.ToString());
+                    }
+                    else
+                    {
+                        result = await NavigationService.NavigateAsync(args.ToString());
+                    }
+                }
+                else if (PageNames.BluetoothPage == args)
+                {
+                    if (IsConnectBLE)
+                    {
+                        result = await NavigationService.NavigateAsync("NavigationPage/BluetoothPage", useModalNavigation: true);
+                    }
+                }
                 else if (PageNames.OffMap == args)
                 {
                     result = await NavigationService.NavigateAsync(args.ToString());
@@ -378,10 +388,6 @@ namespace VMS_MobileGPS.ViewModels
                 else
                 {
                     result = await NavigationService.NavigateAsync(args.ToString());
-                }
-
-                if (!result.Success)
-                {
                 }
             });
         }

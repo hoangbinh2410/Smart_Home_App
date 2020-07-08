@@ -11,6 +11,7 @@
     xmlns:local="clr-namespace:BA_MobileGPS.Utilities;assembly=BA_MobileGPS.Utilities"
     xmlns:localstatic="clr-namespace:VMS_MobileGPS.Constant;assembly=VMS_MobileGPS"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:switch="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     prism:ViewModelLocator.AutowireViewModel="True"
@@ -23,6 +24,7 @@
             <converters:TotalNotificationDisplayConverter x:Key="TotalNotificationDisplayConverter" />
             <converters:SOSStateColorConverter x:Key="SOSStateColorConverter" />
             <converters:SOSStateTextColorConverter x:Key="SOSStateTextColorConverter" />
+            <converters:BLENameConverter x:Key="BLENameConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <NavigationPage.TitleView>
@@ -92,17 +94,42 @@
                     Grid.Column="1"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand">
-                    <Label Text="Có tín hiệu" />
-                    <Label Text="BA SAT-012" />
+
+                    <Label LineBreakMode="TailTruncation" Text="{Binding DeviceManager.DevicePlate, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource BLENameConverter}}" />
+                    <sharpnado:MaterialFrame
+                        Grid.Column="0"
+                        Padding="5,0,5,0"
+                        CornerRadius="10"
+                        HorizontalOptions="Center"
+                        LightThemeBackgroundColor="Red">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Có tín hiệu" TextColor="{Binding DeviceManager.State, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource BLEConnectionStateTextColorConverter}}" />
+                            <controls:FontAwesomeIcon
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                HorizontalOptions="End"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.QuestionCircle}"
+                                TextColor="White"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </sharpnado:MaterialFrame>
+
                 </StackLayout>
 
-                <StackLayout
+                <switch:SfSwitch
                     Grid.Column="2"
                     HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="CenterAndExpand">
-                    <switch:SfSwitch IsOn="True" VisualType="Cupertino" />
-                    <Label Text="Đã kết nối" />
-                </StackLayout>
+                    IsOn="{Binding IsConnectBLE}"
+                    VerticalOptions="CenterAndExpand"
+                    VisualType="Cupertino">
+                    <switch:SfSwitch.Behaviors>
+                        <prismbehaviors:EventToCommandBehavior
+                            Command="{Binding NavigateToCommand}"
+                            CommandParameter="{x:Static local:PageNames.BluetoothPage}"
+                            EventName="StateChanged" />
+                    </switch:SfSwitch.Behaviors>
+
+                </switch:SfSwitch>
             </Grid>
 
             <StackLayout

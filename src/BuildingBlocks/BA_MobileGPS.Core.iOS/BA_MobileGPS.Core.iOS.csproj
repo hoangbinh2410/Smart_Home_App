@@ -37,7 +37,7 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <BundleResource Include="Resources\ic_close%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDelegate.cs" />
@@ -48,6 +48,7 @@
     <Compile Include="DependencyServices\AppVersionService.cs" />
     <Compile Include="DependencyServices\DisplayMessageService.cs" />
     <Compile Include="DependencyServices\iOSTooltipService.cs" />
+    <Compile Include="DependencyServices\SettingsService.cs" />
     <Compile Include="DependencyServices\StatusBarHelper.cs" />
     <Compile Include="Effects\BorderlessEffect.cs" />
     <Compile Include="Effects\TintImageEffect.cs" />
@@ -203,6 +204,12 @@
       <Project>{89A997B6-2157-4BAD-A833-D3FA085B54BA}</Project>
       <Name>BA_MobileGPS.Utilities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_close%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
