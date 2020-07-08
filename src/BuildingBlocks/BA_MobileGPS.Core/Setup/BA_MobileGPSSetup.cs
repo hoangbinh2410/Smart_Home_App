@@ -93,6 +93,10 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<SelectDateCalendar, SelectDateCalendarViewModel>("SelectDateCalendar");
             containerRegistry.RegisterForNavigation<SelectDateTimeCalendarPopup, SelectDateTimeCalendarPopupViewModel>("SelectDateTimeCalendarPopup");
 
+            containerRegistry.RegisterForNavigation<LanguagePage, LanguagePageViewModel>();
+            containerRegistry.RegisterForNavigation<ChangeLanguage, ChangeLanguageViewModel>();
+            containerRegistry.RegisterForNavigation<InsertLocalDBPage, InsertLocalDBPageViewModel>();
+
         }
     }
 }

@@ -102,6 +102,9 @@
     <PackageReference Include="EasyTipView">
       <Version>1.0.1</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator">
+      <Version>18.2.0.44</Version>
+    </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfCalendar">
       <Version>18.2.0.44</Version>
     </PackageReference>

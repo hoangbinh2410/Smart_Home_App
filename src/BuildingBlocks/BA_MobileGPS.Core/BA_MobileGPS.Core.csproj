@@ -34,6 +34,7 @@
 	<ItemGroup>
 		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.3" />
 		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.2.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.2.0.44" />
 		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="18.2.0.44" />
 		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.2.0.44" />
 		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.2.0.44" />
@@ -96,6 +97,9 @@
 	  <EmbeddedResource Update="Styles\Text.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\InsertLocalDBPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Language\ChangeLanguage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -116,6 +120,7 @@
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Authentication\NonLoginFeaturesPopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Navigation\BaseNavigationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>

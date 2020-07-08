@@ -52,10 +52,7 @@ namespace BA_MobileGPS.Core
         {
             BA_MobileGPSSetup.RegisterServices(containerRegistry);
             BA_MobileGPSSetup.RegisterPages(containerRegistry);
-
-            containerRegistry.RegisterForNavigation<LanguagePage, LanguagePageViewModel>();
-            containerRegistry.RegisterForNavigation<ChangeLanguage, ChangeLanguageViewModel>();
-            
+          
         }
 
         protected override void OnStart()

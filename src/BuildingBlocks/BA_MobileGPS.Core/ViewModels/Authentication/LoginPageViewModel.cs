@@ -387,7 +387,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand PushtoLanguageCommand => new DelegateCommand(() =>
         {
-            SafeExecute(async () => await NavigationService.NavigateAsync("LanguagePage", null, useModalNavigation: true));
+            SafeExecute(async () => await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true));
         });
 
         public ICommand ForgotPasswordCommand => new DelegateCommand(() =>
