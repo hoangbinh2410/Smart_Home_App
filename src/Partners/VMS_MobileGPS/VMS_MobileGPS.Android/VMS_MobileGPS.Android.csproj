@@ -282,5 +282,8 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_bluetooth.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\avatar.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

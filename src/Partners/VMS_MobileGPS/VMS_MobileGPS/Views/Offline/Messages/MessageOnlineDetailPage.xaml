@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VMS_MobileGPS.Views.MessageOnlineDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:VMS_MobileGPS.Behaviors"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
+    xmlns:messages="clr-namespace:VMS_MobileGPS.Views"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    x:Name="this"
+    Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DateTimeLocaleConverter x:Key="DateTimeLocaleConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <OnPlatform.Platforms>
+                        <On Platform="iOS" Value="-20,0,0,0" />
+                        <On Platform="Android" Value="-40,0,0,0" />
+                    </OnPlatform.Platforms>
+                </OnPlatform>
+            </Grid.Margin>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                LineBreakMode="MiddleTruncation"
+                Text="{Binding Title}"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <Grid
+            BackgroundColor="White"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid
+                Grid.Row="0"
+                Grid.Column="0"
+                Padding="10,5"
+                BackgroundColor="#f6f8fa"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding ReceiverVisible}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Text="Gửi đến:"
+                    VerticalOptions="Center" />
+                <Grid
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Padding="10,0,10,0"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                    </Grid.GestureRecognizers>
+                    <Entry
+                        FontSize="14"
+                        HeightRequest="35"
+                        HorizontalOptions="FillAndExpand"
+                        InputTransparent="True"
+                        Placeholder="Nhập phương tiện nhận.."
+                        Text="{Binding Receiver}"
+                        TextColor="Black"
+                        VerticalOptions="Center">
+                        <Entry.Effects>
+                            <effects:BorderlessEffect />
+                        </Entry.Effects>
+                    </Entry>
+                </Grid>
+            </Grid>
+            <ScrollView
+                x:Name="ScrollView"
+                Grid.Row="1"
+                Grid.Column="0"
+                BackgroundColor="White"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Vertical"
+                VerticalScrollBarVisibility="Never">
+                <StackLayout
+                    BindableLayout.ItemsSource="{Binding Messages}"
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="0">
+                    <StackLayout.Behaviors>
+                        <behaviors:AutoScrollBehavior />
+                    </StackLayout.Behaviors>
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout
+                                Margin="80,5,10,5"
+                                HorizontalOptions="EndAndExpand"
+                                Spacing="0">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.SendIfFailCommand, Source={Reference this}}" CommandParameter="{Binding .}" />
+                                </StackLayout.GestureRecognizers>
+                                <sharpnado:MaterialFrame
+                                    Grid.Row="0"
+                                    Padding="10,5"
+                                    CornerRadius="10"
+                                    HasShadow="False"
+                                    HorizontalOptions="EndAndExpand"
+                                    LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                                    VerticalOptions="FillAndExpand">
+                                    <sharpnado:MaterialFrame.Content>
+                                        <Label
+                                            FontSize="14"
+                                            Text="{Binding Content}"
+                                            TextColor="White" />
+                                    </sharpnado:MaterialFrame.Content>
+                                </sharpnado:MaterialFrame>
+                                <StackLayout
+                                    HorizontalOptions="End"
+                                    Orientation="Horizontal"
+                                    Spacing="2">
+                                    <Label
+                                        FontSize="9"
+                                        Text="{Binding Status}"
+                                        TextColor="DimGray" />
+                                    <Label
+                                        FontSize="9"
+                                        Text="{Binding CreatedDate, Converter={StaticResource DateTimeConverter}, ConverterParameter='ToLocal'}"
+                                        TextColor="DimGray" />
+                                </StackLayout>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+            <sharpnado:MaterialFrame
+                Grid.Row="2"
+                Grid.Column="0"
+                Padding="5"
+                BorderColor="{StaticResource GrayColor}"
+                CornerRadius="0"
+                HasShadow="True"
+                HorizontalOptions="FillAndExpand"
+                LightThemeBackgroundColor="White"
+                VerticalOptions="FillAndExpand">
+                <sharpnado:MaterialFrame.Content>
+                    <messages:ChatInputView />
+                </sharpnado:MaterialFrame.Content>
+            </sharpnado:MaterialFrame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
