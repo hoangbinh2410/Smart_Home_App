@@ -13,9 +13,14 @@
     <sharpnado:MaterialFrame.Resources>
         <ResourceDictionary>
             <converters:NMConverter x:Key="NMConverter" />
+            <converters:DateTimeConverter x:Key="DateTimeConverter" />
+            <converters:SecondsToStringConverter x:Key="SecondsToStringConverter" />
+            <converters:IsEmptyDataConverter x:Key="IsEmptyDataConverter" />
+            <converters:HasDataConverter x:Key="HasDataConverter" />
+            <converters:UpperCaseConverter x:Key="UpperCaseConverter" />
         </ResourceDictionary>
     </sharpnado:MaterialFrame.Resources>
-    <Grid HorizontalOptions="FillAndExpand">
+    <!--<Grid HorizontalOptions="FillAndExpand">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -154,7 +159,7 @@
                         <ColumnDefinition Width=".5*" />
                         <ColumnDefinition Width=".5*" />
                     </Grid.ColumnDefinitions>
-                    <!--  Vận tốc  -->
+                    --><!--  Vận tốc  --><!--
                     <StackLayout
                         Grid.Column="0"
                         Padding="5"
@@ -173,7 +178,7 @@
                             LineBreakMode="TailTruncation"
                             Text="{Binding CarActive.Velocity, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Common_Lable_NMUnit}}" />
                     </StackLayout>
-                    <!--  Hải lý  -->
+                    --><!--  Hải lý  --><!--
                     <StackLayout
                         Grid.Column="1"
                         Padding="5"
@@ -229,5 +234,5 @@
                                               Converter={StaticResource UpperCaseConverter}}"
                 TextColor="White" />
         </Grid>
-    </Grid>
+    </Grid>-->
 </sharpnado:MaterialFrame>

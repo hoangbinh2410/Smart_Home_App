@@ -108,7 +108,9 @@
 	  <EmbeddedResource Update="Views\Authentication\LoginPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Language\LanguagePage.xaml">
+    <EmbeddedResource Update="Views\Language\LanguagePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\Navigation\BaseNavigationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -118,10 +120,12 @@
 	  <EmbeddedResource Update="Views\MainPage\MainPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\NonLoginFeaturesPopup.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  <EmbeddedResource Update="Views\Navigation\BaseNavigationPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
+    <EmbeddedResource Update="Views\Authentication\NonLoginFeaturesPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Navigation\BaseNavigationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Online\OnlinePage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -130,6 +134,7 @@
 	  </EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
+	  <Folder Include="DependencyServices\" />
 	  <Folder Include="ViewModels\MainPage\" />
 	  <Folder Include="ViewModels\Common\" />
 	</ItemGroup>

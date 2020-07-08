@@ -1,4 +1,4 @@
-﻿using BA_MobileGPS.Core.ViewModels.Base;
+﻿
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
