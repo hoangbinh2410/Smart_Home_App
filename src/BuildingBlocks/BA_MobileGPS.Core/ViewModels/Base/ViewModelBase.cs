@@ -1,13 +1,19 @@
-﻿using BA_MobileGPS.Core.Helpers;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
 using Prism;
 using Prism.AppModel;
+using Prism.Common;
 using Prism.Events;
 using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
+using Rg.Plugins.Popup.Services;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,8 +28,8 @@ namespace BA_MobileGPS.Core.ViewModels
         protected INavigationService NavigationService { get; private set; }
         protected IEventAggregator EventAggregator { get; private set; }
         protected IDisplayMessage DisplayMessage { get; private set; }
-
         protected IPageDialogService PageDialog { get; private set; }
+
         public PageMode ViewMode { get; set; } = PageMode.View;
 
         public bool IsConnected => Connectivity.NetworkAccess == NetworkAccess.Internet;
@@ -72,10 +78,10 @@ namespace BA_MobileGPS.Core.ViewModels
             else
             {
                 //await NavigationService.GoBackAsync();
-                //if (PopupNavigation.Instance.PopupStack.Count > 0)
-                //{
-                //    await PopupNavigation.Instance.PopAllAsync();
-                //}
+                if (PopupNavigation.Instance.PopupStack.Count > 0)
+                {
+                    await PopupNavigation.Instance.PopAllAsync();
+                }
             }
         }
 
@@ -204,8 +210,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         protected Task RunOnBackground(Action action, Action onComplete = null, Action<Exception> onError = null, Action finalAction = null, CancellationTokenSource cts = null, bool showLoading = false)
         {
-            //if (showLoading)
-            //    UserDialogs.Instance.ShowLoading();
+            if (showLoading)
+                Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("");
 
             return (cts != null ? Task.Run(action, cts.Token) : Task.Run(action)).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
@@ -219,8 +225,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     onError?.Invoke(task.Exception);
                 }
 
-                //if (showLoading)
-                //    UserDialogs.Instance.HideLoading();
+                if (showLoading)
+                    Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
 
                 finalAction?.Invoke();
             }));
@@ -228,8 +234,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         protected Task RunOnBackground<T>(Func<Task<T>> action, Action<T> onComplete = null, Action<Exception> onError = null, Action finalAction = null, CancellationTokenSource cts = null, bool showLoading = false)
         {
-            //if (showLoading)
-            //    UserDialogs.Instance.ShowLoading();
+            if (showLoading)
+                Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("");
 
             return (cts != null ? Task.Run(action, cts.Token) : Task.Run(action)).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
@@ -243,8 +249,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     onError?.Invoke(task.Exception);
                 }
 
-                //if (showLoading)
-                //    UserDialogs.Instance.HideLoading();
+                if (showLoading)
+                    Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
 
                 finalAction?.Invoke();
             }));
@@ -262,6 +268,156 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                 });
             }
+        }
+
+        public ICommand SelectCompanyCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    SafeExecute(async () =>
+                    {
+                        await NavigationService.NavigateAsync("BaseNavigationPage/CompanyLookUp", useModalNavigation: true);
+                    });
+                });
+            }
+        }
+
+        public ICommand SelectVehicleCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    SafeExecute(async () =>
+                    {
+                        await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", useModalNavigation: true, parameters: new NavigationParameters
+                        {
+                            { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleOnline },
+                            {  ParameterKey.VehicleGroupsSelected, VehicleGroups}
+                        });
+                    });
+                });
+            }
+        }
+
+        public ICommand SelectVehicleRouterCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    SafeExecute(async () =>
+                    {
+                        await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", useModalNavigation: true, parameters: new NavigationParameters
+                        {
+                            { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleRoute },
+                              {  ParameterKey.VehicleGroupsSelected, VehicleGroups}
+                        });
+                    });
+                });
+            }
+        }
+
+        public ICommand SelectVehicleGroupCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    var navigationPara = new NavigationParameters
+                    {
+                        { ParameterKey.VehicleGroupsSelected, VehicleGroups }
+                    };
+
+                    await NavigationService.NavigateAsync("BaseNavigationPage/VehicleGroupLookUp", navigationPara, useModalNavigation: true);
+                });
+            }
+        }
+
+        public ICommand PushToAleartPageCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    SafeExecute(async () =>
+                    {
+                        await NavigationService.NavigateAsync("AlertOnlinePage", useModalNavigation: false);
+                    });
+                });
+            }
+        }
+
+        private LoginResponse userInfo;
+
+        public LoginResponse UserInfo
+        {
+            get
+            {
+                if (StaticSettings.User != null)
+                {
+                    userInfo = StaticSettings.User;
+                }
+                return userInfo;
+            }
+            set => SetProperty(ref userInfo, value);
+        }
+
+        public int CurrentComanyID
+        {
+            get
+            {
+                var currentCompany = Settings.CurrentCompany;
+
+                if (currentCompany != null && StaticSettings.ListCompany != null && StaticSettings.ListCompany.Exists(c => c.FK_CompanyID == currentCompany.FK_CompanyID))
+                    return currentCompany.FK_CompanyID;
+                else
+                    return UserInfo.CompanyId;
+            }
+        }
+
+        public virtual bool CheckPermision(int PermissionKey)
+        {
+            return UserInfo.Permissions.IndexOf(PermissionKey) != -1;
+        }
+
+        public bool CheckPermision(List<PermissionKeyNames> PermissionKey)
+        {
+            List<int> userPermissionList = PermissionKey.Select(x => (int)x).ToList();
+
+            var rerult = ((userPermissionList != null) && (userPermissionList != null)
+                && (!userPermissionList.Any(x => !UserInfo.Permissions.Contains(x)) || userPermissionList.Contains(0)));
+
+            return rerult;
+        }
+
+        protected TControl GetControl<TControl>(string control)
+        {
+            return PageUtilities.GetCurrentPage(Application.Current.MainPage).FindByName<TControl>(control);
+        }
+
+        public void SetFocus(string control)
+        {
+            TryExecute(() => PageUtilities.GetCurrentPage(Application.Current.MainPage).FindByName<VisualElement>(control)?.Focus());
+        }
+
+        public virtual void UpdateCombobox(ComboboxResponse param)
+        {
+        }
+
+        public void GoBack(bool isModal)
+        {
+            TryExecute(async () => await NavigationService.GoBackAsync(useModalNavigation: isModal));
+        }
+
+        public async void Logout()
+        {
+            StaticSettings.ClearStaticSettings();
+            GlobalResources.Current.TotalAlert = 0;
+            Settings.Rememberme = false;
+            await NavigationService.NavigateAsync("/LoginPage");
         }
     }
 }
