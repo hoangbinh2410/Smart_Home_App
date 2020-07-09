@@ -6,11 +6,12 @@
     <!--  Color Primary  -->
     <Color x:Key="BlueDarkColor">#004EDA</Color>
     <Color x:Key="BluePrimaryColor">#00AEEF</Color>
-    <Color x:Key="PrimaryColor">#4A7AFF</Color>
+    <Color x:Key="PrimaryColor">#004EDA</Color>
     <Color x:Key="BlueColor">#89DFFF</Color>
     <Color x:Key="WhiteColor">White</Color>
     <!--  Other Color  -->
-    <Color x:Key="PurpleColor">#4A7AFF</Color>
+    <Color x:Key="OrangeColor">#4A7AFF</Color>
+    <Color x:Key="GreenColor">#31CB73</Color>
     <Color x:Key="GrayColor">#F3F3F3</Color>
     <!--  Text Color  -->
     <Color x:Key="TextPrimaryColor">#484848</Color>
@@ -20,11 +21,10 @@
     <Color x:Key="DangerousColor">#E63C2B</Color>
     <Color x:Key="WarningColor">#FF9900</Color>
 
-    <Color x:Key="MainTabSelectedColor">#00ADEF</Color>
 
+    <Color x:Key="MainTabSelectedColor">#00ADEF</Color>
     <FileImageSource x:Key="HomePageTopImageSource" File="top_background.jpg" />
     <FileImageSource x:Key="HomePageBotImageSource" File="bot_background.jpg" />
-
     <Color x:Key="PopupYesBtnTextColor">White</Color>
     <Color x:Key="PopupYesBtnBackgroundColor">#00709A</Color>
 
