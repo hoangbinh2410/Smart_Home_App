@@ -37,7 +37,7 @@ namespace VMS_MobileGPS
 
             AppManager.Init();
 
-            await NavigationService.NavigateAsync("/NavigationPage/OfflinePage");
+            await NavigationService.NavigateAsync("/InsertLocalDBPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

@@ -1,6 +1,4 @@
-﻿
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace VMS_MobileGPS.Styles
