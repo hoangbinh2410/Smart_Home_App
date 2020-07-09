@@ -316,7 +316,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             if (GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.NO_CONNECTION)
             {
-                if (!await PageDialog.DisplayAlertAsync("Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?", "Cảnh báo", "ĐỒNG Ý", "BỎ QUA"))
+                if (!await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?", "ĐỒNG Ý", "BỎ QUA"))
                 {
                     return;
                 }
@@ -452,14 +452,14 @@ namespace VMS_MobileGPS.ViewModels
             {
                 Interval = 60000
             };
-            timer.Elapsed += T_Elapsed;
+            timer.Elapsed += SendLocation;
 
             timer.Start();
 
             SendRequestLocationDevice();
         }
 
-        private void T_Elapsed(object sender, ElapsedEventArgs e)
+        private void SendLocation(object sender, ElapsedEventArgs e)
         {
             SendRequestLocationDevice();
         }

@@ -23,6 +23,7 @@
     <Color x:Key="TextPlaceHolderColor">#C9C9C9</Color>
 
     <Color x:Key="DangerousColor">Red</Color>
+    <Color x:Key="WarningColor">#FF9900</Color>
 
     <Color x:Key="MainTabSelectedColor">#00ADEF</Color>
 
