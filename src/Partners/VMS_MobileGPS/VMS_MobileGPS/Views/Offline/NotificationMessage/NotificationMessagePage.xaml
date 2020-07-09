@@ -30,7 +30,7 @@
                 VerticalOptions="FillAndExpand">
                 <syncfusion:SfListView.RightSwipeTemplate>
                     <DataTemplate x:Name="RightSwipeTemplate">
-                        <Grid BackgroundColor="#DC595F">
+                        <Grid BackgroundColor="{StaticResource DangerousColor}">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Delete_Tapped" />
                             </Grid.GestureRecognizers>
@@ -68,7 +68,7 @@
                                         FontSize="40"
                                         HorizontalOptions="Center"
                                         Text="{x:Static fontawesome:FontAwesomeIcons.EnvelopeOpenText}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="CenterAndExpand" />
                                     <!--  Đánh dấu đọc  -->
                                     <Frame
