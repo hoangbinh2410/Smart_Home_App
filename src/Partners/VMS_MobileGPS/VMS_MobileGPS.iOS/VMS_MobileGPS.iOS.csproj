@@ -460,5 +460,17 @@
   <ItemGroup>
     <BundleResource Include="Resources\avatar.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bg_HomeTop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bg_HomeBot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bg_Login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\logo_VNSAT.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

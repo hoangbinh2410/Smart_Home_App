@@ -24,8 +24,8 @@
 
     <Color x:Key="MainTabSelectedColor">#00ADEF</Color>
 
-    <FileImageSource x:Key="HomePageTopImageSource" File="top_background.jpg" />
-    <FileImageSource x:Key="HomePageBotImageSource" File="bot_background.jpg" />
+    <FileImageSource x:Key="HomePageTopImageSource" File="bg_HomeTop.png" />
+    <FileImageSource x:Key="HomePageBotImageSource" File="bg_HomeBot.png" />
 
     <Color x:Key="PopupYesBtnTextColor">White</Color>
     <Color x:Key="PopupYesBtnBackgroundColor">#00709A</Color>
