@@ -424,6 +424,8 @@ namespace VMS_MobileGPS.ViewModels
                     if (await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có muốn ngắt kết nối thiệt bị không", "ĐỒNG Ý", "BỎ QUA"))
                     {
                         await AppManager.BluetoothService.Disconnect();
+
+                        StateDeviceMessage = "Chưa kết nối";
                     }
                     else
                     {
