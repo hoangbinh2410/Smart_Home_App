@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Models;
+﻿using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Models;
 using BA_MobileGPS.Service;
 
 using Prism.Navigation;
@@ -17,6 +18,7 @@ namespace VMS_MobileGPS.ViewModels
     public class NotificationMessageViewModel : VMSBaseViewModel
     {
         private readonly IMessageService messageService;
+        private readonly IPopupServices popupServices;
 
         private IList<MessageSOS> listMessage = new ObservableCollection<MessageSOS>();
         public IList<MessageSOS> ListMessage { get => listMessage; set => SetProperty(ref listMessage, value); }
@@ -24,10 +26,11 @@ namespace VMS_MobileGPS.ViewModels
         public ICommand ViewDetailCommand { get; private set; }
 
         public NotificationMessageViewModel(INavigationService navigationService,
-            IMessageService messageService)
+            IMessageService messageService, IPopupServices popupServices)
             : base(navigationService)
         {
             this.messageService = messageService;
+            this.popupServices = popupServices;
 
             ViewDetailCommand = new Command<Syncfusion.ListView.XForms.ItemTappedEventArgs>(ViewDetail);
         }
@@ -46,12 +49,9 @@ namespace VMS_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("PopupMessagePage", parameters: new NavigationParameters
-                {
-                    { "TitlePopup", "Tin nhắn" },
-                    { "ContentPopup", ((MessageSOS)args.ItemData).Content },
-                    { "TitleButton", "Đóng" }
-                });
+                var title = "Tin nhắn";
+                var content = ((MessageSOS)args.ItemData).Content;
+                await popupServices.ShowNotificatonPopup(title, content);
 
                 //Update sự kiện đã đọc
                 var message = messageService.GetMessage(Convert.ToInt64(((MessageSOS)(args.ItemData)).Id));
