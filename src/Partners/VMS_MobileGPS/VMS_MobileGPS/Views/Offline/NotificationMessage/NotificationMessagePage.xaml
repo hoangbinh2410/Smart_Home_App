@@ -83,8 +83,9 @@
                                 </AbsoluteLayout>
                                 <StackLayout
                                     Grid.Column="1"
+                                    Grid.ColumnSpan="2"
                                     HorizontalOptions="StartAndExpand"
-                                    VerticalOptions="StartAndExpand">
+                                    VerticalOptions="CenterAndExpand">
                                     <Label
                                         FontSize="15"
                                         HorizontalOptions="StartAndExpand"
