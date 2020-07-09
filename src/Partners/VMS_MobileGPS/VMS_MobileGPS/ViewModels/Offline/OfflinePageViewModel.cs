@@ -83,7 +83,7 @@ namespace VMS_MobileGPS.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            IsConnectBLE = GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.CONNECTED ? true : false;
+            IsConnectBLE = GlobalResourcesVMS.Current.DeviceManager.State == BleConnectionState.NO_CONNECTION ? false : true;
             GetCountMessage();
         }
 
@@ -153,7 +153,7 @@ namespace VMS_MobileGPS.ViewModels
 
         public string AppVersion => appVersionService.GetAppVersion();
 
-        private bool isConnectBLE = GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.CONNECTED ? true : false;
+        private bool isConnectBLE = GlobalResourcesVMS.Current.DeviceManager.State == BleConnectionState.NO_CONNECTION ? false : true;
         public bool IsConnectBLE { get => isConnectBLE; set => SetProperty(ref isConnectBLE, value); }
 
         #endregion Property
@@ -362,11 +362,11 @@ namespace VMS_MobileGPS.ViewModels
                         result = await NavigationService.NavigateAsync("/LoginPage");
                     }
                 }
-                else if (PageNames.SOSPage == args)
+                else if (PageNames.SOSPage == args || PageNames.MessagesPage == args)
                 {
                     if (GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.NO_CONNECTION)
                     {
-                        if (!await PageDialog.DisplayAlertAsync("Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?", "Cảnh báo", "ĐỒNG Ý", "BỎ QUA"))
+                        if (!await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?", "ĐỒNG Ý", "BỎ QUA"))
                         {
                             return;
                         }
@@ -399,7 +399,7 @@ namespace VMS_MobileGPS.ViewModels
                 }
                 else
                 {
-                    if (await PageDialog.DisplayAlertAsync("Bạn có muốn ngắt kết nối thiệt bị không", "Cảnh báo", "ĐỒNG Ý", "BỎ QUA"))
+                    if (await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có muốn ngắt kết nối thiệt bị không", "ĐỒNG Ý", "BỎ QUA"))
                     {
                         await AppManager.BluetoothService.Disconnect();
                     }

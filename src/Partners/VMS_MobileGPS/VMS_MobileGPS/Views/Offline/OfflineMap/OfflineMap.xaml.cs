@@ -1,8 +1,5 @@
-﻿using Plugin.Permissions;
-using Syncfusion.SfMaps.XForms;
-using System;
+﻿using Syncfusion.SfMaps.XForms;
 using VMS_MobileGPS.Constant;
-using VMS_MobileGPS.ViewModels;
 using Xamarin.Forms;
 
 namespace VMS_MobileGPS.Views

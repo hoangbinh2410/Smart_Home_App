@@ -88,11 +88,11 @@ namespace VMS_MobileGPS.ViewModels
         {
             if (!IsConnected)
             {
-                await PageDialog.DisplayAlertAsync("Vui lòng kết nối mạng để đồng bộ", "Mẻ Lưới", "Đóng");
+                await PageDialog.DisplayAlertAsync("Mẻ Lưới", "Vui lòng kết nối mạng để đồng bộ", "Đóng");
                 return;
             }
 
-            if (!await PageDialog.DisplayAlertAsync("Bạn có muốn đồng bộ không?", "Mẻ lưới", "Đồng ý", "Bỏ qua"))
+            if (!await PageDialog.DisplayAlertAsync("Mẻ lưới", "Bạn có muốn đồng bộ không?", "Đồng ý", "Bỏ qua"))
             {
                 return;
             }

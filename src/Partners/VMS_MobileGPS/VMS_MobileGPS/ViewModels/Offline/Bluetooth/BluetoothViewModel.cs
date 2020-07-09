@@ -184,7 +184,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-                var action = await PageDialog.DisplayAlertAsync("Bạn có muốn ngắt kết nối bluetooth không?", "BA SAT", "Ngắt kết nối", "Bỏ qua");
+                var action = await PageDialog.DisplayAlertAsync("BA SAT", "Bạn có muốn ngắt kết nối bluetooth không?", "Ngắt kết nối", "Bỏ qua");
                 if (action)
                 {
                     await bluetoothHelper.Disconnect();
