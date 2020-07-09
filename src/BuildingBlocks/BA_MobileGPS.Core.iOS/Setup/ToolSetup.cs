@@ -8,6 +8,7 @@ using Sharpnado.MaterialFrame.iOS;
 using Sharpnado.Presentation.Forms.iOS;
 using Shiny;
 using Syncfusion.ListView.XForms.iOS;
+using Syncfusion.SfBusyIndicator.XForms.iOS;
 using Syncfusion.SfCalendar.XForms.iOS;
 using Syncfusion.SfChart.XForms.iOS.Renderers;
 using Syncfusion.SfDataGrid.XForms.iOS;
@@ -65,7 +66,7 @@ namespace BA_MobileGPS.Core.iOS.Setup
             SfBadgeViewRenderer.Init();
             SfChartRenderer.Init();
             SfMapsRenderer.Init();
-            //SfBusyIndicatorRenderer.Init();
+            SfBusyIndicatorRenderer.Init();
             //SfTabViewRenderer.Init();
             //SfRatingRenderer.Init();
             //SfPopupLayoutRenderer.Init();

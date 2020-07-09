@@ -21,11 +21,11 @@
     <Color x:Key="DangerousColor">#E63C2B</Color>
     <Color x:Key="WarningColor">#FF9900</Color>
 
-    <Color x:Key="MainTabSelectedColor">#00ADEF</Color>
 
+    <Color x:Key="MainTabSelectedColor">#00ADEF</Color>
     <FileImageSource x:Key="HomePageTopImageSource" File="top_background.jpg" />
     <FileImageSource x:Key="HomePageBotImageSource" File="bot_background.jpg" />
-
     <Color x:Key="PopupYesBtnTextColor">White</Color>
     <Color x:Key="PopupYesBtnBackgroundColor">#00709A</Color>
+
 </ResourceDictionary>
