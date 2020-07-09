@@ -70,7 +70,7 @@
                 VerticalOptions="FillAndExpand">
                 <syncfusion:SfListView.RightSwipeTemplate>
                     <DataTemplate x:Name="RightSwipeTemplate">
-                        <Grid BackgroundColor="#DC595F">
+                        <Grid BackgroundColor="{StaticResource DangerousColor}">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Delete_Tapped" />
                             </Grid.GestureRecognizers>
