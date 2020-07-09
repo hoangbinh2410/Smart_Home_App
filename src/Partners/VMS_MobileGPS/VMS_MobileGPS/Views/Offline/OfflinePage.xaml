@@ -84,11 +84,11 @@
                 </Grid.ColumnDefinitions>
                 <ffImage:CachedImage
                     Grid.Column="0"
-                    HeightRequest="150"
+                    HeightRequest="120"
                     HorizontalOptions="StartAndExpand"
                     Source="ic_vmsdevice.png"
                     VerticalOptions="CenterAndExpand"
-                    WidthRequest="150" />
+                    WidthRequest="120" />
                 <StackLayout
                     Grid.Column="1"
                     HorizontalOptions="CenterAndExpand"
