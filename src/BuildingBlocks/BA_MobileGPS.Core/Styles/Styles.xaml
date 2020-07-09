@@ -7,8 +7,8 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
-    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-    xmlns:res="clr-namespace:BA_MobileGPS.Core.Styles">
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView">
+
 
     <!--  Auto set style region  -->
     <Style ApplyToDerivedTypes="True" TargetType="{x:Type ContentPage}">
@@ -16,7 +16,7 @@
     </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="NavigationPage">
-        <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
+        <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource BluePrimaryColor}, Dark={StaticResource BluePrimaryColor}}" />
         <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
     </Style>
 
@@ -32,6 +32,7 @@
     <Style TargetType="buttons:SfCheckBox">
         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
         <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimaryColor}, Dark={StaticResource TextPrimaryColor}}" />
     </Style>
     <Style ApplyToDerivedTypes="True" TargetType="Button">
         <Setter Property="CornerRadius" Value="25" />
@@ -81,7 +82,7 @@
         <Setter Property="FocusedStrokeWidth" Value="1" />
         <Setter Property="HorizontalOptions" Value="FillAndExpand" />
         <Setter Property="ErrorColor" Value="{AppThemeBinding Light={StaticResource DangerousColor}, Dark={StaticResource DangerousColor}}" />
-        <Setter Property="FocusedColor" Value="{AppThemeBinding Light={StaticResource PurpleColor}, Dark={StaticResource PurpleColor}}" />
+        <Setter Property="FocusedColor" Value="{AppThemeBinding Light={StaticResource BluePrimaryColor}, Dark={StaticResource BluePrimaryColor}}" />
     </Style>
 
     <Style TargetType="ffImage:CachedImage">
@@ -158,6 +159,13 @@
         <Setter Property="WidthRequest" Value="300" />
         <Setter Property="OutlineCornerRadius" Value="20" />
         <Setter Property="InputViewPadding" Value="15,0,0,0" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+    <Style Class="LoginAwesomeIcon" TargetType="controls:FontAwesomeIcon">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalOptions" Value="Center" />
     </Style>
 
     <!--  Main  Background Color  -->

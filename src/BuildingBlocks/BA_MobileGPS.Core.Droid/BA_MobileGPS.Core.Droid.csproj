@@ -115,6 +115,9 @@
     <PackageReference Include="Syncfusion.Xamarin.SfBadgeView">
       <Version>18.2.0.44</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator">
+      <Version>18.2.0.44</Version>
+    </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfCalendar">
       <Version>18.2.0.44</Version>
     </PackageReference>
@@ -266,6 +269,7 @@
     <AndroidResource Include="Resources\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\flag_nl.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_close.png" />
   </ItemGroup>
   <ItemGroup>
@@ -303,6 +307,10 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_notifications.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\flag_us.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\flag_vn.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_close.png" />
   </ItemGroup>
   <ItemGroup>
