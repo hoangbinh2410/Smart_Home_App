@@ -28,8 +28,8 @@
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
-    <CodesignProvision>BASATDEV</CodesignProvision>
-    <CodesignKey>iPhone Developer: Tran Quang Trung (9VX33WTXK7)</CodesignKey>
+    <CodesignProvision>BASATDEVTEST</CodesignProvision>
+    <CodesignKey>iPhone Developer: Duc Tran (GU6XF5J9GK)</CodesignKey>
     <MtouchExtraArgs>--registrar:static</MtouchExtraArgs>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
@@ -43,6 +43,8 @@
     <MtouchArch>i386, x86_64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+    <CodesignProvision>BASATDEVTEST</CodesignProvision>
+    <CodesignKey>iPhone Developer: Duc Tran (GU6XF5J9GK)</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,11 +56,10 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Developer: Tran Quang Trung (9VX33WTXK7)</CodesignKey>
+    <CodesignKey>iPhone Developer: Duc Tran (GU6XF5J9GK)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
-    <CodesignProvision>BASATDEV</CodesignProvision>
+    <CodesignProvision>BASATDEVTEST</CodesignProvision>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <MtouchFastDev>true</MtouchFastDev>
     <MtouchLink>None</MtouchLink>
@@ -72,10 +73,9 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer: Tran Quang Trung (9VX33WTXK7)</CodesignKey>
-    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignKey>iPhone Developer: Duc Tran (GU6XF5J9GK)</CodesignKey>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
-    <CodesignProvision>BASATDEV</CodesignProvision>
+    <CodesignProvision>BASATDEVTEST</CodesignProvision>
     <MtouchUseLlvm>true</MtouchUseLlvm>
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
   </PropertyGroup>
@@ -461,6 +461,18 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\avatar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bg_HomeTop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bg_HomeBot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bg_Login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\logo_VNSAT.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
