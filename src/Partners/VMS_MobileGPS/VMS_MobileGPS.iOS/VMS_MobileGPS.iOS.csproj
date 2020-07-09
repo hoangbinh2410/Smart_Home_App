@@ -28,8 +28,8 @@
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
-    <CodesignProvision>BASATDEV</CodesignProvision>
-    <CodesignKey>iPhone Developer: Tran Quang Trung (9VX33WTXK7)</CodesignKey>
+    <CodesignProvision>BASATDEVTEST</CodesignProvision>
+    <CodesignKey>iPhone Developer: Duc Tran (GU6XF5J9GK)</CodesignKey>
     <MtouchExtraArgs>--registrar:static</MtouchExtraArgs>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
@@ -43,6 +43,8 @@
     <MtouchArch>i386, x86_64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+    <CodesignProvision>BASATDEVTEST</CodesignProvision>
+    <CodesignKey>iPhone Developer: Duc Tran (GU6XF5J9GK)</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,11 +56,10 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Developer: Tran Quang Trung (9VX33WTXK7)</CodesignKey>
+    <CodesignKey>iPhone Developer: Duc Tran (GU6XF5J9GK)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
-    <CodesignProvision>BASATDEV</CodesignProvision>
+    <CodesignProvision>BASATDEVTEST</CodesignProvision>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <MtouchFastDev>true</MtouchFastDev>
     <MtouchLink>None</MtouchLink>
@@ -72,10 +73,9 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer: Tran Quang Trung (9VX33WTXK7)</CodesignKey>
-    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignKey>iPhone Developer: Duc Tran (GU6XF5J9GK)</CodesignKey>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
-    <CodesignProvision>BASATDEV</CodesignProvision>
+    <CodesignProvision>BASATDEVTEST</CodesignProvision>
     <MtouchUseLlvm>true</MtouchUseLlvm>
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
   </PropertyGroup>
@@ -107,6 +107,7 @@
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CustomRenderer\ChatInputViewRenderer.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <ImageAsset Include="Assets.xcassets\Contents.json">
@@ -122,7 +123,7 @@
     <None Include="GoogleService-Info.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <BundleResource Include="internetconnection.json" />
+    <BundleResource Include="Resources\internetconnection.json" />
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork%402x" />
     <BundleResource Include="en.lproj\InfoPlist.strings" />
@@ -137,6 +138,7 @@
     <BundleResource Include="Resources\Lato-Regular.ttf" />
     <BundleResource Include="Resources\Lato-Semibold.ttf" />
     <BundleResource Include="vi.lproj\InfoPlist.strings" />
+    <BundleResource Include="Resources\bluetooth.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Plugin.BLE">

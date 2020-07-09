@@ -37,7 +37,7 @@ namespace VMS_MobileGPS
 
             AppManager.Init();
 
-            await NavigationService.NavigateAsync("/InsertLocalDBPage");
+            await NavigationService.NavigateAsync("/NavigationPage/OfflinePage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -67,6 +67,8 @@ namespace VMS_MobileGPS
             containerRegistry.RegisterForNavigation<MessageDetailPage, MessageDetailViewModel>(PageNames.MessageDetailPage.ToString());
             containerRegistry.RegisterForNavigation<MessagesOnlinePage, MessagesOnlineViewModel>(PageNames.MessagesOnlinePage.ToString());
             containerRegistry.RegisterForNavigation<MessageOnlineDetailPage, MessageOnlineDetailViewModel>(PageNames.MessageOnlineDetailPage.ToString());
+            containerRegistry.RegisterForNavigation<NotificationMessagePage, NotificationMessageViewModel>(PageNames.NotificationMessagePage.ToString());
+            containerRegistry.RegisterForNavigation<OfflineMap, OfflineMapViewModel>("OffMap");
         }
     }
 }

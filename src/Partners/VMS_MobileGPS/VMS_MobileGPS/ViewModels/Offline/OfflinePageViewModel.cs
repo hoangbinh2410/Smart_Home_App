@@ -13,6 +13,7 @@ using Rg.Plugins.Popup.Services;
 using Shiny.Locations;
 using Syncfusion.XForms.Buttons;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -20,6 +21,7 @@ using System.Timers;
 using System.Windows.Input;
 using VMS_MobileGPS.Constant;
 using VMS_MobileGPS.Events;
+using VMS_MobileGPS.Extensions;
 using VMS_MobileGPS.Service;
 using VMS_MobileGPS.Views.Popup;
 using Xamarin.Essentials;
@@ -63,6 +65,8 @@ namespace VMS_MobileGPS.ViewModels
 
             NavigateToCommand = new Command<PageNames>(NavigateTo);
             ConnectBleCommand = new DelegateCommand<SwitchStateChangedEventArgs>(PushBlutoothPage);
+
+            stateDeviceMessage = "Chưa kết nối";
         }
 
         #endregion Contructor
@@ -83,20 +87,21 @@ namespace VMS_MobileGPS.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            IsConnectBLE = GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.CONNECTED ? true : false;
+            IsConnectBLE = GlobalResourcesVMS.Current.DeviceManager.State == BleConnectionState.NO_CONNECTION ? false : true;
+            if (!IsConnectBLE)
+            {
+                StateDeviceMessage = "Chưa kết nối";
+            }
             GetCountMessage();
         }
 
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
-
-            if (Device.RuntimePlatform == Device.iOS)
-            {
-                StartTimmerStatusBluetooth();
-            }
             SafeExecute(async () =>
             {
+                StartTimmerStateDevice();
+
                 if (!Settings.IsLoadedMap)
                 {
                     var result = await NavigationService.NavigateAsync("OffMap");
@@ -153,12 +158,24 @@ namespace VMS_MobileGPS.ViewModels
 
         public string AppVersion => appVersionService.GetAppVersion();
 
-        private bool isConnectBLE = GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.CONNECTED ? true : false;
+        private bool isConnectBLE = GlobalResourcesVMS.Current.DeviceManager.State == BleConnectionState.NO_CONNECTION ? false : true;
         public bool IsConnectBLE { get => isConnectBLE; set => SetProperty(ref isConnectBLE, value); }
+
+        private string stateDeviceMessage = string.Empty;
+        public string StateDeviceMessage { get => stateDeviceMessage; set => SetProperty(ref stateDeviceMessage, value); }
 
         #endregion Property
 
         #region PrivateMethod
+
+        private async void SendRequestStateDevice()
+        {
+            string str = string.Format("GCFG,{0}", "999");
+
+            Debug.WriteLine(str);
+
+            var ret = await AppManager.BluetoothService.Send(str);
+        }
 
         private void StartShinyLocation()
         {
@@ -211,14 +228,14 @@ namespace VMS_MobileGPS.ViewModels
             {
                 timerGPSTracking = new Timer();
                 timerGPSTracking.Interval = 50000;
-                timerGPSTracking.Elapsed += TimerGPSTracking_Elapsed; ;
+                timerGPSTracking.Elapsed += GPSTrackingTimmer; ;
 
                 timerGPSTracking.Start();
             }
             GetMyLocation();
         }
 
-        private void TimerGPSTracking_Elapsed(object sender, ElapsedEventArgs e)
+        private void GPSTrackingTimmer(object sender, ElapsedEventArgs e)
         {
             GetMyLocation();
         }
@@ -303,6 +320,11 @@ namespace VMS_MobileGPS.ViewModels
                     Debug.WriteLine(Msg);
                     ReciveDataLocation(Msg);
                 }
+                if (Msg.StartsWith("Cau hinh 999:"))
+                {
+                    Debug.WriteLine(Msg);
+                    ReciveDataStateDevice(Msg);
+                }
                 if (Msg.StartsWith("SEND_SMS"))
                 {
                     Debug.WriteLine(Msg);
@@ -362,11 +384,11 @@ namespace VMS_MobileGPS.ViewModels
                         result = await NavigationService.NavigateAsync("/LoginPage");
                     }
                 }
-                else if (PageNames.SOSPage == args)
+                else if (PageNames.SOSPage == args || PageNames.MessagesPage == args)
                 {
                     if (GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.NO_CONNECTION)
                     {
-                        if (!await PageDialog.DisplayAlertAsync("Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?", "Cảnh báo", "ĐỒNG Ý", "BỎ QUA"))
+                        if (!await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?", "ĐỒNG Ý", "BỎ QUA"))
                         {
                             return;
                         }
@@ -399,9 +421,11 @@ namespace VMS_MobileGPS.ViewModels
                 }
                 else
                 {
-                    if (await PageDialog.DisplayAlertAsync("Bạn có muốn ngắt kết nối thiệt bị không", "Cảnh báo", "ĐỒNG Ý", "BỎ QUA"))
+                    if (await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có muốn ngắt kết nối thiệt bị không", "ĐỒNG Ý", "BỎ QUA"))
                     {
                         await AppManager.BluetoothService.Disconnect();
+
+                        StateDeviceMessage = "Chưa kết nối";
                     }
                     else
                     {
@@ -411,24 +435,28 @@ namespace VMS_MobileGPS.ViewModels
             });
         }
 
-        private void StartTimmerStatusBluetooth()
+        private void StartTimmerStateDevice()
         {
             timer = new Timer
             {
-                Interval = 1000
+                Interval = 50000
             };
-            timer.Elapsed += Timer_Elapsed;
+            timer.Elapsed += TimmerStateDevice;
 
             timer.Start();
         }
 
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        private void TimmerStateDevice(object sender, ElapsedEventArgs e)
         {
             if (AppManager.BluetoothService.State == BleConnectionState.NO_CONNECTION)
             {
                 GlobalResourcesVMS.Current.DeviceManager.State = BleConnectionState.NO_CONNECTION;
                 GlobalResourcesVMS.Current.DeviceManager.DeviceName = string.Empty;
                 GlobalResourcesVMS.Current.DeviceManager.DevicePlate = string.Empty;
+            }
+            else
+            {
+                SendRequestStateDevice();
             }
         }
 
@@ -581,6 +609,25 @@ namespace VMS_MobileGPS.ViewModels
                     Velocity = int.Parse(velocity)
                 };
                 eventAggregator.GetEvent<RecieveLocationEvent>().Publish(datasend);
+            }
+        }
+
+        private void ReciveDataStateDevice(string msg)
+        {
+            var data = msg.Remove(0, msg.IndexOf(':') + 1).Trim();
+            var result = data.Remove(0, data.IndexOf('-') + 1).Trim();
+            var lst = result.Split(',');
+            if (lst != null && lst.Length > 0)
+            {
+                var state = new Dictionary<string, string>();
+                for (int i = 0; i < lst.Length; i++)
+                {
+                    var key = lst[i].Substring(0, lst[i].IndexOf(':')).Trim().ToUpper();
+                    var value = lst[i].Remove(0, lst[i].IndexOf(':') + 1).Trim().ToUpper();
+                    state.Add(key, value);
+                }
+
+                StateDeviceMessage = StateDeviceExtension.StateDevice(state);
             }
         }
 

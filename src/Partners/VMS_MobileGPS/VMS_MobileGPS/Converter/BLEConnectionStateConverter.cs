@@ -1,5 +1,5 @@
 ﻿using BA_MobileGPS.Core;
-
+using Remotion.Linq.Clauses.StreamedData;
 using System;
 using System.Globalization;
 using VMS_MobileGPS.Constant;
@@ -93,6 +93,45 @@ namespace VMS_MobileGPS.Converter
         }
     }
 
+    public class DeviceStateColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var color = (Color)App.Current.Resources["TextPrimaryColor"];
+
+            if (parameter != null)
+            {
+                color = (Color)parameter;
+            }
+            if (value == null)
+            {
+                return Color.FromHex("#e2e2e2");
+            }
+            if (!string.IsNullOrEmpty(value.ToString()))
+            {
+                var msg = value.ToString();
+                if (msg == "Mất tín hiệu" || msg == "Mất sóng GPS" || msg == "Mất sóng vệ tinh")
+                {
+                    color = (Color)App.Current.Resources["DangerousColor"];
+                }
+                else if (msg == "Tín hiệu yếu" || msg == "Sóng GPS yếu" || msg == "Sóng vệ tinh yếu")
+                {
+                    color = (Color)App.Current.Resources["WarningColor"];
+                }
+            }
+            else
+            {
+                return color;
+            }
+            return color;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
     public class BLEConnectionStateColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -124,40 +163,6 @@ namespace VMS_MobileGPS.Converter
 
                 default:
                     return Color.FromHex("#e2e2e2");
-            }
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
-    }
-
-    public class BLEConnectionStateTextColorConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null)
-            {
-                return Color.FromHex("#898989");
-            }
-
-            var state = (BleConnectionState)value;
-
-            switch (state)
-            {
-                case BleConnectionState.NO_CONNECTION:
-                    return Color.FromHex("#898989");
-
-                case BleConnectionState.CONNECTED:
-                    return Color.White;
-
-                case BleConnectionState.PING_OK:
-
-                    return Color.White;
-
-                default:
-                    return Color.FromHex("#898989");
             }
         }
 

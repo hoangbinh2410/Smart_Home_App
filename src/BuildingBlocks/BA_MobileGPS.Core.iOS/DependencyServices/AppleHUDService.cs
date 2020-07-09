@@ -1,12 +1,12 @@
-﻿using BA_MobileGPS.Core;
+﻿using BA_MobileGPS.Core.iOS.DependencyServices;
 using BigTed;
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(HUDService))]
+[assembly: Dependency(typeof(AppleHUDService))]
 
 namespace BA_MobileGPS.Core.iOS.DependencyServices
 {
-    public class HUDService : IHUDProvider
+    public class AppleHUDService : IHUDProvider
     {
         public void DisplayProgress(string message)
         {

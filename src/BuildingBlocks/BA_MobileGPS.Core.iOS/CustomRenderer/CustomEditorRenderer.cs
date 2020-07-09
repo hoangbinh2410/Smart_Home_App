@@ -1,6 +1,8 @@
 ﻿using BA_MobileGPS.Core.Controls;
 using BA_MobileGPS.Core.iOS.CustomRenderer;
-
+using CoreGraphics;
+using Foundation;
+using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 

@@ -70,7 +70,7 @@
     </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="DatePicker">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PurpleColor}, Dark={StaticResource PurpleColor}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
         <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
     </Style>
@@ -92,7 +92,7 @@
     <Style TargetType="IndicatorView">
         <Setter Property="IndicatorColor" Value="{AppThemeBinding Light={StaticResource TextSecondaryColor}, Dark={StaticResource TextSecondaryColor}}" />
         <Setter Property="IndicatorsShape" Value="Circle" />
-        <Setter Property="SelectedIndicatorColor" Value="{AppThemeBinding Light={StaticResource PurpleColor}, Dark={StaticResource PurpleColor}}" />
+        <Setter Property="SelectedIndicatorColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
         <Setter Property="VerticalOptions" Value="End" />
     </Style>
 
@@ -105,14 +105,14 @@
 
     <!--  Button  -->
     <Style Class="AcceptButton" TargetType="Button">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PurpleColor}, Dark={StaticResource PurpleColor}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
         <Setter Property="Text" Value="ĐỒNG Ý" />
     </Style>
 
     <Style Class="CancelButton" TargetType="Button">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PurpleColor}, Dark={StaticResource PurpleColor}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
         <Setter Property="Text" Value="HỦY BỎ" />
     </Style>
 
@@ -135,7 +135,7 @@
     <!--  Label  -->
     <Style Class="GroupTitleLabel" TargetType="Label">
         <Setter Property="FontSize" Value="{StaticResource MyFontSizeLarge}" />
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PurpleColor}, Dark={StaticResource PurpleColor}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
         <Setter Property="VerticalOptions" Value="Center" />
         <Setter Property="HorizontalOptions" Value="StartAndExpand" />
     </Style>

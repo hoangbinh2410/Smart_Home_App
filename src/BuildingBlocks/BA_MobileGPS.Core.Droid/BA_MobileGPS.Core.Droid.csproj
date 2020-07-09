@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="BaseActivity.cs" />
     <Compile Include="CustomRender\IconViewRenderer.cs" />
+    <Compile Include="DependencyServices\Application.cs" />
     <Compile Include="DependencyServices\AppVersionService.cs" />
     <Compile Include="DependencyServices\DisplayMessageService.cs" />
     <Compile Include="DependencyServices\DroidAudioManager.cs" />
@@ -118,6 +119,9 @@
       <Version>18.2.0.44</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfCalendar">
+      <Version>18.2.0.44</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfMaps">
       <Version>18.2.0.44</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfPicker">

@@ -19,8 +19,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:BLEConnectionStateConverter x:Key="BLEConnectionStateConverter" />
-            <converters:BLEConnectionStateColorConverter x:Key="BLEConnectionStateColorConverter" />
-            <converters:BLEConnectionStateTextColorConverter x:Key="BLEConnectionStateTextColorConverter" />
+            <converters:DeviceStateColorConverter x:Key="DeviceStateColorConverter" />
             <converters:TotalNotificationDisplayConverter x:Key="TotalNotificationDisplayConverter" />
             <converters:SOSStateColorConverter x:Key="SOSStateColorConverter" />
             <converters:SOSStateTextColorConverter x:Key="SOSStateTextColorConverter" />
@@ -85,34 +84,27 @@
                 </Grid.ColumnDefinitions>
                 <ffImage:CachedImage
                     Grid.Column="0"
-                    HeightRequest="150"
+                    HeightRequest="120"
                     HorizontalOptions="StartAndExpand"
                     Source="ic_vmsdevice.png"
                     VerticalOptions="CenterAndExpand"
-                    WidthRequest="150" />
+                    WidthRequest="120" />
                 <StackLayout
                     Grid.Column="1"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand">
 
                     <Label LineBreakMode="TailTruncation" Text="{Binding DeviceManager.DevicePlate, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource BLENameConverter}}" />
-                    <sharpnado:MaterialFrame
-                        Grid.Column="0"
-                        Padding="5,0,5,0"
-                        CornerRadius="10"
-                        HorizontalOptions="Center"
-                        LightThemeBackgroundColor="Red">
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="Có tín hiệu" TextColor="{StaticResource WhiteColor}" />
-                            <controls:FontAwesomeIcon
-                                FontAttributes="Bold"
-                                FontSize="15"
-                                HorizontalOptions="End"
-                                Text="{x:Static fontawesome:FontAwesomeIcons.QuestionCircle}"
-                                TextColor="White"
-                                VerticalOptions="Center" />
-                        </StackLayout>
-                    </sharpnado:MaterialFrame>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding StateDeviceMessage}" TextColor="{Binding StateDeviceMessage, Converter={StaticResource DeviceStateColorConverter}}" />
+                        <controls:FontAwesomeIcon
+                            FontAttributes="Bold"
+                            FontSize="15"
+                            HorizontalOptions="End"
+                            Text="{x:Static fontawesome:FontAwesomeIcons.QuestionCircle}"
+                            TextColor="{StaticResource TextSecondaryColor}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
 
                 </StackLayout>
 
