@@ -37,6 +37,7 @@
     <converters:MinutesOfDrivingTimeConverter x:Key="MinutesOfDrivingTimeConverter" />
 
     <converters:TextChangedEventArgsConverter x:Key="TextChangedEventArgsConverter" />
+    
     <converters:SwitchStateChangedEventArgsConverter x:Key="SwitchStateChangedEventArgsConverter" />
 
     <converters:HasDataConverter x:Key="HasDataConverter" />

@@ -1,0 +1,808 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VMS_MobileGPS.Views.VehicleDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    Title="{Binding Title}"
+    NavigationPage.BackButtonTitle="">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NMConverter x:Key="NMConverter" />
+            <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
+            <StackLayout BackgroundColor="{StaticResource WhiteColor}" Spacing="0">
+                <!--  Thông tin phí  -->
+                <Grid Padding="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        HorizontalOptions="FillAndExpand"
+                        HorizontalTextAlignment="Start"
+                        Text="Thông tin phí"
+                        VerticalOptions="Center" />
+                    <StackLayout
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        Spacing="0">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ViewServicePackHistoryCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <Label Text="Lịch sử" VerticalOptions="Center" />
+                        <controls:IconView
+                            Foreground="#c3c3c3"
+                            HeightRequest="25"
+                            HorizontalOptions="Center"
+                            Source="ic_navigate_next.png"
+                            VerticalOptions="Center"
+                            WidthRequest="25" />
+                    </StackLayout>
+                </Grid>
+                <BoxView
+                    Margin="10,0"
+                    BackgroundColor="{StaticResource GrayColor2}"
+                    HeightRequest="0.5"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Start" />
+                <!--  Ngày hết hạn phí  -->
+                <Grid Padding="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        HorizontalOptions="FillAndExpand"
+                        HorizontalTextAlignment="Start"
+                        Text="Ngày hết hạn phí"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Text="{Binding ShipDetailRespone.MCExpried, Converter={StaticResource DateTimeConverter}}"
+                        TextColor="#333333"
+                        VerticalOptions="Center" />
+                </Grid>
+
+                <!--  Thông báo phí  -->
+                <StackLayout
+                    Padding="10"
+                    IsVisible="{Binding ShipDetailRespone.MessageBAP, Converter={StaticResource StringToBoolConverter}}"
+                    VerticalOptions="Center">
+                    <Label
+                        HorizontalOptions="FillAndExpand"
+                        HorizontalTextAlignment="Start"
+                        Text="{Binding ShipDetailRespone.MessageBAP}"
+                        TextType="Html"
+                        VerticalOptions="Center" />
+                </StackLayout>
+
+                <!--  phầln hiển thị thông tin cập nhật trực tuyến  -->
+                <Grid Grid.Row="0" RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <sharpnado:MaterialFrame
+                        Grid.Row="0"
+                        Padding="10"
+                        BackgroundColor="{StaticResource GrayColor2}"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                        <sharpnado:MaterialFrame.Content>
+                            <Label
+                                HorizontalOptions="StartAndExpand"
+                                Text="{i18n:TranslateResource ShipOnlineDetail_Label_TileInforShipOnline}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </sharpnado:MaterialFrame.Content>
+                    </sharpnado:MaterialFrame>
+                    <sharpnado:MaterialFrame
+                        Grid.Row="1"
+                        Padding="10,0,10,0"
+                        BackgroundColor="White"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                        <sharpnado:MaterialFrame.Content>
+                            <Grid Grid.Row="0" RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <!--  biển kiểm soát  -->
+                                <Grid
+                                    x:Name="xxVehiclePlate"
+                                    Grid.Row="0"
+                                    RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource Color_Navigation}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="DeviceName.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+                                        <Label
+                                            Text="{i18n:TranslateResource ShipOnlineDetail_Label_VehiclePlate}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding ShipDetailRespone.PrivateCode}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource Color_Border}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  IMEI  -->
+                                <Grid Grid.Row="1" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource Color_Navigation}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="DeviceBKS.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="IMEI"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding ShipDetailRespone.IMEI}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource Color_Border}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  thời gian  -->
+                                <Grid Grid.Row="2" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource Color_Navigation}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_time_black.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_Time}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding ShipDetailRespone.GPSTime, Converter={StaticResource DateTimeConverter}}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource Color_Border}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  thời gian  -->
+                                <Grid Grid.Row="3" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource Color_Navigation}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_turnon_time_on_day.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource ShipOnlineDetail_Label_AtTime}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding ShipDetailRespone.LostGSMTime, Converter={StaticResource SecondsToStringConverter}, StringFormat='{}({0})'}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource Color_Border}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  VẬN TỐC  -->
+                                <Grid Grid.Row="4" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource Color_Navigation}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_velocity.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_Speed}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding ShipDetailRespone.VelocityGPS, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Common_Lable_NMUnit}}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource Color_Border}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  tọa độ  -->
+                                <Grid Grid.Row="5" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource Color_Navigation}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_mylocation.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource ShipOnlineDetail_Label_Location}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding ShipDetailRespone.Address}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource Color_Border}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  hải lý  -->
+                                <Grid Grid.Row="6" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource Color_Navigation}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_distance.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource ShipOnlineDetail_Label_HaiLy}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding ShipDetailRespone.Km, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm}}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource Color_Border}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+                            </Grid>
+                        </sharpnado:MaterialFrame.Content>
+                    </sharpnado:MaterialFrame>
+                </Grid>
+
+                <!--  phần hiển thị thông tin chủ tầu  -->
+                <Grid Grid.Row="1" RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <sharpnado:MaterialFrame
+                        Grid.Row="0"
+                        Padding="10"
+                        BackgroundColor="{StaticResource Color_Border}"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+
+                        <sharpnado:MaterialFrame.Content>
+                            <Label
+                                HorizontalOptions="StartAndExpand"
+                                Text="{i18n:TranslateResource ShipOnlineDetail_Label_InfoBoat}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </sharpnado:MaterialFrame.Content>
+                    </sharpnado:MaterialFrame>
+                    <sharpnado:MaterialFrame
+                        Grid.Row="1"
+                        Padding="10,0,10,0"
+                        BackgroundColor="White"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                        <sharpnado:MaterialFrame.Content>
+                            <Grid Grid.Row="0" RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <!--  Lái xe  -->
+                                <Grid Grid.Row="0" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource Color_Navigation}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_user.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource ShipOnlineDetail_Label_DriverName}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding ShipDetailRespone.ShipOwnerName}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource Color_Border}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  SĐT  -->
+                                <Grid Grid.Row="1" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal"
+                                        Spacing="10">
+                                        <controls:IconView
+                                            Foreground="{StaticResource Color_Navigation}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_phone_black.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource ShipOnlineDetail_Label_PhoneNumber}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding ShipDetailRespone.ShipOwnerPhoneNumber}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource Color_Border}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  thuyền trưởng  -->
+                                <Grid Grid.Row="2" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource Color_Navigation}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_caption.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource ShipOnlineDetail_Label_Captain}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding ShipDetailRespone.ShipCaptainName}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource Color_Border}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  SĐT Caption  -->
+                                <Grid Grid.Row="3" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal"
+                                        Spacing="10">
+                                        <controls:IconView
+                                            Foreground="{StaticResource Color_Navigation}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_phone_black.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource ShipOnlineDetail_Label_CaptainPhoneNumber}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding ShipDetailRespone.ShipCaptainPhoneNumber}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource Color_Border}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  số thuyền viên  -->
+                                <Grid Grid.Row="4" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource Color_Navigation}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_groupcar.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource ShipOnlineDetail_Label_BoatMember}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding ShipDetailRespone.ShipMembers}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource Color_Border}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  cảng xuất phát  -->
+                                <Grid Grid.Row="5" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource Color_Navigation}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_port.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource ShipOnlineDetail_Label_PortStart}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding ShipDetailRespone.PortDeparture}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource Color_Border}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+                            </Grid>
+                        </sharpnado:MaterialFrame.Content>
+                    </sharpnado:MaterialFrame>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

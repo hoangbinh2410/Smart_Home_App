@@ -69,7 +69,10 @@ namespace VMS_MobileGPS
             containerRegistry.RegisterForNavigation<MessageOnlineDetailPage, MessageOnlineDetailViewModel>(PageNames.MessageOnlineDetailPage.ToString());
 
 
-            containerRegistry.RegisterForNavigation<MainPage, BA_MobileGPS.Core.ViewModels.MainPageViewModel >();
+            containerRegistry.RegisterForNavigation<MainPage, BA_MobileGPS.Core.ViewModels.MainPageViewModel>("MainPage");
+            containerRegistry.RegisterForNavigation<BoundaryPage, BoundaryViewModel>("BoundaryPage");
+            containerRegistry.RegisterForNavigation<DistancePage, DistancePageViewModel>("DistancePage");
+            containerRegistry.RegisterForNavigation<VehicleDetailPage, VehicleDetailViewModel>("VehicleDetailPage");
 
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
         }

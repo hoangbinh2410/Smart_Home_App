@@ -51,6 +51,9 @@ namespace VMS_MobileGPS.ViewModels
         public ICommand PushtoListVehicleOnlineCommand { get; private set; }
         public DelegateCommand GoDistancePageCommand { get; private set; }
 
+        private string carSearch;
+        public string CarSearch { get => carSearch; set => SetProperty(ref carSearch, value); }
+  
         public OnlinePageViewModel(INavigationService navigationService, IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository,
             IUserService userService)
             : base(navigationService)
@@ -69,17 +72,18 @@ namespace VMS_MobileGPS.ViewModels
 
             carActive = new VehicleOnline();
             selectedVehicleGroup = new List<int>();
+            CarSearch = MobileResource.Online_Label_SeachVehicle2;
 
-            //if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
-            //{
-            //    mapType = MapType.Hybrid;
-            //    ColorMapType = (Color)App.Current.Resources["Color_Navigation"];
-            //}
-            //else
-            //{
-            //    mapType = MapType.Street;
-            //    ColorMapType = (Color)App.Current.Resources["Color_Placeholder"];
-            //}
+            if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
+            {
+                mapType = MapType.Hybrid;
+                ColorMapType = (Color)App.Current.Resources["GrayColor2"];
+            }
+            else
+            {
+                mapType = MapType.Street;
+                ColorMapType = (Color)App.Current.Resources["BlueDarkColor"];
+            }
 
             zoomLevel = MobileUserSettingHelper.Mapzoom;
 
@@ -314,7 +318,7 @@ namespace VMS_MobileGPS.ViewModels
             Circles.Add(new Circle
             {
                 StrokeWidth = 2,
-                StrokeColor = (Color)App.Current.Resources["Color_Navigation"],
+                StrokeColor = (Color)App.Current.Resources["BlueDarkColor"],
                 FillColor = Color.Transparent,
                 Radius = Distance.FromKilometers(10 * 1.852),
                 Center = new Position(CarActive.Lat, CarActive.Lng)
@@ -323,7 +327,7 @@ namespace VMS_MobileGPS.ViewModels
             Circles.Add(new Circle
             {
                 StrokeWidth = 2,
-                StrokeColor = (Color)App.Current.Resources["Color_Navigation"],
+                StrokeColor = (Color)App.Current.Resources["BlueDarkColor"],
                 FillColor = Color.Transparent,
                 Radius = Distance.FromKilometers(20 * 1.852),
                 Center = new Position(CarActive.Lat, CarActive.Lng)
@@ -332,7 +336,7 @@ namespace VMS_MobileGPS.ViewModels
             Circles.Add(new Circle
             {
                 StrokeWidth = 2,
-                StrokeColor = (Color)App.Current.Resources["Color_Navigation"],
+                StrokeColor = (Color)App.Current.Resources["BlueDarkColor"],
                 FillColor = Color.Transparent,
                 Radius = Distance.FromKilometers(30 * 1.852),
                 Center = new Position(CarActive.Lat, CarActive.Lng)
@@ -352,7 +356,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("BoundaryPage");
+                await NavigationService.NavigateAsync("BaseNavigationPage/BoundaryPage", useModalNavigation: true);
             });
         }
 
@@ -363,11 +367,11 @@ namespace VMS_MobileGPS.ViewModels
                 if (MapType == MapType.Street)
                 {
                     MapType = MapType.Hybrid;
-                    ColorMapType = (Color)App.Current.Resources["Color_Navigation"];
+                    ColorMapType = (Color)App.Current.Resources["GrayColor2"];
                 }
                 else
                 {
-                    ColorMapType = (Color)App.Current.Resources["Color_Placeholder"];
+                    ColorMapType = (Color)App.Current.Resources["BlueDarkColor"];
                     MapType = MapType.Street;
                 }
                 byte maptype = 1;
@@ -453,7 +457,7 @@ namespace VMS_MobileGPS.ViewModels
                     { ParameterKey.CarDetail, CarActive }
                 };
 
-                await NavigationService.NavigateAsync(PageNames.VehicleDetailPage.ToString(), parameters, false);
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true);
             });
         }
 
@@ -478,7 +482,7 @@ namespace VMS_MobileGPS.ViewModels
                     { ParameterKey.VehicleOnline, CarActive }
                 };
 
-                await NavigationService.NavigateAsync("DistancePage", parameters, false);
+                await NavigationService.NavigateAsync("BaseNavigationPage/DistancePage", parameters, true);
             });
         }
 

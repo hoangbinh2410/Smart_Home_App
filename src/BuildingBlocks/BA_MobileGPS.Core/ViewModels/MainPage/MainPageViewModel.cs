@@ -32,9 +32,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IVehicleDebtMoneyService vehicleDebtMoneyService;
         private readonly INotificationService notificationService;
 
-        private bool isVisibleTabItem;
-        public bool IsVisibleTabItem { get => isVisibleTabItem; set => SetProperty(ref isVisibleTabItem, value); }
-
         private Timer timer;
         public MainPageViewModel(INavigationService navigationService, IVehicleOnlineService vehicleOnlineService,
             IAlertService alertService, ISignalRServices signalRServices, IAppVersionService appVersionService, IAppDeviceService appDeviceService,
@@ -50,9 +47,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
             EventAggregator.GetEvent<OnResumeEvent>().Subscribe(OnResumePage);
             EventAggregator.GetEvent<OnSleepEvent>().Subscribe(OnSleepPage);
-            EventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
-
-            IsVisibleTabItem = true;
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -148,7 +142,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             StaticSettings.TimeServer = StaticSettings.TimeServer.AddSeconds(1);
         }
-
 
         private void GetListVehicleOnline()
         {
@@ -635,11 +628,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                 }
             });
-        }
-
-        private void ShowTabItem(bool check)
-        {
-            IsVisibleTabItem = check;
         }
     }
 }

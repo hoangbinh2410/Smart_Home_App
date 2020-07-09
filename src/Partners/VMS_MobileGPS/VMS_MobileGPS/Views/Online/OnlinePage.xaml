@@ -7,11 +7,13 @@
     xmlns:cluster="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:effect="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:mapbindings="clr-namespace:BA_MobileGPS.Core.GoogleMap.Behaviors;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     xmlns:views="clr-namespace:VMS_MobileGPS.Views"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentView.Resources>
@@ -24,7 +26,7 @@
         </Grid.RowDefinitions>
         <Grid
             Padding="15,5"
-            BackgroundColor="White"
+            BackgroundColor="Blue"
             HeightRequest="100">
             <StackLayout
                 HeightRequest="35"
@@ -78,13 +80,13 @@
             </cluster:Map.Behaviors>
             <cluster:Map.Triggers>
                 <DataTrigger
-                    Binding="{Binding Source={x:Reference botGroup}, Path=Margin}"
+                    Binding="{Binding Source={x:Reference BoxControls}, Path=Margin}"
                     TargetType="cluster:Map"
                     Value="15,30,15,130">
                     <Setter Property="Margin" Value="0,0,0,110" />
                 </DataTrigger>
                 <DataTrigger
-                    Binding="{Binding Source={x:Reference botGroup}, Path=Margin}"
+                    Binding="{Binding Source={x:Reference BoxControls}, Path=Margin}"
                     TargetType="cluster:Map"
                     Value="15,30">
                     <Setter Property="Margin" Value="0" />
@@ -93,8 +95,6 @@
         </cluster:Map>
 
         <!--  Khung search bar phía trên  -->
-
-
         <Grid
             Grid.Row="1"
             Margin="10"
@@ -103,42 +103,49 @@
             ColumnSpacing="10"
             HeightRequest="45"
             VerticalOptions="StartAndExpand">
+
             <pancake:PancakeView
                 Padding="0"
-                BackgroundColor="White"
+                BackgroundColor="{StaticResource WhiteColor}"
                 CornerRadius="22">
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                </pancake:PancakeView.GestureRecognizers>
                 <StackLayout
                     Padding="0"
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal">
                     <pancake:PancakeView
-                        BackgroundColor="Blue"
+                        BackgroundColor="{StaticResource BlueDarkColor}"
                         CornerRadius="22"
                         WidthRequest="45">
                         <controls:IconView
-                            Margin="10"
-                            Foreground="White"
+                            Margin="13"
+                            Foreground="{StaticResource WhiteColor}"
                             Source="ic_search.png" />
                     </pancake:PancakeView>
-                    <Entry
-                        Margin="0,0,20,0"
-                        HorizontalOptions="FillAndExpand"
-                        Placeholder="Tìm kiếm phương tiện">
-                        <Entry.Effects>
-                            <effect:BorderlessEffect />
-                        </Entry.Effects>
-                    </Entry>
+                    <Label
+                        Margin="0"
+                        HorizontalOptions="StartAndExpand"
+                        Text="{Binding CarSearch}"
+                        TextColor="{StaticResource TextPrimaryColor}"
+                        VerticalOptions="Center" />
                 </StackLayout>
             </pancake:PancakeView>
+
+
             <pancake:PancakeView
                 Grid.Column="1"
                 Padding="0"
-                BackgroundColor="White"
+                BackgroundColor="{StaticResource WhiteColor}"
                 CornerRadius="22"
                 WidthRequest="45">
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
+                </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
-                    Margin="2,0,0,10"
-                    Foreground="Blue"
+                    Margin="8"
+                    Foreground="{StaticResource BlueDarkColor}"
                     Source="ic_doubleship.png"
                     VerticalOptions="Center" />
             </pancake:PancakeView>
@@ -147,32 +154,38 @@
                 BackgroundColor="White"
                 CornerRadius="22"
                 WidthRequest="45">
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="FilterStatusCar" />
+                </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Margin="8"
-                    Foreground="Blue"
-                    Source="ic_list.png" />
+                    Foreground="{StaticResource BlueDarkColor}"
+                    Source="ic_filter.png" />
             </pancake:PancakeView>
         </Grid>
         <!--  Nhóm button góc dưới  -->
         <StackLayout
-            x:Name="botGroup"
+            x:Name="BoxControls"
             Grid.Row="1"
-            Margin="{Binding BottomGroupMargin}"
+            Margin="10"
             HorizontalOptions="EndAndExpand"
             VerticalOptions="End">
             <pancake:PancakeView
-                BackgroundColor="White"
+                BackgroundColor="{StaticResource WhiteColor}"
                 CornerRadius="25"
                 HeightRequest="50"
                 WidthRequest="50">
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding MyLocationCommand}" />
+                </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
-                    Margin="5"
-                    Foreground="Blue"
+                    Margin="9"
+                    Foreground="{StaticResource BlueDarkColor}"
                     Source="ic_vector.png" />
             </pancake:PancakeView>
             <pancake:PancakeView
                 Padding="0"
-                BackgroundColor="White"
+                BackgroundColor="{StaticResource WhiteColor}"
                 CornerRadius="25"
                 HeightRequest="50"
                 WidthRequest="50">
@@ -180,20 +193,23 @@
                     <TapGestureRecognizer Command="{Binding ChangeMapTypeCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
-                    Margin="8"
-                    Foreground="Blue"
+                    Margin="10"
+                    Foreground="{Binding ColorMapType}"
                     HeightRequest="10"
-                    Source="ic_group.png" />
+                    Source="icon_map_type.png" />
             </pancake:PancakeView>
             <pancake:PancakeView
-                BackgroundColor="White"
+                BackgroundColor="{StaticResource BlueDarkColor}"
                 CornerRadius="25"
                 HeightRequest="50"
                 WidthRequest="50">
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}" />
+                </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
-                    Margin="10"
-                    Foreground="Blue"
-                    Source="ic_rectange.png" />
+                    Margin="13"
+                    Foreground="{StaticResource WhiteColor}"
+                    Source="ic_bounded_area.png" />
             </pancake:PancakeView>
         </StackLayout>
 
@@ -234,7 +250,7 @@
                     <controls:IconView
                         Grid.Row="0"
                         Grid.Column="0"
-                        Foreground="Blue"
+                        Foreground="{StaticResource BlueDarkColor}"
                         HeightRequest="20"
                         HorizontalOptions="Center"
                         Source="ic_ship.png"
@@ -260,7 +276,7 @@
                         Grid.Column="1"
                         Margin="0,0,40,0"
                         Padding="0"
-                        BackgroundColor="Blue"
+                        BackgroundColor="{StaticResource BlueDarkColor}"
                         CornerRadius="22"
                         HorizontalOptions="End"
                         WidthRequest="30">
@@ -269,7 +285,7 @@
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
                             Margin="5"
-                            Foreground="White"
+                            Foreground="{StaticResource WhiteColor}"
                             HeightRequest="20"
                             HorizontalOptions="End"
                             Source="ic_radius.png"
@@ -285,11 +301,11 @@
                         HorizontalOptions="End"
                         WidthRequest="30">
                         <pancake:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ShowBorderCommand}" />
+                            <TapGestureRecognizer Command="{Binding GoDistancePageCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
-                            Margin="8"
-                            Foreground="White"
+                            Margin="9"
+                            Foreground="{StaticResource WhiteColor}"
                             HeightRequest="12"
                             HorizontalOptions="End"
                             Source="ic_distance2.png"
@@ -299,7 +315,7 @@
                 </Grid>
                 <BoxView
                     Grid.Row="1"
-                    BackgroundColor="Gray"
+                    BackgroundColor="{StaticResource GrayColor}"
                     HeightRequest="0.5"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Start" />
@@ -312,7 +328,7 @@
                     <controls:IconView
                         Grid.Row="0"
                         Grid.Column="0"
-                        Foreground="Blue"
+                        Foreground="{StaticResource BlueDarkColor}"
                         HeightRequest="20"
                         HorizontalOptions="Center"
                         Source="ic_time24.png"
@@ -329,7 +345,7 @@
                 </Grid>
                 <BoxView
                     Grid.Row="3"
-                    BackgroundColor="Gray"
+                    BackgroundColor="{StaticResource GrayColor}"
                     HeightRequest="0.5"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Start" />
@@ -341,7 +357,7 @@
                     <controls:IconView
                         Grid.Row="0"
                         Grid.Column="0"
-                        Foreground="Blue"
+                        Foreground="{StaticResource BlueDarkColor}"
                         HeightRequest="20"
                         HorizontalOptions="Center"
                         Source="ic_coordinates.png"
@@ -356,7 +372,7 @@
                 </Grid>
                 <BoxView
                     Grid.Row="5"
-                    BackgroundColor="Gray"
+                    BackgroundColor="{StaticResource GrayColor}"
                     HeightRequest="0.5"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Start" />
@@ -373,7 +389,7 @@
                         <controls:IconView
                             Grid.Row="0"
                             Grid.Column="0"
-                            Foreground="Blue"
+                            Foreground="{StaticResource BlueDarkColor}"
                             HeightRequest="20"
                             HorizontalOptions="Center"
                             Source="ic_speed.png"
@@ -395,7 +411,7 @@
                         <controls:IconView
                             Grid.Row="0"
                             Grid.Column="0"
-                            Foreground="Blue"
+                            Foreground="{StaticResource BlueDarkColor}"
                             HeightRequest="20"
                             HorizontalOptions="Center"
                             Source="ic_distance.png"
@@ -413,7 +429,7 @@
                 </Grid>
                 <BoxView
                     Grid.Row="7"
-                    BackgroundColor="Gray"
+                    BackgroundColor="{StaticResource GrayColor}"
                     HeightRequest="0.5"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Start" />
@@ -425,36 +441,128 @@
                     </Grid.ColumnDefinitions>
                     <Button
                         Grid.Column="0"
-                        BackgroundColor="Blue"
+                        BackgroundColor="{StaticResource BlueDarkColor}"
                         BorderRadius="20"
                         Command="{Binding PushToRouterPageCommand}"
                         FontAttributes="Bold"
                         FontSize="10"
                         HeightRequest="35"
                         Text="{i18n:TranslateResource Route_Label_TitleVMS}"
-                        TextColor="White" />
+                        TextColor="{StaticResource WhiteColor}" />
                     <Button
                         Grid.Column="1"
-                        BackgroundColor="Blue"
+                        BackgroundColor="{StaticResource BlueDarkColor}"
                         BorderRadius="20"
                         Command="{Binding PushToRouterPageCommand}"
                         FontAttributes="Bold"
                         FontSize="10"
                         HeightRequest="35"
                         Text="Phí phương tiện"
-                        TextColor="White" />
+                        TextColor="{StaticResource WhiteColor}" />
                     <Button
                         Grid.Column="2"
-                        BackgroundColor="Blue"
+                        BackgroundColor="{StaticResource BlueDarkColor}"
                         BorderRadius="20"
                         Command="{Binding PushToDetailPageCommand}"
                         FontAttributes="Bold"
                         FontSize="10"
                         HeightRequest="35"
                         Text="{i18n:TranslateResource Online_Button_Detail}"
-                        TextColor="White" />
+                        TextColor="{StaticResource WhiteColor}" />
                 </Grid>
             </Grid>
         </sharpnado:MaterialFrame>
+
+        <!--  Trạng thái xe  -->
+
+        <Grid
+            x:Name="boxStatusVehicle"
+            Grid.Row="1"
+            AbsoluteLayout.LayoutFlags="PositionProportional, HeightProportional">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="0.5*" />
+            </Grid.ColumnDefinitions>
+            <StackLayout
+                x:Name="gapStack"
+                Grid.Column="0"
+                BackgroundColor="Transparent"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill">
+                <StackLayout.GestureRecognizers>
+                    <SwipeGestureRecognizer Direction="Right" Swiped="SwipeGestureBoxStatus" />
+                    <TapGestureRecognizer Tapped="TappedHidenBoxStatus" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            <Frame
+                Grid.Column="1"
+                Padding="0"
+                BackgroundColor="{StaticResource WhiteColor}"
+                CornerRadius="0"
+                HasShadow="True"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <syncfusion:SfListView
+                        x:Name="lvStatusCar"
+                        Margin="0"
+                        AutoFitMode="Height"
+                        ItemSpacing="0"
+                        ItemTapped="TapStatusVehicel"
+                        ItemsSource="{Binding ListVehilceStatus, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedVehicleStatus}"
+                        SelectionBackgroundColor="White"
+                        TapCommand="{Binding SelectStatusVehicelCommand}">
+                        <syncfusion:SfListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnSpacing="0" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <StackLayout
+                                        Padding="10"
+                                        Orientation="Horizontal"
+                                        Spacing="5"
+                                        VerticalOptions="FillAndExpand">
+                                        <ffImage:CachedImage
+                                            HorizontalOptions="Start"
+                                            Source="{Binding Icon}"
+                                            VerticalOptions="Center" />
+                                        <StackLayout Spacing="3" VerticalOptions="Center">
+                                            <Label
+                                                HorizontalOptions="Start"
+                                                Text="{Binding Name}"
+                                                VerticalOptions="Center" />
+                                            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                                <Label
+                                                    HorizontalOptions="Start"
+                                                    Text="{Binding CountCar}"
+                                                    VerticalOptions="Center" />
+                                                <Label
+                                                    HorizontalOptions="Start"
+                                                    Text="{i18n:TranslateResource Common_Label_Vehicle}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <BoxView
+                                        Grid.Row="1"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+                            </DataTemplate>
+                        </syncfusion:SfListView.ItemTemplate>
+                    </syncfusion:SfListView>
+                </Grid>
+            </Frame>
+        </Grid>
     </Grid>
 </ContentView>

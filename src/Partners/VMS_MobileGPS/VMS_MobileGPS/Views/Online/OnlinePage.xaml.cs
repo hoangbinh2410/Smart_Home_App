@@ -136,6 +136,7 @@ namespace VMS_MobileGPS.Views
                         var vehicleselect = mCurrentVehicleList.FirstOrDefault(x => x.VehiclePlate == vehiclePlate.VehiclePlate);
                         if (vehicleselect != null)
                         {
+                            vm.CarSearch = vehicleselect.PrivateCode;
                             UpdateSelectVehicle(vehicleselect);
                         }
                     }
@@ -253,23 +254,23 @@ namespace VMS_MobileGPS.Views
 
                 await _animations.Go(States.HideFilter, false);
 
-                //var pageWidth = Xamarin.Forms.Application.Current?.MainPage?.Width;
+                var pageWidth = Xamarin.Forms.Application.Current?.MainPage?.Width;
 
-                //if (pageWidth > 0)
-                //{
-                //    AbsoluteLayout.SetLayoutBounds(boxStatusVehicle, new Rectangle(1, 0, pageWidth.GetValueOrDefault(), 1));
+                if (pageWidth > 0)
+                {
+                    AbsoluteLayout.SetLayoutBounds(boxStatusVehicle, new Rectangle(1, 0, pageWidth.GetValueOrDefault(), 1));
 
-                //    _animations.Add(States.ShowStatus, new[] {
-                //                                            new ViewTransition(boxStatusVehicle, AnimationType.TranslationX, 0,  pageWidth.GetValueOrDefault(), delay: 200), // Active and visible
-                //                                            new ViewTransition(boxStatusVehicle, AnimationType.Opacity, 1, 0), // Active and visible
-                //                                          });
+                    _animations.Add(States.ShowStatus, new[] {
+                                                            new ViewTransition(boxStatusVehicle, AnimationType.TranslationX, 0,  pageWidth.GetValueOrDefault(), delay: 200), // Active and visible
+                                                            new ViewTransition(boxStatusVehicle, AnimationType.Opacity, 1, 0), // Active and visible
+                                                          });
 
-                //    _animations.Add(States.HideStatus, new[] {
-                //                                            new ViewTransition(boxStatusVehicle, AnimationType.TranslationX, pageWidth.GetValueOrDefault()),
-                //                                            new ViewTransition(boxStatusVehicle, AnimationType.Opacity, 0),
-                //                                          });
+                    _animations.Add(States.HideStatus, new[] {
+                                                            new ViewTransition(boxStatusVehicle, AnimationType.TranslationX, pageWidth.GetValueOrDefault()),
+                                                            new ViewTransition(boxStatusVehicle, AnimationType.Opacity, 0),
+                                                          });
 
-                //}
+                }
 
 
 
@@ -579,18 +580,18 @@ namespace VMS_MobileGPS.Views
         private void InitVehicleStatus(List<VehicleOnline> vehicleList)
         {
             //txtCountVehicle.Text = vehicleList.Count().ToString();
-            //mCurrentVehicleList = vehicleList;
-            //// Lấy trạng thái xe
-            //List<VehicleStatusViewModel> listStatus = (new VehicleStatusHelper()).DictVehicleStatus.Values.Where(x => x.IsEnable).ToList();
-            //if (listStatus != null && listStatus.Count > 0)
-            //{
-            //    listStatus.ForEach(x =>
-            //    {
-            //        x.CountCar = StateVehicleExtension.GetCountCarByStatus(vehicleList, (VehicleStatusGroup)x.ID);
-            //    });
+            mCurrentVehicleList = vehicleList;
+            // Lấy trạng thái xe
+            List<VehicleStatusViewModel> listStatus = (new VehicleStatusHelper()).DictVehicleStatus.Values.Where(x => x.IsEnable).ToList();
+            if (listStatus != null && listStatus.Count > 0)
+            {
+                listStatus.ForEach(x =>
+                {
+                    x.CountCar = StateVehicleExtension.GetCountCarByStatus(vehicleList, (VehicleStatusGroup)x.ID);
+                });
 
-            //    lvStatusCar.ItemsSource = listStatus;
-            //}
+                lvStatusCar.ItemsSource = listStatus;
+            }
         }
 
         /// <summary>
@@ -707,7 +708,7 @@ namespace VMS_MobileGPS.Views
         /// <param name="carinfo"></param>
         private void HideBoxInfoCarActive(VehicleOnline carinfo)
         {
-            HideBoxStatus();
+            HideBoxStatus(); // ẩn tạm chưa có box trạng thái
 
             HideBoxInfo();
 
@@ -786,7 +787,7 @@ namespace VMS_MobileGPS.Views
         private void MapOnPinClicked(object sender, PinClickedEventArgs args)
         {
             args.Handled = true;
-          
+
             try
             {
                 if (args.Pin != null && args.Pin.Label != mCarActive.VehiclePlate)
@@ -810,6 +811,7 @@ namespace VMS_MobileGPS.Views
         public async void HideBoxInfo()
         {
             vm.HideBorder();
+            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(true);
             SetNoPaddingWithFooter();
             await _animations.Go(States.HideFilter, true);
         }
@@ -830,7 +832,7 @@ namespace VMS_MobileGPS.Views
         {
             double paddingMap = boxInfo.Height;
             googleMap.Padding = new Thickness(0, 0, 0, (int)paddingMap);
-            //BoxControls.Margin = new Thickness(20, 0, 20, (int)paddingMap + 20);
+            BoxControls.Margin = new Thickness(20, 0, 20, (int)paddingMap + 20);
         }
 
         /* Set padding map khi có thông tin xe ở footer - tracking */
@@ -838,7 +840,7 @@ namespace VMS_MobileGPS.Views
         public void SetNoPaddingWithFooter()
         {
             googleMap.Padding = new Thickness(0, 0, 0, 0);
-            //BoxControls.Margin = new Thickness(20);
+            BoxControls.Margin = new Thickness(20);
         }
 
         private async void HideBoxStatus()
@@ -941,13 +943,13 @@ namespace VMS_MobileGPS.Views
 
         private void CacularVehicleStatus()
         {
-            //if (lvStatusCar.ItemsSource != null && ((List<VehicleStatusViewModel>)(lvStatusCar.ItemsSource)).Count > 0)
-            //{
-            //    ((List<VehicleStatusViewModel>)(lvStatusCar.ItemsSource)).ForEach(x =>
-            //    {
-            //        x.CountCar = StateVehicleExtension.GetCountCarByStatus(mCurrentVehicleList, (VehicleStatusGroup)x.ID);
-            //    });
-            //}
+            if (lvStatusCar.ItemsSource != null && ((List<VehicleStatusViewModel>)(lvStatusCar.ItemsSource)).Count > 0)
+            {
+                ((List<VehicleStatusViewModel>)(lvStatusCar.ItemsSource)).ForEach(x =>
+                {
+                    x.CountCar = StateVehicleExtension.GetCountCarByStatus(mCurrentVehicleList, (VehicleStatusGroup)x.ID);
+                });
+            }
         }
 
         //private void SelectMenuFAB(object sender, XViewEventArgs e)
