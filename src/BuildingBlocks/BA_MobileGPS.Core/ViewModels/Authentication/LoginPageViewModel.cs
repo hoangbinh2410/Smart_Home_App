@@ -27,6 +27,7 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class LoginPageViewModel : ViewModelBase
     {
+        #region Constructor
         private readonly IAuthenticationService authenticationService;
         private readonly IDBVersionService dBVersionService;
         private readonly IResourceService resourceService;
@@ -34,9 +35,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IAppVersionService appVersionService;
         private readonly INotificationService notificationService;
         private readonly IPingServerService pingServerService;
-        
-
-
 
         public LoginPageViewModel(INavigationService navigationService, IAuthenticationService authenticationService,
             IAppVersionService appVersionService, IDBVersionService dBVersionService,
@@ -51,10 +49,8 @@ namespace BA_MobileGPS.Core.ViewModels
             this.dBVersionService = dBVersionService;
             this.notificationService = notificationService;
             this.pingServerService = pingServerService;
-            
 
             EventAggregator.GetEvent<SelectLanguageTypeEvent>().Subscribe(UpdateLanguage);
-
             language = new LanguageRespone()
             {
                 CodeName = CultureCountry.Vietnamese,
@@ -62,10 +58,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 Description = "Tiếng Việt",
                 PK_LanguageID = 1
             };
-
             InitValidations();
         }
+        #endregion
 
+        #region Init
         public override void Initialize(INavigationParameters parameters)
         {
             GetInfomation();
@@ -123,121 +120,6 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        public override void OnDestroy()
-        {
-            EventAggregator.GetEvent<SelectLanguageTypeEvent>().Unsubscribe(UpdateLanguage);
-        }
-
-        public override void OnPageAppearingFirstTime()
-        {
-        }
-
-        public void UpdateLanguage(LanguageRespone param)
-        {
-            if (param == null)
-                return;
-
-            try
-            {
-                Language = param;
-
-                Device.BeginInvokeOnMainThread(async () =>
-                {
-                    if (Settings.CurrentLanguage != Language.CodeName)
-                    {
-                        Settings.CurrentLanguage = Language.CodeName;
-
-                            //Update lại ngôn ngữ trên giao diện
-                            MobileResource._DicMobileResource = null;
-
-                        await NavigationService.NavigateAsync("/ChangeLanguage");
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_ErrorTryAgain);
-            }
-        }
-
-        #region Property
-
-        public string AppVersion => appVersionService.GetAppVersion();
-
-        public ValidatableObject<string> UserName { get; set; }
-
-        public ValidatableObject<string> Password { get; set; }
-
-        private LanguageRespone language;
-        public LanguageRespone Language
-        {
-            get => language; 
-            set
-            {
-                SetProperty(ref language, value);
-                RaisePropertyChanged();
-            }
-        }
-
-        private string hotline;
-        public string Hotline { get => hotline; set => SetProperty(ref hotline, value); }
-
-        private string emailSupport;
-        public string EmailSupport { get => emailSupport; set => SetProperty(ref emailSupport, value); }
-
-        private string copyRight;
-        public string CopyRight { get => copyRight; set => SetProperty(ref copyRight, value); }
-
-        private bool rememberme;
-        public bool Rememberme
-        {
-            get => rememberme; 
-            set
-            {
-                Settings.Rememberme = value;
-                SetProperty(ref rememberme, value);
-            }
-        }
-
-        private string message;
-        public string Message { get => message; set => SetProperty(ref message, value); }
-
-        private string labelExperienceBA;
-        public string LabelExperienceBA { get => labelExperienceBA; set => SetProperty(ref labelExperienceBA, value); }
-
-        public bool isUseExperience;
-        public bool IsUseExperience { get => isUseExperience; set => SetProperty(ref isUseExperience, value); }
-
-
-
-
-        #endregion Property
-
-        #region PrivateMethod
-
-        private void InitValidations()
-        {
-            UserName = new ValidatableObject<string>();
-            Password = new ValidatableObject<string>();
-
-            UserName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = MobileResource.Common_Property_NullOrEmpty(MobileResource.Login_Textbox_UserName) });
-            Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = MobileResource.Common_Property_NullOrEmpty(MobileResource.Login_Textbox_Password) });
-        }
-
-        private void GetLanguageType()
-        {
-            TryExecute(() =>
-            {
-                    //lấy hết resource theo ngôn ngữ
-                    var lstlanguage = languageTypeService.Find(x => x.CodeName == Settings.CurrentLanguage)?.FirstOrDefault();
-                if (lstlanguage != null)
-                {
-                    Language = lstlanguage;
-                }
-            });
-        }
-
         private Task GetMobileSetting()
         {
             return RunOnBackground(async () =>
@@ -255,11 +137,11 @@ namespace BA_MobileGPS.Core.ViewModels
                             MobileSettingHelper.DicMobileConfigurations.Add(item.Name, item.Value);
                         }
                     });
-                    IsUseExperience = MobileSettingHelper.IsUseExperience;
-                    EmailSupport = MobileSettingHelper.EmailSupport;
-                    Hotline = MobileSettingHelper.HotlineGps;
-                    CopyRight = MobileSettingHelper.CopyRight;
-                    LabelExperienceBA = MobileResource.Login_Lable_ExperienceBA.ToUpper();
+                    //IsUseExperience = MobileSettingHelper.IsUseExperience;
+                    //EmailSupport = MobileSettingHelper.EmailSupport;
+                    //Hotline = MobileSettingHelper.HotlineGps;
+                    //CopyRight = MobileSettingHelper.CopyRight;
+                    //LabelExperienceBA = MobileResource.Login_Lable_ExperienceBA.ToUpper();
 
                     if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
                     {
@@ -276,10 +158,10 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             TryExecute(() =>
             {
-                    // get db local
-                    var dbLocal = dBVersionService.All();
-                    //nếu db local có dữ liệu thì mới gọi xuống server check cập nhật . không có thì phải vào trang insall cập nhật
-                    if (dbLocal == null || dbLocal.Count() <= 0)
+                // get db local
+                var dbLocal = dBVersionService.All();
+                //nếu db local có dữ liệu thì mới gọi xuống server check cập nhật . không có thì phải vào trang insall cập nhật
+                if (dbLocal == null || dbLocal.Count() <= 0)
                 {
                     Settings.IsChangeDataLocalDB = true;
                     return;
@@ -298,8 +180,8 @@ namespace BA_MobileGPS.Core.ViewModels
                             if (Enum.TryParse<LocalDBNames>(item.TableName.ToUpper(), out var tableName))
                             {
                                 var lastUpdateDBLocal = dbLocal.FirstOrDefault(x => x.TableName == item.TableName);
-                                    // khác version và có thời gian update lớn hơn thời gian lưu trong db thì mới cập nhật
-                                    if (lastUpdateDBLocal != null && lastUpdateDBLocal.UpdatedDate <= item.UpdatedDate && item.VersionDB != lastUpdateDBLocal.VersionDB)
+                                // khác version và có thời gian update lớn hơn thời gian lưu trong db thì mới cập nhật
+                                if (lastUpdateDBLocal != null && lastUpdateDBLocal.UpdatedDate <= item.UpdatedDate && item.VersionDB != lastUpdateDBLocal.VersionDB)
                                 {
                                     Settings.IsChangeDataLocalDB = true;
                                 }
@@ -326,8 +208,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (versionDB != null && !string.IsNullOrEmpty(versionDB.VersionName) && !string.IsNullOrEmpty(versionDB.LinkDownload))
                 {
-                        // Nếu giá trị bị null hoặc giá trị đường link thay đổi => cập nhật lại
-                        if (string.IsNullOrEmpty(Settings.AppLinkDownload) || !versionDB.LinkDownload.Equals(Settings.AppLinkDownload, StringComparison.InvariantCultureIgnoreCase))
+                    // Nếu giá trị bị null hoặc giá trị đường link thay đổi => cập nhật lại
+                    if (string.IsNullOrEmpty(Settings.AppLinkDownload) || !versionDB.LinkDownload.Equals(Settings.AppLinkDownload, StringComparison.InvariantCultureIgnoreCase))
                     {
                         Settings.AppLinkDownload = versionDB.LinkDownload;
                     }
@@ -336,13 +218,13 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         Settings.AppVersionDB = versionDB.VersionName;
                         string title = "Cập nhập phiên bản mới";
-                            //string message = !string.IsNullOrEmpty(versionDB.Description) ? versionDB.Description : "Cập nhập phiên bản mới";
-                            string accept = MobileResource.Common_Button_Update;
+                        //string message = !string.IsNullOrEmpty(versionDB.Description) ? versionDB.Description : "Cập nhập phiên bản mới";
+                        string accept = MobileResource.Common_Button_Update;
                         string later = MobileResource.Common_Button_Update_Later;
                         string cancel = MobileResource.Common_Button_No;
 
-                            // Nếu yêu cầu cài lại app
-                            if (versionDB.IsMustUpdate)
+                        // Nếu yêu cầu cài lại app
+                        if (versionDB.IsMustUpdate)
                         {
                             Device.BeginInvokeOnMainThread(async () =>
                             {
@@ -367,8 +249,8 @@ namespace BA_MobileGPS.Core.ViewModels
                                     }
                                     else //bỏ qua
                                     {
-                                            // lưu biến vào đây
-                                            Settings.TempVersionName = versionDB.VersionName;
+                                        // lưu biến vào đây
+                                        Settings.TempVersionName = versionDB.VersionName;
                                         return;
                                     }
                                 });
@@ -377,14 +259,98 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
-                            // lưu version DB hiện tại 
-                            Settings.TempVersionName = versionDB.VersionName;
+                        // lưu version DB hiện tại 
+                        Settings.TempVersionName = versionDB.VersionName;
                         Settings.AppVersionDB = versionDB.VersionName;
                     }
                 }
             });
         }
 
+        public override void OnDestroy()
+        {
+            EventAggregator.GetEvent<SelectLanguageTypeEvent>().Unsubscribe(UpdateLanguage);
+        }
+        #endregion
+
+        #region Event subcribe
+        public void UpdateLanguage(LanguageRespone param)
+        {
+            if (param == null)
+                return;
+
+            try
+            {
+                Language = param;
+
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    if (Settings.CurrentLanguage != Language.CodeName)
+                    {
+                        Settings.CurrentLanguage = Language.CodeName;
+
+                        //Update lại ngôn ngữ trên giao diện
+                        MobileResource._DicMobileResource = null;
+
+                        await NavigationService.NavigateAsync("/ChangeLanguage");
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_ErrorTryAgain);
+            }
+        }
+        #endregion
+
+        #region Property
+        public string AppVersion => appVersionService.GetAppVersion();
+
+        public ValidatableObject<string> UserName { get; set; }
+
+        public ValidatableObject<string> Password { get; set; }
+
+        private LanguageRespone language;
+        public LanguageRespone Language
+        {
+            get => language;
+            set
+            {
+                SetProperty(ref language, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        //private string hotline;
+        //public string Hotline { get => hotline; set => SetProperty(ref hotline, value); }
+
+        //private string emailSupport;
+        //public string EmailSupport { get => emailSupport; set => SetProperty(ref emailSupport, value); }
+
+        //private string copyRight;
+        //public string CopyRight { get => copyRight; set => SetProperty(ref copyRight, value); }
+        //private string message;
+        //public string Message { get => message; set => SetProperty(ref message, value); }
+        //private string labelExperienceBA;
+        //public string LabelExperienceBA { get => labelExperienceBA; set => SetProperty(ref labelExperienceBA, value); }
+
+        //public bool isUseExperience;
+        //public bool IsUseExperience { get => isUseExperience; set => SetProperty(ref isUseExperience, value); }
+
+        private bool rememberme;
+        public bool Rememberme
+        {
+            get => rememberme;
+            set
+            {
+                Settings.Rememberme = value;
+                SetProperty(ref rememberme, value);
+            }
+        }
+        #endregion Property
+
+        #region ICommand
         public ICommand PushtoLanguageCommand => new DelegateCommand(() =>
         {
             SafeExecute(async () => await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true));
@@ -394,9 +360,9 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(() =>
             {
-                var popupServices  = PrismApplicationBase.Current.Container.Resolve<IPopupServices>();
+                var popupServices = PrismApplicationBase.Current.Container.Resolve<IPopupServices>();
                 var title = MobileResource.Login_ForgotPassword_PopupTitle;
-                var content = MobileResource.Login_ForgotPassword_PopupContent;               
+                var content = MobileResource.Login_ForgotPassword_PopupContent;
                 popupServices.ShowNotificationIconPopup(title, content, "ic_Lock.png", Color.Blue, Views.IconPosititon.Left);
             });
         });
@@ -405,17 +371,16 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             PopupNavigation.Instance.PushAsync(new NonLoginFeaturesPopup());
         });
+        //public ICommand PushToRegisterConsultCommand => new DelegateCommand(() =>
+        //{
+        //    SafeExecute(async () => await NavigationService.NavigateAsync("BaseNavigationPage/RegisterConsultPage", null, useModalNavigation: true));
+        //    //SafeExecute(async () => await NavigationService.NavigateAsync("MenuNavigationPage/VerifyCodeOtpPage", null, useModalNavigation: true));
+        //});
 
-        public ICommand PushToRegisterConsultCommand => new DelegateCommand(() =>
-        {
-            SafeExecute(async () => await NavigationService.NavigateAsync("BaseNavigationPage/RegisterConsultPage", null, useModalNavigation: true));
-                //SafeExecute(async () => await NavigationService.NavigateAsync("MenuNavigationPage/VerifyCodeOtpPage", null, useModalNavigation: true));
-            });
-
-        public ICommand PushToExperienceBACommand => new DelegateCommand(() =>
-        {
-            SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkExperience)));
-        });
+        //public ICommand PushToExperienceBACommand => new DelegateCommand(() =>
+        //{
+        //    SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkExperience)));
+        //});
 
         public ICommand CallHotLineCommand => new DelegateCommand(() =>
         {
@@ -451,11 +416,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         });
 
-        private bool Validate()
-        {
-            return UserName.Validate() && Password.Validate();
-        }
-
         public ICommand LoginCommand => new DelegateCommand(() =>
         {
             SafeExecute(async () =>
@@ -465,64 +425,63 @@ namespace BA_MobileGPS.Core.ViewModels
                     bool isValid = Validate();
                     if (isValid)
                     {
-                            //using (new HUDService(MobileResource.Common_Message_Processing))
-                            //{
-                            var request = new LoginRequest
+                        using (new HUDService(MobileResource.Common_Message_Processing))
                         {
-                            UserName = UserName.Value,
-                            Password = Password.Value,
-                            AppType = App.AppType
-                        };
+                            var request = new LoginRequest
+                            {
+                                UserName = UserName.Value,
+                                Password = Password.Value,
+                                AppType = App.AppType
+                            };
                             // Lấy thông tin token
                             var user = await authenticationService.LoginStreamAsync(request);
-                        if (user != null)
-                        {
-                            switch (user.Status)
+                            if (user != null)
                             {
-                                case LoginStatus.Success://Đăng nhập thành công
-
+                                switch (user.Status)
+                                {
+                                    case LoginStatus.Success://Đăng nhập thành công
                                         if (!string.IsNullOrEmpty(user.AccessToken))
-                                    {
-                                        OnLoginSuccess(user);
-                                    }
-                                    else
-                                    {
+                                        {
+                                            OnLoginSuccess(user);
+                                        }
+                                        else
+                                        {
+                                            DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountPasswordIncorrect);
+                                            StaticSettings.User = null;
+                                        }
+                                        break;
+
+                                    case LoginStatus.LoginFailed://Đăng nhập không thành công
+
                                         DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountPasswordIncorrect);
+
                                         StaticSettings.User = null;
-                                    }
-                                    break;
 
-                                case LoginStatus.LoginFailed://Đăng nhập không thành công
+                                        break;
 
-                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountPasswordIncorrect);
+                                    case LoginStatus.UpdateRequired:
+                                        StaticSettings.User = null;
 
-                                    StaticSettings.User = null;
+                                        break;
 
-                                    break;
-
-                                case LoginStatus.UpdateRequired:
-                                    StaticSettings.User = null;
-
-                                    break;
-
-                                case LoginStatus.Locked://Tài khoản đang bị khóa
+                                    case LoginStatus.Locked://Tài khoản đang bị khóa
 
                                         DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountLocked);
 
-                                    StaticSettings.User = null;
+                                        StaticSettings.User = null;
 
-                                    break;
+                                        break;
 
-                                case LoginStatus.WrongAppType:
+                                    case LoginStatus.WrongAppType:
 
-                                    DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountPasswordIncorrect);
+                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountPasswordIncorrect);
 
                                         //DisplayMessage.ShowMessageInfo("Tài khoản của bạn không được phép đăng nhập hệ thống");
                                         break;
+                                }
                             }
                         }
-                            //}
-                        }
+                    }
                 }
                 else
                 {
@@ -530,6 +489,35 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         });
+        #endregion
+
+        #region PrivateMethod
+        private bool Validate()
+        {
+            return UserName.Validate() && Password.Validate();
+        }
+
+        private void InitValidations()
+        {
+            UserName = new ValidatableObject<string>();
+            Password = new ValidatableObject<string>();
+
+            UserName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = MobileResource.Common_Property_NullOrEmpty(MobileResource.Login_Textbox_UserName) });
+            Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = MobileResource.Common_Property_NullOrEmpty(MobileResource.Login_Textbox_Password) });
+        }
+
+        private void GetLanguageType()
+        {
+            TryExecute(() =>
+            {
+                //lấy hết resource theo ngôn ngữ
+                var lstlanguage = languageTypeService.Find(x => x.CodeName == Settings.CurrentLanguage)?.FirstOrDefault();
+                if (lstlanguage != null)
+                {
+                    Language = lstlanguage;
+                }
+            });
+        }
 
         private async void OnLoginSuccess(LoginResponse user)
         {
@@ -605,7 +593,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (items != null && items.Data != null)
                 {
                     if (items.Data.IsAlwayShow) // true luôn luôn hiển thị
-                        {
+                    {
                         Device.BeginInvokeOnMainThread(async () =>
                         {
                             await NavigationService.NavigateAsync("NotificationPopupWhenLogin", parameters: new NavigationParameters
@@ -627,10 +615,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             });
                         }
                     }
-                }
-                else
-                {
-
                 }
             });
         }
