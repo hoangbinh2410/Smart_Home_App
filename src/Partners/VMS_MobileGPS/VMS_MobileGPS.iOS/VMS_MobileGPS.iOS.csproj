@@ -123,7 +123,7 @@
     <None Include="GoogleService-Info.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <BundleResource Include="internetconnection.json" />
+    <BundleResource Include="Resources\internetconnection.json" />
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork%402x" />
     <BundleResource Include="en.lproj\InfoPlist.strings" />
@@ -138,6 +138,7 @@
     <BundleResource Include="Resources\Lato-Regular.ttf" />
     <BundleResource Include="Resources\Lato-Semibold.ttf" />
     <BundleResource Include="vi.lproj\InfoPlist.strings" />
+    <BundleResource Include="Resources\bluetooth.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Plugin.BLE">

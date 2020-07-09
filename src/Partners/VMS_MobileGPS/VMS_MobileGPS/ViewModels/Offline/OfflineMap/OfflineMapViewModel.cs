@@ -462,21 +462,11 @@ namespace VMS_MobileGPS.ViewModels
         private void SendLocation(object sender, ElapsedEventArgs e)
         {
             SendRequestLocationDevice();
-            SendRequestStateDevice();
         }
 
         private async void SendRequestLocationDevice()
         {
             string str = string.Format("GCFG,{0}", "997");
-
-            Debug.WriteLine(str);
-
-            var ret = await AppManager.BluetoothService.Send(str);
-        }
-
-        private async void SendRequestStateDevice()
-        {
-            string str = string.Format("GCFG,{0}", "999");
 
             Debug.WriteLine(str);
 
