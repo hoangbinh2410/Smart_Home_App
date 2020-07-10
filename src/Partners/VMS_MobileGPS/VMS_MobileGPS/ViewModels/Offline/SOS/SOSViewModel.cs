@@ -104,7 +104,7 @@ namespace VMS_MobileGPS.ViewModels
                         var duration = TimeSpan.FromSeconds(1);
                         Vibration.Vibrate(duration);
                         await audioManager.PlaySound("z_sos.mp3");
-                        await PageDialog.DisplayAlertAsync("Thông báo", resultSOS.Message, "Gửi SOS thành công");
+                        await PageDialog.DisplayAlertAsync("Thông báo", "Gửi SOS thành công", "Đồng ý");
                     }
                 }
             });
@@ -116,7 +116,7 @@ namespace VMS_MobileGPS.ViewModels
             {
                 if (AppManager.BluetoothService.State == Service.BleConnectionState.NO_CONNECTION)
                 {
-                    if (await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?",  "ĐỒNG Ý", "BỎ QUA"))
+                    if (await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?", "ĐỒNG Ý", "BỎ QUA"))
                     {
                         await NavigationService.NavigateAsync(PageNames.BluetoothPage.ToString());
                     }
@@ -125,7 +125,7 @@ namespace VMS_MobileGPS.ViewModels
                 }
                 else
                 {
-                    var action = await PageDialog.DisplayAlertAsync("BA SAT", "Bạn có thực sự muốn tắt SOS không?",  "Đồng ý", "Bỏ qua");
+                    var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bạn có thực sự muốn tắt SOS không?", "Đồng ý", "Bỏ qua");
                     if (action)
                     {
                         var resultSOS = await bluetoothService.Send("SOS:OFF");

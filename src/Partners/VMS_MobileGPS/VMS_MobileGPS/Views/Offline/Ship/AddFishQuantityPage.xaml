@@ -12,88 +12,96 @@
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame">
     <pages:PopupPage.Content>
         <sharpnado:MaterialFrame
-            Margin="40"
+            Margin="40,0,40,0"
             Padding="0"
             CornerRadius="10"
             HasShadow="False"
             HorizontalOptions="CenterAndExpand"
             LightThemeBackgroundColor="White"
             VerticalOptions="CenterAndExpand">
-            <StackLayout>
-                <Label
-                    BackgroundColor="{StaticResource PrimaryColor}"
-                    FontAttributes="Bold"
-                    FontSize="20"
-                    HeightRequest="45"
-                    HorizontalOptions="FillAndExpand"
-                    HorizontalTextAlignment="Center"
-                    Text="Loài"
-                    TextColor="White"
-                    VerticalTextAlignment="Center" />
-                <input:SfTextInputLayout
-                    Margin="10,10,10,0"
-                    ContainerType="Outlined"
-                    HorizontalOptions="FillAndExpand"
-                    LeadingViewPosition="Inside"
-                    VerticalOptions="Start">
-                    <input:SfTextInputLayout.LeadingView>
-                        <controls:FontAwesomeIcon
-                            FontAttributes="Bold"
-                            FontSize="20"
-                            HorizontalOptions="Center"
-                            Text="{x:Static fontawesome:FontAwesomeIcons.Fish}"
-                            TextColor="{StaticResource PrimaryColor}"
-                            VerticalOptions="Center" />
-                    </input:SfTextInputLayout.LeadingView>
-                    <combobox:SfComboBox
-                        DataSource="{Binding ListFish}"
-                        DisplayMemberPath="Name"
-                        EnableSelectionIndicator="True"
-                        HeightRequest="40"
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0">
+                    <Label
+                        BackgroundColor="{StaticResource PrimaryColor}"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HeightRequest="45"
                         HorizontalOptions="FillAndExpand"
-                        MaximumDropDownHeight="200"
-                        SelectedItem="{Binding SelectedFish}"
-                        ShowBorder="False" />
-                </input:SfTextInputLayout>
-                <Label
-                    Margin="10,5,10,0"
-                    FontAttributes="Bold"
-                    FontSize="18"
-                    HorizontalOptions="Center"
-                    Text="Khối lượng (Kg)"
-                    TextColor="{StaticResource PrimaryColor}" />
-                <input:SfTextInputLayout
-                    Margin="10,0,10,0"
-                    ContainerType="Outlined"
-                    HeightRequest="40"
-                    HorizontalOptions="FillAndExpand"
-                    LeadingViewPosition="Inside"
-                    VerticalOptions="Start">
-                    <input:SfTextInputLayout.LeadingView>
-                        <controls:IconView
-                            Foreground="{StaticResource PrimaryColor}"
-                            Source="ic_meluoi.png"
-                            VerticalOptions="CenterAndExpand"
-                            WidthRequest="40" />
-                    </input:SfTextInputLayout.LeadingView>
-                    <Entry
-                        HeightRequest="50"
+                        HorizontalTextAlignment="Center"
+                        Text="Loài"
+                        TextColor="White"
+                        VerticalTextAlignment="Center" />
+                    <input:SfTextInputLayout
+                        Margin="10,10,10,0"
+                        ContainerType="Outlined"
                         HorizontalOptions="FillAndExpand"
-                        Keyboard="Numeric"
-                        MaxLength="15"
-                        Text="{Binding Weight}">
-                        <Entry.Behaviors>
-                            <behaviors:QuantityValidatorBehavior />
-                        </Entry.Behaviors>
-                    </Entry>
-                </input:SfTextInputLayout>
-                <Label
-                    Margin="10,0,10,0"
-                    HorizontalOptions="Center"
-                    IsVisible="{Binding ErrorText, Converter={StaticResource HasDataConverter}}"
-                    Text="{Binding ErrorText}"
-                    TextColor="{StaticResource DangerousColor}" />
+                        LeadingViewPosition="Inside"
+                        VerticalOptions="Start">
+                        <input:SfTextInputLayout.LeadingView>
+                            <controls:FontAwesomeIcon
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                HorizontalOptions="Center"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.Fish}"
+                                TextColor="{StaticResource PrimaryColor}"
+                                VerticalOptions="Center" />
+                        </input:SfTextInputLayout.LeadingView>
+                        <combobox:SfComboBox
+                            DataSource="{Binding ListFish}"
+                            DisplayMemberPath="Name"
+                            EnableSelectionIndicator="True"
+                            HeightRequest="50"
+                            HorizontalOptions="FillAndExpand"
+                            MaximumDropDownHeight="200"
+                            SelectedItem="{Binding SelectedFish}"
+                            ShowBorder="False" />
+                    </input:SfTextInputLayout>
+                    <Label
+                        Margin="10,5,10,0"
+                        FontAttributes="Bold"
+                        FontSize="18"
+                        HorizontalOptions="Start"
+                        Text="Khối lượng (Kg)"
+                        TextColor="{StaticResource PrimaryColor}" />
+                    <input:SfTextInputLayout
+                        Margin="10,0,10,0"
+                        ContainerType="Outlined"
+                        HorizontalOptions="FillAndExpand"
+                        LeadingViewPosition="Inside"
+                        VerticalOptions="Start">
+                        <input:SfTextInputLayout.LeadingView>
+                            <controls:IconView
+                                Foreground="{StaticResource PrimaryColor}"
+                                Source="ic_meluoi.png"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="40" />
+                        </input:SfTextInputLayout.LeadingView>
+                        <Entry
+                            HeightRequest="50"
+                            HorizontalOptions="FillAndExpand"
+                            Keyboard="Numeric"
+                            MaxLength="15"
+                            Text="{Binding Weight}">
+                            <Entry.Behaviors>
+                                <behaviors:QuantityValidatorBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+                    </input:SfTextInputLayout>
+                    <Label
+                        Margin="10,0,10,0"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding ErrorText, Converter={StaticResource HasDataConverter}}"
+                        Text="{Binding ErrorText}"
+                        TextColor="{StaticResource DangerousColor}" />
+
+
+                </StackLayout>
                 <StackLayout
+                    Grid.Row="1"
                     Margin="10"
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal"
@@ -112,7 +120,8 @@
                         HorizontalOptions="FillAndExpand"
                         Text="Chấp nhận" />
                 </StackLayout>
-            </StackLayout>
+            </Grid>
+
         </sharpnado:MaterialFrame>
     </pages:PopupPage.Content>
 </pages:PopupPage>
