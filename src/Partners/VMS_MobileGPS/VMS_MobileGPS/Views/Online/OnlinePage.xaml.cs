@@ -115,8 +115,6 @@ namespace VMS_MobileGPS.Views
             IsInitMarker = false;
 
             StartTimmerCaculatorStatus();
-
-            InitShowCase();
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)
@@ -831,7 +829,7 @@ namespace VMS_MobileGPS.Views
         {
             double paddingMap = boxInfo.HeightRequest;
             googleMap.Padding = new Thickness(0, 0, 0, (int)paddingMap);
-            BoxControls.Margin = new Thickness(20, 0, 20, (int)paddingMap + 20);
+            BoxControls.Margin = new Thickness(20, 0, 20, (int)paddingMap + 25);
         }
 
         /* Set padding map khi có thông tin xe ở footer - tracking */
@@ -955,93 +953,6 @@ namespace VMS_MobileGPS.Views
         //{
         //    vm.PushToFABPageCommand.Execute(e.EventIndex);
         //}
-
-        private void InitShowCase()
-        {
-            if (StaticSettings.User.IsNewUser)
-            {
-                var vehiclePage = helperAdvanceService.Find(x => x.HelperAdvanceID == (int)HelpAdvanceEnum.OnlinePage).FirstOrDefault();
-                if (vehiclePage != null && !vehiclePage.IsViewHelp)
-                {
-                    vehiclePage.IsViewHelp = true;
-                    helperAdvanceService.Update(vehiclePage);
-
-                    StartShowCase();
-                }
-                else
-                {
-                    if (vehiclePage == null)
-                    {
-                        helperAdvanceService.Add(new HelperAdvance()
-                        {
-                            HelperAdvanceID = (int)HelpAdvanceEnum.OnlinePage,
-                            IsViewHelp = true
-                        });
-
-                        StartShowCase();
-                    }
-                }
-            }
-        }
-
-        private void StartShowCase()
-        {
-            //Device.StartTimer(TimeSpan.FromMilliseconds(300), () =>
-            //{
-            //    var builder = new TourGuideBuilder();
-            //    var tourGuide = builder
-            //         .AddStep(btnMyLocation, new ShowCaseConfig()
-            //         {
-            //             TextHorizontalPosition = HorizontalPosition.Center,
-            //             TextVerticalPosition = VerticalPosition.Center,
-            //             PimaryText = MobileResource.HelpAdvance_Lable_MyLocationVMS,
-            //             SecondaryText = MobileResource.HelpAdvance_Message_MyLocationVMS,
-            //             BackgroundColor = Color.Black,
-            //             FocusShape = FocusShape.RoundedRectangle
-            //         })
-            //         .AddStep(btnMapType, new ShowCaseConfig()
-            //         {
-            //             TextHorizontalPosition = HorizontalPosition.Center,
-            //             TextVerticalPosition = VerticalPosition.Center,
-            //             PimaryText = MobileResource.HelpAdvance_Lable_MapTypeVMS,
-            //             SecondaryText = MobileResource.HelpAdvance_Message_MapTypeVMS,
-            //             BackgroundColor = Color.Black,
-            //             FocusShape = FocusShape.Circle
-            //         })
-            //         .AddStep(btnsearch, new ShowCaseConfig()
-            //         {
-            //             TextHorizontalPosition = HorizontalPosition.Center,
-            //             TextVerticalPosition = VerticalPosition.Center,
-            //             PimaryText = MobileResource.HelpAdvance_Lable_SearchCarVMS,
-            //             SecondaryText = MobileResource.HelpAdvance_Message_SearchCarVMS,
-            //             BackgroundColor = Color.Black,
-            //             FocusShape = FocusShape.RoundedRectangle
-            //         })
-            //         .AddStep(btnGroup, new ShowCaseConfig()
-            //         {
-            //             TextHorizontalPosition = HorizontalPosition.Center,
-            //             TextVerticalPosition = VerticalPosition.Center,
-            //             PimaryText = MobileResource.HelpAdvance_Lable_FilterVehicleGroupVMS,
-            //             SecondaryText = MobileResource.HelpAdvance_Message_FilterVehicleGroupVMS,
-            //             BackgroundColor = Color.Black,
-            //             FocusShape = FocusShape.Circle
-            //         })
-            //         .AddStep(btnSearchStatus, new ShowCaseConfig()
-            //         {
-            //             TextHorizontalPosition = HorizontalPosition.Center,
-            //             TextVerticalPosition = VerticalPosition.Center,
-            //             PimaryText = MobileResource.HelpAdvance_Lable_FilterStatusVMS,
-            //             SecondaryText = MobileResource.HelpAdvance_Message_FilterStatusVMS,
-            //             BackgroundColor = Color.Black,
-            //             FocusShape = FocusShape.Circle
-            //         });
-            //    var starttour = tourGuide.Build();
-
-            //    starttour.StartTour();
-
-            //    return false;
-            //});
-        }
 
         #endregion Private Method
     }

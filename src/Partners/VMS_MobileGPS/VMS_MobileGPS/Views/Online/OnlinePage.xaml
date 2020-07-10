@@ -175,6 +175,7 @@
         <views:OnlineCarInfoView
             x:Name="boxInfo"
             Grid.Row="1"
+            Margin="0,0,0,-15"
             Padding="0,10"
             AbsoluteLayout.LayoutBounds="0,1,1,350"
             AbsoluteLayout.LayoutFlags="YProportional, WidthProportional"
