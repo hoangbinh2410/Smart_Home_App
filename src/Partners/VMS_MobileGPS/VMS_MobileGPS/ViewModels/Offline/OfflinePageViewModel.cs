@@ -389,7 +389,7 @@ namespace VMS_MobileGPS.ViewModels
                         result = await NavigationService.NavigateAsync("/LoginPage");
                     }
                 }
-                else if (PageNames.SOSPage == args || PageNames.MessagesPage == args)
+                else if (PageNames.SOSPage == args)
                 {
                     if (GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.NO_CONNECTION)
                     {

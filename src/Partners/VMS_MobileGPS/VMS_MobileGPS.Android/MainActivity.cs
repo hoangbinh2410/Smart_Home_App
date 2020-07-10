@@ -2,10 +2,12 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Views;
+using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Droid;
 using BA_MobileGPS.Droid.Setup;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace VMS_MobileGPS.Droid
 {
@@ -19,7 +21,7 @@ namespace VMS_MobileGPS.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
-            Forms.SetFlags(new string[] { "CarouselView_Experimental", "IndicatorView_Experimental", "FastRenderers_Experimental" , "AppTheme_Experimental" });
+            Forms.SetFlags(new string[] { "CarouselView_Experimental", "IndicatorView_Experimental", "FastRenderers_Experimental", "AppTheme_Experimental" });
 
 
             Forms.Init(this, bundle);
@@ -27,6 +29,8 @@ namespace VMS_MobileGPS.Droid
             ToolSetup.Initialize(this, bundle);
 
             LoadApplication(new VMSApp(new AndroidInitializer()));
+
+            App.Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
         }
 
         public override void OnBackPressed()
@@ -34,29 +38,6 @@ namespace VMS_MobileGPS.Droid
             if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
             {
 
-            }
-        }
-
-        bool _ignoreNewFocus;
-        public override bool DispatchTouchEvent(MotionEvent ev)
-        {
-            var focused = CurrentFocus;
-            _ignoreNewFocus = (focused?.Parent is EditorRenderer entryRenderer && entryRenderer.Element.AutomationId == "ChatMessageEditor");
-            var result = base.DispatchTouchEvent(ev);
-            _ignoreNewFocus = false;
-            return result;
-        }
-
-        public override Android.Views.View CurrentFocus
-        {
-            get
-            {
-                if (_ignoreNewFocus)
-                {
-                    return null;
-                }
-
-                return base.CurrentFocus;
             }
         }
     }
