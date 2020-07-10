@@ -24,13 +24,6 @@
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem
-            Command="{Binding ClosePageCommand}"
-            Icon="ic_close.png"
-            IconImageSource="ic_close.png"
-            Order="Primary"
-            Priority="0"
-            Text="Đóng" />
-        <ToolbarItem
             Command="{Binding SearchBluetoothCommand}"
             Icon="ic_bluetooth.png"
             IconImageSource="ic_bluetooth.png"

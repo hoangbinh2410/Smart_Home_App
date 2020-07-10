@@ -15,70 +15,74 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
-        <StackLayout
-            Padding="5"
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="Center">
-            <Label Grid.Row="0" FontSize="12">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <FormattedString.Spans>
-                            <Span Text="{Binding Message.WordsLeft, StringFormat='{}Số kí tự còn lại: {0} ký tự'}" />
-                            <Span Text="{Binding TotalByteSms, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource TotalBlockSmsConverter}, StringFormat='{}(~ {0} block)'}" />
-                        </FormattedString.Spans>
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
-            <sharpnado:MaterialFrame
+        <ScrollView>
+            <StackLayout
                 Padding="5"
-                BorderColor="{StaticResource GrayColor}"
-                CornerRadius="20"
-                HasShadow="True"
                 HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="#f6f8fa"
-                VerticalOptions="FillAndExpand">
-                <Grid ColumnSpacing="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <controls:CustomEditor
-                        x:Name="txtMessage"
-                        Grid.Column="0"
-                        AutoSize="TextChanges"
-                        BackgroundColor="#f6f8fa"
-                        FontSize="14"
-                        HorizontalOptions="FillAndExpand"
-                        Keyboard="Chat"
-                        MaxLength="{Binding TotalByteSms, Source={x:Static localstatic:GlobalResourcesVMS.Current}}"
-                        Placeholder="Tin nhắn văn bản"
-                        Text="{Binding Message.Content}"
-                        VerticalOptions="CenterAndExpand">
-                        <controls:CustomEditor.Effects>
-                            <effects:BorderlessEffect />
-                        </controls:CustomEditor.Effects>
-                    </controls:CustomEditor>
-                    <sharpnado:MaterialFrame
-                        Grid.Column="1"
-                        Padding="0"
-                        CornerRadius="20"
-                        HeightRequest="40"
-                        LightThemeBackgroundColor="{StaticResource PrimaryColor}"
-                        WidthRequest="40">
-                        <controls:FontAwesomeIcon
-                            FontSize="20"
-                            HorizontalOptions="Center"
-                            Text="{x:Static fontawesome:FontAwesomeIcons.PaperPlane}"
-                            TextColor="White"
-                            VerticalOptions="Center">
-                            <controls:FontAwesomeIcon.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SendMessageCommand}" />
-                            </controls:FontAwesomeIcon.GestureRecognizers>
-                        </controls:FontAwesomeIcon>
-                    </sharpnado:MaterialFrame>
+                VerticalOptions="Center">
+                <Label Grid.Row="0" FontSize="12">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="{Binding Message.WordsLeft, StringFormat='{}Số kí tự còn lại: {0} ký tự'}" />
+                                <Span Text="{Binding TotalByteSms, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource TotalBlockSmsConverter}, StringFormat='{}(~ {0} block)'}" />
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <sharpnado:MaterialFrame
+                    Padding="5"
+                    BorderColor="{StaticResource GrayColor}"
+                    CornerRadius="20"
+                    HasShadow="True"
+                    HorizontalOptions="FillAndExpand"
+                    LightThemeBackgroundColor="#f6f8fa"
+                    VerticalOptions="FillAndExpand">
+                    <Grid ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <controls:CustomEditor
+                            x:Name="txtMessage"
+                            Grid.Column="0"
+                            AutoSize="TextChanges"
+                            AutomationId="ChatMessageEditor"
+                            BackgroundColor="#f6f8fa"
+                            FontSize="14"
+                            HorizontalOptions="FillAndExpand"
+                            Keyboard="Chat"
+                            MaxLength="{Binding TotalByteSms, Source={x:Static localstatic:GlobalResourcesVMS.Current}}"
+                            Placeholder="Tin nhắn văn bản"
+                            Text="{Binding Message.Content}"
+                            VerticalOptions="CenterAndExpand">
+                            <controls:CustomEditor.Effects>
+                                <effects:BorderlessEffect />
+                            </controls:CustomEditor.Effects>
+                        </controls:CustomEditor>
+                        <sharpnado:MaterialFrame
+                            Grid.Column="1"
+                            Padding="0"
+                            CornerRadius="20"
+                            HeightRequest="40"
+                            LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                            WidthRequest="40">
+                            <controls:FontAwesomeIcon
+                                FontSize="20"
+                                HorizontalOptions="Center"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.PaperPlane}"
+                                TextColor="White"
+                                VerticalOptions="Center">
+                                <controls:FontAwesomeIcon.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SendMessageCommand}" />
+                                </controls:FontAwesomeIcon.GestureRecognizers>
+                            </controls:FontAwesomeIcon>
+                        </sharpnado:MaterialFrame>
 
-                </Grid>
-            </sharpnado:MaterialFrame>
-        </StackLayout>
+                    </Grid>
+                </sharpnado:MaterialFrame>
+            </StackLayout>
+        </ScrollView>
+
     </ContentView.Content>
 </ContentView>
