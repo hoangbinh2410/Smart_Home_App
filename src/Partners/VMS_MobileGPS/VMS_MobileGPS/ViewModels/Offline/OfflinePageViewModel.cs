@@ -88,7 +88,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             base.OnNavigatedTo(parameters);
             IsConnectBLE = GlobalResourcesVMS.Current.DeviceManager.State == BleConnectionState.NO_CONNECTION ? false : true;
-            if (IsConnectBLE && StateDevice.Count > 0)
+            if (IsConnectBLE && StateDevice.Count == 0)
             {
                 StateDeviceMessage = "Đã kết nối";
             }
