@@ -11,6 +11,7 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms"
+    x:Name="MainContentPage"
     prism:ViewModelLocator.AutowireViewModel="True"
     Appearing="ContentPage_Appearing">
     <ContentPage.Resources>
@@ -60,14 +61,15 @@
                 </Grid.RowDefinitions>
                 <tabs:ViewSwitcher
                     x:Name="Switcher"
-                    Grid.Row="0"
                     Margin="0,0,0,-10"
-                    Animate="True">
-                    <!--<local:HomePage />
-                    <local:VehiclesPage />
+                    Animate="True"
+                    SelectedIndex="{Binding SelectedIndex}">
+                    <local:Home prism:ViewModelLocator.AutowirePartialView="{x:Reference MainContentPage}" />
+                    <!--<local:VehiclesPage />
                     <local:MornitoringPage />
                     <local:VoyagePage />
                     <local:AccountsPage />-->
+
                 </tabs:ViewSwitcher>
 
                 <tabs:TabHostView
@@ -77,7 +79,7 @@
                     BackgroundColor="{AppThemeBinding Light={StaticResource WhiteColor},
                                                       Dark={StaticResource WhiteColor}}"
                     HeightRequest="60"
-                    SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}"
+                    SelectedIndex="{Binding SelectedIndex}"
                     TabType="Fixed">
                     <tabs:TabHostView.Tabs>
                         <tabs:BottomTabItem IconImageSource="ic_Home.png" Label="{i18n:TranslateResource Menu_TabItem_Home}" />

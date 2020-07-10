@@ -4570,91 +4570,97 @@ namespace BA_MobileGPS.Core.Droid
 			public static int notify_panel_notification_icon_bg = 2131165586;
 			
 			// aapt resource value: 0x7F070193
-			public static int popup_forms_android_close_icon = 2131165587;
+			public static int notSelected = 2131165587;
 			
 			// aapt resource value: 0x7F070194
-			public static int popup_forms_android_shadow = 2131165588;
+			public static int popup_forms_android_close_icon = 2131165588;
 			
 			// aapt resource value: 0x7F070195
-			public static int popup_forms_dark_theme_close_icon = 2131165589;
+			public static int popup_forms_android_shadow = 2131165589;
 			
 			// aapt resource value: 0x7F070196
-			public static int popup_forms_light_theme_close_icon = 2131165590;
+			public static int popup_forms_dark_theme_close_icon = 2131165590;
 			
 			// aapt resource value: 0x7F070197
-			public static int roundCornerButton = 2131165591;
+			public static int popup_forms_light_theme_close_icon = 2131165591;
 			
 			// aapt resource value: 0x7F070198
-			public static int RoundedBackground = 2131165592;
+			public static int roundCornerButton = 2131165592;
 			
 			// aapt resource value: 0x7F070199
-			public static int roundedbg = 2131165593;
+			public static int RoundedBackground = 2131165593;
 			
 			// aapt resource value: 0x7F07019A
-			public static int roundedbgdark = 2131165594;
+			public static int roundedbg = 2131165594;
 			
 			// aapt resource value: 0x7F07019B
-			public static int RoundedSearchBarBackground = 2131165595;
+			public static int roundedbgdark = 2131165595;
 			
 			// aapt resource value: 0x7F07019C
-			public static int savebutton = 2131165596;
+			public static int RoundedSearchBarBackground = 2131165596;
 			
 			// aapt resource value: 0x7F07019D
-			public static int Separator = 2131165597;
+			public static int savebutton = 2131165597;
 			
 			// aapt resource value: 0x7F07019E
-			public static int success_shape = 2131165598;
+			public static int selected = 2131165598;
 			
 			// aapt resource value: 0x7F07019F
-			public static int text_color_button = 2131165599;
+			public static int Separator = 2131165599;
 			
 			// aapt resource value: 0x7F0701A0
-			public static int toolbaritem_background = 2131165600;
+			public static int success_shape = 2131165600;
 			
 			// aapt resource value: 0x7F0701A1
-			public static int toolbaritem_pressed = 2131165601;
+			public static int text_color_button = 2131165601;
 			
 			// aapt resource value: 0x7F0701A2
-			public static int tooltip_arrow_down = 2131165602;
+			public static int toolbaritem_background = 2131165602;
 			
 			// aapt resource value: 0x7F0701A3
-			public static int tooltip_arrow_down_left = 2131165603;
+			public static int toolbaritem_pressed = 2131165603;
 			
 			// aapt resource value: 0x7F0701A4
-			public static int tooltip_arrow_down_right = 2131165604;
+			public static int tooltip_arrow_down = 2131165604;
 			
 			// aapt resource value: 0x7F0701A5
-			public static int tooltip_arrow_left = 2131165605;
+			public static int tooltip_arrow_down_left = 2131165605;
 			
 			// aapt resource value: 0x7F0701A6
-			public static int tooltip_arrow_right = 2131165606;
+			public static int tooltip_arrow_down_right = 2131165606;
 			
 			// aapt resource value: 0x7F0701A7
-			public static int tooltip_arrow_up = 2131165607;
+			public static int tooltip_arrow_left = 2131165607;
 			
 			// aapt resource value: 0x7F0701A8
-			public static int tooltip_arrow_up_left = 2131165608;
+			public static int tooltip_arrow_right = 2131165608;
 			
 			// aapt resource value: 0x7F0701A9
-			public static int tooltip_arrow_up_right = 2131165609;
+			public static int tooltip_arrow_up = 2131165609;
 			
 			// aapt resource value: 0x7F0701AA
-			public static int tooltip_frame_dark = 2131165610;
+			public static int tooltip_arrow_up_left = 2131165610;
 			
 			// aapt resource value: 0x7F0701AB
-			public static int tooltip_frame_light = 2131165611;
+			public static int tooltip_arrow_up_right = 2131165611;
 			
 			// aapt resource value: 0x7F0701AC
-			public static int tooltip_no_arrow = 2131165612;
-			
-			// aapt resource value: 0x7F0701AE
-			public static int undoButton = 2131165614;
+			public static int tooltip_frame_dark = 2131165612;
 			
 			// aapt resource value: 0x7F0701AD
-			public static int undo_redo_background = 2131165613;
+			public static int tooltip_frame_light = 2131165613;
+			
+			// aapt resource value: 0x7F0701AE
+			public static int tooltip_no_arrow = 2131165614;
+			
+			// aapt resource value: 0x7F0701B0
+			public static int undoButton = 2131165616;
 			
 			// aapt resource value: 0x7F0701AF
-			public static int warning_shape = 2131165615;
+			public static int undo_redo_background = 2131165615;
+			
+			// aapt resource value: 0x7F0701B1
+			public static int warning_shape = 2131165617;
 			
 			static Drawable()
 			{

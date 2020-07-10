@@ -10,8 +10,7 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sfListView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
-    x:Name="root"
-    prism:ViewModelLocator.AutowireViewModel="True">
+    x:Name="root">
     <ScrollView.Resources>
         <DataTemplate x:Key="IconTemplate">
             <StackLayout Spacing="10">
@@ -123,9 +122,9 @@
                             IsScrollBarVisible="True"
                             IsVisible="{Binding HasFavorite}"
                             ItemSize="95"
-                            ItemsSource="{Binding FavouriteMenuItems}"
+                            ItemsSource="{Binding FavouriteMenuItems, Mode=OneWay}"
                             Loaded="Favourite_SfListView_Loaded"
-                            TapCommand="{Binding ItemsTappedCommand}" />
+                            TapCommand="{Binding TapMenuCommand}" />
                     </StackLayout>
                 </pancake:PancakeView>
                 <Grid Grid.Row="2" Padding="20,0">
@@ -141,7 +140,7 @@
                             <animation:ViewTappedBehavior AnimationType="Scale" />
                         </controls:FontAwesomeIcon.Behaviors>
                         <controls:FontAwesomeIcon.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OpenDiscoreryBoxCommand}" NumberOfTapsRequired="1" />
+                            <TapGestureRecognizer Command="{Binding AddCommand}" NumberOfTapsRequired="1" />
                         </controls:FontAwesomeIcon.GestureRecognizers>
                     </controls:FontAwesomeIcon>
                 </Grid>

@@ -22,6 +22,7 @@ using System.Timers;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using BA_MobileGPS.Core.Events;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -38,8 +39,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IMapper mapper;
         private Timer timer;
         private List<HomeMenuItemViewModel> MenuReponse = new List<HomeMenuItemViewModel>();
-        private ObservableCollection<HomeMenuItemViewModel> menuItems = new ObservableCollection<HomeMenuItemViewModel>();
-        public ObservableCollection<HomeMenuItemViewModel> MenuItems { get => menuItems; set => SetProperty(ref menuItems, value); }
 
         public bool hasFavorite;
         public bool HasFavorite { get => hasFavorite; set => SetProperty(ref hasFavorite, value); }
@@ -61,7 +60,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this.notificationService = notificationService;
             this.mapper = mapper;
 
-            TapMenuCommand = new DelegateCommand<ItemTappedEventArgs>(OnTappedMenu);
+            TapMenuCommand = new DelegateCommand<object>(OnTappedMenu);
 
             StaticSettings.TimeServer = UserInfo.TimeServer.AddSeconds(1);
 
@@ -72,25 +71,33 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<OnSleepEvent>().Subscribe(OnSleepPage);
             EventAggregator.GetEvent<OneSignalOpendEvent>().Subscribe(OneSignalOpend);
 
-            InitHomeData();        
+            _listfeatures = new ObservableCollection<ItemSupport>();
+            _favouriteMenuItems = new ObservableCollection<HomeMenuItemViewModel>();
+
         }
 
-        private void InitHomeData()
+        public override void Initialize(INavigationParameters parameters)
         {
-            _listfeatures = new ObservableCollection<ItemSupport>();
-            _favouriteMenuItems = new ObservableCollection<HomeMenuItemViewModel>();           
+            base.Initialize(parameters);
+
             TryExecute(async () =>
             {
                 // Lấy danh sách menu
                 GetListMenu();
+
                 // Lấy danh sách cảnh báo
                 GetCountAlert();
+
                 PushPageFileBase();
+
                 InsertOrUpdateAppDevice();
+
                 await InitSignalR();
+
                 GetNoticePopup();
             });
-        }     
+        }
+
         public override void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
             base.OnConnectivityChanged(sender, e);
@@ -271,6 +278,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     MenuItemParentID = m1.MenuItemParentID,
                     LanguageCode = m1.LanguageCode,
                 };
+
             GenerateListFeatures(menus.ToList());
             StaticSettings.ListMenuOriginGroup = mapper.Map<List<HomeMenuItem>>(menus);
 
@@ -309,12 +317,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 from m in menus
                 orderby m.IsFavorited descending, m.SortOrder, m.GroupName descending
                 select m;
-            FavouriteMenuItems = result.ToObservableCollection();
+            FavouriteMenuItems = result.Where(s => s.IsFavorited).ToObservableCollection();
+
             StaticSettings.ListMenu = mapper.Map<List<HomeMenuItem>>(result);
-            MenuItems = new ObservableCollection<HomeMenuItemViewModel>(result);
+
         }
+
         private void GenerateListFeatures(List<HomeMenuItemViewModel> input)
         {
+            AllListfeatures.Clear();
             // 6 Item per indicator view in Sflistview
             for (int i = 0; i < input.Count / 6.0; i++)
             {
@@ -322,7 +333,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 temp.FeaturesItem = input.Skip(i * 6).Take(6).ToList();
                 AllListfeatures.Add(temp);
             }
-        }     
+        }
         private void GetCountAlert()
         {
             var userID = UserInfo.UserId;
@@ -578,54 +589,53 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         });
 
-        public void OnTappedMenu(ItemTappedEventArgs args)
+        public void OnTappedMenu(object obj)
         {
-            Device.BeginInvokeOnMainThread(async () =>
+            var args = (Syncfusion.ListView.XForms.ItemTappedEventArgs)obj;
+            var temp = (HomeMenuItemViewModel)args.ItemData;
+            switch (temp.MenuKey)
             {
-                try
-                {
-                    if (IsBusy)
-                        return;
-
-                    IsBusy = true;
-
-                    if (!(args.Item is HomeMenuItemViewModel seletedMenu) || seletedMenu.MenuKey == null)
+                case "phuongtien":
+                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(1);
+                    break;
+                case "giamsat":
+                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(2);
+                    break;
+                case "haitrinh":
+                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(3);
+                    break;
+                default:
+                    Device.BeginInvokeOnMainThread(async () =>
                     {
-                        return;
-                    }
-                    //await NavigationService.NavigateAsync("NotificationPopup", useModalNavigation: true);
-                    using (new HUDService(MobileResource.Common_Message_Processing))
-                    {
-                        if (seletedMenu.MenuKey == "OnlinePage")
+                        try
                         {
-                            if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count >= 0)
+                            if (IsBusy)
+                                return;
+
+                            IsBusy = true;
+
+                            if (!(args.ItemData is HomeMenuItemViewModel seletedMenu) || seletedMenu.MenuKey == null)
                             {
-                                //cấu hình cty này dùng Cluster thì mới mở forms Cluster
-                                if (MobileUserSettingHelper.EnableShowCluster)
-                                {
-                                    _ = await NavigationService.NavigateAsync("OnlinePage");
-                                }
-                                else
-                                {
-                                    _ = await NavigationService.NavigateAsync("OnlinePageNoCluster");
-                                }
+                                return;
+                            }
+                            //await NavigationService.NavigateAsync("NotificationPopup", useModalNavigation: true);
+                            using (new HUDService(MobileResource.Common_Message_Processing))
+                            {
+                                    _ = await NavigationService.NavigateAsync(seletedMenu.MenuKey);
+                              
                             }
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            _ = await NavigationService.NavigateAsync(seletedMenu.MenuKey);
+                            Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
                         }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-                }
-                finally
-                {
-                    IsBusy = false;
-                }
-            });
+                        finally
+                        {
+                            IsBusy = false;
+                        }
+                    });
+                    break;
+            }
         }
 
         private void JoinGroupSignalRCar(List<string> lstGroup)
@@ -887,6 +897,7 @@ namespace BA_MobileGPS.Core.ViewModels
             set
             {
                 SetProperty(ref _favouriteMenuItems, value);
+                RaisePropertyChanged();
             }
         }
     }

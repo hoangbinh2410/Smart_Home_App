@@ -47,5 +47,6 @@ namespace BA_MobileGPS.Core.Views
             listViewTempalte.WidthRequest = totalextent + 10;
 
         }
+
     }
 }
