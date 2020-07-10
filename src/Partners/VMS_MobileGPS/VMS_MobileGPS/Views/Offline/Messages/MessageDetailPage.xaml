@@ -54,7 +54,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid
                 Grid.Row="0"
@@ -157,21 +156,23 @@
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
+                    <sharpnado:MaterialFrame
+                        Grid.Row="1"
+                        Padding="5"
+                        BorderColor="{StaticResource GrayColor}"
+                        CornerRadius="0"
+                        HasShadow="True"
+                        HorizontalOptions="FillAndExpand"
+                        LightThemeBackgroundColor="White"
+                        VerticalOptions="End">
+                        <sharpnado:MaterialFrame.Content>
+                            <messages:ChatInputView />
+                        </sharpnado:MaterialFrame.Content>
+                    </sharpnado:MaterialFrame>
                 </Grid>
+
             </ScrollView>
-            <sharpnado:MaterialFrame
-                Grid.Row="2"
-                Padding="5"
-                BorderColor="{StaticResource GrayColor}"
-                CornerRadius="0"
-                HasShadow="True"
-                HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="White"
-                VerticalOptions="End">
-                <sharpnado:MaterialFrame.Content>
-                    <messages:ChatInputView />
-                </sharpnado:MaterialFrame.Content>
-            </sharpnado:MaterialFrame>
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>
