@@ -35,10 +35,13 @@ namespace VMS_MobileGPS.ViewModels
         private bool isBusy = false;
         public bool IsBusy { get => isBusy; set => SetProperty(ref isBusy, value); }
 
+        public ICommand ClosePageCommand { get; private set; }
+
         public VMSBaseViewModel(INavigationService navigationService)
         {
             NavigationService = navigationService;
             PageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
+            ClosePageCommand = new Command(ClosePage);
         }
 
         ~VMSBaseViewModel()
@@ -210,18 +213,12 @@ namespace VMS_MobileGPS.ViewModels
             }));
         }
 
-        public ICommand ClosePageCommand
+        public void ClosePage()
         {
-            get
+            SafeExecute(async () =>
             {
-                return new Command(() =>
-                {
-                    SafeExecute(async () =>
-                    {
-                        await NavigationService.GoBackAsync(useModalNavigation: true);
-                    });
-                });
-            }
+                await NavigationService.GoBackAsync(useModalNavigation: true);
+            });
         }
 
         protected TControl GetControl<TControl>(string control)
