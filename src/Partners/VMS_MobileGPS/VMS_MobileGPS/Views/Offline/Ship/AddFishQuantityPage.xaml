@@ -6,6 +6,7 @@
     xmlns:behaviors="clr-namespace:BA_MobileGPS.Core.Behaviors;assembly=BA_MobileGPS.Core"
     xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
     <pages:PopupPage.Content>
@@ -35,11 +36,13 @@
                     LeadingViewPosition="Inside"
                     VerticalOptions="Start">
                     <input:SfTextInputLayout.LeadingView>
-                        <controls:IconView
-                            Foreground="DimGray"
-                            Source="ic_fish.png"
-                            VerticalOptions="CenterAndExpand"
-                            WidthRequest="40" />
+                        <controls:FontAwesomeIcon
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            HorizontalOptions="Center"
+                            Text="{x:Static fontawesome:FontAwesomeIcons.Fish}"
+                            TextColor="{StaticResource PrimaryColor}"
+                            VerticalOptions="Center" />
                     </input:SfTextInputLayout.LeadingView>
                     <combobox:SfComboBox
                         DataSource="{Binding ListFish}"
@@ -67,7 +70,7 @@
                     <input:SfTextInputLayout.LeadingView>
                         <controls:IconView
                             Foreground="DimGray"
-                            Source="ic_meluoivms.png"
+                            Source="ic_meluoi.png"
                             VerticalOptions="CenterAndExpand"
                             WidthRequest="40" />
                     </input:SfTextInputLayout.LeadingView>

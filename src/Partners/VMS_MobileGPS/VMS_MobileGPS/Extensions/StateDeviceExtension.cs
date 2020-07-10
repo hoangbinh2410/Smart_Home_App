@@ -8,7 +8,7 @@ namespace VMS_MobileGPS.Extensions
     {
         public static string StateDevice(Dictionary<string, string> state)
         {
-            string respone = string.Empty;
+            string respone = "Đã kết nối";
             if (state.TryGetValue(StateDeviceNameEnums.SAT.ToDescription(), out string satvalue))
             {
                 var statussat = SATStatus(satvalue);
