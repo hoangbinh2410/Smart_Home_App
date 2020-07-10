@@ -109,12 +109,6 @@ namespace VMS_MobileGPS.Service
             }
             else
             {
-                // Nếu Bluetooth vẫn chưa bật thì hủy lệnh tìm kiếm
-                state = await GetBluetoothState();
-                if (state != BluetoothState.On)
-                {
-                    return;
-                }
                 DeviceList.Clear();
                 Adapter.ScanMode = ScanMode.LowLatency;
                 if (Device.RuntimePlatform == Device.iOS)
@@ -151,46 +145,57 @@ namespace VMS_MobileGPS.Service
 
             try
             {
-                using (var cts = new CancellationTokenSource(Timeout))
+                var state = await GetBluetoothState();
+                if (state != BluetoothState.On)
                 {
-                    if (device.State == DeviceState.Connected)
+                    var action = await App.Current.MainPage.DisplayAlert("Thông báo", "Hãy bật Bluetooth để quét tìm thiết bị", "Đồng ý", "Bỏ qua");
+                    if (action == false) return rtnValue;
+                    DependencyService.Get<ISettingsService>().OpenBluetoothSettings();
+                }
+                else
+                {
+                    using (var cts = new CancellationTokenSource(Timeout))
                     {
-                        await device.UpdateRssiAsync();
-                    }
-                    else
-                    {
-                        await Adapter.ConnectToDeviceAsync(device, new ConnectParameters(autoConnect: false, forceBleTransport: false), cts.Token);
-
-                        ConnectedDevice = device;
-
-                        using (var service = await ConnectedDevice.GetServiceAsync(Guid.Parse(ServiceID)))
+                        if (device.State == DeviceState.Connected)
                         {
-                            if (service == null)
-                            {
-                                return rtnValue;
-                            }
-                            RxCharacteristic = await service.GetCharacteristicAsync(Guid.Parse(RxCharID));
-                            if (RxCharacteristic == null)
-                            {
-                                return rtnValue;
-                            }
+                            await device.UpdateRssiAsync();
+                        }
+                        else
+                        {
+                            await Adapter.ConnectToDeviceAsync(device, new ConnectParameters(autoConnect: false, forceBleTransport: false), cts.Token);
 
-                            if (RxCharacteristic.CanUpdate == false)
+                            ConnectedDevice = device;
+
+                            using (var service = await ConnectedDevice.GetServiceAsync(Guid.Parse(ServiceID)))
                             {
-                                return rtnValue;
-                            }
+                                if (service == null)
+                                {
+                                    return rtnValue;
+                                }
+                                RxCharacteristic = await service.GetCharacteristicAsync(Guid.Parse(RxCharID));
+                                if (RxCharacteristic == null)
+                                {
+                                    return rtnValue;
+                                }
 
-                            await RxCharacteristic.StartUpdatesAsync();
+                                if (RxCharacteristic.CanUpdate == false)
+                                {
+                                    return rtnValue;
+                                }
 
-                            TxCharacteristic = await service.GetCharacteristicAsync(Guid.Parse(TxCharID));
+                                await RxCharacteristic.StartUpdatesAsync();
 
-                            if (TxCharacteristic == null)
-                            {
-                                return rtnValue;
+                                TxCharacteristic = await service.GetCharacteristicAsync(Guid.Parse(TxCharID));
+
+                                if (TxCharacteristic == null)
+                                {
+                                    return rtnValue;
+                                }
                             }
                         }
                     }
                 }
+
             }
             catch (Exception ex)
             {
