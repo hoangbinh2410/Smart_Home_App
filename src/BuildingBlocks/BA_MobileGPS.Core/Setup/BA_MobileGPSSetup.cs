@@ -7,7 +7,6 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities.Constant;
 
 using Prism.Ioc;
-using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Plugin.Popups;
 

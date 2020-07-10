@@ -217,6 +217,13 @@
     <BundleResource Include="Resources\ic_close%403x.png" />
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\flag_vn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\flag_us.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\flag_nl.png" />
     <BundleResource Include="Resources\notSelected.png" />
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,6 @@
     <!--  Other Color  -->
     <Color x:Key="PurpleColor">#4A7AFF</Color>
     <Color x:Key="GrayColor">#F3F3F3</Color>
-    <Color x:Key="GrayColor2">#CCCCCC</Color>
     <!--  Text Color  -->
     <Color x:Key="TextPrimaryColor">#484848</Color>
     <Color x:Key="TextSecondaryColor">#7B7B7B</Color>
