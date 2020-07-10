@@ -170,6 +170,7 @@
             </pancake:PancakeView>
         </StackLayout>
 
+
         <!--  Thông tin xe  -->
         <views:OnlineCarInfoView
             x:Name="boxInfo"
