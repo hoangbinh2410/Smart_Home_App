@@ -1,7 +1,4 @@
-﻿using BA_MobileGPS.Core.Controls;
-using Rg.Plugins.Popup.Pages;
-using Sharpnado.MaterialFrame;
-using VMS_MobileGPS.ViewModels;
+﻿using Sharpnado.MaterialFrame;
 using Xamarin.Forms.Xaml;
 
 namespace VMS_MobileGPS.Views

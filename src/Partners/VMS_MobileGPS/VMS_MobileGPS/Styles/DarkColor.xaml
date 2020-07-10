@@ -13,6 +13,7 @@
     <Color x:Key="OrangeColor">#4A7AFF</Color>
     <Color x:Key="GreenColor">#31CB73</Color>
     <Color x:Key="GrayColor">#F3F3F3</Color>
+    <Color x:Key="GrayColor2">#CCCCCC</Color>
     <!--  Text Color  -->
     <Color x:Key="TextPrimaryColor">#484848</Color>
     <Color x:Key="TextSecondaryColor">#7B7B7B</Color>
@@ -24,7 +25,7 @@
 
     <FileImageSource x:Key="HomePageTopImageSource" File="bg_HomeTop.png" />
     <FileImageSource x:Key="HomePageBotImageSource" File="bg_HomeBot.png" />
-    
+
     <Color x:Key="MainTabSelectedColor">#00ADEF</Color>
 
     <Color x:Key="PopupYesBtnTextColor">White</Color>

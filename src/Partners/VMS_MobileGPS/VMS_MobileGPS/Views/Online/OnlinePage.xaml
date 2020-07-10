@@ -6,19 +6,14 @@
     xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors;assembly=BA_MobileGPS.Core"
     xmlns:cluster="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
-    xmlns:effect="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:mapbindings="clr-namespace:BA_MobileGPS.Core.GoogleMap.Behaviors;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
-    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     xmlns:views="clr-namespace:VMS_MobileGPS.Views"
     prism:ViewModelLocator.AutowireViewModel="True">
-    <ContentView.Resources>
-        <cluster:NMConverter x:Key="NMConverter" />
-    </ContentView.Resources>
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -26,7 +21,7 @@
         </Grid.RowDefinitions>
         <Grid
             Padding="15,5"
-            BackgroundColor="Blue"
+            BackgroundColor="{StaticResource PrimaryColor}"
             HeightRequest="100">
             <StackLayout
                 HeightRequest="35"
@@ -116,7 +111,7 @@
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal">
                     <pancake:PancakeView
-                        BackgroundColor="{StaticResource BlueDarkColor}"
+                        BackgroundColor="{StaticResource PrimaryColor}"
                         CornerRadius="22"
                         WidthRequest="45">
                         <controls:IconView
@@ -145,7 +140,7 @@
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Margin="8"
-                    Foreground="{StaticResource BlueDarkColor}"
+                    Foreground="{StaticResource PrimaryColor}"
                     Source="ic_doubleship.png"
                     VerticalOptions="Center" />
             </pancake:PancakeView>
@@ -159,7 +154,7 @@
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Margin="8"
-                    Foreground="{StaticResource BlueDarkColor}"
+                    Foreground="{StaticResource PrimaryColor}"
                     Source="ic_filter.png" />
             </pancake:PancakeView>
         </Grid>
@@ -180,7 +175,7 @@
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Margin="9"
-                    Foreground="{StaticResource BlueDarkColor}"
+                    Foreground="{StaticResource PrimaryColor}"
                     Source="ic_vector.png" />
             </pancake:PancakeView>
             <pancake:PancakeView
@@ -196,10 +191,10 @@
                     Margin="10"
                     Foreground="{Binding ColorMapType}"
                     HeightRequest="10"
-                    Source="icon_map_type.png" />
+                    Source="ic_map_type.png" />
             </pancake:PancakeView>
             <pancake:PancakeView
-                BackgroundColor="{StaticResource BlueDarkColor}"
+                BackgroundColor="{StaticResource PrimaryColor}"
                 CornerRadius="25"
                 HeightRequest="50"
                 WidthRequest="50">
@@ -214,13 +209,18 @@
         </StackLayout>
 
         <!--  Thông tin xe  -->
-        <!--<views:OnlineCarInfoView
+        <views:OnlineCarInfoView
             x:Name="boxInfo"
             Grid.Row="1"
-            AbsoluteLayout.LayoutBounds="0,1,1,AutoSize"
-            AbsoluteLayout.LayoutFlags="YProportional, WidthProportional" />-->
+            Padding="0,10"
+            AbsoluteLayout.LayoutBounds="0,1,1,350"
+            AbsoluteLayout.LayoutFlags="YProportional, WidthProportional"
+            CornerRadius="20"
+            HasShadow="False"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="End" />
 
-        <sharpnado:MaterialFrame
+        <!--<sharpnado:MaterialFrame
             x:Name="boxInfo"
             Grid.Row="1"
             Padding="0,10"
@@ -250,10 +250,10 @@
                     <controls:IconView
                         Grid.Row="0"
                         Grid.Column="0"
-                        Foreground="{StaticResource BlueDarkColor}"
+                        Foreground="{StaticResource PrimaryColor}"
                         HeightRequest="20"
                         HorizontalOptions="Center"
-                        Source="ic_ship.png"
+                        Source="ic_ship2.png"
                         VerticalOptions="Center"
                         WidthRequest="20" />
                     <StackLayout
@@ -276,7 +276,7 @@
                         Grid.Column="1"
                         Margin="0,0,40,0"
                         Padding="0"
-                        BackgroundColor="{StaticResource BlueDarkColor}"
+                        BackgroundColor="{StaticResource PrimaryColor}"
                         CornerRadius="22"
                         HorizontalOptions="End"
                         WidthRequest="30">
@@ -328,7 +328,7 @@
                     <controls:IconView
                         Grid.Row="0"
                         Grid.Column="0"
-                        Foreground="{StaticResource BlueDarkColor}"
+                        Foreground="{StaticResource PrimaryColor}"
                         HeightRequest="20"
                         HorizontalOptions="Center"
                         Source="ic_time24.png"
@@ -357,7 +357,7 @@
                     <controls:IconView
                         Grid.Row="0"
                         Grid.Column="0"
-                        Foreground="{StaticResource BlueDarkColor}"
+                        Foreground="{StaticResource PrimaryColor}"
                         HeightRequest="20"
                         HorizontalOptions="Center"
                         Source="ic_coordinates.png"
@@ -389,7 +389,7 @@
                         <controls:IconView
                             Grid.Row="0"
                             Grid.Column="0"
-                            Foreground="{StaticResource BlueDarkColor}"
+                            Foreground="{StaticResource PrimaryColor}"
                             HeightRequest="20"
                             HorizontalOptions="Center"
                             Source="ic_speed.png"
@@ -411,7 +411,7 @@
                         <controls:IconView
                             Grid.Row="0"
                             Grid.Column="0"
-                            Foreground="{StaticResource BlueDarkColor}"
+                            Foreground="{StaticResource PrimaryColor}"
                             HeightRequest="20"
                             HorizontalOptions="Center"
                             Source="ic_distance.png"
@@ -441,7 +441,7 @@
                     </Grid.ColumnDefinitions>
                     <Button
                         Grid.Column="0"
-                        BackgroundColor="{StaticResource BlueDarkColor}"
+                        BackgroundColor="{StaticResource PrimaryColor}"
                         BorderRadius="20"
                         Command="{Binding PushToRouterPageCommand}"
                         FontAttributes="Bold"
@@ -451,7 +451,7 @@
                         TextColor="{StaticResource WhiteColor}" />
                     <Button
                         Grid.Column="1"
-                        BackgroundColor="{StaticResource BlueDarkColor}"
+                        BackgroundColor="{StaticResource PrimaryColor}"
                         BorderRadius="20"
                         Command="{Binding PushToRouterPageCommand}"
                         FontAttributes="Bold"
@@ -461,7 +461,7 @@
                         TextColor="{StaticResource WhiteColor}" />
                     <Button
                         Grid.Column="2"
-                        BackgroundColor="{StaticResource BlueDarkColor}"
+                        BackgroundColor="{StaticResource PrimaryColor}"
                         BorderRadius="20"
                         Command="{Binding PushToDetailPageCommand}"
                         FontAttributes="Bold"
@@ -471,7 +471,7 @@
                         TextColor="{StaticResource WhiteColor}" />
                 </Grid>
             </Grid>
-        </sharpnado:MaterialFrame>
+        </sharpnado:MaterialFrame>-->
 
         <!--  Trạng thái xe  -->
 
@@ -497,7 +497,7 @@
             <Frame
                 Grid.Column="1"
                 Padding="0"
-                BackgroundColor="{StaticResource WhiteColor}"
+                BackgroundColor="{StaticResource PrimaryColor}"
                 CornerRadius="0"
                 HasShadow="True"
                 HorizontalOptions="FillAndExpand"
@@ -538,15 +538,18 @@
                                             <Label
                                                 HorizontalOptions="Start"
                                                 Text="{Binding Name}"
+                                                TextColor="{StaticResource WhiteColor}"
                                                 VerticalOptions="Center" />
                                             <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                                                 <Label
                                                     HorizontalOptions="Start"
                                                     Text="{Binding CountCar}"
+                                                    TextColor="{StaticResource WhiteColor}"
                                                     VerticalOptions="Center" />
                                                 <Label
                                                     HorizontalOptions="Start"
                                                     Text="{i18n:TranslateResource Common_Label_Vehicle}"
+                                                    TextColor="{StaticResource WhiteColor}"
                                                     VerticalOptions="Center" />
                                             </StackLayout>
                                         </StackLayout>

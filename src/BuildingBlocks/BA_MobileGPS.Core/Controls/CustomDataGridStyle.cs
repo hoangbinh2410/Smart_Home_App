@@ -24,7 +24,7 @@ namespace BA_MobileGPS.Controls
         /// <returns>Returns From R g b Color</returns>
         public override Color GetHeaderBackgroundColor()
         {
-            return (Color)App.Current.Resources["Color_Navigation"];
+            return (Color)App.Current.Resources["BlueDarkColor"];
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace BA_MobileGPS.Controls
         /// <returns>Returns From R g b Color</returns>
         public override Color GetHeaderForegroundColor()
         {
-            return (Color)App.Current.Resources["Color_Navigation"];
+            return (Color)App.Current.Resources["BlueDarkColor"];
         }
     }
 }

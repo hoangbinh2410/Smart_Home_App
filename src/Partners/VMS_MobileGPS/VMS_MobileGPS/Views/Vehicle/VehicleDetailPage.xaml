@@ -155,7 +155,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource BlueDarkColor}"
+                                            Foreground="{StaticResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="DeviceName.png"
@@ -201,7 +201,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource BlueDarkColor}"
+                                            Foreground="{StaticResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="DeviceBKS.png"
@@ -248,7 +248,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource BlueDarkColor}"
+                                            Foreground="{StaticResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_time_black.png"
@@ -278,7 +278,7 @@
                                         VerticalOptions="Start" />
                                 </Grid>
 
-                                <!--  thời gian  -->
+                                <!--  Cách đây  -->
                                 <Grid Grid.Row="3" RowSpacing="0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -296,10 +296,10 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource BlueDarkColor}"
+                                            Foreground="{StaticResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
-                                            Source="ic_turnon_time_on_day.png"
+                                            Source="ic_time24.png"
                                             VerticalOptions="Center"
                                             WidthRequest="20" />
 
@@ -343,10 +343,10 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource BlueDarkColor}"
+                                            Foreground="{StaticResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
-                                            Source="ic_velocity.png"
+                                            Source="ic_speed.png"
                                             VerticalOptions="Center"
                                             WidthRequest="20" />
 
@@ -390,10 +390,10 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource BlueDarkColor}"
+                                            Foreground="{StaticResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
-                                            Source="ic_mylocation.png"
+                                            Source="ic_coordinates.png"
                                             VerticalOptions="Center"
                                             WidthRequest="20" />
 
@@ -424,7 +424,6 @@
                                 <Grid Grid.Row="6" RowSpacing="0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="1" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -437,7 +436,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource BlueDarkColor}"
+                                            Foreground="{StaticResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_distance.png"
@@ -457,14 +456,6 @@
                                         Text="{Binding ShipDetailRespone.Km, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm}}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
-
-                                    <BoxView
-                                        Grid.Row="1"
-                                        Grid.ColumnSpan="2"
-                                        BackgroundColor="{StaticResource GrayColor}"
-                                        HeightRequest="0.5"
-                                        HorizontalOptions="FillAndExpand"
-                                        VerticalOptions="Start" />
                                 </Grid>
                             </Grid>
                         </sharpnado:MaterialFrame.Content>
@@ -472,14 +463,10 @@
                 </Grid>
 
                 <!--  phần hiển thị thông tin chủ tầu  -->
-                <Grid
-                    Grid.Row="1"
-                    BackgroundColor="Bisque"
-                    RowSpacing="0">
+                <Grid Grid.Row="1" RowSpacing="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-
                     </Grid.RowDefinitions>
 
                     <Frame
@@ -532,7 +519,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource BlueDarkColor}"
+                                            Foreground="{StaticResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_user.png"
@@ -580,7 +567,7 @@
                                         Orientation="Horizontal"
                                         Spacing="10">
                                         <controls:IconView
-                                            Foreground="{StaticResource BlueDarkColor}"
+                                            Foreground="{StaticResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_phone_black.png"
@@ -627,7 +614,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource BlueDarkColor}"
+                                            Foreground="{StaticResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_caption.png"
@@ -675,7 +662,7 @@
                                         Orientation="Horizontal"
                                         Spacing="10">
                                         <controls:IconView
-                                            Foreground="{StaticResource BlueDarkColor}"
+                                            Foreground="{StaticResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_phone_black.png"
@@ -722,7 +709,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource BlueDarkColor}"
+                                            Foreground="{StaticResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_groupcar.png"
@@ -756,7 +743,6 @@
                                 <Grid Grid.Row="5" RowSpacing="0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="1" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -769,7 +755,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource BlueDarkColor}"
+                                            Foreground="{StaticResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_port.png"
@@ -789,14 +775,6 @@
                                         Text="{Binding ShipDetailRespone.PortDeparture}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
-
-                                    <BoxView
-                                        Grid.Row="1"
-                                        Grid.ColumnSpan="2"
-                                        BackgroundColor="{StaticResource GrayColor}"
-                                        HeightRequest="0.5"
-                                        HorizontalOptions="FillAndExpand"
-                                        VerticalOptions="Start" />
                                 </Grid>
                             </Grid>
                         </sharpnado:MaterialFrame.Content>
