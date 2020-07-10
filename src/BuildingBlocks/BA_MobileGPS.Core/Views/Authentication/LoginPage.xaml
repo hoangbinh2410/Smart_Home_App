@@ -162,7 +162,7 @@
                     VerticalOptions="EndAndExpand">
                     <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
                         <pancake:PancakeView>
-                            <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.Phone}" />
+                            <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.PhoneVolume}" />
                             <pancake:PancakeView.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding CallHotLineCommand}" NumberOfTapsRequired="1" />
                             </pancake:PancakeView.GestureRecognizers>
