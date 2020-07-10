@@ -118,6 +118,10 @@ namespace VMS_MobileGPS.Converter
                 {
                     color = (Color)App.Current.Resources["WarningColor"];
                 }
+                else if (msg == "Đã kết nối")
+                {
+                    color = (Color)App.Current.Resources["GreenColor"];
+                }
             }
             else
             {
