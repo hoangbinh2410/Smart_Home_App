@@ -1,9 +1,11 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Views;
 using BA_MobileGPS.Core.Droid;
 using BA_MobileGPS.Droid.Setup;
 using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
 
 namespace VMS_MobileGPS.Droid
 {
@@ -25,6 +27,37 @@ namespace VMS_MobileGPS.Droid
             ToolSetup.Initialize(this, bundle);
 
             LoadApplication(new VMSApp(new AndroidInitializer()));
+        }
+
+        public override void OnBackPressed()
+        {
+            if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
+            {
+
+            }
+        }
+
+        bool _ignoreNewFocus;
+        public override bool DispatchTouchEvent(MotionEvent ev)
+        {
+            var focused = CurrentFocus;
+            _ignoreNewFocus = (focused?.Parent is EditorRenderer entryRenderer && entryRenderer.Element.AutomationId == "ChatMessageEditor");
+            var result = base.DispatchTouchEvent(ev);
+            _ignoreNewFocus = false;
+            return result;
+        }
+
+        public override Android.Views.View CurrentFocus
+        {
+            get
+            {
+                if (_ignoreNewFocus)
+                {
+                    return null;
+                }
+
+                return base.CurrentFocus;
+            }
         }
     }
 }
