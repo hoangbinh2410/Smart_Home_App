@@ -6,8 +6,6 @@ using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 
-using Syncfusion.Data.Extensions;
-
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,6 +15,7 @@ using VMS_MobileGPS.Constant;
 using VMS_MobileGPS.Service;
 
 using Xamarin.Essentials;
+using Xamarin.Forms.Extensions;
 
 namespace VMS_MobileGPS.ViewModels
 {
@@ -75,7 +74,7 @@ namespace VMS_MobileGPS.ViewModels
             {
                 if (AppManager.BluetoothService.State == Service.BleConnectionState.NO_CONNECTION)
                 {
-                    if (await PageDialog.DisplayAlertAsync("Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?", "Cảnh báo", "ĐỒNG Ý", "BỎ QUA"))
+                    if (await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?", "ĐỒNG Ý", "BỎ QUA"))
                     {
                         await NavigationService.NavigateAsync(PageNames.BluetoothPage.ToString());
                     }
@@ -117,7 +116,7 @@ namespace VMS_MobileGPS.ViewModels
             {
                 if (AppManager.BluetoothService.State == Service.BleConnectionState.NO_CONNECTION)
                 {
-                    if (await PageDialog.DisplayAlertAsync("Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?", "Cảnh báo", "ĐỒNG Ý", "BỎ QUA"))
+                    if (await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn chưa kết nối thiết bị. Bạn có muốn kết nối thiết bị?",  "ĐỒNG Ý", "BỎ QUA"))
                     {
                         await NavigationService.NavigateAsync(PageNames.BluetoothPage.ToString());
                     }
@@ -126,7 +125,7 @@ namespace VMS_MobileGPS.ViewModels
                 }
                 else
                 {
-                    var action = await PageDialog.DisplayAlertAsync("Bạn có thực sự muốn tắt SOS không?", "BA SAT", "Đồng ý", "Bỏ qua");
+                    var action = await PageDialog.DisplayAlertAsync("BA SAT", "Bạn có thực sự muốn tắt SOS không?",  "Đồng ý", "Bỏ qua");
                     if (action)
                     {
                         var resultSOS = await bluetoothService.Send("SOS:OFF");
@@ -176,7 +175,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-                var action = await PageDialog.DisplayAlertAsync("Bạn có muốn xóa lịch sử các lần cảnh báo không?", "BA SAT", "Đồng ý", "Bỏ qua");
+                var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bạn có muốn xóa lịch sử các lần cảnh báo không?", "Đồng ý", "Bỏ qua");
                 if (action)
                 {
                     var result = sOSHistoryService.All().ToList();

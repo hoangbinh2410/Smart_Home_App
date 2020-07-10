@@ -14,7 +14,7 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string Login_Checkbox_Autologin => Get(MobileResourceNames.Login_Checkbox_Autologin, "Tự động đăng nhập", "Automatically login");
 
-        public static string Login_Lable_Forgotpassword => Get(MobileResourceNames.Login_Lable_Forgotpassword, "Quên mật khẩu ?", "Forgot password ?");
+        public static string Login_Lable_Forgotpassword => Get(MobileResourceNames.Login_Lable_Forgotpassword, "Quên mật khẩu ", "Forgot password ?");
 
         public static string Login_Lable_RegisterSales => Get(MobileResourceNames.Login_Lable_RegisterSales, "Đăng ký tư vấn", "Register sales");
 

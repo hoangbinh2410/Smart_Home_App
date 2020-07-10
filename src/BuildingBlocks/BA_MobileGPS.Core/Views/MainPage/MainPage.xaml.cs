@@ -1,5 +1,6 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Prism;
+using Prism.Ioc;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -7,7 +8,15 @@ namespace BA_MobileGPS.Core.Views
     {
         public MainPage()
         {
-            InitializeComponent();
+            InitializeComponent();          
+        }
+
+        private void ContentPage_Appearing(object sender, System.EventArgs e)
+        {
+            var tabIndex_0 = PrismApplicationBase.Current.Container.Resolve<View>("Index0"); //Home
+            Switcher.Children.Add(tabIndex_0);
+
+            Switcher.SelectedIndex = 0;
         }
     }
 }
