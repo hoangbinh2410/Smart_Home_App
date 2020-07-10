@@ -92,7 +92,7 @@ namespace VMS_MobileGPS.ViewModels
 
             if (string.IsNullOrWhiteSpace(Receiver))
             {
-                PageDialog.DisplayAlertAsync("Thông báo", "Người nhận không được trống", "Đóng");
+                PageDialog.DisplayAlertAsync("Người nhận không được trống", "", "Đóng");
                 return false;
             }
 
@@ -187,7 +187,7 @@ namespace VMS_MobileGPS.ViewModels
                         old.IsSending = false;
                         messageService.UpdateMessage(old);
                     }
-                    PageDialog.DisplayAlertAsync("Thông báo", "Gửi tin nhắn không thành công bạn vui lòng kiểm tra lại", "Đồng ý");
+                    PageDialog.DisplayAlertAsync("Gửi tin nhắn không thành công bạn vui lòng kiểm tra lại", "", "Đồng ý");
                     LoggerHelper.WriteLog(Receiver, "Gửi tin nhắn không thành công bạn vui lòng kiểm tra lại");
                 }
             });

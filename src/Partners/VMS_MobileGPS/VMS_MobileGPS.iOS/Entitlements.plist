@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.vn.bagps.basatmobiletest.onesignal</string>
+		<string>group.vn.bagps.basatmobile.onesignal</string>
 	</array>
 </dict>
 </plist>

@@ -37,7 +37,7 @@ namespace VMS_MobileGPS
 
             AppManager.Init();
 
-            await NavigationService.NavigateAsync("/NavigationPage/OfflinePage");
+            await NavigationService.NavigateAsync("/LoginPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -67,7 +67,6 @@ namespace VMS_MobileGPS
             containerRegistry.RegisterForNavigation<MessageDetailPage, MessageDetailViewModel>(PageNames.MessageDetailPage.ToString());
             containerRegistry.RegisterForNavigation<MessagesOnlinePage, MessagesOnlineViewModel>(PageNames.MessagesOnlinePage.ToString());
             containerRegistry.RegisterForNavigation<MessageOnlineDetailPage, MessageOnlineDetailViewModel>(PageNames.MessageOnlineDetailPage.ToString());
-<<<<<<< HEAD
 
 
             containerRegistry.RegisterForNavigation<MainPage, BA_MobileGPS.Core.ViewModels.MainPageViewModel>("MainPage");
@@ -76,10 +75,6 @@ namespace VMS_MobileGPS
             containerRegistry.RegisterForNavigation<VehicleDetailPage, VehicleDetailViewModel>("VehicleDetailPage");
 
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
-=======
-            containerRegistry.RegisterForNavigation<NotificationMessagePage, NotificationMessageViewModel>(PageNames.NotificationMessagePage.ToString());
-            containerRegistry.RegisterForNavigation<OfflineMap, OfflineMapViewModel>("OffMap");
->>>>>>> GPSMBV2#4
         }
     }
 }

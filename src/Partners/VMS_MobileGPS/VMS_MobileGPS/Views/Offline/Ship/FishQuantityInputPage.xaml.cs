@@ -19,7 +19,7 @@ namespace VMS_MobileGPS.Views
 
         private async void Delete_Tapped(object sender, EventArgs e)
         {
-            if (await DisplayAlert("Thông báo", "Bạn có chắc muốn xoá hay không?", "Có", "Không"))
+            if (await DisplayAlert("", "Bạn có chắc muốn xoá hay không?", "Có", "Không"))
             {
                 if (((VisualElement)sender).BindingContext is FishTrip item && BindingContext is FishQuantityInputViewModel viewModel)
                 {
