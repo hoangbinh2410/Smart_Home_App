@@ -595,13 +595,13 @@ namespace BA_MobileGPS.Core.ViewModels
             var temp = (HomeMenuItemViewModel)args.ItemData;
             switch (temp.MenuKey)
             {
-                case "phuongtien":
+                case "VehiclePage":
                     EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(1);
                     break;
-                case "giamsat":
+                case "OnlinePage":
                     EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(2);
                     break;
-                case "haitrinh":
+                case "VoyagePage":
                     EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(3);
                     break;
                 default:

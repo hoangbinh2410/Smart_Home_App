@@ -8,15 +8,14 @@ namespace BA_MobileGPS.Core.Views
     {
         public MainPage()
         {
-            InitializeComponent();          
+            InitializeComponent();
+            var tabIndex_0 = PrismApplicationBase.Current.Container.Resolve<View>("Index0"); //Home
+            Switcher.Children.Add(new Home());
+            Switcher.Children.Add(tabIndex_0);
+
+            Switcher.SelectedIndex = 0;
         }
 
-        private void ContentPage_Appearing(object sender, System.EventArgs e)
-        {
-           var tabIndex_0 = PrismApplicationBase.Current.Container.Resolve<View>("Index0"); //Home
-            //Switcher.Children.Add(new Home());
-      
-            //Switcher.SelectedIndex = 0;
-        }
+     
     }
 }

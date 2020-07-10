@@ -166,7 +166,7 @@
                                         ItemSpacing="5,0,5,0"
                                         ItemsSource="{Binding FeaturesItem}"
                                         Loaded="FeaturesSfListView_Loaded"
-                                        TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.ItemsTappedCommand}" />
+                                        TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}" />
                                 </Grid>
                             </DataTemplate>
                         </CarouselView.ItemTemplate>
