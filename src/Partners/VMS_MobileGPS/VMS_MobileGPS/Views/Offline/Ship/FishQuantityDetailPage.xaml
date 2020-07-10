@@ -79,7 +79,7 @@
                     <Label
                         FontAttributes="Bold"
                         FontSize="{StaticResource MyFontSize}"
-                        HorizontalOptions="FillAndExpand"
+                        HorizontalOptions="StartAndExpand"
                         Text="Bắt đầu mẻ lưới"
                         TextColor="{StaticResource PrimaryColor}" />
                     <Label
@@ -146,7 +146,7 @@
                     <Label
                         FontAttributes="Bold"
                         FontSize="{StaticResource MyFontSize}"
-                        HorizontalOptions="FillAndExpand"
+                        HorizontalOptions="StartAndExpand"
                         Text="Kết thúc mẻ lưới"
                         TextColor="{StaticResource PrimaryColor}" />
                     <Label
@@ -304,17 +304,10 @@
                 </StackLayout>
                 <Button
                     Margin="10"
-                    Padding="10,0"
-                    BackgroundColor="{StaticResource PrimaryColor}"
                     Command="{Binding SaveFishTripCommand}"
-                    CornerRadius="5"
-                    FontAttributes="Bold"
                     FontSize="{StaticResource MyFontSizeSmall}"
-                    HeightRequest="40"
-                    HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding FishTrip.IsSynced, Converter={StaticResource InvertBooleanConverter}}"
-                    Text="Lưu"
-                    TextColor="White" />
+                    Text="Lưu" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

@@ -11,7 +11,8 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms"
-    prism:ViewModelLocator.AutowireViewModel="True">
+    prism:ViewModelLocator.AutowireViewModel="True"
+    Appearing="ContentPage_Appearing">
     <ContentPage.Resources>
         <converter:TabItemIconBackgroundColorConverter x:Key="TabItemIconBackgroundColorConverter" />
         <converter:TabItemIconColorConverter x:Key="TabItemIconColorConverter" />
@@ -31,13 +32,18 @@
                     VerticalOptions="Center"
                     WidthRequest="30">
                     <controls:IconView
-                        Margin="7"
+                        Margin="5"
                         Foreground="{TemplateBinding IsSelected,
                                                      Converter={x:StaticResource TabItemIconColorConverter}}"
                         HeightRequest="25"
                         Source="{TemplateBinding IconImageSource}" />
                 </pancake:PancakeView>
-                <Label Text="{TemplateBinding Label}" TextColor="{TemplateBinding IsSelected, Converter={x:StaticResource TabItemTextColorConverter}}" />
+                <Label
+                    FontSize="13"
+                    LineBreakMode="TailTruncation"
+                    Text="{TemplateBinding Label}"
+                    TextColor="{TemplateBinding IsSelected,
+                                                Converter={x:StaticResource TabItemTextColorConverter}}" />
             </StackLayout>
         </ControlTemplate>
         <Style TargetType="tabs:BottomTabItem">
@@ -67,7 +73,9 @@
                 <tabs:TabHostView
                     x:Name="TabHost"
                     Grid.Row="1"
-                    Padding="0,5,0,0"
+                    Padding="0"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource WhiteColor},
+                                                      Dark={StaticResource WhiteColor}}"
                     HeightRequest="60"
                     SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}"
                     TabType="Fixed">
