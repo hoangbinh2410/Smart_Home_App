@@ -88,7 +88,11 @@ namespace VMS_MobileGPS.ViewModels
         {
             base.OnNavigatedTo(parameters);
             IsConnectBLE = GlobalResourcesVMS.Current.DeviceManager.State == BleConnectionState.NO_CONNECTION ? false : true;
-            if (!IsConnectBLE)
+            if (IsConnectBLE && StateDevice.Count > 0)
+            {
+                StateDeviceMessage = "Đã kết nối";
+            }
+            else if (!IsConnectBLE)
             {
                 StateDeviceMessage = "Chưa kết nối";
             }
@@ -163,6 +167,7 @@ namespace VMS_MobileGPS.ViewModels
 
         private string stateDeviceMessage = string.Empty;
         public string StateDeviceMessage { get => stateDeviceMessage; set => SetProperty(ref stateDeviceMessage, value); }
+        private Dictionary<string, string> StateDevice = new Dictionary<string, string>();
 
         #endregion Property
 
@@ -619,15 +624,14 @@ namespace VMS_MobileGPS.ViewModels
             var lst = result.Split(',');
             if (lst != null && lst.Length > 0)
             {
-                var state = new Dictionary<string, string>();
                 for (int i = 0; i < lst.Length; i++)
                 {
                     var key = lst[i].Substring(0, lst[i].IndexOf(':')).Trim().ToUpper();
                     var value = lst[i].Remove(0, lst[i].IndexOf(':') + 1).Trim().ToUpper();
-                    state.Add(key, value);
+                    StateDevice.Add(key, value);
                 }
 
-                StateDeviceMessage = StateDeviceExtension.StateDevice(state);
+                StateDeviceMessage = StateDeviceExtension.StateDevice(StateDevice);
             }
         }
 
