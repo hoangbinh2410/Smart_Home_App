@@ -13,7 +13,7 @@ namespace BA_MobileGPS.Core.Views
 
         private void ContentPage_Appearing(object sender, System.EventArgs e)
         {
-            //var tabIndex_0 = PrismApplicationBase.Current.Container.Resolve<View>("Index0"); //Home
+           // var tabIndex_0 = PrismApplicationBase.Current.Container.Resolve<View>("Index0"); //Home
             Switcher.Children.Add(new Home());
             
             Switcher.SelectedIndex = 0;

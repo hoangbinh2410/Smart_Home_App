@@ -122,13 +122,12 @@
                             HeightRequest="110"
                             HorizontalOptions="Center"
                             IsScrollBarVisible="True"
-                            ItemSize="90"
+                            ItemSize="95"
                             ItemsSource="{Binding FavouriteMenuItems}"
                             Loaded="Favourite_SfListView_Loaded"
                             TapCommand="{Binding ItemsTappedCommand}" />
                     </StackLayout>
                 </pancake:PancakeView>
-
                 <Grid Grid.Row="2" Padding="20,0">
                     <Label StyleClass="GroupTitleLabel" Text="TIỆN ÍCH" />
                     <controls:FontAwesomeIcon
