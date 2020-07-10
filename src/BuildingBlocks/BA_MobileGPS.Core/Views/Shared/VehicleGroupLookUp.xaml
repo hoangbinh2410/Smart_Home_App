@@ -11,6 +11,7 @@
     xmlns:sfList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     Title="{i18n:TranslateResource VehicleGroupLookUp_Label_Title}">
     <StackLayout
+        BackgroundColor="{StaticResource WhiteColor}"
         HorizontalOptions="FillAndExpand"
         Spacing="0"
         VerticalOptions="FillAndExpand">

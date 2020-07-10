@@ -32,11 +32,14 @@ namespace VMS_MobileGPS.Views
         public MainPage()
         {
             InitializeComponent();
+
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
 
             InitAnimation();
 
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
+
+            Switcher.SelectedIndex = 0;
         }
 
         private async void InitAnimation()

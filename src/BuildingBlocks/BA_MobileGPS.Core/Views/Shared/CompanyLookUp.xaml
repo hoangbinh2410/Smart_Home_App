@@ -17,6 +17,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout
+        BackgroundColor="{StaticResource WhiteColor}"
         HorizontalOptions="FillAndExpand"
         Spacing="0"
         VerticalOptions="FillAndExpand">

@@ -829,7 +829,7 @@ namespace VMS_MobileGPS.Views
 
         public void SetPaddingWithFooter()
         {
-            double paddingMap = boxInfo.Height;
+            double paddingMap = boxInfo.HeightRequest;
             googleMap.Padding = new Thickness(0, 0, 0, (int)paddingMap);
             BoxControls.Margin = new Thickness(20, 0, 20, (int)paddingMap + 20);
         }
