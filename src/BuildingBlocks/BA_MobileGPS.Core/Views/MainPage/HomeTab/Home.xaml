@@ -97,7 +97,6 @@
                     Grid.Row="1"
                     Margin="10,5"
                     CornerRadius="10"
-                    IsVisible="{Binding HasFavorite}"
                     Style="{DynamicResource FavouriteBackgroundColor}">
                     <StackLayout Spacing="0">
                         <Grid Margin="10">
@@ -122,13 +121,13 @@
                             HeightRequest="110"
                             HorizontalOptions="Center"
                             IsScrollBarVisible="True"
-                            ItemSize="90"
+                            IsVisible="{Binding HasFavorite}"
+                            ItemSize="95"
                             ItemsSource="{Binding FavouriteMenuItems}"
                             Loaded="Favourite_SfListView_Loaded"
                             TapCommand="{Binding ItemsTappedCommand}" />
                     </StackLayout>
                 </pancake:PancakeView>
-
                 <Grid Grid.Row="2" Padding="20,0">
                     <Label StyleClass="GroupTitleLabel" Text="TIỆN ÍCH" />
                     <controls:FontAwesomeIcon
@@ -136,8 +135,8 @@
                         FontAttributes="Bold"
                         HorizontalOptions="End"
                         Text="{x:Static fontawesome:FontAwesomeIcons.AlignJustify}"
-                        TextColor="{AppThemeBinding Light={StaticResource PurpleColor},
-                                                    Dark={StaticResource PurpleColor}}">
+                        TextColor="{AppThemeBinding Light={StaticResource PrimaryColor},
+                                                    Dark={StaticResource PrimaryColor}}">
                         <controls:FontAwesomeIcon.Behaviors>
                             <animation:ViewTappedBehavior AnimationType="Scale" />
                         </controls:FontAwesomeIcon.Behaviors>

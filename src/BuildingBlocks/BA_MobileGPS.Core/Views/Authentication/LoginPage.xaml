@@ -88,7 +88,10 @@
                             </pancake:PancakeView>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
-                            <Entry Placeholder="{i18n:TranslateResource Login_Textbox_UserName}" Text="{Binding UserName.Value}">
+                            <Entry
+                                HeightRequest="40"
+                                Placeholder="{i18n:TranslateResource Login_Textbox_UserName}"
+                                Text="{Binding UserName.Value}">
                                 <Entry.Effects>
                                     <effect:BorderlessEffect />
                                 </Entry.Effects>
@@ -107,6 +110,7 @@
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
                             <Entry
+                                HeightRequest="40"
                                 IsPassword="True"
                                 Placeholder="{i18n:TranslateResource Login_Textbox_Password}"
                                 Text="{Binding Password.Value}">
@@ -158,7 +162,7 @@
                     VerticalOptions="EndAndExpand">
                     <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
                         <pancake:PancakeView>
-                            <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.PhoneAlt}" />
+                            <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.PhoneVolume}" />
                             <pancake:PancakeView.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding CallHotLineCommand}" NumberOfTapsRequired="1" />
                             </pancake:PancakeView.GestureRecognizers>
