@@ -317,10 +317,6 @@ namespace VMS_MobileGPS.Service
                         await Task.Delay(500);
 
                         await Send("GCFG,310");
-
-                        await Task.Delay(500);
-
-                        await Send("GCFG,999");
                     });
                     GlobalResourcesVMS.Current.DeviceManager.State = BleConnectionState.PING_OK;
                 }

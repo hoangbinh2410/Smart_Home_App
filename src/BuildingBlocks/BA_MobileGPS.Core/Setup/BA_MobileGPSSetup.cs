@@ -78,8 +78,6 @@ namespace BA_MobileGPS.Core
 
             containerRegistry.Register<IPopupServices, PopupServices>();
 
-            containerRegistry.Register<View, Home>("Index0");
-
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)
@@ -95,11 +93,6 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<SelectDateTimeCalendar, SelectDateTimeCalendarViewModel>("SelectDateTimeCalendar");
             containerRegistry.RegisterForNavigation<SelectDateCalendar, SelectDateCalendarViewModel>("SelectDateCalendar");
             containerRegistry.RegisterForNavigation<SelectDateTimeCalendarPopup, SelectDateTimeCalendarPopupViewModel>("SelectDateTimeCalendarPopup");
-
-            containerRegistry.RegisterForNavigation<LanguagePage, LanguagePageViewModel>();
-            containerRegistry.RegisterForNavigation<ChangeLanguage, ChangeLanguageViewModel>();
-            containerRegistry.RegisterForNavigation<InsertLocalDBPage, InsertLocalDBPageViewModel>();
-            containerRegistry.RegisterForNavigation<NotificationPopupWhenLogin, NotificationPopupWhenLoginViewModel>("NotificationPopupWhenLogin");
 
             containerRegistry.RegisterForNavigation<CompanyLookUp, CompanyLookUpViewModel>("CompanyLookUp");
             containerRegistry.RegisterForNavigation<VehicleGroupLookUp, VehicleGroupLookUpViewModel>("VehicleGroupLookUp");
