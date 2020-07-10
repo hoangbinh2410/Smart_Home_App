@@ -182,7 +182,7 @@ namespace VMS_MobileGPS.ViewModels
 
         private async void ChooseAction(FishTripQuantity args)
         {
-            var action = await PageDialog.DisplayActionSheetAsync("Huỷ", args.FishName, null, null, "Sửa", "Xoá");
+            var action = await PageDialog.DisplayActionSheetAsync(args.FishName, "Huỷ", null, null, "Sửa", "Xoá");
 
             if ("Sửa".Equals(action))
             {
@@ -222,7 +222,7 @@ namespace VMS_MobileGPS.ViewModels
 
             if (string.IsNullOrWhiteSpace(FishTrip.Imei))
             {
-                PageDialog.DisplayAlertAsync( "Thông báo", "Vui lòng nhập Imei", "Đóng");
+                PageDialog.DisplayAlertAsync("Thông báo", "Vui lòng nhập Imei", "Đóng");
                 return false;
             }
 
