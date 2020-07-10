@@ -97,7 +97,6 @@
                     Grid.Row="1"
                     Margin="10,5"
                     CornerRadius="10"
-                    IsVisible="{Binding HasFavorite}"
                     Style="{DynamicResource FavouriteBackgroundColor}">
                     <StackLayout Spacing="0">
                         <Grid Margin="10">
@@ -122,6 +121,7 @@
                             HeightRequest="110"
                             HorizontalOptions="Center"
                             IsScrollBarVisible="True"
+                            IsVisible="{Binding HasFavorite}"
                             ItemSize="95"
                             ItemsSource="{Binding FavouriteMenuItems}"
                             Loaded="Favourite_SfListView_Loaded"
