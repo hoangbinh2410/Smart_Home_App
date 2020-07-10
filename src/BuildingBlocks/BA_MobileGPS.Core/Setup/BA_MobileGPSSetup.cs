@@ -99,6 +99,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ChangeLanguage, ChangeLanguageViewModel>();
             containerRegistry.RegisterForNavigation<InsertLocalDBPage, InsertLocalDBPageViewModel>();
             containerRegistry.RegisterForNavigation<NotificationPopupWhenLogin, NotificationPopupWhenLoginViewModel>("NotificationPopupWhenLogin");
+            containerRegistry.RegisterForNavigation<FavoritesConfigurationsPage, FavoritesConfigurationsPageViewModel>("FavoritesConfigurationsPage");
 
         }
     }

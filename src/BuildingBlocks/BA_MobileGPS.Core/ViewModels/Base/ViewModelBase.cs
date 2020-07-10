@@ -51,7 +51,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ViewModelBase(INavigationService navigationService)
         {
-            NavigationService = navigationService;
+            if (navigationService == null)
+            {
+                NavigationService = PrismApplicationBase.Current.Container.Resolve<INavigationService>();
+            }
+            else NavigationService = navigationService;
 
             EventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             PageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();

@@ -72,7 +72,7 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<OnSleepEvent>().Subscribe(OnSleepPage);
             EventAggregator.GetEvent<OneSignalOpendEvent>().Subscribe(OneSignalOpend);
 
-            InitHomeData();
+            InitHomeData();        
         }
 
         private void InitHomeData()
@@ -247,14 +247,71 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GenMenu()
         {
-            var permisisons = UserInfo.Permissions.Distinct();
-            // Filter by permission
-            var menus = MenuReponse.Where(x => permisisons.Contains(x.PermissionViewID)
-                                               && x.MenuItemParentID != 0
-                                               && x.MenuItemParentID != x.PK_MenuItemID).ToList();
+            // Lấy danh sách menu ưa thích theo danh sách chuối id
+            string menuFavoriteIds = MobileUserSettingHelper.MenuFavorite;
+            var menus =
+                from m1 in MenuReponse
+                join config in UserInfo.Permissions.Distinct() // Lấy theo permission menu
+                on m1.PermissionViewID equals config
+                join m2 in MenuReponse
+                on m1.MenuItemParentID equals m2.PK_MenuItemID
+                into gj
+                from sub in gj.DefaultIfEmpty()
+                where m1.MenuItemParentID != 0
+                select new HomeMenuItemViewModel()
+                {
+                    FK_LanguageTypeID = m1.FK_LanguageTypeID,
+                    IconMobile = m1.IconMobile,
+                    GroupName = sub?.NameByCulture ?? m1.NameByCulture,
+                    MenuKey = m1.MenuKey,
+                    NameByCulture = m1.NameByCulture,
+                    PK_MenuItemID = m1.PK_MenuItemID,
+                    PermissionViewID = m1.PermissionViewID,
+                    SortOrder = m1.SortOrder,
+                    MenuItemParentID = m1.MenuItemParentID,
+                    LanguageCode = m1.LanguageCode,
+                };
+            GenerateListFeatures(menus.ToList());
             StaticSettings.ListMenuOriginGroup = mapper.Map<List<HomeMenuItem>>(menus);
-            GenerateListFeatures(menus);
-            GenerateFavourites(menus);
+
+            if (!string.IsNullOrEmpty(menuFavoriteIds))
+            {
+                HasFavorite = true;
+                var favoritesIdLst = menuFavoriteIds.Split(',').Select(m => int.Parse(m));
+
+                menus =
+                    from m in menus
+                    join fv in favoritesIdLst
+                    on m.PK_MenuItemID equals fv
+                    into gj
+                    from fv_sub in gj.DefaultIfEmpty()
+                    select new HomeMenuItemViewModel()
+                    {
+                        FK_LanguageTypeID = m.FK_LanguageTypeID,
+                        IconMobile = m.IconMobile,
+                        GroupName = !(fv_sub == 0) ? MobileResource.Menu_Label_Favorite : m.GroupName,
+                        MenuKey = m.MenuKey,
+                        NameByCulture = m.NameByCulture,
+                        PK_MenuItemID = m.PK_MenuItemID,
+                        PermissionViewID = m.PermissionViewID,
+                        SortOrder = m.SortOrder,
+                        MenuItemParentID = m.MenuItemParentID,
+                        LanguageCode = m.LanguageCode,
+                        IsFavorited = !(fv_sub == 0),
+                    };
+            }
+            else
+            {
+                HasFavorite = false;
+            }
+
+            var result =
+                from m in menus
+                orderby m.IsFavorited descending, m.SortOrder, m.GroupName descending
+                select m;
+            FavouriteMenuItems = result.ToObservableCollection();
+            StaticSettings.ListMenu = mapper.Map<List<HomeMenuItem>>(result);
+            MenuItems = new ObservableCollection<HomeMenuItemViewModel>(result);
         }
         private void GenerateListFeatures(List<HomeMenuItemViewModel> input)
         {
@@ -265,21 +322,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 temp.FeaturesItem = input.Skip(i * 6).Take(6).ToList();
                 AllListfeatures.Add(temp);
             }
-        }
-        private void GenerateFavourites(List<HomeMenuItemViewModel> input)
-        {
-            HasFavorite = false;
-            // Lấy danh sách menu ưa thích theo danh sách chuối PK_MenuItemID
-            string menuFavoriteIds = MobileUserSettingHelper.MenuFavorite;
-            if (!string.IsNullOrEmpty(menuFavoriteIds))
-            {
-                HasFavorite = true;
-                var favoritesIdLst = menuFavoriteIds.Split(',').Select(m => int.Parse(m));
-                FavouriteMenuItems = input.Where(x => favoritesIdLst.Contains(x.PK_MenuItemID)).ToObservableCollection();
-            }
-        }
-
-
+        }     
         private void GetCountAlert()
         {
             var userID = UserInfo.UserId;
@@ -531,7 +574,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                _ = await NavigationService.NavigateAsync("FavoritesConfigurationsPage", useModalNavigation: false);
+                await NavigationService.NavigateAsync("BaseNavigationPage/FavoritesConfigurationsPage", null, useModalNavigation: true);
             });
         });
 
