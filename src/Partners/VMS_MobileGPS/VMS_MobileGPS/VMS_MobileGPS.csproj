@@ -22,12 +22,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\Online\OnlineCarInfoView.xaml.cs">
-	    <DependentUpon>OnlineCarInfoView.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
 	  <EmbeddedResource Update="Styles\DarkColor.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -37,33 +31,28 @@
 	  <EmbeddedResource Update="Styles\VMS_Styles.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Distance\DistancePage.xaml">
+	  <EmbeddedResource Update="Views\Offline\OfflinePage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Common\VMSPinInfowindowActiveView.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  <EmbeddedResource Update="Views\Offline\Ship\AddFishQuantityPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Common\VMSPinInfowindowView.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  <EmbeddedResource Update="Views\Offline\Ship\FishQuantityDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\MainPage\MainPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  <EmbeddedResource Update="Views\Offline\Ship\FishQuantityInputPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Online\BoundaryNameInfoWindow.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  <EmbeddedResource Update="Views\Offline\Ship\LocationDergeeInputPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Online\BoundaryPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  <EmbeddedResource Update="Views\Permission\VMSPermissionGranted.xaml">
+	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Online\OnlineCarInfoView.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Online\OnlinePage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Vehicle\VehicleDetailPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Helper\" />
 	</ItemGroup>
 
 </Project>

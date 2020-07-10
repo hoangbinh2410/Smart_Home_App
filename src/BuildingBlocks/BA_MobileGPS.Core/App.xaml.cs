@@ -2,13 +2,14 @@ using BA_MobileGPS.Core.DependencyServices;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
-﻿using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities.Constant;
 using Prism;
 using Prism.Events;
 using Prism.Ioc;
 using Prism.Unity;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -25,6 +26,8 @@ namespace BA_MobileGPS.Core
 
         public App(IPlatformInitializer initializer = null) : base(initializer)
         {
+            Xamarin.Forms.Application.Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
+            Xamarin.Forms.Application.Current.On<Xamarin.Forms.PlatformConfiguration.iOS>().SetEnableAccessibilityScalingForNamedFontSizes(false);
             _eventAggregator = Current.Container.Resolve<IEventAggregator>();
         }
 
@@ -53,10 +56,7 @@ namespace BA_MobileGPS.Core
         {
             BA_MobileGPSSetup.RegisterServices(containerRegistry);
             BA_MobileGPSSetup.RegisterPages(containerRegistry);
-
-            containerRegistry.RegisterForNavigation<LanguagePage, LanguagePageViewModel>();
-            containerRegistry.RegisterForNavigation<ChangeLanguage, ChangeLanguageViewModel>();
-            
+          
         }
 
         protected override void OnStart()

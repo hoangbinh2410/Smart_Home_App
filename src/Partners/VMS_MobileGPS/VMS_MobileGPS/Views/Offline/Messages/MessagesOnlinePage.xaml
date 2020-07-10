@@ -7,6 +7,7 @@
     xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
     Title="Tin Nhắn"
@@ -69,7 +70,7 @@
                 VerticalOptions="FillAndExpand">
                 <syncfusion:SfListView.RightSwipeTemplate>
                     <DataTemplate x:Name="RightSwipeTemplate">
-                        <Grid BackgroundColor="#DC595F">
+                        <Grid BackgroundColor="{StaticResource DangerousColor}">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Delete_Tapped" />
                             </Grid.GestureRecognizers>
@@ -88,68 +89,69 @@
                 </syncfusion:SfListView.RightSwipeTemplate>
                 <syncfusion:SfListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="20,10,0,0" RowSpacing="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="5" />
-                            </Grid.RowDefinitions>
-                            <ffImage:CachedImage
-                                Grid.Row="0"
-                                Grid.RowSpan="2"
-                                Grid.Column="0"
-                                Aspect="Fill"
-                                DownsampleToViewSize="true"
-                                ErrorPlaceholder="avatar.jpg"
-                                HeightRequest="50"
-                                HorizontalOptions="Center"
-                                LoadingPlaceholder="avatar.jpg"
-                                Source="avatar.jpg"
-                                VerticalOptions="CenterAndExpand"
-                                WidthRequest="50">
-                                <ffImage:CachedImage.Transformations>
-                                    <transformations:CircleTransformation BorderHexColor="#FFFFFF" BorderSize="2" />
-                                </ffImage:CachedImage.Transformations>
-                            </ffImage:CachedImage>
-                            <Label
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                FontAttributes="Bold"
-                                FontSize="18"
-                                Text="{Binding Title}"
-                                TextColor="Black"
-                                VerticalOptions="Center" />
-                            <StackLayout
-                                Grid.Row="0"
-                                Grid.Column="2"
-                                Orientation="Horizontal">
-                                <Label
-                                    FontSize="12"
-                                    Text="{Binding LastMessage.CreatedDate, Converter={StaticResource DateLocaleConverter}}"
-                                    TextColor="Gray" />
-                                <controls:FontAwesomeIcon
-                                    FontSize="25"
-                                    HorizontalOptions="Center"
-                                    Opacity=".4"
-                                    Text="{x:Static fontawesome:FontAwesomeIcons.AngleRight}"
-                                    TextColor="White"
-                                    VerticalOptions="Center" />
-                            </StackLayout>
-                            <Label
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Grid.ColumnSpan="2"
-                                Margin="0,0,10,0"
-                                FontSize="15"
-                                LineBreakMode="TailTruncation"
-                                Text="{Binding LastMessage.Content}"
-                                TextColor="{StaticResource TextPlaceHolderColor}" />
-                        </Grid>
+                        <sharpnado:MaterialFrame Padding="10" LightThemeBackgroundColor="White">
+                            <Grid ColumnSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <ffImage:CachedImage
+                                    Grid.Column="0"
+                                    Aspect="Fill"
+                                    DownsampleToViewSize="true"
+                                    ErrorPlaceholder="avatar.jpg"
+                                    HeightRequest="50"
+                                    HorizontalOptions="CenterAndExpand"
+                                    LoadingPlaceholder="avatar.jpg"
+                                    Source="avatar.jpg"
+                                    VerticalOptions="CenterAndExpand"
+                                    WidthRequest="50">
+                                    <ffImage:CachedImage.Transformations>
+                                        <transformations:CircleTransformation BorderHexColor="#FFFFFF" BorderSize="2" />
+                                    </ffImage:CachedImage.Transformations>
+                                </ffImage:CachedImage>
+
+                                <StackLayout
+                                    Grid.Column="1"
+                                    HorizontalOptions="StartAndExpand"
+                                    VerticalOptions="StartAndExpand">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="18"
+                                        HorizontalOptions="StartAndExpand"
+                                        Text="{Binding Title}"
+                                        TextColor="Black"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Grid.ColumnSpan="2"
+                                        FontSize="15"
+                                        HorizontalOptions="StartAndExpand"
+                                        LineBreakMode="TailTruncation"
+                                        Text="{Binding LastMessage.Content}"
+                                        TextColor="{StaticResource TextPlaceHolderColor}" />
+                                </StackLayout>
+
+                                <StackLayout
+                                    Grid.Column="2"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="Start">
+                                    <Label
+                                        FontSize="12"
+                                        Text="{Binding LastMessage.CreatedDate, Converter={StaticResource DateLocaleConverter}}"
+                                        TextColor="Gray"
+                                        VerticalOptions="Center" />
+                                    <controls:FontAwesomeIcon
+                                        FontSize="25"
+                                        HorizontalOptions="Center"
+                                        Opacity=".4"
+                                        Text="{x:Static fontawesome:FontAwesomeIcons.AngleRight}"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+
+                            </Grid>
+                        </sharpnado:MaterialFrame>
                     </DataTemplate>
                 </syncfusion:SfListView.ItemTemplate>
             </syncfusion:SfListView>

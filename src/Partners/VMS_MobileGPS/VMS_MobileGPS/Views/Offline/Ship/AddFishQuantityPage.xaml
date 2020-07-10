@@ -6,16 +6,18 @@
     xmlns:behaviors="clr-namespace:BA_MobileGPS.Core.Behaviors;assembly=BA_MobileGPS.Core"
     xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
-    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame">
     <pages:PopupPage.Content>
-        <Frame
+        <sharpnado:MaterialFrame
             Margin="40"
             Padding="0"
-            BackgroundColor="White"
             CornerRadius="10"
             HasShadow="False"
             HorizontalOptions="CenterAndExpand"
+            LightThemeBackgroundColor="White"
             VerticalOptions="CenterAndExpand">
             <StackLayout>
                 <Label
@@ -35,17 +37,19 @@
                     LeadingViewPosition="Inside"
                     VerticalOptions="Start">
                     <input:SfTextInputLayout.LeadingView>
-                        <controls:IconView
-                            Foreground="DimGray"
-                            Source="ic_fish.png"
-                            VerticalOptions="CenterAndExpand"
-                            WidthRequest="40" />
+                        <controls:FontAwesomeIcon
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            HorizontalOptions="Center"
+                            Text="{x:Static fontawesome:FontAwesomeIcons.Fish}"
+                            TextColor="{StaticResource PrimaryColor}"
+                            VerticalOptions="Center" />
                     </input:SfTextInputLayout.LeadingView>
                     <combobox:SfComboBox
                         DataSource="{Binding ListFish}"
                         DisplayMemberPath="Name"
                         EnableSelectionIndicator="True"
-                        HeightRequest="50"
+                        HeightRequest="40"
                         HorizontalOptions="FillAndExpand"
                         MaximumDropDownHeight="200"
                         SelectedItem="{Binding SelectedFish}"
@@ -61,13 +65,14 @@
                 <input:SfTextInputLayout
                     Margin="10,0,10,0"
                     ContainerType="Outlined"
+                    HeightRequest="40"
                     HorizontalOptions="FillAndExpand"
                     LeadingViewPosition="Inside"
                     VerticalOptions="Start">
                     <input:SfTextInputLayout.LeadingView>
                         <controls:IconView
-                            Foreground="DimGray"
-                            Source="ic_meluoivms.png"
+                            Foreground="{StaticResource PrimaryColor}"
+                            Source="ic_meluoi.png"
                             VerticalOptions="CenterAndExpand"
                             WidthRequest="40" />
                     </input:SfTextInputLayout.LeadingView>
@@ -108,6 +113,6 @@
                         Text="Chấp nhận" />
                 </StackLayout>
             </StackLayout>
-        </Frame>
+        </sharpnado:MaterialFrame>
     </pages:PopupPage.Content>
 </pages:PopupPage>

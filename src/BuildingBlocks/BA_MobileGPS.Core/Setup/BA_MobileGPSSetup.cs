@@ -7,7 +7,6 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities.Constant;
 
 using Prism.Ioc;
-using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Plugin.Popups;
 
@@ -78,6 +77,8 @@ namespace BA_MobileGPS.Core
 
             containerRegistry.Register<IPopupServices, PopupServices>();
 
+            containerRegistry.Register<View, Home>("Index0");
+
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)
@@ -94,14 +95,11 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<SelectDateCalendar, SelectDateCalendarViewModel>("SelectDateCalendar");
             containerRegistry.RegisterForNavigation<SelectDateTimeCalendarPopup, SelectDateTimeCalendarPopupViewModel>("SelectDateTimeCalendarPopup");
 
-            containerRegistry.RegisterForNavigation<CompanyLookUp, CompanyLookUpViewModel>("CompanyLookUp");
-            containerRegistry.RegisterForNavigation<VehicleGroupLookUp, VehicleGroupLookUpViewModel>("VehicleGroupLookUp");
-            containerRegistry.RegisterForNavigation<VehicleLookUp, VehicleLookUpViewModel>("VehicleLookUp");
+            containerRegistry.RegisterForNavigation<LanguagePage, LanguagePageViewModel>();
+            containerRegistry.RegisterForNavigation<ChangeLanguage, ChangeLanguageViewModel>();
+            containerRegistry.RegisterForNavigation<InsertLocalDBPage, InsertLocalDBPageViewModel>();
+            containerRegistry.RegisterForNavigation<NotificationPopupWhenLogin, NotificationPopupWhenLoginViewModel>("NotificationPopupWhenLogin");
 
-            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
-
-            ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
         }
     }
 }
