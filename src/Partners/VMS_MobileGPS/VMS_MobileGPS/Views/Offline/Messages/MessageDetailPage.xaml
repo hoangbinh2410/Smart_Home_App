@@ -55,7 +55,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid
                 Grid.Row="0"
@@ -110,65 +109,68 @@
                 HorizontalOptions="FillAndExpand"
                 Orientation="Vertical"
                 VerticalScrollBarVisibility="Never">
-                <StackLayout
-                    BindableLayout.ItemsSource="{Binding Messages}"
-                    HorizontalOptions="FillAndExpand"
-                    Spacing="0">
-                    <StackLayout.Behaviors>
-                        <behaviors:AutoScrollBehavior />
-                    </StackLayout.Behaviors>
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout
-                                Margin="80,5,10,5"
-                                HorizontalOptions="EndAndExpand"
-                                Spacing="0">
-                                <sharpnado:MaterialFrame
-                                    Grid.Row="0"
-                                    Padding="10"
-                                    CornerRadius="10"
-                                    HasShadow="False"
+                <StackLayout>
+                    <StackLayout
+                        BindableLayout.ItemsSource="{Binding Messages}"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="0">
+                        <StackLayout.Behaviors>
+                            <behaviors:AutoScrollBehavior />
+                        </StackLayout.Behaviors>
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout
+                                    Margin="80,5,10,5"
                                     HorizontalOptions="EndAndExpand"
-                                    LightThemeBackgroundColor="{StaticResource PrimaryColor}"
-                                    VerticalOptions="FillAndExpand">
-                                    <sharpnado:MaterialFrame.Content>
+                                    Spacing="0">
+                                    <sharpnado:MaterialFrame
+                                        Grid.Row="0"
+                                        Padding="10"
+                                        CornerRadius="10"
+                                        HasShadow="False"
+                                        HorizontalOptions="EndAndExpand"
+                                        LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                                        VerticalOptions="FillAndExpand">
+                                        <sharpnado:MaterialFrame.Content>
+                                            <Label
+                                                FontSize="14"
+                                                Text="{Binding Content}"
+                                                TextColor="White" />
+                                        </sharpnado:MaterialFrame.Content>
+                                    </sharpnado:MaterialFrame>
+                                    <StackLayout Orientation="Horizontal" Spacing="2">
                                         <Label
-                                            FontSize="14"
-                                            Text="{Binding Content}"
-                                            TextColor="White" />
-                                    </sharpnado:MaterialFrame.Content>
-                                </sharpnado:MaterialFrame>
-                                <StackLayout Orientation="Horizontal" Spacing="2">
-                                    <Label
-                                        FontSize="10"
-                                        HorizontalOptions="End"
-                                        Text="{Binding Status}"
-                                        TextColor="DimGray" />
-                                    <Label
-                                        FontSize="10"
-                                        HorizontalOptions="End"
-                                        Text="{Binding CreatedDate, Converter={StaticResource DateTimeConverter}, ConverterParameter='ToLocal'}"
-                                        TextColor="DimGray" />
+                                            FontSize="10"
+                                            HorizontalOptions="End"
+                                            Text="{Binding Status}"
+                                            TextColor="DimGray" />
+                                        <Label
+                                            FontSize="10"
+                                            HorizontalOptions="End"
+                                            Text="{Binding CreatedDate, Converter={StaticResource DateTimeConverter}, ConverterParameter='ToLocal'}"
+                                            TextColor="DimGray" />
+                                    </StackLayout>
                                 </StackLayout>
-                            </StackLayout>
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                    <sharpnado:MaterialFrame
+                        Grid.Column="0"
+                        Padding="5"
+                        BorderColor="{StaticResource GrayColor}"
+                        CornerRadius="0"
+                        HasShadow="True"
+                        HorizontalOptions="FillAndExpand"
+                        LightThemeBackgroundColor="White"
+                        VerticalOptions="FillAndExpand">
+                        <sharpnado:MaterialFrame.Content>
+                            <messages:ChatInputView />
+                        </sharpnado:MaterialFrame.Content>
+                    </sharpnado:MaterialFrame>
                 </StackLayout>
+
             </ScrollView>
-            <sharpnado:MaterialFrame
-                Grid.Row="2"
-                Grid.Column="0"
-                Padding="5"
-                BorderColor="{StaticResource GrayColor}"
-                CornerRadius="0"
-                HasShadow="True"
-                HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="White"
-                VerticalOptions="FillAndExpand">
-                <sharpnado:MaterialFrame.Content>
-                    <messages:ChatInputView />
-                </sharpnado:MaterialFrame.Content>
-            </sharpnado:MaterialFrame>
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>
