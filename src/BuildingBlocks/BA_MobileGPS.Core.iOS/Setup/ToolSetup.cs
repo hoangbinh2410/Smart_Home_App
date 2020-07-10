@@ -41,7 +41,7 @@ namespace BA_MobileGPS.Core.iOS.Setup
 
             SharpnadoInitializer.Initialize();
 
-            IQKeyboardManager.SharedManager.Enable = true;
+            //IQKeyboardManager.SharedManager.Enable = true;
 
             // Override default ImageFactory by your implementation.
             FormsGoogleMaps.Init(Config.GoogleMapKeyiOS, new PlatformConfig
