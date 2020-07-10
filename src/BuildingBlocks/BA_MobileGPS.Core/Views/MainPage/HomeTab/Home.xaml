@@ -136,8 +136,8 @@
                         FontAttributes="Bold"
                         HorizontalOptions="End"
                         Text="{x:Static fontawesome:FontAwesomeIcons.AlignJustify}"
-                        TextColor="{AppThemeBinding Light={StaticResource PurpleColor},
-                                                    Dark={StaticResource PurpleColor}}">
+                        TextColor="{AppThemeBinding Light={StaticResource PrimaryColor},
+                                                    Dark={StaticResource PrimaryColor}}">
                         <controls:FontAwesomeIcon.Behaviors>
                             <animation:ViewTappedBehavior AnimationType="Scale" />
                         </controls:FontAwesomeIcon.Behaviors>
