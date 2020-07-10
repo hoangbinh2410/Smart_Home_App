@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<sharpnado:MaterialFrame
+    x:Class="VMS_MobileGPS.Views.OnlineCarInfoView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    Padding="5"
+    BackgroundColor="{StaticResource Color_Background}"
+    HasShadow="False">
+    <sharpnado:MaterialFrame.Resources>
+        <ResourceDictionary>
+            <converters:NMConverter x:Key="NMConverter" />
+            <converters:DateTimeConverter x:Key="DateTimeConverter" />
+            <converters:SecondsToStringConverter x:Key="SecondsToStringConverter" />
+            <converters:IsEmptyDataConverter x:Key="IsEmptyDataConverter" />
+            <converters:HasDataConverter x:Key="HasDataConverter" />
+            <converters:UpperCaseConverter x:Key="UpperCaseConverter" />
+        </ResourceDictionary>
+    </sharpnado:MaterialFrame.Resources>
+    <!--<Grid HorizontalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <controls:IconView
+                Grid.Row="0"
+                Grid.Column="0"
+                Foreground="{StaticResource Color_Navigation}"
+                HeightRequest="20"
+                HorizontalOptions="Center"
+                Source="ic_car_play.png"
+                VerticalOptions="Center"
+                WidthRequest="20" />
+            <controls:IconView
+                Grid.Row="1"
+                Grid.Column="0"
+                Foreground="{StaticResource Color_Navigation}"
+                HeightRequest="20"
+                HorizontalOptions="Center"
+                Source="ic_turnon_time_on_day.png"
+                VerticalOptions="Center"
+                WidthRequest="20" />
+            <StackLayout
+                Grid.Row="0"
+                Grid.Column="1"
+                Orientation="Horizontal">
+                <Label FontAttributes="Bold" Text="{Binding CarActive.PrivateCode}" />
+                <Label FontAttributes="Bold" Text="{i18n:TranslateResource Online_Label_AtTime}" />
+            </StackLayout>
+            <StackLayout
+                Grid.Row="1"
+                Grid.Column="1"
+                Orientation="Horizontal">
+                <Label Text="{Binding CarActive.VehicleTime, Converter={StaticResource DateTimeConverter}}" />
+                <Label Text="{Binding CarActive.LostGSMTime, Converter={StaticResource SecondsToStringConverter}, StringFormat='{}({0})'}" />
+            </StackLayout>
+
+            <controls:IconView
+                Grid.Row="0"
+                Grid.Column="1"
+                Foreground="{StaticResource Color_Placeholder}"
+                HeightRequest="25"
+                HorizontalOptions="End"
+                IsVisible="{Binding Circles, Converter={StaticResource IsEmptyDataConverter}}"
+                Source="ic_radar.png"
+                VerticalOptions="Center"
+                WidthRequest="25">
+                <controls:IconView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowBorderCommand}" />
+                </controls:IconView.GestureRecognizers>
+            </controls:IconView>
+            <controls:IconView
+                Grid.Row="0"
+                Grid.Column="1"
+                Foreground="{StaticResource Color_Navigation}"
+                HeightRequest="25"
+                HorizontalOptions="End"
+                IsVisible="{Binding Circles, Converter={StaticResource HasDataConverter}}"
+                Source="ic_radar.png"
+                VerticalOptions="Center"
+                WidthRequest="25">
+                <controls:IconView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding HideBorderCommand}" />
+                </controls:IconView.GestureRecognizers>
+            </controls:IconView>
+            <controls:IconView
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="0,0,35,0"
+                Foreground="{StaticResource Color_Placeholder}"
+                HeightRequest="25"
+                HorizontalOptions="End"
+                Source="ic_distance.png"
+                VerticalOptions="Center"
+                WidthRequest="25">
+                <controls:IconView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoDistancePageCommand}" />
+                </controls:IconView.GestureRecognizers>
+            </controls:IconView>
+        </Grid>
+        <sharpnado:MaterialFrame
+            Grid.Row="1"
+            BackgroundColor="{StaticResource Color_Border}"
+            CornerRadius="0"
+            HasShadow="False"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="CenterAndExpand">
+            <sharpnado:MaterialFrame.Padding x:TypeArguments="Double">
+                <OnPlatform Android="1" iOS="0.5" />
+            </sharpnado:MaterialFrame.Padding>
+            <Grid BackgroundColor="{StaticResource Color_Border}" RowSpacing="0.5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackLayout
+                    Grid.Row="0"
+                    BackgroundColor="White"
+                    Orientation="Horizontal">
+                    <controls:IconView
+                        Margin="5,0,0,0"
+                        Foreground="{StaticResource Color_Navigation}"
+                        HeightRequest="20"
+                        HorizontalOptions="Start"
+                        Source="ic_mylocation.png"
+                        VerticalOptions="Center"
+                        WidthRequest="20" />
+                    <Label
+                        Margin="5"
+                        HorizontalOptions="Start"
+                        LineBreakMode="TailTruncation"
+                        Text="{Binding CurrentAddress}" />
+                </StackLayout>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnSpacing x:TypeArguments="Double">
+                        <OnPlatform Android="1" iOS="0.5" />
+                    </Grid.ColumnSpacing>
+                    <Grid.RowSpacing x:TypeArguments="Double">
+                        <OnPlatform Android="1" iOS="0.5" />
+                    </Grid.RowSpacing>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*" />
+                        <ColumnDefinition Width=".5*" />
+                    </Grid.ColumnDefinitions>
+                    --><!--  Vận tốc  --><!--
+                    <StackLayout
+                        Grid.Column="0"
+                        Padding="5"
+                        BackgroundColor="White"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="0"
+                        VerticalOptions="CenterAndExpand">
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            LineBreakMode="TailTruncation"
+                            Text="{i18n:TranslateResource Online_Label_Velocity,
+                                                          Converter={StaticResource UpperCaseConverter}}"
+                            TextColor="{StaticResource Color_Placeholder}" />
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            LineBreakMode="TailTruncation"
+                            Text="{Binding CarActive.Velocity, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Common_Lable_NMUnit}}" />
+                    </StackLayout>
+                    --><!--  Hải lý  --><!--
+                    <StackLayout
+                        Grid.Column="1"
+                        Padding="5"
+                        BackgroundColor="White"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="0"
+                        VerticalOptions="CenterAndExpand">
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            LineBreakMode="TailTruncation"
+                            Text="QUÃNG ĐƯỜNG"
+                            TextColor="{StaticResource Color_Placeholder}" />
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            LineBreakMode="TailTruncation"
+                            Text="{Binding CarActive.TotalKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm}}" />
+                    </StackLayout>
+                </Grid>
+            </Grid>
+        </sharpnado:MaterialFrame>
+        <Grid
+            Grid.Row="2"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="End">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.Column="0"
+                BackgroundColor="{StaticResource Color_Navigation}"
+                BorderRadius="0"
+                Command="{Binding PushToRouterPageCommand}"
+                FontAttributes="Bold"
+                FontSize="12"
+                HeightRequest="40"
+                Text="{i18n:TranslateResource Route_Label_TitleVMS,
+                                              Converter={StaticResource UpperCaseConverter}}"
+                TextColor="White" />
+
+            <Button
+                Grid.Column="1"
+                BackgroundColor="{StaticResource Color_Navigation}"
+                BorderRadius="0"
+                Command="{Binding PushToDetailPageCommand}"
+                FontAttributes="Bold"
+                FontSize="12"
+                HeightRequest="40"
+                Text="{i18n:TranslateResource Online_Button_Detail,
+                                              Converter={StaticResource UpperCaseConverter}}"
+                TextColor="White" />
+        </Grid>
+    </Grid>-->
+</sharpnado:MaterialFrame>

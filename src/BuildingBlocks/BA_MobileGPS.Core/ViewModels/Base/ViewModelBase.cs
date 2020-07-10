@@ -4,6 +4,7 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
 using Prism;
 using Prism.AppModel;
+using Prism.Commands;
 using Prism.Common;
 using Prism.Events;
 using Prism.Ioc;
@@ -49,16 +50,27 @@ namespace BA_MobileGPS.Core.ViewModels
         public int[] _vehicleGroups;
         public int[] VehicleGroups { get => _vehicleGroups; set => SetProperty(ref _vehicleGroups, value); }
 
+        public ICommand SelectVehicleCommand { get; private set; }
+
+        public ICommand SelectVehicleGroupCommand { get; private set; }
+
+        public ICommand SelectCompanyCommand { get; private set; }
+
+        public ICommand SelectVehicleRouterCommand { get; private set; }
+
         public ViewModelBase(INavigationService navigationService)
         {
-            NavigationService = navigationService;
-
+            NavigationService = PrismApplicationBase.Current.Container.Resolve<INavigationService>();
             EventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             PageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
             DisplayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
 
             Connectivity.ConnectivityChanged -= OnConnectivityChanged;
             Connectivity.ConnectivityChanged += OnConnectivityChanged;
+            SelectVehicleCommand = new DelegateCommand(SelectVehicle);
+            SelectVehicleGroupCommand = new DelegateCommand(SelectVehicleGroup);
+            SelectCompanyCommand = new DelegateCommand(SelectCompany);
+            SelectVehicleRouterCommand = new DelegateCommand(SelectVehicleRouter);
         }
 
         ~ViewModelBase()
@@ -270,70 +282,49 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        public ICommand SelectCompanyCommand
+        public void SelectCompany()
         {
-            get
+            SafeExecute(async () =>
             {
-                return new Command(() =>
-                {
-                    SafeExecute(async () =>
-                    {
-                        await NavigationService.NavigateAsync("BaseNavigationPage/CompanyLookUp", useModalNavigation: true);
-                    });
-                });
-            }
+                await NavigationService.NavigateAsync("BaseNavigationPage/CompanyLookUp", useModalNavigation: true);
+            });
         }
 
-        public ICommand SelectVehicleCommand
+        public void SelectVehicle()
         {
-            get
+            SafeExecute(async () =>
             {
-                return new Command(() =>
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", useModalNavigation: true, parameters: new NavigationParameters
                 {
-                    SafeExecute(async () =>
-                    {
-                        await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", useModalNavigation: true, parameters: new NavigationParameters
-                        {
                             { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleOnline },
                             {  ParameterKey.VehicleGroupsSelected, VehicleGroups}
-                        });
-                    });
                 });
-            }
+            });
         }
 
-        public ICommand SelectVehicleRouterCommand
+        public void SelectVehicleRouter()
         {
-            get
+            SafeExecute(async () =>
             {
-                return new Command(() =>
-                {
-                    SafeExecute(async () =>
-                    {
-                        await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", useModalNavigation: true, parameters: new NavigationParameters
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", useModalNavigation: true, parameters: new NavigationParameters
                         {
                             { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleRoute },
                               {  ParameterKey.VehicleGroupsSelected, VehicleGroups}
                         });
-                    });
-                });
-            }
+            });
         }
 
-        public ICommand SelectVehicleGroupCommand
+        public void SelectVehicleGroup()
         {
-            get
+            SafeExecute(async () =>
             {
-                return new Command(async () =>
+                var navigationPara = new NavigationParameters
                 {
-                    var navigationPara = new NavigationParameters
-                    {
                         { ParameterKey.VehicleGroupsSelected, VehicleGroups }
-                    };
+                };
 
-                    await NavigationService.NavigateAsync("BaseNavigationPage/VehicleGroupLookUp", navigationPara, useModalNavigation: true);
-                });
-            }
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleGroupLookUp", navigationPara, useModalNavigation: true);
+            });
         }
 
         public ICommand PushToAleartPageCommand

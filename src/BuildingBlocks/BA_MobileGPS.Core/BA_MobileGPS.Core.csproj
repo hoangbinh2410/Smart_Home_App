@@ -34,9 +34,7 @@
 	<ItemGroup>
 		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.3" />
 		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.2.0.44" />
-		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.2.0.44" />
 		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="18.2.0.44" />
-		<PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="18.2.0.44" />
 		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.2.0.44" />
 		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.2.0.44" />
 		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.2.0.44" />
@@ -86,6 +84,9 @@
 	  <EmbeddedResource Update="App.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Controls\FooterDivider.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Styles\Converters.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
@@ -97,12 +98,6 @@
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Styles\Text.xaml">
 	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\MainPage\HomeTab\Home.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\InsertLocalDBPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Language\ChangeLanguage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -116,26 +111,42 @@
 	  <EmbeddedResource Update="Views\Authentication\LoginPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Language\LanguagePage.xaml">
+    <EmbeddedResource Update="Views\Language\LanguagePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Navigation\BaseNavigationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+	  <EmbeddedResource Update="Views\LoginPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\MainPage\MainPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\NonLoginFeaturesPopup.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Navigation\BaseNavigationPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Notification\NotificationPopupWhenLogin.xaml">
+    <EmbeddedResource Update="Views\Authentication\NonLoginFeaturesPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Navigation\BaseNavigationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Online\OnlinePage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Popup\BasePopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Shared\CompanyLookUp.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Shared\VehicleGroupLookUp.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Shared\VehicleLookUp.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
+	  <Folder Include="DependencyServices\" />
 	  <Folder Include="ViewModels\MainPage\" />
 	  <Folder Include="ViewModels\Common\" />
 	</ItemGroup>

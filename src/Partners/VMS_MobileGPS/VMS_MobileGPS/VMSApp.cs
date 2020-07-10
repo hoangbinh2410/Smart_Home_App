@@ -5,7 +5,7 @@ using BA_MobileGPS.Utilities.Constant;
 using BA_MobileGPS.Utilities.Enums;
 using Prism;
 using Prism.Ioc;
-
+using Prism.Mvvm;
 using VMS_MobileGPS.Styles;
 using VMS_MobileGPS.ViewModels;
 using VMS_MobileGPS.Views;
@@ -37,7 +37,7 @@ namespace VMS_MobileGPS
 
             AppManager.Init();
 
-            await NavigationService.NavigateAsync("/NavigationPage/OfflinePage");
+            await NavigationService.NavigateAsync("/LoginPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -67,8 +67,14 @@ namespace VMS_MobileGPS
             containerRegistry.RegisterForNavigation<MessageDetailPage, MessageDetailViewModel>(PageNames.MessageDetailPage.ToString());
             containerRegistry.RegisterForNavigation<MessagesOnlinePage, MessagesOnlineViewModel>(PageNames.MessagesOnlinePage.ToString());
             containerRegistry.RegisterForNavigation<MessageOnlineDetailPage, MessageOnlineDetailViewModel>(PageNames.MessageOnlineDetailPage.ToString());
-            containerRegistry.RegisterForNavigation<NotificationMessagePage, NotificationMessageViewModel>(PageNames.NotificationMessagePage.ToString());
-            containerRegistry.RegisterForNavigation<OfflineMap, OfflineMapViewModel>("OffMap");
+
+
+            containerRegistry.RegisterForNavigation<MainPage, BA_MobileGPS.Core.ViewModels.MainPageViewModel>("MainPage");
+            containerRegistry.RegisterForNavigation<BoundaryPage, BoundaryViewModel>("BoundaryPage");
+            containerRegistry.RegisterForNavigation<DistancePage, DistancePageViewModel>("DistancePage");
+            containerRegistry.RegisterForNavigation<VehicleDetailPage, VehicleDetailViewModel>("VehicleDetailPage");
+
+            ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
         }
     }
 }

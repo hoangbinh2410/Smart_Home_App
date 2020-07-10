@@ -48,7 +48,7 @@
     <Compile Include="DependencyServices\AppleAudioManager.cs" />
     <Compile Include="DependencyServices\AppVersionService.cs" />
     <Compile Include="DependencyServices\DisplayMessageService.cs" />
-    <Compile Include="DependencyServices\AppleHUDService.cs" />
+    <Compile Include="DependencyServices\HUDService.cs" />
     <Compile Include="DependencyServices\iOSTooltipService.cs" />
     <Compile Include="DependencyServices\SettingsService.cs" />
     <Compile Include="DependencyServices\StatusBarHelper.cs" />
@@ -102,13 +102,7 @@
     <PackageReference Include="EasyTipView">
       <Version>1.0.1</Version>
     </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator">
-      <Version>18.2.0.44</Version>
-    </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfCalendar">
-      <Version>18.2.0.44</Version>
-    </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfMaps">
       <Version>18.2.0.44</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfPicker">
@@ -205,9 +199,6 @@
       <ExcludeAssets>all</ExcludeAssets>
       <IncludeAssets>none</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Xamarin.IQKeyboardManager">
-      <Version>1.4.1</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BA_MobileGPS.Core\BA_MobileGPS.Core.csproj">
@@ -226,13 +217,19 @@
     <BundleResource Include="Resources\ic_close%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\flag_vn.png" />
+    <BundleResource Include="Resources\notSelected.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\flag_us.png" />
+    <BundleResource Include="Resources\selected.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\flag_nl.png" />
+    <BundleResource Include="Resources\ic_sortdown%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_sortdown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_sortdown%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

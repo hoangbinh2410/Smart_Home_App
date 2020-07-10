@@ -216,37 +216,37 @@ namespace VMS_MobileGPS.ViewModels
         {
             if (string.IsNullOrWhiteSpace(FishTrip.ShipPlate))
             {
-                PageDialog.DisplayAlertAsync("Thông báo", "Vui lòng nhập biển hiệu", "Đóng");
+                PageDialog.DisplayAlertAsync("Vui lòng nhập biển hiệu", "", "Đóng");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(FishTrip.Imei))
             {
-                PageDialog.DisplayAlertAsync("Thông báo", "Vui lòng nhập Imei", "Đóng");
+                PageDialog.DisplayAlertAsync("Vui lòng nhập Imei", "", "Đóng");
                 return false;
             }
 
             if (FishTrip.StartLatitude == 0 && FishTrip.StartLongitude == 0)
             {
-                PageDialog.DisplayAlertAsync("Thông báo", "Vui lòng lấy vị trí bắt đầu", "Đóng");
+                PageDialog.DisplayAlertAsync("Vui lòng lấy vị trí bắt đầu", "", "Đóng");
                 return false;
             }
 
             if (FishTrip.EndLatitude == 0 && FishTrip.EndLongitude == 0)
             {
-                PageDialog.DisplayAlertAsync("Thông báo", "Vui lòng lấy vị trí kết thúc", "Đóng");
+                PageDialog.DisplayAlertAsync("Vui lòng lấy vị trí kết thúc", "", "Đóng");
                 return false;
             }
 
             if (FishTrip.StartTime > FishTrip.EndTime)
             {
-                PageDialog.DisplayAlertAsync("Thông báo", "Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc", "Đóng");
+                PageDialog.DisplayAlertAsync("Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc", "", "Đóng");
                 return false;
             }
 
             if (ListFish.Count <= 0)
             {
-                PageDialog.DisplayAlertAsync("Thông báo", "Vui lòng thêm loài cá", "Đóng");
+                PageDialog.DisplayAlertAsync("Vui lòng thêm loài cá", "", "Đóng");
                 return false;
             }
 

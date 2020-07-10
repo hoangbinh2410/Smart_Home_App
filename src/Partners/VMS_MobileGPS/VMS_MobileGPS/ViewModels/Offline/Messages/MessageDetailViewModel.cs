@@ -132,12 +132,12 @@ namespace VMS_MobileGPS.ViewModels
 
             if (string.IsNullOrWhiteSpace(Receiver))
             {
-                PageDialog.DisplayAlertAsync("Thông báo", "Số điện thoại nhận không được trống", "Đóng");
+                PageDialog.DisplayAlertAsync("Số điện thoại nhận không được trống", "", "Đóng");
                 return false;
             }
             if (!StringHelper.ValidPhoneNumer(Receiver, MobileSettingHelper.LengthAndPrefixNumberPhone))
             {
-                PageDialog.DisplayAlertAsync("Thông báo", "Số điện thoại không hợp lệ", "Đóng");
+                PageDialog.DisplayAlertAsync("Số điện thoại không hợp lệ", "", "Đóng");
                 return false;
             }
 
@@ -152,7 +152,7 @@ namespace VMS_MobileGPS.ViewModels
                 {
                     if (AppManager.BluetoothService.State == Service.BleConnectionState.NO_CONNECTION)
                     {
-                        if (await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn chưa kết nối thiết bị. Bạn có muốn kết nối hay không?", "Có", "Không"))
+                        if (await PageDialog.DisplayAlertAsync("Bạn chưa kết nối thiết bị. Bạn có muốn kết nối hay không?", "Cảnh báo", "Có", "Không"))
                         {
                             await NavigationService.NavigateAsync(PageNames.BluetoothPage.ToString());
                         }
@@ -198,7 +198,7 @@ namespace VMS_MobileGPS.ViewModels
 
                         if (!ret.Data)
                         {
-                            await PageDialog.DisplayAlertAsync("Thông báo", ret.Message, "OK");
+                            await PageDialog.DisplayAlertAsync(ret.Message, "", "OK");
                             return;
                         }
 
@@ -221,7 +221,7 @@ namespace VMS_MobileGPS.ViewModels
                     else
                     {
                         LoggerHelper.WriteLog(GlobalResourcesVMS.Current.DeviceManager.DevicePlate, "Gửi tin nhắn không thành công bạn vui lòng kiểm tra lại");
-                        await PageDialog.DisplayAlertAsync("Thông báo", "Gửi tin nhắn không thành công bạn vui lòng kiểm tra lại", "Đồng ý");
+                        await PageDialog.DisplayAlertAsync("Gửi tin nhắn không thành công bạn vui lòng kiểm tra lại", "", "Đồng ý");
                     }
                 }
                 catch (Exception ex)

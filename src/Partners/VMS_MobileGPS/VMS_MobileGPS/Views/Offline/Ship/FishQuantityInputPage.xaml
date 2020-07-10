@@ -62,7 +62,7 @@
                 VerticalOptions="FillAndExpand">
                 <syncfusion:SfListView.RightSwipeTemplate>
                     <DataTemplate x:Name="RightSwipeTemplate">
-                        <Grid BackgroundColor="{StaticResource DangerousColor}">
+                        <Grid BackgroundColor="#DC595F">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Delete_Tapped" />
                             </Grid.GestureRecognizers>
@@ -113,7 +113,7 @@
                                 Grid.RowSpan="2"
                                 Grid.Column="1"
                                 HeightRequest="40"
-                                HorizontalOptions="Start"
+                                HorizontalOptions="Center"
                                 Source="ic_meluoi.png"
                                 VerticalOptions="Center"
                                 WidthRequest="40" />
@@ -121,7 +121,6 @@
                                 Grid.Row="0"
                                 Grid.Column="2"
                                 FontAttributes="Bold"
-                                HorizontalOptions="Start"
                                 Text="{Binding ShipPlate}"
                                 TextColor="Black" />
                             <Label
@@ -136,7 +135,6 @@
                                 Grid.Row="1"
                                 Grid.Column="2"
                                 Margin="0,0,10,0"
-                                HorizontalOptions="Start"
                                 LineBreakMode="TailTruncation"
                                 Text="{Binding Imei}"
                                 TextColor="Gray" />
