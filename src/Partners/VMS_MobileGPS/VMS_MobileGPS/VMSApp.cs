@@ -78,9 +78,12 @@ namespace VMS_MobileGPS
 
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
             ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
+            ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
 
             containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
             containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
+              containerRegistry.Register<ContentView, RoutePage>("RouteTab");
+            
         }
     }
 }
