@@ -94,9 +94,15 @@
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand">
 
-                    <Label LineBreakMode="TailTruncation" Text="{Binding DeviceManager.DevicePlate, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource BLENameConverter}}" />
+                    <Label
+                        HorizontalOptions="StartAndExpand"
+                        LineBreakMode="TailTruncation"
+                        Text="{Binding DeviceManager.DevicePlate, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource BLENameConverter}}" />
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="{Binding StateDeviceMessage}" TextColor="{Binding StateDeviceMessage, Converter={StaticResource DeviceStateColorConverter}}" />
+                        <Label
+                            HorizontalOptions="StartAndExpand"
+                            Text="{Binding StateDeviceMessage}"
+                            TextColor="{Binding StateDeviceMessage, Converter={StaticResource DeviceStateColorConverter}}" />
                         <controls:FontAwesomeIcon
                             FontAttributes="Bold"
                             FontSize="15"

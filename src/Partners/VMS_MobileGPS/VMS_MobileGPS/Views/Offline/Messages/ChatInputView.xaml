@@ -46,6 +46,7 @@
                         x:Name="txtMessage"
                         Grid.Column="0"
                         AutoSize="TextChanges"
+                        AutomationId="ChatMessageEditor"
                         BackgroundColor="#f6f8fa"
                         FontSize="14"
                         HorizontalOptions="FillAndExpand"
