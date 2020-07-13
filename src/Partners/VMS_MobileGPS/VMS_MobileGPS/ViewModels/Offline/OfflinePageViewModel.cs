@@ -418,7 +418,7 @@ namespace VMS_MobileGPS.ViewModels
 
         private void PushBlutoothPage(SwitchStateChangedEventArgs args)
         {
-            SafeExecute(async () =>
+            TryExecute(async () =>
             {
                 if (args != null && args.NewValue.GetValueOrDefault())
                 {
