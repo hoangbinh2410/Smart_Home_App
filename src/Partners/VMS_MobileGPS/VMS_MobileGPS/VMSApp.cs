@@ -78,7 +78,7 @@ namespace VMS_MobileGPS
 
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
 
-            containerRegistry.Register<View, OnlinePage>("Index0");
+            containerRegistry.Register<ContentView, OnlinePage>("Index0");
         }
     }
 }

@@ -98,6 +98,12 @@
 	  <EmbeddedResource Update="Styles\Text.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\MainPage\AccountTab\Account.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\AccountTab.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\MainPage\HomeTab\Home.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -139,7 +145,6 @@
 	  </EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="ViewModels\MainPage\" />
 	  <Folder Include="ViewModels\Common\" />
 	</ItemGroup>
 </Project>

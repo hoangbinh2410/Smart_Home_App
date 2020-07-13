@@ -595,13 +595,13 @@ namespace BA_MobileGPS.Core.ViewModels
             var temp = (HomeMenuItemViewModel)args.ItemData;
             switch (temp.MenuKey)
             {
-                case "VehiclePage":
+                case "ListVehiclePage":
                     EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(1);
                     break;
                 case "OnlinePage":
                     EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(2);
                     break;
-                case "VoyagePage":
+                case "RoutePage":
                     EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(3);
                     break;
                 default:
@@ -611,7 +611,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             if (IsBusy)
                                 return;
-
                             IsBusy = true;
 
                             if (!(args.ItemData is HomeMenuItemViewModel seletedMenu) || seletedMenu.MenuKey == null)

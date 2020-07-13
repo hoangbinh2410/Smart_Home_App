@@ -79,7 +79,9 @@ namespace BA_MobileGPS.Core
             containerRegistry.Register<IPopupServices, PopupServices>();
 
             ViewModelLocationProvider.Register<Home, HomeViewModel>();
-            containerRegistry.Register<View, Home>("Index0");
+            ViewModelLocationProvider.Register<Account, AccountViewModel>();
+            containerRegistry.Register<ContentView, Home>("Index0");
+            containerRegistry.Register<ContentView, Account>("Index4");
 
         }
 
