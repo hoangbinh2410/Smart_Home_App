@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:local="clr-namespace:BA_MobileGPS.Core.Views"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    Appearing="ContentPage_Appearing">
+    <ContentPage.Resources>
+        <converter:TabItemIconBackgroundColorConverter x:Key="TabItemIconBackgroundColorConverter" />
+        <converter:TabItemIconColorConverter x:Key="TabItemIconColorConverter" />
+        <converter:TabItemTextColorConverter x:Key="TabItemTextColorConverter" />
+        <ControlTemplate x:Key="TabItemTemplate">
+            <StackLayout
+                HorizontalOptions="Center"
+                Spacing="0"
+                VerticalOptions="Center">
+                <pancake:PancakeView
+                    x:Name="Parent"
+                    BackgroundColor="{TemplateBinding IsSelected,
+                                                      Converter={x:StaticResource TabItemIconBackgroundColorConverter}}"
+                    CornerRadius="15"
+                    HeightRequest="30"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="30">
+                    <controls:IconView
+                        Margin="5"
+                        Foreground="{TemplateBinding IsSelected,
+                                                     Converter={x:StaticResource TabItemIconColorConverter}}"
+                        HeightRequest="25"
+                        Source="{TemplateBinding IconImageSource}" />
+                </pancake:PancakeView>
+                <Label
+                    FontSize="13"
+                    LineBreakMode="TailTruncation"
+                    Text="{TemplateBinding Label}"
+                    TextColor="{TemplateBinding IsSelected,
+                                                Converter={x:StaticResource TabItemTextColorConverter}}" />
+            </StackLayout>
+        </ControlTemplate>
+        <Style TargetType="tabs:BottomTabItem">
+            <Setter Property="ControlTemplate" Value="{StaticResource TabItemTemplate}" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <pancake:PancakeView Style="{DynamicResource MainBackgroundColor}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <tabs:ViewSwitcher
+                    x:Name="Switcher"
+                    Grid.Row="0"
+                    Margin="0,0,0,-10"
+                    Animate="True">
+                    <!--<local:HomePage />
+                    <local:VehiclesPage />
+                    <local:MornitoringPage />
+                    <local:VoyagePage />
+                    <local:AccountsPage />-->
+                </tabs:ViewSwitcher>
+
+                <tabs:TabHostView
+                    x:Name="TabHost"
+                    Grid.Row="1"
+                    Padding="0"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource WhiteColor},
+                                                      Dark={StaticResource WhiteColor}}"
+                    HeightRequest="60"
+                    SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}"
+                    TabType="Fixed">
+                    <tabs:TabHostView.Tabs>
+                        <tabs:BottomTabItem IconImageSource="ic_Home.png" Label="{i18n:TranslateResource Menu_TabItem_Home}" />
+                        <tabs:BottomTabItem
+                            IconImageSource="ic_Ship.png"
+                            IsVisible="True"
+                            Label="{i18n:TranslateResource Menu_TabItem_Vehicle}" />
+                        <tabs:BottomTabItem
+                            IconImageSource="ic_Mornitoring.png"
+                            IsVisible="True"
+                            Label="{i18n:TranslateResource Menu_TabItem_Monitoring}" />
+                        <tabs:BottomTabItem
+                            IconImageSource="ic_Voyage.png"
+                            IsVisible="True"
+                            Label="{i18n:TranslateResource Menu_TabItem_Voyage}" />
+                        <tabs:BottomTabItem IconImageSource="ic_Account.png" Label="{i18n:TranslateResource Menu_TabItem_Account}" />
+                    </tabs:TabHostView.Tabs>
+                </tabs:TabHostView>
+            </Grid>
+        </pancake:PancakeView>
+    </ContentPage.Content>
+</ContentPage>

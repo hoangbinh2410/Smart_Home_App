@@ -3,13 +3,12 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 using BA_MobileGPS.Utilities.Enums;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
 using Prism;
 using Prism.Ioc;
-
+using Prism.Mvvm;
 using VMS_MobileGPS.Styles;
+using VMS_MobileGPS.ViewModels;
+using VMS_MobileGPS.Views;
 
 namespace VMS_MobileGPS
 {
@@ -36,10 +35,9 @@ namespace VMS_MobileGPS
             //      "android=28d78b27-4b62-42e5-8db5-8e2d50de6a3a",
             //      typeof(Analytics), typeof(Crashes));
 
-            //AppManager.Init();
+            AppManager.Init();
 
-            //await NavigationService.NavigateAsync("/NavigationPage/LandingPage");
-            await NavigationService.NavigateAsync("/LoginPage");
+            await NavigationService.NavigateAsync("/NavigationPage/OfflinePage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -57,7 +55,27 @@ namespace VMS_MobileGPS
             containerRegistry.Register<IVehicleDebtBlockService, VehicleDebtBlockService>();
 
             containerRegistry.Register<IServicePackageHistoryService, ServicePackageHistoryService>();
-            
+
+            containerRegistry.RegisterForNavigation<OfflinePage, OfflinePageViewModel>("OfflinePage");
+            containerRegistry.RegisterForNavigation<FishQuantityInputPage, FishQuantityInputViewModel>("FishQuantityInputPage");
+            containerRegistry.RegisterForNavigation<FishQuantityDetailPage, FishQuantityDetailViewModel>("FishQuantityDetailPage");
+            containerRegistry.RegisterForNavigation<AddFishQuantityPage, AddFishQuantityViewModel>("AddFishQuantityPage");
+            containerRegistry.RegisterForNavigation<LocationDergeeInputPage, LocationDergeeInputViewModel>("LocationDergeeInputPage");
+            containerRegistry.RegisterForNavigation<SOSPage, SOSViewModel>(PageNames.SOSPage.ToString());
+            containerRegistry.RegisterForNavigation<BluetoothPage, BluetoothViewModel>(PageNames.BluetoothPage.ToString());
+            containerRegistry.RegisterForNavigation<MessagesPage, MessagesViewModel>(PageNames.MessagesPage.ToString());
+            containerRegistry.RegisterForNavigation<MessageDetailPage, MessageDetailViewModel>(PageNames.MessageDetailPage.ToString());
+            containerRegistry.RegisterForNavigation<MessagesOnlinePage, MessagesOnlineViewModel>(PageNames.MessagesOnlinePage.ToString());
+            containerRegistry.RegisterForNavigation<MessageOnlineDetailPage, MessageOnlineDetailViewModel>(PageNames.MessageOnlineDetailPage.ToString());
+            containerRegistry.RegisterForNavigation<NotificationMessagePage, NotificationMessageViewModel>(PageNames.NotificationMessagePage.ToString());
+            containerRegistry.RegisterForNavigation<OfflineMap, OfflineMapViewModel>("OffMap");
+
+            containerRegistry.RegisterForNavigation<MainPage, BA_MobileGPS.Core.ViewModels.MainPageViewModel>("MainPage");
+            containerRegistry.RegisterForNavigation<BoundaryPage, BoundaryViewModel>("BoundaryPage");
+            containerRegistry.RegisterForNavigation<DistancePage, DistancePageViewModel>("DistancePage");
+            containerRegistry.RegisterForNavigation<VehicleDetailPage, VehicleDetailViewModel>("VehicleDetailPage");
+
+            ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
         }
     }
 }

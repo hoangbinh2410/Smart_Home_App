@@ -7,21 +7,22 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
-    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-    xmlns:res="clr-namespace:BA_MobileGPS.Core.Styles">
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView">
+
 
     <!--  Auto set style region  -->
     <Style ApplyToDerivedTypes="True" TargetType="{x:Type ContentPage}">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightBackgoundPageColor}, Dark={StaticResource DarkBackgoundPageColor}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource GrayColor}, Dark={StaticResource GrayColor}}" />
     </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="NavigationPage">
-        <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" />
-        <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource LightBarTextColor}, Dark={StaticResource DarkBarTextColor}}" />
+        <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
+        <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
     </Style>
 
     <Style TargetType="Grid">
         <Setter Property="RowSpacing" Value="10" />
+        <Setter Property="Padding" Value="0" />
     </Style>
 
     <Style TargetType="StackLayout">
@@ -31,45 +32,45 @@
     <Style TargetType="buttons:SfCheckBox">
         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
         <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimaryColor}, Dark={StaticResource TextPrimaryColor}}" />
     </Style>
     <Style ApplyToDerivedTypes="True" TargetType="Button">
-        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="CornerRadius" Value="25" />
         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
         <Setter Property="FontSize" Value="{StaticResource MyFontSizeLarge}" />
-        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="HeightRequest" Value="50" />
         <Setter Property="WidthRequest" Value="100" />
+        <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
     </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="Label">
         <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimaryColor}, Dark={StaticResource TextPrimaryColor}}" />
         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
         <Setter Property="HorizontalOptions" Value="Center" />
-    </Style>
-
-    <Style TargetType="SearchBar">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightSearchBarBackgroundColor}, Dark={StaticResource DarkSearchBarBackgroundColor}}" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <Setter Property="LineBreakMode" Value="WordWrap" />
     </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="Entry">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkSecondaryTextColor}}" />
-        <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource LightPlaceHoderTextColor}, Dark={StaticResource DarkPlaceHoderTextColor}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimaryColor}, Dark={StaticResource TextPrimaryColor}}" />
+        <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource TextPlaceHolderColor}, Dark={StaticResource TextPlaceHolderColor}}" />
         <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
         <Setter Property="IsSpellCheckEnabled" Value="False" />
         <Setter Property="IsTextPredictionEnabled" Value="False" />
-
     </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="Editor">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}" />
-        <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource LightPlaceHoderTextColor}, Dark={StaticResource DarkPlaceHoderTextColor}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimaryColor}, Dark={StaticResource TextPrimaryColor}}" />
+        <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource TextPlaceHolderColor}, Dark={StaticResource TextPlaceHolderColor}}" />
         <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
     </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="DatePicker">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
         <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
         <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
     </Style>
@@ -80,8 +81,8 @@
         <Setter Property="ContainerType" Value="Outlined" />
         <Setter Property="FocusedStrokeWidth" Value="1" />
         <Setter Property="HorizontalOptions" Value="FillAndExpand" />
-        <Setter Property="ErrorColor" Value="{AppThemeBinding Light={StaticResource LightSfTextInputErrColor}, Dark={StaticResource DarkSfTextInputErrColor}}" />
-        <Setter Property="FocusedColor" Value="{AppThemeBinding Light={StaticResource LightSfTextInputFocusColor}, Dark={StaticResource DarkSfTextInputFocusColor}}" />
+        <Setter Property="ErrorColor" Value="{AppThemeBinding Light={StaticResource DangerousColor}, Dark={StaticResource DangerousColor}}" />
+        <Setter Property="FocusedColor" Value="{AppThemeBinding Light={StaticResource BluePrimaryColor}, Dark={StaticResource BluePrimaryColor}}" />
     </Style>
 
     <Style TargetType="ffImage:CachedImage">
@@ -89,9 +90,9 @@
     </Style>
 
     <Style TargetType="IndicatorView">
-        <Setter Property="IndicatorColor" Value="{AppThemeBinding Light={StaticResource LightSecondaryTextColor}, Dark={StaticResource DarkSecondaryTextColor}}" />
+        <Setter Property="IndicatorColor" Value="{AppThemeBinding Light={StaticResource TextSecondaryColor}, Dark={StaticResource TextSecondaryColor}}" />
         <Setter Property="IndicatorsShape" Value="Circle" />
-        <Setter Property="SelectedIndicatorColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" />
+        <Setter Property="SelectedIndicatorColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
         <Setter Property="VerticalOptions" Value="End" />
     </Style>
 
@@ -104,21 +105,20 @@
 
     <!--  Button  -->
     <Style Class="AcceptButton" TargetType="Button">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" />
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightBarTextColor}, Dark={StaticResource DarkBarTextColor}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
         <Setter Property="Text" Value="ĐỒNG Ý" />
     </Style>
 
     <Style Class="CancelButton" TargetType="Button">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightBarTextColor}, Dark={StaticResource DarkBarTextColor}}" />
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
         <Setter Property="Text" Value="HỦY BỎ" />
     </Style>
 
     <Style Class="DangerousButton" TargetType="Button">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightDangerousColor}, Dark={StaticResource DarkDangerousColor}}" />
-        <Setter Property="TextColor" Value="{DynamicResource BarTextColor}" />
-        <Setter Property="Text" Value="DANGEROUS" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource DangerousColor}, Dark={StaticResource DangerousColor}}" />
+        <Setter Property="TextColor" Value="{DynamicResource WhiteColor}" />
     </Style>
 
 
@@ -134,85 +134,65 @@
 
     <!--  Label  -->
     <Style Class="GroupTitleLabel" TargetType="Label">
-
         <Setter Property="FontSize" Value="{StaticResource MyFontSizeLarge}" />
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightGroupTitleTextColor}, Dark={StaticResource DarkGroupTitleTextColor}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
         <Setter Property="VerticalOptions" Value="Center" />
         <Setter Property="HorizontalOptions" Value="StartAndExpand" />
     </Style>
 
-    <Style Class="IconText" TargetType="Label">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}" />
-        <Setter Property="LineBreakMode" Value="WordWrap" />
-        <Setter Property="HorizontalTextAlignment" Value="Center" />
+    <Style Class="HomeIconLabel" TargetType="Label">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimaryColor}, Dark={StaticResource TextPrimaryColor}}" />
     </Style>
 
-    <Style Class="CircleFrameBackground" TargetType="Frame">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightCircleFrameBackgroundColor}, Dark={StaticResource DarkCircleFrameBackgroundColor}}" />
-        <Setter Property="HeightRequest" Value="50" />
-        <Setter Property="WidthRequest" Value="50" />
-        <Setter Property="CornerRadius" Value="25" />
-    </Style>
 
-    <Style Class="ErrorDescriptionLabel" TargetType="Label">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightDangerousColor}, Dark={StaticResource DarkDangerousColor}}" />
-        <Setter Property="FontSize" Value="Small" />
-        <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
-        <Setter Property="HorizontalTextAlignment" Value="Start" />
-    </Style>
 
     <!--  Box View draw line below group title  -->
     <Style Class="SlimLine" TargetType="BoxView">
         <Setter Property="HeightRequest" Value="1" />
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightGroupTitleTextColor}, Dark={StaticResource DarkGroupTitleTextColor}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
     </Style>
 
     <!--  Sf Text Input Layout  -->
     <Style Class="LoginEntry" TargetType="input:SfTextInputLayout">
-        <Setter Property="ContainerBackgroundColor" Value="{AppThemeBinding Light={StaticResource LightSecondaryOtherColor}, Dark={StaticResource DarkSecondaryOtherColor}}" />
-        <Setter Property="ContainerType" Value="Outlined" />
+        <Setter Property="ContainerBackgroundColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
         <Setter Property="HeightRequest" Value="40" />
-        <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="WidthRequest" Value="300" />
-        <Setter Property="LeadingViewPosition" Value="Inside" />
         <Setter Property="OutlineCornerRadius" Value="20" />
         <Setter Property="InputViewPadding" Value="15,0,0,0" />
-        <Setter Property="FocusedColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryOtherColor}, Dark={StaticResource DarkPrimaryOtherColor}}" />
-        <Setter Property="ErrorColor" Value="{AppThemeBinding Light={StaticResource LightDangerousColor}, Dark={StaticResource DarkDangerousColor}}" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+    <Style Class="LoginAwesomeIcon" TargetType="controls:FontAwesomeIcon">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalOptions" Value="Center" />
     </Style>
 
     <!--  Main  Background Color  -->
     <Style x:Key="MainBackgroundColor" TargetType="pancake:PancakeView">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightBackgoundPageColor}, Dark={StaticResource DarkBackgoundPageColor}}" />
-        <Setter Property="BackgroundGradientAngle" Value="180" />
-        <Setter Property="BackgroundGradientStartColor" Value="{AppThemeBinding Light={StaticResource LightBackgoundPageGradientStartColor}, Dark={StaticResource DarkBackgoundPageGradientStartColor}}" />
-        <Setter Property="BackgroundGradientEndColor" Value="{AppThemeBinding Light={StaticResource LightBackgoundPageGradientEndColor}, Dark={StaticResource DarkBackgoundPageGradientEndColor}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource GrayColor}, Dark={StaticResource GrayColor}}" />
     </Style>
-
 
     <!--  Favourite background  -->
     <Style x:Key="FavouriteBackgroundColor" TargetType="pancake:PancakeView">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightBackgoundFavouriteColor}, Dark={StaticResource DarkBackgoundPageGradientEndColor}}" />
-        <Setter Property="BackgroundGradientAngle" Value="90" />
-        <Setter Property="BackgroundGradientStartColor" Value="{AppThemeBinding Light={StaticResource LightBackgoundFavouriteGradientStartColor}, Dark={StaticResource DarkBackgoundFavouriteGradientStartColor}}" />
-        <Setter Property="BackgroundGradientEndColor" Value="{AppThemeBinding Light={StaticResource LightBackgoundFavouriteGradientEndColor}, Dark={StaticResource DarkBackgoundFavouriteGradientEndColor}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
     </Style>
 
-    <!--  Top IconView  -->
-    <Style Class="TopIconView" TargetType="controls:IconView">
+    <!--  Top IconView : 4 icons  -->
+    <Style Class="TopIconView" TargetType="controls:FontAwesomeIcon">
         <Setter Property="HeightRequest" Value="40" />
         <Setter Property="WidthRequest" Value="40" />
-        <Setter Property="Foreground" Value="{AppThemeBinding Light={StaticResource LightTopIconForeground}, Dark={StaticResource DarkTopIconForeground}}" />
+        <Setter Property="Margin" Value="10,0,10,0" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
     </Style>
 
     <Style Class="HomePageTopImage" TargetType="ffImage:CachedImage">
-        <Setter Property="Source" Value="{AppThemeBinding Light={StaticResource LightHomePageTopImageSource}, Dark={StaticResource DarkHomePageTopImageSource}}" />
+        <Setter Property="Source" Value="{AppThemeBinding Light={StaticResource HomePageTopImageSource}, Dark={StaticResource HomePageTopImageSource}}" />
     </Style>
 
     <Style Class="HomePageBotImage" TargetType="ffImage:CachedImage">
-        <Setter Property="Source" Value="{AppThemeBinding Light={StaticResource LightHomePageBotImageSource}, Dark={StaticResource DarkHomePageBotImageSource}}" />
+        <Setter Property="Source" Value="{AppThemeBinding Light={StaticResource HomePageBotImageSource}, Dark={StaticResource HomePageBotImageSource}}" />
     </Style>
-
-
 
 </ResourceDictionary>

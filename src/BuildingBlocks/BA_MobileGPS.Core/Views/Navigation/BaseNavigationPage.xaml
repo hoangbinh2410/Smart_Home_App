@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<NavigationPage
+    x:Class="BA_MobileGPS.Core.Views.BaseNavigationPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BarTextColor="White">
+    <NavigationPage.ToolbarItems>
+        <ToolbarItem
+            x:Name="btnClose"
+            Command="{Binding ClosePageCommand}"
+            Icon="ic_close.png"
+            IconImageSource="ic_close.png"
+            Order="Primary"
+            Priority="0"
+            Text="Đóng" />
+    </NavigationPage.ToolbarItems>
+</NavigationPage>
