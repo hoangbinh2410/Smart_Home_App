@@ -663,7 +663,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-
         private void JoinGroupSignalRCompany(string companyID)
         {
             try
