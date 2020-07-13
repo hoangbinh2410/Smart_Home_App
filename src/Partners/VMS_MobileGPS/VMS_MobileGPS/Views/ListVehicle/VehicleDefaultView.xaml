@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<sharpnado:MaterialFrame
+    x:Class="VMS_MobileGPS.Views.VehicleDefaultView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    Padding="0"
+    CornerRadius="0">
+    <sharpnado:MaterialFrame.Resources>
+        <ResourceDictionary>
+            <converters:NMConverter x:Key="NMConverter" />
+            <converters:UnitConverter x:Key="UnitConverter" />
+        </ResourceDictionary>
+    </sharpnado:MaterialFrame.Resources>
+    <StackLayout>
+        <Grid Padding="8" ColumnSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".3*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackLayout
+                Grid.Column="0"
+                HorizontalOptions="Center"
+                VerticalOptions="EndAndExpand">
+                <ffImage:CachedImage
+                    BitmapOptimizations="True"
+                    HeightRequest="30"
+                    Source="{Binding IconImage}"
+                    WidthRequest="30" />
+                <Label
+                    FontSize="12"
+                    HorizontalOptions="Center"
+                    LineBreakMode="WordWrap"
+                    Text="{Binding PrivateCode}" />
+            </StackLayout>
+
+            <StackLayout
+                Grid.Column="1"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="EndAndExpand">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*" />
+                        <ColumnDefinition Width=".5*" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Column="0" HorizontalOptions="StartAndExpand">
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <ffImage:CachedImage
+                                BitmapOptimizations="True"
+                                HeightRequest="15"
+                                Source="ic_turnon_time_on_day.png"
+                                VerticalOptions="Center"
+                                WidthRequest="15">
+                                <ffImage:CachedImage.Transformations>
+                                    <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
+                                </ffImage:CachedImage.Transformations>
+                            </ffImage:CachedImage>
+                            <Label
+                                FontSize="12"
+                                Text="{Binding GPSTime, Converter={StaticResource TimeConverter}}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <ffImage:CachedImage
+                                BitmapOptimizations="True"
+                                HeightRequest="15"
+                                Source="ic_distance.png"
+                                VerticalOptions="Center"
+                                WidthRequest="15">
+                                <ffImage:CachedImage.Transformations>
+                                    <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
+                                </ffImage:CachedImage.Transformations>
+                            </ffImage:CachedImage>
+                            <Label
+                                FontSize="12"
+                                Text="{Binding TotalKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm}}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="1" HorizontalOptions="StartAndExpand">
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <ffImage:CachedImage
+                                BitmapOptimizations="True"
+                                HeightRequest="15"
+                                Source="ic_engine.png"
+                                VerticalOptions="Center"
+                                WidthRequest="15">
+                                <ffImage:CachedImage.Transformations>
+                                    <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
+                                </ffImage:CachedImage.Transformations>
+                            </ffImage:CachedImage>
+                            <Label
+                                FontSize="12"
+                                Text="{Binding LostGSMTime, Converter={StaticResource SecondsToStringConverter}}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <ffImage:CachedImage
+                                BitmapOptimizations="True"
+                                HeightRequest="15"
+                                Source="ic_velocity.png"
+                                VerticalOptions="Center"
+                                WidthRequest="15">
+                                <ffImage:CachedImage.Transformations>
+                                    <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
+                                </ffImage:CachedImage.Transformations>
+                            </ffImage:CachedImage>
+                            <Label
+                                FontSize="12"
+                                Text="{Binding Velocity, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Common_Lable_NMUnit}}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </StackLayout>
+                </Grid>
+                <StackLayout
+                    IsVisible="{Binding MessageBAP, Converter={StaticResource HasDataConverter}}"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <ffImage:CachedImage
+                        BitmapOptimizations="True"
+                        HeightRequest="15"
+                        Source="ic_lisence.png"
+                        VerticalOptions="Center"
+                        WidthRequest="15">
+                        <ffImage:CachedImage.Transformations>
+                            <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
+                        </ffImage:CachedImage.Transformations>
+                    </ffImage:CachedImage>
+                    <Label
+                        FontSize="12"
+                        Text="{Binding MessageBAP}"
+                        TextColor="Red"
+                        VerticalOptions="Center" />
+                </StackLayout>
+            </StackLayout>
+
+        </Grid>
+        <sharpnado:MaterialFrame
+            Padding="0"
+            HeightRequest="1"
+            LightThemeBackgroundColor="{StaticResource TextSecondaryColor}" />
+    </StackLayout>
+
+</sharpnado:MaterialFrame>

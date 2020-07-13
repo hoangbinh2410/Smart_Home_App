@@ -1,12 +1,10 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Android.Views;
 using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Droid;
 using BA_MobileGPS.Droid.Setup;
 using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace VMS_MobileGPS.Droid
@@ -23,7 +21,6 @@ namespace VMS_MobileGPS.Droid
             base.OnCreate(bundle);
             Forms.SetFlags(new string[] { "CarouselView_Experimental", "IndicatorView_Experimental", "FastRenderers_Experimental", "AppTheme_Experimental" });
 
-
             Forms.Init(this, bundle);
 
             ToolSetup.Initialize(this, bundle);
@@ -37,7 +34,6 @@ namespace VMS_MobileGPS.Droid
         {
             if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
             {
-
             }
         }
     }

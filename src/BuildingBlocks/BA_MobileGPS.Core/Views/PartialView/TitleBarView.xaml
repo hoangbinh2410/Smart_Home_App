@@ -15,7 +15,12 @@
             Padding="15,5"
             BackgroundColor="{StaticResource PrimaryColor}"
             HeightRequest="70">
-
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+            </Grid>
             <ffImage:CachedImage
                 Grid.Row="0"
                 Grid.Column="0"
@@ -26,7 +31,6 @@
             <Grid Grid.Row="0" Grid.Column="1">
 
                 <StackLayout
-                    HeightRequest="35"
                     HorizontalOptions="EndAndExpand"
                     Orientation="Horizontal"
                     Spacing="10"

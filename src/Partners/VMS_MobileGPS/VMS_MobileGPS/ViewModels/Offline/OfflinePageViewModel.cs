@@ -95,6 +95,7 @@ namespace VMS_MobileGPS.ViewModels
             else if (!IsConnectBLE)
             {
                 StateDeviceMessage = "Chưa kết nối";
+                StateDevice = new Dictionary<string, string>();
             }
             GetCountMessage();
         }
@@ -418,7 +419,7 @@ namespace VMS_MobileGPS.ViewModels
 
         private void PushBlutoothPage(SwitchStateChangedEventArgs args)
         {
-            SafeExecute(async () =>
+            TryExecute(async () =>
             {
                 if (args != null && args.NewValue.GetValueOrDefault())
                 {
@@ -429,7 +430,7 @@ namespace VMS_MobileGPS.ViewModels
                     if (await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có muốn ngắt kết nối thiệt bị không", "ĐỒNG Ý", "BỎ QUA"))
                     {
                         await AppManager.BluetoothService.Disconnect();
-
+                        StateDevice = new Dictionary<string, string>();
                         StateDeviceMessage = "Chưa kết nối";
                     }
                     else
