@@ -10,6 +10,7 @@
     xmlns:local="clr-namespace:BA_MobileGPS.Core.Views"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms"
     x:Name="MainContentPage"
     prism:ViewModelLocator.AutowireViewModel="True">
@@ -32,18 +33,13 @@
                     VerticalOptions="Center"
                     WidthRequest="30">
                     <controls:IconView
-                        Margin="5"
+                        Margin="7"
                         Foreground="{TemplateBinding IsSelected,
                                                      Converter={x:StaticResource TabItemIconColorConverter}}"
                         HeightRequest="25"
                         Source="{TemplateBinding IconImageSource}" />
                 </pancake:PancakeView>
-                <Label
-                    FontSize="13"
-                    LineBreakMode="TailTruncation"
-                    Text="{TemplateBinding Label}"
-                    TextColor="{TemplateBinding IsSelected,
-                                                Converter={x:StaticResource TabItemTextColorConverter}}" />
+                <Label Text="{TemplateBinding Label}" TextColor="{TemplateBinding IsSelected, Converter={x:StaticResource TabItemTextColorConverter}}" />
             </StackLayout>
         </ControlTemplate>
         <Style TargetType="tabs:BottomTabItem">
@@ -52,7 +48,7 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <pancake:PancakeView Style="{DynamicResource MainBackgroundColor}">
+        <sharpnado:MaterialFrame Padding="0" LightThemeBackgroundColor="{StaticResource GrayColor}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -60,23 +56,15 @@
                 </Grid.RowDefinitions>
                 <tabs:ViewSwitcher
                     x:Name="Switcher"
+                    Grid.Row="0"
                     Margin="0,0,0,-10"
                     Animate="True"
-                    SelectedIndex="{Binding SelectedIndex}">
-                    <local:Home prism:ViewModelLocator.AutowirePartialView="{x:Reference MainContentPage}" />
-                    <!--<local:VehiclesPage />
-                    <local:MornitoringPage />
-                    <local:VoyagePage />
-                    <local:AccountsPage />-->
-
-                </tabs:ViewSwitcher>
+                    SelectedIndex="{Binding SelectedIndex}" />
 
                 <tabs:TabHostView
                     x:Name="TabHost"
                     Grid.Row="1"
                     Padding="0"
-                    BackgroundColor="{AppThemeBinding Light={StaticResource WhiteColor},
-                                                      Dark={StaticResource WhiteColor}}"
                     HeightRequest="60"
                     SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}"
                     TabType="Fixed">
@@ -98,6 +86,6 @@
                     </tabs:TabHostView.Tabs>
                 </tabs:TabHostView>
             </Grid>
-        </pancake:PancakeView>
+        </sharpnado:MaterialFrame>
     </ContentPage.Content>
 </ContentPage>

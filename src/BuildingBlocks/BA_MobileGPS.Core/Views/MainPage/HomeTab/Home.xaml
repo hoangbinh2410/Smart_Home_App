@@ -117,7 +117,6 @@
                                 ItemSize="95"
                                 ItemsSource="{Binding FavouriteMenuItems, Mode=OneWay}"
                                 Loaded="Favourite_SfListView_Loaded"
-                                PropertyChanged="favouriteListView_PropertyChanged"
                                 TapCommand="{Binding TapMenuCommand}" />
                         </StackLayout>
                     </pancake:PancakeView>

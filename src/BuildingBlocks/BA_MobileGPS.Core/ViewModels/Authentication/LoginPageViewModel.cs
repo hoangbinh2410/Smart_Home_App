@@ -137,11 +137,10 @@ namespace BA_MobileGPS.Core.ViewModels
                             MobileSettingHelper.DicMobileConfigurations.Add(item.Name, item.Value);
                         }
                     });
-                    //IsUseExperience = MobileSettingHelper.IsUseExperience;
+
                     //EmailSupport = MobileSettingHelper.EmailSupport;
                     //Hotline = MobileSettingHelper.HotlineGps;
-                    //CopyRight = MobileSettingHelper.CopyRight;
-                    //LabelExperienceBA = MobileResource.Login_Lable_ExperienceBA.ToUpper();
+
 
                     if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
                     {
@@ -328,15 +327,7 @@ namespace BA_MobileGPS.Core.ViewModels
         //private string emailSupport;
         //public string EmailSupport { get => emailSupport; set => SetProperty(ref emailSupport, value); }
 
-        //private string copyRight;
-        //public string CopyRight { get => copyRight; set => SetProperty(ref copyRight, value); }
-        //private string message;
-        //public string Message { get => message; set => SetProperty(ref message, value); }
-        //private string labelExperienceBA;
-        //public string LabelExperienceBA { get => labelExperienceBA; set => SetProperty(ref labelExperienceBA, value); }
-
-        //public bool isUseExperience;
-        //public bool IsUseExperience { get => isUseExperience; set => SetProperty(ref isUseExperience, value); }
+       
 
         private bool rememberme;
         public bool Rememberme
@@ -562,15 +553,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 //{
                 //    await NavigationService.NavigateAsync("MenuNavigationPage/VerifyCodeOtpPage", null, useModalNavigation: true);
                 //}
-                ////nếu cần đổi mật khẩu thì mở trang đổi mật khẩu
-                //else if (user.IsNeedChangePassword)
-                //{
-                //    await NavigationService.NavigateAsync("BaseNavigationPage/ChangePasswordPage", useModalNavigation: true);
-                //}
-                //else
-                //{
-                await NavigationService.NavigateAsync("/MainPage");
-                // }
+                //nếu cần đổi mật khẩu thì mở trang đổi mật khẩu
+                if (user.IsNeedChangePassword)
+                {
+                    await NavigationService.NavigateAsync("BaseNavigationPage/ChangePasswordPage", useModalNavigation: true);
+                }
+                else
+                {
+                    await NavigationService.NavigateAsync("/MainPage");
+                }
             }
             catch (Exception ex)
             {

@@ -71,14 +71,16 @@ namespace VMS_MobileGPS
             containerRegistry.RegisterForNavigation<NotificationMessagePage, NotificationMessageViewModel>(PageNames.NotificationMessagePage.ToString());
             containerRegistry.RegisterForNavigation<OfflineMap, OfflineMapViewModel>("OffMap");
 
-           // containerRegistry.RegisterForNavigation<MainPage, BA_MobileGPS.Core.ViewModels.MainPageViewModel>("MainPage");
+           
             containerRegistry.RegisterForNavigation<BoundaryPage, BoundaryViewModel>("BoundaryPage");
             containerRegistry.RegisterForNavigation<DistancePage, DistancePageViewModel>("DistancePage");
             containerRegistry.RegisterForNavigation<VehicleDetailPage, VehicleDetailViewModel>("VehicleDetailPage");
 
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
+            ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
 
-            containerRegistry.Register<ContentView, OnlinePage>("Index0");
+            containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
+            containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
         }
     }
 }

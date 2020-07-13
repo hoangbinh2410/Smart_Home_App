@@ -80,8 +80,8 @@ namespace BA_MobileGPS.Core
 
             ViewModelLocationProvider.Register<Home, HomeViewModel>();
             ViewModelLocationProvider.Register<Account, AccountViewModel>();
-            containerRegistry.Register<ContentView, Home>("Index0");
-            containerRegistry.Register<ContentView, Account>("Index4");
+            containerRegistry.Register<ContentView, Home>("HomeTab");
+            containerRegistry.Register<ContentView, Account>("AccountTab");
 
         }
 
