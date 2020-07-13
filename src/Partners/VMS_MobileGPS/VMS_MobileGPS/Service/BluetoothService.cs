@@ -7,6 +7,7 @@ using Plugin.BLE.Abstractions.EventArgs;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -275,6 +276,7 @@ namespace VMS_MobileGPS.Service
 
         public async Task<BaseResponse<bool>> Send(string Message)
         {
+            Debug.Write(Message);
             return await Send(Encoding.ASCII.GetBytes(Message));
         }
 
