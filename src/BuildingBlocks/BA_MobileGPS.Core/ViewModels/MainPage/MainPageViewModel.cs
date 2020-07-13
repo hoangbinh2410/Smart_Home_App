@@ -11,8 +11,7 @@ namespace BA_MobileGPS.Core.ViewModels
     public class MainPageViewModel : ViewModelBase
     {
         public MainPageViewModel(INavigationService navigationService) : base(navigationService)
-        {
-            selectedIndex = 0;
+        {            
             EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
         }
 
