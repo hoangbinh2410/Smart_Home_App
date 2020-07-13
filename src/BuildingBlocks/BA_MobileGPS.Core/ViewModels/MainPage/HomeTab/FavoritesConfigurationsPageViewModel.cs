@@ -19,12 +19,8 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class FavoritesConfigurationsPageViewModel : ViewModelBase
     {
-        private readonly IAuthenticationService _authenticationService;
-        private readonly IAppVersionService _appVersionService;
-        private readonly IPageDialogService _dialogService;
         private readonly IDisplayMessage _displayMessage;
         private readonly IHomeService _homeService;
-        private readonly ISignalRServices _signalRServices;
         private readonly IMapper _mapper;
         public DelegateCommand<object> TapMenuCommand { get; set; }
         public DelegateCommand SaveCommand { get; private set; }
@@ -35,11 +31,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public FavoritesConfigurationsPageViewModel(INavigationService navigationService, IMapper mapper, IHomeService homeService, IAppVersionService appVersionService, IPageDialogService dialogService, ISignalRServices signalRServices, IAuthenticationService authenticationService, IDisplayMessage displayMessage)
             : base(navigationService)
         {
-            this._authenticationService = authenticationService;
-            this._appVersionService = appVersionService;
-            this._dialogService = dialogService;
             this._displayMessage = displayMessage;
-            this._signalRServices = signalRServices;
             this._homeService = homeService;
             this._mapper = mapper;
 

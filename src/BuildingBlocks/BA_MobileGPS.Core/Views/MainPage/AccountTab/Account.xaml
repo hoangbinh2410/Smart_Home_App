@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="BA_MobileGPS.Core.Views.Account"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="http://prismlibrary.com">
+    <Label
+        FontSize="20"
+        Text="Acc"
+        VerticalOptions="Center" />
+</ContentView>

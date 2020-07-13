@@ -9,6 +9,7 @@ using Prism.Mvvm;
 using VMS_MobileGPS.Styles;
 using VMS_MobileGPS.ViewModels;
 using VMS_MobileGPS.Views;
+using Xamarin.Forms;
 
 namespace VMS_MobileGPS
 {
@@ -70,12 +71,19 @@ namespace VMS_MobileGPS
             containerRegistry.RegisterForNavigation<NotificationMessagePage, NotificationMessageViewModel>(PageNames.NotificationMessagePage.ToString());
             containerRegistry.RegisterForNavigation<OfflineMap, OfflineMapViewModel>("OffMap");
 
-            containerRegistry.RegisterForNavigation<MainPage, BA_MobileGPS.Core.ViewModels.MainPageViewModel>("MainPage");
+           
             containerRegistry.RegisterForNavigation<BoundaryPage, BoundaryViewModel>("BoundaryPage");
             containerRegistry.RegisterForNavigation<DistancePage, DistancePageViewModel>("DistancePage");
             containerRegistry.RegisterForNavigation<VehicleDetailPage, VehicleDetailViewModel>("VehicleDetailPage");
 
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
+            ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
+            ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
+
+            containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
+            containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
+              containerRegistry.Register<ContentView, RoutePage>("RouteTab");
+            
         }
     }
 }
