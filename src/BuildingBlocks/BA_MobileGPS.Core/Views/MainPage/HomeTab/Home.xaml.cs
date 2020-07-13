@@ -49,5 +49,12 @@ namespace BA_MobileGPS.Core.Views
 
         }
 
+        private void favouriteListView_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "ItemsSource")
+            {
+                CenterFavouriteListViewConfig();
+            }
+        }
     }
 }
