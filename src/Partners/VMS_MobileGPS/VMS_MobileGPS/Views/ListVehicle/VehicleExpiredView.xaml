@@ -10,7 +10,7 @@
     <StackLayout>
         <Grid Padding="8" ColumnSpacing="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width=".2*" />
+                <ColumnDefinition Width=".3*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <StackLayout

@@ -5,9 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
-    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:local="clr-namespace:VMS_MobileGPS.Views"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms"
@@ -22,14 +22,13 @@
                 HorizontalOptions="Center"
                 Spacing="0"
                 VerticalOptions="Center">
-                <sharpnado:MaterialFrame
+                <pancake:PancakeView
                     x:Name="Parent"
-                    Padding="0"
+                    BackgroundColor="{TemplateBinding IsSelected,
+                                                      Converter={x:StaticResource TabItemIconBackgroundColorConverter}}"
                     CornerRadius="15"
                     HeightRequest="30"
                     HorizontalOptions="Center"
-                    LightThemeBackgroundColor="{TemplateBinding IsSelected,
-                                                                Converter={x:StaticResource TabItemIconBackgroundColorConverter}}"
                     VerticalOptions="Center"
                     WidthRequest="30">
                     <controls:IconView
@@ -38,7 +37,7 @@
                                                      Converter={x:StaticResource TabItemIconColorConverter}}"
                         HeightRequest="25"
                         Source="{TemplateBinding IconImageSource}" />
-                </sharpnado:MaterialFrame>
+                </pancake:PancakeView>
                 <Label Text="{TemplateBinding Label}" TextColor="{TemplateBinding IsSelected, Converter={x:StaticResource TabItemTextColorConverter}}" />
             </StackLayout>
         </ControlTemplate>
