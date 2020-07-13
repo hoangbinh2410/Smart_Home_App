@@ -12,6 +12,7 @@
         Common_Loading_Processing1,
         Common_Lable_ChooseVehicleGroup,
         Common_Message_Loading,
+        Common_Label_Notification,
         Common_Message_Warning,
         Common_Message_Skip,
         Common_Button_OK,
@@ -90,6 +91,8 @@
         Login_Lable_SelectLanguage,
         Login_Message_AccountPasswordIncorrect,
         Login_Message_AccountLocked,
+        Login_ForgotPassword_PopupTitle,
+        Login_ForgotPassword_PopupContent,
         #endregion Login
 
         #region ChangePassword

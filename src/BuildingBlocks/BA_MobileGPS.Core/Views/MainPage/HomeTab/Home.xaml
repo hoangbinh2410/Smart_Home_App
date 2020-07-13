@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="BA_MobileGPS.Core.Views.Home"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:sfListView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    x:Name="root">
+    <ContentView.Resources>
+        <DataTemplate x:Key="IconTemplate">
+            <StackLayout Spacing="10">
+                <ff:CachedImage
+                    HeightRequest="50"
+                    Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
+                    WidthRequest="50" />
+                <Label
+                    LineBreakMode="TailTruncation"
+                    MaxLines="2"
+                    StyleClass="IconText"
+                    Text="{Binding NameByCulture}" />
+            </StackLayout>
+        </DataTemplate>
+        <Style TargetType="sfListView:SfListView">
+            <Setter Property="IsScrollBarVisible" Value="True" />
+            <Setter Property="IsScrollingEnabled" Value="True" />
+            <Setter Property="ItemSpacing" Value="10,10,0,0" />
+            <Setter Property="Orientation" Value="Horizontal" />
+            <Setter Property="SelectionBackgroundColor" Value="Transparent" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="ItemTemplate" Value="{StaticResource IconTemplate}" />
+        </Style>
+    </ContentView.Resources>
+    <Grid>
+        <Grid Padding="0">
+            <ff:CachedImage
+                Aspect="AspectFill"
+                HeightRequest="200"
+                StyleClass="HomePageTopImage"
+                VerticalOptions="StartAndExpand" />
+        </Grid>
+        <Grid Padding="5,0" RowDefinitions="Auto,Auto">
+            <Grid Padding="15,0" HeightRequest="110">
+                <ff:CachedImage
+                    HeightRequest="35"
+                    HorizontalOptions="StartAndExpand"
+                    Source="ic_logo.png"
+                    VerticalOptions="EndAndExpand"
+                    WidthRequest="80" />
+                <StackLayout
+                    HorizontalOptions="End"
+                    Orientation="Horizontal"
+                    VerticalOptions="End">
+                    <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Phone}">
+                        <controls:FontAwesomeIcon.Behaviors>
+                            <animation:ViewTappedBehavior AnimationType="Scale" />
+                        </controls:FontAwesomeIcon.Behaviors>
+                        <controls:FontAwesomeIcon.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding HotlineTapCommand}" />
+                        </controls:FontAwesomeIcon.GestureRecognizers>
+                    </controls:FontAwesomeIcon>
+                    <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
+                        <controls:FontAwesomeIcon.Behaviors>
+                            <animation:ViewTappedBehavior AnimationType="Scale" />
+                        </controls:FontAwesomeIcon.Behaviors>
+                        <controls:FontAwesomeIcon.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
+                        </controls:FontAwesomeIcon.GestureRecognizers>
+                    </controls:FontAwesomeIcon>
+                    <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}">
+                        <controls:FontAwesomeIcon.Behaviors>
+                            <animation:ViewTappedBehavior AnimationType="Scale" />
+                        </controls:FontAwesomeIcon.Behaviors>
+                    </controls:FontAwesomeIcon>
+                    <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Bell}">
+                        <controls:FontAwesomeIcon.Behaviors>
+                            <animation:ViewTappedBehavior AnimationType="Scale" />
+                        </controls:FontAwesomeIcon.Behaviors>
+                    </controls:FontAwesomeIcon>
+                </StackLayout>
+            </Grid>
+            <ScrollView Grid.Row="1">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+                    <pancake:PancakeView
+                        Margin="10,5"
+                        CornerRadius="10"
+                        Style="{DynamicResource FavouriteBackgroundColor}">
+                        <StackLayout Spacing="0">
+                            <Grid Margin="10">
+                                <Label StyleClass="GroupTitleLabel" Text="NỔI BẬT" />
+                                <controls:FontAwesomeIcon
+                                    Margin="0,0,10,0"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="End"
+                                    Text="{x:Static fontawesome:FontAwesomeIcons.Heart}"
+                                    TextColor="Red">
+                                    <controls:FontAwesomeIcon.Behaviors>
+                                        <animation:ViewTappedBehavior AnimationType="Scale" />
+                                    </controls:FontAwesomeIcon.Behaviors>
+                                    <controls:FontAwesomeIcon.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding NavigateToFavoriteCommand}" NumberOfTapsRequired="1" />
+                                    </controls:FontAwesomeIcon.GestureRecognizers>
+                                </controls:FontAwesomeIcon>
+                            </Grid>
+                            <BoxView class="SlimLine" />
+                            <sfListView:SfListView
+                                x:Name="favouriteListView"
+                                HeightRequest="110"
+                                HorizontalOptions="Center"
+                                IsScrollBarVisible="True"
+                                IsVisible="{Binding HasFavorite}"
+                                ItemSize="95"
+                                ItemsSource="{Binding FavouriteMenuItems, Mode=OneWay}"
+                                Loaded="Favourite_SfListView_Loaded"
+                                TapCommand="{Binding TapMenuCommand}" />
+                        </StackLayout>
+                    </pancake:PancakeView>
+                    <Grid Grid.Row="1" Padding="20,0">
+                        <Label StyleClass="GroupTitleLabel" Text="TIỆN ÍCH" />
+                        <controls:FontAwesomeIcon
+                            Margin="0,0,10,0"
+                            FontAttributes="Bold"
+                            HorizontalOptions="End"
+                            Text="{x:Static fontawesome:FontAwesomeIcons.AlignJustify}"
+                            TextColor="{AppThemeBinding Light={StaticResource PrimaryColor},
+                                                        Dark={StaticResource PrimaryColor}}">
+                            <controls:FontAwesomeIcon.Behaviors>
+                                <animation:ViewTappedBehavior AnimationType="Scale" />
+                            </controls:FontAwesomeIcon.Behaviors>
+                            <controls:FontAwesomeIcon.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding AddCommand}" NumberOfTapsRequired="1" />
+                            </controls:FontAwesomeIcon.GestureRecognizers>
+                        </controls:FontAwesomeIcon>
+                    </Grid>
+
+                    <BoxView
+                        Grid.Row="2"
+                        Margin="10,0"
+                        class="SlimLine" />
+
+                    <Grid Grid.Row="3" HeightRequest="260">
+                        <CarouselView
+                            x:Name="list1"
+                            IndicatorView="indicatorView"
+                            ItemsSource="{Binding AllListfeatures}">
+                            <CarouselView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <sfListView:SfListView
+                                            HeightRequest="250"
+                                            HorizontalOptions="CenterAndExpand"
+                                            IsScrollBarVisible="False"
+                                            ItemSize="100"
+                                            ItemSpacing="5,0,5,0"
+                                            ItemsSource="{Binding FeaturesItem}"
+                                            Loaded="FeaturesSfListView_Loaded"
+                                            TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </CarouselView.ItemTemplate>
+                        </CarouselView>
+                        <IndicatorView x:Name="indicatorView" Margin="0,0,0,10" />
+                    </Grid>
+                    <pancake:PancakeView
+                        Grid.Row="4"
+                        Margin="15,0"
+                        CornerRadius="15">
+                        <ff:CachedImage
+                            Aspect="AspectFill"
+                            HeightRequest="200"
+                            StyleClass="HomePageBotImage" />
+                    </pancake:PancakeView>
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </Grid>
+</ContentView>

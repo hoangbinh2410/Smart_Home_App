@@ -23,7 +23,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>BA-SAT</string>
 	<key>CFBundleIdentifier</key>
-	<string>vn.bagps.basatmobile</string>
+	<string>vn.bagps.basatmobiletest</string>
 	<key>UIRequiresFullScreen</key>
 	<true/>
 	<key>XSAppIconAssets</key>

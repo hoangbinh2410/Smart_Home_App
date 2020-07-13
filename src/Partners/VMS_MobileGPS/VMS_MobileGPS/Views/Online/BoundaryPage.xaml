@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VMS_MobileGPS.Views.BoundaryPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:checkbox="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    x:Name="this"
+    Title="Ẩn hiện điểm ranh giới biển">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:TextChangedEventArgsConverter x:Key="TextChangedEventArgsConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <inputLayout:SfTextInputLayout
+                Grid.Row="0"
+                Margin="10,0,10,0"
+                Padding="0"
+                ContainerType="Outlined"
+                HorizontalOptions="FillAndExpand"
+                LeadingViewPosition="Inside"
+                OutlineCornerRadius="5"
+                ShowHelperText="False"
+                VerticalOptions="Center">
+                <inputLayout:SfTextInputLayout.LeadingView>
+                    <controls:FontAwesomeIcon FontAttributes="Bold" Text="{x:Static fontawesome:FontAwesomeIcons.Search}" />
+                </inputLayout:SfTextInputLayout.LeadingView>
+                <Entry x:Name="SearchText" Placeholder="Tìm kiếm">
+                    <Entry.Behaviors>
+                        <prismbehaviors:EventToCommandBehavior
+                            Command="{Binding SearchCommand}"
+                            EventArgsConverter="{StaticResource TextChangedEventArgsConverter}"
+                            EventName="TextChanged" />
+                    </Entry.Behaviors>
+                </Entry>
+            </inputLayout:SfTextInputLayout>
+            <Label
+                Grid.Row="1"
+                Margin="10,0,0,0"
+                FontAttributes="Bold"
+                FontSize="18"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Start"
+                Text="Danh Sách Điểm Ranh Giới" />
+            <Grid
+                Grid.Row="2"
+                Padding="10,0"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding ListLandmark, Converter={StaticResource HasDataConverter}}"
+                RowSpacing="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".5*" />
+                    <ColumnDefinition Width=".5*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.ColumnSpan="2"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Start"
+                    Text="Tất cả"
+                    VerticalOptions="Center" />
+                <checkbox:SfCheckBox
+                    x:Name="ckbAllBoudary"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    CheckedColor="{StaticResource BlueDarkColor}"
+                    CornerRadius="5"
+                    FontSize="13"
+                    Text="Hiển thị vùng bao" />
+                <checkbox:SfCheckBox
+                    x:Name="ckbAllName"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    CheckedColor="{StaticResource BlueDarkColor}"
+                    CornerRadius="5.0"
+                    FontSize="13"
+                    Text="Hiển thị tên điểm" />
+            </Grid>
+            <ScrollView
+                Grid.Row="3"
+                Padding="10,0"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Vertical"
+                VerticalScrollBarVisibility="Never">
+                <StackLayout x:Name="ListCheck" BindableLayout.ItemsSource="{Binding ListLandmark}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalOptions="FillAndExpand" RowSpacing="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width=".5*" />
+                                    <ColumnDefinition Width=".5*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Label
+                                    Grid.ColumnSpan="2"
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    HorizontalOptions="FillAndExpand"
+                                    HorizontalTextAlignment="Start"
+                                    Text="{Binding Name}"
+                                    VerticalOptions="Center" />
+                                <checkbox:SfCheckBox
+                                    x:Name="ckbBoudary"
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    CheckedColor="{StaticResource BlueDarkColor}"
+                                    CornerRadius="5"
+                                    FontSize="13"
+                                    IsChecked="{Binding IsShowBoudary}"
+                                    StateChanged="CkbBoudary_StateChanged"
+                                    Text="Hiển thị vùng bao" />
+                                <checkbox:SfCheckBox
+                                    x:Name="ckbName"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    CheckedColor="{StaticResource BlueDarkColor}"
+                                    CornerRadius="5.0"
+                                    FontSize="13"
+                                    IsChecked="{Binding IsShowName}"
+                                    StateChanged="CkbName_StateChanged"
+                                    Text="Hiển thị tên điểm" />
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+            <StackLayout
+                Grid.Row="4"
+                Padding="10"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal">
+                <Button
+                    Padding="10,0"
+                    BackgroundColor="{StaticResource BlueDarkColor}"
+                    Command="{Binding CanelCommand}"
+                    CornerRadius="5"
+                    FontAttributes="Bold"
+                    FontSize="{StaticResource MyFontSizeSmall}"
+                    HeightRequest="40"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Hủy"
+                    TextColor="{StaticResource WhiteColor}" />
+                <Button
+                    Padding="10,0"
+                    BackgroundColor="{StaticResource BlueDarkColor}"
+                    Command="{Binding UpdateCommand}"
+                    CornerRadius="5"
+                    FontAttributes="Bold"
+                    FontSize="{StaticResource MyFontSizeSmall}"
+                    HeightRequest="40"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Cập Nhật"
+                    TextColor="{StaticResource WhiteColor}" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace BA_MobileGPS.Core.Events
 {
-    public class TabItemSwitchEvent: PubSubEvent<HomeMenuItem>
+    public class TabItemSwitchEvent: PubSubEvent<int>
     {
     }
 }

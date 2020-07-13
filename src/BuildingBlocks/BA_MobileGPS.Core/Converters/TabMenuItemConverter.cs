@@ -6,22 +6,12 @@ using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core
 {
-    public class TabItemColorConverter : IValueConverter
+    public class TabItemTextColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Color unSelected;
-            Color selected;
-            if (Application.Current.RequestedTheme == OSAppTheme.Light || Application.Current.RequestedTheme == OSAppTheme.Unspecified)
-            {
-                unSelected = (Color)Application.Current.Resources["LightTabItemUnSelectedColor"];
-                selected = (Color)Application.Current.Resources["LightTabItemSelectedColor"];
-            }
-            else
-            {
-                unSelected = (Color)Application.Current.Resources["DarkTabItemUnSelectedColor"];
-                selected = (Color)Application.Current.Resources["DarkTabItemSelectedColor"];
-            }
+            Color unSelected = (Color)Application.Current.Resources["TextSecondaryColor"];
+            Color selected = (Color)Application.Current.Resources["BlueDarkColor"];
             if (value == null)
             {
                 return unSelected;
@@ -38,18 +28,20 @@ namespace BA_MobileGPS.Core
         }
     }
 
-    public class TabItemSizeConverter : IValueConverter
+    public class TabItemIconColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            Color unSelected = (Color)Application.Current.Resources["TextSecondaryColor"];
+            Color selectedBackground = (Color)Application.Current.Resources["WhiteColor"];
             if (value == null)
             {
-                return (double)Application.Current.Resources["DarkTabItemNormalSize"];
+                return unSelected;
             }
             if ((bool)value)
-                return (double)Application.Current.Resources["DarkTabItemClickedSize"];
+                return selectedBackground;
             else
-                return (double)Application.Current.Resources["DarkTabItemNormalSize"];
+                return unSelected;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -57,4 +49,27 @@ namespace BA_MobileGPS.Core
             return value.ToString();
         }
     }
+
+    public class TabItemIconBackgroundColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Color unSelected = (Color)Application.Current.Resources["GrayColor"];
+            Color selectedBackground = (Color)Application.Current.Resources["PrimaryColor"];
+            if (value == null)
+            {
+                return unSelected;
+            }
+            if ((bool)value)
+                return selectedBackground;
+            else
+                return unSelected;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value.ToString();
+        }
+    }
+
 }

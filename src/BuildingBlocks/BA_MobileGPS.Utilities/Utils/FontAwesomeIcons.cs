@@ -16068,5 +16068,7 @@ namespace FontAwesome
         /// See https://fontawesome.com/icons/search-plus
         /// </summary>
         public const string Zoom = "\uf00e";
+        public const string PhoneAlt = "\uf879";
+
     }
 }
