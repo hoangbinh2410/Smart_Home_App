@@ -789,5 +789,8 @@
   <ItemGroup>
     <BundleResource Include="Resources\ic_Lock%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\z_sos.mp3" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
