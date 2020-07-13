@@ -536,6 +536,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
+                var param = _mapper.Map<VehicleOnline>(selected);
                 var parameters = new NavigationParameters
                 {
                     { ParameterKey.CarDetail, selected }
@@ -575,6 +576,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
+                var param = _mapper.Map<VehicleOnline>(selected);
                 var parameters = new NavigationParameters
                 {
                     { ParameterKey.VehicleOnline, selected }
