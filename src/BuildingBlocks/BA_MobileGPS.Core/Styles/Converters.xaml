@@ -43,4 +43,6 @@
     <converters:IsEmptyDataConverter x:Key="IsEmptyDataConverter" />
     <converters:ZeroBooleanConverter x:Key="ZeroBooleanConverter" />
     <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
+
+    <converters:IsCompanyConverter x:Key="IsCompanyConverter" />
 </ResourceDictionary>

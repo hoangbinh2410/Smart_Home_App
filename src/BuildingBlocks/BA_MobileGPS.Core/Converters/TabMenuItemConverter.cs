@@ -54,8 +54,8 @@ namespace BA_MobileGPS.Core
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Color unSelected = Color.Transparent;
-            Color selectedBackground = (Color)Application.Current.Resources["BlueDarkColor"];
+            Color unSelected = (Color)Application.Current.Resources["GrayColor"];
+            Color selectedBackground = (Color)Application.Current.Resources["PrimaryColor"];
             if (value == null)
             {
                 return unSelected;
