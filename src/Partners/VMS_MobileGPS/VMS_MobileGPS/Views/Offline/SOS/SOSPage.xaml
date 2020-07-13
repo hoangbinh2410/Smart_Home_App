@@ -9,7 +9,7 @@
     xmlns:local="clr-namespace:VMS_MobileGPS.Constant;assembly=VMS_MobileGPS"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
-    Title="CẢNH BÁO SOS">
+    Title="Cảnh báo SOS">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:BLEConnectionStateConverter x:Key="BLEConnectionStateConverter" />

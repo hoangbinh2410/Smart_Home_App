@@ -101,6 +101,10 @@
         <Setter Property="HasShadow" Value="False" />
     </Style>
 
+    <Style ApplyToDerivedTypes="True" TargetType="controls:FontAwesomeIcon">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
+    </Style>
+
     <!--  Class style region  -->
 
     <!--  Button  -->

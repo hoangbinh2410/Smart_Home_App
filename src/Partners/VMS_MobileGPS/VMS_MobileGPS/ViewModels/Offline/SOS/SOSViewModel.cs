@@ -87,6 +87,7 @@ namespace VMS_MobileGPS.ViewModels
                         await PageDialog.DisplayAlertAsync("Lỗi", resultSOS.Message, "ĐỒNG Ý");
                     else
                     {
+                       
                         GlobalResourcesVMS.Current.DeviceManager.IsSendSOS = true;
                         var result = sOSHistoryService.Add(new SOSHistory()
                         {
