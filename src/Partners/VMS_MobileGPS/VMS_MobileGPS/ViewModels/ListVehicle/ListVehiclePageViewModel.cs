@@ -539,7 +539,7 @@ namespace VMS_MobileGPS.ViewModels
                 var param = _mapper.Map<VehicleOnline>(selected);
                 var parameters = new NavigationParameters
                 {
-                    { ParameterKey.CarDetail, selected }
+                    { ParameterKey.CarDetail, param }
                 };
 
                 await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true);
@@ -579,7 +579,7 @@ namespace VMS_MobileGPS.ViewModels
                 var param = _mapper.Map<VehicleOnline>(selected);
                 var parameters = new NavigationParameters
                 {
-                    { ParameterKey.VehicleOnline, selected }
+                    { ParameterKey.VehicleOnline, param }
                 };
 
                 await NavigationService.NavigateAsync("BaseNavigationPage/DistancePage", parameters, true);
