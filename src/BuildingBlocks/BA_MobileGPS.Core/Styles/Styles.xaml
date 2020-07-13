@@ -186,8 +186,8 @@
     <Style Class="TopIconView" TargetType="controls:FontAwesomeIcon">
         <Setter Property="HeightRequest" Value="40" />
         <Setter Property="WidthRequest" Value="40" />
-        <Setter Property="Margin" Value="10,0,10,0" />
-        <Setter Property="TextColor" Value="White" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
         <Setter Property="VerticalTextAlignment" Value="Center" />
     </Style>
 
@@ -197,6 +197,13 @@
 
     <Style Class="HomePageBotImage" TargetType="ffImage:CachedImage">
         <Setter Property="Source" Value="{AppThemeBinding Light={StaticResource HomePageBotImageSource}, Dark={StaticResource HomePageBotImageSource}}" />
+    </Style>
+
+    <!--  TitleBar  -->
+    <Style Class="TitleBarGrid" TargetType="Grid">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
+        <Setter Property="HeightRequest" Value="85" />
+        <Setter Property="Padding" Value="15,5" />
     </Style>
 
 </ResourceDictionary>

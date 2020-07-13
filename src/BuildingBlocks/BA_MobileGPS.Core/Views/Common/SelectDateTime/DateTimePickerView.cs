@@ -37,7 +37,7 @@ namespace BA_MobileGPS.Core.Views
         }
 
         public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(DateTimePickerView),
-            (Color)Application.Current.Resources["Color_Border"], propertyChanged: OnBorderColorChanged);
+            (Color)Application.Current.Resources["GrayColor"], propertyChanged: OnBorderColorChanged);
 
         public Color BorderColor
         {
