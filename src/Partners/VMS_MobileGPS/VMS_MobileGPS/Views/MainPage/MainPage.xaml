@@ -61,8 +61,8 @@
                     <!--<local:HomePage />
                     <local:VehiclesPage />-->
                     <local:OnlinePage prism:ViewModelLocator.AutowirePartialView="{x:Reference MainContentPage}" />
-                    <!--<local:VoyagePage />
-                    <local:AccountsPage />-->
+                    <local:RoutePage prism:ViewModelLocator.AutowirePartialView="{x:Reference MainContentPage}" />
+                    <!--<local:AccountsPage />-->
                 </tabs:ViewSwitcher>
 
                 <tabs:TabHostView

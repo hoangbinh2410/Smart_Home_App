@@ -106,6 +106,7 @@
                     Source="ic_doubleship.png"
                     VerticalOptions="Center" />
             </pancake:PancakeView>
+
             <pancake:PancakeView
                 Grid.Column="2"
                 BackgroundColor="White"

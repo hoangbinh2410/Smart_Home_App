@@ -76,6 +76,7 @@ namespace VMS_MobileGPS
             containerRegistry.RegisterForNavigation<VehicleDetailPage, VehicleDetailViewModel>("VehicleDetailPage");
 
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
+            ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
         }
     }
 }
