@@ -9,13 +9,10 @@ using Xamarin.Forms;
 namespace BA_MobileGPS.Core.Views
 {
     public partial class Home : ContentView
-
     {
         public Home()
         {
             InitializeComponent();
-
-
         }
 
         private void Favourite_SfListView_Loaded(object sender, ListViewLoadedEventArgs e)
@@ -46,7 +43,6 @@ namespace BA_MobileGPS.Core.Views
             var visualContainer = listViewTempalte.GetVisualContainer();
             var totalextent = (double)visualContainer.GetType().GetRuntimeProperties().FirstOrDefault(container => container.Name == "TotalExtent").GetValue(visualContainer);
             listViewTempalte.WidthRequest = totalextent + 10;
-
         }
 
       

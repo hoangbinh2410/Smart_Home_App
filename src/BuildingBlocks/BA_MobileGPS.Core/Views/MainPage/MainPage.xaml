@@ -39,7 +39,7 @@
                         HeightRequest="25"
                         Source="{TemplateBinding IconImageSource}" />
                 </pancake:PancakeView>
-                <Label Text="{TemplateBinding Label}" TextColor="{TemplateBinding IsSelected, Converter={x:StaticResource TabItemTextColorConverter}}" />
+                <Label Text="{TemplateBinding Label}" TextColor="{TemplateBinding IsSelected, Converter={x:StaticResource TabItemTextColorConverter}}" LineBreakMode="TailTruncation"/>
             </StackLayout>
         </ControlTemplate>
         <Style TargetType="tabs:BottomTabItem">

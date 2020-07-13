@@ -21,23 +21,24 @@ namespace BA_MobileGPS.Core.Views
             ViewModelLocator.SetAutowirePartialView(listVehicleTab, MainContentPage);
             Switcher.Children.Add(listVehicleTab);
 
-            //var online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online
-            //ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
-            //Switcher.Children.Add(online);// Trang online
+            var online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online
+            ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
+            Switcher.Children.Add(online);
 
             var routeTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("RouteTab"); //RouteTab
             ViewModelLocator.SetAutowirePartialView(routeTab, MainContentPage);
-            Switcher.Children.Add(routeTab);// Trang online
+            Switcher.Children.Add(routeTab);
 
             var accountTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("AccountTab"); //Account
             ViewModelLocator.SetAutowirePartialView(accountTab, MainContentPage);
             Switcher.Children.Add(accountTab);
 
-            Switcher.SelectedIndex = 0;
+         
 
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitAnimation();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
+            Switcher.SelectedIndex = 2;
         }
 
         private enum States
