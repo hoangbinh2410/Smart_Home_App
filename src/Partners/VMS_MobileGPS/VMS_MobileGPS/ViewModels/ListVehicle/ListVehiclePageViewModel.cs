@@ -4,6 +4,7 @@ using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Core.ViewModels;
@@ -51,20 +52,20 @@ namespace VMS_MobileGPS.ViewModels
         public ICommand TapListVehicleCommand { get; private set; }
         public ICommand SelectStatusVehicleCommand { get; private set; }
 
-        public DelegateCommand<object> PushToFABPageCommand { get; private set; }
         private readonly IMapper _mapper;
         private readonly IVehicleOnlineService vehicleOnlineService;
-        public ListVehiclePageViewModel(INavigationService navigationService, IMapper mapper, IVehicleOnlineService vehicleOnlineService)
+        private readonly IPopupServices popupServices;
+        public ListVehiclePageViewModel(INavigationService navigationService, IMapper mapper, IVehicleOnlineService vehicleOnlineService, IPopupServices popupServices)
             : base(navigationService)
         {
             this._mapper = mapper;
             this.vehicleOnlineService = vehicleOnlineService;
+            this.popupServices = popupServices;
             ShowHelpCommand = new DelegateCommand(ShowHelp);
             ChangeSortCommand = new DelegateCommand(ChangeSort);
             SearchVehicleCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehiclewithText);
             TapListVehicleCommand = new DelegateCommand<Syncfusion.ListView.XForms.ItemTappedEventArgs>(TapListVehicle);
             SelectStatusVehicleCommand = new DelegateCommand<Syncfusion.ListView.XForms.ItemTappedEventArgs>(SelectStatusVehicle);
-            PushToFABPageCommand = new DelegateCommand<object>(PushtoFABPage);
 
             EventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(OnReceiveSendCarSignalR);
             EventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
@@ -88,10 +89,6 @@ namespace VMS_MobileGPS.ViewModels
                 VehicleGroups = vehiclegroup;
 
                 UpdateVehicleByVehicleGroup(vehiclegroup);
-            }
-            else if (parameters?.GetValue<bool>(ParameterKey.OnlinePage) is bool onlinepage)
-            {
-                IsRedirectOnlinePage = onlinepage;
             }
             else if (companyChanged)
             {
@@ -188,8 +185,6 @@ namespace VMS_MobileGPS.ViewModels
         public string searchedText;
         public string SearchedText { get => searchedText; set => SetProperty(ref searchedText, value); }
 
-        private bool isRedirectOnlinePage;
-        public bool IsRedirectOnlinePage { get => isRedirectOnlinePage; set => SetProperty(ref isRedirectOnlinePage, value); }
         #endregion
 
 
@@ -323,9 +318,13 @@ namespace VMS_MobileGPS.ViewModels
             }
         }
 
-        private async void ShowHelp()
+        private void ShowHelp()
         {
-            await NavigationService.NavigateAsync("ListVehicleHelpPage", useModalNavigation: true);
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("ListVehicleHelpPage", useModalNavigation: true);
+            });
+
         }
 
         private async void ChangeSort()
@@ -451,85 +450,27 @@ namespace VMS_MobileGPS.ViewModels
                         ShowInfoMessageDetailBAP(selected.MessageDetailBAP);
                         return;
                     }
+                    var action = await PageDialog.DisplayActionSheetAsync(MobileResource.ListVehicle_Label_SelectCommand, MobileResource.Common_Button_Close, null,
+                           MobileResource.DetailVehicle_Label_TilePage, MobileResource.Online_Label_TitlePage, MobileResource.Route_Label_TitleVMS, MobileResource.Route_Label_DistanceTitle);
 
-                    if (!IsRedirectOnlinePage)
+                    if (action == MobileResource.DetailVehicle_Label_TilePage)
                     {
-                        var action = await PageDialog.DisplayActionSheetAsync(MobileResource.ListVehicle_Label_SelectCommand, MobileResource.Common_Button_Close, null,
-                            MobileResource.DetailVehicle_Label_TilePage, MobileResource.Online_Label_TitlePage, MobileResource.Route_Label_TitleVMS, MobileResource.Route_Label_DistanceTitle);
-
-                        if (action == MobileResource.DetailVehicle_Label_TilePage)
-                        {
-                            GoDetailPage(selected);
-                        }
-                        else if (action == MobileResource.Online_Label_TitlePage)
-                        {
-                            GoOnlinePage(selected);
-                        }
-                        else if (action == MobileResource.Route_Label_TitleVMS)
-                        {
-                            GoRoutePage(selected);
-                        }
-                        else if (action == MobileResource.Route_Label_DistanceTitle)
-                        {
-                            GoDistancePage(selected);
-                        }
+                        GoDetailPage(selected);
                     }
-                    else
+                    else if (action == MobileResource.Online_Label_TitlePage)
                     {
-                        await NavigationService.GoBackAsync(useModalNavigation: false, parameters: new NavigationParameters
-                        {
-                            { ParameterKey.Vehicle, new Vehicle {
-                                VehicleId=selected.VehicleId,
-                                PrivateCode=selected.PrivateCode,
-                                VehiclePlate=selected.VehiclePlate,
-                            }}
-                        });
+                        GoOnlinePage(selected);
+                    }
+                    else if (action == MobileResource.Route_Label_TitleVMS)
+                    {
+                        GoRoutePage(selected);
+                    }
+                    else if (action == MobileResource.Route_Label_DistanceTitle)
+                    {
+                        GoDistancePage(selected);
                     }
                 }
             });
-        }
-
-        private async void PushtoFABPage(object index)
-        {
-            if (IsBusy)
-            {
-                return;
-            }
-            IsBusy = true;
-            try
-            {
-                switch ((int)index)
-                {
-                    case 1:
-
-                        using (new HUDService(MobileResource.Common_Message_Processing))
-                        {
-                            //có cấu hình cty này dùng Cluster thì mới mở forms Cluster
-                            if (MobileUserSettingHelper.EnableShowCluster)
-                            {
-                                await NavigationService.NavigateAsync("OnlinePage");
-                            }
-                            else
-                            {
-                                await NavigationService.NavigateAsync("OnlinePageNoCluster");
-                            }
-                        }
-
-                        break;
-
-                    case 2:
-                        await NavigationService.NavigateAsync("MenuNavigationPage/HeplerPage", null, useModalNavigation: true);
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
         }
 
         public void CacularVehicleStatus()
@@ -595,12 +536,12 @@ namespace VMS_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-                var param = _mapper.Map<VehicleOnline>(selected);
-
-                await NavigationService.NavigateAsync(PageNames.VehicleDetailPage.ToString(), new NavigationParameters
+                var parameters = new NavigationParameters
                 {
-                    { ParameterKey.CarDetail, param }
-                }, false);
+                    { ParameterKey.CarDetail, selected }
+                };
+
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true);
             });
         }
 
@@ -634,12 +575,12 @@ namespace VMS_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-                var param = _mapper.Map<VehicleOnline>(selected);
-
-                await NavigationService.NavigateAsync("DistancePage", new NavigationParameters
+                var parameters = new NavigationParameters
                 {
-                    { ParameterKey.VehicleOnline, param }
-                }, false);
+                    { ParameterKey.VehicleOnline, selected }
+                };
+
+                await NavigationService.NavigateAsync("BaseNavigationPage/DistancePage", parameters, true);
             });
         }
 
@@ -647,13 +588,8 @@ namespace VMS_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-                var p = new NavigationParameters
-                    {
-                        { "TitlePopup", MobileResource.Common_Message_Warning },
-                        { "ContentPopup", content },
-                        { "TitleButton", MobileResource.Common_Label_Close }
-                    };
-                await NavigationService.NavigateAsync("PopupHtmlPage", p);
+                var title = MobileResource.Common_Message_Warning;
+                await popupServices.ShowNotificatonPopup(title, content);
             });
         }
 
