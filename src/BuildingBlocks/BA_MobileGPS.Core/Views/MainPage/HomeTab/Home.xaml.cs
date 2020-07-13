@@ -8,7 +8,8 @@ using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class Home : ScrollView
+    public partial class Home : ContentView
+
     {
         public Home()
         {

@@ -7,6 +7,7 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities.Constant;
 
 using Prism.Ioc;
+using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Plugin.Popups;
 
@@ -77,6 +78,7 @@ namespace BA_MobileGPS.Core
 
             containerRegistry.Register<IPopupServices, PopupServices>();
 
+            ViewModelLocationProvider.Register<Home, HomeViewModel>();
             containerRegistry.Register<View, Home>("Index0");
 
         }

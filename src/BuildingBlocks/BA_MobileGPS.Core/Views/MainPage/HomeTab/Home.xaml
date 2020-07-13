@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ScrollView
+<ContentView
     x:Class="BA_MobileGPS.Core.Views.Home"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -11,7 +11,7 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:sfListView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     x:Name="root">
-    <ScrollView.Resources>
+    <ContentView.Resources>
         <DataTemplate x:Key="IconTemplate">
             <StackLayout Spacing="10">
                 <ff:CachedImage
@@ -35,8 +35,8 @@
             <Setter Property="Margin" Value="0" />
             <Setter Property="ItemTemplate" Value="{StaticResource IconTemplate}" />
         </Style>
-    </ScrollView.Resources>
-    <pancake:PancakeView>
+    </ContentView.Resources>
+    <ScrollView>
         <Grid>
             <Grid Padding="0">
                 <ff:CachedImage
@@ -45,51 +45,44 @@
                     StyleClass="HomePageTopImage"
                     VerticalOptions="StartAndExpand" />
             </Grid>
-            <Grid Padding="5,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+            <Grid Padding="5,0" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto">
                 <Grid Padding="15,0" HeightRequest="110">
-                    <StackLayout
+                    <ff:CachedImage
                         HeightRequest="35"
+                        HorizontalOptions="StartAndExpand"
+                        Source="ic_logo.png"
+                        VerticalOptions="EndAndExpand"
+                        WidthRequest="80" />
+                    <StackLayout
+                        HorizontalOptions="End"
                         Orientation="Horizontal"
                         VerticalOptions="End">
-                        <controls:IconView Source="hotline_Icon.png" StyleClass="TopIconView">
-                            <controls:IconView.Behaviors>
+                        <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Phone}">
+                            <controls:FontAwesomeIcon.Behaviors>
                                 <animation:ViewTappedBehavior AnimationType="Scale" />
-                            </controls:IconView.Behaviors>
-                            <controls:IconView.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding HotLineTapCommand}" NumberOfTapsRequired="1" />
-                            </controls:IconView.GestureRecognizers>
-                        </controls:IconView>
-                    </StackLayout>
-                    <StackLayout
-                        HeightRequest="35"
-                        HorizontalOptions="EndAndExpand"
-                        Orientation="Horizontal"
-                        Spacing="10"
-                        VerticalOptions="End">
-                        <controls:IconView Source="company_Icon.png" StyleClass="TopIconView">
-                            <controls:IconView.Behaviors>
+                            </controls:FontAwesomeIcon.Behaviors>
+                            <controls:FontAwesomeIcon.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding HotlineTapCommand}" />
+                            </controls:FontAwesomeIcon.GestureRecognizers>
+                        </controls:FontAwesomeIcon>
+                        <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
+                            <controls:FontAwesomeIcon.Behaviors>
                                 <animation:ViewTappedBehavior AnimationType="Scale" />
-                            </controls:IconView.Behaviors>
-                        </controls:IconView>
-                        <controls:IconView Source="messenger_Icon.png" StyleClass="TopIconView">
-                            <controls:IconView.Behaviors>
+                            </controls:FontAwesomeIcon.Behaviors>
+                            <controls:FontAwesomeIcon.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
+                            </controls:FontAwesomeIcon.GestureRecognizers>
+                        </controls:FontAwesomeIcon>
+                        <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}">
+                            <controls:FontAwesomeIcon.Behaviors>
                                 <animation:ViewTappedBehavior AnimationType="Scale" />
-                            </controls:IconView.Behaviors>
-                        </controls:IconView>
-                        <controls:IconView Source="notification_Icon.png" StyleClass="TopIconView">
-                            <controls:IconView.Behaviors>
+                            </controls:FontAwesomeIcon.Behaviors>
+                        </controls:FontAwesomeIcon>
+                        <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Bell}">
+                            <controls:FontAwesomeIcon.Behaviors>
                                 <animation:ViewTappedBehavior AnimationType="Scale" />
-                            </controls:IconView.Behaviors>
-                        </controls:IconView>
+                            </controls:FontAwesomeIcon.Behaviors>
+                        </controls:FontAwesomeIcon>
                     </StackLayout>
                 </Grid>
                 <pancake:PancakeView
@@ -173,7 +166,6 @@
                     </CarouselView>
                     <IndicatorView x:Name="indicatorView" Margin="0,0,0,10" />
                 </Grid>
-
                 <pancake:PancakeView
                     Grid.Row="5"
                     Margin="15,0"
@@ -185,6 +177,5 @@
                 </pancake:PancakeView>
             </Grid>
         </Grid>
-    </pancake:PancakeView>
-
-</ScrollView>
+    </ScrollView>
+</ContentView>
