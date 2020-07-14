@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Events;
+using BA_MobileGPS.Core.Models;
 using Prism.Navigation;
 using System;
 
@@ -11,9 +12,9 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
         }
 
-        private void TabItemSwitch(Tuple<int, object> obj)
+        private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
         {
-            SelectedIndex = obj.Item1;
+            SelectedIndex = (int)obj.Item1;
         }
 
         private int selectedIndex;
@@ -26,6 +27,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref selectedIndex, value);
                 RaisePropertyChanged();
             }
+        }
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            EventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
         }
     }
 }

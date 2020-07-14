@@ -1,31 +1,30 @@
 ﻿using BA_MobileGPS;
 using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism;
-using Prism.Ioc;
 using Prism.Events;
+using Prism.Ioc;
 using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using VMS_MobileGPS.ViewModels;
 using Xamarin.Forms;
-
 using Xamarin.Forms.Xaml;
-using System.Threading;
-using BA_MobileGPS.Core.Events;
 
 namespace VMS_MobileGPS.Views
 {
@@ -117,31 +116,6 @@ namespace VMS_MobileGPS.Views
             IsInitMarker = false;
 
             StartTimmerCaculatorStatus();
-        }
-
-        private void TabItemSwitch(Tuple<int, object> obj)
-        {
-            if (obj != null && obj.Item2 != null && obj.Item2.GetType() == typeof(VehicleOnline))
-            {
-                var vehiclePlate = (VehicleOnline)obj.Item2;
-                if (googleMap.ClusteredPins != null && googleMap.ClusteredPins.Count > 0)
-                {
-                    var clusterpin = googleMap.ClusteredPins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
-                    if (clusterpin != null)
-                    {
-                        var vehicleselect = mCurrentVehicleList.FirstOrDefault(x => x.VehiclePlate == vehiclePlate.VehiclePlate);
-                        if (vehicleselect != null)
-                        {
-                            vm.CarSearch = vehicleselect.PrivateCode;
-                            UpdateSelectVehicle(vehicleselect);
-                        }
-                    }
-                    else
-                    {
-                        displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
-                    }
-                }
-            }
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)
@@ -238,6 +212,30 @@ namespace VMS_MobileGPS.Views
         #endregion Propety
 
         #region Private Method
+        private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
+        {
+            if (obj != null && obj.Item2 != null && obj.Item2.GetType() == typeof(VehicleOnline))
+            {
+                var vehiclePlate = (VehicleOnline)obj.Item2;
+                if (googleMap.ClusteredPins != null && googleMap.ClusteredPins.Count > 0)
+                {
+                    var clusterpin = googleMap.ClusteredPins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
+                    if (clusterpin != null)
+                    {
+                        var vehicleselect = mCurrentVehicleList.FirstOrDefault(x => x.VehiclePlate == vehiclePlate.VehiclePlate);
+                        if (vehicleselect != null)
+                        {
+                            vm.CarSearch = vehicleselect.PrivateCode;
+                            UpdateSelectVehicle(vehicleselect);
+                        }
+                    }
+                    else
+                    {
+                        displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
+                    }
+                }
+            }
+        }
 
         private void StartTimmerCaculatorStatus()
         {
@@ -294,19 +292,14 @@ namespace VMS_MobileGPS.Views
                                                             new ViewTransition(boxStatusVehicle, AnimationType.TranslationX, pageWidth.GetValueOrDefault()),
                                                             new ViewTransition(boxStatusVehicle, AnimationType.Opacity, 0),
                                                           });
-
                 }
-
-
 
                 await _animations.Go(States.HideStatus, false);
             }
             catch (Exception ex)
             {
-
                 LoggerHelper.WriteError("InitAnimation", ex);
             }
-
         }
 
         /// <summary>
@@ -336,7 +329,6 @@ namespace VMS_MobileGPS.Views
         {
             if (vehicle != null)
             {
-
                 try
                 {
                     if (vehicle.VehiclePlate != mCarActive.VehiclePlate)
@@ -357,7 +349,6 @@ namespace VMS_MobileGPS.Views
                 {
                     Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
                 }
-
             }
         }
 
@@ -595,8 +586,6 @@ namespace VMS_MobileGPS.Views
                 }
             }));
         }
-
-
 
         /// <summary>
         /// khởi tạo danh sách trạng thái xe
