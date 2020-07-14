@@ -6,6 +6,7 @@ using Prism.Ioc;
 using Prism.Mvvm;
 using System;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -15,6 +16,10 @@ namespace BA_MobileGPS.Core.Views
         {
             InitializeComponent();
 
+            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
+
+
+            var home = PrismApplicationBase.Current.Container.Resolve<ContentView>("HomeTab"); //Online
             var home = PrismApplicationBase.Current.Container.Resolve<ContentView>("HomeTab"); //Home
             ViewModelLocator.SetAutowirePartialView(home, MainContentPage);
             Switcher.Children.Add(home);// Trang home
