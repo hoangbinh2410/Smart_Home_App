@@ -197,8 +197,6 @@
 
     <!--  Top IconView : 4 icons  -->
     <Style Class="TopIconView" TargetType="controls:FontAwesomeIcon">
-        <Setter Property="HeightRequest" Value="40" />
-        <Setter Property="WidthRequest" Value="40" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
         <Setter Property="VerticalTextAlignment" Value="Center" />

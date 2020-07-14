@@ -78,6 +78,8 @@ namespace VMS_MobileGPS
             containerRegistry.RegisterForNavigation<VehicleDetailPage, VehicleDetailViewModel>("VehicleDetailPage");
             containerRegistry.RegisterForNavigation<ListVehicleHelpPage, ListVehicleHelpViewModel>("ListVehicleHelpPage");
             containerRegistry.RegisterForNavigation<RouteListPage, RouteListViewModel>("RouteListPage");
+            containerRegistry.RegisterForNavigation<ServicePackHistoryPage, ServicePackHistoryViewModel>("ServicePackHistoryPage");
+            containerRegistry.RegisterForNavigation<PackageInfosPage, PackageInfosViewModel>("PackageInfosPage");
 
 
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();

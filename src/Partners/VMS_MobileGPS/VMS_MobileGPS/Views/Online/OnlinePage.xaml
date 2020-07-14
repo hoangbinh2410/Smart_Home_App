@@ -229,7 +229,7 @@
                         ItemTapped="TapStatusVehicel"
                         ItemsSource="{Binding ListVehilceStatus, Mode=OneWay}"
                         SelectedItem="{Binding SelectedVehicleStatus}"
-                        SelectionBackgroundColor="Transparent"
+                        SelectionBackgroundColor="{StaticResource BluePrimaryColor}"
                         TapCommand="{Binding SelectStatusVehicelCommand}">
                         <syncfusion:SfListView.ItemTemplate>
                             <DataTemplate>

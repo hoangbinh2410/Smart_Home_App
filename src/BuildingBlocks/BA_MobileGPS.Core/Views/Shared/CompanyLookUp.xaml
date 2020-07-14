@@ -104,11 +104,15 @@
                 BackgroundColor="White"
                 IsVisible="{Binding HasCompany, Converter={StaticResource InvertBooleanConverter}}"
                 Spacing="10">
-                <Image
-                    Aspect="AspectFit"
-                    HorizontalOptions="Center"
-                    Source="notfound_vehicle.png"
-                    WidthRequest="180" />
+                <!--  Image for display svg image  -->
+                <controls:SVGImage
+                    Margin="{x:OnIdiom Phone='0,0,0,0',
+                                       Desktop='0',
+                                       Tablet='0'}"
+                    HeightRequest="200"
+                    Source="NoItem.svg"
+                    VerticalOptions="Center"
+                    WidthRequest="200" />
                 <Label
                     FontSize="Large"
                     HorizontalOptions="Center"

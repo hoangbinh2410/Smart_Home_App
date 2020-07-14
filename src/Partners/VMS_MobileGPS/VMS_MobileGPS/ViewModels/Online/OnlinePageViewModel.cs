@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core;
+﻿using BA_MobileGPS;
+using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
@@ -31,10 +32,10 @@ using Xamarin.Forms;
 
 namespace VMS_MobileGPS.ViewModels
 {
-   public class OnlinePageViewModel : ViewModelBase
+    public class OnlinePageViewModel : ViewModelBase
     {
-        private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
         private readonly IUserService userService;
+        private readonly IDetailVehicleService detailVehicleService;
 
         public ObservableCollection<Circle> Circles { get; set; } = new ObservableCollection<Circle>();
         public ObservableCollection<Polygon> Boundaries { get; set; } = new ObservableCollection<Polygon>();
@@ -46,6 +47,7 @@ namespace VMS_MobileGPS.ViewModels
         public ICommand PushToFABPageCommand { get; private set; }
         public DelegateCommand<CameraIdledEventArgs> CameraIdledCommand { get; private set; }
         public DelegateCommand PushToDetailPageCommand { get; private set; }
+        public DelegateCommand PushToServicePackHistoryPageCommand { get; private set; }
         public DelegateCommand ShowBorderCommand { get; private set; }
         public DelegateCommand HideBorderCommand { get; private set; }
         public ICommand MyLocationCommand { get; private set; }
@@ -54,13 +56,13 @@ namespace VMS_MobileGPS.ViewModels
 
         private string carSearch;
         public string CarSearch { get => carSearch; set => SetProperty(ref carSearch, value); }
-  
-        public OnlinePageViewModel(INavigationService navigationService, IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository,
-            IUserService userService)
+
+        public OnlinePageViewModel(INavigationService navigationService,
+            IUserService userService, IDetailVehicleService detailVehicleService)
             : base(navigationService)
         {
-            this.boundaryRepository = boundaryRepository;
             this.userService = userService;
+            this.detailVehicleService = detailVehicleService;
 
             if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
             {
@@ -98,165 +100,7 @@ namespace VMS_MobileGPS.ViewModels
             HideBorderCommand = new DelegateCommand(HideBorder);
             MyLocationCommand = new DelegateCommand(GetMylocation);
             GoDistancePageCommand = new DelegateCommand(GoDistancePage);
-        }
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
-
-            Boundaries.Clear();
-            Borders.Clear();
-
-            var listBoudary = boundaryRepository.Find(b => b.IsShowBoudary);
-
-            foreach (var item in listBoudary)
-            {
-                AddBoundary(item);
-            }
-
-            var listName = boundaryRepository.Find(b => b.IsShowName);
-
-            if (GetControl<Map>("googleMap") is Map map)
-            {
-                TryExecute(() =>
-                {
-                    foreach (var pin in map.Pins.Where(p => p.Tag.ToString().Contains("Boundary")).ToList())
-                    {
-                        map.Pins.Remove(pin);
-                    }
-                });
-            }
-
-            foreach (var item in listName)
-            {
-                AddName(item);
-            }
-        }
-
-        public override void OnPageAppearingFirstTime()
-        {
-            base.OnPageAppearingFirstTime();
-
-            //if (PermissionHelper.CheckLocationPermissions(false).Result)
-            //{
-            //    if (GetControl<Map>("googleMap") is Map map)
-            //    {
-            //        TryExecute(() =>
-            //        {
-            //            map.MyLocationEnabled = true;
-            //        });
-            //    }
-
-            //}
-        }
-
-        public static int ConvertHexToInt(string value)
-        {
-            int ret = 0;
-            try
-            {
-                // strip the leading 0x
-                if (value.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
-                {
-                    value = value.Substring(2);
-                }
-                if (value.StartsWith("#", StringComparison.OrdinalIgnoreCase))
-                {
-                    value = value.Substring(1);
-                }
-
-                ret = int.Parse(value, NumberStyles.HexNumber);
-            }
-            catch
-            {
-                // ignored
-            }
-            return ret;
-        }
-
-        public static string ConvertIntToHex(int value)
-        {
-            return value.ToString("X").PadLeft(6, '0');
-        }
-
-        private void AddBoundary(LandmarkResponse boundary)
-        {
-            TryExecute(() =>
-            {
-                var result = boundary.Polygon.Split(',');
-
-                var color = Color.FromHex(ConvertIntToHex(boundary.Color));
-
-                if (boundary.IsClosed)
-                {
-                    var polygon = new Polygon
-                    {
-                        IsClickable = true,
-                        StrokeWidth = 1f,
-                        StrokeColor = color.MultiplyAlpha(.5),
-                        FillColor = color.MultiplyAlpha(.3),
-                        Tag = "POLYGON"
-                    };
-
-                    for (int i = 0; i < result.Length; i += 2)
-                    {
-                        polygon.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
-                    }
-
-                    polygon.Clicked += Polygon_Clicked;
-                    Boundaries.Add(polygon);
-                }
-                else
-                {
-                    var polyline = new Polyline
-                    {
-                        IsClickable = false,
-                        StrokeColor = color,
-                        StrokeWidth = 2f,
-                        Tag = "POLYGON"
-                    };
-
-                    for (int i = 0; i < result.Length; i += 2)
-                    {
-                        polyline.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
-                    }
-
-                    Borders.Add(polyline);
-                }
-            });
-        }
-
-        private void AddName(LandmarkResponse name)
-        {
-            TryExecute(() =>
-            {
-                if (GetControl<Map>("googleMap") is Map map)
-                {
-                    TryExecute(() =>
-                    {
-                        map.Pins.Add(new Pin
-                        {
-                            Label = name.Name,
-                            Position = new Position(name.Latitude, name.Longitude),
-                            Icon = BitmapDescriptorFactory.FromView(new BoundaryNameInfoWindow(name.Name) { WidthRequest = name.Name.Length < 20 ? 6 * name.Name.Length : 110, HeightRequest = 18 * ((name.Name.Length / 20) + 1) }),
-                            Tag = "Boundary" + name.Name
-                        });
-                    });
-                }
-            });
-        }
-
-        private void Polygon_Clicked(object sender, EventArgs e)
-        {
-            //if (PageUtilities.GetCurrentPage(Application.Current.MainPage) is Views.OnlinePage onlinePage)
-            //{
-            //    onlinePage.HideBoxInfo();
-            //}
-
-            //if (PageUtilities.GetCurrentPage(Application.Current.MainPage) is Views.OnlinePageNoCluster onlinePageNoCluster)
-            //{
-            //    onlinePageNoCluster.HideBoxInfo();
-            //}
+            PushToServicePackHistoryPageCommand = new DelegateCommand(GoServicePackHistoryPage);
         }
 
         #region Property
@@ -283,6 +127,19 @@ namespace VMS_MobileGPS.ViewModels
             set
             {
                 carActive = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private ShipDetailRespone shipDetailRespone;
+
+        public ShipDetailRespone ShipDetailRespone
+        {
+            get { return shipDetailRespone; }
+            set
+            {
+                shipDetailRespone = value;
+
                 RaisePropertyChanged();
             }
         }
@@ -466,6 +323,48 @@ namespace VMS_MobileGPS.ViewModels
                 };
 
                 await NavigationService.NavigateAsync("BaseNavigationPage/DistancePage", parameters, true);
+            });
+        }
+
+        private void GoServicePackHistoryPage()
+        {
+            SafeExecute(async () =>
+            {
+
+                // gọi service để lấy dữ liệu trả về
+                var input = new ShipDetailRequest()
+                {
+                    UserId = StaticSettings.User.UserId,
+                    vehiclePlate = CarActive.VehiclePlate,
+                };
+                var response = await detailVehicleService.GetShipDetail(input);
+                if (response != null)
+                {
+                    var model = new ShipDetailRespone()
+                    {
+                        Address = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(CarActive.Lat), GeoHelper.LongitudeToDergeeMinSec(CarActive.Lng)),
+                        Latitude = CarActive.Lat,
+                        Longtitude = CarActive.Lng,
+                        Km = CarActive.TotalKm,
+                        GPSTime = CarActive.GPSTime,
+                        VelocityGPS = CarActive.Velocity,
+                        IMEI = response.IMEI,
+                        PortDeparture = response.PortDeparture,
+                        ShipCaptainName = response.ShipCaptainName,
+                        ShipCaptainPhoneNumber = response.ShipCaptainPhoneNumber,
+                        ShipMembers = response.ShipMembers,
+                        ShipOwnerName = response.ShipOwnerName,
+                        ShipOwnerPhoneNumber = response.ShipOwnerPhoneNumber,
+                        PrivateCode = response.PrivateCode
+                    };
+
+                    var parameters = new NavigationParameters
+                    {
+                        { ParameterKey.ShipDetail, model }
+                    };
+
+                    await NavigationService.NavigateAsync("BaseNavigationPage/ServicePackHistoryPage", parameters, true);
+                }
             });
         }
 

@@ -3,6 +3,7 @@
     x:Class="VMS_MobileGPS.Views.OfflinePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors;assembly=BA_MobileGPS.Core"
     xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:converters="clr-namespace:VMS_MobileGPS.Converter"
@@ -47,12 +48,11 @@
                 <badge:SfBadgeView.Content>
                     <controls:FontAwesomeIcon
                         Margin="10,0,10,0"
-                        FontAttributes="Bold"
-                        FontSize="25"
-                        HorizontalOptions="End"
-                        Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}"
-                        TextColor="White"
-                        VerticalOptions="Center">
+                        StyleClass="TopIconView"
+                        Text="{x:Static fontawesome:FontAwesomeIcons.Phone}">
+                        <controls:FontAwesomeIcon.Behaviors>
+                            <animation:ViewTappedBehavior AnimationType="Scale" />
+                        </controls:FontAwesomeIcon.Behaviors>
                         <controls:FontAwesomeIcon.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigateToCommand}" CommandParameter="{x:Static local:PageNames.NotificationMessagePage}" />
                         </controls:FontAwesomeIcon.GestureRecognizers>

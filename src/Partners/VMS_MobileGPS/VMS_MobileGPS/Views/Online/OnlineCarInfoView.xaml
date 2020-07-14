@@ -259,7 +259,7 @@
                 Grid.Column="1"
                 BackgroundColor="{StaticResource PrimaryColor}"
                 BorderRadius="20"
-                Command="{Binding PushToRouterPageCommand}"
+                Command="{Binding PushToServicePackHistoryPageCommand}"
                 FontAttributes="Bold"
                 FontSize="10"
                 HeightRequest="35"

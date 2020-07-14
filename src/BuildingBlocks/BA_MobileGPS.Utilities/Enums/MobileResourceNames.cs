@@ -280,6 +280,9 @@
         ListVehicle_Label_VehicleLostGPS2,
         ListVehicle_Label_VehicleLostGSM,
         ListVehicle_Label_VehicleLostGSM2,
+        CompanyLookUp_Label_Title,
+        CompanyLookUp_Label_NotFound,
+        CompanyLookUp_Label_Search,
         #endregion ListVehicle
 
         #region Online

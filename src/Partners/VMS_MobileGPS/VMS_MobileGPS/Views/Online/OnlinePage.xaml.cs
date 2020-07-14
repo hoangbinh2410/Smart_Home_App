@@ -8,6 +8,7 @@ using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
+using BA_MobileGPS.Entities.RealmEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism;
@@ -15,8 +16,10 @@ using Prism.Events;
 using Prism.Ioc;
 using Prism.Navigation;
 using Prism.Services;
+using Realms.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -44,6 +47,7 @@ namespace VMS_MobileGPS.Views
         private readonly IHelperAdvanceService helperAdvanceService;
         private readonly IPageDialogService pageDialog;
         private readonly IVehicleOnlineService vehicleOnlineService;
+        private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
 
         private readonly BA_MobileGPS.Core.Animation _animations = new BA_MobileGPS.Core.Animation();
 
@@ -64,31 +68,11 @@ namespace VMS_MobileGPS.Views
             helperAdvanceService = PrismApplicationBase.Current.Container.Resolve<IHelperAdvanceService>();
             pageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
             vehicleOnlineService = PrismApplicationBase.Current.Container.Resolve<IVehicleOnlineService>();
+            boundaryRepository = PrismApplicationBase.Current.Container.Resolve<IRealmBaseService<BoundaryRealm, LandmarkResponse>>();
 
             // Initialize the View Model Object
             vm = (OnlinePageViewModel)BindingContext;
-            if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
-            {
-                if (StaticSettings.ListVehilceOnline.Count > 1)
-                {
-                    var listPositon = new List<Position>();
-                    StaticSettings.ListVehilceOnline.ForEach(x =>
-                    {
-                        listPositon.Add(new Position(x.Lat, x.Lng));
-                    });
-                    var bounds = GeoHelper.FromPositions(listPositon);
 
-                    googleMap.InitialCameraUpdate = CameraUpdateFactory.NewBounds(bounds, 60);
-                }
-                else
-                {
-                    googleMap.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(StaticSettings.ListVehilceOnline[0].Lat, StaticSettings.ListVehilceOnline[0].Lng), MobileUserSettingHelper.Mapzoom);
-                }
-            }
-            else
-            {
-                googleMap.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
-            }
             googleMap.IsUseCluster = true;
             googleMap.IsTrafficEnabled = false;
 
@@ -104,6 +88,8 @@ namespace VMS_MobileGPS.Views
             googleMap.PinClicked += MapOnPinClicked;
             googleMap.MapClicked += Map_MapClicked;
             googleMap.CameraIdled += GoogleMap_CameraIdled;
+
+            googleMap.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
 
             InitAnimation();
 
@@ -166,10 +152,131 @@ namespace VMS_MobileGPS.Views
             {
                 InitOnline();
             }
+            GoogleMapAddBoundary();
+            GoogleMapAddName();
         }
 
         public void OnNavigatingTo(INavigationParameters parameters)
         {
+        }
+
+        private void GoogleMapAddBoundary()
+        {
+            vm.Boundaries.Clear();
+            vm.Borders.Clear();
+
+            var listBoudary = boundaryRepository.Find(b => b.IsShowBoudary);
+
+            foreach (var item in listBoudary)
+            {
+                AddBoundary(item);
+            }
+        }
+
+        private void AddBoundary(LandmarkResponse boundary)
+        {
+            try
+            {
+
+                var result = boundary.Polygon.Split(',');
+
+                var color = Color.FromHex(ConvertIntToHex(boundary.Color));
+
+                if (boundary.IsClosed)
+                {
+                    var polygon = new Polygon
+                    {
+                        IsClickable = true,
+                        StrokeWidth = 1f,
+                        StrokeColor = color.MultiplyAlpha(.5),
+                        FillColor = color.MultiplyAlpha(.3),
+                        Tag = "POLYGON"
+                    };
+
+                    for (int i = 0; i < result.Length; i += 2)
+                    {
+                        polygon.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
+                    }
+
+                    polygon.Clicked += Polygon_Clicked;
+                    vm.Boundaries.Add(polygon);
+                }
+                else
+                {
+                    var polyline = new Polyline
+                    {
+                        IsClickable = false,
+                        StrokeColor = color,
+                        StrokeWidth = 2f,
+                        Tag = "POLYGON"
+                    };
+
+                    for (int i = 0; i < result.Length; i += 2)
+                    {
+                        polyline.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
+                    }
+
+                    vm.Borders.Add(polyline);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            }
+
+        }
+
+        public static string ConvertIntToHex(int value)
+        {
+            return value.ToString("X").PadLeft(6, '0');
+        }
+
+        private void Polygon_Clicked(object sender, EventArgs e)
+        {
+            HideBoxInfo();
+        }
+
+        private void GoogleMapAddName()
+        {
+            try
+            {
+                var listName = boundaryRepository.Find(b => b.IsShowName);
+
+                foreach (var pin in googleMap.Pins.Where(p => p.Tag.ToString().Contains("Boundary")).ToList())
+                {
+                    googleMap.Pins.Remove(pin);
+                }
+
+                foreach (var item in listName)
+                {
+                    AddName(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            }
+
+        }
+
+        private void AddName(LandmarkResponse name)
+        {
+            try
+            {
+                googleMap.Pins.Add(new Pin
+                {
+                    Label = name.Name,
+                    Position = new Position(name.Latitude, name.Longitude),
+                    Icon = BitmapDescriptorFactory.FromView(new BoundaryNameInfoWindow(name.Name) { WidthRequest = name.Name.Length < 20 ? 6 * name.Name.Length : 110, HeightRequest = 18 * ((name.Name.Length / 20) + 1) }),
+                    Tag = "Boundary" + name.Name
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            }
         }
 
         public void Destroy()
@@ -584,6 +691,7 @@ namespace VMS_MobileGPS.Views
                         });
 
                         StaticSettings.ListVehilceOnline = task.Result;
+                        InitialCameraUpdate();
                         InitOnline();
                     }
                     else
@@ -592,6 +700,31 @@ namespace VMS_MobileGPS.Views
                     }
                 }
             }));
+        }
+
+        private void InitialCameraUpdate()
+        {
+            if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+            {
+                if (StaticSettings.ListVehilceOnline.Count > 1)
+                {
+                    var listPositon = new List<Position>();
+                    StaticSettings.ListVehilceOnline.ForEach(x =>
+                    {
+                        listPositon.Add(new Position(x.Lat, x.Lng));
+                    });
+                    var bounds = GeoHelper.FromPositions(listPositon);
+                    googleMap.AnimateCamera(CameraUpdateFactory.NewBounds(bounds, 60));
+                }
+                else
+                {
+                    googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(StaticSettings.ListVehilceOnline[0].Lat, StaticSettings.ListVehilceOnline[0].Lng), MobileUserSettingHelper.Mapzoom));
+                }
+            }
+            else
+            {
+                googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom));
+            }
         }
 
         /// <summary>
@@ -764,6 +897,7 @@ namespace VMS_MobileGPS.Views
         {
             try
             {
+                vm.CarSearch = MobileResource.Online_Label_SeachVehicle2;
                 if (mCarActive != null && mCarActive.VehicleId > 0)
                 {
                     HideBoxInfoCarActive(mCarActive);
