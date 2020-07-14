@@ -21,7 +21,7 @@
             <StackLayout
                 HorizontalOptions="End"
                 Orientation="Horizontal"
-                Spacing="10"
+                Spacing="15"
                 VerticalOptions="EndAndExpand">
                 <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Phone}">
                     <controls:FontAwesomeIcon.Behaviors>
