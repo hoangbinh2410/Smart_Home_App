@@ -23,6 +23,7 @@ using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using BA_MobileGPS.Core.Events;
+using BA_MobileGPS.Core.Models;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -596,13 +597,13 @@ namespace BA_MobileGPS.Core.ViewModels
             switch (temp.MenuKey)
             {
                 case "ListVehiclePage":
-                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<int, object>(1, ""));
+                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.ListVehiclePage, ""));
                     break;
                 case "OnlinePage":
-                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<int, object>(2, ""));
+                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.OnlinePage, ""));
                     break;
                 case "RoutePage":
-                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<int, object>(3, ""));
+                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, ""));
                     break;
                 default:
                     Device.BeginInvokeOnMainThread(async () =>
