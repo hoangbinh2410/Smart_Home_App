@@ -70,7 +70,7 @@
                 <controls:IconView Source="ic_MiniLogo.png" />
             </pancake:PancakeView>
             <pancake:PancakeView Grid.Row="6" BackgroundColor="{AppThemeBinding Light={StaticResource BluePrimaryColor}, Dark={StaticResource BluePrimaryColor}}">
-                <controls:IconView Source="ic_Close.png" />
+                <controls:IconView Source="ic_close.png" />
                 <pancake:PancakeView.Behaviors>
                     <animation1:ViewTappedBehavior AnimationType="Rotate" />
                 </pancake:PancakeView.Behaviors>
