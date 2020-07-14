@@ -596,13 +596,13 @@ namespace BA_MobileGPS.Core.ViewModels
             switch (temp.MenuKey)
             {
                 case "ListVehiclePage":
-                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(1);
+                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<int, object>(1, ""));
                     break;
                 case "OnlinePage":
-                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(2);
+                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<int, object>(2, ""));
                     break;
                 case "RoutePage":
-                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(3);
+                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<int, object>(3, ""));
                     break;
                 default:
                     Device.BeginInvokeOnMainThread(async () =>
@@ -620,8 +620,8 @@ namespace BA_MobileGPS.Core.ViewModels
                             //await NavigationService.NavigateAsync("NotificationPopup", useModalNavigation: true);
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
-                                    _ = await NavigationService.NavigateAsync(seletedMenu.MenuKey);
-                              
+                                _ = await NavigationService.NavigateAsync(seletedMenu.MenuKey);
+
                             }
                         }
                         catch (Exception ex)

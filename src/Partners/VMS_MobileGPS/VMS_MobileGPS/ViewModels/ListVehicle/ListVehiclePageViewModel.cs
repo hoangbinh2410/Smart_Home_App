@@ -2,6 +2,7 @@
 
 using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
@@ -561,14 +562,11 @@ namespace VMS_MobileGPS.ViewModels
 
         public void GoOnlinePage(VMSVehicleOnlineViewModel selected)
         {
-            SafeExecute(async () =>
+            SafeExecute(() =>
             {
                 var param = _mapper.Map<VehicleOnline>(selected);
 
-                await NavigationService.NavigateAsync("OnlineOneCar", new NavigationParameters
-                {
-                    { ParameterKey.VehicleOnline, param }
-                }, false);
+                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<int, object>(1, param));
             });
         }
 
