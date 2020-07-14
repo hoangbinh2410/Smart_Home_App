@@ -22,8 +22,7 @@
                 Placeholder="{i18n:TranslateResource Common_Message_SearchText}"
                 SearchCommand="{Binding SearchLanguageCommmand}"
                 SearchCommandParameter="{Binding Text, Source={x:Reference txtSearchLanguageType}}"
-                Text="{Binding SearchText}"
-                TextColor="Black">
+                Text="{Binding SearchText}">
                 <SearchBar.Behaviors>
                     <b:EventToCommandBehavior
                         Command="{Binding SearchLanguageCommmand}"

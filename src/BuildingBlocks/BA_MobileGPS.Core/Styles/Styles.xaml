@@ -14,6 +14,12 @@
     <Style ApplyToDerivedTypes="True" TargetType="{x:Type ContentPage}">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource GrayColor}, Dark={StaticResource GrayColor}}" />
     </Style>
+    <Style ApplyToDerivedTypes="True" TargetType="SearchBar">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimaryColor}, Dark={StaticResource TextPrimaryColor}}" />
+        <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource TextPlaceHolderColor}, Dark={StaticResource TextPlaceHolderColor}}" />
+        <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+        <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
+    </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="NavigationPage">
         <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
