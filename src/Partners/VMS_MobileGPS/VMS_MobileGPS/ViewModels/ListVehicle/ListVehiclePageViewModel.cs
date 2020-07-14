@@ -563,7 +563,7 @@ namespace VMS_MobileGPS.ViewModels
             {
                 var param = _mapper.Map<VehicleOnline>(selected);
 
-                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.OnlinePage, param));
+                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, param));
             });
         }
 

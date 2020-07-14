@@ -33,7 +33,7 @@
             <controls:IconView
                 Grid.Row="0"
                 Grid.Column="0"
-                Foreground="{StaticResource BlueDarkColor}"
+                Foreground="{StaticResource PrimaryColor}"
                 HeightRequest="20"
                 HorizontalOptions="Center"
                 Source="ic_ship2.png"
@@ -53,18 +53,18 @@
                     Text="{i18n:TranslateResource Online_Label_AtTime}"
                     VerticalOptions="End" />
             </StackLayout>
-
             <pancake:PancakeView
                 Grid.Row="0"
                 Grid.Column="1"
                 Margin="0,0,40,0"
                 Padding="0"
-                BackgroundColor="{StaticResource BlueDarkColor}"
+                BackgroundColor="{StaticResource PrimaryColor}"
                 CornerRadius="22"
                 HorizontalOptions="End"
+                IsVisible="{Binding Circles, Converter={StaticResource HasDataConverter}}"
                 WidthRequest="30">
                 <pancake:PancakeView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ShowBorderCommand}" />
+                    <TapGestureRecognizer Command="{Binding HideBorderCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Margin="5"
@@ -78,8 +78,31 @@
             <pancake:PancakeView
                 Grid.Row="0"
                 Grid.Column="1"
+                Margin="0,0,40,0"
                 Padding="0"
-                BackgroundColor="Blue"
+                BackgroundColor="{StaticResource PrimaryColor}"
+                CornerRadius="22"
+                HorizontalOptions="End"
+                IsVisible="{Binding Circles, Converter={StaticResource IsEmptyDataConverter}}"
+                WidthRequest="30">
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowBorderCommand}" />
+                </pancake:PancakeView.GestureRecognizers>
+                <controls:IconView
+                    Margin="5"
+                    Foreground="{StaticResource WhiteColor}"
+                    HeightRequest="20"
+                    HorizontalOptions="End"
+                    Source="ic_radius.png"
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
+            </pancake:PancakeView>
+
+            <pancake:PancakeView
+                Grid.Row="0"
+                Grid.Column="1"
+                Padding="0"
+                BackgroundColor="{StaticResource PrimaryColor}"
                 CornerRadius="22"
                 HorizontalOptions="End"
                 WidthRequest="30">
@@ -111,7 +134,7 @@
             <controls:IconView
                 Grid.Row="0"
                 Grid.Column="0"
-                Foreground="{StaticResource BlueDarkColor}"
+                Foreground="{StaticResource PrimaryColor}"
                 HeightRequest="20"
                 HorizontalOptions="Center"
                 Source="ic_time24.png"
@@ -140,7 +163,7 @@
             <controls:IconView
                 Grid.Row="0"
                 Grid.Column="0"
-                Foreground="{StaticResource BlueDarkColor}"
+                Foreground="{StaticResource PrimaryColor}"
                 HeightRequest="20"
                 HorizontalOptions="Center"
                 Source="ic_coordinates.png"
@@ -172,7 +195,7 @@
                 <controls:IconView
                     Grid.Row="0"
                     Grid.Column="0"
-                    Foreground="{StaticResource BlueDarkColor}"
+                    Foreground="{StaticResource PrimaryColor}"
                     HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_speed.png"
@@ -194,7 +217,7 @@
                 <controls:IconView
                     Grid.Row="0"
                     Grid.Column="0"
-                    Foreground="{StaticResource BlueDarkColor}"
+                    Foreground="{StaticResource PrimaryColor}"
                     HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_distance.png"
@@ -224,7 +247,7 @@
             </Grid.ColumnDefinitions>
             <Button
                 Grid.Column="0"
-                BackgroundColor="{StaticResource BlueDarkColor}"
+                BackgroundColor="{StaticResource PrimaryColor}"
                 BorderRadius="20"
                 Command="{Binding PushToRouterPageCommand}"
                 FontAttributes="Bold"
@@ -234,7 +257,7 @@
                 TextColor="{StaticResource WhiteColor}" />
             <Button
                 Grid.Column="1"
-                BackgroundColor="{StaticResource BlueDarkColor}"
+                BackgroundColor="{StaticResource PrimaryColor}"
                 BorderRadius="20"
                 Command="{Binding PushToRouterPageCommand}"
                 FontAttributes="Bold"
@@ -244,7 +267,7 @@
                 TextColor="{StaticResource WhiteColor}" />
             <Button
                 Grid.Column="2"
-                BackgroundColor="{StaticResource BlueDarkColor}"
+                BackgroundColor="{StaticResource PrimaryColor}"
                 BorderRadius="20"
                 Command="{Binding PushToDetailPageCommand}"
                 FontAttributes="Bold"
