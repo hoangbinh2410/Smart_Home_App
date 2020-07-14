@@ -328,6 +328,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         { ParameterKey.VehicleGroupsSelected, VehicleGroups }
                     };
+            
 
                 await NavigationService.NavigateAsync("BaseNavigationPage/VehicleGroupLookUp", navigationPara, useModalNavigation: true);
             });
