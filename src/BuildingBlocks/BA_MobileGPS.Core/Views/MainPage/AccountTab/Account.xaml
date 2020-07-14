@@ -3,9 +3,92 @@
     x:Class="BA_MobileGPS.Core.Views.Account"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:prism="http://prismlibrary.com">
-    <Label
-        FontSize="20"
-        Text="Acc"
-        VerticalOptions="Center" />
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:sfavatar="clr-namespace:Syncfusion.XForms.AvatarView;assembly=Syncfusion.Core.XForms"
+    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame">
+    <ContentView.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Grid.Column" Value="1" />
+            <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+            <Setter Property="VerticalTextAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="BoxView">
+            <Setter Property="Grid.ColumnSpan" Value="2" />
+            <Setter Property="VerticalOptions" Value="EndAndExpand" />
+        </Style>
+        <Style TargetType="controls:IconView">
+            <Setter Property="Foreground" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
+            <Setter Property="HeightRequest" Value="30" />
+            <Setter Property="WidthRequest" Value="30" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="Margin" Value="0,0,0,7" />
+        </Style>
+    </ContentView.Resources>
+    <StackLayout Spacing="20">
+        <Grid
+            Margin="10,50,0,0"
+            ColumnDefinitions="Auto,*"
+            ColumnSpacing="15"
+            RowDefinitions="*,Auto,Auto"
+            RowSpacing="0">
+            <sfavatar:SfAvatarView
+                Grid.RowSpan="3"
+                AvatarShape="Circle"
+                AvatarSize="ExtraLarge"
+                BorderColor="{AppThemeBinding Light={StaticResource PrimaryColor},
+                                              Dark={StaticResource PrimaryColor}}"
+                ContentType="Custom"
+                ImageSource="avatar.jpg"
+                IsClippedToBounds="True"
+                VerticalOptions="Center" />
+            <Label Text="TEN O DAY" TextColor="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
+            <Label
+                Grid.Row="1"
+                Text="SDT o day"
+                VerticalOptions="EndAndExpand" />
+            <Label Grid.Row="2" Text="Chinh sua tai khoan " />
+        </Grid>
+        <ScrollView>
+            <Grid
+                Padding="15,0"
+                ColumnDefinitions="Auto,*"
+                ColumnSpacing="15"
+                RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                RowSpacing="10">
+                <controls:IconView Grid.Row="0" Source="ic_anglebell.png" />
+                <controls:IconView Grid.Row="1" Source="ic_changepassword.png" />
+                <controls:IconView Grid.Row="2" Source="ic_customersupport.png" />
+                <controls:IconView Grid.Row="3" Source="ic_devicemanual.png" />
+                <controls:IconView Grid.Row="4" Source="ic_shortlogo.png" />
+                <controls:IconView Grid.Row="5" Source="ic_sharecircle.png" />
+                <controls:IconView Grid.Row="6" Source="ic_ratingstar.png" />
+                <controls:IconView Grid.Row="7" Source="ic_settings.png" />
+                <controls:IconView Grid.Row="8" Source="ic_logout.png" />
+
+                <BoxView Grid.Row="0" StyleClass="AccountLine" />
+                <BoxView Grid.Row="1" StyleClass="AccountLine" />
+                <BoxView Grid.Row="2" StyleClass="AccountLine" />
+                <BoxView Grid.Row="3" StyleClass="AccountLine" />
+                <BoxView Grid.Row="4" StyleClass="AccountLine" />
+                <BoxView Grid.Row="5" StyleClass="AccountLine" />
+                <BoxView Grid.Row="6" StyleClass="AccountLine" />
+                <BoxView Grid.Row="7" StyleClass="AccountLine" />
+                <BoxView Grid.Row="8" StyleClass="AccountLine" />
+
+                <Label Grid.Row="0" Text="Thông báo" />
+                <Label Grid.Row="1" Text="Đổi mật khẩu" />
+                <Label Grid.Row="2" Text="Hỗ trợ Khách hàng" />
+                <Label Grid.Row="3" Text="HDSD thiết bị" />
+                <Label Grid.Row="4" Text="Giới thiệu BAGPS" />
+                <Label Grid.Row="5" Text="Chia sẻ" />
+                <Label Grid.Row="6" Text="Đánh giá" />
+                <Label Grid.Row="7" Text="Cài đặt" />
+                <Label Grid.Row="8" Text="Đăng xuất" />
+            </Grid>
+        </ScrollView>
+    </StackLayout>
 </ContentView>
