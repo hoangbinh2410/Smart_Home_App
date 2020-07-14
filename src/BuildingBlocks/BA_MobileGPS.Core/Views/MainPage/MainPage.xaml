@@ -5,17 +5,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
-    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
-    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-    xmlns:local="clr-namespace:BA_MobileGPS.Core.Views"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms"
     x:Name="MainContentPage"
-    ios:Page.UseSafeArea="true"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <converter:TabItemIconBackgroundColorConverter x:Key="TabItemIconBackgroundColorConverter" />
@@ -67,19 +63,24 @@
                     Margin="0,0,0,-10"
                     Animate="True"
                     SelectedIndex="{Binding SelectedIndex}" />
-                <sh:Shadows Grid.Row="1" CornerRadius="10">
+                <sh:Shadows
+                    x:Name="TabHost"
+                    Grid.Row="1"
+                    CornerRadius="0">
                     <sh:Shadows.Shades>
                         <sh:ImmutableShades>
                             <sh:Shade
-                                BlurRadius="2"
-                                Opacity="0.5"
-                                Offset="0,-2"
-                                Color="Black" />
+                                BlurRadius="0"
+                                Opacity="0.3"
+                                Offset="0,-1"
+                                Color="{StaticResource TextSecondaryColor}" />
                         </sh:ImmutableShades>
                     </sh:Shadows.Shades>
-                    <sharpnado:MaterialFrame Padding="0" LightThemeBackgroundColor="{StaticResource GrayColor}">
+                    <sharpnado:MaterialFrame
+                        Padding="0"
+                        CornerRadius="0"
+                        LightThemeBackgroundColor="{StaticResource GrayColor}">
                         <tabs:TabHostView
-                            x:Name="TabHost"
                             Padding="0"
                             HeightRequest="60"
                             SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}"

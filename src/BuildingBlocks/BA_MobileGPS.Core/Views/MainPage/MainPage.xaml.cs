@@ -8,6 +8,7 @@ using Prism.Mvvm;
 using System;
 using System.Linq;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -16,9 +17,12 @@ namespace BA_MobileGPS.Core.Views
         public MainPage()
         {
             InitializeComponent();
-            var home = PrismApplicationBase.Current.Container.Resolve<ContentView>("HomeTab"); //Online
+
+            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(false);
+
+            var home = PrismApplicationBase.Current.Container.Resolve<ContentView>("HomeTab"); //Home
             ViewModelLocator.SetAutowirePartialView(home, MainContentPage);
-            Switcher.Children.Add(home);// Trang online
+            Switcher.Children.Add(home);// Trang home
 
             var listVehicleTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("ListVehicleTab"); //Phương tiện
             ViewModelLocator.SetAutowirePartialView(listVehicleTab, MainContentPage);
@@ -35,8 +39,6 @@ namespace BA_MobileGPS.Core.Views
             var accountTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("AccountTab"); //Account
             ViewModelLocator.SetAutowirePartialView(accountTab, MainContentPage);
             Switcher.Children.Add(accountTab);
-
-
 
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitAnimation();
@@ -102,7 +104,6 @@ namespace BA_MobileGPS.Core.Views
             {
                 HideBoxInfo();
             }
-            //TabHost.IsVisible = check;
         }
 
         /// <summary>

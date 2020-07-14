@@ -16,12 +16,6 @@ namespace BA_MobileGPS.Utilities.Enums
         [Description("http://192.168.1.50:8012")]
         ServerTest,
 
-        [Description("http://125.212.226.154:5990")]
-        ServerTestCNN,
-
-        [Description("http://10.1.11.102:2222")]
-        ServerPhuongPV,
-
         [Description("http://125.212.226.154:3990")]
         ServerVNSAT,
 
@@ -39,5 +33,8 @@ namespace BA_MobileGPS.Utilities.Enums
 
         [Description("http://10.1.11.241:9999")]
         ServerLinhLV,
+
+        [Description("http://10.1.11.188:9999")]
+        ServerDongLH,
     }
 }

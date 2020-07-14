@@ -11,7 +11,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <ContentView.Content>
-        <Grid StyleClass="TitleBarGrid">
+        <Grid HeightRequest="50" StyleClass="TitleBarGrid">
             <ffImage:CachedImage
                 HeightRequest="35"
                 HorizontalOptions="StartAndExpand"
@@ -30,7 +30,10 @@
                         <TapGestureRecognizer Command="{Binding HotlineTapCommand}" />
                     </controls:FontAwesomeIcon.GestureRecognizers>
                 </controls:FontAwesomeIcon>
-                <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
+                <controls:FontAwesomeIcon
+                    IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
+                    StyleClass="TopIconView"
+                    Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
                     <controls:FontAwesomeIcon.Behaviors>
                         <animation:ViewTappedBehavior AnimationType="Scale" />
                     </controls:FontAwesomeIcon.Behaviors>

@@ -1,30 +1,30 @@
 ﻿using BA_MobileGPS;
 using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism;
-using Prism.Ioc;
 using Prism.Events;
+using Prism.Ioc;
 using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using VMS_MobileGPS.ViewModels;
 using Xamarin.Forms;
-
 using Xamarin.Forms.Xaml;
-using System.Threading;
 
 namespace VMS_MobileGPS.Views
 {
@@ -111,6 +111,7 @@ namespace VMS_MobileGPS.Views
             mCurrentVehicleList = new List<VehicleOnline>();
 
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
+            this.eventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
 
             IsInitMarker = false;
 
@@ -175,7 +176,8 @@ namespace VMS_MobileGPS.Views
         {
             timer.Stop();
             timer.Dispose();
-            eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
+            this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
+            this.eventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
         }
 
         #region Propety
@@ -210,6 +212,37 @@ namespace VMS_MobileGPS.Views
         #endregion Propety
 
         #region Private Method
+        private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
+        {
+            if (obj != null
+                && obj.Item2 != null
+                && obj.Item1 == ItemTabPageEnums.OnlinePage
+                && obj.Item2.GetType() == typeof(VehicleOnline))
+            {
+                var vehiclePlate = (VehicleOnline)obj.Item2;
+                if (googleMap.ClusteredPins != null && googleMap.ClusteredPins.Count > 0)
+                {
+                    var clusterpin = googleMap.ClusteredPins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
+                    if (clusterpin != null)
+                    {
+                        var vehicleselect = mCurrentVehicleList.FirstOrDefault(x => x.VehiclePlate == vehiclePlate.VehiclePlate);
+                        if (vehicleselect != null)
+                        {
+                            vm.CarSearch = vehicleselect.PrivateCode;
+                            UpdateSelectVehicle(vehicleselect);
+                        }
+                    }
+                    else
+                    {
+                        displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
+                    }
+                }
+            }
+            else
+            {
+                HideBoxInfo();
+            }
+        }
 
         private void StartTimmerCaculatorStatus()
         {
@@ -266,19 +299,14 @@ namespace VMS_MobileGPS.Views
                                                             new ViewTransition(boxStatusVehicle, AnimationType.TranslationX, pageWidth.GetValueOrDefault()),
                                                             new ViewTransition(boxStatusVehicle, AnimationType.Opacity, 0),
                                                           });
-
                 }
-
-
 
                 await _animations.Go(States.HideStatus, false);
             }
             catch (Exception ex)
             {
-
                 LoggerHelper.WriteError("InitAnimation", ex);
             }
-
         }
 
         /// <summary>
@@ -308,7 +336,6 @@ namespace VMS_MobileGPS.Views
         {
             if (vehicle != null)
             {
-
                 try
                 {
                     if (vehicle.VehiclePlate != mCarActive.VehiclePlate)
@@ -329,7 +356,6 @@ namespace VMS_MobileGPS.Views
                 {
                     Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
                 }
-
             }
         }
 
@@ -567,8 +593,6 @@ namespace VMS_MobileGPS.Views
                 }
             }));
         }
-
-
 
         /// <summary>
         /// khởi tạo danh sách trạng thái xe
@@ -808,8 +832,8 @@ namespace VMS_MobileGPS.Views
         public async void HideBoxInfo()
         {
             vm.HideBorder();
-            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(true);
             SetNoPaddingWithFooter();
+            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(true);
             await _animations.Go(States.HideFilter, true);
         }
 
@@ -818,8 +842,8 @@ namespace VMS_MobileGPS.Views
         /// </summary>
         private async void ShowBoxInfo()
         {
-            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(false);
             SetPaddingWithFooter();
+            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(false);
             await _animations.Go(States.ShowFilter, true);
         }
 

@@ -1,6 +1,8 @@
 ﻿using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
+using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
@@ -30,6 +32,7 @@ namespace VMS_MobileGPS.ViewModels
     {
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
         private readonly IVehicleRouteService vehicleRouteService;
+        private readonly IDisplayMessage displayMessage;
 
         private CancellationTokenSource ctsRouting = new CancellationTokenSource();
         private CancellationTokenSource ctsAddress = new CancellationTokenSource();
@@ -120,11 +123,12 @@ namespace VMS_MobileGPS.ViewModels
         public ICommand FastEndCommand { get; }
 
         public RouteViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService,
-            IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository)
+            IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository, IDisplayMessage displayMessage)
             : base(navigationService)
         {
             this.vehicleRouteService = vehicleRouteService;
             this.boundaryRepository = boundaryRepository;
+            this.displayMessage = displayMessage;
 
             if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
             {
@@ -153,7 +157,9 @@ namespace VMS_MobileGPS.ViewModels
             DecreaseSpeedCommand = new Command(DecreaseSpeed);
             FastStartCommand = new Command(FastStart);
             FastEndCommand = new Command(FastEnd);
+            EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
         }
+
 
         public override void Initialize(INavigationParameters parameters)
         {
@@ -169,7 +175,7 @@ namespace VMS_MobileGPS.ViewModels
 
             if (parameters != null)
             {
-                if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
+                if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
                 {
                     Vehicle = vehicle;
 
@@ -189,6 +195,28 @@ namespace VMS_MobileGPS.ViewModels
                 }
             }
         }
+
+        private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
+        {
+            if (obj != null
+              && obj.Item2 != null
+              && obj.Item1 == ItemTabPageEnums.RoutePage
+              && obj.Item2.GetType() == typeof(VehicleOnline))
+            {
+                var vehicleOnline = (VehicleOnline)obj.Item2;
+                Vehicle = new Vehicle()
+                {
+                    GroupIDs = vehicleOnline.GroupIDs,
+                    PrivateCode = vehicleOnline.PrivateCode,
+                    VehicleId = vehicleOnline.VehicleId,
+                    VehiclePlate = vehicleOnline.VehiclePlate
+                };
+
+                GetVehicleRoute();
+            }
+
+        }
+
 
         public void InitBoudary()
         {
@@ -323,8 +351,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             if (ListRoute.Count <= 0)
             {
-                //UserDialogs.Instance.Toast(new ToastConfig(MobileResource.Route_Label_RouteNotExist) { Duration = TimeSpan.FromSeconds(3) });
-                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_RouteNotExist, MobileResource.Common_Label_Close);
+                displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotExist, 3000);
                 return;
             }
 
@@ -414,7 +441,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Vehicle.VehiclePlate))
             {
-                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_VehicleEmpty, MobileResource.Common_Label_Close);
+                displayMessage.ShowMessageWarning(MobileResource.Route_Label_VehicleEmpty, 3000);
                 return false;
             }
 
@@ -493,7 +520,7 @@ namespace VMS_MobileGPS.ViewModels
                         if (task.Result == null)
                         {
                             DependencyService.Get<IHUDProvider>().Dismiss();
-                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_RouteNotFound, MobileResource.Common_Label_Close);
+                            displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
                             return;
                         }
 
@@ -506,7 +533,7 @@ namespace VMS_MobileGPS.ViewModels
                         if (ListRoute.Count == 0)
                         {
                             DependencyService.Get<IHUDProvider>().Dismiss();
-                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_RouteNotFound, MobileResource.Common_Label_Close);
+                            displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
                             return;
                         }
 
@@ -677,7 +704,6 @@ namespace VMS_MobileGPS.ViewModels
 
                     if (GeoHelper.IsOriginLocation(listLatLng[i].Latitude, listLatLng[i].Longitude))
                         continue;
-
 
                     if (CalculateDistance(listLatLng[i - 1].Latitude, listLatLng[i - 1].Longitude, listLatLng[i].Latitude, listLatLng[i].Longitude) < 0.015
                          && !RouteHistory.StatePoints.Any(stp => stp.StartIndex == i && i == stp.EndIndex))

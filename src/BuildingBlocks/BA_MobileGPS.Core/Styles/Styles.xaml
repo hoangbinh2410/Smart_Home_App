@@ -215,7 +215,7 @@
     <!--  TitleBar  -->
     <Style Class="TitleBarGrid" TargetType="Grid">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
-        <Setter Property="HeightRequest" Value="85" />
+        <Setter Property="HeightRequest" Value="55" />
         <Setter Property="Padding" Value="15,5" />
     </Style>
 

@@ -40,7 +40,8 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<IRequestProvider, RequestProvider>();
             containerRegistry.Register<IPlacesAutocomplete, PlacesAutocomplete>();
             containerRegistry.Register<IPlacesGeocode, PlacesGeocode>();
-            containerRegistry.Register<ISignalRServices, SignalRService>();
+            containerRegistry.Register<IVehicleOnlineHubService, VehicleOnlineHubService>();
+            containerRegistry.Register<IIdentityHubService, IdentityHubService>();
             containerRegistry.Register<IAuthenticationService, AuthenticationService>();
             containerRegistry.Register<IHomeService, HomeService>();
             containerRegistry.Register<IResourceService, ResourceService>();
