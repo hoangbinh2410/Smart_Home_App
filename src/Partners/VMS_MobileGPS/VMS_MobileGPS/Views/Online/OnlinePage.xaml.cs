@@ -214,7 +214,10 @@ namespace VMS_MobileGPS.Views
         #region Private Method
         private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
         {
-            if (obj != null && obj.Item2 != null && obj.Item2.GetType() == typeof(VehicleOnline))
+            if (obj != null
+                && obj.Item2 != null
+                && obj.Item1 == ItemTabPageEnums.OnlinePage
+                && obj.Item2.GetType() == typeof(VehicleOnline))
             {
                 var vehiclePlate = (VehicleOnline)obj.Item2;
                 if (googleMap.ClusteredPins != null && googleMap.ClusteredPins.Count > 0)

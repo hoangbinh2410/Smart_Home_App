@@ -1,6 +1,8 @@
 ﻿using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
+using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
@@ -153,7 +155,9 @@ namespace VMS_MobileGPS.ViewModels
             DecreaseSpeedCommand = new Command(DecreaseSpeed);
             FastStartCommand = new Command(FastStart);
             FastEndCommand = new Command(FastEnd);
+            EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
         }
+
 
         public override void Initialize(INavigationParameters parameters)
         {
@@ -189,6 +193,28 @@ namespace VMS_MobileGPS.ViewModels
                 }
             }
         }
+
+        private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
+        {
+            if (obj != null
+              && obj.Item2 != null
+              && obj.Item1 == ItemTabPageEnums.OnlinePage
+              && obj.Item2.GetType() == typeof(VehicleOnline))
+            {
+                var vehicleOnline = (VehicleOnline)obj.Item2;
+                Vehicle = new Vehicle()
+                {
+                    GroupIDs = vehicleOnline.GroupIDs,
+                    PrivateCode = vehicleOnline.PrivateCode,
+                    VehicleId = vehicleOnline.VehicleId,
+                    VehiclePlate = vehicleOnline.VehiclePlate
+                };
+
+                GetVehicleRoute();
+            }
+
+        }
+
 
         public void InitBoudary()
         {
@@ -677,7 +703,6 @@ namespace VMS_MobileGPS.ViewModels
 
                     if (GeoHelper.IsOriginLocation(listLatLng[i].Latitude, listLatLng[i].Longitude))
                         continue;
-
 
                     if (CalculateDistance(listLatLng[i - 1].Latitude, listLatLng[i - 1].Longitude, listLatLng[i].Latitude, listLatLng[i].Longitude) < 0.015
                          && !RouteHistory.StatePoints.Any(stp => stp.StartIndex == i && i == stp.EndIndex))
