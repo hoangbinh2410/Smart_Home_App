@@ -32,6 +32,7 @@ namespace VMS_MobileGPS.ViewModels
     {
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
         private readonly IVehicleRouteService vehicleRouteService;
+        private readonly IDisplayMessage displayMessage;
 
         private CancellationTokenSource ctsRouting = new CancellationTokenSource();
         private CancellationTokenSource ctsAddress = new CancellationTokenSource();
@@ -122,11 +123,12 @@ namespace VMS_MobileGPS.ViewModels
         public ICommand FastEndCommand { get; }
 
         public RouteViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService,
-            IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository)
+            IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository, IDisplayMessage displayMessage)
             : base(navigationService)
         {
             this.vehicleRouteService = vehicleRouteService;
             this.boundaryRepository = boundaryRepository;
+            this.displayMessage = displayMessage;
 
             if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
             {
@@ -349,8 +351,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             if (ListRoute.Count <= 0)
             {
-                //UserDialogs.Instance.Toast(new ToastConfig(MobileResource.Route_Label_RouteNotExist) { Duration = TimeSpan.FromSeconds(3) });
-                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_RouteNotExist, MobileResource.Common_Label_Close);
+                displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotExist, 3000);
                 return;
             }
 
@@ -440,7 +441,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Vehicle.VehiclePlate))
             {
-                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_VehicleEmpty, MobileResource.Common_Label_Close);
+                displayMessage.ShowMessageWarning(MobileResource.Route_Label_VehicleEmpty, 3000);
                 return false;
             }
 
@@ -519,7 +520,7 @@ namespace VMS_MobileGPS.ViewModels
                         if (task.Result == null)
                         {
                             DependencyService.Get<IHUDProvider>().Dismiss();
-                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_RouteNotFound, MobileResource.Common_Label_Close);
+                            displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
                             return;
                         }
 
@@ -532,7 +533,7 @@ namespace VMS_MobileGPS.ViewModels
                         if (ListRoute.Count == 0)
                         {
                             DependencyService.Get<IHUDProvider>().Dismiss();
-                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_RouteNotFound, MobileResource.Common_Label_Close);
+                            displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
                             return;
                         }
 

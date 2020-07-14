@@ -477,7 +477,7 @@
                         HasShadow="False"
                         HeightRequest="30"
                         HorizontalOptions="End"
-                        VerticalOptions="Center"
+                        VerticalOptions="Center" 
                         WidthRequest="30">
                         <Label
                             Margin="4"

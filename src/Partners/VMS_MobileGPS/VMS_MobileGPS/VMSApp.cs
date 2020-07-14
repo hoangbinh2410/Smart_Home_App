@@ -71,11 +71,13 @@ namespace VMS_MobileGPS
             containerRegistry.RegisterForNavigation<NotificationMessagePage, NotificationMessageViewModel>(PageNames.NotificationMessagePage.ToString());
             containerRegistry.RegisterForNavigation<OfflineMap, OfflineMapViewModel>("OffMap");
 
-           
+
             containerRegistry.RegisterForNavigation<BoundaryPage, BoundaryViewModel>("BoundaryPage");
             containerRegistry.RegisterForNavigation<DistancePage, DistancePageViewModel>("DistancePage");
             containerRegistry.RegisterForNavigation<VehicleDetailPage, VehicleDetailViewModel>("VehicleDetailPage");
             containerRegistry.RegisterForNavigation<ListVehicleHelpPage, ListVehicleHelpViewModel>("ListVehicleHelpPage");
+            containerRegistry.RegisterForNavigation<RouteListPage, RouteListViewModel>("RouteListPage");
+
 
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
             ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
@@ -83,8 +85,8 @@ namespace VMS_MobileGPS
 
             containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
             containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
-              containerRegistry.Register<ContentView, RoutePage>("RouteTab");
-            
+            containerRegistry.Register<ContentView, RoutePage>("RouteTab");
+
         }
     }
 }
