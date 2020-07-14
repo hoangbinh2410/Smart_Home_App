@@ -21,6 +21,7 @@
     <pages:PopupPage.Content>
         <sharpnado:MaterialFrame
             Margin="40"
+            Padding="0"
             CornerRadius="10"
             HorizontalOptions="Center"
             LightThemeBackgroundColor="White"
@@ -45,7 +46,7 @@
                         VerticalOptions="Center" />
                     <forms:CachedImage
                         HeightRequest="25"
-                        Source="ic_close_white.png"
+                        Source="ic_close.png"
                         VerticalOptions="Center"
                         WidthRequest="25">
                         <forms:CachedImage.GestureRecognizers>
@@ -66,7 +67,7 @@
                             Spacing="8">
                             <forms:CachedImage
                                 HeightRequest="25"
-                                Source="boat_blue.png"
+                                Source="car_blue.png"
                                 VerticalOptions="Center"
                                 WidthRequest="25" />
                             <Label
@@ -81,7 +82,7 @@
                             Spacing="8">
                             <forms:CachedImage
                                 HeightRequest="25"
-                                Source="boat_grey.png"
+                                Source="car_grey.png"
                                 VerticalOptions="Center"
                                 WidthRequest="25" />
                             <Label
@@ -96,7 +97,7 @@
                             Spacing="8">
                             <forms:CachedImage
                                 HeightRequest="25"
-                                Source="boat_red.png"
+                                Source="car_red.png"
                                 VerticalOptions="Center"
                                 WidthRequest="25" />
                             <Label
@@ -126,7 +127,7 @@
                             Spacing="8">
                             <forms:CachedImage
                                 HeightRequest="25"
-                                Source="boat_warn.png"
+                                Source="car_warn.png"
                                 VerticalOptions="Center"
                                 WidthRequest="25" />
                             <Label

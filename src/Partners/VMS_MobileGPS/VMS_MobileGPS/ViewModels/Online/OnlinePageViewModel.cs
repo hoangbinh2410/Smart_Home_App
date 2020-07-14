@@ -96,7 +96,6 @@ namespace VMS_MobileGPS.ViewModels
             ShowBorderCommand = new DelegateCommand(ShowBorder);
             HideBorderCommand = new DelegateCommand(HideBorder);
             MyLocationCommand = new DelegateCommand(GetMylocation);
-            PushtoListVehicleOnlineCommand = new DelegateCommand(PushtoListVehicleOnlinePage);
             GoDistancePageCommand = new DelegateCommand(GoDistancePage);
         }
 
@@ -458,18 +457,6 @@ namespace VMS_MobileGPS.ViewModels
                 };
 
                 await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true);
-            });
-        }
-
-        private void PushtoListVehicleOnlinePage()
-        {
-            SafeExecute(async () =>
-            {
-                var navigationParameters = new NavigationParameters
-                {
-                    { ParameterKey.OnlinePage, true }
-                };
-                await NavigationService.NavigateAsync("ListVehiclePage", navigationParameters, useModalNavigation: false);
             });
         }
 
