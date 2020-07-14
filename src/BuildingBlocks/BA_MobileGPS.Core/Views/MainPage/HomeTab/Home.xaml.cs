@@ -13,12 +13,23 @@ namespace BA_MobileGPS.Core.Views
         public Home()
         {
             InitializeComponent();
+            //favouriteListView.Loaded += Favourite_SfListView_Loaded;
+           // favouriteListView.PropertyChanged += FavouriteListView_PropertyChanged;
         }
 
-        private void Favourite_SfListView_Loaded(object sender, ListViewLoadedEventArgs e)
-        {
-            CenterFavouriteListViewConfig();
-        }
+        //private void FavouriteListView_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        //{
+        //    if (e.PropertyName == "ItemSource")
+        //    {
+
+        //    }
+        //}
+
+
+        //private void Favourite_SfListView_Loaded(object sender, ListViewLoadedEventArgs e)
+        //{
+        //    CenterFavouriteListViewConfig();
+        //}
 
         private void CenterFavouriteListViewConfig()
         {

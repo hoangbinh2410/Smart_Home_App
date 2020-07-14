@@ -84,7 +84,7 @@
                     </controls:FontAwesomeIcon>
                 </StackLayout>
             </Grid>
-            <ScrollView Grid.Row="1">
+            <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
                 <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto">
                     <pancake:PancakeView
                         Margin="10,5"
@@ -116,7 +116,6 @@
                                 IsVisible="{Binding HasFavorite}"
                                 ItemSize="95"
                                 ItemsSource="{Binding FavouriteMenuItems, Mode=OneWay}"
-                                Loaded="Favourite_SfListView_Loaded"
                                 TapCommand="{Binding TapMenuCommand}" />
                         </StackLayout>
                     </pancake:PancakeView>
@@ -146,6 +145,7 @@
                     <Grid Grid.Row="3" HeightRequest="260">
                         <CarouselView
                             x:Name="list1"
+                            HorizontalScrollBarVisibility="Never"
                             IndicatorView="indicatorView"
                             ItemsSource="{Binding AllListfeatures}">
                             <CarouselView.ItemTemplate>
