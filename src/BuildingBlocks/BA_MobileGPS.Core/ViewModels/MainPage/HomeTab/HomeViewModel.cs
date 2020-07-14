@@ -23,7 +23,6 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         private readonly IHomeService homeService;
         private readonly IMapper mapper;
-        private Timer timer;
         private List<HomeMenuItemViewModel> MenuReponse = new List<HomeMenuItemViewModel>();
 
         public bool hasFavorite;
