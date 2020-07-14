@@ -808,8 +808,8 @@ namespace VMS_MobileGPS.Views
         public async void HideBoxInfo()
         {
             vm.HideBorder();
-            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(true);
             SetNoPaddingWithFooter();
+            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(true);
             await _animations.Go(States.HideFilter, true);
         }
 
@@ -818,8 +818,8 @@ namespace VMS_MobileGPS.Views
         /// </summary>
         private async void ShowBoxInfo()
         {
-            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(false);
             SetPaddingWithFooter();
+            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(false);
             await _animations.Go(States.ShowFilter, true);
         }
 
