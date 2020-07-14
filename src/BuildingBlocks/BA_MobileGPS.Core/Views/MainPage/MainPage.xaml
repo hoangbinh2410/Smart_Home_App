@@ -11,6 +11,7 @@
     xmlns:local="clr-namespace:BA_MobileGPS.Core.Views"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms"
     x:Name="MainContentPage"
@@ -66,31 +67,42 @@
                     Margin="0,0,0,-10"
                     Animate="True"
                     SelectedIndex="{Binding SelectedIndex}" />
-
-                <tabs:TabHostView
-                    x:Name="TabHost"
-                    Grid.Row="1"
-                    Padding="0"
-                    HeightRequest="60"
-                    SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}"
-                    TabType="Fixed">
-                    <tabs:TabHostView.Tabs>
-                        <tabs:BottomTabItem IconImageSource="ic_Home.png" Label="{i18n:TranslateResource Menu_TabItem_Home}" />
-                        <tabs:BottomTabItem
-                            IconImageSource="ic_Ship.png"
-                            IsVisible="True"
-                            Label="{i18n:TranslateResource Menu_TabItem_Vehicle}" />
-                        <tabs:BottomTabItem
-                            IconImageSource="ic_Mornitoring.png"
-                            IsVisible="True"
-                            Label="{i18n:TranslateResource Menu_TabItem_Monitoring}" />
-                        <tabs:BottomTabItem
-                            IconImageSource="ic_Voyage.png"
-                            IsVisible="True"
-                            Label="{i18n:TranslateResource Menu_TabItem_Voyage}" />
-                        <tabs:BottomTabItem IconImageSource="ic_Account.png" Label="{i18n:TranslateResource Menu_TabItem_Account}" />
-                    </tabs:TabHostView.Tabs>
-                </tabs:TabHostView>
+                <sh:Shadows Grid.Row="1" CornerRadius="10">
+                    <sh:Shadows.Shades>
+                        <sh:ImmutableShades>
+                            <sh:Shade
+                                BlurRadius="2"
+                                Opacity="0.5"
+                                Offset="0,-2"
+                                Color="Black" />
+                        </sh:ImmutableShades>
+                    </sh:Shadows.Shades>
+                    <sharpnado:MaterialFrame Padding="0" LightThemeBackgroundColor="{StaticResource GrayColor}">
+                        <tabs:TabHostView
+                            x:Name="TabHost"
+                            Padding="0"
+                            HeightRequest="60"
+                            SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}"
+                            TabType="Fixed">
+                            <tabs:TabHostView.Tabs>
+                                <tabs:BottomTabItem IconImageSource="ic_Home.png" Label="{i18n:TranslateResource Menu_TabItem_Home}" />
+                                <tabs:BottomTabItem
+                                    IconImageSource="ic_Ship.png"
+                                    IsVisible="True"
+                                    Label="{i18n:TranslateResource Menu_TabItem_Vehicle}" />
+                                <tabs:BottomTabItem
+                                    IconImageSource="ic_Mornitoring.png"
+                                    IsVisible="True"
+                                    Label="{i18n:TranslateResource Menu_TabItem_Monitoring}" />
+                                <tabs:BottomTabItem
+                                    IconImageSource="ic_Voyage.png"
+                                    IsVisible="True"
+                                    Label="{i18n:TranslateResource Menu_TabItem_Voyage}" />
+                                <tabs:BottomTabItem IconImageSource="ic_Account.png" Label="{i18n:TranslateResource Menu_TabItem_Account}" />
+                            </tabs:TabHostView.Tabs>
+                        </tabs:TabHostView>
+                    </sharpnado:MaterialFrame>
+                </sh:Shadows>
             </Grid>
         </sharpnado:MaterialFrame>
     </ContentPage.Content>
