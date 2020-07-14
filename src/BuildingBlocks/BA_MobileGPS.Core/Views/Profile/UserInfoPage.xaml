@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.UserInfoPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    Title="{i18n:TranslateResource UserInfo_Label_Title}"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Content>
+        <StackLayout
+            BackgroundColor="White"
+            HorizontalOptions="FillAndExpand"
+            Spacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid
+                Padding="5"
+                HorizontalOptions="FillAndExpand"
+                RowSpacing="0"
+                VerticalOptions="Start">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <AbsoluteLayout
+                    x:Name="slAvatar"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="0"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+
+                    <ffImage:CachedImage
+                        Margin="20,0,0,0"
+                        AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        Aspect="AspectFill"
+                        DownsampleToViewSize="true"
+                        ErrorPlaceholder="ic_launcher.png"
+                        HeightRequest="60"
+                        HorizontalOptions="Center"
+                        LoadingPlaceholder="ic_launcher.png"
+                        Source="{Binding CurrentUser.AvatarDisplay}"
+                        VerticalOptions="Center"
+                        WidthRequest="60">
+                        <ffImage:CachedImage.Transformations>
+                            <transformations:CircleTransformation BorderHexColor="#dcdde1" BorderSize="1" />
+                        </ffImage:CachedImage.Transformations>
+                        <ffImage:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AvatarTappedCommand}" NumberOfTapsRequired="1" />
+                        </ffImage:CachedImage.GestureRecognizers>
+                    </ffImage:CachedImage>
+
+                    <Frame
+                        Padding="3"
+                        AbsoluteLayout.LayoutBounds="1,1,20,20"
+                        AbsoluteLayout.LayoutFlags="PositionProportional"
+                        BackgroundColor="WhiteSmoke"
+                        BorderColor="{StaticResource Color_Border}"
+                        CornerRadius="10"
+                        HasShadow="False">
+                        <ffImage:CachedImage BackgroundColor="Transparent" Source="ic_camera.png">
+                            <ffImage:CachedImage.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding AvatarTappedCommand}" NumberOfTapsRequired="1" />
+                            </ffImage:CachedImage.GestureRecognizers>
+                        </ffImage:CachedImage>
+                    </Frame>
+                </AbsoluteLayout>
+                <StackLayout
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
+                    Margin="10,0,0,0"
+                    Spacing="0"
+                    VerticalOptions="Center">
+                    <Label
+                        FontAttributes="Bold"
+                        Text="{Binding CurrentUser.UserName}"
+                        TextColor="{StaticResource PrimaryColor}"
+                        VerticalOptions="Center" />
+                    <Label
+                        FontAttributes="Bold"
+                        Text="{i18n:TranslateResource UserInfo_Label_LoyaltyCustomer}"
+                        TextColor="{StaticResource PrimaryColor}"
+                        VerticalOptions="Center" />
+                </StackLayout>
+                <Label
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="2"
+                    FontAttributes="Bold"
+                    Text="{Binding CurrentUser.XNCode, StringFormat='{}XN: {0}'}"
+                    TextColor="{StaticResource PrimaryColor}"
+                    VerticalOptions="Center" />
+            </Grid>
+            <BoxView
+                HeightRequest="1"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Start"
+                Color="LightGray" />
+            <BoxView
+                HeightRequest="10"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Start"
+                Color="WhiteSmoke" />
+            <BoxView
+                HeightRequest="1"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Start"
+                Color="LightGray" />
+            <ScrollView
+                Padding="10,0,10,0"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Vertical"
+                VerticalOptions="FillAndExpand"
+                VerticalScrollBarVisibility="Never">
+                <StackLayout
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="0"
+                    VerticalOptions="Start">
+                    <Label
+                        Margin="0,5,0,0"
+                        Text="{i18n:TranslateResource UserInfo_Label_Intro}"
+                        VerticalOptions="Start" />
+                    <Label
+                        Margin="0,10,0,0"
+                        FontAttributes="Bold"
+                        VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{i18n:TranslateResource UserInfo_Label_FullName}" TextColor="{StaticResource TextPrimaryColor}" />
+                                <Span Text=" (*)" TextColor="OrangeRed" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        ErrorColor="{StaticResource DangerousColor}"
+                        ErrorText="{Binding FullNameErrorMessage}"
+                        HasError="{Binding FullNameHasError}"
+                        HorizontalOptions="FillAndExpand"
+                        LeadingViewPosition="Inside"
+                        VerticalOptions="Start">
+                        <input:SfTextInputLayout.LeadingView>
+                            <controls:FontAwesomeIcon
+                                FontAttributes="Bold"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.User}"
+                                TextColor="{StaticResource PrimaryColor}" />
+                        </input:SfTextInputLayout.LeadingView>
+                        <Entry
+                            MaxLength="250"
+                            Placeholder="{i18n:TranslateResource UserInfo_Label_FullName}"
+                            Text="{Binding CurrentUser.FullName}" />
+                    </input:SfTextInputLayout>
+                    <Label FontAttributes="Bold" VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{i18n:TranslateResource UserInfo_Label_PhoneNumber}" TextColor="{StaticResource TextPrimaryColor}" />
+                                <Span Text=" (*)" TextColor="OrangeRed" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        ErrorColor="{StaticResource DangerousColor}"
+                        ErrorText="{Binding PhoneNumberErrorMessage}"
+                        HasError="{Binding PhoneNumberHasError}"
+                        HorizontalOptions="FillAndExpand"
+                        LeadingViewPosition="Inside"
+                        VerticalOptions="Start">
+                        <input:SfTextInputLayout.LeadingView>
+                            <controls:FontAwesomeIcon
+                                FontAttributes="Bold"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.Phone}"
+                                TextColor="{StaticResource PrimaryColor}" />
+                        </input:SfTextInputLayout.LeadingView>
+                        <Entry
+                            Keyboard="Telephone"
+                            MaxLength="50"
+                            Placeholder="{i18n:TranslateResource UserInfo_Label_PhoneNumber}"
+                            Text="{Binding CurrentUser.PhoneNumber}" />
+                    </input:SfTextInputLayout>
+                    <Label FontAttributes="Bold" VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{i18n:TranslateResource UserInfo_Label_Email}" TextColor="{StaticResource TextPrimaryColor}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        ErrorColor="{StaticResource DangerousColor}"
+                        ErrorText="{Binding EmailErrorMessage}"
+                        HasError="{Binding EmailHasError}"
+                        HorizontalOptions="FillAndExpand"
+                        LeadingViewPosition="Inside"
+                        VerticalOptions="Start">
+                        <input:SfTextInputLayout.LeadingView>
+                            <controls:FontAwesomeIcon
+                                FontAttributes="Bold"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.MailBulk}"
+                                TextColor="{StaticResource PrimaryColor}" />
+                        </input:SfTextInputLayout.LeadingView>
+                        <Entry
+                            Keyboard="Email"
+                            MaxLength="50"
+                            Placeholder="{i18n:TranslateResource UserInfo_Label_Email}"
+                            Text="{Binding CurrentUser.Email}" />
+                    </input:SfTextInputLayout>
+                    <Label
+                        FontAttributes="Bold"
+                        Text="{i18n:TranslateResource UserInfo_Label_DayOfBirth}"
+                        TextColor="{StaticResource TextPrimaryColor}"
+                        VerticalOptions="Start" />
+                    <input:SfTextInputLayout
+                        BackgroundColor="White"
+                        ContainerType="Outlined"
+                        ErrorColor="{StaticResource DangerousColor}"
+                        ErrorText="{Binding DateOfBirthErrorMessage}"
+                        HasError="{Binding DateOfBirthHasError}"
+                        HorizontalOptions="FillAndExpand"
+                        LeadingViewPosition="Inside"
+                        VerticalOptions="Start">
+                        <input:SfTextInputLayout.LeadingView>
+                            <controls:FontAwesomeIcon
+                                FontAttributes="Bold"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.Calendar}"
+                                TextColor="{StaticResource PrimaryColor}" />
+                        </input:SfTextInputLayout.LeadingView>
+                        <controls:NullableDatePicker
+                            Format="{Binding DateFormat}"
+                            NullableDate="{Binding CurrentUser.DateOfBirth}"
+                            PlaceHolder="" />
+                    </input:SfTextInputLayout>
+                    <Label
+                        FontAttributes="Bold"
+                        Text="{i18n:TranslateResource UserInfo_Label_Gender}"
+                        TextColor="{StaticResource TextPrimaryColor}"
+                        VerticalOptions="Start" />
+                    <Frame
+                        Margin="0,5,0,0"
+                        Padding="10,0,5,0"
+                        BorderColor="Gray"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Start">
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="0">
+                            <controls:FontAwesomeIcon
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.Male}"
+                                TextColor="{StaticResource PrimaryColor}"
+                                VerticalOptions="Center" />
+                            <combobox:SfComboBox
+                                Margin="{OnPlatform Android='5,0,0,0',
+                                                    iOS='0'}"
+                                DataSource="{Binding ListGender}"
+                                DisplayMemberPath="ValueByLanguage"
+                                EnableSelectionIndicator="True"
+                                HorizontalOptions="FillAndExpand"
+                                SelectedItem="{Binding SelectedGender}"
+                                ShowBorder="False"
+                                TextSize="14" />
+                        </StackLayout>
+                    </Frame>
+                    <Label
+                        Margin="0,10,0,0"
+                        FontAttributes="Bold"
+                        Text="{i18n:TranslateResource UserInfo_Label_Career}"
+                        TextColor="{StaticResource TextPrimaryColor}"
+                        VerticalOptions="Start" />
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        ErrorColor="{StaticResource DangerousColor}"
+                        ErrorText="{Binding CareerErrorMessage}"
+                        HasError="{Binding CareerHasError}"
+                        HorizontalOptions="FillAndExpand"
+                        LeadingViewPosition="Inside"
+                        VerticalOptions="Start">
+                        <input:SfTextInputLayout.LeadingView>
+                            <controls:FontAwesomeIcon
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.School}"
+                                TextColor="{StaticResource PrimaryColor}"
+                                VerticalOptions="Center" />
+                        </input:SfTextInputLayout.LeadingView>
+                        <Entry
+                            MaxLength="250"
+                            Placeholder="{i18n:TranslateResource UserInfo_Label_Career}"
+                            Text="{Binding CurrentUser.Career}" />
+                    </input:SfTextInputLayout>
+                    <Label
+                        FontAttributes="Bold"
+                        Text="{i18n:TranslateResource UserInfo_Label_Role}"
+                        TextColor="{StaticResource TextPrimaryColor}"
+                        VerticalOptions="Start" />
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        ErrorColor="{StaticResource DangerousColor}"
+                        ErrorText="{Binding RoleErrorMessage}"
+                        HasError="{Binding RoleHasError}"
+                        HorizontalOptions="FillAndExpand"
+                        LeadingViewPosition="Inside"
+                        VerticalOptions="Start">
+                        <input:SfTextInputLayout.LeadingView>
+                            <controls:FontAwesomeIcon
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.Chair}"
+                                TextColor="{StaticResource PrimaryColor}"
+                                VerticalOptions="Center" />
+                        </input:SfTextInputLayout.LeadingView>
+                        <Entry
+                            MaxLength="250"
+                            Placeholder="{i18n:TranslateResource UserInfo_Label_Role}"
+                            Text="{Binding CurrentUser.Role}" />
+                    </input:SfTextInputLayout>
+                    <Label
+                        FontAttributes="Bold"
+                        Text="{i18n:TranslateResource UserInfo_Label_Religion}"
+                        TextColor="{StaticResource TextPrimaryColor}"
+                        VerticalOptions="Start" />
+                    <Frame
+                        Margin="0,5,0,0"
+                        Padding="10,0,5,0"
+                        BorderColor="Gray"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Start">
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="0">
+                            <controls:FontAwesomeIcon
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.PrayingHands}"
+                                TextColor="{StaticResource PrimaryColor}"
+                                VerticalOptions="Center" />
+                            <combobox:SfComboBox
+                                Margin="{OnPlatform Android='5,0,0,0',
+                                                    iOS='0'}"
+                                DataSource="{Binding ListReligion}"
+                                DisplayMemberPath="ValueByLanguage"
+                                EnableSelectionIndicator="True"
+                                HorizontalOptions="FillAndExpand"
+                                SelectedItem="{Binding SelectedReligion}"
+                                ShowBorder="False"
+                                TextSize="14" />
+                        </StackLayout>
+                    </Frame>
+                    <Label
+                        Margin="0,10,0,0"
+                        FontAttributes="Bold"
+                        Text="{i18n:TranslateResource UserInfo_Label_Address}"
+                        TextColor="{StaticResource TextPrimaryColor}"
+                        VerticalOptions="Start" />
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        ErrorColor="{StaticResource DangerousColor}"
+                        ErrorText="{Binding AddressErrorMessage}"
+                        HasError="{Binding AddressHasError}"
+                        HorizontalOptions="FillAndExpand"
+                        LeadingViewPosition="Inside"
+                        VerticalOptions="Start">
+                        <input:SfTextInputLayout.LeadingView>
+                            <controls:FontAwesomeIcon
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.LocationArrow}"
+                                TextColor="{StaticResource PrimaryColor}"
+                                VerticalOptions="Center" />
+                        </input:SfTextInputLayout.LeadingView>
+                        <Entry
+                            MaxLength="250"
+                            Placeholder="{i18n:TranslateResource UserInfo_Label_Address}"
+                            Text="{Binding CurrentUser.Address}" />
+                    </input:SfTextInputLayout>
+                    <Label
+                        FontAttributes="Bold"
+                        Text="{i18n:TranslateResource UserInfo_Label_Facebook}"
+                        TextColor="{StaticResource TextPrimaryColor}"
+                        VerticalOptions="Start" />
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        ErrorColor="{StaticResource DangerousColor}"
+                        ErrorText="{Binding FacebookErrorMessage}"
+                        HasError="{Binding FacebookHasError}"
+                        HorizontalOptions="FillAndExpand"
+                        LeadingViewPosition="Inside"
+                        VerticalOptions="Start">
+                        <input:SfTextInputLayout.LeadingView>
+                            <controls:IconView
+                                Foreground="{StaticResource PrimaryColor}"
+                                HeightRequest="25"
+                                HorizontalOptions="Center"
+                                Source="ic_fb.png"
+                                VerticalOptions="Center"
+                                WidthRequest="50" />
+                        </input:SfTextInputLayout.LeadingView>
+                        <Entry
+                            MaxLength="250"
+                            Placeholder="{i18n:TranslateResource UserInfo_Label_Facebook}"
+                            Text="{Binding CurrentUser.Facebook}" />
+                    </input:SfTextInputLayout>
+                </StackLayout>
+            </ScrollView>
+            <Button
+                x:Name="btnSave"
+                Margin="0,5,0,0"
+                Command="{Binding UpdateUserInfoCommand}"
+                HorizontalOptions="FillAndExpand"
+                Text="{i18n:TranslateResource Common_Button_Update}"
+                VerticalOptions="End" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
