@@ -110,10 +110,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     LanguageCode = m1.LanguageCode,
                 };
             StaticSettings.ListMenuOriginGroup = mapper.Map<List<HomeMenuItem>>(menus);
-            GenerateListFeatures(menus.ToList());
-            EventAggregator.GetEvent<TabMenuAuthenticationEvent>().Publish();
-            
-          
+            GenerateListFeatures(menus.ToList());                             
 
             if (!string.IsNullOrEmpty(menuFavoriteIds))
             {

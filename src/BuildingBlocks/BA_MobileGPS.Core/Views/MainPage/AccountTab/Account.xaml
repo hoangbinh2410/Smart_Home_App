@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sfavatar="clr-namespace:Syncfusion.XForms.AvatarView;assembly=Syncfusion.Core.XForms"
     xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
@@ -22,33 +23,60 @@
             <Setter Property="VerticalOptions" Value="Center" />
         </Style>
     </ContentView.Resources>
-    <StackLayout Spacing="20">
-        <Grid
-            Margin="10,50,0,0"
-            ColumnDefinitions="Auto,*"
-            ColumnSpacing="15"
-            HeightRequest="80"
-            RowDefinitions="*,Auto,Auto"
-            RowSpacing="0">
-            <sfavatar:SfAvatarView
-                Grid.RowSpan="3"
-                AvatarShape="Circle"
-                AvatarSize="ExtraLarge"
-                BorderColor="{AppThemeBinding Light={StaticResource PrimaryColor},
-                                              Dark={StaticResource PrimaryColor}}"
-                ContentType="Custom"
-                ImageSource="{Binding UserInfo.AvatarUrl, Converter={StaticResource AddRootImageConverter}}"
-                VerticalOptions="Center" />
-            <Label StyleClass="GroupTitleLabel" Text="{Binding UserInfo.FullName}" />
-            <Label
-                Grid.Row="1"
-                Text="{Binding UserInfo.PhoneNumber}"
-                VerticalOptions="Center" />
-            <Label
-                Grid.Row="2"
-                Text="Chỉnh sửa tài khoản&gt;"
-                TextType="Html" />
-        </Grid>
+    <Grid RowDefinitions=".4*,*,Auto">
+        <ff:CachedImage
+            Aspect="AspectFill"
+            HeightRequest="150"
+            StyleClass="HomePageTopImage"
+            VerticalOptions="StartAndExpand" />
+        <StackLayout
+            Margin="10,0"
+            HorizontalOptions="FillAndExpand"
+            Orientation="Horizontal"
+            Spacing="10"
+            VerticalOptions="CenterAndExpand">
+            <Grid
+                HeightRequest="80"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                WidthRequest="80">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PushToProfileCommand}" />
+                </Grid.GestureRecognizers>
+                <sfavatar:SfAvatarView
+                    AvatarColorMode="DarkBackground"
+                    AvatarName="{Binding UserInfo.FullName}"
+                    AvatarShape="Square"
+                    BorderColor="White"
+                    ContentType="Default"
+                    HeightRequest="70"
+                    HorizontalOptions="Center"
+                    ImageSource="{Binding UserInfo.AvatarUrl, Converter={StaticResource AddRootImageConverter}}"
+                    VerticalOptions="Center"
+                    WidthRequest="70" />
+                <Frame
+                    Margin="5"
+                    Padding="2"
+                    BackgroundColor="WhiteSmoke"
+                    BorderColor="Black"
+                    HasShadow="False"
+                    HeightRequest="15"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    WidthRequest="15">
+                    <controls:FontAwesomeIcon
+                        FontSize="10"
+                        HorizontalOptions="Center"
+                        Text="{x:Static fontawesome:FontAwesomeIcons.UserEdit}"
+                        VerticalOptions="Center" />
+                </Frame>
+            </Grid>
+            <StackLayout Spacing="0" VerticalOptions="CenterAndExpand">
+                <Label LineBreakMode="WordWrap" Text="{Binding UserInfo.FullName}" />
+                <Label Text="ABC" />
+            </StackLayout>
+
+        </StackLayout>
         <syncfusion:SfListView
             Grid.Row="1"
             Padding="10,0"
@@ -78,5 +106,5 @@
                 </DataTemplate>
             </syncfusion:SfListView.ItemTemplate>
         </syncfusion:SfListView>
-    </StackLayout>
+    </Grid>
 </ContentView>
