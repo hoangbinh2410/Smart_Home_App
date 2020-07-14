@@ -1072,5 +1072,17 @@
         Moto_Label_Speed,
         Moto_Label_Status,
         #endregion
+
+        #region AccountTab
+        AccountTab_Label_ChangePassword,
+        AccountTab_Label_CustomerSupport,
+        AccountTab_Label_DeviceManual,
+        AccountTab_Label_BAGPS_Introduce,
+        AccountTab_Label_Share,
+        AccountTab_Label_Rating,
+        AccountTab_Label_Setting,
+        AccountTab_Label_Logout,
+        AccountTab_Label_MessageWarningLogout,
+        #endregion
     }
 }
