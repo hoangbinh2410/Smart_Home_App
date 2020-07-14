@@ -25,6 +25,7 @@ using Xamarin.Forms;
 
 using Xamarin.Forms.Xaml;
 using System.Threading;
+using BA_MobileGPS.Core.Events;
 
 namespace VMS_MobileGPS.Views
 {
@@ -111,10 +112,36 @@ namespace VMS_MobileGPS.Views
             mCurrentVehicleList = new List<VehicleOnline>();
 
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
+            this.eventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
 
             IsInitMarker = false;
 
             StartTimmerCaculatorStatus();
+        }
+
+        private void TabItemSwitch(Tuple<int, object> obj)
+        {
+            if (obj != null && obj.Item2 != null && obj.Item2.GetType() == typeof(VehicleOnline))
+            {
+                var vehiclePlate = (VehicleOnline)obj.Item2;
+                if (googleMap.ClusteredPins != null && googleMap.ClusteredPins.Count > 0)
+                {
+                    var clusterpin = googleMap.ClusteredPins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
+                    if (clusterpin != null)
+                    {
+                        var vehicleselect = mCurrentVehicleList.FirstOrDefault(x => x.VehiclePlate == vehiclePlate.VehiclePlate);
+                        if (vehicleselect != null)
+                        {
+                            vm.CarSearch = vehicleselect.PrivateCode;
+                            UpdateSelectVehicle(vehicleselect);
+                        }
+                    }
+                    else
+                    {
+                        displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
+                    }
+                }
+            }
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)
@@ -175,7 +202,8 @@ namespace VMS_MobileGPS.Views
         {
             timer.Stop();
             timer.Dispose();
-            eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
+            this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
+            this.eventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
         }
 
         #region Propety
