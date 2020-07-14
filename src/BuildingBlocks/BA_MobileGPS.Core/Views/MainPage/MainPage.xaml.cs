@@ -1,9 +1,12 @@
-﻿using BA_MobileGPS.Core.Helpers;
+﻿using BA_MobileGPS.Core.Events;
+using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Entities;
 using Prism;
 using Prism.Events;
 using Prism.Ioc;
 using Prism.Mvvm;
 using System;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
@@ -33,12 +36,21 @@ namespace BA_MobileGPS.Core.Views
             ViewModelLocator.SetAutowirePartialView(accountTab, MainContentPage);
             Switcher.Children.Add(accountTab);
 
-         
+
 
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitAnimation();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
+            eventAggregator.GetEvent<TabMenuAuthenticationEvent>().Subscribe(TabMenuAuthen);
             Switcher.SelectedIndex = 2;
+        }
+
+        private void TabMenuAuthen()
+        {
+            Vehicles.IsVisible = StaticSettings.ListMenuOriginGroup.FirstOrDefault(x => x.MenuKey == "ListVehiclePage") != null;
+            Onlines.IsVisible = StaticSettings.ListMenuOriginGroup.FirstOrDefault(x => x.MenuKey == "OnlinePage") != null;
+            Routes.IsVisible = StaticSettings.ListMenuOriginGroup.FirstOrDefault(x => x.MenuKey == "RoutePage") != null;
+            eventAggregator.GetEvent<TabMenuAuthenticationEvent>().Unsubscribe(TabMenuAuthen);
         }
 
         private enum States

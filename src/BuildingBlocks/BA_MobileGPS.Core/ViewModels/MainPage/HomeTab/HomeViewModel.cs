@@ -245,7 +245,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (result != null && result.Count > 0)
                     {
                         MenuReponse = mapper.Map<List<HomeMenuItemViewModel>>(result);
-
+                         
                         GenMenu();
                     }
                 });
@@ -278,9 +278,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     MenuItemParentID = m1.MenuItemParentID,
                     LanguageCode = m1.LanguageCode,
                 };
-
-            GenerateListFeatures(menus.ToList());
             StaticSettings.ListMenuOriginGroup = mapper.Map<List<HomeMenuItem>>(menus);
+            GenerateListFeatures(menus.ToList());
+            EventAggregator.GetEvent<TabMenuAuthenticationEvent>().Publish();
+            
+          
 
             if (!string.IsNullOrEmpty(menuFavoriteIds))
             {
