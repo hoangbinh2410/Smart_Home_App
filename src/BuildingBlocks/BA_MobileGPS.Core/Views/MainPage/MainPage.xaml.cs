@@ -28,9 +28,9 @@ namespace BA_MobileGPS.Core.Views
             ViewModelLocator.SetAutowirePartialView(listVehicleTab, MainContentPage);
             Switcher.Children.Add(listVehicleTab);
 
-            var online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online
-            ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
-            Switcher.Children.Add(online);
+            //var online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online
+            //ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
+            //Switcher.Children.Add(online);
 
             var routeTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("RouteTab"); //RouteTab
             ViewModelLocator.SetAutowirePartialView(routeTab, MainContentPage);
