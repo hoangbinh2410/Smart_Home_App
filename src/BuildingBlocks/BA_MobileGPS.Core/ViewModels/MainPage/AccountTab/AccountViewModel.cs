@@ -33,7 +33,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand NavigateCommand { get; private set; }
 
         public AccountViewModel(INavigationService navigationService, IAppVersionService appVersionService,
-            ISignalRServices signalRServices, IAuthenticationService authenticationService)
+             IAuthenticationService authenticationService)
             : base(navigationService)
         {
             this.authenticationService = authenticationService;
