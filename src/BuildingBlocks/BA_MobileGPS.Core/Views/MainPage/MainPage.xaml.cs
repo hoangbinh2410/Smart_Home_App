@@ -18,8 +18,6 @@ namespace BA_MobileGPS.Core.Views
 
             On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
 
-
-            var home = PrismApplicationBase.Current.Container.Resolve<ContentView>("HomeTab"); //Online
             var home = PrismApplicationBase.Current.Container.Resolve<ContentView>("HomeTab"); //Home
             ViewModelLocator.SetAutowirePartialView(home, MainContentPage);
             Switcher.Children.Add(home);// Trang home
