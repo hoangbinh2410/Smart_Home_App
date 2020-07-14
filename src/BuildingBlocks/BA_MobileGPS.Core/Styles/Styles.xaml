@@ -166,7 +166,7 @@
     </Style>
     <Style Class="AccountLine" TargetType="BoxView">
         <Setter Property="HeightRequest" Value="1" />
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource TextSecondaryColor}, Dark={StaticResource TextSecondaryColor}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource TextPlaceHolderColor}, Dark={StaticResource TextPlaceHolderColor}}" />
     </Style>
 
     <!--  Sf Text Input Layout  -->
