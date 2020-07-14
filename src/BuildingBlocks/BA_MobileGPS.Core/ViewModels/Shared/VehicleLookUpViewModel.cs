@@ -77,7 +77,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (IsBusy || !IsConnected)
                 return;
 
-           // UserDialogs.Instance.ShowLoading("");
+            // UserDialogs.Instance.ShowLoading("");
 
             Task.Run(async () =>
             {
@@ -171,10 +171,17 @@ namespace BA_MobileGPS.Core.ViewModels
                         var selected = (args.ItemData as Vehicle);
                         if (selected != null)
                         {
-                            await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+                            var navigationPara = new NavigationParameters();
+                            if (LookUpType == VehicleLookUpType.VehicleRoute)
                             {
-                                { ParameterKey.Vehicle, selected }
-                            });
+                                navigationPara.Add(ParameterKey.VehicleRoute, selected);
+                            }
+                            else
+                            {
+                                navigationPara.Add(ParameterKey.Vehicle, selected);
+                            }
+
+                            await NavigationService.GoBackAsync(navigationPara, useModalNavigation: true);
                         }
                     }
                     catch (Exception ex)

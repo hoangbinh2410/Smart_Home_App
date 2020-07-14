@@ -175,7 +175,7 @@ namespace VMS_MobileGPS.ViewModels
 
             if (parameters != null)
             {
-                if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
+                if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
                 {
                     Vehicle = vehicle;
 
