@@ -63,19 +63,24 @@
                     Margin="0,0,0,-10"
                     Animate="True"
                     SelectedIndex="{Binding SelectedIndex}" />
-                <sh:Shadows Grid.Row="1" CornerRadius="10">
+                <sh:Shadows
+                    x:Name="TabHost"
+                    Grid.Row="1"
+                    CornerRadius="0">
                     <sh:Shadows.Shades>
                         <sh:ImmutableShades>
                             <sh:Shade
-                                BlurRadius="2"
-                                Opacity="0.5"
-                                Offset="0,-2"
-                                Color="Black" />
+                                BlurRadius="0"
+                                Opacity="0.3"
+                                Offset="0,-1"
+                                Color="{StaticResource TextSecondaryColor}" />
                         </sh:ImmutableShades>
                     </sh:Shadows.Shades>
-                    <sharpnado:MaterialFrame Padding="0" LightThemeBackgroundColor="{StaticResource GrayColor}">
+                    <sharpnado:MaterialFrame
+                        Padding="0"
+                        CornerRadius="0"
+                        LightThemeBackgroundColor="{StaticResource GrayColor}">
                         <tabs:TabHostView
-                            x:Name="TabHost"
                             Padding="0"
                             HeightRequest="60"
                             SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}"
