@@ -55,6 +55,7 @@
                 <StackLayout
                     HorizontalOptions="End"
                     Orientation="Horizontal"
+                    Spacing="10"
                     VerticalOptions="End">
                     <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Phone}">
                         <controls:FontAwesomeIcon.Behaviors>

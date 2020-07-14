@@ -42,6 +42,7 @@
             <badge:SfBadgeView
                 Grid.Column="1"
                 Margin="5,0,0,5"
+                BackgroundColor="Transparent"
                 BadgeText="{Binding TotalMessage, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource TotalNotificationDisplayConverter}}"
                 HorizontalOptions="EndAndExpand"
                 VerticalOptions="Center">
@@ -49,7 +50,7 @@
                     <controls:FontAwesomeIcon
                         Margin="10,0,10,0"
                         StyleClass="TopIconView"
-                        Text="{x:Static fontawesome:FontAwesomeIcons.Phone}">
+                        Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}">
                         <controls:FontAwesomeIcon.Behaviors>
                             <animation:ViewTappedBehavior AnimationType="Scale" />
                         </controls:FontAwesomeIcon.Behaviors>
