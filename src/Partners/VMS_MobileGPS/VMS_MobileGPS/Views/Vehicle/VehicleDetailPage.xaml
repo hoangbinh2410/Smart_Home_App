@@ -42,13 +42,15 @@
                             <TapGestureRecognizer Command="{Binding ViewServicePackHistoryCommand}" />
                         </StackLayout.GestureRecognizers>
                         <Label Text="Lịch sử" VerticalOptions="Center" />
-                        <controls:IconView
-                            Foreground="#c3c3c3"
+
+                        <controls:FontAwesomeIcon
                             HeightRequest="25"
-                            HorizontalOptions="Center"
-                            Source="ic_navigate_next.png"
-                            VerticalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="{x:Static fontawesome:FontAwesomeIcons.AngleRight}"
+                            TextColor="{StaticResource TextPrimaryColor}"
+                            VerticalTextAlignment="Center"
                             WidthRequest="25" />
+
                     </StackLayout>
                 </Grid>
                 <BoxView
