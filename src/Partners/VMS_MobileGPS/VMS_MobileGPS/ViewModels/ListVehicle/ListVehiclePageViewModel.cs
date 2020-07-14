@@ -549,14 +549,11 @@ namespace VMS_MobileGPS.ViewModels
 
         public void GoRoutePage(VMSVehicleOnlineViewModel selected)
         {
-            SafeExecute(async () =>
+            SafeExecute(() =>
             {
                 var param = _mapper.Map<VehicleOnline>(selected);
 
-                await NavigationService.NavigateAsync("RoutePage", new NavigationParameters
-                {
-                    { ParameterKey.VehicleOnline, param }
-                }, false);
+                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.OnlinePage, param));
             });
         }
 
