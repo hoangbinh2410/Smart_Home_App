@@ -4,6 +4,7 @@ using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
@@ -299,14 +300,9 @@ namespace VMS_MobileGPS.ViewModels
 
         private void PushtoRouterPage()
         {
-            SafeExecute(async () =>
+            SafeExecute(() =>
             {
-                var navigationPara = new NavigationParameters
-                {
-                    { ParameterKey.VehicleOnline, CarActive }
-                };
-
-                await NavigationService.NavigateAsync("RoutePage", navigationPara, false);
+                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, carActive));
             });
         }
 
