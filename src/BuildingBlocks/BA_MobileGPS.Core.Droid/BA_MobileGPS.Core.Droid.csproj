@@ -770,6 +770,16 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_arrow_tracking.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_camera.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_camera.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_camera.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_camera.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_help.png" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage
+    x:Class="BA_MobileGPS.Core.Views.Permissions.PhotoPermission"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:utilities="clr-namespace:BA_MobileGPS.Utilities;assembly=BA_MobileGPS.Utilities"
+    BackgroundColor="#66000000"
+    CloseWhenBackgroundIsClicked="False"
+    HasSystemPadding="True"
+    SystemPaddingSides="Bottom">
+    <popup:PopupPage.Content>
+        <Grid>
+            <Frame
+                Margin="0,0,0,70"
+                Padding="15"
+                BackgroundColor="White"
+                CornerRadius="10"
+                HeightRequest="320"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="EndAndExpand"
+                WidthRequest="280">
+                <StackLayout Spacing="10">
+                    <Frame
+                        BackgroundColor="Transparent"
+                        BorderColor="Transparent"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HeightRequest="25"
+                        HorizontalOptions="End"
+                        VerticalOptions="Start">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SkipCommand}" NumberOfTapsRequired="1" />
+                        </Frame.GestureRecognizers>
+                        <controls:FontAwesomeIcon
+                            Margin="0,-10,-10,0"
+                            FontAttributes="Bold"
+                            Text="{x:Static fontawesome:FontAwesomeIcons.Times}"
+                            TextColor="{StaticResource PrimaryColor}" />
+                    </Frame>
+                    <Label
+                        Margin="0,-60,0,0"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Start"
+                        Text="Cần được cấp quyền"
+                        TextColor="{StaticResource PrimaryColor}"
+                        VerticalOptions="Start" />
+                    <Label
+                        Margin="0"
+                        FontSize="16"
+                        Text="Ứng dụng này cần bạn cho phép truy cập thư viện ảnh để lấy ảnh của bạn, bạn có cho phép ứng dụng truy cập thư viện hình ảnh của bạn không?"
+                        TextColor="{StaticResource PrimaryColor}" />
+                    <Frame
+                        BackgroundColor="Transparent"
+                        BorderColor="Transparent"
+                        HeightRequest="100"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                        WidthRequest="100">
+                        <controls:FontAwesomeIcon
+                            Margin="5,0,0,0"
+                            FontAttributes="Bold"
+                            FontSize="80"
+                            Text="{x:Static fontawesome:FontAwesomeIcons.Images}"
+                            TextColor="{StaticResource PrimaryColor}" />
+                    </Frame>
+                    <Frame
+                        Margin="0,15,0,0"
+                        Padding="35,10"
+                        BackgroundColor="{StaticResource PrimaryColor}"
+                        CornerRadius="20"
+                        HasShadow="False"
+                        HorizontalOptions="CenterAndExpand">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding GrantCommand}"
+                                CommandParameter="{x:Static utilities:PermissionOfApp.Photo}"
+                                NumberOfTapsRequired="1" />
+                        </Frame.GestureRecognizers>
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <Label
+                                FontAttributes="Bold"
+                                HorizontalOptions="CenterAndExpand"
+                                Text="CHO PHÉP "
+                                TextColor="White"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </popup:PopupPage.Content>
+</popup:PopupPage>

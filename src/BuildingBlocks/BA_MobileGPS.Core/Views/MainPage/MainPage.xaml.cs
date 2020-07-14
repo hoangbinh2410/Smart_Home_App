@@ -1,10 +1,12 @@
-﻿using BA_MobileGPS.Core.Helpers;
-using BA_MobileGPS.Core.ViewModels;
+﻿using BA_MobileGPS.Core.Events;
+using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Entities;
 using Prism;
 using Prism.Events;
 using Prism.Ioc;
 using Prism.Mvvm;
 using System;
+using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
@@ -16,7 +18,7 @@ namespace BA_MobileGPS.Core.Views
         {
             InitializeComponent();
 
-            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
+            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(false);
 
             var home = PrismApplicationBase.Current.Container.Resolve<ContentView>("HomeTab"); //Home
             ViewModelLocator.SetAutowirePartialView(home, MainContentPage);
@@ -41,8 +43,16 @@ namespace BA_MobileGPS.Core.Views
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitAnimation();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
-
+            eventAggregator.GetEvent<TabMenuAuthenticationEvent>().Subscribe(TabMenuAuthen);
             Switcher.SelectedIndex = 2;
+        }
+
+        private void TabMenuAuthen()
+        {
+            Vehicles.IsVisible = StaticSettings.ListMenuOriginGroup.FirstOrDefault(x => x.MenuKey == "ListVehiclePage") != null;
+            Onlines.IsVisible = StaticSettings.ListMenuOriginGroup.FirstOrDefault(x => x.MenuKey == "OnlinePage") != null;
+            Routes.IsVisible = StaticSettings.ListMenuOriginGroup.FirstOrDefault(x => x.MenuKey == "RoutePage") != null;
+            eventAggregator.GetEvent<TabMenuAuthenticationEvent>().Unsubscribe(TabMenuAuthen);
         }
 
         private enum States

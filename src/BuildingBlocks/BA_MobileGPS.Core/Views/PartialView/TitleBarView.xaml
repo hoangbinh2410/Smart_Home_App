@@ -21,7 +21,7 @@
             <StackLayout
                 HorizontalOptions="End"
                 Orientation="Horizontal"
-                VerticalOptions="End">
+                VerticalOptions="EndAndExpand">
                 <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Phone}">
                     <controls:FontAwesomeIcon.Behaviors>
                         <animation:ViewTappedBehavior AnimationType="Scale" />

@@ -3,9 +3,80 @@
     x:Class="BA_MobileGPS.Core.Views.Account"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:prism="http://prismlibrary.com">
-    <Label
-        FontSize="20"
-        Text="Acc"
-        VerticalOptions="Center" />
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:sfavatar="clr-namespace:Syncfusion.XForms.AvatarView;assembly=Syncfusion.Core.XForms"
+    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms">
+    <ContentView.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Grid.Column" Value="1" />
+            <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+            <Setter Property="VerticalTextAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="controls:IconView">
+            <Setter Property="Foreground" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+    </ContentView.Resources>
+    <StackLayout Spacing="20">
+        <Grid
+            Margin="10,50,0,0"
+            ColumnDefinitions="Auto,*"
+            ColumnSpacing="15"
+            HeightRequest="80"
+            RowDefinitions="*,Auto,Auto"
+            RowSpacing="0">
+            <sfavatar:SfAvatarView
+                Grid.RowSpan="3"
+                AvatarShape="Circle"
+                AvatarSize="ExtraLarge"
+                BorderColor="{AppThemeBinding Light={StaticResource PrimaryColor},
+                                              Dark={StaticResource PrimaryColor}}"
+                ContentType="Custom"
+                ImageSource="{Binding UserInfo.AvatarUrl, Converter={StaticResource AddRootImageConverter}}"
+                VerticalOptions="Center" />
+            <Label StyleClass="GroupTitleLabel" Text="{Binding UserInfo.FullName}" />
+            <Label
+                Grid.Row="1"
+                Text="{Binding UserInfo.PhoneNumber}"
+                VerticalOptions="Center" />
+            <Label
+                Grid.Row="2"
+                Text="Chỉnh sửa tài khoản&gt;"
+                TextType="Html" />
+        </Grid>
+        <syncfusion:SfListView
+            Grid.Row="1"
+            Padding="10,0"
+            BackgroundColor="Transparent"
+            ItemSpacing="5"
+            ItemsSource="{Binding MenuItems, Mode=OneWay}"
+            SelectionBackgroundColor="Transparent"
+            TapCommand="{Binding NavigateCommand}">
+            <syncfusion:SfListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        ColumnDefinitions="Auto,*"
+                        ColumnSpacing="20"
+                        RowDefinitions="*,1"
+                        RowSpacing="5">
+                        <controls:IconView
+                            HeightRequest="30"
+                            Source="{Binding Icon}"
+                            WidthRequest="30" />
+                        <Label Grid.Column="1" Text="{Binding Title}" />
+                        <BoxView
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            StyleClass="AccountLine"
+                            VerticalOptions="CenterAndExpand" />
+                    </Grid>
+                </DataTemplate>
+            </syncfusion:SfListView.ItemTemplate>
+        </syncfusion:SfListView>
+    </StackLayout>
 </ContentView>
