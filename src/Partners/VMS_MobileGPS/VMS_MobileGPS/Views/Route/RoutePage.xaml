@@ -210,79 +210,27 @@
                     </cluster:Map.Behaviors>
                 </cluster:Map>
                 <Grid
-                    Margin="5,5,5,0"
-                    AbsoluteLayout.LayoutBounds=".5,0,1,AutoSize"
-                    AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="45" />
-                        <ColumnDefinition Width="45" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Frame
-                        x:Name="btnViewInfo"
-                        Grid.Column="0"
+                    Margin="10"
+                    Padding="5,0"
+                    AbsoluteLayout.LayoutBounds="0,0,1,AutoSize"
+                    AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                    ColumnDefinitions="*,Auto,Auto"
+                    ColumnSpacing="10"
+                    HeightRequest="45"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="StartAndExpand">
+
+                    <pancake:PancakeView
                         Padding="0"
-                        BackgroundColor="White"
-                        BorderColor="{StaticResource GrayColor}"
-                        CornerRadius="22"
-                        HasShadow="False"
-                        HeightRequest="45"
-                        HorizontalOptions="Start"
-                        IsClippedToBounds="True"
-                        VerticalOptions="Center"
-                        WidthRequest="45">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="IconInfo_Clicked" />
-                        </Frame.GestureRecognizers>
-                        <controls:IconView
-                            x:Name="IconInfo"
-                            Margin="8"
-                            Foreground="{StaticResource GrayColor2}"
-                            Source="ic_info_outline_white.png" />
-                    </Frame>
-                    <Frame
-                        x:Name="btnListRoute"
-                        Grid.Column="1"
-                        Padding="0"
-                        BackgroundColor="White"
-                        BorderColor="{StaticResource GrayColor}"
-                        CornerRadius="22"
-                        HasShadow="False"
-                        HeightRequest="45"
-                        HorizontalOptions="Start"
-                        IsClippedToBounds="True"
-                        VerticalOptions="Center"
-                        WidthRequest="45">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ViewListCommand}" />
-                        </Frame.GestureRecognizers>
-                        <controls:IconView
-                            Margin="8"
-                            Foreground="{StaticResource GrayColor2}"
-                            Source="ic_view_list.png" />
-                    </Frame>
-                    <Frame
-                        x:Name="btnsearch"
-                        Grid.Column="2"
-                        Padding="0"
-                        BackgroundColor="White"
-                        BorderColor="{StaticResource GrayColor}"
-                        CornerRadius="22"
-                        HasShadow="False"
-                        HeightRequest="45"
-                        HorizontalOptions="FillAndExpand"
-                        IsClippedToBounds="True"
-                        VerticalOptions="Center">
-                        <Frame.GestureRecognizers>
+                        BackgroundColor="{StaticResource WhiteColor}"
+                        CornerRadius="22">
+                        <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding SelectVehicleRouterCommand}" />
-                        </Frame.GestureRecognizers>
+                        </pancake:PancakeView.GestureRecognizers>
                         <StackLayout
+                            Padding="0"
                             HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal"
-                            VerticalOptions="Center">
+                            Orientation="Horizontal">
                             <pancake:PancakeView
                                 BackgroundColor="{StaticResource PrimaryColor}"
                                 CornerRadius="22"
@@ -297,7 +245,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Route_Label_SearchVehicle}"
-                                PlaceholderColor="{StaticResource GrayColor2}"
+                                PlaceholderColor="{StaticResource TextPrimaryColor}"
                                 Text="{Binding Vehicle.PrivateCode}"
                                 TextColor="Black"
                                 VerticalOptions="Center">
@@ -306,7 +254,41 @@
                                 </Entry.Effects>
                             </Entry>
                         </StackLayout>
-                    </Frame>
+                    </pancake:PancakeView>
+
+                    <pancake:PancakeView
+                        x:Name="btnListRoute"
+                        Grid.Column="1"
+                        Padding="0"
+                        BackgroundColor="{StaticResource WhiteColor}"
+                        CornerRadius="22"
+                        WidthRequest="45">
+                        <pancake:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ViewListCommand}" />
+                        </pancake:PancakeView.GestureRecognizers>
+                        <controls:IconView
+                            Margin="8"
+                            Foreground="{StaticResource GrayColor2}"
+                            Source="ic_view_list.png"
+                            VerticalOptions="Center" />
+                    </pancake:PancakeView>
+
+                    <pancake:PancakeView
+                        x:Name="btnViewInfo"
+                        Grid.Column="2"
+                        BackgroundColor="White"
+                        CornerRadius="22"
+                        WidthRequest="45">
+                        <pancake:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="IconInfo_Clicked" />
+                        </pancake:PancakeView.GestureRecognizers>
+                        <controls:IconView
+                            x:Name="IconInfo"
+                            Margin="8"
+                            Foreground="{StaticResource GrayColor2}"
+                            Source="ic_info_outline_white.png" />
+                    </pancake:PancakeView>
+
                 </Grid>
                 <StackLayout
                     Margin="10"
@@ -358,7 +340,7 @@
                 </StackLayout>
                 <Frame
                     x:Name="frVehicleInfo"
-                    Margin="5,60,0,0"
+                    Margin="15,65,0,0"
                     Padding="0"
                     AbsoluteLayout.LayoutBounds="0,0,AutoSize,AutoSize"
                     AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -367,7 +349,7 @@
                     CornerRadius="5"
                     HasShadow="False"
                     IsClippedToBounds="True"
-                    Opacity="0">
+                    Opacity="1">
                     <Grid>
                         <ContentView BackgroundColor="White" Opacity=".9" />
                         <Grid Padding="8" BackgroundColor="Transparent">
@@ -477,7 +459,7 @@
                         HasShadow="False"
                         HeightRequest="30"
                         HorizontalOptions="End"
-                        VerticalOptions="Center" 
+                        VerticalOptions="Center"
                         WidthRequest="30">
                         <Label
                             Margin="4"

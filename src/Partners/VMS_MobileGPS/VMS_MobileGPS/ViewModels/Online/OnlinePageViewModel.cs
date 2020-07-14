@@ -4,6 +4,7 @@ using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
@@ -82,7 +83,7 @@ namespace VMS_MobileGPS.ViewModels
             else
             {
                 mapType = MapType.Street;
-                ColorMapType = (Color)App.Current.Resources["BlueDarkColor"];
+                ColorMapType = (Color)App.Current.Resources["PrimaryColor"];
             }
 
             zoomLevel = MobileUserSettingHelper.Mapzoom;
@@ -299,14 +300,9 @@ namespace VMS_MobileGPS.ViewModels
 
         private void PushtoRouterPage()
         {
-            SafeExecute(async () =>
+            SafeExecute(() =>
             {
-                var navigationPara = new NavigationParameters
-                {
-                    { ParameterKey.VehicleOnline, CarActive }
-                };
-
-                await NavigationService.NavigateAsync("RoutePage", navigationPara, false);
+                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, carActive));
             });
         }
 
@@ -317,7 +313,7 @@ namespace VMS_MobileGPS.ViewModels
             Circles.Add(new Circle
             {
                 StrokeWidth = 2,
-                StrokeColor = (Color)App.Current.Resources["BlueDarkColor"],
+                StrokeColor = (Color)App.Current.Resources["PrimaryColor"],
                 FillColor = Color.Transparent,
                 Radius = Distance.FromKilometers(10 * 1.852),
                 Center = new Position(CarActive.Lat, CarActive.Lng)
@@ -326,7 +322,7 @@ namespace VMS_MobileGPS.ViewModels
             Circles.Add(new Circle
             {
                 StrokeWidth = 2,
-                StrokeColor = (Color)App.Current.Resources["BlueDarkColor"],
+                StrokeColor = (Color)App.Current.Resources["PrimaryColor"],
                 FillColor = Color.Transparent,
                 Radius = Distance.FromKilometers(20 * 1.852),
                 Center = new Position(CarActive.Lat, CarActive.Lng)
@@ -335,7 +331,7 @@ namespace VMS_MobileGPS.ViewModels
             Circles.Add(new Circle
             {
                 StrokeWidth = 2,
-                StrokeColor = (Color)App.Current.Resources["BlueDarkColor"],
+                StrokeColor = (Color)App.Current.Resources["PrimaryColor"],
                 FillColor = Color.Transparent,
                 Radius = Distance.FromKilometers(30 * 1.852),
                 Center = new Position(CarActive.Lat, CarActive.Lng)
@@ -370,7 +366,7 @@ namespace VMS_MobileGPS.ViewModels
                 }
                 else
                 {
-                    ColorMapType = (Color)App.Current.Resources["BlueDarkColor"];
+                    ColorMapType = (Color)App.Current.Resources["PrimaryColor"];
                     MapType = MapType.Street;
                 }
                 byte maptype = 1;

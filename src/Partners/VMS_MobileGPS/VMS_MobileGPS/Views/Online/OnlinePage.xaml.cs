@@ -238,6 +238,10 @@ namespace VMS_MobileGPS.Views
                     }
                 }
             }
+            else
+            {
+                HideBoxInfo();
+            }
         }
 
         private void StartTimmerCaculatorStatus()
