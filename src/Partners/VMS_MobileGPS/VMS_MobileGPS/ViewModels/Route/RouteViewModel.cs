@@ -200,7 +200,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             if (obj != null
               && obj.Item2 != null
-              && obj.Item1 == ItemTabPageEnums.OnlinePage
+              && obj.Item1 == ItemTabPageEnums.RoutePage
               && obj.Item2.GetType() == typeof(VehicleOnline))
             {
                 var vehicleOnline = (VehicleOnline)obj.Item2;

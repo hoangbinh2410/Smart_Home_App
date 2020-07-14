@@ -28,7 +28,9 @@ namespace BA_MobileGPS.Core.ViewModels
         public DelegateCommand<object> NavigateCommand { get; private set; }
         public DelegateCommand InitMenuCommand { get; private set; }
 
-        public FavoritesConfigurationsPageViewModel(INavigationService navigationService, IMapper mapper, IHomeService homeService, IAppVersionService appVersionService, IPageDialogService dialogService, ISignalRServices signalRServices, IAuthenticationService authenticationService, IDisplayMessage displayMessage)
+        public FavoritesConfigurationsPageViewModel(INavigationService navigationService,
+            IMapper mapper,
+            IHomeService homeService, IDisplayMessage displayMessage)
             : base(navigationService)
         {
             this._displayMessage = displayMessage;

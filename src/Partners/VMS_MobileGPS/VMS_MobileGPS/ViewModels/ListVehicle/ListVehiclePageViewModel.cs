@@ -552,8 +552,7 @@ namespace VMS_MobileGPS.ViewModels
             SafeExecute(() =>
             {
                 var param = _mapper.Map<VehicleOnline>(selected);
-
-                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.OnlinePage, param));
+                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, param));               
             });
         }
 
@@ -562,7 +561,6 @@ namespace VMS_MobileGPS.ViewModels
             SafeExecute(() =>
             {
                 var param = _mapper.Map<VehicleOnline>(selected);
-
                 EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.OnlinePage, param));
             });
         }
