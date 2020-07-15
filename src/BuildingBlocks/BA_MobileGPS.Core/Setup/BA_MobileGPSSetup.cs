@@ -91,7 +91,7 @@ namespace BA_MobileGPS.Core
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<BaseNavigationPage, BaseNavigationPageViewModel>("BaseNavigationPage");
-
+            containerRegistry.RegisterForNavigation<NetworkPage>("NetworkPage");
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<ChangePasswordPage, ChangePasswordPageViewModel>("ChangePasswordPage");
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
@@ -117,6 +117,8 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<AlertConfigSettingPage, AlertConfigSettingPageViewModel>("AlertConfigSettingPage");
             containerRegistry.RegisterForNavigation<AlertVehicleSettingPage, AlertVehicleSettingPageViewModel>("AlertVehicleSettingPage");
             containerRegistry.RegisterForNavigation<AlertTimeSettingPage, AlertTimeSettingPageViewModel>("AlertTimeSettingPage");
+            containerRegistry.RegisterForNavigation<HelperPage, HeplerViewModel>("HeplerPage");
+            containerRegistry.RegisterForNavigation<TutorialPage, TutorialPageViewModel>("TutorialPage");
 
         }
     }
