@@ -342,12 +342,25 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     SafeExecute(async () =>
                     {
-                        await NavigationService.NavigateAsync("AlertOnlinePage", useModalNavigation: false);
+                        await NavigationService.NavigateAsync("BaseNavigationPage/AlertOnlinePage", useModalNavigation: true);
                     });
                 });
             }
         }
 
+        public ICommand CallHotLineCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    if (!string.IsNullOrEmpty(MobileSettingHelper.HotlineGps))
+                    {
+                        PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                    }
+                });
+            }
+        }
         private LoginResponse userInfo;
 
         public LoginResponse UserInfo

@@ -44,6 +44,7 @@ namespace BA_MobileGPS.Core.Views
             InitAnimation();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
             Switcher.SelectedIndex = 2;
+          //  Switcher.SelectedIndex = 0;
         }    
 
         private enum States
