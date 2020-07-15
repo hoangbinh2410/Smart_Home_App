@@ -103,9 +103,9 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<SelectDateTimeCalendarPopup, SelectDateTimeCalendarPopupViewModel>("SelectDateTimeCalendarPopup");
             containerRegistry.RegisterForNavigation<ComboboxPage, ComboboxPageViewModel>("ComboboxPage");
 
-            containerRegistry.RegisterForNavigation<LanguagePage, LanguagePageViewModel>();
-            containerRegistry.RegisterForNavigation<ChangeLanguage, ChangeLanguageViewModel>();
-            containerRegistry.RegisterForNavigation<InsertLocalDBPage, InsertLocalDBPageViewModel>();
+            containerRegistry.RegisterForNavigation<LanguagePage, LanguagePageViewModel>("LanguagePage");
+            containerRegistry.RegisterForNavigation<ChangeLanguage, ChangeLanguageViewModel>("ChangeLanguage");
+            containerRegistry.RegisterForNavigation<InsertLocalDBPage, InsertLocalDBPageViewModel>("InsertLocalDBPage");
             containerRegistry.RegisterForNavigation<NotificationPopupWhenLogin, NotificationPopupWhenLoginViewModel>("NotificationPopupWhenLogin");
             containerRegistry.RegisterForNavigation<FavoritesConfigurationsPage, FavoritesConfigurationsPageViewModel>("FavoritesConfigurationsPage");
 
@@ -142,6 +142,11 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<AlertTimeSettingPage, AlertTimeSettingPageViewModel>("AlertTimeSettingPage");
             containerRegistry.RegisterForNavigation<HelperPage, HeplerViewModel>("HelperPage");
             containerRegistry.RegisterForNavigation<TutorialPage, TutorialPageViewModel>("TutorialPage");
+            containerRegistry.RegisterForNavigation<AlertOnlinePage, AlertOnlinePageViewModel>("AlertOnlinePage");
+            containerRegistry.RegisterForNavigation<AlertHandlingPage, AlertHandlingPageViewModel>("AlertHandlingPage");
+
+            containerRegistry.RegisterForNavigation<ComboboxPage, ComboboxPageViewModel>("ComboboxPage");
+            containerRegistry.RegisterForNavigation<ImageEditorPage, ImageEditorViewModel>("ImageEditorPage");
             containerRegistry.RegisterForNavigation<AlertOnlinePage, AlertOnlinePageViewModel>();
             containerRegistry.RegisterForNavigation<AlertHandlingPage, AlertHandlingPageViewModel>();
             containerRegistry.RegisterForNavigation<NotificationPage, NotificationPageViewModel>("NotificationPage");
