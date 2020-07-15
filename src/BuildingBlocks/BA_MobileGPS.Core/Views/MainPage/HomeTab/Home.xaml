@@ -53,8 +53,10 @@
                     VerticalOptions="EndAndExpand"
                     WidthRequest="80" />
                 <StackLayout
+                    Margin="0,0,0,5"
                     HorizontalOptions="End"
                     Orientation="Horizontal"
+                    Spacing="15"
                     VerticalOptions="End">
                     <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Phone}">
                         <controls:FontAwesomeIcon.Behaviors>

@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.DependencyServices;
+﻿using AutoMapper;
+using BA_MobileGPS.Core.DependencyServices;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
@@ -92,6 +93,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<BaseNavigationPage, BaseNavigationPageViewModel>("BaseNavigationPage");
 
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
+            containerRegistry.RegisterForNavigation<ChangePasswordPage, ChangePasswordPageViewModel>("ChangePasswordPage");
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
            
             containerRegistry.RegisterForNavigation<SelectDatePicker, SelectDatePickerViewModel>("SelectDatePicker");
@@ -109,6 +111,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<CompanyLookUp, CompanyLookUpViewModel>("CompanyLookUp");
             containerRegistry.RegisterForNavigation<VehicleGroupLookUp, VehicleGroupLookUpViewModel>("VehicleGroupLookUp");
             containerRegistry.RegisterForNavigation<VehicleLookUp, VehicleLookUpViewModel>("VehicleLookUp");
+            containerRegistry.RegisterForNavigation<UserInfoPage, UserInfoPageViewModel>("UserInfoPage");
 
         }
     }
