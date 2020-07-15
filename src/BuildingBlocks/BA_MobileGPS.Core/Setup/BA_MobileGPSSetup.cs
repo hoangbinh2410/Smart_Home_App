@@ -117,7 +117,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<AlertConfigSettingPage, AlertConfigSettingPageViewModel>("AlertConfigSettingPage");
             containerRegistry.RegisterForNavigation<AlertVehicleSettingPage, AlertVehicleSettingPageViewModel>("AlertVehicleSettingPage");
             containerRegistry.RegisterForNavigation<AlertTimeSettingPage, AlertTimeSettingPageViewModel>("AlertTimeSettingPage");
-            containerRegistry.RegisterForNavigation<HelperPage, HeplerViewModel>("HeplerPage");
+            containerRegistry.RegisterForNavigation<HelperPage, HeplerViewModel>("HelperPage");
             containerRegistry.RegisterForNavigation<TutorialPage, TutorialPageViewModel>("TutorialPage");
 
         }
