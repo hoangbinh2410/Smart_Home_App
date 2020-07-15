@@ -43,6 +43,7 @@
     <Compile Include="BaseDelegate.cs" />
     <Compile Include="CustomRenderer\ContentPageRenderer.cs" />
     <Compile Include="CustomRenderer\CustomEditorRenderer.cs" />
+    <Compile Include="CustomRenderer\EntryMinusRenderer.cs" />
     <Compile Include="CustomRenderer\FrameShadowRenderer.cs" />
     <Compile Include="CustomRenderer\IconViewRenderer.cs" />
     <Compile Include="DependencyServices\AppleAudioManager.cs" />
@@ -573,6 +574,15 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_fb%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_excel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_excel%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_excel%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

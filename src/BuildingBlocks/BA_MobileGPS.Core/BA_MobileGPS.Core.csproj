@@ -103,6 +103,9 @@
 	  <EmbeddedResource Update="Views\Authentication\ChangePasswordPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Common\ComboboxPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\MainPage\AccountTab\Account.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -148,8 +151,8 @@
 	  <EmbeddedResource Update="Views\Popup\BasePopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="ViewModels\Common\" />
+	  <EmbeddedResource Update="Views\Vehicle\VehicleDebtMoneyPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	</ItemGroup>
 </Project>

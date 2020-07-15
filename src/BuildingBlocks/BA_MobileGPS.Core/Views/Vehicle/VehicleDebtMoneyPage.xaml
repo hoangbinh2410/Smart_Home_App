@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.VehicleDebtMoneyPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:locals="clr-namespace:BA_MobileGPS.Controls"
+    xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:syncDataGrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+    xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
+    x:Name="this"
+    Title="{Binding Title}"
+    NavigationPage.BackButtonTitle="">
+
+    <ContentPage.Content>
+        <tabView:SfTabView
+            x:Name="tabview"
+            BackgroundColor="{StaticResource PrimaryColor}"
+            DisplayMode="Text"
+            SelectedIndex="{Binding SelectedIndexTab}"
+            VisibleHeaderCount="2">
+
+            <tabView:SfTabView.EnableSwiping>
+                <OnPlatform x:TypeArguments="x:Boolean">
+                    <On Platform="iOS" Value="true" />
+                    <On Platform="Android" Value="false" />
+                </OnPlatform>
+            </tabView:SfTabView.EnableSwiping>
+            <tabView:SfTabView.SelectionIndicatorSettings>
+                <tabView:SelectionIndicatorSettings
+                    Position="Fill"
+                    StrokeThickness="10"
+                    Color="White" />
+            </tabView:SfTabView.SelectionIndicatorSettings>
+
+            <tabView:SfTabItem
+                Title="{i18n:TranslateResource VehicleDebtMoney_Label_VehicleDebt}"
+                SelectionColor="{StaticResource PrimaryColor}"
+                TitleFontAttributes="Bold"
+                TitleFontColor="White"
+                TitleFontSize="14">
+                <tabView:SfTabItem.Content>
+                    <Grid Padding="10" BackgroundColor="White">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <StackLayout Grid.Row="0" Margin="0,5,0,0">
+                            <Label
+                                HorizontalTextAlignment="Start"
+                                Text="{i18n:TranslateResource VehicleDebtMoney_Label_Header1}"
+                                TextColor="Red" />
+                        </StackLayout>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".5*" />
+                                <ColumnDefinition Width=".5*" />
+                            </Grid.ColumnDefinitions>
+                            <Frame
+                                x:Name="txtKeySearch"
+                                Grid.Column="0"
+                                Margin="0"
+                                Padding="0"
+                                BackgroundColor="White"
+                                BorderColor="{StaticResource GrayColor2}"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                HeightRequest="40"
+                                HorizontalOptions="FillAndExpand"
+                                IsClippedToBounds="True"
+                                VerticalOptions="Center">
+                                <StackLayout
+                                    Padding="5,0,5,0"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="Center">
+                                    <Entry
+                                        FontSize="{StaticResource FontSize12}"
+                                        HorizontalOptions="FillAndExpand"
+                                        Placeholder="{i18n:TranslateResource VehicleDebtMoney_Label_PlaceholderSearchKey}"
+                                        Text="{Binding KeySearch}"
+                                        VerticalOptions="Center">
+                                        <Entry.Effects>
+                                            <effects:BorderlessEffect />
+                                        </Entry.Effects>
+                                        <Entry.Behaviors>
+                                            <prismbehaviors:EventToCommandBehavior
+                                                Command="{Binding SearchVehicleDebtCommand}"
+                                                EventArgsConverter="{StaticResource TextChangedEventArgsConverter}"
+                                                EventName="TextChanged" />
+                                        </Entry.Behaviors>
+                                    </Entry>
+                                </StackLayout>
+                            </Frame>
+                            <Frame
+                                x:Name="cbStatusVehicle"
+                                Grid.Column="1"
+                                Margin="0"
+                                Padding="0"
+                                BackgroundColor="White"
+                                BorderColor="{StaticResource GrayColor2}"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                HeightRequest="40"
+                                HorizontalOptions="FillAndExpand"
+                                IsClippedToBounds="True"
+                                VerticalOptions="Center">
+                                <StackLayout
+                                    Padding="5,0,5,0"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="Center">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding PushToVehicleStatusCommand}" />
+                                    </StackLayout.GestureRecognizers>
+                                    <Entry
+                                        FontSize="{StaticResource FontSize12}"
+                                        HorizontalOptions="FillAndExpand"
+                                        InputTransparent="True"
+                                        Placeholder="{i18n:TranslateResource Camera_Label_PlaceHolder_Status}"
+                                        Text="{Binding StatusSelected.Value}"
+                                        VerticalOptions="Center">
+                                        <Entry.Effects>
+                                            <effects:BorderlessEffect />
+                                        </Entry.Effects>
+                                    </Entry>
+                                    <controls:IconView
+                                        Foreground="Black"
+                                        HeightRequest="15"
+                                        HorizontalOptions="End"
+                                        Source="ic_sortdown.png"
+                                        VerticalOptions="Center"
+                                        WidthRequest="15" />
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                        <StackLayout
+                            Grid.Row="2"
+                            Margin="0,10,0,0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            VerticalOptions="CenterAndExpand">
+                            <Grid HorizontalOptions="FillAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    HorizontalOptions="StartAndExpand"
+                                    TextColor="{StaticResource PrimaryColor}"
+                                    VerticalOptions="Center">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{i18n:TranslateResource VehicleDebtMoney_Label_TotalVehicle}" />
+                                            <Span Text="{Binding TotalCountVehicle}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <controls:IconView
+                                    x:Name="lbHelp"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Foreground="{StaticResource PrimaryColor}"
+                                    HorizontalOptions="End"
+                                    Source="ic_help.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="15">
+                                    <!--
+                                        behaviors:ItemTappedCommandListView.ItemTappedCommand="Filter_Clicked"
+                                        xe:Commands.Tap="{Binding HelpCommand}"
+                                    -->
+                                    <controls:IconView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding HelpCommand}" />
+                                    </controls:IconView.GestureRecognizers>
+                                </controls:IconView>
+                            </Grid>
+                        </StackLayout>
+                        <StackLayout Grid.Row="3" HorizontalOptions="FillAndExpand">
+                            <syncDataGrid:SfDataGrid
+                                x:Name="dataGrid"
+                                AllowGroupExpandCollapse="True"
+                                AutoExpandGroups="True"
+                                AutoGenerateColumns="False"
+                                ColumnSizer="Star"
+                                ColumnSpacing="0"
+                                FrozenColumnsCount="3"
+                                GroupCaptionTextFormat="{}Liên Hệ: {Key} - {ItemsCount} phương tiện "
+                                HorizontalOptions="FillAndExpand"
+                                IsBusy="{Binding IsBusy}"
+                                ItemsSource="{Binding ListVehicleDebtMoney}"
+                                VerticalOptions="FillAndExpand"
+                                VerticalOverScrollMode="None">
+                                <syncDataGrid:SfDataGrid.Columns>
+                                    <syncDataGrid:GridTextColumn
+                                        Padding="1"
+                                        HeaderFontAttribute="Bold"
+                                        HeaderText="{i18n:TranslateResource Common_Label_TitleGrid_VehiclePlate}"
+                                        LoadUIView="True"
+                                        MappingName="VehiclePlate"
+                                        TextAlignment="Center" />
+                                    <syncDataGrid:GridDateTimeColumn
+                                        Padding="1"
+                                        HeaderFontAttribute="Bold"
+                                        HeaderText="{i18n:TranslateResource VehicleDebtMoney_Label_TitleGrid_ExpireDate}"
+                                        LoadUIView="True"
+                                        MappingName="ExpireDate"
+                                        TextAlignment="Center" />
+                                    <syncDataGrid:GridNumericColumn
+                                        Padding="1"
+                                        Format="D"
+                                        HeaderFontAttribute="Bold"
+                                        HeaderText="{i18n:TranslateResource VehicleDebtMoney_Label_TitleGrid_CountExpireDate}"
+                                        LoadUIView="True"
+                                        MappingName="CountExpireDate"
+                                        TextAlignment="Center" />
+                                </syncDataGrid:SfDataGrid.Columns>
+                                <syncDataGrid:SfDataGrid.GroupColumnDescriptions>
+                                    <syncDataGrid:GroupColumnDescription ColumnName="Contact" />
+                                </syncDataGrid:SfDataGrid.GroupColumnDescriptions>
+                            </syncDataGrid:SfDataGrid>
+                        </StackLayout>
+                    </Grid>
+                </tabView:SfTabItem.Content>
+            </tabView:SfTabItem>
+
+            <tabView:SfTabItem
+                Title="{i18n:TranslateResource VehicleDebtMoney_Label_SearchFee}"
+                SelectionColor="{StaticResource PrimaryColor}"
+                TitleFontAttributes="Bold"
+                TitleFontColor="White"
+                TitleFontSize="14">
+                <tabView:SfTabItem.Content>
+                    <StackLayout
+                        Padding="10"
+                        BackgroundColor="White"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="10"
+                        VerticalOptions="FillAndExpand">
+
+                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".5*" />
+                                <ColumnDefinition Width=".5*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Frame
+                                Grid.Column="0"
+                                Margin="0"
+                                Padding="0"
+                                BackgroundColor="White"
+                                BorderColor="{StaticResource GrayColor2}"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                HeightRequest="40"
+                                HorizontalOptions="FillAndExpand"
+                                IsClippedToBounds="True"
+                                VerticalOptions="Center">
+                                <StackLayout
+                                    Padding="5,0,5,0"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="Center">
+                                    <Entry
+                                        FontSize="{StaticResource FontSize12}"
+                                        HorizontalOptions="FillAndExpand"
+                                        Placeholder="{i18n:TranslateResource VehicleDebtMoney_Label_PlaceholderSearchKey}"
+                                        Text="{Binding KeySearch}"
+                                        VerticalOptions="Center">
+                                        <Entry.Effects>
+                                            <effects:BorderlessEffect />
+                                        </Entry.Effects>
+                                        <Entry.Behaviors>
+                                            <prismbehaviors:EventToCommandBehavior
+                                                Command="{Binding SearchVehicleFreeCommand}"
+                                                EventArgsConverter="{StaticResource TextChangedEventArgsConverter}"
+                                                EventName="TextChanged" />
+                                        </Entry.Behaviors>
+                                    </Entry>
+                                </StackLayout>
+                            </Frame>
+                            <Frame
+                                Grid.Column="1"
+                                Margin="0"
+                                Padding="0"
+                                BackgroundColor="White"
+                                BorderColor="{StaticResource GrayColor2}"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                HeightRequest="40"
+                                HorizontalOptions="FillAndExpand"
+                                IsClippedToBounds="True"
+                                VerticalOptions="Center">
+                                <StackLayout
+                                    Padding="5,0,5,0"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="Center">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding PushToVehicleStatusFreeCommand}" />
+                                    </StackLayout.GestureRecognizers>
+                                    <Entry
+                                        FontSize="{StaticResource FontSize12}"
+                                        HorizontalOptions="FillAndExpand"
+                                        InputTransparent="True"
+                                        Placeholder="{i18n:TranslateResource Camera_Label_PlaceHolder_Status}"
+                                        Text="{Binding StatusFreeSelected.Value}"
+                                        VerticalOptions="Center">
+                                        <Entry.Effects>
+                                            <effects:BorderlessEffect />
+                                        </Entry.Effects>
+                                    </Entry>
+                                    <controls:IconView
+                                        Foreground="Black"
+                                        HeightRequest="15"
+                                        HorizontalOptions="End"
+                                        Source="ic_sortdown.png"
+                                        VerticalOptions="Center"
+                                        WidthRequest="15" />
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+
+                        <Label
+                            HorizontalOptions="StartAndExpand"
+                            TextColor="{StaticResource PrimaryColor}"
+                            VerticalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{i18n:TranslateResource VehicleDebtMoney_Label_TotalVehicle}" />
+                                    <Span Text="{Binding TotalCountVehicleFree}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <syncDataGrid:SfDataGrid
+                            x:Name="datagridvehiclefree"
+                            AutoGenerateColumns="False"
+                            ColumnSizer="Star"
+                            ColumnSpacing="0"
+                            FrozenColumnsCount="3"
+                            HorizontalOptions="FillAndExpand"
+                            ItemsSource="{Binding ListVehicleFree}"
+                            VerticalOptions="FillAndExpand"
+                            VerticalOverScrollMode="None">
+                            <syncDataGrid:SfDataGrid.Columns>
+                                <syncDataGrid:GridTextColumn
+                                    Padding="1"
+                                    HeaderFontAttribute="Bold"
+                                    HeaderText="{i18n:TranslateResource Common_Label_TitleGrid_VehiclePlate}"
+                                    LoadUIView="True"
+                                    MappingName="VehiclePlate"
+                                    TextAlignment="Center" />
+                                <syncDataGrid:GridDateTimeColumn
+                                    Padding="1"
+                                    HeaderFontAttribute="Bold"
+                                    HeaderText="{i18n:TranslateResource VehicleFree_Label_TitleGrid_ExpireDate}"
+                                    LoadUIView="True"
+                                    MappingName="ExpireDate"
+                                    TextAlignment="Center" />
+                                <syncDataGrid:GridNumericColumn
+                                    Padding="1"
+                                    Format="D"
+                                    HeaderFontAttribute="Bold"
+                                    HeaderText="{i18n:TranslateResource VehicleFree_Label_TitleGrid_CountExpireDate}"
+                                    LoadUIView="True"
+                                    MappingName="CountExpireDate"
+                                    TextAlignment="Center" />
+                            </syncDataGrid:SfDataGrid.Columns>
+                        </syncDataGrid:SfDataGrid>
+                    </StackLayout>
+                </tabView:SfTabItem.Content>
+            </tabView:SfTabItem>
+        </tabView:SfTabView>
+    </ContentPage.Content>
+</ContentPage> 

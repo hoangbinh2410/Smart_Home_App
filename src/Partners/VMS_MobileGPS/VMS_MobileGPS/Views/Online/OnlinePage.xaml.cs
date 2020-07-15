@@ -961,6 +961,7 @@ namespace VMS_MobileGPS.Views
                     var car = mVehicleList.FirstOrDefault(x => x.VehiclePlate == args.Pin.Label);
                     if (car != null)
                     {
+                        vm.CarSearch = car.PrivateCode;
                         ShowBoxInfoCarActive(car, car.MessageId, car.DataExt);
                     }
                 }

@@ -51,4 +51,5 @@
 
     <converters:IsCompanyConverter x:Key="IsCompanyConverter" />
 
+    <converters:ShowHideColumnConverter x:Key="ShowHideColumnConverter" />
 </ResourceDictionary>

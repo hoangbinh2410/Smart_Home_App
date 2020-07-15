@@ -151,13 +151,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref selectedIndex, value);
                 RaisePropertyChanged();
             }
-        }    
+        }
 
         private bool vehicleTabVisible;
         public bool VehicleTabVisible
         {
             get { return vehicleTabVisible; }
-            set { SetProperty(ref vehicleTabVisible, value);
+            set
+            {
+                SetProperty(ref vehicleTabVisible, value);
                 RaisePropertyChanged();
             }
         }
@@ -166,7 +168,9 @@ namespace BA_MobileGPS.Core.ViewModels
         public bool OnlineTabVisible
         {
             get { return onlineTabVisible; }
-            set { SetProperty(ref onlineTabVisible, value);
+            set
+            {
+                SetProperty(ref onlineTabVisible, value);
                 RaisePropertyChanged();
             }
         }
@@ -175,7 +179,9 @@ namespace BA_MobileGPS.Core.ViewModels
         public bool RouteTabVisible
         {
             get { return routeTabVisible; }
-            set { SetProperty(ref routeTabVisible, value);
+            set
+            {
+                SetProperty(ref routeTabVisible, value);
                 RaisePropertyChanged();
             }
         }
@@ -451,20 +457,23 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetCountVehicleDebtMoney()
         {
-            RunOnBackground(async () =>
+            if (MobileSettingHelper.IsUseVehicleDebtMoney)
             {
-                return await vehicleDebtMoneyService.GetCountVehicleDebtMoney(UserInfo.UserId);
-            }, async (result) =>
-            {
-                if (result > 0)
+                RunOnBackground(async () =>
                 {
-                    if (string.IsNullOrEmpty(Settings.ReceivedNotificationType))
+                    return await vehicleDebtMoneyService.GetCountVehicleDebtMoney(UserInfo.UserId);
+                }, async (result) =>
+                {
+                    if (result > 0)
                     {
-                        // gọi sang trang danh sách nợ phí
-                        _ = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDebtMoneyPage", null, useModalNavigation: true);
+                        if (string.IsNullOrEmpty(Settings.ReceivedNotificationType))
+                        {
+                            // gọi sang trang danh sách nợ phí
+                            _ = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDebtMoneyPage", null, useModalNavigation: true);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
 
         /// <summary>

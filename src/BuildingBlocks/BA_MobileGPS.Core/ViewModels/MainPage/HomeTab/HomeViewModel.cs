@@ -206,7 +206,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             //await NavigationService.NavigateAsync("NotificationPopup", useModalNavigation: true);
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
-                                _ = await NavigationService.NavigateAsync("BaseNavigationPage/" + seletedMenu.MenuKey, useModalNavigation: true);
+                               var a = await NavigationService.NavigateAsync("BaseNavigationPage/" + seletedMenu.MenuKey, useModalNavigation: true);
                             }
                         }
                         catch (Exception ex)

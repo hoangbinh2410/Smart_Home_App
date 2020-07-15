@@ -745,6 +745,21 @@
         SpeedOversReport_Table_StartAddress,
         SpeedOversReport_Table_EndAddress,
         SpeedOversReport_Table_Note,
+
+        ReportSignalLoss_Label_TitlePage,
+        ReportSignalLoss_Label_TitlePageDetail,
+        ReportSignalLoss_TitleStatus,
+        ReportSignalLoss_Title_MinTimeLosing,
+        ReportSignalLoss_Title_StartTime,
+        ReportSignalLoss_Title_EndTime,
+        ReportSignalLoss_Title_TimeLosing,
+        ReportSignalLoss_Title_StartAddress,
+        ReportSignalLoss_Title_EndAddress,
+        ReportSignalLoss_TitleStatus_All,
+        ReportSignalLoss_TitleStatus_GPS,
+        ReportSignalLoss_TitleStatus_GMS,
+        ReportSignalLoss_Message_ValidateError_MinTimeLosing,
+        ReportSignalLoss_Message_ValidateError_MinTimeLosing2,
         #endregion report
 
         #region
