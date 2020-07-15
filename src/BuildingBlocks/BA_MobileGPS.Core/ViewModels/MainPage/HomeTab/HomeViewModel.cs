@@ -76,7 +76,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (result != null && result.Count > 0)
                     {
                         MenuReponse = mapper.Map<List<HomeMenuItemViewModel>>(result);
-                         
+
                         GenMenu();
                     }
                 });
@@ -110,7 +110,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     LanguageCode = m1.LanguageCode,
                 };
             StaticSettings.ListMenuOriginGroup = mapper.Map<List<HomeMenuItem>>(menus);
-            GenerateListFeatures(menus.ToList());                             
+            GenerateListFeatures(menus.ToList());
 
             if (!string.IsNullOrEmpty(menuFavoriteIds))
             {
@@ -175,6 +175,10 @@ namespace BA_MobileGPS.Core.ViewModels
         public void OnTappedMenu(object obj)
         {
             var args = (Syncfusion.ListView.XForms.ItemTappedEventArgs)obj;
+            if (!(args.ItemData is HomeMenuItemViewModel seletedMenu) || seletedMenu.MenuKey == null)
+            {
+                return;
+            }
             var temp = (HomeMenuItemViewModel)args.ItemData;
             switch (temp.MenuKey)
             {
@@ -190,33 +194,26 @@ namespace BA_MobileGPS.Core.ViewModels
                     EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, ""));
                     break;
 
-                default:
-                    Device.BeginInvokeOnMainThread(async () =>
+                case "MessagesOnlinePage":
+                    SafeExecute(async () =>
                     {
-                        try
+                        using (new HUDService(MobileResource.Common_Message_Processing))
                         {
-                            if (IsBusy)
-                                return;
-                            IsBusy = true;
+                            _ = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey, useModalNavigation: true);
+                        }
+                    });
+                    break;
 
-                            if (!(args.ItemData is HomeMenuItemViewModel seletedMenu) || seletedMenu.MenuKey == null)
-                            {
-                                return;
-                            }
-                            //await NavigationService.NavigateAsync("NotificationPopup", useModalNavigation: true);
+                default:
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        SafeExecute(async () =>
+                        {//await NavigationService.NavigateAsync("NotificationPopup", useModalNavigation: true);
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
                                 _ = await NavigationService.NavigateAsync("BaseNavigationPage/" + seletedMenu.MenuKey, useModalNavigation: true);
                             }
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-                        }
-                        finally
-                        {
-                            IsBusy = false;
-                        }
+                        });
                     });
                     break;
             }

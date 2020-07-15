@@ -372,15 +372,7 @@ namespace BA_MobileGPS.Core.ViewModels
         //{
         //    SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkExperience)));
         //});
-
-        public ICommand CallHotLineCommand => new DelegateCommand(() =>
-        {
-            if (!string.IsNullOrEmpty(MobileSettingHelper.HotlineGps))
-            {
-                PhoneDialer.Open(MobileSettingHelper.HotlineGps);
-            }
-        });
-
+      
         [Obsolete]
         public ICommand SendEmailCommand => new DelegateCommand(() =>
         {

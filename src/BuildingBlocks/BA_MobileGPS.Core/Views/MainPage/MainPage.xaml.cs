@@ -42,7 +42,8 @@ namespace BA_MobileGPS.Core.Views
                 Switcher.SelectedIndex = Switcher.Children.Count - 1;
             }
             else
-            {
+            {               
+                Switcher.SelectedIndex = 2;
                 Switcher.SelectedIndex = 0;
             }
 
@@ -62,7 +63,9 @@ namespace BA_MobileGPS.Core.Views
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitAnimation();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
-        }
+   
+       
+        }    
 
         private enum States
         {

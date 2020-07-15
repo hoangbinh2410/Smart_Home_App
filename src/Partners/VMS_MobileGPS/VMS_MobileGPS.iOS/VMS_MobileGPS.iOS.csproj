@@ -880,6 +880,15 @@
     <BundleResource Include="Resources\bg_app.png" />
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\ic_company%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_company.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_company%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
     <BundleResource Include="Resources\Launch_Screen.png" />
   </ItemGroup>
   <ItemGroup>

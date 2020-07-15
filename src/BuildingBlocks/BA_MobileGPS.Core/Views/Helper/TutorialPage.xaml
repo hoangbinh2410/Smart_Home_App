@@ -10,7 +10,17 @@
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     Title="{i18n:TranslateResource Menu_Label_Help}"
     prism:ViewModelLocator.AutowireViewModel="True">
-
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ActiveIndicator" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+            </Style>
+            <Style x:Key="InactiveIndicator" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="{StaticResource GrayColor}" />
+                <Setter Property="OutlineColor" Value="{StaticResource PrimaryColor}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
             <cards:CarouselView
@@ -34,7 +44,9 @@
                 <cardscontrols:IndicatorsControl
                     Margin="10"
                     HorizontalOptions="CenterAndExpand"
+                    SelectedIndicatorStyle="{StaticResource ActiveIndicator}"
                     ToFadeDuration="5000"
+                    UnselectedIndicatorStyle="{StaticResource InactiveIndicator}"
                     VerticalOptions="End" />
             </cards:CarouselView>
         </Grid>
