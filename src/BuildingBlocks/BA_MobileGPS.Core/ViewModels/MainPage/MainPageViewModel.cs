@@ -415,20 +415,23 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetCountVehicleDebtMoney()
         {
-            RunOnBackground(async () =>
+            if (MobileSettingHelper.IsUseVehicleDebtMoney)
             {
-                return await vehicleDebtMoneyService.GetCountVehicleDebtMoney(UserInfo.UserId);
-            }, async (result) =>
-            {
-                if (result > 0)
+                RunOnBackground(async () =>
                 {
-                    if (string.IsNullOrEmpty(Settings.ReceivedNotificationType))
+                    return await vehicleDebtMoneyService.GetCountVehicleDebtMoney(UserInfo.UserId);
+                }, async (result) =>
+                {
+                    if (result > 0)
                     {
-                        // gọi sang trang danh sách nợ phí
-                        _ = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDebtMoneyPage", null, useModalNavigation: true);
+                        if (string.IsNullOrEmpty(Settings.ReceivedNotificationType))
+                        {
+                            // gọi sang trang danh sách nợ phí
+                            _ = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDebtMoneyPage", null, useModalNavigation: true);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
 
         /// <summary>
