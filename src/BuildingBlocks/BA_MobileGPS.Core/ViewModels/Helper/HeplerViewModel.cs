@@ -14,7 +14,6 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class HeplerViewModel : ViewModelBase
     {
-        private readonly IHelperService helperService;
 
         private List<HeplerModel> Response => new List<HeplerModel>
         {
@@ -49,27 +48,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand ItemSelectedCommand { get; set; }
 
-        public HeplerViewModel(INavigationService navigationService,
-            IHelperService helperService)
+        public HeplerViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            this.helperService = helperService;
-
             ItemSelectedCommand = new DelegateCommand<Syncfusion.ListView.XForms.ItemTappedEventArgs>(ItemSelected);
         }
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public override void Initialize(INavigationParameters parameters)
         {
-            base.OnNavigatedTo(parameters);
-
+            base.Initialize(parameters);
             ListHelper = Response.FindAll(h => h.IsShow);
-        }
-
-        private void GetListHelper()
-        {
-            var response = helperService.GetHelper(new HelperRequest
-            {
-            });
         }
 
         private void ItemSelected(Syncfusion.ListView.XForms.ItemTappedEventArgs args)

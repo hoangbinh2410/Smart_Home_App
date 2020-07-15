@@ -24,7 +24,6 @@
         <syncfusion:SfListView
             AllowKeyboardNavigation="True"
             AutoFitMode="DynamicHeight"
-            BackgroundColor="#ffffff"
             HorizontalOptions="FillAndExpand"
             IsScrollBarVisible="False"
             ItemSpacing="5"
@@ -61,7 +60,6 @@
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="1"
-                                FontSize="{StaticResource FontSize14}"
                                 Text="{Binding Title}"
                                 VerticalOptions="Center" />
                             <controls:FontAwesomeIcon
