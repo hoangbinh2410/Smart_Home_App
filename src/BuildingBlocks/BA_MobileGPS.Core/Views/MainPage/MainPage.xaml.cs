@@ -33,7 +33,7 @@ namespace BA_MobileGPS.Core.Views
                 tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_Ship.png", Label = MobileResource.Menu_TabItem_Vehicle });
             }
 
-            if (!CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
+            if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
             {
                 var online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online
                 ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
