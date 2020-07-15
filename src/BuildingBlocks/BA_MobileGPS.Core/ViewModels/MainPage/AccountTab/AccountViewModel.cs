@@ -56,8 +56,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = "BaseNavigationPage/ChangePasswordPage",
                 MenuType = MenuType.ChangePassword,
-                //IsEnable = CheckPermision((int)PermissionKeyNames.UserUpdate)
-                IsEnable = true
+                IsEnable = CheckPermision((int)PermissionKeyNames.UserUpdate)
             });
             // Hỗ trợ khách hàng
             list.Add(new MenuItem
@@ -75,7 +74,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Title = MobileResource.AccountTab_Label_DeviceManual,
                 Icon = "ic_devicemanual.png",
                 UseModalNavigation = true,
-                Url = "BaseNavigationPage/FeedbackPage",
+                Url = "NavigationPage/HelperPage",
                 MenuType = MenuType.DeviceManual,
                 IsEnable = true
             });
@@ -170,9 +169,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation);
                             break;
                         case MenuType.CustomerSupport:
-                            await Launcher.OpenAsync(new Uri(item.Url));
-                            break;
-                        case MenuType.DeviceManual:
                             await Launcher.OpenAsync(new Uri(item.Url));
                             break;
                         case MenuType.BAGPSIntro:

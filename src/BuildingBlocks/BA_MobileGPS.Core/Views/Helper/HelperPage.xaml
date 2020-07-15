@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.HelperPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    Title="{i18n:TranslateResource Helper_Label_TilePage}"
+    NavigationPage.BackButtonTitle="">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            x:Name="btnClose"
+            Command="{Binding ClosePageCommand}"
+            Icon="ic_close.png"
+            Order="Primary"
+            Priority="0"
+            Text="Đóng" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <syncfusion:SfListView
+            AllowKeyboardNavigation="True"
+            AutoFitMode="DynamicHeight"
+            BackgroundColor="#ffffff"
+            HorizontalOptions="FillAndExpand"
+            IsScrollBarVisible="False"
+            ItemSpacing="5"
+            ItemsSource="{Binding ListHelper}"
+            SelectionBackgroundColor="Transparent"
+            TapCommand="{Binding ItemSelectedCommand}"
+            VerticalOptions="FillAndExpand">
+            <syncfusion:SfListView.ItemTemplate>
+                <DataTemplate>
+                    <sharpnado:MaterialFrame
+                        Margin="5"
+                        Padding="0"
+                        BackgroundColor="White"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        IsClippedToBounds="True">
+                        <Grid RowSpacing="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="3" />
+                            </Grid.RowDefinitions>
+                            <forms:CachedImage
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="10"
+                                HeightRequest="25"
+                                Source="{Binding Icon}"
+                                WidthRequest="25" />
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                FontSize="{StaticResource FontSize14}"
+                                Text="{Binding Title}"
+                                VerticalOptions="Center" />
+                            <controls:FontAwesomeIcon
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.AngleRight}"
+                                TextColor="{StaticResource PrimaryColor}"
+                                VerticalOptions="Center" />
+                            <BoxView
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                BackgroundColor="{StaticResource PrimaryColor}"
+                                HeightRequest="1"
+                                HorizontalOptions="FillAndExpand" />
+                        </Grid>
+                    </sharpnado:MaterialFrame>
+                </DataTemplate>
+            </syncfusion:SfListView.ItemTemplate>
+        </syncfusion:SfListView>
+    </ContentPage.Content>
+</ContentPage>
