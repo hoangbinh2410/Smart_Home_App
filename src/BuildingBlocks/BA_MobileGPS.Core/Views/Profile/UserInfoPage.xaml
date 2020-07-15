@@ -47,10 +47,10 @@
                         AbsoluteLayout.LayoutFlags="All"
                         Aspect="AspectFill"
                         DownsampleToViewSize="true"
-                        ErrorPlaceholder="ic_launcher.png"
+                        ErrorPlaceholder="avatar_default.png"
                         HeightRequest="60"
                         HorizontalOptions="Center"
-                        LoadingPlaceholder="ic_launcher.png"
+                        LoadingPlaceholder="avatar_default.png"
                         Source="{Binding CurrentUser.AvatarDisplay}"
                         VerticalOptions="Center"
                         WidthRequest="60">
@@ -67,7 +67,7 @@
                         AbsoluteLayout.LayoutBounds="1,1,20,20"
                         AbsoluteLayout.LayoutFlags="PositionProportional"
                         BackgroundColor="WhiteSmoke"
-                        BorderColor="{StaticResource Color_Border}"
+                        BorderColor="{StaticResource TextSecondaryColor}"
                         CornerRadius="10"
                         HasShadow="False">
                         <ffImage:CachedImage BackgroundColor="Transparent" Source="ic_camera.png">
@@ -82,6 +82,7 @@
                     Grid.RowSpan="2"
                     Grid.Column="1"
                     Margin="10,0,0,0"
+                    HorizontalOptions="StartAndExpand"
                     Spacing="0"
                     VerticalOptions="Center">
                     <Label
@@ -131,11 +132,13 @@
                     VerticalOptions="Start">
                     <Label
                         Margin="0,5,0,0"
+                        HorizontalOptions="StartAndExpand"
                         Text="{i18n:TranslateResource UserInfo_Label_Intro}"
                         VerticalOptions="Start" />
                     <Label
                         Margin="0,10,0,0"
                         FontAttributes="Bold"
+                        HorizontalOptions="StartAndExpand"
                         VerticalOptions="Start">
                         <Label.FormattedText>
                             <FormattedString>
@@ -163,11 +166,14 @@
                             Placeholder="{i18n:TranslateResource UserInfo_Label_FullName}"
                             Text="{Binding CurrentUser.FullName}" />
                     </input:SfTextInputLayout>
-                    <Label FontAttributes="Bold" VerticalOptions="Start">
+                    <Label
+                        FontAttributes="Bold"
+                        HorizontalOptions="StartAndExpand"
+                        VerticalOptions="Start">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="{i18n:TranslateResource UserInfo_Label_PhoneNumber}" TextColor="{StaticResource TextPrimaryColor}" />
-                                <Span Text=" (*)" TextColor="OrangeRed" />
+                                <Span Text=" (*)" TextColor="{StaticResource DangerousColor}" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
@@ -191,7 +197,10 @@
                             Placeholder="{i18n:TranslateResource UserInfo_Label_PhoneNumber}"
                             Text="{Binding CurrentUser.PhoneNumber}" />
                     </input:SfTextInputLayout>
-                    <Label FontAttributes="Bold" VerticalOptions="Start">
+                    <Label
+                        FontAttributes="Bold"
+                        HorizontalOptions="StartAndExpand"
+                        VerticalOptions="Start">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="{i18n:TranslateResource UserInfo_Label_Email}" TextColor="{StaticResource TextPrimaryColor}" />
@@ -220,6 +229,7 @@
                     </input:SfTextInputLayout>
                     <Label
                         FontAttributes="Bold"
+                        HorizontalOptions="StartAndExpand"
                         Text="{i18n:TranslateResource UserInfo_Label_DayOfBirth}"
                         TextColor="{StaticResource TextPrimaryColor}"
                         VerticalOptions="Start" />
@@ -245,6 +255,7 @@
                     </input:SfTextInputLayout>
                     <Label
                         FontAttributes="Bold"
+                        HorizontalOptions="StartAndExpand"
                         Text="{i18n:TranslateResource UserInfo_Label_Gender}"
                         TextColor="{StaticResource TextPrimaryColor}"
                         VerticalOptions="Start" />
@@ -281,6 +292,7 @@
                     <Label
                         Margin="0,10,0,0"
                         FontAttributes="Bold"
+                        HorizontalOptions="StartAndExpand"
                         Text="{i18n:TranslateResource UserInfo_Label_Career}"
                         TextColor="{StaticResource TextPrimaryColor}"
                         VerticalOptions="Start" />
@@ -307,6 +319,7 @@
                     </input:SfTextInputLayout>
                     <Label
                         FontAttributes="Bold"
+                        HorizontalOptions="StartAndExpand"
                         Text="{i18n:TranslateResource UserInfo_Label_Role}"
                         TextColor="{StaticResource TextPrimaryColor}"
                         VerticalOptions="Start" />
@@ -333,6 +346,7 @@
                     </input:SfTextInputLayout>
                     <Label
                         FontAttributes="Bold"
+                        HorizontalOptions="StartAndExpand"
                         Text="{i18n:TranslateResource UserInfo_Label_Religion}"
                         TextColor="{StaticResource TextPrimaryColor}"
                         VerticalOptions="Start" />
@@ -369,6 +383,7 @@
                     <Label
                         Margin="0,10,0,0"
                         FontAttributes="Bold"
+                        HorizontalOptions="StartAndExpand"
                         Text="{i18n:TranslateResource UserInfo_Label_Address}"
                         TextColor="{StaticResource TextPrimaryColor}"
                         VerticalOptions="Start" />
@@ -395,6 +410,7 @@
                     </input:SfTextInputLayout>
                     <Label
                         FontAttributes="Bold"
+                        HorizontalOptions="StartAndExpand"
                         Text="{i18n:TranslateResource UserInfo_Label_Facebook}"
                         TextColor="{StaticResource TextPrimaryColor}"
                         VerticalOptions="Start" />
@@ -424,7 +440,7 @@
             </ScrollView>
             <Button
                 x:Name="btnSave"
-                Margin="0,5,0,0"
+                Margin="5"
                 Command="{Binding UpdateUserInfoCommand}"
                 HorizontalOptions="FillAndExpand"
                 Text="{i18n:TranslateResource Common_Button_Update}"
