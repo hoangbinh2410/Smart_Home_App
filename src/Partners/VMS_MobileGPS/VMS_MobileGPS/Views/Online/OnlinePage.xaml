@@ -217,10 +217,8 @@
                 VerticalOptions="FillAndExpand">
                 <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <Grid.RowDefinitions>
-
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-
                     <syncfusion:SfListView
                         x:Name="lvStatusCar"
                         Margin="0"
@@ -229,7 +227,7 @@
                         ItemTapped="TapStatusVehicel"
                         ItemsSource="{Binding ListVehilceStatus, Mode=OneWay}"
                         SelectedItem="{Binding SelectedVehicleStatus}"
-                        SelectionBackgroundColor="{StaticResource BluePrimaryColor}"
+                        SelectionBackgroundColor="{StaticResource TextPlaceHolderColor}"
                         TapCommand="{Binding SelectStatusVehicelCommand}">
                         <syncfusion:SfListView.ItemTemplate>
                             <DataTemplate>
@@ -246,7 +244,8 @@
                                         <ffImage:CachedImage
                                             HorizontalOptions="Start"
                                             Source="{Binding Icon}"
-                                            VerticalOptions="Center" />
+                                            VerticalOptions="Center"
+                                            WidthRequest="40" />
                                         <StackLayout Spacing="3" VerticalOptions="Center">
                                             <Label
                                                 HorizontalOptions="Start"
