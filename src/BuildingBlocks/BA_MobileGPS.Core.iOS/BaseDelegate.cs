@@ -45,6 +45,7 @@ namespace BA_MobileGPS.Core.iOS
                 containerRegistry.RegisterInstance<ISettingsService>(new SettingsService());
                 containerRegistry.RegisterInstance<IAppVersionService>(new AppVersionService());
                 containerRegistry.RegisterInstance<IHUDProvider>(new BA_MobileGPS.Core.iOS.DependencyServices.AppleHUDService());
+                containerRegistry.RegisterInstance<ISaveService>(new SaveService());
                 //containerRegistry.RegisterInstance<IAccountKitService>(new AccountKitService());
                 //containerRegistry.RegisterInstance<ISaveAndView>(new SaveAndViewIOS());
                 containerRegistry.RegisterInstance<IAudioManager>(new AppleAudioManager());
