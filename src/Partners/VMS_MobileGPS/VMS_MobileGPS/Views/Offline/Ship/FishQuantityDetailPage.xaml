@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VMS_MobileGPS.Views.FishQuantityDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:core="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
+    xmlns:datepicker="clr-namespace:VMS_MobileGPS.Controls"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    x:Name="this"
+    Title="Nhập thông tin mẻ lưới">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <core:LatitudeToDergeeConverter x:Key="LatitudeToDergeeConverter" />
+            <core:LongitudeToDergeeConverter x:Key="LongitudeToDergeeConverter" />
+            <core:DateTimeOffsetConverter x:Key="DateTimeOffsetConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView
+            BackgroundColor="WhiteSmoke"
+            HorizontalOptions="FillAndExpand"
+            Orientation="Vertical"
+            VerticalOptions="FillAndExpand"
+            VerticalScrollBarVisibility="Never">
+            <StackLayout
+                CascadeInputTransparent="True"
+                InputTransparent="{Binding FishTrip.IsSynced}"
+                Spacing="0">
+                <StackLayout Margin="10">
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        FocusedColor="{StaticResource PrimaryColor}"
+                        FocusedStrokeWidth="1"
+                        HorizontalOptions="FillAndExpand"
+                        LeadingViewPosition="Inside"
+                        ShowHelperText="False"
+                        VerticalOptions="Start">
+                        <input:SfTextInputLayout.LeadingView>
+                            <controls:IconView
+                                Foreground="{StaticResource PrimaryColor}"
+                                HorizontalOptions="Center"
+                                Source="ic_vehicleplate.png"
+                                VerticalOptions="Center" />
+                        </input:SfTextInputLayout.LeadingView>
+                        <Entry
+                            MaxLength="250"
+                            Placeholder="Biển hiệu"
+                            PlaceholderColor="{StaticResource TextPlaceHolderColor}"
+                            Text="{Binding FishTrip.ShipPlate}" />
+                    </input:SfTextInputLayout>
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        FocusedColor="{StaticResource PrimaryColor}"
+                        FocusedStrokeWidth="1"
+                        HorizontalOptions="FillAndExpand"
+                        LeadingViewPosition="Inside"
+                        ShowHelperText="False"
+                        VerticalOptions="Start">
+                        <input:SfTextInputLayout.LeadingView>
+                            <controls:IconView
+                                Foreground="{StaticResource PrimaryColor}"
+                                HorizontalOptions="Center"
+                                Source="ic_devicename.png"
+                                VerticalOptions="Center" />
+                        </input:SfTextInputLayout.LeadingView>
+                        <Entry
+                            Keyboard="Numeric"
+                            MaxLength="250"
+                            Placeholder="IMEI"
+                            PlaceholderColor="{StaticResource TextPlaceHolderColor}"
+                            Text="{Binding FishTrip.Imei}" />
+                    </input:SfTextInputLayout>
+                </StackLayout>
+                <StackLayout Margin="10,-5,10,5" Orientation="Horizontal">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="{StaticResource MyFontSize}"
+                        HorizontalOptions="StartAndExpand"
+                        Text="Bắt đầu mẻ lưới"
+                        TextColor="{StaticResource PrimaryColor}" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="{StaticResource MyFontSize}"
+                        HorizontalOptions="End"
+                        Text="Tự động"
+                        TextColor="{StaticResource PrimaryColor}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GetStartTimeCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+                <Grid
+                    Padding="10,5,10,5"
+                    BackgroundColor="White"
+                    RowSpacing="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <datepicker:DateTimePicker
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        BorderColor="Transparent"
+                        DateTime="{Binding FishTrip.StartTime, Converter={StaticResource DateTimeOffsetConverter}}"
+                        HorizontalOptions="Start"
+                        IconColor="{StaticResource PrimaryColor}"
+                        IconPosition="Start"
+                        PickerMode="Popup"
+                        VerticalOptions="Center" />
+                    <StackLayout
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Orientation="Horizontal"
+                        Spacing="0">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ChooseStartLocationCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <controls:FontAwesomeIcon
+                            Margin="5"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            HorizontalOptions="Center"
+                            Text="{x:Static fontawesome:FontAwesomeIcons.LocationArrow}"
+                            TextColor="{StaticResource PrimaryColor}"
+                            VerticalOptions="Center" />
+                        <Label
+                            FontAttributes="Bold"
+                            Text="{Binding FishTrip.StartLongitude, Converter={StaticResource LongitudeToDergeeConverter}}"
+                            VerticalOptions="Center" />
+                        <Label
+                            Margin="10,0,0,0"
+                            FontAttributes="Bold"
+                            Text="{Binding FishTrip.StartLatitude, Converter={StaticResource LatitudeToDergeeConverter}}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                </Grid>
+                <StackLayout Margin="10,5" Orientation="Horizontal">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="{StaticResource MyFontSize}"
+                        HorizontalOptions="StartAndExpand"
+                        Text="Kết thúc mẻ lưới"
+                        TextColor="{StaticResource PrimaryColor}" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="{StaticResource MyFontSize}"
+                        HorizontalOptions="End"
+                        Text="Tự động"
+                        TextColor="{StaticResource PrimaryColor}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GetEndTimeCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+                <Grid
+                    Padding="10,5,10,5"
+                    BackgroundColor="White"
+                    RowSpacing="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <datepicker:DateTimePicker
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        BorderColor="Transparent"
+                        DateTime="{Binding FishTrip.EndTime, Converter={StaticResource DateTimeOffsetConverter}}"
+                        HorizontalOptions="Start"
+                        IconColor="{StaticResource PrimaryColor}"
+                        IconPosition="Start"
+                        PickerMode="Popup"
+                        VerticalOptions="Center" />
+                    <StackLayout
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Orientation="Horizontal"
+                        Spacing="0">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ChooseEndLocationCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <controls:FontAwesomeIcon
+                            Margin="5"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            HorizontalOptions="Center"
+                            Text="{x:Static fontawesome:FontAwesomeIcons.LocationArrow}"
+                            TextColor="{StaticResource PrimaryColor}"
+                            VerticalOptions="Center" />
+                        <Label
+                            FontAttributes="Bold"
+                            Text="{Binding FishTrip.EndLongitude, Converter={StaticResource LongitudeToDergeeConverter}}"
+                            VerticalOptions="Center" />
+                        <Label
+                            Margin="10,0,0,0"
+                            FontAttributes="Bold"
+                            Text="{Binding FishTrip.EndLatitude, Converter={StaticResource LatitudeToDergeeConverter}}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                </Grid>
+                <StackLayout
+                    Margin="10,5"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="{StaticResource MyFontSize}"
+                        Text="Tổng (Kg):"
+                        TextColor="{StaticResource PrimaryColor}"
+                        VerticalOptions="Center" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="{StaticResource MyFontSize}"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{Binding TotalWeight, StringFormat='{}{0:###,###,###,##0.##}'}"
+                        TextColor="{StaticResource PrimaryColor}"
+                        VerticalOptions="Center" />
+                    <sharpnado:MaterialFrame
+                        Padding="0"
+                        BackgroundColor="{StaticResource PrimaryColor}"
+                        CornerRadius="14"
+                        HasShadow="False"
+                        HeightRequest="28"
+                        IsClippedToBounds="True"
+                        WidthRequest="28">
+                        <sharpnado:MaterialFrame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AddFishCommand}" />
+                        </sharpnado:MaterialFrame.GestureRecognizers>
+                        <controls:FontAwesomeIcon
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            HorizontalOptions="Center"
+                            Text="{x:Static fontawesome:FontAwesomeIcons.Plus}"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                    </sharpnado:MaterialFrame>
+                </StackLayout>
+                <StackLayout
+                    BackgroundColor="White"
+                    BindableLayout.ItemsSource="{Binding ListFish}"
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="0"
+                    VerticalOptions="FillAndExpand">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid IsVisible="{Binding IsDeleted, Converter={StaticResource InvertBooleanConverter}}" RowSpacing="0">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.ChooseActionCommand, Source={Reference this}}" CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40" />
+                                </Grid.RowDefinitions>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    FontAttributes="Bold"
+                                    FontSize="{StaticResource MyFontSizeSmall}"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding Id}"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    FontAttributes="Bold"
+                                    FontSize="{StaticResource MyFontSizeSmall}"
+                                    Text="{Binding FishName}"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    Margin="0,0,10,0"
+                                    FontAttributes="Bold"
+                                    FontSize="{StaticResource MyFontSizeSmall}"
+                                    HorizontalOptions="End"
+                                    Text="{Binding Weight, StringFormat='{}{0:###,###,###,##0.##} Kg'}"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                                <!--<controls:FooterDivider
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3"
+                                    Margin="10,0,0,0" />-->
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+                <Button
+                    Margin="10"
+                    Command="{Binding SaveFishTripCommand}"
+                    FontSize="{StaticResource MyFontSizeSmall}"
+                    IsVisible="{Binding FishTrip.IsSynced, Converter={StaticResource InvertBooleanConverter}}"
+                    Text="Lưu" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

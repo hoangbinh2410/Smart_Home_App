@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="BA_MobileGPS.Core.Views.PartialView.TitleBarView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <ContentView.Content>
+        <Grid StyleClass="TitleBarGrid">
+            <ffImage:CachedImage
+                HeightRequest="35"
+                HorizontalOptions="StartAndExpand"
+                Source="ic_logo.png"
+                VerticalOptions="EndAndExpand"
+                WidthRequest="80" />
+            <StackLayout
+                Margin="0,0,0,5"
+                HorizontalOptions="End"
+                Orientation="Horizontal"
+                Spacing="15"
+                VerticalOptions="EndAndExpand">
+                <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Phone}">
+                    <controls:FontAwesomeIcon.Behaviors>
+                        <animation:ViewTappedBehavior AnimationType="Scale" />
+                    </controls:FontAwesomeIcon.Behaviors>
+                    <controls:FontAwesomeIcon.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding HotlineTapCommand}" />
+                    </controls:FontAwesomeIcon.GestureRecognizers>
+                </controls:FontAwesomeIcon>
+                <controls:FontAwesomeIcon
+                    IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
+                    StyleClass="TopIconView"
+                    Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
+                    <controls:FontAwesomeIcon.Behaviors>
+                        <animation:ViewTappedBehavior AnimationType="Scale" />
+                    </controls:FontAwesomeIcon.Behaviors>
+                    <controls:FontAwesomeIcon.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
+                    </controls:FontAwesomeIcon.GestureRecognizers>
+                </controls:FontAwesomeIcon>
+                <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}">
+                    <controls:FontAwesomeIcon.Behaviors>
+                        <animation:ViewTappedBehavior AnimationType="Scale" />
+                    </controls:FontAwesomeIcon.Behaviors>
+                </controls:FontAwesomeIcon>
+                <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Bell}">
+                    <controls:FontAwesomeIcon.Behaviors>
+                        <animation:ViewTappedBehavior AnimationType="Scale" />
+                    </controls:FontAwesomeIcon.Behaviors>
+                </controls:FontAwesomeIcon>
+            </StackLayout>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

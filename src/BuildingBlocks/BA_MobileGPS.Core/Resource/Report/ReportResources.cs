@@ -565,5 +565,38 @@ namespace BA_MobileGPS.Core.Resource
         public static string SpeedOversReport_Table_EndAddress => Get(MobileResourceNames.SpeedOversReport_Table_EndAddress, "Điểm kết thúc", "End Address");
 
         #endregion Báo cáo quá tốc độ
+
+        #region Báo cáo mất tín hiệu
+
+        public static string ReportSignalLoss_Label_TitlePage => Get(MobileResourceNames.ReportSignalLoss_Label_TitlePage, "Báo cáo mất tín hiệu", "Report signal loss");
+
+        public static string ReportSignalLoss_Label_TitlePageDetail => Get(MobileResourceNames.ReportSignalLoss_Label_TitlePageDetail, "Thông tin chi tiết", "Detail");
+
+        public static string ReportSignalLoss_TitleStatus => Get(MobileResourceNames.ReportSignalLoss_TitleStatus, "Trạng thái", "Status");
+
+        public static string ReportSignalLoss_Title_MinTimeLosing => Get(MobileResourceNames.ReportSignalLoss_Title_MinTimeLosing, "Số phút mất tín hiệu >=", "Minutes lost signal >=");
+
+        public static string ReportSignalLoss_Title_StartTime => Get(MobileResourceNames.ReportSignalLoss_Title_StartTime, "Thời gian bắt đầu", "Start Time");
+
+        public static string ReportSignalLoss_Title_EndTime => Get(MobileResourceNames.ReportSignalLoss_Title_EndTime, "Thời gian kết thúc", "End Time");
+
+        public static string ReportSignalLoss_Title_TimeLosing => Get(MobileResourceNames.ReportSignalLoss_Title_TimeLosing, "Thời gian mất tín hiệu", "Time lost the signal");
+
+        public static string ReportSignalLoss_Title_StartAddress => Get(MobileResourceNames.ReportSignalLoss_Title_StartAddress, "Địa điểm bắt đầu", "Start address");
+
+        public static string ReportSignalLoss_Title_EndAddress => Get(MobileResourceNames.ReportSignalLoss_Title_EndAddress, "Địa điểm kết thúc", "End address");
+
+        public static string ReportSignalLoss_TitleStatus_All => Get(MobileResourceNames.ReportSignalLoss_TitleStatus_All, "Tất cả", "All");
+
+        public static string ReportSignalLoss_TitleStatus_GPS => Get(MobileResourceNames.ReportSignalLoss_TitleStatus_GPS, "GPS", "GPS");
+
+        public static string ReportSignalLoss_TitleStatus_GMS => Get(MobileResourceNames.ReportSignalLoss_TitleStatus_GMS, "GSM", "GSM");
+
+        public static string ReportSignalLoss_Message_ValidateError_MinTimeLosing => Get(MobileResourceNames.ReportSignalLoss_Message_ValidateError_MinTimeLosing, "Số phút mất tín hiệu không đúng định dạng", "You don't input number of minutes");
+
+        public static string ReportSignalLoss_Message_ValidateError_MinTimeLosing2 => Get(MobileResourceNames.ReportSignalLoss_Message_ValidateError_MinTimeLosing2, "Số phút mất tín hiệu nằm trong khoảng từ 5 đến 1000000000", "The number of minutes of signal loss ranges from 5 to 10 billion");
+
+
+        #endregion
     }
 }

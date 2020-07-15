@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.InsertLocalDBPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+    xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Content>
+        <Grid>
+            <forms:CachedImage
+                Aspect="AspectFill"
+                BitmapOptimizations="True"
+                HorizontalOptions="FillAndExpand"
+                Source="Launch_Screen.png"
+                VerticalOptions="FillAndExpand" />
+            <busyindicator:SfBusyIndicator
+                Title="Loading..."
+                AnimationType="Gear"
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsBusy}"
+                TextColor="Black"
+                TextSize="12"
+                VerticalOptions="Center"
+                ViewBoxHeight="50"
+                ViewBoxWidth="50"
+                Duration="3" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

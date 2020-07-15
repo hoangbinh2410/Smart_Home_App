@@ -12,6 +12,7 @@
         Common_Loading_Processing1,
         Common_Lable_ChooseVehicleGroup,
         Common_Message_Loading,
+        Common_Label_Notification,
         Common_Message_Warning,
         Common_Message_Skip,
         Common_Button_OK,
@@ -90,6 +91,8 @@
         Login_Lable_SelectLanguage,
         Login_Message_AccountPasswordIncorrect,
         Login_Message_AccountLocked,
+        Login_ForgotPassword_PopupTitle,
+        Login_ForgotPassword_PopupContent,
         #endregion Login
 
         #region ChangePassword
@@ -277,6 +280,9 @@
         ListVehicle_Label_VehicleLostGPS2,
         ListVehicle_Label_VehicleLostGSM,
         ListVehicle_Label_VehicleLostGSM2,
+        CompanyLookUp_Label_Title,
+        CompanyLookUp_Label_NotFound,
+        CompanyLookUp_Label_Search,
         #endregion ListVehicle
 
         #region Online
@@ -739,6 +745,21 @@
         SpeedOversReport_Table_StartAddress,
         SpeedOversReport_Table_EndAddress,
         SpeedOversReport_Table_Note,
+
+        ReportSignalLoss_Label_TitlePage,
+        ReportSignalLoss_Label_TitlePageDetail,
+        ReportSignalLoss_TitleStatus,
+        ReportSignalLoss_Title_MinTimeLosing,
+        ReportSignalLoss_Title_StartTime,
+        ReportSignalLoss_Title_EndTime,
+        ReportSignalLoss_Title_TimeLosing,
+        ReportSignalLoss_Title_StartAddress,
+        ReportSignalLoss_Title_EndAddress,
+        ReportSignalLoss_TitleStatus_All,
+        ReportSignalLoss_TitleStatus_GPS,
+        ReportSignalLoss_TitleStatus_GMS,
+        ReportSignalLoss_Message_ValidateError_MinTimeLosing,
+        ReportSignalLoss_Message_ValidateError_MinTimeLosing2,
         #endregion report
 
         #region
@@ -1068,6 +1089,18 @@
         Moto_Label_Set_Phone_Number,
         Moto_Label_Speed,
         Moto_Label_Status,
+        #endregion
+
+        #region AccountTab
+        AccountTab_Label_ChangePassword,
+        AccountTab_Label_CustomerSupport,
+        AccountTab_Label_DeviceManual,
+        AccountTab_Label_BAGPS_Introduce,
+        AccountTab_Label_Share,
+        AccountTab_Label_Rating,
+        AccountTab_Label_Setting,
+        AccountTab_Label_Logout,
+        AccountTab_Label_MessageWarningLogout,
         #endregion
     }
 }

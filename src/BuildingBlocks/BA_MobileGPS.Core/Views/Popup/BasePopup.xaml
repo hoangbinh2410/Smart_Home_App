@@ -22,7 +22,7 @@
     <RgPopup:PopupPage.Content>
         <Grid
             Grid.Row="0"
-            Padding="35"
+            Padding="45"
             HorizontalOptions="CenterAndExpand"
             VerticalOptions="CenterAndExpand">
             <pancake:PancakeView

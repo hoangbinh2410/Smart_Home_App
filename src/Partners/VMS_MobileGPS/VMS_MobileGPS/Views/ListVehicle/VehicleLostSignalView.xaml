@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<sharpnado:MaterialFrame
+    x:Class="VMS_MobileGPS.Views.VehicleLostSignalView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    Padding="0"
+    BackgroundColor="White">
+    <StackLayout>
+        <Grid Padding="8" ColumnSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".3*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackLayout
+                Grid.Column="0"
+                HorizontalOptions="Center"
+                VerticalOptions="EndAndExpand">
+                <ffImage:CachedImage
+                    BitmapOptimizations="True"
+                    HeightRequest="30"
+                    Source="{Binding IconImage}"
+                    WidthRequest="30" />
+                <Label
+                    FontSize="12"
+                    HorizontalOptions="Center"
+                    LineBreakMode="WordWrap"
+                    Text="{Binding PrivateCode}" />
+            </StackLayout>
+
+            <StackLayout
+                Grid.Column="1"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="EndAndExpand">
+                <StackLayout
+                    Grid.Column="0"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <ffImage:CachedImage
+                        BitmapOptimizations="True"
+                        HeightRequest="15"
+                        Source="ic_turnon_time_on_day.png"
+                        VerticalOptions="Center"
+                        WidthRequest="15">
+                        <ffImage:CachedImage.Transformations>
+                            <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
+                        </ffImage:CachedImage.Transformations>
+                    </ffImage:CachedImage>
+                    <Label
+                        FontSize="12"
+                        Text="{Binding GPSTime, Converter={StaticResource TimeConverter}}"
+                        VerticalOptions="Center" />
+                </StackLayout>
+                <StackLayout
+                    Grid.Column="0"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <ffImage:CachedImage
+                        BitmapOptimizations="True"
+                        HeightRequest="15"
+                        Source="ic_turnon_time_on_day.png"
+                        VerticalOptions="Center"
+                        WidthRequest="15">
+                        <ffImage:CachedImage.Transformations>
+                            <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
+                        </ffImage:CachedImage.Transformations>
+                    </ffImage:CachedImage>
+                    <Label
+                        Margin="10,0,0,0"
+                        FontSize="12"
+                        HorizontalOptions="Start"
+                        Text="{Binding LostGSMTime, Converter={StaticResource SecondsToStringConverter}}"
+                        VerticalOptions="Center" />
+                </StackLayout>
+                <StackLayout
+                    IsVisible="{Binding MessageBAP, Converter={StaticResource HasDataConverter}}"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <ffImage:CachedImage
+                        BitmapOptimizations="True"
+                        HeightRequest="15"
+                        Source="ic_lisence.png"
+                        VerticalOptions="Center"
+                        WidthRequest="15">
+                        <ffImage:CachedImage.Transformations>
+                            <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
+                        </ffImage:CachedImage.Transformations>
+                    </ffImage:CachedImage>
+                    <Label
+                        FontSize="12"
+                        Text="{Binding MessageBAP}"
+                        TextColor="Red"
+                        VerticalOptions="Center" />
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+        <sharpnado:MaterialFrame
+            Padding="0"
+            HeightRequest="1"
+            LightThemeBackgroundColor="{StaticResource TextSecondaryColor}" />
+    </StackLayout>
+
+</sharpnado:MaterialFrame>

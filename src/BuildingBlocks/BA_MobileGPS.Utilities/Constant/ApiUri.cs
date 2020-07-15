@@ -175,6 +175,7 @@
         public const string GET_SPEEDOVERS = "api/reports/speedover";
         public const string GET_STOPPARKING = "api/reports/stop";
         public const string GET_DETAILS = "api/reports/activitydetail";
+        public const string GET_SIGNALLOSS = "api/reports/signalloss";
         public const string GET_ACTIVITYSUMMARIES = "api/reports/activitysummary";
         public const string GET_FUELSSUMMARIES = "api/reports/fuelconsumptiondaily";
         public const string GET_FUELSSUMMARIESTOTAL = "api/reports/fuelconsumptiontotal";

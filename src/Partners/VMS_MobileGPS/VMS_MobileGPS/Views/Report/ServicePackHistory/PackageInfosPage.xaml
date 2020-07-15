@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VMS_MobileGPS.Views.PackageInfosPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:locals="clr-namespace:BA_MobileGPS.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:syncDataGrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+    xmlns:vm="clr-namespace:VMS_MobileGPS.ViewModels"
+    Title="Giới thiệu các gói cước"
+    x:DataType="vm:PackageInfosViewModel"
+    BackgroundColor="White"
+    NavigationPage.BackButtonTitle=""
+    mc:Ignorable="d">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <locals:CustomDataGridStyle x:Key="CustomDataGridStyle" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
+            <StackLayout Spacing="0">
+                <Label
+                    Margin="10,8"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Start"
+                    Text="Thông tin gói truyền dữ liệu"
+                    VerticalOptions="Start" />
+                <StackLayout>
+                    <syncDataGrid:SfDataGrid
+                        AllowResizingColumn="True"
+                        AutoGenerateColumns="False"
+                        ColumnSizer="Star"
+                        GridStyle="{StaticResource CustomDataGridStyle}"
+                        HorizontalOptions="FillAndExpand"
+                        IsBusy="{Binding IsBusy}"
+                        ItemsSource="{Binding ListData1}"
+                        ItemsSourceChanged="SfDataGrid_ItemsSourceChanged"
+                        RowHeight="40"
+                        VerticalOptions="Start"
+                        VerticalOverScrollMode="None">
+                        <syncDataGrid:SfDataGrid.Columns>
+                            <syncDataGrid:GridTemplateColumn MappingName="PackageName" TextAlignment="Center">
+                                <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <Label
+                                            FontAttributes="Bold"
+                                            Text="Gói cước"
+                                            TextColor="White"
+                                            XAlign="Center"
+                                            YAlign="Center" />
+                                    </DataTemplate>
+                                </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label
+                                            FontSize="{StaticResource MyFontSize}"
+                                            Text="{Binding PackageName}"
+                                            VerticalOptions="Center"
+                                            XAlign="Center"
+                                            YAlign="Center" />
+                                    </DataTemplate>
+                                </syncDataGrid:GridTemplateColumn.CellTemplate>
+                            </syncDataGrid:GridTemplateColumn>
+                            <syncDataGrid:GridTemplateColumn MappingName="Frequency" TextAlignment="Center">
+                                <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <Label
+                                            FontAttributes="Bold"
+                                            Text="Tần suất gửi tin"
+                                            TextColor="White"
+                                            XAlign="Center"
+                                            YAlign="Center" />
+                                    </DataTemplate>
+                                </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label
+                                            FontSize="{StaticResource MyFontSize}"
+                                            Text="{Binding Frequency}"
+                                            VerticalOptions="Center"
+                                            XAlign="Center"
+                                            YAlign="Center" />
+                                    </DataTemplate>
+                                </syncDataGrid:GridTemplateColumn.CellTemplate>
+                            </syncDataGrid:GridTemplateColumn>
+                            <syncDataGrid:GridTemplateColumn MappingName="BlockSMS" TextAlignment="Center">
+                                <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <Label
+                                            FontAttributes="Bold"
+                                            Text="Block SMS miễn phí"
+                                            TextColor="White"
+                                            XAlign="Center"
+                                            YAlign="Center" />
+                                    </DataTemplate>
+                                </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label
+                                            FontSize="{StaticResource MyFontSize}"
+                                            Text="{Binding BlockSMS}"
+                                            XAlign="Center"
+                                            YAlign="Center" />
+                                    </DataTemplate>
+                                </syncDataGrid:GridTemplateColumn.CellTemplate>
+                            </syncDataGrid:GridTemplateColumn>
+                        </syncDataGrid:SfDataGrid.Columns>
+                    </syncDataGrid:SfDataGrid>
+                </StackLayout>
+                <Label
+                    Margin="10,8"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Start"
+                    Text="(*) Gói tiết kiệm chỉ dành cho khách hàng đăng kí"
+                    VerticalOptions="Start" />
+                <Label
+                    Margin="10,8"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Start"
+                    Text="Thông tin gói SMS"
+                    VerticalOptions="Start" />
+                <StackLayout>
+                    <syncDataGrid:SfDataGrid
+                        AllowResizingColumn="True"
+                        AutoGenerateColumns="False"
+                        ColumnSizer="Star"
+                        GridStyle="{StaticResource CustomDataGridStyle}"
+                        HorizontalOptions="FillAndExpand"
+                        IsBusy="{Binding IsBusy}"
+                        ItemsSource="{Binding ListData2}"
+                        ItemsSourceChanged="SfDataGrid_ItemsSourceChanged"
+                        RowHeight="40"
+                        VerticalOptions="Start"
+                        VerticalOverScrollMode="None">
+                        <syncDataGrid:SfDataGrid.Columns>
+                            <syncDataGrid:GridTemplateColumn MappingName="PackageName" TextAlignment="Center">
+                                <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <Label
+                                            FontAttributes="Bold"
+                                            Text="Gói cước"
+                                            TextColor="White"
+                                            XAlign="Center"
+                                            YAlign="Center" />
+                                    </DataTemplate>
+                                </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label
+                                            FontSize="{StaticResource MyFontSize}"
+                                            Text="{Binding PackageName}"
+                                            XAlign="Center"
+                                            YAlign="Center" />
+                                    </DataTemplate>
+                                </syncDataGrid:GridTemplateColumn.CellTemplate>
+                            </syncDataGrid:GridTemplateColumn>
+                            <syncDataGrid:GridTemplateColumn MappingName="BlockSMS" TextAlignment="Center">
+                                <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <Label
+                                            FontAttributes="Bold"
+                                            Text="Block SMS"
+                                            TextColor="White"
+                                            XAlign="Center"
+                                            YAlign="Center" />
+                                    </DataTemplate>
+                                </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label
+                                            FontSize="{StaticResource MyFontSize}"
+                                            Text="{Binding BlockSMS}"
+                                            XAlign="Center"
+                                            YAlign="Center" />
+                                    </DataTemplate>
+                                </syncDataGrid:GridTemplateColumn.CellTemplate>
+                            </syncDataGrid:GridTemplateColumn>
+                        </syncDataGrid:SfDataGrid.Columns>
+                    </syncDataGrid:SfDataGrid>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

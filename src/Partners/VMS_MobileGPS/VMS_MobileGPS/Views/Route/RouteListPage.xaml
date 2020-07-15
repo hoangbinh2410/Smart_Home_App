@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VMS_MobileGPS.Views.RouteListPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    x:Name="this"
+    Title="{i18n:TranslateResource Route_Label_TitleVMS}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TodayConverter x:Key="TodayConverter" />
+            <converters:NMConverter x:Key="NMConverter" />
+            <converters:UnitConverter x:Key="UnitConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout
+            HorizontalOptions="FillAndExpand"
+            Spacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid
+                BackgroundColor="{StaticResource GrayColor}"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Start">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.Column="0"
+                    Margin="10"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="{i18n:TranslateResource Route_Label_Time}"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Column="1"
+                    Margin="10"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="{i18n:TranslateResource Route_Label_Vgps}"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Column="2"
+                    Margin="10"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="{i18n:TranslateResource Route_Label_Status}"
+                    VerticalOptions="Center" />
+            </Grid>
+            <BoxView
+                BackgroundColor="{StaticResource GrayColor}"
+                HeightRequest="0.5"
+                VerticalOptions="Start" />
+            <syncfusionList:SfListView
+                AutoFitMode="DynamicHeight"
+                IsScrollBarVisible="False"
+                ItemSpacing="0"
+                ItemsSource="{Binding ListRoute}"
+                SelectionBackgroundColor="Transparent">
+                <syncfusionList:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid RowSpacing="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="1" />
+                            </Grid.RowDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="8,5,8,5"
+                                FontSize="{StaticResource MyFontSizeSmall}"
+                                HorizontalOptions="Center"
+                                Text="{Binding Time, Converter={StaticResource TodayConverter}}"
+                                VerticalOptions="Center" />
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="8,5,8,5"
+                                FontSize="{StaticResource MyFontSizeSmall}"
+                                HorizontalOptions="Center"
+                                Text="{Binding Velocity, Converter={StaticResource NMConverter}}"
+                                VerticalOptions="Center" />
+                            <StackLayout
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Margin="8,5,8,5"
+                                Spacing="0">
+                                <Label
+                                    FontSize="{StaticResource MyFontSizeSmall}"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding State.StateText}"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    FontSize="{StaticResource MyFontSizeSmall}"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding State.Duration, Converter={StaticResource SecondsToStringConverter}}"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
+
+                            <StackLayout
+                                Grid.Row="1"
+                                Grid.ColumnSpan="3"
+                                Padding="10,0,10,0"
+                                Orientation="Horizontal">
+                                <controls:IconView
+                                    Margin="5,0,0,0"
+                                    Foreground="{StaticResource PrimaryColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Start"
+                                    Source="ic_coordinates.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                                <Label
+                                    Margin="5"
+                                    FontSize="{StaticResource MyFontSizeSmall}"
+                                    HorizontalOptions="Start"
+                                    LineBreakMode="TailTruncation"
+                                    Text="Tọa độ:" />
+                                <Label
+                                    Margin="5"
+                                    FontSize="{StaticResource MyFontSizeSmall}"
+                                    HorizontalOptions="Start"
+                                    LineBreakMode="TailTruncation"
+                                    Text="{Binding Address}" />
+                            </StackLayout>
+                            <BoxView
+                                Grid.Row="2"
+                                Grid.ColumnSpan="3"
+                                BackgroundColor="{StaticResource GrayColor2}"
+                                HeightRequest="0.5"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Start" />
+                        </Grid>
+                    </DataTemplate>
+                </syncfusionList:SfListView.ItemTemplate>
+            </syncfusionList:SfListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

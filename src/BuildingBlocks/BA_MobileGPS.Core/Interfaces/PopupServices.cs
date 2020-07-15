@@ -16,24 +16,12 @@ namespace BA_MobileGPS.Core.Interfaces
         Color textColor;
         public PopupServices()
         {
-            if (Application.Current.RequestedTheme == OSAppTheme.Light || Application.Current.RequestedTheme == OSAppTheme.Unspecified)
-            {
-                errorTextColor = (Color)Application.Current.Resources["LightErorrPopupTextColor"];
-                errorBtnTextColor = (Color)Application.Current.Resources["LightErorrPopupButtonTextColor"];
-                errorBtnColor = (Color)Application.Current.Resources["LightErorrPopupButtonBackgroundColor"];
-                yesBtnTextColor = (Color)Application.Current.Resources["LightPopupYesBtnTextColor"];
-                yesBtnBackgroundColor = (Color)Application.Current.Resources["LightPopupYesBtnBackgroundColor"];
-                textColor = (Color)Application.Current.Resources["LightPrimaryTextColor"];
-            }
-            else
-            {
-                errorTextColor = (Color)Application.Current.Resources["DarkErorrPopupTextColor"];
-                errorBtnTextColor = (Color)Application.Current.Resources["DarkErorrPopupButtonTextColor"];
-                errorBtnColor = (Color)Application.Current.Resources["DarkErorrPopupButtonBackgroundColor"];
-                yesBtnTextColor = (Color)Application.Current.Resources["DarkPopupYesBtnTextColor"];
-                yesBtnBackgroundColor = (Color)Application.Current.Resources["DarkPopupYesBtnBackgroundColor"];
-                textColor = (Color)Application.Current.Resources["DarkPrimaryTextColor"];
-            }
+                errorTextColor = (Color)Application.Current.Resources["DangerousColor"];
+                errorBtnTextColor = (Color)Application.Current.Resources["WhiteColor"];
+                errorBtnColor = (Color)Application.Current.Resources["DangerousColor"];
+                yesBtnTextColor = (Color)Application.Current.Resources["WhiteColor"];
+                yesBtnBackgroundColor = (Color)Application.Current.Resources["BlueDarkColor"];
+                textColor = (Color)Application.Current.Resources["TextPrimaryColor"];          
         }
        
 

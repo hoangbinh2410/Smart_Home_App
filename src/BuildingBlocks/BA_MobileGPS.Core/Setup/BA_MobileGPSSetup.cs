@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.DependencyServices;
+﻿using AutoMapper;
+using BA_MobileGPS.Core.DependencyServices;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
@@ -7,6 +8,7 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities.Constant;
 
 using Prism.Ioc;
+using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Plugin.Popups;
 
@@ -39,7 +41,8 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<IRequestProvider, RequestProvider>();
             containerRegistry.Register<IPlacesAutocomplete, PlacesAutocomplete>();
             containerRegistry.Register<IPlacesGeocode, PlacesGeocode>();
-            containerRegistry.Register<ISignalRServices, SignalRService>();
+            containerRegistry.Register<IVehicleOnlineHubService, VehicleOnlineHubService>();
+            containerRegistry.Register<IIdentityHubService, IdentityHubService>();
             containerRegistry.Register<IAuthenticationService, AuthenticationService>();
             containerRegistry.Register<IHomeService, HomeService>();
             containerRegistry.Register<IResourceService, ResourceService>();
@@ -74,14 +77,67 @@ namespace BA_MobileGPS.Core
             containerRegistry.Register<ISendEngineControlService, SendEngineControlService>();
             containerRegistry.Register<IUserLandmarkGroupService, UserLandmarkGroupService>();
             containerRegistry.Register<IPingServerService, PingServerService>();
-          
+
             containerRegistry.Register<IPopupServices, PopupServices>();
+
+            ViewModelLocationProvider.Register<Home, HomeViewModel>();
+            ViewModelLocationProvider.Register<Account, AccountViewModel>();
+            containerRegistry.Register<ContentView, Home>("HomeTab");
+            containerRegistry.Register<ContentView, Account>("AccountTab");
 
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<BaseNavigationPage, BaseNavigationPageViewModel>("BaseNavigationPage");
+
+            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
+            containerRegistry.RegisterForNavigation<ChangePasswordPage, ChangePasswordPageViewModel>("ChangePasswordPage");
+            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+           
+            containerRegistry.RegisterForNavigation<SelectDatePicker, SelectDatePickerViewModel>("SelectDatePicker");
+            containerRegistry.RegisterForNavigation<SelectTimePicker, SelectTimePickerViewModel>("SelectTimePicker");
+            containerRegistry.RegisterForNavigation<SelectDateTimeCalendar, SelectDateTimeCalendarViewModel>("SelectDateTimeCalendar");
+            containerRegistry.RegisterForNavigation<SelectDateCalendar, SelectDateCalendarViewModel>("SelectDateCalendar");
+            containerRegistry.RegisterForNavigation<SelectDateTimeCalendarPopup, SelectDateTimeCalendarPopupViewModel>("SelectDateTimeCalendarPopup");
+            containerRegistry.RegisterForNavigation<ComboboxPage, ComboboxPageViewModel>("ComboboxPage");
+
+            containerRegistry.RegisterForNavigation<LanguagePage, LanguagePageViewModel>();
+            containerRegistry.RegisterForNavigation<ChangeLanguage, ChangeLanguageViewModel>();
+            containerRegistry.RegisterForNavigation<InsertLocalDBPage, InsertLocalDBPageViewModel>();
+            containerRegistry.RegisterForNavigation<NotificationPopupWhenLogin, NotificationPopupWhenLoginViewModel>("NotificationPopupWhenLogin");
+            containerRegistry.RegisterForNavigation<FavoritesConfigurationsPage, FavoritesConfigurationsPageViewModel>("FavoritesConfigurationsPage");
+
+            containerRegistry.RegisterForNavigation<ActivityDetailsDetailReportPage, ActivityDetailsDetailViewModel>("ActivityDetailsDetailReportPage");
+            containerRegistry.RegisterForNavigation<ActivityDetailsReportPage, ActivityDetailsViewModel>("ActivityDetailsReportPage");
+            containerRegistry.RegisterForNavigation<ActivitySummariesDetailReportPage, ActivitySummariesDetailViewModel>("ActivitySummariesDetailReportPage");
+            containerRegistry.RegisterForNavigation<ActivitySummariesReportPage, ActivitySummariesViewModel>("ActivitySummariesReportPage");
+            containerRegistry.RegisterForNavigation<ChartFuelReportPage, ChartFuelReportViewModel>("ChartFuelReportPage");
+            containerRegistry.RegisterForNavigation<FuelsSummariesDetailReportPage, FuelsSummariesDetailViewModel>("FuelsSummariesDetailReportPage");
+            containerRegistry.RegisterForNavigation<FuelsSummariesReportPage, FuelsSummariesViewModel>("FuelsSummariesReportPage");
+            containerRegistry.RegisterForNavigation<FuelsSummariesTotalDetailReportPage, FuelsSummariesTotalDetailViewModel>("FuelsSummariesTotalDetailReportPage");
+            containerRegistry.RegisterForNavigation<FuelsSummariesTotalReportPage, FuelsSummariesTotalViewModel>("FuelsSummariesTotalReportPage");
+            containerRegistry.RegisterForNavigation<MachineDetailVehicleReport, MachineDetailVehicleReportViewModel>("MachineDetailVehicleReport");
+            containerRegistry.RegisterForNavigation<MachineVehicleReport, MachineVehicleReportViewModel>("MachineVehicleReport");
+            containerRegistry.RegisterForNavigation<PourFuelDetailReportPage, PourFuelDetailViewModel>("PourFuelDetailReportPage");
+            containerRegistry.RegisterForNavigation<PourFuelReportPage, PourFuelViewModel>("PourFuelReportPage");
+            containerRegistry.RegisterForNavigation<SignalLossReportDetailPage, SignalLossDetailViewModel>("SignalLossReportDetailPage");
+            containerRegistry.RegisterForNavigation<SignalLossReportPage, SignalLossViewModel>("SignalLossReportPage");
+            containerRegistry.RegisterForNavigation<SpeedOversDetailReportPage, SpeedOversDetailViewModel>("SpeedOversDetailReportPage");
+            containerRegistry.RegisterForNavigation<SpeedOversReportPage, SpeedOversViewModel>("SpeedOversReportPage");
+            containerRegistry.RegisterForNavigation<StopParkingVehicleDetailReportPage, StopParkingVehicleDetailViewModel>("StopParkingVehicleDetailReportPage");
+            containerRegistry.RegisterForNavigation<StopParkingVehicleReportPage, StopParkingVehicleViewModel>("StopParkingVehicleReportPage");
+            containerRegistry.RegisterForNavigation<ReportDetailTemperaturePage, ReportDetailTemperaturePageViewModel>("ReportDetailTemperaturePage");
+            containerRegistry.RegisterForNavigation<ReportTableTemperature, ReportTableTemperatureViewModel>("ReportTableTemperature");
+
+            containerRegistry.RegisterForNavigation<CompanyLookUp, CompanyLookUpViewModel>("CompanyLookUp");
+            containerRegistry.RegisterForNavigation<VehicleGroupLookUp, VehicleGroupLookUpViewModel>("VehicleGroupLookUp");
+            containerRegistry.RegisterForNavigation<VehicleLookUp, VehicleLookUpViewModel>("VehicleLookUp");
+            containerRegistry.RegisterForNavigation<UserInfoPage, UserInfoPageViewModel>("UserInfoPage");
+
+            containerRegistry.RegisterForNavigation<VehicleDebtMoneyPage, VehicleDebtMoneyPageViewModel>("VehicleDebtMoneyPage");
+
         }
     }
 }

@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.VehicleGroupLookUp"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:sfList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    Title="{i18n:TranslateResource VehicleGroupLookUp_Label_Title}">
+    <StackLayout
+        BackgroundColor="{StaticResource WhiteColor}"
+        HorizontalOptions="FillAndExpand"
+        Spacing="0"
+        VerticalOptions="FillAndExpand">
+        <inputLayout:SfTextInputLayout
+            Margin="10,0,10,0"
+            Padding="0"
+            ContainerType="Outlined"
+            HorizontalOptions="FillAndExpand"
+            LeadingViewPosition="Inside"
+            OutlineCornerRadius="5"
+            ShowHelperText="False"
+            VerticalOptions="Start">
+            <inputLayout:SfTextInputLayout.LeadingView>
+                <controls:FontAwesomeIcon FontAttributes="Bold" Text="{x:Static fontawesome:FontAwesomeIcons.Search}" />
+            </inputLayout:SfTextInputLayout.LeadingView>
+            <Entry x:Name="SearchBar" Placeholder="{i18n:TranslateResource VehicleGroupLookUp_Label_Search}">
+                <Entry.Behaviors>
+                    <prismbehaviors:EventToCommandBehavior
+                        Command="{Binding SearchVehicleGroupCommand}"
+                        EventArgsConverter="{StaticResource TextChangedEventArgsConverter}"
+                        EventName="TextChanged" />
+                </Entry.Behaviors>
+            </Entry>
+        </inputLayout:SfTextInputLayout>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                Spacing="0">
+                <sfList:SfListView
+                    AllowKeyboardNavigation="True"
+                    AutoFitMode="Height"
+                    BackgroundColor="#ffffff"
+                    HorizontalOptions="FillAndExpand"
+                    ItemSize="120"
+                    ItemSpacing="0"
+                    ItemsSource="{Binding ListVehicleGroup}"
+                    SelectionBackgroundColor="Transparent"
+                    SelectionGesture="Tap"
+                    SelectionMode="Multiple"
+                    TapCommand="{Binding SelectedTapGroupCommand}"
+                    VerticalOptions="FillAndExpand">
+                    <sfList:SfListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnSpacing="0" RowSpacing="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="30" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="1" />
+                                </Grid.RowDefinitions>
+                                <Label
+                                    Grid.Column="0"
+                                    Margin="10"
+                                    HorizontalOptions="Start"
+                                    LineBreakMode="WordWrap"
+                                    TextColor="#596a88"
+                                    VerticalOptions="Center">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Name}" />
+                                            <Span Text="{Binding NumberOfVehicle, StringFormat='{} ({0})'}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Image
+                                    Grid.Column="1"
+                                    HeightRequest="28"
+                                    HorizontalOptions="Center"
+                                    IsVisible="{Binding IsSelected}"
+                                    Source="selected.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="28" />
+                                <Image
+                                    Grid.Column="1"
+                                    HeightRequest="28"
+                                    HorizontalOptions="Center"
+                                    IsVisible="{Binding IsSelected, Converter={StaticResource InvertBooleanConverter}}"
+                                    Source="notSelected.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="28" />
+                                <BoxView
+                                    Grid.Row="1"
+                                    BackgroundColor="{StaticResource GrayColor}"
+                                    HeightRequest="0.5"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Start" />
+                            </Grid>
+                        </DataTemplate>
+                    </sfList:SfListView.ItemTemplate>
+                </sfList:SfListView>
+                <Button
+                    Margin="10"
+                    Command="{Binding ConfirmCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="{i18n:TranslateResource VehicleGroupLookUp_Label_Confirm}"
+                    VerticalOptions="End" />
+            </StackLayout>
+            <StackLayout
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                BackgroundColor="White"
+                IsVisible="{Binding HasVehicleGroup, Converter={StaticResource InvertBooleanConverter}}"
+                Spacing="10">
+                <!--  Image for display svg image  -->
+                <controls:SVGImage
+                    Margin="{x:OnIdiom Phone='0,0,0,0',
+                                       Desktop='0',
+                                       Tablet='0'}"
+                    HeightRequest="200"
+                    Source="NoItem.svg"
+                    VerticalOptions="Center"
+                    WidthRequest="200" />
+                <Label
+                    FontSize="Large"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="{i18n:TranslateResource VehicleGroupLookUp_Label_NotFound}" />
+            </StackLayout>
+        </AbsoluteLayout>
+    </StackLayout>
+</ContentPage>

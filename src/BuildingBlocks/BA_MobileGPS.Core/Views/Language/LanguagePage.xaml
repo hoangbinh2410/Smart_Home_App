@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.LanguagePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:behaviors="clr-namespace:BA_MobileGPS.Core.Behaviors;assembly=BA_MobileGPS.Core"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    Title="{Binding Title}"
+    Padding="10"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Content>
+        <Grid Margin="0,20,0,0" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <SearchBar
+                x:Name="txtSearchLanguageType"
+                Grid.Row="0"
+                Placeholder="{i18n:TranslateResource Common_Message_SearchText}"
+                SearchCommand="{Binding SearchLanguageCommmand}"
+                SearchCommandParameter="{Binding Text, Source={x:Reference txtSearchLanguageType}}"
+                Text="{Binding SearchText}">
+                <SearchBar.Behaviors>
+                    <b:EventToCommandBehavior
+                        Command="{Binding SearchLanguageCommmand}"
+                        CommandParameter="{Binding Text, Source={x:Reference txtSearchLanguageType}}"
+                        EventName="TextChanged" />
+                </SearchBar.Behaviors>
+            </SearchBar>
+
+            <StackLayout Grid.Row="1" Orientation="Vertical">
+                <ListView
+                    x:Name="listview"
+                    behaviors:ItemTappedCommandListView.ItemTappedCommand="{Binding SelectedCommand}"
+                    GroupDisplayBinding="{Binding Key}"
+                    GroupShortNameBinding="{Binding Key}"
+                    HasUnevenRows="False"
+                    HorizontalOptions="FillAndExpand"
+                    IsGroupingEnabled="true"
+                    ItemsSource="{Binding LanguageResponeCollectionSearched}"
+                    SeparatorVisibility="Default"
+                    VerticalOptions="FillAndExpand">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout
+                                    Padding="10"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal"
+                                    Spacing="10">
+
+                                    <Image
+                                        HeightRequest="25"
+                                        Source="{Binding Icon}"
+                                        WidthRequest="25" />
+
+                                    <Label Text="{Binding Description}" VerticalOptions="Center" />
+
+                                    <Label
+                                        HorizontalOptions="End"
+                                        HorizontalTextAlignment="End"
+                                        Opacity="0.5"
+                                        Text="{Binding CodeName}"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

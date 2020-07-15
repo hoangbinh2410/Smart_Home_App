@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="VMS_MobileGPS.Views.ListVehicleHelpPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame">
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation
+            DurationIn="150"
+            DurationOut="150"
+            EasingIn="Linear"
+            EasingOut="Linear"
+            HasBackgroundAnimation="True"
+            PositionIn="Center"
+            PositionOut="Center" />
+    </pages:PopupPage.Animation>
+    <pages:PopupPage.Content>
+        <sharpnado:MaterialFrame
+            Margin="40"
+            Padding="0"
+            CornerRadius="10"
+            HorizontalOptions="Center"
+            LightThemeBackgroundColor="White"
+            VerticalOptions="Center">
+            <Grid RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackLayout
+                    Grid.Row="0"
+                    Padding="5"
+                    BackgroundColor="{StaticResource PrimaryColor}"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Chú thích"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                    <forms:CachedImage
+                        HeightRequest="25"
+                        Source="ic_close.png"
+                        VerticalOptions="Center"
+                        WidthRequest="25">
+                        <forms:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                        </forms:CachedImage.GestureRecognizers>
+                    </forms:CachedImage>
+                </StackLayout>
+                <ScrollView
+                    Grid.Row="1"
+                    Padding="10"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Vertical"
+                    VerticalScrollBarVisibility="Never">
+                    <StackLayout Spacing="0">
+                        <StackLayout
+                            Padding="5"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                            <forms:CachedImage
+                                HeightRequest="25"
+                                Source="car_blue.png"
+                                VerticalOptions="Center"
+                                WidthRequest="25" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                Text="{i18n:TranslateResource ListVehicle_Label_VehicleNormal2}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                        <StackLayout
+                            Padding="5"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                            <forms:CachedImage
+                                HeightRequest="25"
+                                Source="car_grey.png"
+                                VerticalOptions="Center"
+                                WidthRequest="25" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                Text="{i18n:TranslateResource ListVehicle_Label_VehicleStop2}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                        <StackLayout
+                            Padding="5"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                            <forms:CachedImage
+                                HeightRequest="25"
+                                Source="car_red.png"
+                                VerticalOptions="Center"
+                                WidthRequest="25" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                Text="{i18n:TranslateResource ListVehicle_Label_VehicleSpeeding2}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                        <StackLayout
+                            Padding="5"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                            <forms:CachedImage
+                                HeightRequest="25"
+                                Source="ic_lost_gps.png"
+                                VerticalOptions="Center"
+                                WidthRequest="25" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                Text="{i18n:TranslateResource ListVehicle_Label_VehicleLostGPS2}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                        <StackLayout
+                            Padding="5"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                            <forms:CachedImage
+                                HeightRequest="25"
+                                Source="car_warn.png"
+                                VerticalOptions="Center"
+                                WidthRequest="25" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                Text="{i18n:TranslateResource ListVehicle_Label_VehicleLostGSM2}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+            </Grid>
+        </sharpnado:MaterialFrame>
+    </pages:PopupPage.Content>
+</pages:PopupPage>

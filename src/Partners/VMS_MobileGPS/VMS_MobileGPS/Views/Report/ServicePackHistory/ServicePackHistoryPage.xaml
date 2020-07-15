@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VMS_MobileGPS.Views.ServicePackHistoryPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:views="clr-namespace:BA_MobileGPS.Core.Views;assembly=BA_MobileGPS.Core"
+    xmlns:vm="clr-namespace:VMS_MobileGPS.ViewModels"
+    Title="Gói cước sử dụng"
+    x:DataType="vm:ServicePackHistoryViewModel"
+    BackgroundColor="White"
+    NavigationPage.BackButtonTitle=""
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <ScrollView
+            HorizontalOptions="FillAndExpand"
+            Orientation="Vertical"
+            VerticalScrollBarVisibility="Never">
+            <StackLayout Spacing="0">
+                <!--  phần tìm kiếm  -->
+                <Grid Padding="10" VerticalOptions="Start">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <!--  từ ngày  -->
+                    <views:DateTimePickerView
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        BorderColor="{StaticResource GrayColor2}"
+                        DateSelectedCommand="{Binding DateSelectedCommand}"
+                        DateTime="{Binding FromDate}"
+                        FontSize="13"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand"
+                        IconSize="18"
+                        PickerMode="Popup"
+                        VerticalOptions="Center" />
+                    <!--  đến ngày  -->
+                    <views:DateTimePickerView
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        BorderColor="{StaticResource GrayColor2}"
+                        DateSelectedCommand="{Binding DateSelectedCommand}"
+                        DateTime="{Binding ToDate}"
+                        FontSize="13"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand"
+                        IconSize="18"
+                        PickerMode="Popup"
+                        VerticalOptions="Center" />
+                    <!--  biển số xe  -->
+                    <Frame
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Padding="5,0,5,0"
+                        BorderColor="{StaticResource GrayColor2}"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand"
+                        IsClippedToBounds="True"
+                        VerticalOptions="Center">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                        </Frame.GestureRecognizers>
+                        <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Entry
+                                FontSize="{StaticResource FontSize12}"
+                                HorizontalOptions="FillAndExpand"
+                                InputTransparent="True"
+                                Placeholder="{i18n:TranslateResource Common_Label_Grid_VehiclePlate}"
+                                Text="{Binding Vehicle.VehiclePlate}"
+                                VerticalOptions="Center">
+                                <Entry.Effects>
+                                    <effects:BorderlessEffect />
+                                </Entry.Effects>
+                            </Entry>
+                            <ffImage:CachedImage
+                                Margin="0,0,5,0"
+                                HeightRequest="15"
+                                HorizontalOptions="End"
+                                Source="ic_sortdown.png"
+                                VerticalOptions="Center"
+                                WidthRequest="15">
+                                <ffImage:CachedImage.Transformations>
+                                    <transformations:TintTransformation EnableSolidColor="True" HexColor="#3d3d3d" />
+                                </ffImage:CachedImage.Transformations>
+                            </ffImage:CachedImage>
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+                <Label
+                    Margin="5,0"
+                    FontAttributes="Italic"
+                    FontSize="{StaticResource MyFontSizeSmall}"
+                    HorizontalOptions="Start"
+                    Text="(*) Ghi chú: Biểu đồ chỉ hiển thị những tháng mà bạn đã đóng phí." />
+                <StackLayout
+                    Padding="5"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <Label
+                        FontSize="{StaticResource MyFontSizeSmall}"
+                        HorizontalOptions="StartAndExpand"
+                        Text="Gói truyền dữ liệu"
+                        TextColor="#333333" />
+                    <Label
+                        FontSize="{StaticResource MyFontSizeSmall}"
+                        HorizontalOptions="EndAndExpand"
+                        Text="Gói sử dụng tin"
+                        TextColor="#333333" />
+                </StackLayout>
+                <chart:SfChart
+                    x:Name="Chart"
+                    HeightRequest="300"
+                    HorizontalOptions="FillAndExpand">
+                    <chart:SfChart.ChartBehaviors>
+                        <chart:ChartZoomPanBehavior />
+                    </chart:SfChart.ChartBehaviors>
+                    <chart:SfChart.Legend>
+                        <chart:ChartLegend DockPosition="Bottom" />
+                    </chart:SfChart.Legend>
+                    <chart:SfChart.PrimaryAxis>
+                        <chart:CategoryAxis Interval="1">
+                            <chart:CategoryAxis.LabelStyle>
+                                <chart:ChartAxisLabelStyle LabelFormat="T0" />
+                            </chart:CategoryAxis.LabelStyle>
+                        </chart:CategoryAxis>
+                    </chart:SfChart.PrimaryAxis>
+                    <chart:SfChart.Series>
+                        <chart:ColumnSeries
+                            EnableTooltip="True"
+                            ItemsSource="{Binding ListDataReport}"
+                            Label="Gói truyền dữ liệu"
+                            XBindingPath="Month"
+                            YBindingPath="Dvvtinfo.BlockSMS"
+                            Color="{StaticResource BluePrimaryColor}">
+                            <chart:ColumnSeries.TooltipTemplate>
+                                <DataTemplate>
+                                    <StackLayout Spacing="2">
+                                        <Label
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Dvvtinfo.Name}"
+                                            TextColor="White" />
+                                        <Label
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Dvvtinfo.BlockSMS}"
+                                            TextColor="White" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </chart:ColumnSeries.TooltipTemplate>
+                            <chart:ColumnSeries.YAxis>
+                                <chart:NumericalAxis />
+                            </chart:ColumnSeries.YAxis>
+                        </chart:ColumnSeries>
+                        <chart:ColumnSeries
+                            EnableTooltip="True"
+                            ItemsSource="{Binding ListDataReport}"
+                            Label="Gói sử dụng tin"
+                            XBindingPath="Month"
+                            YBindingPath="Dvtninfo.BlockSMS"
+                            Color="Orange">
+                            <chart:ColumnSeries.TooltipTemplate>
+                                <DataTemplate>
+                                    <StackLayout Spacing="2">
+                                        <Label
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Dvtninfo.Name}"
+                                            TextColor="White" />
+                                        <Label
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Dvtninfo.BlockSMS}"
+                                            TextColor="White" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </chart:ColumnSeries.TooltipTemplate>
+                            <chart:ColumnSeries.YAxis>
+                                <chart:NumericalAxis OpposedPosition="True" />
+                            </chart:ColumnSeries.YAxis>
+                        </chart:ColumnSeries>
+                    </chart:SfChart.Series>
+                </chart:SfChart>
+                <BoxView
+                    BackgroundColor="#d8d8d8"
+                    HeightRequest="1"
+                    HorizontalOptions="FillAndExpand" />
+                <StackLayout
+                    BackgroundColor="#e5e5e5"
+                    HeightRequest="30"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <Label
+                        Margin="10,0,0,0"
+                        FontAttributes="Bold"
+                        HorizontalOptions="StartAndExpand"
+                        Text="Thông tin gói cước"
+                        VerticalOptions="Center" />
+                    <ffImage:CachedImage
+                        Margin="0,0,10,0"
+                        HeightRequest="20"
+                        HorizontalOptions="EndAndExpand"
+                        Source="ic_help.png"
+                        VerticalOptions="Center"
+                        WidthRequest="20">
+                        <ffImage:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ViewPackageInfosCommand}" />
+                        </ffImage:CachedImage.GestureRecognizers>
+                        <ffImage:CachedImage.Transformations>
+                            <transformations:TintTransformation EnableSolidColor="True" HexColor="#666666" />
+                        </ffImage:CachedImage.Transformations>
+                    </ffImage:CachedImage>
+                </StackLayout>
+                <BoxView
+                    BackgroundColor="#d8d8d8"
+                    HeightRequest="1"
+                    HorizontalOptions="FillAndExpand" />
+                <Grid
+                    Padding="10,0,10,10"
+                    RowSpacing="0"
+                    VerticalOptions="Start">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontSize="14"
+                        HorizontalOptions="Start"
+                        Text="Truyền dữ liệu"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        FontSize="14"
+                        Text="{Binding CurrentServicePack.VTPackageName}"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        FontSize="14"
+                        HorizontalOptions="Start"
+                        Text="SMS"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontSize="14"
+                        Text="{Binding CurrentServicePack.SMSPackageName}"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        FontSize="14"
+                        HorizontalOptions="Start"
+                        Text="SMS còn lại"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        FontSize="14"
+                        Text="{Binding CurrentServicePack.Blocks, StringFormat='{0} block'}"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        FontSize="14"
+                        HorizontalTextAlignment="Start"
+                        Text="(1 block = 10 ký tự bao gồm cả khoảng trắng. Ví dụ: Xin chào = 8 ký tự)"
+                        VerticalOptions="Center" />
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

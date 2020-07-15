@@ -404,9 +404,9 @@ namespace BA_MobileGPS.Core
             }
         }
 
-        //public static async Task CheckLocationAsync(Action action)
-        //{
-        //    await RequestPermission<LocationPermission>(new Views.Permissions.LocationPermission(action), action);
-        //}
+        public static async Task CheckLocationAsync(Action action)
+        {
+            //await RequestPermission<LocationPermission>(new Views.Permissions.LocationPermission(action), action);
+        }
     }
 }

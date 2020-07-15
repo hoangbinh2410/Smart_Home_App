@@ -30,6 +30,8 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string Common_Message_Loading => Get(MobileResourceNames.Common_Message_Loading, "Đang tải dữ liệu...", "Loading...");
 
+        public static string Common_Label_Notification => Get(MobileResourceNames.Common_Label_Notification, "Thông báo", "Notification");
+
         public static string Common_Message_Warning => Get(MobileResourceNames.Common_Message_Warning, "Cảnh báo", "Warning");
 
         public static string Common_Label_BAGPS => Get(MobileResourceNames.Common_Label_BAGPS, "Mobile GPS", "Mobile GPS");
@@ -63,6 +65,7 @@ namespace BA_MobileGPS.Core.Resource
         public static string Common_Value_SelectGender => Get(MobileResourceNames.Common_Value_SelectGender, "Chọn giới tính", "Select Gender");
         public static string Common_Value_SelectReligion => Get(MobileResourceNames.Common_Value_SelectReligion, "Chọn tôn giáo", "Select Religion");
         public static string Common_Message_Skip => Get(MobileResourceNames.Common_Message_Skip, "Bỏ qua", "Skip");
+
 
         #region title grid dùng nhiều
 

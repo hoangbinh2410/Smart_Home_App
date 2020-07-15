@@ -13,11 +13,11 @@ namespace BA_MobileGPS.Core
         {
             if (value == null)
             {
-                return "ic_launcher.png";
+                return "avatar_default.png";
             }
 
             if (string.IsNullOrEmpty(value.ToString()))
-                return "ic_launcher.png";
+                return "avatar_default.png";
             else
                 if (!value.ToString().Contains("/"))
             {
