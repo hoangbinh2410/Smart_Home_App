@@ -41,7 +41,7 @@
                 VerticalOptions="Center"
                 WidthRequest="80">
                 <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding PushToProfileCommand}" NumberOfTapsRequired="1"/>
+                    <TapGestureRecognizer Command="{Binding PushToProfileCommand}" NumberOfTapsRequired="1" />
                 </Grid.GestureRecognizers>
                 <sfavatar:SfAvatarView
                     AvatarColorMode="DarkBackground"
@@ -73,7 +73,7 @@
             </Grid>
             <StackLayout Spacing="0" VerticalOptions="CenterAndExpand">
                 <Label LineBreakMode="WordWrap" Text="{Binding UserInfo.FullName}" />
-                <Label Text="ABC" />
+                <Label Text="{Binding UserInfo.PhoneNumber}" />
             </StackLayout>
 
         </StackLayout>
