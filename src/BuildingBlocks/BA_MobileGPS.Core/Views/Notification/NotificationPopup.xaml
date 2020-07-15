@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="BA_MobileGPS.Core.Views.NotificationPopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    CloseWhenBackgroundIsClicked="False">
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation
+            DurationIn="150"
+            DurationOut="150"
+            EasingIn="Linear"
+            EasingOut="Linear"
+            HasBackgroundAnimation="True"
+            PositionIn="Center"
+            PositionOut="Center" />
+    </pages:PopupPage.Animation>
+    <pages:PopupPage.Content>
+        <controls:CustomShadowFrame
+            Margin="20,100,20,100"
+            Padding="0"
+            BackgroundColor="White"
+            BorderWidth="0"
+            CornerRadius="10"
+            HasShadow="True"
+            HorizontalOptions="FillAndExpand"
+            IsClippedToBounds="True"
+            ShadowOffSetHeight="4"
+            ShadowOffsetWidth="0"
+            ShadowOpacity="0.12"
+            VerticalOptions="Fill">
+            <controls:CustomShadowFrame.Content>
+                <Grid RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <WebView Grid.RowSpan="2" Margin="0">
+                        <WebView.Source>
+                            <HtmlWebViewSource Html="{Binding Content}" />
+                        </WebView.Source>
+                    </WebView>
+                    <controls:IconView
+                        Grid.Row="0"
+                        Margin="5"
+                        Foreground="{StaticResource PrimaryColor}"
+                        HeightRequest="30"
+                        HorizontalOptions="End"
+                        Source="ic_close_white.png"
+                        VerticalOptions="Center"
+                        WidthRequest="30">
+                        <controls:IconView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                        </controls:IconView.GestureRecognizers>
+                    </controls:IconView>
+                    <StackLayout
+                        Grid.Row="1"
+                        Margin="10"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal"
+                        VerticalOptions="End">
+                        <Button
+                            BackgroundColor="White"
+                            BorderColor="{StaticResource PrimaryColor}"
+                            BorderRadius="0"
+                            BorderWidth="1"
+                            Command="{Binding ClosePageCommand}"
+                            CornerRadius="5"
+                            FontAttributes="Bold"
+                            FontSize="12"
+                            HorizontalOptions="FillAndExpand"
+                            Text="Bỏ qua"
+                            TextColor="{StaticResource PrimaryColor}" />
+                        <Button
+                            BackgroundColor="{StaticResource PrimaryColor}"
+                            BorderRadius="0"
+                            Command="{Binding ViewMoreCommand}"
+                            CornerRadius="5"
+                            FontAttributes="Bold"
+                            FontSize="12"
+                            HorizontalOptions="FillAndExpand"
+                            Text="Xem thêm"
+                            TextColor="White" />
+                    </StackLayout>
+                </Grid>
+            </controls:CustomShadowFrame.Content>
+        </controls:CustomShadowFrame>
+    </pages:PopupPage.Content>
+</pages:PopupPage>

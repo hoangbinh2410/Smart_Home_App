@@ -121,6 +121,11 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<TutorialPage, TutorialPageViewModel>("TutorialPage");
             containerRegistry.RegisterForNavigation<AlertOnlinePage, AlertOnlinePageViewModel>();
             containerRegistry.RegisterForNavigation<AlertHandlingPage, AlertHandlingPageViewModel>();
+            containerRegistry.RegisterForNavigation<NotificationPage, NotificationPageViewModel>("NotificationPage");
+            containerRegistry.RegisterForNavigation<NotificationPopup, NotificationPopupViewModel>("NotificationPopup");
+            containerRegistry.RegisterForNavigation<NotificationPopupWhenLogin, NotificationPopupWhenLoginViewModel>("NotificationPopupWhenLogin");
+            containerRegistry.RegisterForNavigation<NotificationPopupAfterLogin, NotificationPopupAfterLoginViewModel>("NotificationPopupAfterLogin");
+            containerRegistry.RegisterForNavigation<NotificationDetailPage, NotificationDetailPageViewModel>("NotificationDetailPage");
 
         }
     }
