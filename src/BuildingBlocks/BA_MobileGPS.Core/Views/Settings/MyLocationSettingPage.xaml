@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.MyLocationSettingPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cluster="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:mapbindings="clr-namespace:BA_MobileGPS.Core.GoogleMap.Behaviors"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    Title="{i18n:TranslateResource Settings_Label_SettingMylocationMap2}"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <cluster:Map
+                x:Name="googleMap"
+                Grid.RowSpan="2"
+                HorizontalOptions="FillAndExpand"
+                MapType="{Binding MapType}"
+                VerticalOptions="FillAndExpand">
+                <cluster:Map.Behaviors>
+                    <mapbindings:CameraIdledToCommandBehavior Command="{Binding CameraIdledCommand}" />
+                    <mapbindings:AnimateCameraBehavior Request="{Binding AnimateCameraRequest}" />
+                </cluster:Map.Behaviors>
+            </cluster:Map>
+
+            <Button
+                Grid.Row="1"
+                Margin="10"
+                Command="{Binding SaveSettingsCommand}"
+                HeightRequest="50"
+                Text="{i18n:TranslateResource Settings_Label_SettingThelocation}"
+                VerticalOptions="End" />
+
+            <sharpnado:MaterialFrame
+                Grid.Row="0"
+                Margin="10"
+                Padding="0"
+                CornerRadius="10"
+                HasShadow="False"
+                HeightRequest="40"
+                HorizontalOptions="End"
+                LightThemeBackgroundColor="White"
+                VerticalOptions="Start"
+                WidthRequest="40">
+                <sharpnado:MaterialFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding MyLocationCommand}" />
+                </sharpnado:MaterialFrame.GestureRecognizers>
+                <controls:IconView
+                    Foreground="{StaticResource PrimaryColor}"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
+                    Source="ic_vector.png"
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
+            </sharpnado:MaterialFrame>
+
+            <sharpnado:MaterialFrame
+                Grid.Row="0"
+                Margin="10"
+                Padding="0"
+                CornerRadius="10"
+                HasShadow="False"
+                HeightRequest="40"
+                HorizontalOptions="Start"
+                LightThemeBackgroundColor="White"
+                VerticalOptions="Start"
+                WidthRequest="40">
+                <sharpnado:MaterialFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ChangeMapTypeCommand}" />
+                </sharpnado:MaterialFrame.GestureRecognizers>
+                <controls:IconView
+                    Foreground="{StaticResource PrimaryColor}"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
+                    Source="ic_map_type.png"
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
+            </sharpnado:MaterialFrame>
+
+            <ffimageloading:CachedImage
+                Grid.RowSpan="2"
+                AnchorX="0.5"
+                AnchorY="2.5"
+                Aspect="Fill"
+                DownsampleToViewSize="true"
+                HeightRequest="30"
+                HorizontalOptions="Center"
+                LoadingPlaceholder="avatar.png"
+                Source="ic_my_marker.png"
+                VerticalOptions="Center"
+                WidthRequest="30" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
