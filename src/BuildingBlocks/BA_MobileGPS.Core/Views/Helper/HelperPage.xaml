@@ -22,7 +22,6 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <syncfusion:SfListView
-            AllowKeyboardNavigation="True"
             AutoFitMode="DynamicHeight"
             HorizontalOptions="FillAndExpand"
             IsScrollBarVisible="False"
@@ -60,11 +59,13 @@
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="1"
+                                HorizontalOptions="StartAndExpand"
                                 Text="{Binding Title}"
                                 VerticalOptions="Center" />
                             <controls:FontAwesomeIcon
                                 Grid.Row="0"
                                 Grid.Column="2"
+                                Margin="10"
                                 Text="{x:Static fontawesome:FontAwesomeIcons.AngleRight}"
                                 TextColor="{StaticResource PrimaryColor}"
                                 VerticalOptions="Center" />

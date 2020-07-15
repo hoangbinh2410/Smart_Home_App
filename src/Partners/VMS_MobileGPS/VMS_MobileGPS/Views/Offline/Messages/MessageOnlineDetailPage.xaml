@@ -4,7 +4,6 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:behaviors="clr-namespace:VMS_MobileGPS.Behaviors"
-    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
     xmlns:messages="clr-namespace:VMS_MobileGPS.Views"
@@ -49,9 +48,6 @@
             HorizontalOptions="FillAndExpand"
             RowSpacing="0"
             VerticalOptions="FillAndExpand">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -160,14 +156,13 @@
             </ScrollView>
             <sharpnado:MaterialFrame
                 Grid.Row="2"
-                Grid.Column="0"
                 Padding="5"
                 BorderColor="{StaticResource GrayColor}"
                 CornerRadius="0"
                 HasShadow="True"
                 HorizontalOptions="FillAndExpand"
                 LightThemeBackgroundColor="White"
-                VerticalOptions="FillAndExpand">
+                VerticalOptions="End">
                 <sharpnado:MaterialFrame.Content>
                     <messages:ChatInputView />
                 </sharpnado:MaterialFrame.Content>
