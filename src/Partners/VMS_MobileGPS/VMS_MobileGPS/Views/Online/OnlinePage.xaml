@@ -134,7 +134,7 @@
                 HeightRequest="50"
                 WidthRequest="50">
                 <pancake:PancakeView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding MyLocationCommand}" />
+                    <TapGestureRecognizer Tapped="GetMylocation" />
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Margin="9"
