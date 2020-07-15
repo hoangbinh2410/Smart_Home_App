@@ -16,21 +16,6 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!--<SearchBar
-                x:Name="txtSearchType"
-                Grid.Row="0"
-                Placeholder="{i18n:TranslateResource Common_Message_SearchText}"
-                SearchCommand="{Binding SearchValueCommmand}"
-                SearchCommandParameter="{Binding Text, Source={x:Reference txtSearchType}}"
-                Text="{Binding SearchText}">
-                <SearchBar.Behaviors>
-                    <b:EventToCommandBehavior
-                        Command="{Binding SearchValueCommmand}"
-                        CommandParameter="{Binding Text, Source={x:Reference txtSearchType}}"
-                        EventName="TextChanged" />
-                </SearchBar.Behaviors>
-            </SearchBar>-->
-
             <StackLayout Grid.Row="1" Orientation="Vertical">
                 <ListView
                     x:Name="listview"
@@ -48,17 +33,7 @@
                                     HorizontalOptions="FillAndExpand"
                                     Orientation="Horizontal"
                                     Spacing="10">
-                                    <!--<Image
-                                        HeightRequest="25"
-                                        Source="{Binding FlagPath}"
-                                        WidthRequest="25" />-->
                                     <Label Text="{Binding Value}" VerticalOptions="CenterAndExpand" />
-                                    <!--<Label
-                                        HorizontalOptions="End"
-                                        HorizontalTextAlignment="End"
-                                        Opacity="0.5"
-                                        Text="{Binding DialCode}"
-                                        VerticalOptions="Center" />-->
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>

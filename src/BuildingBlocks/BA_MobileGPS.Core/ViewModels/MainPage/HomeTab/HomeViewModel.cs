@@ -25,10 +25,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IMapper mapper;
         private List<HomeMenuItemViewModel> MenuReponse = new List<HomeMenuItemViewModel>();
 
-        public bool hasFavorite;
-        public bool HasFavorite { get => hasFavorite; set => SetProperty(ref hasFavorite, value); }
-        public ICommand TapMenuCommand { get; set; }
-
+        #region Constructor
         public HomeViewModel(INavigationService navigationService,
             IHomeService homeService, IMapper mapper)
             : base(navigationService)
@@ -37,8 +34,8 @@ namespace BA_MobileGPS.Core.ViewModels
             this.mapper = mapper;
 
             TapMenuCommand = new DelegateCommand<object>(OnTappedMenu);
-            _listfeatures = new ObservableCollection<ItemSupport>();
-            _favouriteMenuItems = new ObservableCollection<HomeMenuItemViewModel>();
+            listfeatures = new ObservableCollection<ItemSupport>();
+            favouriteMenuItems = new ObservableCollection<HomeMenuItemViewModel>();
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -61,7 +58,20 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
+        #endregion
 
+        #region Icommand
+        public ICommand NavigateToFavoriteCommand => new Command(() =>
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("BaseNavigationPage/FavoritesConfigurationsPage", null, useModalNavigation: true);
+            });
+        });
+        public ICommand TapMenuCommand { get; set; }
+        #endregion
+
+        #region Private method
         private void GetListMenu()
         {
             if (!IsConnected)
@@ -114,9 +124,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             if (!string.IsNullOrEmpty(menuFavoriteIds))
             {
-                HasFavorite = true;
                 var favoritesIdLst = menuFavoriteIds.Split(',').Select(m => int.Parse(m));
-
                 menus =
                     from m in menus
                     join fv in favoritesIdLst
@@ -138,17 +146,13 @@ namespace BA_MobileGPS.Core.ViewModels
                         IsFavorited = !(fv_sub == 0),
                     };
             }
-            else
-            {
-                HasFavorite = false;
-            }
 
             var result =
                 from m in menus
                 orderby m.IsFavorited descending, m.SortOrder, m.GroupName descending
                 select m;
             FavouriteMenuItems = result.Where(s => s.IsFavorited).ToObservableCollection();
-
+            HasFavorite = FavouriteMenuItems.Count != 0;
             StaticSettings.ListMenu = mapper.Map<List<HomeMenuItem>>(result);
         }
 
@@ -163,15 +167,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 AllListfeatures.Add(temp);
             }
         }
-
-        public ICommand NavigateToFavoriteCommand => new Command(() =>
-        {
-            SafeExecute(async () =>
-            {
-                await NavigationService.NavigateAsync("BaseNavigationPage/FavoritesConfigurationsPage", null, useModalNavigation: true);
-            });
-        });
-
         public void OnTappedMenu(object obj)
         {
             var args = (Syncfusion.ListView.XForms.ItemTappedEventArgs)obj;
@@ -218,30 +213,43 @@ namespace BA_MobileGPS.Core.ViewModels
                     break;
             }
         }
+        #endregion
 
-        private ObservableCollection<ItemSupport> _listfeatures;
+        #region Property Binding
+        private ObservableCollection<ItemSupport> listfeatures;
 
         public ObservableCollection<ItemSupport> AllListfeatures
         {
-            get => _listfeatures;
+            get => listfeatures;
 
             set
             {
-                SetProperty(ref _listfeatures, value);
+                SetProperty(ref listfeatures, value);
             }
         }
 
-        private ObservableCollection<HomeMenuItemViewModel> _favouriteMenuItems;
-
+        private ObservableCollection<HomeMenuItemViewModel> favouriteMenuItems;
         public ObservableCollection<HomeMenuItemViewModel> FavouriteMenuItems
         {
-            get => _favouriteMenuItems;
+            get => favouriteMenuItems;
             set
             {
-                SetProperty(ref _favouriteMenuItems, value);
+                SetProperty(ref favouriteMenuItems, value);
                 RaisePropertyChanged();
             }
         }
+
+        public bool hasFavorite;
+        public bool HasFavorite
+        {
+            get => hasFavorite;
+            set
+            {
+                SetProperty(ref hasFavorite, value);
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
     }
 
     public class ItemSupport
