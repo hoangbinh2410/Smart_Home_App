@@ -103,7 +103,6 @@ namespace VMS_MobileGPS.Views
 
         #endregion
 
-
         #region Lifecycle
 
         public void OnNavigatedFrom(INavigationParameters parameters)
