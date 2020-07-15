@@ -46,6 +46,7 @@
     <Compile Include="CustomRenderer\EntryMinusRenderer.cs" />
     <Compile Include="CustomRenderer\FrameShadowRenderer.cs" />
     <Compile Include="CustomRenderer\IconViewRenderer.cs" />
+    <Compile Include="CustomRenderer\NullableDatePickerRenderer.cs" />
     <Compile Include="DependencyServices\AppleAudioManager.cs" />
     <Compile Include="DependencyServices\AppVersionService.cs" />
     <Compile Include="DependencyServices\DisplayMessageService.cs" />
@@ -433,15 +434,6 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_warning_ben%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_car_play.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_car_play%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_car_play%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_date_range_black.png" />

@@ -119,7 +119,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource Distance_Label_Vehicle}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -152,7 +152,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource Distance_Label_Time}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -192,7 +192,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource Distance_Label_Speed}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -225,7 +225,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource Distance_Label_Distance}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
