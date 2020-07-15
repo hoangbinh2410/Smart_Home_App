@@ -113,6 +113,9 @@
 	  <EmbeddedResource Update="Views\Common\ComboboxPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Common\ImageEditorPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\MainPage\AccountTab\Account.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>

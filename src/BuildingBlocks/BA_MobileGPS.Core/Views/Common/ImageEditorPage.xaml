@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.ImageEditorPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:c="clr-namespace:BA_MobileGPS.Converter;assembly=BA_MobileGPS.Core"
+    xmlns:imageeditor="clr-namespace:Syncfusion.SfImageEditor.XForms;assembly=Syncfusion.SfImageEditor.XForms"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    Title="Edit Image"
+    ios:Page.UseSafeArea="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <c:ItemImageSavedEventArgsConverter x:Key="ItemImageSavedEventArgsConverter" />
+            <c:ItemImageSavingEventArgsConverter x:Key="ItemImageSavingEventArgsConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <imageeditor:SfImageEditor
+            x:Name="ImgEditor"
+            HorizontalOptions="FillAndExpand"
+            Source="{Binding Image}"
+            VerticalOptions="FillAndExpand">
+            <imageeditor:SfImageEditor.Behaviors>
+                <prismbehaviors:EventToCommandBehavior Command="{Binding ImageSavedCommand}" EventArgsConverter="{StaticResource ItemImageSavedEventArgsConverter}" EventName="ImageSaved" />
+                <prismbehaviors:EventToCommandBehavior Command="{Binding ImageSavingCommand}" EventArgsConverter="{StaticResource ItemImageSavingEventArgsConverter}" EventName="ImageSaving" />
+            </imageeditor:SfImageEditor.Behaviors>
+        </imageeditor:SfImageEditor>
+    </ContentPage.Content>
+</ContentPage>
