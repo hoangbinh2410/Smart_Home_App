@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
 using Prism;
@@ -91,7 +92,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (e.NetworkAccess != NetworkAccess.Internet)
             {
                 // await NavigationService.NavigateAsync("NetworkPage");
-                //await PopupNavigation.Instance.PushAsync(new NetworkPage());
+                await PopupNavigation.Instance.PushAsync(new NetworkPage());
             }
             else
             {

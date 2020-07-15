@@ -15,6 +15,12 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string Settings_Label_SettingMylocationMap2 => Get(MobileResourceNames.Settings_Label_SettingMylocationMap2, "Thiết lập vị trí mặc định", "Setting location map");
 
-        public static string Settings_Label_SettingThelocation => Get(MobileResourceNames.Settings_Label_SettingThelocation, "THIẾT LẬP VỊ TRÍ", "SETTING THE LOCATION");
+        public static string Settings_Label_SettingThelocation => Get(MobileResourceNames.Settings_Label_SettingThelocation, "Thiết lập vị trí", "Setting the location");
+
+        public static string Settings_Label_SettingReceiveAlert => Get(MobileResourceNames.Settings_Label_SettingReceiveAlert, "Cấu hình nhận cảnh báo", "Setting Receive Alert");
+
+        public static string Settings_Label_ListAlert => Get(MobileResourceNames.Settings_Label_ListAlert, "Danh sách cảnh báo", "List Alert");
+
+        public static string Settings_Label_ListVehicleAlert => Get(MobileResourceNames.Settings_Label_ListVehicleAlert, "Danh sách xe nhận cảnh báo", "List Vehicle Receive Alert");
     }
 }

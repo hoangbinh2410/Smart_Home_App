@@ -1,7 +1,4 @@
-using BA_MobileGPS.Core.DependencyServices;
 using BA_MobileGPS.Core.Helpers;
-using BA_MobileGPS.Core.ViewModels;
-using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities.Constant;
 using Prism;

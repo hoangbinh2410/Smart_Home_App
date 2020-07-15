@@ -47,5 +47,8 @@
 
         public const string ShipDetail = "ShipDetail";
         public const string RedirectDebtBlock = "RedirectDebtBlock";
+
+        public const string AlertCompanyConfig = "AlertCompanyConfig";
+        public const string AlertVehicleConfig = "AlertVehicleConfig";
     }
 }
