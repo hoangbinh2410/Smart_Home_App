@@ -34,12 +34,11 @@ namespace VMS_MobileGPS.ViewModels
 {
     public class OnlinePageViewModel : ViewModelBase
     {
+
+        #region Contructor
+
         private readonly IUserService userService;
         private readonly IDetailVehicleService detailVehicleService;
-
-        public ObservableCollection<Circle> Circles { get; set; } = new ObservableCollection<Circle>();
-        public ObservableCollection<Polygon> Boundaries { get; set; } = new ObservableCollection<Polygon>();
-        public ObservableCollection<Polyline> Borders { get; set; } = new ObservableCollection<Polyline>();
 
         public ICommand NavigateToSettingsCommand { get; private set; }
         public ICommand ChangeMapTypeCommand { get; private set; }
@@ -53,9 +52,6 @@ namespace VMS_MobileGPS.ViewModels
         public ICommand MyLocationCommand { get; private set; }
         public ICommand PushtoListVehicleOnlineCommand { get; private set; }
         public DelegateCommand GoDistancePageCommand { get; private set; }
-
-        private string carSearch;
-        public string CarSearch { get => carSearch; set => SetProperty(ref carSearch, value); }
 
         public OnlinePageViewModel(INavigationService navigationService,
             IUserService userService, IDetailVehicleService detailVehicleService)
@@ -103,7 +99,15 @@ namespace VMS_MobileGPS.ViewModels
             PushToServicePackHistoryPageCommand = new DelegateCommand(GoServicePackHistoryPage);
         }
 
+        #endregion
+
         #region Property
+
+        private string carSearch;
+        public string CarSearch { get => carSearch; set => SetProperty(ref carSearch, value); }
+        public ObservableCollection<Circle> Circles { get; set; } = new ObservableCollection<Circle>();
+        public ObservableCollection<Polygon> Boundaries { get; set; } = new ObservableCollection<Polygon>();
+        public ObservableCollection<Polyline> Borders { get; set; } = new ObservableCollection<Polyline>();
 
         public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
 

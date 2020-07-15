@@ -58,6 +58,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public DelegateCommand SelectVehicleRouterCommand { get; private set; }
 
         public DelegateCommand SelectVehicleGroupCommand { get; private set; }
+        
 
         public ViewModelBase(INavigationService navigationService)
         {
@@ -344,6 +345,20 @@ namespace BA_MobileGPS.Core.ViewModels
                     SafeExecute(async () =>
                     {
                         await NavigationService.NavigateAsync("BaseNavigationPage/AlertOnlinePage", useModalNavigation: true);
+                    });
+                });
+            }
+        }
+
+        public ICommand PushToNoticePageCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    SafeExecute(async () =>
+                    {
+                        await NavigationService.NavigateAsync("NavigationPage/NotificationPage", useModalNavigation: true);
                     });
                 });
             }

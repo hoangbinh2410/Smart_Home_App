@@ -34,6 +34,8 @@ namespace VMS_MobileGPS.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class OnlinePage : ContentView, IDestructible, INavigationAware
     {
+        #region Contructor
+
         private enum States
         {
             ShowFilter,
@@ -50,11 +52,6 @@ namespace VMS_MobileGPS.Views
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
 
         private readonly BA_MobileGPS.Core.Animation _animations = new BA_MobileGPS.Core.Animation();
-
-        private OnlinePageViewModel vm;
-
-        private System.Timers.Timer timer;
-        private CancellationTokenSource cts;
 
         public OnlinePage()
         {
@@ -103,6 +100,10 @@ namespace VMS_MobileGPS.Views
 
             StartTimmerCaculatorStatus();
         }
+
+        #endregion
+
+        #region Lifecycle
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
@@ -159,6 +160,56 @@ namespace VMS_MobileGPS.Views
         public void OnNavigatingTo(INavigationParameters parameters)
         {
         }
+
+        public void Destroy()
+        {
+            timer.Stop();
+            timer.Dispose();
+            this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
+            this.eventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
+        }
+
+        #endregion
+
+        #region Property
+
+        private OnlinePageViewModel vm;
+
+        private System.Timers.Timer timer;
+
+        private CancellationTokenSource cts;
+
+
+        /* Xe đang được chọn */
+        private VehicleOnline mCarActive;
+
+        /* Danh sách xe online */
+
+        private List<VehicleOnline> mVehicleList
+        {
+            get
+            {
+                if (StaticSettings.ListVehilceOnline != null)
+                {
+                    //nếu khóa BAP rồi thì ko hiển thị trên Map nữa
+                    return StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                }
+                else
+                {
+                    return new List<VehicleOnline>();
+                }
+            }
+        }
+
+        /* Danh sách xe online */
+        private List<VehicleOnline> mCurrentVehicleList;
+
+        private bool infoStatusIsShown = false;
+        private bool IsInitMarker = false;
+
+        #endregion Propety
+
+        #region Private Method
 
         private void GoogleMapAddBoundary()
         {
@@ -279,46 +330,6 @@ namespace VMS_MobileGPS.Views
             }
         }
 
-        public void Destroy()
-        {
-            timer.Stop();
-            timer.Dispose();
-            this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
-            this.eventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
-        }
-
-        #region Propety
-
-        /* Xe đang được chọn */
-        private VehicleOnline mCarActive;
-
-        /* Danh sách xe online */
-
-        private List<VehicleOnline> mVehicleList
-        {
-            get
-            {
-                if (StaticSettings.ListVehilceOnline != null)
-                {
-                    //nếu khóa BAP rồi thì ko hiển thị trên Map nữa
-                    return StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
-                }
-                else
-                {
-                    return new List<VehicleOnline>();
-                }
-            }
-        }
-
-        /* Danh sách xe online */
-        private List<VehicleOnline> mCurrentVehicleList;
-
-        private bool infoStatusIsShown = false;
-        private bool IsInitMarker = false;
-
-        #endregion Propety
-
-        #region Private Method
         private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
         {
             if (obj != null
@@ -950,6 +961,7 @@ namespace VMS_MobileGPS.Views
                     var car = mVehicleList.FirstOrDefault(x => x.VehiclePlate == args.Pin.Label);
                     if (car != null)
                     {
+                        vm.CarSearch = car.PrivateCode;
                         ShowBoxInfoCarActive(car, car.MessageId, car.DataExt);
                     }
                 }

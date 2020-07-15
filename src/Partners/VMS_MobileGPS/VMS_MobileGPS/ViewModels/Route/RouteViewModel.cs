@@ -30,9 +30,115 @@ namespace VMS_MobileGPS.ViewModels
 {
     public class RouteViewModel : ViewModelBase
     {
+        #region Contructor
+
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
         private readonly IVehicleRouteService vehicleRouteService;
         private readonly IDisplayMessage displayMessage;
+
+        public ICommand TimeSelectedCommand { get; }
+        public ICommand DateSelectedCommand { get; }
+        public ICommand SearchVehicleCommand { get; }
+        public ICommand GetVehicleRouteCommand { get; }
+        public ICommand ViewListCommand { get; }
+        public ICommand ChangeMapTypeCommand { get; }
+        public ICommand NavigateToSettingsCommand { get; }
+        public ICommand WatchVehicleCommand { get; }
+        public ICommand PinClickedCommand { get; }
+        public ICommand DragStartedCommand { get; }
+        public ICommand DragCompletedCommand { get; }
+        public ICommand PlayStopCommand { get; }
+        public ICommand IncreaseSpeedCommand { get; }
+        public ICommand DecreaseSpeedCommand { get; }
+        public ICommand FastStartCommand { get; }
+        public ICommand FastEndCommand { get; }
+
+        public RouteViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService,
+           IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository, IDisplayMessage displayMessage)
+           : base(navigationService)
+        {
+            this.vehicleRouteService = vehicleRouteService;
+            this.boundaryRepository = boundaryRepository;
+            this.displayMessage = displayMessage;
+
+            if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
+            {
+                mapType = MapType.Hybrid;
+                colorMapType = (Color)App.Current.Resources["GrayColor"];
+            }
+            else
+            {
+                mapType = MapType.Street;
+                colorMapType = (Color)App.Current.Resources["PrimaryColor"];
+            }
+
+            TimeSelectedCommand = new Command<string>(TimeSelected);
+            DateSelectedCommand = new Command<DateChangedEventArgs>(DateSelected);
+            SearchVehicleCommand = new Command(SearchVehicle);
+            GetVehicleRouteCommand = new Command(GetVehicleRoute);
+            ViewListCommand = new Command(ViewList);
+            ChangeMapTypeCommand = new Command(ChangeMapType);
+            NavigateToSettingsCommand = new Command(NavigateToSettings);
+            WatchVehicleCommand = new Command(WatchVehicle);
+            PinClickedCommand = new Command<PinClickedEventArgs>(PinClicked);
+            DragStartedCommand = new Command(DragStarted);
+            DragCompletedCommand = new Command(DragCompleted);
+            PlayStopCommand = new Command(PlayStop);
+            IncreaseSpeedCommand = new Command(IncreaseSpeed);
+            DecreaseSpeedCommand = new Command(DecreaseSpeed);
+            FastStartCommand = new Command(FastStart);
+            FastEndCommand = new Command(FastEnd);
+            EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
+        }
+
+        #endregion
+
+        #region Lifecycle
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+            RaisePropertyChanged(nameof(PlayStopImage));
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+
+            InitBoudary();
+
+            if (parameters != null)
+            {
+                if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
+                {
+                    Vehicle = vehicle;
+
+                    GetVehicleRoute();
+                }
+                else if (parameters.ContainsKey(ParameterKey.VehicleOnline) && parameters.GetValue<VehicleOnline>(ParameterKey.VehicleOnline) is VehicleOnline vehicleOnline)
+                {
+                    Vehicle = new Vehicle()
+                    {
+                        GroupIDs = vehicleOnline.GroupIDs,
+                        PrivateCode = vehicleOnline.PrivateCode,
+                        VehicleId = vehicleOnline.VehicleId,
+                        VehiclePlate = vehicleOnline.VehiclePlate
+                    };
+
+                    GetVehicleRoute();
+                }
+            }
+        }
+
+        public override void OnDestroy()
+        {
+            if (ctsRouting != null)
+                ctsRouting.Cancel();
+        }
+
+        #endregion
+
+        #region Property
 
         private CancellationTokenSource ctsRouting = new CancellationTokenSource();
         private CancellationTokenSource ctsAddress = new CancellationTokenSource();
@@ -105,96 +211,22 @@ namespace VMS_MobileGPS.ViewModels
         public bool playControlEnabled;
         public bool PlayControlEnabled { get => !playControlEnabled; set => SetProperty(ref playControlEnabled, value); }
 
-        public ICommand TimeSelectedCommand { get; }
-        public ICommand DateSelectedCommand { get; }
-        public ICommand SearchVehicleCommand { get; }
-        public ICommand GetVehicleRouteCommand { get; }
-        public ICommand ViewListCommand { get; }
-        public ICommand ChangeMapTypeCommand { get; }
-        public ICommand NavigateToSettingsCommand { get; }
-        public ICommand WatchVehicleCommand { get; }
-        public ICommand PinClickedCommand { get; }
-        public ICommand DragStartedCommand { get; }
-        public ICommand DragCompletedCommand { get; }
-        public ICommand PlayStopCommand { get; }
-        public ICommand IncreaseSpeedCommand { get; }
-        public ICommand DecreaseSpeedCommand { get; }
-        public ICommand FastStartCommand { get; }
-        public ICommand FastEndCommand { get; }
+        private readonly double SPEED_MAX = 8;
+        private readonly double BASE_TIME = 250;
 
-        public RouteViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService,
-            IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository, IDisplayMessage displayMessage)
-            : base(navigationService)
-        {
-            this.vehicleRouteService = vehicleRouteService;
-            this.boundaryRepository = boundaryRepository;
-            this.displayMessage = displayMessage;
+        private readonly double MARKER_ROTATE_RATE = 0.1;
+        private double MARKER_ROTATE_STEP => 5;
+        private double MARKER_ROTATE_TIME_STEP => MARKER_ROTATE_RATE * BASE_TIME / PlaySpeed / MARKER_ROTATE_STEP;
 
-            if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
-            {
-                mapType = MapType.Hybrid;
-                colorMapType = (Color)App.Current.Resources["GrayColor"];
-            }
-            else
-            {
-                mapType = MapType.Street;
-                colorMapType = (Color)App.Current.Resources["PrimaryColor"];
-            }
+        private double MARKER_MOVE_RATE => 1 - MARKER_ROTATE_RATE;
+        private double MARKER_MOVE_STEP => 64 / PlaySpeed;
+        private double MARKER_MOVE_TIME_STEP => BASE_TIME / PlaySpeed / MARKER_MOVE_STEP;
 
-            TimeSelectedCommand = new Command<string>(TimeSelected);
-            DateSelectedCommand = new Command<DateChangedEventArgs>(DateSelected);
-            SearchVehicleCommand = new Command(SearchVehicle);
-            GetVehicleRouteCommand = new Command(GetVehicleRoute);
-            ViewListCommand = new Command(ViewList);
-            ChangeMapTypeCommand = new Command(ChangeMapType);
-            NavigateToSettingsCommand = new Command(NavigateToSettings);
-            WatchVehicleCommand = new Command(WatchVehicle);
-            PinClickedCommand = new Command<PinClickedEventArgs>(PinClicked);
-            DragStartedCommand = new Command(DragStarted);
-            DragCompletedCommand = new Command(DragCompleted);
-            PlayStopCommand = new Command(PlayStop);
-            IncreaseSpeedCommand = new Command(IncreaseSpeed);
-            DecreaseSpeedCommand = new Command(DecreaseSpeed);
-            FastStartCommand = new Command(FastStart);
-            FastEndCommand = new Command(FastEnd);
-            EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
-        }
+        private bool lastPlayStatus;
 
+        #endregion
 
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-            RaisePropertyChanged(nameof(PlayStopImage));
-        }
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
-
-            InitBoudary();
-
-            if (parameters != null)
-            {
-                if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
-                {
-                    Vehicle = vehicle;
-
-                    GetVehicleRoute();
-                }
-                else if (parameters.ContainsKey(ParameterKey.VehicleOnline) && parameters.GetValue<VehicleOnline>(ParameterKey.VehicleOnline) is VehicleOnline vehicleOnline)
-                {
-                    Vehicle = new Vehicle()
-                    {
-                        GroupIDs = vehicleOnline.GroupIDs,
-                        PrivateCode = vehicleOnline.PrivateCode,
-                        VehicleId = vehicleOnline.VehicleId,
-                        VehiclePlate = vehicleOnline.VehiclePlate
-                    };
-
-                    GetVehicleRoute();
-                }
-            }
-        }
+        #region PrivateMethod
 
         private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
         {
@@ -216,7 +248,6 @@ namespace VMS_MobileGPS.ViewModels
             }
 
         }
-
 
         public void InitBoudary()
         {
@@ -324,12 +355,6 @@ namespace VMS_MobileGPS.ViewModels
         public static string ConvertIntToHex(int value)
         {
             return value.ToString("X").PadLeft(6, '0');
-        }
-
-        public override void OnDestroy()
-        {
-            if (ctsRouting != null)
-                ctsRouting.Cancel();
         }
 
         private void TimeSelected(string args)
@@ -896,17 +921,6 @@ namespace VMS_MobileGPS.ViewModels
             //}
         }
 
-        private readonly double SPEED_MAX = 8;
-        private readonly double BASE_TIME = 250;
-
-        private readonly double MARKER_ROTATE_RATE = 0.1;
-        private double MARKER_ROTATE_STEP => 5;
-        private double MARKER_ROTATE_TIME_STEP => MARKER_ROTATE_RATE * BASE_TIME / PlaySpeed / MARKER_ROTATE_STEP;
-
-        private double MARKER_MOVE_RATE => 1 - MARKER_ROTATE_RATE;
-        private double MARKER_MOVE_STEP => 64 / PlaySpeed;
-        private double MARKER_MOVE_TIME_STEP => BASE_TIME / PlaySpeed / MARKER_MOVE_STEP;
-
         private void PlayStop()
         {
             try
@@ -1126,8 +1140,6 @@ namespace VMS_MobileGPS.ViewModels
             Polylines.Add(CurrentLine);
         }
 
-        private bool lastPlayStatus;
-
         private void DragStarted()
         {
             lastPlayStatus = IsPlaying;
@@ -1214,5 +1226,7 @@ namespace VMS_MobileGPS.ViewModels
 
             MoveToCurrent();
         }
+
+        #endregion
     }
 }

@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.NotificationDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    x:Name="this"
+    Title="{Binding Title}"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <WebView Grid.Row="0" Margin="0">
+                <WebView.Source>
+                    <HtmlWebViewSource Html="{Binding Content}" />
+                </WebView.Source>
+            </WebView>
+
+            <StackLayout
+                Grid.Row="1"
+                IsVisible="{Binding FileAttach, Converter={StaticResource NullOrEmptyToBoolConverter}}"
+                Spacing="0">
+
+                <sharpnado:MaterialFrame
+                    Grid.Row="0"
+                    Padding="5"
+                    CornerRadius="0"
+                    HasShadow="False"
+                    HorizontalOptions="FillAndExpand"
+                    LightThemeBackgroundColor="{StaticResource TextSecondaryColor}"
+                    VerticalOptions="FillAndExpand">
+
+                    <sharpnado:MaterialFrame.Content>
+                        <StackLayout Orientation="Horizontal">
+                            <controls:FontAwesomeIcon
+                                FontSize="15"
+                                HorizontalOptions="Start"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.File}"
+                                TextColor="{StaticResource PrimaryColor}"
+                                VerticalOptions="Center">
+                                <controls:FontAwesomeIcon.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.DowloadFileCommand, Source={x:Reference Name=this}}" CommandParameter="{Binding .}" />
+                                </controls:FontAwesomeIcon.GestureRecognizers>
+                            </controls:FontAwesomeIcon>
+                            <Label
+                                HorizontalOptions="StartAndExpand"
+                                Text="Tệp đính kèm"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </StackLayout>
+
+                    </sharpnado:MaterialFrame.Content>
+                </sharpnado:MaterialFrame>
+
+                <StackLayout
+                    Padding="10"
+                    BindableLayout.ItemsSource="{Binding FileAttach}"
+                    HorizontalOptions="CenterAndExpand"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <sharpnado:MaterialFrame
+                                Padding="0"
+                                BackgroundColor="White"
+                                CornerRadius="5"
+                                HasShadow="True"
+                                HeightRequest="40"
+                                HorizontalOptions="End"
+                                IsVisible="{Binding FileAttach, Converter={StaticResource NullOrEmptyToBoolConverter}}"
+                                VerticalOptions="End"
+                                WidthRequest="40">
+                                <sharpnado:MaterialFrame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding DowloadFileCommand}" />
+                                </sharpnado:MaterialFrame.GestureRecognizers>
+                                <sharpnado:MaterialFrame.Content>
+                                    <controls:FontAwesomeIcon
+                                        FontSize="30"
+                                        HorizontalOptions="Center"
+                                        Text="{x:Static fontawesome:FontAwesomeIcons.FileDownload}"
+                                        TextColor="{StaticResource PrimaryColor}"
+                                        VerticalOptions="Center">
+                                        <controls:FontAwesomeIcon.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.DowloadFileCommand, Source={x:Reference Name=this}}" CommandParameter="{Binding .}" />
+                                        </controls:FontAwesomeIcon.GestureRecognizers>
+                                    </controls:FontAwesomeIcon>
+                                </sharpnado:MaterialFrame.Content>
+
+                            </sharpnado:MaterialFrame>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
