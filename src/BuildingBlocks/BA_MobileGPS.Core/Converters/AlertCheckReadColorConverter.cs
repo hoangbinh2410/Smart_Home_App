@@ -13,11 +13,11 @@ namespace BA_MobileGPS.Converter
         {
             if ((bool)value)
             {
-                return Application.Current.Resources["Color_Border"];
+                return Application.Current.Resources["TextSecondaryColor"];
             }
             else
             {
-                return Application.Current.Resources["Color_Green"];
+                return Application.Current.Resources["GreenColor"];
             }
         }
 
@@ -31,7 +31,7 @@ namespace BA_MobileGPS.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var colorDefault = Application.Current.Resources["Color_Green"];
+            var colorDefault = Application.Current.Resources["GreenColor"];
             var color = colorDefault;
             try
             {

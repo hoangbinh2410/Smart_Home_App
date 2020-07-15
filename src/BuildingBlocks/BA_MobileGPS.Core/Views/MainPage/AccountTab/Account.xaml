@@ -41,7 +41,7 @@
                 VerticalOptions="Center"
                 WidthRequest="80">
                 <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding PushToProfileCommand}" />
+                    <TapGestureRecognizer Command="{Binding PushToProfileCommand}" NumberOfTapsRequired="1"/>
                 </Grid.GestureRecognizers>
                 <sfavatar:SfAvatarView
                     AvatarColorMode="DarkBackground"

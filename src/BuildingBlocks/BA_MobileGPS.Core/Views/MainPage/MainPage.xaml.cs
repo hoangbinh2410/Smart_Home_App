@@ -1,12 +1,12 @@
-﻿using BA_MobileGPS.Core.Events;
-using BA_MobileGPS.Core.Helpers;
+﻿using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Entities;
 using Prism;
 using Prism.Events;
 using Prism.Ioc;
 using Prism.Mvvm;
+using Sharpnado.Presentation.Forms.CustomViews.Tabs;
 using System;
-using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
@@ -23,27 +23,48 @@ namespace BA_MobileGPS.Core.Views
             var home = PrismApplicationBase.Current.Container.Resolve<ContentView>("HomeTab"); //Home
             ViewModelLocator.SetAutowirePartialView(home, MainContentPage);
             Switcher.Children.Add(home);// Trang home
+            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_Home.png", Label = MobileResource.Menu_TabItem_Home });
 
-            var listVehicleTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("ListVehicleTab"); //Phương tiện
-            ViewModelLocator.SetAutowirePartialView(listVehicleTab, MainContentPage);
-            Switcher.Children.Add(listVehicleTab);
+            if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
+            {
+                var listVehicleTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("ListVehicleTab"); //Phương tiện
+                ViewModelLocator.SetAutowirePartialView(listVehicleTab, MainContentPage);
+                Switcher.Children.Add(listVehicleTab);
+                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_Ship.png", Label = MobileResource.Menu_TabItem_Vehicle });
+            }
 
-            var online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online
-            ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
-            Switcher.Children.Add(online);
+            if (!CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
+            {
+                var online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online
+                ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
+                Switcher.Children.Add(online);
+                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_Mornitoring.png", Label = MobileResource.Menu_TabItem_Monitoring });
+                Switcher.SelectedIndex = Switcher.Children.Count - 1;
+            }
+            else
+            {               
+                Switcher.SelectedIndex = 2;
+                Switcher.SelectedIndex = 0;
+            }
 
-            var routeTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("RouteTab"); //RouteTab
-            ViewModelLocator.SetAutowirePartialView(routeTab, MainContentPage);
-            Switcher.Children.Add(routeTab);
+            if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
+            {
+                var routeTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("RouteTab"); //RouteTab
+                ViewModelLocator.SetAutowirePartialView(routeTab, MainContentPage);
+                Switcher.Children.Add(routeTab);
+                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_Voyage.png", Label = MobileResource.Menu_TabItem_Voyage });
+            }
 
             var accountTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("AccountTab"); //Account
             ViewModelLocator.SetAutowirePartialView(accountTab, MainContentPage);
             Switcher.Children.Add(accountTab);
+            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_Account.png", Label = MobileResource.Menu_TabItem_Account });
 
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitAnimation();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
-            Switcher.SelectedIndex = 2;
+   
+       
         }    
 
         private enum States
@@ -111,6 +132,11 @@ namespace BA_MobileGPS.Core.Views
         private async void ShowBoxInfo()
         {
             await _animations.Go(States.ShowFilter, true);
+        }
+
+        public virtual bool CheckPermision(int PermissionKey)
+        {
+            return StaticSettings.User.Permissions.IndexOf(PermissionKey) != -1;
         }
     }
 }

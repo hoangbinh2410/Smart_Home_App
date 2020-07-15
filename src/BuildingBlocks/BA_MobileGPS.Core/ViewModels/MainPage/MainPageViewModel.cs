@@ -85,7 +85,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 GetCountVehicleDebtMoney();
 
-                MenuTabConfig();
             });
         }
 
@@ -151,41 +150,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref selectedIndex, value);
                 RaisePropertyChanged();
             }
-        }
-
-        private bool vehicleTabVisible;
-        public bool VehicleTabVisible
-        {
-            get { return vehicleTabVisible; }
-            set
-            {
-                SetProperty(ref vehicleTabVisible, value);
-                RaisePropertyChanged();
-            }
-        }
-
-        private bool onlineTabVisible;
-        public bool OnlineTabVisible
-        {
-            get { return onlineTabVisible; }
-            set
-            {
-                SetProperty(ref onlineTabVisible, value);
-                RaisePropertyChanged();
-            }
-        }
-
-        private bool routeTabVisible;
-        public bool RouteTabVisible
-        {
-            get { return routeTabVisible; }
-            set
-            {
-                SetProperty(ref routeTabVisible, value);
-                RaisePropertyChanged();
-            }
-        }
-
+        }    
         #endregion Property
 
         #region PrivateMethod
@@ -204,13 +169,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 OnResumePage(true);
             }
         }
-        private void MenuTabConfig()
-        {
-            VehicleTabVisible = CheckPermision((int)PermissionKeyNames.VehicleView);
-            OnlineTabVisible = CheckPermision((int)PermissionKeyNames.ViewModuleOnline);
-            RouteTabVisible = CheckPermision((int)PermissionKeyNames.ViewModuleRoute);
-        }
-
         private void SetTimeServer()
         {
             timer = new Timer

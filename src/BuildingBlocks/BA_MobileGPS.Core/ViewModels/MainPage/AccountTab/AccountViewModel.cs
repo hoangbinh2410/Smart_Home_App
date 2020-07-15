@@ -56,8 +56,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = "BaseNavigationPage/ChangePasswordPage",
                 MenuType = MenuType.ChangePassword,
-                //IsEnable = CheckPermision((int)PermissionKeyNames.UserUpdate)
-                IsEnable = true
+                IsEnable = CheckPermision((int)PermissionKeyNames.UserUpdate)
             });
             // Hỗ trợ khách hàng
             list.Add(new MenuItem
@@ -75,7 +74,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Title = MobileResource.AccountTab_Label_DeviceManual,
                 Icon = "ic_devicemanual.png",
                 UseModalNavigation = true,
-                Url = "BaseNavigationPage/FeedbackPage",
+                Url = "NavigationPage/HelperPage",
                 MenuType = MenuType.DeviceManual,
                 IsEnable = true
             });
@@ -115,7 +114,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Title = MobileResource.AccountTab_Label_Setting,
                 Icon = "ic_settings.png",
                 UseModalNavigation = true,
-                Url = "MenuNavigationPage/SettingsPage",
+                Url = "NavigationPage/SettingsPage",
                 MenuType = MenuType.Setting,
                 IsEnable = true
             });
@@ -172,9 +171,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         case MenuType.CustomerSupport:
                             await Launcher.OpenAsync(new Uri(item.Url));
                             break;
-                        case MenuType.DeviceManual:
-                            await Launcher.OpenAsync(new Uri(item.Url));
-                            break;
                         case MenuType.BAGPSIntro:
                             await Launcher.OpenAsync(new Uri(item.Url));
                             break;
@@ -184,9 +180,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         case MenuType.Rating:
                             await Launcher.OpenAsync(new Uri(item.Url));
                             break;
-                        case MenuType.Setting:
-                            await Launcher.OpenAsync(new Uri(item.Url));
-                            break;                      
                         default:
                             await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation);
                             break;

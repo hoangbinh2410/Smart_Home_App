@@ -4,10 +4,12 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors"
+    xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:local="clr-namespace:BA_MobileGPS.Entities;assembly=BA_MobileGPS.Entities"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <ContentView.Content>
@@ -24,12 +26,15 @@
                 Orientation="Horizontal"
                 Spacing="15"
                 VerticalOptions="EndAndExpand">
-                <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Phone}">
+                <controls:FontAwesomeIcon
+                    Rotation="90"
+                    StyleClass="TopIconView"
+                    Text="{x:Static fontawesome:FontAwesomeIcons.Phone}">
                     <controls:FontAwesomeIcon.Behaviors>
                         <animation:ViewTappedBehavior AnimationType="Scale" />
                     </controls:FontAwesomeIcon.Behaviors>
                     <controls:FontAwesomeIcon.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding HotlineTapCommand}" />
+                        <TapGestureRecognizer Command="{Binding CallHotLineCommand}" />
                     </controls:FontAwesomeIcon.GestureRecognizers>
                 </controls:FontAwesomeIcon>
                 <controls:FontAwesomeIcon
@@ -47,12 +52,36 @@
                     <controls:FontAwesomeIcon.Behaviors>
                         <animation:ViewTappedBehavior AnimationType="Scale" />
                     </controls:FontAwesomeIcon.Behaviors>
+                    <controls:FontAwesomeIcon.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PushToNoticePageCommand}" />
+                    </controls:FontAwesomeIcon.GestureRecognizers>
                 </controls:FontAwesomeIcon>
-                <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Bell}">
-                    <controls:FontAwesomeIcon.Behaviors>
-                        <animation:ViewTappedBehavior AnimationType="Scale" />
-                    </controls:FontAwesomeIcon.Behaviors>
-                </controls:FontAwesomeIcon>
+                <badge:SfBadgeView
+                    Margin="0,0,0,5"
+                    BackgroundColor="Transparent"
+                    BadgeText="{Binding TotalAlertDisplay, Source={x:Static local:GlobalResources.Current}}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <badge:SfBadgeView.Content>
+                        <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Bell}">
+                            <controls:FontAwesomeIcon.Behaviors>
+                                <animation:ViewTappedBehavior AnimationType="Scale" />
+                            </controls:FontAwesomeIcon.Behaviors>
+                            <controls:FontAwesomeIcon.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding PushToAleartPageCommand}" />
+                            </controls:FontAwesomeIcon.GestureRecognizers>
+                        </controls:FontAwesomeIcon>
+                    </badge:SfBadgeView.Content>
+                    <badge:SfBadgeView.BadgeSettings>
+                        <badge:BadgeSetting
+                            BadgePosition="TopRight"
+                            BadgeType="Error"
+                            CornerRadius="12"
+                            FontSize="9"
+                            TextPadding="3"
+                            Offset="0,0" />
+                    </badge:SfBadgeView.BadgeSettings>
+                </badge:SfBadgeView>
             </StackLayout>
         </Grid>
     </ContentView.Content>

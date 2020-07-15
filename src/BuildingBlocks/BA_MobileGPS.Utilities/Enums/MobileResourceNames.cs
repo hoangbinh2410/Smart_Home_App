@@ -906,6 +906,9 @@
         Settings_Label_SettingMylocationMap,
         Settings_Label_SettingMylocationMap2,
         Settings_Label_SettingThelocation,
+        Settings_Label_SettingReceiveAlert,
+        Settings_Label_ListAlert,
+        Settings_Label_ListVehicleAlert,
         #endregion
 
         #region VehicleGroupLookUp
@@ -1102,5 +1105,29 @@
         AccountTab_Label_Logout,
         AccountTab_Label_MessageWarningLogout,
         #endregion
+
+        #region Alert Config
+
+        AlertConfig_Label_Alter,
+        AlertConfig_Label_SendSuccess,
+        AlertConfig_Label_SendFail,
+        AlertConfig_Label_Choose_Time,
+        AlertConfig_Label_Warning_Alert,
+        AlertConfig_Label_Warning_Vehicle,
+        AlertConfig_Label_Warning_Time,
+        AlertConfig_Label_All_Warnings,
+        AlertConfig_Label_All_Warnings_Description,
+        AlertConfig_Label_NextStep,
+        AlertConfig_Label_All_Vehicle,
+        AlertConfig_Label_All_Vehicle_Description,
+        AlertConfig_Label_All_Vehicle_Not_Configured,
+        AlertConfig_Label_About_Time,
+        AlertConfig_Label_Start_Time,
+        AlertConfig_Label_End_Time,
+        AlertConfig_Label_Choose_Time_Zone,
+        AlertConfig_Label_Choose_All_Time_Zone,
+        AlertConfig_Label_Save_Configuration,
+
+        #endregion Alert Config
     }
 }

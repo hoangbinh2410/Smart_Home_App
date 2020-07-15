@@ -15,5 +15,11 @@ namespace BA_MobileGPS.Service
         Task<bool> HandleAlertAsync(StatusAlertRequestModel rqModel);
 
         Task<int> GetCountAlert(Guid PK_UserID);
+
+        Task<List<AlertCompanyConfigRespone>> GetAlertCompanyConfig(int companyID);
+
+        Task<AlertUserConfigurationsRespone> GetAlertUserConfigurations(Guid userId);
+
+        Task<BaseResponse<bool>> SendAlertUserConfig(AlertUserConfigurationsRequest request);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
 using Prism;
@@ -57,6 +58,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public DelegateCommand SelectVehicleRouterCommand { get; private set; }
 
         public DelegateCommand SelectVehicleGroupCommand { get; private set; }
+        
 
         public ViewModelBase(INavigationService navigationService)
         {
@@ -91,7 +93,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (e.NetworkAccess != NetworkAccess.Internet)
             {
                 // await NavigationService.NavigateAsync("NetworkPage");
-                //await PopupNavigation.Instance.PushAsync(new NetworkPage());
+                await PopupNavigation.Instance.PushAsync(new NetworkPage());
             }
             else
             {
@@ -342,12 +344,39 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     SafeExecute(async () =>
                     {
-                        await NavigationService.NavigateAsync("AlertOnlinePage", useModalNavigation: false);
+                        await NavigationService.NavigateAsync("BaseNavigationPage/AlertOnlinePage", useModalNavigation: true);
                     });
                 });
             }
         }
 
+        public ICommand PushToNoticePageCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    SafeExecute(async () =>
+                    {
+                        await NavigationService.NavigateAsync("NavigationPage/NotificationPage", useModalNavigation: true);
+                    });
+                });
+            }
+        }
+
+        public ICommand CallHotLineCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    if (!string.IsNullOrEmpty(MobileSettingHelper.HotlineGps))
+                    {
+                        PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                    }
+                });
+            }
+        }
         private LoginResponse userInfo;
 
         public LoginResponse UserInfo
