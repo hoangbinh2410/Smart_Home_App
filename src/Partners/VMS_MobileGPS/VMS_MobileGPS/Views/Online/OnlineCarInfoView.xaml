@@ -27,97 +27,101 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Padding="10,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <controls:IconView
+            <StackLayout
                 Grid.Row="0"
                 Grid.Column="0"
-                Foreground="{StaticResource PrimaryColor}"
-                HeightRequest="20"
-                HorizontalOptions="Center"
-                Source="ic_ship2.png"
-                VerticalOptions="Center"
-                WidthRequest="20" />
+                Orientation="Horizontal">
+                <controls:IconView
+                    Foreground="{StaticResource PrimaryColor}"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
+                    Source="ic_ship2.png"
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
+                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        Text="{Binding CarActive.PrivateCode}" />
+                    <Label
+                        FontAttributes="Bold"
+                        Text="{i18n:TranslateResource Online_Label_AtTime}"
+                        VerticalOptions="End" />
+                </StackLayout>
+            </StackLayout>
+
+
             <StackLayout
                 Grid.Row="0"
                 Grid.Column="1"
-                Orientation="Horizontal"
-                VerticalOptions="Center">
-                <Label
-                    FontAttributes="Bold"
-                    FontSize="16"
-                    Text="{Binding CarActive.PrivateCode}" />
-                <Label
-                    FontAttributes="Bold"
-                    Text="{i18n:TranslateResource Online_Label_AtTime}"
-                    VerticalOptions="End" />
-            </StackLayout>
-            <pancake:PancakeView
-                Grid.Row="0"
-                Grid.Column="1"
-                Margin="0,0,40,0"
-                Padding="0"
-                BackgroundColor="{StaticResource PrimaryColor}"
-                CornerRadius="22"
                 HorizontalOptions="End"
-                IsVisible="{Binding Circles, Converter={StaticResource HasDataConverter}}"
-                WidthRequest="30">
-                <pancake:PancakeView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding HideBorderCommand}" />
-                </pancake:PancakeView.GestureRecognizers>
-                <controls:IconView
-                    Margin="5"
-                    Foreground="{StaticResource WhiteColor}"
-                    HeightRequest="20"
-                    HorizontalOptions="End"
-                    Source="ic_radius.png"
-                    VerticalOptions="Center"
-                    WidthRequest="20" />
-            </pancake:PancakeView>
-            <pancake:PancakeView
-                Grid.Row="0"
-                Grid.Column="1"
-                Margin="0,0,40,0"
-                Padding="0"
-                BackgroundColor="{StaticResource GrayColor2}"
-                CornerRadius="22"
-                HorizontalOptions="End"
-                IsVisible="{Binding Circles, Converter={StaticResource IsEmptyDataConverter}}"
-                WidthRequest="30">
-                <pancake:PancakeView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ShowBorderCommand}" />
-                </pancake:PancakeView.GestureRecognizers>
-                <controls:IconView
-                    Margin="5"
-                    Foreground="{StaticResource WhiteColor}"
-                    HeightRequest="20"
-                    HorizontalOptions="End"
-                    Source="ic_radius.png"
-                    VerticalOptions="Center"
-                    WidthRequest="20" />
-            </pancake:PancakeView>
+                Orientation="Horizontal">
+                <sharpnado:MaterialFrame
+                    Padding="5"
+                    CornerRadius="15"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding Circles, Converter={StaticResource HasDataConverter}}"
+                    LightThemeBackgroundColor="{StaticResource PrimaryColor}">
+                    <sharpnado:MaterialFrame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding HideBorderCommand}" />
+                    </sharpnado:MaterialFrame.GestureRecognizers>
+                    <sharpnado:MaterialFrame.Content>
+                        <controls:IconView
+                            Foreground="{StaticResource WhiteColor}"
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            Source="ic_radius.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
+                    </sharpnado:MaterialFrame.Content>
+                </sharpnado:MaterialFrame>
+                <sharpnado:MaterialFrame
+                    Padding="5"
+                    CornerRadius="15"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding Circles, Converter={StaticResource IsEmptyDataConverter}}"
+                    LightThemeBackgroundColor="{StaticResource GrayColor2}">
+                    <sharpnado:MaterialFrame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowBorderCommand}" />
+                    </sharpnado:MaterialFrame.GestureRecognizers>
+                    <sharpnado:MaterialFrame.Content>
+                        <controls:IconView
+                            Foreground="{StaticResource WhiteColor}"
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            Source="ic_radius.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
+                    </sharpnado:MaterialFrame.Content>
 
-            <pancake:PancakeView
-                Grid.Row="0"
-                Grid.Column="1"
-                Padding="0"
-                BackgroundColor="{StaticResource PrimaryColor}"
-                CornerRadius="22"
-                HorizontalOptions="End"
-                WidthRequest="30">
-                <pancake:PancakeView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoDistancePageCommand}" />
-                </pancake:PancakeView.GestureRecognizers>
-                <controls:IconView
-                    Margin="9"
-                    Foreground="{StaticResource WhiteColor}"
-                    HeightRequest="12"
-                    HorizontalOptions="End"
-                    Source="ic_distance2.png"
-                    VerticalOptions="Center"
-                    WidthRequest="12" />
-            </pancake:PancakeView>
+                </sharpnado:MaterialFrame>
+
+                <sharpnado:MaterialFrame
+                    Padding="5"
+                    CornerRadius="15"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
+                    LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                    WidthRequest="20">
+                    <sharpnado:MaterialFrame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoDistancePageCommand}" />
+                    </sharpnado:MaterialFrame.GestureRecognizers>
+                    <sharpnado:MaterialFrame.Content>
+                        <controls:IconView
+                            Foreground="{StaticResource WhiteColor}"
+                            HeightRequest="12"
+                            HorizontalOptions="Center"
+                            Source="ic_distance2.png"
+                            VerticalOptions="Center"
+                            WidthRequest="12" />
+                    </sharpnado:MaterialFrame.Content>
+
+                </sharpnado:MaterialFrame>
+            </StackLayout>
+
         </Grid>
         <BoxView
             Grid.Row="1"
@@ -126,28 +130,22 @@
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start" />
         <Grid Grid.Row="2" Padding="10,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
 
-            <controls:IconView
-                Grid.Row="0"
-                Grid.Column="0"
-                Foreground="{StaticResource PrimaryColor}"
-                HeightRequest="20"
-                HorizontalOptions="Center"
-                Source="ic_time24.png"
-                VerticalOptions="Center"
-                WidthRequest="20" />
-            <StackLayout
-                Grid.Row="0"
-                Grid.Column="1"
-                Orientation="Horizontal"
-                VerticalOptions="Center">
-                <Label Text="{Binding CarActive.VehicleTime, Converter={StaticResource DateTimeConverter}}" />
-                <Label Text="{Binding CarActive.LostGSMTime, Converter={StaticResource SecondsToStringConverter}, StringFormat='{}({0})'}" />
+
+            <StackLayout Orientation="Horizontal">
+                <controls:IconView
+                    Foreground="{StaticResource PrimaryColor}"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
+                    Source="ic_time24.png"
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
+                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                    <Label Text="{Binding CarActive.VehicleTime, Converter={StaticResource DateTimeConverter}}" />
+                    <Label Text="{Binding CarActive.LostGSMTime, Converter={StaticResource SecondsToStringConverter}, StringFormat='{}({0})'}" />
+                </StackLayout>
             </StackLayout>
+
         </Grid>
         <BoxView
             Grid.Row="3"
@@ -156,25 +154,20 @@
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start" />
         <Grid Grid.Row="4" Padding="10,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <controls:IconView
-                Grid.Row="0"
-                Grid.Column="0"
-                Foreground="{StaticResource PrimaryColor}"
-                HeightRequest="20"
-                HorizontalOptions="Center"
-                Source="ic_coordinates.png"
-                VerticalOptions="Center"
-                WidthRequest="20" />
-            <StackLayout
-                Grid.Row="0"
-                Grid.Column="1"
-                Orientation="Horizontal">
-                <Label Text="{Binding CurrentAddress}" />
+
+            <StackLayout Orientation="Horizontal">
+                <controls:IconView
+                    Foreground="{StaticResource PrimaryColor}"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
+                    Source="ic_coordinates.png"
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding CurrentAddress}" />
+                </StackLayout>
             </StackLayout>
+
         </Grid>
         <BoxView
             Grid.Row="5"
@@ -187,36 +180,28 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+
+            <StackLayout
+                Grid.Row="0"
+                Grid.Column="0"
+                Orientation="Horizontal">
                 <controls:IconView
-                    Grid.Row="0"
-                    Grid.Column="0"
                     Foreground="{StaticResource PrimaryColor}"
                     HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_speed.png"
                     VerticalOptions="Center"
                     WidthRequest="20" />
-                <StackLayout
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Orientation="Horizontal"
-                    VerticalOptions="Center">
+                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                     <Label Text="{Binding CarActive.Velocity, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Common_Lable_NMUnit}}" />
                 </StackLayout>
-            </Grid>
-            <Grid Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+            </StackLayout>
+
+            <StackLayout
+                Grid.Row="0"
+                Grid.Column="1"
+                Orientation="Horizontal">
                 <controls:IconView
-                    Grid.Row="0"
-                    Grid.Column="0"
                     Foreground="{StaticResource PrimaryColor}"
                     HeightRequest="20"
                     HorizontalOptions="Center"
@@ -224,14 +209,11 @@
                     VerticalOptions="Center"
                     WidthRequest="20" />
 
-                <StackLayout
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Orientation="Horizontal"
-                    VerticalOptions="Center">
+                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                     <Label Text="{Binding CarActive.TotalKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm}}" />
                 </StackLayout>
-            </Grid>
+            </StackLayout>
+
         </Grid>
         <BoxView
             Grid.Row="7"
@@ -248,31 +230,31 @@
             <Button
                 Grid.Column="0"
                 BackgroundColor="{StaticResource PrimaryColor}"
-                BorderRadius="20"
+                BorderRadius="18"
                 Command="{Binding PushToRouterPageCommand}"
                 FontAttributes="Bold"
                 FontSize="10"
-                HeightRequest="35"
+                HeightRequest="36"
                 Text="{i18n:TranslateResource Route_Label_TitleVMS}"
                 TextColor="{StaticResource WhiteColor}" />
             <Button
                 Grid.Column="1"
                 BackgroundColor="{StaticResource PrimaryColor}"
-                BorderRadius="20"
+                BorderRadius="18"
                 Command="{Binding PushToServicePackHistoryPageCommand}"
                 FontAttributes="Bold"
                 FontSize="10"
-                HeightRequest="35"
+                HeightRequest="36"
                 Text="Phí phương tiện"
                 TextColor="{StaticResource WhiteColor}" />
             <Button
                 Grid.Column="2"
                 BackgroundColor="{StaticResource PrimaryColor}"
-                BorderRadius="20"
+                BorderRadius="18"
                 Command="{Binding PushToDetailPageCommand}"
                 FontAttributes="Bold"
                 FontSize="10"
-                HeightRequest="35"
+                HeightRequest="36"
                 Text="{i18n:TranslateResource Online_Button_Detail}"
                 TextColor="{StaticResource WhiteColor}" />
         </Grid>
