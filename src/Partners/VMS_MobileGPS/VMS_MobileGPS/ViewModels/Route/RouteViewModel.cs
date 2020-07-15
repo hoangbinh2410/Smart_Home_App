@@ -98,7 +98,6 @@ namespace VMS_MobileGPS.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            RaisePropertyChanged(nameof(PlayStopImage));
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -192,7 +191,7 @@ namespace VMS_MobileGPS.ViewModels
         public bool IsWatching { get => isWatching; set => SetProperty(ref isWatching, value); }
 
         public bool isPlaying;
-        public bool IsPlaying { get => isPlaying; set => SetProperty(ref isPlaying, value); }
+        public bool IsPlaying { get => isPlaying; set => SetProperty(ref isPlaying, value, relatedProperty: nameof(PlayStopImage)); }
 
         public string PlayStopImage => IsPlaying ? "ic_stop_white" : "ic_play_arrow_white";
 

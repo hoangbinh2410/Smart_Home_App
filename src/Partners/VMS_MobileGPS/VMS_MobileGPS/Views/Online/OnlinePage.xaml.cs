@@ -1124,6 +1124,27 @@ namespace VMS_MobileGPS.Views
         //    vm.PushToFABPageCommand.Execute(e.EventIndex);
         //}
 
+        public async void GetMylocation(object sender, EventArgs e)
+        {
+            try
+            {
+                var mylocation = await LocationHelper.GetGpsLocation();
+
+                if (mylocation != null)
+                {
+                    if (!googleMap.MyLocationEnabled)
+                    {
+                        googleMap.MyLocationEnabled = true;
+                    }
+                    await googleMap.AnimateCamera(CameraUpdateFactory.NewPosition(new Position(mylocation.Latitude, mylocation.Longitude)), TimeSpan.FromMilliseconds(300));
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            }
+        }
+
         #endregion Private Method
     }
 }

@@ -49,7 +49,6 @@ namespace VMS_MobileGPS.ViewModels
         public DelegateCommand PushToServicePackHistoryPageCommand { get; private set; }
         public DelegateCommand ShowBorderCommand { get; private set; }
         public DelegateCommand HideBorderCommand { get; private set; }
-        public ICommand MyLocationCommand { get; private set; }
         public ICommand PushtoListVehicleOnlineCommand { get; private set; }
         public DelegateCommand GoDistancePageCommand { get; private set; }
 
@@ -94,7 +93,6 @@ namespace VMS_MobileGPS.ViewModels
             CameraIdledCommand = new DelegateCommand<CameraIdledEventArgs>(UpdateMapInfo);
             ShowBorderCommand = new DelegateCommand(ShowBorder);
             HideBorderCommand = new DelegateCommand(HideBorder);
-            MyLocationCommand = new DelegateCommand(GetMylocation);
             GoDistancePageCommand = new DelegateCommand(GoDistancePage);
             PushToServicePackHistoryPageCommand = new DelegateCommand(GoServicePackHistoryPage);
         }
@@ -269,29 +267,6 @@ namespace VMS_MobileGPS.ViewModels
                     case 3:
                         await NavigationService.NavigateAsync("MenuNavigationPage/HeplerPage", null, useModalNavigation: true);
                         break;
-                }
-            });
-        }
-
-        public void GetMylocation()
-        {
-            SafeExecute(async () =>
-            {
-                var mylocation = await LocationHelper.GetGpsLocation();
-
-                if (mylocation != null)
-                {
-                    if (GetControl<Map>("googleMap") is Map map)
-                    {
-                        TryExecute(() =>
-                        {
-                            if (!map.MyLocationEnabled)
-                            {
-                                map.MyLocationEnabled = true;
-                            }
-                        });
-                    }
-                    await AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(new Position(mylocation.Latitude, mylocation.Longitude)), TimeSpan.FromMilliseconds(300));
                 }
             });
         }
