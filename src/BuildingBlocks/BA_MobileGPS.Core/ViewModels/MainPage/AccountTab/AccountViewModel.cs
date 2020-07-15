@@ -115,7 +115,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Title = MobileResource.AccountTab_Label_Setting,
                 Icon = "ic_settings.png",
                 UseModalNavigation = true,
-                Url = "MenuNavigationPage/SettingsPage",
+                Url = "NavigationPage/SettingsPage",
                 MenuType = MenuType.Setting,
                 IsEnable = true
             });
@@ -184,9 +184,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         case MenuType.Rating:
                             await Launcher.OpenAsync(new Uri(item.Url));
                             break;
-                        case MenuType.Setting:
-                            await Launcher.OpenAsync(new Uri(item.Url));
-                            break;                      
                         default:
                             await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation);
                             break;
