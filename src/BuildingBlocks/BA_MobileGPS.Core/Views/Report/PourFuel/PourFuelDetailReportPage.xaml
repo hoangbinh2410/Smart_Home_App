@@ -275,6 +275,7 @@
                                     Grid.Column="1"
                                     Margin="30,0,0,0"
                                     HorizontalOptions="EndAndExpand"
+                                    HorizontalTextAlignment="Start"
                                     Text="{Binding SelectedPourFuel.CurrentAddress}"
                                     VerticalOptions="Center"
                                     VerticalTextAlignment="Center" />

@@ -452,8 +452,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             var data = ListDataSearch;
                             if (data != null && data.Count > 0)
                             {
-
-
                                 if (TempFileName != string.Empty)
                                 {
                                     if (!FillDataToExcellTemp(data))
@@ -481,6 +479,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoData, CountMinutesShowMessageReport);
                             }
+
                         }
                     }
                 }

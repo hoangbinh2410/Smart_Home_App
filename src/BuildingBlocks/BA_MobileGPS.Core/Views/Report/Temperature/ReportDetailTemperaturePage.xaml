@@ -305,7 +305,9 @@
                                 <Label
                                     Grid.Row="0"
                                     Grid.Column="1"
+                                    Margin="30,0,0,0"
                                     HorizontalOptions="EndAndExpand"
+                                    HorizontalTextAlignment="Start"
                                     Text="{Binding SelectTemperatureItem.StartAddress}"
                                     VerticalOptions="Center"
                                     VerticalTextAlignment="Center" />
@@ -317,7 +319,7 @@
                                     HorizontalOptions="FillAndExpand"
                                     VerticalOptions="Start" />
                             </Grid>
-                            <!--  Địa chỉ đi  -->
+                            <!--  Địa chỉ đến  -->
                             <Grid Grid.Row="6" RowSpacing="0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -348,7 +350,9 @@
                                 <Label
                                     Grid.Row="0"
                                     Grid.Column="1"
+                                    Margin="30,0,0,0"
                                     HorizontalOptions="EndAndExpand"
+                                    HorizontalTextAlignment="Start"
                                     Text="{Binding SelectTemperatureItem.EndAddress}"
                                     VerticalOptions="Center"
                                     VerticalTextAlignment="Center" />

@@ -253,7 +253,9 @@
                                 <Label
                                     Grid.Row="0"
                                     Grid.Column="1"
+                                    Margin="30,0,0,0"
                                     HorizontalOptions="EndAndExpand"
+                                    HorizontalTextAlignment="Start"
                                     Text="{Binding SelectMachineDetail.StartAddress}"
                                     VerticalOptions="Center"
                                     VerticalTextAlignment="Center" />
@@ -296,7 +298,9 @@
                                 <Label
                                     Grid.Row="0"
                                     Grid.Column="1"
+                                    Margin="30,0,0,0"
                                     HorizontalOptions="EndAndExpand"
+                                    HorizontalTextAlignment="Start"
                                     Text="{Binding SelectMachineDetail.EndAddress}"
                                     VerticalOptions="Center"
                                     VerticalTextAlignment="Center" />

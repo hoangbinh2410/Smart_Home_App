@@ -256,6 +256,7 @@
                                     Grid.Column="1"
                                     Margin="30,0,0,0"
                                     HorizontalOptions="EndAndExpand"
+                                    HorizontalTextAlignment="Start"
                                     Text="{Binding SelectedSignalLoss.StartAddress}"
                                     VerticalOptions="Center"
                                     VerticalTextAlignment="Center" />
@@ -300,6 +301,7 @@
                                     Grid.Column="1"
                                     Margin="30,0,0,0"
                                     HorizontalOptions="EndAndExpand"
+                                    HorizontalTextAlignment="Start"
                                     Text="{Binding SelectedSignalLoss.EndAddress}"
                                     VerticalOptions="Center"
                                     VerticalTextAlignment="Center" />
