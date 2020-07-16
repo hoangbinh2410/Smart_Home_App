@@ -79,7 +79,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     return;              
                 else
                 {
-                    await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
+                   var a =  await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
                 }
             }
             catch (Exception ex)

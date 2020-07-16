@@ -35,7 +35,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             TapMenuCommand = new DelegateCommand<object>(OnTappedMenu);
             listfeatures = new ObservableCollection<ItemSupport>();
-            favouriteMenuItems = new ObservableCollection<HomeMenuItemViewModel>();
+            favouriteMenuItems = new ObservableCollection<ItemSupport>();
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -119,8 +119,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     MenuItemParentID = m1.MenuItemParentID,
                     LanguageCode = m1.LanguageCode,
                 };
-            StaticSettings.ListMenuOriginGroup = mapper.Map<List<HomeMenuItem>>(menus);
-            GenerateListFeatures(menus.ToList());
+            StaticSettings.ListMenuOriginGroup = mapper.Map<List<HomeMenuItem>>(menus);           
 
             if (!string.IsNullOrEmpty(menuFavoriteIds))
             {
@@ -151,21 +150,37 @@ namespace BA_MobileGPS.Core.ViewModels
                 from m in menus
                 orderby m.IsFavorited descending, m.SortOrder, m.GroupName descending
                 select m;
-            FavouriteMenuItems = result.Where(s => s.IsFavorited).ToObservableCollection();
+            var  favourites = result.Where(s => s.IsFavorited).ToList();
+            GenerateFavouriteMenu(favourites);
+            var notFavorites = result.Where(s => !s.IsFavorited).ToList();
+            GenerateListFeatures(notFavorites);
             HasFavorite = FavouriteMenuItems.Count != 0;
             StaticSettings.ListMenu = mapper.Map<List<HomeMenuItem>>(result);
+        }
+        private void GenerateFavouriteMenu(List<HomeMenuItemViewModel> input)
+        {
+            FavouriteMenuItems.Clear();
+            var list = new List<ItemSupport>();
+            for (int i = 0; i < input.Count / 3.0; i++)
+            {
+                var temp = new ItemSupport();
+                temp.FeaturesItem = input.Skip(i * 3).Take(3).ToList();
+                list.Add(temp);
+            }
+            FavouriteMenuItems = list.ToObservableCollection();
         }
 
         private void GenerateListFeatures(List<HomeMenuItemViewModel> input)
         {
-            AllListfeatures.Clear();
+            var list = new List<ItemSupport>();
             // 6 Item per indicator view in Sflistview
             for (int i = 0; i < input.Count / 6.0; i++)
             {
                 var temp = new ItemSupport();
                 temp.FeaturesItem = input.Skip(i * 6).Take(6).ToList();
-                AllListfeatures.Add(temp);
+                list.Add(temp);
             }
+            AllListfeatures = list.ToObservableCollection();
         }
         public void OnTappedMenu(object obj)
         {
@@ -228,8 +243,8 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private ObservableCollection<HomeMenuItemViewModel> favouriteMenuItems;
-        public ObservableCollection<HomeMenuItemViewModel> FavouriteMenuItems
+        private ObservableCollection<ItemSupport> favouriteMenuItems;
+        public ObservableCollection<ItemSupport> FavouriteMenuItems
         {
             get => favouriteMenuItems;
             set
