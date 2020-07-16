@@ -64,7 +64,6 @@ namespace BA_MobileGPS.Core.Views
             InitAnimation();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
    
-       
         }    
 
         private enum States
