@@ -3,15 +3,16 @@
     x:Class="BA_MobileGPS.Core.Views.AlertOnlinePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:converts="clr-namespace:BA_MobileGPS.Converter"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     x:Name="this"
-    Title="{Binding Title}"
     BackgroundColor="Gray"
     NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
@@ -20,13 +21,49 @@
             <converts:AlertStatusColorConverter x:Key="alertStatusColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ContentPage.ToolbarItems>
-        <controls:HideableToolbarItem
-            Command="{Binding BindingContext.SelectCompanyCommand, Source={x:Reference Name=this}}"
-            Icon="ic_company.png"
-            IsVisible="{Binding Path=BindingContext.UserInfo.CompanyType, Source={x:Reference Name=this}, Converter={StaticResource IsCompanyConverter}}"
-            Priority="2" />
-    </ContentPage.ToolbarItems>
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <image:CachedImage
+                Grid.Column="0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <image:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </image:CachedImage.GestureRecognizers>
+            </image:CachedImage>
+            <Label
+                Grid.ColumnSpan="3"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="CenterAndExpand"
+                LineBreakMode="MiddleTruncation"
+                Text="{Binding Title}"
+                TextColor="White"
+                VerticalOptions="Center" />
+            <controls:FontAwesomeIcon
+                Grid.Column="2"
+                IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
+                StyleClass="TopIconView"
+                Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
+                <controls:FontAwesomeIcon.Behaviors>
+                    <animation:ViewTappedBehavior AnimationType="Scale" />
+                </controls:FontAwesomeIcon.Behaviors>
+                <controls:FontAwesomeIcon.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
+                </controls:FontAwesomeIcon.GestureRecognizers>
+            </controls:FontAwesomeIcon>
+        </Grid>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*">
             <image:CachedImage

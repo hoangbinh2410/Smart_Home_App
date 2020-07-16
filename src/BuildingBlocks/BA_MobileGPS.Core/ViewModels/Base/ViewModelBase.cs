@@ -344,7 +344,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     SafeExecute(async () =>
                     {
-                        await NavigationService.NavigateAsync("BaseNavigationPage/AlertOnlinePage", useModalNavigation: true);
+                        await NavigationService.NavigateAsync("/AlertOnlinePage", useModalNavigation: true);
                     });
                 });
             }
