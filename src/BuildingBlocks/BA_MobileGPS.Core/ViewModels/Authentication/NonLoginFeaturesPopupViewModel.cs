@@ -32,7 +32,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Title = MobileResource.Login_Popup_Starting_Page,
                 Icon = "ic_FishingNet.png",
-                Url = "/OfflinePage",
+                Url = "NavigationPage/OfflinePage",
                 ItemType = LoginPopupItemType.OfflinePage
             });
             // Hướng dẫn sử dụng
