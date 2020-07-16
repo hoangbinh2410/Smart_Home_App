@@ -532,9 +532,6 @@
     <BundleResource Include="Resources\ic_start%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_end.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\ic_stop%403x.png" />
   </ItemGroup>
   <ItemGroup>
@@ -793,6 +790,12 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_excel%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_end%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_end%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
