@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:local="clr-namespace:BA_MobileGPS.Core"
     xmlns:locals="clr-namespace:BA_MobileGPS.Controls"
@@ -28,39 +29,52 @@
             HeightRequest="44"
             HorizontalOptions="FillAndExpand">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
             <Label
+                Grid.Column="1"
                 FontAttributes="Bold"
                 FontSize="20"
                 HorizontalOptions="Center"
-                LineBreakMode="MiddleTruncation"
+                LineBreakMode="TailTruncation"
                 Text="{i18n:TranslateResource SpeedOversReport_Label_TilePage}"
-                TextColor="White"
+                TextColor="{StaticResource WhiteColor}"
                 VerticalOptions="Center" />
-            <ffImage:CachedImage
-                Grid.Column="1"
-                Margin="5,0,5,0"
-                HeightRequest="27"
-                IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
-                Source="ic_company.png"
-                VerticalOptions="Center">
-                <ffImage:CachedImage.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
-                </ffImage:CachedImage.GestureRecognizers>
-            </ffImage:CachedImage>
-            <ffImage:CachedImage
+            <StackLayout
                 Grid.Column="2"
-                Margin="5,0,5,0"
-                HeightRequest="27"
-                Source="ic_settings.png"
-                VerticalOptions="Center">
-                <ffImage:CachedImage.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="HideableToolbarItem_Clicked" />
-                </ffImage:CachedImage.GestureRecognizers>
-            </ffImage:CachedImage>
+                HorizontalOptions="End"
+                Orientation="Horizontal">
+                <controls:FontAwesomeIcon
+                    Margin="5,0,5,0"
+                    IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
+                    StyleClass="TopIconView"
+                    Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
+                    <controls:FontAwesomeIcon.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
+                    </controls:FontAwesomeIcon.GestureRecognizers>
+                </controls:FontAwesomeIcon>
+                <controls:FontAwesomeIcon
+                    Margin="5,0,10,0"
+                    StyleClass="TopIconView"
+                    Text="{x:Static fontawesome:FontAwesomeIcons.Cog}">
+                    <controls:FontAwesomeIcon.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="HideableToolbarItem_Clicked" />
+                    </controls:FontAwesomeIcon.GestureRecognizers>
+                </controls:FontAwesomeIcon>
+            </StackLayout>
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
@@ -322,7 +336,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource SpeedOversReport_Table_Serial}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -354,7 +368,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource SpeedOversReport_Table_DetailVehiclePlate}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -385,7 +399,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource SpeedOversReport_Table_Date}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -426,7 +440,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource SpeedOversReport_Table_Time}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -460,7 +474,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource SpeedOversReport_Table_Distance}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -494,7 +508,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource SpeedOversReport_Table_Vmax}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -528,7 +542,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource SpeedOversReport_Table_StartAddress}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -562,7 +576,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource SpeedOversReport_Table_EndAddress}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -778,7 +792,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 Text="{i18n:TranslateResource Common_Button_SaveShowHideColumn,
                                                               Converter={StaticResource UpperCaseConverter}}"
-                                TextColor="White" />
+                                TextColor="{StaticResource WhiteColor}" />
                         </StackLayout>
                     </Grid>
                 </Frame>
