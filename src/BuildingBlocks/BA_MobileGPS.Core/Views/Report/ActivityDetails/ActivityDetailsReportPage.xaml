@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:local="clr-namespace:BA_MobileGPS.Core"
     xmlns:local1="clr-namespace:BA_MobileGPS.Core.Views"
@@ -40,29 +41,27 @@
                 HorizontalOptions="Center"
                 LineBreakMode="MiddleTruncation"
                 Text="{i18n:TranslateResource DetailsReport_Label_TilePage}"
-                TextColor="White"
+                TextColor="{StaticResource WhiteColor}"
                 VerticalOptions="Center" />
-            <ffImage:CachedImage
+            <controls:FontAwesomeIcon
                 Grid.Column="1"
                 Margin="5,0,5,0"
-                HeightRequest="27"
                 IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
-                Source="ic_company.png"
-                VerticalOptions="Center">
-                <ffImage:CachedImage.GestureRecognizers>
+                StyleClass="TopIconView"
+                Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
+                <controls:FontAwesomeIcon.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
-                </ffImage:CachedImage.GestureRecognizers>
-            </ffImage:CachedImage>
-            <ffImage:CachedImage
+                </controls:FontAwesomeIcon.GestureRecognizers>
+            </controls:FontAwesomeIcon>
+            <controls:FontAwesomeIcon
                 Grid.Column="2"
                 Margin="5,0,5,0"
-                HeightRequest="27"
-                Source="ic_settings.png"
-                VerticalOptions="Center">
-                <ffImage:CachedImage.GestureRecognizers>
+                StyleClass="TopIconView"
+                Text="{x:Static fontawesome:FontAwesomeIcons.Cog}">
+                <controls:FontAwesomeIcon.GestureRecognizers>
                     <TapGestureRecognizer Tapped="HideableToolbarItem_Clicked" />
-                </ffImage:CachedImage.GestureRecognizers>
-            </ffImage:CachedImage>
+                </controls:FontAwesomeIcon.GestureRecognizers>
+            </controls:FontAwesomeIcon>
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
@@ -301,7 +300,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_Serial}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -335,7 +334,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_CurrentTime}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -368,7 +367,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_StartEndTime}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -417,7 +416,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_TimeActive}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -451,7 +450,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_KmGPS}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -485,7 +484,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_KmCO}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -519,7 +518,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_VehicleType}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -553,7 +552,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_VehiclePlate}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -588,7 +587,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_QuotaFuel}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -622,7 +621,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_QuotaFuelConsume}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -656,7 +655,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_StartAddress}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -690,7 +689,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_EndAddress}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -723,7 +722,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_TripCompensatory}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -1000,7 +999,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 Text="{i18n:TranslateResource Common_Button_SaveShowHideColumn,
                                                               Converter={StaticResource UpperCaseConverter}}"
-                                TextColor="White" />
+                                TextColor="{StaticResource WhiteColor}" />
                         </StackLayout>
                     </Grid>
                 </Frame>

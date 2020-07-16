@@ -37,29 +37,27 @@
                 HorizontalOptions="Center"
                 LineBreakMode="MiddleTruncation"
                 Text="{Binding Title}"
-                TextColor="White"
+                TextColor="{StaticResource WhiteColor}"
                 VerticalOptions="Center" />
-            <ffImage:CachedImage
+            <controls:FontAwesomeIcon
                 Grid.Column="1"
                 Margin="5,0,5,0"
-                HeightRequest="27"
                 IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
-                Source="ic_company.png"
-                VerticalOptions="Center">
-                <ffImage:CachedImage.GestureRecognizers>
+                StyleClass="TopIconView"
+                Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
+                <controls:FontAwesomeIcon.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
-                </ffImage:CachedImage.GestureRecognizers>
-            </ffImage:CachedImage>
-            <ffImage:CachedImage
+                </controls:FontAwesomeIcon.GestureRecognizers>
+            </controls:FontAwesomeIcon>
+            <controls:FontAwesomeIcon
                 Grid.Column="2"
                 Margin="5,0,5,0"
-                HeightRequest="27"
-                Source="ic_settings.png"
-                VerticalOptions="Center">
-                <ffImage:CachedImage.GestureRecognizers>
+                StyleClass="TopIconView"
+                Text="{x:Static fontawesome:FontAwesomeIcons.Cog}">
+                <controls:FontAwesomeIcon.GestureRecognizers>
                     <TapGestureRecognizer Tapped="HideableToolbarItem_Clicked" />
-                </ffImage:CachedImage.GestureRecognizers>
-            </ffImage:CachedImage>
+                </controls:FontAwesomeIcon.GestureRecognizers>
+            </controls:FontAwesomeIcon>
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
@@ -361,7 +359,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource Common_Label_TitleGrid_OrderNumber}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -394,7 +392,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource Common_Label_Grid_FromDate}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -443,7 +441,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource Common_Label_Grid_ToDate}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -483,7 +481,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ReportMachine_Label_Grid_Minutes}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -516,7 +514,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ReportMachine_Label_Grid_Fuel}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -554,7 +552,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ReportMachine_Label_Grid_StartAddress}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -591,7 +589,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ReportMachine_Label_Grid_EndAddress}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -780,7 +778,7 @@
                                     HeightRequest="40"
                                     Text="{i18n:TranslateResource Common_Button_SaveShowHideColumn,
                                                                   Converter={StaticResource UpperCaseConverter}}"
-                                    TextColor="White" />
+                                    TextColor="{StaticResource WhiteColor}" />
                             </Grid>
                         </Grid>
                     </Frame.Content>

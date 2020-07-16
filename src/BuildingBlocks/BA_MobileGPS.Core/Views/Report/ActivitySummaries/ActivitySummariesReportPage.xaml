@@ -41,29 +41,27 @@
                 HorizontalOptions="Center"
                 LineBreakMode="MiddleTruncation"
                 Text="{i18n:TranslateResource ActivitySummariesReport_Label_TilePage}"
-                TextColor="White"
+                TextColor="{StaticResource WhiteColor}"
                 VerticalOptions="Center" />
-            <ffImage:CachedImage
+            <controls:FontAwesomeIcon
                 Grid.Column="1"
                 Margin="5,0,5,0"
-                HeightRequest="27"
                 IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
-                Source="ic_company.png"
-                VerticalOptions="Center">
-                <ffImage:CachedImage.GestureRecognizers>
+                StyleClass="TopIconView"
+                Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
+                <controls:FontAwesomeIcon.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
-                </ffImage:CachedImage.GestureRecognizers>
-            </ffImage:CachedImage>
-            <ffImage:CachedImage
+                </controls:FontAwesomeIcon.GestureRecognizers>
+            </controls:FontAwesomeIcon>
+            <controls:FontAwesomeIcon
                 Grid.Column="2"
                 Margin="5,0,5,0"
-                HeightRequest="27"
-                Source="ic_settings.png"
-                VerticalOptions="Center">
-                <ffImage:CachedImage.GestureRecognizers>
+                StyleClass="TopIconView"
+                Text="{x:Static fontawesome:FontAwesomeIcons.Cog}">
+                <controls:FontAwesomeIcon.GestureRecognizers>
                     <TapGestureRecognizer Tapped="HideableToolbarItem_Clicked" />
-                </ffImage:CachedImage.GestureRecognizers>
-            </ffImage:CachedImage>
+                </controls:FontAwesomeIcon.GestureRecognizers>
+            </controls:FontAwesomeIcon>
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
@@ -315,7 +313,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_Serial}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -349,7 +347,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_CurrentTime}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -382,7 +380,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_StartEndTime}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -431,7 +429,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_ActiveTime}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -465,7 +463,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_StopParkingTime}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -499,7 +497,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_KmGPS}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -533,7 +531,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_KmCO}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -567,7 +565,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_VehicleType}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -601,7 +599,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_VehiclePlate}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -636,7 +634,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_NumberOfStopParking}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -670,7 +668,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_MinutesTurnOnAirConditioner}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -704,7 +702,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_Vmax}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -738,7 +736,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_Vmedium}"
-                                        TextColor="White"
+                                        TextColor="{StaticResource PrimaryColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -1065,7 +1063,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 Text="{i18n:TranslateResource Common_Button_SaveShowHideColumn,
                                                               Converter={StaticResource UpperCaseConverter}}"
-                                TextColor="White" />
+                                TextColor="{StaticResource WhiteColor}" />
                         </StackLayout>
                     </Grid>
                 </Frame>
