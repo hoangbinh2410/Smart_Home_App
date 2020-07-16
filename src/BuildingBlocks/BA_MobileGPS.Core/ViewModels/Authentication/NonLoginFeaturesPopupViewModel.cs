@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
 using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
@@ -23,7 +24,7 @@ namespace BA_MobileGPS.Core.ViewModels
             items = new ObservableCollection<LoginPopupItem>();
             InitItems();
         }
-        
+
         private void InitItems()
         {
             var list = new List<LoginPopupItem>();
@@ -32,7 +33,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Title = MobileResource.Login_Popup_Starting_Page,
                 Icon = "ic_FishingNet.png",
-                Url = "NavigationPage/OfflinePage",
+                Url = "/NavigationPage/OfflinePage",
                 ItemType = LoginPopupItemType.OfflinePage
             });
             // Hướng dẫn sử dụng
@@ -40,7 +41,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Title = MobileResource.Login_Popup_Manual,
                 Icon = "ic_Manual.png",
-                Url = MobileSettingHelper.WebGps,
+                Url = "NavigationPage/HelperPage",
                 ItemType = LoginPopupItemType.Manual,
             });
             // Thông tin bảo hành
@@ -48,24 +49,24 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Title = MobileResource.Login_Popup_Guarantee,
                 Icon = "ic_Guarantee.png",
-                Url = "NavigationPage/HelperPage",
+                Url = MobileSettingHelper.WebGps,
                 ItemType = LoginPopupItemType.Guarantee,
             });
             // Đăng kí tư vấn
             list.Add(new LoginPopupItem
             {
                 Title = MobileResource.Login_Popup_RegisterSupport,
-                Icon = "ic_MiniLogo.png",  
-                Url = MobileSettingHelper.WebGps,
+                Icon = "ic_MiniLogo.png",
+                Url = "BaseNavigationPage/RegisterConsultPage",
                 ItemType = LoginPopupItemType.RegisterSupport,
             });
             // Trải nghiệm BAGPS
             list.Add(new LoginPopupItem
             {
                 Title = MobileResource.Login_Popup_BAGPSExperience,
-                Icon = "ic_sharecircle.png",       
-                Url = MobileSettingHelper.LinkShareApp,
-                ItemType = LoginPopupItemType.BAGPSExperience,           
+                Icon = "ic_sharecircle.png",
+                Url = MobileSettingHelper.LinkExperience,
+                ItemType = LoginPopupItemType.BAGPSExperience,
             });
 
             Items = list.ToObservableCollection();
@@ -76,10 +77,31 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 if (!(args.ItemData is LoginPopupItem item) || string.IsNullOrEmpty(item.Url))
-                    return;              
+                    return;
                 else
                 {
-                    await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
+                    switch (item.ItemType)
+                    {
+                        case LoginPopupItemType.OfflinePage:
+                            _ = await NavigationService.NavigateAsync(item.Url);
+                            break;
+                        case LoginPopupItemType.Manual:
+                            _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
+                            break;
+                        case LoginPopupItemType.Guarantee:
+                            await Launcher.OpenAsync(new Uri(item.Url));
+                            break;
+                        case LoginPopupItemType.RegisterSupport:
+                            _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
+                            break;
+                        case LoginPopupItemType.BAGPSExperience:
+                            await Launcher.OpenAsync(new Uri(item.Url));
+                            break;
+                        default:
+                            _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
+                            break;
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -103,7 +125,7 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref items, value); }
         }
 
-      
+
     }
 
     public class LoginPopupItem
