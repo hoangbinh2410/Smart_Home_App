@@ -20,6 +20,7 @@ using Syncfusion.XForms.iOS.BadgeView;
 using Syncfusion.XForms.iOS.Border;
 using Syncfusion.XForms.iOS.Buttons;
 using Syncfusion.XForms.iOS.ComboBox;
+using Syncfusion.XForms.iOS.TabView;
 using Xamarin;
 using Xamarin.Forms.Platform.iOS;
 
@@ -70,7 +71,7 @@ namespace BA_MobileGPS.Core.iOS.Setup
             SfChartRenderer.Init();
             SfMapsRenderer.Init();
             SfBusyIndicatorRenderer.Init();
-            //SfTabViewRenderer.Init();
+            SfTabViewRenderer.Init();
             //SfRatingRenderer.Init();
             //SfPopupLayoutRenderer.Init();
             //SfRangeSliderRenderer.Init();

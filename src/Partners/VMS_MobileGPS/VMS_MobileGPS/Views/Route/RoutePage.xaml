@@ -306,7 +306,7 @@
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
                             Margin="9"
-                            Foreground="{StaticResource PrimaryColor}"
+                            Foreground="{Binding FindCarColor}"
                             Source="ic_vector.png" />
                     </pancake:PancakeView>
                     <pancake:PancakeView

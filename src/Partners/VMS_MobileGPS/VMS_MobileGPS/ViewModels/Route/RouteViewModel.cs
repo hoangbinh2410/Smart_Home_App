@@ -32,7 +32,6 @@ namespace VMS_MobileGPS.ViewModels
     {
         #region Contructor
 
-        private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
         private readonly IVehicleRouteService vehicleRouteService;
         private readonly IDisplayMessage displayMessage;
 
@@ -53,12 +52,10 @@ namespace VMS_MobileGPS.ViewModels
         public ICommand FastStartCommand { get; }
         public ICommand FastEndCommand { get; }
 
-        public RouteViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService,
-           IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository, IDisplayMessage displayMessage)
+        public RouteViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService, IDisplayMessage displayMessage)
            : base(navigationService)
         {
             this.vehicleRouteService = vehicleRouteService;
-            this.boundaryRepository = boundaryRepository;
             this.displayMessage = displayMessage;
 
             if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
@@ -95,16 +92,9 @@ namespace VMS_MobileGPS.ViewModels
 
         #region Lifecycle
 
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-        }
-
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-
-            InitBoudary();
 
             if (parameters != null)
             {
@@ -243,117 +233,13 @@ namespace VMS_MobileGPS.ViewModels
                     VehiclePlate = vehicleOnline.VehiclePlate
                 };
 
+                // Gán lại thời gian
+                DateStart  = DateTime.Today.Date;
+                DateEnd = DateTime.Now;
+
                 GetVehicleRoute();
             }
 
-        }
-
-        public void InitBoudary()
-        {
-            Boundaries.Clear();
-
-            //Polylines.Clear();
-
-            foreach (var line in Polylines.ToList().FindAll(l => "Boundary".Equals(l.Tag)))
-            {
-                Polylines.Remove(line);
-            }
-
-            var listBoudary = boundaryRepository.Find(b => b.IsShowBoudary);
-
-            foreach (var item in listBoudary)
-            {
-                AddBoundary(item);
-            }
-
-            if (GetControl<Map>("map") is Map map)
-            {
-                TryExecute(() =>
-                {
-                    foreach (var pin in map.Pins.Where(p => p.Tag.ToString().Contains("Boundary")).ToList())
-                    {
-                        map.Pins.Remove(pin);
-                    }
-                });
-            }
-
-            var listName = boundaryRepository.Find(b => b.IsShowName);
-
-            foreach (var item in listName)
-            {
-                AddName(item);
-            }
-        }
-
-        private void AddBoundary(LandmarkResponse boundary)
-        {
-            TryExecute(() =>
-            {
-                var result = boundary.Polygon.Split(',');
-
-                var color = Color.FromHex(ConvertIntToHex(boundary.Color));
-
-                if (boundary.IsClosed)
-                {
-                    var polygon = new Polygon
-                    {
-                        IsClickable = true,
-                        StrokeWidth = 1f,
-                        StrokeColor = color.MultiplyAlpha(.5),
-                        FillColor = color.MultiplyAlpha(.3),
-                        Tag = "Boundary"
-                    };
-
-                    for (int i = 0; i < result.Length; i += 2)
-                    {
-                        polygon.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
-                    }
-
-                    Boundaries.Add(polygon);
-                }
-                else
-                {
-                    var polyline = new Polyline
-                    {
-                        IsClickable = false,
-                        StrokeColor = color,
-                        StrokeWidth = 2f,
-                        Tag = "Boundary"
-                    };
-
-                    for (int i = 0; i < result.Length; i += 2)
-                    {
-                        polyline.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
-                    }
-
-                    Polylines.Add(polyline);
-                }
-            });
-        }
-
-        private void AddName(LandmarkResponse name)
-        {
-            TryExecute(() =>
-            {
-                if (GetControl<Map>("map") is Map map)
-                {
-                    TryExecute(() =>
-                    {
-                        map.Pins.Add(new Pin
-                        {
-                            Label = name.Name,
-                            Position = new Position(name.Latitude, name.Longitude),
-                            Icon = BitmapDescriptorFactory.FromView(new BoundaryNameInfoWindow(name.Name) { WidthRequest = name.Name.Length < 20 ? 6 * name.Name.Length : 110, HeightRequest = 18 * ((name.Name.Length / 20) + 1) }),
-                            Tag = "Boundary" + name.Name
-                        });
-                    });
-                }
-            });
-        }
-
-        public static string ConvertIntToHex(int value)
-        {
-            return value.ToString("X").PadLeft(6, '0');
         }
 
         private void TimeSelected(string args)
@@ -417,7 +303,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             if (IsWatching)
             {
-                FindCarColor = (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor"];
+                FindCarColor = (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor2"];
                 IsWatching = false;
 
                 if (IsPlaying)
@@ -503,13 +389,14 @@ namespace VMS_MobileGPS.ViewModels
             IsPlaying = false;
             PlayCurrent = 0;
             PlayControlEnabled = false;
+            DateKm = 0;
 
             DependencyService.Get<IHUDProvider>().DisplayProgress("");
 
             Task.Run(async () =>
             {
                 var currentCompany = Settings.CurrentCompany;
-
+               
                 var result = await vehicleRouteService.ValidateUserConfigGetHistoryRoute(new ValidateUserConfigGetHistoryRouteRequest
                 {
                     UserId = currentCompany?.UserId ?? UserInfo.UserId,

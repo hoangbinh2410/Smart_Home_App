@@ -33,7 +33,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             DetailVehicleCommand = new DelegateCommand<int?>(ExecuteDetailVehicle);
 
-            SelectJoinDayCommand = new DelegateCommand(() => ExecuteSelectJoinDay());
+            SelectJoinDayCommand = new DelegateCommand(ExecuteSelectJoinDay);
 
             DisplayComlumnHide();
 
@@ -202,6 +202,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
+                IsJoinDay = !IsJoinDay;
                 if (IsJoinDay == true)
                 {
                     if (ListDataSearch != null && ListDataSearch.Count > 0)
