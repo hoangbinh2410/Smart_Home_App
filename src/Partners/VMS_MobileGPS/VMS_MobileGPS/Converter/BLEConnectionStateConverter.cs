@@ -235,7 +235,7 @@ namespace VMS_MobileGPS.Converter
         {
             if (value == null)
             {
-                return Color.FromHex("#048BC5");
+                return (Color)App.Current.Resources["PrimaryColor"];
             }
             if ((bool)value)
             {
@@ -243,7 +243,7 @@ namespace VMS_MobileGPS.Converter
             }
             else
             {
-                return Color.FromHex("#048BC5");
+                return (Color)App.Current.Resources["PrimaryColor"];
             }
         }
 
@@ -262,7 +262,7 @@ namespace VMS_MobileGPS.Converter
             }
             if ((bool)value)
             {
-                return Color.FromHex("#048BC5"); ;
+                return (Color)App.Current.Resources["PrimaryColor"];
             }
             else
             {

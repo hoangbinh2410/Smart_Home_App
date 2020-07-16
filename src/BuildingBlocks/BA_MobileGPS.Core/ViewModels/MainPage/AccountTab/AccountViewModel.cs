@@ -221,9 +221,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
     }
 
-    public enum MenuType
+    public  enum MenuType
     {
-
         ChangePassword,
         CustomerSupport,
         DeviceManual,
@@ -232,8 +231,6 @@ namespace BA_MobileGPS.Core.ViewModels
         Rating,
         Setting,
         Logout
-
-
     }
 
     public class MenuItem
