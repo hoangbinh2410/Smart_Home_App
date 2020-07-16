@@ -25,7 +25,7 @@ namespace BA_MobileGPS.Core.Views
             Switcher.Children.Add(home);// Trang home
             tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_Home.png", Label = MobileResource.Menu_TabItem_Home });
 
-            if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
+            if (CheckPermision((int)PermissionKeyNames.VehicleView))
             {
                 var listVehicleTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("ListVehicleTab"); //Phương tiện
                 ViewModelLocator.SetAutowirePartialView(listVehicleTab, MainContentPage);
