@@ -37,162 +37,167 @@
             <Setter Property="CornerRadius" Value="20" />
         </Style>
     </ContentPage.Resources>
-    <Grid RowSpacing="0">
-        <ff:CachedImage Aspect="AspectFill" Source="bg_Login.png" />
-        <Grid
-            BackgroundColor="White"
-            HorizontalOptions="Fill"
-            Opacity="0.5"
-            VerticalOptions="Fill" />
-        <Grid RowDefinitions="*,2.8*">
-            <StackLayout
-                Grid.Row="0"
-                Margin="0,45,0,0"
-                Padding="20,0"
-                HorizontalOptions="End"
-                Orientation="Horizontal"
-                VerticalOptions="Start">
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding PushtoLanguageCommand}" />
-                </StackLayout.GestureRecognizers>
-                <ff:CachedImage
-                    BitmapOptimizations="True"
-                    HeightRequest="25"
-                    Source="{Binding Language.Icon}"
-                    VerticalOptions="Center"
-                    WidthRequest="25" />
-                <Label
-                    Text="{Binding Language.Description}"
-                    TextColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
-                                                Dark={StaticResource BlueDarkColor}}"
-                    VerticalOptions="Center" />
-            </StackLayout>
-            <ff:CachedImage
-                Grid.Row="0"
-                HeightRequest="80"
-                HorizontalOptions="Center"
-                Source="logo_VNSAT.png"
-                VerticalOptions="EndAndExpand" />
-            <StackLayout Grid.Row="1" Spacing="15">
-                <!--  Body  -->
-                <StackLayout Spacing="15" VerticalOptions="CenterAndExpand">
-                    <!--  Entry  -->
-                    <input:SfTextInputLayout
-                        ContainerType="Outlined"
-                        ErrorText="{Binding UserName.ErrorFirst}"
-                        HasError="{Binding UserName.IsNotValid}"
-                        StyleClass="LoginEntry">
-                        <input:SfTextInputLayout.LeadingView>
-                            <pancake:PancakeView HeightRequest="40">
-                                <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.User}" />
-                            </pancake:PancakeView>
-                        </input:SfTextInputLayout.LeadingView>
-                        <input:SfTextInputLayout.InputView>
-                            <Entry
-                                HeightRequest="40"
-                                Placeholder="{i18n:TranslateResource Login_Textbox_UserName}"
-                                Text="{Binding UserName.Value}">
-                                <Entry.Effects>
-                                    <effect:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
-                        </input:SfTextInputLayout.InputView>
-                    </input:SfTextInputLayout>
-                    <input:SfTextInputLayout
-                        Margin="0,7"
-                        ErrorText="{Binding Password.ErrorFirst}"
-                        HasError="{Binding Password.IsNotValid}"
-                        StyleClass="LoginEntry">
-                        <input:SfTextInputLayout.LeadingView>
-                            <pancake:PancakeView HeightRequest="40">
-                                <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.Lock}" />
-                            </pancake:PancakeView>
-                        </input:SfTextInputLayout.LeadingView>
-                        <input:SfTextInputLayout.InputView>
-                            <Entry
-                                HeightRequest="40"
-                                IsPassword="True"
-                                Placeholder="{i18n:TranslateResource Login_Textbox_Password}"
-                                Text="{Binding Password.Value}">
-                                <Entry.Effects>
-                                    <effect:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
-                        </input:SfTextInputLayout.InputView>
-                    </input:SfTextInputLayout>
-                    <StackLayout
-                        HorizontalOptions="CenterAndExpand"
-                        Orientation="Horizontal"
-                        WidthRequest="300">
-                        <buttons:SfCheckBox
-                            CheckedColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
-                                                           Dark={StaticResource BlueDarkColor}}"
-                            CornerRadius="0"
-                            IsChecked="{Binding Rememberme}"
-                            Text="{i18n:TranslateResource Login_Checkbox_Autologin}"
-                            UncheckedColor="White" />
-                        <Label
-                            HorizontalOptions="EndAndExpand"
-                            Text="{i18n:TranslateResource Login_Lable_Forgotpassword}"
-                            VerticalOptions="Center">
-                            <Label.Behaviors>
-                                <animation:ViewTappedBehavior AnimationType="Scale" />
-                            </Label.Behaviors>
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" NumberOfTapsRequired="1" />
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </StackLayout>
-                    <Button
-                        Padding="0"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
-                                                          Dark={StaticResource BlueDarkColor}}"
-                        Command="{Binding LoginCommand}"
-                        CornerRadius="20"
-                        HeightRequest="38"
-                        HorizontalOptions="Center"
-                        Text="{i18n:TranslateResource Login_Button_Login}"
-                        TextColor="White"
-                        WidthRequest="300" />
-                </StackLayout>
-                <!--  Footer  -->
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid RowSpacing="0">
+                <ff:CachedImage Aspect="AspectFill" Source="bg_Login.png" />
                 <Grid
-                    Margin="0,0,0,20"
-                    HeightRequest="40"
-                    VerticalOptions="EndAndExpand">
-                    <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
-                        <pancake:PancakeView>
-                            <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.PhoneVolume}" />
-                            <pancake:PancakeView.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding CallHotLineCommand}" NumberOfTapsRequired="1" />
-                            </pancake:PancakeView.GestureRecognizers>
-                        </pancake:PancakeView>
-                        <pancake:PancakeView>
-                            <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.MailBulk}" />
-                            <pancake:PancakeView.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SendEmailCommand}" NumberOfTapsRequired="1" />
-                            </pancake:PancakeView.GestureRecognizers>
-                        </pancake:PancakeView>
-                        <pancake:PancakeView>
-                            <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.Globe}" />
-                        </pancake:PancakeView>
-                    </StackLayout>
-                    <controls:IconView
-                        Margin="0,0,20,0"
-                        Foreground="{AppThemeBinding Light={StaticResource BlueDarkColor},
-                                                     Dark={StaticResource BlueDarkColor}}"
+                    BackgroundColor="White"
+                    HorizontalOptions="Fill"
+                    Opacity="0.5"
+                    VerticalOptions="Fill" />
+                <Grid RowDefinitions="*,2.8*">
+                    <StackLayout
+                        Grid.Row="0"
+                        Margin="0,45,0,0"
+                        Padding="20,0"
                         HorizontalOptions="End"
-                        Source="ic_FourSquare.png"
-                        WidthRequest="40">
-                        <controls:IconView.Behaviors>
-                            <animation:ViewTappedBehavior AnimationType="Scale" />
-                        </controls:IconView.Behaviors>
-                        <controls:IconView.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OpenLoginFragmentCommand}" NumberOfTapsRequired="1" />
-                        </controls:IconView.GestureRecognizers>
-                    </controls:IconView>
+                        Orientation="Horizontal"
+                        VerticalOptions="Start">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PushtoLanguageCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <ff:CachedImage
+                            BitmapOptimizations="True"
+                            HeightRequest="25"
+                            Source="{Binding Language.Icon}"
+                            VerticalOptions="Center"
+                            WidthRequest="25" />
+                        <Label
+                            Text="{Binding Language.Description}"
+                            TextColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
+                                                        Dark={StaticResource BlueDarkColor}}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                    <ff:CachedImage
+                        Grid.Row="0"
+                        HeightRequest="80"
+                        HorizontalOptions="Center"
+                        Source="logo_VNSAT.png"
+                        VerticalOptions="EndAndExpand" />
+                    <StackLayout Grid.Row="1" Spacing="15">
+                        <!--  Body  -->
+                        <StackLayout Spacing="15" VerticalOptions="CenterAndExpand">
+                            <!--  Entry  -->
+                            <input:SfTextInputLayout
+                                ContainerType="Outlined"
+                                ErrorText="{Binding UserName.ErrorFirst}"
+                                HasError="{Binding UserName.IsNotValid}"
+                                StyleClass="LoginEntry">
+                                <input:SfTextInputLayout.LeadingView>
+                                    <pancake:PancakeView HeightRequest="40">
+                                        <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.User}" />
+                                    </pancake:PancakeView>
+                                </input:SfTextInputLayout.LeadingView>
+                                <input:SfTextInputLayout.InputView>
+                                    <Entry
+                                        HeightRequest="40"
+                                        Placeholder="{i18n:TranslateResource Login_Textbox_UserName}"
+                                        Text="{Binding UserName.Value}">
+                                        <Entry.Effects>
+                                            <effect:BorderlessEffect />
+                                        </Entry.Effects>
+                                    </Entry>
+                                </input:SfTextInputLayout.InputView>
+                            </input:SfTextInputLayout>
+                            <input:SfTextInputLayout
+                                Margin="0,7"
+                                ErrorText="{Binding Password.ErrorFirst}"
+                                HasError="{Binding Password.IsNotValid}"
+                                StyleClass="LoginEntry">
+                                <input:SfTextInputLayout.LeadingView>
+                                    <pancake:PancakeView HeightRequest="40">
+                                        <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.Lock}" />
+                                    </pancake:PancakeView>
+                                </input:SfTextInputLayout.LeadingView>
+                                <input:SfTextInputLayout.InputView>
+                                    <Entry
+                                        HeightRequest="40"
+                                        IsPassword="True"
+                                        Placeholder="{i18n:TranslateResource Login_Textbox_Password}"
+                                        Text="{Binding Password.Value}">
+                                        <Entry.Effects>
+                                            <effect:BorderlessEffect />
+                                        </Entry.Effects>
+                                    </Entry>
+                                </input:SfTextInputLayout.InputView>
+                            </input:SfTextInputLayout>
+                            <StackLayout
+                                HorizontalOptions="CenterAndExpand"
+                                Orientation="Horizontal"
+                                WidthRequest="300">
+                                <buttons:SfCheckBox
+                                    CheckedColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
+                                                                   Dark={StaticResource BlueDarkColor}}"
+                                    CornerRadius="0"
+                                    IsChecked="{Binding Rememberme}"
+                                    Text="{i18n:TranslateResource Login_Checkbox_Autologin}"
+                                    UncheckedColor="White" />
+                                <Label
+                                    HorizontalOptions="EndAndExpand"
+                                    Text="{i18n:TranslateResource Login_Lable_Forgotpassword}"
+                                    VerticalOptions="Center">
+                                    <Label.Behaviors>
+                                        <animation:ViewTappedBehavior AnimationType="Scale" />
+                                    </Label.Behaviors>
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" NumberOfTapsRequired="1" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </StackLayout>
+                            <Button
+                                Padding="0"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
+                                                                  Dark={StaticResource BlueDarkColor}}"
+                                Command="{Binding LoginCommand}"
+                                CornerRadius="20"
+                                HeightRequest="38"
+                                HorizontalOptions="Center"
+                                Text="{i18n:TranslateResource Login_Button_Login}"
+                                TextColor="White"
+                                WidthRequest="300" />
+                        </StackLayout>
+                        <!--  Footer  -->
+                        <Grid
+                            Margin="0,0,0,20"
+                            HeightRequest="40"
+                            VerticalOptions="EndAndExpand">
+                            <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
+                                <pancake:PancakeView>
+                                    <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.PhoneVolume}" />
+                                    <pancake:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding CallHotLineCommand}" NumberOfTapsRequired="1" />
+                                    </pancake:PancakeView.GestureRecognizers>
+                                </pancake:PancakeView>
+                                <pancake:PancakeView>
+                                    <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.MailBulk}" />
+                                    <pancake:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SendEmailCommand}" NumberOfTapsRequired="1" />
+                                    </pancake:PancakeView.GestureRecognizers>
+                                </pancake:PancakeView>
+                                <pancake:PancakeView>
+                                    <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.Globe}" />
+                                </pancake:PancakeView>
+                            </StackLayout>
+                            <controls:IconView
+                                Margin="0,0,20,0"
+                                Foreground="{AppThemeBinding Light={StaticResource BlueDarkColor},
+                                                             Dark={StaticResource BlueDarkColor}}"
+                                HorizontalOptions="End"
+                                Source="ic_FourSquare.png"
+                                WidthRequest="40">
+                                <controls:IconView.Behaviors>
+                                    <animation:ViewTappedBehavior AnimationType="Scale" />
+                                </controls:IconView.Behaviors>
+                                <controls:IconView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenLoginFragmentCommand}" NumberOfTapsRequired="1" />
+                                </controls:IconView.GestureRecognizers>
+                            </controls:IconView>
+                        </Grid>
+                    </StackLayout>
                 </Grid>
-            </StackLayout>
-        </Grid>
-    </Grid>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+
 </ContentPage>
