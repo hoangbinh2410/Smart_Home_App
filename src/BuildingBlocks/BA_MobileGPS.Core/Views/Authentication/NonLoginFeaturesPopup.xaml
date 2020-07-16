@@ -9,6 +9,7 @@
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     prism:ViewModelLocator.AutowireViewModel="True"
     BackgroundColor="#E6ffffff"
     CloseWhenBackgroundIsClicked="True">
@@ -19,58 +20,61 @@
             PositionIn="Right"
             PositionOut="Right" />
     </pages:PopupPage.Animation>
-    <pages:PopupPage.Resources>
-        <Style TargetType="pancake:PancakeView">
-            <Setter Property="Grid.Column" Value="1" />
-            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BlueDarkColor}, Dark={StaticResource BlueDarkColor}}" />
-            <Setter Property="HeightRequest" Value="40" />
-            <Setter Property="WidthRequest" Value="40" />
-            <Setter Property="CornerRadius" Value="20" />
-            <Setter Property="Padding" Value="0" />
-        </Style>
-        <Style TargetType="controls:IconView">
-            <Setter Property="Foreground" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
-            <Setter Property="Margin" Value="10" />
-        </Style>
-        <Style TargetType="Label">
-            <Setter Property="HorizontalOptions" Value="EndAndExpand" />
-            <Setter Property="VerticalOptions" Value="Center" />
-        </Style>
-    </pages:PopupPage.Resources>
     <pages:PopupPage.Content>
         <Grid
             Margin="20,20"
-            ColumnDefinitions="Auto,Auto"
-            ColumnSpacing="10"
             HorizontalOptions="End"
-            RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+            RowDefinitions="Auto,Auto"
             VerticalOptions="EndAndExpand">
-            <Label Text="Mẻ lưới" />
-            <Label Grid.Row="1" Text="Bản đồ ngoại tuyến" />
-            <Label Grid.Row="2" Text="Hướng dẫn sử dụng" />
-            <Label Grid.Row="3" Text="Thông tin bảo hành" />
-            <Label Grid.Row="4" Text="Mạng lưới" />
-            <Label Grid.Row="5" Text="Trải nghiệm BA GPS" />
-            <pancake:PancakeView Grid.Row="0">
-                <controls:IconView Source="ic_FishingNet.png" />
-            </pancake:PancakeView>
-            <pancake:PancakeView Grid.Row="1">
-                <controls:IconView Source="ic_Map.png" />
-            </pancake:PancakeView>
-            <pancake:PancakeView Grid.Row="2">
-                <controls:IconView Source="ic_Manual.png" />
-            </pancake:PancakeView>
-            <pancake:PancakeView Grid.Row="3">
-                <controls:IconView Source="ic_Guarantee.png" />
-            </pancake:PancakeView>
-            <pancake:PancakeView Grid.Row="4">
-                <controls:IconView Source="ic_Network.png" />
-            </pancake:PancakeView>
-            <pancake:PancakeView Grid.Row="5">
-                <controls:IconView Source="ic_MiniLogo.png" />
-            </pancake:PancakeView>
-            <pancake:PancakeView Grid.Row="6" BackgroundColor="{AppThemeBinding Light={StaticResource BluePrimaryColor}, Dark={StaticResource BluePrimaryColor}}">
-                <controls:IconView Source="ic_close.png" />
+            <syncfusion:SfListView
+                x:Name="listView"
+                Padding="0,0,-5,0"
+                ItemSpacing="5"
+                ItemsSource="{Binding Items, Mode=OneWay}"
+                Loaded="SfListView_Loaded"
+                SelectionBackgroundColor="Transparent"
+                TapCommand="{Binding NavigateCommand}">
+                <syncfusion:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout
+                            Padding="0"
+                            HorizontalOptions="End"
+                            Orientation="Horizontal">
+                            <Label Text="{Binding Title}" VerticalOptions="Center" />
+                            <pancake:PancakeView
+                                Padding="0"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
+                                                                  Dark={StaticResource BlueDarkColor}}"
+                                CornerRadius="20"
+                                HeightRequest="40"
+                                WidthRequest="40">
+                                <controls:IconView
+                                    Margin="10"
+                                    Foreground="{AppThemeBinding Light={StaticResource WhiteColor},
+                                                                 Dark={StaticResource WhiteColor}}"
+                                    Source="{Binding Icon}" />
+                            </pancake:PancakeView>
+
+                        </StackLayout>
+                    </DataTemplate>
+                </syncfusion:SfListView.ItemTemplate>
+            </syncfusion:SfListView>
+            <pancake:PancakeView
+                Grid.Row="1"
+                BackgroundGradientEndPoint="0,1"
+                HorizontalOptions="EndAndExpand">
+                <pancake:PancakeView.BackgroundGradientStops>
+                    <pancake:GradientStopCollection>
+                        <pancake:GradientStop Offset="0.6" Color="#0D2D6C" />
+                        <pancake:GradientStop Offset="0.2" Color="#00ADE5" />
+
+                    </pancake:GradientStopCollection>
+                </pancake:PancakeView.BackgroundGradientStops>
+                <controls:IconView
+                    Margin="5"
+                    Foreground="{AppThemeBinding Light={StaticResource WhiteColor},
+                                                 Dark={StaticResource WhiteColor}}"
+                    Source="ic_close.png" />
                 <pancake:PancakeView.Behaviors>
                     <animation1:ViewTappedBehavior AnimationType="Rotate" />
                 </pancake:PancakeView.Behaviors>

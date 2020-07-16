@@ -273,7 +273,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             { "alert", alertSelected }
                         };
               
-                           await NavigationService.NavigateAsync("BaseNavigationPage/AlertHandlingPage", navigationPara, useModalNavigation: true);                                             
+                           await NavigationService.NavigateAsync("AlertHandlingPage", navigationPara);                                             
                     }
 
                     IsBusy = false;
