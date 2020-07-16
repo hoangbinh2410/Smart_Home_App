@@ -23,6 +23,7 @@
     </ContentPage.Resources>
     <NavigationPage.TitleView>
         <Grid
+            Padding="0,0,20,0"
             ColumnSpacing="10"
             HeightRequest="44"
             HorizontalOptions="FillAndExpand">

@@ -93,7 +93,11 @@
         Login_Message_AccountLocked,
         Login_ForgotPassword_PopupTitle,
         Login_ForgotPassword_PopupContent,
-        Login_Popup_Landing,
+        Login_Popup_Starting_Page,
+        Login_Popup_Manual,
+        Login_Popup_Guarantee,
+        Login_Popup_RegisterSupport,
+        Login_Popup_BAGPSExperience,
         #endregion Login
 
         #region ChangePassword
