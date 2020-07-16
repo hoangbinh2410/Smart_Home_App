@@ -15,6 +15,7 @@
         Common_Label_Notification,
         Common_Message_Warning,
         Common_Message_Skip,
+        Common_Message_NotPermission,
         Common_Button_OK,
         Common_Button_Send,
         Common_Button_Save,

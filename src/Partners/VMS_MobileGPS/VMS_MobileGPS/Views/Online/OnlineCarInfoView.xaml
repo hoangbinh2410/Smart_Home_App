@@ -235,7 +235,6 @@
                 FontAttributes="Bold"
                 FontSize="10"
                 HeightRequest="36"
-                IsEnabled="False"
                 Text="{i18n:TranslateResource Route_Label_TitleVMS}"
                 TextColor="{StaticResource WhiteColor}" />
             <Button
