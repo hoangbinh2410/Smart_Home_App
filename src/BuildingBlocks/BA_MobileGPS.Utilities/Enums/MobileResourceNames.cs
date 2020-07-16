@@ -93,6 +93,7 @@
         Login_Message_AccountLocked,
         Login_ForgotPassword_PopupTitle,
         Login_ForgotPassword_PopupContent,
+        Login_Popup_Landing,
         #endregion Login
 
         #region ChangePassword
