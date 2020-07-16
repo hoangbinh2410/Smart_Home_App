@@ -3,7 +3,6 @@
     x:Class="VMS_MobileGPS.Views.MessageDetailPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
     xmlns:behaviors="clr-namespace:VMS_MobileGPS.Behaviors"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
@@ -11,8 +10,7 @@
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:messages="clr-namespace:VMS_MobileGPS.Views"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    Title="{Binding Title}"
-    android:Application.WindowSoftInputModeAdjust="Resize">
+    Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:DateTimeLocaleConverter x:Key="DateTimeLocaleConverter" />
