@@ -170,7 +170,10 @@
                 </sfPopup:PopupView>
             </sfPopup:SfPopupLayout.PopupView>
             <sfPopup:SfPopupLayout.Content>
-                <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <AbsoluteLayout
+                    BackgroundColor="{StaticResource WhiteColor}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
                     <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />

@@ -133,6 +133,8 @@ namespace VMS_MobileGPS.Views
             }
             else if (parameters.ContainsKey(ParameterKey.Company) && parameters.GetValue<Company>(ParameterKey.Company) is Company company)
             {
+                vm.CarSearch = MobileResource.Online_Label_SeachVehicle2;
+
                 HideBoxStatus();
 
                 HideBoxInfo();
@@ -141,6 +143,8 @@ namespace VMS_MobileGPS.Views
             }
             else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
             {
+                vm.CarSearch = MobileResource.Online_Label_SeachVehicle2;
+
                 vm.VehicleGroups = vehiclegroup;
 
                 HideBoxStatus();
@@ -1027,6 +1031,8 @@ namespace VMS_MobileGPS.Views
             HideBoxStatus();
 
             HideBoxInfo();
+
+            vm.CarSearch = MobileResource.Online_Label_SeachVehicle2;
 
             if ((args as Syncfusion.ListView.XForms.ItemTappedEventArgs).ItemData is VehicleStatusViewModel item)
             {

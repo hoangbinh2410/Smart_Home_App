@@ -161,7 +161,15 @@ namespace VMS_MobileGPS.ViewModels
         {
             SafeExecute(() =>
             {
-                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, carActive));
+                if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
+                {
+                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, carActive));
+                }
+                else
+                {
+                    PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Common_Message_NotPermission, MobileResource.Common_Button_Close);
+                }
+                   
             });
         }
 
