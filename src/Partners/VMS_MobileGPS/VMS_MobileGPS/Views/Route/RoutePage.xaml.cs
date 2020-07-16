@@ -79,7 +79,7 @@ namespace VMS_MobileGPS.Views
         private void GoogleMapAddBoundary()
         {
             vm.Boundaries.Clear();
-            vm.Polylines.Clear();
+            //vm.Polylines.Clear();
 
             foreach (var line in vm.Polylines.ToList().FindAll(l => "Boundary".Equals(l.Tag)))
             {
