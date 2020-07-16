@@ -72,14 +72,14 @@ namespace BA_MobileGPS.Core.Views
             title.Margin = new Thickness(20, 10,0, 0);
             title.TextType = TextType.Html;
             title.Text = "<strong>" + _title + "</strong>";
-            title.FontSize = 18;
+            title.FontSize = Device.RuntimePlatform == Device.iOS ? 23 : 18;
             title.FontAttributes = FontAttributes.Bold; 
             title.HorizontalOptions = LayoutOptions.Center;
             title.VerticalTextAlignment = TextAlignment.Center;
 
             var messenger = new Label();
             messenger.Text = _messenger;
-            messenger.FontSize = 15;
+            messenger.FontSize = Device.RuntimePlatform == Device.iOS ? 18 : 15;
             messenger.HorizontalOptions = LayoutOptions.StartAndExpand;
             messenger.TextType = TextType.Html;
             title.TextColor = _textColor == null ? Color.Black : (Color)_textColor;
