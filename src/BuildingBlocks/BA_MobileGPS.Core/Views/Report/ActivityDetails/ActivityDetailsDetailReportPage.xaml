@@ -528,6 +528,7 @@
                                     Grid.Column="1"
                                     Margin="30,0,0,0"
                                     HorizontalOptions="EndAndExpand"
+                                    HorizontalTextAlignment="Start"
                                     Text="{Binding SelectedDetails.StartAddress}"
                                     VerticalOptions="Center"
                                     VerticalTextAlignment="Center" />
@@ -572,6 +573,7 @@
                                     Grid.Column="1"
                                     Margin="30,0,0,0"
                                     HorizontalOptions="EndAndExpand"
+                                    HorizontalTextAlignment="Start"
                                     Text="{Binding SelectedDetails.EndAddress}"
                                     VerticalOptions="Center"
                                     VerticalTextAlignment="Center" />

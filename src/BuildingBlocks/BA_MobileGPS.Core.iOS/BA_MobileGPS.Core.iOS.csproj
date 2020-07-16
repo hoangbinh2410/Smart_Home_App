@@ -52,6 +52,8 @@
     <Compile Include="DependencyServices\DisplayMessageService.cs" />
     <Compile Include="DependencyServices\AppleHUDService.cs" />
     <Compile Include="DependencyServices\iOSTooltipService.cs" />
+    <Compile Include="DependencyServices\PreviewControllerDS.cs" />
+    <Compile Include="DependencyServices\SaveAndViewIOS.cs" />
     <Compile Include="DependencyServices\SaveService.cs" />
     <Compile Include="DependencyServices\SettingsService.cs" />
     <Compile Include="DependencyServices\StatusBarHelper.cs" />
@@ -796,6 +798,21 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_end%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_location_black%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_location_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_location_black%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_telephone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_telephone%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
