@@ -5,10 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
-    xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sfList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     Title="{i18n:TranslateResource Notification_Label_TilePage}"
@@ -30,24 +30,24 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <controls:FontAwesomeIcon
+            <ffImage:CachedImage
                 Grid.Column="0"
-                FontSize="25"
+                Margin="0,0,5,0"
+                HeightRequest="27"
                 HorizontalOptions="Start"
-                Text="{x:Static fontawesome:FontAwesomeIcons.Times}"
-                TextColor="White"
+                Source="ic_close.png"
                 VerticalOptions="Center">
-                <controls:FontAwesomeIcon.GestureRecognizers>
+                <ffImage:CachedImage.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
-                </controls:FontAwesomeIcon.GestureRecognizers>
-            </controls:FontAwesomeIcon>
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
             <Label
-                Grid.Column="1"
+                Grid.ColumnSpan="3"
                 FontAttributes="Bold"
                 FontSize="20"
                 HorizontalOptions="CenterAndExpand"
                 LineBreakMode="MiddleTruncation"
-                Text="Tin Nhắn"
+                Text="Thông báo"
                 TextColor="White"
                 VerticalOptions="Center" />
             <controls:FontAwesomeIcon
@@ -161,7 +161,7 @@
 
                             <StackLayout Grid.Column="0">
                                 <!--  Ảnh icon cảnh báo  -->
-                                <image:CachedImage
+                                <ffImage:CachedImage
                                     Margin="5"
                                     Aspect="AspectFill"
                                     ErrorPlaceholder="ic_holidays.png"
