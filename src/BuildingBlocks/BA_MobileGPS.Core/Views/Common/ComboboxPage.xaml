@@ -20,6 +20,7 @@
                 <ListView
                     x:Name="listview"
                     behaviors:ItemTappedCommandListView.ItemTappedCommand="{Binding SelectedValueCommand}"
+                    BackgroundColor="Transparent"
                     HasUnevenRows="False"
                     HorizontalOptions="FillAndExpand"
                     ItemsSource="{Binding DataSearch}"
