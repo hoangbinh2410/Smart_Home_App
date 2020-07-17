@@ -86,8 +86,6 @@ namespace VMS_MobileGPS.ViewModels
             {
                 ShinyManage();
             }
-
-            BugSupport();
         }
 
         private void InitMarker()
@@ -127,7 +125,6 @@ namespace VMS_MobileGPS.ViewModels
                 InitMarker();
                 // ShinyManage();
             }
-            BugSupport();
         }
 
         //Colelction lưu location từ shinny
@@ -354,11 +351,6 @@ namespace VMS_MobileGPS.ViewModels
                 LocationMoved = new Point(11.125264, 112.219407);
                 LocationMoved = new Point(MyLocation.Latitude, MyLocation.Longitude);
             }
-        }
-
-        private void BugSupport()
-        {
-            //RPoints = new ObservableCollection<Point>();
         }
 
         public void MarkerAnimation(double startlatitude,

@@ -13,49 +13,63 @@ namespace BA_MobileGPS.Core.Views
         public Home()
         {
             InitializeComponent();
-            //favouriteListView.Loaded += Favourite_SfListView_Loaded;
-           // favouriteListView.PropertyChanged += FavouriteListView_PropertyChanged;
         }
 
-        //private void FavouriteListView_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        //{
-        //    if (e.PropertyName == "ItemSource")
-        //    {
-
-        //    }
-        //}
-
-
-        //private void Favourite_SfListView_Loaded(object sender, ListViewLoadedEventArgs e)
-        //{
-        //    CenterFavouriteListViewConfig();
-        //}
-
-        private void CenterFavouriteListViewConfig()
+        private void SfListView_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            var visualContainer = favouriteListView.GetVisualContainer();
-            var totalextent = (double)visualContainer.GetType().GetRuntimeProperties().FirstOrDefault(container => container.Name == "TotalExtent").GetValue(visualContainer);
+            if (e.PropertyName == "ItemsSource")
+            {                
+                var listViewTempalte = (SfListView)sender;
 
-            favouriteListView.WidthRequest = totalextent + 10;
-        }
-
-        private void FeaturesSfListView_Loaded(object sender, ListViewLoadedEventArgs e)
-        {
-            var listViewTempalte = (SfListView)sender;
-
-            var itemSource = (List<HomeMenuItemViewModel>)listViewTempalte.ItemsSource;
-            var itemCount = itemSource.Count;
-            if (itemCount <= 3)
-            {
-                listViewTempalte.LayoutManager = new GridLayout() { SpanCount = 1 };
+                var itemSource = (List<HomeMenuItemViewModel>)listViewTempalte.ItemsSource;
+                if (itemSource != null)
+                {
+                    var itemCount = itemSource.Count;
+                    if (itemCount <= 3)
+                    {
+                        listViewTempalte.LayoutManager = new GridLayout() { SpanCount = 1 };
+                        listViewTempalte.ItemSpacing = new Thickness(5, 0);
+                        listViewTempalte.WidthRequest = itemCount * 100 + 10;
+                        listViewTempalte.HeightRequest = 130;
+                    }
+                    else if(itemCount == 4)
+                    {
+                        listViewTempalte.LayoutManager = new GridLayout() { SpanCount = 2 };
+                        listViewTempalte.ItemSpacing = new Thickness(20, 0);
+                        listViewTempalte.WidthRequest = 290;
+                        listViewTempalte.HeightRequest = 260;
+                    }
+                    else
+                    {
+                        listViewTempalte.LayoutManager = new GridLayout() { SpanCount = 2 };
+                        listViewTempalte.ItemSpacing = new Thickness(5, 0);
+                        listViewTempalte.WidthRequest = 350;
+                        listViewTempalte.HeightRequest = 260;
+                    }                  
+                }
             }
-            else listViewTempalte.LayoutManager = new GridLayout() { SpanCount = 2 };
-
-            var visualContainer = listViewTempalte.GetVisualContainer();
-            var totalextent = (double)visualContainer.GetType().GetRuntimeProperties().FirstOrDefault(container => container.Name == "TotalExtent").GetValue(visualContainer);
-            listViewTempalte.WidthRequest = totalextent + 10;
         }
 
-      
+        private void Favourite_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "ItemsSource")
+            {
+                var listViewTempalte = (SfListView)sender;
+
+                var itemSource = (List<HomeMenuItemViewModel>)listViewTempalte.ItemsSource;
+                if (itemSource != null)
+                {
+                    var itemCount = itemSource.Count;
+                    if (itemCount < 3)
+                    {
+                        listViewTempalte.WidthRequest = itemCount * 100 + 10;
+                    }
+                    else
+                    {
+                        listViewTempalte.WidthRequest = 350;
+                    }                  
+                }
+            }
+        }
     }
 }
