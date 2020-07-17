@@ -352,6 +352,7 @@
         Route_Label_ToDateLimit,
         Route_Label_OverDateLimit,
         Route_Label_DistanceTitle,
+        Route_Label_FeeVMS,
         #endregion Route
 
         #region Alert Online

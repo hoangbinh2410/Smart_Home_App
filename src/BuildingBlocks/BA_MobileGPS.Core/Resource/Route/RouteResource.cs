@@ -41,5 +41,7 @@ namespace BA_MobileGPS.Core.Resource
             string.Format("Bạn đang xem quá ngày giới hạn"), string.Format("You are viewing past the limit date"));
 
         public static string Route_Label_DistanceTitle => Get(MobileResourceNames.Route_Label_DistanceTitle, "Đo khoảng cách", "Measure the distance");
+
+        public static string Route_Label_FeeVMS => Get(MobileResourceNames.Route_Label_FeeVMS, "Phí phương tiện", "Vehicle Fee");
     }
 }
