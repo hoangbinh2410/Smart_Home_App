@@ -294,51 +294,27 @@
                                                 VerticalOptions="Fill"
                                                 Color="{StaticResource DangerousColor}" />
                                         </Grid>
-                                        <Grid
-                                            Grid.Column="1"
-                                            Padding="10,0,10,0"
-                                            ColumnSpacing="0"
-                                            HorizontalOptions="FillAndExpand"
-                                            RowSpacing="0"
-                                            VerticalOptions="Start">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
-                                            <Frame
+                                        <StackLayout Grid.Column="1" Padding="10,0,10,0">
+                                            <Label
                                                 Margin="0,0,5,0"
-                                                Padding="0"
-                                                BackgroundColor="Transparent"
-                                                CornerRadius="3"
-                                                HasShadow="True"
+                                                FontAttributes="Bold"
+                                                FontSize="{StaticResource FontSize18}"
                                                 HorizontalOptions="Start"
-                                                IsClippedToBounds="True">
-                                                <Frame.Content>
-                                                    <Label
-                                                        Margin="0,0,5,0"
-                                                        FontAttributes="Bold"
-                                                        FontSize="{StaticResource FontSize18}"
-                                                        HorizontalOptions="Start"
-                                                        HorizontalTextAlignment="Center"
-                                                        LineBreakMode="TailTruncation"
-                                                        Text="{Binding AlertName}"
-                                                        VerticalOptions="Center"
-                                                        VerticalTextAlignment="Center" />
-                                                </Frame.Content>
-                                            </Frame>
-                                            <StackLayout
-                                                Grid.Row="1"
-                                                Margin="0,5"
-                                                HorizontalOptions="FillAndExpand"
-                                                VerticalOptions="CenterAndExpand">
-                                                <Label
-                                                    FontSize="{StaticResource FontSize16}"
-                                                    HorizontalOptions="StartAndExpand"
-                                                    MaxLines="2"
-                                                    Text="{Binding Content}"
-                                                    VerticalOptions="Center" />
-                                            </StackLayout>
-                                        </Grid>
+                                                LineBreakMode="TailTruncation"
+                                                Text="{Binding AlertName}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+
+                                            <Label
+                                                FontSize="{StaticResource FontSize16}"
+                                                HorizontalOptions="StartAndExpand"
+                                                HorizontalTextAlignment="Start"
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="2"
+                                                Text="{Binding Content}"
+                                                VerticalOptions="Center" />
+
+                                        </StackLayout>
                                     </Grid>
                                 </Frame.Content>
                             </controls:CustomShadowFrame>
