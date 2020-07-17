@@ -17,6 +17,7 @@
     BackgroundColor="White"
     NavigationPage.BackButtonTitle=""
     mc:Ignorable="d">
+
     <ContentPage.Content>
         <ScrollView
             HorizontalOptions="FillAndExpand"

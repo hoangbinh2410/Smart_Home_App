@@ -16,33 +16,6 @@
             <converters:DateTimeLocaleConverter x:Key="DateTimeLocaleConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <NavigationPage.TitleView>
-        <Grid
-            ColumnSpacing="10"
-            HeightRequest="44"
-            HorizontalOptions="FillAndExpand">
-            <Grid.Margin>
-                <OnPlatform x:TypeArguments="Thickness">
-                    <OnPlatform.Platforms>
-                        <On Platform="iOS" Value="-20,0,0,0" />
-                        <On Platform="Android" Value="-40,0,0,0" />
-                    </OnPlatform.Platforms>
-                </OnPlatform>
-            </Grid.Margin>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <Label
-                FontAttributes="Bold"
-                FontSize="20"
-                HorizontalOptions="Center"
-                LineBreakMode="MiddleTruncation"
-                Text="{Binding Title}"
-                TextColor="White"
-                VerticalOptions="Center" />
-        </Grid>
-    </NavigationPage.TitleView>
     <ContentPage.Content>
         <Grid
             BackgroundColor="White"

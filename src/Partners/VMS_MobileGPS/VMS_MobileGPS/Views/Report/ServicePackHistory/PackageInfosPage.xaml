@@ -47,7 +47,7 @@
                                         <Label
                                             FontAttributes="Bold"
                                             Text="Gói cước"
-                                            TextColor="White"
+                                            TextColor="{StaticResource PrimaryColor}"
                                             XAlign="Center"
                                             YAlign="Center" />
                                     </DataTemplate>
@@ -69,7 +69,7 @@
                                         <Label
                                             FontAttributes="Bold"
                                             Text="Tần suất gửi tin"
-                                            TextColor="White"
+                                            TextColor="{StaticResource PrimaryColor}"
                                             XAlign="Center"
                                             YAlign="Center" />
                                     </DataTemplate>
@@ -91,7 +91,7 @@
                                         <Label
                                             FontAttributes="Bold"
                                             Text="Block SMS miễn phí"
-                                            TextColor="White"
+                                            TextColor="{StaticResource PrimaryColor}"
                                             XAlign="Center"
                                             YAlign="Center" />
                                     </DataTemplate>
@@ -141,7 +141,7 @@
                                         <Label
                                             FontAttributes="Bold"
                                             Text="Gói cước"
-                                            TextColor="White"
+                                            TextColor="{StaticResource PrimaryColor}"
                                             XAlign="Center"
                                             YAlign="Center" />
                                     </DataTemplate>
@@ -162,7 +162,7 @@
                                         <Label
                                             FontAttributes="Bold"
                                             Text="Block SMS"
-                                            TextColor="White"
+                                            TextColor="{StaticResource PrimaryColor}"
                                             XAlign="Center"
                                             YAlign="Center" />
                                     </DataTemplate>

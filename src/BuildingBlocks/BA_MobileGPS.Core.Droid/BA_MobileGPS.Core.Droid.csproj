@@ -1,1072 +1,1056 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C936199A-57C9-44C2-9671-82C1BF971DCD}</ProjectGuid>
-    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TemplateGuid>{9ef11e43-1701-4396-8835-8392d57abb70}</TemplateGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BA_MobileGPS.Core.Droid</RootNamespace>
-    <AssemblyName>BA_MobileGPS.Core.Droid</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>True</Deterministic>
-    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
-    <AndroidUseAapt2>true</AndroidUseAapt2>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>portable</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>portable</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="GoogleMapsUtility">
-      <HintPath>..\Library\Android\GoogleMapsUtility.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Mono.Android" />
-    <Reference Include="mscorlib" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="BaseActivity.cs" />
-    <Compile Include="CustomRender\IconViewRenderer.cs" />
-    <Compile Include="CustomRender\NullableDatePickerRenderer.cs" />
-    <Compile Include="DependencyServices\Application.cs" />
-    <Compile Include="DependencyServices\AppVersionService.cs" />
-    <Compile Include="DependencyServices\DisplayMessageService.cs" />
-    <Compile Include="DependencyServices\DroidAudioManager.cs" />
-    <Compile Include="DependencyServices\DroidTooltipService.cs" />
-    <Compile Include="DependencyServices\HUDService.cs" />
-    <Compile Include="DependencyServices\SaveAndViewAndroid.cs" />
-    <Compile Include="DependencyServices\SaveService.cs" />
-    <Compile Include="DependencyServices\SettingsService.cs" />
-    <Compile Include="DependencyServices\StatusBarHelper.cs" />
-    <Compile Include="Effects\BorderlessEffect.cs" />
-    <Compile Include="Effects\RoundedEffect.cs" />
-    <Compile Include="Effects\TintImageEffect.cs" />
-    <Compile Include="GoogleMaps\Cluster\ClusteredMarker.cs" />
-    <Compile Include="GoogleMaps\Cluster\ClusterLogicHandler.cs" />
-    <Compile Include="GoogleMaps\Cluster\ClusterRenderer.cs" />
-    <Compile Include="GoogleMaps\Cluster\IconClusterGenerator.cs" />
-    <Compile Include="GoogleMaps\Extensions\ActivityExtensions.cs" />
-    <Compile Include="GoogleMaps\Extensions\BoundsExtensions.cs" />
-    <Compile Include="GoogleMaps\Extensions\CameraPositionExtensions.cs" />
-    <Compile Include="GoogleMaps\Extensions\CameraUpdateExtensions.cs" />
-    <Compile Include="GoogleMaps\Extensions\EnumerableExtensions.cs" />
-    <Compile Include="GoogleMaps\Extensions\LatLngExtensions.cs" />
-    <Compile Include="GoogleMaps\Extensions\MapViewExtensions.cs" />
-    <Compile Include="GoogleMaps\Extensions\PositionExtensions.cs" />
-    <Compile Include="GoogleMaps\Extensions\VisibleRegionExtensions.cs" />
-    <Compile Include="GoogleMaps\Factories\DefaultBitmapDescriptorFactory.cs" />
-    <Compile Include="GoogleMaps\Factories\IBitmapDescriptorFactory.cs" />
-    <Compile Include="GoogleMaps\Logics\CameraLogic.cs" />
-    <Compile Include="GoogleMaps\Logics\CircleLogic.cs" />
-    <Compile Include="GoogleMaps\Logics\ClusterLogic.cs" />
-    <Compile Include="GoogleMaps\Logics\DelegateCancelableCallback.cs" />
-    <Compile Include="GoogleMaps\Logics\DelegateSnapshotReadyCallback.cs" />
-    <Compile Include="GoogleMaps\Logics\GroundOverlayLogic.cs" />
-    <Compile Include="GoogleMaps\Logics\PinLogic.cs" />
-    <Compile Include="GoogleMaps\Logics\PolygonLogic.cs" />
-    <Compile Include="GoogleMaps\Logics\PolylineLogic.cs" />
-    <Compile Include="GoogleMaps\Logics\UiSettingsLogic.cs" />
-    <Compile Include="GoogleMaps\MapRender\CachingNativeBitmapDescriptorFactory.cs" />
-    <Compile Include="GoogleMaps\MapRender\FormsGoogleMaps.cs" />
-    <Compile Include="GoogleMaps\MapRender\MapRenderer.cs" />
-    <Compile Include="GoogleMaps\MapRender\PlatformConfig.cs" />
-    <Compile Include="GoogleMaps\MapRender\Utils.cs" />
-    <Compile Include="GoogleMaps\MapRender\UtilsCluster.cs" />
-    <Compile Include="MainApplication.cs" />
-    <Compile Include="Resources\Resource.designer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Setup\ToolSetup.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\AboutResources.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="AndHUD">
-      <Version>1.4.2</Version>
-    </PackageReference>
-    <PackageReference Include="CardsView">
-      <Version>2.6.3</Version>
-    </PackageReference>
-    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
-      <Version>3.1.2</Version>
-    </PackageReference>
-    <PackageReference Include="Rg.Plugins.Popup">
-      <Version>2.0.0.3</Version>
-    </PackageReference>
-	  <PackageReference Include="SkiaSharp.Extended">
-		  <Version>1.60.0</Version>
-	  </PackageReference>
-	  <PackageReference Include="SkiaSharp.Svg">
-		  <Version>1.60.0</Version>
-	  </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView">
-      <Version>18.2.0.45</Version>
-    </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator">
-      <Version>18.2.0.45</Version>
-    </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfCalendar">
-      <Version>18.2.0.45</Version>
-    </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfMaps">
-      <Version>18.2.0.45</Version>
-    </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfPicker">
-      <Version>18.2.0.45</Version>
-    </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout">
-      <Version>18.2.0.45</Version>
-    </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfTabView">
-      <Version>18.2.0.45</Version>
-    </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.XlsIO">
-      <Version>18.2.0.45</Version>
-    </PackageReference>
-    <PackageReference Include="Xam.Plugin.HtmlLabel">
-      <Version>4.1.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Essentials">
-      <Version>1.5.3.2</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Forms">
-      <Version>4.7.0.1142</Version>
-    </PackageReference>
-    <PackageReference Include="Com.OneSignal">
-      <Version>3.10.0</Version>
-    </PackageReference>
-    <PackageReference Include="IdentityModel">
-      <Version>4.3.1</Version>
-    </PackageReference>
-    <PackageReference Include="Karamunting.Android.ImJeevanDeshmukh.GlideToast">
-      <Version>1.0.0</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.AppCenter">
-      <Version>3.3.0</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.AppCenter.Analytics">
-      <Version>3.3.0</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.AppCenter.Crashes">
-      <Version>3.3.0</Version>
-    </PackageReference>
-    <PackageReference Include="Plugin.CurrentActivity">
-      <Version>2.1.0.4</Version>
-    </PackageReference>
-    <PackageReference Include="Plugin.Permissions">
-      <Version>6.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="Prism.Unity.Forms">
-      <Version>7.2.0.1422</Version>
-    </PackageReference>
-    <PackageReference Include="Prism.Plugin.Popups">
-      <Version>7.2.0.1046</Version>
-    </PackageReference>
-    <PackageReference Include="Sharpnado.Presentation.Forms">
-      <Version>1.7.0</Version>
-    </PackageReference>
-    <PackageReference Include="Shiny.Locations">
-      <Version>1.2.0.1755</Version>
-    </PackageReference>
-    <PackageReference Include="Shiny.Prism">
-      <Version>7.2.0.1054</Version>
-    </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.Buttons">
-      <Version>18.2.0.45</Version>
-    </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfRotator">
-      <Version>18.2.0.45</Version>
-    </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="18.2.0.45" />
-    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="18.2.0.45" />
-    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="18.2.0.45" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.2.0.45" />
-    <PackageReference Include="MonkeyCache.FileStore" Version="1.3.0" />
-    <PackageReference Include="Toasts.Forms.Plugin">
-      <Version>3.3.2</Version>
-    </PackageReference>
-    <PackageReference Include="Xam.Plugin.Geolocator">
-      <Version>4.6.2-beta</Version>
-    </PackageReference>
-    <PackageReference Include="Xam.Plugin.Media">
-      <Version>5.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="Xam.Plugins.Settings">
-      <Version>4.1.0-beta</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.Annotations">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.Compat">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.Core.UI">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.Core.Utils">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.CustomTabs">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.Design">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.Exif">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.Fragment">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.Media.Compat">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.v4">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.v7.CardView">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Android.Tooltips">
-      <Version>1.0.7</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Build.Download">
-      <Version>0.10.0</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Forms.PancakeView">
-      <Version>2.0.1.698</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.GooglePlayServices.Auth">
-      <Version>71.1600.1</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.GooglePlayServices.Maps">
-      <Version>71.1610.1</Version>
-    </PackageReference>
-    <PackageReference Include="XamFileStorage.Netstandard">
-      <Version>1.1.3</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values\strings.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\flag_nl.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BA_MobileGPS.Core\BA_MobileGPS.Core.csproj">
-      <Project>{55e2fe34-997f-4771-a5d7-8114b5fb7899}</Project>
-      <Name>BA_MobileGPS.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BA_MobileGPS.Utilities\BA_MobileGPS.Utilities.csproj">
-      <Project>{89a997b6-2157-4bad-a833-d3fa085b54ba}</Project>
-      <Name>BA_MobileGPS.Utilities</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\amu_text_bubble_cluster.axml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_cluster.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\RoundedBackground.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\RoundedSearchBarBackground.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_notifications.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_notifications.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_notifications.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_notifications.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\flag_us.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\flag_vn.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_lost_gps.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_lost_gps.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_lost_gps.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_lost_gps.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\selected.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\notSelected.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_sortdown.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_sortdown.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_sortdown.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_sortdown.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_groupcar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_phone_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_time_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_user.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_groupcar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_phone_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_time_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_user.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_groupcar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_phone_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_time_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_user.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_groupcar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_phone_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_time_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_user.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_temperature.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_time_running.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_turnon_time_on_day.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_vehicleplate.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_velocity.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_air_conditioner.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_alert_speeding.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_concrete_moving.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_count_door_open.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_crane.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_engine.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_filter_ac_on.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_filter_stop.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_km_on_day.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_lisence.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_nl.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_parking.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_warning_ben.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_air_conditioner.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_alert_speeding.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_concrete_moving.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_count_door_open.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_crane.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_engine.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_filter_ac_on.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_filter_stop.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_lisence.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_nl.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_parking.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_temperature.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_time_running.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_turnon_time_on_day.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_vehicleplate.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_velocity.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_warning_ben.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_air_conditioner.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_alert_speeding.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_concrete_moving.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_count_door_open.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_crane.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_engine.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_filter_ac_on.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_filter_stop.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_nl.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_parking.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_temperature.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_time_running.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_turnon_time_on_day.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_vehicleplate.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_velocity.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_warning_ben.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_air_conditioner.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_alert_speeding.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_concrete_moving.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_count_door_open.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_crane.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_engine.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_lisence.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_nl.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_parking.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_temperature.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_time_running.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_turnon_time_on_day.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_vehicleplate.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_velocity.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_date_range_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_fast_end_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_fast_forward_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_fast_rewind_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_fast_start_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_info_outline_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_list_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_play_arrow_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_stop_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_view_list.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_date_range_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_fast_end_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_fast_forward_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_fast_rewind_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_fast_start_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_info_outline_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_list_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_play_arrow_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_stop_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_view_list.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_date_range_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_fast_end_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_fast_forward_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_fast_rewind_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_fast_start_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_info_outline_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_list_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_play_arrow_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_stop_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_view_list.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_date_range_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_fast_end_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_fast_forward_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_fast_rewind_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_fast_start_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_info_outline_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_list_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_play_arrow_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_stop_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_view_list.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_start.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_start.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_start.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_start.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_end.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_end.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_end.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_end.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_stop.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_stop.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_stop.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_stop.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_tracking.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_arrow_tracking.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_tracking.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_arrow_tracking.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_camera.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_camera.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_camera.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_camera.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_help.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_help.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_help.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_help.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_fb.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_fb.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_fb.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_fb.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_warehouse.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_address.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_airport.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_alert_locker.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_allow_stopping.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_away.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_bank.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_branch.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_charging_station.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_check_station.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_cinema.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_concrete_station.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_construction_waste.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_delivery.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_demo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_discharge.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_freeway.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_gara.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_gas_station.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_get_fuel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_highway_contour.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_home.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_hospital.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_hotel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_industrial_area.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_market.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_noise_signal.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_office.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_park.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_parking_area.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_playground.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_port.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_railroad_crossing.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_recycle_bin_1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_recycle_bin_2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_recycle_bin_3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_recycle_bin_4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_red_cement.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_registry_center.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_repair.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_restaurant.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_restaurant2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_route_contour.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_sand_hill.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_sand_mine.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_saved_area.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_scale.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_school.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_sea.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_soil_mine.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_sound.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_speed_limit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_station.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_stone_mine.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_stop.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_stop_area.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_stop_machineOn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_supplier.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_point_take_photo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_noel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_happynewyear.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_holidays.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_hpbd.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_noel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_happynewyear.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_holidays.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_hpbd.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_noel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_happynewyear.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_holidays.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_hpbd.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_noel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_happynewyear.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_holidays.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_hpbd.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_excel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_excel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_excel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_excel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_location_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_location_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_location_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_location_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_telephone.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_telephone.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_telephone.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_telephone.png" />
-  </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	<PropertyGroup>
+		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+		<ProductVersion>8.0.30703</ProductVersion>
+		<SchemaVersion>2.0</SchemaVersion>
+		<ProjectGuid>{C936199A-57C9-44C2-9671-82C1BF971DCD}</ProjectGuid>
+		<ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+		<TemplateGuid>{9ef11e43-1701-4396-8835-8392d57abb70}</TemplateGuid>
+		<OutputType>Library</OutputType>
+		<AppDesignerFolder>Properties</AppDesignerFolder>
+		<RootNamespace>BA_MobileGPS.Core.Droid</RootNamespace>
+		<AssemblyName>BA_MobileGPS.Core.Droid</AssemblyName>
+		<FileAlignment>512</FileAlignment>
+		<Deterministic>True</Deterministic>
+		<AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+		<GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+		<AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
+		<TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
+		<AndroidUseAapt2>true</AndroidUseAapt2>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>portable</DebugType>
+		<Optimize>false</Optimize>
+		<OutputPath>bin\Debug\</OutputPath>
+		<DefineConstants>DEBUG;TRACE</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugType>portable</DebugType>
+		<Optimize>true</Optimize>
+		<OutputPath>bin\Release\</OutputPath>
+		<DefineConstants>TRACE</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<ItemGroup>
+		<Reference Include="GoogleMapsUtility">
+			<HintPath>..\Library\Android\GoogleMapsUtility.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.CSharp" />
+		<Reference Include="Mono.Android" />
+		<Reference Include="mscorlib" />
+		<Reference Include="System" />
+		<Reference Include="System.Core" />
+		<Reference Include="System.Xml.Linq" />
+		<Reference Include="System.Xml" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Include="BaseActivity.cs" />
+		<Compile Include="CustomRender\IconViewRenderer.cs" />
+		<Compile Include="CustomRender\NullableDatePickerRenderer.cs" />
+		<Compile Include="DependencyServices\Application.cs" />
+		<Compile Include="DependencyServices\AppVersionService.cs" />
+		<Compile Include="DependencyServices\DisplayMessageService.cs" />
+		<Compile Include="DependencyServices\DroidAudioManager.cs" />
+		<Compile Include="DependencyServices\DroidTooltipService.cs" />
+		<Compile Include="DependencyServices\HUDService.cs" />
+		<Compile Include="DependencyServices\SaveAndViewAndroid.cs" />
+		<Compile Include="DependencyServices\SaveService.cs" />
+		<Compile Include="DependencyServices\SettingsService.cs" />
+		<Compile Include="DependencyServices\StatusBarHelper.cs" />
+		<Compile Include="Effects\BorderlessEffect.cs" />
+		<Compile Include="Effects\RoundedEffect.cs" />
+		<Compile Include="Effects\TintImageEffect.cs" />
+		<Compile Include="GoogleMaps\Cluster\ClusteredMarker.cs" />
+		<Compile Include="GoogleMaps\Cluster\ClusterLogicHandler.cs" />
+		<Compile Include="GoogleMaps\Cluster\ClusterRenderer.cs" />
+		<Compile Include="GoogleMaps\Cluster\IconClusterGenerator.cs" />
+		<Compile Include="GoogleMaps\Extensions\ActivityExtensions.cs" />
+		<Compile Include="GoogleMaps\Extensions\BoundsExtensions.cs" />
+		<Compile Include="GoogleMaps\Extensions\CameraPositionExtensions.cs" />
+		<Compile Include="GoogleMaps\Extensions\CameraUpdateExtensions.cs" />
+		<Compile Include="GoogleMaps\Extensions\EnumerableExtensions.cs" />
+		<Compile Include="GoogleMaps\Extensions\LatLngExtensions.cs" />
+		<Compile Include="GoogleMaps\Extensions\MapViewExtensions.cs" />
+		<Compile Include="GoogleMaps\Extensions\PositionExtensions.cs" />
+		<Compile Include="GoogleMaps\Extensions\VisibleRegionExtensions.cs" />
+		<Compile Include="GoogleMaps\Factories\DefaultBitmapDescriptorFactory.cs" />
+		<Compile Include="GoogleMaps\Factories\IBitmapDescriptorFactory.cs" />
+		<Compile Include="GoogleMaps\Logics\CameraLogic.cs" />
+		<Compile Include="GoogleMaps\Logics\CircleLogic.cs" />
+		<Compile Include="GoogleMaps\Logics\ClusterLogic.cs" />
+		<Compile Include="GoogleMaps\Logics\DelegateCancelableCallback.cs" />
+		<Compile Include="GoogleMaps\Logics\DelegateSnapshotReadyCallback.cs" />
+		<Compile Include="GoogleMaps\Logics\GroundOverlayLogic.cs" />
+		<Compile Include="GoogleMaps\Logics\PinLogic.cs" />
+		<Compile Include="GoogleMaps\Logics\PolygonLogic.cs" />
+		<Compile Include="GoogleMaps\Logics\PolylineLogic.cs" />
+		<Compile Include="GoogleMaps\Logics\UiSettingsLogic.cs" />
+		<Compile Include="GoogleMaps\MapRender\CachingNativeBitmapDescriptorFactory.cs" />
+		<Compile Include="GoogleMaps\MapRender\FormsGoogleMaps.cs" />
+		<Compile Include="GoogleMaps\MapRender\MapRenderer.cs" />
+		<Compile Include="GoogleMaps\MapRender\PlatformConfig.cs" />
+		<Compile Include="GoogleMaps\MapRender\Utils.cs" />
+		<Compile Include="GoogleMaps\MapRender\UtilsCluster.cs" />
+		<Compile Include="MainApplication.cs" />
+		<Compile Include="Resources\Resource.designer.cs" />
+		<Compile Include="Properties\AssemblyInfo.cs" />
+		<Compile Include="Setup\ToolSetup.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="Resources\AboutResources.txt" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AndHUD">
+			<Version>1.4.2</Version>
+		</PackageReference>
+		<PackageReference Include="CardsView">
+			<Version>2.6.3</Version>
+		</PackageReference>
+		<PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
+			<Version>3.1.2</Version>
+		</PackageReference>
+		<PackageReference Include="glidex.forms">
+			<Version>2.1.0.470</Version>
+		</PackageReference>
+		<PackageReference Include="Rg.Plugins.Popup">
+			<Version>2.0.0.3</Version>
+		</PackageReference>
+		<PackageReference Include="SkiaSharp.Extended">
+			<Version>1.60.0</Version>
+		</PackageReference>
+		<PackageReference Include="SkiaSharp.Svg">
+			<Version>1.60.0</Version>
+		</PackageReference>
+
+		<PackageReference Include="Xam.Plugin.HtmlLabel">
+			<Version>4.1.3</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Essentials">
+			<Version>1.5.3.2</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Forms">
+			<Version>4.7.0.1142</Version>
+		</PackageReference>
+		<PackageReference Include="Com.OneSignal">
+			<Version>3.10.0</Version>
+		</PackageReference>
+		<PackageReference Include="IdentityModel">
+			<Version>4.3.1</Version>
+		</PackageReference>
+		<PackageReference Include="Karamunting.Android.ImJeevanDeshmukh.GlideToast">
+			<Version>1.0.0</Version>
+		</PackageReference>
+		<PackageReference Include="Microsoft.AppCenter">
+			<Version>3.3.0</Version>
+		</PackageReference>
+		<PackageReference Include="Microsoft.AppCenter.Analytics">
+			<Version>3.3.0</Version>
+		</PackageReference>
+		<PackageReference Include="Microsoft.AppCenter.Crashes">
+			<Version>3.3.0</Version>
+		</PackageReference>
+		<PackageReference Include="Plugin.CurrentActivity">
+			<Version>2.1.0.4</Version>
+		</PackageReference>
+		<PackageReference Include="Plugin.Permissions">
+			<Version>6.0.1</Version>
+		</PackageReference>
+		<PackageReference Include="Prism.Unity.Forms">
+			<Version>7.2.0.1422</Version>
+		</PackageReference>
+		<PackageReference Include="Prism.Plugin.Popups">
+			<Version>7.2.0.1046</Version>
+		</PackageReference>
+		<PackageReference Include="Sharpnado.Presentation.Forms">
+			<Version>1.7.0</Version>
+		</PackageReference>
+		<PackageReference Include="Shiny.Locations">
+			<Version>1.2.0.1755</Version>
+		</PackageReference>
+		<PackageReference Include="Shiny.Prism">
+			<Version>7.2.0.1054</Version>
+		</PackageReference>
+		<PackageReference Include="MonkeyCache.FileStore" Version="1.3.0" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.2.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.2.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="18.2.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="18.2.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.2.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.2.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.2.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="18.2.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.2.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="18.2.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfChart" Version="18.2.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="18.2.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="18.2.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.2.0.44" />
+		<PackageReference Include="Toasts.Forms.Plugin">
+			<Version>3.3.2</Version>
+		</PackageReference>
+		<PackageReference Include="Xam.Plugin.Geolocator">
+			<Version>4.6.2-beta</Version>
+		</PackageReference>
+		<PackageReference Include="Xam.Plugin.Media">
+			<Version>5.0.1</Version>
+		</PackageReference>
+		<PackageReference Include="Xam.Plugins.Settings">
+			<Version>4.1.0-beta</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Android.Support.Annotations">
+			<Version>28.0.0.3</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Android.Support.Compat">
+			<Version>28.0.0.3</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Android.Support.Core.UI">
+			<Version>28.0.0.3</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Android.Support.Core.Utils">
+			<Version>28.0.0.3</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Android.Support.CustomTabs">
+			<Version>28.0.0.3</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Android.Support.Design">
+			<Version>28.0.0.3</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Android.Support.Exif">
+			<Version>28.0.0.3</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Android.Support.Fragment">
+			<Version>28.0.0.3</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Android.Support.Media.Compat">
+			<Version>28.0.0.3</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Android.Support.v4">
+			<Version>28.0.0.3</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Android.Support.v7.AppCompat">
+			<Version>28.0.0.3</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Android.Support.v7.CardView">
+			<Version>28.0.0.3</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Android.Support.v7.MediaRouter">
+			<Version>28.0.0.3</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Android.Tooltips">
+			<Version>1.0.7</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Build.Download">
+			<Version>0.10.0</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Forms.PancakeView">
+			<Version>2.0.1.698</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.GooglePlayServices.Auth">
+			<Version>71.1600.1</Version>
+		</PackageReference>
+		<PackageReference Include="Xamarin.GooglePlayServices.Maps">
+			<Version>71.1610.1</Version>
+		</PackageReference>
+		<PackageReference Include="XamFileStorage.Netstandard">
+			<Version>1.1.3</Version>
+		</PackageReference>
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\values\strings.xml" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\flag_nl.png" />
+		<AndroidResource Include="Resources\drawable-hdpi\ic_close.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\BA_MobileGPS.Core\BA_MobileGPS.Core.csproj">
+			<Project>{55e2fe34-997f-4771-a5d7-8114b5fb7899}</Project>
+			<Name>BA_MobileGPS.Core</Name>
+		</ProjectReference>
+		<ProjectReference Include="..\BA_MobileGPS.Utilities\BA_MobileGPS.Utilities.csproj">
+			<Project>{89a997b6-2157-4bad-a833-d3fa085b54ba}</Project>
+			<Name>BA_MobileGPS.Utilities</Name>
+		</ProjectReference>
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\layout\amu_text_bubble_cluster.axml" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_cluster.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\RoundedBackground.xml" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\RoundedSearchBarBackground.xml" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_notifications.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_notifications.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_notifications.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_notifications.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\flag_us.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\flag_vn.png" />
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_close.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_close.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_close.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_lost_gps.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_lost_gps.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_lost_gps.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_lost_gps.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\selected.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\notSelected.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_sortdown.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_sortdown.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_sortdown.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_sortdown.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_groupcar.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_phone_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_time_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_user.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_groupcar.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_phone_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_time_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_user.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_groupcar.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_phone_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_time_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_user.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_groupcar.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_phone_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_time_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_user.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_temperature.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_time_running.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_turnon_time_on_day.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_vehicleplate.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_velocity.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_air_conditioner.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_alert_speeding.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_concrete_moving.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_count_door_open.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_crane.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_engine.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_filter_ac_on.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_filter_stop.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_km_on_day.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_lisence.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_nl.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_parking.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_warning_ben.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_air_conditioner.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_alert_speeding.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_concrete_moving.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_count_door_open.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_crane.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_engine.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_filter_ac_on.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_filter_stop.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_lisence.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_nl.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_parking.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_temperature.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_time_running.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_turnon_time_on_day.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_vehicleplate.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_velocity.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_warning_ben.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_air_conditioner.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_alert_speeding.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_concrete_moving.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_count_door_open.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_crane.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_engine.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_filter_ac_on.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_filter_stop.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_nl.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_parking.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_temperature.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_time_running.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_turnon_time_on_day.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_vehicleplate.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_velocity.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_warning_ben.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_air_conditioner.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_alert_speeding.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_concrete_moving.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_count_door_open.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_crane.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_engine.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_lisence.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_nl.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_parking.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_temperature.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_time_running.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_turnon_time_on_day.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_vehicleplate.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_velocity.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_date_range_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_fast_end_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_fast_forward_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_fast_rewind_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_fast_start_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_info_outline_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_list_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_play_arrow_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_stop_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_view_list.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_date_range_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_fast_end_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_fast_forward_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_fast_rewind_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_fast_start_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_info_outline_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_list_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_play_arrow_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_stop_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_view_list.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_date_range_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_fast_end_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_fast_forward_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_fast_rewind_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_fast_start_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_info_outline_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_list_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_play_arrow_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_stop_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_view_list.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_date_range_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_fast_end_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_fast_forward_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_fast_rewind_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_fast_start_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_info_outline_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_list_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_play_arrow_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_stop_white.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_view_list.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_start.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_start.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_start.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_start.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_end.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_end.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_end.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_end.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_stop.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_stop.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_stop.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_stop.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_tracking.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_arrow_tracking.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_tracking.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_arrow_tracking.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_camera.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_camera.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_camera.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_camera.png" />
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_help.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_help.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_help.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_help.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_fb.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_fb.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_fb.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_fb.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_warehouse.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_address.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_airport.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_alert_locker.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_allow_stopping.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_away.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_bank.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_branch.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_charging_station.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_check_station.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_cinema.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_concrete_station.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_construction_waste.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_delivery.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_demo.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_discharge.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_freeway.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_gara.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_gas_station.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_get_fuel.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_highway_contour.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_home.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_hospital.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_hotel.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_industrial_area.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_market.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_noise_signal.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_office.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_park.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_parking_area.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_playground.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_port.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_railroad_crossing.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_recycle_bin_1.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_recycle_bin_2.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_recycle_bin_3.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_recycle_bin_4.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_red_cement.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_registry_center.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_repair.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_restaurant.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_restaurant2.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_route_contour.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_sand_hill.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_sand_mine.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_saved_area.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_scale.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_school.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_sea.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_soil_mine.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_sound.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_speed_limit.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_station.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_stone_mine.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_stop.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_stop_area.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_stop_machineOn.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_supplier.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable\ic_point_take_photo.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_noel.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_happynewyear.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_holidays.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_hpbd.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_noel.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_happynewyear.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_holidays.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_hpbd.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_noel.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_happynewyear.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_holidays.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_hpbd.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_noel.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_happynewyear.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_holidays.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_hpbd.png" />
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_excel.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_excel.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_excel.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_excel.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_location_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_location_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_location_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_location_black.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-hdpi\ic_telephone.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xhdpi\ic_telephone.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxhdpi\ic_telephone.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_telephone.png" />
+	</ItemGroup>
+	<Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+	<!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
