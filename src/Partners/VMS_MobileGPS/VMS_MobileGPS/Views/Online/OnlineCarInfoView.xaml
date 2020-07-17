@@ -227,36 +227,60 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button
+            <sharpnado:MaterialFrame
                 Grid.Column="0"
-                BackgroundColor="{StaticResource PrimaryColor}"
-                BorderRadius="18"
-                Command="{Binding PushToRouterPageCommand}"
-                FontAttributes="Bold"
-                FontSize="10"
-                HeightRequest="36"
-                Text="{i18n:TranslateResource Route_Label_TitleVMS}"
-                TextColor="{StaticResource WhiteColor}" />
-            <Button
+                Padding="0,11"
+                CornerRadius="18"
+                HorizontalOptions="FillAndExpand"
+                LightThemeBackgroundColor="{StaticResource PrimaryColor}">
+                <sharpnado:MaterialFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PushToRouterPageCommand}" />
+                </sharpnado:MaterialFrame.GestureRecognizers>
+                <sharpnado:MaterialFrame.Content>
+                    <Label
+                        FontSize="10"
+                        LineBreakMode="TailTruncation"
+                        Text="{i18n:TranslateResource Route_Label_TitleVMS,
+                                                      Converter={StaticResource UpperCaseConverter}}"
+                        TextColor="{StaticResource WhiteColor}" />
+                </sharpnado:MaterialFrame.Content>
+            </sharpnado:MaterialFrame>
+            <sharpnado:MaterialFrame
                 Grid.Column="1"
-                BackgroundColor="{StaticResource PrimaryColor}"
-                BorderRadius="18"
-                Command="{Binding PushToServicePackHistoryPageCommand}"
-                FontAttributes="Bold"
-                FontSize="10"
-                HeightRequest="36"
-                Text="Phí phương tiện"
-                TextColor="{StaticResource WhiteColor}" />
-            <Button
+                Padding="0,11"
+                CornerRadius="18"
+                HorizontalOptions="FillAndExpand"
+                LightThemeBackgroundColor="{StaticResource PrimaryColor}">
+                <sharpnado:MaterialFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PushToServicePackHistoryPageCommand}" />
+                </sharpnado:MaterialFrame.GestureRecognizers>
+                <sharpnado:MaterialFrame.Content>
+                    <Label
+                        FontSize="10"
+                        LineBreakMode="TailTruncation"
+                        Text="{i18n:TranslateResource Route_Label_FeeVMS,
+                                                      Converter={StaticResource UpperCaseConverter}}"
+                        TextColor="{StaticResource WhiteColor}" />
+                </sharpnado:MaterialFrame.Content>
+            </sharpnado:MaterialFrame>
+            <sharpnado:MaterialFrame
                 Grid.Column="2"
-                BackgroundColor="{StaticResource PrimaryColor}"
-                BorderRadius="18"
-                Command="{Binding PushToDetailPageCommand}"
-                FontAttributes="Bold"
-                FontSize="10"
-                HeightRequest="36"
-                Text="{i18n:TranslateResource Online_Button_Detail}"
-                TextColor="{StaticResource WhiteColor}" />
+                Padding="0,11"
+                CornerRadius="18"
+                HorizontalOptions="FillAndExpand"
+                LightThemeBackgroundColor="{StaticResource PrimaryColor}">
+                <sharpnado:MaterialFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PushToDetailPageCommand}" />
+                </sharpnado:MaterialFrame.GestureRecognizers>
+                <sharpnado:MaterialFrame.Content>
+                    <Label
+                        FontSize="10"
+                        LineBreakMode="TailTruncation"
+                        Text="{i18n:TranslateResource Online_Button_Detail,
+                                                      Converter={StaticResource UpperCaseConverter}}"
+                        TextColor="{StaticResource WhiteColor}" />
+                </sharpnado:MaterialFrame.Content>
+            </sharpnado:MaterialFrame>
         </Grid>
     </Grid>
 </sharpnado:MaterialFrame>

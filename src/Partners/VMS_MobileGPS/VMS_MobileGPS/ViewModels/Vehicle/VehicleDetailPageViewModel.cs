@@ -128,7 +128,7 @@ namespace VMS_MobileGPS.ViewModels
                     { ParameterKey.ShipDetail, ShipDetailRespone }
                 };
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/ServicePackHistoryPage", parameters, true);
+                await NavigationService.NavigateAsync("ServicePackHistoryPage", parameters, useModalNavigation: false);
             });
         }
 
