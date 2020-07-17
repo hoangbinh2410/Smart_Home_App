@@ -20,7 +20,6 @@ namespace VMS_MobileGPS.ViewModels
     {
         private readonly IDetailVehicleService detailVehicleService;
         //public ICommand ShowInfoMessageBAPCommand { get; private set; }
-        public ICommand ViewServicePackHistoryCommand { get; private set; }
 
         public VehicleDetailViewModel(INavigationService navigationService, IDetailVehicleService detailVehicleService)
             : base(navigationService)
@@ -32,8 +31,6 @@ namespace VMS_MobileGPS.ViewModels
             shipDetailRespone = new ShipDetailRespone();
 
             //ShowInfoMessageBAPCommand = new DelegateCommand(ShowInfoMessageBAP);
-
-            ViewServicePackHistoryCommand = new DelegateCommand(ViewServicePackHistory);
 
             EventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(OnReceiveSendCarSignalR);
         }
@@ -117,19 +114,6 @@ namespace VMS_MobileGPS.ViewModels
                 };
                 ShipDetailRespone = model;
             }
-        }
-
-        private void ViewServicePackHistory()
-        {
-            SafeExecute(async () =>
-            {
-                var parameters = new NavigationParameters
-                {
-                    { ParameterKey.ShipDetail, ShipDetailRespone }
-                };
-
-                await NavigationService.NavigateAsync("ServicePackHistoryPage", parameters, useModalNavigation: false);
-            });
         }
 
         #endregion command
