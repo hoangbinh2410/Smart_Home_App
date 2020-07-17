@@ -296,7 +296,7 @@ namespace VMS_MobileGPS.ViewModels
                     { ParameterKey.CarDetail, CarActive }
                 };
 
-                await NavigationService.NavigateAsync("NavigationPage/VehicleDetailPage", parameters, true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true);
             });
         }
 
@@ -350,7 +350,7 @@ namespace VMS_MobileGPS.ViewModels
                         { ParameterKey.ShipDetail, model }
                     };
 
-                    await NavigationService.NavigateAsync("BaseNavigationPage/ServicePackHistoryPage", parameters, true);
+                    await NavigationService.NavigateAsync("NavigationPage/ServicePackHistoryPage", parameters, true);
                 }
             });
         }

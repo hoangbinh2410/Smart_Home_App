@@ -17,7 +17,38 @@
     BackgroundColor="White"
     NavigationPage.BackButtonTitle=""
     mc:Ignorable="d">
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
+            <Label
+                Grid.Column="0"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Start"
+                LineBreakMode="TailTruncation"
+                Text="Gói cước sử dụng"
+                TextColor="{StaticResource WhiteColor}"
+                VerticalOptions="Center" />
+            <ffImage:CachedImage
+                Grid.Column="1"
+                Margin="0,0,10,0"
+                HeightRequest="27"
+                HorizontalOptions="End"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
+        </Grid>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <ScrollView
             HorizontalOptions="FillAndExpand"
