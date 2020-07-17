@@ -18,10 +18,10 @@
                 <sharpnado:MaterialFrame
                     Grid.Row="0"
                     Padding="10"
-                    BackgroundColor="{StaticResource GrayColor2}"
                     CornerRadius="0"
                     HasShadow="False"
                     HorizontalOptions="FillAndExpand"
+                    LightThemeBackgroundColor="{StaticResource GrayColor}"
                     VerticalOptions="FillAndExpand">
                     <sharpnado:MaterialFrame.Content>
                         <Label
