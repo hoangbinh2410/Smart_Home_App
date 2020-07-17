@@ -5,7 +5,6 @@ using BA_MobileGPS.Core.Droid.DependencyServices;
 using Plugin.Permissions;
 using Prism;
 using Prism.Ioc;
-using Rg.Plugins.Popup.Services;
 using Shiny;
 
 namespace BA_MobileGPS.Core.Droid
@@ -14,7 +13,6 @@ namespace BA_MobileGPS.Core.Droid
     {
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
-            // Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             AndroidShinyHost.OnRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -46,30 +44,6 @@ namespace BA_MobileGPS.Core.Droid
                 //containerRegistry.RegisterInstance<IDownloader>(new AndroidDownloader());
                 containerRegistry.RegisterInstance<IAppVersionService>(new AppVersionService());
             }
-        }
-
-        public async override void OnBackPressed()
-        {
-            if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
-            {
-                // Do something if there are some pages in the `PopupStack`
-                await PopupNavigation.Instance.PopAsync();
-            }
-        }
-
-        protected override void OnStart()
-        {
-            base.OnStart();
-        }
-
-        protected override void OnResume()
-        {
-            base.OnResume();
-        }
-
-        public override void OnConfigurationChanged(Android.Content.Res.Configuration newConfig)
-        {
-            base.OnConfigurationChanged(newConfig);
         }
     }
 }

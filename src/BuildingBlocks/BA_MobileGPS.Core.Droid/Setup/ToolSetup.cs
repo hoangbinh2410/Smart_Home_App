@@ -31,6 +31,7 @@ namespace BA_MobileGPS.Droid.Setup
             CachedImageRenderer.Init(enableFastRenderer: true);
             CachedImageRenderer.InitImageViewHandler();
             //This forces the custom renderers to be used
+            Android.Glide.Forms.Init(activity, debug: false);
 
             // Override default BitmapDescriptorFactory by your implementation
             FormsGoogleMaps.Init(activity, bundle, new PlatformConfig

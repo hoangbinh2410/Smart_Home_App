@@ -1,7 +1,6 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Android.Views;
 using BA_MobileGPS.Core.Droid;
 using BA_MobileGPS.Droid.Setup;
 using Xamarin.Forms;
@@ -25,13 +24,6 @@ namespace VMS_MobileGPS.Droid
             ToolSetup.Initialize(this, bundle);
 
             LoadApplication(new VMSApp(new AndroidInitializer()));
-        }
-
-        public override void OnBackPressed()
-        {
-            if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
-            {
-            }
         }
     }
 }
