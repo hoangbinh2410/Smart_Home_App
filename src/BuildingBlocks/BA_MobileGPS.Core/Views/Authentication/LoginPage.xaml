@@ -12,8 +12,8 @@
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
-    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.HasNavigationBar="False">
@@ -31,11 +31,12 @@
             </ResourceDictionary.MergedDictionaries>
             <converter:HasDataConverter x:Key="HasDataConverter" />
         </ResourceDictionary>
-        <Style TargetType="pancake:PancakeView">
-            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BlueDarkColor}, Dark={StaticResource BlueDarkColor}}" />
+        <Style TargetType="sharpnado:MaterialFrame">
+            <Setter Property="LightThemeBackgroundColor" Value="{AppThemeBinding Light={StaticResource BlueDarkColor}, Dark={StaticResource BlueDarkColor}}" />
             <Setter Property="HeightRequest" Value="40" />
             <Setter Property="WidthRequest" Value="40" />
             <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="Padding" Value="0" />
         </Style>
     </ContentPage.Resources>
     <Grid RowSpacing="0">
@@ -82,11 +83,12 @@
                         ContainerType="Outlined"
                         ErrorText="{Binding UserName.ErrorFirst}"
                         HasError="{Binding UserName.IsNotValid}"
+                        HeightRequest="50"
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
-                            <pancake:PancakeView HeightRequest="40">
+                            <sharpnado:MaterialFrame HeightRequest="40">
                                 <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.User}" />
-                            </pancake:PancakeView>
+                            </sharpnado:MaterialFrame>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
                             <Entry
@@ -105,9 +107,9 @@
                         HasError="{Binding Password.IsNotValid}"
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
-                            <pancake:PancakeView HeightRequest="40">
+                            <sharpnado:MaterialFrame HeightRequest="40">
                                 <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.Lock}" />
-                            </pancake:PancakeView>
+                            </sharpnado:MaterialFrame>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
                             <Entry
@@ -162,21 +164,21 @@
                     HeightRequest="40"
                     VerticalOptions="EndAndExpand">
                     <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
-                        <pancake:PancakeView>
+                        <sharpnado:MaterialFrame>
                             <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.PhoneVolume}" />
-                            <pancake:PancakeView.GestureRecognizers>
+                            <sharpnado:MaterialFrame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding CallHotLineCommand}" NumberOfTapsRequired="1" />
-                            </pancake:PancakeView.GestureRecognizers>
-                        </pancake:PancakeView>
-                        <pancake:PancakeView>
+                            </sharpnado:MaterialFrame.GestureRecognizers>
+                        </sharpnado:MaterialFrame>
+                        <sharpnado:MaterialFrame>
                             <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.MailBulk}" />
-                            <pancake:PancakeView.GestureRecognizers>
+                            <sharpnado:MaterialFrame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SendEmailCommand}" NumberOfTapsRequired="1" />
-                            </pancake:PancakeView.GestureRecognizers>
-                        </pancake:PancakeView>
-                        <pancake:PancakeView>
+                            </sharpnado:MaterialFrame.GestureRecognizers>
+                        </sharpnado:MaterialFrame>
+                        <sharpnado:MaterialFrame>
                             <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.Globe}" />
-                        </pancake:PancakeView>
+                        </sharpnado:MaterialFrame>
                     </StackLayout>
                     <controls:IconView
                         Margin="0,0,20,0"
