@@ -58,7 +58,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public DelegateCommand SelectVehicleRouterCommand { get; private set; }
 
         public DelegateCommand SelectVehicleGroupCommand { get; private set; }
-        
+
 
         public ViewModelBase(INavigationService navigationService)
         {
@@ -79,7 +79,9 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectVehicleCommand = new DelegateCommand(SelectVehicle);
             SelectVehicleRouterCommand = new DelegateCommand(SelectVehicleRouter);
             SelectVehicleGroupCommand = new DelegateCommand(SelectVehicleGroup);
-        }
+            PushToAleartPageCommand = new DelegateCommand(PushToAlertPage);
+            CallHotLineCommand = new DelegateCommand(CallHotLine);
+        }      
 
         ~ViewModelBase()
         {
@@ -330,25 +332,29 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         { ParameterKey.VehicleGroupsSelected, VehicleGroups }
                     };
-            
+
 
                 await NavigationService.NavigateAsync("BaseNavigationPage/VehicleGroupLookUp", navigationPara, useModalNavigation: true);
             });
         }
 
-        public ICommand PushToAleartPageCommand
+        private void PushToAlertPage()
         {
-            get
+            SafeExecute(async () =>
             {
-                return new Command(() =>
-                {
-                    SafeExecute(async () =>
-                    {
-                        await NavigationService.NavigateAsync("NavigationPage/AlertOnlinePage", useModalNavigation: true);
-                    });
-                });
+                await NavigationService.NavigateAsync("NavigationPage/AlertOnlinePage", useModalNavigation: true);
+            });
+        }
+        private void CallHotLine()
+        {
+            if (!string.IsNullOrEmpty(MobileSettingHelper.HotlineGps))
+            {
+                PhoneDialer.Open(MobileSettingHelper.HotlineGps);
             }
         }
+
+        public ICommand PushToAleartPageCommand { get; }
+
 
         public ICommand PushToNoticePageCommand
         {
@@ -364,19 +370,8 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        public ICommand CallHotLineCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    if (!string.IsNullOrEmpty(MobileSettingHelper.HotlineGps))
-                    {
-                        PhoneDialer.Open(MobileSettingHelper.HotlineGps);
-                    }
-                });
-            }
-        }
+        public ICommand CallHotLineCommand { get; }
+
         private LoginResponse userInfo;
 
         public LoginResponse UserInfo
@@ -446,5 +441,7 @@ namespace BA_MobileGPS.Core.ViewModels
             Settings.Rememberme = false;
             await NavigationService.NavigateAsync("/LoginPage");
         }
+
+
     }
 }

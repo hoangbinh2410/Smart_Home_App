@@ -62,7 +62,10 @@
             <pancake:PancakeView
                 Grid.Row="1"
                 BackgroundGradientEndPoint="0,1"
-                HorizontalOptions="EndAndExpand">
+                CornerRadius="20"
+                HeightRequest="40"
+                HorizontalOptions="EndAndExpand"
+                WidthRequest="40">
                 <pancake:PancakeView.BackgroundGradientStops>
                     <pancake:GradientStopCollection>
                         <pancake:GradientStop Offset="0.6" Color="#0D2D6C" />
