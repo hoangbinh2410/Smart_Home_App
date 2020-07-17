@@ -12,11 +12,9 @@
     xmlns:local="clr-namespace:BA_MobileGPS.Utilities;assembly=BA_MobileGPS.Utilities"
     xmlns:localstatic="clr-namespace:VMS_MobileGPS.Constant;assembly=VMS_MobileGPS"
     xmlns:prism="http://prismlibrary.com"
-    xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    xmlns:switch="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     prism:ViewModelLocator.AutowireViewModel="True"
-    NavigationPage.BackButtonTitle="">
+    NavigationPage.HasBackButton="False">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:BLEConnectionStateConverter x:Key="BLEConnectionStateConverter" />
@@ -113,23 +111,19 @@
                             TextColor="{StaticResource TextSecondaryColor}"
                             VerticalOptions="Center" />
                     </StackLayout>
-
                 </StackLayout>
 
-                <switch:SfSwitch
-                    Grid.Column="2"
-                    HorizontalOptions="CenterAndExpand"
-                    IsOn="{Binding IsConnectBLE}"
-                    VerticalOptions="CenterAndExpand"
-                    VisualType="Cupertino">
-                    <switch:SfSwitch.Behaviors>
-                        <prismbehaviors:EventToCommandBehavior
-                            Command="{Binding ConnectBleCommand}"
-                            EventArgsConverter="{StaticResource SwitchStateChangedEventArgsConverter}"
-                            EventName="StateChanged" />
-                    </switch:SfSwitch.Behaviors>
-
-                </switch:SfSwitch>
+                <StackLayout Grid.Column="2" Orientation="Horizontal">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ConnectBleCommand}" />
+                    </StackLayout.GestureRecognizers>
+                    <Switch
+                        HorizontalOptions="CenterAndExpand"
+                        InputTransparent="True"
+                        IsToggled="{Binding IsConnectBLE}"
+                        OnColor="{StaticResource PrimaryColor}"
+                        VerticalOptions="CenterAndExpand" />
+                </StackLayout>
             </Grid>
 
             <StackLayout

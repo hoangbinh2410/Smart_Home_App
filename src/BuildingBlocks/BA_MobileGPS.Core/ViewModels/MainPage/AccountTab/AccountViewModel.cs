@@ -59,15 +59,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsEnable = CheckPermision((int)PermissionKeyNames.UserUpdate)
             });
             // Hỗ trợ khách hàng
-            list.Add(new MenuItem
-            {
-                Title = MobileResource.AccountTab_Label_CustomerSupport,
-                Icon = "ic_customersupport.png",
-                UseModalNavigation = true,
-                Url = MobileSettingHelper.WebGps,
-                MenuType = MenuType.CustomerSupport,
-                IsEnable = true
-            });
+            //list.Add(new MenuItem
+            //{
+            //    Title = MobileResource.AccountTab_Label_CustomerSupport,
+            //    Icon = "ic_customersupport.png",
+            //    UseModalNavigation = true,
+            //    Url = MobileSettingHelper.WebGps,
+            //    MenuType = MenuType.CustomerSupport,
+            //    IsEnable = true
+            //});
             // Hướng dẫn sử dụng
             list.Add(new MenuItem
             {
