@@ -1,804 +1,804 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<PropertyGroup>
-		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-		<ProductVersion>8.0.30703</ProductVersion>
-		<SchemaVersion>2.0</SchemaVersion>
-		<ProjectGuid>{0CF1BDAE-B18E-46B4-B336-CE73D4323258}</ProjectGuid>
-		<ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-		<TemplateGuid>{a52b8a63-bc84-4b47-910d-692533484892}</TemplateGuid>
-		<OutputType>Library</OutputType>
-		<RootNamespace>BA_MobileGPS.Core.iOS</RootNamespace>
-		<IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-		<AssemblyName>BA_MobileGPS.Core.iOS</AssemblyName>
-		<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Optimize>false</Optimize>
-		<OutputPath>bin\Debug</OutputPath>
-		<DefineConstants>DEBUG;</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-		<DebugType>full</DebugType>
-		<Optimize>true</Optimize>
-		<OutputPath>bin\Release</OutputPath>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<ItemGroup>
-		<Reference Include="System" />
-		<Reference Include="System.Xml" />
-		<Reference Include="System.Core" />
-		<Reference Include="Xamarin.iOS" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_close%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<Compile Include="BaseDelegate.cs" />
-		<Compile Include="CustomRenderer\ContentPageRenderer.cs" />
-		<Compile Include="CustomRenderer\CustomEditorRenderer.cs" />
-		<Compile Include="CustomRenderer\EntryMinusRenderer.cs" />
-		<Compile Include="CustomRenderer\FrameShadowRenderer.cs" />
-		<Compile Include="CustomRenderer\IconViewRenderer.cs" />
-		<Compile Include="CustomRenderer\NullableDatePickerRenderer.cs" />
-		<Compile Include="DependencyServices\AppleAudioManager.cs" />
-		<Compile Include="DependencyServices\AppVersionService.cs" />
-		<Compile Include="DependencyServices\DisplayMessageService.cs" />
-		<Compile Include="DependencyServices\AppleHUDService.cs" />
-		<Compile Include="DependencyServices\iOSTooltipService.cs" />
-		<Compile Include="DependencyServices\PreviewControllerDS.cs" />
-		<Compile Include="DependencyServices\SaveAndViewIOS.cs" />
-		<Compile Include="DependencyServices\SaveService.cs" />
-		<Compile Include="DependencyServices\SettingsService.cs" />
-		<Compile Include="DependencyServices\StatusBarHelper.cs" />
-		<Compile Include="Effects\BorderlessEffect.cs" />
-		<Compile Include="Effects\TintImageEffect.cs" />
-		<Compile Include="GoogleMaps\Cluster\ClusteredMarker.cs" />
-		<Compile Include="GoogleMaps\Cluster\ClusterIconGeneratorHandler.cs" />
-		<Compile Include="GoogleMaps\Cluster\ClusterRendererHandler.cs" />
-		<Compile Include="GoogleMaps\Extensions\BoundsExtensions.cs" />
-		<Compile Include="GoogleMaps\Extensions\CameraPositionExtensions.cs" />
-		<Compile Include="GoogleMaps\Extensions\CameraUpdateExtensions.cs" />
-		<Compile Include="GoogleMaps\Extensions\CLLocationCoordinate2DExtensions.cs" />
-		<Compile Include="GoogleMaps\Extensions\EnumerableExtensions.cs" />
-		<Compile Include="GoogleMaps\Extensions\PointExtensions.cs" />
-		<Compile Include="GoogleMaps\Extensions\PositionExtensions.cs" />
-		<Compile Include="GoogleMaps\Extensions\ThicknessExtension.cs" />
-		<Compile Include="GoogleMaps\Extensions\VisibleRegionExtensions.cs" />
-		<Compile Include="GoogleMaps\Factories\CachingImageFactory.cs" />
-		<Compile Include="GoogleMaps\Factories\DefaultImageFactory.cs" />
-		<Compile Include="GoogleMaps\Factories\IImageFactory.cs" />
-		<Compile Include="GoogleMaps\Logics\CameraLogic.cs" />
-		<Compile Include="GoogleMaps\Logics\CircleLogic.cs" />
-		<Compile Include="GoogleMaps\Logics\ClusterLogic.cs" />
-		<Compile Include="GoogleMaps\Logics\GroundOverlayLogic.cs" />
-		<Compile Include="GoogleMaps\Logics\PinLogic.cs" />
-		<Compile Include="GoogleMaps\Logics\PolygonLogic.cs" />
-		<Compile Include="GoogleMaps\Logics\PolylineLogic.cs" />
-		<Compile Include="GoogleMaps\Logics\UiSettingsLogic.cs" />
-		<Compile Include="GoogleMaps\MapRender\FormsGoogleMaps.cs" />
-		<Compile Include="GoogleMaps\MapRender\MapRenderer.cs" />
-		<Compile Include="GoogleMaps\MapRender\PlatformConfig.cs" />
-		<Compile Include="GoogleMaps\MapRender\Utils.cs" />
-		<Compile Include="Properties\AssemblyInfo.cs" />
-		<Compile Include="Setup\ToolSetup.cs" />
-		<Compile Include="Utilities\MaterialShowcaseCalculations.cs" />
-		<Compile Include="Utilities\Utility.cs" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="BTProgressHUD">
-			<Version>1.3.2</Version>
-		</PackageReference>
-		<PackageReference Include="CardsView">
-			<Version>2.6.3</Version>
-		</PackageReference>
-		<PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
-			<Version>3.1.2</Version>
-		</PackageReference>
-		<PackageReference Include="Rg.Plugins.Popup">
-			<Version>2.0.0.3</Version>
-		</PackageReference>
-		<PackageReference Include="SkiaSharp.Extended">
-			<Version>1.60.0</Version>
-		</PackageReference>
-		<PackageReference Include="SkiaSharp.Svg">
-			<Version>1.60.0</Version>
-		</PackageReference>
-		<PackageReference Include="EasyTipView">
-			<Version>1.0.1</Version>
-		</PackageReference>
-		<PackageReference Include="Xam.Plugin.HtmlLabel">
-			<Version>4.1.3</Version>
-		</PackageReference>
-		<PackageReference Include="Xamarin.Essentials">
-			<Version>1.5.3.2</Version>
-		</PackageReference>
-		<PackageReference Include="Xamarin.Forms">
-			<Version>4.7.0.1142</Version>
-		</PackageReference>
-		<PackageReference Include="Com.OneSignal">
-			<Version>3.10.0</Version>
-		</PackageReference>
-		<PackageReference Include="IdentityModel">
-			<Version>4.3.1</Version>
-		</PackageReference>
-		<PackageReference Include="Microsoft.AppCenter">
-			<Version>3.3.0</Version>
-		</PackageReference>
-		<PackageReference Include="Microsoft.AppCenter.Analytics">
-			<Version>3.3.0</Version>
-		</PackageReference>
-		<PackageReference Include="Microsoft.AppCenter.Crashes">
-			<Version>3.3.0</Version>
-		</PackageReference>
-		<PackageReference Include="Plugin.Permissions">
-			<Version>6.0.1</Version>
-		</PackageReference>
-		<PackageReference Include="Prism.Unity.Forms">
-			<Version>7.2.0.1422</Version>
-		</PackageReference>
-		<PackageReference Include="Prism.Plugin.Popups">
-			<Version>7.2.0.1046</Version>
-		</PackageReference>
-		<PackageReference Include="Ricardo.MBProgressHUD.iOS">
-			<Version>1.1.0</Version>
-		</PackageReference>
-		<PackageReference Include="Sharpnado.Presentation.Forms">
-			<Version>1.7.0</Version>
-		</PackageReference>
-		<PackageReference Include="Shiny.Locations">
-			<Version>1.2.0.1755</Version>
-		</PackageReference>
-		<PackageReference Include="Shiny.Prism">
-			<Version>7.2.0.1054</Version>
-		</PackageReference>
-		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.2.0.44" />
-		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.2.0.44" />
-		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="18.2.0.44" />
-		<PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="18.2.0.44" />
-		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.2.0.44" />
-		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.2.0.44" />
-		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.2.0.44" />
-		<PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="18.2.0.44" />
-		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.2.0.44" />
-		<PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="18.2.0.44" />
-		<PackageReference Include="Syncfusion.Xamarin.SfChart" Version="18.2.0.44" />
-		<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="18.2.0.44" />
-		<PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="18.2.0.44" />
-		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.2.0.44" />
-		<PackageReference Include="MonkeyCache.FileStore" Version="1.3.0" />
-		<PackageReference Include="Toast.iOS">
-			<Version>1.2.0</Version>
-		</PackageReference>
-		<PackageReference Include="Toasts.Forms.Plugin">
-			<Version>3.3.2</Version>
-		</PackageReference>
-		<PackageReference Include="Xam.Plugin.Geolocator">
-			<Version>4.6.2-beta</Version>
-		</PackageReference>
-		<PackageReference Include="Xam.Plugin.Media">
-			<Version>5.0.1</Version>
-		</PackageReference>
-		<PackageReference Include="Xam.Plugins.Settings">
-			<Version>4.1.0-beta</Version>
-		</PackageReference>
-		<PackageReference Include="Xamarin.Build.Download">
-			<Version>0.10.0</Version>
-		</PackageReference>
-		<PackageReference Include="Xamarin.Forms.PancakeView">
-			<Version>2.0.1.698</Version>
-		</PackageReference>
-		<PackageReference Include="Xamarin.Google.iOS.Maps">
-			<Version>3.7.0.1</Version>
-		</PackageReference>
-		<PackageReference Include="Xamarin.Google.iOS.Maps.Utility">
-			<Version>2.1.1-pre3</Version>
-		</PackageReference>
-		<PackageReference Include="System.Reflection.Emit">
-			<Version>4.7.0</Version>
-			<ExcludeAssets>all</ExcludeAssets>
-			<IncludeAssets>none</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Xamarin.IQKeyboardManager">
-			<Version>1.4.1</Version>
-		</PackageReference>
-		<PackageReference Include="XamFileStorage.Netstandard">
-			<Version>1.1.3</Version>
-		</PackageReference>
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\BA_MobileGPS.Core\BA_MobileGPS.Core.csproj">
-			<Project>{55e2fe34-997f-4771-a5d7-8114b5fb7899}</Project>
-			<Name>BA_MobileGPS.Core</Name>
-		</ProjectReference>
-		<ProjectReference Include="..\BA_MobileGPS.Utilities\BA_MobileGPS.Utilities.csproj">
-			<Project>{89A997B6-2157-4BAD-A833-D3FA085B54BA}</Project>
-			<Name>BA_MobileGPS.Utilities</Name>
-		</ProjectReference>
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_close.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_close%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\flag_vn.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\flag_us.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\flag_nl.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_lost_gps.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_lost_gps%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_lost_gps%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\selected.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\notSelected.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_sortdown%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_sortdown.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_sortdown%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_groupcar.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_groupcar%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_groupcar%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_phone_black.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_phone_black%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_phone_black%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_time_black.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_time_black%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_time_black%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_user.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_user%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_user%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_warning_ben%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_air_conditioner.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_air_conditioner%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_alert_speeding.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_alert_speeding%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_alert_speeding%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_concrete_moving.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_concrete_moving%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_concrete_moving%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_crane.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_crane%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_crane%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_filter_stop.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_filter_stop%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_filter_stop%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_km_on_day.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_km_on_day%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_km_on_day%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_lisence.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_lisence%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_lisence%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_nl.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_nl%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_parking.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_parking%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_parking%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_stopcount.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_stopcount%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_stopduration.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_stopduration%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_time_running.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_time_running%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_time_running%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_turnon_time_on_day.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_turnon_time_on_day%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_turnon_time_on_day%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_vehicleplate.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_vehicleplate%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_velocity.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_velocity%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_warning_ben.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_warning_ben%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_date_range_black.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_date_range_black%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_date_range_black%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_fast_end_black%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_fast_end_black.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_fast_end_black%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_fast_forward_white.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_fast_forward_white%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_fast_forward_white%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_fast_rewind_white.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_fast_rewind_white%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_fast_rewind_white%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_fast_start_black.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_fast_start_black%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_fast_start_black%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_info_outline_white.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_info_outline_white%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_info_outline_white%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_list_black.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_list_black%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_list_black%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_play_arrow_white.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_play_arrow_white%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_play_arrow_white%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_stop_white.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_stop_white%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_stop_white%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_view_list.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_view_list%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_view_list%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_start%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_start%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_stop%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_stop%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_arrow_tracking%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_arrow_tracking%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_arrow_tracking.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_camera%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_camera.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_camera%402x.png" />
-		<BundleResource Include="Resources\ic_help.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_help%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_fb%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_fb.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_fb%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_noel%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_happynewyear.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_happynewyear%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_happynewyear%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_holidays.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_holidays%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_holidays%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_hpbd.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_hpbd%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_hpbd%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_noel.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_noel%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_warehouse.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_about.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_address.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_airport.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_alert_locker.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_allow_stopping.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_away.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_bank.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_branch.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_charging_station.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_check_station.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_cinema.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_concrete_station.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_construction_waste.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_delivery.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_demo.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_discharge.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_freeway.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_gara.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_gas_station.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_get_fuel.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_highway_contour.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_home.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_hospital.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_hotel.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_industrial_area.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_market.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_noise_signal.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_office.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_park.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_parking_area.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_playground.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_port.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_railroad_crossing.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_recycle_bin_1.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_recycle_bin_2.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_recycle_bin_3.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_recycle_bin_4.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_red_cement.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_registry_center.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_repair.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_restaurant.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_restaurant2.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_route_contour.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_sand_hill.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_sand_mine.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_saved_area.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_scale.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_school.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_sea.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_soil_mine.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_sound.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_speed_limit.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_station.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_stone_mine.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_stop.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_stop_area.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_stop_machineOn.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_supplier.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_point_take_photo.png" />
-		<BundleResource Include="Resources\ic_excel.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_excel%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_excel%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_end%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_end%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_location_black%403x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_location_black.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_location_black%402x.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_telephone.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<BundleResource Include="Resources\ic_telephone%402x.png" />
-	</ItemGroup>
-	<Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0CF1BDAE-B18E-46B4-B336-CE73D4323258}</ProjectGuid>
+    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TemplateGuid>{a52b8a63-bc84-4b47-910d-692533484892}</TemplateGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BA_MobileGPS.Core.iOS</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>BA_MobileGPS.Core.iOS</AssemblyName>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.iOS" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_close%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseDelegate.cs" />
+    <Compile Include="CustomRenderer\ContentPageRenderer.cs" />
+    <Compile Include="CustomRenderer\CustomEditorRenderer.cs" />
+    <Compile Include="CustomRenderer\EntryMinusRenderer.cs" />
+    <Compile Include="CustomRenderer\FrameShadowRenderer.cs" />
+    <Compile Include="CustomRenderer\IconViewRenderer.cs" />
+    <Compile Include="CustomRenderer\NullableDatePickerRenderer.cs" />
+    <Compile Include="DependencyServices\AppleAudioManager.cs" />
+    <Compile Include="DependencyServices\AppVersionService.cs" />
+    <Compile Include="DependencyServices\DisplayMessageService.cs" />
+    <Compile Include="DependencyServices\AppleHUDService.cs" />
+    <Compile Include="DependencyServices\iOSTooltipService.cs" />
+    <Compile Include="DependencyServices\PreviewControllerDS.cs" />
+    <Compile Include="DependencyServices\SaveAndViewIOS.cs" />
+    <Compile Include="DependencyServices\SaveService.cs" />
+    <Compile Include="DependencyServices\SettingsService.cs" />
+    <Compile Include="DependencyServices\StatusBarHelper.cs" />
+    <Compile Include="Effects\BorderlessEffect.cs" />
+    <Compile Include="Effects\TintImageEffect.cs" />
+    <Compile Include="GoogleMaps\Cluster\ClusteredMarker.cs" />
+    <Compile Include="GoogleMaps\Cluster\ClusterIconGeneratorHandler.cs" />
+    <Compile Include="GoogleMaps\Cluster\ClusterRendererHandler.cs" />
+    <Compile Include="GoogleMaps\Extensions\BoundsExtensions.cs" />
+    <Compile Include="GoogleMaps\Extensions\CameraPositionExtensions.cs" />
+    <Compile Include="GoogleMaps\Extensions\CameraUpdateExtensions.cs" />
+    <Compile Include="GoogleMaps\Extensions\CLLocationCoordinate2DExtensions.cs" />
+    <Compile Include="GoogleMaps\Extensions\EnumerableExtensions.cs" />
+    <Compile Include="GoogleMaps\Extensions\PointExtensions.cs" />
+    <Compile Include="GoogleMaps\Extensions\PositionExtensions.cs" />
+    <Compile Include="GoogleMaps\Extensions\ThicknessExtension.cs" />
+    <Compile Include="GoogleMaps\Extensions\VisibleRegionExtensions.cs" />
+    <Compile Include="GoogleMaps\Factories\CachingImageFactory.cs" />
+    <Compile Include="GoogleMaps\Factories\DefaultImageFactory.cs" />
+    <Compile Include="GoogleMaps\Factories\IImageFactory.cs" />
+    <Compile Include="GoogleMaps\Logics\CameraLogic.cs" />
+    <Compile Include="GoogleMaps\Logics\CircleLogic.cs" />
+    <Compile Include="GoogleMaps\Logics\ClusterLogic.cs" />
+    <Compile Include="GoogleMaps\Logics\GroundOverlayLogic.cs" />
+    <Compile Include="GoogleMaps\Logics\PinLogic.cs" />
+    <Compile Include="GoogleMaps\Logics\PolygonLogic.cs" />
+    <Compile Include="GoogleMaps\Logics\PolylineLogic.cs" />
+    <Compile Include="GoogleMaps\Logics\UiSettingsLogic.cs" />
+    <Compile Include="GoogleMaps\MapRender\FormsGoogleMaps.cs" />
+    <Compile Include="GoogleMaps\MapRender\MapRenderer.cs" />
+    <Compile Include="GoogleMaps\MapRender\PlatformConfig.cs" />
+    <Compile Include="GoogleMaps\MapRender\Utils.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setup\ToolSetup.cs" />
+    <Compile Include="Utilities\MaterialShowcaseCalculations.cs" />
+    <Compile Include="Utilities\Utility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BTProgressHUD">
+      <Version>1.3.2</Version>
+    </PackageReference>
+    <PackageReference Include="CardsView">
+      <Version>2.6.3</Version>
+    </PackageReference>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
+      <Version>3.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>2.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="SkiaSharp.Extended">
+      <Version>1.60.0</Version>
+    </PackageReference>
+    <PackageReference Include="SkiaSharp.Svg">
+      <Version>1.60.0</Version>
+    </PackageReference>
+    <PackageReference Include="EasyTipView">
+      <Version>1.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugin.HtmlLabel">
+      <Version>4.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Essentials">
+      <Version>1.5.3.2</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms">
+      <Version>4.7.0.1142</Version>
+    </PackageReference>
+    <PackageReference Include="Com.OneSignal">
+      <Version>3.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="IdentityModel">
+      <Version>4.3.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter">
+      <Version>3.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Analytics">
+      <Version>3.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Crashes">
+      <Version>3.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="Plugin.Permissions">
+      <Version>6.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Prism.Unity.Forms">
+      <Version>7.2.0.1422</Version>
+    </PackageReference>
+    <PackageReference Include="Prism.Plugin.Popups">
+      <Version>7.2.0.1046</Version>
+    </PackageReference>
+    <PackageReference Include="Ricardo.MBProgressHUD.iOS">
+      <Version>1.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Sharpnado.Presentation.Forms">
+      <Version>1.7.0</Version>
+    </PackageReference>
+    <PackageReference Include="Shiny.Locations">
+      <Version>1.2.0.1755</Version>
+    </PackageReference>
+    <PackageReference Include="Shiny.Prism">
+      <Version>7.2.0.1054</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.2.0.45" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.2.0.45" />
+    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="18.2.0.45" />
+    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="18.2.0.45" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.2.0.45" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.2.0.45" />
+    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.2.0.45" />
+    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="18.2.0.45" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.2.0.45" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="18.2.0.45" />
+    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="18.2.0.45" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="18.2.0.45" />
+    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="18.2.0.45" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.2.0.45" />
+    <PackageReference Include="MonkeyCache.FileStore" Version="1.3.0" />
+    <PackageReference Include="Toast.iOS">
+      <Version>1.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Toasts.Forms.Plugin">
+      <Version>3.3.2</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugin.Geolocator">
+      <Version>4.6.2-beta</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugin.Media">
+      <Version>5.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugins.Settings">
+      <Version>4.1.0-beta</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Build.Download">
+      <Version>0.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms.PancakeView">
+      <Version>2.0.1.698</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Google.iOS.Maps">
+      <Version>3.7.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Google.iOS.Maps.Utility">
+      <Version>2.1.1-pre3</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reflection.Emit">
+      <Version>4.7.0</Version>
+      <ExcludeAssets>all</ExcludeAssets>
+      <IncludeAssets>none</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Xamarin.IQKeyboardManager">
+      <Version>1.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="XamFileStorage.Netstandard">
+      <Version>1.1.3</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BA_MobileGPS.Core\BA_MobileGPS.Core.csproj">
+      <Project>{55e2fe34-997f-4771-a5d7-8114b5fb7899}</Project>
+      <Name>BA_MobileGPS.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BA_MobileGPS.Utilities\BA_MobileGPS.Utilities.csproj">
+      <Project>{89A997B6-2157-4BAD-A833-D3FA085B54BA}</Project>
+      <Name>BA_MobileGPS.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_close%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\flag_vn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\flag_us.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\flag_nl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_lost_gps.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_lost_gps%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_lost_gps%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\notSelected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_sortdown%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_sortdown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_sortdown%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_groupcar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_groupcar%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_groupcar%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_phone_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_phone_black%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_phone_black%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_time_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_time_black%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_time_black%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_user%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_user%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_warning_ben%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_air_conditioner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_air_conditioner%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_alert_speeding.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_alert_speeding%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_alert_speeding%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_concrete_moving.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_concrete_moving%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_concrete_moving%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_crane.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_crane%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_crane%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_filter_stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_filter_stop%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_filter_stop%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_km_on_day.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_km_on_day%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_km_on_day%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_lisence.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_lisence%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_lisence%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_nl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_nl%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_parking.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_parking%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_parking%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_stopcount.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_stopcount%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_stopduration.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_stopduration%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_time_running.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_time_running%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_time_running%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_turnon_time_on_day.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_turnon_time_on_day%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_turnon_time_on_day%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_vehicleplate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_vehicleplate%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_velocity.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_velocity%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_warning_ben.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_warning_ben%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_date_range_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_date_range_black%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_date_range_black%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fast_end_black%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fast_end_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fast_end_black%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fast_forward_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fast_forward_white%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fast_forward_white%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fast_rewind_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fast_rewind_white%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fast_rewind_white%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fast_start_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fast_start_black%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fast_start_black%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_info_outline_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_info_outline_white%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_info_outline_white%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_list_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_list_black%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_list_black%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_play_arrow_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_play_arrow_white%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_play_arrow_white%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_stop_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_stop_white%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_stop_white%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_view_list.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_view_list%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_view_list%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_start%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_start%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_stop%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_stop%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_arrow_tracking%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_arrow_tracking%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_arrow_tracking.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_camera%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_camera.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_camera%402x.png" />
+    <BundleResource Include="Resources\ic_help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_help%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fb%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fb%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_noel%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_happynewyear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_happynewyear%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_happynewyear%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_holidays.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_holidays%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_holidays%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_hpbd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_hpbd%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_hpbd%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_noel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_noel%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_warehouse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_about.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_address.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_airport.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_alert_locker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_allow_stopping.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_away.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_bank.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_branch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_charging_station.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_check_station.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_cinema.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_concrete_station.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_construction_waste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_delivery.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_demo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_discharge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_freeway.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_gara.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_gas_station.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_get_fuel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_highway_contour.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_hospital.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_hotel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_industrial_area.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_market.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_noise_signal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_office.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_park.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_parking_area.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_playground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_port.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_railroad_crossing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_recycle_bin_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_recycle_bin_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_recycle_bin_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_recycle_bin_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_red_cement.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_registry_center.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_repair.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_restaurant.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_restaurant2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_route_contour.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_sand_hill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_sand_mine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_saved_area.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_scale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_school.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_sea.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_soil_mine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_sound.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_speed_limit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_station.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_stone_mine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_stop_area.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_stop_machineOn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_supplier.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_point_take_photo.png" />
+    <BundleResource Include="Resources\ic_excel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_excel%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_excel%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_end%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_end%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_location_black%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_location_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_location_black%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_telephone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_telephone%402x.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
