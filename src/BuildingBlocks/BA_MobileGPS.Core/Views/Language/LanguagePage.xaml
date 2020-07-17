@@ -6,6 +6,7 @@
     xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     xmlns:behaviors="clr-namespace:BA_MobileGPS.Core.Behaviors;assembly=BA_MobileGPS.Core"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     Title="{Binding Title}"
     Padding="10"
@@ -43,7 +44,13 @@
                     ItemsSource="{Binding LanguageResponeCollectionSearched}"
                     SeparatorVisibility="Default"
                     VerticalOptions="FillAndExpand">
-
+                    <ListView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <ViewCell ios:Cell.DefaultBackgroundColor="Transparent">
+                                <Label HorizontalOptions="Start" Text="{Binding Key}" />
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.GroupHeaderTemplate>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
