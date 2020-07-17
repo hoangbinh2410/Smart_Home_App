@@ -17,85 +17,10 @@
             <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <NavigationPage.TitleView>
-        <Grid
-            ColumnSpacing="10"
-            HeightRequest="44"
-            HorizontalOptions="FillAndExpand">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <Label
-                Grid.Column="1"
-                FontAttributes="Bold"
-                FontSize="20"
-                HorizontalOptions="Start"
-                LineBreakMode="TailTruncation"
-                Text="{Binding Title}"
-                TextColor="{StaticResource WhiteColor}"
-                VerticalOptions="Center" />
-            <StackLayout
-                Grid.Column="2"
-                HorizontalOptions="End"
-                Orientation="Horizontal">
-                <ffImage:CachedImage
-                    Grid.Column="0"
-                    Margin="0,0,10,0"
-                    HeightRequest="27"
-                    HorizontalOptions="Start"
-                    Source="ic_close.png"
-                    VerticalOptions="Center">
-                    <ffImage:CachedImage.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
-                    </ffImage:CachedImage.GestureRecognizers>
-                </ffImage:CachedImage>
-            </StackLayout>
-        </Grid>
-    </NavigationPage.TitleView>
+
     <ContentPage.Content>
         <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
             <StackLayout BackgroundColor="{StaticResource WhiteColor}" Spacing="0">
-                <!--  Thông tin phí  -->
-                <Grid Padding="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Label
-                        HorizontalOptions="FillAndExpand"
-                        HorizontalTextAlignment="Start"
-                        Text="Thông tin phí"
-                        VerticalOptions="Center" />
-                    <StackLayout
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Orientation="Horizontal"
-                        Spacing="0">
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ViewServicePackHistoryCommand}" />
-                        </StackLayout.GestureRecognizers>
-                        <Label Text="Lịch sử" VerticalOptions="Center" />
-
-                        <controls:FontAwesomeIcon
-                            HeightRequest="25"
-                            HorizontalTextAlignment="Center"
-                            Text="{x:Static fontawesome:FontAwesomeIcons.AngleRight}"
-                            TextColor="{StaticResource TextPrimaryColor}"
-                            VerticalTextAlignment="Center"
-                            WidthRequest="25" />
-
-                    </StackLayout>
-                </Grid>
-                <BoxView
-                    Margin="10,0"
-                    BackgroundColor="{StaticResource GrayColor2}"
-                    HeightRequest="0.5"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="Start" />
                 <!--  Ngày hết hạn phí  -->
                 <Grid Padding="10">
                     <Grid.RowDefinitions>
