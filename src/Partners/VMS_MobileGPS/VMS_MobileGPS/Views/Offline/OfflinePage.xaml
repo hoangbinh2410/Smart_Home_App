@@ -48,7 +48,8 @@
                 VerticalOptions="Center">
                 <badge:SfBadgeView.Content>
                     <controls:FontAwesomeIcon
-                        Margin="10,0,10,0"
+                        Margin="5,0,5,0"
+                        FontSize="25"
                         StyleClass="TopIconView"
                         Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}">
                         <controls:FontAwesomeIcon.Behaviors>
