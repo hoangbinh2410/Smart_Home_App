@@ -99,9 +99,7 @@
                                 <controls:FontAwesomeIcon.Behaviors>
                                     <animation:ViewTappedBehavior AnimationType="Scale" />
                                 </controls:FontAwesomeIcon.Behaviors>
-                                <controls:FontAwesomeIcon.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding PushToAleartPageCommand}" />
-                                </controls:FontAwesomeIcon.GestureRecognizers>
+                                
                             </controls:FontAwesomeIcon>
                         </badge:SfBadgeView.Content>
                         <badge:SfBadgeView.BadgeSettings>
@@ -113,6 +111,9 @@
                                 TextPadding="3"
                                 Offset="0,0" />
                         </badge:SfBadgeView.BadgeSettings>
+                        <badge:SfBadgeView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushToAleartPageCommand}" />
+                                </badge:SfBadgeView.GestureRecognizers>
                     </badge:SfBadgeView>
                 </StackLayout>
             </Grid>
