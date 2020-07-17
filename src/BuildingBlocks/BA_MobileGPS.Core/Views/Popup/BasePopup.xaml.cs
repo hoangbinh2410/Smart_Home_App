@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Controls;
 using BA_MobileGPS.Core.Resource;
+using LabelHtml.Forms.Plugin.Abstractions;
 using Prism.AppModel;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
@@ -68,20 +69,20 @@ namespace BA_MobileGPS.Core.Views
                                                                   new ColumnDefinition() { Width = GridLength.Auto}};
             body.HorizontalOptions = LayoutOptions.Center;
 
-            var title = new Label();
+            var title = new HtmlLabel();
             title.Margin = new Thickness(20, 10,0, 0);
-            title.TextType = TextType.Html;
+            //title.TextType = TextType.Html;
             title.Text = "<strong>" + _title + "</strong>";
-            title.FontSize = Device.RuntimePlatform == Device.iOS ? 23 : 18;
+            title.FontSize = Device.RuntimePlatform == Device.iOS ? 18 : 17;
             title.FontAttributes = FontAttributes.Bold; 
             title.HorizontalOptions = LayoutOptions.Center;
             title.VerticalTextAlignment = TextAlignment.Center;
 
-            var messenger = new Label();
+            var messenger = new HtmlLabel();
             messenger.Text = _messenger;
-            messenger.FontSize = Device.RuntimePlatform == Device.iOS ? 18 : 15;
+            messenger.FontSize = Device.RuntimePlatform == Device.iOS ? 15 : 14;
             messenger.HorizontalOptions = LayoutOptions.StartAndExpand;
-            messenger.TextType = TextType.Html;
+            //messenger.TextType = TextType.Html;
             title.TextColor = _textColor == null ? Color.Black : (Color)_textColor;
             messenger.TextColor = _textColor == null ? Color.Black : (Color)_textColor;
             messenger.HorizontalTextAlignment = TextAlignment.Start;
