@@ -1,17 +1,12 @@
 ﻿using Android.Content;
 using Android.Content.Res;
-using Android.OS;
 using Android.Runtime;
-using BA_MobileGPS.Core.DependencyServices;
 using BA_MobileGPS.Core.Droid.DependencyServices;
-using BA_MobileGPS.Core.Interfaces;
-using BA_MobileGPS.Utilities.Enums;
 using Plugin.Permissions;
 using Prism;
 using Prism.Ioc;
 using Rg.Plugins.Popup.Services;
 using Shiny;
-using System;
 
 namespace BA_MobileGPS.Core.Droid
 {
@@ -48,7 +43,7 @@ namespace BA_MobileGPS.Core.Droid
                 containerRegistry.RegisterInstance<ISaveService>(new SaveService());
                 containerRegistry.RegisterInstance<IAudioManager>(new DroidAudioManager());
                 containerRegistry.RegisterInstance<ITooltipService>(new DroidTooltipService());
-                //containerRegistry.RegisterInstance<IDownloader>(new AndroidDownloader());    
+                //containerRegistry.RegisterInstance<IDownloader>(new AndroidDownloader());
                 containerRegistry.RegisterInstance<IAppVersionService>(new AppVersionService());
             }
         }
@@ -75,9 +70,6 @@ namespace BA_MobileGPS.Core.Droid
         public override void OnConfigurationChanged(Android.Content.Res.Configuration newConfig)
         {
             base.OnConfigurationChanged(newConfig);
-
         }
-
-
     }
 }
