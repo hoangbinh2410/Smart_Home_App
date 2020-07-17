@@ -17,6 +17,9 @@
     <Style ApplyToDerivedTypes="True" TargetType="ContentView">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource GrayColor}, Dark={StaticResource GrayColor}}" />
     </Style>
+    <Style TargetType="ListView">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
+    </Style>
     <Style ApplyToDerivedTypes="True" TargetType="SearchBar">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimaryColor}, Dark={StaticResource TextPrimaryColor}}" />
         <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource TextPlaceHolderColor}, Dark={StaticResource TextPlaceHolderColor}}" />

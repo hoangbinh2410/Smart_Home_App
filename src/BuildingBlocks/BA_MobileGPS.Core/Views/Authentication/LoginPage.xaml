@@ -80,10 +80,11 @@
                 <StackLayout Spacing="15" VerticalOptions="CenterAndExpand">
                     <!--  Entry  -->
                     <input:SfTextInputLayout
+                        Padding="0"
                         ContainerType="Outlined"
                         ErrorText="{Binding UserName.ErrorFirst}"
                         HasError="{Binding UserName.IsNotValid}"
-                        HeightRequest="50"
+                        HeightRequest="40"
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
                             <sharpnado:MaterialFrame HeightRequest="40">
@@ -103,8 +104,10 @@
                     </input:SfTextInputLayout>
                     <input:SfTextInputLayout
                         Margin="0,7"
+                        Padding="0"
                         ErrorText="{Binding Password.ErrorFirst}"
                         HasError="{Binding Password.IsNotValid}"
+                        HeightRequest="40"
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
                             <sharpnado:MaterialFrame HeightRequest="40">
