@@ -3,6 +3,7 @@ using Android.OS;
 
 using BA_MobileGPS.Core.Droid;
 using FFImageLoading.Forms.Platform;
+using LabelHtml.Forms.Plugin.Droid;
 using PanCardView.Droid;
 using Plugin.Toasts;
 using Sharpnado.Presentation.Forms.Droid;
@@ -36,6 +37,9 @@ namespace BA_MobileGPS.Droid.Setup
             {
                 BitmapDescriptorFactory = new CachingNativeBitmapDescriptorFactory()
             });
+
+            //Html Label
+            HtmlLabelRenderer.Initialize();
         }
     }
 }

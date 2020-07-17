@@ -28,13 +28,11 @@
             </StackLayout>
         </DataTemplate>
         <Style TargetType="sfListView:SfListView">
-            <Setter Property="IsScrollBarVisible" Value="True" />
+            <Setter Property="IsScrollBarVisible" Value="False" />
             <Setter Property="IsScrollingEnabled" Value="True" />
             <Setter Property="ItemSpacing" Value="10,10,0,0" />
             <Setter Property="Orientation" Value="Horizontal" />
             <Setter Property="SelectionBackgroundColor" Value="Transparent" />
-            <Setter Property="Padding" Value="10" />
-            <Setter Property="Margin" Value="0" />
             <Setter Property="ItemTemplate" Value="{StaticResource IconTemplate}" />
         </Style>
     </ContentView.Resources>
@@ -142,15 +140,29 @@
                                 </controls:FontAwesomeIcon>
                             </Grid>
                             <BoxView class="SlimLine" />
-                            <sfListView:SfListView
-                                x:Name="favouriteListView"
-                                HeightRequest="110"
-                                HorizontalOptions="Center"
-                                IsScrollBarVisible="True"
-                                IsVisible="{Binding HasFavorite}"
-                                ItemSize="95"
-                                ItemsSource="{Binding FavouriteMenuItems, Mode=OneWay}"
-                                TapCommand="{Binding TapMenuCommand}" />
+                            <CarouselView
+                                HeightRequest="120"
+                                HorizontalScrollBarVisibility="Never"
+                                IndicatorView="indicatorFavourite"
+                                IsVisible="{Binding HasFavorite, Mode=OneWay}"
+                                ItemsSource="{Binding FavouriteMenuItems, Mode=OneWay}">
+                                <CarouselView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <sfListView:SfListView
+                                                HeightRequest="250"
+                                                HorizontalOptions="CenterAndExpand"
+                                                IsScrollBarVisible="False"
+                                                ItemSize="100"
+                                                ItemSpacing="5,10,5,0"
+                                                ItemsSource="{Binding FeaturesItem, Mode=OneWay}"
+                                                PropertyChanged="Favourite_PropertyChanged"
+                                                TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </CarouselView.ItemTemplate>
+                            </CarouselView>
+                            <IndicatorView x:Name="indicatorFavourite" Margin="0,0,0,10" />
                         </StackLayout>
                     </pancake:PancakeView>
                     <Grid Grid.Row="1" Padding="20,0">
@@ -181,7 +193,7 @@
                             x:Name="list1"
                             HorizontalScrollBarVisibility="Never"
                             IndicatorView="indicatorView"
-                            ItemsSource="{Binding AllListfeatures}">
+                            ItemsSource="{Binding AllListfeatures, Mode=OneWay}">
                             <CarouselView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -190,10 +202,10 @@
                                             HorizontalOptions="CenterAndExpand"
                                             IsScrollBarVisible="False"
                                             ItemSize="100"
-                                            ItemSpacing="5,0,5,0"
                                             ItemsSource="{Binding FeaturesItem}"
-                                            Loaded="FeaturesSfListView_Loaded"
-                                            TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}" />
+                                            PropertyChanged="SfListView_PropertyChanged"
+                                            TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}"
+                                            VerticalOptions="CenterAndExpand" />
                                     </Grid>
                                 </DataTemplate>
                             </CarouselView.ItemTemplate>

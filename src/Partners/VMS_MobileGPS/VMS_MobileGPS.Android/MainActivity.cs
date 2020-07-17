@@ -9,10 +9,7 @@ using Xamarin.Forms;
 namespace VMS_MobileGPS.Droid
 {
     [Activity(Label = "BA-SAT", Icon = "@mipmap/ic_launcher", Theme = "@style/MainTheme", MainLauncher = false,
-        LaunchMode = LaunchMode.SingleTask,
-        WindowSoftInputMode = SoftInput.AdjustResize, 
-        ConfigurationChanges = ConfigChanges.ScreenSize
-        | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
+      LaunchMode = LaunchMode.SingleTask, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : BaseActivity
     {
         protected override void OnCreate(Bundle bundle)
