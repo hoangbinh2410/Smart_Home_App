@@ -28,8 +28,7 @@
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
-    <CodesignProvision>BASATDEVTEST</CodesignProvision>
-    <CodesignKey>iPhone Developer: Duc Tran (GU6XF5J9GK)</CodesignKey>
+    <CodesignKey>iPhone Distribution</CodesignKey>
     <MtouchExtraArgs>--registrar:static</MtouchExtraArgs>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>

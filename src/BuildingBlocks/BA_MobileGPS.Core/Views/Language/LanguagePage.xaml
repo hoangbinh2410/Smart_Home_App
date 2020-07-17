@@ -46,8 +46,11 @@
                     VerticalOptions="FillAndExpand">
                     <ListView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <ViewCell ios:Cell.DefaultBackgroundColor="Transparent">
-                                <Label HorizontalOptions="Start" Text="{Binding Key}" />
+                            <ViewCell>
+                                <StackLayout BackgroundColor="White">
+  <Label HorizontalOptions="Start" Text="{Binding Key}" Margin="20,0,0,0" HorizontalTextAlignment="Center"/>
+                                </StackLayout>
+                              
                             </ViewCell>
                         </DataTemplate>
                     </ListView.GroupHeaderTemplate>
