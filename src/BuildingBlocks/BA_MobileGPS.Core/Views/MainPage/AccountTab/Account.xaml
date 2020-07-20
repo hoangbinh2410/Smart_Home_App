@@ -72,8 +72,12 @@
                 </Frame>
             </Grid>
             <StackLayout Spacing="0" VerticalOptions="CenterAndExpand">
-                <Label LineBreakMode="WordWrap" Text="{Binding UserInfo.FullName}" />
-                <Label Text="{Binding UserInfo.PhoneNumber}" />
+                <Label
+                    LineBreakMode="WordWrap"
+                    Text="{Binding UserInfo.FullName}"
+                    TextColor="{AppThemeBinding Light={StaticResource WhiteColor},
+                                                Dark={StaticResource WhiteColor}}" />
+                <Label Text="{Binding UserInfo.PhoneNumber}" TextColor="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
             </StackLayout>
 
         </StackLayout>

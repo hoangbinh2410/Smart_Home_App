@@ -360,7 +360,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand OpenLoginFragmentCommand => new DelegateCommand(() =>
         {
-            PopupNavigation.Instance.PushAsync(new NonLoginFeaturesPopup());
+            NavigationService.NavigateAsync("LoginPreviewFeaturesPage");
         });
         //public ICommand PushToRegisterConsultCommand => new DelegateCommand(() =>
         //{
