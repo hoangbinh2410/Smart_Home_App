@@ -150,7 +150,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref selectedIndex, value);
                 RaisePropertyChanged();
             }
-        }    
+        }
         #endregion Property
 
         #region PrivateMethod
@@ -372,6 +372,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
+                    VehicleGroups = null;
                     EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(true);
                 });
             });
