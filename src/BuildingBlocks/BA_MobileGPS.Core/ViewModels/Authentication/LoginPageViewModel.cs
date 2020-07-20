@@ -6,13 +6,10 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Com.OneSignal;
 using Prism;
-using Prism.Ioc;
 using Prism.Commands;
-using Prism.Mvvm;
+using Prism.Ioc;
 using Prism.Navigation;
-using Rg.Plugins.Popup.Services;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -21,13 +18,13 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using BA_MobileGPS.Core.Views;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class LoginPageViewModel : ViewModelBase
     {
         #region Constructor
+
         private readonly IAuthenticationService authenticationService;
         private readonly IDBVersionService dBVersionService;
         private readonly IResourceService resourceService;
@@ -60,15 +57,17 @@ namespace BA_MobileGPS.Core.ViewModels
             };
             InitValidations();
         }
-        #endregion
+
+        #endregion Constructor
 
         #region Init
+
         public override void Initialize(INavigationParameters parameters)
         {
             GetInfomation();
         }
 
-        void GetInfomation()
+        private void GetInfomation()
         {
             GetMobileSetting();
             GetVersionDBLogin();
@@ -97,12 +96,57 @@ namespace BA_MobileGPS.Core.ViewModels
             PingServerStatus();
         }
 
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            if (parameters != null)
+            {
+                if (parameters.TryGetValue("popupitem", out LoginPopupItem obj))
+                {
+                    NavigateLoginPreview(obj);
+                }
+            }
+        }
+
+        private void NavigateLoginPreview(LoginPopupItem item)
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+
+                switch (item.ItemType)
+                {
+                    case LoginPopupItemType.OfflinePage:
+                        _ = await NavigationService.NavigateAsync(item.Url);
+                        break;
+
+                    case LoginPopupItemType.Manual:
+                        _ = await NavigationService.NavigateAsync(item.Url);
+                        break;
+
+                    case LoginPopupItemType.Guarantee:
+                        await Launcher.OpenAsync(new Uri(item.Url));
+                        break;
+
+                    case LoginPopupItemType.RegisterSupport:
+                        _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
+                        break;
+
+                    case LoginPopupItemType.BAGPSExperience:
+                        await Launcher.OpenAsync(new Uri(item.Url));
+                        break;
+
+                    default:
+                        _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
+                        break;
+                }
+            });
+        }
         /// <summary>Kiểm tra xem server sống hay chết</summary>
         /// <Modified>
         /// Name     Date         Comments
         /// linhlv  2/26/2020   created
         /// </Modified>
-        void PingServerStatus()
+        private void PingServerStatus()
         {
             RunOnBackground(async () =>
             {
@@ -140,7 +184,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     //EmailSupport = MobileSettingHelper.EmailSupport;
                     //Hotline = MobileSettingHelper.HotlineGps;
-
 
                     if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
                     {
@@ -258,7 +301,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
-                        // lưu version DB hiện tại 
+                        // lưu version DB hiện tại
                         Settings.TempVersionName = versionDB.VersionName;
                         Settings.AppVersionDB = versionDB.VersionName;
                     }
@@ -270,9 +313,11 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             EventAggregator.GetEvent<SelectLanguageTypeEvent>().Unsubscribe(UpdateLanguage);
         }
-        #endregion
+
+        #endregion Init
 
         #region Event subcribe
+
         public void UpdateLanguage(LanguageRespone param)
         {
             if (param == null)
@@ -301,9 +346,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_ErrorTryAgain);
             }
         }
-        #endregion
+
+        #endregion Event subcribe
 
         #region Property
+
         public string AppVersion => appVersionService.GetAppVersion();
 
         public ValidatableObject<string> UserName { get; set; }
@@ -311,6 +358,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ValidatableObject<string> Password { get; set; }
 
         private LanguageRespone language;
+
         public LanguageRespone Language
         {
             get => language;
@@ -327,9 +375,8 @@ namespace BA_MobileGPS.Core.ViewModels
         //private string emailSupport;
         //public string EmailSupport { get => emailSupport; set => SetProperty(ref emailSupport, value); }
 
-       
-
         private bool rememberme;
+
         public bool Rememberme
         {
             get => rememberme;
@@ -339,9 +386,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref rememberme, value);
             }
         }
+
         #endregion Property
 
         #region ICommand
+
         public ICommand PushtoLanguageCommand => new DelegateCommand(() =>
         {
             SafeExecute(async () => await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true));
@@ -362,6 +411,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             NavigationService.NavigateAsync("LoginPreviewFeaturesPage");
         });
+
         //public ICommand PushToRegisterConsultCommand => new DelegateCommand(() =>
         //{
         //    SafeExecute(async () => await NavigationService.NavigateAsync("BaseNavigationPage/RegisterConsultPage", null, useModalNavigation: true));
@@ -372,7 +422,7 @@ namespace BA_MobileGPS.Core.ViewModels
         //{
         //    SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkExperience)));
         //});
-      
+
         [Obsolete]
         public ICommand SendEmailCommand => new DelegateCommand(() =>
         {
@@ -472,9 +522,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         });
-        #endregion
+
+        #endregion ICommand
 
         #region PrivateMethod
+
         private bool Validate()
         {
             return UserName.Validate() && Password.Validate();
@@ -647,5 +699,4 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #endregion PrivateMethod
     }
-
 }

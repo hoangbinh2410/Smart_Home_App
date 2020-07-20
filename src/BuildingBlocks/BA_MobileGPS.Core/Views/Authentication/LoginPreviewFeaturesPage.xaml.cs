@@ -1,11 +1,12 @@
-﻿using Syncfusion.ListView.XForms.Control.Helpers;
+﻿using Rg.Plugins.Popup.Pages;
+using Syncfusion.ListView.XForms.Control.Helpers;
 using System.Linq;
 using System.Reflection;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class LoginPreviewFeaturesPage : ContentPage
+    public partial class LoginPreviewFeaturesPage : PopupPage
     {
         public LoginPreviewFeaturesPage()
         {
