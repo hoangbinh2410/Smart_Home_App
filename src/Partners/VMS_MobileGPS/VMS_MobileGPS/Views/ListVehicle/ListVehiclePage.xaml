@@ -215,12 +215,15 @@
                         Padding="0"
                         BackgroundColor="{StaticResource PrimaryColor}"
                         CornerRadius="0"
-                        HasShadow="True">
+                        HasShadow="True"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
                         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <syncfusionList:SfListView
+                                x:Name="lvStatusCar"
                                 Margin="0"
                                 AutoFitMode="Height"
                                 ItemSpacing="0"
@@ -239,7 +242,8 @@
                                             <StackLayout
                                                 Padding="10"
                                                 Orientation="Horizontal"
-                                                Spacing="10">
+                                                Spacing="5"
+                                                VerticalOptions="FillAndExpand">
                                                 <ffImage:CachedImage
                                                     HorizontalOptions="Start"
                                                     Source="{Binding Icon}"
@@ -251,7 +255,7 @@
                                                         Text="{Binding Name}"
                                                         TextColor="{StaticResource WhiteColor}"
                                                         VerticalOptions="Center" />
-                                                    <StackLayout Orientation="Horizontal">
+                                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                                                         <Label
                                                             HorizontalOptions="Start"
                                                             Text="{Binding CountCar}"
