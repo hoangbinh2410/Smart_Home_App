@@ -267,7 +267,7 @@ namespace VMS_MobileGPS.ViewModels
                     ListVehicle = ListVehicleOrigin.ToObservableCollection();
                 }
 
-                if (VehicleGroups.Length > 0)
+                if (VehicleGroups != null && VehicleGroups.Length > 0)
                 {
                     ListVehicle = ListVehicleOrigin.FindAll(v => v.GroupIDs.Split(',').ToList().Exists(g => VehicleGroups.Contains(Convert.ToInt32(g)))).ToObservableCollection();
                 }
@@ -560,7 +560,7 @@ namespace VMS_MobileGPS.ViewModels
             SafeExecute(() =>
             {
                 var param = _mapper.Map<VehicleOnline>(selected);
-                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, param));               
+                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, param));
             });
         }
 
