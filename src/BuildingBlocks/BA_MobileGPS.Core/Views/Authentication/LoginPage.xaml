@@ -15,8 +15,7 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms"
-    prism:ViewModelLocator.AutowireViewModel="True"
-    NavigationPage.HasNavigationBar="False">
+    prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

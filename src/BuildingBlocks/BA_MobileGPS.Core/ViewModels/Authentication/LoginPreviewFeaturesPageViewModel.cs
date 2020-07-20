@@ -15,9 +15,9 @@ using Xamarin.Forms.Extensions;
 using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class NonLoginFeaturesPopupViewModel : ViewModelBase
+    public class LoginPreviewFeaturesPageViewModel : ViewModelBase
     {
-        public NonLoginFeaturesPopupViewModel(INavigationService navigationService) : base(navigationService)
+        public LoginPreviewFeaturesPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             ClosePopupCommand = new DelegateCommand(ClosePopup);
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(Navigate);
@@ -82,8 +82,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     switch (item.ItemType)
                     {
-                        case LoginPopupItemType.OfflinePage:
-                            _ = await NavigationService.NavigateAsync(item.Url);
+                        case LoginPopupItemType.OfflinePage:                           
+                                var res = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);                                           
                             break;
                         case LoginPopupItemType.Manual:
                             _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
@@ -109,11 +109,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
 
         private async void ClosePopup()
         {
-            await Task.Delay(200);
-            await PopupNavigation.Instance.PopAsync();
+           var a = await NavigationService.GoBackAsync(useModalNavigation:true);
         }
         public ICommand NavigateCommand { get; }
         public ICommand ClosePopupCommand { get; }
@@ -148,6 +151,4 @@ namespace BA_MobileGPS.Core.ViewModels
         RegisterSupport,
         BAGPSExperience,
     }
-
-
 }

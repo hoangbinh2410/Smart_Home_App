@@ -1,18 +1,16 @@
-﻿using Rg.Plugins.Popup.Pages;
-using Syncfusion.ListView.XForms.Control.Helpers;
+﻿using Syncfusion.ListView.XForms.Control.Helpers;
 using System.Linq;
 using System.Reflection;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class NonLoginFeaturesPopup : PopupPage
+    public partial class LoginPreviewFeaturesPage : ContentPage
     {
-        public NonLoginFeaturesPopup()
+        public LoginPreviewFeaturesPage()
         {
             InitializeComponent();
         }
-
         private void SfListView_Loaded(object sender, Syncfusion.ListView.XForms.ListViewLoadedEventArgs e)
         {
             var visualContainer = listView.GetVisualContainer();

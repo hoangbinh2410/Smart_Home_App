@@ -156,6 +156,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<NotificationDetailPage, NotificationDetailPageViewModel>("NotificationDetailPage");
 
             containerRegistry.RegisterForNavigation<VehicleDebtMoneyPage, VehicleDebtMoneyPageViewModel>("VehicleDebtMoneyPage");
+            containerRegistry.RegisterForNavigation<LoginPreviewFeaturesPage, LoginPreviewFeaturesPageViewModel>();
 
         }
     }

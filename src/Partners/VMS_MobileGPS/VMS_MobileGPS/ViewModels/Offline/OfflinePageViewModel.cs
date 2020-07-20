@@ -387,7 +387,7 @@ namespace VMS_MobileGPS.ViewModels
                     }
                     else
                     {
-                        result = await NavigationService.NavigateAsync("LoginPage");
+                        result = await NavigationService.NavigateAsync("/LoginPage");
                     }
                 }
                 else if (PageNames.SOSPage == args || PageNames.MessagesPage == args)
