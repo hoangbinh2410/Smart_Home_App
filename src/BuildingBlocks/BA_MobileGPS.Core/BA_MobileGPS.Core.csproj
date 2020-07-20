@@ -33,7 +33,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="CardsView" Version="2.6.3" />
-		<PackageReference Include="ksemenenko.GoogleAnalytics" Version="1.0.3.2" />
 		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.3" />
 		<PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.3" />
 		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.2.0.45" />
@@ -118,6 +117,9 @@
 	  <EmbeddedResource Update="Views\Common\ImageEditorPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Authentication\LoginPreviewFeaturesPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\MainPage\AccountTab\Account.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -146,9 +148,6 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\MainPage\MainPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\NonLoginFeaturesPopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Navigation\BaseNavigationPage.xaml">

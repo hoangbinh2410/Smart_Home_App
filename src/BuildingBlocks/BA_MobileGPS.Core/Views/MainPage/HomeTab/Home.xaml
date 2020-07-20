@@ -20,41 +20,9 @@
             <StackLayout Spacing="10">
                 <ff:CachedImage
                     HeightRequest="50"
+                    HorizontalOptions="CenterAndExpand"
                     Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
                     WidthRequest="50" />
-                <Label
-                    LineBreakMode="TailTruncation"
-                    MaxLines="2"
-                    StyleClass="IconText"
-                    Text="{Binding NameByCulture}" />
-            </StackLayout>
-        </DataTemplate>
-        <DataTemplate x:Key="ShadowIconTemplate">
-            <StackLayout Spacing="10">
-                <sh:Shadows
-                    x:Name="TabHost"
-                    Grid.Row="1"
-                    BackgroundColor="Transparent"
-                    CornerRadius="0">
-                    <sh:Shadows.Shades>
-                        <sh:ImmutableShades>
-                            <sh:Shade
-                                BlurRadius="5"
-                                Opacity="0.3"
-                                Offset="2,2"
-                                Color="Gray" />
-                        </sh:ImmutableShades>
-                    </sh:Shadows.Shades>
-                    <sharpnado:MaterialFrame
-                        Padding="5"
-                        CornerRadius="5"
-                        HorizontalOptions="CenterAndExpand">
-                        <ff:CachedImage
-                            HeightRequest="50"
-                            Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
-                            WidthRequest="50" />
-                    </sharpnado:MaterialFrame>
-                </sh:Shadows>
                 <Label
                     LineBreakMode="TailTruncation"
                     MaxLines="2"
@@ -190,7 +158,6 @@
                                                 IsScrollBarVisible="False"
                                                 ItemSize="100"
                                                 ItemSpacing="5,10,5,0"
-                                                ItemTemplate="{StaticResource ShadowIconTemplate}"
                                                 ItemsSource="{Binding FeaturesItem, Mode=OneWay}"
                                                 PropertyChanged="Favourite_PropertyChanged"
                                                 TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}" />
