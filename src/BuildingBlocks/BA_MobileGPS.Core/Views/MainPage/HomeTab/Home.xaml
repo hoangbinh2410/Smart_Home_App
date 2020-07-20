@@ -12,6 +12,8 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sfListView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     x:Name="root">
     <ContentView.Resources>
         <DataTemplate x:Key="IconTemplate">
@@ -20,6 +22,39 @@
                     HeightRequest="50"
                     Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
                     WidthRequest="50" />
+                <Label
+                    LineBreakMode="TailTruncation"
+                    MaxLines="2"
+                    StyleClass="IconText"
+                    Text="{Binding NameByCulture}" />
+            </StackLayout>
+        </DataTemplate>
+        <DataTemplate x:Key="ShadowIconTemplate">
+            <StackLayout Spacing="10">
+                <sh:Shadows
+                    x:Name="TabHost"
+                    Grid.Row="1"
+                    BackgroundColor="Transparent"
+                    CornerRadius="0">
+                    <sh:Shadows.Shades>
+                        <sh:ImmutableShades>
+                            <sh:Shade
+                                BlurRadius="5"
+                                Opacity="0.3"
+                                Offset="2,2"
+                                Color="Gray" />
+                        </sh:ImmutableShades>
+                    </sh:Shadows.Shades>
+                    <sharpnado:MaterialFrame
+                        Padding="5"
+                        CornerRadius="5"
+                        HorizontalOptions="CenterAndExpand">
+                        <ff:CachedImage
+                            HeightRequest="50"
+                            Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
+                            WidthRequest="50" />
+                    </sharpnado:MaterialFrame>
+                </sh:Shadows>
                 <Label
                     LineBreakMode="TailTruncation"
                     MaxLines="2"
@@ -113,12 +148,11 @@
                                 TextPadding="3"
                                 Offset="0,0" />
                         </badge:SfBadgeView.BadgeSettings>
-
                     </badge:SfBadgeView>
                 </StackLayout>
             </Grid>
             <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
-                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="0">
                     <pancake:PancakeView
                         Margin="10,5"
                         CornerRadius="10"
@@ -156,6 +190,7 @@
                                                 IsScrollBarVisible="False"
                                                 ItemSize="100"
                                                 ItemSpacing="5,10,5,0"
+                                                ItemTemplate="{StaticResource ShadowIconTemplate}"
                                                 ItemsSource="{Binding FeaturesItem, Mode=OneWay}"
                                                 PropertyChanged="Favourite_PropertyChanged"
                                                 TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}" />
@@ -166,58 +201,46 @@
                             <IndicatorView x:Name="indicatorFavourite" Margin="0,0,0,10" />
                         </StackLayout>
                     </pancake:PancakeView>
-                    <Grid Grid.Row="1" Padding="20,0">
-                        <Label StyleClass="GroupTitleLabel" Text="TIỆN ÍCH" />
-                        <controls:FontAwesomeIcon
-                            Margin="0,0,10,0"
-                            FontAttributes="Bold"
-                            HorizontalOptions="End"
-                            Text="{x:Static fontawesome:FontAwesomeIcons.AlignJustify}"
-                            TextColor="{AppThemeBinding Light={StaticResource PrimaryColor},
-                                                        Dark={StaticResource PrimaryColor}}">
-                            <controls:FontAwesomeIcon.Behaviors>
-                                <animation:ViewTappedBehavior AnimationType="Scale" />
-                            </controls:FontAwesomeIcon.Behaviors>
-                            <controls:FontAwesomeIcon.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding AddCommand}" NumberOfTapsRequired="1" />
-                            </controls:FontAwesomeIcon.GestureRecognizers>
-                        </controls:FontAwesomeIcon>
-                    </Grid>
-
-                    <BoxView
-                        Grid.Row="2"
-                        Margin="10,0"
-                        class="SlimLine" />
-
-                    <Grid
-                        x:Name="parentFeatures"
-                        Grid.Row="3"
-                        HeightRequest="260">
-                        <CarouselView
-                            x:Name="list1"
-                            HorizontalScrollBarVisibility="Never"
-                            IndicatorView="indicatorView"
-                            ItemsSource="{Binding AllListfeatures, Mode=OneWay}">
-                            <CarouselView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <sfListView:SfListView
-                                            HeightRequest="250"
-                                            HorizontalOptions="CenterAndExpand"
-                                            IsScrollBarVisible="False"
-                                            ItemSize="100"
-                                            ItemsSource="{Binding FeaturesItem}"
-                                            PropertyChanged="SfListView_PropertyChanged"
-                                            TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}"
-                                            VerticalOptions="CenterAndExpand" />
-                                    </Grid>
-                                </DataTemplate>
-                            </CarouselView.ItemTemplate>
-                        </CarouselView>
-                        <IndicatorView x:Name="indicatorView" Margin="0,0,0,10" />
-                    </Grid>
                     <pancake:PancakeView
-                        Grid.Row="4"
+                        Grid.Row="1"
+                        Padding="0"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource GrayColor},
+                                                          Dark={StaticResource GrayColor}}"
+                        CornerRadius="10">
+                        <StackLayout Spacing="10">
+                            <Label
+                                Padding="20,10,0,0"
+                                StyleClass="GroupTitleLabel"
+                                Text="TIỆN ÍCH" />
+                            <BoxView Margin="10,0" class="SlimLine" />
+                            <Grid x:Name="parentFeatures" HeightRequest="260">
+                                <CarouselView
+                                    x:Name="list1"
+                                    HorizontalScrollBarVisibility="Never"
+                                    IndicatorView="indicatorView"
+                                    ItemsSource="{Binding AllListfeatures, Mode=OneWay}">
+                                    <CarouselView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <sfListView:SfListView
+                                                    HeightRequest="250"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    IsScrollBarVisible="False"
+                                                    ItemSize="100"
+                                                    ItemsSource="{Binding FeaturesItem}"
+                                                    PropertyChanged="SfListView_PropertyChanged"
+                                                    TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}"
+                                                    VerticalOptions="CenterAndExpand" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CarouselView.ItemTemplate>
+                                </CarouselView>
+                                <IndicatorView x:Name="indicatorView" Margin="0,0,0,10" />
+                            </Grid>
+                        </StackLayout>
+                    </pancake:PancakeView>
+                    <pancake:PancakeView
+                        Grid.Row="2"
                         Margin="15,0"
                         CornerRadius="15">
                         <ff:CachedImage
