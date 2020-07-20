@@ -266,7 +266,15 @@ namespace VMS_MobileGPS.ViewModels
                     StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
                     ListVehicle = ListVehicleOrigin.ToObservableCollection();
                 }
-                ListVehicleByStatus = ListVehicleOrigin;
+
+                if (VehicleGroups.Length > 0)
+                {
+                    ListVehicle = ListVehicleOrigin.FindAll(v => v.GroupIDs.Split(',').ToList().Exists(g => VehicleGroups.Contains(Convert.ToInt32(g)))).ToObservableCollection();
+                }
+                else
+                {
+                    ListVehicle = ListVehicleOrigin.ToObservableCollection();
+                }
 
                 InitVehicleStatus();
             }

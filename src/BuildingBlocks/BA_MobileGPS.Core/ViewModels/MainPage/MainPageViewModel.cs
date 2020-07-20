@@ -372,7 +372,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    VehicleGroups = null;
                     EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(true);
                 });
             });
