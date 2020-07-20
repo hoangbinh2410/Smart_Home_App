@@ -2,17 +2,14 @@
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
-using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Essentials;
-using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
 using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
+
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class LoginPreviewFeaturesPageViewModel : ViewModelBase
@@ -80,28 +77,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     return;
                 else
                 {
-                    switch (item.ItemType)
-                    {
-                        case LoginPopupItemType.OfflinePage:                           
-                                var res = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);                                           
-                            break;
-                        case LoginPopupItemType.Manual:
-                            _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
-                            break;
-                        case LoginPopupItemType.Guarantee:
-                            await Launcher.OpenAsync(new Uri(item.Url));
-                            break;
-                        case LoginPopupItemType.RegisterSupport:
-                            _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
-                            break;
-                        case LoginPopupItemType.BAGPSExperience:
-                            await Launcher.OpenAsync(new Uri(item.Url));
-                            break;
-                        default:
-                            _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
-                            break;
-                    }
-
+                    await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+                        {
+                            { "popupitem",  item}
+                        });
                 }
             }
             catch (Exception ex)
@@ -109,6 +88,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
+
         public override void OnDestroy()
         {
             base.OnDestroy();
@@ -116,19 +96,20 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private async void ClosePopup()
         {
-           var a = await NavigationService.GoBackAsync(useModalNavigation:true);
+            //await PopupNavigation.Instance.PopAsync();
+            await NavigationService.GoBackAsync();
         }
+
         public ICommand NavigateCommand { get; }
         public ICommand ClosePopupCommand { get; }
 
         private ObservableCollection<LoginPopupItem> items;
+
         public ObservableCollection<LoginPopupItem> Items
         {
             get { return items; }
             set { SetProperty(ref items, value); }
         }
-
-
     }
 
     public class LoginPopupItem
@@ -140,7 +121,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public string Url { get; set; }
 
         public LoginPopupItemType ItemType { get; set; }
-
     }
 
     public enum LoginPopupItemType
