@@ -849,7 +849,7 @@
     <BundleResource Include="Resources\ic_foursquare.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_fourSquare%402x.png" />
+    <BundleResource Include="Resources\ic_foursquare%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_foursquare%403x.png" />
