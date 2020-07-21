@@ -192,8 +192,11 @@ namespace VMS_MobileGPS.ViewModels
         public override void OnDestroy()
         {
             base.OnDestroy();
-            timer.Stop();
-            timer.Dispose();
+            if (timer != null)
+            {
+                timer.Stop();
+                timer.Dispose();
+            }
             _eventAggregator.GetEvent<RecieveLocationEvent>().Unsubscribe(this.RecieveLocationEventSuccess);
         }
 
