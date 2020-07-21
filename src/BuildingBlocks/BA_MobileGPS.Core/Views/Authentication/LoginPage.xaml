@@ -187,7 +187,7 @@
                         Foreground="{AppThemeBinding Light={StaticResource BlueDarkColor},
                                                      Dark={StaticResource BlueDarkColor}}"
                         HorizontalOptions="End"
-                        Source="ic_FourSquare.png"
+                        Source="ic_foursquare.png"
                         WidthRequest="40">
                         <controls:IconView.Behaviors>
                             <animation:ViewTappedBehavior AnimationType="Scale" />
