@@ -29,7 +29,7 @@ namespace BA_MobileGPS.Core.ViewModels
             list.Add(new LoginPopupItem
             {
                 Title = MobileResource.Login_Popup_Starting_Page,
-                Icon = "ic_FishingNet.png",
+                Icon = "ic_fishingnet.png",
                 Url = "/NavigationPage/OfflinePage",
                 ItemType = LoginPopupItemType.OfflinePage
             });
@@ -37,7 +37,7 @@ namespace BA_MobileGPS.Core.ViewModels
             list.Add(new LoginPopupItem
             {
                 Title = MobileResource.Login_Popup_Manual,
-                Icon = "ic_Manual.png",
+                Icon = "ic_manual.png",
                 Url = "NavigationPage/HelperPage",
                 ItemType = LoginPopupItemType.Manual,
             });
@@ -45,7 +45,7 @@ namespace BA_MobileGPS.Core.ViewModels
             list.Add(new LoginPopupItem
             {
                 Title = MobileResource.Login_Popup_Guarantee,
-                Icon = "ic_Guarantee.png",
+                Icon = "ic_guarantee.png",
                 Url = MobileSettingHelper.WebGps,
                 ItemType = LoginPopupItemType.Guarantee,
             });
@@ -53,7 +53,7 @@ namespace BA_MobileGPS.Core.ViewModels
             list.Add(new LoginPopupItem
             {
                 Title = MobileResource.Login_Popup_RegisterSupport,
-                Icon = "ic_MiniLogo.png",
+                Icon = "ic_minilogo.png",
                 Url = "BaseNavigationPage/RegisterConsultPage",
                 ItemType = LoginPopupItemType.RegisterSupport,
             });

@@ -1052,7 +1052,7 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_time24.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_Account.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_account.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_anglebell.png" />
@@ -1076,31 +1076,28 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_filter.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_FourSquare.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_foursquare.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_Home.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_home.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_Lock.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_lock.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_logout.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_Manual.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_Map.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_manual.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_map_type.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_Mornitoring.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_mornitoring.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_Network.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_network.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_ratingstar.png" />
@@ -1154,7 +1151,7 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_time24.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_Account.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_account.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_coordinates.png" />
@@ -1169,22 +1166,22 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_FourSquare.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_Lock.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_lock.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_Manual.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_manual.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_map_type.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_MiniLogo.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_minilogo.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_Mornitoring.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_mornitoring.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_Network.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_network.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_search.png" />
@@ -1196,7 +1193,7 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_time24.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_Account.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_account.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_anglebell.png" />
@@ -1220,43 +1217,40 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_distance.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_doubleship.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_filter.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_FourSquare.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_foursquare.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_Guarantee.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_guarantee.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_Home.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_home.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_Lock.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_lock.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_logout.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_Manual.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_manual.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_Map.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_map.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_map_type.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_MiniLogo.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_minilogo.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_Mornitoring.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_mornitoring.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_Network.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_network.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_ratingstar.png" />
@@ -1277,7 +1271,7 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_time24.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_Account.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_account.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_anglebell.png" />
@@ -1304,37 +1298,37 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_filter.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_FourSquare.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_foursquare.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_Guarantee.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_guarantee.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_Home.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_home.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_Lock.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_lock.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_logout.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_Manual.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_manual.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_Map.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_map.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_map_type.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_MiniLogo.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_minilogo.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_Mornitoring.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_mornitoring.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_Network.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_network.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_ratingstar.png" />
@@ -1350,6 +1344,75 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_speed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_vector.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_bounded_area.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_company.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_guarantee.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_minilogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_distance2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_radius.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_guarantee.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_radius.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_vector.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_bounded_area.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_distance2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_radius.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_vector.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_bounded_area.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_distance2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_distance2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_radius.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_vector.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_bounded_area.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
