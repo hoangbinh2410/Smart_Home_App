@@ -67,6 +67,7 @@ namespace VMS_MobileGPS.ViewModels
 
         public void Destroy()
         {
+            OnDestroy();
             Connectivity.ConnectivityChanged -= Connectivity_ConnectivityChanged;
         }
 
