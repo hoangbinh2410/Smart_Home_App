@@ -542,6 +542,8 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_camera%402x.png" />
+     </ItemGroup>
+     <ItemGroup>
     <BundleResource Include="Resources\ic_help.png" />
   </ItemGroup>
   <ItemGroup>
@@ -771,6 +773,8 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_point_take_photo.png" />
+     </ItemGroup>
+     <ItemGroup>
     <BundleResource Include="Resources\ic_excel.png" />
   </ItemGroup>
   <ItemGroup>
