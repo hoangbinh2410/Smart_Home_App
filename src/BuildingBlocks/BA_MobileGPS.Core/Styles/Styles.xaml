@@ -214,10 +214,15 @@
         <Setter Property="Source" Value="{AppThemeBinding Light={StaticResource HomePageBotImageSource}, Dark={StaticResource HomePageBotImageSource}}" />
     </Style>
 
+    <OnPlatform
+        x:Key="HeightTitleBarGrid"
+        x:TypeArguments="x:Int32"
+        Android="60"
+        iOS="70" />
     <!--  TitleBar  -->
     <Style Class="TitleBarGrid" TargetType="Grid">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
-        <Setter Property="HeightRequest" Value="70" />
+        <Setter Property="HeightRequest" Value="{StaticResource HeightTitleBarGrid}" />
         <Setter Property="Padding" Value="15,5" />
     </Style>
 

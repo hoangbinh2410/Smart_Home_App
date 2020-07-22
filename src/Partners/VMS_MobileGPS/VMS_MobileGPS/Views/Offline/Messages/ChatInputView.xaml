@@ -23,7 +23,7 @@
                 <Label.FormattedText>
                     <FormattedString>
                         <FormattedString.Spans>
-                            <Span Text="{Binding Message.WordsLeft, StringFormat='{}Số kí tự còn lại: {0} ký tự'}" />
+                            <Span Text="{Binding Message.WordsLeft, StringFormat='{}Số kí tự còn lại: {0} ký tự '}" />
                             <Span Text="{Binding TotalByteSms, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource TotalBlockSmsConverter}, StringFormat='{}(~ {0} block)'}" />
                         </FormattedString.Spans>
                     </FormattedString>
