@@ -425,7 +425,7 @@ namespace VMS_MobileGPS.ViewModels
 
                 if(IsConnectBLE)
                 {
-                    _ = await NavigationService.NavigateAsync("BaseNavigationPage/BluetoothPage", useModalNavigation: true);
+                    _ = await NavigationService.NavigateAsync("NavigationPage/BluetoothPage", useModalNavigation: true);
                 }    
                 else
                 {

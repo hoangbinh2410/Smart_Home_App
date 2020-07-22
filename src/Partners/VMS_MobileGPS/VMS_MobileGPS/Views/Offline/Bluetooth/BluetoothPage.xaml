@@ -3,10 +3,12 @@
     x:Class="VMS_MobileGPS.Views.BluetoothPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors;assembly=BA_MobileGPS.Core"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+    xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:local="clr-namespace:VMS_MobileGPS.Constant;assembly=VMS_MobileGPS"
     xmlns:m="clr-namespace:VMS_MobileGPS.Models;assembly=VMS_MobileGPS"
@@ -22,55 +24,52 @@
             <converter:TextChangedEventArgsConverter x:Key="TextChangedEventArgsConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem
-            Command="{Binding SearchBluetoothCommand}"
-            Icon="ic_bluetooth.png"
-            IconImageSource="ic_bluetooth.png"
-            Order="Primary"
-            Priority="1"
-            Text="Bluetooth" />
-    </ContentPage.ToolbarItems>
-    <!--<NavigationPage.TitleView>
+    <NavigationPage.TitleView>
         <Grid
+            Padding="0,0,10,0"
             ColumnSpacing="10"
             HeightRequest="44"
             HorizontalOptions="FillAndExpand">
-            <Grid.Margin>
-                <OnPlatform x:TypeArguments="Thickness">
-                    <OnPlatform.Platforms>
-                        <On Platform="iOS" Value="-20,0,0,0" />
-                        <On Platform="Android" Value="-40,0,0,0" />
-                    </OnPlatform.Platforms>
-                </OnPlatform>
-            </Grid.Margin>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+            <image:CachedImage
+                Grid.Column="0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <image:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </image:CachedImage.GestureRecognizers>
+            </image:CachedImage>
             <Label
+                Grid.ColumnSpan="3"
                 FontAttributes="Bold"
                 FontSize="20"
-                HorizontalOptions="Center"
+                HorizontalOptions="CenterAndExpand"
                 LineBreakMode="MiddleTruncation"
                 Text="Tìm và kết nối"
                 TextColor="White"
                 VerticalOptions="Center" />
-            <controls:FontAwesomeIcon
-                Grid.Column="1"
-                Margin="5,0,5,0"
-                FontAttributes="Bold"
-                FontSize="25"
-                HorizontalOptions="End"
-                Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}"
-                TextColor="White"
+
+            <image:CachedImage
+                Grid.Column="2"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_bluetooth.png"
                 VerticalOptions="Center">
-                <controls:FontAwesomeIcon.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SearchBluetoothCommand}" />
-                </controls:FontAwesomeIcon.GestureRecognizers>
-            </controls:FontAwesomeIcon>
+                <image:CachedImage.Behaviors>
+                    <animation:ViewTappedBehavior AnimationType="Scale" />
+                </image:CachedImage.Behaviors>
+                <image:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </image:CachedImage.GestureRecognizers>
+            </image:CachedImage>
         </Grid>
-    </NavigationPage.TitleView>-->
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
