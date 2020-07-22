@@ -81,30 +81,23 @@ namespace VMS_MobileGPS.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+            SOSBtnText = "CẢNH BÁO SOS";
+            SOSBtnTextColor = (Color)Application.Current.Resources["WhiteColor"];
+            SOSBtnBackgroundColor = (Color)Application.Current.Resources["PrimaryColor"];
             if (GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.NO_CONNECTION)
             {
                 BluetoothStatus = "CHƯA KẾT NỐI";
                 BluetoothStatusTextColor = (Color)Application.Current.Resources["DangerousColor"];
-                SOSBtnText = "CẢNH BÁO SOS";
-                SOSBtnTextColor = (Color)Application.Current.Resources["WhiteColor"];
-                SOSBtnBackgroundColor = (Color)Application.Current.Resources["PrimaryColor"];
             }
             else
             {
                 BluetoothStatus = "ĐÃ KẾT NỐI " + GlobalResourcesVMS.Current.DeviceManager.DeviceName;
                 BluetoothStatusTextColor = (Color)Application.Current.Resources["TextPrimaryColor"];
-               
                 if (GlobalResourcesVMS.Current.DeviceManager.IsSendSOS)
                 {
                     SOSBtnText = "SOS ĐÃ BẬT";
                     SOSBtnTextColor = (Color)Application.Current.Resources["DangerousColor"];
                     SOSBtnBackgroundColor = (Color)Application.Current.Resources["PinkColor"];
-                }
-                else
-                {
-                    SOSBtnText = "CẢNH BÁO SOS";
-                    SOSBtnTextColor = (Color)Application.Current.Resources["WhiteColor"];
-                    SOSBtnBackgroundColor = (Color)Application.Current.Resources["PrimaryColor"];
                 }
             }
             if (Settings.IsLoadedMap)
@@ -309,34 +302,46 @@ namespace VMS_MobileGPS.ViewModels
                 SetProperty(ref _bluetoothStatus, value);
                 RaisePropertyChanged();
             }
-        }       
+        }
 
         private string _sOSBtnText;
+
         public string SOSBtnText
         {
             get { return _sOSBtnText; }
-            set { SetProperty(ref _sOSBtnText, value); 
-                RaisePropertyChanged(); }
+            set
+            {
+                SetProperty(ref _sOSBtnText, value);
+                RaisePropertyChanged();
+            }
         }
 
         private Color _sOSBtnTextColor;
+
         public Color SOSBtnTextColor
         {
             get { return _sOSBtnTextColor; }
-            set { SetProperty(ref _sOSBtnTextColor, value); 
+            set
+            {
+                SetProperty(ref _sOSBtnTextColor, value);
                 RaisePropertyChanged();
             }
         }
 
         private Color _sOSBtnBackgroundColor;
+
         public Color SOSBtnBackgroundColor
         {
             get { return _sOSBtnBackgroundColor; }
-            set { SetProperty(ref _sOSBtnBackgroundColor, value); 
-                RaisePropertyChanged(); }
+            set
+            {
+                SetProperty(ref _sOSBtnBackgroundColor, value);
+                RaisePropertyChanged();
+            }
         }
 
         private Color _bluetoothStatusTextColor;
+
         public Color BluetoothStatusTextColor
         {
             get { return _bluetoothStatusTextColor; }

@@ -403,7 +403,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 var popupServices = PrismApplicationBase.Current.Container.Resolve<IPopupServices>();
                 var title = MobileResource.Login_ForgotPassword_PopupTitle;
                 var content = MobileResource.Login_ForgotPassword_PopupContent;
-                popupServices.ShowNotificationIconPopup(title, content, "ic_Lock.png", Color.Blue, Views.IconPosititon.Left);
+                var color = (Color)Application.Current.Resources["PrimaryColor"];
+                popupServices.ShowNotificationIconPopup(title, content, "ic_lock.png", color, Views.IconPosititon.Left);
             });
         });
 
