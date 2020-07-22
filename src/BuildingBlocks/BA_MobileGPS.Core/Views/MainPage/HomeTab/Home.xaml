@@ -199,7 +199,7 @@
                                 StyleClass="GroupTitleLabel"
                                 Text="TIỆN ÍCH" />
                             <BoxView Margin="10,0" class="SlimLine" />
-                            <Grid x:Name="parentFeatures" HeightRequest="260">
+                            <Grid x:Name="parentFeatures" HeightRequest="280">
                                 <CarouselView
                                     x:Name="list1"
                                     HorizontalScrollBarVisibility="Never"
@@ -221,7 +221,7 @@
                                         </DataTemplate>
                                     </CarouselView.ItemTemplate>
                                 </CarouselView>
-                                <IndicatorView x:Name="indicatorView" Margin="0,0,0,0" />
+                                <IndicatorView x:Name="indicatorView" Margin="0,10" />
                             </Grid>
                         </StackLayout>
                     </pancake:PancakeView>
