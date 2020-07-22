@@ -87,7 +87,7 @@ namespace BA_MobileGPS.Core
 
         public static int DefautLanguage => Get(MobileUserConfigurationNames.DefautLanguage, 1);
 
-        public static string MenuFavorite => Get(MobileUserConfigurationNames.MenuFavorite, "");
+        public static string MenuFavorite => Get(MobileUserConfigurationNames.MenuFavorite, "1,6,61");
 
         public static string MenuReport => Get(MobileUserConfigurationNames.MenuReport, "");
 
