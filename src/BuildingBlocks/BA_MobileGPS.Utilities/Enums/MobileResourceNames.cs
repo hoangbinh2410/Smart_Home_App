@@ -1111,6 +1111,7 @@
         AccountTab_Label_Setting,
         AccountTab_Label_Logout,
         AccountTab_Label_MessageWarningLogout,
+        AccountTab_Label_MyInformation,
         #endregion
 
         #region Alert Config

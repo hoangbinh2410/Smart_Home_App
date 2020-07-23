@@ -49,14 +49,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Url = MobileSettingHelper.WebGps,
                 ItemType = LoginPopupItemType.Guarantee,
             });
-            // Đăng kí tư vấn
-            list.Add(new LoginPopupItem
-            {
-                Title = MobileResource.Login_Popup_RegisterSupport,
-                Icon = "ic_minilogo.png",
-                Url = "BaseNavigationPage/RegisterConsultPage",
-                ItemType = LoginPopupItemType.RegisterSupport,
-            });
+         
             // Trải nghiệm BAGPS
             list.Add(new LoginPopupItem
             {
@@ -65,7 +58,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 Url = MobileSettingHelper.LinkExperience,
                 ItemType = LoginPopupItemType.BAGPSExperience,
             });
-
+            // Đăng kí tư vấn
+            list.Add(new LoginPopupItem
+            {
+                Title = MobileResource.Login_Popup_RegisterSupport,
+                Icon = "ic_minilogo.png",
+                Url = "BaseNavigationPage/RegisterConsultPage",
+                ItemType = LoginPopupItemType.RegisterSupport,
+            });
             Items = list.ToObservableCollection();
         }
 

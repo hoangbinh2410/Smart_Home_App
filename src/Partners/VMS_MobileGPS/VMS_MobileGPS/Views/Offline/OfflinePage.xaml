@@ -22,6 +22,7 @@
             <converters:TotalNotificationDisplayConverter x:Key="TotalNotificationDisplayConverter" />
             <converters:SOSStateColorConverter x:Key="SOSStateColorConverter" />
             <converters:SOSStateTextColorConverter x:Key="SOSStateTextColorConverter" />
+            <converters:SOSBackgroundColorConverter x:Key="SOSBackgroundColorConverter" />
             <converters:BLENameConverter x:Key="BLENameConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -122,6 +123,7 @@
                         InputTransparent="True"
                         IsToggled="{Binding IsConnectBLE}"
                         OnColor="{StaticResource PrimaryColor}"
+                        Scale="1.5"
                         VerticalOptions="CenterAndExpand" />
                 </StackLayout>
             </Grid>
@@ -136,7 +138,10 @@
                         <ColumnDefinition Width=".5*" />
                         <ColumnDefinition Width=".5*" />
                     </Grid.ColumnDefinitions>
-                    <sharpnado:MaterialFrame Grid.Column="0" CornerRadius="10">
+                    <sharpnado:MaterialFrame
+                        Grid.Column="0"
+                        CornerRadius="10"
+                        LightThemeBackgroundColor="{Binding DeviceManager.IsSendSOS, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource SOSBackgroundColorConverter}}">
                         <sharpnado:MaterialFrame.GestureRecognizers>
                             <TapGestureRecognizer
                                 Command="{Binding NavigateToCommand}"
@@ -162,6 +167,7 @@
                                 <Label
                                     HorizontalOptions="CenterAndExpand"
                                     Text="Cảnh báo SOS"
+                                    TextColor="{Binding DeviceManager.IsSendSOS, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource SOSStateTextColorConverter}}"
                                     VerticalOptions="Center" />
                             </StackLayout>
                         </Grid>

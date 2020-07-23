@@ -1,8 +1,11 @@
-﻿namespace BA_MobileGPS.Core.ViewModels
+﻿using Prism.Navigation;
+
+namespace BA_MobileGPS.Core.ViewModels
 {
-    public class BaseNavigationPageViewModel : ExtendedBindableObject
+    public class BaseNavigationPageViewModel : ViewModelBase
     {
-        public BaseNavigationPageViewModel()
+        public BaseNavigationPageViewModel(INavigationService navigationService)
+            : base(navigationService)
         {
         }
     }

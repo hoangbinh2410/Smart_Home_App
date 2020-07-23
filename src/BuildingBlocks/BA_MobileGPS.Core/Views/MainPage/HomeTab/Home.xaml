@@ -18,11 +18,26 @@
     <ContentView.Resources>
         <DataTemplate x:Key="IconTemplate">
             <StackLayout Spacing="10">
-                <ff:CachedImage
-                    HeightRequest="50"
-                    HorizontalOptions="CenterAndExpand"
-                    Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
-                    WidthRequest="50" />
+                <sh:Shadows BackgroundColor="Transparent" CornerRadius="5">
+                    <sh:Shadows.Shades>
+                        <sh:ImmutableShades>
+                            <sh:Shade
+                                BlurRadius="2"
+                                Opacity="0.2"
+                                Offset="1,1"
+                                Color="Gray" />
+                        </sh:ImmutableShades>
+                    </sh:Shadows.Shades>
+                    <sharpnado:MaterialFrame
+                        Padding="5"
+                        CornerRadius="5"
+                        HorizontalOptions="CenterAndExpand">
+                        <ff:CachedImage
+                            HeightRequest="45"
+                            Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
+                            WidthRequest="45" />
+                    </sharpnado:MaterialFrame>
+                </sh:Shadows>
                 <Label
                     LineBreakMode="TailTruncation"
                     MaxLines="2"
@@ -40,13 +55,10 @@
         </Style>
     </ContentView.Resources>
     <Grid>
-        <Grid Padding="0">
-            <ff:CachedImage
-                Aspect="AspectFill"
-                HeightRequest="200"
-                StyleClass="HomePageTopImage"
-                VerticalOptions="StartAndExpand" />
-        </Grid>
+        <Grid
+            BackgroundColor="{StaticResource PrimaryColor}"
+            HeightRequest="200"
+            VerticalOptions="Start" />
         <Grid Padding="5,0" RowDefinitions="Auto,Auto">
             <Grid Padding="15,0" HeightRequest="110">
                 <ff:CachedImage
@@ -124,7 +136,11 @@
                     <pancake:PancakeView
                         Margin="10,5"
                         CornerRadius="10"
+                        HasShadow="True"
                         Style="{DynamicResource FavouriteBackgroundColor}">
+                        <pancake:PancakeView.Shadow>
+                            <pancake:DropShadow BlurRadius="2" Color="Black" />
+                        </pancake:PancakeView.Shadow>
                         <StackLayout Spacing="0">
                             <Grid Margin="10">
                                 <Label StyleClass="GroupTitleLabel" Text="NỔI BẬT" />
@@ -165,7 +181,7 @@
                                     </DataTemplate>
                                 </CarouselView.ItemTemplate>
                             </CarouselView>
-                            <IndicatorView x:Name="indicatorFavourite" Margin="0,0,0,10" />
+                            <IndicatorView x:Name="indicatorFavourite" Margin="0,10" />
                         </StackLayout>
                     </pancake:PancakeView>
                     <pancake:PancakeView
@@ -180,7 +196,7 @@
                                 StyleClass="GroupTitleLabel"
                                 Text="TIỆN ÍCH" />
                             <BoxView Margin="10,0" class="SlimLine" />
-                            <Grid x:Name="parentFeatures" HeightRequest="260">
+                            <Grid x:Name="parentFeatures" HeightRequest="280">
                                 <CarouselView
                                     x:Name="list1"
                                     HorizontalScrollBarVisibility="Never"
@@ -202,14 +218,14 @@
                                         </DataTemplate>
                                     </CarouselView.ItemTemplate>
                                 </CarouselView>
-                                <IndicatorView x:Name="indicatorView" Margin="0,0,0,10" />
+                                <IndicatorView x:Name="indicatorView" Margin="0,10" />
                             </Grid>
                         </StackLayout>
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Grid.Row="2"
                         Margin="15,0"
-                        CornerRadius="15">
+                        CornerRadius="15,15,0,0">
                         <ff:CachedImage
                             Aspect="AspectFill"
                             HeightRequest="200"

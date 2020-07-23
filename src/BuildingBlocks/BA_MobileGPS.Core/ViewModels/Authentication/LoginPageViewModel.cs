@@ -134,7 +134,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     case LoginPopupItemType.BAGPSExperience:
                         await Launcher.OpenAsync(new Uri(item.Url));
                         break;
-
                     default:
                         _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
                         break;
@@ -403,7 +402,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 var popupServices = PrismApplicationBase.Current.Container.Resolve<IPopupServices>();
                 var title = MobileResource.Login_ForgotPassword_PopupTitle;
                 var content = MobileResource.Login_ForgotPassword_PopupContent;
-                popupServices.ShowNotificationIconPopup(title, content, "ic_Lock.png", Color.Blue, Views.IconPosititon.Left);
+                var color = (Color)Application.Current.Resources["PrimaryColor"];
+                popupServices.ShowNotificationIconPopup(title, content, "ic_lock.png", color, Views.IconPosititon.Left);
             });
         });
 
@@ -418,10 +418,10 @@ namespace BA_MobileGPS.Core.ViewModels
         //    //SafeExecute(async () => await NavigationService.NavigateAsync("MenuNavigationPage/VerifyCodeOtpPage", null, useModalNavigation: true));
         //});
 
-        //public ICommand PushToExperienceBACommand => new DelegateCommand(() =>
-        //{
-        //    SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkExperience)));
-        //});
+        public ICommand OpenWebGPSCommand => new DelegateCommand(() =>
+        {
+            SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.WebGps)));
+        });
 
         [Obsolete]
         public ICommand SendEmailCommand => new DelegateCommand(() =>

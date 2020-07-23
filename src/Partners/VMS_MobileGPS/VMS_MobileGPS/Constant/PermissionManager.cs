@@ -12,13 +12,12 @@ namespace VMS_MobileGPS.Constant
     {
         public PermissionManager()
         {
-            Task.Run(async () =>
-            {
-                IsCameraGranted = await CrossPermissions.Current.CheckPermissionStatusAsync<CameraPermission>() == PermissionStatus.Granted;
-                IsLocationGranted = await CrossPermissions.Current.CheckPermissionStatusAsync<LocationPermission>() == PermissionStatus.Granted;
-                IsPhotoGranted = await CrossPermissions.Current.CheckPermissionStatusAsync<PhotosPermission>() == PermissionStatus.Granted;
-                IsStorageGranted = await CrossPermissions.Current.CheckPermissionStatusAsync<StoragePermission>() == PermissionStatus.Granted;
-            });            
+
+                IsCameraGranted =  CrossPermissions.Current.CheckPermissionStatusAsync<CameraPermission>().Result == PermissionStatus.Granted;
+                IsLocationGranted =  CrossPermissions.Current.CheckPermissionStatusAsync<LocationPermission>().Result == PermissionStatus.Granted;
+                IsPhotoGranted =  CrossPermissions.Current.CheckPermissionStatusAsync<PhotosPermission>().Result == PermissionStatus.Granted;
+                IsStorageGranted =  CrossPermissions.Current.CheckPermissionStatusAsync<StoragePermission>().Result == PermissionStatus.Granted;
+                
         }
         private bool isCameraGranted;
 
