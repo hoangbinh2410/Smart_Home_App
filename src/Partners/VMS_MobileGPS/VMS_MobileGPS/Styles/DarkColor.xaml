@@ -21,6 +21,7 @@
 
     <Color x:Key="DangerousColor">#E63C2B</Color>
     <Color x:Key="WarningColor">#FF9900</Color>
+    <Color x:Key="PinkColor">#FFD8D8</Color>
 
 
     <FileImageSource x:Key="HomePageTopImageSource" File="bg_HomeTop.png" />
