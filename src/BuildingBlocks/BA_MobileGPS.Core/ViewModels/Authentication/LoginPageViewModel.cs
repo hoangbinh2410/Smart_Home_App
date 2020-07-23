@@ -134,7 +134,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     case LoginPopupItemType.BAGPSExperience:
                         await Launcher.OpenAsync(new Uri(item.Url));
                         break;
-
                     default:
                         _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
                         break;
@@ -419,10 +418,10 @@ namespace BA_MobileGPS.Core.ViewModels
         //    //SafeExecute(async () => await NavigationService.NavigateAsync("MenuNavigationPage/VerifyCodeOtpPage", null, useModalNavigation: true));
         //});
 
-        //public ICommand PushToExperienceBACommand => new DelegateCommand(() =>
-        //{
-        //    SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkExperience)));
-        //});
+        public ICommand OpenWebGPSCommand => new DelegateCommand(() =>
+        {
+            SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.WebGps)));
+        });
 
         [Obsolete]
         public ICommand SendEmailCommand => new DelegateCommand(() =>

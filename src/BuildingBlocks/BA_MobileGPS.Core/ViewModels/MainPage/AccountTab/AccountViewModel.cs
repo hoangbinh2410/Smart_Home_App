@@ -56,18 +56,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = "BaseNavigationPage/ChangePasswordPage",
                 MenuType = MenuType.ChangePassword,
-                IsEnable = CheckPermision((int)PermissionKeyNames.UserUpdate)
+                IsEnable = CheckPermision((int)PermissionKeyNames.UserUpdate),
+                IconColor = Color.FromHex("#795548")
             });
-            // Hỗ trợ khách hàng
-            //list.Add(new MenuItem
-            //{
-            //    Title = MobileResource.AccountTab_Label_CustomerSupport,
-            //    Icon = "ic_customersupport.png",
-            //    UseModalNavigation = true,
-            //    Url = MobileSettingHelper.WebGps,
-            //    MenuType = MenuType.CustomerSupport,
-            //    IsEnable = true
-            //});
+
             // Hướng dẫn sử dụng
             list.Add(new MenuItem
             {
@@ -76,7 +68,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = "NavigationPage/HelperPage",
                 MenuType = MenuType.DeviceManual,
-                IsEnable = true
+                IsEnable = true,
+                IconColor = Color.FromHex("#FF9900")
             });
             // Giới thiệu BAGPS
             list.Add(new MenuItem
@@ -86,7 +79,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = MobileSettingHelper.WebGps,
                 MenuType = MenuType.BAGPSIntro,
-                IsEnable = true
+                IsEnable = true,
+                IconColor = Color.FromHex("#0A46B1")
             });
             // Chia sẻ
             list.Add(new MenuItem
@@ -96,7 +90,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = MobileSettingHelper.LinkShareApp,
                 MenuType = MenuType.Share,
-                IsEnable = true
+                IsEnable = true,
+                IconColor = Color.FromHex("#8BC34A")
             });
             // Đánh giá
             list.Add(new MenuItem
@@ -106,7 +101,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = Device.RuntimePlatform == Device.Android ? MobileSettingHelper.LinkCHPlay : MobileSettingHelper.LinkAppStore,
                 MenuType = MenuType.Rating,
-                IsEnable = true
+                IsEnable = true,
+                IconColor = Color.FromHex("#F9CF26")
             });
             // Cài đặt
             list.Add(new MenuItem
@@ -116,7 +112,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = "NavigationPage/SettingsPage",
                 MenuType = MenuType.Setting,
-                IsEnable = true
+                IsEnable = true,
+                IconColor = Color.FromHex("#673AB7")
             });
             // Đăng xuất
             list.Add(new MenuItem
@@ -126,7 +123,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = false,
                 Url = "/LoginPage",
                 MenuType = MenuType.Logout,
-                IsEnable = true
+                IsEnable = true,
+                IconColor = Color.FromHex("#E63C2B")
             });
             // Nâng cấp phiên bản
             //if (Settings.AppVersionDB != AppVersion)
@@ -244,6 +242,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public bool UseModalNavigation { get; set; }
 
         public MenuType MenuType { get; set; }
+
+        public Color IconColor { get; set; }
 
         public bool IsEnable { get; set; }
 
