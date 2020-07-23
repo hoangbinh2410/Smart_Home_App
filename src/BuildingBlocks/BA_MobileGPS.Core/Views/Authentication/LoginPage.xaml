@@ -82,6 +82,7 @@
                         ContainerType="Outlined"
                         ErrorText="{Binding UserName.ErrorFirst}"
                         HasError="{Binding UserName.IsNotValid}"
+                        HeightRequest="50"
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
                             <sharpnado:MaterialFrame HeightRequest="40">
@@ -100,6 +101,7 @@
                         Margin="0,7"
                         ErrorText="{Binding Password.ErrorFirst}"
                         HasError="{Binding Password.IsNotValid}"
+                        HeightRequest="50"
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
                             <sharpnado:MaterialFrame HeightRequest="40">
