@@ -76,16 +76,12 @@
                 Source="logo_VNSAT.png"
                 VerticalOptions="EndAndExpand" />
             <StackLayout Grid.Row="1" Spacing="15">
-                <!--  Body  -->
                 <StackLayout Spacing="15" VerticalOptions="CenterAndExpand">
                     <!--  Entry  -->
-
                     <input:SfTextInputLayout
-                        Margin="0,-8.5,0,0"
                         ContainerType="Outlined"
                         ErrorText="{Binding UserName.ErrorFirst}"
                         HasError="{Binding UserName.IsNotValid}"
-                        HeightRequest="40"
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
                             <sharpnado:MaterialFrame HeightRequest="40">
@@ -93,25 +89,17 @@
                             </sharpnado:MaterialFrame>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
-
-                            <Entry
-                                HeightRequest="40"
-                                Placeholder="{i18n:TranslateResource Login_Textbox_UserName}"
-                                Text="{Binding UserName.Value}">
+                            <Entry Placeholder="{i18n:TranslateResource Login_Textbox_UserName}" Text="{Binding UserName.Value}">
                                 <Entry.Effects>
                                     <effect:BorderlessEffect />
                                 </Entry.Effects>
                             </Entry>
-
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
-
                     <input:SfTextInputLayout
                         Margin="0,7"
-                        Padding="0"
                         ErrorText="{Binding Password.ErrorFirst}"
                         HasError="{Binding Password.IsNotValid}"
-                        HeightRequest="40"
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
                             <sharpnado:MaterialFrame HeightRequest="40">
@@ -120,7 +108,6 @@
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
                             <Entry
-                                HeightRequest="40"
                                 IsPassword="True"
                                 Placeholder="{i18n:TranslateResource Login_Textbox_Password}"
                                 Text="{Binding Password.Value}">
@@ -170,9 +157,15 @@
                     Margin="0,0,0,20"
                     HeightRequest="40"
                     VerticalOptions="EndAndExpand">
-                    <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
+                    <StackLayout
+                        Margin="20,0,0,0"
+                        Orientation="Horizontal"
+                        Spacing="20">
                         <sharpnado:MaterialFrame>
-                            <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.PhoneVolume}" />
+                            <controls:FontAwesomeIcon
+                                Rotation="90"
+                                StyleClass="LoginAwesomeIcon"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.Phone}" />
                             <sharpnado:MaterialFrame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding CallHotLineCommand}" NumberOfTapsRequired="1" />
                             </sharpnado:MaterialFrame.GestureRecognizers>
@@ -185,6 +178,9 @@
                         </sharpnado:MaterialFrame>
                         <sharpnado:MaterialFrame>
                             <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.Globe}" />
+                            <sharpnado:MaterialFrame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenWebGPSCommand}" NumberOfTapsRequired="1" />
+                            </sharpnado:MaterialFrame.GestureRecognizers>
                         </sharpnado:MaterialFrame>
                     </StackLayout>
                     <controls:IconView
