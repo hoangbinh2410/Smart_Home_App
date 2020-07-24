@@ -47,6 +47,17 @@ namespace BA_MobileGPS.Utilities.Constant
         public static ServerVehicleOnlineHubTypes ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerThat;
 
         /// <summary>
+        /// Loại Server là gì
+        /// Mặc định là:            ServerTypes.Server20
+        /// Khi chạy thật là:       ServerTypes.ServerThat
+        /// </summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// Namth  16/1/2018   created
+        /// </Modified>
+        public static ServerAlertHubTypes ServerAlertHubType = ServerAlertHubTypes.ServerThat;
+
+        /// <summary>
         /// Thông tin phiên bản App trên AppStore hoặc Google Play
         /// Khi đẩy thật thì chỉnh lại theo version trên market.
         /// </summary>
@@ -180,6 +191,43 @@ namespace BA_MobileGPS.Utilities.Constant
 
                     default:
                         return ServerVehicleOnlineHubTypes.ServerTest.ToDescription();
+                }
+            }
+        }
+
+        /// <summary>
+        /// IP server chạy TCP
+        /// </summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// Namth  16/1/2018   created
+        /// </Modified>
+        public static string ServerAlertHubIP
+        {
+            get
+            {
+                switch (ServerAlertHubType)
+                {
+                    case ServerAlertHubTypes.ServerCNN:
+                        return ServerAlertHubTypes.ServerCNN.ToDescription();
+
+                    case ServerAlertHubTypes.ServerThat:
+                        return ServerAlertHubTypes.ServerThat.ToDescription();
+
+                    case ServerAlertHubTypes.ServerTest:
+                        return ServerAlertHubTypes.ServerTest.ToDescription();
+
+                    case ServerAlertHubTypes.ServerVIVIEW:
+                        return ServerAlertHubTypes.ServerVIVIEW.ToDescription();
+
+                    case ServerAlertHubTypes.ServerVMS:
+                        return ServerAlertHubTypes.ServerThat.ToDescription();
+
+                    case ServerAlertHubTypes.ServerMoto:
+                        return ServerAlertHubTypes.ServerMoto.ToDescription();
+
+                    default:
+                        return ServerAlertHubTypes.ServerTest.ToDescription();
                 }
             }
         }
