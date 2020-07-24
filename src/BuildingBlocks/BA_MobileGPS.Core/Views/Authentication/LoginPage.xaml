@@ -76,13 +76,15 @@
                 Source="logo_VNSAT.png"
                 VerticalOptions="EndAndExpand" />
             <StackLayout Grid.Row="1" Spacing="15">
-                <StackLayout Spacing="15" VerticalOptions="CenterAndExpand">
+                <Grid
+                    RowDefinitions="50,50,40,40"
+                    RowSpacing="10"
+                    VerticalOptions="CenterAndExpand">
                     <!--  Entry  -->
                     <input:SfTextInputLayout
                         ContainerType="Outlined"
                         ErrorText="{Binding UserName.ErrorFirst}"
                         HasError="{Binding UserName.IsNotValid}"
-                        HeightRequest="50"
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
                             <sharpnado:MaterialFrame HeightRequest="40">
@@ -98,7 +100,7 @@
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
                     <input:SfTextInputLayout
-                        Margin="0,7"
+                        Grid.Row="1"
                         ErrorText="{Binding Password.ErrorFirst}"
                         HasError="{Binding Password.IsNotValid}"
                         HeightRequest="50"
@@ -120,6 +122,7 @@
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
                     <StackLayout
+                        Grid.Row="2"
                         HorizontalOptions="CenterAndExpand"
                         Orientation="Horizontal"
                         WidthRequest="300">
@@ -143,6 +146,7 @@
                         </Label>
                     </StackLayout>
                     <Button
+                        Grid.Row="3"
                         Padding="0"
                         BackgroundColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
                                                           Dark={StaticResource BlueDarkColor}}"
@@ -153,7 +157,7 @@
                         Text="{i18n:TranslateResource Login_Button_Login}"
                         TextColor="White"
                         WidthRequest="300" />
-                </StackLayout>
+                </Grid>
                 <!--  Footer  -->
                 <Grid
                     Margin="0,0,0,20"
