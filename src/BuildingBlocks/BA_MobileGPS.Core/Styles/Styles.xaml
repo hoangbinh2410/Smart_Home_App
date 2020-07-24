@@ -179,7 +179,7 @@
         <Setter Property="InputViewPadding" Value="15,0,0,0" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="VerticalOptions" Value="Fill" />
-        <Setter Property="InputViewPadding" Value="0"/>
+        <Setter Property="InputViewPadding" Value="15,2,2,2" />
     </Style>
     <Style Class="LoginAwesomeIcon" TargetType="controls:FontAwesomeIcon">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />

@@ -33,7 +33,6 @@
         </ResourceDictionary>
         <Style TargetType="sharpnado:MaterialFrame">
             <Setter Property="LightThemeBackgroundColor" Value="{AppThemeBinding Light={StaticResource BlueDarkColor}, Dark={StaticResource BlueDarkColor}}" />
-            <Setter Property="HeightRequest" Value="40" />
             <Setter Property="WidthRequest" Value="40" />
             <Setter Property="CornerRadius" Value="20" />
             <Setter Property="Padding" Value="0" />
@@ -76,12 +75,12 @@
                 Source="logo_VNSAT.png"
                 VerticalOptions="EndAndExpand" />
             <StackLayout Grid.Row="1" Spacing="15">
-                <Grid 
-                    RowDefinitions="45,45,40,40"
+                <Grid
+                    RowDefinitions="Auto,Auto,40,40"
                     RowSpacing="10"
                     VerticalOptions="CenterAndExpand">
                     <!--  Entry  -->
-                    <input:SfTextInputLayout 
+                    <input:SfTextInputLayout
                         ContainerType="Outlined"
                         ErrorText="{Binding UserName.ErrorFirst}"
                         HasError="{Binding UserName.IsNotValid}"
@@ -92,16 +91,17 @@
                             </sharpnado:MaterialFrame>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
-                            <Entry HeightRequest="40" Placeholder="{i18n:TranslateResource Login_Textbox_UserName}" Text="{Binding UserName.Value}"/>
-                                
-                                      
+                            <Entry
+                                HeightRequest="40"
+                                Placeholder="{i18n:TranslateResource Login_Textbox_UserName}"
+                                Text="{Binding UserName.Value}" />
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
-                    <input:SfTextInputLayout 
+                    <input:SfTextInputLayout
                         Grid.Row="1"
+                        Margin="0,8"
                         ErrorText="{Binding Password.ErrorFirst}"
                         HasError="{Binding Password.IsNotValid}"
-                      
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
                             <sharpnado:MaterialFrame HeightRequest="40">
@@ -109,12 +109,13 @@
                             </sharpnado:MaterialFrame>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
-                            <Entry HeightRequest="40"
-                                IsPassword="True" 
+                            <Entry
+                                HeightRequest="40"
+                                IsPassword="True"
                                 Placeholder="{i18n:TranslateResource Login_Textbox_Password}"
-                                Text="{Binding Password.Value}"/>
-                               
-                          
+                                Text="{Binding Password.Value}" />
+
+
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
                     <StackLayout
