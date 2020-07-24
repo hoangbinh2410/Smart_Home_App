@@ -72,9 +72,7 @@ namespace BA_MobileGPS.Core.Views
             {
                 var safe = On<iOS>().SafeAreaInsets();
                 Padding = new Thickness(0, 0, 0, safe.Bottom);
-            }
-            
-            
+            }                      
         }
 
         private enum States
