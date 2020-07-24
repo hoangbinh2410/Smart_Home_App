@@ -77,7 +77,7 @@
             <StackLayout Grid.Row="1" Spacing="15">
                 <Grid
                     RowDefinitions="Auto,Auto,40,40"
-                    RowSpacing="10"
+                    RowSpacing="5"
                     VerticalOptions="CenterAndExpand">
                     <!--  Entry  -->
                     <input:SfTextInputLayout
@@ -92,14 +92,14 @@
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
                             <Entry
-                                HeightRequest="40"
+                                HeightRequest="{OnPlatform Android=40,
+                                                           iOS=30}"
                                 Placeholder="{i18n:TranslateResource Login_Textbox_UserName}"
                                 Text="{Binding UserName.Value}" />
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
                     <input:SfTextInputLayout
                         Grid.Row="1"
-                        Margin="0,8"
                         ErrorText="{Binding Password.ErrorFirst}"
                         HasError="{Binding Password.IsNotValid}"
                         StyleClass="LoginEntry">
@@ -110,12 +110,11 @@
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
                             <Entry
-                                HeightRequest="40"
+                                HeightRequest="{OnPlatform Android=40,
+                                                           iOS=30}"
                                 IsPassword="True"
                                 Placeholder="{i18n:TranslateResource Login_Textbox_Password}"
                                 Text="{Binding Password.Value}" />
-
-
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
                     <StackLayout
