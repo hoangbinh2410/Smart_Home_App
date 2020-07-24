@@ -61,16 +61,15 @@ namespace BA_MobileGPS.Core.Views
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitAnimation();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
-
-            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
-            var safe = On<iOS>().SafeAreaInsets();
-            On<iOS>().SetSafeAreaInsets(new Thickness(0,0,0,40));
-
-            var safe1 = On<iOS>().SafeAreaInsets();
-
+         
+                   
         }
 
-       
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            var safe = On<iOS>().SafeAreaInsets();
+        }
 
         private enum States
         {
