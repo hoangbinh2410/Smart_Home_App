@@ -76,12 +76,12 @@
                 Source="logo_VNSAT.png"
                 VerticalOptions="EndAndExpand" />
             <StackLayout Grid.Row="1" Spacing="15">
-                <Grid
-                    RowDefinitions="50,50,40,40"
+                <Grid 
+                    RowDefinitions="45,45,40,40"
                     RowSpacing="10"
                     VerticalOptions="CenterAndExpand">
                     <!--  Entry  -->
-                    <input:SfTextInputLayout
+                    <input:SfTextInputLayout 
                         ContainerType="Outlined"
                         ErrorText="{Binding UserName.ErrorFirst}"
                         HasError="{Binding UserName.IsNotValid}"
@@ -92,18 +92,16 @@
                             </sharpnado:MaterialFrame>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
-                            <Entry Placeholder="{i18n:TranslateResource Login_Textbox_UserName}" Text="{Binding UserName.Value}">
-                                <Entry.Effects>
-                                    <effect:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
+                            <Entry HeightRequest="40" Placeholder="{i18n:TranslateResource Login_Textbox_UserName}" Text="{Binding UserName.Value}"/>
+                                
+                                      
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
-                    <input:SfTextInputLayout
+                    <input:SfTextInputLayout 
                         Grid.Row="1"
                         ErrorText="{Binding Password.ErrorFirst}"
                         HasError="{Binding Password.IsNotValid}"
-                        HeightRequest="50"
+                      
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
                             <sharpnado:MaterialFrame HeightRequest="40">
@@ -111,14 +109,12 @@
                             </sharpnado:MaterialFrame>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
-                            <Entry
-                                IsPassword="True"
+                            <Entry HeightRequest="40"
+                                IsPassword="True" 
                                 Placeholder="{i18n:TranslateResource Login_Textbox_Password}"
-                                Text="{Binding Password.Value}">
-                                <Entry.Effects>
-                                    <effect:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
+                                Text="{Binding Password.Value}"/>
+                               
+                          
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
                     <StackLayout
