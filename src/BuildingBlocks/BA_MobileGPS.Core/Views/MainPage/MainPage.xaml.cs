@@ -68,7 +68,13 @@ namespace BA_MobileGPS.Core.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            var safe = On<iOS>().SafeAreaInsets();
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                var safe = On<iOS>().SafeAreaInsets();
+                Padding = new Thickness(0, 0, 0, safe.Bottom);
+            }
+            
+            
         }
 
         private enum States
