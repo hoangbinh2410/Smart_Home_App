@@ -8,6 +8,7 @@ using Prism.Mvvm;
 using Sharpnado.Presentation.Forms.CustomViews.Tabs;
 using System;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace BA_MobileGPS.Core.Views
@@ -17,7 +18,8 @@ namespace BA_MobileGPS.Core.Views
         public MainPage()
         {
             InitializeComponent();
-            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetSafeAreaInsets(new Thickness(0,0,0,5));
+            var safeInsets = On<iOS>().SafeAreaInsets();
+            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetSafeAreaInsets(new Thickness(0,0,0,50));
             On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
 
             var home = PrismApplicationBase.Current.Container.Resolve<ContentView>("HomeTab"); //Home
