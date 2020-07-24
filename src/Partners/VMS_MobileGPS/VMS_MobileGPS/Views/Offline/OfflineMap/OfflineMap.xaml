@@ -211,7 +211,7 @@
                             Text="{Binding MarkerPosition, Mode=OneWay}" />
                         <BoxView Grid.Row="4" />
                         <!--  Vận tốc  -->
-                        <controls:IconView Grid.Row="5" Source="ic_speed.png" />
+                        <controls:IconView Grid.Row="5" Source="ic_speed.png" HeightRequest="25" WidthRequest="25"/>
                         <Label
                             Grid.Row="5"
                             Grid.Column="1"

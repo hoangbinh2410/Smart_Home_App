@@ -73,17 +73,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 
             }
         }
-        public override void OnPageAppearingFirstTime()
-        {
-            base.OnPageAppearingFirstTime();
-            if (Settings.IsFirstLoadLogin)
-            {
-                UserName.Value = string.Empty;
-                Password.Value =string.Empty;
-                Settings.IsFirstLoadLogin = false;
-
-            }
-        }
+     
 
         private void GetInfomation()
         {

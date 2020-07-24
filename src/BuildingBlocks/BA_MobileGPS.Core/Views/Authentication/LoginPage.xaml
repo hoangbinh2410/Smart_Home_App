@@ -91,7 +91,7 @@
                             </sharpnado:MaterialFrame>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
-                            <Entry
+                            <Entry x:Name="account"
                                 HeightRequest="{OnPlatform Android=40,
                                                            iOS=30}"
                                 Placeholder="{i18n:TranslateResource Login_Textbox_UserName}"
@@ -109,7 +109,7 @@
                             </sharpnado:MaterialFrame>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
-                            <Entry
+                            <Entry x:Name="pass"
                                 HeightRequest="{OnPlatform Android=40,
                                                            iOS=30}"
                                 IsPassword="True"
