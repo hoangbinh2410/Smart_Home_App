@@ -70,7 +70,18 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 UserName.Value = " ";
                 Password.Value = " ";
+                
+            }
+        }
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+            if (Settings.IsFirstLoadLogin)
+            {
+                UserName.Value = string.Empty;
+                Password.Value =string.Empty;
                 Settings.IsFirstLoadLogin = false;
+
             }
         }
 
