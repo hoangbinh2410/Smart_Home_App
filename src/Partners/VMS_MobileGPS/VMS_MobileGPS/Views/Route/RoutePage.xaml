@@ -438,6 +438,20 @@
                     Grid.ColumnSpan="5"
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal">
+                    <forms:CachedImage
+                        x:Name="btnPlayRoute"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        BackgroundColor="Transparent"
+                        HeightRequest="30"
+                        HorizontalOptions="Center"
+                        Source="{Binding PlayStopImage}"
+                        VerticalOptions="Center"
+                        WidthRequest="30">
+                        <forms:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PlayStopCommand}" />
+                        </forms:CachedImage.GestureRecognizers>
+                    </forms:CachedImage>
                     <Slider
                         x:Name="slPlayCar"
                         DragCompletedCommand="{Binding DragCompletedCommand}"
@@ -470,7 +484,7 @@
                             VerticalOptions="Center" />
                     </Frame>
                 </StackLayout>
-                <controls:IconView
+                <!--<controls:IconView
                     x:Name="btnLocationStart"
                     Grid.Row="1"
                     Grid.Column="0"
@@ -498,22 +512,9 @@
                     <forms:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding DecreaseSpeedCommand}" />
                     </forms:CachedImage.GestureRecognizers>
-                </forms:CachedImage>
-                <forms:CachedImage
-                    x:Name="btnPlayRoute"
-                    Grid.Row="1"
-                    Grid.Column="2"
-                    BackgroundColor="Transparent"
-                    HeightRequest="30"
-                    HorizontalOptions="Center"
-                    Source="{Binding PlayStopImage}"
-                    VerticalOptions="Center"
-                    WidthRequest="30">
-                    <forms:CachedImage.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding PlayStopCommand}" />
-                    </forms:CachedImage.GestureRecognizers>
-                </forms:CachedImage>
-                <forms:CachedImage
+                </forms:CachedImage>-->
+
+                <!--<forms:CachedImage
                     x:Name="btnUpSpeed"
                     Grid.Row="1"
                     Grid.Column="3"
@@ -526,8 +527,8 @@
                     <forms:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding IncreaseSpeedCommand}" />
                     </forms:CachedImage.GestureRecognizers>
-                </forms:CachedImage>
-                <controls:IconView
+                </forms:CachedImage>-->
+                <!--<controls:IconView
                     x:Name="btnLocationEnd"
                     Grid.Row="1"
                     Grid.Column="4"
@@ -541,7 +542,7 @@
                     <controls:IconView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding FastEndCommand}" />
                     </controls:IconView.GestureRecognizers>
-                </controls:IconView>
+                </controls:IconView>-->
             </Grid>
         </StackLayout>
 

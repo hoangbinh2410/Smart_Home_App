@@ -17,8 +17,8 @@ namespace BA_MobileGPS.Core.Views
         public MainPage()
         {
             InitializeComponent();
-
-            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(false);
+            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetSafeAreaInsets(new Thickness(0,0,0,5));
+            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
 
             var home = PrismApplicationBase.Current.Container.Resolve<ContentView>("HomeTab"); //Home
             ViewModelLocator.SetAutowirePartialView(home, MainContentPage);

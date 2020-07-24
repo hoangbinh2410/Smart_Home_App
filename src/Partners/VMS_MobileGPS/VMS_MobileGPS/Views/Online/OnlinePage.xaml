@@ -19,9 +19,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-
         <viewcore:TitleBarView />
-
         <cluster:Map
             x:Name="googleMap"
             Grid.Row="1"
@@ -50,7 +48,6 @@
                 </DataTrigger>
             </cluster:Map.Triggers>
         </cluster:Map>
-
         <!--  Khung search bar phía trên  -->
         <Grid
             Grid.Row="1"
@@ -60,7 +57,6 @@
             ColumnSpacing="10"
             HeightRequest="45"
             VerticalOptions="StartAndExpand">
-
             <pancake:PancakeView
                 Padding="0"
                 BackgroundColor="{StaticResource WhiteColor}"
@@ -89,8 +85,6 @@
                         VerticalOptions="Center" />
                 </StackLayout>
             </pancake:PancakeView>
-
-
             <pancake:PancakeView
                 Grid.Column="1"
                 Padding="0"
@@ -106,7 +100,6 @@
                     Source="ic_doubleship.png"
                     VerticalOptions="Center" />
             </pancake:PancakeView>
-
             <pancake:PancakeView
                 Grid.Column="2"
                 BackgroundColor="White"
@@ -170,8 +163,6 @@
                     Source="ic_bounded_area.png" />
             </pancake:PancakeView>
         </StackLayout>
-
-
         <!--  Thông tin xe  -->
         <views:OnlineCarInfoView
             x:Name="boxInfo"
@@ -185,9 +176,7 @@
             HeightRequest="220"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="End" />
-
         <!--  Trạng thái xe  -->
-
         <Grid
             x:Name="boxStatusVehicle"
             Grid.Row="1"

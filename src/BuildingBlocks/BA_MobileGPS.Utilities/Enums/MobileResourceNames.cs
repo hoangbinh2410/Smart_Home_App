@@ -329,6 +329,7 @@
         Online_Lable_UpdateAdminUserSetting,
         Online_Lable_SetupBoundary,
         Online_Button_Option,
+        Online_CheckBox_Distance,
 
         #endregion Online
 
