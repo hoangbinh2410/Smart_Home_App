@@ -17,11 +17,7 @@ namespace BA_MobileGPS.Core.Views
     {
         public MainPage()
         {
-            InitializeComponent();
-            var safeInsets = On<iOS>().SafeAreaInsets();
-            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetSafeAreaInsets(new Thickness(0,0,0,50));
-            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
-
+            InitializeComponent();                      
             var home = PrismApplicationBase.Current.Container.Resolve<ContentView>("HomeTab"); //Home
             ViewModelLocator.SetAutowirePartialView(home, MainContentPage);
             Switcher.Children.Add(home);// Trang home
@@ -65,8 +61,16 @@ namespace BA_MobileGPS.Core.Views
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitAnimation();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
-   
-        }    
+
+            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
+            var safe = On<iOS>().SafeAreaInsets();
+            On<iOS>().SetSafeAreaInsets(new Thickness(0,0,0,40));
+
+            var safe1 = On<iOS>().SafeAreaInsets();
+
+        }
+
+       
 
         private enum States
         {

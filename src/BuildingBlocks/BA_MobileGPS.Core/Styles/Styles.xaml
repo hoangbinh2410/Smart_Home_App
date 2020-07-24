@@ -215,7 +215,7 @@
 
     <OnPlatform
         x:Key="HeightTitleBarGrid"
-        x:TypeArguments="x:Int32"
+        x:TypeArguments="x:Double"
         Android="60"
         iOS="70" />
     <!--  TitleBar  -->
