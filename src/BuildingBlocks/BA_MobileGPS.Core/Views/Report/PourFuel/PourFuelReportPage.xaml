@@ -382,7 +382,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource PourFuelReport_Table_Serial}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -414,7 +414,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource PourFuelReport_Table_Date}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -455,7 +455,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource PourFuelReport_CheckBox_Liters}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -488,7 +488,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource PourFuelReport_Table_Status}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -520,7 +520,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource PourFuelReport_Table_Address}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />

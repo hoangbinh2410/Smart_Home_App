@@ -1003,7 +1003,7 @@ namespace VMS_MobileGPS.Views
         {
             double paddingMap = boxInfo.HeightRequest;
             googleMap.Padding = new Thickness(0, 0, 0, (int)paddingMap);
-            BoxControls.Margin = new Thickness(20, 0, 20, (int)paddingMap + 25);
+            BoxControls.Margin = new Thickness(20, 0, 20, (int)paddingMap + 35);
         }
 
         /* Set padding map khi có thông tin xe ở footer - tracking */
