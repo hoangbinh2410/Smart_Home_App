@@ -183,7 +183,7 @@ namespace VMS_MobileGPS.ViewModels
         public bool isPlaying;
         public bool IsPlaying { get => isPlaying; set => SetProperty(ref isPlaying, value, relatedProperty: nameof(PlayStopImage)); }
 
-        public string PlayStopImage => IsPlaying ? "ic_stop_white" : "ic_play_arrow_white";
+        public string PlayStopImage => IsPlaying ? "ic_stop_white" : "ic_play";
 
         public int playSpeed = 4;
         public int PlaySpeed { get => playSpeed; set => SetProperty(ref playSpeed, value); }

@@ -71,10 +71,8 @@
                 HeightRequest="20"
                 HorizontalOptions="EndAndExpand"
                 IsChecked="{Binding IsShowCircle}"
-                Text="{i18n:TranslateResource Online_CheckBox_Distance}"
+                Text="Vòng bao"
                 UncheckedColor="{StaticResource BlueDarkColor}" />
-
-
         </Grid>
         <BoxView
             Grid.Row="1"
@@ -173,16 +171,8 @@
                             VerticalOptions="Center" />
                     </sharpnado:MaterialFrame.Content>
                 </sharpnado:MaterialFrame>
-                <Label LineBreakMode="TailTruncation" Text="Vòng bao" />
+                <Label LineBreakMode="TailTruncation" Text="{i18n:TranslateResource Online_CheckBox_Distance}" />
             </StackLayout>
-
-
-
-
-
-
-
-
         </Grid>
         <BoxView
             Grid.Row="7"
@@ -248,7 +238,6 @@
                         TextColor="{StaticResource WhiteColor}" />
                 </sharpnado:MaterialFrame.Content>
             </sharpnado:MaterialFrame>
-
         </Grid>
     </Grid>
 </sharpnado:MaterialFrame>

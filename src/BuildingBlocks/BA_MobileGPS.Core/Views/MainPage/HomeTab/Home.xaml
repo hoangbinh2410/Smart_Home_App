@@ -30,6 +30,7 @@
                     </sh:Shadows.Shades>
                     <sharpnado:MaterialFrame
                         Padding="5"
+                        BorderColor="{StaticResource TextPlaceHolderColor}"
                         CornerRadius="5"
                         HorizontalOptions="CenterAndExpand">
                         <ff:CachedImage
