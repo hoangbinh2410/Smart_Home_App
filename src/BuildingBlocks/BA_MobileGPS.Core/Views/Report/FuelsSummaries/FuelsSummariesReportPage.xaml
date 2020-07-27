@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:local="clr-namespace:BA_MobileGPS.Core"
@@ -434,7 +435,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_Serial}"
-                                                TextColor="{StaticResource PrimaryColor}"
+                                                TextColor="{StaticResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -468,7 +469,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_Date}"
-                                                TextColor="{StaticResource PrimaryColor}"
+                                                TextColor="{StaticResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -500,7 +501,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_StartEndTime}"
-                                                TextColor="{StaticResource PrimaryColor}"
+                                                TextColor="{StaticResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -549,7 +550,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_NumberOfPour}"
-                                                TextColor="{StaticResource PrimaryColor}"
+                                                TextColor="{StaticResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -581,7 +582,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_NumberOfSuction}"
-                                                TextColor="{StaticResource PrimaryColor}"
+                                                TextColor="{StaticResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -613,7 +614,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_FirtLits}"
-                                                TextColor="{StaticResource PrimaryColor}"
+                                                TextColor="{StaticResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -645,7 +646,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_LitersOfPour}"
-                                                TextColor="{StaticResource PrimaryColor}"
+                                                TextColor="{StaticResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -679,7 +680,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_LitersOfSuction}"
-                                                TextColor="{StaticResource PrimaryColor}"
+                                                TextColor="{StaticResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -713,7 +714,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_LastLits}"
-                                                TextColor="{StaticResource PrimaryColor}"
+                                                TextColor="{StaticResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -747,7 +748,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_LitsConsumable}"
-                                                TextColor="{StaticResource PrimaryColor}"
+                                                TextColor="{StaticResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -781,7 +782,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_TotalKmGps}"
-                                                TextColor="{StaticResource PrimaryColor}"
+                                                TextColor="{StaticResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -815,7 +816,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_MinutesOfManchineOn}"
-                                                TextColor="{StaticResource PrimaryColor}"
+                                                TextColor="{StaticResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -849,7 +850,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_MinuteOfMachineOnStop}"
-                                                TextColor="{StaticResource PrimaryColor}"
+                                                TextColor="{StaticResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -883,7 +884,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_QuotaRegulations}"
-                                                TextColor="{StaticResource PrimaryColor}"
+                                                TextColor="{StaticResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -917,7 +918,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_QuotaReality}"
-                                                TextColor="{StaticResource PrimaryColor}"
+                                                TextColor="{StaticResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -1079,7 +1080,7 @@
                             IsVisible="{Binding HasData, Converter={StaticResource InvertBooleanConverter}}"
                             Spacing="10"
                             VerticalOptions="Center">
-                            <controls:SVGImage
+                            <ffsvg:SvgCachedImage
                                 Margin="{x:OnIdiom Phone='0,0,0,0',
                                                    Desktop='0',
                                                    Tablet='0'}"

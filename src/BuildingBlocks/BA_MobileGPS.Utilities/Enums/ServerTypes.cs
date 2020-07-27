@@ -128,7 +128,7 @@ namespace BA_MobileGPS.Utilities.Enums
         [Description("")]
         ServerVIVIEW,
 
-        [Description("")]
+        [Description("http://115.84.179.34:6456")]
         ServerVMS,
 
         [Description("")]

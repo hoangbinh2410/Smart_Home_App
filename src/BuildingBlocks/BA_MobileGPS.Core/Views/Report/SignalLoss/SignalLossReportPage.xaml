@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:local1="clr-namespace:BA_MobileGPS.Core.Views"
@@ -357,7 +358,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource DetailsReport_Table_Serial}"
-                                        TextColor="{StaticResource PrimaryColor}" />
+                                        TextColor="{StaticResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -381,7 +382,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_Title_StartTime}"
-                                        TextColor="{StaticResource PrimaryColor}" />
+                                        TextColor="{StaticResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -420,7 +421,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_Title_EndTime}"
-                                        TextColor="{StaticResource PrimaryColor}" />
+                                        TextColor="{StaticResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -451,7 +452,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_Title_TimeLosing}"
-                                        TextColor="{StaticResource PrimaryColor}" />
+                                        TextColor="{StaticResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -477,7 +478,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_Title_StartAddress}"
-                                        TextColor="{StaticResource PrimaryColor}" />
+                                        TextColor="{StaticResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -503,7 +504,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_Title_EndAddress}"
-                                        TextColor="{StaticResource PrimaryColor}" />
+                                        TextColor="{StaticResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -529,7 +530,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_TitleStatus}"
-                                        TextColor="{StaticResource PrimaryColor}" />
+                                        TextColor="{StaticResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -568,7 +569,7 @@
                     IsVisible="{Binding HasData, Converter={StaticResource InvertBooleanConverter}}"
                     Spacing="10"
                     VerticalOptions="Center">
-                    <controls:SVGImage
+                    <ffsvg:SvgCachedImage
                         Margin="{x:OnIdiom Phone='0,0,0,0',
                                            Desktop='0',
                                            Tablet='0'}"

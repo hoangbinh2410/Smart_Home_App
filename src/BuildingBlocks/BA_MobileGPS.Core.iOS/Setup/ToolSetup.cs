@@ -2,6 +2,7 @@
 using BA_MobileGPS.Utilities.Constant;
 
 using FFImageLoading.Forms.Platform;
+using FFImageLoading.Svg.Forms;
 using LabelHtml.Forms.Plugin.iOS;
 using Lottie.Forms.iOS.Renderers;
 using PanCardView.iOS;
@@ -40,6 +41,7 @@ namespace BA_MobileGPS.Core.iOS.Setup
             Rg.Plugins.Popup.Popup.Init();
 
             CachedImageRenderer.Init();
+            var ignore = typeof(SvgCachedImage);
             CachedImageRenderer.InitImageSourceHandler();
 
             SharpnadoInitializer.Initialize();
