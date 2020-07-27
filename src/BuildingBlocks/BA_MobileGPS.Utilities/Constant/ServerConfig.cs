@@ -184,7 +184,7 @@ namespace BA_MobileGPS.Utilities.Constant
                         return ServerVehicleOnlineHubTypes.ServerVIVIEW.ToDescription();
 
                     case ServerVehicleOnlineHubTypes.ServerVMS:
-                        return ServerVehicleOnlineHubTypes.ServerThat.ToDescription();
+                        return ServerVehicleOnlineHubTypes.ServerVMS.ToDescription();
 
                     case ServerVehicleOnlineHubTypes.ServerMoto:
                         return ServerVehicleOnlineHubTypes.ServerMoto.ToDescription();
@@ -221,7 +221,7 @@ namespace BA_MobileGPS.Utilities.Constant
                         return ServerAlertHubTypes.ServerVIVIEW.ToDescription();
 
                     case ServerAlertHubTypes.ServerVMS:
-                        return ServerAlertHubTypes.ServerThat.ToDescription();
+                        return ServerAlertHubTypes.ServerVMS.ToDescription();
 
                     case ServerAlertHubTypes.ServerMoto:
                         return ServerAlertHubTypes.ServerMoto.ToDescription();
