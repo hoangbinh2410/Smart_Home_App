@@ -34,6 +34,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly INotificationService notificationService;
         private readonly IIdentityHubService identityHubService;
         private readonly IVehicleOnlineHubService vehicleOnlineHubService;
+        private readonly IAlertHubService alertHubService;
         private Timer timer;
 
         public MainPageViewModel(INavigationService navigationService, IVehicleOnlineService vehicleOnlineService,
@@ -42,7 +43,9 @@ namespace BA_MobileGPS.Core.ViewModels
             IAppVersionService appVersionService,
             IAppDeviceService appDeviceService,
             INotificationService notificationService,
-            IIdentityHubService identityHubService, IVehicleOnlineHubService vehicleOnlineHubService)
+            IIdentityHubService identityHubService, 
+            IVehicleOnlineHubService vehicleOnlineHubService,
+            IAlertHubService alertHubService)
             : base(navigationService)
         {
             this.vehicleOnlineService = vehicleOnlineService;
@@ -53,6 +56,8 @@ namespace BA_MobileGPS.Core.ViewModels
             this.notificationService = notificationService;
             this.identityHubService = identityHubService;
             this.vehicleOnlineHubService = vehicleOnlineHubService;
+            this.alertHubService = alertHubService;
+
             StaticSettings.TimeServer = UserInfo.TimeServer.AddSeconds(1);
             SetTimeServer();
             EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
@@ -196,6 +201,11 @@ namespace BA_MobileGPS.Core.ViewModels
             await vehicleOnlineHubService.Connect();
 
             vehicleOnlineHubService.onReceiveSendCarSignalR += OnReceiveSendCarSignalR;
+
+            // Khởi tạo alertlR
+            await alertHubService.Connect();
+
+            alertHubService.onReceiveAlertSignalR += OnReceiveAlertSignalR;
         }
 
         private async void DisconnectSignalR()
@@ -213,6 +223,10 @@ namespace BA_MobileGPS.Core.ViewModels
             vehicleOnlineHubService.onReceiveSendCarSignalR -= OnReceiveSendCarSignalR;
 
             await vehicleOnlineHubService.Disconnect();
+
+            alertHubService.onReceiveAlertSignalR -= OnReceiveAlertSignalR;
+
+            await alertHubService.Disconnect();
         }
 
         private void JoinGroupSignalRCar(List<string> lstGroup)

@@ -103,4 +103,35 @@ namespace BA_MobileGPS.Utilities.Enums
         [Description("http://115.84.179.34:1656")]
         ServerMoto,
     }
+
+    /// <summary>
+    /// Server đang trên máy nào?
+    /// </summary>
+    /// <Modified>
+    /// Name     Date         Comments
+    /// Namth  16/1/2018   created
+    /// </Modified>
+    public enum ServerAlertHubTypes
+    {
+        [Description("")]
+        ServerCNN,
+
+        [Description("http://alertgps.bagroup.vn")]
+        ServerThat,
+
+        [Description("10.1.11.131")]
+        ServerNamth,
+
+        [Description("http://125.212.226.154:6656")]
+        ServerTest,
+
+        [Description("")]
+        ServerVIVIEW,
+
+        [Description("")]
+        ServerVMS,
+
+        [Description("")]
+        ServerMoto,
+    }
 }
