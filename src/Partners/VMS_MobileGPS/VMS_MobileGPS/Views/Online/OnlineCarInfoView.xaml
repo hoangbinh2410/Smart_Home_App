@@ -3,15 +3,29 @@
     x:Class="VMS_MobileGPS.Views.OnlineCarInfoView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:cluster="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms"
     Padding="5"
     HasShadow="False">
     <sharpnado:MaterialFrame.Resources>
         <cluster:NMConverter x:Key="NMConverter" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <syncTheme:SyncfusionThemeDictionary>
+                    <syncTheme:SyncfusionThemeDictionary.MergedDictionaries>
+                        <ResourceDictionary>
+                            <x:String x:Key="SfTextInputLayoutTheme">CustomTheme</x:String>
+                            <Color x:Key="SfTextInputLayoutLineColor">Transparent</Color>
+                        </ResourceDictionary>
+                    </syncTheme:SyncfusionThemeDictionary.MergedDictionaries>
+                </syncTheme:SyncfusionThemeDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </sharpnado:MaterialFrame.Resources>
     <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <Grid.RowDefinitions>
@@ -25,15 +39,11 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Padding="10,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <StackLayout
-                Grid.Row="0"
-                Grid.Column="0"
-                Orientation="Horizontal">
+        <Grid
+            Grid.Row="0"
+            Padding="10,0"
+            ColumnDefinitions="Auto,*">
+            <StackLayout Orientation="Horizontal">
                 <controls:IconView
                     Foreground="{StaticResource PrimaryColor}"
                     HeightRequest="20"
@@ -53,74 +63,17 @@
                 </StackLayout>
             </StackLayout>
 
-
-            <StackLayout
-                Grid.Row="0"
+            <buttons:SfCheckBox
                 Grid.Column="1"
-                HorizontalOptions="End"
-                Orientation="Horizontal">
-                <sharpnado:MaterialFrame
-                    Padding="5"
-                    CornerRadius="15"
-                    HorizontalOptions="Center"
-                    IsVisible="{Binding Circles, Converter={StaticResource HasDataConverter}}"
-                    LightThemeBackgroundColor="{StaticResource PrimaryColor}">
-                    <sharpnado:MaterialFrame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding HideBorderCommand}" />
-                    </sharpnado:MaterialFrame.GestureRecognizers>
-                    <sharpnado:MaterialFrame.Content>
-                        <controls:IconView
-                            Foreground="{StaticResource WhiteColor}"
-                            HeightRequest="20"
-                            HorizontalOptions="Center"
-                            Source="ic_radius.png"
-                            VerticalOptions="Center"
-                            WidthRequest="20" />
-                    </sharpnado:MaterialFrame.Content>
-                </sharpnado:MaterialFrame>
-                <sharpnado:MaterialFrame
-                    Padding="5"
-                    CornerRadius="15"
-                    HorizontalOptions="Center"
-                    IsVisible="{Binding Circles, Converter={StaticResource IsEmptyDataConverter}}"
-                    LightThemeBackgroundColor="{StaticResource GrayColor2}">
-                    <sharpnado:MaterialFrame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ShowBorderCommand}" />
-                    </sharpnado:MaterialFrame.GestureRecognizers>
-                    <sharpnado:MaterialFrame.Content>
-                        <controls:IconView
-                            Foreground="{StaticResource WhiteColor}"
-                            HeightRequest="20"
-                            HorizontalOptions="Center"
-                            Source="ic_radius.png"
-                            VerticalOptions="Center"
-                            WidthRequest="20" />
-                    </sharpnado:MaterialFrame.Content>
+                CheckedColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
+                                               Dark={StaticResource BlueDarkColor}}"
+                CornerRadius="0"
+                HeightRequest="20"
+                HorizontalOptions="EndAndExpand"
+                IsChecked="{Binding IsShowCircle}"
+                Text="{i18n:TranslateResource Online_CheckBox_Distance}"
+                UncheckedColor="{StaticResource BlueDarkColor}" />
 
-                </sharpnado:MaterialFrame>
-
-                <sharpnado:MaterialFrame
-                    Padding="5"
-                    CornerRadius="15"
-                    HeightRequest="20"
-                    HorizontalOptions="Center"
-                    LightThemeBackgroundColor="{StaticResource PrimaryColor}"
-                    WidthRequest="20">
-                    <sharpnado:MaterialFrame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoDistancePageCommand}" />
-                    </sharpnado:MaterialFrame.GestureRecognizers>
-                    <sharpnado:MaterialFrame.Content>
-                        <controls:IconView
-                            Foreground="{StaticResource WhiteColor}"
-                            HeightRequest="12"
-                            HorizontalOptions="Center"
-                            Source="ic_distance2.png"
-                            VerticalOptions="Center"
-                            WidthRequest="12" />
-                    </sharpnado:MaterialFrame.Content>
-
-                </sharpnado:MaterialFrame>
-            </StackLayout>
 
         </Grid>
         <BoxView
@@ -130,8 +83,6 @@
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start" />
         <Grid Grid.Row="2" Padding="10,0">
-
-
             <StackLayout Orientation="Horizontal">
                 <controls:IconView
                     Foreground="{StaticResource PrimaryColor}"
@@ -145,7 +96,6 @@
                     <Label Text="{Binding CarActive.LostGSMTime, Converter={StaticResource SecondsToStringConverter}, StringFormat='{}({0})'}" />
                 </StackLayout>
             </StackLayout>
-
         </Grid>
         <BoxView
             Grid.Row="3"
@@ -154,7 +104,6 @@
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start" />
         <Grid Grid.Row="4" Padding="10,0">
-
             <StackLayout Orientation="Horizontal">
                 <controls:IconView
                     Foreground="{StaticResource PrimaryColor}"
@@ -167,7 +116,6 @@
                     <Label Text="{Binding CurrentAddress}" />
                 </StackLayout>
             </StackLayout>
-
         </Grid>
         <BoxView
             Grid.Row="5"
@@ -175,16 +123,11 @@
             HeightRequest="0.5"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start" />
-        <Grid Grid.Row="6" Padding="10,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <StackLayout
-                Grid.Row="0"
-                Grid.Column="0"
-                Orientation="Horizontal">
+        <Grid
+            Grid.Row="6"
+            Padding="10,0"
+            ColumnDefinitions="*,*,Auto">
+            <StackLayout Grid.Column="0" Orientation="Horizontal">
                 <controls:IconView
                     Foreground="{StaticResource PrimaryColor}"
                     HeightRequest="20"
@@ -192,15 +135,12 @@
                     Source="ic_speed.png"
                     VerticalOptions="Center"
                     WidthRequest="20" />
-                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                    <Label Text="{Binding CarActive.Velocity, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Common_Lable_NMUnit}}" />
-                </StackLayout>
+                <Label Text="{Binding CarActive.Velocity, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Common_Lable_NMUnit}}" VerticalOptions="Center" />
             </StackLayout>
-
             <StackLayout
-                Grid.Row="0"
                 Grid.Column="1"
-                Orientation="Horizontal">
+                Orientation="Horizontal"
+                Spacing="3">
                 <controls:IconView
                     Foreground="{StaticResource PrimaryColor}"
                     HeightRequest="20"
@@ -208,11 +148,40 @@
                     Source="ic_distance.png"
                     VerticalOptions="Center"
                     WidthRequest="20" />
-
-                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                    <Label Text="{Binding CarActive.TotalKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm}}" />
-                </StackLayout>
+                <Label Text="{Binding CarActive.TotalKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm}}" VerticalOptions="Center" />
             </StackLayout>
+            <StackLayout
+                Grid.Column="2"
+                Orientation="Horizontal"
+                Spacing="5">
+                <sharpnado:MaterialFrame
+                    Padding="0"
+                    CornerRadius="10"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
+                    LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                    WidthRequest="20">
+                    <sharpnado:MaterialFrame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoDistancePageCommand}" />
+                    </sharpnado:MaterialFrame.GestureRecognizers>
+                    <sharpnado:MaterialFrame.Content>
+                        <controls:IconView
+                            Margin="5"
+                            Foreground="{StaticResource WhiteColor}"
+                            HorizontalOptions="Center"
+                            Source="ic_distance2.png"
+                            VerticalOptions="Center" />
+                    </sharpnado:MaterialFrame.Content>
+                </sharpnado:MaterialFrame>
+                <Label LineBreakMode="TailTruncation" Text="Vòng bao" />
+            </StackLayout>
+
+
+
+
+
+
+
 
         </Grid>
         <BoxView
@@ -221,12 +190,10 @@
             HeightRequest="0.5"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start" />
-        <Grid Grid.Row="8" Padding="10,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <Grid
+            Grid.Row="8"
+            Padding="10,0"
+            ColumnDefinitions="*,*,*">
             <sharpnado:MaterialFrame
                 Grid.Column="0"
                 Padding="0,11"
@@ -281,6 +248,7 @@
                         TextColor="{StaticResource WhiteColor}" />
                 </sharpnado:MaterialFrame.Content>
             </sharpnado:MaterialFrame>
+
         </Grid>
     </Grid>
 </sharpnado:MaterialFrame>

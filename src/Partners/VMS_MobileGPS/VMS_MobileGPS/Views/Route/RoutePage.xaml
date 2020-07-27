@@ -19,15 +19,21 @@
     mc:Ignorable="d">
     <ContentView.Resources>
         <cluster:NMConverter x:Key="NMConverter" />
+        <pancake:DropShadow
+            x:Key="shadow"
+            BlurRadius="3"
+            Color="Black" />
+        <Style TargetType="pancake:PancakeView">
+            <Setter Property="HasShadow" Value="True" />
+            <Setter Property="Shadow" Value="{StaticResource shadow}" />
+        </Style>
     </ContentView.Resources>
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-
         <viewcore:TitleBarView Grid.Row="0" />
-
         <StackLayout
             Grid.Row="1"
             HorizontalOptions="FillAndExpand"
@@ -56,6 +62,7 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Margin="0"
+                        BackgroundColor="{StaticResource WhiteColor}"
                         DateSelectedCommand="{Binding DateSelectedCommand}"
                         DateTime="{Binding DateStart}"
                         HorizontalOptions="FillAndExpand"
@@ -65,6 +72,7 @@
                         x:Name="dtEnd"
                         Grid.Row="0"
                         Grid.Column="1"
+                        BackgroundColor="{StaticResource WhiteColor}"
                         DateSelectedCommand="{Binding DateSelectedCommand}"
                         DateTime="{Binding DateEnd}"
                         HorizontalOptions="FillAndExpand"
@@ -219,7 +227,6 @@
                     HeightRequest="45"
                     HorizontalOptions="Fill"
                     VerticalOptions="StartAndExpand">
-
                     <pancake:PancakeView
                         Padding="0"
                         BackgroundColor="{StaticResource WhiteColor}"
@@ -293,9 +300,7 @@
                 <StackLayout
                     Margin="10"
                     AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
-                    AbsoluteLayout.LayoutFlags="PositionProportional"
-                    HorizontalOptions="EndAndExpand"
-                    VerticalOptions="End">
+                    AbsoluteLayout.LayoutFlags="PositionProportional">
                     <pancake:PancakeView
                         BackgroundColor="{StaticResource WhiteColor}"
                         CornerRadius="25"
@@ -438,6 +443,20 @@
                     Grid.ColumnSpan="5"
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal">
+                    <forms:CachedImage
+                        x:Name="btnPlayRoute"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        BackgroundColor="Transparent"
+                        HeightRequest="30"
+                        HorizontalOptions="Center"
+                        Source="{Binding PlayStopImage}"
+                        VerticalOptions="Center"
+                        WidthRequest="30">
+                        <forms:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PlayStopCommand}" />
+                        </forms:CachedImage.GestureRecognizers>
+                    </forms:CachedImage>
                     <Slider
                         x:Name="slPlayCar"
                         DragCompletedCommand="{Binding DragCompletedCommand}"
@@ -470,7 +489,7 @@
                             VerticalOptions="Center" />
                     </Frame>
                 </StackLayout>
-                <controls:IconView
+                <!--<controls:IconView
                     x:Name="btnLocationStart"
                     Grid.Row="1"
                     Grid.Column="0"
@@ -498,22 +517,9 @@
                     <forms:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding DecreaseSpeedCommand}" />
                     </forms:CachedImage.GestureRecognizers>
-                </forms:CachedImage>
-                <forms:CachedImage
-                    x:Name="btnPlayRoute"
-                    Grid.Row="1"
-                    Grid.Column="2"
-                    BackgroundColor="Transparent"
-                    HeightRequest="30"
-                    HorizontalOptions="Center"
-                    Source="{Binding PlayStopImage}"
-                    VerticalOptions="Center"
-                    WidthRequest="30">
-                    <forms:CachedImage.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding PlayStopCommand}" />
-                    </forms:CachedImage.GestureRecognizers>
-                </forms:CachedImage>
-                <forms:CachedImage
+                </forms:CachedImage>-->
+
+                <!--<forms:CachedImage
                     x:Name="btnUpSpeed"
                     Grid.Row="1"
                     Grid.Column="3"
@@ -526,8 +532,8 @@
                     <forms:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding IncreaseSpeedCommand}" />
                     </forms:CachedImage.GestureRecognizers>
-                </forms:CachedImage>
-                <controls:IconView
+                </forms:CachedImage>-->
+                <!--<controls:IconView
                     x:Name="btnLocationEnd"
                     Grid.Row="1"
                     Grid.Column="4"
@@ -541,7 +547,7 @@
                     <controls:IconView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding FastEndCommand}" />
                     </controls:IconView.GestureRecognizers>
-                </controls:IconView>
+                </controls:IconView>-->
             </Grid>
         </StackLayout>
 

@@ -47,8 +47,6 @@ namespace VMS_MobileGPS.ViewModels
         public DelegateCommand<CameraIdledEventArgs> CameraIdledCommand { get; private set; }
         public DelegateCommand PushToDetailPageCommand { get; private set; }
         public DelegateCommand PushToServicePackHistoryPageCommand { get; private set; }
-        public DelegateCommand ShowBorderCommand { get; private set; }
-        public DelegateCommand HideBorderCommand { get; private set; }
         public ICommand PushtoListVehicleOnlineCommand { get; private set; }
         public DelegateCommand GoDistancePageCommand { get; private set; }
 
@@ -91,8 +89,6 @@ namespace VMS_MobileGPS.ViewModels
             PushToFABPageCommand = new DelegateCommand<object>(PushtoFABPage);
             PushToDetailPageCommand = new DelegateCommand(PushtoDetailPage);
             CameraIdledCommand = new DelegateCommand<CameraIdledEventArgs>(UpdateMapInfo);
-            ShowBorderCommand = new DelegateCommand(ShowBorder);
-            HideBorderCommand = new DelegateCommand(HideBorder);
             GoDistancePageCommand = new DelegateCommand(GoDistancePage);
             PushToServicePackHistoryPageCommand = new DelegateCommand(GoServicePackHistoryPage);
         }
@@ -152,6 +148,20 @@ namespace VMS_MobileGPS.ViewModels
 
         public string currentAddress = string.Empty;
         public string CurrentAddress { get => currentAddress; set => SetProperty(ref currentAddress, value); }
+
+        private bool isShowCircle;
+        public bool IsShowCircle
+        {
+            get { return isShowCircle; }
+            set {
+                if (value)
+                {
+                    ShowBorder();
+                }
+                else HideBorder();
+                SetProperty(ref isShowCircle, value);
+            }
+        }
 
         #endregion Property
 

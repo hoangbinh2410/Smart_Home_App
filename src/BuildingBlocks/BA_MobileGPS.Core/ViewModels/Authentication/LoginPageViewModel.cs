@@ -65,7 +65,15 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             GetInfomation();
+
+            if (Settings.IsFirstLoadLogin)
+            {
+                UserName.Value = " ";
+                Password.Value = " ";
+                
+            }
         }
+     
 
         private void GetInfomation()
         {
