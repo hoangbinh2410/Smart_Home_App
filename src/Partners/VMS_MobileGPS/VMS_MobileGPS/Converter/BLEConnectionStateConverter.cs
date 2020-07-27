@@ -212,15 +212,39 @@ namespace VMS_MobileGPS.Converter
         {
             if (value == null)
             {
-                return Color.FromHex("#898989");
+                return (Color)App.Current.Resources["TextPrimaryColor"];
             }
             if ((bool)value)
             {
-                return Color.White;
+                return (Color)App.Current.Resources["DangerousColor"];
             }
             else
             {
-                return Color.FromHex("#898989");
+                return (Color)App.Current.Resources["TextPrimaryColor"];
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
+    public class SOSBackgroundColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return Color.White;
+            }
+            if ((bool)value)
+            {
+                return Color.FromHex("#FFD8D8");
+            }
+            else
+            {
+                return Color.White;
             }
         }
 

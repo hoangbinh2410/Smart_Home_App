@@ -14,9 +14,7 @@
     <Style ApplyToDerivedTypes="True" TargetType="{x:Type ContentPage}">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource GrayColor}, Dark={StaticResource GrayColor}}" />
     </Style>
-    <Style ApplyToDerivedTypes="True" TargetType="ContentView">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource GrayColor}, Dark={StaticResource GrayColor}}" />
-    </Style>
+
     <Style TargetType="ListView">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
     </Style>
@@ -175,11 +173,12 @@
     <!--  Sf Text Input Layout  -->
     <Style Class="LoginEntry" TargetType="input:SfTextInputLayout">
         <Setter Property="ContainerBackgroundColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
-        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="ContainerType" Value="Outlined" />
         <Setter Property="WidthRequest" Value="300" />
         <Setter Property="OutlineCornerRadius" Value="20" />
-        <Setter Property="InputViewPadding" Value="15,0,0,0" />
         <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Fill" />
+        <Setter Property="InputViewPadding" Value="{OnPlatform Android='11,0,11,0', iOS='11,5,11,5'}" />
     </Style>
     <Style Class="LoginAwesomeIcon" TargetType="controls:FontAwesomeIcon">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
@@ -216,7 +215,7 @@
 
     <OnPlatform
         x:Key="HeightTitleBarGrid"
-        x:TypeArguments="x:Int32"
+        x:TypeArguments="x:Double"
         Android="60"
         iOS="70" />
     <!--  TitleBar  -->

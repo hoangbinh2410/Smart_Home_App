@@ -14,14 +14,22 @@
     xmlns:viewcore="clr-namespace:BA_MobileGPS.Core.Views.PartialView;assembly=BA_MobileGPS.Core"
     xmlns:views="clr-namespace:VMS_MobileGPS.Views"
     prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentView.Resources>
+        <pancake:DropShadow
+            x:Key="shadow"
+            BlurRadius="3"
+            Color="Black" />
+        <Style TargetType="pancake:PancakeView">
+            <Setter Property="HasShadow" Value="True" />
+            <Setter Property="Shadow" Value="{StaticResource shadow}" />
+        </Style>
+    </ContentView.Resources>
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-
         <viewcore:TitleBarView />
-
         <cluster:Map
             x:Name="googleMap"
             Grid.Row="1"
@@ -50,7 +58,6 @@
                 </DataTrigger>
             </cluster:Map.Triggers>
         </cluster:Map>
-
         <!--  Khung search bar phía trên  -->
         <Grid
             Grid.Row="1"
@@ -60,11 +67,11 @@
             ColumnSpacing="10"
             HeightRequest="45"
             VerticalOptions="StartAndExpand">
-
             <pancake:PancakeView
                 Padding="0"
                 BackgroundColor="{StaticResource WhiteColor}"
-                CornerRadius="22">
+                CornerRadius="22"
+                HasShadow="True">
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
@@ -89,8 +96,6 @@
                         VerticalOptions="Center" />
                 </StackLayout>
             </pancake:PancakeView>
-
-
             <pancake:PancakeView
                 Grid.Column="1"
                 Padding="0"
@@ -106,7 +111,6 @@
                     Source="ic_doubleship.png"
                     VerticalOptions="Center" />
             </pancake:PancakeView>
-
             <pancake:PancakeView
                 Grid.Column="2"
                 BackgroundColor="White"
@@ -170,8 +174,6 @@
                     Source="ic_bounded_area.png" />
             </pancake:PancakeView>
         </StackLayout>
-
-
         <!--  Thông tin xe  -->
         <views:OnlineCarInfoView
             x:Name="boxInfo"
@@ -185,9 +187,7 @@
             HeightRequest="220"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="End" />
-
         <!--  Trạng thái xe  -->
-
         <Grid
             x:Name="boxStatusVehicle"
             Grid.Row="1"
