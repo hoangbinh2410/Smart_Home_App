@@ -96,7 +96,7 @@
                         HasShadow="False"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Border>
-                            <pancake:Border Thickness="3" Color="{StaticResource WhiteColor}" />
+                            <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
                         </pancake:PancakeView.Border>
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer
@@ -183,7 +183,7 @@
                         HasShadow="False"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Border>
-                            <pancake:Border Thickness="3" Color="{StaticResource WhiteColor}" />
+                            <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
                         </pancake:PancakeView.Border>
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer
