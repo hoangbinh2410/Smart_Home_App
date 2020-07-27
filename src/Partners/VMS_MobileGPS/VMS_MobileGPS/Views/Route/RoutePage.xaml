@@ -62,7 +62,6 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Margin="0"
-                        BackgroundColor="{StaticResource WhiteColor}"
                         DateSelectedCommand="{Binding DateSelectedCommand}"
                         DateTime="{Binding DateStart}"
                         HorizontalOptions="FillAndExpand"
@@ -72,7 +71,6 @@
                         x:Name="dtEnd"
                         Grid.Row="0"
                         Grid.Column="1"
-                        BackgroundColor="{StaticResource WhiteColor}"
                         DateSelectedCommand="{Binding DateSelectedCommand}"
                         DateTime="{Binding DateEnd}"
                         HorizontalOptions="FillAndExpand"
@@ -86,26 +84,28 @@
                     ColumnSpacing="0"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Start">
-                    <Frame
+                    <pancake:PancakeView
                         Grid.Column="0"
                         Padding="5,6"
                         BackgroundColor="{StaticResource PrimaryColor}"
-                        BorderColor="White"
-                        CornerRadius="0"
+                        CornerRadius="15,0,15,0"
                         HasShadow="False"
                         VerticalOptions="Center">
-                        <Frame.GestureRecognizers>
+                        <pancake:PancakeView.Border>
+                            <pancake:Border Thickness="3" Color="{StaticResource WhiteColor}" />
+                        </pancake:PancakeView.Border>
+                        <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer
                                 Command="{Binding TimeSelectedCommand}"
                                 CommandParameter="1"
                                 Tapped="TimeSelector_Tapped" />
-                        </Frame.GestureRecognizers>
+                        </pancake:PancakeView.GestureRecognizers>
                         <Label
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             Text="1H"
                             TextColor="White" />
-                    </Frame>
+                    </pancake:PancakeView>
                     <Frame
                         Grid.Column="1"
                         Margin="-1,0,0,0"
@@ -169,27 +169,30 @@
                             Text="1N"
                             TextColor="White" />
                     </Frame>
-                    <Frame
+                    <pancake:PancakeView
                         Grid.Column="4"
                         Margin="-1,0,0,0"
                         Padding="5,6"
                         BackgroundColor="White"
                         BorderColor="White"
-                        CornerRadius="0"
+                        CornerRadius="0,15,0,15"
                         HasShadow="False"
                         VerticalOptions="Center">
-                        <Frame.GestureRecognizers>
+                        <pancake:PancakeView.Border>
+                            <pancake:Border Thickness="3" Color="{StaticResource WhiteColor}" />
+                        </pancake:PancakeView.Border>
+                        <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer
                                 Command="{Binding TimeSelectedCommand}"
                                 CommandParameter="0"
                                 Tapped="TimeSelectorOther_Tapped" />
-                        </Frame.GestureRecognizers>
+                        </pancake:PancakeView.GestureRecognizers>
                         <Label
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             Text="Khác"
                             TextColor="{StaticResource PrimaryColor}" />
-                    </Frame>
+                    </pancake:PancakeView>
                 </Grid>
             </Grid>
             <BoxView
