@@ -33,7 +33,6 @@
         </ResourceDictionary>
         <Style TargetType="sharpnado:MaterialFrame">
             <Setter Property="LightThemeBackgroundColor" Value="{AppThemeBinding Light={StaticResource BlueDarkColor}, Dark={StaticResource BlueDarkColor}}" />
-            <Setter Property="HeightRequest" Value="40" />
             <Setter Property="WidthRequest" Value="40" />
             <Setter Property="CornerRadius" Value="20" />
             <Setter Property="Padding" Value="0" />
@@ -76,7 +75,10 @@
                 Source="logo_VNSAT.png"
                 VerticalOptions="EndAndExpand" />
             <StackLayout Grid.Row="1" Spacing="15">
-                <StackLayout Spacing="15" VerticalOptions="CenterAndExpand">
+                <Grid
+                    RowDefinitions="Auto,Auto,40,40"
+                    RowSpacing="5"
+                    VerticalOptions="CenterAndExpand">
                     <!--  Entry  -->
                     <input:SfTextInputLayout
                         ContainerType="Outlined"
@@ -89,15 +91,15 @@
                             </sharpnado:MaterialFrame>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
-                            <Entry Placeholder="{i18n:TranslateResource Login_Textbox_UserName}" Text="{Binding UserName.Value}">
-                                <Entry.Effects>
-                                    <effect:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
+                            <Entry x:Name="account"
+                                HeightRequest="{OnPlatform Android=40,
+                                                           iOS=30}"
+                                Placeholder="{i18n:TranslateResource Login_Textbox_UserName}"
+                                Text="{Binding UserName.Value}" />
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
                     <input:SfTextInputLayout
-                        Margin="0,7"
+                        Grid.Row="1"
                         ErrorText="{Binding Password.ErrorFirst}"
                         HasError="{Binding Password.IsNotValid}"
                         StyleClass="LoginEntry">
@@ -107,17 +109,16 @@
                             </sharpnado:MaterialFrame>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
-                            <Entry
+                            <Entry x:Name="pass"
+                                HeightRequest="{OnPlatform Android=40,
+                                                           iOS=30}"
                                 IsPassword="True"
                                 Placeholder="{i18n:TranslateResource Login_Textbox_Password}"
-                                Text="{Binding Password.Value}">
-                                <Entry.Effects>
-                                    <effect:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
+                                Text="{Binding Password.Value}" />
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
                     <StackLayout
+                        Grid.Row="2"
                         HorizontalOptions="CenterAndExpand"
                         Orientation="Horizontal"
                         WidthRequest="300">
@@ -141,6 +142,7 @@
                         </Label>
                     </StackLayout>
                     <Button
+                        Grid.Row="3"
                         Padding="0"
                         BackgroundColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
                                                           Dark={StaticResource BlueDarkColor}}"
@@ -151,7 +153,7 @@
                         Text="{i18n:TranslateResource Login_Button_Login}"
                         TextColor="White"
                         WidthRequest="300" />
-                </StackLayout>
+                </Grid>
                 <!--  Footer  -->
                 <Grid
                     Margin="0,0,0,20"

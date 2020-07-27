@@ -14,6 +14,7 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.BackButtonTitle=" "
     NavigationPage.HasBackButton="False">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -123,7 +124,6 @@
                         InputTransparent="True"
                         IsToggled="{Binding IsConnectBLE}"
                         OnColor="{StaticResource PrimaryColor}"
-                        Scale="1.5"
                         VerticalOptions="CenterAndExpand" />
                 </StackLayout>
             </Grid>

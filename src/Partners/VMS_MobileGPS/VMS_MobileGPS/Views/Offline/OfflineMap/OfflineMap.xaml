@@ -14,7 +14,7 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    Title="Bản đồ ngoại tuyến"
+    Title="  Bản đồ ngoại tuyến"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -40,7 +40,7 @@
             </Style>
             <Style TargetType="Button">
                 <Setter Property="Padding" Value="0" />
-                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="CornerRadius" Value="17" />
                 <Setter Property="Margin" Value="10,0" />
                 <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
             </Style>
@@ -181,7 +181,7 @@
                 <pancake:PancakeView.Shadow>
                     <pancake:DropShadow BlurRadius="10" Color="Black" />
                 </pancake:PancakeView.Shadow>
-                <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto,Auto,30">
+                <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto,Auto,35">
                     <StackLayout
                         HorizontalOptions="CenterAndExpand"
                         Orientation="Horizontal"
@@ -211,7 +211,7 @@
                             Text="{Binding MarkerPosition, Mode=OneWay}" />
                         <BoxView Grid.Row="4" />
                         <!--  Vận tốc  -->
-                        <controls:IconView Grid.Row="5" Source="ic_speed.png" />
+                        <controls:IconView Grid.Row="5" Source="ic_speed.png" HeightRequest="25" WidthRequest="25"/>
                         <Label
                             Grid.Row="5"
                             Grid.Column="1"

@@ -1,6 +1,8 @@
 ﻿using Syncfusion.SfMaps.XForms;
 using VMS_MobileGPS.Constant;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace VMS_MobileGPS.Views
 {
@@ -23,6 +25,15 @@ namespace VMS_MobileGPS.Views
             }
             else
                 GlobalResourcesVMS.Current.OffMapZoomLevel = e.CurrentLevel;
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                var safe = On<iOS>().SafeAreaInsets();
+                Padding = new Thickness(0, 0, 0, safe.Bottom);
+            }
         }
     }
 }

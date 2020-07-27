@@ -145,6 +145,7 @@ namespace BA_MobileGPS.Core.Views
 
             contentFrame = new Frame
             {
+                BackgroundColor = Color.White,
                 Padding = 5,
                 CornerRadius = 5,
                 HasShadow = false,

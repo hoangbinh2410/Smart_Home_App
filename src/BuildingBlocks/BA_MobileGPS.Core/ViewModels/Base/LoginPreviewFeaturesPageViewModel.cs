@@ -54,7 +54,7 @@ namespace BA_MobileGPS.Core.ViewModels
             list.Add(new LoginPopupItem
             {
                 Title = MobileResource.Login_Popup_BAGPSExperience,
-                Icon = "ic_sharecircle.png",
+                Icon = "ic_minilogo.png",
                 Url = MobileSettingHelper.LinkExperience,
                 ItemType = LoginPopupItemType.BAGPSExperience,
             });
@@ -62,7 +62,7 @@ namespace BA_MobileGPS.Core.ViewModels
             list.Add(new LoginPopupItem
             {
                 Title = MobileResource.Login_Popup_RegisterSupport,
-                Icon = "ic_minilogo.png",
+                Icon = "ic_chatsupport.png",
                 Url = "BaseNavigationPage/RegisterConsultPage",
                 ItemType = LoginPopupItemType.RegisterSupport,
             });
