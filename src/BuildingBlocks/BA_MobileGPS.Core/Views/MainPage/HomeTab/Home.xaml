@@ -18,27 +18,20 @@
     <ContentView.Resources>
         <DataTemplate x:Key="IconTemplate">
             <StackLayout Spacing="10">
-                <sh:Shadows BackgroundColor="Transparent" CornerRadius="5">
-                    <sh:Shadows.Shades>
-                        <sh:ImmutableShades>
-                            <sh:Shade
-                                BlurRadius="2"
-                                Opacity="0.2"
-                                Offset="1,1"
-                                Color="Gray" />
-                        </sh:ImmutableShades>
-                    </sh:Shadows.Shades>
-                    <sharpnado:MaterialFrame
+                    <pancake:PancakeView BackgroundColor="{StaticResource WhiteColor}"
                         Padding="5"
-                        BorderColor="{StaticResource TextPlaceHolderColor}"
-                        CornerRadius="5"
+                        HasShadow="True"
+                        CornerRadius="5" BorderColor="Black" BorderThickness="0.5"
                         HorizontalOptions="CenterAndExpand">
                         <ff:CachedImage
                             HeightRequest="45"
                             Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
                             WidthRequest="45" />
-                    </sharpnado:MaterialFrame>
-                </sh:Shadows>
+                        <pancake:PancakeView.Shadow>
+                            <pancake:DropShadow Color="Black" BlurRadius="2"/>
+                        </pancake:PancakeView.Shadow>
+                    </pancake:PancakeView>
+                
                 <Label
                     LineBreakMode="TailTruncation"
                     MaxLines="2"

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<sharpnado:MaterialFrame
+<pancake:PancakeView
     x:Class="VMS_MobileGPS.Views.OnlineCarInfoView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -12,7 +12,7 @@
     xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms"
     Padding="5"
     HasShadow="False">
-    <sharpnado:MaterialFrame.Resources>
+    <pancake:PancakeView.Resources>
         <cluster:NMConverter x:Key="NMConverter" />
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -26,7 +26,7 @@
                 </syncTheme:SyncfusionThemeDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </sharpnado:MaterialFrame.Resources>
+    </pancake:PancakeView.Resources>
     <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -240,4 +240,4 @@
             </sharpnado:MaterialFrame>
         </Grid>
     </Grid>
-</sharpnado:MaterialFrame>
+</pancake:PancakeView>
