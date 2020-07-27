@@ -331,7 +331,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_Serial}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -365,7 +365,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_CurrentTime}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -398,7 +398,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_StartEndTime}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -447,7 +447,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_ActiveTime}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -481,7 +481,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_StopParkingTime}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -515,7 +515,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_KmGPS}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -549,7 +549,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_KmCO}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -583,7 +583,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_VehicleType}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -617,7 +617,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_VehiclePlate}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -652,7 +652,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_NumberOfStopParking}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -686,7 +686,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_MinutesTurnOnAirConditioner}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -720,7 +720,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_Vmax}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -754,7 +754,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ActivitySummariesReport_Table_Vmedium}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />

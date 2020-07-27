@@ -315,7 +315,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_Serial}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -349,7 +349,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_CurrentTime}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -382,7 +382,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_StartEndTime}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -431,7 +431,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_TimeActive}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -465,7 +465,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_KmGPS}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -499,7 +499,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_KmCO}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -533,7 +533,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_VehicleType}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -567,7 +567,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_VehiclePlate}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -602,7 +602,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_QuotaFuel}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -636,7 +636,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_QuotaFuelConsume}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -670,7 +670,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_StartAddress}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -704,7 +704,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_EndAddress}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -737,7 +737,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource DetailsReport_Table_TripCompensatory}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
