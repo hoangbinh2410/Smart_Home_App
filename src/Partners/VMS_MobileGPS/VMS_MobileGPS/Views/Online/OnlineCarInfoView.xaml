@@ -152,6 +152,9 @@
                 Grid.Column="2"
                 Orientation="Horizontal"
                 Spacing="5">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoDistancePageCommand}" />
+                </StackLayout.GestureRecognizers>
                 <sharpnado:MaterialFrame
                     Padding="0"
                     CornerRadius="10"
@@ -159,9 +162,7 @@
                     HorizontalOptions="Center"
                     LightThemeBackgroundColor="{StaticResource PrimaryColor}"
                     WidthRequest="20">
-                    <sharpnado:MaterialFrame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoDistancePageCommand}" />
-                    </sharpnado:MaterialFrame.GestureRecognizers>
+
                     <sharpnado:MaterialFrame.Content>
                         <controls:IconView
                             Margin="5"

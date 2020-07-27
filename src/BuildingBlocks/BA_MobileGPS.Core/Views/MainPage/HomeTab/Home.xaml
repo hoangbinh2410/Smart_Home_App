@@ -18,20 +18,20 @@
     <ContentView.Resources>
         <DataTemplate x:Key="IconTemplate">
             <StackLayout Spacing="10">
-                    <pancake:PancakeView BackgroundColor="{StaticResource WhiteColor}"
-                        Padding="5"
-                        HasShadow="True"
-                        CornerRadius="5" BorderColor="Black" BorderThickness="0.5"
-                        HorizontalOptions="CenterAndExpand">
-                        <ff:CachedImage
-                            HeightRequest="45"
-                            Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
-                            WidthRequest="45" />
-                        <pancake:PancakeView.Shadow>
-                            <pancake:DropShadow Color="Black" BlurRadius="2"/>
-                        </pancake:PancakeView.Shadow>
-                    </pancake:PancakeView>
-                
+                <pancake:PancakeView
+                    Padding="5"
+                    BackgroundColor="{StaticResource WhiteColor}"
+                    CornerRadius="5"
+                    HorizontalOptions="CenterAndExpand">
+                    <ff:CachedImage
+                        HeightRequest="45"
+                        Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
+                        WidthRequest="45" />
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow BlurRadius="5" Color="Black" />
+                    </pancake:PancakeView.Shadow>
+                </pancake:PancakeView>
+
                 <Label
                     LineBreakMode="TailTruncation"
                     MaxLines="2"
