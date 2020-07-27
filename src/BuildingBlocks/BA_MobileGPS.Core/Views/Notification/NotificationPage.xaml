@@ -246,7 +246,7 @@
 
 
                 <!--  Image for display svg image  -->
-                <controls:SVGImage
+                <ffsvg:SvgCachedImage
                     Margin="{x:OnIdiom Phone='0,0,0,0',
                                        Desktop='0',
                                        Tablet='0'}"

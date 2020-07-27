@@ -6,6 +6,7 @@
     xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors;assembly=BA_MobileGPS.Core"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
     xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
@@ -227,7 +228,7 @@
                         Orientation="Vertical"
                         Spacing="0"
                         VerticalOptions="CenterAndExpand">
-                        <controls:SVGImage
+                        <ffsvg:SvgCachedImage
                             x:Name="ErrorImage"
                             Margin="{x:OnIdiom Phone='0,0,0,0',
                                                Desktop='0',
