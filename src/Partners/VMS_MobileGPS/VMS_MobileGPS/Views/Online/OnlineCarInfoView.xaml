@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<sharpnado:MaterialFrame
+<pancake:PancakeView
     x:Class="VMS_MobileGPS.Views.OnlineCarInfoView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -12,7 +12,7 @@
     xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms"
     Padding="5"
     HasShadow="False">
-    <sharpnado:MaterialFrame.Resources>
+    <pancake:PancakeView.Resources>
         <cluster:NMConverter x:Key="NMConverter" />
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -26,7 +26,7 @@
                 </syncTheme:SyncfusionThemeDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </sharpnado:MaterialFrame.Resources>
+    </pancake:PancakeView.Resources>
     <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -71,10 +71,8 @@
                 HeightRequest="20"
                 HorizontalOptions="EndAndExpand"
                 IsChecked="{Binding IsShowCircle}"
-                Text="{i18n:TranslateResource Online_CheckBox_Distance}"
+                Text="Vòng bao"
                 UncheckedColor="{StaticResource BlueDarkColor}" />
-
-
         </Grid>
         <BoxView
             Grid.Row="1"
@@ -154,6 +152,9 @@
                 Grid.Column="2"
                 Orientation="Horizontal"
                 Spacing="5">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoDistancePageCommand}" />
+                </StackLayout.GestureRecognizers>
                 <sharpnado:MaterialFrame
                     Padding="0"
                     CornerRadius="10"
@@ -161,9 +162,7 @@
                     HorizontalOptions="Center"
                     LightThemeBackgroundColor="{StaticResource PrimaryColor}"
                     WidthRequest="20">
-                    <sharpnado:MaterialFrame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoDistancePageCommand}" />
-                    </sharpnado:MaterialFrame.GestureRecognizers>
+
                     <sharpnado:MaterialFrame.Content>
                         <controls:IconView
                             Margin="5"
@@ -173,16 +172,8 @@
                             VerticalOptions="Center" />
                     </sharpnado:MaterialFrame.Content>
                 </sharpnado:MaterialFrame>
-                <Label LineBreakMode="TailTruncation" Text="Vòng bao" />
+                <Label LineBreakMode="TailTruncation" Text="{i18n:TranslateResource Online_CheckBox_Distance}" />
             </StackLayout>
-
-
-
-
-
-
-
-
         </Grid>
         <BoxView
             Grid.Row="7"
@@ -248,7 +239,6 @@
                         TextColor="{StaticResource WhiteColor}" />
                 </sharpnado:MaterialFrame.Content>
             </sharpnado:MaterialFrame>
-
         </Grid>
     </Grid>
-</sharpnado:MaterialFrame>
+</pancake:PancakeView>

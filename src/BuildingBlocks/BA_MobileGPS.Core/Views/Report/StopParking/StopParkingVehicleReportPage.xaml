@@ -369,7 +369,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource StopParkingReport_Table_Serial}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -403,7 +403,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource StopParkingReport_Table_VehiclePlate}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -436,7 +436,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource StopParkingReport_Table_Date}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -485,7 +485,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource StopParkingReport_Table_Time}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -519,7 +519,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource StopParkingReport_Table_StopParkingTime}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -553,7 +553,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource StopParkingReport_Table_MinutesStopRunEngine}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -587,7 +587,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource StopParkingReport_Table_MinutesTurnOnAirConditioner}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -621,7 +621,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource StopParkingReport_Table_DriverName}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -655,7 +655,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource StopParkingReport_Table_CodeName}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -689,7 +689,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource StopParkingReport_Table_Phone}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -723,7 +723,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource StopParkingReport_Table_StopLocation}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />

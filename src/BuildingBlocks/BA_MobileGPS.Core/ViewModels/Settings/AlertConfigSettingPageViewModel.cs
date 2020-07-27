@@ -117,15 +117,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     ListAlertCompanyConfig = new ObservableCollection<AlertCompanyConfigRespone>(list);
 
-                    var split = AlertConfigRespone.AlertTypeIDs.Split(',');
-                    foreach (var itemsplit in split)
+                    var splitstr = AlertConfigRespone.AlertTypeIDs;
+                    if (!string.IsNullOrEmpty(splitstr))
                     {
-                        foreach (var item in ListAlertCompanyConfig)
+                        var split = splitstr.Split(',');
+                        foreach (var itemsplit in split)
                         {
-                            if (item.FK_AlertTypeID == int.Parse(itemsplit))
+                            foreach (var item in ListAlertCompanyConfig)
                             {
-                                item.IsVisible = true;
-                                break;
+                                if (item.FK_AlertTypeID == int.Parse(itemsplit))
+                                {
+                                    item.IsVisible = true;
+                                    break;
+                                }
                             }
                         }
                     }
