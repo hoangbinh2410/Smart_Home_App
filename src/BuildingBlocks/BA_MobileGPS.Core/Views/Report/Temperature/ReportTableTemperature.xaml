@@ -332,7 +332,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource Common_Label_TitleGrid_OrderNumber}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -363,7 +363,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource Common_Label_Grid_FromDate}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -402,7 +402,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource Common_Label_Grid_ToDate}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -441,7 +441,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ReportTemperature_Label_Grid_Kilomet}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -474,7 +474,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ReportTemperature_Label_Grid_Temperature}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -506,7 +506,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ReportTemperature_Label_Grid_NumberOfSensors}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -541,7 +541,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ReportTemperature_Label_Grid_StartAddress}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -576,7 +576,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource ReportTemperature_Label_Grid_EndAddress}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{StaticResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />

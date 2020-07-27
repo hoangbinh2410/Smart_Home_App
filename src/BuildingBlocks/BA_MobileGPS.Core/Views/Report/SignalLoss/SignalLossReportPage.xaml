@@ -357,7 +357,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource DetailsReport_Table_Serial}"
-                                        TextColor="{StaticResource PrimaryColor}" />
+                                        TextColor="{StaticResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -381,7 +381,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_Title_StartTime}"
-                                        TextColor="{StaticResource PrimaryColor}" />
+                                        TextColor="{StaticResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -420,7 +420,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_Title_EndTime}"
-                                        TextColor="{StaticResource PrimaryColor}" />
+                                        TextColor="{StaticResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -451,7 +451,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_Title_TimeLosing}"
-                                        TextColor="{StaticResource PrimaryColor}" />
+                                        TextColor="{StaticResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -477,7 +477,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_Title_StartAddress}"
-                                        TextColor="{StaticResource PrimaryColor}" />
+                                        TextColor="{StaticResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -503,7 +503,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_Title_EndAddress}"
-                                        TextColor="{StaticResource PrimaryColor}" />
+                                        TextColor="{StaticResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -529,7 +529,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_TitleStatus}"
-                                        TextColor="{StaticResource PrimaryColor}" />
+                                        TextColor="{StaticResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
