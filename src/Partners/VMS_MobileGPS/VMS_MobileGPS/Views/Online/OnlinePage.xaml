@@ -178,13 +178,13 @@
         <views:OnlineCarInfoView
             x:Name="boxInfo"
             Grid.Row="1"
-            Margin="0,0,0,-15"
+            BackgroundColor="{StaticResource WhiteColor}"
             Padding="0,10"
             AbsoluteLayout.LayoutBounds="0,1,1,350"
             AbsoluteLayout.LayoutFlags="YProportional, WidthProportional"
-            CornerRadius="20"
+            CornerRadius="20,20,0,0"
             HasShadow="False"
-            HeightRequest="220"
+            HeightRequest="200"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="End" />
         <!--  Trạng thái xe  -->
