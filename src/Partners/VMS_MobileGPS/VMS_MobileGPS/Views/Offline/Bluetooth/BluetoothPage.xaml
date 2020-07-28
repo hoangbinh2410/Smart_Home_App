@@ -66,7 +66,7 @@
                     <animation:ViewTappedBehavior AnimationType="Scale" />
                 </image:CachedImage.Behaviors>
                 <image:CachedImage.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                    <TapGestureRecognizer Command="{Binding SearchBluetoothCommand}" />
                 </image:CachedImage.GestureRecognizers>
             </image:CachedImage>
         </Grid>
