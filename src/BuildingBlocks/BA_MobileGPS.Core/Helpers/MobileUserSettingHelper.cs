@@ -23,7 +23,7 @@ namespace BA_MobileGPS.Core
                 if (StaticSettings.User != null && StaticSettings.User.MobileUserSetting.Count > 0)
                 {
                     var setting = StaticSettings.User.MobileUserSetting.Find(x => x.Name == key.ToString());
-                    if (setting != null)
+                    if (setting != null && !string.IsNullOrEmpty(setting.Value))
                     {
                         var converter = TypeDescriptor.GetConverter(typeof(T));
                         if (converter != null)
@@ -87,7 +87,7 @@ namespace BA_MobileGPS.Core
 
         public static int DefautLanguage => Get(MobileUserConfigurationNames.DefautLanguage, 1);
 
-        public static string MenuFavorite => Get(MobileUserConfigurationNames.MenuFavorite, "");
+        public static string MenuFavorite => Get(MobileUserConfigurationNames.MenuFavorite, "1,6,61");
 
         public static string MenuReport => Get(MobileUserConfigurationNames.MenuReport, "");
 

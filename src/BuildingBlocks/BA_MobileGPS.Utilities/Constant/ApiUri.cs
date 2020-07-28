@@ -81,6 +81,12 @@
 
         public const string POST_ALERT_HANDLE = "api/alerts/handlealert";
 
+        public const string GET_LIST_ALERT_COMPANY_CONFIG_BY_COMPANYID = "api/alerts/getalertcompanyconfig";
+
+        public const string GET_ALERT_USER_CONFIGURATIONS = "api/alerts/getalertuserconfigurations";
+
+        public const string SEND_ALERT_USER_CONFIG = "api/alerts/sendalertconfig";
+
         #endregion alert
 
         #region home
@@ -175,6 +181,7 @@
         public const string GET_SPEEDOVERS = "api/reports/speedover";
         public const string GET_STOPPARKING = "api/reports/stop";
         public const string GET_DETAILS = "api/reports/activitydetail";
+        public const string GET_SIGNALLOSS = "api/reports/signalloss";
         public const string GET_ACTIVITYSUMMARIES = "api/reports/activitysummary";
         public const string GET_FUELSSUMMARIES = "api/reports/fuelconsumptiondaily";
         public const string GET_FUELSSUMMARIESTOTAL = "api/reports/fuelconsumptiontotal";

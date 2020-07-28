@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
@@ -104,11 +105,15 @@
                 BackgroundColor="White"
                 IsVisible="{Binding HasCompany, Converter={StaticResource InvertBooleanConverter}}"
                 Spacing="10">
-                <Image
-                    Aspect="AspectFit"
-                    HorizontalOptions="Center"
-                    Source="notfound_vehicle.png"
-                    WidthRequest="180" />
+                <!--  Image for display svg image  -->
+                <ffsvg:SvgCachedImage
+                    Margin="{x:OnIdiom Phone='0,0,0,0',
+                                       Desktop='0',
+                                       Tablet='0'}"
+                    HeightRequest="200"
+                    Source="NoItem.svg"
+                    VerticalOptions="Center"
+                    WidthRequest="200" />
                 <Label
                     FontSize="Large"
                     HorizontalOptions="Center"

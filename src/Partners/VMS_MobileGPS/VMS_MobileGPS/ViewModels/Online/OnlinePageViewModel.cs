@@ -1,9 +1,11 @@
-﻿using BA_MobileGPS.Core;
+﻿using BA_MobileGPS;
+using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
@@ -30,14 +32,13 @@ using Xamarin.Forms;
 
 namespace VMS_MobileGPS.ViewModels
 {
-   public class OnlinePageViewModel : ViewModelBase
+    public class OnlinePageViewModel : ViewModelBase
     {
-        private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
-        private readonly IUserService userService;
 
-        public ObservableCollection<Circle> Circles { get; set; } = new ObservableCollection<Circle>();
-        public ObservableCollection<Polygon> Boundaries { get; set; } = new ObservableCollection<Polygon>();
-        public ObservableCollection<Polyline> Borders { get; set; } = new ObservableCollection<Polyline>();
+        #region Contructor
+
+        private readonly IUserService userService;
+        private readonly IDetailVehicleService detailVehicleService;
 
         public ICommand NavigateToSettingsCommand { get; private set; }
         public ICommand ChangeMapTypeCommand { get; private set; }
@@ -45,21 +46,16 @@ namespace VMS_MobileGPS.ViewModels
         public ICommand PushToFABPageCommand { get; private set; }
         public DelegateCommand<CameraIdledEventArgs> CameraIdledCommand { get; private set; }
         public DelegateCommand PushToDetailPageCommand { get; private set; }
-        public DelegateCommand ShowBorderCommand { get; private set; }
-        public DelegateCommand HideBorderCommand { get; private set; }
-        public ICommand MyLocationCommand { get; private set; }
+        public DelegateCommand PushToServicePackHistoryPageCommand { get; private set; }
         public ICommand PushtoListVehicleOnlineCommand { get; private set; }
         public DelegateCommand GoDistancePageCommand { get; private set; }
 
-        private string carSearch;
-        public string CarSearch { get => carSearch; set => SetProperty(ref carSearch, value); }
-  
-        public OnlinePageViewModel(INavigationService navigationService, IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository,
-            IUserService userService)
+        public OnlinePageViewModel(INavigationService navigationService,
+            IUserService userService, IDetailVehicleService detailVehicleService)
             : base(navigationService)
         {
-            this.boundaryRepository = boundaryRepository;
             this.userService = userService;
+            this.detailVehicleService = detailVehicleService;
 
             if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
             {
@@ -82,7 +78,7 @@ namespace VMS_MobileGPS.ViewModels
             else
             {
                 mapType = MapType.Street;
-                ColorMapType = (Color)App.Current.Resources["BlueDarkColor"];
+                ColorMapType = (Color)App.Current.Resources["PrimaryColor"];
             }
 
             zoomLevel = MobileUserSettingHelper.Mapzoom;
@@ -93,173 +89,19 @@ namespace VMS_MobileGPS.ViewModels
             PushToFABPageCommand = new DelegateCommand<object>(PushtoFABPage);
             PushToDetailPageCommand = new DelegateCommand(PushtoDetailPage);
             CameraIdledCommand = new DelegateCommand<CameraIdledEventArgs>(UpdateMapInfo);
-            ShowBorderCommand = new DelegateCommand(ShowBorder);
-            HideBorderCommand = new DelegateCommand(HideBorder);
-            MyLocationCommand = new DelegateCommand(GetMylocation);
-            PushtoListVehicleOnlineCommand = new DelegateCommand(PushtoListVehicleOnlinePage);
             GoDistancePageCommand = new DelegateCommand(GoDistancePage);
+            PushToServicePackHistoryPageCommand = new DelegateCommand(GoServicePackHistoryPage);
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
-
-            Boundaries.Clear();
-            Borders.Clear();
-
-            var listBoudary = boundaryRepository.Find(b => b.IsShowBoudary);
-
-            foreach (var item in listBoudary)
-            {
-                AddBoundary(item);
-            }
-
-            var listName = boundaryRepository.Find(b => b.IsShowName);
-
-            if (GetControl<Map>("googleMap") is Map map)
-            {
-                TryExecute(() =>
-                {
-                    foreach (var pin in map.Pins.Where(p => p.Tag.ToString().Contains("Boundary")).ToList())
-                    {
-                        map.Pins.Remove(pin);
-                    }
-                });
-            }
-
-            foreach (var item in listName)
-            {
-                AddName(item);
-            }
-        }
-
-        public override void OnPageAppearingFirstTime()
-        {
-            base.OnPageAppearingFirstTime();
-
-            //if (PermissionHelper.CheckLocationPermissions(false).Result)
-            //{
-            //    if (GetControl<Map>("googleMap") is Map map)
-            //    {
-            //        TryExecute(() =>
-            //        {
-            //            map.MyLocationEnabled = true;
-            //        });
-            //    }
-
-            //}
-        }
-
-        public static int ConvertHexToInt(string value)
-        {
-            int ret = 0;
-            try
-            {
-                // strip the leading 0x
-                if (value.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
-                {
-                    value = value.Substring(2);
-                }
-                if (value.StartsWith("#", StringComparison.OrdinalIgnoreCase))
-                {
-                    value = value.Substring(1);
-                }
-
-                ret = int.Parse(value, NumberStyles.HexNumber);
-            }
-            catch
-            {
-                // ignored
-            }
-            return ret;
-        }
-
-        public static string ConvertIntToHex(int value)
-        {
-            return value.ToString("X").PadLeft(6, '0');
-        }
-
-        private void AddBoundary(LandmarkResponse boundary)
-        {
-            TryExecute(() =>
-            {
-                var result = boundary.Polygon.Split(',');
-
-                var color = Color.FromHex(ConvertIntToHex(boundary.Color));
-
-                if (boundary.IsClosed)
-                {
-                    var polygon = new Polygon
-                    {
-                        IsClickable = true,
-                        StrokeWidth = 1f,
-                        StrokeColor = color.MultiplyAlpha(.5),
-                        FillColor = color.MultiplyAlpha(.3),
-                        Tag = "POLYGON"
-                    };
-
-                    for (int i = 0; i < result.Length; i += 2)
-                    {
-                        polygon.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
-                    }
-
-                    polygon.Clicked += Polygon_Clicked;
-                    Boundaries.Add(polygon);
-                }
-                else
-                {
-                    var polyline = new Polyline
-                    {
-                        IsClickable = false,
-                        StrokeColor = color,
-                        StrokeWidth = 2f,
-                        Tag = "POLYGON"
-                    };
-
-                    for (int i = 0; i < result.Length; i += 2)
-                    {
-                        polyline.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
-                    }
-
-                    Borders.Add(polyline);
-                }
-            });
-        }
-
-        private void AddName(LandmarkResponse name)
-        {
-            TryExecute(() =>
-            {
-                if (GetControl<Map>("googleMap") is Map map)
-                {
-                    TryExecute(() =>
-                    {
-                        map.Pins.Add(new Pin
-                        {
-                            Label = name.Name,
-                            Position = new Position(name.Latitude, name.Longitude),
-                            Icon = BitmapDescriptorFactory.FromView(new BoundaryNameInfoWindow(name.Name) { WidthRequest = name.Name.Length < 20 ? 6 * name.Name.Length : 110, HeightRequest = 18 * ((name.Name.Length / 20) + 1) }),
-                            Tag = "Boundary" + name.Name
-                        });
-                    });
-                }
-            });
-        }
-
-        private void Polygon_Clicked(object sender, EventArgs e)
-        {
-            //if (PageUtilities.GetCurrentPage(Application.Current.MainPage) is Views.OnlinePage onlinePage)
-            //{
-            //    onlinePage.HideBoxInfo();
-            //}
-
-            //if (PageUtilities.GetCurrentPage(Application.Current.MainPage) is Views.OnlinePageNoCluster onlinePageNoCluster)
-            //{
-            //    onlinePageNoCluster.HideBoxInfo();
-            //}
-        }
+        #endregion
 
         #region Property
+
+        private string carSearch;
+        public string CarSearch { get => carSearch; set => SetProperty(ref carSearch, value); }
+        public ObservableCollection<Circle> Circles { get; set; } = new ObservableCollection<Circle>();
+        public ObservableCollection<Polygon> Boundaries { get; set; } = new ObservableCollection<Polygon>();
+        public ObservableCollection<Polyline> Borders { get; set; } = new ObservableCollection<Polyline>();
 
         public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
 
@@ -287,6 +129,19 @@ namespace VMS_MobileGPS.ViewModels
             }
         }
 
+        private ShipDetailRespone shipDetailRespone;
+
+        public ShipDetailRespone ShipDetailRespone
+        {
+            get { return shipDetailRespone; }
+            set
+            {
+                shipDetailRespone = value;
+
+                RaisePropertyChanged();
+            }
+        }
+
         private double zoomLevel;
 
         public double ZoomLevel { get => zoomLevel; set => SetProperty(ref zoomLevel, value); }
@@ -294,20 +149,37 @@ namespace VMS_MobileGPS.ViewModels
         public string currentAddress = string.Empty;
         public string CurrentAddress { get => currentAddress; set => SetProperty(ref currentAddress, value); }
 
+        private bool isShowCircle;
+        public bool IsShowCircle
+        {
+            get { return isShowCircle; }
+            set {
+                if (value)
+                {
+                    ShowBorder();
+                }
+                else HideBorder();
+                SetProperty(ref isShowCircle, value);
+            }
+        }
+
         #endregion Property
 
         #region Private Method
 
         private void PushtoRouterPage()
         {
-            SafeExecute(async () =>
+            SafeExecute(() =>
             {
-                var navigationPara = new NavigationParameters
+                if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
                 {
-                    { ParameterKey.VehicleOnline, CarActive }
-                };
-
-                await NavigationService.NavigateAsync("RoutePage", navigationPara, false);
+                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, carActive));
+                }
+                else
+                {
+                    PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Common_Message_NotPermission, MobileResource.Common_Button_Close);
+                }
+                   
             });
         }
 
@@ -318,7 +190,7 @@ namespace VMS_MobileGPS.ViewModels
             Circles.Add(new Circle
             {
                 StrokeWidth = 2,
-                StrokeColor = (Color)App.Current.Resources["BlueDarkColor"],
+                StrokeColor = (Color)App.Current.Resources["PrimaryColor"],
                 FillColor = Color.Transparent,
                 Radius = Distance.FromKilometers(10 * 1.852),
                 Center = new Position(CarActive.Lat, CarActive.Lng)
@@ -327,7 +199,7 @@ namespace VMS_MobileGPS.ViewModels
             Circles.Add(new Circle
             {
                 StrokeWidth = 2,
-                StrokeColor = (Color)App.Current.Resources["BlueDarkColor"],
+                StrokeColor = (Color)App.Current.Resources["PrimaryColor"],
                 FillColor = Color.Transparent,
                 Radius = Distance.FromKilometers(20 * 1.852),
                 Center = new Position(CarActive.Lat, CarActive.Lng)
@@ -336,7 +208,7 @@ namespace VMS_MobileGPS.ViewModels
             Circles.Add(new Circle
             {
                 StrokeWidth = 2,
-                StrokeColor = (Color)App.Current.Resources["BlueDarkColor"],
+                StrokeColor = (Color)App.Current.Resources["PrimaryColor"],
                 FillColor = Color.Transparent,
                 Radius = Distance.FromKilometers(30 * 1.852),
                 Center = new Position(CarActive.Lat, CarActive.Lng)
@@ -371,7 +243,7 @@ namespace VMS_MobileGPS.ViewModels
                 }
                 else
                 {
-                    ColorMapType = (Color)App.Current.Resources["BlueDarkColor"];
+                    ColorMapType = (Color)App.Current.Resources["PrimaryColor"];
                     MapType = MapType.Street;
                 }
                 byte maptype = 1;
@@ -417,29 +289,6 @@ namespace VMS_MobileGPS.ViewModels
             });
         }
 
-        public void GetMylocation()
-        {
-            SafeExecute(async () =>
-            {
-                var mylocation = await LocationHelper.GetGpsLocation();
-
-                if (mylocation != null)
-                {
-                    if (GetControl<Map>("googleMap") is Map map)
-                    {
-                        TryExecute(() =>
-                        {
-                            if (!map.MyLocationEnabled)
-                            {
-                                map.MyLocationEnabled = true;
-                            }
-                        });
-                    }
-                    await AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(new Position(mylocation.Latitude, mylocation.Longitude)), TimeSpan.FromMilliseconds(300));
-                }
-            });
-        }
-
         private void UpdateMapInfo(CameraIdledEventArgs args)
         {
             if (args != null && args.Position != null)
@@ -461,18 +310,6 @@ namespace VMS_MobileGPS.ViewModels
             });
         }
 
-        private void PushtoListVehicleOnlinePage()
-        {
-            SafeExecute(async () =>
-            {
-                var navigationParameters = new NavigationParameters
-                {
-                    { ParameterKey.OnlinePage, true }
-                };
-                await NavigationService.NavigateAsync("ListVehiclePage", navigationParameters, useModalNavigation: false);
-            });
-        }
-
         public void GoDistancePage()
         {
             SafeExecute(async () =>
@@ -483,6 +320,48 @@ namespace VMS_MobileGPS.ViewModels
                 };
 
                 await NavigationService.NavigateAsync("BaseNavigationPage/DistancePage", parameters, true);
+            });
+        }
+
+        private void GoServicePackHistoryPage()
+        {
+            SafeExecute(async () =>
+            {
+
+                // gọi service để lấy dữ liệu trả về
+                var input = new ShipDetailRequest()
+                {
+                    UserId = StaticSettings.User.UserId,
+                    vehiclePlate = CarActive.VehiclePlate,
+                };
+                var response = await detailVehicleService.GetShipDetail(input);
+                if (response != null)
+                {
+                    var model = new ShipDetailRespone()
+                    {
+                        Address = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(CarActive.Lat), GeoHelper.LongitudeToDergeeMinSec(CarActive.Lng)),
+                        Latitude = CarActive.Lat,
+                        Longtitude = CarActive.Lng,
+                        Km = CarActive.TotalKm,
+                        GPSTime = CarActive.GPSTime,
+                        VelocityGPS = CarActive.Velocity,
+                        IMEI = response.IMEI,
+                        PortDeparture = response.PortDeparture,
+                        ShipCaptainName = response.ShipCaptainName,
+                        ShipCaptainPhoneNumber = response.ShipCaptainPhoneNumber,
+                        ShipMembers = response.ShipMembers,
+                        ShipOwnerName = response.ShipOwnerName,
+                        ShipOwnerPhoneNumber = response.ShipOwnerPhoneNumber,
+                        PrivateCode = response.PrivateCode
+                    };
+
+                    var parameters = new NavigationParameters
+                    {
+                        { ParameterKey.ShipDetail, model }
+                    };
+
+                    await NavigationService.NavigateAsync("NavigationPage/ServicePackHistoryPage", parameters, true);
+                }
             });
         }
 

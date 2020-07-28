@@ -81,13 +81,29 @@ namespace VMS_MobileGPS.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            BluetoothStatus = GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.NO_CONNECTION ? "CHƯA KẾT NỐI" : "ĐÃ KẾT NỐI";
+            SOSBtnText = "CẢNH BÁO SOS";
+            SOSBtnTextColor = (Color)Application.Current.Resources["WhiteColor"];
+            SOSBtnBackgroundColor = (Color)Application.Current.Resources["PrimaryColor"];
+            if (GlobalResourcesVMS.Current.DeviceManager.State == Service.BleConnectionState.NO_CONNECTION)
+            {
+                BluetoothStatus = "CHƯA KẾT NỐI";
+                BluetoothStatusTextColor = (Color)Application.Current.Resources["DangerousColor"];
+            }
+            else
+            {
+                BluetoothStatus = "ĐÃ KẾT NỐI " + GlobalResourcesVMS.Current.DeviceManager.DeviceName;
+                BluetoothStatusTextColor = (Color)Application.Current.Resources["TextPrimaryColor"];
+                if (GlobalResourcesVMS.Current.DeviceManager.IsSendSOS)
+                {
+                    SOSBtnText = "SOS ĐÃ BẬT";
+                    SOSBtnTextColor = (Color)Application.Current.Resources["DangerousColor"];
+                    SOSBtnBackgroundColor = (Color)Application.Current.Resources["PinkColor"];
+                }
+            }
             if (Settings.IsLoadedMap)
             {
                 ShinyManage();
             }
-
-            BugSupport();
         }
 
         private void InitMarker()
@@ -127,7 +143,6 @@ namespace VMS_MobileGPS.ViewModels
                 InitMarker();
                 // ShinyManage();
             }
-            BugSupport();
         }
 
         //Colelction lưu location từ shinny
@@ -195,8 +210,11 @@ namespace VMS_MobileGPS.ViewModels
         public override void OnDestroy()
         {
             base.OnDestroy();
-            timer.Stop();
-            timer.Dispose();
+            if (timer != null)
+            {
+                timer.Stop();
+                timer.Dispose();
+            }
             _eventAggregator.GetEvent<RecieveLocationEvent>().Unsubscribe(this.RecieveLocationEventSuccess);
         }
 
@@ -286,6 +304,50 @@ namespace VMS_MobileGPS.ViewModels
             }
         }
 
+        private string _sOSBtnText;
+
+        public string SOSBtnText
+        {
+            get { return _sOSBtnText; }
+            set
+            {
+                SetProperty(ref _sOSBtnText, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private Color _sOSBtnTextColor;
+
+        public Color SOSBtnTextColor
+        {
+            get { return _sOSBtnTextColor; }
+            set
+            {
+                SetProperty(ref _sOSBtnTextColor, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private Color _sOSBtnBackgroundColor;
+
+        public Color SOSBtnBackgroundColor
+        {
+            get { return _sOSBtnBackgroundColor; }
+            set
+            {
+                SetProperty(ref _sOSBtnBackgroundColor, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private Color _bluetoothStatusTextColor;
+
+        public Color BluetoothStatusTextColor
+        {
+            get { return _bluetoothStatusTextColor; }
+            set { SetProperty(ref _bluetoothStatusTextColor, value); }
+        }
+
         private void AddBoundary(IList<LandmarkResponse> list)
         {
             var listBoudary = _boundaryRepository.All().ToList();
@@ -354,11 +416,6 @@ namespace VMS_MobileGPS.ViewModels
                 LocationMoved = new Point(11.125264, 112.219407);
                 LocationMoved = new Point(MyLocation.Latitude, MyLocation.Longitude);
             }
-        }
-
-        private void BugSupport()
-        {
-            //RPoints = new ObservableCollection<Point>();
         }
 
         public void MarkerAnimation(double startlatitude,

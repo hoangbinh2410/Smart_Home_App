@@ -3,7 +3,8 @@ using Android.OS;
 
 using BA_MobileGPS.Core.Droid;
 using FFImageLoading.Forms.Platform;
-
+using LabelHtml.Forms.Plugin.Droid;
+using PanCardView.Droid;
 using Plugin.Toasts;
 using Sharpnado.Presentation.Forms.Droid;
 
@@ -25,15 +26,21 @@ namespace BA_MobileGPS.Droid.Setup
 
             SharpnadoInitializer.Initialize();
 
+            CardsViewRenderer.Preserve();
+
             CachedImageRenderer.Init(enableFastRenderer: true);
             CachedImageRenderer.InitImageViewHandler();
             //This forces the custom renderers to be used
+            Android.Glide.Forms.Init(activity, debug: false);
 
             // Override default BitmapDescriptorFactory by your implementation
             FormsGoogleMaps.Init(activity, bundle, new PlatformConfig
             {
                 BitmapDescriptorFactory = new CachingNativeBitmapDescriptorFactory()
             });
+
+            //Html Label
+            HtmlLabelRenderer.Initialize();
         }
     }
 }

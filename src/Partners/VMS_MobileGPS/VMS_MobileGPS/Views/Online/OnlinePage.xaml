@@ -14,14 +14,22 @@
     xmlns:viewcore="clr-namespace:BA_MobileGPS.Core.Views.PartialView;assembly=BA_MobileGPS.Core"
     xmlns:views="clr-namespace:VMS_MobileGPS.Views"
     prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentView.Resources>
+        <pancake:DropShadow
+            x:Key="shadow"
+            BlurRadius="3"
+            Color="Black" />
+        <Style TargetType="pancake:PancakeView">
+            <Setter Property="HasShadow" Value="True" />
+            <Setter Property="Shadow" Value="{StaticResource shadow}" />
+        </Style>
+    </ContentView.Resources>
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-
         <viewcore:TitleBarView />
-
         <cluster:Map
             x:Name="googleMap"
             Grid.Row="1"
@@ -50,7 +58,6 @@
                 </DataTrigger>
             </cluster:Map.Triggers>
         </cluster:Map>
-
         <!--  Khung search bar phía trên  -->
         <Grid
             Grid.Row="1"
@@ -60,11 +67,11 @@
             ColumnSpacing="10"
             HeightRequest="45"
             VerticalOptions="StartAndExpand">
-
             <pancake:PancakeView
                 Padding="0"
                 BackgroundColor="{StaticResource WhiteColor}"
-                CornerRadius="22">
+                CornerRadius="22"
+                HasShadow="True">
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
@@ -89,8 +96,6 @@
                         VerticalOptions="Center" />
                 </StackLayout>
             </pancake:PancakeView>
-
-
             <pancake:PancakeView
                 Grid.Column="1"
                 Padding="0"
@@ -106,7 +111,6 @@
                     Source="ic_doubleship.png"
                     VerticalOptions="Center" />
             </pancake:PancakeView>
-
             <pancake:PancakeView
                 Grid.Column="2"
                 BackgroundColor="White"
@@ -134,7 +138,7 @@
                 HeightRequest="50"
                 WidthRequest="50">
                 <pancake:PancakeView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding MyLocationCommand}" />
+                    <TapGestureRecognizer Tapped="GetMylocation" />
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Margin="9"
@@ -170,24 +174,20 @@
                     Source="ic_bounded_area.png" />
             </pancake:PancakeView>
         </StackLayout>
-
-
         <!--  Thông tin xe  -->
         <views:OnlineCarInfoView
             x:Name="boxInfo"
             Grid.Row="1"
-            Margin="0,0,0,-15"
+            BackgroundColor="{StaticResource WhiteColor}"
             Padding="0,10"
             AbsoluteLayout.LayoutBounds="0,1,1,350"
             AbsoluteLayout.LayoutFlags="YProportional, WidthProportional"
-            CornerRadius="20"
+            CornerRadius="20,20,0,0"
             HasShadow="False"
-            HeightRequest="220"
+            HeightRequest="200"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="End" />
-
         <!--  Trạng thái xe  -->
-
         <Grid
             x:Name="boxStatusVehicle"
             Grid.Row="1"
@@ -217,10 +217,8 @@
                 VerticalOptions="FillAndExpand">
                 <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <Grid.RowDefinitions>
-
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-
                     <syncfusion:SfListView
                         x:Name="lvStatusCar"
                         Margin="0"
@@ -229,7 +227,7 @@
                         ItemTapped="TapStatusVehicel"
                         ItemsSource="{Binding ListVehilceStatus, Mode=OneWay}"
                         SelectedItem="{Binding SelectedVehicleStatus}"
-                        SelectionBackgroundColor="White"
+                        SelectionBackgroundColor="{StaticResource TextPlaceHolderColor}"
                         TapCommand="{Binding SelectStatusVehicelCommand}">
                         <syncfusion:SfListView.ItemTemplate>
                             <DataTemplate>
@@ -246,7 +244,8 @@
                                         <ffImage:CachedImage
                                             HorizontalOptions="Start"
                                             Source="{Binding Icon}"
-                                            VerticalOptions="Center" />
+                                            VerticalOptions="Center"
+                                            WidthRequest="40" />
                                         <StackLayout Spacing="3" VerticalOptions="Center">
                                             <Label
                                                 HorizontalOptions="Start"

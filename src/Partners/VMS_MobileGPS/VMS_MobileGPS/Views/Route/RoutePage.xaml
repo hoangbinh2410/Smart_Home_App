@@ -19,15 +19,21 @@
     mc:Ignorable="d">
     <ContentView.Resources>
         <cluster:NMConverter x:Key="NMConverter" />
+        <pancake:DropShadow
+            x:Key="shadow"
+            BlurRadius="3"
+            Color="Black" />
+        <Style TargetType="pancake:PancakeView">
+            <Setter Property="HasShadow" Value="True" />
+            <Setter Property="Shadow" Value="{StaticResource shadow}" />
+        </Style>
     </ContentView.Resources>
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-
         <viewcore:TitleBarView Grid.Row="0" />
-
         <StackLayout
             Grid.Row="1"
             HorizontalOptions="FillAndExpand"
@@ -56,18 +62,22 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Margin="0"
+                        CornerRadius="15"
                         DateSelectedCommand="{Binding DateSelectedCommand}"
                         DateTime="{Binding DateStart}"
                         HorizontalOptions="FillAndExpand"
+                        IconColor="{StaticResource PrimaryColor}"
                         PickerMode="Popup"
                         VerticalOptions="Center" />
                     <views:DateTimePickerView
                         x:Name="dtEnd"
                         Grid.Row="0"
                         Grid.Column="1"
+                        CornerRadius="15"
                         DateSelectedCommand="{Binding DateSelectedCommand}"
                         DateTime="{Binding DateEnd}"
                         HorizontalOptions="FillAndExpand"
+                        IconColor="{StaticResource PrimaryColor}"
                         PickerMode="Popup"
                         VerticalOptions="Center" />
                 </Grid>
@@ -78,26 +88,28 @@
                     ColumnSpacing="0"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Start">
-                    <Frame
+                    <pancake:PancakeView
                         Grid.Column="0"
                         Padding="5,6"
                         BackgroundColor="{StaticResource PrimaryColor}"
-                        BorderColor="White"
-                        CornerRadius="0"
+                        CornerRadius="15,0,15,0"
                         HasShadow="False"
                         VerticalOptions="Center">
-                        <Frame.GestureRecognizers>
+                        <pancake:PancakeView.Border>
+                            <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
+                        </pancake:PancakeView.Border>
+                        <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer
                                 Command="{Binding TimeSelectedCommand}"
                                 CommandParameter="1"
                                 Tapped="TimeSelector_Tapped" />
-                        </Frame.GestureRecognizers>
+                        </pancake:PancakeView.GestureRecognizers>
                         <Label
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             Text="1H"
                             TextColor="White" />
-                    </Frame>
+                    </pancake:PancakeView>
                     <Frame
                         Grid.Column="1"
                         Margin="-1,0,0,0"
@@ -161,27 +173,30 @@
                             Text="1N"
                             TextColor="White" />
                     </Frame>
-                    <Frame
+                    <pancake:PancakeView
                         Grid.Column="4"
                         Margin="-1,0,0,0"
                         Padding="5,6"
                         BackgroundColor="White"
                         BorderColor="White"
-                        CornerRadius="0"
+                        CornerRadius="0,15,0,15"
                         HasShadow="False"
                         VerticalOptions="Center">
-                        <Frame.GestureRecognizers>
+                        <pancake:PancakeView.Border>
+                            <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
+                        </pancake:PancakeView.Border>
+                        <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer
                                 Command="{Binding TimeSelectedCommand}"
                                 CommandParameter="0"
                                 Tapped="TimeSelectorOther_Tapped" />
-                        </Frame.GestureRecognizers>
+                        </pancake:PancakeView.GestureRecognizers>
                         <Label
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             Text="Khác"
                             TextColor="{StaticResource PrimaryColor}" />
-                    </Frame>
+                    </pancake:PancakeView>
                 </Grid>
             </Grid>
             <BoxView
@@ -210,79 +225,26 @@
                     </cluster:Map.Behaviors>
                 </cluster:Map>
                 <Grid
-                    Margin="5,5,5,0"
-                    AbsoluteLayout.LayoutBounds=".5,0,1,AutoSize"
-                    AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="45" />
-                        <ColumnDefinition Width="45" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Frame
-                        x:Name="btnViewInfo"
-                        Grid.Column="0"
+                    Margin="10"
+                    Padding="5,0"
+                    AbsoluteLayout.LayoutBounds="0,0,1,AutoSize"
+                    AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                    ColumnDefinitions="*,Auto,Auto"
+                    ColumnSpacing="10"
+                    HeightRequest="45"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="StartAndExpand">
+                    <pancake:PancakeView
                         Padding="0"
-                        BackgroundColor="White"
-                        BorderColor="{StaticResource GrayColor}"
-                        CornerRadius="22"
-                        HasShadow="False"
-                        HeightRequest="45"
-                        HorizontalOptions="Start"
-                        IsClippedToBounds="True"
-                        VerticalOptions="Center"
-                        WidthRequest="45">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="IconInfo_Clicked" />
-                        </Frame.GestureRecognizers>
-                        <controls:IconView
-                            x:Name="IconInfo"
-                            Margin="8"
-                            Foreground="{StaticResource GrayColor2}"
-                            Source="ic_info_outline_white.png" />
-                    </Frame>
-                    <Frame
-                        x:Name="btnListRoute"
-                        Grid.Column="1"
-                        Padding="0"
-                        BackgroundColor="White"
-                        BorderColor="{StaticResource GrayColor}"
-                        CornerRadius="22"
-                        HasShadow="False"
-                        HeightRequest="45"
-                        HorizontalOptions="Start"
-                        IsClippedToBounds="True"
-                        VerticalOptions="Center"
-                        WidthRequest="45">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ViewListCommand}" />
-                        </Frame.GestureRecognizers>
-                        <controls:IconView
-                            Margin="8"
-                            Foreground="{StaticResource GrayColor2}"
-                            Source="ic_view_list.png" />
-                    </Frame>
-                    <Frame
-                        x:Name="btnsearch"
-                        Grid.Column="2"
-                        Padding="0"
-                        BackgroundColor="White"
-                        BorderColor="{StaticResource GrayColor}"
-                        CornerRadius="22"
-                        HasShadow="False"
-                        HeightRequest="45"
-                        HorizontalOptions="FillAndExpand"
-                        IsClippedToBounds="True"
-                        VerticalOptions="Center">
-                        <Frame.GestureRecognizers>
+                        BackgroundColor="{StaticResource WhiteColor}"
+                        CornerRadius="22">
+                        <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding SelectVehicleRouterCommand}" />
-                        </Frame.GestureRecognizers>
+                        </pancake:PancakeView.GestureRecognizers>
                         <StackLayout
+                            Padding="0"
                             HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal"
-                            VerticalOptions="Center">
+                            Orientation="Horizontal">
                             <pancake:PancakeView
                                 BackgroundColor="{StaticResource PrimaryColor}"
                                 CornerRadius="22"
@@ -297,7 +259,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Route_Label_SearchVehicle}"
-                                PlaceholderColor="{StaticResource GrayColor2}"
+                                PlaceholderColor="{StaticResource TextPrimaryColor}"
                                 Text="{Binding Vehicle.PrivateCode}"
                                 TextColor="Black"
                                 VerticalOptions="Center">
@@ -306,14 +268,46 @@
                                 </Entry.Effects>
                             </Entry>
                         </StackLayout>
-                    </Frame>
+                    </pancake:PancakeView>
+
+                    <pancake:PancakeView
+                        x:Name="btnListRoute"
+                        Grid.Column="1"
+                        Padding="0"
+                        BackgroundColor="{StaticResource WhiteColor}"
+                        CornerRadius="22"
+                        WidthRequest="45">
+                        <pancake:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ViewListCommand}" />
+                        </pancake:PancakeView.GestureRecognizers>
+                        <controls:IconView
+                            Margin="8"
+                            Foreground="{StaticResource GrayColor2}"
+                            Source="ic_view_list.png"
+                            VerticalOptions="Center" />
+                    </pancake:PancakeView>
+
+                    <pancake:PancakeView
+                        x:Name="btnViewInfo"
+                        Grid.Column="2"
+                        BackgroundColor="White"
+                        CornerRadius="22"
+                        WidthRequest="45">
+                        <pancake:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="IconInfo_Clicked" />
+                        </pancake:PancakeView.GestureRecognizers>
+                        <controls:IconView
+                            x:Name="IconInfo"
+                            Margin="8"
+                            Foreground="{StaticResource GrayColor2}"
+                            Source="ic_info_outline_white.png" />
+                    </pancake:PancakeView>
+
                 </Grid>
                 <StackLayout
                     Margin="10"
                     AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
-                    AbsoluteLayout.LayoutFlags="PositionProportional"
-                    HorizontalOptions="EndAndExpand"
-                    VerticalOptions="End">
+                    AbsoluteLayout.LayoutFlags="PositionProportional">
                     <pancake:PancakeView
                         BackgroundColor="{StaticResource WhiteColor}"
                         CornerRadius="25"
@@ -324,7 +318,7 @@
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
                             Margin="9"
-                            Foreground="{StaticResource PrimaryColor}"
+                            Foreground="{Binding FindCarColor}"
                             Source="ic_vector.png" />
                     </pancake:PancakeView>
                     <pancake:PancakeView
@@ -358,7 +352,7 @@
                 </StackLayout>
                 <Frame
                     x:Name="frVehicleInfo"
-                    Margin="5,60,0,0"
+                    Margin="15,65,0,0"
                     Padding="0"
                     AbsoluteLayout.LayoutBounds="0,0,AutoSize,AutoSize"
                     AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -367,7 +361,7 @@
                     CornerRadius="5"
                     HasShadow="False"
                     IsClippedToBounds="True"
-                    Opacity="0">
+                    Opacity="1">
                     <Grid>
                         <ContentView BackgroundColor="White" Opacity=".9" />
                         <Grid Padding="8" BackgroundColor="Transparent">
@@ -448,7 +442,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <!--<RowDefinition Height="Auto" />-->
                 </Grid.RowDefinitions>
                 <StackLayout
                     Grid.Row="0"
@@ -456,6 +450,20 @@
                     Grid.ColumnSpan="5"
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal">
+                    <forms:CachedImage
+                        x:Name="btnPlayRoute"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        BackgroundColor="Transparent"
+                        HeightRequest="30"
+                        HorizontalOptions="Center"
+                        Source="{Binding PlayStopImage}"
+                        VerticalOptions="Center"
+                        WidthRequest="30">
+                        <forms:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PlayStopCommand}" />
+                        </forms:CachedImage.GestureRecognizers>
+                    </forms:CachedImage>
                     <Slider
                         x:Name="slPlayCar"
                         DragCompletedCommand="{Binding DragCompletedCommand}"
@@ -488,7 +496,7 @@
                             VerticalOptions="Center" />
                     </Frame>
                 </StackLayout>
-                <controls:IconView
+                <!--<controls:IconView
                     x:Name="btnLocationStart"
                     Grid.Row="1"
                     Grid.Column="0"
@@ -516,22 +524,9 @@
                     <forms:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding DecreaseSpeedCommand}" />
                     </forms:CachedImage.GestureRecognizers>
-                </forms:CachedImage>
-                <forms:CachedImage
-                    x:Name="btnPlayRoute"
-                    Grid.Row="1"
-                    Grid.Column="2"
-                    BackgroundColor="Transparent"
-                    HeightRequest="30"
-                    HorizontalOptions="Center"
-                    Source="{Binding PlayStopImage}"
-                    VerticalOptions="Center"
-                    WidthRequest="30">
-                    <forms:CachedImage.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding PlayStopCommand}" />
-                    </forms:CachedImage.GestureRecognizers>
-                </forms:CachedImage>
-                <forms:CachedImage
+                </forms:CachedImage>-->
+
+                <!--<forms:CachedImage
                     x:Name="btnUpSpeed"
                     Grid.Row="1"
                     Grid.Column="3"
@@ -544,8 +539,8 @@
                     <forms:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding IncreaseSpeedCommand}" />
                     </forms:CachedImage.GestureRecognizers>
-                </forms:CachedImage>
-                <controls:IconView
+                </forms:CachedImage>-->
+                <!--<controls:IconView
                     x:Name="btnLocationEnd"
                     Grid.Row="1"
                     Grid.Column="4"
@@ -559,7 +554,7 @@
                     <controls:IconView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding FastEndCommand}" />
                     </controls:IconView.GestureRecognizers>
-                </controls:IconView>
+                </controls:IconView>-->
             </Grid>
         </StackLayout>
 

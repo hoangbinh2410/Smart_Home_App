@@ -42,6 +42,7 @@
                     </StackLayout.Resources>
                     <Frame
                         Padding="10"
+                        BackgroundColor="Transparent"
                         BorderColor="Transparent"
                         HeightRequest="25"
                         HorizontalOptions="End">

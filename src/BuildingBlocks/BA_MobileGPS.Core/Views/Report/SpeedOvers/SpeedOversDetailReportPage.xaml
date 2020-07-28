@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.SpeedOversDetailReportPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    Title="{Binding Title}">
+    <ContentPage.Content>
+        <ScrollView>
+            <!--  phần hiển thị thông tin chi tiết của báo cáo  -->
+            <Grid Grid.Row="1" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <sharpnado:MaterialFrame
+                    Grid.Row="0"
+                    Padding="10"
+                    CornerRadius="0"
+                    HasShadow="False"
+                    HorizontalOptions="FillAndExpand"
+                    LightThemeBackgroundColor="{StaticResource GrayColor}"
+                    VerticalOptions="FillAndExpand">
+                    <sharpnado:MaterialFrame.Content>
+                        <Label
+                            HorizontalOptions="StartAndExpand"
+                            Text="{i18n:TranslateResource SpeedOversReport_Label_TitlePageDetail}"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center" />
+                    </sharpnado:MaterialFrame.Content>
+                </sharpnado:MaterialFrame>
+                <sharpnado:MaterialFrame
+                    Grid.Row="1"
+                    Padding="10,0,10,0"
+                    BackgroundColor="White"
+                    CornerRadius="0"
+                    HasShadow="False"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+                    <sharpnado:MaterialFrame.Content>
+                        <Grid Grid.Row="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <!--  Biển số  -->
+                            <Grid Grid.Row="0" RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="1" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Padding="0,10,0,10"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal">
+                                    <controls:IconView
+                                        Foreground="{StaticResource PrimaryColor}"
+                                        HeightRequest="20"
+                                        HorizontalOptions="Center"
+                                        Source="ic_vehicleplate.png"
+                                        VerticalOptions="Center"
+                                        WidthRequest="20" />
+                                    <Label
+                                        Text="{i18n:TranslateResource SpeedOversReport_Label_DetailVehiclePlate}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+                                </StackLayout>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    HorizontalOptions="EndAndExpand"
+                                    Text="{Binding SelectedSpeedOvers.VehiclePlate}"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+
+                                <BoxView
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    BackgroundColor="{StaticResource GrayColor}"
+                                    HeightRequest="0.5"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Start" />
+                            </Grid>
+                            <!--  Thời điểm  -->
+                            <Grid Grid.Row="1" RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="1" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Padding="0,10,0,10"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal">
+                                    <controls:IconView
+                                        Foreground="{StaticResource PrimaryColor}"
+                                        HeightRequest="20"
+                                        HorizontalOptions="Center"
+                                        Source="ic_time_black.png"
+                                        VerticalOptions="Center"
+                                        WidthRequest="20" />
+                                    <Label
+                                        Text="{i18n:TranslateResource SpeedOversReport_Label_Date}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+                                </StackLayout>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    HorizontalOptions="EndAndExpand"
+                                    Text="{Binding SelectedSpeedOvers.StartTime, Converter={StaticResource DateTimeConverter}}"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                                <BoxView
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    BackgroundColor="{StaticResource GrayColor}"
+                                    HeightRequest="0.5"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Start" />
+                            </Grid>
+                            <!--  Thời gian  -->
+                            <Grid Grid.Row="2" RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="1" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Padding="0,10,0,10"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal">
+                                    <controls:IconView
+                                        Foreground="{StaticResource PrimaryColor}"
+                                        HeightRequest="20"
+                                        HorizontalOptions="Center"
+                                        Source="ic_time_black.png"
+                                        VerticalOptions="Center"
+                                        WidthRequest="20" />
+                                    <Label
+                                        Text="{i18n:TranslateResource SpeedOversReport_Label_Time}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+                                </StackLayout>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    HorizontalOptions="EndAndExpand"
+                                    Text="{Binding SelectedSpeedOvers.SpeedOverTotalTime}"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+
+                                <BoxView
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    BackgroundColor="{StaticResource GrayColor}"
+                                    HeightRequest="0.5"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Start" />
+                            </Grid>
+                            <!--  Quãng đường  -->
+                            <Grid Grid.Row="3" RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="1" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Padding="0,10,0,10"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal">
+                                    <controls:IconView
+                                        Foreground="{StaticResource PrimaryColor}"
+                                        HeightRequest="20"
+                                        HorizontalOptions="Center"
+                                        Source="ic_distance.png"
+                                        VerticalOptions="Center"
+                                        WidthRequest="20" />
+                                    <Label
+                                        Text="{i18n:TranslateResource SpeedOversReport_Label_Distance}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+                                </StackLayout>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    HorizontalOptions="EndAndExpand"
+                                    Text="{Binding SelectedSpeedOvers.SpeedOverDistance}"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                                <BoxView
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    BackgroundColor="{StaticResource GrayColor}"
+                                    HeightRequest="0.5"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Start" />
+                            </Grid>
+                            <!--  Tốc độ cực đại  -->
+                            <Grid Grid.Row="4" RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="1" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Padding="0,10,0,10"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal">
+                                    <controls:IconView
+                                        Foreground="{StaticResource PrimaryColor}"
+                                        HeightRequest="20"
+                                        HorizontalOptions="Center"
+                                        Source="ic_velocity.png"
+                                        VerticalOptions="Center"
+                                        WidthRequest="20" />
+                                    <Label
+                                        Text="{i18n:TranslateResource SpeedOversReport_Label_Vmax}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+                                </StackLayout>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="30,0,0,0"
+                                    HorizontalOptions="EndAndExpand"
+                                    Text="{Binding SelectedSpeedOvers.Vmax}"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                                <BoxView
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    BackgroundColor="{StaticResource GrayColor}"
+                                    HeightRequest="0.5"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Start" />
+                            </Grid>
+                            <!--  Điểm bắt đầu  -->
+                            <Grid Grid.Row="5" RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="1" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Padding="0,10,0,10"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal">
+                                    <controls:IconView
+                                        Foreground="{StaticResource PrimaryColor}"
+                                        HeightRequest="20"
+                                        HorizontalOptions="Center"
+                                        Source="ic_location_black.png"
+                                        VerticalOptions="Center"
+                                        WidthRequest="20" />
+                                    <Label
+                                        Text="{i18n:TranslateResource SpeedOversReport_Label_StartAddress}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+                                </StackLayout>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="30,0,0,0"
+                                    HorizontalOptions="EndAndExpand"
+                                    HorizontalTextAlignment="Start"
+                                    Text="{Binding SelectedSpeedOvers.StartAddress}"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                                <BoxView
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    BackgroundColor="{StaticResource GrayColor}"
+                                    HeightRequest="0.5"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Start" />
+                            </Grid>
+                            <!--  Điểm kết thúc  -->
+                            <Grid Grid.Row="6" RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="1" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Padding="0,10,0,10"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal">
+                                    <controls:IconView
+                                        Foreground="{StaticResource PrimaryColor}"
+                                        HeightRequest="20"
+                                        HorizontalOptions="Center"
+                                        Source="ic_location_black.png"
+                                        VerticalOptions="Center"
+                                        WidthRequest="20" />
+                                    <Label
+                                        Text="{i18n:TranslateResource SpeedOversReport_Label_EndAddress}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+                                </StackLayout>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="30,0,0,0"
+                                    HorizontalOptions="EndAndExpand"
+                                    HorizontalTextAlignment="Start"
+                                    Text="{Binding SelectedSpeedOvers.EndAddress}"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                                <BoxView
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    BackgroundColor="{StaticResource GrayColor}"
+                                    HeightRequest="0.5"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Start" />
+                            </Grid>
+                        </Grid>
+                    </sharpnado:MaterialFrame.Content>
+                </sharpnado:MaterialFrame>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

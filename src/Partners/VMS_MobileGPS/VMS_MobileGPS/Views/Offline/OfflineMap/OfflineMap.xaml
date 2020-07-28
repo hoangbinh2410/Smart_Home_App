@@ -6,13 +6,15 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:convertersvms="clr-namespace:VMS_MobileGPS.Converter"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:local="clr-namespace:VMS_MobileGPS.Constant;assembly=VMS_MobileGPS"
     xmlns:maps="clr-namespace:Syncfusion.SfMaps.XForms;assembly=Syncfusion.SfMaps.XForms"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    Title="Bản đồ ngoại tuyến"
+    Title="  Bản đồ ngoại tuyến"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -20,10 +22,28 @@
             <convertersvms:BLEConnectionStateConverter x:Key="BLEConnectionStateConverter" />
             <convertersvms:BLEConnectionStateColorConverter x:Key="BLEConnectionStateColorConverter" />
             <convertersvms:OfflineMapDeviceCodeConverter x:Key="OfflineMapDeviceCodeConverter" />
-            <convertersvms:OffMapBtnZoomInConverter x:Key="OffMapBtnZoomInConverter" />
-            <convertersvms:OffMapBtnZoomOutConverter x:Key="OffMapBtnZoomOutConverter" />
-            <convertersvms:OffMapBtnZoomInIconConverter x:Key="OffMapBtnZoomInIconConverter" />
-            <convertersvms:OffMapBtnZoomOutIconConverter x:Key="OffMapBtnZoomOutIconConverter" />
+            <Style TargetType="controls:IconView">
+                <Setter Property="Foreground" Value="{AppThemeBinding Dark={StaticResource PrimaryColor}, Light={StaticResource PrimaryColor}}" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="HeightRequest" Value="30" />
+                <Setter Property="WidthRequest" Value="30" />
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+            </Style>
+            <Style TargetType="BoxView">
+                <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource TextPlaceHolderColor}, Dark={StaticResource TextPlaceHolderColor}}" />
+                <Setter Property="Grid.ColumnSpan" Value="2" />
+                <Setter Property="Opacity" Value="0.3" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="CornerRadius" Value="17" />
+                <Setter Property="Margin" Value="10,0" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -85,54 +105,43 @@
                                 </StackLayout>
                             </DataTemplate>
                         </maps:ImageryLayer.MarkerTemplate>
-
                     </maps:ImageryLayer>
                 </maps:SfMaps.Layers>
             </maps:SfMaps>
             <StackLayout
-                Grid.Row="0"
-                Margin="0,0,15,5"
+                Margin="0,0,15,25"
                 HorizontalOptions="End"
                 VerticalOptions="End">
                 <sharpnado:MaterialFrame
                     Margin="5,0"
                     Padding="0"
                     CornerRadius="5"
-                    HasShadow="False"
-                    HeightRequest="70"
+                    HasShadow="True"
+                    HeightRequest="85"
                     LightThemeBackgroundColor="White">
                     <StackLayout Spacing="0" WidthRequest="40">
                         <Frame
-                            x:Name="btnZoomIn"
                             Padding="0"
-                            BackgroundColor="{Binding OffMapZoomLevel, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource OffMapBtnZoomInConverter}}"
-                            BorderColor="Transparent"
-                            CornerRadius="0"
-                            HasShadow="False"
-                            HeightRequest="40">
+                            BackgroundColor="White"
+                            HeightRequest="42">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ZoomInCommand}" />
                             </Frame.GestureRecognizers>
-
                             <controls:FontAwesomeIcon
                                 x:Name="ic_ZoomIn"
                                 FontAttributes="Bold"
                                 FontSize="15"
                                 HorizontalOptions="Center"
                                 Text="{x:Static fontawesome:FontAwesomeIcons.Plus}"
-                                TextColor="{Binding OffMapZoomLevel, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource OffMapBtnZoomInIconConverter}}"
+                                TextColor="{AppThemeBinding Dark={StaticResource PrimaryColor},
+                                                            Light={StaticResource PrimaryColor}}"
                                 VerticalOptions="Center" />
                         </Frame>
-
-                        <BoxView BackgroundColor="{StaticResource PrimaryColor}" HeightRequest="1" />
+                        <BoxView BackgroundColor="{StaticResource TextPlaceHolderColor}" HeightRequest="1" />
                         <Frame
-                            x:Name="btnZoomOut"
                             Padding="0"
-                            BackgroundColor="{Binding OffMapZoomLevel, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource OffMapBtnZoomOutConverter}}"
-                            BorderColor="Transparent"
-                            CornerRadius="0"
-                            HasShadow="False"
-                            HeightRequest="40">
+                            BackgroundColor="White"
+                            HeightRequest="42">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ZoomOutCommand}" />
                             </Frame.GestureRecognizers>
@@ -142,185 +151,86 @@
                                 FontSize="15"
                                 HorizontalOptions="Center"
                                 Text="{x:Static fontawesome:FontAwesomeIcons.Minus}"
-                                TextColor="{Binding OffMapZoomLevel, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource OffMapBtnZoomOutIconConverter}}"
+                                TextColor="{AppThemeBinding Dark={StaticResource PrimaryColor},
+                                                            Light={StaticResource PrimaryColor}}"
                                 VerticalOptions="Center" />
                         </Frame>
-
                     </StackLayout>
                 </sharpnado:MaterialFrame>
                 <sharpnado:MaterialFrame
                     Padding="0"
                     CornerRadius="25"
-                    HasShadow="False"
+                    HasShadow="True"
                     HeightRequest="50"
                     LightThemeBackgroundColor="White"
                     WidthRequest="50">
                     <sharpnado:MaterialFrame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SwitchToMyLocationCommand}" />
                     </sharpnado:MaterialFrame.GestureRecognizers>
-                    <controls:FontAwesomeIcon
-                        FontSize="20"
-                        HorizontalOptions="Center"
-                        Text="{x:Static fontawesome:FontAwesomeIcons.LocationArrow}"
-                        TextColor="{StaticResource PrimaryColor}"
-                        VerticalOptions="Center" />
+                    <controls:IconView Margin="8" Source="ic_vector.png" />
                 </sharpnado:MaterialFrame>
             </StackLayout>
-
-
-            <sharpnado:MaterialFrame
+            <pancake:PancakeView
                 Grid.Row="1"
+                Margin="0,-13,0,0"
                 Padding="10"
-                HasShadow="False"
-                LightThemeBackgroundColor="White"
+                BackgroundColor="White"
+                CornerRadius="20,20,0,0"
+                HasShadow="True"
                 VerticalOptions="End">
-
-                <Grid HorizontalOptions="FillAndExpand">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="40" />
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="30" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <controls:FontAwesomeIcon
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            FontSize="20"
-                            HorizontalOptions="Center"
-                            Text="{x:Static fontawesome:FontAwesomeIcons.CalendarAlt}"
-                            TextColor="{StaticResource PrimaryColor}"
-                            VerticalOptions="Center" />
-                        <StackLayout
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Orientation="Horizontal">
-                            <Label Text="{Binding DateTimeN, Converter={StaticResource DateTimeConverter}}" />
-                        </StackLayout>
-                    </Grid>
+                <pancake:PancakeView.Shadow>
+                    <pancake:DropShadow BlurRadius="10" Color="Black" />
+                </pancake:PancakeView.Shadow>
+                <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto,Auto,35">
                     <StackLayout
-                        Grid.Row="1"
-                        Padding="1"
-                        BackgroundColor="{StaticResource TextSecondaryColor}"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="CenterAndExpand">
-                        <Grid
-                            BackgroundColor="{StaticResource TextSecondaryColor}"
-                            ColumnSpacing="1"
-                            RowSpacing="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <StackLayout
-                                Grid.Row="0"
-                                BackgroundColor="White"
-                                Orientation="Horizontal">
-
-                                <controls:FontAwesomeIcon
-                                    Margin="5,0,0,0"
-                                    FontSize="20"
-                                    HorizontalOptions="Start"
-                                    Text="{x:Static fontawesome:FontAwesomeIcons.LocationArrow}"
-                                    TextColor="{StaticResource PrimaryColor}"
-                                    VerticalOptions="Center" />
-                                <Label
-                                    Margin="5"
-                                    HorizontalOptions="Start"
-                                    LineBreakMode="TailTruncation"
-                                    Text="{Binding MarkerPosition}" />
-                            </StackLayout>
-                            <Grid
-                                Grid.Row="1"
-                                ColumnSpacing="1"
-                                RowSpacing="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width=".5*" />
-                                    <ColumnDefinition Width=".5*" />
-                                </Grid.ColumnDefinitions>
-                                <!--  Vận tốc  -->
-                                <StackLayout
-                                    Grid.Column="0"
-                                    Padding="5"
-                                    BackgroundColor="White"
-                                    HorizontalOptions="FillAndExpand"
-                                    Spacing="0"
-                                    VerticalOptions="CenterAndExpand">
-                                    <Label
-                                        HorizontalTextAlignment="Center"
-                                        LineBreakMode="TailTruncation"
-                                        Text="{i18n:TranslateResource Online_Label_Velocity,
-                                                                      Converter={StaticResource UpperCaseConverter}}"
-                                        TextColor="{StaticResource TextPlaceHolderColor}" />
-                                    <Label
-                                        HorizontalTextAlignment="Center"
-                                        LineBreakMode="TailTruncation"
-                                        Text="{Binding Speed, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Common_Lable_NMUnit}}" />
-                                </StackLayout>
-                                <!--  Trạng thái bluetooth  -->
-                                <StackLayout
-                                    Grid.Column="1"
-                                    Padding="5"
-                                    BackgroundColor="White"
-                                    HorizontalOptions="FillAndExpand"
-                                    Spacing="0"
-                                    VerticalOptions="CenterAndExpand">
-                                    <Label
-                                        HorizontalTextAlignment="Center"
-                                        LineBreakMode="TailTruncation"
-                                        Text="TRẠNG THÁI THIẾT BỊ"
-                                        TextColor="{StaticResource TextPlaceHolderColor}" />
-                                    <Label
-                                        HorizontalTextAlignment="Center"
-                                        LineBreakMode="TailTruncation"
-                                        Text="{Binding BluetoothStatus}" />
-                                </StackLayout>
-                            </Grid>
-                        </Grid>
+                        HorizontalOptions="CenterAndExpand"
+                        Orientation="Horizontal"
+                        Spacing="5">
+                        <Label Text="TRẠNG THÁI THIẾT BỊ:" TextColor="{AppThemeBinding Dark={StaticResource PrimaryColor}, Light={StaticResource PrimaryColor}}" />
+                        <Label Text="{Binding BluetoothStatus, Mode=OneWay}" TextColor="{Binding BluetoothStatusTextColor, Mode=OneWay}" />
                     </StackLayout>
                     <Grid
-                        Grid.Row="2"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="End">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                        Grid.Row="1"
+                        ColumnDefinitions="40,*"
+                        ColumnSpacing="10"
+                        RowDefinitions="1,Auto,1,Auto,1,Auto,1"
+                        RowSpacing="3">
+                        <BoxView />
+                        <!--  Datetime  -->
+                        <controls:IconView Grid.Row="1" Source="ic_time_black" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Text="{Binding DateTimeN, Converter={StaticResource DateTimeConverter}, Mode=OneWay}" />
+                        <BoxView Grid.Row="2" />
+                        <!--  Tọa độ  -->
+                        <controls:IconView Grid.Row="3" Source="ic_coordinates.png" />
+                        <Label
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Text="{Binding MarkerPosition, Mode=OneWay}" />
+                        <BoxView Grid.Row="4" />
+                        <!--  Vận tốc  -->
+                        <controls:IconView Grid.Row="5" Source="ic_speed.png" HeightRequest="25" WidthRequest="25"/>
+                        <Label
+                            Grid.Row="5"
+                            Grid.Column="1"
+                            Text="{Binding Speed, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Common_Lable_NMUnit}}" />
+                        <BoxView Grid.Row="6" />
+                    </Grid>
+                    <Grid Grid.Row="2" ColumnDefinitions="*,*">
                         <Button
-                            Grid.Column="0"
+                            BackgroundColor="{Binding SOSBtnBackgroundColor, Mode=OneWay}"
                             Command="{Binding CallSOSCommand}"
-                            CornerRadius="20"
-                            FontAttributes="Bold"
-                            HeightRequest="40"
-                            Text="CẢNH BÁO SOS"
-                            TextColor="White" />
-
+                            Text="{Binding SOSBtnText, Mode=OneWay}"
+                            TextColor="{Binding SOSBtnTextColor, Mode=OneWay}" />
                         <Button
                             Grid.Column="1"
                             Command="{Binding OpenSettingCommand}"
-                            CornerRadius="20"
-                            FontAttributes="Bold"
-                            HeightRequest="40"
-                            Text="MẺ LƯỚI"
-                            TextColor="White" />
+                            Text="MẺ LƯỚI" />
                     </Grid>
                 </Grid>
-            </sharpnado:MaterialFrame>
-
+            </pancake:PancakeView>
         </Grid>
     </ContentPage.Content>
-
 </ContentPage>

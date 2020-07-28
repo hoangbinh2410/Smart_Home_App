@@ -66,6 +66,8 @@ namespace BA_MobileGPS.Core.Resource
         public static string Common_Value_SelectReligion => Get(MobileResourceNames.Common_Value_SelectReligion, "Chọn tôn giáo", "Select Religion");
         public static string Common_Message_Skip => Get(MobileResourceNames.Common_Message_Skip, "Bỏ qua", "Skip");
 
+        public static string Common_Message_NotPermission => Get(MobileResourceNames.Common_Message_NotPermission, "Chức năng chưa được cấp quyền", "Function has not been granted");
+
 
         #region title grid dùng nhiều
 

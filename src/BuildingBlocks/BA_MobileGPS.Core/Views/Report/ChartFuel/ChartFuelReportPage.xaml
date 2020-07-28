@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.ChartFuelReportPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+    xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
+    xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:core="clr-namespace:BA_MobileGPS.Core"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:local="clr-namespace:BA_MobileGPS.Core.Behaviors.Trackball"
+    xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
+    Title="{Binding Title}"
+    BackgroundColor="White">
+    <ContentPage.Content>
+        <ScrollView
+            HorizontalOptions="FillAndExpand"
+            Orientation="Vertical"
+            VerticalScrollBarVisibility="Never">
+            <StackLayout Spacing="0">
+                <!--  phần tìm kiếm  -->
+                <Grid Padding="10" VerticalOptions="Start">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <!--  từ ngày  -->
+                    <views:DateTimePickerView
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        DateSelectedCommand="{Binding DateSelectedCommand}"
+                        DateTime="{Binding FromDate}"
+                        FontSize="13"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand"
+                        IconSize="18"
+                        PickerMode="Popup"
+                        VerticalOptions="Center" />
+                    <!--  đến ngày  -->
+                    <views:DateTimePickerView
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        DateSelectedCommand="{Binding DateSelectedCommand}"
+                        DateTime="{Binding ToDate}"
+                        FontSize="13"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand"
+                        IconSize="18"
+                        PickerMode="Popup"
+                        VerticalOptions="Center" />
+                    <Grid Grid.Row="0" Grid.Column="2">
+                        <combobox:SfComboBox
+                            DropDownTextSize="13"
+                            DropDownWidth="{OnPlatform Android=45,
+                                                       iOS=55}"
+                            HeightRequest="40"
+                            IsEditableMode="False"
+                            SelectedDropDownItemColor="Transparent"
+                            SelectedItem="{Binding SelectedTime}"
+                            ShowBorder="False"
+                            WidthRequest="40">
+                            <combobox:SfComboBox.Behaviors>
+                                <behaviors:EventToCommandBehavior
+                                    Command="{Binding TimeSelectingCommand}"
+                                    EventArgsConverter="{StaticResource ComboBoxSelectionChangingEventArgsConverter}"
+                                    EventName="SelectionChanging" />
+                                <behaviors:EventToCommandBehavior
+                                    Command="{Binding TimeSelectedCommand}"
+                                    EventArgsConverter="{StaticResource SelectedComboxEventArgsConverter}"
+                                    EventName="SelectionChanged" />
+                            </combobox:SfComboBox.Behaviors>
+                            <combobox:SfComboBox.DropDownButtonSettings>
+                                <combobox:DropDownButtonSettings Width="40" Height="40">
+                                    <combobox:DropDownButtonSettings.View>
+                                        <Label
+                                            HorizontalTextAlignment="Center"
+                                            VerticalTextAlignment="Center"
+                                            WidthRequest="40" />
+                                    </combobox:DropDownButtonSettings.View>
+                                </combobox:DropDownButtonSettings>
+                            </combobox:SfComboBox.DropDownButtonSettings>
+                            <combobox:SfComboBox.ComboBoxSource>
+                                <ListCollection:List x:TypeArguments="x:String">
+                                    <x:String>1h</x:String>
+                                    <x:String>2h</x:String>
+                                    <x:String>3h</x:String>
+                                    <x:String>4h</x:String>
+                                    <x:String>5h</x:String>
+                                    <x:String>6h</x:String>
+                                    <x:String>7h</x:String>
+                                    <x:String>8h</x:String>
+                                    <x:String>9h</x:String>
+                                    <x:String>10h</x:String>
+                                    <x:String>11h</x:String>
+                                    <x:String>12h</x:String>
+                                    <x:String>13h</x:String>
+                                    <x:String>14h</x:String>
+                                    <x:String>15h</x:String>
+                                    <x:String>16h</x:String>
+                                    <x:String>17h</x:String>
+                                    <x:String>18h</x:String>
+                                    <x:String>19h</x:String>
+                                    <x:String>20h</x:String>
+                                    <x:String>21h</x:String>
+                                    <x:String>22h</x:String>
+                                    <x:String>23h</x:String>
+                                    <x:String>24h</x:String>
+                                </ListCollection:List>
+                            </combobox:SfComboBox.ComboBoxSource>
+                        </combobox:SfComboBox>
+                        <controls:IconView
+                            BackgroundColor="White"
+                            Foreground="DimGray"
+                            HeightRequest="30"
+                            HorizontalOptions="CenterAndExpand"
+                            InputTransparent="True"
+                            Source="ic_turnon_time_on_day.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="30" />
+                    </Grid>
+                    <!--  biển số xe  -->
+                    <Frame
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Padding="5,0,5,0"
+                        BorderColor="{StaticResource GrayColor2}"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand"
+                        IsClippedToBounds="True"
+                        VerticalOptions="Center">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                        </Frame.GestureRecognizers>
+                        <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Entry
+                                FontSize="{StaticResource FontSize12}"
+                                HorizontalOptions="FillAndExpand"
+                                InputTransparent="True"
+                                Placeholder="{i18n:TranslateResource Common_Label_Grid_VehiclePlate}"
+                                Text="{Binding Vehicle.VehiclePlate}"
+                                VerticalOptions="Center">
+                                <Entry.Effects>
+                                    <effects:BorderlessEffect />
+                                </Entry.Effects>
+                            </Entry>
+                            <controls:IconView
+                                Margin="0,0,5,0"
+                                Foreground="DimGray"
+                                HeightRequest="15"
+                                HorizontalOptions="End"
+                                Source="ic_sortdown.png"
+                                VerticalOptions="Center"
+                                WidthRequest="15" />
+                        </StackLayout>
+                    </Frame>
+                    <buttons:SfCheckBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        CornerRadius="5"
+                        FontSize="13"
+                        IsChecked="{Binding ShowByTime}"
+                        Text="{i18n:TranslateResource ChartFuelReport_ShowByTime}"
+                        VerticalOptions="Center">
+                        <buttons:SfCheckBox.Behaviors>
+                            <behaviors:EventToCommandBehavior Command="{Binding StateChangedCommand}" EventName="StateChanged">
+                                <behaviors:EventToCommandBehavior.EventArgsConverter>
+                                    <core:StateChangedEventArgsConverter />
+                                </behaviors:EventToCommandBehavior.EventArgsConverter>
+                            </behaviors:EventToCommandBehavior>
+                        </buttons:SfCheckBox.Behaviors>
+                    </buttons:SfCheckBox>
+                    <!--  button tìm kiếm  -->
+                    <!--<controls:MaterialFrame
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Padding="0"
+                    BackgroundColor="{StaticResource Color_Navigation}"
+                    CornerRadius="5"
+                    HasShadow="False"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="40">
+                    <controls:MaterialFrame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GetDataCommand}" />
+                    </controls:MaterialFrame.GestureRecognizers>
+                    <controls:IconView
+                        Foreground="White"
+                        HeightRequest="25"
+                        HorizontalOptions="Center"
+                        Source="ic_search.png"
+                        VerticalOptions="Center"
+                        WidthRequest="25" />
+                </controls:MaterialFrame>-->
+                </Grid>
+                <chart:SfChart
+                    x:Name="Chart"
+                    Margin="0,0,10,10"
+                    HeightRequest="300"
+                    Series="{Binding ChartSeries}">
+                    <chart:SfChart.Behaviors>
+                        <behaviors:EventToCommandBehavior Command="{Binding TrackballCreatedCommand}" EventName="TrackballCreated">
+                            <behaviors:EventToCommandBehavior.EventArgsConverter>
+                                <core:ChartTrackballCreatedEventArgsConverter />
+                            </behaviors:EventToCommandBehavior.EventArgsConverter>
+                        </behaviors:EventToCommandBehavior>
+                    </chart:SfChart.Behaviors>
+                    <chart:SfChart.ChartBehaviors>
+                        <local:ChartTrackballBehaviorExt
+                            x:Name="trackball"
+                            ActivationMode="TouchMove"
+                            ShowLabel="True"
+                            ShowLine="True">
+                            <chart:ChartTrackballBehavior.LineStyle>
+                                <chart:ChartLineStyle StrokeColor="{StaticResource Color_Navigation}" StrokeWidth="2" />
+                            </chart:ChartTrackballBehavior.LineStyle>
+                        </local:ChartTrackballBehaviorExt>
+                    </chart:SfChart.ChartBehaviors>
+                    <chart:SfChart.PrimaryAxis>
+                        <chart:DateTimeAxis
+                            Interval="2"
+                            IntervalType="Hours"
+                            Maximum="{Binding MaximumDate}"
+                            Minimum="{Binding MinimumDate}"
+                            ShowTrackballInfo="True">
+                            <chart:DateTimeAxis.LabelStyle>
+                                <chart:ChartAxisLabelStyle LabelFormat="HH" />
+                            </chart:DateTimeAxis.LabelStyle>
+                            <chart:DateTimeAxis.TrackballLabelStyle>
+                                <chart:ChartTrackballAxisLabelStyle LabelFormat="HH:mm" />
+                            </chart:DateTimeAxis.TrackballLabelStyle>
+                        </chart:DateTimeAxis>
+                    </chart:SfChart.PrimaryAxis>
+                    <chart:SfChart.SecondaryAxis>
+                        <chart:NumericalAxis Minimum="0" />
+                    </chart:SfChart.SecondaryAxis>
+                </chart:SfChart>
+                <Grid
+                    Padding="10,0,10,15"
+                    RowSpacing="10"
+                    VerticalOptions="End">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <FlexLayout
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        BindableLayout.ItemsSource="{Binding ListFuelSumary}"
+                        HeightRequest="40"
+                        JustifyContent="SpaceEvenly"
+                        Wrap="Wrap">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout HorizontalOptions="Center">
+                                    <StackLayout Orientation="Horizontal" Spacing="10">
+                                        <ffImage:CachedImage
+                                            BitmapOptimizations="True"
+                                            HeightRequest="20"
+                                            Source="ic_nl.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20">
+                                            <ffImage:CachedImage.Transformations>
+                                                <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
+                                            </ffImage:CachedImage.Transformations>
+                                        </ffImage:CachedImage>
+                                        <Label
+                                            FontSize="14"
+                                            Text="{Binding Title}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="14"
+                                        HorizontalOptions="Center"
+                                        Text="{Binding NumberOfLiters, StringFormat='{}{0}L'}"
+                                        TextColor="OrangeRed" />
+                                </StackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                    <StackLayout
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <ffImage:CachedImage
+                            BitmapOptimizations="True"
+                            HeightRequest="20"
+                            Source="ic_turnon_time_on_day.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20">
+                            <ffImage:CachedImage.Transformations>
+                                <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
+                            </ffImage:CachedImage.Transformations>
+                        </ffImage:CachedImage>
+                        <Label
+                            FontSize="14"
+                            Text="{Binding CurrentChartDisplay.Time, Converter={StaticResource DateTimeConverter}}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <ffImage:CachedImage
+                            BitmapOptimizations="True"
+                            HeightRequest="20"
+                            Source="ic_velocity.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20">
+                            <ffImage:CachedImage.Transformations>
+                                <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
+                            </ffImage:CachedImage.Transformations>
+                        </ffImage:CachedImage>
+                        <Label
+                            FontSize="14"
+                            Text="{Binding CurrentChartDisplay.VelocityGPS, Converter={StaticResource VelocityConverter}}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <ffImage:CachedImage
+                            BitmapOptimizations="True"
+                            HeightRequest="20"
+                            Source="ic_distance.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20">
+                            <ffImage:CachedImage.Transformations>
+                                <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
+                            </ffImage:CachedImage.Transformations>
+                        </ffImage:CachedImage>
+                        <Label
+                            FontSize="14"
+                            Text="{Binding CurrentChartDisplay.Km, Converter={StaticResource KmConverter}}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <ffImage:CachedImage
+                            BitmapOptimizations="True"
+                            HeightRequest="20"
+                            Source="ic_engine.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20">
+                            <ffImage:CachedImage.Transformations>
+                                <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
+                            </ffImage:CachedImage.Transformations>
+                        </ffImage:CachedImage>
+                        <Label
+                            FontSize="14"
+                            Text="{Binding CurrentChartDisplay.MachineStatus}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Orientation="Horizontal"
+                        Spacing="5">
+                        <ffImage:CachedImage
+                            BitmapOptimizations="True"
+                            HeightRequest="20"
+                            Source="ic_location_black.png"
+                            WidthRequest="20">
+                            <ffImage:CachedImage.Transformations>
+                                <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
+                            </ffImage:CachedImage.Transformations>
+                        </ffImage:CachedImage>
+                        <Label FontSize="14" Text="{Binding CurrentChartDisplay.CurrentAddress}" />
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

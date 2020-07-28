@@ -64,7 +64,7 @@ namespace VMS_MobileGPS.ViewModels
             _gpsListener.OnReadingReceived += OnReadingReceived;
 
             NavigateToCommand = new Command<PageNames>(NavigateTo);
-            ConnectBleCommand = new DelegateCommand<SwitchStateChangedEventArgs>(PushBlutoothPage);
+            ConnectBleCommand = new DelegateCommand(PushBlutoothPage);
 
             stateDeviceMessage = "Chưa kết nối";
         }
@@ -417,14 +417,16 @@ namespace VMS_MobileGPS.ViewModels
             });
         }
 
-        private void PushBlutoothPage(SwitchStateChangedEventArgs args)
+        private void PushBlutoothPage()
         {
             TryExecute(async () =>
             {
-                if (args != null && args.NewValue.GetValueOrDefault())
+                IsConnectBLE = !IsConnectBLE;
+
+                if(IsConnectBLE)
                 {
-                    _ = await NavigationService.NavigateAsync("BaseNavigationPage/BluetoothPage", useModalNavigation: true);
-                }
+                    _ = await NavigationService.NavigateAsync("NavigationPage/BluetoothPage", useModalNavigation: true);
+                }    
                 else
                 {
                     if (await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có muốn ngắt kết nối thiệt bị không", "ĐỒNG Ý", "BỎ QUA"))

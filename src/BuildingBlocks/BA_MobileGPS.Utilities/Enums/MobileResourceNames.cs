@@ -15,6 +15,7 @@
         Common_Label_Notification,
         Common_Message_Warning,
         Common_Message_Skip,
+        Common_Message_NotPermission,
         Common_Button_OK,
         Common_Button_Send,
         Common_Button_Save,
@@ -93,6 +94,11 @@
         Login_Message_AccountLocked,
         Login_ForgotPassword_PopupTitle,
         Login_ForgotPassword_PopupContent,
+        Login_Popup_Starting_Page,
+        Login_Popup_Manual,
+        Login_Popup_Guarantee,
+        Login_Popup_RegisterSupport,
+        Login_Popup_BAGPSExperience,
         #endregion Login
 
         #region ChangePassword
@@ -280,6 +286,9 @@
         ListVehicle_Label_VehicleLostGPS2,
         ListVehicle_Label_VehicleLostGSM,
         ListVehicle_Label_VehicleLostGSM2,
+        CompanyLookUp_Label_Title,
+        CompanyLookUp_Label_NotFound,
+        CompanyLookUp_Label_Search,
         #endregion ListVehicle
 
         #region Online
@@ -320,6 +329,7 @@
         Online_Lable_UpdateAdminUserSetting,
         Online_Lable_SetupBoundary,
         Online_Button_Option,
+        Online_CheckBox_Distance,
 
         #endregion Online
 
@@ -343,6 +353,7 @@
         Route_Label_ToDateLimit,
         Route_Label_OverDateLimit,
         Route_Label_DistanceTitle,
+        Route_Label_FeeVMS,
         #endregion Route
 
         #region Alert Online
@@ -742,6 +753,21 @@
         SpeedOversReport_Table_StartAddress,
         SpeedOversReport_Table_EndAddress,
         SpeedOversReport_Table_Note,
+
+        ReportSignalLoss_Label_TitlePage,
+        ReportSignalLoss_Label_TitlePageDetail,
+        ReportSignalLoss_TitleStatus,
+        ReportSignalLoss_Title_MinTimeLosing,
+        ReportSignalLoss_Title_StartTime,
+        ReportSignalLoss_Title_EndTime,
+        ReportSignalLoss_Title_TimeLosing,
+        ReportSignalLoss_Title_StartAddress,
+        ReportSignalLoss_Title_EndAddress,
+        ReportSignalLoss_TitleStatus_All,
+        ReportSignalLoss_TitleStatus_GPS,
+        ReportSignalLoss_TitleStatus_GMS,
+        ReportSignalLoss_Message_ValidateError_MinTimeLosing,
+        ReportSignalLoss_Message_ValidateError_MinTimeLosing2,
         #endregion report
 
         #region
@@ -888,6 +914,9 @@
         Settings_Label_SettingMylocationMap,
         Settings_Label_SettingMylocationMap2,
         Settings_Label_SettingThelocation,
+        Settings_Label_SettingReceiveAlert,
+        Settings_Label_ListAlert,
+        Settings_Label_ListVehicleAlert,
         #endregion
 
         #region VehicleGroupLookUp
@@ -1072,5 +1101,42 @@
         Moto_Label_Speed,
         Moto_Label_Status,
         #endregion
+
+        #region AccountTab
+        AccountTab_Label_ChangePassword,
+        AccountTab_Label_CustomerSupport,
+        AccountTab_Label_DeviceManual,
+        AccountTab_Label_BAGPS_Introduce,
+        AccountTab_Label_Share,
+        AccountTab_Label_Rating,
+        AccountTab_Label_Setting,
+        AccountTab_Label_Logout,
+        AccountTab_Label_MessageWarningLogout,
+        AccountTab_Label_MyInformation,
+        #endregion
+
+        #region Alert Config
+
+        AlertConfig_Label_Alter,
+        AlertConfig_Label_SendSuccess,
+        AlertConfig_Label_SendFail,
+        AlertConfig_Label_Choose_Time,
+        AlertConfig_Label_Warning_Alert,
+        AlertConfig_Label_Warning_Vehicle,
+        AlertConfig_Label_Warning_Time,
+        AlertConfig_Label_All_Warnings,
+        AlertConfig_Label_All_Warnings_Description,
+        AlertConfig_Label_NextStep,
+        AlertConfig_Label_All_Vehicle,
+        AlertConfig_Label_All_Vehicle_Description,
+        AlertConfig_Label_All_Vehicle_Not_Configured,
+        AlertConfig_Label_About_Time,
+        AlertConfig_Label_Start_Time,
+        AlertConfig_Label_End_Time,
+        AlertConfig_Label_Choose_Time_Zone,
+        AlertConfig_Label_Choose_All_Time_Zone,
+        AlertConfig_Label_Save_Configuration,
+
+        #endregion Alert Config
     }
 }

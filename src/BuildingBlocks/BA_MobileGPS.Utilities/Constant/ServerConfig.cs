@@ -1,6 +1,5 @@
 ﻿using BA_MobileGPS.Utilities.Enums;
 using BA_MobileGPS.Utilities.Extensions;
-using BA_MobileGPS.Utilities.Helpers;
 
 namespace BA_MobileGPS.Utilities.Constant
 {
@@ -15,17 +14,6 @@ namespace BA_MobileGPS.Utilities.Constant
     public class ServerConfig
     {
         /// <summary>
-        /// Loại Server là gì
-        /// Mặc định là:            ServerTypes.Server20
-        /// Khi chạy thật là:       ServerTypes.ServerThat
-        /// </summary>
-        /// <Modified>
-        /// Name     Date         Comments
-        /// Namth  16/1/2018   created
-        /// </Modified>
-        public static ServerTypes ServerTypes = ServerTypes.ServerTest;
-
-        /// <summary>
         /// Đường dẫn API ở đâu
         /// Mặc định là:        ApiEndpointTypes.Server20
         /// Khi chạy thật là:   ApiEndpointTypes.ServerThat
@@ -35,6 +23,39 @@ namespace BA_MobileGPS.Utilities.Constant
         /// Namth  16/1/2018   created
         /// </Modified>
         public static ApiEndpointTypes ApiEndpointTypes = ApiEndpointTypes.ServerTest;
+
+        /// <summary>
+        /// Loại Server là gì
+        /// Mặc định là:            ServerTypes.Server20
+        /// Khi chạy thật là:       ServerTypes.ServerThat
+        /// </summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// Namth  16/1/2018   created
+        /// </Modified>
+        public static ServerIdentityHubTypes ServerIdentityHubType = ServerIdentityHubTypes.ServerThat;
+
+        /// <summary>
+        /// Loại Server là gì
+        /// Mặc định là:            ServerTypes.Server20
+        /// Khi chạy thật là:       ServerTypes.ServerThat
+        /// </summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// Namth  16/1/2018   created
+        /// </Modified>
+        public static ServerVehicleOnlineHubTypes ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerThat;
+
+        /// <summary>
+        /// Loại Server là gì
+        /// Mặc định là:            ServerTypes.Server20
+        /// Khi chạy thật là:       ServerTypes.ServerThat
+        /// </summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// Namth  16/1/2018   created
+        /// </Modified>
+        public static ServerAlertHubTypes ServerAlertHubType = ServerAlertHubTypes.ServerThat;
 
         /// <summary>
         /// Thông tin phiên bản App trên AppStore hoặc Google Play
@@ -47,52 +68,6 @@ namespace BA_MobileGPS.Utilities.Constant
         /// Khi đẩy thật thì chỉnh lại theo version trên market.
         /// </summary>
         public static int BuildVersion = 1;
-
-        /// <summary>
-        /// IP server chạy TCP
-        /// </summary>
-        /// <Modified>
-        /// Name     Date         Comments
-        /// Namth  16/1/2018   created
-        /// </Modified>
-        public static string ServerIP
-        {
-            get
-            {
-                switch (ServerTypes)
-                {
-                    case ServerTypes.ServerCNN:
-                        return DNSHelper.GetIPAddressServer(ServerTypes.ServerCNN.ToDescription(), PortSignalRTypes.ServerCNN.ToDescription());
-
-                    case ServerTypes.ServerThat:
-                        return DNSHelper.GetDomainAddressServer(ServerTypes.ServerThat.ToDescription(), PortSignalRTypes.ServerThat.ToDescription());
-
-                    case ServerTypes.ServerTest:
-                        return ServerTypes.ServerTest.ToDescription();
-
-                    case ServerTypes.ServerTestCNN:
-                        return DNSHelper.GetIPAddressServer(ServerTypes.ServerTestCNN.ToDescription(), PortSignalRTypes.ServerTestCNN.ToDescription());
-
-                    case ServerTypes.ServerVNSAT:
-                        return DNSHelper.GetIPAddressServer(ServerTypes.ServerVNSAT.ToDescription(), PortSignalRTypes.ServerVNSAT.ToDescription());
-
-                    case ServerTypes.ServerGISVIET:
-                        return DNSHelper.GetIPAddressServer(ServerTypes.ServerGISVIET.ToDescription(), PortSignalRTypes.ServerGISVIET.ToDescription());
-
-                    case ServerTypes.ServerVIVIEW:
-                        return DNSHelper.GetIPAddressServer(ServerTypes.ServerVIVIEW.ToDescription(), PortSignalRTypes.ServerVIVIEW.ToDescription());
-
-                    case ServerTypes.ServerVMS:
-                        return DNSHelper.GetDomainAddressServer(ServerTypes.ServerVMS.ToDescription(), PortSignalRTypes.ServerVMS.ToDescription());
-
-                    case ServerTypes.ServerMoto:
-                        return DNSHelper.GetIPAddressServer(ServerTypes.ServerMoto.ToDescription(), PortSignalRTypes.ServerMoto.ToDescription());
-
-                    default:
-                        return DNSHelper.GetIPAddressServer(ServerTypes.ServerTest.ToDescription(), PortSignalRTypes.ServerTest.ToDescription());
-                }
-            }
-        }
 
         /// <summary>
         /// IP của Service API
@@ -119,14 +94,11 @@ namespace BA_MobileGPS.Utilities.Constant
                     case ApiEndpointTypes.ServerTest:
                         return ApiEndpointTypes.ServerTest.ToDescription();
 
-                    case ApiEndpointTypes.ServerTestCNN:
-                        return ApiEndpointTypes.ServerTestCNN.ToDescription();
-
-                    case ApiEndpointTypes.ServerPhuongPV:
-                        return ApiEndpointTypes.ServerPhuongPV.ToDescription();
-
                     case ApiEndpointTypes.ServerLinhLV:
                         return ApiEndpointTypes.ServerLinhLV.ToDescription();
+
+                    case ApiEndpointTypes.ServerDongLH:
+                        return ApiEndpointTypes.ServerDongLH.ToDescription();
 
                     case ApiEndpointTypes.ServerVNSAT:
                         return ApiEndpointTypes.ServerVNSAT.ToDescription();
@@ -145,6 +117,117 @@ namespace BA_MobileGPS.Utilities.Constant
 
                     default:
                         return ApiEndpointTypes.ServerTest.ToDescription();
+                }
+            }
+        }
+
+        /// <summary>
+        /// IP server chạy TCP
+        /// </summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// Namth  16/1/2018   created
+        /// </Modified>
+        public static string ServerIdentityHubIP
+        {
+            get
+            {
+                switch (ServerIdentityHubType)
+                {
+                    case ServerIdentityHubTypes.ServerCNN:
+                        return ServerIdentityHubTypes.ServerCNN.ToDescription();
+
+                    case ServerIdentityHubTypes.ServerThat:
+                        return ServerIdentityHubTypes.ServerThat.ToDescription();
+
+                    case ServerIdentityHubTypes.ServerTest:
+                        return ServerIdentityHubTypes.ServerTest.ToDescription();
+
+                    case ServerIdentityHubTypes.ServerVIVIEW:
+                        return ServerIdentityHubTypes.ServerVIVIEW.ToDescription();
+
+                    case ServerIdentityHubTypes.ServerVMS:
+                        return ServerIdentityHubTypes.ServerVMS.ToDescription();
+
+                    case ServerIdentityHubTypes.ServerMoto:
+                        return ServerIdentityHubTypes.ServerMoto.ToDescription();
+
+                    default:
+                        return ServerIdentityHubTypes.ServerTest.ToDescription();
+                }
+            }
+        }
+
+        /// <summary>
+        /// IP server chạy TCP
+        /// </summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// Namth  16/1/2018   created
+        /// </Modified>
+        public static string ServerVehicleOnlineHubIP
+        {
+            get
+            {
+                switch (ServerVehicleOnlineHubType)
+                {
+                    case ServerVehicleOnlineHubTypes.ServerCNN:
+                        return ServerVehicleOnlineHubTypes.ServerCNN.ToDescription();
+
+                    case ServerVehicleOnlineHubTypes.ServerThat:
+                        return ServerVehicleOnlineHubTypes.ServerThat.ToDescription();
+
+                    case ServerVehicleOnlineHubTypes.ServerTest:
+                        return ServerVehicleOnlineHubTypes.ServerTest.ToDescription();
+
+                    case ServerVehicleOnlineHubTypes.ServerVIVIEW:
+                        return ServerVehicleOnlineHubTypes.ServerVIVIEW.ToDescription();
+
+                    case ServerVehicleOnlineHubTypes.ServerVMS:
+                        return ServerVehicleOnlineHubTypes.ServerVMS.ToDescription();
+
+                    case ServerVehicleOnlineHubTypes.ServerMoto:
+                        return ServerVehicleOnlineHubTypes.ServerMoto.ToDescription();
+
+                    default:
+                        return ServerVehicleOnlineHubTypes.ServerTest.ToDescription();
+                }
+            }
+        }
+
+        /// <summary>
+        /// IP server chạy TCP
+        /// </summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// Namth  16/1/2018   created
+        /// </Modified>
+        public static string ServerAlertHubIP
+        {
+            get
+            {
+                switch (ServerAlertHubType)
+                {
+                    case ServerAlertHubTypes.ServerCNN:
+                        return ServerAlertHubTypes.ServerCNN.ToDescription();
+
+                    case ServerAlertHubTypes.ServerThat:
+                        return ServerAlertHubTypes.ServerThat.ToDescription();
+
+                    case ServerAlertHubTypes.ServerTest:
+                        return ServerAlertHubTypes.ServerTest.ToDescription();
+
+                    case ServerAlertHubTypes.ServerVIVIEW:
+                        return ServerAlertHubTypes.ServerVIVIEW.ToDescription();
+
+                    case ServerAlertHubTypes.ServerVMS:
+                        return ServerAlertHubTypes.ServerVMS.ToDescription();
+
+                    case ServerAlertHubTypes.ServerMoto:
+                        return ServerAlertHubTypes.ServerMoto.ToDescription();
+
+                    default:
+                        return ServerAlertHubTypes.ServerTest.ToDescription();
                 }
             }
         }

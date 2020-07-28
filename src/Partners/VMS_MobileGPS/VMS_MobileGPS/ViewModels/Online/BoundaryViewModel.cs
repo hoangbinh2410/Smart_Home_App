@@ -20,18 +20,10 @@ namespace VMS_MobileGPS.ViewModels
 {
     public class BoundaryViewModel : ViewModelBase
     {
+        #region Contructor
+
         private readonly IVehicleOnlineService vehicleOnlineService;
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> baseRepository;
-
-        private CancellationTokenSource cts;
-
-        private ObservableCollection<LandmarkResponse> listLandmark = new ObservableCollection<LandmarkResponse>();
-        public ObservableCollection<LandmarkResponse> ListLandmark { get => listLandmark; set => SetProperty(ref listLandmark, value); }
-
-        public List<LandmarkResponse> ListLandmarkOrigin = new List<LandmarkResponse>();
-
-        private bool hasBoundary = false;
-        public bool HasBoundary { get => hasBoundary; set => SetProperty(ref hasBoundary, value); }
 
         public ICommand CanelCommand { get; private set; }
         public ICommand UpdateCommand { get; private set; }
@@ -49,6 +41,10 @@ namespace VMS_MobileGPS.ViewModels
             CanelCommand = new DelegateCommand(Canel);
         }
 
+        #endregion
+
+        #region Lifecycle
+
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
@@ -59,6 +55,24 @@ namespace VMS_MobileGPS.ViewModels
         {
             base.OnNavigatedTo(parameters);
         }
+
+        #endregion
+
+        #region Property
+
+        private CancellationTokenSource cts;
+
+        private ObservableCollection<LandmarkResponse> listLandmark = new ObservableCollection<LandmarkResponse>();
+        public ObservableCollection<LandmarkResponse> ListLandmark { get => listLandmark; set => SetProperty(ref listLandmark, value); }
+
+        public List<LandmarkResponse> ListLandmarkOrigin = new List<LandmarkResponse>();
+
+        private bool hasBoundary = false;
+        public bool HasBoundary { get => hasBoundary; set => SetProperty(ref hasBoundary, value); }
+
+        #endregion
+
+        #region PrivateMethod
 
         private void GetListLandmark()
         {
@@ -150,5 +164,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             await NavigationService.GoBackAsync();
         }
+
+        #endregion
     }
 }

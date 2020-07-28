@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
 using Prism;
@@ -24,7 +25,7 @@ using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public abstract class ViewModelBase : BindableBase, INavigationAware, IInitialize, IInitializeAsync, IDestructible, IApplicationLifecycleAware, IDisposable
+    public abstract class ViewModelBase : ExtendedBindableObject, INavigationAware, IInitialize, IInitializeAsync, IDestructible, IApplicationLifecycleAware, IDisposable
     {
         protected INavigationService NavigationService { get; private set; }
         protected IEventAggregator EventAggregator { get; private set; }
@@ -58,6 +59,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public DelegateCommand SelectVehicleGroupCommand { get; private set; }
 
+
         public ViewModelBase(INavigationService navigationService)
         {
             if (navigationService == null)
@@ -77,7 +79,9 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectVehicleCommand = new DelegateCommand(SelectVehicle);
             SelectVehicleRouterCommand = new DelegateCommand(SelectVehicleRouter);
             SelectVehicleGroupCommand = new DelegateCommand(SelectVehicleGroup);
-        }
+            PushToAleartPageCommand = new DelegateCommand(PushToAlertPage);
+            CallHotLineCommand = new DelegateCommand(CallHotLine);
+        }      
 
         ~ViewModelBase()
         {
@@ -91,7 +95,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (e.NetworkAccess != NetworkAccess.Internet)
             {
                 // await NavigationService.NavigateAsync("NetworkPage");
-                //await PopupNavigation.Instance.PushAsync(new NetworkPage());
+                await PopupNavigation.Instance.PushAsync(new NetworkPage());
             }
             else
             {
@@ -329,11 +333,30 @@ namespace BA_MobileGPS.Core.ViewModels
                         { ParameterKey.VehicleGroupsSelected, VehicleGroups }
                     };
 
+
                 await NavigationService.NavigateAsync("BaseNavigationPage/VehicleGroupLookUp", navigationPara, useModalNavigation: true);
             });
         }
 
-        public ICommand PushToAleartPageCommand
+        private void PushToAlertPage()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("NavigationPage/AlertOnlinePage", useModalNavigation: true);
+            });
+        }
+        private void CallHotLine()
+        {
+            if (!string.IsNullOrEmpty(MobileSettingHelper.HotlineGps))
+            {
+                PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+            }
+        }
+
+        public ICommand PushToAleartPageCommand { get; }
+
+
+        public ICommand PushToNoticePageCommand
         {
             get
             {
@@ -341,11 +364,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     SafeExecute(async () =>
                     {
-                        await NavigationService.NavigateAsync("AlertOnlinePage", useModalNavigation: false);
+                        await NavigationService.NavigateAsync("NavigationPage/NotificationPage", useModalNavigation: true);
                     });
                 });
             }
         }
+
+        public ICommand CallHotLineCommand { get; }
 
         private LoginResponse userInfo;
 
@@ -416,5 +441,7 @@ namespace BA_MobileGPS.Core.ViewModels
             Settings.Rememberme = false;
             await NavigationService.NavigateAsync("/LoginPage");
         }
+
+
     }
 }

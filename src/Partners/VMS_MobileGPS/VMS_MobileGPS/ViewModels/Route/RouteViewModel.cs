@@ -1,6 +1,8 @@
 ﻿using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
+using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
@@ -28,8 +30,104 @@ namespace VMS_MobileGPS.ViewModels
 {
     public class RouteViewModel : ViewModelBase
     {
-        private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
+        #region Contructor
+
         private readonly IVehicleRouteService vehicleRouteService;
+        private readonly IDisplayMessage displayMessage;
+
+        public ICommand TimeSelectedCommand { get; }
+        public ICommand DateSelectedCommand { get; }
+        public ICommand SearchVehicleCommand { get; }
+        public ICommand GetVehicleRouteCommand { get; }
+        public ICommand ViewListCommand { get; }
+        public ICommand ChangeMapTypeCommand { get; }
+        public ICommand NavigateToSettingsCommand { get; }
+        public ICommand WatchVehicleCommand { get; }
+        public ICommand PinClickedCommand { get; }
+        public ICommand DragStartedCommand { get; }
+        public ICommand DragCompletedCommand { get; }
+        public ICommand PlayStopCommand { get; }
+        public ICommand IncreaseSpeedCommand { get; }
+        public ICommand DecreaseSpeedCommand { get; }
+        public ICommand FastStartCommand { get; }
+        public ICommand FastEndCommand { get; }
+
+        public RouteViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService, IDisplayMessage displayMessage)
+           : base(navigationService)
+        {
+            this.vehicleRouteService = vehicleRouteService;
+            this.displayMessage = displayMessage;
+
+            if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
+            {
+                mapType = MapType.Hybrid;
+                colorMapType = (Color)App.Current.Resources["GrayColor"];
+            }
+            else
+            {
+                mapType = MapType.Street;
+                colorMapType = (Color)App.Current.Resources["PrimaryColor"];
+            }
+
+            TimeSelectedCommand = new Command<string>(TimeSelected);
+            DateSelectedCommand = new Command<DateChangedEventArgs>(DateSelected);
+            SearchVehicleCommand = new Command(SearchVehicle);
+            GetVehicleRouteCommand = new Command(GetVehicleRoute);
+            ViewListCommand = new Command(ViewList);
+            ChangeMapTypeCommand = new Command(ChangeMapType);
+            NavigateToSettingsCommand = new Command(NavigateToSettings);
+            WatchVehicleCommand = new Command(WatchVehicle);
+            PinClickedCommand = new Command<PinClickedEventArgs>(PinClicked);
+            DragStartedCommand = new Command(DragStarted);
+            DragCompletedCommand = new Command(DragCompleted);
+            PlayStopCommand = new Command(PlayStop);
+            IncreaseSpeedCommand = new Command(IncreaseSpeed);
+            DecreaseSpeedCommand = new Command(DecreaseSpeed);
+            FastStartCommand = new Command(FastStart);
+            FastEndCommand = new Command(FastEnd);
+            EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
+        }
+
+        #endregion
+
+        #region Lifecycle
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+
+            if (parameters != null)
+            {
+                if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
+                {
+                    Vehicle = vehicle;
+
+                    GetVehicleRoute();
+                }
+                else if (parameters.ContainsKey(ParameterKey.VehicleOnline) && parameters.GetValue<VehicleOnline>(ParameterKey.VehicleOnline) is VehicleOnline vehicleOnline)
+                {
+                    Vehicle = new Vehicle()
+                    {
+                        GroupIDs = vehicleOnline.GroupIDs,
+                        PrivateCode = vehicleOnline.PrivateCode,
+                        VehicleId = vehicleOnline.VehicleId,
+                        VehiclePlate = vehicleOnline.VehiclePlate
+                    };
+
+                    GetVehicleRoute();
+                }
+            }
+        }
+
+        public override void OnDestroy()
+        {
+            if (ctsRouting != null)
+                ctsRouting.Cancel();
+        }
+
+        #endregion
+
+        #region Property
 
         private CancellationTokenSource ctsRouting = new CancellationTokenSource();
         private CancellationTokenSource ctsAddress = new CancellationTokenSource();
@@ -83,9 +181,9 @@ namespace VMS_MobileGPS.ViewModels
         public bool IsWatching { get => isWatching; set => SetProperty(ref isWatching, value); }
 
         public bool isPlaying;
-        public bool IsPlaying { get => isPlaying; set => SetProperty(ref isPlaying, value); }
+        public bool IsPlaying { get => isPlaying; set => SetProperty(ref isPlaying, value, relatedProperty: nameof(PlayStopImage)); }
 
-        public string PlayStopImage => IsPlaying ? "ic_stop_white" : "ic_play_arrow_white";
+        public string PlayStopImage => IsPlaying ? "ic_stop_white" : "ic_play";
 
         public int playSpeed = 4;
         public int PlaySpeed { get => playSpeed; set => SetProperty(ref playSpeed, value); }
@@ -102,206 +200,46 @@ namespace VMS_MobileGPS.ViewModels
         public bool playControlEnabled;
         public bool PlayControlEnabled { get => !playControlEnabled; set => SetProperty(ref playControlEnabled, value); }
 
-        public ICommand TimeSelectedCommand { get; }
-        public ICommand DateSelectedCommand { get; }
-        public ICommand SearchVehicleCommand { get; }
-        public ICommand GetVehicleRouteCommand { get; }
-        public ICommand ViewListCommand { get; }
-        public ICommand ChangeMapTypeCommand { get; }
-        public ICommand NavigateToSettingsCommand { get; }
-        public ICommand WatchVehicleCommand { get; }
-        public ICommand PinClickedCommand { get; }
-        public ICommand DragStartedCommand { get; }
-        public ICommand DragCompletedCommand { get; }
-        public ICommand PlayStopCommand { get; }
-        public ICommand IncreaseSpeedCommand { get; }
-        public ICommand DecreaseSpeedCommand { get; }
-        public ICommand FastStartCommand { get; }
-        public ICommand FastEndCommand { get; }
+        private readonly double SPEED_MAX = 8;
+        private readonly double BASE_TIME = 250;
 
-        public RouteViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService,
-            IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository)
-            : base(navigationService)
+        private readonly double MARKER_ROTATE_RATE = 0.1;
+        private double MARKER_ROTATE_STEP => 5;
+        private double MARKER_ROTATE_TIME_STEP => MARKER_ROTATE_RATE * BASE_TIME / PlaySpeed / MARKER_ROTATE_STEP;
+
+        private double MARKER_MOVE_RATE => 1 - MARKER_ROTATE_RATE;
+        private double MARKER_MOVE_STEP => 64 / PlaySpeed;
+        private double MARKER_MOVE_TIME_STEP => BASE_TIME / PlaySpeed / MARKER_MOVE_STEP;
+
+        private bool lastPlayStatus;
+
+        #endregion
+
+        #region PrivateMethod
+
+        private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
         {
-            this.vehicleRouteService = vehicleRouteService;
-            this.boundaryRepository = boundaryRepository;
-
-            if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
+            if (obj != null
+              && obj.Item2 != null
+              && obj.Item1 == ItemTabPageEnums.RoutePage
+              && obj.Item2.GetType() == typeof(VehicleOnline))
             {
-                mapType = MapType.Hybrid;
-                colorMapType = (Color)App.Current.Resources["GrayColor"];
-            }
-            else
-            {
-                mapType = MapType.Street;
-                colorMapType = (Color)App.Current.Resources["PrimaryColor"];
-            }
-
-            TimeSelectedCommand = new Command<string>(TimeSelected);
-            DateSelectedCommand = new Command<DateChangedEventArgs>(DateSelected);
-            SearchVehicleCommand = new Command(SearchVehicle);
-            GetVehicleRouteCommand = new Command(GetVehicleRoute);
-            ViewListCommand = new Command(ViewList);
-            ChangeMapTypeCommand = new Command(ChangeMapType);
-            NavigateToSettingsCommand = new Command(NavigateToSettings);
-            WatchVehicleCommand = new Command(WatchVehicle);
-            PinClickedCommand = new Command<PinClickedEventArgs>(PinClicked);
-            DragStartedCommand = new Command(DragStarted);
-            DragCompletedCommand = new Command(DragCompleted);
-            PlayStopCommand = new Command(PlayStop);
-            IncreaseSpeedCommand = new Command(IncreaseSpeed);
-            DecreaseSpeedCommand = new Command(DecreaseSpeed);
-            FastStartCommand = new Command(FastStart);
-            FastEndCommand = new Command(FastEnd);
-        }
-
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-            RaisePropertyChanged(nameof(PlayStopImage));
-        }
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
-
-            InitBoudary();
-
-            if (parameters != null)
-            {
-                if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
+                var vehicleOnline = (VehicleOnline)obj.Item2;
+                Vehicle = new Vehicle()
                 {
-                    Vehicle = vehicle;
+                    GroupIDs = vehicleOnline.GroupIDs,
+                    PrivateCode = vehicleOnline.PrivateCode,
+                    VehicleId = vehicleOnline.VehicleId,
+                    VehiclePlate = vehicleOnline.VehiclePlate
+                };
 
-                    GetVehicleRoute();
-                }
-                else if (parameters.ContainsKey(ParameterKey.VehicleOnline) && parameters.GetValue<VehicleOnline>(ParameterKey.VehicleOnline) is VehicleOnline vehicleOnline)
-                {
-                    Vehicle = new Vehicle()
-                    {
-                        GroupIDs = vehicleOnline.GroupIDs,
-                        PrivateCode = vehicleOnline.PrivateCode,
-                        VehicleId = vehicleOnline.VehicleId,
-                        VehiclePlate = vehicleOnline.VehiclePlate
-                    };
+                // Gán lại thời gian
+                DateStart  = DateTime.Today.Date;
+                DateEnd = DateTime.Now;
 
-                    GetVehicleRoute();
-                }
-            }
-        }
-
-        public void InitBoudary()
-        {
-            Boundaries.Clear();
-
-            //Polylines.Clear();
-
-            foreach (var line in Polylines.ToList().FindAll(l => "Boundary".Equals(l.Tag)))
-            {
-                Polylines.Remove(line);
+                GetVehicleRoute();
             }
 
-            var listBoudary = boundaryRepository.Find(b => b.IsShowBoudary);
-
-            foreach (var item in listBoudary)
-            {
-                AddBoundary(item);
-            }
-
-            if (GetControl<Map>("map") is Map map)
-            {
-                TryExecute(() =>
-                {
-                    foreach (var pin in map.Pins.Where(p => p.Tag.ToString().Contains("Boundary")).ToList())
-                    {
-                        map.Pins.Remove(pin);
-                    }
-                });
-            }
-
-            var listName = boundaryRepository.Find(b => b.IsShowName);
-
-            foreach (var item in listName)
-            {
-                AddName(item);
-            }
-        }
-
-        private void AddBoundary(LandmarkResponse boundary)
-        {
-            TryExecute(() =>
-            {
-                var result = boundary.Polygon.Split(',');
-
-                var color = Color.FromHex(ConvertIntToHex(boundary.Color));
-
-                if (boundary.IsClosed)
-                {
-                    var polygon = new Polygon
-                    {
-                        IsClickable = true,
-                        StrokeWidth = 1f,
-                        StrokeColor = color.MultiplyAlpha(.5),
-                        FillColor = color.MultiplyAlpha(.3),
-                        Tag = "Boundary"
-                    };
-
-                    for (int i = 0; i < result.Length; i += 2)
-                    {
-                        polygon.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
-                    }
-
-                    Boundaries.Add(polygon);
-                }
-                else
-                {
-                    var polyline = new Polyline
-                    {
-                        IsClickable = false,
-                        StrokeColor = color,
-                        StrokeWidth = 2f,
-                        Tag = "Boundary"
-                    };
-
-                    for (int i = 0; i < result.Length; i += 2)
-                    {
-                        polyline.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
-                    }
-
-                    Polylines.Add(polyline);
-                }
-            });
-        }
-
-        private void AddName(LandmarkResponse name)
-        {
-            TryExecute(() =>
-            {
-                if (GetControl<Map>("map") is Map map)
-                {
-                    TryExecute(() =>
-                    {
-                        map.Pins.Add(new Pin
-                        {
-                            Label = name.Name,
-                            Position = new Position(name.Latitude, name.Longitude),
-                            Icon = BitmapDescriptorFactory.FromView(new BoundaryNameInfoWindow(name.Name) { WidthRequest = name.Name.Length < 20 ? 6 * name.Name.Length : 110, HeightRequest = 18 * ((name.Name.Length / 20) + 1) }),
-                            Tag = "Boundary" + name.Name
-                        });
-                    });
-                }
-            });
-        }
-
-        public static string ConvertIntToHex(int value)
-        {
-            return value.ToString("X").PadLeft(6, '0');
-        }
-
-        public override void OnDestroy()
-        {
-            if (ctsRouting != null)
-                ctsRouting.Cancel();
         }
 
         private void TimeSelected(string args)
@@ -323,8 +261,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             if (ListRoute.Count <= 0)
             {
-                //UserDialogs.Instance.Toast(new ToastConfig(MobileResource.Route_Label_RouteNotExist) { Duration = TimeSpan.FromSeconds(3) });
-                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_RouteNotExist, MobileResource.Common_Label_Close);
+                displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotExist, 3000);
                 return;
             }
 
@@ -366,7 +303,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             if (IsWatching)
             {
-                FindCarColor = (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor"];
+                FindCarColor = (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor2"];
                 IsWatching = false;
 
                 if (IsPlaying)
@@ -414,7 +351,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Vehicle.VehiclePlate))
             {
-                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_VehicleEmpty, MobileResource.Common_Label_Close);
+                displayMessage.ShowMessageWarning(MobileResource.Route_Label_VehicleEmpty, 3000);
                 return false;
             }
 
@@ -452,13 +389,14 @@ namespace VMS_MobileGPS.ViewModels
             IsPlaying = false;
             PlayCurrent = 0;
             PlayControlEnabled = false;
+            DateKm = 0;
 
             DependencyService.Get<IHUDProvider>().DisplayProgress("");
 
             Task.Run(async () =>
             {
                 var currentCompany = Settings.CurrentCompany;
-
+               
                 var result = await vehicleRouteService.ValidateUserConfigGetHistoryRoute(new ValidateUserConfigGetHistoryRouteRequest
                 {
                     UserId = currentCompany?.UserId ?? UserInfo.UserId,
@@ -493,7 +431,7 @@ namespace VMS_MobileGPS.ViewModels
                         if (task.Result == null)
                         {
                             DependencyService.Get<IHUDProvider>().Dismiss();
-                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_RouteNotFound, MobileResource.Common_Label_Close);
+                            displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
                             return;
                         }
 
@@ -506,7 +444,7 @@ namespace VMS_MobileGPS.ViewModels
                         if (ListRoute.Count == 0)
                         {
                             DependencyService.Get<IHUDProvider>().Dismiss();
-                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_RouteNotFound, MobileResource.Common_Label_Close);
+                            displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
                             return;
                         }
 
@@ -677,7 +615,6 @@ namespace VMS_MobileGPS.ViewModels
 
                     if (GeoHelper.IsOriginLocation(listLatLng[i].Latitude, listLatLng[i].Longitude))
                         continue;
-
 
                     if (CalculateDistance(listLatLng[i - 1].Latitude, listLatLng[i - 1].Longitude, listLatLng[i].Latitude, listLatLng[i].Longitude) < 0.015
                          && !RouteHistory.StatePoints.Any(stp => stp.StartIndex == i && i == stp.EndIndex))
@@ -869,17 +806,6 @@ namespace VMS_MobileGPS.ViewModels
             //    map.SelectedPin = args.Pin;
             //}
         }
-
-        private readonly double SPEED_MAX = 8;
-        private readonly double BASE_TIME = 250;
-
-        private readonly double MARKER_ROTATE_RATE = 0.1;
-        private double MARKER_ROTATE_STEP => 5;
-        private double MARKER_ROTATE_TIME_STEP => MARKER_ROTATE_RATE * BASE_TIME / PlaySpeed / MARKER_ROTATE_STEP;
-
-        private double MARKER_MOVE_RATE => 1 - MARKER_ROTATE_RATE;
-        private double MARKER_MOVE_STEP => 64 / PlaySpeed;
-        private double MARKER_MOVE_TIME_STEP => BASE_TIME / PlaySpeed / MARKER_MOVE_STEP;
 
         private void PlayStop()
         {
@@ -1100,8 +1026,6 @@ namespace VMS_MobileGPS.ViewModels
             Polylines.Add(CurrentLine);
         }
 
-        private bool lastPlayStatus;
-
         private void DragStarted()
         {
             lastPlayStatus = IsPlaying;
@@ -1188,5 +1112,7 @@ namespace VMS_MobileGPS.ViewModels
 
             MoveToCurrent();
         }
+
+        #endregion
     }
 }

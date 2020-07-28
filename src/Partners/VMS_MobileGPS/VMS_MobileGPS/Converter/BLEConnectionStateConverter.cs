@@ -212,15 +212,39 @@ namespace VMS_MobileGPS.Converter
         {
             if (value == null)
             {
-                return Color.FromHex("#898989");
+                return (Color)App.Current.Resources["TextPrimaryColor"];
             }
             if ((bool)value)
             {
-                return Color.White;
+                return (Color)App.Current.Resources["DangerousColor"];
             }
             else
             {
-                return Color.FromHex("#898989");
+                return (Color)App.Current.Resources["TextPrimaryColor"];
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
+    public class SOSBackgroundColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return Color.White;
+            }
+            if ((bool)value)
+            {
+                return Color.FromHex("#FFD8D8");
+            }
+            else
+            {
+                return Color.White;
             }
         }
 
@@ -235,7 +259,7 @@ namespace VMS_MobileGPS.Converter
         {
             if (value == null)
             {
-                return Color.FromHex("#048BC5");
+                return (Color)App.Current.Resources["PrimaryColor"];
             }
             if ((bool)value)
             {
@@ -243,7 +267,7 @@ namespace VMS_MobileGPS.Converter
             }
             else
             {
-                return Color.FromHex("#048BC5");
+                return (Color)App.Current.Resources["PrimaryColor"];
             }
         }
 
@@ -262,7 +286,7 @@ namespace VMS_MobileGPS.Converter
             }
             if ((bool)value)
             {
-                return Color.FromHex("#048BC5"); ;
+                return (Color)App.Current.Resources["PrimaryColor"];
             }
             else
             {
@@ -298,78 +322,5 @@ namespace VMS_MobileGPS.Converter
             return null;
         }
     }
-    public class OffMapBtnZoomInConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null)
-                return Color.White;
-            if ((int)value >= GlobalResourcesVMS.Current.MaxOffMapZoom)
-            {
-                return Color.FromHex("26A1D9");
-            }
-            else return Color.White;
-
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
-    }
-    public class OffMapBtnZoomInIconConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null)
-                return Color.FromHex("26A1D9");
-            if ((int)value >= GlobalResourcesVMS.Current.MaxOffMapZoom)
-            {
-                return Color.White;
-            }
-            else return Color.FromHex("26A1D9");
-
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
-    }
-    public class OffMapBtnZoomOutConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null)
-                return Color.White;
-            if ((int)value <= GlobalResourcesVMS.Current.MinOffMapZoom)
-            {
-                return Color.FromHex("26A1D9");
-            }
-            else return Color.White;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
-    }
-    public class OffMapBtnZoomOutIconConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null)
-                return Color.FromHex("26A1D9");
-            if ((int)value <= GlobalResourcesVMS.Current.MinOffMapZoom)
-            {
-                return Color.White;
-            }
-            else return Color.FromHex("26A1D9");
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
-    }
+    
 }

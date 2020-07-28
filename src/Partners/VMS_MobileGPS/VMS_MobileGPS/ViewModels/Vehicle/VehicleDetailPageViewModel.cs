@@ -116,19 +116,6 @@ namespace VMS_MobileGPS.ViewModels
             }
         }
 
-        public ICommand ViewServicePackHistoryCommand => new Command(ViewServicePackHistory);
-
-        private void ViewServicePackHistory()
-        {
-            SafeExecute(async () =>
-            {
-                await NavigationService.NavigateAsync(PageNames.ServicePackHistoryPage.ToString(), new NavigationParameters
-                {
-                    { ParameterKey.ShipDetail, ShipDetailRespone }
-                });
-            });
-        }
-
         #endregion command
 
         #region execute command

@@ -2,7 +2,10 @@
 using BA_MobileGPS.Utilities.Constant;
 
 using FFImageLoading.Forms.Platform;
+using FFImageLoading.Svg.Forms;
+using LabelHtml.Forms.Plugin.iOS;
 using Lottie.Forms.iOS.Renderers;
+using PanCardView.iOS;
 using Plugin.Toasts;
 using Sharpnado.MaterialFrame.iOS;
 using Sharpnado.Presentation.Forms.iOS;
@@ -19,6 +22,7 @@ using Syncfusion.XForms.iOS.BadgeView;
 using Syncfusion.XForms.iOS.Border;
 using Syncfusion.XForms.iOS.Buttons;
 using Syncfusion.XForms.iOS.ComboBox;
+using Syncfusion.XForms.iOS.TabView;
 using Xamarin;
 using Xamarin.Forms.Platform.iOS;
 
@@ -37,9 +41,12 @@ namespace BA_MobileGPS.Core.iOS.Setup
             Rg.Plugins.Popup.Popup.Init();
 
             CachedImageRenderer.Init();
+            var ignore = typeof(SvgCachedImage);
             CachedImageRenderer.InitImageSourceHandler();
 
             SharpnadoInitializer.Initialize();
+
+            CardsViewRenderer.Preserve();
 
             //IQKeyboardManager.SharedManager.Enable = true;
 
@@ -67,10 +74,14 @@ namespace BA_MobileGPS.Core.iOS.Setup
             SfChartRenderer.Init();
             SfMapsRenderer.Init();
             SfBusyIndicatorRenderer.Init();
-            //SfTabViewRenderer.Init();
+            SfTabViewRenderer.Init();
             //SfRatingRenderer.Init();
             //SfPopupLayoutRenderer.Init();
             //SfRangeSliderRenderer.Init();
+
+            // HtmlLabel
+            HtmlLabelRenderer.Initialize();
+            
         }
     }
 }

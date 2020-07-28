@@ -145,8 +145,9 @@ namespace BA_MobileGPS.Core.Views
 
             contentFrame = new Frame
             {
+                BackgroundColor = Color.White,
                 Padding = 5,
-                CornerRadius = 5,
+                CornerRadius = CornerRadius,
                 HasShadow = false,
                 IsClippedToBounds = true,
                 BorderColor = BorderColor,
@@ -317,6 +318,29 @@ namespace BA_MobileGPS.Core.Views
                 return;
 
             control.dateTimeText.Text = dateTime.FormatDateTime();
+        }
+
+        public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(DateTimePickerView),
+           (float)5, BindingMode.TwoWay, propertyChanged: OnCornerRadiusChanged);
+
+        public float CornerRadius
+        {
+            get { return (float)GetValue(CornerRadiusProperty); }
+            set { SetValue(CornerRadiusProperty, value); }
+        }
+
+        private static void OnCornerRadiusChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            
+            if (!(bindable is DateTimePickerView control))
+                return;
+
+            if (newValue.Equals(oldValue) || newValue == null)
+            {
+                return;
+            }
+
+            control.contentFrame.CornerRadius = (float)newValue;
         }
     }
 }

@@ -3,6 +3,7 @@
     x:Class="VMS_MobileGPS.Views.OfflinePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors;assembly=BA_MobileGPS.Core"
     xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:converters="clr-namespace:VMS_MobileGPS.Converter"
@@ -11,11 +12,10 @@
     xmlns:local="clr-namespace:BA_MobileGPS.Utilities;assembly=BA_MobileGPS.Utilities"
     xmlns:localstatic="clr-namespace:VMS_MobileGPS.Constant;assembly=VMS_MobileGPS"
     xmlns:prism="http://prismlibrary.com"
-    xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    xmlns:switch="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     prism:ViewModelLocator.AutowireViewModel="True"
-    NavigationPage.BackButtonTitle="">
+    NavigationPage.BackButtonTitle=" "
+    NavigationPage.HasBackButton="False">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:BLEConnectionStateConverter x:Key="BLEConnectionStateConverter" />
@@ -23,6 +23,7 @@
             <converters:TotalNotificationDisplayConverter x:Key="TotalNotificationDisplayConverter" />
             <converters:SOSStateColorConverter x:Key="SOSStateColorConverter" />
             <converters:SOSStateTextColorConverter x:Key="SOSStateTextColorConverter" />
+            <converters:SOSBackgroundColorConverter x:Key="SOSBackgroundColorConverter" />
             <converters:BLENameConverter x:Key="BLENameConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -41,18 +42,19 @@
             <badge:SfBadgeView
                 Grid.Column="1"
                 Margin="5,0,0,5"
+                BackgroundColor="Transparent"
                 BadgeText="{Binding TotalMessage, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource TotalNotificationDisplayConverter}}"
                 HorizontalOptions="EndAndExpand"
                 VerticalOptions="Center">
                 <badge:SfBadgeView.Content>
                     <controls:FontAwesomeIcon
-                        Margin="10,0,10,0"
-                        FontAttributes="Bold"
+                        Margin="5,0,5,0"
                         FontSize="25"
-                        HorizontalOptions="End"
-                        Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}"
-                        TextColor="White"
-                        VerticalOptions="Center">
+                        StyleClass="TopIconView"
+                        Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}">
+                        <controls:FontAwesomeIcon.Behaviors>
+                            <animation:ViewTappedBehavior AnimationType="Scale" />
+                        </controls:FontAwesomeIcon.Behaviors>
                         <controls:FontAwesomeIcon.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigateToCommand}" CommandParameter="{x:Static local:PageNames.NotificationMessagePage}" />
                         </controls:FontAwesomeIcon.GestureRecognizers>
@@ -111,23 +113,19 @@
                             TextColor="{StaticResource TextSecondaryColor}"
                             VerticalOptions="Center" />
                     </StackLayout>
-
                 </StackLayout>
 
-                <switch:SfSwitch
-                    Grid.Column="2"
-                    HorizontalOptions="CenterAndExpand"
-                    IsOn="{Binding IsConnectBLE}"
-                    VerticalOptions="CenterAndExpand"
-                    VisualType="Cupertino">
-                    <switch:SfSwitch.Behaviors>
-                        <prismbehaviors:EventToCommandBehavior
-                            Command="{Binding ConnectBleCommand}"
-                            EventArgsConverter="{StaticResource SwitchStateChangedEventArgsConverter}"
-                            EventName="StateChanged" />
-                    </switch:SfSwitch.Behaviors>
-
-                </switch:SfSwitch>
+                <StackLayout Grid.Column="2" Orientation="Horizontal">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ConnectBleCommand}" />
+                    </StackLayout.GestureRecognizers>
+                    <Switch
+                        HorizontalOptions="CenterAndExpand"
+                        InputTransparent="True"
+                        IsToggled="{Binding IsConnectBLE}"
+                        OnColor="{StaticResource PrimaryColor}"
+                        VerticalOptions="CenterAndExpand" />
+                </StackLayout>
             </Grid>
 
             <StackLayout
@@ -140,7 +138,10 @@
                         <ColumnDefinition Width=".5*" />
                         <ColumnDefinition Width=".5*" />
                     </Grid.ColumnDefinitions>
-                    <sharpnado:MaterialFrame Grid.Column="0" CornerRadius="10">
+                    <sharpnado:MaterialFrame
+                        Grid.Column="0"
+                        CornerRadius="10"
+                        LightThemeBackgroundColor="{Binding DeviceManager.IsSendSOS, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource SOSBackgroundColorConverter}}">
                         <sharpnado:MaterialFrame.GestureRecognizers>
                             <TapGestureRecognizer
                                 Command="{Binding NavigateToCommand}"
@@ -166,6 +167,7 @@
                                 <Label
                                     HorizontalOptions="CenterAndExpand"
                                     Text="Cảnh báo SOS"
+                                    TextColor="{Binding DeviceManager.IsSendSOS, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource SOSStateTextColorConverter}}"
                                     VerticalOptions="Center" />
                             </StackLayout>
                         </Grid>

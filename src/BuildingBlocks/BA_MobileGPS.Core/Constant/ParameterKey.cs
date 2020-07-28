@@ -11,6 +11,7 @@
         public const string Vehicle = "Vehicle";
         public const string VehicleGroupSelected = "VehicleGroupSelected";
         public const string ReportPourFuelSelected = "ReportPourFuelSelected";
+        public const string ReportSignalLossSelected = "ReportSignalLossSelected";
         public const string ReportTemperatureSelected = "ReportTemperatureSelected";
         public const string ReportMachineVehicleSelected = "ReportMachineVehicleSelected";
         public const string ReportSpeedOversSelected = "ReportSpeedOversSelected";
@@ -47,5 +48,8 @@
 
         public const string ShipDetail = "ShipDetail";
         public const string RedirectDebtBlock = "RedirectDebtBlock";
+
+        public const string AlertCompanyConfig = "AlertCompanyConfig";
+        public const string AlertVehicleConfig = "AlertVehicleConfig";
     }
 }

@@ -6,16 +6,19 @@ namespace BA_MobileGPS.Core.Views
     {
         public LoginPage()
         {
-            try
-            {
-                InitializeComponent();
-            }
-            catch (System.Exception ex)
-            {
+            InitializeComponent();         
+        }
 
-                throw;
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (Settings.IsFirstLoadLogin)
+            {
+                account.Text = string.Empty;
+                pass.Text = string.Empty;
+                Settings.IsFirstLoadLogin = false;
+
             }
-            
         }
     }
 }

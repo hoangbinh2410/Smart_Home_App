@@ -1,4 +1,6 @@
 ﻿using BA_MobileGPS.Core.Controls;
+using BA_MobileGPS.Core.Resource;
+using LabelHtml.Forms.Plugin.Abstractions;
 using Prism.AppModel;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
@@ -35,13 +37,16 @@ namespace BA_MobileGPS.Core.Views
            Color? buttonColor = null, Color? buttonTextColor = null,
             Action<bool> callBack = null)
         {
+            var yes = MobileResource.Common_Button_OK;
+            var no = MobileResource.Common_Button_Cancel;
+
             InitializeComponent();
             _title = title;
             _iconPositon = iconPosititon;
             _messenger = messenger;
             _iconImageSource = iconSource;
-            _noBtnText = string.IsNullOrEmpty(noBtnText) ? "Từ chối" : noBtnText;
-            _yesBtnText = string.IsNullOrEmpty(yesBtnText) ? "Đồng ý" : yesBtnText;
+            _noBtnText = string.IsNullOrEmpty(noBtnText) ? no : noBtnText;
+            _yesBtnText = string.IsNullOrEmpty(yesBtnText) ? yes : yesBtnText;
             _callBack = callBack;
             _iconColor = iconColor;
             _buttonColor = buttonColor;
@@ -64,20 +69,20 @@ namespace BA_MobileGPS.Core.Views
                                                                   new ColumnDefinition() { Width = GridLength.Auto}};
             body.HorizontalOptions = LayoutOptions.Center;
 
-            var title = new Label();
+            var title = new HtmlLabel();
             title.Margin = new Thickness(20, 10,0, 0);
-            title.TextType = TextType.Html;
+            //title.TextType = TextType.Html;
             title.Text = "<strong>" + _title + "</strong>";
-            title.FontSize = 16;
+            title.FontSize = 17;
             title.FontAttributes = FontAttributes.Bold; 
             title.HorizontalOptions = LayoutOptions.Center;
             title.VerticalTextAlignment = TextAlignment.Center;
 
-            var messenger = new Label();
+            var messenger = new HtmlLabel();
             messenger.Text = _messenger;
-            messenger.FontSize = 13;
+            messenger.FontSize = 14;
             messenger.HorizontalOptions = LayoutOptions.StartAndExpand;
-            messenger.TextType = TextType.Html;
+            //messenger.TextType = TextType.Html;
             title.TextColor = _textColor == null ? Color.Black : (Color)_textColor;
             messenger.TextColor = _textColor == null ? Color.Black : (Color)_textColor;
             messenger.HorizontalTextAlignment = TextAlignment.Start;
@@ -158,7 +163,7 @@ namespace BA_MobileGPS.Core.Views
             btnNo.Text = _noBtnText;
 
             btnNo.Padding = 0;
-            btnNo.HeightRequest = 25;
+            btnNo.HeightRequest = 35;
 
             btnNo.FontSize = 13;
             btnNo.Clicked += BtnNo_Clicked;
@@ -170,7 +175,7 @@ namespace BA_MobileGPS.Core.Views
             btnYes.TextColor = _buttonTextColor == null ? Color.Black : (Color)_buttonTextColor;
 
             btnYes.Padding = 0;
-            btnYes.HeightRequest = 25;
+            btnYes.HeightRequest = 35;
             btnYes.FontSize = 13;
             btnYes.Clicked += BtnYes_Clicked;
 

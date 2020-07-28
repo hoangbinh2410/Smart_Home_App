@@ -127,5 +127,66 @@ namespace BA_MobileGPS.Service
             }
             return result;
         }
+
+        public async Task<List<AlertCompanyConfigRespone>> GetAlertCompanyConfig(int companyID)
+        {
+            var result = new List<AlertCompanyConfigRespone>();
+            try
+            {
+                var url = string.Format(ApiUri.GET_LIST_ALERT_COMPANY_CONFIG_BY_COMPANYID + "?companyID={0}", companyID);
+
+                var data = await _IRequestProvider.GetAsync<BaseResponse<List<AlertCompanyConfigRespone>>>(url);
+
+                if (data != null)
+                {
+                    result = data.Data;
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
+            }
+            return result;
+        }
+
+        public async Task<AlertUserConfigurationsRespone> GetAlertUserConfigurations(Guid userId)
+        {
+            var result = new AlertUserConfigurationsRespone();
+            try
+            {
+                var url = string.Format(ApiUri.GET_ALERT_USER_CONFIGURATIONS + "?userId={0}", userId);
+
+                var data = await _IRequestProvider.GetAsync<BaseResponse<AlertUserConfigurationsRespone>>(url);
+
+                if (data != null)
+                {
+                    result = data.Data;
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
+            }
+            return result;
+        }
+
+        public async Task<BaseResponse<bool>> SendAlertUserConfig(AlertUserConfigurationsRequest request)
+        {
+            BaseResponse<bool> result = new BaseResponse<bool>();
+            try
+            {
+                var data = await _IRequestProvider.PostAsync<AlertUserConfigurationsRequest, BaseResponse<bool>>(ApiUri.SEND_ALERT_USER_CONFIG, request);
+
+                if (data != null && data.Data)
+                {
+                    result = data;
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
+            }
+            return result;
+        }
     }
 }

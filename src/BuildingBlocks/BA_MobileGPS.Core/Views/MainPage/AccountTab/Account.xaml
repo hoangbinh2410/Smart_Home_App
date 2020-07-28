@@ -3,9 +3,104 @@
     x:Class="BA_MobileGPS.Core.Views.Account"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:prism="http://prismlibrary.com">
-    <Label
-        FontSize="20"
-        Text="Acc"
-        VerticalOptions="Center" />
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms">
+    <ContentView.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Grid.Column" Value="1" />
+            <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+            <Setter Property="VerticalTextAlignment" Value="Center" />
+        </Style>
+    </ContentView.Resources>
+    <Grid BackgroundColor="{StaticResource WhiteColor}" RowDefinitions="150,*,Auto">
+        <Grid BackgroundColor="{StaticResource PrimaryColor}" />
+        <StackLayout
+            Margin="30,0,0,20"
+            Orientation="Horizontal"
+            Spacing="10"
+            VerticalOptions="EndAndExpand">
+            <pancake:PancakeView
+                Padding="0"
+                BackgroundColor="Transparent"
+                CornerRadius="45"
+                HeightRequest="90"
+                WidthRequest="90">
+                <pancake:PancakeView.Border>
+                    <pancake:Border Thickness="3" Color="White" />
+                </pancake:PancakeView.Border>
+                <pancake:PancakeView
+                    Padding="0"
+                    CornerRadius="40"
+                    HeightRequest="80"
+                    HorizontalOptions="Center"
+                    IsClippedToBounds="True"
+                    VerticalOptions="Center"
+                    WidthRequest="80">
+                    <ff:CachedImage Aspect="AspectFill" Source="{Binding UserInfo.AvatarUrl, Converter={StaticResource AddRootImageConverter}}" />
+                </pancake:PancakeView>
+            </pancake:PancakeView>
+            <StackLayout Spacing="7" VerticalOptions="CenterAndExpand">
+                <Label
+                    FontAttributes="Bold"
+                    FontFamily="{StaticResource myFontLatoBold}"
+                    LineBreakMode="WordWrap"
+                    Text="{Binding UserInfo.FullName}"
+                    TextColor="{AppThemeBinding Light={StaticResource WhiteColor},
+                                                Dark={StaticResource WhiteColor}}" />
+                <Label Text="{Binding UserInfo.PhoneNumber}" TextColor="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
+                <StackLayout
+                    Padding="0"
+                    Orientation="Horizontal"
+                    Spacing="5">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PushToProfileCommand}" NumberOfTapsRequired="1" />
+                    </StackLayout.GestureRecognizers>
+                    <Label Text="{i18n:TranslateResource AccountTab_Label_MyInformation}" TextColor="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
+                    <controls:IconView
+                        Margin="0,2,0,0"
+                        Foreground="White"
+                        HeightRequest="10"
+                        Source="ic_next.png"
+                        WidthRequest="10" />
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+        <syncfusion:SfListView
+            Grid.Row="1"
+            Padding="10,0"
+            ItemSpacing="10"
+            ItemsSource="{Binding MenuItems, Mode=OneWay}"
+            SelectionBackgroundColor="Transparent"
+            TapCommand="{Binding NavigateCommand}">
+            <syncfusion:SfListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        ColumnDefinitions="30,*,15"
+                        ColumnSpacing="20"
+                        RowDefinitions="*,1"
+                        RowSpacing="5">
+                        <controls:IconView
+                            Foreground="{Binding IconColor}"
+                            HeightRequest="30"
+                            Source="{Binding Icon}"
+                            WidthRequest="30" />
+                        <Label Grid.Column="1" Text="{Binding Title}" />
+                        <ff:CachedImage Grid.Column="2" Source="ic_next.png" />
+                        <BoxView
+                            Grid.Row="1"
+                            Grid.ColumnSpan="3"
+                            Opacity="0.2"
+                            StyleClass="AccountLine"
+                            VerticalOptions="CenterAndExpand" />
+                    </Grid>
+                </DataTemplate>
+            </syncfusion:SfListView.ItemTemplate>
+        </syncfusion:SfListView>
+    </Grid>
 </ContentView>

@@ -12,8 +12,9 @@
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
-    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
@@ -30,11 +31,11 @@
             </ResourceDictionary.MergedDictionaries>
             <converter:HasDataConverter x:Key="HasDataConverter" />
         </ResourceDictionary>
-        <Style TargetType="pancake:PancakeView">
-            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BlueDarkColor}, Dark={StaticResource BlueDarkColor}}" />
-            <Setter Property="HeightRequest" Value="40" />
+        <Style TargetType="sharpnado:MaterialFrame">
+            <Setter Property="LightThemeBackgroundColor" Value="{AppThemeBinding Light={StaticResource BlueDarkColor}, Dark={StaticResource BlueDarkColor}}" />
             <Setter Property="WidthRequest" Value="40" />
             <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="Padding" Value="0" />
         </Style>
     </ContentPage.Resources>
     <Grid RowSpacing="0">
@@ -47,7 +48,7 @@
         <Grid RowDefinitions="*,2.8*">
             <StackLayout
                 Grid.Row="0"
-                Margin="0,45,0,0"
+                Margin="0,30,0,0"
                 Padding="20,0"
                 HorizontalOptions="End"
                 Orientation="Horizontal"
@@ -74,8 +75,10 @@
                 Source="logo_VNSAT.png"
                 VerticalOptions="EndAndExpand" />
             <StackLayout Grid.Row="1" Spacing="15">
-                <!--  Body  -->
-                <StackLayout Spacing="15" VerticalOptions="CenterAndExpand">
+                <Grid
+                    RowDefinitions="Auto,Auto,40,40"
+                    RowSpacing="5"
+                    VerticalOptions="CenterAndExpand">
                     <!--  Entry  -->
                     <input:SfTextInputLayout
                         ContainerType="Outlined"
@@ -83,44 +86,39 @@
                         HasError="{Binding UserName.IsNotValid}"
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
-                            <pancake:PancakeView HeightRequest="40">
+                            <sharpnado:MaterialFrame HeightRequest="40">
                                 <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.User}" />
-                            </pancake:PancakeView>
+                            </sharpnado:MaterialFrame>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
-                            <Entry
-                                HeightRequest="40"
+                            <Entry x:Name="account"
+                                HeightRequest="{OnPlatform Android=40,
+                                                           iOS=30}"
                                 Placeholder="{i18n:TranslateResource Login_Textbox_UserName}"
-                                Text="{Binding UserName.Value}">
-                                <Entry.Effects>
-                                    <effect:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
+                                Text="{Binding UserName.Value}" />
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
                     <input:SfTextInputLayout
-                        Margin="0,7"
+                        Grid.Row="1"
                         ErrorText="{Binding Password.ErrorFirst}"
                         HasError="{Binding Password.IsNotValid}"
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
-                            <pancake:PancakeView HeightRequest="40">
+                            <sharpnado:MaterialFrame HeightRequest="40">
                                 <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.Lock}" />
-                            </pancake:PancakeView>
+                            </sharpnado:MaterialFrame>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
-                            <Entry
-                                HeightRequest="40"
+                            <Entry x:Name="pass"
+                                HeightRequest="{OnPlatform Android=40,
+                                                           iOS=30}"
                                 IsPassword="True"
                                 Placeholder="{i18n:TranslateResource Login_Textbox_Password}"
-                                Text="{Binding Password.Value}">
-                                <Entry.Effects>
-                                    <effect:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
+                                Text="{Binding Password.Value}" />
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
                     <StackLayout
+                        Grid.Row="2"
                         HorizontalOptions="CenterAndExpand"
                         Orientation="Horizontal"
                         WidthRequest="300">
@@ -144,6 +142,7 @@
                         </Label>
                     </StackLayout>
                     <Button
+                        Grid.Row="3"
                         Padding="0"
                         BackgroundColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
                                                           Dark={StaticResource BlueDarkColor}}"
@@ -154,35 +153,44 @@
                         Text="{i18n:TranslateResource Login_Button_Login}"
                         TextColor="White"
                         WidthRequest="300" />
-                </StackLayout>
+                </Grid>
                 <!--  Footer  -->
                 <Grid
                     Margin="0,0,0,20"
                     HeightRequest="40"
                     VerticalOptions="EndAndExpand">
-                    <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
-                        <pancake:PancakeView>
-                            <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.PhoneVolume}" />
-                            <pancake:PancakeView.GestureRecognizers>
+                    <StackLayout
+                        Margin="20,0,0,0"
+                        Orientation="Horizontal"
+                        Spacing="20">
+                        <sharpnado:MaterialFrame>
+                            <controls:FontAwesomeIcon
+                                Rotation="90"
+                                StyleClass="LoginAwesomeIcon"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.Phone}" />
+                            <sharpnado:MaterialFrame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding CallHotLineCommand}" NumberOfTapsRequired="1" />
-                            </pancake:PancakeView.GestureRecognizers>
-                        </pancake:PancakeView>
-                        <pancake:PancakeView>
+                            </sharpnado:MaterialFrame.GestureRecognizers>
+                        </sharpnado:MaterialFrame>
+                        <sharpnado:MaterialFrame>
                             <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.MailBulk}" />
-                            <pancake:PancakeView.GestureRecognizers>
+                            <sharpnado:MaterialFrame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SendEmailCommand}" NumberOfTapsRequired="1" />
-                            </pancake:PancakeView.GestureRecognizers>
-                        </pancake:PancakeView>
-                        <pancake:PancakeView>
+                            </sharpnado:MaterialFrame.GestureRecognizers>
+                        </sharpnado:MaterialFrame>
+                        <sharpnado:MaterialFrame>
                             <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.Globe}" />
-                        </pancake:PancakeView>
+                            <sharpnado:MaterialFrame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenWebGPSCommand}" NumberOfTapsRequired="1" />
+                            </sharpnado:MaterialFrame.GestureRecognizers>
+                        </sharpnado:MaterialFrame>
                     </StackLayout>
                     <controls:IconView
                         Margin="0,0,20,0"
                         Foreground="{AppThemeBinding Light={StaticResource BlueDarkColor},
                                                      Dark={StaticResource BlueDarkColor}}"
                         HorizontalOptions="End"
-                        Source="ic_FourSquare.png"
+                        Source="ic_foursquare.png"
                         WidthRequest="40">
                         <controls:IconView.Behaviors>
                             <animation:ViewTappedBehavior AnimationType="Scale" />

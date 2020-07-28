@@ -84,6 +84,7 @@
             IsVisible="{OnPlatform iOS=true,
                                    Android=false}"
             Placeholder="{i18n:TranslateResource Common_Message_SearchText}"
+            
             Text="{Binding SearchedText}"
             VerticalOptions="Center">
             <SearchBar.Behaviors>

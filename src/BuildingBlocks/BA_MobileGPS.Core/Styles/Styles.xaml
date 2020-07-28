@@ -15,6 +15,17 @@
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource GrayColor}, Dark={StaticResource GrayColor}}" />
     </Style>
 
+    <Style TargetType="ListView">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
+    </Style>
+    <Style ApplyToDerivedTypes="True" TargetType="SearchBar">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimaryColor}, Dark={StaticResource TextPrimaryColor}}" />
+        <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource TextPlaceHolderColor}, Dark={StaticResource TextPlaceHolderColor}}" />
+        <Setter Property="FontSize" Value="{StaticResource MyFontSize}" />
+        <Setter Property="FontFamily" Value="{StaticResource myFontFamily}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
+    </Style>
+
     <Style ApplyToDerivedTypes="True" TargetType="NavigationPage">
         <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
         <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
@@ -80,9 +91,8 @@
         <Setter Property="ShowHelperText" Value="False" />
         <Setter Property="ContainerType" Value="Outlined" />
         <Setter Property="FocusedStrokeWidth" Value="1" />
-        <Setter Property="HorizontalOptions" Value="FillAndExpand" />
         <Setter Property="ErrorColor" Value="{AppThemeBinding Light={StaticResource DangerousColor}, Dark={StaticResource DangerousColor}}" />
-        <Setter Property="FocusedColor" Value="{AppThemeBinding Light={StaticResource BluePrimaryColor}, Dark={StaticResource BluePrimaryColor}}" />
+        <!--<Setter Property="FocusedColor" Value="{AppThemeBinding Light={StaticResource BluePrimaryColor}, Dark={StaticResource BluePrimaryColor}}" />-->
     </Style>
 
     <Style TargetType="ffImage:CachedImage">
@@ -155,15 +165,20 @@
         <Setter Property="HeightRequest" Value="1" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
     </Style>
+    <Style Class="AccountLine" TargetType="BoxView">
+        <Setter Property="HeightRequest" Value="1" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource TextPlaceHolderColor}, Dark={StaticResource TextPlaceHolderColor}}" />
+    </Style>
 
     <!--  Sf Text Input Layout  -->
     <Style Class="LoginEntry" TargetType="input:SfTextInputLayout">
         <Setter Property="ContainerBackgroundColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
-        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="ContainerType" Value="Outlined" />
         <Setter Property="WidthRequest" Value="300" />
         <Setter Property="OutlineCornerRadius" Value="20" />
-        <Setter Property="InputViewPadding" Value="15,0,0,0" />
         <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Fill" />
+        <Setter Property="InputViewPadding" Value="{OnPlatform Android='11,0,11,0', iOS='11,5,11,5'}" />
     </Style>
     <Style Class="LoginAwesomeIcon" TargetType="controls:FontAwesomeIcon">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
@@ -184,9 +199,8 @@
 
     <!--  Top IconView : 4 icons  -->
     <Style Class="TopIconView" TargetType="controls:FontAwesomeIcon">
-        <Setter Property="HeightRequest" Value="40" />
-        <Setter Property="WidthRequest" Value="40" />
         <Setter Property="Margin" Value="0" />
+        <Setter Property="FontSize" Value="30" />
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
         <Setter Property="VerticalTextAlignment" Value="Center" />
     </Style>
@@ -199,10 +213,15 @@
         <Setter Property="Source" Value="{AppThemeBinding Light={StaticResource HomePageBotImageSource}, Dark={StaticResource HomePageBotImageSource}}" />
     </Style>
 
+    <OnPlatform
+        x:Key="HeightTitleBarGrid"
+        x:TypeArguments="x:Double"
+        Android="60"
+        iOS="70" />
     <!--  TitleBar  -->
     <Style Class="TitleBarGrid" TargetType="Grid">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
-        <Setter Property="HeightRequest" Value="85" />
+        <Setter Property="HeightRequest" Value="{StaticResource HeightTitleBarGrid}" />
         <Setter Property="Padding" Value="15,5" />
     </Style>
 
