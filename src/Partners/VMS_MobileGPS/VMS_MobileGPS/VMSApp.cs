@@ -3,6 +3,9 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 using BA_MobileGPS.Utilities.Enums;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Prism;
 using Prism.Ioc;
 using Prism.Mvvm;
@@ -34,14 +37,13 @@ namespace VMS_MobileGPS
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerVMS;
             ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerVMS;
 
-            //AppCenter.Start("ios=9a0650ec-057e-4e5a-b8de-4c3fd1fae415;" +
-            //      "android=28d78b27-4b62-42e5-8db5-8e2d50de6a3a",
-            //      typeof(Analytics), typeof(Crashes));
+            AppCenter.Start("ios=9a0650ec-057e-4e5a-b8de-4c3fd1fae415;" +
+                "android=28d78b27-4b62-42e5-8db5-8e2d50de6a3a",
+                typeof(Analytics), typeof(Crashes));
 
             AppManager.Init();
 
             await NavigationService.NavigateAsync("/NavigationPage/OfflinePage");
-            //await NavigationService.NavigateAsync("/LoginPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -74,7 +76,6 @@ namespace VMS_MobileGPS
             containerRegistry.RegisterForNavigation<NotificationMessagePage, NotificationMessageViewModel>(PageNames.NotificationMessagePage.ToString());
             containerRegistry.RegisterForNavigation<OfflineMap, OfflineMapViewModel>("OffMap");
 
-
             containerRegistry.RegisterForNavigation<BoundaryPage, BoundaryViewModel>("BoundaryPage");
             containerRegistry.RegisterForNavigation<DistancePage, DistancePageViewModel>("DistancePage");
             containerRegistry.RegisterForNavigation<VehicleDetailPage, VehicleDetailViewModel>("VehicleDetailPage");
@@ -83,7 +84,6 @@ namespace VMS_MobileGPS
             containerRegistry.RegisterForNavigation<ServicePackHistoryPage, ServicePackHistoryViewModel>("ServicePackHistoryPage");
             containerRegistry.RegisterForNavigation<PackageInfosPage, PackageInfosViewModel>("PackageInfosPage");
 
-
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
             ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
             ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
@@ -91,7 +91,6 @@ namespace VMS_MobileGPS
             containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
             containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
             containerRegistry.Register<ContentView, RoutePage>("RouteTab");
-
         }
     }
 }

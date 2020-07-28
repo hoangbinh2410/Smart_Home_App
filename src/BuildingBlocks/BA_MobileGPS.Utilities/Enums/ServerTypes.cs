@@ -51,7 +51,7 @@ namespace BA_MobileGPS.Utilities.Enums
     /// </Modified>
     public enum ServerIdentityHubTypes
     {
-        [Description("signalr.vietnamcnn.vn")]
+        [Description("http://logincnn.bagroup.vn")]
         ServerCNN,
 
         [Description("http://loginbagps.bagroup.vn")]
@@ -63,7 +63,7 @@ namespace BA_MobileGPS.Utilities.Enums
         [Description("http://125.212.226.154:6656")]
         ServerTest,
 
-        [Description("signalrviview.bagroup.vn")]
+        [Description("http://loginviview.bagroup.vn")]
         ServerVIVIEW,
 
         [Description("http://loginbagps.bagroup.vn")]
@@ -82,7 +82,7 @@ namespace BA_MobileGPS.Utilities.Enums
     /// </Modified>
     public enum ServerVehicleOnlineHubTypes
     {
-        [Description("signalr.vietnamcnn.vn")]
+        [Description("http://vehicleonlinecnn.bagroup.vn")]
         ServerCNN,
 
         [Description("http://vehicleonlinegps.bagroup.vn")]
@@ -94,13 +94,13 @@ namespace BA_MobileGPS.Utilities.Enums
         [Description("http://125.212.226.154:6656")]
         ServerTest,
 
-        [Description("signalrviview.bagroup.vn")]
+        [Description("http://vehicleonlineviview.bagroup.vn")]
         ServerVIVIEW,
 
         [Description("http://vehicleonlinegps.bagroup.vn")]
         ServerVMS,
 
-        [Description("http://115.84.179.34:1656")]
+        [Description("http://vehicleonlinemoto.bagroup.vn")]
         ServerMoto,
     }
 
@@ -113,7 +113,7 @@ namespace BA_MobileGPS.Utilities.Enums
     /// </Modified>
     public enum ServerAlertHubTypes
     {
-        [Description("")]
+        [Description("http://alertcnn.bagroup.vn")]
         ServerCNN,
 
         [Description("http://alertgps.bagroup.vn")]
@@ -125,13 +125,13 @@ namespace BA_MobileGPS.Utilities.Enums
         [Description("http://125.212.226.154:6656")]
         ServerTest,
 
-        [Description("")]
+        [Description("http://alertviview.bagroup.vn")]
         ServerVIVIEW,
 
-        [Description("http://115.84.179.34:6456")]
+        [Description("http://alertvms.bagroup.vn")]
         ServerVMS,
 
-        [Description("")]
+        [Description("http://alertmoto.bagroup.vn")]
         ServerMoto,
     }
 }
