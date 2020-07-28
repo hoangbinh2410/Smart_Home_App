@@ -93,7 +93,7 @@
                         </sh:ImmutableShades>
                     </sh:Shadows.Shades>
                     <sharpnado:MaterialFrame
-                        Padding="5,0"
+                        Padding="10,0"
                         BackgroundColor="{StaticResource WhiteColor}"
                         CornerRadius="19"
                         HeightRequest="40"
@@ -133,7 +133,7 @@
                     </sh:Shadows.Shades>
                     <sharpnado:MaterialFrame
                         Grid.Column="1"
-                        Padding="5,0"
+                        Padding="10,0"
                         CornerRadius="19"
                         HeightRequest="40"
                         LightThemeBackgroundColor="{StaticResource WhiteColor}">

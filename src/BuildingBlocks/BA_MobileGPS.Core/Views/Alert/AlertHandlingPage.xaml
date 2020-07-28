@@ -12,14 +12,14 @@
     xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms"
-    BackgroundColor="#90FFFFFF"
+    BackgroundColor="#90000000"
     CloseWhenBackgroundIsClicked="True">
     <pages:PopupPage.Animation>
         <animation:MoveAnimation
             DurationIn="100"
             DurationOut="100"
-            PositionIn="Right"
-            PositionOut="Right" />
+            PositionIn="Bottom"
+            PositionOut="Top" />
     </pages:PopupPage.Animation>
     <pages:PopupPage.Resources>
         <ResourceDictionary>
@@ -65,36 +65,8 @@
                     Spacing="0"
                     VerticalOptions="StartAndExpand">
                     <inputLayout:SfTextInputLayout
-                        Hint="{i18n:TranslateResource Alert_Label_Handler}"
-                        OutlineCornerRadius="17"
-                        UnfocusedColor="{StaticResource PrimaryColor}">
-                        <inputLayout:SfTextInputLayout.LeadingView>
-                            <controls:FontAwesomeIcon Text="{x:Static fontawesome:FontAwesomeIcons.User}" TextColor="{StaticResource PrimaryColor}" />
-                        </inputLayout:SfTextInputLayout.LeadingView>
-                        <Entry IsReadOnly="True" Text="{Binding UserInfo.FullName}" />
-                    </inputLayout:SfTextInputLayout>
-                    <inputLayout:SfTextInputLayout
-                        CharMaxLength="20"
-                        Hint="{i18n:TranslateResource Common_Label_Time}"
-                        OutlineCornerRadius="17"
-                        UnfocusedColor="{StaticResource PrimaryColor}">
-                        <inputLayout:SfTextInputLayout.LeadingView>
-                            <controls:FontAwesomeIcon Text="{x:Static fontawesome:FontAwesomeIcons.CalendarAlt}" TextColor="{StaticResource PrimaryColor}" />
-                        </inputLayout:SfTextInputLayout.LeadingView>
-                        <Entry IsReadOnly="True" Text="{Binding StartTime}" />
-                    </inputLayout:SfTextInputLayout>
-                    <inputLayout:SfTextInputLayout
-                        Hint="{i18n:TranslateResource Alert_Label_AlertType}"
-                        OutlineCornerRadius="17"
-                        UnfocusedColor="{StaticResource PrimaryColor}">
-                        <inputLayout:SfTextInputLayout.LeadingView>
-                            <controls:FontAwesomeIcon Text="{x:Static fontawesome:FontAwesomeIcons.TransgenderAlt}" TextColor="{StaticResource PrimaryColor}" />
-                        </inputLayout:SfTextInputLayout.LeadingView>
-                        <Entry IsReadOnly="True" Text="{Binding Alert.AlertName}" />
-                    </inputLayout:SfTextInputLayout>
-                    <inputLayout:SfTextInputLayout
                         Hint="{i18n:TranslateResource Alert_Label_AlertDetail}"
-                        OutlineCornerRadius="22"
+                        OutlineCornerRadius="16"
                         UnfocusedColor="{StaticResource PrimaryColor}">
                         <Editor IsReadOnly="True" Text="{Binding Alert.Content}" />
                     </inputLayout:SfTextInputLayout>
@@ -103,9 +75,13 @@
                         HasError="{Binding HandlingContent.IsNotValid}"
                         Hint="{i18n:TranslateResource Alert_Label_AlertHandling}"
                         IsEnabled="True"
+                        IsHintAlwaysFloated="True"
                         OutlineCornerRadius="18"
                         UnfocusedColor="{StaticResource PrimaryColor}">
-                        <Editor Text="{Binding HandlingContent.Value}" />
+                        <Editor
+                            HeightRequest="100"
+                            Placeholder="Nội dung xử lý ..."
+                            Text="{Binding HandlingContent.Value}" />
                     </inputLayout:SfTextInputLayout>
                 </StackLayout>
                 <Grid
