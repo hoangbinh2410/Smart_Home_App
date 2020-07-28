@@ -9,7 +9,7 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RealmEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
-
+using Prism.Commands;
 using Prism.Navigation;
 
 using System;
@@ -81,7 +81,7 @@ namespace VMS_MobileGPS.ViewModels
             DragStartedCommand = new Command(DragStarted);
             DragCompletedCommand = new Command(DragCompleted);
             PlayStopCommand = new Command(PlayStop);
-            IncreaseSpeedCommand = new Command(IncreaseSpeed);
+            IncreaseSpeedCommand = new DelegateCommand(IncreaseSpeed);
             DecreaseSpeedCommand = new Command(DecreaseSpeed);
             FastStartCommand = new Command(FastStart);
             FastEndCommand = new Command(FastEnd);
