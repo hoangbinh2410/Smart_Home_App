@@ -102,7 +102,7 @@
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding PushAlerTypeComboboxCommand}" />
                             </StackLayout.GestureRecognizers>
-                            <Entry
+                            <Entry VerticalOptions="Center"
                                 FontSize="{StaticResource FontSize12}"
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
@@ -112,7 +112,7 @@
                                     <effects:BorderlessEffect />
                                 </Entry.Effects>
                             </Entry>
-                            <controls:IconView
+                            <controls:IconView VerticalOptions="Center"
                                 Foreground="Black"
                                 HeightRequest="15"
                                 Source="ic_sortdown.png"
@@ -144,7 +144,7 @@
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
                             </StackLayout.GestureRecognizers>
-                            <Entry
+                            <Entry 
                                 FontSize="{StaticResource FontSize12}"
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
@@ -155,7 +155,7 @@
                                     <effects:BorderlessEffect />
                                 </Entry.Effects>
                             </Entry>
-                            <controls:IconView
+                            <controls:IconView 
                                 Foreground="Black"
                                 HeightRequest="15"
                                 Source="ic_sortdown.png"
@@ -165,7 +165,7 @@
                     </sharpnado:MaterialFrame>
                 </sh:Shadows>
                 <!--  button Search  -->
-                <Frame
+                <Frame  HasShadow="False"
                     Grid.Column="2"
                     Padding="0"
                     BackgroundColor="{StaticResource PrimaryColor}"
