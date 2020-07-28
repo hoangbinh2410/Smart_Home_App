@@ -51,6 +51,7 @@ namespace VMS_MobileGPS.ViewModels
         public ICommand DecreaseSpeedCommand { get; }
         public ICommand FastStartCommand { get; }
         public ICommand FastEndCommand { get; }
+        public ICommand ChangeSpeedCommand { get; }
 
         public RouteViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService, IDisplayMessage displayMessage)
            : base(navigationService)
@@ -85,6 +86,7 @@ namespace VMS_MobileGPS.ViewModels
             DecreaseSpeedCommand = new Command(DecreaseSpeed);
             FastStartCommand = new Command(FastStart);
             FastEndCommand = new Command(FastEnd);
+            ChangeSpeedCommand = new DelegateCommand(ChangeSpeed);
             EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
         }
 
@@ -234,7 +236,7 @@ namespace VMS_MobileGPS.ViewModels
                 };
 
                 // Gán lại thời gian
-                DateStart  = DateTime.Today.Date;
+                DateStart = DateTime.Today.Date;
                 DateEnd = DateTime.Now;
 
                 GetVehicleRoute();
@@ -396,7 +398,7 @@ namespace VMS_MobileGPS.ViewModels
             Task.Run(async () =>
             {
                 var currentCompany = Settings.CurrentCompany;
-               
+
                 var result = await vehicleRouteService.ValidateUserConfigGetHistoryRoute(new ValidateUserConfigGetHistoryRouteRequest
                 {
                     UserId = currentCompany?.UserId ?? UserInfo.UserId,
@@ -1111,6 +1113,22 @@ namespace VMS_MobileGPS.ViewModels
             PlayCurrent = PlayMax;
 
             MoveToCurrent();
+        }
+
+        private void ChangeSpeed()
+        {
+            if (PlaySpeed >= SPEED_MAX)
+            {
+                PlaySpeed = 1;
+            }
+            else
+            {
+                PlaySpeed *= 2;
+            }
+
+
+
+
         }
 
         #endregion
