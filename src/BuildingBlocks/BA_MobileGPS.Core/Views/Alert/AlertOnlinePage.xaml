@@ -11,6 +11,9 @@
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     x:Name="this"
     BackgroundColor="Gray"
@@ -66,7 +69,7 @@
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
-        <Grid RowDefinitions="Auto,*">
+        <Grid RowDefinitions="Auto,*" RowSpacing="0">
             <image:CachedImage
                 Grid.RowSpan="2"
                 Aspect="AspectFill"
@@ -75,249 +78,209 @@
                 Source="bg_app.png"
                 VerticalOptions="FillAndExpand" />
             <Grid
-                Padding="10"
+                Padding="15,10"
                 ColumnDefinitions="*,*,Auto"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="Start">
+                ColumnSpacing="15">
                 <!--  Loại cảnh báo  -->
-                <Frame
-                    Padding="0"
-                    BackgroundColor="{StaticResource WhiteColor}"
-                    BorderColor="{StaticResource TextSecondaryColor}"
-                    CornerRadius="5"
-                    HasShadow="False"
-                    HeightRequest="35"
-                    HorizontalOptions="FillAndExpand"
-                    IsClippedToBounds="True"
-                    VerticalOptions="Center">
-                    <StackLayout
-                        Padding="5,0,5,0"
-                        HorizontalOptions="FillAndExpand"
-                        Orientation="Horizontal"
+                <sh:Shadows CornerRadius="17">
+                    <sh:Shadows.Shades>
+                        <sh:ImmutableShades>
+                            <sh:Shade
+                                BlurRadius="2"
+                                Opacity="0.5"
+                                Offset="0,0"
+                                Color="{StaticResource TextSecondaryColor}" />
+                        </sh:ImmutableShades>
+                    </sh:Shadows.Shades>
+                    <sharpnado:MaterialFrame
+                        Padding="10,0"
+                        BackgroundColor="{StaticResource WhiteColor}"
+                        CornerRadius="19"
+                        HeightRequest="40"
                         VerticalOptions="Center">
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding PushAlerTypeComboboxCommand}" />
-                        </StackLayout.GestureRecognizers>
-                        <Entry
-                            FontSize="{StaticResource FontSize12}"
-                            HorizontalOptions="FillAndExpand"
-                            InputTransparent="True"
-                            Placeholder="{i18n:TranslateResource Alert_Label_AlertType}"
-                            Text="{Binding SelectedAlertType.Name}"
-                            VerticalOptions="Center">
-                            <Entry.Effects>
-                                <effects:BorderlessEffect />
-                            </Entry.Effects>
-                        </Entry>
-                        <controls:IconView
-                            Margin="0,0,5,0"
-                            Foreground="Black"
-                            HeightRequest="15"
-                            HorizontalOptions="End"
-                            Source="ic_sortdown.png"
-                            VerticalOptions="Center"
-                            WidthRequest="15" />
-                    </StackLayout>
-                </Frame>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding PushAlerTypeComboboxCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <Entry VerticalOptions="Center"
+                                FontSize="{StaticResource FontSize12}"
+                                HorizontalOptions="FillAndExpand"
+                                InputTransparent="True"
+                                Placeholder="{i18n:TranslateResource Alert_Label_AlertType}"
+                                Text="{Binding SelectedAlertType.Name}">
+                                <Entry.Effects>
+                                    <effects:BorderlessEffect />
+                                </Entry.Effects>
+                            </Entry>
+                            <controls:IconView VerticalOptions="Center"
+                                Foreground="Black"
+                                HeightRequest="15"
+                                Source="ic_sortdown.png"
+                                WidthRequest="15" />
+                        </StackLayout>
+                    </sharpnado:MaterialFrame>
+                </sh:Shadows>
                 <!--  biển số xe  -->
-                <Frame
-                    Grid.Column="1"
-                    Padding="0"
-                    BackgroundColor="{StaticResource WhiteColor}"
-                    BorderColor="{StaticResource TextSecondaryColor}"
-                    CornerRadius="5"
-                    HasShadow="False"
-                    HeightRequest="35"
-                    HorizontalOptions="FillAndExpand"
-                    IsClippedToBounds="True"
-                    VerticalOptions="Center">
-                    <StackLayout
-                        Padding="5,0,5,0"
-                        HorizontalOptions="FillAndExpand"
-                        Orientation="Horizontal"
-                        VerticalOptions="Center">
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
-                        </StackLayout.GestureRecognizers>
-                        <Entry
-                            FontSize="{StaticResource FontSize12}"
-                            HorizontalOptions="FillAndExpand"
-                            InputTransparent="True"
-                            Placeholder="{i18n:TranslateResource Common_Label_Grid_VehiclePlate}"
-                            Text="{Binding SelectedVehicle.VehiclePlate}"
+                <sh:Shadows Grid.Column="1" CornerRadius="17">
+                    <sh:Shadows.Shades>
+                        <sh:ImmutableShades>
+                            <sh:Shade
+                                BlurRadius="2"
+                                Opacity="0.5"
+                                Offset="0,0"
+                                Color="{StaticResource TextSecondaryColor}" />
+                        </sh:ImmutableShades>
+                    </sh:Shadows.Shades>
+                    <sharpnado:MaterialFrame
+                        Grid.Column="1"
+                        Padding="10,0"
+                        CornerRadius="19"
+                        HeightRequest="40"
+                        LightThemeBackgroundColor="{StaticResource WhiteColor}">
+                        <StackLayout
+                            Orientation="Horizontal"
+                            Spacing="0"
                             VerticalOptions="Center">
-                            <Entry.Effects>
-                                <effects:BorderlessEffect />
-                            </Entry.Effects>
-                        </Entry>
-                        <controls:IconView
-                            Margin="0,0,5,0"
-                            Foreground="Black"
-                            HeightRequest="15"
-                            HorizontalOptions="End"
-                            Source="ic_sortdown.png"
-                            VerticalOptions="Center"
-                            WidthRequest="15" />
-                    </StackLayout>
-                </Frame>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <Entry 
+                                FontSize="{StaticResource FontSize12}"
+                                HorizontalOptions="FillAndExpand"
+                                InputTransparent="True"
+                                Placeholder="{i18n:TranslateResource Common_Label_Grid_VehiclePlate}"
+                                Text="{Binding SelectedVehicle.VehiclePlate}"
+                                VerticalOptions="Center">
+                                <Entry.Effects>
+                                    <effects:BorderlessEffect />
+                                </Entry.Effects>
+                            </Entry>
+                            <controls:IconView 
+                                Foreground="Black"
+                                HeightRequest="15"
+                                Source="ic_sortdown.png"
+                                VerticalOptions="Center"
+                                WidthRequest="15" />
+                        </StackLayout>
+                    </sharpnado:MaterialFrame>
+                </sh:Shadows>
                 <!--  button Search  -->
-                <Frame
+                <Frame  HasShadow="False"
                     Grid.Column="2"
                     Padding="0"
                     BackgroundColor="{StaticResource PrimaryColor}"
-                    CornerRadius="5"
-                    HasShadow="False"
-                    HeightRequest="35"
-                    HorizontalOptions="Start"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="35">
+                    CornerRadius="20"
+                    HeightRequest="40"
+                    WidthRequest="40">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SearchCommand}" />
                     </Frame.GestureRecognizers>
                     <controls:IconView
+                        Margin="10"
                         Foreground="{StaticResource WhiteColor}"
-                        HeightRequest="20"
                         HorizontalOptions="Center"
                         Source="ic_search.png"
-                        VerticalOptions="Center"
-                        WidthRequest="20" />
+                        VerticalOptions="Center" />
                 </Frame>
             </Grid>
             <Grid
                 Grid.Row="1"
-                Margin="5,0,5,0"
+                Margin="5,0"
                 HorizontalOptions="FillAndExpand"
-                RowSpacing="0"
                 VerticalOptions="FillAndExpand">
-
                 <syncfusionList:SfListView
                     x:Name="listView"
-                    Grid.Row="0"
-                    AutoFitMode="Height"
-                    ItemSize="75"
+                    AllowSwiping="True"
+                    ItemSize="90"
                     ItemSpacing="5"
                     ItemsSource="{Binding ListAlert, Mode=TwoWay}"
                     LoadMoreCommand="{Binding LoadMoreItemsCommand}"
                     LoadMoreCommandParameter="{Binding Source={x:Reference listView}}"
                     LoadMoreOption="Auto"
-                    RowSpacing="3"
-                    SelectedItem="{Binding SelectedItem}"
                     SelectionBackgroundColor="Transparent"
-                    TapCommand="{Binding TapListCommand}">
+                    SwipeOffset="200">
+                    <syncfusionList:SfListView.RightSwipeTemplate>
+                        <DataTemplate>
+                            <Grid
+                                Margin="6,0"
+                                ColumnDefinitions="*,*"
+                                ColumnSpacing="6">
+                                <sharpnado:MaterialFrame
+                                    Padding="0"
+                                    CornerRadius="10"
+                                    LightThemeBackgroundColor="#CCDCF8">
+                                    <sharpnado:MaterialFrame.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={x:Reference this}, Path=BindingContext.HandleAlertCommand}"
+                                            CommandParameter="{Binding .}"
+                                            NumberOfTapsRequired="1" />
+                                    </sharpnado:MaterialFrame.GestureRecognizers>
+                                    <Label Text="Xử lí" VerticalOptions="Center" />
+                                </sharpnado:MaterialFrame>
+                                <sharpnado:MaterialFrame
+                                    Grid.Column="1"
+                                    Padding="0"
+                                    CornerRadius="10"
+                                    LightThemeBackgroundColor="#FAD8D5">
+                                    <sharpnado:MaterialFrame.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={x:Reference this}, Path=BindingContext.ReadAlertCommand}"
+                                            CommandParameter="{Binding .}"
+                                            NumberOfTapsRequired="1" />
+                                    </sharpnado:MaterialFrame.GestureRecognizers>
+                                    <Label Text="Đọc" VerticalOptions="Center" />
+                                </sharpnado:MaterialFrame>
+                            </Grid>
+                        </DataTemplate>
+                    </syncfusionList:SfListView.RightSwipeTemplate>
                     <syncfusionList:SfListView.ItemTemplate>
                         <DataTemplate>
-                            <controls:CustomShadowFrame
-                                Margin="0"
-                                Padding="5,0,0,0"
-                                BackgroundColor="{Binding IsRead, Converter={StaticResource alertCheckReadColorConverter}}"
-                                BorderColor="{StaticResource GreenColor}"
-                                BorderWidth="2"
-                                CornerRadius="5"
-                                HasShadow="True"
-                                HorizontalOptions="End"
-                                IsClippedToBounds="True"
-                                ShadowOffSetHeight="4"
-                                ShadowOffsetWidth="4"
-                                ShadowOpacity="1"
-                                VerticalOptions="End">
-                                <Frame.Content>
-                                    <Grid
-                                        Margin="0,1,1,1"
-                                        Padding="0,5,5,5"
-                                        BackgroundColor="{StaticResource WhiteColor}"
-                                        ColumnSpacing="0"
-                                        HorizontalOptions="FillAndExpand"
-                                        RowSpacing="0"
-                                        VerticalOptions="CenterAndExpand">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width=".2*" />
-                                            <ColumnDefinition Width=".8*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid
-                                            Grid.Column="0"
-                                            ColumnSpacing="0"
-                                            HorizontalOptions="FillAndExpand"
-                                            RowSpacing="0"
-                                            VerticalOptions="Fill">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="5" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="0.5" />
-                                            </Grid.ColumnDefinitions>
-                                            <Grid
-                                                Grid.Column="1"
-                                                HorizontalOptions="Fill"
-                                                VerticalOptions="CenterAndExpand">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto" />
-                                                    <RowDefinition Height="Auto" />
-                                                </Grid.RowDefinitions>
-                                                <AbsoluteLayout
-                                                    Grid.Row="0"
-                                                    HorizontalOptions="FillAndExpand"
-                                                    VerticalOptions="FillAndExpand">
-                                                    <!--  Ảnh icon cảnh báo  -->
-                                                    <image:CachedImage
-                                                        AbsoluteLayout.LayoutBounds="0,0,1,1"
-                                                        AbsoluteLayout.LayoutFlags="All"
-                                                        Aspect="AspectFill"
-                                                        HeightRequest="40"
-                                                        HorizontalOptions="CenterAndExpand"
-                                                        Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
-                                                        VerticalOptions="CenterAndExpand"
-                                                        WidthRequest="40" />
-                                                    <!--  Đánh dấu đọc  -->
-                                                    <Frame
-                                                        Padding="3"
-                                                        AbsoluteLayout.LayoutBounds="0.9,0,10,10"
-                                                        AbsoluteLayout.LayoutFlags="PositionProportional"
-                                                        BackgroundColor="{StaticResource DangerousColor}"
-                                                        BorderColor="{StaticResource PrimaryColor}"
-                                                        CornerRadius="5"
-                                                        HasShadow="False"
-                                                        IsVisible="{Binding IsRead, Converter={StaticResource InvertBooleanConverter}}" />
-                                                </AbsoluteLayout>
-                                                <StackLayout
-                                                    Grid.Row="1"
-                                                    HorizontalOptions="Center"
-                                                    VerticalOptions="CenterAndExpand">
-                                                    <Label
-                                                        FontAttributes="Bold"
-                                                        HorizontalOptions="Center"
-                                                        Text="{Binding StartTime, Converter={x:StaticResource TimeConverter}}"
-                                                        VerticalOptions="End" />
-                                                </StackLayout>
-                                            </Grid>
-                                            <BoxView
-                                                Grid.Column="2"
-                                                HorizontalOptions="End"
-                                                VerticalOptions="Fill"
-                                                Color="{StaticResource DangerousColor}" />
-                                        </Grid>
-                                        <StackLayout Grid.Column="1" Padding="10,0,10,0">
+                            <sharpnado:MaterialFrame
+                                Padding="0"
+                                CornerRadius="10"
+                                LightThemeBackgroundColor="{StaticResource GrayColor}">
+                                <Grid
+                                    Padding="5"
+                                    ColumnDefinitions="2*,8*"
+                                    VerticalOptions="CenterAndExpand">
+                                    <StackLayout Spacing="5" VerticalOptions="CenterAndExpand">
+                                        <image:CachedImage
+                                            HeightRequest="40"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="40" />
+                                        <sharpnado:MaterialFrame
+                                            Padding="7,1"
+                                            CornerRadius="4"
+                                            HorizontalOptions="Center"
+                                            LightThemeBackgroundColor="{StaticResource PrimaryColor}">
                                             <Label
-                                                Margin="0,0,5,0"
-                                                FontAttributes="Bold"
-                                                FontSize="{StaticResource FontSize18}"
-                                                HorizontalOptions="Start"
-                                                LineBreakMode="TailTruncation"
-                                                Text="{Binding AlertName}"
-                                                VerticalOptions="Center"
+                                                Text="{Binding StartTime, Converter={x:StaticResource TimeConverter}}"
+                                                TextColor="{StaticResource WhiteColor}"
                                                 VerticalTextAlignment="Center" />
-
-                                            <Label
-                                                FontSize="{StaticResource FontSize16}"
-                                                HorizontalOptions="StartAndExpand"
-                                                HorizontalTextAlignment="Start"
-                                                LineBreakMode="TailTruncation"
-                                                MaxLines="2"
-                                                Text="{Binding Content}"
-                                                VerticalOptions="Center" />
-
-                                        </StackLayout>
-                                    </Grid>
-                                </Frame.Content>
-                            </controls:CustomShadowFrame>
+                                        </sharpnado:MaterialFrame>
+                                    </StackLayout>
+                                    <StackLayout
+                                        Grid.Column="1"
+                                        Padding="10,0"
+                                        Spacing="2"
+                                        VerticalOptions="CenterAndExpand">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontFamily="{StaticResource myFontLatoBold}"
+                                            FontSize="{StaticResource FontSize16}"
+                                            HorizontalOptions="Start"
+                                            LineBreakMode="TailTruncation"
+                                            Text="{Binding AlertName}" />
+                                        <Label
+                                            HorizontalTextAlignment="Start"
+                                            LineBreakMode="TailTruncation"
+                                            MaxLines="2"
+                                            Text="{Binding Content}" />
+                                    </StackLayout>
+                                </Grid>
+                            </sharpnado:MaterialFrame>
                         </DataTemplate>
                     </syncfusionList:SfListView.ItemTemplate>
                     <syncfusionList:SfListView.LoadMoreTemplate>

@@ -1,133 +1,117 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<pages:PopupPage
     x:Class="BA_MobileGPS.Core.Views.AlertHandlingPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animation="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
-    xmlns:sfButton="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
-    Title="{i18n:TranslateResource Alert_Label_TileHandlePage}"
-    NavigationPage.BackButtonTitle="">
-    <ContentPage.Content>
-        <ScrollView>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms"
+    BackgroundColor="#90000000"
+    CloseWhenBackgroundIsClicked="True">
+    <pages:PopupPage.Animation>
+        <animation:MoveAnimation
+            DurationIn="100"
+            DurationOut="100"
+            PositionIn="Bottom"
+            PositionOut="Top" />
+    </pages:PopupPage.Animation>
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <syncTheme:SyncfusionThemeDictionary>
+                    <syncTheme:SyncfusionThemeDictionary.MergedDictionaries>
+                        <ResourceDictionary>
+                            <x:String x:Key="SfTextInputLayoutTheme">CustomTheme</x:String>
+                            <Color x:Key="SfTextInputLayoutLineColor">#004EDA</Color>
+                        </ResourceDictionary>
+                    </syncTheme:SyncfusionThemeDictionary.MergedDictionaries>
+                </syncTheme:SyncfusionThemeDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+    <sh:Shadows
+        CornerRadius="17"
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
+        <sh:Shadows.Shades>
+            <sh:ImmutableShades>
+                <sh:Shade
+                    BlurRadius="2"
+                    Offset="0,0"
+                    Color="{StaticResource TextSecondaryColor}" />
+            </sh:ImmutableShades>
+        </sh:Shadows.Shades>
+        <sharpnado:MaterialFrame
+            Margin="30,0"
+            Padding="15"
+            BackgroundColor="{StaticResource WhiteColor}"
+            BorderColor="{StaticResource PrimaryColor}"
+            CornerRadius="10">
+            <Grid RowDefinitions="Auto,Auto,Auto">
+                <Label
+                    FontAttributes="Bold"
+                    FontFamily="{StaticResource myFontLatoBold}"
+                    FontSize="Medium"
+                    Text="Xử lý cảnh báo"
+                    TextColor="{StaticResource PrimaryColor}" />
                 <StackLayout
-                    Padding="20"
-                    HorizontalOptions="Center"
+                    Grid.Row="1"
                     Spacing="0"
                     VerticalOptions="StartAndExpand">
                     <inputLayout:SfTextInputLayout
-                        Margin="0"
-                        ContainerType="Outlined"
-                        Hint="{i18n:TranslateResource Alert_Label_Handler}"
-                        HorizontalOptions="Center"
-                        IsEnabled="False"
-                        LeadingViewPosition="Inside"
-                        ShowHelperText="False">
-                        <inputLayout:SfTextInputLayout.LeadingView>
-                            <controls:FontAwesomeIcon
-                                FontAttributes="Bold"
-                                Text="{x:Static fontawesome:FontAwesomeIcons.User}"
-                                TextColor="#898989" />
-                        </inputLayout:SfTextInputLayout.LeadingView>
-                        <Entry Text="{Binding UserInfo.FullName}" />
-                    </inputLayout:SfTextInputLayout>
-
-                    <inputLayout:SfTextInputLayout
-                        Margin="0"
-                        CharMaxLength="20"
-                        ContainerType="Outlined"
-                        Hint="{i18n:TranslateResource Common_Label_Time}"
-                        HorizontalOptions="Center"
-                        IsEnabled="False"
-                        LeadingViewPosition="Inside">
-                        <inputLayout:SfTextInputLayout.LeadingView>
-                            <controls:FontAwesomeIcon
-                                FontAttributes="Bold"
-                                Text="{x:Static fontawesome:FontAwesomeIcons.Times}"
-                                TextColor="#898989" />
-                        </inputLayout:SfTextInputLayout.LeadingView>
-                        <Entry Text="{Binding StartTime}" />
-                    </inputLayout:SfTextInputLayout>
-                    <inputLayout:SfTextInputLayout
-                        Margin="0"
-                        ContainerType="Outlined"
-                        Hint="{i18n:TranslateResource Alert_Label_AlertType}"
-                        HorizontalOptions="Center"
-                        IsEnabled="False"
-                        LeadingViewPosition="Inside"
-                        ShowHelperText="False">
-                        <Entry Text="{Binding Alert.AlertName}" />
-                    </inputLayout:SfTextInputLayout>
-                    <inputLayout:SfTextInputLayout
-                        Margin="0"
-                        ContainerType="Outlined"
                         Hint="{i18n:TranslateResource Alert_Label_AlertDetail}"
-                        HorizontalOptions="Center"
-                        IsEnabled="False"
-                        LeadingViewPosition="Inside"
-                        ShowHelperText="False">
-                        <Editor Text="{Binding Alert.Content}" />
+                        OutlineCornerRadius="16"
+                        UnfocusedColor="{StaticResource PrimaryColor}">
+                        <Editor IsReadOnly="True" Text="{Binding Alert.Content}" />
                     </inputLayout:SfTextInputLayout>
                     <inputLayout:SfTextInputLayout
-                        Margin="0"
-                        ContainerType="Outlined"
                         ErrorText="{Binding HandlingContent.ErrorFirst}"
                         HasError="{Binding HandlingContent.IsNotValid}"
                         Hint="{i18n:TranslateResource Alert_Label_AlertHandling}"
-                        HorizontalOptions="Center"
-                        LeadingViewPosition="Inside"
-                        ShowHelperText="False"
-                        VerticalOptions="Start">
-                        <Editor Text="{Binding HandlingContent.Value}" />
+                        IsEnabled="True"
+                        IsHintAlwaysFloated="True"
+                        OutlineCornerRadius="18"
+                        UnfocusedColor="{StaticResource PrimaryColor}">
+                        <Editor
+                            HeightRequest="100"
+                            Placeholder="Nội dung xử lý ..."
+                            Text="{Binding HandlingContent.Value}" />
                     </inputLayout:SfTextInputLayout>
-                    <sfButton:SfRadioGroup x:Name="radioGroup" Margin="0,15,0,0">
-                        <sfButton:SfRadioButton
-                            x:Name="ckRead"
-                            CheckedColor="{StaticResource PrimaryColor}"
-                            IsChecked="{Binding IsProccess, Converter={StaticResource InvertBooleanConverter}}"
-                            Text="{i18n:TranslateResource Alert_Label_AlertRead}" />
-                        <sfButton:SfRadioButton
-                            x:Name="ckProccess"
-                            CheckedColor="{StaticResource PrimaryColor}"
-                            IsChecked="{Binding IsProccess}"
-                            Text="{i18n:TranslateResource Alert_Label_AlertProcessed}" />
-                    </sfButton:SfRadioGroup>
                 </StackLayout>
                 <Grid
-                    Grid.Row="1"
-                    Padding="20,0,20,5"
+                    Grid.Row="2"
+                    Padding="20,10"
+                    ColumnDefinitions="*,*"
                     ColumnSpacing="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".5*" />
-                        <ColumnDefinition Width=".5*" />
-                    </Grid.ColumnDefinitions>
                     <!--  huỷ  -->
                     <Button
-                        Grid.Column="0"
+                        Padding="0"
                         BackgroundColor="White"
                         BorderColor="{StaticResource PrimaryColor}"
-                        BorderWidth="1"
+                        BorderWidth="0.5"
                         Command="{Binding CancelCommand}"
+                        CornerRadius="17"
                         FontSize="Small"
-                        HeightRequest="40"
+                        HeightRequest="35"
                         Text="{i18n:TranslateResource Common_Button_Cancel}"
                         TextColor="Black" />
                     <!--  gửi  -->
                     <Button
                         Grid.Column="1"
+                        Padding="0"
                         Command="{Binding SaveCommand}"
+                        CornerRadius="17"
                         FontSize="Small"
-                        HeightRequest="40"
-                        Text="{i18n:TranslateResource Common_Button_Send}" />
+                        HeightRequest="35"
+                        Text="{i18n:TranslateResource Alert_Label_AlertHandling}" />
                 </Grid>
             </Grid>
-        </ScrollView>
-    </ContentPage.Content>
-</ContentPage>
+        </sharpnado:MaterialFrame>
+    </sh:Shadows>
+</pages:PopupPage>

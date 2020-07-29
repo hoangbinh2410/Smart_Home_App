@@ -160,7 +160,15 @@ namespace BA_MobileGPS.Core.ViewModels
         #region property
 
         private ObservableCollection<AlertOnlineDetailModel> listAlert = new ObservableCollection<AlertOnlineDetailModel>();
-        public ObservableCollection<AlertOnlineDetailModel> ListAlert { get => listAlert; set => SetProperty(ref listAlert, value); }
+        public ObservableCollection<AlertOnlineDetailModel> ListAlert
+        {
+            get => listAlert; 
+            set
+            {
+                SetProperty(ref listAlert, value);
+                RaisePropertyChanged();
+            }
+        }
         public int TotalRow { get; set; } = 0;
 
         public int PageCount { get; set; } = 20;
@@ -251,7 +259,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        public ICommand TapListCommand
+        public ICommand HandleAlertCommand
         {
             get
             {
@@ -262,20 +270,64 @@ namespace BA_MobileGPS.Core.ViewModels
                         return;
                     }
                     IsBusy = true;
-
-                    var eventArgs = obj as Syncfusion.ListView.XForms.ItemTappedEventArgs;
-                    var alertSelected = (eventArgs.ItemData as AlertOnlineDetailModel);
-
+                    var alertSelected = (AlertOnlineDetailModel)obj;
                     if (alertSelected != null)
                     {
                         var navigationPara = new NavigationParameters
                         {
                             { "alert", alertSelected }
                         };
-              
-                           await NavigationService.NavigateAsync("AlertHandlingPage", navigationPara);                                             
+                        await NavigationService.NavigateAsync("AlertHandlingPage", navigationPara);
                     }
+                    IsBusy = false;
+                });
+            }
+        }
 
+        public ICommand ReadAlertCommand
+        {
+            get
+            {
+                return new Command<object>(async (obj) =>
+                {
+                    try
+                    {
+                        if (IsBusy)
+                        {
+                            return;
+                        }
+                        IsBusy = true;
+                        var alertSelected = (AlertOnlineDetailModel)obj;
+                        DependencyService.Get<IHUDProvider>().DisplayProgress("");
+                        var isSuccess = await alertService.HandleAlertAsync(new StatusAlertRequestModel
+                        {
+                            PK_AlertDetailID = alertSelected.PK_AlertDetailID,
+                            Status = StatusAlert.Readed,
+                            ProccessContent = string.Empty,
+                            UserID = UserInfo.UserId,
+                            FK_AlertTypeID = alertSelected.FK_AlertTypeID,
+                            FK_VehicleID = alertSelected.FK_VehicleID,
+                            StartTime = alertSelected.StartTime
+                        });
+                        if (isSuccess)
+                        {                                                      
+                            GlobalResources.Current.TotalAlert--;
+                            ListAlert.Remove(alertSelected);
+                            DisplayMessage.ShowMessageInfo(MobileResource.Alert_Message_Alert_Success);                           
+                        }
+                        else
+                        {
+                            DisplayMessage.ShowMessageInfo(MobileResource.Alert_Message_Alert_Fail);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                    }
+                    finally
+                    {
+                        DependencyService.Get<IHUDProvider>().Dismiss();
+                    }
                     IsBusy = false;
                 });
             }
