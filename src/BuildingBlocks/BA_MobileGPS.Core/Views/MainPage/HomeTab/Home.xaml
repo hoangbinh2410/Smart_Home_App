@@ -54,7 +54,7 @@
     <Grid>
         <Grid
             BackgroundColor="{StaticResource PrimaryColor}"
-            HeightRequest="200"
+            HeightRequest="150"
             VerticalOptions="Start" />
         <Grid Padding="5,0" RowDefinitions="100,Auto">
             <Grid Padding="15,0">
@@ -139,23 +139,21 @@
                         <StackLayout Spacing="0">
                             <Grid Margin="10">
                                 <Label StyleClass="GroupTitleLabel,BoldText" Text="NỔI BẬT" />
-                                <controls:FontAwesomeIcon
+                                <controls:IconView
                                     Margin="0,0,10,0"
-                                    FontAttributes="Bold"
+                                    Foreground="Red"
+                                    HeightRequest="18"
                                     HorizontalOptions="End"
-                                    Text="{x:Static fontawesome:FontAwesomeIcons.Heart}"
-                                    TextColor="Red">
-                                    <controls:FontAwesomeIcon.Behaviors>
-                                        <animation:ViewTappedBehavior AnimationType="Scale" />
-                                    </controls:FontAwesomeIcon.Behaviors>
-                                    <controls:FontAwesomeIcon.GestureRecognizers>
+                                    Source="ic_heart.png"
+                                    WidthRequest="18">
+                                    <controls:IconView.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateToFavoriteCommand}" NumberOfTapsRequired="1" />
-                                    </controls:FontAwesomeIcon.GestureRecognizers>
-                                </controls:FontAwesomeIcon>
+                                    </controls:IconView.GestureRecognizers>
+                                </controls:IconView>
                             </Grid>
                             <BoxView class="SlimLine" />
                             <CarouselView
-                                HeightRequest="110"
+                                HeightRequest="105"
                                 HorizontalScrollBarVisibility="Never"
                                 IndicatorView="indicatorFavourite"
                                 IsVisible="{Binding HasFavorite, Mode=OneWay}"
