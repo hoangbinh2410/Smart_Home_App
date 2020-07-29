@@ -24,6 +24,7 @@
             <converters:SOSStateColorConverter x:Key="SOSStateColorConverter" />
             <converters:SOSStateTextColorConverter x:Key="SOSStateTextColorConverter" />
             <converters:SOSBackgroundColorConverter x:Key="SOSBackgroundColorConverter" />
+            <converters:SOSLabelTextConverter x:Key="SOSLabelTextConverter" />
             <converters:BLENameConverter x:Key="BLENameConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -157,7 +158,7 @@
                                     VerticalOptions="CenterAndExpand" />
                                 <Label
                                     HorizontalOptions="CenterAndExpand"
-                                    Text="Cảnh báo SOS"
+                                    Text="{Binding DeviceManager.IsSendSOS, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource SOSLabelTextConverter}}"
                                     TextColor="{Binding DeviceManager.IsSendSOS, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource SOSStateTextColorConverter}}"
                                     VerticalOptions="Center" />
                             </StackLayout>
