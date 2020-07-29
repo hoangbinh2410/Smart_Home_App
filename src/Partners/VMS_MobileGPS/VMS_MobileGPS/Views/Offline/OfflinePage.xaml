@@ -149,14 +149,6 @@
                                 NumberOfTapsRequired="1" />
                         </sharpnado:MaterialFrame.GestureRecognizers>
                         <Grid>
-                            <controls:IconView
-                                Foreground="Red"
-                                HeightRequest="15"
-                                HorizontalOptions="End"
-                                IsVisible="{Binding DeviceManager.IsSendSOS, Source={x:Static localstatic:GlobalResourcesVMS.Current}}"
-                                Source="ic_alarmsos.png"
-                                VerticalOptions="Start"
-                                WidthRequest="15" />
                             <StackLayout>
                                 <controls:IconView
                                     Grid.Column="0"

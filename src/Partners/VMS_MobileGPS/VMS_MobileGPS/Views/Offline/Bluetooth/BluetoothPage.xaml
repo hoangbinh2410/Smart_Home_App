@@ -19,7 +19,8 @@
     xmlns:vm="clr-namespace:VMS_MobileGPS.ViewModels"
     Title="Tìm và kết nối"
     x:DataType="vm:BluetoothViewModel"
-    BackgroundColor="White">
+    BackgroundColor="White"
+    NavigationPage.HasBackButton="True">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:TextChangedEventArgsConverter x:Key="TextChangedEventArgsConverter" />
@@ -47,7 +48,7 @@
                 </image:CachedImage.GestureRecognizers>
             </image:CachedImage>
             <Label
-                Grid.ColumnSpan="3"
+                Grid.ColumnSpan="2"
                 FontAttributes="Bold"
                 FontSize="20"
                 HorizontalOptions="CenterAndExpand"
