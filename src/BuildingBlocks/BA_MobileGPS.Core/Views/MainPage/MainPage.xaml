@@ -13,35 +13,23 @@
     x:Name="MainContentPage"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
-        <converter:TabItemIconBackgroundColorConverter x:Key="TabItemIconBackgroundColorConverter" />
-        <converter:TabItemIconColorConverter x:Key="TabItemIconColorConverter" />
-        <converter:TabItemTextColorConverter x:Key="TabItemTextColorConverter" />
+        <converter:TabItemColorConverter x:Key="TabItemColorConverter" />
         <ControlTemplate x:Key="TabItemTemplate">
             <StackLayout
                 HorizontalOptions="Center"
-                Spacing="0"
+                Spacing="3"
                 VerticalOptions="Center">
-                <pancake:PancakeView
-                    x:Name="Parent"
-                    BackgroundColor="{TemplateBinding IsSelected,
-                                                      Converter={x:StaticResource TabItemIconBackgroundColorConverter}}"
-                    CornerRadius="15"
-                    HeightRequest="30"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    WidthRequest="30">
-                    <controls:IconView
-                        Margin="7"
-                        Foreground="{TemplateBinding IsSelected,
-                                                     Converter={x:StaticResource TabItemIconColorConverter}}"
-                        HeightRequest="25"
-                        Source="{TemplateBinding IconImageSource}" />
-                </pancake:PancakeView>
+                <controls:IconView
+                    Foreground="{TemplateBinding IsSelected,
+                                                 Converter={x:StaticResource TabItemColorConverter}}"
+                    HeightRequest="22"
+                    Source="{TemplateBinding IconImageSource}" />
                 <Label
+                    FontSize="{StaticResource MyFontSizeSmall}"
                     LineBreakMode="TailTruncation"
                     Text="{TemplateBinding Label}"
                     TextColor="{TemplateBinding IsSelected,
-                                                Converter={x:StaticResource TabItemTextColorConverter}}" />
+                                                Converter={x:StaticResource TabItemColorConverter}}" />
             </StackLayout>
         </ControlTemplate>
         <Style TargetType="tabs:BottomTabItem">
