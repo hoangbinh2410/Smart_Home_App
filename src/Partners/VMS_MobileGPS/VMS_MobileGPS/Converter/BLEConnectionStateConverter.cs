@@ -322,5 +322,29 @@ namespace VMS_MobileGPS.Converter
             return null;
         }
     }
-    
+
+    public class SOSLabelTextConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return "Cảnh báo SOS";
+            }
+            if ((bool)value)
+            {
+                return "SOS ĐÃ BẬT";
+            }
+            else
+            {
+                return "Cảnh báo SOS";
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
 }
