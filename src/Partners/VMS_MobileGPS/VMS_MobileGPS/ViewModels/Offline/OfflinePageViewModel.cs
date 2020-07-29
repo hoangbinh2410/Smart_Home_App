@@ -398,8 +398,7 @@ namespace VMS_MobileGPS.ViewModels
                         {
                             return;
                         }
-
-                        result = await NavigationService.NavigateAsync(PageNames.BluetoothPage.ToString());
+                        result = await NavigationService.NavigateAsync("NavigationPage/BluetoothPage", useModalNavigation: true);
                     }
                     else
                     {

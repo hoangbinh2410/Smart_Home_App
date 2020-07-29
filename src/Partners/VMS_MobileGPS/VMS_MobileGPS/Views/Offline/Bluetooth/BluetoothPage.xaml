@@ -37,7 +37,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <!--<image:CachedImage
+            <image:CachedImage
                 Grid.Column="0"
                 HeightRequest="27"
                 HorizontalOptions="Start"
@@ -46,7 +46,7 @@
                 <image:CachedImage.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
                 </image:CachedImage.GestureRecognizers>
-            </image:CachedImage>-->
+            </image:CachedImage>
             <Label
                 Grid.ColumnSpan="2"
                 FontAttributes="Bold"
