@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="VMS_MobileGPS.Views.DetailVehiclePopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animation="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    BackgroundColor="Transparent"
+    BackgroundInputTransparent="True"
+    CloseWhenBackgroundIsClicked="True">
+    <pages:PopupPage.Animation>
+        <animation:MoveAnimation
+            DurationIn="50"
+            DurationOut="20"
+            PositionIn="Bottom"
+            PositionOut="Bottom" />
+    </pages:PopupPage.Animation>
+    <pages:PopupPage.Resources />
+
+    <pancakeview:PancakeView
+        BackgroundColor="White"
+        CornerRadius="10,10,0,0"
+        HasShadow="True"
+        VerticalOptions="EndAndExpand">
+        <pancakeview:PancakeView.Shadow>
+            <pancakeview:DropShadow
+                BlurRadius="3"
+                Offset="0,0"
+                Color="Black" />
+        </pancakeview:PancakeView.Shadow>
+        <StackLayout Spacing="0">
+            <Grid Padding="10">
+                <Label
+                    x:Name="lblName"
+                    FontSize="{StaticResource MyFontSizeLarge}"
+                    StyleClass="BoldText"
+                    TextColor="{StaticResource PrimaryColor}"
+                    VerticalOptions="Center" />
+                <controls:IconView
+                    Foreground="Gray"
+                    HeightRequest="25"
+                    HorizontalOptions="End"
+                    Source="ic_close.png"
+                    WidthRequest="25">
+                    <controls:IconView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Close_Tapped" />
+                    </controls:IconView.GestureRecognizers>
+                </controls:IconView>
+            </Grid>
+            <BoxView StyleClass="SlimLine" />
+            <Grid Padding="20,10,20,15" ColumnDefinitions="*,*,*,*">
+                <Grid.Resources>
+                    <Style TargetType="pancakeview:PancakeView">
+                        <Setter Property="HeightRequest" Value="60" />
+                        <Setter Property="WidthRequest" Value="60" />
+                        <Setter Property="CornerRadius" Value="30" />
+                        <Setter Property="BackgroundColor" Value="{StaticResource WhiteColor}" />
+                        <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                    </Style>
+                    <Style TargetType="controls:IconView">
+                        <Setter Property="Foreground" Value="{StaticResource PrimaryColor}" />
+                        <Setter Property="Margin" Value="15" />
+                        <Setter Property="HorizontalOptions" Value="Center" />
+                    </Style>
+                    <Style TargetType="Label">
+                        <Setter Property="FontSize" Value="13" />
+                    </Style>
+                </Grid.Resources>
+                <StackLayout Spacing="10">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Mornitoring_Tapped" />
+                    </StackLayout.GestureRecognizers>
+                    <pancakeview:PancakeView>
+                        <pancakeview:PancakeView.Shadow>
+                            <pancakeview:DropShadow
+                                BlurRadius="2"
+                                Offset="0,0"
+                                Color="Black" />
+                        </pancakeview:PancakeView.Shadow>
+                        <controls:IconView Source="ic_mornitoring.png" />
+                    </pancakeview:PancakeView>
+                    <Label Text="Giám sát phương tiện" />
+                </StackLayout>
+                <StackLayout Grid.Column="1" Spacing="10">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Route_Tapped" />
+                    </StackLayout.GestureRecognizers>
+                    <pancakeview:PancakeView>
+                        <pancakeview:PancakeView.Shadow>
+                            <pancakeview:DropShadow
+                                BlurRadius="2"
+                                Offset="0,0"
+                                Color="Black" />
+                        </pancakeview:PancakeView.Shadow>
+                        <controls:IconView Source="ic_voyage.png" />
+                    </pancakeview:PancakeView>
+                    <Label Text="Hải trình" />
+                </StackLayout>
+                <StackLayout Grid.Column="2" Spacing="10">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Distance_Tapped" />
+                    </StackLayout.GestureRecognizers>
+                    <pancakeview:PancakeView>
+                        <pancakeview:PancakeView.Shadow>
+                            <pancakeview:DropShadow
+                                BlurRadius="2"
+                                Offset="0,0"
+                                Color="Black" />
+                        </pancakeview:PancakeView.Shadow>
+                        <controls:IconView Margin="20" Source="ic_distance2.png" />
+                    </pancakeview:PancakeView>
+                    <Label Text="Khoảng cách" />
+                </StackLayout>
+                <StackLayout Grid.Column="3" Spacing="10">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Information_Tapped" />
+                    </StackLayout.GestureRecognizers>
+                    <pancakeview:PancakeView>
+                        <pancakeview:PancakeView.Shadow>
+                            <pancakeview:DropShadow
+                                BlurRadius="2"
+                                Offset="0,0"
+                                Color="Black" />
+                        </pancakeview:PancakeView.Shadow>
+                        <controls:IconView Source="ic_guarantee.png" />
+                    </pancakeview:PancakeView>
+                    <Label Text="Thông tin phương tiện" />
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </pancakeview:PancakeView>
+</pages:PopupPage>

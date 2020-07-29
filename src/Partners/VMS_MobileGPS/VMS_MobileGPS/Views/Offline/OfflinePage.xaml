@@ -49,7 +49,7 @@
                 VerticalOptions="Center">
                 <badge:SfBadgeView.Content>
                     <controls:IconView
-                        Margin="5,0"
+                        Margin="0,0,0,-1"
                         Source="ic_mail.png"
                         StyleClass="TopIconView">
                         <controls:IconView.Behaviors>
@@ -100,18 +100,16 @@
                         HorizontalOptions="StartAndExpand"
                         LineBreakMode="TailTruncation"
                         Text="{Binding DeviceManager.DevicePlate, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource BLENameConverter}}" />
-                    <StackLayout Orientation="Horizontal">
-                        <Label
-                            HorizontalOptions="StartAndExpand"
-                            Text="{Binding StateDeviceMessage}"
-                            TextColor="{Binding StateDeviceMessage, Converter={StaticResource DeviceStateColorConverter}}" />
-                        <controls:FontAwesomeIcon
-                            FontAttributes="Bold"
-                            FontSize="15"
-                            HorizontalOptions="End"
-                            Text="{x:Static fontawesome:FontAwesomeIcons.QuestionCircle}"
-                            TextColor="{StaticResource TextSecondaryColor}"
-                            VerticalOptions="Center" />
+                    <StackLayout
+                        HorizontalOptions="Start"
+                        Orientation="Horizontal"
+                        Spacing="5">
+                        <Label Text="{Binding StateDeviceMessage}" TextColor="{Binding StateDeviceMessage, Converter={StaticResource DeviceStateColorConverter}}" />
+                        <ffImage:CachedImage
+                            HeightRequest="15"
+                            Source="ic_chamthan.png"
+                            VerticalOptions="Center"
+                            WidthRequest="15" />
                     </StackLayout>
                 </StackLayout>
 
@@ -158,6 +156,7 @@
                                     VerticalOptions="CenterAndExpand" />
                                 <Label
                                     HorizontalOptions="CenterAndExpand"
+                                    StyleClass="BoldText"
                                     Text="{Binding DeviceManager.IsSendSOS, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource SOSLabelTextConverter}}"
                                     TextColor="{Binding DeviceManager.IsSendSOS, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource SOSStateTextColorConverter}}"
                                     VerticalOptions="Center" />
@@ -181,6 +180,7 @@
                                 VerticalOptions="CenterAndExpand" />
                             <Label
                                 HorizontalOptions="CenterAndExpand"
+                                StyleClass="BoldText"
                                 Text="Gửi tin nhắn"
                                 VerticalOptions="Center" />
                         </StackLayout>
@@ -208,6 +208,7 @@
                                 VerticalOptions="CenterAndExpand" />
                             <Label
                                 HorizontalOptions="CenterAndExpand"
+                                StyleClass="BoldText"
                                 Text="Mẻ lưới"
                                 VerticalOptions="Center" />
                         </StackLayout>
@@ -228,6 +229,9 @@
                                 VerticalOptions="CenterAndExpand" />
                             <Label
                                 HorizontalOptions="CenterAndExpand"
+                                LineBreakMode="TailTruncation"
+                                MaxLines="1"
+                                StyleClass="BoldText"
                                 Text="Bản đồ ngoại tuyến"
                                 VerticalOptions="Center" />
                         </StackLayout>

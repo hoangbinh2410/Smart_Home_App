@@ -48,7 +48,7 @@
         <Grid RowDefinitions="*,2.8*">
             <StackLayout
                 Grid.Row="0"
-                Margin="0,30,0,0"
+                Margin="0,35,0,0"
                 Padding="20,0"
                 HorizontalOptions="End"
                 Orientation="Horizontal"
@@ -91,7 +91,8 @@
                             </sharpnado:MaterialFrame>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
-                            <Entry x:Name="account"
+                            <Entry
+                                x:Name="account"
                                 HeightRequest="{OnPlatform Android=40,
                                                            iOS=30}"
                                 Placeholder="{i18n:TranslateResource Login_Textbox_UserName}"
@@ -105,11 +106,17 @@
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
                             <sharpnado:MaterialFrame HeightRequest="40">
-                                <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.Lock}" />
+                                <controls:IconView
+                                    Margin="9"
+                                    Foreground="White"
+                                    HorizontalOptions="Center"
+                                    Source="ic_lock.png"
+                                    VerticalOptions="CenterAndExpand" />
                             </sharpnado:MaterialFrame>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
-                            <Entry x:Name="pass"
+                            <Entry
+                                x:Name="pass"
                                 HeightRequest="{OnPlatform Android=40,
                                                            iOS=30}"
                                 IsPassword="True"
@@ -128,10 +135,12 @@
                             CornerRadius="0"
                             IsChecked="{Binding Rememberme}"
                             Text="{i18n:TranslateResource Login_Checkbox_Autologin}"
-                            UncheckedColor="White" />
+                            TextColor="{StaticResource TextSecondaryColor}"
+                            UncheckedColor="{StaticResource TextSecondaryColor}" />
                         <Label
                             HorizontalOptions="EndAndExpand"
                             Text="{i18n:TranslateResource Login_Lable_Forgotpassword}"
+                            TextColor="{StaticResource TextSecondaryColor}"
                             VerticalOptions="Center">
                             <Label.Behaviors>
                                 <animation:ViewTappedBehavior AnimationType="Scale" />
@@ -164,22 +173,31 @@
                         Orientation="Horizontal"
                         Spacing="20">
                         <sharpnado:MaterialFrame>
-                            <controls:FontAwesomeIcon
-                                Rotation="90"
-                                StyleClass="LoginAwesomeIcon"
-                                Text="{x:Static fontawesome:FontAwesomeIcons.Phone}" />
+                            <controls:IconView
+                                Margin="6"
+                                Foreground="White"
+                                Source="ic_phone.png"
+                                VerticalOptions="CenterAndExpand" />
                             <sharpnado:MaterialFrame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding CallHotLineCommand}" NumberOfTapsRequired="1" />
                             </sharpnado:MaterialFrame.GestureRecognizers>
                         </sharpnado:MaterialFrame>
                         <sharpnado:MaterialFrame>
-                            <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.MailBulk}" />
+                            <controls:IconView
+                                Margin="6"
+                                Foreground="White"
+                                Source="ic_mail.png"
+                                VerticalOptions="CenterAndExpand" />
                             <sharpnado:MaterialFrame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SendEmailCommand}" NumberOfTapsRequired="1" />
                             </sharpnado:MaterialFrame.GestureRecognizers>
                         </sharpnado:MaterialFrame>
                         <sharpnado:MaterialFrame>
-                            <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.Globe}" />
+                            <controls:IconView
+                                Margin="6"
+                                Foreground="White"
+                                Source="ic_global.png"
+                                VerticalOptions="CenterAndExpand" />
                             <sharpnado:MaterialFrame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding OpenWebGPSCommand}" NumberOfTapsRequired="1" />
                             </sharpnado:MaterialFrame.GestureRecognizers>
