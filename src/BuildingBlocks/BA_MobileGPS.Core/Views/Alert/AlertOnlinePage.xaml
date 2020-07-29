@@ -19,10 +19,7 @@
     BackgroundColor="Gray"
     NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
-        <ResourceDictionary>
-            <converts:AlertCheckReadColorConverter x:Key="alertCheckReadColorConverter" />
-            <converts:AlertStatusColorConverter x:Key="alertStatusColorConverter" />
-        </ResourceDictionary>
+        <ResourceDictionary />
     </ContentPage.Resources>
     <NavigationPage.TitleView>
         <Grid
@@ -102,20 +99,22 @@
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding PushAlerTypeComboboxCommand}" />
                             </StackLayout.GestureRecognizers>
-                            <Entry VerticalOptions="Center"
+                            <Entry
                                 FontSize="{StaticResource FontSize12}"
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Alert_Label_AlertType}"
-                                Text="{Binding SelectedAlertType.Name}">
+                                Text="{Binding SelectedAlertType.Name}"
+                                VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
                                 </Entry.Effects>
                             </Entry>
-                            <controls:IconView VerticalOptions="Center"
+                            <controls:IconView
                                 Foreground="Black"
                                 HeightRequest="15"
                                 Source="ic_sortdown.png"
+                                VerticalOptions="Center"
                                 WidthRequest="15" />
                         </StackLayout>
                     </sharpnado:MaterialFrame>
@@ -144,7 +143,7 @@
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
                             </StackLayout.GestureRecognizers>
-                            <Entry 
+                            <Entry
                                 FontSize="{StaticResource FontSize12}"
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
@@ -155,7 +154,7 @@
                                     <effects:BorderlessEffect />
                                 </Entry.Effects>
                             </Entry>
-                            <controls:IconView 
+                            <controls:IconView
                                 Foreground="Black"
                                 HeightRequest="15"
                                 Source="ic_sortdown.png"
@@ -165,11 +164,12 @@
                     </sharpnado:MaterialFrame>
                 </sh:Shadows>
                 <!--  button Search  -->
-                <Frame  HasShadow="False"
+                <Frame
                     Grid.Column="2"
                     Padding="0"
                     BackgroundColor="{StaticResource PrimaryColor}"
                     CornerRadius="20"
+                    HasShadow="False"
                     HeightRequest="40"
                     WidthRequest="40">
                     <Frame.GestureRecognizers>
