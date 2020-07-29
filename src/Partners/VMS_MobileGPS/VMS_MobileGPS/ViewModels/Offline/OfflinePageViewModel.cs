@@ -429,7 +429,7 @@ namespace VMS_MobileGPS.ViewModels
                 }    
                 else
                 {
-                    if (await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có muốn ngắt kết nối thiết bị không", "ĐỒNG Ý", "BỎ QUA"))
+                    if (await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có muốn ngắt kết nối thiết bị không?", "ĐỒNG Ý", "BỎ QUA"))
                     {
                         await AppManager.BluetoothService.Disconnect();
                         StateDevice = new Dictionary<string, string>();
