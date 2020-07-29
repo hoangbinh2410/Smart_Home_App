@@ -15,14 +15,14 @@
     <ContentView.Content>
         <Grid StyleClass="TitleBarGrid">
             <ffImage:CachedImage
-                Margin="0,0,0,8"
+                Margin="0,0,0,5"
                 HeightRequest="38"
                 HorizontalOptions="StartAndExpand"
                 Source="ic_logo.png"
                 VerticalOptions="EndAndExpand"
                 WidthRequest="80" />
             <StackLayout
-                Margin="0,0,0,5"
+                Margin="0"
                 HorizontalOptions="End"
                 Orientation="Horizontal"
                 Spacing="5"
@@ -54,14 +54,12 @@
                         <TapGestureRecognizer Command="{Binding PushToNoticePageCommand}" />
                     </controls:IconView.GestureRecognizers>
                 </controls:IconView>
-                <badge:SfBadgeView
-                    Margin="0,0,0,5"
-                    BackgroundColor="Transparent"
-                    BadgeText="{Binding TotalAlertDisplay, Source={x:Static local:GlobalResources.Current}}"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center">
+                <badge:SfBadgeView BadgeText="{Binding TotalAlertDisplay, Source={x:Static local:GlobalResources.Current}}" VerticalOptions="EndAndExpand">
                     <badge:SfBadgeView.Content>
-                        <controls:IconView Source="ic_bellstand.png" StyleClass="TopIconView">
+                        <controls:IconView
+                            Margin="0,0,0,-1"
+                            Source="ic_bellstand.png"
+                            StyleClass="TopIconView">
                             <controls:IconView.Behaviors>
                                 <animation:ViewTappedBehavior AnimationType="Scale" />
                             </controls:IconView.Behaviors>

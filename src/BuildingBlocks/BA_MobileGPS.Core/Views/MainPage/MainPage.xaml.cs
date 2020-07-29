@@ -21,14 +21,14 @@ namespace BA_MobileGPS.Core.Views
             var home = PrismApplicationBase.Current.Container.Resolve<ContentView>("HomeTab"); //Home
             ViewModelLocator.SetAutowirePartialView(home, MainContentPage);
             Switcher.Children.Add(home);// Trang home
-            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_home.png", Label = MobileResource.Menu_TabItem_Home });
+            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_homesolid.png", Label = MobileResource.Menu_TabItem_Home });
 
             if (CheckPermision((int)PermissionKeyNames.VehicleView))
             {
                 var listVehicleTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("ListVehicleTab"); //Phương tiện
                 ViewModelLocator.SetAutowirePartialView(listVehicleTab, MainContentPage);
                 Switcher.Children.Add(listVehicleTab);
-                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_ship.png", Label = MobileResource.Menu_TabItem_Vehicle });
+                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_shipsolid.png", Label = MobileResource.Menu_TabItem_Vehicle });
             }
 
             if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
@@ -56,7 +56,7 @@ namespace BA_MobileGPS.Core.Views
             var accountTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("AccountTab"); //Account
             ViewModelLocator.SetAutowirePartialView(accountTab, MainContentPage);
             Switcher.Children.Add(accountTab);
-            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_account.png", Label = MobileResource.Menu_TabItem_Account });
+            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_accountsolid.png", Label = MobileResource.Menu_TabItem_Account });
 
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitAnimation();
