@@ -103,7 +103,10 @@
                         HorizontalOptions="Center"
                         VerticalOptions="Center">
                         <badge:SfBadgeView.Content>
-                            <controls:IconView Source="ic_bellstand.png" StyleClass="TopIconView">
+                            <controls:IconView
+                                Margin="0,0,0,-1"
+                                Source="ic_bellstand.png"
+                                StyleClass="TopIconView">
                                 <controls:IconView.Behaviors>
                                     <animation:ViewTappedBehavior AnimationType="Scale" />
                                 </controls:IconView.Behaviors>

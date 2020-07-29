@@ -47,18 +47,17 @@
                 HorizontalOptions="EndAndExpand"
                 VerticalOptions="Center">
                 <badge:SfBadgeView.Content>
-                    <controls:FontAwesomeIcon
-                        Margin="5,0,5,0"
-                        FontSize="25"
-                        StyleClass="TopIconView"
-                        Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}">
-                        <controls:FontAwesomeIcon.Behaviors>
+                    <controls:IconView
+                        Margin="5,0"
+                        Source="ic_mail.png"
+                        StyleClass="TopIconView">
+                        <controls:IconView.Behaviors>
                             <animation:ViewTappedBehavior AnimationType="Scale" />
-                        </controls:FontAwesomeIcon.Behaviors>
-                        <controls:FontAwesomeIcon.GestureRecognizers>
+                        </controls:IconView.Behaviors>
+                        <controls:IconView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigateToCommand}" CommandParameter="{x:Static local:PageNames.NotificationMessagePage}" />
-                        </controls:FontAwesomeIcon.GestureRecognizers>
-                    </controls:FontAwesomeIcon>
+                        </controls:IconView.GestureRecognizers>
+                    </controls:IconView>
                 </badge:SfBadgeView.Content>
                 <badge:SfBadgeView.BadgeSettings>
                     <badge:BadgeSetting

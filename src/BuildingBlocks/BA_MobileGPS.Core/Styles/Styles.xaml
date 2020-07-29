@@ -202,7 +202,7 @@
         <Setter Property="Foreground" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
         <Setter Property="HeightRequest" Value="30" />
         <Setter Property="WidthRequest" Value="30" />
-        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="End" />
     </Style>
 
     <Style Class="HomePageTopImage" TargetType="ffImage:CachedImage">
