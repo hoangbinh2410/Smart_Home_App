@@ -110,7 +110,7 @@
                             Text="1H"
                             TextColor="White" />
                     </pancake:PancakeView>
-                    <Frame
+                    <pancake:PancakeView
                         Grid.Column="1"
                         Margin="-1,0,0,0"
                         Padding="5,6"
@@ -119,19 +119,22 @@
                         CornerRadius="0"
                         HasShadow="False"
                         VerticalOptions="Center">
-                        <Frame.GestureRecognizers>
+                        <pancake:PancakeView.Border>
+                            <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
+                        </pancake:PancakeView.Border>
+                        <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer
                                 Command="{Binding TimeSelectedCommand}"
                                 CommandParameter="4"
                                 Tapped="TimeSelector_Tapped" />
-                        </Frame.GestureRecognizers>
+                        </pancake:PancakeView.GestureRecognizers>
                         <Label
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             Text="4H"
                             TextColor="White" />
-                    </Frame>
-                    <Frame
+                    </pancake:PancakeView>
+                    <pancake:PancakeView
                         Grid.Column="2"
                         Margin="-1,0,0,0"
                         Padding="5,6"
@@ -140,19 +143,22 @@
                         CornerRadius="0"
                         HasShadow="False"
                         VerticalOptions="Center">
-                        <Frame.GestureRecognizers>
+                        <pancake:PancakeView.Border>
+                            <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
+                        </pancake:PancakeView.Border>
+                        <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer
                                 Command="{Binding TimeSelectedCommand}"
                                 CommandParameter="8"
                                 Tapped="TimeSelector_Tapped" />
-                        </Frame.GestureRecognizers>
+                        </pancake:PancakeView.GestureRecognizers>
                         <Label
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             Text="8H"
                             TextColor="White" />
-                    </Frame>
-                    <Frame
+                    </pancake:PancakeView>
+                    <pancake:PancakeView
                         Grid.Column="3"
                         Margin="-1,0,0,0"
                         Padding="5,6"
@@ -161,18 +167,21 @@
                         CornerRadius="0"
                         HasShadow="False"
                         VerticalOptions="Center">
-                        <Frame.GestureRecognizers>
+                        <pancake:PancakeView.Border>
+                            <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
+                        </pancake:PancakeView.Border>
+                        <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer
                                 Command="{Binding TimeSelectedCommand}"
                                 CommandParameter="24"
                                 Tapped="TimeSelector_Tapped" />
-                        </Frame.GestureRecognizers>
+                        </pancake:PancakeView.GestureRecognizers>
                         <Label
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             Text="1N"
                             TextColor="White" />
-                    </Frame>
+                    </pancake:PancakeView>
                     <pancake:PancakeView
                         Grid.Column="4"
                         Margin="-1,0,0,0"
@@ -476,7 +485,7 @@
                         ThumbImage="ic_car_play.png"
                         VerticalOptions="Center"
                         Value="{Binding PlayCurrent}" />
-                    <Frame
+                    <pancake:PancakeView
                         x:Name="lbSpeedCar"
                         Padding="0"
                         BackgroundColor="Transparent"
@@ -487,14 +496,20 @@
                         HorizontalOptions="End"
                         VerticalOptions="Center"
                         WidthRequest="30">
+                        <pancake:PancakeView.Border>
+                            <pancake:Border Thickness="3" Color="{StaticResource WhiteColor}" />
+                        </pancake:PancakeView.Border>
+                        <pancake:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ChangeSpeedCommand}" />
+                        </pancake:PancakeView.GestureRecognizers>
                         <Label
-                            Margin="4"
+                            Margin="3"
                             FontSize="{StaticResource MyFontSizeSmall}"
                             HorizontalOptions="Center"
                             Text="{Binding PlaySpeed, StringFormat='{}{0}x'}"
                             TextColor="White"
                             VerticalOptions="Center" />
-                    </Frame>
+                    </pancake:PancakeView>
                 </StackLayout>
                 <!--<controls:IconView
                     x:Name="btnLocationStart"

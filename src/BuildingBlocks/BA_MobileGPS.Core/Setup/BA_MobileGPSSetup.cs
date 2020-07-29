@@ -148,8 +148,7 @@ namespace BA_MobileGPS.Core
 
             containerRegistry.RegisterForNavigation<ComboboxPage, ComboboxPageViewModel>("ComboboxPage");
             containerRegistry.RegisterForNavigation<ImageEditorPage, ImageEditorViewModel>("ImageEditorPage");
-            containerRegistry.RegisterForNavigation<AlertOnlinePage, AlertOnlinePageViewModel>();
-            containerRegistry.RegisterForNavigation<AlertHandlingPage, AlertHandlingPageViewModel>();
+
             containerRegistry.RegisterForNavigation<NotificationPage, NotificationPageViewModel>("NotificationPage");
             containerRegistry.RegisterForNavigation<NotificationPopup, NotificationPopupViewModel>("NotificationPopup");
             containerRegistry.RegisterForNavigation<NotificationPopupWhenLogin, NotificationPopupWhenLoginViewModel>("NotificationPopupWhenLogin");

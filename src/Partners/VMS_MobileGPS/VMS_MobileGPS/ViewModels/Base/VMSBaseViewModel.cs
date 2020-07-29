@@ -218,7 +218,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.GoBackAsync(useModalNavigation: true);
+               var a = await NavigationService.GoBackAsync(useModalNavigation: true);
             });
         }
 
