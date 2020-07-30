@@ -19,6 +19,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:BLEConnectionStateConverter x:Key="BLEConnectionStateConverter" />
+            <converters:BLEConnectionStateImagesConverter x:Key="BLEConnectionStateImagesConverter" />
             <converters:DeviceStateColorConverter x:Key="DeviceStateColorConverter" />
             <converters:TotalNotificationDisplayConverter x:Key="TotalNotificationDisplayConverter" />
             <converters:SOSStateColorConverter x:Key="SOSStateColorConverter" />
@@ -88,7 +89,7 @@
                     Grid.Column="0"
                     HeightRequest="120"
                     HorizontalOptions="StartAndExpand"
-                    Source="ic_vmsdevice.png"
+                    Source="{Binding IsConnectBLE, Converter={StaticResource BLEConnectionStateImagesConverter}}"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="120" />
                 <StackLayout
