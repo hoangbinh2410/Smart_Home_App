@@ -143,11 +143,11 @@
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Foreground="{StaticResource PrimaryColor}"
-                    HeightRequest="15"
+                    HeightRequest="25"
                     HorizontalOptions="Center"
                     Source="ic_vector.png"
                     VerticalOptions="Center"
-                    WidthRequest="15" />
+                    WidthRequest="25" />
             </pancake:PancakeView>
             <pancake:PancakeView
                 Padding="0"
@@ -160,11 +160,11 @@
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Foreground="{Binding ColorMapType}"
-                    HeightRequest="15"
+                    HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_map_type.png"
                     VerticalOptions="Center"
-                    WidthRequest="15" />
+                    WidthRequest="20" />
             </pancake:PancakeView>
             <pancake:PancakeView
                 Padding="0"
@@ -177,11 +177,11 @@
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Foreground="{StaticResource WhiteColor}"
-                    HeightRequest="15"
+                    HeightRequest="25"
                     HorizontalOptions="Center"
                     Source="ic_bounded_area.png"
                     VerticalOptions="Center"
-                    WidthRequest="15" />
+                    WidthRequest="25" />
             </pancake:PancakeView>
         </StackLayout>
         <!--  Thông tin xe  -->
