@@ -26,7 +26,7 @@
                         Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
                         WidthRequest="40" />
                     <pancake:PancakeView.Shadow>
-                        <pancake:DropShadow BlurRadius="2" Color="{StaticResource TextPlaceHolderColor}" />
+                        <pancake:DropShadow BlurRadius="4" Color="{StaticResource TextPlaceHolderColor}" />
                     </pancake:PancakeView.Shadow>
                     <pancake:PancakeView.Border>
                         <pancake:Border
