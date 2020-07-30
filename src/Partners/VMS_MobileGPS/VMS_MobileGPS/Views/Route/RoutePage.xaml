@@ -290,15 +290,18 @@
                             <TapGestureRecognizer Command="{Binding ViewListCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
-                            Margin="8"
                             Foreground="{StaticResource GrayColor2}"
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
                             Source="ic_list_route.png"
-                            VerticalOptions="Center" />
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
                     </pancake:PancakeView>
 
                     <pancake:PancakeView
                         x:Name="btnViewInfo"
                         Grid.Column="2"
+                        Padding="0"
                         BackgroundColor="White"
                         CornerRadius="22"
                         WidthRequest="45">
@@ -307,9 +310,12 @@
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
                             x:Name="IconInfo"
-                            Margin="8"
                             Foreground="{StaticResource GrayColor2}"
-                            Source="ic_info_outline_white.png" />
+                            HeightRequest="25"
+                            HorizontalOptions="Center"
+                            Source="ic_info_outline_white.png"
+                            VerticalOptions="Center"
+                            WidthRequest="25" />
                     </pancake:PancakeView>
 
                 </Grid>
