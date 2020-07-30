@@ -20,6 +20,8 @@ namespace BA_MobileGPS
 
         protected async override void OnInitialized()
         {
+            Resources.MergedDictionaries.Add(new DarkColor());
+            Resources.MergedDictionaries.Add(new LightColor());
             Resources.MergedDictionaries.Add(new Colors());
 
             base.OnInitialized();
