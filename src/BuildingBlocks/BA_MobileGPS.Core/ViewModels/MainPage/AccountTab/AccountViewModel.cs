@@ -52,11 +52,12 @@ namespace BA_MobileGPS.Core.ViewModels
             // Đổi mật khẩu
             list.Add(new MenuItem
             {
-                Title = MobileResource.AccountTab_Label_ChangePassword,
+                Title = MobileResource.AccountTab_Label_Notification,
                 Icon = "ic_mail.png",
                 UseModalNavigation = true,
                 Url = "NavigationPage/NotificationPage",
                 MenuType = MenuType.Notification,
+                IsEnable = true,
                 IconColor = Color.FromHex("#00aeef")
             });
             // Đổi mật khẩu
