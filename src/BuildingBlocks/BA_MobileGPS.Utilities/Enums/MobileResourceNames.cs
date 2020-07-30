@@ -1103,6 +1103,7 @@
         #endregion
 
         #region AccountTab
+        AccountTab_Label_Notification,
         AccountTab_Label_ChangePassword,
         AccountTab_Label_CustomerSupport,
         AccountTab_Label_DeviceManual,

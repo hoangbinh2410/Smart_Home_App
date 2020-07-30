@@ -441,7 +441,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (string.IsNullOrEmpty(Settings.ReceivedNotificationType))
                         {
                             // gọi sang trang danh sách nợ phí
-                            _ = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDebtMoneyPage", null, useModalNavigation: true);
+                            _ = await NavigationService.NavigateAsync("NavigationPage/VehicleDebtMoneyPage", null, useModalNavigation: true);
                         }
                     }
                 });

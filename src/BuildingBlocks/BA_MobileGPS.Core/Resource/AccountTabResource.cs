@@ -7,6 +7,7 @@ namespace BA_MobileGPS.Core.Resource
 {
     public partial class MobileResource
     {
+        public static string AccountTab_Label_Notification => Get(MobileResourceNames.AccountTab_Label_Notification, "Thông báo", "Notification");
         public static string AccountTab_Label_ChangePassword => Get(MobileResourceNames.AccountTab_Label_ChangePassword, "Đổi mật khẩu", "Change password");
         public static string AccountTab_Label_CustomerSupport => Get(MobileResourceNames.AccountTab_Label_CustomerSupport, "Hỗ trợ Khách hàng", "Customer support");
         public static string AccountTab_Label_DeviceManual => Get(MobileResourceNames.AccountTab_Label_DeviceManual, "HDSD thiết bị", "Device manual");
