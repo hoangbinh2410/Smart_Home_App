@@ -4425,7 +4425,7 @@ namespace BA_MobileGPS.Core.Droid
 			public static int ic_lisence = 2131165455;
 			
 			// aapt resource value: 0x7F070110
-			public static int ic_list_black = 2131165456;
+			public static int ic_list_route = 2131165456;
 			
 			// aapt resource value: 0x7F070111
 			public static int ic_location_black = 2131165457;

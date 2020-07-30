@@ -14,16 +14,6 @@
     xmlns:viewcore="clr-namespace:BA_MobileGPS.Core.Views.PartialView;assembly=BA_MobileGPS.Core"
     xmlns:views="clr-namespace:VMS_MobileGPS.Views"
     prism:ViewModelLocator.AutowireViewModel="True">
-    <ContentView.Resources>
-        <pancake:DropShadow
-            x:Key="shadow"
-            BlurRadius="3"
-            Color="Black" />
-        <Style TargetType="pancake:PancakeView">
-            <Setter Property="HasShadow" Value="True" />
-            <Setter Property="Shadow" Value="{StaticResource shadow}" />
-        </Style>
-    </ContentView.Resources>
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -177,11 +167,11 @@
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Foreground="{StaticResource WhiteColor}"
-                    HeightRequest="25"
+                    HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_bounded_area.png"
                     VerticalOptions="Center"
-                    WidthRequest="25" />
+                    WidthRequest="20" />
             </pancake:PancakeView>
         </StackLayout>
         <!--  Thông tin xe  -->
