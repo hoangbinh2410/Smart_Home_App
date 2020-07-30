@@ -133,7 +133,7 @@
             HorizontalOptions="EndAndExpand"
             VerticalOptions="End">
             <pancake:PancakeView
-                Padding="15"
+                Padding="0"
                 BackgroundColor="{StaticResource WhiteColor}"
                 CornerRadius="25"
                 HeightRequest="50"
@@ -142,14 +142,15 @@
                     <TapGestureRecognizer Tapped="GetMylocation" />
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
-                    Margin="9"
                     Foreground="{StaticResource PrimaryColor}"
-                    HeightRequest="15"
+                    HeightRequest="25"
+                    HorizontalOptions="Center"
                     Source="ic_vector.png"
-                    WidthRequest="15" />
+                    VerticalOptions="Center"
+                    WidthRequest="25" />
             </pancake:PancakeView>
             <pancake:PancakeView
-                Padding="15"
+                Padding="0"
                 BackgroundColor="{StaticResource WhiteColor}"
                 CornerRadius="25"
                 HeightRequest="50"
@@ -159,12 +160,14 @@
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Foreground="{Binding ColorMapType}"
-                    HeightRequest="15"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
                     Source="ic_map_type.png"
-                    WidthRequest="15" />
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
             </pancake:PancakeView>
             <pancake:PancakeView
-                Padding="15"
+                Padding="0"
                 BackgroundColor="{StaticResource PrimaryColor}"
                 CornerRadius="25"
                 HeightRequest="50"
@@ -174,9 +177,11 @@
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Foreground="{StaticResource WhiteColor}"
-                    HeightRequest="15"
+                    HeightRequest="25"
+                    HorizontalOptions="Center"
                     Source="ic_bounded_area.png"
-                    WidthRequest="15" />
+                    VerticalOptions="Center"
+                    WidthRequest="25" />
             </pancake:PancakeView>
         </StackLayout>
         <!--  Thông tin xe  -->
