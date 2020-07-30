@@ -20,6 +20,7 @@
                     Padding="15"
                     BackgroundColor="{StaticResource WhiteColor}"
                     CornerRadius="10"
+                    HasShadow="True"
                     HorizontalOptions="CenterAndExpand">
                     <ff:CachedImage
                         HeightRequest="35"
@@ -27,19 +28,6 @@
                         Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
                         VerticalOptions="Center"
                         WidthRequest="35" />
-                    <pancake:PancakeView.Shadow>
-                        <pancake:DropShadow
-                            BlurRadius="5"
-                            Opacity="0.5"
-                            Offset="0,2"
-                            Color="{StaticResource ShadowColor}" />
-                    </pancake:PancakeView.Shadow>
-                    <!--<pancake:PancakeView.Border>
-                        <pancake:Border
-                            DrawingStyle="Inside"
-                            Thickness="1"
-                            Color="{StaticResource TextPlaceHolderColor}" />
-                    </pancake:PancakeView.Border>-->
                 </pancake:PancakeView>
                 <Label
                     HorizontalOptions="Center"
@@ -143,7 +131,7 @@
                         Style="{DynamicResource FavouriteBackgroundColor}">
                         <pancake:PancakeView.Shadow>
                             <pancake:DropShadow
-                                BlurRadius="4"
+                                BlurRadius="3"
                                 Offset="0,1"
                                 Color="#010101" />
                         </pancake:PancakeView.Shadow>
