@@ -91,6 +91,7 @@ namespace VMS_MobileGPS
             containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
             containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
             containerRegistry.Register<ContentView, RoutePage>("RouteTab");
+            containerRegistry.RegisterForNavigation<DetailVehiclePopup,DetailVehiclePopupViewModel>("DetailVehiclePopup");
         }
     }
 }
