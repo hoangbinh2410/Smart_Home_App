@@ -187,8 +187,8 @@
             ColumnDefinitions="*,*,*">
             <sharpnado:MaterialFrame
                 Grid.Column="0"
-                Padding="0,7"
-                CornerRadius="18"
+                Padding="0,10"
+                CornerRadius="15"
                 HorizontalOptions="FillAndExpand"
                 LightThemeBackgroundColor="{StaticResource PrimaryColor}">
                 <sharpnado:MaterialFrame.GestureRecognizers>
@@ -205,8 +205,8 @@
             </sharpnado:MaterialFrame>
             <sharpnado:MaterialFrame
                 Grid.Column="1"
-                Padding="0,7"
-                CornerRadius="18"
+                Padding="0,10"
+                CornerRadius="15"
                 HorizontalOptions="FillAndExpand"
                 LightThemeBackgroundColor="{StaticResource PrimaryColor}">
                 <sharpnado:MaterialFrame.GestureRecognizers>
@@ -223,8 +223,8 @@
             </sharpnado:MaterialFrame>
             <sharpnado:MaterialFrame
                 Grid.Column="2"
-                Padding="0,7"
-                CornerRadius="18"
+                Padding="0,10"
+                CornerRadius="15"
                 HorizontalOptions="FillAndExpand"
                 LightThemeBackgroundColor="{StaticResource PrimaryColor}">
                 <sharpnado:MaterialFrame.GestureRecognizers>
