@@ -38,7 +38,7 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <sharpnado:MaterialFrame Padding="0" LightThemeBackgroundColor="{StaticResource GrayColor}">
+        <sharpnado:MaterialFrame Padding="0" LightThemeBackgroundColor="{StaticResource WhiteColor}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -66,7 +66,7 @@
                     <sharpnado:MaterialFrame
                         Padding="0"
                         CornerRadius="0"
-                        LightThemeBackgroundColor="{StaticResource GrayColor}">
+                        LightThemeBackgroundColor="{StaticResource WhiteColor}">
                         <tabs:TabHostView
                             x:Name="tabitem"
                             Padding="0"

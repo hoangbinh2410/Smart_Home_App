@@ -148,14 +148,9 @@
     <BundleResource Include="Resources\fa-regular-400.ttf" />
     <BundleResource Include="Resources\fa-solid-900.ttf" />
     <BundleResource Include="Resources\internetconnection.json" />
-    <BundleResource Include="Resources\Lato-BlackItalic.ttf" />
-    <BundleResource Include="Resources\Lato-Bold.ttf" />
-    <BundleResource Include="Resources\Lato-Italic.ttf" />
-    <BundleResource Include="Resources\Lato-Light.ttf" />
-    <BundleResource Include="Resources\Lato-Medium.ttf" />
-    <BundleResource Include="Resources\Lato-Regular.ttf" />
-    <BundleResource Include="Resources\Lato-Semibold.ttf" />
     <BundleResource Include="Resources\bluetooth.json" />
+    <BundleResource Include="Resources\Roboto-Bold.ttf" />
+    <BundleResource Include="Resources\Roboto-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Plugin.BLE">

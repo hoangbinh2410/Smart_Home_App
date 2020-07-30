@@ -32,7 +32,7 @@
                 HeightRequest="90"
                 WidthRequest="90">
                 <pancake:PancakeView.Border>
-                    <pancake:Border Thickness="3" Color="White" />
+                    <pancake:Border Thickness="1" Color="White" />
                 </pancake:PancakeView.Border>
                 <pancake:PancakeView
                     Padding="0"
@@ -50,7 +50,7 @@
                     FontAttributes="Bold"
                     FontFamily="{StaticResource myFontLatoBold}"
                     LineBreakMode="WordWrap"
-                    Text="{Binding UserInfo.FullName}"
+                    Text="{Binding UserInfo.FullName, Converter={StaticResource UpperCaseConverter}}"
                     TextColor="{AppThemeBinding Light={StaticResource WhiteColor},
                                                 Dark={StaticResource WhiteColor}}" />
                 <Label Text="{Binding UserInfo.PhoneNumber}" TextColor="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />

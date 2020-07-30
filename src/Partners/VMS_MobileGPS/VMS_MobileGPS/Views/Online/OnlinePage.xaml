@@ -92,7 +92,7 @@
                         Margin="0"
                         HorizontalOptions="StartAndExpand"
                         Text="{Binding CarSearch}"
-                        TextColor="{StaticResource TextPrimaryColor}"
+                        TextColor="{StaticResource TextPlaceHolderColor}"
                         VerticalOptions="Center" />
                 </StackLayout>
             </pancake:PancakeView>
@@ -133,6 +133,7 @@
             HorizontalOptions="EndAndExpand"
             VerticalOptions="End">
             <pancake:PancakeView
+                Padding="15"
                 BackgroundColor="{StaticResource WhiteColor}"
                 CornerRadius="25"
                 HeightRequest="50"
@@ -143,10 +144,12 @@
                 <controls:IconView
                     Margin="9"
                     Foreground="{StaticResource PrimaryColor}"
-                    Source="ic_vector.png" />
+                    HeightRequest="15"
+                    Source="ic_vector.png"
+                    WidthRequest="15" />
             </pancake:PancakeView>
             <pancake:PancakeView
-                Padding="0"
+                Padding="15"
                 BackgroundColor="{StaticResource WhiteColor}"
                 CornerRadius="25"
                 HeightRequest="50"
@@ -155,12 +158,13 @@
                     <TapGestureRecognizer Command="{Binding ChangeMapTypeCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
-                    Margin="10"
                     Foreground="{Binding ColorMapType}"
-                    HeightRequest="10"
-                    Source="ic_map_type.png" />
+                    HeightRequest="15"
+                    Source="ic_map_type.png"
+                    WidthRequest="15" />
             </pancake:PancakeView>
             <pancake:PancakeView
+                Padding="15"
                 BackgroundColor="{StaticResource PrimaryColor}"
                 CornerRadius="25"
                 HeightRequest="50"
@@ -169,19 +173,20 @@
                     <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
-                    Margin="13"
                     Foreground="{StaticResource WhiteColor}"
-                    Source="ic_bounded_area.png" />
+                    HeightRequest="15"
+                    Source="ic_bounded_area.png"
+                    WidthRequest="15" />
             </pancake:PancakeView>
         </StackLayout>
         <!--  Thông tin xe  -->
         <views:OnlineCarInfoView
             x:Name="boxInfo"
             Grid.Row="1"
-            BackgroundColor="{StaticResource WhiteColor}"
             Padding="0,10"
             AbsoluteLayout.LayoutBounds="0,1,1,350"
             AbsoluteLayout.LayoutFlags="YProportional, WidthProportional"
+            BackgroundColor="{StaticResource WhiteColor}"
             CornerRadius="20,20,0,0"
             HasShadow="False"
             HeightRequest="200"

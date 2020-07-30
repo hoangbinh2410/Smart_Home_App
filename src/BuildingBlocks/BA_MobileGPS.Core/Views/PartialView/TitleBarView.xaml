@@ -8,7 +8,6 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:local="clr-namespace:BA_MobileGPS.Entities;assembly=BA_MobileGPS.Entities"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -16,16 +15,16 @@
         <Grid StyleClass="TitleBarGrid">
             <ffImage:CachedImage
                 Margin="0,0,0,5"
-                HeightRequest="38"
+                HeightRequest="30"
                 HorizontalOptions="StartAndExpand"
                 Source="ic_logo.png"
                 VerticalOptions="EndAndExpand"
-                WidthRequest="80" />
+                WidthRequest="70" />
             <StackLayout
                 Margin="0"
                 HorizontalOptions="End"
                 Orientation="Horizontal"
-                Spacing="5"
+                Spacing="8"
                 VerticalOptions="EndAndExpand">
                 <controls:IconView Source="ic_phone.png" StyleClass="TopIconView">
                     <controls:IconView.Behaviors>

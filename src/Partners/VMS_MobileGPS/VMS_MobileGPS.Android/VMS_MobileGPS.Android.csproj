@@ -105,14 +105,8 @@
     <AndroidAsset Include="Assets\FontAwesome5Regular.otf" />
     <AndroidAsset Include="Assets\FontAwesome5Solid.otf" />
     <AndroidAsset Include="Assets\internetconnection.json" />
-    <AndroidAsset Include="Assets\Lato-BlackItalic.ttf" />
-    <AndroidAsset Include="Assets\Lato-Bold.ttf" />
-    <AndroidAsset Include="Assets\Lato-Italic.ttf" />
-    <AndroidAsset Include="Assets\Lato-Light.ttf" />
-    <AndroidAsset Include="Assets\Lato-Medium.ttf" />
-    <AndroidAsset Include="Assets\Lato-Regular.ttf" />
-    <AndroidAsset Include="Assets\Lato-Semibold.ttf" />
     <AndroidAsset Include="Assets\Roboto-Regular.ttf" />
+    <AndroidAsset Include="Assets\Roboto-Bold.ttf" />
     <None Include="google-services.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
