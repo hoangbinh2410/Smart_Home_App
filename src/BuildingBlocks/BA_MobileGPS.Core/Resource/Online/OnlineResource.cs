@@ -13,7 +13,7 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string Online_Label_StatusCarAll => Get(MobileResourceNames.Online_Label_StatusCarAll, "Tất cả", "All");
 
-        public static string Online_Label_StatusCarDebtMoney => Get(MobileResourceNames.Online_Label_StatusCarDebtMoney, "Phương tiện nợ phí", "Car DebtMoney");
+        public static string Online_Label_StatusCarDebtMoney => Get(MobileResourceNames.Online_Label_StatusCarDebtMoney, "Nợ phí", "Car DebtMoney");
         public static string Online_Label_StatusCarMoving => Get(MobileResourceNames.Online_Label_StatusCarMoving, "Di chuyển", "Moving");
 
         public static string Online_Label_StatusCarStoping => Get(MobileResourceNames.Online_Label_StatusCarStoping, "Dừng đỗ", "Stoping");

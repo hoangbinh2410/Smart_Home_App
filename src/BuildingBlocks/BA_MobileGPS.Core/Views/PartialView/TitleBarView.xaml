@@ -15,16 +15,16 @@
         <Grid StyleClass="TitleBarGrid">
             <ffImage:CachedImage
                 Margin="0,0,0,5"
-                HeightRequest="38"
+                HeightRequest="30"
                 HorizontalOptions="StartAndExpand"
                 Source="ic_logo.png"
                 VerticalOptions="EndAndExpand"
-                WidthRequest="80" />
+                WidthRequest="70" />
             <StackLayout
                 Margin="0"
                 HorizontalOptions="End"
                 Orientation="Horizontal"
-                Spacing="5"
+                Spacing="8"
                 VerticalOptions="EndAndExpand">
                 <controls:IconView Source="ic_phone.png" StyleClass="TopIconView">
                     <controls:IconView.Behaviors>

@@ -179,7 +179,7 @@
                         <Label
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
-                            Text="1N"
+                            Text="24H"
                             TextColor="White" />
                     </pancake:PancakeView>
                     <pancake:PancakeView
@@ -268,7 +268,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Route_Label_SearchVehicle}"
-                                PlaceholderColor="{StaticResource TextPrimaryColor}"
+                                PlaceholderColor="{StaticResource TextPlaceHolderColor}"
                                 Text="{Binding Vehicle.PrivateCode}"
                                 TextColor="Black"
                                 VerticalOptions="Center">
