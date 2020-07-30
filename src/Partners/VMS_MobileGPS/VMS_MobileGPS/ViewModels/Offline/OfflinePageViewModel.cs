@@ -77,6 +77,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             base.Initialize(parameters);
             //GetMobileVersion();
+            SetHeightBox();
             AppManager.BluetoothService.OnReceiveNotificationBLE -= OnReceiveNotificationBLE;
             AppManager.BluetoothService.OnReceiveNotificationBLE += OnReceiveNotificationBLE;
             eventAggregator.GetEvent<StartShinnyEvent>().Subscribe(StartShinyLocation);
@@ -169,6 +170,9 @@ namespace VMS_MobileGPS.ViewModels
         private string stateDeviceMessage = string.Empty;
         public string StateDeviceMessage { get => stateDeviceMessage; set => SetProperty(ref stateDeviceMessage, value); }
         private Dictionary<string, string> StateDevice = new Dictionary<string, string>();
+
+        private double heightbox = 300;
+        public double HeightBox { get => heightbox; set => SetProperty(ref heightbox, value); }
 
         #endregion Property
 
@@ -422,10 +426,10 @@ namespace VMS_MobileGPS.ViewModels
             {
                 IsConnectBLE = !IsConnectBLE;
 
-                if(IsConnectBLE)
+                if (IsConnectBLE)
                 {
                     _ = await NavigationService.NavigateAsync("NavigationPage/BluetoothPage", useModalNavigation: true);
-                }    
+                }
                 else
                 {
                     if (await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có muốn ngắt kết nối thiết bị không?", "ĐỒNG Ý", "BỎ QUA"))
@@ -711,6 +715,15 @@ namespace VMS_MobileGPS.ViewModels
                     }
                 }
             });
+        }
+
+        private void SetHeightBox()
+        {
+            var widthdevice = DeviceDisplay.MainDisplayInfo.Width;
+
+            // ảnh 48 chữ 12 hhoang cach 30
+
+            HeightBox = (widthdevice / 2) - 90;
         }
 
         #endregion PrivateMethod
