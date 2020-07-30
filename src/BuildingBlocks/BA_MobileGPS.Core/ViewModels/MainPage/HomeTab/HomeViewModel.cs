@@ -4,7 +4,6 @@ using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
-using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using Syncfusion.Data.Extensions;
@@ -12,8 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
-using System.Timers;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -26,6 +23,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private List<HomeMenuItemViewModel> MenuReponse = new List<HomeMenuItemViewModel>();
 
         #region Constructor
+
         public HomeViewModel(INavigationService navigationService,
             IHomeService homeService, IMapper mapper)
             : base(navigationService)
@@ -58,9 +56,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
-        #endregion
+
+        #endregion Constructor
 
         #region Icommand
+
         public ICommand NavigateToFavoriteCommand => new Command(() =>
         {
             SafeExecute(async () =>
@@ -68,10 +68,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("BaseNavigationPage/FavoritesConfigurationsPage", null, useModalNavigation: true);
             });
         });
+
         public ICommand TapMenuCommand { get; set; }
-        #endregion
+
+        #endregion Icommand
 
         #region Private method
+
         private void GetListMenu()
         {
             if (!IsConnected)
@@ -119,7 +122,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     MenuItemParentID = m1.MenuItemParentID,
                     LanguageCode = m1.LanguageCode,
                 };
-            StaticSettings.ListMenuOriginGroup = mapper.Map<List<HomeMenuItem>>(menus);           
+            StaticSettings.ListMenuOriginGroup = mapper.Map<List<HomeMenuItem>>(menus);
 
             if (!string.IsNullOrEmpty(menuFavoriteIds))
             {
@@ -150,13 +153,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 from m in menus
                 orderby m.IsFavorited descending, m.SortOrder, m.GroupName descending
                 select m;
-            var  favourites = result.Where(s => s.IsFavorited).ToList();
+            var favourites = result.Where(s => s.IsFavorited).ToList();
             GenerateFavouriteMenu(favourites);
             var notFavorites = result.Where(s => !s.IsFavorited).ToList();
             GenerateListFeatures(notFavorites);
             HasFavorite = FavouriteMenuItems.Count != 0;
             StaticSettings.ListMenu = mapper.Map<List<HomeMenuItem>>(result);
         }
+
         private void GenerateFavouriteMenu(List<HomeMenuItemViewModel> input)
         {
             FavouriteMenuItems.Clear();
@@ -182,6 +186,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             AllListfeatures = list.ToObservableCollection();
         }
+
         public void OnTappedMenu(object obj)
         {
             var args = (Syncfusion.ListView.XForms.ItemTappedEventArgs)obj;
@@ -221,16 +226,18 @@ namespace BA_MobileGPS.Core.ViewModels
                         {//await NavigationService.NavigateAsync("NotificationPopup", useModalNavigation: true);
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
-                               var a = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey, useModalNavigation: true);
+                                var a = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey, useModalNavigation: true);
                             }
                         });
                     });
                     break;
             }
         }
-        #endregion
+
+        #endregion Private method
 
         #region Property Binding
+
         private ObservableCollection<ItemSupport> listfeatures;
 
         public ObservableCollection<ItemSupport> AllListfeatures
@@ -244,6 +251,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private ObservableCollection<ItemSupport> favouriteMenuItems;
+
         public ObservableCollection<ItemSupport> FavouriteMenuItems
         {
             get => favouriteMenuItems;
@@ -255,6 +263,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         public bool hasFavorite;
+
         public bool HasFavorite
         {
             get => hasFavorite;
@@ -264,7 +273,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
-        #endregion
+
+        #endregion Property Binding
     }
 
     public class ItemSupport
