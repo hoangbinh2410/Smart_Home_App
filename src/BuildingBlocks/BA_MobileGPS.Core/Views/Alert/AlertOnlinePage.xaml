@@ -274,6 +274,7 @@
                                             LineBreakMode="TailTruncation"
                                             Text="{Binding AlertName}" />
                                         <Label
+                                            HorizontalOptions="Start"
                                             HorizontalTextAlignment="Start"
                                             LineBreakMode="TailTruncation"
                                             MaxLines="2"

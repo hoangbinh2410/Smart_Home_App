@@ -177,11 +177,11 @@
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Foreground="{StaticResource WhiteColor}"
-                    HeightRequest="25"
+                    HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_bounded_area.png"
                     VerticalOptions="Center"
-                    WidthRequest="25" />
+                    WidthRequest="20" />
             </pancake:PancakeView>
         </StackLayout>
         <!--  Thông tin xe  -->
