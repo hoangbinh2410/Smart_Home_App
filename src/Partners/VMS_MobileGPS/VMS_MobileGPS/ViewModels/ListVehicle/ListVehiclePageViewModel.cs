@@ -16,7 +16,7 @@ using BA_MobileGPS.Utilities;
 
 using Prism.Commands;
 using Prism.Navigation;
-
+using Rg.Plugins.Popup.Services;
 using Syncfusion.Data.Extensions;
 
 using System;
@@ -27,6 +27,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using VMS_MobileGPS.Views;
 using Xamarin.Forms;
 
 namespace VMS_MobileGPS.ViewModels
@@ -459,25 +460,27 @@ namespace VMS_MobileGPS.ViewModels
                         ShowInfoMessageDetailBAP(selected.MessageDetailBAP);
                         return;
                     }
-                    var action = await PageDialog.DisplayActionSheetAsync(MobileResource.ListVehicle_Label_SelectCommand, MobileResource.Common_Button_Close, null,
-                           MobileResource.DetailVehicle_Label_TilePage, MobileResource.Online_Label_TitlePage, MobileResource.Route_Label_TitleVMS, MobileResource.Route_Label_DistanceTitle);
 
-                    if (action == MobileResource.DetailVehicle_Label_TilePage)
+                    await PopupNavigation.Instance.PushAsync(new DetailVehiclePopup(selected.PrivateCode,
+                        (action) =>
                     {
-                        GoDetailPage(selected);
-                    }
-                    else if (action == MobileResource.Online_Label_TitlePage)
-                    {
-                        GoOnlinePage(selected);
-                    }
-                    else if (action == MobileResource.Route_Label_TitleVMS)
-                    {
-                        GoRoutePage(selected);
-                    }
-                    else if (action == MobileResource.Route_Label_DistanceTitle)
-                    {
-                        GoDistancePage(selected);
-                    }
+                        if (action == MobileResource.DetailVehicle_Label_TilePage)
+                        {
+                            GoDetailPage(selected);
+                        }
+                        else if (action == MobileResource.Online_Label_TitlePage)
+                        {
+                            GoOnlinePage(selected);
+                        }
+                        else if (action == MobileResource.Route_Label_TitleVMS)
+                        {
+                            GoRoutePage(selected);
+                        }
+                        else if (action == MobileResource.Route_Label_DistanceTitle)
+                        {
+                            GoDistancePage(selected);
+                        }
+                    }));
                 }
             });
         }

@@ -12,7 +12,7 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string Login_Checkbox_Rememberme => Get(MobileResourceNames.Login_Checkbox_Rememberme, "Ghi nhớ mật khẩu", "Remember me");
 
-        public static string Login_Checkbox_Autologin => Get(MobileResourceNames.Login_Checkbox_Autologin, "Tự động đăng nhập", "Automatically login");
+        public static string Login_Checkbox_Autologin => Get(MobileResourceNames.Login_Checkbox_Autologin, "Ghi nhớ đăng nhập", "Automatically login");
 
         public static string Login_Lable_Forgotpassword => Get(MobileResourceNames.Login_Lable_Forgotpassword, "Quên mật khẩu ", "Forgot password");
 
