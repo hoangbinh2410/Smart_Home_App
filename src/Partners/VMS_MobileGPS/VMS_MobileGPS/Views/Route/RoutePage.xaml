@@ -318,6 +318,7 @@
                     AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
                     AbsoluteLayout.LayoutFlags="PositionProportional">
                     <pancake:PancakeView
+                        Padding="0"
                         BackgroundColor="{StaticResource WhiteColor}"
                         CornerRadius="25"
                         HeightRequest="50"
@@ -326,9 +327,12 @@
                             <TapGestureRecognizer Command="{Binding WatchVehicleCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
-                            Margin="9"
-                            Foreground="{Binding FindCarColor}"
-                            Source="ic_vector.png" />
+                            Foreground="{StaticResource PrimaryColor}"
+                            HeightRequest="25"
+                            HorizontalOptions="Center"
+                            Source="ic_vector.png"
+                            VerticalOptions="Center"
+                            WidthRequest="25" />
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Padding="0"
@@ -340,12 +344,15 @@
                             <TapGestureRecognizer Command="{Binding ChangeMapTypeCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
-                            Margin="10"
                             Foreground="{Binding ColorMapType}"
-                            HeightRequest="10"
-                            Source="ic_map_type.png" />
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            Source="ic_map_type.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
                     </pancake:PancakeView>
                     <pancake:PancakeView
+                        Padding="0"
                         BackgroundColor="{StaticResource PrimaryColor}"
                         CornerRadius="25"
                         HeightRequest="50"
@@ -354,9 +361,12 @@
                             <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
-                            Margin="13"
                             Foreground="{StaticResource WhiteColor}"
-                            Source="ic_bounded_area.png" />
+                            HeightRequest="25"
+                            HorizontalOptions="Center"
+                            Source="ic_bounded_area.png"
+                            VerticalOptions="Center"
+                            WidthRequest="25" />
                     </pancake:PancakeView>
                 </StackLayout>
                 <Frame
