@@ -347,4 +347,27 @@ namespace VMS_MobileGPS.Converter
         }
     }
 
+    public class BLEConnectionStateImagesConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return "ic_vmsdevice_off.png";
+            }
+            if ((bool)value)
+            {
+                return "ic_vmsdevice.png";
+            }
+            else
+            {
+                return "ic_vmsdevice_off.png";
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
 }
