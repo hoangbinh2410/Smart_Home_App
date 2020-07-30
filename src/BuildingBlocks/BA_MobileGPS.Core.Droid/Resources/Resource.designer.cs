@@ -4425,7 +4425,7 @@ namespace BA_MobileGPS.Core.Droid
 			public static int ic_lisence = 2131165455;
 			
 			// aapt resource value: 0x7F070110
-			public static int ic_list_black = 2131165456;
+			public static int ic_list_route = 2131165456;
 			
 			// aapt resource value: 0x7F070111
 			public static int ic_location_black = 2131165457;
@@ -5124,40 +5124,40 @@ namespace BA_MobileGPS.Core.Droid
 			public static int ic_successstatus = 2131165688;
 			
 			// aapt resource value: 0x7F0701F9
-			public static int ic_telephone = 2131165689;
+			public static int ic_support = 2131165689;
 			
 			// aapt resource value: 0x7F0701FA
-			public static int ic_temperature = 2131165690;
+			public static int ic_telephone = 2131165690;
 			
 			// aapt resource value: 0x7F0701FB
-			public static int ic_time24 = 2131165691;
+			public static int ic_temperature = 2131165691;
 			
 			// aapt resource value: 0x7F0701FC
-			public static int ic_time_black = 2131165692;
+			public static int ic_time24 = 2131165692;
 			
 			// aapt resource value: 0x7F0701FD
-			public static int ic_time_running = 2131165693;
+			public static int ic_time_black = 2131165693;
 			
 			// aapt resource value: 0x7F0701FE
-			public static int ic_turnon_time_on_day = 2131165694;
+			public static int ic_time_running = 2131165694;
 			
 			// aapt resource value: 0x7F0701FF
-			public static int ic_unchecked_checkbox = 2131165695;
+			public static int ic_turnon_time_on_day = 2131165695;
 			
 			// aapt resource value: 0x7F070200
-			public static int ic_user = 2131165696;
+			public static int ic_unchecked_checkbox = 2131165696;
 			
 			// aapt resource value: 0x7F070201
-			public static int ic_vector = 2131165697;
+			public static int ic_user = 2131165697;
 			
 			// aapt resource value: 0x7F070202
-			public static int ic_vehicleplate = 2131165698;
+			public static int ic_vector = 2131165698;
 			
 			// aapt resource value: 0x7F070203
-			public static int ic_velocity = 2131165699;
+			public static int ic_vehicleplate = 2131165699;
 			
 			// aapt resource value: 0x7F070204
-			public static int ic_view_list = 2131165700;
+			public static int ic_velocity = 2131165700;
 			
 			// aapt resource value: 0x7F070205
 			public static int ic_vol_mute = 2131165701;

@@ -15,25 +15,31 @@
     x:Name="root">
     <ContentView.Resources>
         <DataTemplate x:Key="IconTemplate">
-            <StackLayout Spacing="10">
+            <StackLayout Margin="2" Spacing="10">
                 <pancake:PancakeView
-                    Padding="10"
+                    Padding="15"
                     BackgroundColor="{StaticResource WhiteColor}"
-                    CornerRadius="5"
+                    CornerRadius="8"
                     HorizontalOptions="CenterAndExpand">
                     <ff:CachedImage
-                        HeightRequest="40"
+                        HeightRequest="35"
+                        HorizontalOptions="Center"
                         Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
-                        WidthRequest="40" />
+                        VerticalOptions="Center"
+                        WidthRequest="35" />
                     <pancake:PancakeView.Shadow>
-                        <pancake:DropShadow BlurRadius="4" Color="{StaticResource TextPlaceHolderColor}" />
+                        <pancake:DropShadow
+                            BlurRadius="4"
+                            Opacity="1"
+                            Offset="0,2"
+                            Color="{StaticResource ShadowColor}" />
                     </pancake:PancakeView.Shadow>
-                    <pancake:PancakeView.Border>
+                    <!--<pancake:PancakeView.Border>
                         <pancake:Border
                             DrawingStyle="Inside"
                             Thickness="1"
                             Color="{StaticResource TextPlaceHolderColor}" />
-                    </pancake:PancakeView.Border>
+                    </pancake:PancakeView.Border>-->
                 </pancake:PancakeView>
                 <Label
                     LineBreakMode="TailTruncation"
@@ -134,7 +140,10 @@
                         HasShadow="True"
                         Style="{DynamicResource FavouriteBackgroundColor}">
                         <pancake:PancakeView.Shadow>
-                            <pancake:DropShadow BlurRadius="2" Color="Black" />
+                            <pancake:DropShadow
+                                BlurRadius="4"
+                                Offset="0,2"
+                                Color="#010101" />
                         </pancake:PancakeView.Shadow>
                         <StackLayout Spacing="0">
                             <Grid Margin="10">
@@ -165,11 +174,12 @@
                                                 HeightRequest="250"
                                                 HorizontalOptions="CenterAndExpand"
                                                 IsScrollBarVisible="False"
-                                                ItemSize="100"
+                                                ItemSize="101"
                                                 ItemSpacing="5,10,5,0"
                                                 ItemsSource="{Binding FeaturesItem, Mode=OneWay}"
                                                 PropertyChanged="Favourite_PropertyChanged"
-                                                TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}" />
+                                                TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}"
+                                                VerticalOptions="CenterAndExpand" />
                                         </Grid>
                                     </DataTemplate>
                                 </CarouselView.ItemTemplate>

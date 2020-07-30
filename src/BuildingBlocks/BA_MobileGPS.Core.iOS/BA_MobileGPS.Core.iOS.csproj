@@ -562,15 +562,6 @@
     <BundleResource Include="Resources\ic_lisence%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_list_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_list_black%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_list_black%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\ic_location_black.png" />
   </ItemGroup>
   <ItemGroup>
@@ -1063,15 +1054,6 @@
     <BundleResource Include="Resources\ic_velocity%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_view_list.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_view_list%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_view_list%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\ic_warning_ben.png" />
   </ItemGroup>
   <ItemGroup>
@@ -1214,6 +1196,15 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_support%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_list_route.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_list_route%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_list_route%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
