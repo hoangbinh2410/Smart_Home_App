@@ -73,9 +73,9 @@ namespace BA_MobileGPS.Entities
                 int Index = 0;
 
                 DateKm = SerializeLibrary.GetFloatFromArray(data, Index); Index += 4;
-                DirectionDetail = SerializeLibrary.GetStringFromArray(data, Index, ref Index);
+                DirectionDetail = SerializeLibrary.GetStringFromArray32(data, Index, ref Index);
 
-                short lengthStopPoint = SerializeLibrary.GetInt16FromArray(data, Index); Index += 2;
+                int lengthStopPoint = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
                 StatePoints = new List<StatePoint>();
                 for (int i = 0; i < lengthStopPoint; i++)
                 {
@@ -88,7 +88,7 @@ namespace BA_MobileGPS.Entities
                     StatePoints.Add(state);
                 }
 
-                short lengthGSMPoint = SerializeLibrary.GetInt16FromArray(data, Index); Index += 2;
+                int lengthGSMPoint = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
                 GSMPoints = new List<GSMPoint>();
                 for (int i = 0; i < lengthGSMPoint; i++)
                 {
@@ -100,7 +100,7 @@ namespace BA_MobileGPS.Entities
                     GSMPoints.Add(gsm);
                 }
 
-                short lengthVelocityPoints = SerializeLibrary.GetInt16FromArray(data, Index); Index += 2;
+                int lengthVelocityPoints = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
                 VelocityPoints = new List<byte>();
                 for (int i = 0; i < lengthVelocityPoints; i++)
                 {
@@ -114,7 +114,7 @@ namespace BA_MobileGPS.Entities
                 };
                 Index += 8;
 
-                short lengthAddedTimes = SerializeLibrary.GetInt16FromArray(data, Index); Index += 2;
+                int lengthAddedTimes = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
                 TimePoints.AddedTimes = new List<int>();
                 for (int i = 0; i < lengthVelocityPoints; i++)
                 {
@@ -132,6 +132,7 @@ namespace BA_MobileGPS.Entities
             return false;
         }
     }
+
 
     public class RouteHistoryRequest
     {
