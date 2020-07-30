@@ -40,7 +40,7 @@ namespace BA_MobileGPS.Core.Views
                 Switcher.SelectedIndex = Switcher.Children.Count - 1;
             }
             else
-            {               
+            {
                 Switcher.SelectedIndex = 2;
                 Switcher.SelectedIndex = 0;
             }
