@@ -31,14 +31,14 @@ namespace BA_MobileGPS.Core.Resource
         public static string Online_Label_TotalCar => Get(MobileResourceNames.Online_Label_TotalCar, "Tổng xe :", "Total car :");
         public static string Online_Label_TotalVehicle => Get(MobileResourceNames.Online_Label_TotalCar, "Tổng phương tiện :", "Total vehicle :");
 
-        public static string Online_Button_Detail => Get(MobileResourceNames.Online_Button_Detail, "CHI TIẾT", "DETAIL");
+        public static string Online_Button_Detail => Get(MobileResourceNames.Online_Button_Detail, "CHI TIẾT", "DETAILS");
         public static string Online_Button_Router => Get(MobileResourceNames.Online_Button_Router, "LỘ TRÌNH", "ROUTER");
         public static string Online_Button_ShowHideBorder => Get(MobileResourceNames.Online_Button_ShowHideBorder, "ẨN/HIỆN ĐƯỜNG BAO", "HIDE BORDER");
 
         public static string Online_Label_VehicleInfo => Get(MobileResourceNames.Online_Label_VehicleInfo, "Thông tin phương tiện", "Vehicle info");
         public static string Online_Label_Last => Get(MobileResourceNames.Online_Label_Last, "cuối cùng", "");
-        public static string Online_Label_AtTime => Get(MobileResourceNames.Online_Label_Last, "tại thời điểm", "at time");
-        public static string Online_Label_TotalKm => Get(MobileResourceNames.Online_Label_TotalKm, "Hải Lý", "Traveled");
+        public static string Online_Label_AtTime => Get(MobileResourceNames.Online_Label_Last, "tại thời điểm", "at");
+        public static string Online_Label_TotalKm => Get(MobileResourceNames.Online_Label_TotalKm, "Hải Lý", "NM");
         public static string Online_Label_Velocity => Get(MobileResourceNames.Online_Label_Velocity, "Vận Tốc", "Velocity");
         public static string Online_Label_Engine => Get(MobileResourceNames.Online_Label_Engine, "ĐỘNG CƠ", "Engine");
         public static string Online_Label_AirConditioning => Get(MobileResourceNames.Online_Label_AirConditioning, "ĐIỀU HÒA", "Air Conditioning");

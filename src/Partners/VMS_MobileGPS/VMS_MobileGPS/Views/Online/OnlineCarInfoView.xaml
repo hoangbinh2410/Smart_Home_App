@@ -72,7 +72,7 @@
                 HeightRequest="20"
                 HorizontalOptions="EndAndExpand"
                 IsChecked="{Binding IsShowCircle}"
-                Text="Vòng bao"
+                Text="{i18n:TranslateResource Route_Label_Circle}"
                 UncheckedColor="{StaticResource BlueDarkColor}" />
         </Grid>
         <BoxView

@@ -20,7 +20,7 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string Common_Lable_KmUnit => Get(MobileResourceNames.Common_Lable_KmUnit, "km/h", "km/h");
 
-        public static string Common_Lable_NMUnit => Get(MobileResourceNames.Common_Lable_NMUnit, "lý/h", "NM/h");
+        public static string Common_Lable_NMUnit => Get(MobileResourceNames.Common_Lable_NMUnit, "Hải lý/h", "NM/h");
 
         public static string Common_Lable_More => Get(MobileResourceNames.Common_Lable_More, "Xem thêm..", "More...");
 
@@ -68,6 +68,9 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string Common_Message_NotPermission => Get(MobileResourceNames.Common_Message_NotPermission, "Chức năng chưa được cấp quyền", "Function has not been granted");
 
+        public static string Common_Label_HighLight => Get(MobileResourceNames.Common_Label_HighLight, "Nổi bật", "HighLight");
+
+        public static string Common_Label_Features => Get(MobileResourceNames.Common_Label_Features, "Tiện ích", "Features");
 
         #region title grid dùng nhiều
 
@@ -111,7 +114,7 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string Common_Label_Grid_STT => Get(MobileResourceNames.Common_Label_Grid_STT, "STT", "#");
 
-        public static string Common_Label_Grid_VehiclePlate => Get(MobileResourceNames.Common_Label_Grid_VehiclePlate, "Biển số xe", "VehiclePlate");
+        public static string Common_Label_Grid_VehiclePlate => Get(MobileResourceNames.Common_Label_Grid_VehiclePlate, "Biển số phương tiện", "Registration plate");
 
         public static string Common_Label_Grid_FromDate => Get(MobileResourceNames.Common_Label_Grid_FromDate, "Giờ bắt đầu", "From date");
 

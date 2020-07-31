@@ -16,6 +16,8 @@
         Common_Message_Warning,
         Common_Message_Skip,
         Common_Message_NotPermission,
+        Common_Label_HighLight,
+        Common_Label_Features,
         Common_Button_OK,
         Common_Button_Send,
         Common_Button_Save,
@@ -278,14 +280,20 @@
         ListVehicle_Label_Default,
         ListVehicle_Label_VehicleNormal,
         ListVehicle_Label_VehicleNormal2,
+        ListVehicle_Label_VehicleNormal2VMS,
         ListVehicle_Label_VehicleStop,
         ListVehicle_Label_VehicleStop2,
+        ListVehicle_Label_VehicleStop2VMS,
         ListVehicle_Label_VehicleSpeeding,
         ListVehicle_Label_VehicleSpeeding2,
+        ListVehicle_Label_VehicleSpeeding2VMS,
         ListVehicle_Label_VehicleLostGPS,
         ListVehicle_Label_VehicleLostGPS2,
+        ListVehicle_Label_VehicleLostGPS2VMS,
         ListVehicle_Label_VehicleLostGSM,
         ListVehicle_Label_VehicleLostGSM2,
+        ListVehicle_Label_VehicleLostGSM2VMS,
+        ListVehicle_Label_Note,
         CompanyLookUp_Label_Title,
         CompanyLookUp_Label_NotFound,
         CompanyLookUp_Label_Search,
@@ -340,9 +348,15 @@
         Route_Label_Vgps,
         Route_Label_Status,
         Route_Label_SearchVehicle,
+        Route_Label_SearchFishing,
         Route_Label_VehicleEmpty,
         Route_Label_RouteNotFound,
         Route_Label_RouteNotExist,
+        Route_Label_More,
+        Route_Label_Coordinates,
+        Route_Label_Move,
+        Route_Label_StopParking,
+        Route_Label_LostSignal,
         Route_Label_StartDateMustSmallerThanEndDate,
         Route_Label_TotalTimeLimit,
         Route_Label_EndDateLimit,
@@ -354,6 +368,7 @@
         Route_Label_OverDateLimit,
         Route_Label_DistanceTitle,
         Route_Label_FeeVMS,
+        Route_Label_Circle,
         #endregion Route
 
         #region Alert Online
@@ -408,6 +423,7 @@
 
         #region vehicledetail
         DetailVehicle_Label_TilePage,
+        DetailVehicleVMS_Label_TilePage,
         DetailVehicle_Label_InforFee,
         DetailVehicle_MessageFee,
         DetailVehicle_Label_TileInforVehicle,
@@ -451,6 +467,7 @@
         DetailVehicle_Label_Vehicle_Expiration_Date,
         DetailVehicle_Label_Vehicle_Sim_Surplus,
         DetailVehicle_Label_Vehicle_Status_Current,
+        DetailVehicle_Label_ExpirationDate,
         #endregion vehicledetail
 
         #region datetimepicker

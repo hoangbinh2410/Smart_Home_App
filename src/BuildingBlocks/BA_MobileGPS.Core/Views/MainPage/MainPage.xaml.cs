@@ -31,19 +31,19 @@ namespace BA_MobileGPS.Core.Views
                 tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_shipsolid.png", Label = MobileResource.Menu_TabItem_Vehicle });
             }
 
-            if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
-            {
-                var online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online
-                ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
-                Switcher.Children.Add(online);
-                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_mornitoring.png", Label = MobileResource.Menu_TabItem_Monitoring });
-                Switcher.SelectedIndex = Switcher.Children.Count - 1;
-            }
-            else
-            {
-                Switcher.SelectedIndex = 2;
-                Switcher.SelectedIndex = 0;
-            }
+            //if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
+            //{
+            //    var online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online
+            //    ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
+            //    Switcher.Children.Add(online);
+            //    tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_mornitoring.png", Label = MobileResource.Menu_TabItem_Monitoring });
+            //    Switcher.SelectedIndex = Switcher.Children.Count - 1;
+            //}
+            //else
+            //{
+            //    Switcher.SelectedIndex = 2;
+            //    Switcher.SelectedIndex = 0;
+            //}
 
             if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
             {
