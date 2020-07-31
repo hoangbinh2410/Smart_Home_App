@@ -22,6 +22,9 @@
                     CornerRadius="10"
                     HasShadow="True"
                     HorizontalOptions="CenterAndExpand">
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow BlurRadius="2" Color="{StaticResource ShadowColor}" />
+                    </pancake:PancakeView.Shadow>
                     <ff:CachedImage
                         HeightRequest="35"
                         HorizontalOptions="Center"
@@ -140,6 +143,9 @@
                         CornerRadius="10"
                         HasShadow="True"
                         Style="{DynamicResource FavouriteBackgroundColor}">
+                        <pancake:PancakeView.Shadow>
+                            <pancake:DropShadow BlurRadius="2" Color="{StaticResource ShadowColor}" />
+                        </pancake:PancakeView.Shadow>
                         <StackLayout Spacing="0">
                             <Grid Margin="10">
                                 <Label StyleClass="GroupTitleLabel,BoldText" Text="NỔI BẬT" />
@@ -188,7 +194,8 @@
                         Padding="0"
                         BackgroundColor="{AppThemeBinding Light={StaticResource GrayColor},
                                                           Dark={StaticResource GrayColor}}"
-                        CornerRadius="10">
+                        CornerRadius="10"
+                        HasShadow="False">
                         <StackLayout Spacing="0">
                             <Label
                                 Padding="10"
