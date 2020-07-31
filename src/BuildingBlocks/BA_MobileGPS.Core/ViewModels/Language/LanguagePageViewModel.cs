@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -152,12 +153,13 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        public Command SelectedCommand
+        public ICommand SelectedCommand
         {
             get
             {
-                return new Command<LanguageRespone>(async (item) =>
+                return new DelegateCommand<Syncfusion.ListView.XForms.ItemTappedEventArgs>(async (obj) =>
                 {
+                    var item = (LanguageRespone)obj.ItemData;
                     if (item != null)
                     {
                         try
