@@ -69,7 +69,7 @@
             </StackLayout>
             <ff:CachedImage
                 Grid.Row="0"
-                HeightRequest="80"
+                HeightRequest="60"
                 HorizontalOptions="Center"
                 Source="logo_VNSAT.png"
                 VerticalOptions="EndAndExpand" />

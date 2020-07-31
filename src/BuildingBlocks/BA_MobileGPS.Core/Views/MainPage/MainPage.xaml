@@ -38,7 +38,7 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <sharpnado:MaterialFrame Padding="0" LightThemeBackgroundColor="{StaticResource WhiteColor}">
+        <sharpnado:MaterialFrame Padding="0" LightThemeBackgroundColor="{StaticResource GrayColor}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />

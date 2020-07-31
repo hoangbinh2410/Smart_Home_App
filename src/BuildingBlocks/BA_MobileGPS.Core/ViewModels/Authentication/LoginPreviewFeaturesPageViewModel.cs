@@ -37,7 +37,7 @@ namespace BA_MobileGPS.Core.ViewModels
             list.Add(new LoginPopupItem
             {
                 Title = MobileResource.Login_Popup_Manual,
-                Icon = "ic_manual.png",
+                Icon = "ic_support.png",
                 Url = "NavigationPage/HelperPage",
                 ItemType = LoginPopupItemType.Manual,
             });
