@@ -37,10 +37,11 @@
             </Grid.ColumnDefinitions>
             <ffImage:CachedImage
                 Grid.Column="0"
+                HeightRequest="30"
                 HorizontalOptions="StartAndExpand"
                 Source="ic_logo.png"
                 VerticalOptions="FillAndExpand"
-                WidthRequest="80" />
+                WidthRequest="70" />
             <badge:SfBadgeView
                 Grid.Column="1"
                 Margin="5,0,0,5"
@@ -234,6 +235,7 @@
 
                 <Button
                     Grid.Row="2"
+                    Margin="35,0"
                     Command="{Binding NavigateToCommand}"
                     CommandParameter="{x:Static local:PageNames.LoginPage}"
                     Text="ĐĂNG NHẬP"
