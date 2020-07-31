@@ -1207,6 +1207,30 @@
     <BundleResource Include="Resources\ic_support.png" />
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\ic_minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_minus%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_minus%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_plus%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_list_route%403x.png" />
+    </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_plus%403x.png" />
+     </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_support.png" />
+  </ItemGroup>
+  <ItemGroup>
     <BundleResource Include="Resources\ic_support%402x.png" />
   </ItemGroup>
   <ItemGroup>
@@ -1220,15 +1244,6 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_list_route%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_list_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_list_black%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_list_black%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_foursquare%402x.png" />
