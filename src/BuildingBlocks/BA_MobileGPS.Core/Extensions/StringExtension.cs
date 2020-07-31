@@ -100,31 +100,56 @@ namespace Xamarin.Forms.Extensions
         {
             TimeSpan time = TimeSpan.FromSeconds(secs);
 
-            string answer;
+            string answer = string.Empty;
 
             if (time.Days > 0)
             {
-                answer = string.Format("{0} {1} {2} {3} {4} {5}",
-                               time.Days, MobileResource.Common_Label_Day,
-                               time.Hours, MobileResource.Common_Label_Hour,
-                               time.Minutes, MobileResource.Common_Label_Minute);
+                if (time.Days > 1)
+                {
+                    answer = string.Format("{0} {1}", time.Days, MobileResource.Common_Label_Days);
+                }
+                else
+                {
+                    answer = string.Format("{0} {1}", time.Days, MobileResource.Common_Label_Day);
+                }
+                //answer = string.Format("{0} {1} {2} {3} {4} {5}",
+                //               time.Days, MobileResource.Common_Label_Day,
+                //               time.Hours, MobileResource.Common_Label_Hour,
+                //               time.Minutes, MobileResource.Common_Label_Minute);
             }
-            else if (time.Hours > 0)
+
+            if (time.Hours > 0)
             {
-                answer = string.Format("{0} {1} {2} {3}",
-                               time.Hours, MobileResource.Common_Label_Hour,
-                               time.Minutes, MobileResource.Common_Label_Minute);
+                if (time.Hours > 1)
+                {
+                    answer +=  string.Format("{0} {1}", time.Hours, MobileResource.Common_Label_Hours);
+                }
+                else
+                {
+                    answer += string.Format("{0} {1}", time.Hours, MobileResource.Common_Label_Hour);
+                }
+                //answer = string.Format("{0} {1} {2} {3}",
+                //               time.Hours, MobileResource.Common_Label_Hour,
+                //               time.Minutes, MobileResource.Common_Label_Minute);
             }
-            else if (time.Minutes > 0 || time.Minutes == 0)
+            if (time.Minutes > 0 || time.Minutes == 0)
             {
-                answer = string.Format("{0} {1}",
-                               time.Minutes, MobileResource.Common_Label_Minute);
+                if (time.Minutes > 1)
+                {
+                    answer += string.Format("{0} {1}", time.Minutes , MobileResource.Common_Label_Minutes);
+                }
+                else
+                {
+                    answer += string.Format("{0} {1}", time.Minutes, MobileResource.Common_Label_Hour);
+                }
+                //answer = string.Format("{0} {1}",
+                //               time.Minutes, MobileResource.Common_Label_Minute);
             }
-            else
-            {
-                answer = string.Format("{0} {1}",
-                              0, MobileResource.Common_Label_Minute);
-            }
+            //else
+            //{
+            //    answer = string.Format("{0} {1}",
+            //                  0, MobileResource.Common_Label_Minute);
+            //}
 
             return answer;
         }

@@ -155,10 +155,13 @@ namespace BA_MobileGPS.Core.Resource
         public static string Common_Label_Year => Get(MobileResourceNames.Common_Label_Year, "Năm", "Year");
         public static string Common_Label_Month => Get(MobileResourceNames.Common_Label_Month, "Tháng", "Month");
         public static string Common_Label_Day => Get(MobileResourceNames.Common_Label_Day, "Ngày", "Day");
+        public static string Common_Label_Days => Get(MobileResourceNames.Common_Label_Days, "Ngày", "Days");
         public static string Common_Label_Day2 => Get(MobileResourceNames.Common_Label_Day2, "N", "D");
         public static string Common_Label_Hour => Get(MobileResourceNames.Common_Label_Hour, "Giờ", "Hour");
+        public static string Common_Label_Hours => Get(MobileResourceNames.Common_Label_Hours, "Giờ", "Hours");
         public static string Common_Label_Hour2 => Get(MobileResourceNames.Common_Label_Hour2, "G", "H");
         public static string Common_Label_Minute => Get(MobileResourceNames.Common_Label_Minute, "Phút", "Minute");
+        public static string Common_Label_Minutes => Get(MobileResourceNames.Common_Label_Minutes, "Phút", "Minute");
         public static string Common_Label_Minute2 => Get(MobileResourceNames.Common_Label_Minute2, "P", "M");
         public static string Common_Label_Second => Get(MobileResourceNames.Common_Label_Second, "Giây", "Second");
         public static string Common_Label_Duration => Get(MobileResourceNames.Common_Label_Duration, "Thời gian", "Duration");
