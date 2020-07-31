@@ -38,6 +38,7 @@
                     VerticalOptions="Center" />
             </StackLayout>
         </DataTemplate>
+
         <Style TargetType="sfListView:SfListView">
             <Setter Property="IsScrollBarVisible" Value="False" />
             <Setter Property="IsScrollingEnabled" Value="True" />
@@ -45,6 +46,16 @@
             <Setter Property="Orientation" Value="Horizontal" />
             <Setter Property="SelectionBackgroundColor" Value="Transparent" />
             <Setter Property="ItemTemplate" Value="{StaticResource IconTemplate}" />
+        </Style>
+
+        <pancake:DropShadow
+            x:Key="shadow"
+            BlurRadius="3"
+            Color="Black" />
+
+        <Style TargetType="pancake:PancakeView">
+            <Setter Property="HasShadow" Value="True" />
+            <Setter Property="Shadow" Value="{StaticResource shadow}" />
         </Style>
     </ContentView.Resources>
     <Grid>
@@ -129,12 +140,6 @@
                         CornerRadius="10"
                         HasShadow="True"
                         Style="{DynamicResource FavouriteBackgroundColor}">
-                        <pancake:PancakeView.Shadow>
-                            <pancake:DropShadow
-                                BlurRadius="3"
-                                Offset="0,1"
-                                Color="#010101" />
-                        </pancake:PancakeView.Shadow>
                         <StackLayout Spacing="0">
                             <Grid Margin="10">
                                 <Label StyleClass="GroupTitleLabel,BoldText" Text="NỔI BẬT" />

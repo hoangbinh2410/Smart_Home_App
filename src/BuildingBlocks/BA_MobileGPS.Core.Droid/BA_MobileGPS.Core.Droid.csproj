@@ -137,7 +137,7 @@
       <Version>2.4.11.982</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.7.0.1179</Version>
+      <Version>4.7.0.1239</Version>
     </PackageReference>
     <PackageReference Include="Com.OneSignal">
       <Version>3.10.0</Version>
