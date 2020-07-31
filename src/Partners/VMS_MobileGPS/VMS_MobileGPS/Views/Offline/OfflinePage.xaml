@@ -26,6 +26,7 @@
             <converters:SOSBackgroundColorConverter x:Key="SOSBackgroundColorConverter" />
             <converters:SOSLabelTextConverter x:Key="SOSLabelTextConverter" />
             <converters:BLENameConverter x:Key="BLENameConverter" />
+            <converters:BLEConnectionStateBoolConverter x:Key="BLEConnectionStateBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <NavigationPage.TitleView>
@@ -89,21 +90,21 @@
                     Grid.Column="0"
                     HeightRequest="120"
                     HorizontalOptions="StartAndExpand"
-                    Source="{Binding IsConnectBLE, Converter={StaticResource BLEConnectionStateImagesConverter}}"
+                    Source="{Binding DeviceManager.State, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource BLEConnectionStateImagesConverter}}"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="120" />
                 <StackLayout
                     Grid.Column="1"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand">
-
                     <Label
                         HorizontalOptions="StartAndExpand"
                         LineBreakMode="TailTruncation"
-                        Text="{Binding DeviceManager.DevicePlate, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource BLENameConverter}}" />
+                        Text="{Binding DeviceManager.DevicePlate, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource BLENameConverter}}"
+                        TextColor="{Binding DeviceManager.State, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource BLEConnectionStateColorConverter}}" />
                     <StackLayout
                         HorizontalOptions="Start"
-                        IsVisible="{Binding IsConnectBLE}"
+                        IsVisible="{Binding DeviceManager.State, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource BLEConnectionStateBoolConverter}}"
                         Orientation="Horizontal"
                         Spacing="5">
                         <Label Text="{Binding StateDeviceMessage}" TextColor="{Binding StateDeviceMessage, Converter={StaticResource DeviceStateColorConverter}}" />
@@ -131,9 +132,10 @@
             <Grid
                 Grid.Row="1"
                 HorizontalOptions="FillAndExpand"
+                RowSpacing="15"
                 VerticalOptions="FillAndExpand">
 
-                <Grid ColumnSpacing="10">
+                <Grid ColumnSpacing="15">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width=".5*" />
                         <ColumnDefinition Width=".5*" />
@@ -183,7 +185,7 @@
                     </sharpnado:MaterialFrame>
                 </Grid>
 
-                <Grid Grid.Row="1" ColumnSpacing="10">
+                <Grid Grid.Row="1" ColumnSpacing="15">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width=".5*" />
                         <ColumnDefinition Width=".5*" />
@@ -237,6 +239,7 @@
                     Margin="35,0"
                     Command="{Binding NavigateToCommand}"
                     CommandParameter="{x:Static local:PageNames.LoginPage}"
+                    HeightRequest="45"
                     Text="ĐĂNG NHẬP"
                     VerticalOptions="StartAndExpand" />
             </Grid>

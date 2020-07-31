@@ -355,13 +355,59 @@ namespace VMS_MobileGPS.Converter
             {
                 return "ic_vmsdevice_off.png";
             }
-            if ((bool)value)
+
+            var state = (BleConnectionState)value;
+
+            switch (state)
             {
-                return "ic_vmsdevice.png";
+                case BleConnectionState.NO_CONNECTION:
+
+                    return "ic_vmsdevice_off.png";
+
+                case BleConnectionState.CONNECTED:
+
+                    return "ic_vmsdevice.png";
+
+                case BleConnectionState.PING_OK:
+                    return "ic_vmsdevice.png";
+
+                default:
+                    return "ic_vmsdevice_off.png";
             }
-            else
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
+    public class BLEConnectionStateBoolConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
             {
-                return "ic_vmsdevice_off.png";
+                return false;
+            }
+
+            var state = (BleConnectionState)value;
+
+            switch (state)
+            {
+                case BleConnectionState.NO_CONNECTION:
+
+                    return false;
+
+                case BleConnectionState.CONNECTED:
+
+                    return true;
+
+                case BleConnectionState.PING_OK:
+                    return true;
+
+                default:
+                    return false;
             }
         }
 
