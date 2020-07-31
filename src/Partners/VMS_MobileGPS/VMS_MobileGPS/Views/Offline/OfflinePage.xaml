@@ -27,6 +27,7 @@
             <converters:SOSLabelTextConverter x:Key="SOSLabelTextConverter" />
             <converters:BLENameConverter x:Key="BLENameConverter" />
             <converters:BLEConnectionStateBoolConverter x:Key="BLEConnectionStateBoolConverter" />
+            <converters:BLEConnectionStateColorConverter x:Key="BLEConnectionStateColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <NavigationPage.TitleView>
