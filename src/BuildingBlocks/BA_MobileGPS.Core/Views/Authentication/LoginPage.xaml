@@ -86,7 +86,12 @@
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
                             <sharpnado:MaterialFrame HeightRequest="42">
-                                <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.User}" />
+                                <controls:IconView
+                                    Margin="9"
+                                    Foreground="White"
+                                    HorizontalOptions="Center"
+                                    Source="ic_userwhite.png"
+                                    VerticalOptions="CenterAndExpand" />
                             </sharpnado:MaterialFrame>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
