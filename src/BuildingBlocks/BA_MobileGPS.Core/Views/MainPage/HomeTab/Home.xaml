@@ -21,7 +21,11 @@
                     HasShadow="True"
                     HorizontalOptions="CenterAndExpand">
                     <pancake:PancakeView.Shadow>
-                        <pancake:DropShadow BlurRadius="2" Color="{StaticResource ShadowColor}" />
+                        <pancake:DropShadow
+                            BlurRadius="3"
+                            Opacity="0.1"
+                            Offset="0,2"
+                            Color="{StaticResource ShadowColor}" />
                     </pancake:PancakeView.Shadow>
                     <ff:CachedImage
                         HeightRequest="35"
