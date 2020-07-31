@@ -48,7 +48,7 @@
                 </image:CachedImage.GestureRecognizers>
             </image:CachedImage>
             <Label
-                Grid.ColumnSpan="2"
+                Grid.ColumnSpan="3"
                 FontAttributes="Bold"
                 FontSize="20"
                 HorizontalOptions="CenterAndExpand"
@@ -60,7 +60,7 @@
             <image:CachedImage
                 Grid.Column="2"
                 HeightRequest="27"
-                HorizontalOptions="Start"
+                HorizontalOptions="End"
                 Source="ic_bluetooth.png"
                 VerticalOptions="Center">
                 <image:CachedImage.Behaviors>
