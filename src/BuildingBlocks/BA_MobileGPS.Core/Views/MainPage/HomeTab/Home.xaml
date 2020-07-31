@@ -15,7 +15,7 @@
         <DataTemplate x:Key="IconTemplate">
             <StackLayout Margin="5" Spacing="10">
                 <pancake:PancakeView
-                    Padding="15"
+                    Padding="0"
                     BackgroundColor="{StaticResource WhiteColor}"
                     CornerRadius="10"
                     HasShadow="True"
@@ -28,11 +28,12 @@
                             Color="{StaticResource ShadowColor}" />
                     </pancake:PancakeView.Shadow>
                     <ff:CachedImage
-                        HeightRequest="35"
+                        Margin="15"
+                        HeightRequest="30"
                         HorizontalOptions="Center"
                         Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
                         VerticalOptions="Center"
-                        WidthRequest="35" />
+                        WidthRequest="30" />
                 </pancake:PancakeView>
                 <Label
                     HorizontalOptions="Center"
@@ -53,12 +54,12 @@
             <Setter Property="ItemTemplate" Value="{StaticResource IconTemplate}" />
         </Style>
     </ContentView.Resources>
-    <Grid>
+    <Grid RowDefinitions="*,2.5*">
+        <Grid BackgroundColor="{StaticResource PrimaryColor}" VerticalOptions="Fill" />
         <Grid
-            BackgroundColor="{StaticResource PrimaryColor}"
-            HeightRequest="150"
-            VerticalOptions="Start" />
-        <Grid Padding="5,0" RowDefinitions="100,Auto">
+            Grid.RowSpan="2"
+            Padding="5,0"
+            RowDefinitions="100,Auto">
             <Grid Padding="15,0">
                 <ff:CachedImage
                     HeightRequest="30"
@@ -155,7 +156,7 @@
                             </Grid>
                             <BoxView class="SlimLine" />
                             <CarouselView
-                                HeightRequest="150"
+                                HeightRequest="125"
                                 HorizontalScrollBarVisibility="Never"
                                 IndicatorView="indicatorFavourite"
                                 IsVisible="{Binding HasFavorite, Mode=OneWay}"
@@ -167,7 +168,7 @@
                                                 HeightRequest="150"
                                                 HorizontalOptions="CenterAndExpand"
                                                 IsScrollBarVisible="False"
-                                                ItemSize="100"
+                                                ItemSize="95"
                                                 ItemSpacing="5,10,5,0"
                                                 ItemsSource="{Binding FeaturesItem, Mode=OneWay}"
                                                 PropertyChanged="Favourite_PropertyChanged"
@@ -177,7 +178,7 @@
                                     </DataTemplate>
                                 </CarouselView.ItemTemplate>
                             </CarouselView>
-                            <IndicatorView x:Name="indicatorFavourite" Margin="0,5" />
+                            <IndicatorView x:Name="indicatorFavourite" Margin="0,7" />
                         </StackLayout>
                     </pancake:PancakeView>
                     <pancake:PancakeView
@@ -212,11 +213,10 @@
                                                     HeightRequest="250"
                                                     HorizontalOptions="CenterAndExpand"
                                                     IsScrollBarVisible="False"
-                                                    ItemSize="100"
+                                                    ItemSize="95"
                                                     ItemsSource="{Binding FeaturesItem}"
                                                     PropertyChanged="SfListView_PropertyChanged"
-                                                    TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}"
-                                                    VerticalOptions="FillAndExpand" />
+                                                    TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}" />
                                             </Grid>
                                         </DataTemplate>
                                     </CarouselView.ItemTemplate>
