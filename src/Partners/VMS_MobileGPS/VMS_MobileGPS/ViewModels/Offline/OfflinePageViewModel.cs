@@ -721,9 +721,9 @@ namespace VMS_MobileGPS.ViewModels
         {
             var widthdevice = DeviceDisplay.MainDisplayInfo.Width;
 
-            // ảnh 48 chữ 12 hhoang cach 30
+            // ảnh 48 chữ 12 hhoang cach 45
 
-            HeightBox = (widthdevice / 2) - 90;
+            HeightBox = (widthdevice / 2) - 105;
         }
 
         #endregion PrivateMethod
