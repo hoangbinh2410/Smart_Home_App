@@ -83,6 +83,7 @@
                     Grid.Column="0"
                     CheckedColor="{StaticResource BlueDarkColor}"
                     CornerRadius="5"
+                    FontFamily="{StaticResource myFontFamily}"
                     FontSize="13"
                     Text="Hiển thị vùng bao" />
                 <checkbox:SfCheckBox
@@ -91,6 +92,7 @@
                     Grid.Column="1"
                     CheckedColor="{StaticResource BlueDarkColor}"
                     CornerRadius="5.0"
+                    FontFamily="{StaticResource myFontFamily}"
                     FontSize="13"
                     Text="Hiển thị tên điểm" />
             </Grid>
@@ -126,6 +128,7 @@
                                     Grid.Column="0"
                                     CheckedColor="{StaticResource BlueDarkColor}"
                                     CornerRadius="5"
+                                    FontFamily="{StaticResource myFontFamily}"
                                     FontSize="13"
                                     IsChecked="{Binding IsShowBoudary}"
                                     StateChanged="CkbBoudary_StateChanged"
@@ -136,6 +139,7 @@
                                     Grid.Column="1"
                                     CheckedColor="{StaticResource BlueDarkColor}"
                                     CornerRadius="5.0"
+                                    FontFamily="{StaticResource myFontFamily}"
                                     FontSize="13"
                                     IsChecked="{Binding IsShowName}"
                                     StateChanged="CkbName_StateChanged"
