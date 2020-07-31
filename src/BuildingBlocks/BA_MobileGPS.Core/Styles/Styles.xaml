@@ -230,15 +230,4 @@
         <Setter Property="FontFamily" Value="{StaticResource myFontLatoBold}" />
     </Style>
 
-
-    <pancake:DropShadow
-        x:Key="shadow"
-        BlurRadius="3"
-        Color="Black" />
-
-    <Style TargetType="pancake:PancakeView">
-        <Setter Property="HasShadow" Value="True" />
-        <Setter Property="Shadow" Value="{StaticResource shadow}" />
-    </Style>
-
 </ResourceDictionary>
