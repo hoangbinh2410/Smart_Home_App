@@ -158,7 +158,8 @@
                         CornerRadius="20"
                         HeightRequest="38"
                         HorizontalOptions="Center"
-                        Text="{i18n:TranslateResource Login_Button_Login}"
+                        Text="{i18n:TranslateResource Login_Button_Login,
+                                                      Converter={StaticResource UpperCaseConverter}}"
                         TextColor="White"
                         WidthRequest="300" />
                 </Grid>

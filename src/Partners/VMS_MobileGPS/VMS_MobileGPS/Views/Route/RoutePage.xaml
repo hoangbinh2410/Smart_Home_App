@@ -203,7 +203,8 @@
                         <Label
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
-                            Text="Khác"
+                            Text="{i18n:TranslateResource Route_Label_More,
+                                                          Converter={StaticResource UpperCaseConverter}}"
                             TextColor="{StaticResource PrimaryColor}" />
                     </pancake:PancakeView>
                 </Grid>
@@ -267,7 +268,7 @@
                                 FontSize="14"
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
-                                Placeholder="{i18n:TranslateResource Route_Label_SearchVehicle}"
+                                Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
                                 PlaceholderColor="{StaticResource TextPlaceHolderColor}"
                                 Text="{Binding Vehicle.PrivateCode}"
                                 TextColor="Black"

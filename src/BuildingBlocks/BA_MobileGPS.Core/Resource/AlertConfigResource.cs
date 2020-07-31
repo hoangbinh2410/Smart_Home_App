@@ -18,9 +18,9 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string AlertConfig_Label_Warning_Time => Get(MobileResourceNames.AlertConfig_Label_Warning_Time, "Thời gian từ giờ không được nhỏ hơn thời gian đến giờ", "Time from now must not be less than time to time");
 
-        public static string AlertConfig_Label_All_Warnings => Get(MobileResourceNames.AlertConfig_Label_All_Warnings, "Tất cả các cảnh báo", "All warnings");
+        public static string AlertConfig_Label_All_Warnings => Get(MobileResourceNames.AlertConfig_Label_All_Warnings, "Tất cả cảnh báo", "All Alerts");
 
-        public static string AlertConfig_Label_All_Warnings_Description => Get(MobileResourceNames.AlertConfig_Label_All_Warnings_Description, "Bạn chọn tất cả các cảnh báo cùng cấu hình", "You select all alerts with the same configuration");
+        public static string AlertConfig_Label_All_Warnings_Description => Get(MobileResourceNames.AlertConfig_Label_All_Warnings_Description, "Bạn chọn tất cả các cảnh báo", "You select all alerts");
 
         public static string AlertConfig_Label_NextStep => Get(MobileResourceNames.AlertConfig_Label_NextStep, "Tiếp tục", "Next");
 

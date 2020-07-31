@@ -26,7 +26,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             this.detailVehicleService = detailVehicleService;
 
-            Title = MobileResource.DetailVehicle_Label_TilePage;
+            Title = MobileResource.DetailVehicleVMS_Label_TilePage;
             // _messageBAP = string.Empty;
             shipDetailRespone = new ShipDetailRespone();
 
