@@ -22,14 +22,14 @@ namespace BA_MobileGPS.Core.Views
             var home = PrismApplicationBase.Current.Container.Resolve<ContentView>("HomeTab"); //Home
             ViewModelLocator.SetAutowirePartialView(home, MainContentPage);
             Switcher.Children.Add(home);// Trang home
-            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_homesolid.png", Label = MobileResource.Menu_TabItem_Home });
+            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_home.png", Label = MobileResource.Menu_TabItem_Home });
 
             if (CheckPermision((int)PermissionKeyNames.VehicleView))
             {
                 var listVehicleTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("ListVehicleTab"); //Phương tiện
                 ViewModelLocator.SetAutowirePartialView(listVehicleTab, MainContentPage);
                 Switcher.Children.Add(listVehicleTab);
-                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_shipsolid.png", Label = MobileResource.Menu_TabItem_Vehicle });
+                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_ship.png", Label = MobileResource.Menu_TabItem_Vehicle });
             }
 
             if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
@@ -57,12 +57,13 @@ namespace BA_MobileGPS.Core.Views
             var accountTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("AccountTab"); //Account
             ViewModelLocator.SetAutowirePartialView(accountTab, MainContentPage);
             Switcher.Children.Add(accountTab);
-            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_accountsolid.png", Label = MobileResource.Menu_TabItem_Account });
+            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_account.png", Label = MobileResource.Menu_TabItem_Account });
 
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitAnimation();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
             tabitem.SelectedTabIndexChanged += Tabitem_SelectedTabIndexChanged;
+            previousIndex = Switcher.SelectedIndex;
         }
         private int previousIndex { get; set; }
         private void Tabitem_SelectedTabIndexChanged(object sender, SelectedPositionChangedEventArgs e)
@@ -74,12 +75,14 @@ namespace BA_MobileGPS.Core.Views
                 if (((BottomTabItem)tabitem.Tabs[previousIndex]).IconImageSource !=null || !string.IsNullOrEmpty(((BottomTabItem)tabitem.Tabs[previousIndex]).IconImageSource.ToString()))
                 {
                     var newPath = ((BottomTabItem)tabitem.Tabs[previousIndex]).IconImageSource.ToString().Replace("solid", string.Empty);
+                    newPath = newPath.Replace("File:", string.Empty).Trim();
                     ((BottomTabItem)tabitem.Tabs[previousIndex]).IconImageSource = newPath;
                 }                            
                 //Change icon selected tabItem
                 if (((BottomTabItem)tabitem.Tabs[index]).IconImageSource != null || !string.IsNullOrEmpty(((BottomTabItem)tabitem.Tabs[index]).IconImageSource.ToString()))
                 {
                     var path = ((BottomTabItem)tabitem.Tabs[index]).IconImageSource.ToString().Replace(".png", "solid.png");
+                    path = path.Replace("File:", string.Empty).Trim();
                     ((BottomTabItem)tabitem.Tabs[index]).IconImageSource = path;
                 }              
                 previousIndex = index;
@@ -95,7 +98,7 @@ namespace BA_MobileGPS.Core.Views
                 var safe = On<iOS>().SafeAreaInsets();
                 Padding = new Thickness(0, 0, 0, safe.Bottom);
             }
-            previousIndex = tabitem.SelectedIndex;
+           
         }
 
         private enum States
