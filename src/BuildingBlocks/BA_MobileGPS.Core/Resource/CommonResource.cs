@@ -161,7 +161,7 @@ namespace BA_MobileGPS.Core.Resource
         public static string Common_Label_Hours => Get(MobileResourceNames.Common_Label_Hours, "Giờ", "Hours");
         public static string Common_Label_Hour2 => Get(MobileResourceNames.Common_Label_Hour2, "G", "H");
         public static string Common_Label_Minute => Get(MobileResourceNames.Common_Label_Minute, "Phút", "Minute");
-        public static string Common_Label_Minutes => Get(MobileResourceNames.Common_Label_Minutes, "Phút", "Minute");
+        public static string Common_Label_Minutes => Get(MobileResourceNames.Common_Label_Minutes, "Phút", "Minutes");
         public static string Common_Label_Minute2 => Get(MobileResourceNames.Common_Label_Minute2, "P", "M");
         public static string Common_Label_Second => Get(MobileResourceNames.Common_Label_Second, "Giây", "Second");
         public static string Common_Label_Duration => Get(MobileResourceNames.Common_Label_Duration, "Thời gian", "Duration");
