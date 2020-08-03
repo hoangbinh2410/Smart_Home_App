@@ -40,7 +40,7 @@ namespace BA_MobileGPS.Core.Resource
         public static string Common_Button_Send => Get(MobileResourceNames.Common_Button_Send, "Gửi", "Send");
         public static string Common_Button_View => Get(MobileResourceNames.Common_Button_View, "Xem", "View");
         public static string Common_Button_Save => Get(MobileResourceNames.Common_Button_Save, "Lưu", "Save");
-        public static string Common_Button_Cancel => Get(MobileResourceNames.Common_Button_Cancel, "Huỷ", "Cancel");
+        public static string Common_Button_Cancel => Get(MobileResourceNames.Common_Button_Cancel, "Hủy", "Cancel");
         public static string Common_Button_Yes => Get(MobileResourceNames.Common_Button_Yes, "Có", "Yes");
         public static string Common_Button_No => Get(MobileResourceNames.Common_Button_No, "Không", "No");
         public static string Common_Button_Close => Get(MobileResourceNames.Common_Button_Close, "Đóng", "Close");
