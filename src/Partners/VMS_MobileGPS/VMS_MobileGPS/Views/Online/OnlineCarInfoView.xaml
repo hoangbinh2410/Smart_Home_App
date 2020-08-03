@@ -133,7 +133,7 @@
                     Source="ic_speed.png"
                     VerticalOptions="Center"
                     WidthRequest="20" />
-                <Label Text="{Binding CarActive.Velocity, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Common_Lable_NMUnit, Converter={StaticResource TowerCaseConverter}}}" VerticalOptions="Center" />
+                <Label Text="{Binding CarActive.Velocity, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Common_Lable_NMUnit, Converter={StaticResource LowerCaseConverter}}}" VerticalOptions="Center" />
             </StackLayout>
             <StackLayout
                 Grid.Column="1"
@@ -146,7 +146,7 @@
                     Source="ic_distance.png"
                     VerticalOptions="Center"
                     WidthRequest="20" />
-                <Label Text="{Binding CarActive.TotalKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm, Converter={StaticResource TowerCaseConverter}}}" VerticalOptions="Center" />
+                <Label Text="{Binding CarActive.TotalKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm, Converter={StaticResource LowerCaseConverter}}}" VerticalOptions="Center" />
             </StackLayout>
             <StackLayout
                 Grid.Column="2"
