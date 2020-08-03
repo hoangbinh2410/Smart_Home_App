@@ -68,8 +68,7 @@
                 BorderWidth="1.5"
                 CheckedColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
                                                Dark={StaticResource BlueDarkColor}}"
-                CornerRadius="5"
-                HeightRequest="20"
+                CornerRadius="2"
                 HorizontalOptions="EndAndExpand"
                 IsChecked="{Binding IsShowCircle}"
                 Text="{i18n:TranslateResource Route_Label_Circle}"
