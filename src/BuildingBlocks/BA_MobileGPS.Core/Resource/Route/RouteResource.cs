@@ -6,15 +6,26 @@ namespace BA_MobileGPS.Core.Resource
     {
         public static string Route_Label_Title => Get(MobileResourceNames.Route_Label_Title, "Lộ trình", "Route");
 
-        public static string Route_Label_TitleVMS => Get(MobileResourceNames.Route_Label_Title, "Hải trình", "Route");
+        public static string Route_Label_TitleVMS => Get(MobileResourceNames.Route_Label_Title, "Hải trình", "Voyage");
         public static string Route_Label_ListTitle => Get(MobileResourceNames.Route_Label_ListTitle, "Lộ trình", "Route");
         public static string Route_Label_Time => Get(MobileResourceNames.Route_Label_Time, "Thời gian", "Time");
         public static string Route_Label_Vgps => Get(MobileResourceNames.Route_Label_Vgps, "Vgps", "Vgps");
         public static string Route_Label_Status => Get(MobileResourceNames.Route_Label_Status, "Trạng thái", "Status");
         public static string Route_Label_SearchVehicle => Get(MobileResourceNames.Route_Label_SearchVehicle, "Tìm kiếm xe", "Search vehicle");
+
+        public static string Route_Label_SearchFishing => Get(MobileResourceNames.Route_Label_SearchFishing, "Tìm kiếm phương tiện", "Search for fishing boat");
         public static string Route_Label_VehicleEmpty => Get(MobileResourceNames.Route_Label_VehicleEmpty, "Bạn chưa chọn xe", "Vehicle is empty");
         public static string Route_Label_RouteNotFound => Get(MobileResourceNames.Route_Label_RouteNotFound, "Không tìm thấy lộ trình", "Route not found");
         public static string Route_Label_RouteNotExist => Get(MobileResourceNames.Route_Label_RouteNotExist, "Chưa có lộ trình", "No route yet");
+        public static string Route_Label_More => Get(MobileResourceNames.Route_Label_More, "Khác", "More");
+
+        public static string Route_Label_Coordinates => Get(MobileResourceNames.Route_Label_Coordinates, "Tọa độ:", "Coordinates:");
+
+        public static string Route_Label_Move => Get(MobileResourceNames.Route_Label_Move, "Di chuyển", "Move");
+
+        public static string Route_Label_StopParking => Get(MobileResourceNames.Route_Label_StopParking, "Dừng đỗ", "Stop Parking");
+
+        public static string Route_Label_LostSignal => Get(MobileResourceNames.Route_Label_LostSignal, "Mất tín hiệu", "Lost Signal");
         public static string Route_Label_StartDateMustSmallerThanEndDate => Get(MobileResourceNames.Route_Label_StartDateMustSmallerThanEndDate, "Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc", "Start time must be smaller than end time");
 
         public static string Route_Label_TotalTimeLimit(int limit) => Get(MobileResourceNames.Route_Label_TotalTimeLimit,
@@ -42,6 +53,8 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string Route_Label_DistanceTitle => Get(MobileResourceNames.Route_Label_DistanceTitle, "Đo khoảng cách", "Measure the distance");
 
-        public static string Route_Label_FeeVMS => Get(MobileResourceNames.Route_Label_FeeVMS, "Phí phương tiện", "Vehicle Fee");
+        public static string Route_Label_FeeVMS => Get(MobileResourceNames.Route_Label_FeeVMS, "Phí phương tiện", "Fee");
+
+        public static string Route_Label_Circle => Get(MobileResourceNames.Route_Label_Circle, "Vòng bao", "Circle");
     }
 }

@@ -33,7 +33,7 @@
                     <Label
                         HorizontalOptions="FillAndExpand"
                         HorizontalTextAlignment="Start"
-                        Text="Ngày hết hạn phí"
+                        Text="{i18n:TranslateResource DetailVehicle_Label_ExpirationDate}"
                         VerticalOptions="Center" />
                     <Label
                         Grid.Row="0"

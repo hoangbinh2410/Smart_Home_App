@@ -423,7 +423,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand OpenWebGPSCommand => new DelegateCommand(() =>
         {
-            SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.WebGps)));
+            SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkBAGPS)));
         });
 
         [Obsolete]

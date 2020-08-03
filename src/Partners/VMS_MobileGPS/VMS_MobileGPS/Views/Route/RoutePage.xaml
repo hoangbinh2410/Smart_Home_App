@@ -23,10 +23,6 @@
             x:Key="shadow"
             BlurRadius="3"
             Color="Black" />
-        <Style TargetType="pancake:PancakeView">
-            <Setter Property="HasShadow" Value="True" />
-            <Setter Property="Shadow" Value="{StaticResource shadow}" />
-        </Style>
     </ContentView.Resources>
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
@@ -179,7 +175,7 @@
                         <Label
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
-                            Text="1N"
+                            Text="24H"
                             TextColor="White" />
                     </pancake:PancakeView>
                     <pancake:PancakeView
@@ -203,7 +199,8 @@
                         <Label
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
-                            Text="Khác"
+                            Text="{i18n:TranslateResource Route_Label_More,
+                                                          Converter={StaticResource UpperCaseConverter}}"
                             TextColor="{StaticResource PrimaryColor}" />
                     </pancake:PancakeView>
                 </Grid>
@@ -246,7 +243,8 @@
                     <pancake:PancakeView
                         Padding="0"
                         BackgroundColor="{StaticResource WhiteColor}"
-                        CornerRadius="22">
+                        CornerRadius="22"
+                        Shadow="{x:StaticResource shadow}">
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding SelectVehicleRouterCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
@@ -267,10 +265,10 @@
                                 FontSize="14"
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
-                                Placeholder="{i18n:TranslateResource Route_Label_SearchVehicle}"
-                                PlaceholderColor="{StaticResource TextPrimaryColor}"
+                                Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
+                                PlaceholderColor="{StaticResource TextPlaceHolderColor}"
                                 Text="{Binding Vehicle.PrivateCode}"
-                                TextColor="Black"
+                                TextColor="{StaticResource TextPrimaryColor}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
@@ -285,31 +283,39 @@
                         Padding="0"
                         BackgroundColor="{StaticResource WhiteColor}"
                         CornerRadius="22"
+                        Shadow="{x:StaticResource shadow}"
                         WidthRequest="45">
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ViewListCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
-                            Margin="8"
-                            Foreground="{StaticResource GrayColor2}"
-                            Source="ic_view_list.png"
-                            VerticalOptions="Center" />
+                            Foreground="{StaticResource PrimaryColor}"
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            Source="ic_list_route.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
                     </pancake:PancakeView>
 
                     <pancake:PancakeView
                         x:Name="btnViewInfo"
                         Grid.Column="2"
+                        Padding="0"
                         BackgroundColor="White"
                         CornerRadius="22"
+                        Shadow="{x:StaticResource shadow}"
                         WidthRequest="45">
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Tapped="IconInfo_Clicked" />
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
                             x:Name="IconInfo"
-                            Margin="8"
                             Foreground="{StaticResource GrayColor2}"
-                            Source="ic_info_outline_white.png" />
+                            HeightRequest="25"
+                            HorizontalOptions="Center"
+                            Source="ic_info_outline_white.png"
+                            VerticalOptions="Center"
+                            WidthRequest="25" />
                     </pancake:PancakeView>
 
                 </Grid>
@@ -318,45 +324,58 @@
                     AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
                     AbsoluteLayout.LayoutFlags="PositionProportional">
                     <pancake:PancakeView
+                        Padding="0"
                         BackgroundColor="{StaticResource WhiteColor}"
                         CornerRadius="25"
                         HeightRequest="50"
+                        Shadow="{x:StaticResource shadow}"
                         WidthRequest="50">
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding WatchVehicleCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
-                            Margin="9"
-                            Foreground="{Binding FindCarColor}"
-                            Source="ic_vector.png" />
+                            Foreground="{StaticResource PrimaryColor}"
+                            HeightRequest="25"
+                            HorizontalOptions="Center"
+                            Source="ic_vector.png"
+                            VerticalOptions="Center"
+                            WidthRequest="25" />
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Padding="0"
                         BackgroundColor="{StaticResource WhiteColor}"
                         CornerRadius="25"
                         HeightRequest="50"
+                        Shadow="{x:StaticResource shadow}"
                         WidthRequest="50">
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ChangeMapTypeCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
-                            Margin="10"
                             Foreground="{Binding ColorMapType}"
-                            HeightRequest="10"
-                            Source="ic_map_type.png" />
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            Source="ic_map_type.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
                     </pancake:PancakeView>
                     <pancake:PancakeView
+                        Padding="0"
                         BackgroundColor="{StaticResource PrimaryColor}"
                         CornerRadius="25"
                         HeightRequest="50"
+                        Shadow="{x:StaticResource shadow}"
                         WidthRequest="50">
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
-                            Margin="13"
                             Foreground="{StaticResource WhiteColor}"
-                            Source="ic_bounded_area.png" />
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            Source="ic_bounded_area.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
                     </pancake:PancakeView>
                 </StackLayout>
                 <Frame
@@ -393,7 +412,7 @@
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                Text="{Binding DateKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm}}"
+                                Text="{Binding DateKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm, Converter={StaticResource LowerCaseConverter}}}"
                                 TextColor="Black" />
                             <BoxView
                                 Grid.Row="1"
@@ -488,7 +507,7 @@
                     <pancake:PancakeView
                         x:Name="lbSpeedCar"
                         Padding="0"
-                        BackgroundColor="Transparent"
+                        BackgroundColor="{StaticResource PrimaryColor}"
                         BorderColor="White"
                         CornerRadius="15"
                         HasShadow="False"

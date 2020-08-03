@@ -98,6 +98,25 @@ namespace VMS_MobileGPS.ViewModels
 
                 companyChanged = false;
             }
+            else if(parameters?.GetValue<string>("pagetoNavigation") is string action)
+            {
+                if (action == MobileResource.DetailVehicle_Label_TilePage)
+                {
+                    GoDetailPage(currentVehicle);
+                }
+                else if (action == MobileResource.Online_Label_TitlePage)
+                {
+                    GoOnlinePage(currentVehicle);
+                }
+                else if (action == MobileResource.Route_Label_TitleVMS)
+                {
+                    GoRoutePage(currentVehicle);
+                }
+                else if (action == MobileResource.Route_Label_DistanceTitle)
+                {
+                    GoDistancePage(currentVehicle);
+                }
+            }
         }
         public override void Initialize(INavigationParameters parameters)
         {
@@ -447,7 +466,7 @@ namespace VMS_MobileGPS.ViewModels
                 ListVehicle = _mapper.Map<List<VMSVehicleOnlineViewModel>>(listFilter).ToObservableCollection();
             }
         }
-
+        private VMSVehicleOnlineViewModel currentVehicle { get; set; }
         private void TapListVehicle(Syncfusion.ListView.XForms.ItemTappedEventArgs args)
         {
             TryExecute(async () =>
@@ -460,27 +479,13 @@ namespace VMS_MobileGPS.ViewModels
                         ShowInfoMessageDetailBAP(selected.MessageDetailBAP);
                         return;
                     }
+                    currentVehicle = selected;
+                    await NavigationService.NavigateAsync("DetailVehiclePopup", parameters: new NavigationParameters
+                        {
+                            { "vehicleItem",  selected.PrivateCode}
+                        });
 
-                    await PopupNavigation.Instance.PushAsync(new DetailVehiclePopup(selected.PrivateCode,
-                        (action) =>
-                    {
-                        if (action == MobileResource.DetailVehicle_Label_TilePage)
-                        {
-                            GoDetailPage(selected);
-                        }
-                        else if (action == MobileResource.Online_Label_TitlePage)
-                        {
-                            GoOnlinePage(selected);
-                        }
-                        else if (action == MobileResource.Route_Label_TitleVMS)
-                        {
-                            GoRoutePage(selected);
-                        }
-                        else if (action == MobileResource.Route_Label_DistanceTitle)
-                        {
-                            GoDistancePage(selected);
-                        }
-                    }));
+                  
                 }
             });
         }
@@ -554,7 +559,7 @@ namespace VMS_MobileGPS.ViewModels
                     { ParameterKey.CarDetail, param }
                 };
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true);
+                var a = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters,useModalNavigation: true);
             });
         }
 

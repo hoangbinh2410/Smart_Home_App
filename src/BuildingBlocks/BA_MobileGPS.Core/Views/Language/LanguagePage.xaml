@@ -8,80 +8,30 @@
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     Title="{Binding Title}"
     Padding="10"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Content>
         <Grid Margin="0,20,0,0" RowSpacing="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <SearchBar
-                x:Name="txtSearchLanguageType"
-                Grid.Row="0"
-                Placeholder="{i18n:TranslateResource Common_Message_SearchText}"
-                SearchCommand="{Binding SearchLanguageCommmand}"
-                SearchCommandParameter="{Binding Text, Source={x:Reference txtSearchLanguageType}}"
-                Text="{Binding SearchText}">
-                <SearchBar.Behaviors>
-                    <b:EventToCommandBehavior
-                        Command="{Binding SearchLanguageCommmand}"
-                        CommandParameter="{Binding Text, Source={x:Reference txtSearchLanguageType}}"
-                        EventName="TextChanged" />
-                </SearchBar.Behaviors>
-            </SearchBar>
+            <xforms:SfListView ItemsSource="{Binding LanguageResponeCollection}" TapCommand="{Binding SelectedCommand}">
+                <xforms:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout
+                            Padding="10"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="10">
+                            <Image
+                                HeightRequest="25"
+                                Source="{Binding Icon}"
+                                WidthRequest="25" />
+                            <Label Text="{Binding Description}" VerticalOptions="Center" />
+                        </StackLayout>
+                    </DataTemplate>
+                </xforms:SfListView.ItemTemplate>
+            </xforms:SfListView>
 
-            <StackLayout Grid.Row="1" Orientation="Vertical">
-                <ListView
-                    x:Name="listview"
-                    behaviors:ItemTappedCommandListView.ItemTappedCommand="{Binding SelectedCommand}"
-                    GroupDisplayBinding="{Binding Key}"
-                    GroupShortNameBinding="{Binding Key}"
-                    HasUnevenRows="False"
-                    HorizontalOptions="FillAndExpand"
-                    IsGroupingEnabled="true"
-                    ItemsSource="{Binding LanguageResponeCollectionSearched}"
-                    SeparatorVisibility="Default"
-                    VerticalOptions="FillAndExpand">
-                    <ListView.GroupHeaderTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout BackgroundColor="White">
-  <Label HorizontalOptions="Start" Text="{Binding Key}" Margin="20,0,0,0" HorizontalTextAlignment="Center"/>
-                                </StackLayout>
-                              
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.GroupHeaderTemplate>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout
-                                    Padding="10"
-                                    HorizontalOptions="FillAndExpand"
-                                    Orientation="Horizontal"
-                                    Spacing="10">
-
-                                    <Image
-                                        HeightRequest="25"
-                                        Source="{Binding Icon}"
-                                        WidthRequest="25" />
-
-                                    <Label Text="{Binding Description}" VerticalOptions="Center" />
-
-                                    <Label
-                                        HorizontalOptions="End"
-                                        HorizontalTextAlignment="End"
-                                        Opacity="0.5"
-                                        Text="{Binding CodeName}"
-                                        VerticalOptions="Center" />
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackLayout>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -5,7 +5,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
-    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
@@ -38,7 +37,7 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <sharpnado:MaterialFrame Padding="0" LightThemeBackgroundColor="{StaticResource WhiteColor}">
+        <sharpnado:MaterialFrame Padding="0" LightThemeBackgroundColor="{StaticResource GrayColor}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />

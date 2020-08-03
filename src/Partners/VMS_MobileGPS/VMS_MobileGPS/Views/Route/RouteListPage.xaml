@@ -129,7 +129,7 @@
                                     FontSize="{StaticResource MyFontSizeSmall}"
                                     HorizontalOptions="Start"
                                     LineBreakMode="TailTruncation"
-                                    Text="Tọa độ:" />
+                                    Text="{i18n:TranslateResource Route_Label_Coordinates}" />
                                 <Label
                                     Margin="5"
                                     FontSize="{StaticResource MyFontSizeSmall}"

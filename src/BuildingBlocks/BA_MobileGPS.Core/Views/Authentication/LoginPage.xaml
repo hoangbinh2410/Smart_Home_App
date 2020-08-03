@@ -7,12 +7,10 @@
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
-    xmlns:effect="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
-    xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms"
@@ -33,9 +31,10 @@
         </ResourceDictionary>
         <Style TargetType="sharpnado:MaterialFrame">
             <Setter Property="LightThemeBackgroundColor" Value="{AppThemeBinding Light={StaticResource BlueDarkColor}, Dark={StaticResource BlueDarkColor}}" />
-            <Setter Property="WidthRequest" Value="40" />
-            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="WidthRequest" Value="42" />
+            <Setter Property="CornerRadius" Value="21" />
             <Setter Property="Padding" Value="0" />
+            <Setter Property="TranslationY" Value="0.5" />
         </Style>
     </ContentPage.Resources>
     <Grid RowSpacing="0">
@@ -70,7 +69,7 @@
             </StackLayout>
             <ff:CachedImage
                 Grid.Row="0"
-                HeightRequest="80"
+                HeightRequest="60"
                 HorizontalOptions="Center"
                 Source="logo_VNSAT.png"
                 VerticalOptions="EndAndExpand" />
@@ -86,8 +85,13 @@
                         HasError="{Binding UserName.IsNotValid}"
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
-                            <sharpnado:MaterialFrame HeightRequest="40">
-                                <controls:FontAwesomeIcon StyleClass="LoginAwesomeIcon" Text="{x:Static fontawesome:FontAwesomeIcons.User}" />
+                            <sharpnado:MaterialFrame HeightRequest="42">
+                                <controls:IconView
+                                    Margin="9"
+                                    Foreground="White"
+                                    HorizontalOptions="Center"
+                                    Source="ic_userwhite.png"
+                                    VerticalOptions="CenterAndExpand" />
                             </sharpnado:MaterialFrame>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
@@ -105,7 +109,7 @@
                         HasError="{Binding Password.IsNotValid}"
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
-                            <sharpnado:MaterialFrame HeightRequest="40">
+                            <sharpnado:MaterialFrame HeightRequest="42">
                                 <controls:IconView
                                     Margin="9"
                                     Foreground="White"
@@ -159,7 +163,8 @@
                         CornerRadius="20"
                         HeightRequest="38"
                         HorizontalOptions="Center"
-                        Text="{i18n:TranslateResource Login_Button_Login}"
+                        Text="{i18n:TranslateResource Login_Button_Login,
+                                                      Converter={StaticResource UpperCaseConverter}}"
                         TextColor="White"
                         WidthRequest="300" />
                 </Grid>

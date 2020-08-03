@@ -20,7 +20,7 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string Common_Lable_KmUnit => Get(MobileResourceNames.Common_Lable_KmUnit, "km/h", "km/h");
 
-        public static string Common_Lable_NMUnit => Get(MobileResourceNames.Common_Lable_NMUnit, "lý/h", "NM/h");
+        public static string Common_Lable_NMUnit => Get(MobileResourceNames.Common_Lable_NMUnit, "Hải lý/h", "NM/h");
 
         public static string Common_Lable_More => Get(MobileResourceNames.Common_Lable_More, "Xem thêm..", "More...");
 
@@ -40,7 +40,7 @@ namespace BA_MobileGPS.Core.Resource
         public static string Common_Button_Send => Get(MobileResourceNames.Common_Button_Send, "Gửi", "Send");
         public static string Common_Button_View => Get(MobileResourceNames.Common_Button_View, "Xem", "View");
         public static string Common_Button_Save => Get(MobileResourceNames.Common_Button_Save, "Lưu", "Save");
-        public static string Common_Button_Cancel => Get(MobileResourceNames.Common_Button_Cancel, "Huỷ", "Cancel");
+        public static string Common_Button_Cancel => Get(MobileResourceNames.Common_Button_Cancel, "Hủy", "Cancel");
         public static string Common_Button_Yes => Get(MobileResourceNames.Common_Button_Yes, "Có", "Yes");
         public static string Common_Button_No => Get(MobileResourceNames.Common_Button_No, "Không", "No");
         public static string Common_Button_Close => Get(MobileResourceNames.Common_Button_Close, "Đóng", "Close");
@@ -68,6 +68,9 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string Common_Message_NotPermission => Get(MobileResourceNames.Common_Message_NotPermission, "Chức năng chưa được cấp quyền", "Function has not been granted");
 
+        public static string Common_Label_HighLight => Get(MobileResourceNames.Common_Label_HighLight, "Nổi bật", "HighLight");
+
+        public static string Common_Label_Features => Get(MobileResourceNames.Common_Label_Features, "Tiện ích", "Features");
 
         #region title grid dùng nhiều
 
@@ -111,7 +114,7 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string Common_Label_Grid_STT => Get(MobileResourceNames.Common_Label_Grid_STT, "STT", "#");
 
-        public static string Common_Label_Grid_VehiclePlate => Get(MobileResourceNames.Common_Label_Grid_VehiclePlate, "Biển số xe", "VehiclePlate");
+        public static string Common_Label_Grid_VehiclePlate => Get(MobileResourceNames.Common_Label_Grid_VehiclePlate, "Biển số phương tiện", "Registration plate");
 
         public static string Common_Label_Grid_FromDate => Get(MobileResourceNames.Common_Label_Grid_FromDate, "Giờ bắt đầu", "From date");
 
@@ -151,13 +154,16 @@ namespace BA_MobileGPS.Core.Resource
         public static string Common_Label_DateTimePicker => Get(MobileResourceNames.Common_Label_CameraTitle, "Chọn Ngày Giờ", "Date Time Picker");
         public static string Common_Label_Year => Get(MobileResourceNames.Common_Label_Year, "Năm", "Year");
         public static string Common_Label_Month => Get(MobileResourceNames.Common_Label_Month, "Tháng", "Month");
-        public static string Common_Label_Day => Get(MobileResourceNames.Common_Label_Day, "Ngày", "Day");
+        public static string Common_Label_Day => Get(MobileResourceNames.Common_Label_Day, "ngày", "day");
+        public static string Common_Label_Days => Get(MobileResourceNames.Common_Label_Days, "ngày", "days");
         public static string Common_Label_Day2 => Get(MobileResourceNames.Common_Label_Day2, "N", "D");
-        public static string Common_Label_Hour => Get(MobileResourceNames.Common_Label_Hour, "Giờ", "Hour");
+        public static string Common_Label_Hour => Get(MobileResourceNames.Common_Label_Hour, "giờ", "hour");
+        public static string Common_Label_Hours => Get(MobileResourceNames.Common_Label_Hours, "giờ", "hours");
         public static string Common_Label_Hour2 => Get(MobileResourceNames.Common_Label_Hour2, "G", "H");
-        public static string Common_Label_Minute => Get(MobileResourceNames.Common_Label_Minute, "Phút", "Minute");
+        public static string Common_Label_Minute => Get(MobileResourceNames.Common_Label_Minute, "phút", "minute");
+        public static string Common_Label_Minutes => Get(MobileResourceNames.Common_Label_Minutes, "phút", "minutes");
         public static string Common_Label_Minute2 => Get(MobileResourceNames.Common_Label_Minute2, "P", "M");
-        public static string Common_Label_Second => Get(MobileResourceNames.Common_Label_Second, "Giây", "Second");
+        public static string Common_Label_Second => Get(MobileResourceNames.Common_Label_Second, "giây", "second");
         public static string Common_Label_Duration => Get(MobileResourceNames.Common_Label_Duration, "Thời gian", "Duration");
         public static string Common_Label_Duration2 => Get(MobileResourceNames.Common_Label_Duration2, "T.Gian", "Dur");
 

@@ -5,13 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
-    xmlns:converts="clr-namespace:BA_MobileGPS.Converter"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
@@ -215,7 +213,7 @@
                                             CommandParameter="{Binding .}"
                                             NumberOfTapsRequired="1" />
                                     </sharpnado:MaterialFrame.GestureRecognizers>
-                                    <Label Text="Xử lí" VerticalOptions="Center" />
+                                    <Label Text="Xử lý" VerticalOptions="Center" />
                                 </sharpnado:MaterialFrame>
                                 <sharpnado:MaterialFrame
                                     Grid.Column="1"
@@ -228,7 +226,7 @@
                                             CommandParameter="{Binding .}"
                                             NumberOfTapsRequired="1" />
                                     </sharpnado:MaterialFrame.GestureRecognizers>
-                                    <Label Text="Đọc" VerticalOptions="Center" />
+                                    <Label Text="Đã đọc" VerticalOptions="Center" />
                                 </sharpnado:MaterialFrame>
                             </Grid>
                         </DataTemplate>
@@ -274,6 +272,7 @@
                                             LineBreakMode="TailTruncation"
                                             Text="{Binding AlertName}" />
                                         <Label
+                                            HorizontalOptions="Start"
                                             HorizontalTextAlignment="Start"
                                             LineBreakMode="TailTruncation"
                                             MaxLines="2"
