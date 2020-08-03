@@ -55,11 +55,7 @@
                     <Label
                         FontAttributes="Bold"
                         FontSize="16"
-                        Text="{Binding CarActive.PrivateCode}" />
-                    <Label
-                        FontAttributes="Bold"
-                        Text="{i18n:TranslateResource Online_Label_AtTime}"
-                        VerticalOptions="End" />
+                        Text="{Binding CarActive.PrivateCode, Converter={StaticResource UnitConverter}, ConverterParameter={i18n:TranslateResource Online_Label_AtTime, Converter={StaticResource LowerCaseConverter}}}" />
                 </StackLayout>
             </StackLayout>
 
