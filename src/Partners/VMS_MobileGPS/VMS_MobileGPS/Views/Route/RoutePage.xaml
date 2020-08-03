@@ -271,7 +271,7 @@
                                 Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
                                 PlaceholderColor="{StaticResource TextPlaceHolderColor}"
                                 Text="{Binding Vehicle.PrivateCode}"
-                                TextColor="Black"
+                                TextColor="{StaticResource TextPrimaryColor}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />

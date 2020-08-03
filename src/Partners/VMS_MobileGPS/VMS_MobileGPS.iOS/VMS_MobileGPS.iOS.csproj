@@ -1063,12 +1063,6 @@
     <BundleResource Include="Resources\ic_voyagesolid.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="ic_vmsdevice_off192.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="ic_vmsdevice_off256.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\ic_vmsdevice_off%402x.png" />
   </ItemGroup>
   <ItemGroup>
