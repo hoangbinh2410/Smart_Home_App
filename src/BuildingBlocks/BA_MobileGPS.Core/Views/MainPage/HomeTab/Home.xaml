@@ -60,7 +60,7 @@
         <Grid
             Grid.RowSpan="2"
             Padding="5,0"
-            RowDefinitions="100,Auto">
+            RowDefinitions="80,Auto">
             <Grid Padding="15,0">
                 <ff:CachedImage
                     HeightRequest="30"
