@@ -20,7 +20,7 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string Common_Lable_KmUnit => Get(MobileResourceNames.Common_Lable_KmUnit, "km/h", "km/h");
 
-        public static string Common_Lable_NMUnit => Get(MobileResourceNames.Common_Lable_NMUnit, "Hải lý/h", "NM/h");
+        public static string Common_Lable_NMUnit => Get(MobileResourceNames.Common_Lable_NMUnit, "hải lý/h", "NM/h");
 
         public static string Common_Lable_More => Get(MobileResourceNames.Common_Lable_More, "Xem thêm..", "More...");
 

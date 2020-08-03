@@ -4,11 +4,11 @@ namespace BA_MobileGPS.Core.Resource
 {
     public partial class MobileResource
     {
-        public static string Login_Textbox_UserName => Get(MobileResourceNames.Login_Textbox_UserName, "Tài khoản", "Username");
+        public static string Login_Textbox_UserName => Get(MobileResourceNames.Login_Textbox_UserName, "Tên đăng nhập ", "Username");
 
         public static string Login_Textbox_Password => Get(MobileResourceNames.Login_Textbox_Password, "Mật khẩu", "Password");
 
-        public static string Login_Button_Login => Get(MobileResourceNames.Login_Button_Login, "Đăng nhập", "Log in");
+        public static string Login_Button_Login => Get(MobileResourceNames.Login_Button_Login, "Đăng nhập", "Login");
 
         public static string Login_Checkbox_Rememberme => Get(MobileResourceNames.Login_Checkbox_Rememberme, "Ghi nhớ mật khẩu", "Remember me");
 
@@ -24,7 +24,7 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string Login_Message_AccountPasswordIncorrect => Get(MobileResourceNames.Login_Message_AccountPasswordIncorrect, "Tài khoản hoặc mật khẩu không chính xác", "Account or password is incorrect");
 
-        public static string Login_Message_AccountLocked => Get(MobileResourceNames.Login_Message_AccountLocked, "Tài khoản của bạn đang bị khóa", " Your account is locked");
+        public static string Login_Message_AccountLocked => Get(MobileResourceNames.Login_Message_AccountLocked, "Tài khoản của bạn đang bị khóa", " Your account was locked");
         public static string Login_ForgotPassword_PopupTitle => Get(MobileResourceNames.Login_ForgotPassword_PopupTitle, "Quên mật khẩu", " Forgot Password");
         public static string Login_ForgotPassword_PopupContent => Get(MobileResourceNames.Login_ForgotPassword_PopupContent, "Để đảm bảo an toàn thông tin, Quý khách vui lòng liên hệ <strong> 19006464 </strong> để được cấp lại mật khẩu", " To ensure information security, please contact <strong> 19006464 </strong> for a password reset");
         public static string Login_Popup_Starting_Page => Get(MobileResourceNames.Login_Popup_Starting_Page, "Ra khơi", "Starting Page");
