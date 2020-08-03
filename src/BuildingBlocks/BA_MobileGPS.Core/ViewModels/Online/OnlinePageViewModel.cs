@@ -67,7 +67,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             carActive = new VehicleOnline();
             selectedVehicleGroup = new List<int>();
-            CarSearch = MobileResource.Online_Label_SeachVehicle2;
+            CarSearch = string.Empty;
 
             if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
             {

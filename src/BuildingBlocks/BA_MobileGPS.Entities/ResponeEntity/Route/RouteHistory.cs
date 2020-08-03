@@ -73,9 +73,9 @@ namespace BA_MobileGPS.Entities
                 int Index = 0;
 
                 DateKm = SerializeLibrary.GetFloatFromArray(data, Index); Index += 4;
-                DirectionDetail = SerializeLibrary.GetStringFromArray32(data, Index, ref Index);
+                DirectionDetail = SerializeLibrary.GetStringFromArray(data, Index, ref Index);
 
-                int lengthStopPoint = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
+                short lengthStopPoint = SerializeLibrary.GetInt16FromArray(data, Index); Index += 2;
                 StatePoints = new List<StatePoint>();
                 for (int i = 0; i < lengthStopPoint; i++)
                 {
@@ -88,7 +88,7 @@ namespace BA_MobileGPS.Entities
                     StatePoints.Add(state);
                 }
 
-                int lengthGSMPoint = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
+                short lengthGSMPoint = SerializeLibrary.GetInt16FromArray(data, Index); Index += 2;
                 GSMPoints = new List<GSMPoint>();
                 for (int i = 0; i < lengthGSMPoint; i++)
                 {
@@ -100,7 +100,7 @@ namespace BA_MobileGPS.Entities
                     GSMPoints.Add(gsm);
                 }
 
-                int lengthVelocityPoints = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
+                short lengthVelocityPoints = SerializeLibrary.GetInt16FromArray(data, Index); Index += 2;
                 VelocityPoints = new List<byte>();
                 for (int i = 0; i < lengthVelocityPoints; i++)
                 {
@@ -114,7 +114,7 @@ namespace BA_MobileGPS.Entities
                 };
                 Index += 8;
 
-                int lengthAddedTimes = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
+                short lengthAddedTimes = SerializeLibrary.GetInt16FromArray(data, Index); Index += 2;
                 TimePoints.AddedTimes = new List<int>();
                 for (int i = 0; i < lengthVelocityPoints; i++)
                 {

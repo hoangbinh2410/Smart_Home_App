@@ -83,6 +83,12 @@
 	  <Compile Update="Views\Popup\BasePopup.xaml.cs">
 	    <DependentUpon>BasePopup.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Route\RouteListPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Route\RoutePage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Update="App.xaml">

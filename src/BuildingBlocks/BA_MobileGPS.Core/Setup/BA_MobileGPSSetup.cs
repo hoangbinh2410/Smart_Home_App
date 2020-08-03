@@ -154,10 +154,12 @@ namespace BA_MobileGPS.Core
 
             ViewModelLocationProvider.Register<Home, HomeViewModel>();
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
+            ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
             ViewModelLocationProvider.Register<Account, AccountViewModel>();
 
             containerRegistry.Register<ContentView, Home>("HomeTab");
             containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
+            containerRegistry.Register<ContentView, RoutePage>("RouteTab");
             containerRegistry.Register<ContentView, Account>("AccountTab");
         }
     }
