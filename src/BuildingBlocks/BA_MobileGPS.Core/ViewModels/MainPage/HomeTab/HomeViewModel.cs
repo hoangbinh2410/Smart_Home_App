@@ -189,12 +189,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public void OnTappedMenu(object obj)
         {
-            var args = (Syncfusion.ListView.XForms.ItemTappedEventArgs)obj;
-            if (!(args.ItemData is HomeMenuItemViewModel seletedMenu) || seletedMenu.MenuKey == null)
+            if (!(obj is HomeMenuItemViewModel seletedMenu) || seletedMenu.MenuKey == null)
             {
                 return;
             }
-            var temp = (HomeMenuItemViewModel)args.ItemData;
+            var temp = seletedMenu;
             switch (temp.MenuKey)
             {
                 case "ListVehiclePage":

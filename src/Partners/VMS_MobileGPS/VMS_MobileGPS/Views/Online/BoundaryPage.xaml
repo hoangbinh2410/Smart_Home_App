@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     x:Name="this"
@@ -50,11 +51,11 @@
             <Label
                 Grid.Row="1"
                 Margin="10,0,0,0"
-                FontAttributes="Bold"
                 FontSize="18"
                 HorizontalOptions="FillAndExpand"
                 HorizontalTextAlignment="Start"
-                Text="Danh Sách Điểm Ranh Giới" />
+                StyleClass="BoldText"
+                Text="{i18n:TranslateResource Boundary_Label_Title}" />
             <Grid
                 Grid.Row="2"
                 Padding="10,0"
@@ -72,10 +73,11 @@
                 <Label
                     Grid.ColumnSpan="2"
                     FontAttributes="Bold"
+                    FontFamily="{StaticResource myFontFamily}"
                     FontSize="16"
                     HorizontalOptions="FillAndExpand"
                     HorizontalTextAlignment="Start"
-                    Text="Tất cả"
+                    Text="{i18n:TranslateResource Boundary_Label_All}"
                     VerticalOptions="Center" />
                 <checkbox:SfCheckBox
                     x:Name="ckbAllBoudary"
@@ -85,7 +87,7 @@
                     CornerRadius="5"
                     FontFamily="{StaticResource myFontFamily}"
                     FontSize="13"
-                    Text="Hiển thị vùng bao" />
+                    Text="{i18n:TranslateResource Boundary_Label_Showarea}" />
                 <checkbox:SfCheckBox
                     x:Name="ckbAllName"
                     Grid.Row="1"
@@ -94,7 +96,7 @@
                     CornerRadius="5.0"
                     FontFamily="{StaticResource myFontFamily}"
                     FontSize="13"
-                    Text="Hiển thị tên điểm" />
+                    Text="{i18n:TranslateResource Boundary_Label_Showname}" />
             </Grid>
             <ScrollView
                 Grid.Row="3"
@@ -117,6 +119,7 @@
                                 <Label
                                     Grid.ColumnSpan="2"
                                     FontAttributes="Bold"
+                                    FontFamily="{StaticResource myFontFamily}"
                                     FontSize="16"
                                     HorizontalOptions="FillAndExpand"
                                     HorizontalTextAlignment="Start"
@@ -132,7 +135,7 @@
                                     FontSize="13"
                                     IsChecked="{Binding IsShowBoudary}"
                                     StateChanged="CkbBoudary_StateChanged"
-                                    Text="Hiển thị vùng bao" />
+                                    Text="{i18n:TranslateResource Boundary_Label_Showarea}" />
                                 <checkbox:SfCheckBox
                                     x:Name="ckbName"
                                     Grid.Row="1"
@@ -143,7 +146,7 @@
                                     FontSize="13"
                                     IsChecked="{Binding IsShowName}"
                                     StateChanged="CkbName_StateChanged"
-                                    Text="Hiển thị tên điểm" />
+                                    Text="{i18n:TranslateResource Boundary_Label_Showname}" />
                             </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
@@ -160,10 +163,12 @@
                     Command="{Binding CanelCommand}"
                     CornerRadius="5"
                     FontAttributes="Bold"
-                    FontSize="{StaticResource MyFontSizeSmall}"
+                    FontFamily="{StaticResource myFontFamily}"
+                    FontSize="14"
                     HeightRequest="40"
                     HorizontalOptions="FillAndExpand"
-                    Text="Hủy"
+                    Text="{i18n:TranslateResource Common_Button_Cancel,
+                                                  Converter={StaticResource UpperCaseConverter}}"
                     TextColor="{StaticResource WhiteColor}" />
                 <Button
                     Padding="10,0"
@@ -171,10 +176,12 @@
                     Command="{Binding UpdateCommand}"
                     CornerRadius="5"
                     FontAttributes="Bold"
-                    FontSize="{StaticResource MyFontSizeSmall}"
+                    FontFamily="{StaticResource myFontFamily}"
+                    FontSize="14"
                     HeightRequest="40"
                     HorizontalOptions="FillAndExpand"
-                    Text="Cập Nhật"
+                    Text="{i18n:TranslateResource Common_Button_Update,
+                                                  Converter={StaticResource UpperCaseConverter}}"
                     TextColor="{StaticResource WhiteColor}" />
             </StackLayout>
         </Grid>

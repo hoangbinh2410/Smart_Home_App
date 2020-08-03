@@ -192,6 +192,8 @@
         Menu_TabItem_Monitoring,
         Menu_TabItem_Voyage,
         Menu_TabItem_Account,
+        Home_Label_Highlight,
+        Home_Label_Features,
 
         #endregion Menu
 
@@ -1159,5 +1161,10 @@
         AlertConfig_Label_Save_Configuration,
 
         #endregion Alert Config
+
+        Boundary_Label_Title,
+        Boundary_Label_All,
+        Boundary_Label_Showarea,
+        Boundary_Label_Showname,
     }
 }

@@ -90,6 +90,7 @@
         TimeVehicleOffline,
         CountVehicleUsingCluster,
         IsUseForgotpassword,
-        LinkYoutube
+        LinkYoutube,
+        LinkBAGPS
     }
 }

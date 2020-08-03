@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:cluster="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:mapbindings="clr-namespace:BA_MobileGPS.Core.GoogleMap.Behaviors;assembly=BA_MobileGPS.Core"
@@ -88,12 +89,19 @@
                             Foreground="{StaticResource WhiteColor}"
                             Source="ic_search.png" />
                     </pancake:PancakeView>
-                    <Label
-                        Margin="0"
-                        HorizontalOptions="StartAndExpand"
+                    <Entry
+                        FontSize="14"
+                        HorizontalOptions="FillAndExpand"
+                        InputTransparent="True"
+                        Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
+                        PlaceholderColor="{StaticResource TextPlaceHolderColor}"
                         Text="{Binding CarSearch}"
-                        TextColor="{StaticResource TextPlaceHolderColor}"
-                        VerticalOptions="Center" />
+                        TextColor="{StaticResource TextPrimaryColor}"
+                        VerticalOptions="Center">
+                        <Entry.Effects>
+                            <effects:BorderlessEffect />
+                        </Entry.Effects>
+                    </Entry>
                 </StackLayout>
             </pancake:PancakeView>
             <pancake:PancakeView
@@ -265,12 +273,7 @@
                                             <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                                                 <Label
                                                     HorizontalOptions="Start"
-                                                    Text="{Binding CountCar}"
-                                                    TextColor="{StaticResource WhiteColor}"
-                                                    VerticalOptions="Center" />
-                                                <Label
-                                                    HorizontalOptions="Start"
-                                                    Text="{i18n:TranslateResource Common_Label_Vehicle}"
+                                                    Text="{Binding CountCar, Converter={StaticResource UnitConverter}, ConverterParameter={i18n:TranslateResource Common_Label_Vehicle, Converter={StaticResource LowerCaseConverter}}}"
                                                     TextColor="{StaticResource WhiteColor}"
                                                     VerticalOptions="Center" />
                                             </StackLayout>
