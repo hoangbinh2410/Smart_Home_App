@@ -192,6 +192,8 @@
         Menu_TabItem_Monitoring,
         Menu_TabItem_Voyage,
         Menu_TabItem_Account,
+        Home_Label_Highlight,
+        Home_Label_Features,
 
         #endregion Menu
 
