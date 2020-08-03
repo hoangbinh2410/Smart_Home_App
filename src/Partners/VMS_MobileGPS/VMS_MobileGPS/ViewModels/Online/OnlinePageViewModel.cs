@@ -68,7 +68,7 @@ namespace VMS_MobileGPS.ViewModels
 
             carActive = new VehicleOnline();
             selectedVehicleGroup = new List<int>();
-            CarSearch = MobileResource.Route_Label_SearchFishing;
+            CarSearch = string.Empty;
 
             if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
             {
