@@ -30,31 +30,26 @@ namespace BA_MobileGPS.Core.Views
                         case 1:                      
                             listViewTempalte.LayoutManager = new GridLayout() { SpanCount = 1 };
                             listViewTempalte.WidthRequest = itemCount * 100 + 10;
-                            listViewTempalte.HeightRequest = 130;
                             break;
                         case 2:
                             listViewTempalte.LayoutManager = new GridLayout() { SpanCount = 1 };
                             listViewTempalte.ItemSpacing = new Thickness(25, 0);
                             listViewTempalte.WidthRequest = 290;
-                            listViewTempalte.HeightRequest = 130;
                             break;
                         case 3:
                             listViewTempalte.LayoutManager = new GridLayout() { SpanCount = 1 };
                             listViewTempalte.ItemSpacing = new Thickness(5, 0);
                             listViewTempalte.WidthRequest = itemCount * 100 + 10;
-                            listViewTempalte.HeightRequest = 130;
                             break;
                         case 4:
                             listViewTempalte.LayoutManager = new GridLayout() { SpanCount = 2 };
                             listViewTempalte.ItemSpacing = new Thickness(25, 5);
                             listViewTempalte.WidthRequest = 290;
-                            listViewTempalte.HeightRequest = 260;
                             break;                       
                         default:
                             listViewTempalte.LayoutManager = new GridLayout() { SpanCount = 2 };
                             listViewTempalte.ItemSpacing = new Thickness(5, 0);
-                            listViewTempalte.WidthRequest = 340;
-                            listViewTempalte.HeightRequest = 260;
+                            listViewTempalte.WidthRequest = 315;
                             break;
                     }                 
                 }
@@ -71,14 +66,11 @@ namespace BA_MobileGPS.Core.Views
                 if (itemSource != null)
                 {
                     var itemCount = itemSource.Count;
-                    if (itemCount < 3)
-                    {
-                        listViewTempalte.WidthRequest = itemCount * 100 + 10;
-                    }
-                    else
-                    {
-                        listViewTempalte.WidthRequest = 340;
-                    }                  
+                    
+
+                        listViewTempalte.WidthRequest = itemCount * 105 + 5;
+                   
+                    
                 }
             }
         }

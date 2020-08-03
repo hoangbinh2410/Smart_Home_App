@@ -55,7 +55,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Title = MobileResource.Login_Popup_BAGPSExperience,
                 Icon = "ic_minilogo.png",
-                Url = MobileSettingHelper.LinkExperience,
+                Url = MobileSettingHelper.LinkYoutube,
                 ItemType = LoginPopupItemType.BAGPSExperience,
             });
             // Đăng kí tư vấn
