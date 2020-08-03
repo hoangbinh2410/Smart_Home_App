@@ -48,14 +48,12 @@
                         VerticalOptions="Center" />
                 </StackLayout>
             </ViewCell>
-
         </DataTemplate>
-
         <Style TargetType="renderedViews:HorizontalListView">
             <Setter Property="ItemTemplate" Value="{StaticResource IconTemplate}" />
         </Style>
     </ContentView.Resources>
-    <Grid RowDefinitions="*,2.5*">
+    <Grid RowDefinitions="*,2.8*">
         <Grid BackgroundColor="{StaticResource PrimaryColor}" VerticalOptions="Fill" />
         <Grid
             Grid.RowSpan="2"
