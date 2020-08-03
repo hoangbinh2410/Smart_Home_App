@@ -148,7 +148,7 @@ namespace VMS_MobileGPS.Converter
             }
             if (value == null)
             {
-                return Color.FromHex("#e2e2e2");
+                return (Color)App.Current.Resources["TextSecondaryColor"];
             }
 
             var state = (BleConnectionState)value;
@@ -156,7 +156,7 @@ namespace VMS_MobileGPS.Converter
             switch (state)
             {
                 case BleConnectionState.NO_CONNECTION:
-                    return Color.FromHex("#e2e2e2");
+                    return (Color)App.Current.Resources["TextSecondaryColor"];
 
                 case BleConnectionState.CONNECTED:
                     return color;
@@ -166,7 +166,7 @@ namespace VMS_MobileGPS.Converter
                     return color;
 
                 default:
-                    return Color.FromHex("#e2e2e2");
+                    return (Color)App.Current.Resources["TextSecondaryColor"];
             }
         }
 
