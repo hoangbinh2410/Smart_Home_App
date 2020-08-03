@@ -48,7 +48,7 @@ namespace BA_MobileGPS.Core.Views
                             break;                       
                         default:
                             listViewTempalte.LayoutManager = new GridLayout() { SpanCount = 2 };
-                            listViewTempalte.ItemSpacing = new Thickness(5, 0);
+                            listViewTempalte.ItemSpacing = new Thickness(3, 0);
                             listViewTempalte.WidthRequest = 330;
                             break;
                     }                 
