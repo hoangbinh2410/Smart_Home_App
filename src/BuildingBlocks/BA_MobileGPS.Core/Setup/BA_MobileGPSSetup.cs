@@ -152,6 +152,8 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<VehicleDebtMoneyPage, VehicleDebtMoneyPageViewModel>("VehicleDebtMoneyPage");
             containerRegistry.RegisterForNavigation<LoginPreviewFeaturesPage, LoginPreviewFeaturesPageViewModel>();
 
+            containerRegistry.RegisterForNavigation<RouteListPage, RouteListViewModel>("RouteListPage");
+
             ViewModelLocationProvider.Register<Home, HomeViewModel>();
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
             ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
