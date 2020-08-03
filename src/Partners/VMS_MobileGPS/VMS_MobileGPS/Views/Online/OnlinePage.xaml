@@ -273,7 +273,7 @@
                                             <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                                                 <Label
                                                     HorizontalOptions="Start"
-                                                    Text="{Binding CountCar, ConverterParameter={i18n:TranslateResource Common_Label_Vehicle, Converter={StaticResource LowerCaseConverter}}}"
+                                                    Text="{Binding CountCar, Converter={StaticResource UnitConverter}, ConverterParameter={i18n:TranslateResource Common_Label_Vehicle, Converter={StaticResource LowerCaseConverter}}}"
                                                     TextColor="{StaticResource WhiteColor}"
                                                     VerticalOptions="Center" />
                                             </StackLayout>
