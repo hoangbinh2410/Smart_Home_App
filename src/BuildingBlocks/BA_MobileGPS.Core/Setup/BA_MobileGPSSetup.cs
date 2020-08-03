@@ -80,12 +80,6 @@ namespace BA_MobileGPS.Core
             containerRegistry.Register<IPingServerService, PingServerService>();
 
             containerRegistry.Register<IPopupServices, PopupServices>();
-
-            ViewModelLocationProvider.Register<Home, HomeViewModel>();
-            ViewModelLocationProvider.Register<Account, AccountViewModel>();
-            containerRegistry.Register<ContentView, Home>("HomeTab");
-            containerRegistry.Register<ContentView, Account>("AccountTab");
-
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)
@@ -158,6 +152,17 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<VehicleDebtMoneyPage, VehicleDebtMoneyPageViewModel>("VehicleDebtMoneyPage");
             containerRegistry.RegisterForNavigation<LoginPreviewFeaturesPage, LoginPreviewFeaturesPageViewModel>();
 
+            containerRegistry.RegisterForNavigation<RouteListPage, RouteListViewModel>("RouteListPage");
+
+            ViewModelLocationProvider.Register<Home, HomeViewModel>();
+            ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
+            ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
+            ViewModelLocationProvider.Register<Account, AccountViewModel>();
+
+            containerRegistry.Register<ContentView, Home>("HomeTab");
+            containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
+            containerRegistry.Register<ContentView, RoutePage>("RouteTab");
+            containerRegistry.Register<ContentView, Account>("AccountTab");
         }
     }
 }

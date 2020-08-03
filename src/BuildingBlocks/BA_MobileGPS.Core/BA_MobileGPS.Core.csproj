@@ -83,6 +83,12 @@
 	  <Compile Update="Views\Popup\BasePopup.xaml.cs">
 	    <DependentUpon>BasePopup.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Route\RouteListPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Route\RoutePage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Update="App.xaml">
@@ -167,6 +173,15 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Notification\NotificationPopupWhenLogin.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Online\BoundaryNameInfoWindow.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Online\OnlineCarInfoView.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Online\OnlinePage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\PartialView\TitleBarView.xaml">

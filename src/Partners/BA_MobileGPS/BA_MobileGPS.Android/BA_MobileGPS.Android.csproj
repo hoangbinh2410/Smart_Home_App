@@ -117,18 +117,12 @@
     <Compile Include="SplashScreenActivity.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\internetconnection.json" />
+    <AndroidAsset Include="Assets\Roboto-Regular.ttf" />
     <AndroidAsset Include="Assets\FontAwesome5Brands.otf" />
     <AndroidAsset Include="Assets\FontAwesome5Regular.otf" />
     <AndroidAsset Include="Assets\FontAwesome5Solid.otf" />
-    <AndroidAsset Include="Assets\internetconnection.json" />
-    <AndroidAsset Include="Assets\Lato-BlackItalic.ttf" />
-    <AndroidAsset Include="Assets\Lato-Bold.ttf" />
-    <AndroidAsset Include="Assets\Lato-Italic.ttf" />
-    <AndroidAsset Include="Assets\Lato-Light.ttf" />
-    <AndroidAsset Include="Assets\Lato-Medium.ttf" />
-    <AndroidAsset Include="Assets\Lato-Regular.ttf" />
-    <AndroidAsset Include="Assets\Lato-Semibold.ttf" />
-    <AndroidAsset Include="Assets\Roboto-Regular.ttf" />
+    <AndroidAsset Include="Assets\Roboto-Bold.ttf" />
     <None Include="google-services.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
@@ -140,7 +134,9 @@
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\values\colors.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\avatar_default.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\BA_MobileGPS.Core.Droid\BA_MobileGPS.Core.Droid.csproj">
       <Project>{c936199a-57c9-44c2-9671-82c1bf971dcd}</Project>
@@ -181,6 +177,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Launch_Screen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_app.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_HomeBot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_HomeTop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_Login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\logo_VNSAT.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

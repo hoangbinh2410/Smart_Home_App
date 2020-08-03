@@ -166,12 +166,13 @@
                         HorizontalOptions="CenterAndExpand"
                         Orientation="Horizontal"
                         Spacing="5">
-                        <Label Text="TRẠNG THÁI THIẾT BỊ:" TextColor="{AppThemeBinding Dark={StaticResource PrimaryColor}, Light={StaticResource PrimaryColor}}" />
                         <Label
                             LineBreakMode="TailTruncation"
                             MaxLines="1"
-                            Text="{Binding BluetoothStatus, Mode=OneWay}"
-                            TextColor="{Binding BluetoothStatusTextColor, Mode=OneWay}" />
+                            Text="TRẠNG THÁI THIẾT BỊ:"
+                            TextColor="{AppThemeBinding Dark={StaticResource PrimaryColor},
+                                                        Light={StaticResource PrimaryColor}}" />
+                        <Label Text="{Binding BluetoothStatus, Mode=OneWay}" TextColor="{Binding BluetoothStatusTextColor, Mode=OneWay}" />
                     </StackLayout>
                     <Grid
                         Grid.Row="1"

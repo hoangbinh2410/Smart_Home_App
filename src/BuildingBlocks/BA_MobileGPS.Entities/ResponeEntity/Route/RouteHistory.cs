@@ -133,6 +133,7 @@ namespace BA_MobileGPS.Entities
         }
     }
 
+
     public class RouteHistoryRequest
     {
         public Guid UserId { set; get; }
