@@ -89,6 +89,7 @@
         DefaultTimeLossConnect,
         TimeVehicleOffline,
         CountVehicleUsingCluster,
-        IsUseForgotpassword
+        IsUseForgotpassword,
+        LinkYoutube
     }
 }
