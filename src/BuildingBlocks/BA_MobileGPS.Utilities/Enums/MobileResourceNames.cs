@@ -1159,5 +1159,10 @@
         AlertConfig_Label_Save_Configuration,
 
         #endregion Alert Config
+
+        Boundary_Label_Title,
+        Boundary_Label_All,
+        Boundary_Label_Showarea,
+        Boundary_Label_Showname,
     }
 }
