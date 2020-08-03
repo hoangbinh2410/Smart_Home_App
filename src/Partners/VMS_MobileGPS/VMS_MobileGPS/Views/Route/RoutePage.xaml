@@ -23,10 +23,6 @@
             x:Key="shadow"
             BlurRadius="3"
             Color="Black" />
-        <Style TargetType="pancake:PancakeView">
-            <Setter Property="HasShadow" Value="True" />
-            <Setter Property="Shadow" Value="{StaticResource shadow}" />
-        </Style>
     </ContentView.Resources>
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
@@ -247,7 +243,8 @@
                     <pancake:PancakeView
                         Padding="0"
                         BackgroundColor="{StaticResource WhiteColor}"
-                        CornerRadius="22">
+                        CornerRadius="22"
+                        Shadow="{x:StaticResource shadow}">
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding SelectVehicleRouterCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
@@ -286,6 +283,7 @@
                         Padding="0"
                         BackgroundColor="{StaticResource WhiteColor}"
                         CornerRadius="22"
+                        Shadow="{x:StaticResource shadow}"
                         WidthRequest="45">
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ViewListCommand}" />
@@ -305,6 +303,7 @@
                         Padding="0"
                         BackgroundColor="White"
                         CornerRadius="22"
+                        Shadow="{x:StaticResource shadow}"
                         WidthRequest="45">
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Tapped="IconInfo_Clicked" />
@@ -329,6 +328,7 @@
                         BackgroundColor="{StaticResource WhiteColor}"
                         CornerRadius="25"
                         HeightRequest="50"
+                        Shadow="{x:StaticResource shadow}"
                         WidthRequest="50">
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding WatchVehicleCommand}" />
@@ -346,6 +346,7 @@
                         BackgroundColor="{StaticResource WhiteColor}"
                         CornerRadius="25"
                         HeightRequest="50"
+                        Shadow="{x:StaticResource shadow}"
                         WidthRequest="50">
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ChangeMapTypeCommand}" />
@@ -363,6 +364,7 @@
                         BackgroundColor="{StaticResource PrimaryColor}"
                         CornerRadius="25"
                         HeightRequest="50"
+                        Shadow="{x:StaticResource shadow}"
                         WidthRequest="50">
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}" />
