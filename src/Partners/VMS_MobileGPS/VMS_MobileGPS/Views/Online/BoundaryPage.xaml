@@ -50,11 +50,11 @@
             <Label
                 Grid.Row="1"
                 Margin="10,0,0,0"
-                FontAttributes="Bold"
                 FontSize="18"
                 HorizontalOptions="FillAndExpand"
                 HorizontalTextAlignment="Start"
-                Text="Danh Sách Điểm Ranh Giới" />
+                StyleClass="BoldText"
+                Text="Danh sách điểm ranh giới" />
             <Grid
                 Grid.Row="2"
                 Padding="10,0"
@@ -72,6 +72,7 @@
                 <Label
                     Grid.ColumnSpan="2"
                     FontAttributes="Bold"
+                    FontFamily="{StaticResource myFontFamily}"
                     FontSize="16"
                     HorizontalOptions="FillAndExpand"
                     HorizontalTextAlignment="Start"
@@ -117,6 +118,7 @@
                                 <Label
                                     Grid.ColumnSpan="2"
                                     FontAttributes="Bold"
+                                    FontFamily="{StaticResource myFontFamily}"
                                     FontSize="16"
                                     HorizontalOptions="FillAndExpand"
                                     HorizontalTextAlignment="Start"
@@ -160,7 +162,8 @@
                     Command="{Binding CanelCommand}"
                     CornerRadius="5"
                     FontAttributes="Bold"
-                    FontSize="{StaticResource MyFontSizeSmall}"
+                    FontFamily="{StaticResource myFontFamily}"
+                    FontSize="14"
                     HeightRequest="40"
                     HorizontalOptions="FillAndExpand"
                     Text="Hủy"
@@ -171,7 +174,8 @@
                     Command="{Binding UpdateCommand}"
                     CornerRadius="5"
                     FontAttributes="Bold"
-                    FontSize="{StaticResource MyFontSizeSmall}"
+                    FontFamily="{StaticResource myFontFamily}"
+                    FontSize="14"
                     HeightRequest="40"
                     HorizontalOptions="FillAndExpand"
                     Text="Cập Nhật"

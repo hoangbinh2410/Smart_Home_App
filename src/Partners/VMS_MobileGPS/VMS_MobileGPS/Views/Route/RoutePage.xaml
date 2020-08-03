@@ -291,7 +291,7 @@
                             <TapGestureRecognizer Command="{Binding ViewListCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
-                            Foreground="{StaticResource GrayColor2}"
+                            Foreground="{StaticResource PrimaryColor}"
                             HeightRequest="20"
                             HorizontalOptions="Center"
                             Source="ic_list_route.png"
@@ -410,7 +410,7 @@
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                Text="{Binding DateKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm}}"
+                                Text="{Binding DateKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm, Converter={StaticResource LowerCaseConverter}}}"
                                 TextColor="Black" />
                             <BoxView
                                 Grid.Row="1"
