@@ -197,7 +197,7 @@
                             <BoxView class="SlimLine" />
                             <Grid
                                 x:Name="parentFeatures"
-                                Margin="10"
+                                Margin="0,10"
                                 HeightRequest="280">
                                 <CarouselView
                                     x:Name="list1"
@@ -210,13 +210,15 @@
                                         <DataTemplate>
                                             <Grid>
                                                 <sfListView:SfListView
+                                                    Padding="0"
                                                     HeightRequest="250"
                                                     HorizontalOptions="CenterAndExpand"
                                                     IsScrollBarVisible="False"
-                                                    ItemSize="95"
+                                                    ItemSize="100"
                                                     ItemsSource="{Binding FeaturesItem}"
                                                     PropertyChanged="SfListView_PropertyChanged"
                                                     TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}" />
+
                                             </Grid>
                                         </DataTemplate>
                                     </CarouselView.ItemTemplate>
