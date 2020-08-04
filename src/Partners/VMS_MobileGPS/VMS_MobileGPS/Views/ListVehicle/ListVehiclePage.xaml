@@ -221,7 +221,8 @@
                         <syncfusionList:SfListView
                             Grid.Row="0"
                             AutoFitMode="Height"
-                            IsScrollBarVisible="False"
+                            IsScrollBarVisible="True"
+                            IsScrollingEnabled="True"
                             ItemTemplate="{StaticResource ListVehicleTemplateSelector}"
                             ItemsSource="{Binding ListVehicle}"
                             SelectionBackgroundColor="Transparent"
