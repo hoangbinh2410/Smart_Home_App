@@ -55,23 +55,19 @@
                     <Label
                         FontAttributes="Bold"
                         FontSize="16"
-                        Text="{Binding CarActive.PrivateCode}" />
-                    <Label
-                        FontAttributes="Bold"
-                        Text="{i18n:TranslateResource Online_Label_AtTime}"
-                        VerticalOptions="End" />
+                        Text="{Binding CarActive.PrivateCode, Converter={StaticResource UnitConverter}, ConverterParameter={i18n:TranslateResource Online_Label_AtTime, Converter={StaticResource LowerCaseConverter}}}" />
                 </StackLayout>
             </StackLayout>
 
             <buttons:SfCheckBox
                 Grid.Column="1"
+                BorderWidth="1.5"
                 CheckedColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
                                                Dark={StaticResource BlueDarkColor}}"
-                CornerRadius="0"
-                HeightRequest="20"
+                CornerRadius="2"
                 HorizontalOptions="EndAndExpand"
                 IsChecked="{Binding IsShowCircle}"
-                Text="Vòng bao"
+                Text="{i18n:TranslateResource Route_Label_Circle}"
                 UncheckedColor="{StaticResource BlueDarkColor}" />
         </Grid>
         <BoxView
@@ -133,7 +129,7 @@
                     Source="ic_speed.png"
                     VerticalOptions="Center"
                     WidthRequest="20" />
-                <Label Text="{Binding CarActive.Velocity, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Common_Lable_NMUnit}}" VerticalOptions="Center" />
+                <Label Text="{Binding CarActive.Velocity, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Common_Lable_NMUnit, Converter={StaticResource LowerCaseConverter}}}" VerticalOptions="Center" />
             </StackLayout>
             <StackLayout
                 Grid.Column="1"
@@ -146,7 +142,7 @@
                     Source="ic_distance.png"
                     VerticalOptions="Center"
                     WidthRequest="20" />
-                <Label Text="{Binding CarActive.TotalKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm}}" VerticalOptions="Center" />
+                <Label Text="{Binding CarActive.TotalKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm, Converter={StaticResource LowerCaseConverter}}}" VerticalOptions="Center" />
             </StackLayout>
             <StackLayout
                 Grid.Column="2"
@@ -187,8 +183,8 @@
             ColumnDefinitions="*,*,*">
             <sharpnado:MaterialFrame
                 Grid.Column="0"
-                Padding="0,11"
-                CornerRadius="18"
+                Padding="0,10"
+                CornerRadius="15"
                 HorizontalOptions="FillAndExpand"
                 LightThemeBackgroundColor="{StaticResource PrimaryColor}">
                 <sharpnado:MaterialFrame.GestureRecognizers>
@@ -205,8 +201,8 @@
             </sharpnado:MaterialFrame>
             <sharpnado:MaterialFrame
                 Grid.Column="1"
-                Padding="0,11"
-                CornerRadius="18"
+                Padding="0,10"
+                CornerRadius="15"
                 HorizontalOptions="FillAndExpand"
                 LightThemeBackgroundColor="{StaticResource PrimaryColor}">
                 <sharpnado:MaterialFrame.GestureRecognizers>
@@ -223,8 +219,8 @@
             </sharpnado:MaterialFrame>
             <sharpnado:MaterialFrame
                 Grid.Column="2"
-                Padding="0,11"
-                CornerRadius="18"
+                Padding="0,10"
+                CornerRadius="15"
                 HorizontalOptions="FillAndExpand"
                 LightThemeBackgroundColor="{StaticResource PrimaryColor}">
                 <sharpnado:MaterialFrame.GestureRecognizers>

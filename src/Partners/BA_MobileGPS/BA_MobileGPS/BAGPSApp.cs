@@ -24,7 +24,9 @@ namespace BA_MobileGPS
 
             base.OnInitialized();
 
-            ServerConfig.ServerTypes = ServerTypes.ServerThat;
+            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerThat;
+            ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerThat;
+            ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerThat;
             ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerThat;
 
             AppCenter.Start("ios=b9feff6c-5277-4e97-97e9-8a8e5c939eef;" +

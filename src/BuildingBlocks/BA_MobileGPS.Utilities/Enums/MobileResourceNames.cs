@@ -16,6 +16,8 @@
         Common_Message_Warning,
         Common_Message_Skip,
         Common_Message_NotPermission,
+        Common_Label_HighLight,
+        Common_Label_Features,
         Common_Button_OK,
         Common_Button_Send,
         Common_Button_Save,
@@ -31,10 +33,13 @@
         Common_Label_Year,
         Common_Label_Month,
         Common_Label_Day,
+        Common_Label_Days,
         Common_Label_Day2,
         Common_Label_Hour,
+        Common_Label_Hours,
         Common_Label_Hour2,
         Common_Label_Minute,
+        Common_Label_Minutes,
         Common_Label_Minute2,
         Common_Label_Second,
         Common_Label_Duration,
@@ -187,6 +192,8 @@
         Menu_TabItem_Monitoring,
         Menu_TabItem_Voyage,
         Menu_TabItem_Account,
+        Home_Label_Highlight,
+        Home_Label_Features,
 
         #endregion Menu
 
@@ -278,14 +285,20 @@
         ListVehicle_Label_Default,
         ListVehicle_Label_VehicleNormal,
         ListVehicle_Label_VehicleNormal2,
+        ListVehicle_Label_VehicleNormal2VMS,
         ListVehicle_Label_VehicleStop,
         ListVehicle_Label_VehicleStop2,
+        ListVehicle_Label_VehicleStop2VMS,
         ListVehicle_Label_VehicleSpeeding,
         ListVehicle_Label_VehicleSpeeding2,
+        ListVehicle_Label_VehicleSpeeding2VMS,
         ListVehicle_Label_VehicleLostGPS,
         ListVehicle_Label_VehicleLostGPS2,
+        ListVehicle_Label_VehicleLostGPS2VMS,
         ListVehicle_Label_VehicleLostGSM,
         ListVehicle_Label_VehicleLostGSM2,
+        ListVehicle_Label_VehicleLostGSM2VMS,
+        ListVehicle_Label_Note,
         CompanyLookUp_Label_Title,
         CompanyLookUp_Label_NotFound,
         CompanyLookUp_Label_Search,
@@ -340,9 +353,15 @@
         Route_Label_Vgps,
         Route_Label_Status,
         Route_Label_SearchVehicle,
+        Route_Label_SearchFishing,
         Route_Label_VehicleEmpty,
         Route_Label_RouteNotFound,
         Route_Label_RouteNotExist,
+        Route_Label_More,
+        Route_Label_Coordinates,
+        Route_Label_Move,
+        Route_Label_StopParking,
+        Route_Label_LostSignal,
         Route_Label_StartDateMustSmallerThanEndDate,
         Route_Label_TotalTimeLimit,
         Route_Label_EndDateLimit,
@@ -354,6 +373,7 @@
         Route_Label_OverDateLimit,
         Route_Label_DistanceTitle,
         Route_Label_FeeVMS,
+        Route_Label_Circle,
         #endregion Route
 
         #region Alert Online
@@ -408,6 +428,7 @@
 
         #region vehicledetail
         DetailVehicle_Label_TilePage,
+        DetailVehicleVMS_Label_TilePage,
         DetailVehicle_Label_InforFee,
         DetailVehicle_MessageFee,
         DetailVehicle_Label_TileInforVehicle,
@@ -451,6 +472,7 @@
         DetailVehicle_Label_Vehicle_Expiration_Date,
         DetailVehicle_Label_Vehicle_Sim_Surplus,
         DetailVehicle_Label_Vehicle_Status_Current,
+        DetailVehicle_Label_ExpirationDate,
         #endregion vehicledetail
 
         #region datetimepicker
@@ -1103,6 +1125,7 @@
         #endregion
 
         #region AccountTab
+        AccountTab_Label_Notification,
         AccountTab_Label_ChangePassword,
         AccountTab_Label_CustomerSupport,
         AccountTab_Label_DeviceManual,
@@ -1138,5 +1161,10 @@
         AlertConfig_Label_Save_Configuration,
 
         #endregion Alert Config
+
+        Boundary_Label_Title,
+        Boundary_Label_All,
+        Boundary_Label_Showarea,
+        Boundary_Label_Showname,
     }
 }

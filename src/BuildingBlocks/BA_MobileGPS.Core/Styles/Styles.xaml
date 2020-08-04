@@ -163,7 +163,7 @@
     <!--  Box View draw line below group title  -->
     <Style Class="SlimLine" TargetType="BoxView">
         <Setter Property="HeightRequest" Value="1" />
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource TextPlaceHolderColor}, Dark={StaticResource TextPlaceHolderColor}}" />
     </Style>
     <Style Class="AccountLine" TargetType="BoxView">
         <Setter Property="HeightRequest" Value="1" />
@@ -198,11 +198,11 @@
     </Style>
 
     <!--  Top IconView : 4 icons  -->
-    <Style Class="TopIconView" TargetType="controls:FontAwesomeIcon">
-        <Setter Property="Margin" Value="0" />
-        <Setter Property="FontSize" Value="30" />
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
-        <Setter Property="VerticalTextAlignment" Value="Center" />
+    <Style Class="TopIconView" TargetType="controls:IconView">
+        <Setter Property="Foreground" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
+        <Setter Property="HeightRequest" Value="30" />
+        <Setter Property="WidthRequest" Value="30" />
+        <Setter Property="VerticalOptions" Value="End" />
     </Style>
 
     <Style Class="HomePageTopImage" TargetType="ffImage:CachedImage">
@@ -222,7 +222,12 @@
     <Style Class="TitleBarGrid" TargetType="Grid">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
         <Setter Property="HeightRequest" Value="{StaticResource HeightTitleBarGrid}" />
-        <Setter Property="Padding" Value="15,5" />
+        <Setter Property="Padding" Value="15,5,10,5" />
+    </Style>
+
+    <Style Class="BoldText" TargetType="Label">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontFamily" Value="{StaticResource myFontLatoBold}" />
     </Style>
 
 </ResourceDictionary>

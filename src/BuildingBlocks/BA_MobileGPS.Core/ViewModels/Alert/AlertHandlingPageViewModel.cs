@@ -17,9 +17,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public string alertType;
         public string AlertType { get => alertType; set => SetProperty(ref alertType, value); }
 
-        public bool isProccess;
-        public bool IsProccess { get => isProccess; set => SetProperty(ref isProccess, value); }
-
         private AlertOnlineDetailModel alert;
         public AlertOnlineDetailModel Alert { get => alert; set => SetProperty(ref alert, value); }
 
@@ -69,16 +66,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool Validate()
         {
-            if (IsProccess)
-            {
-                return handlingContent.Validate();
-            }
-            else
-            {
-                return true;
-            }
+            return handlingContent.Validate();
         }
-
         private async void SaveExecuteAsync()
         {
             try
@@ -93,7 +82,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var isSuccess = await alertService.HandleAlertAsync(new StatusAlertRequestModel
                 {
                     PK_AlertDetailID = Alert.PK_AlertDetailID,
-                    Status = IsProccess ? StatusAlert.Process : StatusAlert.Readed,
+                    Status = StatusAlert.Process,
                     ProccessContent = HandlingContent.Value,
                     UserID = UserInfo.UserId,
                     FK_AlertTypeID = Alert.FK_AlertTypeID,

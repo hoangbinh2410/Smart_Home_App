@@ -8,78 +8,73 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:local="clr-namespace:BA_MobileGPS.Entities;assembly=BA_MobileGPS.Entities"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <ContentView.Content>
         <Grid StyleClass="TitleBarGrid">
             <ffImage:CachedImage
-                HeightRequest="35"
+                Margin="0,0,0,5"
+                HeightRequest="30"
                 HorizontalOptions="StartAndExpand"
                 Source="ic_logo.png"
                 VerticalOptions="EndAndExpand"
-                WidthRequest="80" />
+                WidthRequest="70" />
             <StackLayout
-                Margin="0,0,0,5"
+                Margin="0"
                 HorizontalOptions="End"
                 Orientation="Horizontal"
-                Spacing="15"
+                Spacing="8"
                 VerticalOptions="EndAndExpand">
-                <controls:FontAwesomeIcon
-                    Rotation="90"
-                    StyleClass="TopIconView"
-                    Text="{x:Static fontawesome:FontAwesomeIcons.Phone}">
-                    <controls:FontAwesomeIcon.Behaviors>
+                <controls:IconView Source="ic_phone.png" StyleClass="TopIconView">
+                    <controls:IconView.Behaviors>
                         <animation:ViewTappedBehavior AnimationType="Scale" />
-                    </controls:FontAwesomeIcon.Behaviors>
-                    <controls:FontAwesomeIcon.GestureRecognizers>
+                    </controls:IconView.Behaviors>
+                    <controls:IconView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding CallHotLineCommand}" />
-                    </controls:FontAwesomeIcon.GestureRecognizers>
-                </controls:FontAwesomeIcon>
-                <controls:FontAwesomeIcon
+                    </controls:IconView.GestureRecognizers>
+                </controls:IconView>
+                <controls:IconView
                     IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
-                    StyleClass="TopIconView"
-                    Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
-                    <controls:FontAwesomeIcon.Behaviors>
+                    Source="ic_company.png"
+                    StyleClass="TopIconView">
+                    <controls:IconView.Behaviors>
                         <animation:ViewTappedBehavior AnimationType="Scale" />
-                    </controls:FontAwesomeIcon.Behaviors>
-                    <controls:FontAwesomeIcon.GestureRecognizers>
+                    </controls:IconView.Behaviors>
+                    <controls:IconView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
-                    </controls:FontAwesomeIcon.GestureRecognizers>
-                </controls:FontAwesomeIcon>
-                <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}">
-                    <controls:FontAwesomeIcon.Behaviors>
+                    </controls:IconView.GestureRecognizers>
+                </controls:IconView>
+                <controls:IconView Source="ic_mail.png" StyleClass="TopIconView">
+                    <controls:IconView.Behaviors>
                         <animation:ViewTappedBehavior AnimationType="Scale" />
-                    </controls:FontAwesomeIcon.Behaviors>
-                    <controls:FontAwesomeIcon.GestureRecognizers>
+                    </controls:IconView.Behaviors>
+                    <controls:IconView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding PushToNoticePageCommand}" />
-                    </controls:FontAwesomeIcon.GestureRecognizers>
-                </controls:FontAwesomeIcon>
-                <badge:SfBadgeView
-                    Margin="0,0,0,5"
-                    BackgroundColor="Transparent"
-                    BadgeText="{Binding TotalAlertDisplay, Source={x:Static local:GlobalResources.Current}}"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center">
+                    </controls:IconView.GestureRecognizers>
+                </controls:IconView>
+                <badge:SfBadgeView BadgeText="{Binding TotalAlertDisplay, Source={x:Static local:GlobalResources.Current}}" VerticalOptions="EndAndExpand">
                     <badge:SfBadgeView.Content>
-                        <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Bell}">
-                            <controls:FontAwesomeIcon.Behaviors>
+                        <controls:IconView
+                            Margin="0,0,0,-1"
+                            Source="ic_bellstand.png"
+                            StyleClass="TopIconView">
+                            <controls:IconView.Behaviors>
                                 <animation:ViewTappedBehavior AnimationType="Scale" />
-                            </controls:FontAwesomeIcon.Behaviors>
-                            <controls:FontAwesomeIcon.GestureRecognizers>
+                            </controls:IconView.Behaviors>
+                            <controls:IconView.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding PushToAleartPageCommand}" />
-                            </controls:FontAwesomeIcon.GestureRecognizers>
-                        </controls:FontAwesomeIcon>
+                            </controls:IconView.GestureRecognizers>
+                        </controls:IconView>
                     </badge:SfBadgeView.Content>
                     <badge:SfBadgeView.BadgeSettings>
                         <badge:BadgeSetting
                             BadgePosition="TopRight"
                             BadgeType="Error"
-                            CornerRadius="12"
+                            CornerRadius="10"
                             FontSize="9"
                             TextPadding="3"
-                            Offset="0,0" />
+                            Offset="-10,5" />
                     </badge:SfBadgeView.BadgeSettings>
                 </badge:SfBadgeView>
             </StackLayout>

@@ -5,7 +5,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Xamarin.Forms" Version="4.7.0.1179" />
+		<PackageReference Include="Xamarin.Forms" Version="4.7.0.1239" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -29,6 +29,9 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Styles\VMS_Styles.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\ListVehicle\DetailVehiclePopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Report\ServicePackHistory\PackageInfosPage.xaml">

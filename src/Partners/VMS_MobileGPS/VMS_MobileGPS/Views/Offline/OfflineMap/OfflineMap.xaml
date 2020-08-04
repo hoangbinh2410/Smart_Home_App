@@ -24,10 +24,10 @@
             <convertersvms:OfflineMapDeviceCodeConverter x:Key="OfflineMapDeviceCodeConverter" />
             <Style TargetType="controls:IconView">
                 <Setter Property="Foreground" Value="{AppThemeBinding Dark={StaticResource PrimaryColor}, Light={StaticResource PrimaryColor}}" />
-                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
-                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
-                <Setter Property="HeightRequest" Value="30" />
-                <Setter Property="WidthRequest" Value="30" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="HeightRequest" Value="20" />
+                <Setter Property="WidthRequest" Value="20" />
             </Style>
             <Style TargetType="Label">
                 <Setter Property="VerticalOptions" Value="CenterAndExpand" />
@@ -36,11 +36,11 @@
             <Style TargetType="BoxView">
                 <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource TextPlaceHolderColor}, Dark={StaticResource TextPlaceHolderColor}}" />
                 <Setter Property="Grid.ColumnSpan" Value="2" />
-                <Setter Property="Opacity" Value="0.3" />
+                <Setter Property="Opacity" Value="0.2" />
             </Style>
             <Style TargetType="Button">
                 <Setter Property="Padding" Value="0" />
-                <Setter Property="CornerRadius" Value="17" />
+                <Setter Property="CornerRadius" Value="15" />
                 <Setter Property="Margin" Value="10,0" />
                 <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
             </Style>
@@ -113,61 +113,38 @@
                 HorizontalOptions="End"
                 VerticalOptions="End">
                 <sharpnado:MaterialFrame
-                    Margin="5,0"
                     Padding="0"
-                    CornerRadius="5"
-                    HasShadow="True"
-                    HeightRequest="85"
-                    LightThemeBackgroundColor="White">
-                    <StackLayout Spacing="0" WidthRequest="40">
-                        <Frame
-                            Padding="0"
-                            BackgroundColor="White"
-                            HeightRequest="42">
-                            <Frame.GestureRecognizers>
+                    CornerRadius="8"
+                    HeightRequest="65"
+                    HorizontalOptions="Center"
+                    WidthRequest="32">
+                    <StackLayout Padding="0" Spacing="0">
+                        <Grid HeightRequest="32">
+                            <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ZoomInCommand}" />
-                            </Frame.GestureRecognizers>
-                            <controls:FontAwesomeIcon
-                                x:Name="ic_ZoomIn"
-                                FontAttributes="Bold"
-                                FontSize="15"
-                                HorizontalOptions="Center"
-                                Text="{x:Static fontawesome:FontAwesomeIcons.Plus}"
-                                TextColor="{AppThemeBinding Dark={StaticResource PrimaryColor},
-                                                            Light={StaticResource PrimaryColor}}"
-                                VerticalOptions="Center" />
-                        </Frame>
-                        <BoxView BackgroundColor="{StaticResource TextPlaceHolderColor}" HeightRequest="1" />
-                        <Frame
-                            Padding="0"
-                            BackgroundColor="White"
-                            HeightRequest="42">
-                            <Frame.GestureRecognizers>
+                            </Grid.GestureRecognizers>
+                            <ff:CachedImage Margin="10" Source="ic_plus.png" />
+                        </Grid>
+                        <BoxView StyleClass="SlimLine" />
+                        <Grid HeightRequest="32">
+                            <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ZoomOutCommand}" />
-                            </Frame.GestureRecognizers>
-                            <controls:FontAwesomeIcon
-                                x:Name="ic_ZoomOut"
-                                FontAttributes="Bold"
-                                FontSize="15"
-                                HorizontalOptions="Center"
-                                Text="{x:Static fontawesome:FontAwesomeIcons.Minus}"
-                                TextColor="{AppThemeBinding Dark={StaticResource PrimaryColor},
-                                                            Light={StaticResource PrimaryColor}}"
-                                VerticalOptions="Center" />
-                        </Frame>
+                            </Grid.GestureRecognizers>
+                            <ff:CachedImage Margin="10" Source="ic_minus.png" />
+                        </Grid>
                     </StackLayout>
                 </sharpnado:MaterialFrame>
                 <sharpnado:MaterialFrame
                     Padding="0"
-                    CornerRadius="25"
+                    CornerRadius="21"
                     HasShadow="True"
-                    HeightRequest="50"
+                    HeightRequest="42"
                     LightThemeBackgroundColor="White"
-                    WidthRequest="50">
+                    WidthRequest="42">
                     <sharpnado:MaterialFrame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SwitchToMyLocationCommand}" />
                     </sharpnado:MaterialFrame.GestureRecognizers>
-                    <controls:IconView Margin="8" Source="ic_vector.png" />
+                    <controls:IconView Margin="10" Source="ic_vector.png" />
                 </sharpnado:MaterialFrame>
             </StackLayout>
             <pancake:PancakeView
@@ -179,15 +156,22 @@
                 HasShadow="True"
                 VerticalOptions="End">
                 <pancake:PancakeView.Shadow>
-                    <pancake:DropShadow BlurRadius="10" Color="Black" />
+                    <pancake:DropShadow
+                        BlurRadius="2"
+                        Offset="0,0"
+                        Color="Black" />
                 </pancake:PancakeView.Shadow>
-                <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto,Auto,35">
+                <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto,Auto,30">
                     <StackLayout
                         HorizontalOptions="CenterAndExpand"
                         Orientation="Horizontal"
                         Spacing="5">
                         <Label Text="TRẠNG THÁI THIẾT BỊ:" TextColor="{AppThemeBinding Dark={StaticResource PrimaryColor}, Light={StaticResource PrimaryColor}}" />
-                        <Label Text="{Binding BluetoothStatus, Mode=OneWay}" TextColor="{Binding BluetoothStatusTextColor, Mode=OneWay}" />
+                        <Label
+                            LineBreakMode="TailTruncation"
+                            MaxLines="1"
+                            Text="{Binding BluetoothStatus, Mode=OneWay}"
+                            TextColor="{Binding BluetoothStatusTextColor, Mode=OneWay}" />
                     </StackLayout>
                     <Grid
                         Grid.Row="1"
@@ -211,7 +195,11 @@
                             Text="{Binding MarkerPosition, Mode=OneWay}" />
                         <BoxView Grid.Row="4" />
                         <!--  Vận tốc  -->
-                        <controls:IconView Grid.Row="5" Source="ic_speed.png" HeightRequest="25" WidthRequest="25"/>
+                        <controls:IconView
+                            Grid.Row="5"
+                            HeightRequest="16"
+                            Source="ic_speed.png"
+                            WidthRequest="16" />
                         <Label
                             Grid.Row="5"
                             Grid.Column="1"

@@ -7,126 +7,123 @@
     xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:local="clr-namespace:BA_MobileGPS.Entities;assembly=BA_MobileGPS.Entities"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-    xmlns:prism="http://prismlibrary.com"
+    xmlns:renderedViews="clr-namespace:Sharpnado.Presentation.Forms.RenderedViews;assembly=Sharpnado.Presentation.Forms"
     xmlns:sfListView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
-    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
-    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     x:Name="root">
     <ContentView.Resources>
         <DataTemplate x:Key="IconTemplate">
-            <StackLayout Spacing="10">
-                <pancake:PancakeView
-                    Padding="5"
-                    BackgroundColor="{StaticResource WhiteColor}"
-                    CornerRadius="5"
-                    HorizontalOptions="CenterAndExpand">
-                    <ff:CachedImage
-                        HeightRequest="45"
-                        Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
-                        WidthRequest="45" />
-                    <pancake:PancakeView.Shadow>
-                        <pancake:DropShadow BlurRadius="2" Color="{StaticResource TextPlaceHolderColor}" />
-                    </pancake:PancakeView.Shadow>
-                    <pancake:PancakeView.Border>
-                        <pancake:Border
-                            DrawingStyle="Inside"
-                            Thickness="1"
-                            Color="{StaticResource TextPlaceHolderColor}" />
-                    </pancake:PancakeView.Border>
-                </pancake:PancakeView>
-
-                <Label
-                    LineBreakMode="TailTruncation"
-                    MaxLines="2"
-                    StyleClass="IconText"
-                    Text="{Binding NameByCulture}" />
-            </StackLayout>
+            <ViewCell>
+                <StackLayout Margin="0" Spacing="10">
+                    <pancake:PancakeView
+                        Padding="0"
+                        BackgroundColor="{StaticResource WhiteColor}"
+                        CornerRadius="10"
+                        HasShadow="True"
+                        HorizontalOptions="CenterAndExpand">
+                        <pancake:PancakeView.Shadow>
+                            <pancake:DropShadow
+                                BlurRadius="3"
+                                Opacity="0.1"
+                                Offset="0,2"
+                                Color="{StaticResource ShadowColor}" />
+                        </pancake:PancakeView.Shadow>
+                        <ff:CachedImage
+                            Margin="15"
+                            HeightRequest="30"
+                            HorizontalOptions="Center"
+                            Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
+                            VerticalOptions="Center"
+                            WidthRequest="30" />
+                    </pancake:PancakeView>
+                    <Label
+                        Margin="15,0,15,0"
+                        HorizontalOptions="Center"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="2"
+                        StyleClass="IconText"
+                        Text="{Binding NameByCulture}"
+                        VerticalOptions="Center" />
+                </StackLayout>
+            </ViewCell>
         </DataTemplate>
-        <Style TargetType="sfListView:SfListView">
-            <Setter Property="IsScrollBarVisible" Value="False" />
-            <Setter Property="IsScrollingEnabled" Value="True" />
-            <Setter Property="ItemSpacing" Value="10,10,0,0" />
-            <Setter Property="Orientation" Value="Horizontal" />
-            <Setter Property="SelectionBackgroundColor" Value="Transparent" />
+        <Style TargetType="renderedViews:HorizontalListView">
             <Setter Property="ItemTemplate" Value="{StaticResource IconTemplate}" />
         </Style>
     </ContentView.Resources>
-    <Grid>
+    <Grid RowDefinitions="*,2.8*">
+        <Grid BackgroundColor="{StaticResource PrimaryColor}" VerticalOptions="Fill" />
         <Grid
-            BackgroundColor="{StaticResource PrimaryColor}"
-            HeightRequest="200"
-            VerticalOptions="Start" />
-        <Grid Padding="5,0" RowDefinitions="Auto,Auto">
-            <Grid Padding="15,0" HeightRequest="110">
+            Grid.RowSpan="2"
+            Padding="5,0"
+            RowDefinitions="80,Auto">
+            <Grid Padding="15,0">
                 <ff:CachedImage
-                    HeightRequest="35"
-                    HorizontalOptions="StartAndExpand"
+                    HeightRequest="30"
+                    HorizontalOptions="Start"
                     Source="ic_logo.png"
                     VerticalOptions="EndAndExpand"
-                    WidthRequest="80" />
+                    WidthRequest="70" />
                 <StackLayout
-                    Margin="0,0,0,5"
                     HorizontalOptions="End"
                     Orientation="Horizontal"
-                    Spacing="15"
+                    Spacing="10"
                     VerticalOptions="EndAndExpand">
-                    <controls:FontAwesomeIcon
-                        Rotation="90"
-                        StyleClass="TopIconView"
-                        Text="{x:Static fontawesome:FontAwesomeIcons.Phone}">
-                        <controls:FontAwesomeIcon.Behaviors>
+                    <controls:IconView Source="ic_phone.png" StyleClass="TopIconView">
+                        <controls:IconView.Behaviors>
                             <animation:ViewTappedBehavior AnimationType="Scale" />
-                        </controls:FontAwesomeIcon.Behaviors>
-                        <controls:FontAwesomeIcon.GestureRecognizers>
+                        </controls:IconView.Behaviors>
+                        <controls:IconView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding CallHotLineCommand}" />
-                        </controls:FontAwesomeIcon.GestureRecognizers>
-                    </controls:FontAwesomeIcon>
-                    <controls:FontAwesomeIcon
+                        </controls:IconView.GestureRecognizers>
+                    </controls:IconView>
+                    <controls:IconView
                         IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
-                        StyleClass="TopIconView"
-                        Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
-                        <controls:FontAwesomeIcon.Behaviors>
+                        Source="ic_company.png"
+                        StyleClass="TopIconView">
+                        <controls:IconView.Behaviors>
                             <animation:ViewTappedBehavior AnimationType="Scale" />
-                        </controls:FontAwesomeIcon.Behaviors>
-                        <controls:FontAwesomeIcon.GestureRecognizers>
+                        </controls:IconView.Behaviors>
+                        <controls:IconView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
-                        </controls:FontAwesomeIcon.GestureRecognizers>
-                    </controls:FontAwesomeIcon>
-                    <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}">
-                        <controls:FontAwesomeIcon.Behaviors>
+                        </controls:IconView.GestureRecognizers>
+                    </controls:IconView>
+                    <controls:IconView Source="ic_mail.png" StyleClass="TopIconView">
+                        <controls:IconView.Behaviors>
                             <animation:ViewTappedBehavior AnimationType="Scale" />
-                        </controls:FontAwesomeIcon.Behaviors>
-                        <controls:FontAwesomeIcon.GestureRecognizers>
+                        </controls:IconView.Behaviors>
+                        <controls:IconView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding PushToNoticePageCommand}" />
-                        </controls:FontAwesomeIcon.GestureRecognizers>
-                    </controls:FontAwesomeIcon>
+                        </controls:IconView.GestureRecognizers>
+                    </controls:IconView>
                     <badge:SfBadgeView
-                        Margin="0,0,0,5"
                         BackgroundColor="Transparent"
                         BadgeText="{Binding TotalAlertDisplay, Source={x:Static local:GlobalResources.Current}}"
                         HorizontalOptions="Center"
                         VerticalOptions="Center">
                         <badge:SfBadgeView.Content>
-                            <controls:FontAwesomeIcon StyleClass="TopIconView" Text="{x:Static fontawesome:FontAwesomeIcons.Bell}">
-                                <controls:FontAwesomeIcon.Behaviors>
+                            <controls:IconView
+                                Margin="0,0,0,-1"
+                                Source="ic_bellstand.png"
+                                StyleClass="TopIconView">
+                                <controls:IconView.Behaviors>
                                     <animation:ViewTappedBehavior AnimationType="Scale" />
-                                </controls:FontAwesomeIcon.Behaviors>
-                                <controls:FontAwesomeIcon.GestureRecognizers>
+                                </controls:IconView.Behaviors>
+                                <controls:IconView.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding PushToAleartPageCommand}" />
-                                </controls:FontAwesomeIcon.GestureRecognizers>
-                            </controls:FontAwesomeIcon>
+                                </controls:IconView.GestureRecognizers>
+                            </controls:IconView>
                         </badge:SfBadgeView.Content>
                         <badge:SfBadgeView.BadgeSettings>
                             <badge:BadgeSetting
                                 BadgePosition="TopRight"
                                 BadgeType="Error"
-                                CornerRadius="12"
+                                CornerRadius="10"
                                 FontSize="9"
                                 TextPadding="3"
-                                Offset="0,0" />
+                                Offset="-10,5" />
                         </badge:SfBadgeView.BadgeSettings>
                     </badge:SfBadgeView>
                 </StackLayout>
@@ -139,28 +136,26 @@
                         HasShadow="True"
                         Style="{DynamicResource FavouriteBackgroundColor}">
                         <pancake:PancakeView.Shadow>
-                            <pancake:DropShadow BlurRadius="2" Color="Black" />
+                            <pancake:DropShadow BlurRadius="2" Color="{StaticResource ShadowColor}" />
                         </pancake:PancakeView.Shadow>
                         <StackLayout Spacing="0">
                             <Grid Margin="10">
-                                <Label StyleClass="GroupTitleLabel" Text="NỔI BẬT" />
-                                <controls:FontAwesomeIcon
+                                <Label StyleClass="GroupTitleLabel,BoldText" Text="{i18n:TranslateResource Common_Label_HighLight, Converter={StaticResource UpperCaseConverter}}" />
+                                <controls:IconView
                                     Margin="0,0,10,0"
-                                    FontAttributes="Bold"
+                                    Foreground="Red"
+                                    HeightRequest="18"
                                     HorizontalOptions="End"
-                                    Text="{x:Static fontawesome:FontAwesomeIcons.Heart}"
-                                    TextColor="Red">
-                                    <controls:FontAwesomeIcon.Behaviors>
-                                        <animation:ViewTappedBehavior AnimationType="Scale" />
-                                    </controls:FontAwesomeIcon.Behaviors>
-                                    <controls:FontAwesomeIcon.GestureRecognizers>
+                                    Source="ic_heart.png"
+                                    WidthRequest="18">
+                                    <controls:IconView.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateToFavoriteCommand}" NumberOfTapsRequired="1" />
-                                    </controls:FontAwesomeIcon.GestureRecognizers>
-                                </controls:FontAwesomeIcon>
+                                    </controls:IconView.GestureRecognizers>
+                                </controls:IconView>
                             </Grid>
                             <BoxView class="SlimLine" />
                             <CarouselView
-                                HeightRequest="120"
+                                HeightRequest="125"
                                 HorizontalScrollBarVisibility="Never"
                                 IndicatorView="indicatorFavourite"
                                 IsVisible="{Binding HasFavorite, Mode=OneWay}"
@@ -168,52 +163,68 @@
                                 <CarouselView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
-                                            <sfListView:SfListView
-                                                HeightRequest="250"
-                                                HorizontalOptions="CenterAndExpand"
-                                                IsScrollBarVisible="False"
-                                                ItemSize="100"
-                                                ItemSpacing="5,10,5,0"
+                                            <renderedViews:HorizontalListView
+                                                Margin="0,10,0,10"
+                                                CollectionPadding="0"
+                                                ColumnCount="3"
+                                                HorizontalOptions="FillAndExpand"
+                                                ItemHeight="110"
+                                                ItemSpacing="10"
+                                                ItemWidth="90"
                                                 ItemsSource="{Binding FeaturesItem, Mode=OneWay}"
-                                                PropertyChanged="Favourite_PropertyChanged"
-                                                TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}" />
+                                                ListLayout="Grid"
+                                                SnapStyle="Center"
+                                                TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}"
+                                                VerticalOptions="FillAndExpand" />
                                         </Grid>
                                     </DataTemplate>
                                 </CarouselView.ItemTemplate>
                             </CarouselView>
-                            <IndicatorView x:Name="indicatorFavourite" Margin="0,10" />
+                            <IndicatorView x:Name="indicatorFavourite" Margin="0,7" />
                         </StackLayout>
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Grid.Row="1"
+                        Margin="10,5"
                         Padding="0"
                         BackgroundColor="{AppThemeBinding Light={StaticResource GrayColor},
                                                           Dark={StaticResource GrayColor}}"
-                        CornerRadius="10">
-                        <StackLayout Spacing="10">
+                        CornerRadius="10"
+                        HasShadow="False">
+                        <StackLayout Spacing="0">
                             <Label
-                                Padding="20,10,0,0"
-                                StyleClass="GroupTitleLabel"
-                                Text="TIỆN ÍCH" />
-                            <BoxView Margin="10,0" class="SlimLine" />
-                            <Grid x:Name="parentFeatures" HeightRequest="280">
+                                Padding="10"
+                                StyleClass="GroupTitleLabel,BoldText"
+                                Text="{i18n:TranslateResource Common_Label_Features,
+                                                              Converter={StaticResource UpperCaseConverter}}" />
+                            <BoxView class="SlimLine" />
+                            <Grid
+                                x:Name="parentFeatures"
+                                Margin="0,10"
+                                HeightRequest="280">
                                 <CarouselView
                                     x:Name="list1"
+                                    HorizontalOptions="FillAndExpand"
                                     HorizontalScrollBarVisibility="Never"
                                     IndicatorView="indicatorView"
-                                    ItemsSource="{Binding AllListfeatures, Mode=OneWay}">
+                                    ItemsSource="{Binding AllListfeatures, Mode=OneWay}"
+                                    VerticalOptions="CenterAndExpand">
                                     <CarouselView.ItemTemplate>
                                         <DataTemplate>
                                             <Grid>
-                                                <sfListView:SfListView
-                                                    HeightRequest="250"
-                                                    HorizontalOptions="CenterAndExpand"
-                                                    IsScrollBarVisible="False"
-                                                    ItemSize="100"
-                                                    ItemsSource="{Binding FeaturesItem}"
-                                                    PropertyChanged="SfListView_PropertyChanged"
+                                                <renderedViews:HorizontalListView
+                                                    CollectionPadding="0"
+                                                    ColumnCount="3"
+                                                    HeightRequest="150"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    ItemHeight="110"
+                                                    ItemSpacing="10"
+                                                    ItemWidth="90"
+                                                    ItemsSource="{Binding FeaturesItem, Mode=OneWay}"
+                                                    ListLayout="Grid"
+                                                    SnapStyle="Center"
                                                     TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}"
-                                                    VerticalOptions="CenterAndExpand" />
+                                                    VerticalOptions="FillAndExpand" />
                                             </Grid>
                                         </DataTemplate>
                                     </CarouselView.ItemTemplate>
@@ -225,7 +236,8 @@
                     <pancake:PancakeView
                         Grid.Row="2"
                         Margin="15,0"
-                        CornerRadius="15,15,0,0">
+                        CornerRadius="15,15,0,0"
+                        HasShadow="False">
                         <ff:CachedImage
                             Aspect="AspectFill"
                             HeightRequest="200"

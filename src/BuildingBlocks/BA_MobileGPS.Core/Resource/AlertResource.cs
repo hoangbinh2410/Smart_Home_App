@@ -14,7 +14,7 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string Alert_Label_Time => Get(MobileResourceNames.Alert_Label_Time, "Thời gian", "Time");
 
-        public static string Alert_Label_AlertType => Get(MobileResourceNames.Alert_Label_AlertType, "Loại cảnh báo", "Alert");
+        public static string Alert_Label_AlertType => Get(MobileResourceNames.Alert_Label_AlertType, "Loại cảnh báo", "Types of Alerts");
 
         public static string Alert_Label_SearchVehicle => Get(MobileResourceNames.Alert_Label_SearchVehicle, "BKS", "");
 

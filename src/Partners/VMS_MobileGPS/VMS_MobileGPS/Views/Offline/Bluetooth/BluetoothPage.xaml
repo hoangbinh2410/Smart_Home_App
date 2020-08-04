@@ -19,7 +19,8 @@
     xmlns:vm="clr-namespace:VMS_MobileGPS.ViewModels"
     Title="Tìm và kết nối"
     x:DataType="vm:BluetoothViewModel"
-    BackgroundColor="White">
+    BackgroundColor="White"
+    NavigationPage.HasBackButton="True">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:TextChangedEventArgsConverter x:Key="TextChangedEventArgsConverter" />
@@ -59,7 +60,7 @@
             <image:CachedImage
                 Grid.Column="2"
                 HeightRequest="27"
-                HorizontalOptions="Start"
+                HorizontalOptions="End"
                 Source="ic_bluetooth.png"
                 VerticalOptions="Center">
                 <image:CachedImage.Behaviors>

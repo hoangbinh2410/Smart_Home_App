@@ -74,12 +74,12 @@ namespace VMS_MobileGPS.Converter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
-                return "KHÔNG XÁC ĐỊNH";
+                return "Kết nối thiết bị";
 
             string val = value.ToString();
             if (string.IsNullOrEmpty(val))
             {
-                return "KHÔNG XÁC ĐỊNH";
+                return "Kết nối thiết bị";
             }
             else
             {
@@ -148,7 +148,7 @@ namespace VMS_MobileGPS.Converter
             }
             if (value == null)
             {
-                return Color.FromHex("#e2e2e2");
+                return (Color)App.Current.Resources["TextPrimaryColor"];
             }
 
             var state = (BleConnectionState)value;
@@ -156,7 +156,7 @@ namespace VMS_MobileGPS.Converter
             switch (state)
             {
                 case BleConnectionState.NO_CONNECTION:
-                    return Color.FromHex("#e2e2e2");
+                    return (Color)App.Current.Resources["TextPrimaryColor"];
 
                 case BleConnectionState.CONNECTED:
                     return color;
@@ -166,7 +166,7 @@ namespace VMS_MobileGPS.Converter
                     return color;
 
                 default:
-                    return Color.FromHex("#e2e2e2");
+                    return (Color)App.Current.Resources["TextPrimaryColor"];
             }
         }
 
@@ -322,5 +322,98 @@ namespace VMS_MobileGPS.Converter
             return null;
         }
     }
-    
+
+    public class SOSLabelTextConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return "Cảnh báo SOS";
+            }
+            if ((bool)value)
+            {
+                return "SOS ĐÃ BẬT";
+            }
+            else
+            {
+                return "Cảnh báo SOS";
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
+    public class BLEConnectionStateImagesConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return "ic_vmsdevice_off.png";
+            }
+
+            var state = (BleConnectionState)value;
+
+            switch (state)
+            {
+                case BleConnectionState.NO_CONNECTION:
+
+                    return "ic_vmsdevice_off.png";
+
+                case BleConnectionState.CONNECTED:
+
+                    return "ic_vmsdevice.png";
+
+                case BleConnectionState.PING_OK:
+                    return "ic_vmsdevice.png";
+
+                default:
+                    return "ic_vmsdevice_off.png";
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
+    public class BLEConnectionStateBoolConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return false;
+            }
+
+            var state = (BleConnectionState)value;
+
+            switch (state)
+            {
+                case BleConnectionState.NO_CONNECTION:
+
+                    return false;
+
+                case BleConnectionState.CONNECTED:
+
+                    return true;
+
+                case BleConnectionState.PING_OK:
+                    return true;
+
+                default:
+                    return false;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
 }

@@ -8,7 +8,6 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:converters="clr-namespace:VMS_MobileGPS.Converter"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:local="clr-namespace:BA_MobileGPS.Utilities;assembly=BA_MobileGPS.Utilities"
     xmlns:localstatic="clr-namespace:VMS_MobileGPS.Constant;assembly=VMS_MobileGPS"
     xmlns:prism="http://prismlibrary.com"
@@ -19,12 +18,16 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:BLEConnectionStateConverter x:Key="BLEConnectionStateConverter" />
+            <converters:BLEConnectionStateImagesConverter x:Key="BLEConnectionStateImagesConverter" />
             <converters:DeviceStateColorConverter x:Key="DeviceStateColorConverter" />
             <converters:TotalNotificationDisplayConverter x:Key="TotalNotificationDisplayConverter" />
             <converters:SOSStateColorConverter x:Key="SOSStateColorConverter" />
             <converters:SOSStateTextColorConverter x:Key="SOSStateTextColorConverter" />
             <converters:SOSBackgroundColorConverter x:Key="SOSBackgroundColorConverter" />
+            <converters:SOSLabelTextConverter x:Key="SOSLabelTextConverter" />
             <converters:BLENameConverter x:Key="BLENameConverter" />
+            <converters:BLEConnectionStateBoolConverter x:Key="BLEConnectionStateBoolConverter" />
+            <converters:BLEConnectionStateColorConverter x:Key="BLEConnectionStateColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <NavigationPage.TitleView>
@@ -35,10 +38,11 @@
             </Grid.ColumnDefinitions>
             <ffImage:CachedImage
                 Grid.Column="0"
+                HeightRequest="30"
                 HorizontalOptions="StartAndExpand"
                 Source="ic_logo.png"
                 VerticalOptions="FillAndExpand"
-                WidthRequest="80" />
+                WidthRequest="70" />
             <badge:SfBadgeView
                 Grid.Column="1"
                 Margin="5,0,0,5"
@@ -47,18 +51,17 @@
                 HorizontalOptions="EndAndExpand"
                 VerticalOptions="Center">
                 <badge:SfBadgeView.Content>
-                    <controls:FontAwesomeIcon
-                        Margin="5,0,5,0"
-                        FontSize="25"
-                        StyleClass="TopIconView"
-                        Text="{x:Static fontawesome:FontAwesomeIcons.Envelope}">
-                        <controls:FontAwesomeIcon.Behaviors>
+                    <controls:IconView
+                        Margin="0,0,0,-1"
+                        Source="ic_mail.png"
+                        StyleClass="TopIconView">
+                        <controls:IconView.Behaviors>
                             <animation:ViewTappedBehavior AnimationType="Scale" />
-                        </controls:FontAwesomeIcon.Behaviors>
-                        <controls:FontAwesomeIcon.GestureRecognizers>
+                        </controls:IconView.Behaviors>
+                        <controls:IconView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigateToCommand}" CommandParameter="{x:Static local:PageNames.NotificationMessagePage}" />
-                        </controls:FontAwesomeIcon.GestureRecognizers>
-                    </controls:FontAwesomeIcon>
+                        </controls:IconView.GestureRecognizers>
+                    </controls:IconView>
                 </badge:SfBadgeView.Content>
                 <badge:SfBadgeView.BadgeSettings>
                     <badge:BadgeSetting
@@ -88,30 +91,29 @@
                     Grid.Column="0"
                     HeightRequest="120"
                     HorizontalOptions="StartAndExpand"
-                    Source="ic_vmsdevice.png"
+                    Source="{Binding DeviceManager.State, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource BLEConnectionStateImagesConverter}}"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="120" />
                 <StackLayout
                     Grid.Column="1"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand">
-
                     <Label
                         HorizontalOptions="StartAndExpand"
                         LineBreakMode="TailTruncation"
-                        Text="{Binding DeviceManager.DevicePlate, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource BLENameConverter}}" />
-                    <StackLayout Orientation="Horizontal">
-                        <Label
-                            HorizontalOptions="StartAndExpand"
-                            Text="{Binding StateDeviceMessage}"
-                            TextColor="{Binding StateDeviceMessage, Converter={StaticResource DeviceStateColorConverter}}" />
-                        <controls:FontAwesomeIcon
-                            FontAttributes="Bold"
-                            FontSize="15"
-                            HorizontalOptions="End"
-                            Text="{x:Static fontawesome:FontAwesomeIcons.QuestionCircle}"
-                            TextColor="{StaticResource TextSecondaryColor}"
-                            VerticalOptions="Center" />
+                        Text="{Binding DeviceManager.DevicePlate, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource BLENameConverter}}"
+                        TextColor="{Binding DeviceManager.State, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource BLEConnectionStateColorConverter}}" />
+                    <StackLayout
+                        HorizontalOptions="Start"
+                        IsVisible="{Binding DeviceManager.State, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource BLEConnectionStateBoolConverter}}"
+                        Orientation="Horizontal"
+                        Spacing="5">
+                        <Label Text="{Binding StateDeviceMessage}" TextColor="{Binding StateDeviceMessage, Converter={StaticResource DeviceStateColorConverter}}" />
+                        <ffImage:CachedImage
+                            HeightRequest="15"
+                            Source="ic_chamthan.png"
+                            VerticalOptions="Center"
+                            WidthRequest="15" />
                     </StackLayout>
                 </StackLayout>
 
@@ -128,19 +130,21 @@
                 </StackLayout>
             </Grid>
 
-            <StackLayout
+            <Grid
                 Grid.Row="1"
                 HorizontalOptions="FillAndExpand"
-                Spacing="15"
+                RowSpacing="15"
                 VerticalOptions="FillAndExpand">
-                <Grid ColumnSpacing="10">
+
+                <Grid ColumnSpacing="15">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width=".5*" />
                         <ColumnDefinition Width=".5*" />
                     </Grid.ColumnDefinitions>
                     <sharpnado:MaterialFrame
                         Grid.Column="0"
-                        CornerRadius="10"
+                        CornerRadius="15"
+                        HeightRequest="{Binding HeightBox}"
                         LightThemeBackgroundColor="{Binding DeviceManager.IsSendSOS, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource SOSBackgroundColorConverter}}">
                         <sharpnado:MaterialFrame.GestureRecognizers>
                             <TapGestureRecognizer
@@ -149,106 +153,97 @@
                                 NumberOfTapsRequired="1" />
                         </sharpnado:MaterialFrame.GestureRecognizers>
                         <Grid>
-                            <controls:IconView
-                                Foreground="Red"
-                                HeightRequest="15"
-                                HorizontalOptions="End"
-                                IsVisible="{Binding DeviceManager.IsSendSOS, Source={x:Static localstatic:GlobalResourcesVMS.Current}}"
-                                Source="ic_alarmsos.png"
-                                VerticalOptions="Start"
-                                WidthRequest="15" />
-                            <StackLayout>
+                            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                                 <controls:IconView
                                     Grid.Column="0"
                                     Foreground="{Binding DeviceManager.IsSendSOS, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource SOSStateColorConverter}}"
-                                    HorizontalOptions="CenterAndExpand"
-                                    Source="ic_sos.png"
-                                    VerticalOptions="CenterAndExpand" />
+                                    Source="ic_sos.png" />
                                 <Label
-                                    HorizontalOptions="CenterAndExpand"
-                                    Text="Cảnh báo SOS"
-                                    TextColor="{Binding DeviceManager.IsSendSOS, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource SOSStateTextColorConverter}}"
-                                    VerticalOptions="Center" />
+                                    StyleClass="BoldText"
+                                    Text="{Binding DeviceManager.IsSendSOS, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource SOSLabelTextConverter}}"
+                                    TextColor="{Binding DeviceManager.IsSendSOS, Source={x:Static localstatic:GlobalResourcesVMS.Current}, Converter={StaticResource SOSStateTextColorConverter}}" />
                             </StackLayout>
                         </Grid>
 
                     </sharpnado:MaterialFrame>
-                    <sharpnado:MaterialFrame Grid.Column="1" CornerRadius="10">
+                    <sharpnado:MaterialFrame
+                        Grid.Column="1"
+                        CornerRadius="15"
+                        HeightRequest="{Binding HeightBox}">
                         <sharpnado:MaterialFrame.GestureRecognizers>
                             <TapGestureRecognizer
                                 Command="{Binding NavigateToCommand}"
                                 CommandParameter="{x:Static local:PageNames.MessagesPage}"
                                 NumberOfTapsRequired="1" />
                         </sharpnado:MaterialFrame.GestureRecognizers>
-                        <StackLayout>
+                        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                             <controls:IconView
                                 Grid.Column="0"
                                 Foreground="{StaticResource PrimaryColor}"
-                                HorizontalOptions="CenterAndExpand"
-                                Source="ic_mailoffline.png"
-                                VerticalOptions="CenterAndExpand" />
-                            <Label
-                                HorizontalOptions="CenterAndExpand"
-                                Text="Gửi tin nhắn"
-                                VerticalOptions="Center" />
+                                Source="ic_mailoffline.png" />
+                            <Label StyleClass="BoldText" Text="Gửi tin nhắn" />
                         </StackLayout>
                     </sharpnado:MaterialFrame>
                 </Grid>
 
-                <Grid ColumnSpacing="10">
+                <Grid Grid.Row="1" ColumnSpacing="15">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width=".5*" />
                         <ColumnDefinition Width=".5*" />
                     </Grid.ColumnDefinitions>
-                    <sharpnado:MaterialFrame Grid.Column="0" CornerRadius="10">
+                    <sharpnado:MaterialFrame
+                        Grid.Column="0"
+                        CornerRadius="15"
+                        HeightRequest="{Binding HeightBox}">
                         <sharpnado:MaterialFrame.GestureRecognizers>
                             <TapGestureRecognizer
                                 Command="{Binding NavigateToCommand}"
                                 CommandParameter="{x:Static local:PageNames.FishQuantityInputPage}"
                                 NumberOfTapsRequired="1" />
                         </sharpnado:MaterialFrame.GestureRecognizers>
-                        <StackLayout>
+                        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                             <controls:IconView
                                 Grid.Column="0"
                                 Foreground="{StaticResource PrimaryColor}"
+                                HeightRequest="48"
                                 HorizontalOptions="CenterAndExpand"
-                                Source="ic_meluoi.png"
-                                VerticalOptions="CenterAndExpand" />
-                            <Label
-                                HorizontalOptions="CenterAndExpand"
-                                Text="Mẻ lưới"
-                                VerticalOptions="Center" />
+                                Source="ic_meluoi.png" />
+                            <Label StyleClass="BoldText" Text="Mẻ lưới" />
                         </StackLayout>
                     </sharpnado:MaterialFrame>
-                    <sharpnado:MaterialFrame Grid.Column="1" CornerRadius="10">
+                    <sharpnado:MaterialFrame
+                        Grid.Column="1"
+                        CornerRadius="15"
+                        HeightRequest="{Binding HeightBox}">
                         <sharpnado:MaterialFrame.GestureRecognizers>
                             <TapGestureRecognizer
                                 Command="{Binding NavigateToCommand}"
                                 CommandParameter="{x:Static local:PageNames.OffMap}"
                                 NumberOfTapsRequired="1" />
                         </sharpnado:MaterialFrame.GestureRecognizers>
-                        <StackLayout>
+                        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                             <controls:IconView
                                 Grid.Column="0"
                                 Foreground="{StaticResource PrimaryColor}"
-                                HorizontalOptions="CenterAndExpand"
-                                Source="ic_mappoffline.png"
-                                VerticalOptions="CenterAndExpand" />
+                                Source="ic_mappoffline.png" />
                             <Label
-                                HorizontalOptions="CenterAndExpand"
-                                Text="Bản đồ ngoại tuyến"
-                                VerticalOptions="Center" />
+                                LineBreakMode="TailTruncation"
+                                MaxLines="1"
+                                StyleClass="BoldText"
+                                Text="Bản đồ ngoại tuyến" />
                         </StackLayout>
                     </sharpnado:MaterialFrame>
                 </Grid>
 
                 <Button
                     Grid.Row="2"
+                    Margin="35,0"
                     Command="{Binding NavigateToCommand}"
                     CommandParameter="{x:Static local:PageNames.LoginPage}"
+                    HeightRequest="45"
                     Text="ĐĂNG NHẬP"
                     VerticalOptions="StartAndExpand" />
-            </StackLayout>
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

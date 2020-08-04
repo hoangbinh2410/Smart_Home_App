@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Resource;
+using BA_MobileGPS.Core.Views.Authentication;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -9,6 +10,7 @@ using Prism;
 using Prism.Commands;
 using Prism.Ioc;
 using Prism.Navigation;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Globalization;
 using System.Linq;
@@ -405,14 +407,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand ForgotPasswordCommand => new DelegateCommand(() =>
         {
-            SafeExecute(() =>
-            {
-                var popupServices = PrismApplicationBase.Current.Container.Resolve<IPopupServices>();
-                var title = MobileResource.Login_ForgotPassword_PopupTitle;
-                var content = MobileResource.Login_ForgotPassword_PopupContent;
-                var color = (Color)Application.Current.Resources["PrimaryColor"];
-                popupServices.ShowNotificationIconPopup(title, content, "ic_lock.png", color, Views.IconPosititon.Left);
-            });
+            PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
         });
 
         public ICommand OpenLoginFragmentCommand => new DelegateCommand(() =>
@@ -428,7 +423,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand OpenWebGPSCommand => new DelegateCommand(() =>
         {
-            SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.WebGps)));
+            SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkBAGPS)));
         });
 
         [Obsolete]

@@ -41,7 +41,7 @@
                         FontAttributes="Bold"
                         FontSize="16"
                         HorizontalOptions="CenterAndExpand"
-                        Text="Chú thích"
+                        Text="{i18n:TranslateResource ListVehicle_Label_Note}"
                         TextColor="White"
                         VerticalOptions="Center" />
                     <forms:CachedImage
@@ -73,7 +73,8 @@
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="12"
-                                Text="{i18n:TranslateResource ListVehicle_Label_VehicleNormal2}"
+                                HorizontalTextAlignment="Start"
+                                Text="{i18n:TranslateResource ListVehicle_Label_VehicleNormal2VMS}"
                                 VerticalOptions="Center" />
                         </StackLayout>
                         <StackLayout
@@ -88,7 +89,8 @@
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="12"
-                                Text="{i18n:TranslateResource ListVehicle_Label_VehicleStop2}"
+                                HorizontalTextAlignment="Start"
+                                Text="{i18n:TranslateResource ListVehicle_Label_VehicleStop2VMS}"
                                 VerticalOptions="Center" />
                         </StackLayout>
                         <StackLayout
@@ -103,7 +105,8 @@
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="12"
-                                Text="{i18n:TranslateResource ListVehicle_Label_VehicleSpeeding2}"
+                                HorizontalTextAlignment="Start"
+                                Text="{i18n:TranslateResource ListVehicle_Label_VehicleSpeeding2VMS}"
                                 VerticalOptions="Center" />
                         </StackLayout>
                         <StackLayout
@@ -118,7 +121,8 @@
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="12"
-                                Text="{i18n:TranslateResource ListVehicle_Label_VehicleLostGPS2}"
+                                HorizontalTextAlignment="Start"
+                                Text="{i18n:TranslateResource ListVehicle_Label_VehicleLostGPS2VMS}"
                                 VerticalOptions="Center" />
                         </StackLayout>
                         <StackLayout
@@ -133,7 +137,8 @@
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="12"
-                                Text="{i18n:TranslateResource ListVehicle_Label_VehicleLostGSM2}"
+                                HorizontalTextAlignment="Start"
+                                Text="{i18n:TranslateResource ListVehicle_Label_VehicleLostGSM2VMS}"
                                 VerticalOptions="Center" />
                         </StackLayout>
                     </StackLayout>
