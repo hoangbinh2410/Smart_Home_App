@@ -1282,6 +1282,13 @@
     <BundleResource Include="Resources\ic_userwhite%402x.png" />
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\ic_logolite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_logolite%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_logolite%403x.png" />
     <BundleResource Include="Resources\ic_car_play.png" />
   </ItemGroup>
   <ItemGroup>

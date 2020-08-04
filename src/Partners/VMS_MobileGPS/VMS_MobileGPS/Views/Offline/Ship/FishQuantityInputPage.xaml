@@ -24,7 +24,8 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Label
-                Margin="8,0,0,0"
+                Margin="{OnPlatform Android='-5,0,0,0',
+                                    iOS='8,0,0,0'}"
                 FontAttributes="Bold"
                 FontSize="20"
                 HorizontalOptions="Center"

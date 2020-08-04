@@ -444,11 +444,12 @@
                                 <Label
                                     FontSize="{StaticResource MyFontSizeSmall}"
                                     HorizontalOptions="Center"
-                                    Text="{i18n:TranslateResource Common_Lable_NMUnit}"
+                                    Text="{i18n:TranslateResource Common_Lable_NMUnit,
+                                                                  Converter={StaticResource LowerCaseConverter}}"
                                     TextColor="Gray" />
                                 <Label
                                     HorizontalOptions="Center"
-                                    Text="{Binding CurrentRoute.Velocity, Converter={StaticResource NMConverter}}"
+                                    Text="{Binding CurrentRoute.Velocity, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm, Converter={StaticResource LowerCaseConverter}}}"
                                     TextColor="{StaticResource PrimaryColor}" />
                             </StackLayout>
                         </Grid>
