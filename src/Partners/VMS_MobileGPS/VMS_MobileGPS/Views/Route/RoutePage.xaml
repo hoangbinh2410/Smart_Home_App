@@ -444,7 +444,8 @@
                                 <Label
                                     FontSize="{StaticResource MyFontSizeSmall}"
                                     HorizontalOptions="Center"
-                                    Text="{i18n:TranslateResource Common_Lable_NMUnit}"
+                                    Text="{i18n:TranslateResource Common_Lable_NMUnit,
+                                                                  Converter={StaticResource LowerCaseConverter}}"
                                     TextColor="Gray" />
                                 <Label
                                     HorizontalOptions="Center"
