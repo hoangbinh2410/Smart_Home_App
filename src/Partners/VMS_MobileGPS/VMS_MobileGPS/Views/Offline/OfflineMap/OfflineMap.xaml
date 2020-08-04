@@ -14,7 +14,7 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    Title="  Bản đồ ngoại tuyến"
+    Title="Bản đồ ngoại tuyến"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -46,6 +46,27 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label
+                Margin="{OnPlatform Android='-5,0,0,0',
+                                    iOS='8,0,0,0'}"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                Text="Bản đồ ngoại tuyến"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
