@@ -59,7 +59,8 @@
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="1"
-                                HorizontalOptions="StartAndExpand"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
                                 Text="{Binding Title}"
                                 VerticalOptions="Center" />
                             <controls:FontAwesomeIcon

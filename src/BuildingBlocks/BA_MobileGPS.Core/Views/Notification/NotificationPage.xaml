@@ -163,10 +163,10 @@
                                 <ffImage:CachedImage
                                     Margin="5"
                                     Aspect="AspectFill"
-                                    ErrorPlaceholder="ic_holidays.png"
+                                    ErrorPlaceholder="ic_logolite.png"
                                     HeightRequest="50"
                                     HorizontalOptions="CenterAndExpand"
-                                    LoadingPlaceholder="ic_holidays.png"
+                                    LoadingPlaceholder="ic_logolite.png"
                                     Source="{Binding LinkIconApp, Converter={StaticResource AddRootImageConverter}}"
                                     VerticalOptions="CenterAndExpand"
                                     WidthRequest="50" />
