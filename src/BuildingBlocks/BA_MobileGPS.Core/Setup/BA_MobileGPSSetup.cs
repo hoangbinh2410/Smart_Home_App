@@ -158,6 +158,10 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ListCameraVehicle, ListCameraVehicleViewModel>("ListCameraVehicle");
             containerRegistry.RegisterForNavigation<CameraDetail, CameraDetailViewModel>("CameraDetail");
 
+            containerRegistry.RegisterForNavigation<SendEngineControlPage, SendEngineControlViewModel>("SendEngineControlPage");
+
+            containerRegistry.RegisterForNavigation<BoundaryPage, BoundaryViewModel>("BoundaryPage");
+
             ViewModelLocationProvider.Register<Home, HomeViewModel>();
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
             ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
