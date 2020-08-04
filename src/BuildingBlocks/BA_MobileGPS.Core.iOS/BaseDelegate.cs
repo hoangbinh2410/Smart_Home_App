@@ -50,7 +50,7 @@ namespace BA_MobileGPS.Core.iOS
                 //containerRegistry.RegisterInstance<ISaveAndView>(new SaveAndViewIOS());
                 containerRegistry.RegisterInstance<IAudioManager>(new AppleAudioManager());
                 containerRegistry.RegisterInstance<ITooltipService>(new iOSTooltipService());
-                //containerRegistry.RegisterInstance<IDownloader>(new IosDownloader());
+                containerRegistry.RegisterInstance<IDownloader>(new IosDownloader());
             }
         }
     }
