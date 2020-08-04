@@ -106,7 +106,7 @@ namespace BA_MobileGPS.Core
 
         public static string HotlineTeleSaleGps => Get(MobileConfigurationNames.HotlineTeleSaleGps, "");
 
-        public static string WebGps => Get(MobileConfigurationNames.WebGps, "https://gps.binhanh.vn/");
+        public static string WebGps => Get(MobileConfigurationNames.WebGps, "https://bagps.vn/");
 
         public static string LinkAppStore => Get(MobileConfigurationNames.LinkAppStore, "https://itunes.apple.com/app/id1332270275");
 
