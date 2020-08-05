@@ -83,19 +83,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA_MobileGPS.Core.Droid", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BA_MobileGPS.Utilities.UnitTest", "test\BA_MobileGPS.Utilities.UnitTest\BA_MobileGPS.Utilities.UnitTest.csproj", "{93590C3E-9A54-4F80-88BD-91CC37026FDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CNN_MobileGPS", "src\Partners\CNN_MobileGPS\CNN_MobileGPS\CNN_MobileGPS.csproj", "{FC745B10-097A-45FC-8234-0EED72AA3E89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CNN_MobileGPS", "src\Partners\CNN_MobileGPS\CNN_MobileGPS\CNN_MobileGPS.csproj", "{FC745B10-097A-45FC-8234-0EED72AA3E89}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CNN_MobileGPS.Android", "src\Partners\CNN_MobileGPS\CNN_MobileGPS.Android\CNN_MobileGPS.Android.csproj", "{79E0093F-A1C5-4F27-9E3F-8648F05C2135}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CNN_MobileGPS.iOS", "src\Partners\CNN_MobileGPS\CNN_MobileGPS.iOS\CNN_MobileGPS.iOS.csproj", "{C5426040-C67B-4A56-A224-A63986A62E5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VIVIEW_MobileGPS", "src\Partners\VIVIEW_MobileGPS\VIVIEW_MobileGPS\VIVIEW_MobileGPS.csproj", "{3824D767-D090-4FD6-B845-0153713C45E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VIVIEW_MobileGPS", "src\Partners\VIVIEW_MobileGPS\VIVIEW_MobileGPS\VIVIEW_MobileGPS.csproj", "{3824D767-D090-4FD6-B845-0153713C45E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VIVIEW_MobileGPS.Android", "src\Partners\VIVIEW_MobileGPS\VIVIEW_MobileGPS.Android\VIVIEW_MobileGPS.Android.csproj", "{03BBBCCA-FCE6-4C77-9334-E356C1B9281D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VIVIEW_MobileGPS.iOS", "src\Partners\VIVIEW_MobileGPS\VIVIEW_MobileGPS.iOS\VIVIEW_MobileGPS.iOS.csproj", "{D85CDDA6-C1D4-46EC-A4B8-1A2CFAC3932E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MOTO_MobileGPS", "src\Partners\MOTO_MobileGPS\MOTO_MobileGPS\MOTO_MobileGPS.csproj", "{E3966F5F-5039-4ACC-9393-BC920221E041}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MOTO_MobileGPS", "src\Partners\MOTO_MobileGPS\MOTO_MobileGPS\MOTO_MobileGPS.csproj", "{E3966F5F-5039-4ACC-9393-BC920221E041}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MOTO_MobileGPS.Android", "src\Partners\MOTO_MobileGPS\MOTO_MobileGPS.Android\MOTO_MobileGPS.Android.csproj", "{DEF5A7EC-D713-49B8-9FDF-01E0B2EB70A7}"
 EndProject
@@ -526,6 +526,7 @@ Global
 		{C5426040-C67B-4A56-A224-A63986A62E5D}.AppStore|iPhoneSimulator.ActiveCfg = AppStore|iPhoneSimulator
 		{C5426040-C67B-4A56-A224-A63986A62E5D}.AppStore|iPhoneSimulator.Build.0 = AppStore|iPhoneSimulator
 		{C5426040-C67B-4A56-A224-A63986A62E5D}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{C5426040-C67B-4A56-A224-A63986A62E5D}.Debug|Any CPU.Build.0 = Debug|iPhone
 		{C5426040-C67B-4A56-A224-A63986A62E5D}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{C5426040-C67B-4A56-A224-A63986A62E5D}.Debug|iPhone.Build.0 = Debug|iPhone
 		{C5426040-C67B-4A56-A224-A63986A62E5D}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
@@ -606,6 +607,7 @@ Global
 		{D85CDDA6-C1D4-46EC-A4B8-1A2CFAC3932E}.AppStore|iPhoneSimulator.ActiveCfg = AppStore|iPhoneSimulator
 		{D85CDDA6-C1D4-46EC-A4B8-1A2CFAC3932E}.AppStore|iPhoneSimulator.Build.0 = AppStore|iPhoneSimulator
 		{D85CDDA6-C1D4-46EC-A4B8-1A2CFAC3932E}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{D85CDDA6-C1D4-46EC-A4B8-1A2CFAC3932E}.Debug|Any CPU.Build.0 = Debug|iPhone
 		{D85CDDA6-C1D4-46EC-A4B8-1A2CFAC3932E}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{D85CDDA6-C1D4-46EC-A4B8-1A2CFAC3932E}.Debug|iPhone.Build.0 = Debug|iPhone
 		{D85CDDA6-C1D4-46EC-A4B8-1A2CFAC3932E}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
@@ -686,6 +688,7 @@ Global
 		{F4FE701B-F359-4AD5-B45E-B9256C38666B}.AppStore|iPhoneSimulator.ActiveCfg = AppStore|iPhoneSimulator
 		{F4FE701B-F359-4AD5-B45E-B9256C38666B}.AppStore|iPhoneSimulator.Build.0 = AppStore|iPhoneSimulator
 		{F4FE701B-F359-4AD5-B45E-B9256C38666B}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{F4FE701B-F359-4AD5-B45E-B9256C38666B}.Debug|Any CPU.Build.0 = Debug|iPhone
 		{F4FE701B-F359-4AD5-B45E-B9256C38666B}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{F4FE701B-F359-4AD5-B45E-B9256C38666B}.Debug|iPhone.Build.0 = Debug|iPhone
 		{F4FE701B-F359-4AD5-B45E-B9256C38666B}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
