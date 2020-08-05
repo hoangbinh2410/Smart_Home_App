@@ -85,16 +85,11 @@
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork%402x" />
     <BundleResource Include="vi.lproj\InfoPlist.strings" />
-    <BundleResource Include="Resources\Lato-Semibold.ttf" />
+    <BundleResource Include="Resources\Roboto-Regular.ttf" />
     <BundleResource Include="Resources\fa-brands-400.ttf" />
     <BundleResource Include="Resources\fa-regular-400.ttf" />
     <BundleResource Include="Resources\fa-solid-900.ttf" />
-    <BundleResource Include="Resources\Lato-BlackItalic.ttf" />
-    <BundleResource Include="Resources\Lato-Bold.ttf" />
-    <BundleResource Include="Resources\Lato-Italic.ttf" />
-    <BundleResource Include="Resources\Lato-Light.ttf" />
-    <BundleResource Include="Resources\Lato-Medium.ttf" />
-    <BundleResource Include="Resources\Lato-Regular.ttf" />
+    <BundleResource Include="Resources\Roboto-Bold.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -345,5 +340,59 @@
     <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\LaunchScreen768x1024.png">
       <Visible>false</Visible>
     </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\logo_VNSAT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\avatar_default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bg_app.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bg_HomeBot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bg_HomeTop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bg_Login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_warn%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_blue%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_blue%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_orange%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_orange%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_red%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_red%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_stop%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_stop%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_warn%402x.png" />
   </ItemGroup>
 </Project>

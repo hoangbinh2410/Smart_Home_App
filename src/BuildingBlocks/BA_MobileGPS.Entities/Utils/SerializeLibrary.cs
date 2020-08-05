@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
 namespace BA_MobileGPS.Entities
 {
     public static class SerializeLibrary
     {
+
         //Chuyển đổi kiểu Int16 ---------------------------------------------------------------------------------------------------
-        public static byte[] ConvertInt16ToArray(short value)
+
+        public static byte[] ConvertInt16ToArray(int value)
         {
             return new byte[] { (byte)(value & 0xff), (byte)((value & 0xff00) >> 8) };
         }
@@ -24,6 +27,7 @@ namespace BA_MobileGPS.Entities
         }
 
         //Chuyển đổi kiểu Int32 ----------------------------------------------------------------------------------------------------
+
         public static byte[] ConvertInt32ToArray(int value)
         {
             return BitConverter.GetBytes(value);
@@ -41,11 +45,26 @@ namespace BA_MobileGPS.Entities
 
             var bytes = System.Text.Encoding.UTF8.GetBytes(value);
 
-            var length = (short)bytes.Length;
+            var length = (int)bytes.Length;
             if (length == 0) return new byte[] { 0, 0 };
             else
             {
                 var lengthBytes = ConvertInt16ToArray(length);
+                return lengthBytes.Concat(bytes).ToArray();
+            }
+        }
+
+        public static byte[] ConvertStringToArray32(string value)
+        {
+            if (value == null) value = string.Empty;
+
+            var bytes = System.Text.Encoding.UTF8.GetBytes(value);
+
+            var length = (int)bytes.Length;
+            if (length == 0) return new byte[] { 0, 0, 0, 0 };
+            else
+            {
+                var lengthBytes = ConvertInt32ToArray(length);
                 return lengthBytes.Concat(bytes).ToArray();
             }
         }
@@ -65,9 +84,32 @@ namespace BA_MobileGPS.Entities
             }
             catch
             {
+
             }
 
             len = index + 2;
+            return string.Empty;
+        }
+
+        public static string GetStringFromArray32(byte[] inputData, int index, ref int len)
+        {
+            try
+            {
+                int Length = GetInt32FromArray(inputData, index);
+
+                List<byte> tmp = new List<byte>();
+
+                for (int i = index + 4; i < index + 4 + Length; i++)
+                    tmp.Add(inputData[i]);
+
+                len = index + Length + 4;
+                return Encoding.UTF8.GetString(tmp.ToArray());
+            }
+            catch
+            {
+            }
+
+            len = index + 4;
             return string.Empty;
         }
 
@@ -82,6 +124,27 @@ namespace BA_MobileGPS.Entities
             else
             {
                 var lengthBytes = ConvertInt16ToArray(length);
+
+                var Result = new List<byte>();
+                Result.AddRange(lengthBytes);
+
+                foreach (var item in value)
+                    Result.AddRange(ConvertInt32ToArray(item));
+
+                return Result.ToArray();
+            }
+        }
+
+        public static byte[] ConvertListIntToArray32(List<int> value)
+        {
+            //Mảng 4 byte
+            var bytes = value.Count;
+
+            var length = (short)bytes;
+            if (length == 0) return new byte[] { 0, 0, 0, 0 };
+            else
+            {
+                var lengthBytes = ConvertInt32ToArray(length);
 
                 var Result = new List<byte>();
                 Result.AddRange(lengthBytes);
@@ -110,6 +173,7 @@ namespace BA_MobileGPS.Entities
             return BitConverter.GetBytes(value);
         }
 
+
         public static float GetFloatFromArray(byte[] inputData, int index)
         {
             float result = 0;
@@ -126,6 +190,7 @@ namespace BA_MobileGPS.Entities
             return result;
         }
 
+
         // Chuyển đổi thời gian ------------------------------------------------------------------------------------------------------------
         private static readonly long MinTimeTick = DateTime.Parse("01/01/1970 00:00:00").Ticks;
 
@@ -139,15 +204,18 @@ namespace BA_MobileGPS.Entities
                 return BitConverter.GetBytes(dt);
             }
 
+
             long ticks = time.Ticks - MinTimeTick;
             ticks /= 10000000; //Convert windows ticks to seconds
             dt = long.Parse(ticks.ToString());
             return BitConverter.GetBytes(dt);
+
         }
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
+        /// <param name="timeValue"></param>
         /// <returns></returns>
         public static DateTime GetDateTimeFromLong(long timeValue)
         {
@@ -166,6 +234,20 @@ namespace BA_MobileGPS.Entities
         {
             if (data.Count == 0) return new byte[] { 0, 0 };
             var lengthBytes = ConvertInt16ToArray((short)count);
+
+
+            var Result = new List<byte>();
+            Result.AddRange(lengthBytes);
+            Result.AddRange(data);
+
+            return Result.ToArray();
+        }
+
+        public static byte[] ConvertListByteToArray32(int count, List<byte> data)
+        {
+            if (data.Count == 0) return new byte[] { 0, 0, 0, 0 };
+            var lengthBytes = ConvertInt32ToArray(count);
+
 
             var Result = new List<byte>();
             Result.AddRange(lengthBytes);
@@ -192,6 +274,7 @@ namespace BA_MobileGPS.Entities
         }
 
         // Chuyển đổi số double -----------------------------------------------------------------------------------------------------------
+
         public static byte[] ConvertDoubleToArray(double value)
         {
             return BitConverter.GetBytes(value);
@@ -201,5 +284,6 @@ namespace BA_MobileGPS.Entities
         {
             return BitConverter.ToDouble(inputData, index);
         }
+
     }
 }

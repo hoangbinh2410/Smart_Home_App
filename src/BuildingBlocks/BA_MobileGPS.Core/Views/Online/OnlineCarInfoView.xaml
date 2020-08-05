@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pancake:PancakeView
+    x:Class="BA_MobileGPS.Core.Views.OnlineCarInfoView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:cluster="clr-namespace:BA_MobileGPS.Core"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms"
+    Padding="5"
+    HasShadow="False">
+    <pancake:PancakeView.Resources>
+        <cluster:NMConverter x:Key="NMConverter" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <syncTheme:SyncfusionThemeDictionary>
+                    <syncTheme:SyncfusionThemeDictionary.MergedDictionaries>
+                        <ResourceDictionary>
+                            <x:String x:Key="SfTextInputLayoutTheme">CustomTheme</x:String>
+                            <Color x:Key="SfTextInputLayoutLineColor">Transparent</Color>
+                        </ResourceDictionary>
+                    </syncTheme:SyncfusionThemeDictionary.MergedDictionaries>
+                </syncTheme:SyncfusionThemeDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </pancake:PancakeView.Resources>
+    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid
+            Grid.Row="0"
+            Padding="10,0"
+            ColumnDefinitions="Auto,*">
+            <StackLayout Orientation="Horizontal">
+                <controls:IconView
+                    Foreground="{StaticResource PrimaryColor}"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
+                    Source="ic_ship2.png"
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
+                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        Text="{Binding CarActive.PrivateCode}" />
+                    <Label
+                        FontAttributes="Bold"
+                        Text="{i18n:TranslateResource Online_Label_AtTime}"
+                        VerticalOptions="End" />
+                </StackLayout>
+            </StackLayout>
+
+            <buttons:SfCheckBox
+                Grid.Column="1"
+                CheckedColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
+                                               Dark={StaticResource BlueDarkColor}}"
+                CornerRadius="0"
+                HeightRequest="20"
+                HorizontalOptions="EndAndExpand"
+                IsChecked="{Binding IsShowCircle}"
+                Text="Vòng bao"
+                UncheckedColor="{StaticResource BlueDarkColor}" />
+        </Grid>
+        <BoxView
+            Grid.Row="1"
+            BackgroundColor="{StaticResource GrayColor}"
+            HeightRequest="0.5"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Start" />
+        <Grid Grid.Row="2" Padding="10,0">
+            <StackLayout Orientation="Horizontal">
+                <controls:IconView
+                    Foreground="{StaticResource PrimaryColor}"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
+                    Source="ic_time24.png"
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
+                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                    <Label Text="{Binding CarActive.VehicleTime, Converter={StaticResource DateTimeConverter}}" />
+                    <Label Text="{Binding CarActive.LostGSMTime, Converter={StaticResource SecondsToStringConverter}, StringFormat='{}({0})'}" />
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+        <BoxView
+            Grid.Row="3"
+            BackgroundColor="{StaticResource GrayColor}"
+            HeightRequest="0.5"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Start" />
+        <Grid Grid.Row="4" Padding="10,0">
+            <StackLayout Orientation="Horizontal">
+                <controls:IconView
+                    Foreground="{StaticResource PrimaryColor}"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
+                    Source="ic_coordinates.png"
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding CurrentAddress}" />
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+        <BoxView
+            Grid.Row="5"
+            BackgroundColor="{StaticResource GrayColor}"
+            HeightRequest="0.5"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Start" />
+        <Grid
+            Grid.Row="6"
+            Padding="10,0"
+            ColumnDefinitions="*,*,Auto">
+            <StackLayout Grid.Column="0" Orientation="Horizontal">
+                <controls:IconView
+                    Foreground="{StaticResource PrimaryColor}"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
+                    Source="ic_speed.png"
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
+                <Label Text="{Binding CarActive.Velocity, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Common_Lable_NMUnit}}" VerticalOptions="Center" />
+            </StackLayout>
+            <StackLayout
+                Grid.Column="1"
+                Orientation="Horizontal"
+                Spacing="3">
+                <controls:IconView
+                    Foreground="{StaticResource PrimaryColor}"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
+                    Source="ic_distance.png"
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
+                <Label Text="{Binding CarActive.TotalKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm}}" VerticalOptions="Center" />
+            </StackLayout>
+            <StackLayout
+                Grid.Column="2"
+                Orientation="Horizontal"
+                Spacing="5">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoDistancePageCommand}" />
+                </StackLayout.GestureRecognizers>
+                <sharpnado:MaterialFrame
+                    Padding="0"
+                    CornerRadius="10"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
+                    LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                    WidthRequest="20">
+
+                    <sharpnado:MaterialFrame.Content>
+                        <controls:IconView
+                            Margin="5"
+                            Foreground="{StaticResource WhiteColor}"
+                            HorizontalOptions="Center"
+                            Source="ic_distance2.png"
+                            VerticalOptions="Center" />
+                    </sharpnado:MaterialFrame.Content>
+                </sharpnado:MaterialFrame>
+                <Label LineBreakMode="TailTruncation" Text="{i18n:TranslateResource Online_CheckBox_Distance}" />
+            </StackLayout>
+        </Grid>
+        <BoxView
+            Grid.Row="7"
+            BackgroundColor="{StaticResource GrayColor}"
+            HeightRequest="0.5"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Start" />
+        <Grid
+            Grid.Row="8"
+            Padding="10,0"
+            ColumnDefinitions="*,*,*">
+            <sharpnado:MaterialFrame
+                Grid.Column="0"
+                Padding="0,11"
+                CornerRadius="18"
+                HorizontalOptions="FillAndExpand"
+                LightThemeBackgroundColor="{StaticResource PrimaryColor}">
+                <sharpnado:MaterialFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PushToRouterPageCommand}" />
+                </sharpnado:MaterialFrame.GestureRecognizers>
+                <sharpnado:MaterialFrame.Content>
+                    <Label
+                        FontSize="10"
+                        LineBreakMode="TailTruncation"
+                        Text="{i18n:TranslateResource Route_Label_TitleVMS,
+                                                      Converter={StaticResource UpperCaseConverter}}"
+                        TextColor="{StaticResource WhiteColor}" />
+                </sharpnado:MaterialFrame.Content>
+            </sharpnado:MaterialFrame>
+            <sharpnado:MaterialFrame
+                Grid.Column="1"
+                Padding="0,11"
+                CornerRadius="18"
+                HorizontalOptions="FillAndExpand"
+                LightThemeBackgroundColor="{StaticResource PrimaryColor}">
+                <sharpnado:MaterialFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PushToServicePackHistoryPageCommand}" />
+                </sharpnado:MaterialFrame.GestureRecognizers>
+                <sharpnado:MaterialFrame.Content>
+                    <Label
+                        FontSize="10"
+                        LineBreakMode="TailTruncation"
+                        Text="{i18n:TranslateResource Route_Label_FeeVMS,
+                                                      Converter={StaticResource UpperCaseConverter}}"
+                        TextColor="{StaticResource WhiteColor}" />
+                </sharpnado:MaterialFrame.Content>
+            </sharpnado:MaterialFrame>
+            <sharpnado:MaterialFrame
+                Grid.Column="2"
+                Padding="0,11"
+                CornerRadius="18"
+                HorizontalOptions="FillAndExpand"
+                LightThemeBackgroundColor="{StaticResource PrimaryColor}">
+                <sharpnado:MaterialFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PushToDetailPageCommand}" />
+                </sharpnado:MaterialFrame.GestureRecognizers>
+                <sharpnado:MaterialFrame.Content>
+                    <Label
+                        FontSize="10"
+                        LineBreakMode="TailTruncation"
+                        Text="{i18n:TranslateResource Online_Button_Detail,
+                                                      Converter={StaticResource UpperCaseConverter}}"
+                        TextColor="{StaticResource WhiteColor}" />
+                </sharpnado:MaterialFrame.Content>
+            </sharpnado:MaterialFrame>
+        </Grid>
+    </Grid>
+</pancake:PancakeView>

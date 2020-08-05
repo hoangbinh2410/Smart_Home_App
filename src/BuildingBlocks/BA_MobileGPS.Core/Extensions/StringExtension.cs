@@ -136,6 +136,10 @@ namespace Xamarin.Forms.Extensions
                     answer += string.Format("{0} {1}", time.Minutes, MobileResource.Common_Label_Minute);
                 }
             }
+            else
+            {
+                answer += string.Format("{0} {1}", 0, MobileResource.Common_Label_Minute);
+            }
 
             return answer;
         }

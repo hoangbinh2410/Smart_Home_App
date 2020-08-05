@@ -4275,168 +4275,169 @@ namespace BA_MobileGPS.Core.Droid
 			public static int ic_fb = 2131165405;
 			
 			// aapt resource value: 0x7F0700DE
-			public static int ic_filter = 2131165406;
+			public static int ic_fee = 2131165406;
 			
 			// aapt resource value: 0x7F0700DF
-			public static int ic_filter_ac_on = 2131165407;
+			public static int ic_filter = 2131165407;
 			
 			// aapt resource value: 0x7F0700E0
-			public static int ic_filter_stop = 2131165408;
+			public static int ic_filter_ac_on = 2131165408;
 			
 			// aapt resource value: 0x7F0700E1
-			public static int ic_foursquare = 2131165409;
+			public static int ic_filter_stop = 2131165409;
 			
 			// aapt resource value: 0x7F0700E2
-			public static int ic_global = 2131165410;
-			
-			// aapt resource value: 0x7F070103
-			public static int ic_groupcar = 2131165443;
+			public static int ic_foursquare = 2131165410;
 			
 			// aapt resource value: 0x7F0700E3
-			public static int ic_group_collapse_00 = 2131165411;
-			
-			// aapt resource value: 0x7F0700E4
-			public static int ic_group_collapse_01 = 2131165412;
-			
-			// aapt resource value: 0x7F0700E5
-			public static int ic_group_collapse_02 = 2131165413;
-			
-			// aapt resource value: 0x7F0700E6
-			public static int ic_group_collapse_03 = 2131165414;
-			
-			// aapt resource value: 0x7F0700E7
-			public static int ic_group_collapse_04 = 2131165415;
-			
-			// aapt resource value: 0x7F0700E8
-			public static int ic_group_collapse_05 = 2131165416;
-			
-			// aapt resource value: 0x7F0700E9
-			public static int ic_group_collapse_06 = 2131165417;
-			
-			// aapt resource value: 0x7F0700EA
-			public static int ic_group_collapse_07 = 2131165418;
-			
-			// aapt resource value: 0x7F0700EB
-			public static int ic_group_collapse_08 = 2131165419;
-			
-			// aapt resource value: 0x7F0700EC
-			public static int ic_group_collapse_09 = 2131165420;
-			
-			// aapt resource value: 0x7F0700ED
-			public static int ic_group_collapse_10 = 2131165421;
-			
-			// aapt resource value: 0x7F0700EE
-			public static int ic_group_collapse_11 = 2131165422;
-			
-			// aapt resource value: 0x7F0700EF
-			public static int ic_group_collapse_12 = 2131165423;
-			
-			// aapt resource value: 0x7F0700F0
-			public static int ic_group_collapse_13 = 2131165424;
-			
-			// aapt resource value: 0x7F0700F1
-			public static int ic_group_collapse_14 = 2131165425;
-			
-			// aapt resource value: 0x7F0700F2
-			public static int ic_group_collapse_15 = 2131165426;
-			
-			// aapt resource value: 0x7F0700F3
-			public static int ic_group_expand_00 = 2131165427;
-			
-			// aapt resource value: 0x7F0700F4
-			public static int ic_group_expand_01 = 2131165428;
-			
-			// aapt resource value: 0x7F0700F5
-			public static int ic_group_expand_02 = 2131165429;
-			
-			// aapt resource value: 0x7F0700F6
-			public static int ic_group_expand_03 = 2131165430;
-			
-			// aapt resource value: 0x7F0700F7
-			public static int ic_group_expand_04 = 2131165431;
-			
-			// aapt resource value: 0x7F0700F8
-			public static int ic_group_expand_05 = 2131165432;
-			
-			// aapt resource value: 0x7F0700F9
-			public static int ic_group_expand_06 = 2131165433;
-			
-			// aapt resource value: 0x7F0700FA
-			public static int ic_group_expand_07 = 2131165434;
-			
-			// aapt resource value: 0x7F0700FB
-			public static int ic_group_expand_08 = 2131165435;
-			
-			// aapt resource value: 0x7F0700FC
-			public static int ic_group_expand_09 = 2131165436;
-			
-			// aapt resource value: 0x7F0700FD
-			public static int ic_group_expand_10 = 2131165437;
-			
-			// aapt resource value: 0x7F0700FE
-			public static int ic_group_expand_11 = 2131165438;
-			
-			// aapt resource value: 0x7F0700FF
-			public static int ic_group_expand_12 = 2131165439;
-			
-			// aapt resource value: 0x7F070100
-			public static int ic_group_expand_13 = 2131165440;
-			
-			// aapt resource value: 0x7F070101
-			public static int ic_group_expand_14 = 2131165441;
-			
-			// aapt resource value: 0x7F070102
-			public static int ic_group_expand_15 = 2131165442;
+			public static int ic_global = 2131165411;
 			
 			// aapt resource value: 0x7F070104
-			public static int ic_guarantee = 2131165444;
+			public static int ic_groupcar = 2131165444;
+			
+			// aapt resource value: 0x7F0700E4
+			public static int ic_group_collapse_00 = 2131165412;
+			
+			// aapt resource value: 0x7F0700E5
+			public static int ic_group_collapse_01 = 2131165413;
+			
+			// aapt resource value: 0x7F0700E6
+			public static int ic_group_collapse_02 = 2131165414;
+			
+			// aapt resource value: 0x7F0700E7
+			public static int ic_group_collapse_03 = 2131165415;
+			
+			// aapt resource value: 0x7F0700E8
+			public static int ic_group_collapse_04 = 2131165416;
+			
+			// aapt resource value: 0x7F0700E9
+			public static int ic_group_collapse_05 = 2131165417;
+			
+			// aapt resource value: 0x7F0700EA
+			public static int ic_group_collapse_06 = 2131165418;
+			
+			// aapt resource value: 0x7F0700EB
+			public static int ic_group_collapse_07 = 2131165419;
+			
+			// aapt resource value: 0x7F0700EC
+			public static int ic_group_collapse_08 = 2131165420;
+			
+			// aapt resource value: 0x7F0700ED
+			public static int ic_group_collapse_09 = 2131165421;
+			
+			// aapt resource value: 0x7F0700EE
+			public static int ic_group_collapse_10 = 2131165422;
+			
+			// aapt resource value: 0x7F0700EF
+			public static int ic_group_collapse_11 = 2131165423;
+			
+			// aapt resource value: 0x7F0700F0
+			public static int ic_group_collapse_12 = 2131165424;
+			
+			// aapt resource value: 0x7F0700F1
+			public static int ic_group_collapse_13 = 2131165425;
+			
+			// aapt resource value: 0x7F0700F2
+			public static int ic_group_collapse_14 = 2131165426;
+			
+			// aapt resource value: 0x7F0700F3
+			public static int ic_group_collapse_15 = 2131165427;
+			
+			// aapt resource value: 0x7F0700F4
+			public static int ic_group_expand_00 = 2131165428;
+			
+			// aapt resource value: 0x7F0700F5
+			public static int ic_group_expand_01 = 2131165429;
+			
+			// aapt resource value: 0x7F0700F6
+			public static int ic_group_expand_02 = 2131165430;
+			
+			// aapt resource value: 0x7F0700F7
+			public static int ic_group_expand_03 = 2131165431;
+			
+			// aapt resource value: 0x7F0700F8
+			public static int ic_group_expand_04 = 2131165432;
+			
+			// aapt resource value: 0x7F0700F9
+			public static int ic_group_expand_05 = 2131165433;
+			
+			// aapt resource value: 0x7F0700FA
+			public static int ic_group_expand_06 = 2131165434;
+			
+			// aapt resource value: 0x7F0700FB
+			public static int ic_group_expand_07 = 2131165435;
+			
+			// aapt resource value: 0x7F0700FC
+			public static int ic_group_expand_08 = 2131165436;
+			
+			// aapt resource value: 0x7F0700FD
+			public static int ic_group_expand_09 = 2131165437;
+			
+			// aapt resource value: 0x7F0700FE
+			public static int ic_group_expand_10 = 2131165438;
+			
+			// aapt resource value: 0x7F0700FF
+			public static int ic_group_expand_11 = 2131165439;
+			
+			// aapt resource value: 0x7F070100
+			public static int ic_group_expand_12 = 2131165440;
+			
+			// aapt resource value: 0x7F070101
+			public static int ic_group_expand_13 = 2131165441;
+			
+			// aapt resource value: 0x7F070102
+			public static int ic_group_expand_14 = 2131165442;
+			
+			// aapt resource value: 0x7F070103
+			public static int ic_group_expand_15 = 2131165443;
 			
 			// aapt resource value: 0x7F070105
-			public static int ic_happynewyear = 2131165445;
+			public static int ic_guarantee = 2131165445;
 			
 			// aapt resource value: 0x7F070106
-			public static int ic_heart = 2131165446;
+			public static int ic_happynewyear = 2131165446;
 			
 			// aapt resource value: 0x7F070107
-			public static int ic_help = 2131165447;
+			public static int ic_heart = 2131165447;
 			
 			// aapt resource value: 0x7F070108
-			public static int ic_holidays = 2131165448;
+			public static int ic_help = 2131165448;
 			
 			// aapt resource value: 0x7F070109
-			public static int ic_home = 2131165449;
+			public static int ic_holidays = 2131165449;
 			
 			// aapt resource value: 0x7F07010A
-			public static int ic_homesolid = 2131165450;
+			public static int ic_home = 2131165450;
 			
 			// aapt resource value: 0x7F07010B
-			public static int ic_hpbd = 2131165451;
+			public static int ic_homesolid = 2131165451;
 			
 			// aapt resource value: 0x7F07010C
-			public static int ic_info_outline_black_24dp = 2131165452;
+			public static int ic_hpbd = 2131165452;
 			
 			// aapt resource value: 0x7F07010D
-			public static int ic_info_outline_white = 2131165453;
+			public static int ic_info_outline_black_24dp = 2131165453;
 			
 			// aapt resource value: 0x7F07010E
-			public static int ic_km_on_day = 2131165454;
+			public static int ic_info_outline_white = 2131165454;
 			
 			// aapt resource value: 0x7F07010F
-			public static int ic_lisence = 2131165455;
+			public static int ic_km_on_day = 2131165455;
 			
 			// aapt resource value: 0x7F070110
-			public static int ic_list_black = 2131165456;
+			public static int ic_lisence = 2131165456;
 			
 			// aapt resource value: 0x7F070111
-			public static int ic_list_route = 2131165457;
+			public static int ic_list_black = 2131165457;
 			
 			// aapt resource value: 0x7F070112
-			public static int ic_location_black = 2131165458;
+			public static int ic_list_route = 2131165458;
 			
 			// aapt resource value: 0x7F070113
-			public static int ic_lock = 2131165459;
+			public static int ic_location_black = 2131165459;
 			
 			// aapt resource value: 0x7F070114
+			public static int ic_lock = 2131165460;
 			public static int ic_logolite = 2131165460;
 			
 			// aapt resource value: 0x7F070115

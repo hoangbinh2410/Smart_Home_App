@@ -93,13 +93,10 @@
                         CornerRadius="19"
                         HeightRequest="40"
                         VerticalOptions="Center">
-                        <Grid
-                            BackgroundColor="Transparent"
-                            ColumnDefinitions="*,Auto"
-                            VerticalOptions="Center">
-                            <Grid.GestureRecognizers>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                            <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding PushAlerTypeComboboxCommand}" />
-                            </Grid.GestureRecognizers>
+                            </StackLayout.GestureRecognizers>
                             <Entry
                                 FontSize="{StaticResource FontSize12}"
                                 HorizontalOptions="FillAndExpand"
@@ -112,13 +109,12 @@
                                 </Entry.Effects>
                             </Entry>
                             <controls:IconView
-                                Grid.Column="1"
                                 Foreground="Black"
                                 HeightRequest="15"
                                 Source="ic_sortdown.png"
                                 VerticalOptions="Center"
                                 WidthRequest="15" />
-                        </Grid>
+                        </StackLayout>
                     </sharpnado:MaterialFrame>
                 </sh:Shadows>
                 <!--  biển số xe  -->
@@ -138,13 +134,13 @@
                         CornerRadius="19"
                         HeightRequest="40"
                         LightThemeBackgroundColor="{StaticResource WhiteColor}">
-                        <Grid
-                            BackgroundColor="Transparent"
-                            ColumnDefinitions="*,Auto"
+                        <StackLayout
+                            Orientation="Horizontal"
+                            Spacing="0"
                             VerticalOptions="Center">
-                            <Grid.GestureRecognizers>
+                            <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
-                            </Grid.GestureRecognizers>
+                            </StackLayout.GestureRecognizers>
                             <Entry
                                 FontSize="{StaticResource FontSize12}"
                                 HorizontalOptions="FillAndExpand"
@@ -157,13 +153,12 @@
                                 </Entry.Effects>
                             </Entry>
                             <controls:IconView
-                                Grid.Column="1"
                                 Foreground="Black"
                                 HeightRequest="15"
                                 Source="ic_sortdown.png"
                                 VerticalOptions="Center"
                                 WidthRequest="15" />
-                        </Grid>
+                        </StackLayout>
                     </sharpnado:MaterialFrame>
                 </sh:Shadows>
                 <!--  button Search  -->
