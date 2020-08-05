@@ -31,9 +31,9 @@ namespace VIVIEW_MobileGPS
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerVIVIEW;
             ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerVIVIEW;
 
-            AppCenter.Start("ios=b9feff6c-5277-4e97-97e9-8a8e5c939eef;" +
-                   "android=db0089bc-c6e2-4df4-bead-0368ccef3cd6",
-                   typeof(Analytics), typeof(Crashes));
+            AppCenter.Start("ios=26e01862-0464-4767-994a-ccb280c938fe;" +
+             "android=52f713d7-5e8f-4769-8341-f36243ab690c",
+                typeof(Analytics), typeof(Crashes));
 
             //Nếu cài app lần đầu tiên hoặc có sự thay đổi dữ liệu trên server thì sẽ vào trang cập nhật thông tin vào localDB
             if (!Settings.IsFistInstallApp || Settings.IsChangeDataLocalDB)

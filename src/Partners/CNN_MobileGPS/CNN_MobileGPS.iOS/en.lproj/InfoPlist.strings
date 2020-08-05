@@ -1,5 +1,5 @@
-﻿"CFBundleDisplayName" = "BA GPS";
-"CFBundleName" = "BA GPS";
+﻿"CFBundleDisplayName" = "TCT GPS 2";
+"CFBundleName" = "TCT GPS 2";
 
 "NSLocationAlwaysUsageDescription" = "This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
 "NSLocationWhenInUseUsageDescription" = "This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
