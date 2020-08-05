@@ -25,7 +25,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>vn.viviewgps.gpsmobile</string>
 	<key>CFBundleName</key>
-	<string>TCT GPS 2</string>
+	<string>VIVIEW GPS</string>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>en</string>
@@ -77,8 +77,8 @@
 	<key>CFBundleShortVersionString</key>
 	<string>2.6.0</string>
 	<key>XSAppIconAssets</key>
-	<string>Assets.xcassets/AppIcons.appiconset</string>
+	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>XSLaunchImageAssets</key>
-	<string>Assets.xcassets/LaunchImages.launchimage</string>
+	<string>Assets.xcassets/LaunchImage.launchimage</string>
 </dict>
 </plist>
