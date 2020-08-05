@@ -20,30 +20,38 @@ namespace VIVIEW_MobileGPS
 
         protected async override void OnInitialized()
         {
-            Resources.MergedDictionaries.Add(new DarkColor());
-            Resources.MergedDictionaries.Add(new LightColor());
-            Resources.MergedDictionaries.Add(new Colors());
-
-            base.OnInitialized();
-
-            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerVIVIEW;
-            ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerVIVIEW;
-            ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerVIVIEW;
-            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerVIVIEW;
-
-            AppCenter.Start("ios=b9feff6c-5277-4e97-97e9-8a8e5c939eef;" +
-                   "android=db0089bc-c6e2-4df4-bead-0368ccef3cd6",
-                   typeof(Analytics), typeof(Crashes));
-
-            //Nếu cài app lần đầu tiên hoặc có sự thay đổi dữ liệu trên server thì sẽ vào trang cập nhật thông tin vào localDB
-            if (!Settings.IsFistInstallApp || Settings.IsChangeDataLocalDB)
+            try
             {
-                _ = await NavigationService.NavigateAsync("LoginPage");
+                Resources.MergedDictionaries.Add(new DarkColor());
+                Resources.MergedDictionaries.Add(new LightColor());
+                Resources.MergedDictionaries.Add(new Colors());
+
+                base.OnInitialized();
+
+                ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerVIVIEW;
+                ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerVIVIEW;
+                ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerVIVIEW;
+                ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerVIVIEW;
+
+                AppCenter.Start("ios=b9feff6c-5277-4e97-97e9-8a8e5c939eef;" +
+                       "android=db0089bc-c6e2-4df4-bead-0368ccef3cd6",
+                       typeof(Analytics), typeof(Crashes));
+
+                //Nếu cài app lần đầu tiên hoặc có sự thay đổi dữ liệu trên server thì sẽ vào trang cập nhật thông tin vào localDB
+                if (!Settings.IsFistInstallApp || Settings.IsChangeDataLocalDB)
+                {
+                    _ = await NavigationService.NavigateAsync("LoginPage");
+                }
+                else
+                {
+                    _ = await NavigationService.NavigateAsync("LoginPage");
+                }
             }
-            else
+            catch (System.Exception ex)
             {
-                _ = await NavigationService.NavigateAsync("LoginPage");
+
             }
+            
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

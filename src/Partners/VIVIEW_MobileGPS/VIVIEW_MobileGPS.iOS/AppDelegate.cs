@@ -2,6 +2,7 @@
 using BA_MobileGPS.Core.iOS.Setup;
 using Foundation;
 using UIKit;
+using Xamarin.Forms;
 
 namespace VIVIEW_MobileGPS.iOS
 {
@@ -20,6 +21,7 @@ namespace VIVIEW_MobileGPS.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            Forms.SetFlags(new string[] { "CarouselView_Experimental", "IndicatorView_Experimental", "FastRenderers_Experimental", "AppTheme_Experimental" });
             Xamarin.Forms.Forms.Init();
 
             ToolSetup.Initialize(this);
