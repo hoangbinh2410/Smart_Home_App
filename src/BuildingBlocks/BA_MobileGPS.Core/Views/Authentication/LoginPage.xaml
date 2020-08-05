@@ -30,7 +30,7 @@
             <converter:HasDataConverter x:Key="HasDataConverter" />
         </ResourceDictionary>
         <Style TargetType="sharpnado:MaterialFrame">
-            <Setter Property="LightThemeBackgroundColor" Value="{AppThemeBinding Light={StaticResource BlueDarkColor}, Dark={StaticResource BlueDarkColor}}" />
+            <Setter Property="LightThemeBackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryColor}, Dark={StaticResource PrimaryColor}}" />
             <Setter Property="WidthRequest" Value="42" />
             <Setter Property="CornerRadius" Value="21" />
             <Setter Property="Padding" Value="0" />
@@ -63,8 +63,8 @@
                     WidthRequest="25" />
                 <Label
                     Text="{Binding Language.Description}"
-                    TextColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
-                                                Dark={StaticResource BlueDarkColor}}"
+                    TextColor="{AppThemeBinding Light={StaticResource PrimaryColor},
+                                                Dark={StaticResource PrimaryColor}}"
                     VerticalOptions="Center" />
             </StackLayout>
             <ff:CachedImage
@@ -134,8 +134,8 @@
                         Orientation="Horizontal"
                         WidthRequest="300">
                         <buttons:SfCheckBox
-                            CheckedColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
-                                                           Dark={StaticResource BlueDarkColor}}"
+                            CheckedColor="{AppThemeBinding Light={StaticResource PrimaryColor},
+                                                           Dark={StaticResource PrimaryColor}}"
                             CornerRadius="0"
                             IsChecked="{Binding Rememberme}"
                             Text="{i18n:TranslateResource Login_Checkbox_Autologin}"
@@ -157,8 +157,8 @@
                     <Button
                         Grid.Row="3"
                         Padding="0"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
-                                                          Dark={StaticResource BlueDarkColor}}"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryColor},
+                                                          Dark={StaticResource PrimaryColor}}"
                         Command="{Binding LoginCommand}"
                         CornerRadius="20"
                         HeightRequest="38"
@@ -210,8 +210,8 @@
                     </StackLayout>
                     <controls:IconView
                         Margin="0,0,20,0"
-                        Foreground="{AppThemeBinding Light={StaticResource BlueDarkColor},
-                                                     Dark={StaticResource BlueDarkColor}}"
+                        Foreground="{AppThemeBinding Light={StaticResource PrimaryColor},
+                                                     Dark={StaticResource PrimaryColor}}"
                         HorizontalOptions="End"
                         Source="ic_foursquare.png"
                         WidthRequest="40">
