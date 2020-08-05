@@ -23,10 +23,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <StackLayout
-                Grid.Column="0"
-                HorizontalOptions="Center"
-                VerticalOptions="EndAndExpand">
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
                 <ffImage:CachedImage
                     BitmapOptimizations="True"
                     HeightRequest="30"
@@ -43,11 +40,7 @@
                 Grid.Column="1"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="EndAndExpand">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".5*" />
-                        <ColumnDefinition Width=".5*" />
-                    </Grid.ColumnDefinitions>
+                <Grid ColumnDefinitions="*,Auto">
                     <StackLayout Grid.Column="0" HorizontalOptions="StartAndExpand">
                         <StackLayout Orientation="Horizontal" Spacing="10">
                             <ffImage:CachedImage
@@ -62,7 +55,7 @@
                             </ffImage:CachedImage>
                             <Label
                                 FontSize="12"
-                                Text="{Binding GPSTime, Converter={StaticResource TimeConverter}}"
+                                Text="{Binding GPSTime, Converter={StaticResource DateTimeConverter}}"
                                 VerticalOptions="Center" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" Spacing="10">
@@ -83,7 +76,10 @@
                         </StackLayout>
                     </StackLayout>
 
-                    <StackLayout Grid.Column="1" HorizontalOptions="StartAndExpand">
+                    <StackLayout
+                        Grid.Column="1"
+                        Padding="0,0,10,0"
+                        HorizontalOptions="StartAndExpand">
                         <StackLayout Orientation="Horizontal" Spacing="10">
                             <ffImage:CachedImage
                                 BitmapOptimizations="True"
@@ -97,7 +93,7 @@
                             </ffImage:CachedImage>
                             <Label
                                 FontSize="12"
-                                Text="{Binding LostGSMTime, Converter={StaticResource SecondsToStringConverter}}"
+                                Text="{Binding LostGSMTime, Converter={StaticResource SecondsToStringConverter}, StringFormat='{}({0})'}"
                                 VerticalOptions="Center" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" Spacing="10">
@@ -118,6 +114,41 @@
                         </StackLayout>
                     </StackLayout>
                 </Grid>
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <ffImage:CachedImage
+                            BitmapOptimizations="True"
+                            HeightRequest="15"
+                            Source="ic_coordinates.png"
+                            VerticalOptions="Center"
+                            WidthRequest="15">
+                            <ffImage:CachedImage.Transformations>
+                                <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
+                            </ffImage:CachedImage.Transformations>
+                        </ffImage:CachedImage>
+                        <Label
+                            FontSize="12"
+                            Text="{Binding Coordinates}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <ffImage:CachedImage
+                            BitmapOptimizations="True"
+                            HeightRequest="15"
+                            Source="ic_fee.png"
+                            VerticalOptions="Center"
+                            WidthRequest="15">
+                            <ffImage:CachedImage.Transformations>
+                                <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
+                            </ffImage:CachedImage.Transformations>
+                        </ffImage:CachedImage>
+                        <Label
+                            FontSize="12"
+                            Text="{Binding MaturityDate}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                </StackLayout>
+
                 <StackLayout
                     IsVisible="{Binding MessageBAP, Converter={StaticResource HasDataConverter}}"
                     Orientation="Horizontal"
@@ -141,10 +172,7 @@
             </StackLayout>
 
         </Grid>
-        <sharpnado:MaterialFrame
-            Padding="0"
-            HeightRequest="1"
-            LightThemeBackgroundColor="{StaticResource TextSecondaryColor}" />
+        <BoxView StyleClass="SlimLine" />
     </StackLayout>
 
 </sharpnado:MaterialFrame>

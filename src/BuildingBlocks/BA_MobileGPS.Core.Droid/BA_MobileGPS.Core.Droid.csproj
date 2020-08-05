@@ -322,6 +322,8 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\flag_vn.png" />
+    </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_close.png" />
   </ItemGroup>
   <ItemGroup>
@@ -758,6 +760,8 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_camera.png" />
+    </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_help.png" />
   </ItemGroup>
   <ItemGroup>
@@ -1005,6 +1009,8 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_hpbd.png" />
+    </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_excel.png" />
   </ItemGroup>
   <ItemGroup>
@@ -1637,6 +1643,18 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_userwhite.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_fee.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_fee.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_fee.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_fee.png" />
+     </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_logolite.png" />
   </ItemGroup>

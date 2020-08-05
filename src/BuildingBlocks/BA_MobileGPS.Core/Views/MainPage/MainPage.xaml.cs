@@ -31,7 +31,7 @@ namespace BA_MobileGPS.Core.Views
                 Switcher.Children.Add(listVehicleTab);
                 tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_ship.png", Label = MobileResource.Menu_TabItem_Vehicle });
             }
-
+            tabitem.SelectedTabIndexChanged += Tabitem_SelectedTabIndexChanged;
             if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
             {
                 var online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online
@@ -62,7 +62,7 @@ namespace BA_MobileGPS.Core.Views
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitAnimation();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
-            tabitem.SelectedTabIndexChanged += Tabitem_SelectedTabIndexChanged;
+           
             previousIndex = Switcher.SelectedIndex;
         }
         private int previousIndex { get; set; }
