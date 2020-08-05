@@ -26,10 +26,10 @@ namespace VIVIEW_MobileGPS
 
             base.OnInitialized();
 
-            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerCNN;
-            ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerCNN;
-            ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerCNN;
-            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerCNN;
+            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerVIVIEW;
+            ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerVIVIEW;
+            ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerVIVIEW;
+            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerVIVIEW;
 
             AppCenter.Start("ios=b9feff6c-5277-4e97-97e9-8a8e5c939eef;" +
                    "android=db0089bc-c6e2-4df4-bead-0368ccef3cd6",
