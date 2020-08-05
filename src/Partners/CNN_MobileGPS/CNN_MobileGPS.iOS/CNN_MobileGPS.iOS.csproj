@@ -105,9 +105,6 @@
       <Visible>false</Visible>
     </ImageAsset>
     <BundleResource Include="en.lproj\InfoPlist.strings" />
-    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
