@@ -168,7 +168,7 @@
       <Name>BA_MobileGPS.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\VIVIEW_MobileGPS\VIVIEW_MobileGPS.csproj">
-      <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
+      <Project>{3824D767-D090-4FD6-B845-0153713C45E1}</Project>
       <Name>VIVIEW_MobileGPS</Name>
     </ProjectReference>
   </ItemGroup>
