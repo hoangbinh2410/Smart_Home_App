@@ -183,18 +183,22 @@
                         Color="Black" />
                 </pancake:PancakeView.Shadow>
                 <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto,Auto,30">
-                    <StackLayout
-                        HorizontalOptions="CenterAndExpand"
-                        Orientation="Horizontal"
-                        Spacing="5">
+                    <Grid
+                        ColumnDefinitions="Auto,*"
+                        ColumnSpacing="5"
+                        HorizontalOptions="CenterAndExpand">
                         <Label
-                            LineBreakMode="TailTruncation"
                             MaxLines="1"
                             Text="TRẠNG THÁI THIẾT BỊ:"
                             TextColor="{AppThemeBinding Dark={StaticResource PrimaryColor},
                                                         Light={StaticResource PrimaryColor}}" />
-                        <Label Text="{Binding BluetoothStatus, Mode=OneWay}" TextColor="{Binding BluetoothStatusTextColor, Mode=OneWay}" />
-                    </StackLayout>
+                        <Label
+                            Grid.Column="1"
+                            LineBreakMode="TailTruncation"
+                            MaxLines="1"
+                            Text="{Binding BluetoothStatus, Mode=OneWay}"
+                            TextColor="{Binding BluetoothStatusTextColor, Mode=OneWay}" />
+                    </Grid>
                     <Grid
                         Grid.Row="1"
                         ColumnDefinitions="40,*"

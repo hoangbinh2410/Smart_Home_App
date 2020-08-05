@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "929472756117",
+    "firebase_url": "https://cnngpsmobile.firebaseio.com",
+    "project_id": "cnngpsmobile",
+    "storage_bucket": "cnngpsmobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929472756117:android:7487cf4c97dbba59",
+        "android_client_info": {
+          "package_name": "vn.vietnamcnn.gpsmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929472756117-2g7jmpj6n7th6imb7u6rublnj5lvcmnk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB76rWXAJ_qtLxOfMgdsQC2x4vgnesQuJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929472756117-2g7jmpj6n7th6imb7u6rublnj5lvcmnk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

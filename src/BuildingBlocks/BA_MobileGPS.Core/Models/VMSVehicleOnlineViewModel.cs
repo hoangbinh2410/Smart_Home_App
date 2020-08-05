@@ -101,5 +101,10 @@ namespace BA_MobileGPS.Core.Models
                 return MessageId == 128 ? false : true;
             }
         }
+
+        public string Coordinates
+        {
+            get { return string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(this.Lat), GeoHelper.LongitudeToDergeeMinSec(this.Lng)); }            
+        }
     }
 }
