@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace VIVIEW_MobileGPS.Droid
 {
-    [Activity(Label = "VIVIEW GPS 2", Icon = "@mipmap/ic_launcher", Theme = "@style/MainTheme", MainLauncher = false,
+    [Activity(Label = "VIVIEW GPS", Icon = "@mipmap/ic_launcher", Theme = "@style/MainTheme", MainLauncher = false,
         LaunchMode = LaunchMode.SingleTask, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : BaseActivity
     {
@@ -18,8 +18,7 @@ namespace VIVIEW_MobileGPS.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
-            Forms.SetFlags("FastRenderers_Experimental");
-            Forms.SetFlags("CollectionView_Experimental");
+            Forms.SetFlags(new string[] { "CarouselView_Experimental", "IndicatorView_Experimental", "FastRenderers_Experimental", "AppTheme_Experimental" });
 
             Forms.Init(this, bundle);
 

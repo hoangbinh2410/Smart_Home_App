@@ -6,7 +6,7 @@
     <!--  Color Primary  -->
     <Color x:Key="BlueDarkColor">#004EDA</Color>
     <Color x:Key="BluePrimaryColor">#00AEEF</Color>
-    <Color x:Key="PrimaryColor">#26A1D9</Color>
+    <Color x:Key="PrimaryColor">#214270</Color>
     <Color x:Key="BlueColor">#89DFFF</Color>
     <Color x:Key="WhiteColor">White</Color>
     <!--  Other Color  -->
