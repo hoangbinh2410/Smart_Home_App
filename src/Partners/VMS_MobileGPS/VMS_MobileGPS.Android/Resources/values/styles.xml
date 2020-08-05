@@ -10,31 +10,31 @@
     <item name="windowActionBar">false</item>
     <!-- Set theme colors from http://www.google.com/design/spec/style/color.html#color-color-palette -->
     <!-- colorPrimary is used for the default action bar background -->
-    <item name="colorPrimary">#004EDA</item>
+    <item name="colorPrimary">#009490</item>
     <!-- colorPrimaryDark is used for the status bar -->
-    <item name="colorPrimaryDark">#004EDA</item>
+    <item name="colorPrimaryDark">#000000</item>
     <!-- colorAccent is used as the default value for colorControlActivated
          which is used to tint widgets -->
-    <item name="colorAccent">#004EDA</item>
+    <item name="colorAccent">#009490</item>
     <!-- You can also set colorControlNormal, colorControlActivated
          colorControlHighlight and colorSwitchThumbNormal. -->
     <item name="windowActionModeOverlay">true</item>
+
     <item name="android:datePickerDialogTheme">@style/AppCompatDialogStyle</item>
   </style>
 
-	<style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
-		<item name="colorAccent">#004EDA</item>
-	</style>
+  <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+    <item name="colorAccent">#FF4081</item>
+  </style>
 
-	<style name="Theme.Splash"
-	 parent="android:Theme">
-		<item name="android:windowBackground">
-			@drawable/Launch_Screen
-		</item>
-		<item name="android:windowNoTitle">true</item>
-		<item name="android:windowIsTranslucent">false</item>
-		<item name="android:windowIsFloating">false</item>
-		<item name="android:backgroundDimEnabled">true</item>
-	</style>
-
+  <style name="Theme.Splash"
+   parent="android:Theme">
+    <item name="android:windowBackground">
+      @drawable/Launch_Screen
+    </item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowIsTranslucent">false</item>
+    <item name="android:windowIsFloating">false</item>
+    <item name="android:backgroundDimEnabled">true</item>
+  </style>
 </resources>
