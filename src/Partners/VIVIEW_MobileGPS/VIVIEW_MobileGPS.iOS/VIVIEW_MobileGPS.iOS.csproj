@@ -114,7 +114,6 @@
     </ImageAsset>
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
-    <LinkDescription Include="LinkerSettings.xml" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <BundleResource Include="vi.lproj\InfoPlist.strings" />
     <BundleResource Include="Resources\fa-brands-400.ttf" />

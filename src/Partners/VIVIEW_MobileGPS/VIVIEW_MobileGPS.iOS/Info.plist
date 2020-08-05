@@ -25,7 +25,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>vn.viviewgps.gpsmobile</string>
 	<key>CFBundleName</key>
-	<string>VIVIEW GPS 2</string>
+	<string>VIVIEW GPS</string>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>en</string>
