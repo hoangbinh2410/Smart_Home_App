@@ -72,8 +72,6 @@ namespace BA_MobileGPS.Core
         private const string LoadedMap = "LoadMap";
         private static readonly bool IsLoadedMapDefault = false;
 
-        private const string FirstLoadLogin = "FirstLoadLogin";
-        private static readonly bool FirstLoadLoginDefault = true;
 
         private const string FistInstallPopup = "FisrtPopup";
         private static readonly bool FistInstallPopupDefault = true;
@@ -243,11 +241,6 @@ namespace BA_MobileGPS.Core
             set => AppSettings.AddOrUpdateValue(LoadedMap, value);
         }
 
-        public static bool IsFirstLoadLogin
-        {
-            get => AppSettings.GetValueOrDefault(FirstLoadLogin, FirstLoadLoginDefault);
-            set => AppSettings.AddOrUpdateValue(FirstLoadLogin, value);
-        }
         public static bool IsFirstPopup
         {
             get => AppSettings.GetValueOrDefault(FistInstallPopup, FistInstallPopupDefault);
