@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace VIVIEW_MobileGPS.Droid
 {
-    [Activity(Label = "TCT GPS 2", Icon = "@mipmap/ic_launcher", Theme = "@style/MainTheme", MainLauncher = false,
+    [Activity(Label = "VIVIEW GPS 2", Icon = "@mipmap/ic_launcher", Theme = "@style/MainTheme", MainLauncher = false,
         LaunchMode = LaunchMode.SingleTask, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : BaseActivity
     {
