@@ -20,38 +20,30 @@ namespace VIVIEW_MobileGPS
 
         protected async override void OnInitialized()
         {
-            try
+            Resources.MergedDictionaries.Add(new DarkColor());
+            Resources.MergedDictionaries.Add(new LightColor());
+            Resources.MergedDictionaries.Add(new Colors());
+
+            base.OnInitialized();
+
+            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerVIVIEW;
+            ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerVIVIEW;
+            ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerVIVIEW;
+            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerVIVIEW;
+
+            AppCenter.Start("ios=26e01862-0464-4767-994a-ccb280c938fe;" +
+             "android=52f713d7-5e8f-4769-8341-f36243ab690c",
+                typeof(Analytics), typeof(Crashes));
+
+            //Nếu cài app lần đầu tiên hoặc có sự thay đổi dữ liệu trên server thì sẽ vào trang cập nhật thông tin vào localDB
+            if (!Settings.IsFistInstallApp || Settings.IsChangeDataLocalDB)
             {
-                Resources.MergedDictionaries.Add(new DarkColor());
-                Resources.MergedDictionaries.Add(new LightColor());
-                Resources.MergedDictionaries.Add(new Colors());
-
-                base.OnInitialized();
-
-                ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerVIVIEW;
-                ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerVIVIEW;
-                ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerVIVIEW;
-                ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerVIVIEW;
-
-                AppCenter.Start("ios=b9feff6c-5277-4e97-97e9-8a8e5c939eef;" +
-                       "android=db0089bc-c6e2-4df4-bead-0368ccef3cd6",
-                       typeof(Analytics), typeof(Crashes));
-
-                //Nếu cài app lần đầu tiên hoặc có sự thay đổi dữ liệu trên server thì sẽ vào trang cập nhật thông tin vào localDB
-                if (!Settings.IsFistInstallApp || Settings.IsChangeDataLocalDB)
-                {
-                    _ = await NavigationService.NavigateAsync("LoginPage");
-                }
-                else
-                {
-                    _ = await NavigationService.NavigateAsync("LoginPage");
-                }
+                _ = await NavigationService.NavigateAsync("LoginPage");
             }
-            catch (System.Exception ex)
+            else
             {
-
+                _ = await NavigationService.NavigateAsync("LoginPage");
             }
-            
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
