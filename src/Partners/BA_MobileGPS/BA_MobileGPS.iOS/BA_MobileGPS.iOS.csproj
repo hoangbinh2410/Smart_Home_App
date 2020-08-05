@@ -395,4 +395,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\car_warn%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_logo.png" />
+  </ItemGroup>
 </Project>
