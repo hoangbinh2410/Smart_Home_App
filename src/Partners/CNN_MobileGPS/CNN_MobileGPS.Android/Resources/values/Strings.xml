@@ -1,10 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">BA GPS</string>
-  <string
-       name="FACEBOOK_APP_ID">507580353106963</string>
-  <string
-      name="ACCOUNT_KIT_CLIENT_TOKEN">0a23ffc755f785b19f472257bcd028aa</string>
-  <string
-      name="ak_login_protocol_scheme">ak{FACEBOOK_APP_ID}</string>
+  <string name="app_name">TCT GPS 2</string>
 </resources>

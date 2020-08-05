@@ -162,7 +162,9 @@
       <Name>BA_MobileGPS</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_logo.png" />
+  </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-100.png">
       <Visible>false</Visible>
