@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="BA_MobileGPS.Core.Views.ListVehiclePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:datatemplateselectors="clr-namespace:BA_MobileGPS.Core.DataTemplateSelectors"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:listvehicle="clr-namespace:BA_MobileGPS.Core.Views.ListVehicle"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:viewcore="clr-namespace:BA_MobileGPS.Core.Views.PartialView"
+    x:Name="this"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.BackButtonTitle="">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="DefaultTemplate">
+                <listvehicle:VehicleDefaultView />
+            </DataTemplate>
+            <DataTemplate x:Key="LostSignalTemplate">
+                <listvehicle:VehicleLostSignalView />
+            </DataTemplate>
+            <DataTemplate x:Key="ExpiredTemplate">
+                <listvehicle:VehicleExpiredView />
+            </DataTemplate>
+            <DataTemplate x:Key="UnpaidTemplate">
+                <listvehicle:VehicleUnpaidView />
+            </DataTemplate>
+            <DataTemplate x:Key="StopServiceTemplate">
+                <listvehicle:VehicleStopServiceView />
+            </DataTemplate>
+            <datatemplateselectors:ListVehicleTemplateSelector
+                x:Key="ListVehicleTemplateSelector"
+                DefaultTemplate="{StaticResource DefaultTemplate}"
+                ExpiredTemplate="{StaticResource ExpiredTemplate}"
+                LostSignalTemplate="{StaticResource LostSignalTemplate}"
+                StopServiceTemplate="{StaticResource StopServiceTemplate}"
+                UnpaidTemplate="{StaticResource UnpaidTemplate}" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <viewcore:TitleBarView Grid.Row="0" />
+
+            <AbsoluteLayout
+                Grid.Row="1"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                    <StackLayout
+                        Padding="5,0,5,0"
+                        AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <sharpnado:MaterialFrame
+                            x:Name="btnHelp"
+                            Padding="0"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HeightRequest="40"
+                            LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                            VerticalOptions="Center"
+                            WidthRequest="40">
+                            <sharpnado:MaterialFrame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowHelpCommand}" />
+                            </sharpnado:MaterialFrame.GestureRecognizers>
+                            <controls:FontAwesomeIcon
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.InfoCircle}"
+                                TextColor="White"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </sharpnado:MaterialFrame>
+                        <sharpnado:MaterialFrame
+                            x:Name="btnSort"
+                            Padding="0"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HeightRequest="40"
+                            LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                            VerticalOptions="Center"
+                            WidthRequest="40">
+                            <sharpnado:MaterialFrame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ChangeSortCommand}" />
+                            </sharpnado:MaterialFrame.GestureRecognizers>
+                            <controls:FontAwesomeIcon
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.SortAmountUp}"
+                                TextColor="White"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </sharpnado:MaterialFrame>
+                        <inputLayout:SfTextInputLayout
+                            x:Name="txtSearch"
+                            Padding="0"
+                            ContainerType="Outlined"
+                            HorizontalOptions="FillAndExpand"
+                            LeadingViewPosition="Inside"
+                            OutlineCornerRadius="5"
+                            ShowHelperText="False">
+                            <inputLayout:SfTextInputLayout.LeadingView>
+                                <controls:FontAwesomeIcon FontAttributes="Bold" Text="{x:Static fontawesome:FontAwesomeIcons.Search}" />
+                            </inputLayout:SfTextInputLayout.LeadingView>
+                            <Entry Placeholder="{i18n:TranslateResource Online_Label_SeachVehicle2}" Text="{Binding SearchedText}">
+                                <Entry.Behaviors>
+                                    <prismbehaviors:EventToCommandBehavior
+                                        Command="{Binding SearchVehicleCommand}"
+                                        EventArgsConverter="{StaticResource TextChangedEventArgsConverter}"
+                                        EventName="TextChanged" />
+                                </Entry.Behaviors>
+                            </Entry>
+                        </inputLayout:SfTextInputLayout>
+                        <sharpnado:MaterialFrame
+                            x:Name="btnGroup"
+                            Padding="0"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HeightRequest="40"
+                            LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                            VerticalOptions="Center"
+                            WidthRequest="40">
+                            <sharpnado:MaterialFrame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
+                            </sharpnado:MaterialFrame.GestureRecognizers>
+                            <controls:IconView
+                                Foreground="White"
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Source="ic_doubleship.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </sharpnado:MaterialFrame>
+                        <sharpnado:MaterialFrame
+                            x:Name="btnSearchStatus"
+                            Padding="0"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HeightRequest="40"
+                            LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                            VerticalOptions="Center"
+                            WidthRequest="40">
+                            <sharpnado:MaterialFrame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="FilterCarType_Tapped" />
+                            </sharpnado:MaterialFrame.GestureRecognizers>
+                            <controls:FontAwesomeIcon
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.Filter}"
+                                TextColor="White"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </sharpnado:MaterialFrame>
+                    </StackLayout>
+
+                    <Grid Grid.Row="2">
+                        <syncfusionList:SfListView
+                            Grid.Row="0"
+                            AutoFitMode="Height"
+                            IsScrollBarVisible="False"
+                            ItemTemplate="{StaticResource ListVehicleTemplateSelector}"
+                            ItemsSource="{Binding ListVehicle}"
+                            SelectionBackgroundColor="Transparent"
+                            TapCommand="{Binding TapListVehicleCommand}" />
+                        <StackLayout
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="Center"
+                            IsVisible="{Binding ListVehicle, Converter={StaticResource IsEmptyDataConverter}}"
+                            Spacing="10"
+                            VerticalOptions="Center">
+
+                            <!--  Image for display svg image  -->
+                            <!--  Image for display svg image  -->
+                            <ffsvg:SvgCachedImage
+                                Margin="{x:OnIdiom Phone='0,0,0,0',
+                                                   Desktop='0',
+                                                   Tablet='0'}"
+                                HeightRequest="200"
+                                Source="NoItem.svg"
+                                VerticalOptions="Center"
+                                WidthRequest="200" />
+
+                            <!--  Label to display content  -->
+                            <Label
+                                HorizontalOptions="Center"
+                                Text="{i18n:TranslateResource ListVehicle_Label_NotFound}"
+                                TextColor="{StaticResource TextSecondaryColor}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </StackLayout>
+                    </Grid>
+
+                </StackLayout>
+
+                <Grid x:Name="boxStatusVehicle" AbsoluteLayout.LayoutFlags="PositionProportional, HeightProportional">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*" />
+                        <ColumnDefinition Width="0.5*" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Column="0" BackgroundColor="Transparent">
+                        <StackLayout.GestureRecognizers>
+                            <SwipeGestureRecognizer Direction="Right" Swiped="SwipeGestureBoxStatus" />
+                            <TapGestureRecognizer Tapped="TappedHidenBoxStatus" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                    <Frame
+                        Grid.Column="1"
+                        Padding="0"
+                        BackgroundColor="{StaticResource PrimaryColor}"
+                        CornerRadius="0"
+                        HasShadow="True"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <syncfusionList:SfListView
+                                x:Name="lvStatusCar"
+                                Margin="0"
+                                AutoFitMode="Height"
+                                ItemSpacing="0"
+                                ItemTapped="TapStatusVehicle"
+                                ItemsSource="{Binding ListVehilceStatus}"
+                                SelectedItem="{Binding SelectedStatus}"
+                                SelectionBackgroundColor="{StaticResource TextPlaceHolderColor}"
+                                TapCommand="{Binding SelectStatusVehicleCommand}">
+                                <syncfusionList:SfListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid ColumnSpacing="0" RowSpacing="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <StackLayout
+                                                Padding="10"
+                                                Orientation="Horizontal"
+                                                Spacing="5"
+                                                VerticalOptions="FillAndExpand">
+                                                <ffImage:CachedImage
+                                                    HorizontalOptions="Start"
+                                                    Source="{Binding Icon}"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="40" />
+                                                <StackLayout Spacing="3" VerticalOptions="Center">
+                                                    <Label
+                                                        HorizontalOptions="Start"
+                                                        Text="{Binding Name}"
+                                                        TextColor="{StaticResource WhiteColor}"
+                                                        VerticalOptions="Center" />
+                                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                                        <Label
+                                                            HorizontalOptions="Start"
+                                                            Text="{Binding CountCar, Converter={StaticResource UnitConverter}, ConverterParameter={i18n:TranslateResource Common_Label_Vehicle, Converter={StaticResource LowerCaseConverter}}}"
+                                                            TextColor="{StaticResource WhiteColor}"
+                                                            VerticalOptions="Center" />
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <BoxView
+                                                Grid.Row="1"
+                                                BackgroundColor="{StaticResource GrayColor}"
+                                                HeightRequest="0.5"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="Start" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </syncfusionList:SfListView.ItemTemplate>
+                            </syncfusionList:SfListView>
+                        </Grid>
+                    </Frame>
+                </Grid>
+            </AbsoluteLayout>
+        </Grid>
+    </ContentView.Content>
+</ContentView>
