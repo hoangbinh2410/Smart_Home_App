@@ -13,7 +13,8 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
-
+using Com.OneSignal.Abstractions;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
@@ -534,7 +535,6 @@ namespace VMS_MobileGPS.ViewModels
                        }
                    });
                    StaticSettings.ListVehilceOnline = result;
-
                    InitVehicleList();
                }
                else

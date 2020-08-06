@@ -31,7 +31,7 @@ namespace BA_MobileGPS.Utilities.Enums
         [Description("http://apimoto.bagroup.vn")]
         ServerMoto,
 
-        [Description("http://10.1.11.241:9999")]
+        [Description("http://10.1.11.241:9990")]
         ServerLinhLV,
 
         [Description("http://10.1.11.188:9999")]
