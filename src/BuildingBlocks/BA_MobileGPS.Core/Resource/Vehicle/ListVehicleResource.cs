@@ -36,12 +36,12 @@ namespace BA_MobileGPS.Core.Resource
         public static string ListVehicle_Label_VehicleSpeeding2 => Get(MobileResourceNames.ListVehicle_Label_VehicleSpeeding2, "Phương tiện chạy quá tốc độ", "Vehicle violate speed limits");
         public static string ListVehicle_Label_VehicleSpeeding2VMS => Get(MobileResourceNames.ListVehicle_Label_VehicleSpeeding2VMS, "Phương tiện chạy quá tốc độ", "Fishing Boat violate speed limits");
 
-        public static string ListVehicle_Label_VehicleLostGPS => Get(MobileResourceNames.ListVehicle_Label_VehicleLostGPS, "Phương tiện mất tín hiệu GPS lớn hơn 5 phút và ít hơn 150 phút", "Vehicle with 5-to-150 minute GPS Signal lost");
-        public static string ListVehicle_Label_VehicleLostGPS2 => Get(MobileResourceNames.ListVehicle_Label_VehicleLostGPS2, "Phương tiện mất tín hiệu GPS lớn hơn 5 phút và ít hơn 150 phút", "Vehicle with 5-to-150 minute GPS Signal lost");
-        public static string ListVehicle_Label_VehicleLostGPS2VMS => Get(MobileResourceNames.ListVehicle_Label_VehicleLostGPS2VMS, "Phương tiện mất tín hiệu GPS lớn hơn 5 phút và ít hơn 150 phút", "Fishing Boat with 5-to-150 minute GPS Signal lost");
-        public static string ListVehicle_Label_VehicleLostGSM => Get(MobileResourceNames.ListVehicle_Label_VehicleLostGSM, "Phương tiện mất tín hiệu liên lạc, chưa đóng phí hoặc mất GPS lớn hơn 150 phút", "Vehicle encounter GPS Signal lost, have yet paid the fee or lose GPS Signal for over 150 minute");
-        public static string ListVehicle_Label_VehicleLostGSM2 => Get(MobileResourceNames.ListVehicle_Label_VehicleLostGSM2, "Phương tiện mất tín hiệu liên lạc, chưa đóng phí hoặc mất GPS lớn hơn 150 phút", "Vehicle encounter GPS Signal lost, have yet paid the fee or lose GPS Signal for over 150 minute");
-        public static string ListVehicle_Label_VehicleLostGSM2VMS => Get(MobileResourceNames.ListVehicle_Label_VehicleLostGSM2VMS, "Phương tiện mất tín hiệu liên lạc, chưa đóng phí hoặc mất GPS lớn hơn 150 phút", "Fishing Boat encounter GPS Signal lost, have yet paid the fee or lose GPS Signal for over 150 minute");
+        public static string ListVehicle_Label_VehicleLostGPS => Get(MobileResourceNames.ListVehicle_Label_VehicleLostGPS, "Phương tiện mất tín hiệu GPS ", "Vehicle lost GPS Signal ");
+        public static string ListVehicle_Label_VehicleLostGPS2 => Get(MobileResourceNames.ListVehicle_Label_VehicleLostGPS2, "Phương tiện mất tín hiệu GPS ", "Vehicle lost GPS Signal");
+        public static string ListVehicle_Label_VehicleLostGPS2VMS => Get(MobileResourceNames.ListVehicle_Label_VehicleLostGPS2VMS, "Phương tiện mất tín hiệu ", "Fishing Boat lost GPS Signal ");
+        public static string ListVehicle_Label_VehicleLostGSM => Get(MobileResourceNames.ListVehicle_Label_VehicleLostGSM, "Phương tiện mất tín hiệu liên lạc, chưa đóng phí hoặc mất GPS", "Vehicle encounter GPS Signal lost, have yet paid the fee or lose GPS Signal ");
+        public static string ListVehicle_Label_VehicleLostGSM2 => Get(MobileResourceNames.ListVehicle_Label_VehicleLostGSM2, "Phương tiện mất tín hiệu liên lạc, chưa đóng phí hoặc mất GPS", "Vehicle encounter GPS Signal lost, have yet paid the fee or lose GPS Signal ");
+        public static string ListVehicle_Label_VehicleLostGSM2VMS => Get(MobileResourceNames.ListVehicle_Label_VehicleLostGSM2VMS, "Phương tiện mất tín hiệu liên lạc, chưa đóng phí hoặc mất GPS", "Fishing Boat encounter GPS Signal lost, have yet paid the fee or lose GPS Signal ");
         public static string ListVehicle_Label_Note => Get(MobileResourceNames.ListVehicle_Label_Note, "Chú thích","Note");
     }
 }

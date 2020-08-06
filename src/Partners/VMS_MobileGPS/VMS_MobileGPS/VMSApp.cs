@@ -35,7 +35,7 @@ namespace VMS_MobileGPS
             ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerVMS;
             ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerVMS;
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerVMS;
-            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerLinhLV;
+            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerVMS;
 
             AppCenter.Start("ios=9a0650ec-057e-4e5a-b8de-4c3fd1fae415;" +
                 "android=28d78b27-4b62-42e5-8db5-8e2d50de6a3a",
