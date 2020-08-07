@@ -1,5 +1,5 @@
-﻿"CFBundleDisplayName" = "BA GPS";
-"CFBundleName" = "BA GPS";
+﻿"CFBundleDisplayName" = "TCT GPS 2";
+"CFBundleName" = "TCT GPS 2";
 
 "NSLocationAlwaysUsageDescription" = "Ứng dụng này cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
 "NSLocationWhenInUseUsageDescription" = "Ứng dụng này cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";

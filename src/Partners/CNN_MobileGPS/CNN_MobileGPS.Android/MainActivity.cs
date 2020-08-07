@@ -18,8 +18,7 @@ namespace CNN_MobileGPS.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
-            Forms.SetFlags("FastRenderers_Experimental");
-            Forms.SetFlags("CollectionView_Experimental");
+            Forms.SetFlags(new string[] { "CarouselView_Experimental", "IndicatorView_Experimental", "FastRenderers_Experimental", "AppTheme_Experimental" });
 
             Forms.Init(this, bundle);
 

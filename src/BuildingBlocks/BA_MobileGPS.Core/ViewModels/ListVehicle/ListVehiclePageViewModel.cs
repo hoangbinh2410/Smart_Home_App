@@ -340,6 +340,27 @@ namespace BA_MobileGPS.Core.ViewModels
                 vehicle.State = carInfo.State;
                 vehicle.StatusEngineer = StateVehicleExtension.EngineState(carInfo);
                 vehicle.IconImage = IconCodeHelper.GetMarkerResource(carInfo);
+
+                if (CompanyConfigurationHelper.VehicleOnlineAddressEnabled)
+                {
+                    if (StateVehicleExtension.IsMovingAndEngineON(carInfo) || !GeoHelper.IsBetweenLatlng(vehicle.Lat, vehicle.Lng, carInfo.Lat, carInfo.Lng))
+                    {
+                        Task.Run(async () =>
+                        {
+                            return await geocodeService.GetAddressByLatLng(vehicle.Lat.ToString(), vehicle.Lng.ToString());
+                        }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
+                        {
+                            if (task.Status == TaskStatus.RanToCompletion)
+                            {
+                                TryExecute(() =>
+                                {
+                                    vehicle.CurrentAddress = task.Result;
+                                });
+                            }
+                        }));
+                    }
+                }
+
                 vehicle.Lat = carInfo.Lat;
                 vehicle.Lng = carInfo.Lng;
             }

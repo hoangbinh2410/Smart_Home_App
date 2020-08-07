@@ -25,14 +25,17 @@ namespace BA_MobileGPS.Core.ViewModels
         private void InitItems()
         {
             var list = new List<LoginPopupItem>();
-            // Ra khơi
-            list.Add(new LoginPopupItem
+            if(App.AppType == Entities.AppType.VMS)
             {
-                Title = MobileResource.Login_Popup_Starting_Page,
-                Icon = "ic_fishingnet.png",
-                Url = "/NavigationPage/OfflinePage",
-                ItemType = LoginPopupItemType.OfflinePage
-            });
+                // Ra khơi
+                list.Add(new LoginPopupItem
+                {
+                    Title = MobileResource.Login_Popup_Starting_Page,
+                    Icon = "ic_fishingnet.png",
+                    Url = "/NavigationPage/OfflinePage",
+                    ItemType = LoginPopupItemType.OfflinePage,
+                });
+            }
             // Hướng dẫn sử dụng
             list.Add(new LoginPopupItem
             {

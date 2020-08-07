@@ -226,7 +226,7 @@
                             ShowLabel="True"
                             ShowLine="True">
                             <chart:ChartTrackballBehavior.LineStyle>
-                                <chart:ChartLineStyle StrokeColor="{StaticResource Color_Navigation}" StrokeWidth="2" />
+                                <chart:ChartLineStyle StrokeColor="{StaticResource PrimaryColor}" StrokeWidth="2" />
                             </chart:ChartTrackballBehavior.LineStyle>
                         </local:ChartTrackballBehaviorExt>
                     </chart:SfChart.ChartBehaviors>
