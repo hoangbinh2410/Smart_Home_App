@@ -1,18 +1,12 @@
-﻿using BA_MobileGPS.Entities;
-using BA_MobileGPS.Entities.RealmEntity;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using Prism.Navigation;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
-using System.Linq;
-using Xamarin.Forms.Extensions;
-using BA_MobileGPS.Core.Constant;
-using System.ComponentModel;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -37,7 +31,6 @@ namespace BA_MobileGPS.Core.ViewModels
             Title = "Cấu hình hiển thị điểm";
 
             UpdateCommand = new Command(Update);
-
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -146,7 +139,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         var result = await userLandmarkGroupService.SendUpdate(input);
                         if (result != null && result.Success && result.Data)
                         {
-
                         }
                     }
                     // Điểm nào tích mới thêm thông tin gửi trang online
@@ -178,7 +170,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         var result = await userLandmarkGroupService.SendUpdate(input);
                         if (result != null && result.Success && result.Data)
                         {
-
                         }
                     }
                     // Điểm nào tích mới thêm thông tin gửi trang online

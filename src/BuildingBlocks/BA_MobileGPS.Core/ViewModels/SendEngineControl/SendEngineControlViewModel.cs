@@ -1,18 +1,12 @@
-﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Extensions;
+﻿using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
-using BA_MobileGPS.Utilities;
 
 using Prism.Commands;
 using Prism.Navigation;
-using Realms.Exceptions;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -59,7 +53,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool checkOnOff;
         public bool CheckOnOff { get => checkOnOff; set => SetProperty(ref checkOnOff, value); }
 
-
         // cấu hình không quá số ngày cho phép để tìm kiếm dữ liệu
         public override int AddDayMinfromDate { get; set; } = MobileSettingHelper.ViewReport;
 
@@ -98,7 +91,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                     });
                 }
-
             }
         }
 
@@ -167,7 +159,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                 }
             }
-
         }
 
         /// <summary>Thực hiện bật tắt</summary>
@@ -221,15 +212,19 @@ namespace BA_MobileGPS.Core.ViewModels
                                 DisplayMessage.ShowMessageSuccess(MobileResource.SendEngineControl_Label_Off_Success, CountMinutesShowMessageReport);
                             }
                             break;
+
                         case ErrorSendEngineEnum.WrongKey:
                             DisplayMessage.ShowMessageWarning(MobileResource.SendEngineControl_Label_State_1, CountMinutesShowMessageReport);
                             break;
+
                         case ErrorSendEngineEnum.DeviceNotOnline:
                             DisplayMessage.ShowMessageWarning(MobileResource.SendEngineControl_Label_State_2, CountMinutesShowMessageReport);
                             break;
+
                         case ErrorSendEngineEnum.ParmsNotValid:
                             DisplayMessage.ShowMessageWarning(MobileResource.SendEngineControl_Label_State_3, CountMinutesShowMessageReport);
                             break;
+
                         case ErrorSendEngineEnum.Unknown:
                             DisplayMessage.ShowMessageWarning(MobileResource.SendEngineControl_Label_State_100, CountMinutesShowMessageReport);
                             break;
@@ -283,15 +278,19 @@ namespace BA_MobileGPS.Core.ViewModels
                     case 0:
                         item.StateStr = MobileResource.SendEngineControl_Label_State_0;
                         break;
+
                     case 1:
                         item.StateStr = MobileResource.SendEngineControl_Label_State_1;
                         break;
+
                     case 2:
                         item.StateStr = MobileResource.SendEngineControl_Label_State_2;
                         break;
+
                     case 3:
                         item.StateStr = MobileResource.SendEngineControl_Label_State_3;
                         break;
+
                     case 100:
                         item.StateStr = MobileResource.SendEngineControl_Label_State_100;
                         break;
@@ -299,7 +298,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             return data;
         }
-
 
         /// <summary>Kiểm tra đầu vào</summary>
         /// <param name="message">The message.</param>

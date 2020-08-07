@@ -1,13 +1,10 @@
-﻿using BA_MobileGPS.Core;
-using BA_MobileGPS.Core.Constant;
+﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resource;
-using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Entities.RealmEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
@@ -89,7 +86,7 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
         }
 
-        #endregion
+        #endregion Contructor
 
         #region Lifecycle
 
@@ -126,7 +123,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 ctsRouting.Cancel();
         }
 
-        #endregion
+        #endregion Lifecycle
 
         #region Property
 
@@ -214,7 +211,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool lastPlayStatus;
 
-        #endregion
+        #endregion Property
 
         #region PrivateMethod
 
@@ -240,7 +237,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 GetVehicleRoute();
             }
-
         }
 
         private void TimeSelected(string args)
@@ -1124,12 +1120,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 PlaySpeed *= 2;
             }
-
-
-
-
         }
 
-        #endregion
+        #endregion PrivateMethod
     }
 }

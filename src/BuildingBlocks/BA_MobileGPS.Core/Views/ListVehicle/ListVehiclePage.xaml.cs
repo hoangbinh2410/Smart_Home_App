@@ -1,5 +1,4 @@
-﻿using BA_MobileGPS.Core;
-using BA_MobileGPS.Core.ViewModels;
+﻿using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Utilities;
 
 using Prism.Navigation;

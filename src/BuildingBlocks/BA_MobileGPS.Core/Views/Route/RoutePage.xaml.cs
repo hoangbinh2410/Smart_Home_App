@@ -1,5 +1,4 @@
-﻿using BA_MobileGPS.Core;
-using BA_MobileGPS.Core.ViewModels;
+﻿using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RealmEntity;
 using BA_MobileGPS.Service;
@@ -71,7 +70,6 @@ namespace BA_MobileGPS.Core.Views
                 viewHasAppeared = true;
             }
         }
-
 
         private void GoogleMapAddBoundary()
         {
@@ -166,7 +164,6 @@ namespace BA_MobileGPS.Core.Views
             {
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
-
         }
 
         private void AddName(LandmarkResponse name)

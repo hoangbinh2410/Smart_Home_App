@@ -1,6 +1,4 @@
-﻿using BA_MobileGPS.Core.Resource;
-using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service;
+﻿using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
 using Syncfusion.Data;
 using Syncfusion.SfDataGrid.XForms;
@@ -16,6 +14,7 @@ namespace BA_MobileGPS.Core.Views
     public partial class SignalLossReportPage : ContentPage
     {
         private bool IsShowFilter = false;
+
         public SignalLossReportPage()
         {
             InitializeComponent();
@@ -30,6 +29,7 @@ namespace BA_MobileGPS.Core.Views
                 dataGrid.RowHeight = 55;
             }
         }
+
         private void HideableToolbarItem_Clicked(object sender, EventArgs e)
         {
             if (IsShowFilter)
@@ -53,6 +53,7 @@ namespace BA_MobileGPS.Core.Views
             HideableToolbarItem_Clicked(sender, e);
         }
     }
+
     public class GridTableSignalLossCellRenderer : GridTableSummaryCellRenderer
     {
         public GridTableSignalLossCellRenderer()
@@ -72,11 +73,11 @@ namespace BA_MobileGPS.Core.Views
         public CustomSignalLossAggregate()
         {
         }
+
         public string TotalTimes
         {
             get; set;
         } = string.Empty;
-
 
         public Action<System.Collections.IEnumerable, string, System.ComponentModel.PropertyDescriptor> CalculateAggregateFunc()
         {

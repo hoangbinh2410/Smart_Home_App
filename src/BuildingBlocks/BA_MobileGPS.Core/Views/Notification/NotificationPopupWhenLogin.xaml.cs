@@ -1,5 +1,4 @@
 ﻿using Rg.Plugins.Popup.Pages;
-using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
 {

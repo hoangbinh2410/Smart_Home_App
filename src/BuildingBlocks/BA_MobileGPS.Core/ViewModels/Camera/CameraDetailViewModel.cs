@@ -1,8 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Controls;
 using BA_MobileGPS.Entities.ResponeEntity.Camera;
 using BA_MobileGPS.Utilities;
-using Prism.Common;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -35,7 +33,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand TabImageCommand { get; private set; }
 
         private readonly IDownloader downloader;
-
 
         private ObservableCollection<Photo> listphotoImages;
         public ObservableCollection<Photo> ListphotoImages { get => listphotoImages; set => SetProperty(ref listphotoImages, value); }
@@ -97,7 +94,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 var tempListData = new ObservableCollection<Photo>();
                 foreach (var item in ListCameraImage)
                 {
-
                     tempListData.Add(new Photo()
                     {
                         URL = item.ImageLink,

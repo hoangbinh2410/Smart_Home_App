@@ -173,7 +173,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-
         /// <summary>Gọi service truyền dữ liệu sang bên trang báo cao tiêu hao</summary>
         /// <param name="OrderNumber">The order number.</param>
         /// <Modified>
@@ -203,7 +202,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
-
 
         /// <summary>Mở Popup</summary>
         /// <Modified>
@@ -274,7 +272,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     numbercolum += 1;
                     worksheet.Range[numberrow, numbercolum].Text = MobileResource.FuelsSummariesReport_Table_LitersOfSuction;
                 }
-                // Số lít tồn   
+                // Số lít tồn
                 if (ShowLastLits)
                 {
                     numbercolum += 1;
@@ -316,7 +314,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     numbercolum += 1;
                     worksheet.Range[numberrow, numbercolum].Text = MobileResource.FuelsSummariesReport_Table_QuotaReality;
                 }
-               
+
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.Font.Bold = true;
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.ColorIndex = ExcelKnownColors.Sky_blue;
                 //head
@@ -348,7 +346,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         numbercolum += 1;
                         worksheet.Range[numberrow, numbercolum].Text = DateTimeHelper.FormatDateTime(data[i].StartTime) + " - " + DateTimeHelper.FormatDateTime(data[i].EndTime);
                     }
-                    // Số lần đổ 
+                    // Số lần đổ
                     if (ShowNumberOfPour)
                     {
                         numbercolum += 1;
@@ -439,7 +437,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     numbercolum += 1;
                 }
 
-                // Số lần đổ 
+                // Số lần đổ
                 if (ShowNumberOfPour)
                 {
                     numbercolum += 1;
@@ -503,7 +501,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (ShowQuotaRegulations)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = String.Format("{0:0.##}", data.Sum(x => x.SumNormsOfGasonline)); 
+                    worksheet.Range[numberrow, numbercolum].Text = String.Format("{0:0.##}", data.Sum(x => x.SumNormsOfGasonline));
                 }
                 // Định mức thực tế
                 if (ShowQuotaReality)
@@ -517,7 +515,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
-
 
         /// <summary>Lưu các thông tin ẩn hiện cột</summary>
         /// <Modified>

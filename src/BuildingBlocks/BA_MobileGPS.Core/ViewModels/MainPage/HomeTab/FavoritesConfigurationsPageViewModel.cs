@@ -7,7 +7,6 @@ using BA_MobileGPS.Utilities;
 
 using Prism.Commands;
 using Prism.Navigation;
-using Prism.Services;
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

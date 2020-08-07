@@ -871,11 +871,9 @@
                                     Format="{}{TotalVarg}"
                                     MappingName="Varg"
                                     SummaryType="Custom" />
-
                             </syncDataGrid:GridTableSummaryRow.SummaryColumns>
                         </syncDataGrid:GridTableSummaryRow>
                     </syncDataGrid:SfDataGrid.TableSummaryRows>
-
                 </syncDataGrid:SfDataGrid>
 
                 <StackLayout

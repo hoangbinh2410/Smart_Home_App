@@ -6,7 +6,6 @@ using Prism.Events;
 using Prism.Navigation;
 
 using System;
-using System.Collections.ObjectModel;
 using System.Reflection;
 
 namespace BA_MobileGPS.Core.ViewModels

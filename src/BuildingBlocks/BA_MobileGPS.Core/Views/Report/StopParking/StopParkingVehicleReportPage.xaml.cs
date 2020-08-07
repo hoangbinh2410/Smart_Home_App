@@ -1,11 +1,8 @@
-﻿using BA_MobileGPS.Core.Resource;
-using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service;
+﻿using BA_MobileGPS.Entities;
 using Syncfusion.Data;
 using Syncfusion.SfDataGrid.XForms;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -76,12 +73,12 @@ namespace BA_MobileGPS.Core.Views
         public CustomStopParkingVehicleAggregate()
         {
         }
+
         public string TotalStopParkingTime
         {
             get; set;
         } = string.Empty;
 
-    
         public Action<System.Collections.IEnumerable, string, System.ComponentModel.PropertyDescriptor> CalculateAggregateFunc()
         {
             return (items, property, pd) =>

@@ -331,7 +331,6 @@ namespace BA_MobileGPS.Core.Views
 
         private static void OnCornerRadiusChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            
             if (!(bindable is DateTimePickerView control))
                 return;
 

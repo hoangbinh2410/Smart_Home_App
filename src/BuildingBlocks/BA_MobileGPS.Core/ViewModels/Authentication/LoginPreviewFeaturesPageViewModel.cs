@@ -25,7 +25,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void InitItems()
         {
             var list = new List<LoginPopupItem>();
-            if(App.AppType == Entities.AppType.VMS)
+            if (App.AppType == Entities.AppType.VMS)
             {
                 // Ra khơi
                 list.Add(new LoginPopupItem
@@ -52,7 +52,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Url = MobileSettingHelper.WebGps,
                 ItemType = LoginPopupItemType.Guarantee,
             });
-         
+
             // Trải nghiệm BAGPS
             list.Add(new LoginPopupItem
             {
