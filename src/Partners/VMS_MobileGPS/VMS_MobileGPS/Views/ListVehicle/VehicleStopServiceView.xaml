@@ -1,13 +1,16 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-<sharpnado:MaterialFrame
-    x:Class="VMS_MobileGPS.Views.VehicleExpiredView"
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<shapnado:MaterialFrame
+    x:Class="VMS_MobileGPS.Views.VehicleStopServiceView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:shapnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     Padding="0"
-    BackgroundColor="White">
+    mc:Ignorable="d">
+
     <StackLayout>
         <Grid Padding="8" ColumnSpacing="10">
             <Grid.ColumnDefinitions>
@@ -32,11 +35,10 @@
 
             <StackLayout
                 Grid.Column="1"
-                HorizontalOptions="Start"
                 Spacing="10"
                 VerticalOptions="CenterAndExpand">
                 <StackLayout Orientation="Horizontal">
-                    <controls:IconView Source="ic_lock_light.png" />
+                    <controls:IconView Source="ic_stop_light.png" />
                     <Label
                         FontSize="12"
                         HorizontalOptions="Start"
@@ -48,7 +50,6 @@
                         TextColor="Red"
                         VerticalOptions="Center" />
                 </StackLayout>
-
                 <StackLayout
                     Grid.Row="1"
                     Grid.Column="1"
@@ -57,7 +58,7 @@
                     <controls:IconView Source="ic_clock.png" />
                     <Label
                         FontSize="12"
-                        Text="Ngày hết hạn"
+                        Text="Ngày dừng"
                         VerticalOptions="Center" />
                     <Label
                         Margin="-5,0,0,0"
@@ -69,5 +70,4 @@
         </Grid>
         <BoxView Margin="10,0" StyleClass="SlimLine" />
     </StackLayout>
-
-</sharpnado:MaterialFrame>
+</shapnado:MaterialFrame>

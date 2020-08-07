@@ -9,15 +9,17 @@ namespace VMS_MobileGPS.Views
     public class ListVehicleTemplateSelector : DataTemplateSelector
     {
         public DataTemplate DefaultTemplate { get; set; }
-
         public DataTemplate LostSignalTemplate { get; set; }
-
         public DataTemplate ExpiredTemplate { get; set; }
+        public DataTemplate UnpaidTemplate { get; set; }
+        public DataTemplate StopServiceTemplate { get; set; }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
+
             if (item is VMSVehicleOnlineViewModel data)
             {
+
                 if (data.IsShowDetail)
                 {
                     if (StateVehicleExtension.IsLostGSM(data.VehicleTime))
@@ -33,7 +35,11 @@ namespace VMS_MobileGPS.Views
                 {
                     switch (data.MessageId)
                     {
-                        case 128: return ExpiredTemplate;
+                        case 2: return ExpiredTemplate;
+
+                        case 3: return UnpaidTemplate;
+
+                        case 128: return StopServiceTemplate;                     
                     }
                 }
             }

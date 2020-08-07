@@ -9,13 +9,12 @@
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
-    xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
-    xmlns:template="clr-namespace:VMS_MobileGPS.Views"
+    xmlns:template1="clr-namespace:VMS_MobileGPS.Views"
     xmlns:viewcore="clr-namespace:BA_MobileGPS.Core.Views.PartialView;assembly=BA_MobileGPS.Core"
     x:Name="this"
     prism:ViewModelLocator.AutowireViewModel="True"
@@ -23,22 +22,37 @@
     NavigationPage.BackButtonTitle="">
     <ContentView.Resources>
         <ResourceDictionary>
+            <Style TargetType="controls:IconView">
+                <Setter Property="Foreground" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="HeightRequest" Value="17" />
+                <Setter Property="WidthRequest" Value="17" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="LineBreakMode" Value="TailTruncation" />
+            </Style>
             <DataTemplate x:Key="DefaultTemplateVMS">
-                <template:VehicleDefaultView />
+                <template1:VehicleDefaultView />
             </DataTemplate>
             <DataTemplate x:Key="LostSignalTemplateVMS">
-                <template:VehicleLostSignalView />
+                <template1:VehicleLostSignalView />
             </DataTemplate>
-
             <DataTemplate x:Key="ExpiredTemplate">
-                <template:VehicleExpiredView />
+                <template1:VehicleExpiredView />
             </DataTemplate>
-
-            <template:ListVehicleTemplateSelector
+            <DataTemplate x:Key="UnpaidTemplate">
+                <template1:VehicleUnpaidView />
+            </DataTemplate>
+            <DataTemplate x:Key="StopServiceTemplate">
+                <template1:VehicleStopServiceView />
+            </DataTemplate>
+            <template1:ListVehicleTemplateSelector
                 x:Key="ListVehicleTemplateSelector"
                 DefaultTemplate="{StaticResource DefaultTemplateVMS}"
                 ExpiredTemplate="{StaticResource ExpiredTemplate}"
-                LostSignalTemplate="{StaticResource LostSignalTemplateVMS}" />
+                LostSignalTemplate="{StaticResource LostSignalTemplateVMS}"
+                StopServiceTemplate="{StaticResource StopServiceTemplate}"
+                UnpaidTemplate="{StaticResource UnpaidTemplate}" />
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
@@ -51,68 +65,10 @@
                 <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                     <Grid
                         Margin="5,10,5,0"
-                        ColumnDefinitions="*,Auto,Auto,Auto"
+                        ColumnDefinitions="*,Auto,Auto,Auto,Auto"
                         HeightRequest="40"
                         MinimumHeightRequest="40">
-                        <!--<sharpnado:MaterialFrame
-                            x:Name="btnHelp"
-                            Padding="0"
-                            CornerRadius="10"
-                            HasShadow="False"
-                            HeightRequest="40"
-                            LightThemeBackgroundColor="{StaticResource PrimaryColor}"
-                            VerticalOptions="Center"
-                            WidthRequest="40">
-                            <sharpnado:MaterialFrame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ShowHelpCommand}" />
-                            </sharpnado:MaterialFrame.GestureRecognizers>
-                            <controls:FontAwesomeIcon
-                                HeightRequest="20"
-                                HorizontalOptions="Center"
-                                Text="{x:Static fontawesome:FontAwesomeIcons.InfoCircle}"
-                                TextColor="White"
-                                VerticalOptions="Center"
-                                WidthRequest="20" />
-                        </sharpnado:MaterialFrame>-->
-                        <!--<inputLayout:SfTextInputLayout
-                            x:Name="txtSearch"
-                            Padding="0"
-                            ContainerType="Outlined"
-                            HorizontalOptions="FillAndExpand"
-                            InputViewPadding="10,0,0,0"
-                            LeadingViewPosition="Inside"
-                            OutlineCornerRadius="20"
-                            ShowHelperText="False">
-                            <inputLayout:SfTextInputLayout.LeadingView>
-                                <sharpnado:MaterialFrame
-                                    Padding="0"
-                                    CornerRadius="20"
-                                    HasShadow="False"
-                                    HeightRequest="40"
-                                    LightThemeBackgroundColor="{StaticResource PrimaryColor}"
-                                    VerticalOptions="Center"
-                                    WidthRequest="40">
-                                    <sharpnado:MaterialFrame.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding ChangeSortCommand}" />
-                                    </sharpnado:MaterialFrame.GestureRecognizers>
-                                    <controls:FontAwesomeIcon
-                                        HeightRequest="20"
-                                        HorizontalOptions="Center"
-                                        Text="{x:Static fontawesome:FontAwesomeIcons.Search}"
-                                        TextColor="White"
-                                        VerticalOptions="Center"
-                                        WidthRequest="20" />
-                                </sharpnado:MaterialFrame>
-                            </inputLayout:SfTextInputLayout.LeadingView>
-                            <Entry Placeholder="{i18n:TranslateResource Online_Label_SeachVehicle2}" Text="{Binding SearchedText}">
-                                <Entry.Behaviors>
-                                    <prismbehaviors:EventToCommandBehavior
-                                        Command="{Binding SearchVehicleCommand}"
-                                        EventArgsConverter="{StaticResource TextChangedEventArgsConverter}"
-                                        EventName="TextChanged" />
-                                </Entry.Behaviors>
-                            </Entry>
-                        </inputLayout:SfTextInputLayout>-->
+
                         <pancake:PancakeView
                             Padding="0"
                             BackgroundColor="{StaticResource WhiteColor}"
@@ -165,6 +121,31 @@
                                     Color="Black" />
                             </pancake:PancakeView.Shadow>
                             <pancake:PancakeView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowHelpCommand}" />
+                            </pancake:PancakeView.GestureRecognizers>
+                            <controls:IconView
+                                Foreground="{StaticResource PrimaryColor}"
+                                HeightRequest="25"
+                                HorizontalOptions="Center"
+                                Source="ic_infor_light.png"
+                                VerticalOptions="Center"
+                                WidthRequest="25" />
+                        </pancake:PancakeView>
+                        <pancake:PancakeView
+                            Grid.Column="2"
+                            Padding="0"
+                            BackgroundColor="White"
+                            CornerRadius="20"
+                            HeightRequest="40"
+                            VerticalOptions="End"
+                            WidthRequest="40">
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow
+                                    BlurRadius="3"
+                                    Offset="0,0"
+                                    Color="Black" />
+                            </pancake:PancakeView.Shadow>
+                            <pancake:PancakeView.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ChangeSortCommand}" />
                             </pancake:PancakeView.GestureRecognizers>
                             <controls:FontAwesomeIcon
@@ -176,7 +157,7 @@
                                 WidthRequest="20" />
                         </pancake:PancakeView>
                         <sharpnado:MaterialFrame
-                            Grid.Column="2"
+                            Grid.Column="3"
                             Padding="0"
                             CornerRadius="20"
                             HasShadow="False"
@@ -196,7 +177,7 @@
                                 WidthRequest="20" />
                         </sharpnado:MaterialFrame>
                         <sharpnado:MaterialFrame
-                            Grid.Column="3"
+                            Grid.Column="4"
                             Padding="0"
                             CornerRadius="20"
                             HasShadow="False"
