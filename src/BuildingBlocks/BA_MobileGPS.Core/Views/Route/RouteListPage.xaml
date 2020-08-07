@@ -118,6 +118,7 @@
                                 Grid.ColumnSpan="3"
                                 Margin="8,0,8,5"
                                 FontSize="{StaticResource MyFontSizeSmall}"
+                                HorizontalOptions="StartAndExpand"
                                 IsVisible="{Binding Address, Converter={StaticResource HasDataConverter}}"
                                 Text="{Binding Address}"
                                 VerticalOptions="Center" />
