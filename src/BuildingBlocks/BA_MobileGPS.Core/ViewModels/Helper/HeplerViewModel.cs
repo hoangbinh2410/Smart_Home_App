@@ -1,8 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Entities.RequestEntity;
-using BA_MobileGPS.Service;
 
 using Prism.Commands;
 using Prism.Navigation;
@@ -14,7 +12,6 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class HeplerViewModel : ViewModelBase
     {
-
         private List<HeplerModel> Response => new List<HeplerModel>
         {
             new HeplerModel () { Icon = "ic_list_black", Title = MobileResource.Helper_Label_HeplperOnline, GuideType = GuideType.Online, IsShow =
@@ -53,6 +50,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             ItemSelectedCommand = new DelegateCommand<Syncfusion.ListView.XForms.ItemTappedEventArgs>(ItemSelected);
         }
+
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);

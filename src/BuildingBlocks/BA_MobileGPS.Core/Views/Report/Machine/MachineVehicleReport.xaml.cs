@@ -69,6 +69,7 @@ namespace BA_MobileGPS.Core.Views
         public CustomMachineVehicleAggregate()
         {
         }
+
         public string TotalNumberMinutesTurn
         {
             get; set;

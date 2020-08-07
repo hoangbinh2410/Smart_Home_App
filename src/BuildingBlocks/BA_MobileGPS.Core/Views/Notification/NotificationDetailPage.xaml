@@ -54,7 +54,6 @@
                                 VerticalOptions="Center"
                                 VerticalTextAlignment="Center" />
                         </StackLayout>
-
                     </sharpnado:MaterialFrame.Content>
                 </sharpnado:MaterialFrame>
 
@@ -91,7 +90,6 @@
                                         </controls:FontAwesomeIcon.GestureRecognizers>
                                     </controls:FontAwesomeIcon>
                                 </sharpnado:MaterialFrame.Content>
-
                             </sharpnado:MaterialFrame>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>

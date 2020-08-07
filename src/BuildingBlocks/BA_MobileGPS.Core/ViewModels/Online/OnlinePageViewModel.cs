@@ -1,31 +1,16 @@
-﻿using BA_MobileGPS;
-using BA_MobileGPS.Core;
-using BA_MobileGPS.Core.Constant;
+﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Events;
-using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
-using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resource;
-using BA_MobileGPS.Core.ViewModels;
-using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Entities.RealmEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
-using Microsoft.AppCenter;
 using Prism.Commands;
-using Prism.Common;
-using Prism.Events;
-using Prism.Mvvm;
 using Prism.Navigation;
-using Realms.Sync;
-using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -33,7 +18,6 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class OnlinePageViewModel : ViewModelBase
     {
-
         #region Contructor
 
         private readonly IUserService userService;
@@ -92,7 +76,7 @@ namespace BA_MobileGPS.Core.ViewModels
             PushToServicePackHistoryPageCommand = new DelegateCommand(GoServicePackHistoryPage);
         }
 
-        #endregion
+        #endregion Contructor
 
         #region Property
 
@@ -149,6 +133,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public string CurrentAddress { get => currentAddress; set => SetProperty(ref currentAddress, value); }
 
         private bool isShowCircle;
+
         public bool IsShowCircle
         {
             get { return isShowCircle; }
@@ -179,7 +164,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Common_Message_NotPermission, MobileResource.Common_Button_Close);
                 }
-
             });
         }
 
@@ -327,7 +311,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-
                 // gọi service để lấy dữ liệu trả về
                 var input = new ShipDetailRequest()
                 {
@@ -369,6 +352,7 @@ namespace BA_MobileGPS.Core.ViewModels
         //{
         //    PopupNavigation.Instance.PushAsync(new OnlineCarInfo());
         //}
+
         #endregion Private Method
     }
 }

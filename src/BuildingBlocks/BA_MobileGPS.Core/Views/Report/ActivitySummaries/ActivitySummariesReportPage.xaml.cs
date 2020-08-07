@@ -1,5 +1,4 @@
 ﻿using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Syncfusion.Data;
 using Syncfusion.SfDataGrid.XForms;
@@ -15,7 +14,6 @@ namespace BA_MobileGPS.Core.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ActivitySummariesReportPage : ContentPage
     {
-
         private bool IsShowFilter = false;
 
         public ActivitySummariesReportPage()
@@ -77,6 +75,7 @@ namespace BA_MobileGPS.Core.Views
         public CustomActivitySummariesAggregate()
         {
         }
+
         public string TotalTime
         {
             get; set;

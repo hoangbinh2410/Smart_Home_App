@@ -317,7 +317,6 @@
                             VerticalOptions="Center"
                             WidthRequest="25" />
                     </pancake:PancakeView>
-
                 </Grid>
                 <StackLayout
                     Margin="10"
@@ -591,6 +590,5 @@
                 </controls:IconView>-->
             </Grid>
         </StackLayout>
-
     </Grid>
 </ContentView>

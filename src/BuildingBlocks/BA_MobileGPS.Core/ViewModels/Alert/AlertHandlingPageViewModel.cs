@@ -68,6 +68,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             return handlingContent.Validate();
         }
+
         private async void SaveExecuteAsync()
         {
             try

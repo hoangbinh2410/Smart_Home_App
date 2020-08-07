@@ -2,7 +2,6 @@
 using Syncfusion.ListView.XForms.Control.Helpers;
 using System.Linq;
 using System.Reflection;
-using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -12,6 +11,7 @@ namespace BA_MobileGPS.Core.Views
         {
             InitializeComponent();
         }
+
         private void SfListView_Loaded(object sender, Syncfusion.ListView.XForms.ListViewLoadedEventArgs e)
         {
             var visualContainer = listView.GetVisualContainer();

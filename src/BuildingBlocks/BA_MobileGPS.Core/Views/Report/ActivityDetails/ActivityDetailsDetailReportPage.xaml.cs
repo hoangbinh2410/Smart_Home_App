@@ -14,10 +14,8 @@ namespace BA_MobileGPS.Core.Views
             }
             catch (System.Exception ex)
             {
-
                 throw;
             }
-            
         }
     }
 }

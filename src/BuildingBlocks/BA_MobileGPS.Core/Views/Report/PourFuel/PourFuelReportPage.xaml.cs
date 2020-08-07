@@ -1,7 +1,4 @@
-﻿using BA_MobileGPS.Core.Resource;
-using BA_MobileGPS.Entities;
-using System;
-using System.Linq;
+﻿using System;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

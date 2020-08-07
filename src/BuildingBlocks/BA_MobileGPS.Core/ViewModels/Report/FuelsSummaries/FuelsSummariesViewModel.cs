@@ -222,7 +222,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-
         /// <summary>Mở Popup</summary>
         /// <Modified>
         /// Name     Date         Comments
@@ -232,6 +231,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             DisplayPopup = true;
         }
+
         /// <summary>Đổ dữ liệu vào excel</summary>
         /// <param name="data">The data.</param>
         /// <param name="worksheet">The worksheet.</param>

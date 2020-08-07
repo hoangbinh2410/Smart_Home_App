@@ -176,7 +176,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand ExportExcellCommand { get; private set; }
         public ICommand SaveComlumnHideCommand { get; private set; }
 
-
         #endregion Command
 
         #region Instance
@@ -479,7 +478,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoData, CountMinutesShowMessageReport);
                             }
-
                         }
                     }
                 }
@@ -546,12 +544,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     //Set the default application version as Excel 2013.
                     excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
 
-
                     //"App" is the class of Portable project.
                     Assembly assembly = typeof(App).GetTypeInfo().Assembly;
                     Stream fileStream = assembly.GetManifestResourceStream("BA_MobileGPS.Core.XlsIO.Template." + TempFileName);
 
-                    //Opens the workbook 
+                    //Opens the workbook
                     IWorkbook workbook = excelEngine.Excel.Workbooks.Open(fileStream);
 
                     //Access first worksheet from the workbook instance.
@@ -564,7 +561,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     // worksheet.Range["A1"].Text = "Hello World";
                     // worksheet.ImportData(data, 2, 1, true);
-
 
                     //Auto-fit the columns
                     worksheet.UsedRange.AutofitColumns();

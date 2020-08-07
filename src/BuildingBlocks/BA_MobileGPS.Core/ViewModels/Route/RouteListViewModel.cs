@@ -1,6 +1,4 @@
-﻿using BA_MobileGPS.Core;
-using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.ViewModels;
+﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 
@@ -61,6 +59,5 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }));
         }
-
     }
 }

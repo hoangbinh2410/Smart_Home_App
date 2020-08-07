@@ -1,11 +1,7 @@
-﻿using BA_MobileGPS.Core.Resource;
-using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 
 using Syncfusion.SfDataGrid.XForms;
-
-using System;
-using System.Linq;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

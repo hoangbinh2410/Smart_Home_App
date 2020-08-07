@@ -4,7 +4,6 @@ namespace BA_MobileGPS.Core.Resource
 {
     public partial class MobileResource
     {
-       
         public static string Menu_Label_Favorite => Get(MobileResourceNames.Menu_Label_Favorite, "THIẾT LẬP ƯA THÍCH", "Settings favorites");
 
         public static string Menu_TabItem_Home => Get(MobileResourceNames.Menu_TabItem_Home, "Trang chủ", "Home");
@@ -14,6 +13,5 @@ namespace BA_MobileGPS.Core.Resource
         public static string Menu_TabItem_Account => Get(MobileResourceNames.Menu_TabItem_Account, "Tài khoản", "Account");
         public static string Home_Label_Highlight => Get(MobileResourceNames.Home_Label_Highlight, "NỔI BẬT", "HIGHLIGHTS");
         public static string Home_Label_Features => Get(MobileResourceNames.Home_Label_Features, "TIỆN ÍCH", "FEATURES");
-
     }
 }

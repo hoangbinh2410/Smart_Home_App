@@ -1,6 +1,4 @@
-﻿using BA_MobileGPS.Core.ViewModels;
-
-using Prism.Navigation;
+﻿using Prism.Navigation;
 
 using Xamarin.Forms;
 
@@ -19,7 +17,6 @@ namespace BA_MobileGPS.Core.Views
             InitializeComponent();
 
             SetBackButtonTitle(this, "");
-
         }
     }
 }

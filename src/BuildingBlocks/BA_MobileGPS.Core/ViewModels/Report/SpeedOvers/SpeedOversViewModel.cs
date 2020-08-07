@@ -244,7 +244,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     numberrow += 1;
                     numbercolum = 1;
-                    // Số thứ tự 
+                    // Số thứ tự
                     worksheet.Range[numberrow, numbercolum].Text = data[i].OrderNumber.ToString();
 
                     // Biển số xe

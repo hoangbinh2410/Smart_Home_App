@@ -319,7 +319,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 numberrow += 1;
                 numbercolum = 4;
                 worksheet.Range[numberrow, numbercolum].Text = DateTimeHelper.FormatTimeSpan24h(new TimeSpan(data.Sum(x => TimeSpan.Parse(x.NumberMinutesTurn).Ticks)));
-
             }
             catch (Exception ex)
             {

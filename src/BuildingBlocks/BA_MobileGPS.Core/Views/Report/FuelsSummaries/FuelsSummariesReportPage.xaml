@@ -938,7 +938,6 @@
                                         </DataTemplate>
                                     </syncDataGrid:GridTemplateColumn.CellTemplate>
                                 </syncDataGrid:GridTemplateColumn>
-
                             </syncDataGrid:SfDataGrid.Columns>
 
                             <syncDataGrid:SfDataGrid.TableSummaryRows>
@@ -1068,7 +1067,6 @@
                                                 </DataTemplate>
                                             </syncDataGrid:GridSummaryColumn.Template>
                                         </syncDataGrid:GridSummaryColumn>
-
                                     </syncDataGrid:GridTableSummaryRow.SummaryColumns>
                                 </syncDataGrid:GridTableSummaryRow>
                             </syncDataGrid:SfDataGrid.TableSummaryRows>
