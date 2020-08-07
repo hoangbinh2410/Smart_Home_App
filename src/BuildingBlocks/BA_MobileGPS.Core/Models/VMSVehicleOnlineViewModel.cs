@@ -1,7 +1,5 @@
 ﻿using BA_MobileGPS.Core.Extensions;
-using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Utilities;
 using System;
 
 namespace BA_MobileGPS.Core.Models
@@ -104,10 +102,7 @@ namespace BA_MobileGPS.Core.Models
 
         public string Coordinates
         {
-            get { return string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(this.Lat), GeoHelper.LongitudeToDergeeMinSec(this.Lng)); }            
+            get { return string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(this.Lat), GeoHelper.LongitudeToDergeeMinSec(this.Lng)); }
         }
-
-     
-       
     }
 }

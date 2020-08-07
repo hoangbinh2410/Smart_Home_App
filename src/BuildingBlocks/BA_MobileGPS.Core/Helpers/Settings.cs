@@ -72,7 +72,6 @@ namespace BA_MobileGPS.Core
         private const string LoadedMap = "LoadMap";
         private static readonly bool IsLoadedMapDefault = false;
 
-
         private const string FistInstallPopup = "FisrtPopup";
         private static readonly bool FistInstallPopupDefault = true;
 

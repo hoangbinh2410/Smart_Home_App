@@ -79,5 +79,4 @@
         </Grid>
         <BoxView Margin="10,0" StyleClass="SlimLine" />
     </StackLayout>
-
 </sharpnado:MaterialFrame>

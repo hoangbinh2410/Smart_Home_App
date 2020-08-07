@@ -229,7 +229,6 @@
                                     HeightRequest="0.5"
                                     HorizontalOptions="FillAndExpand"
                                     VerticalOptions="Start" />
-
                             </Grid>
                             <!--  Giờ đến  -->
                             <Grid Grid.Row="4" RowSpacing="0">

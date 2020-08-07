@@ -57,7 +57,6 @@ namespace BA_MobileGPS.Core.ViewModels
             SearchVehicleCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehicle);
         }
 
-
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             if (parameters != null)

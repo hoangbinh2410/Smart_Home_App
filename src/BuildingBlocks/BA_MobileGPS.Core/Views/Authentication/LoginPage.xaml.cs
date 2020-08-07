@@ -6,7 +6,7 @@ namespace BA_MobileGPS.Core.Views
     {
         public LoginPage()
         {
-            InitializeComponent();         
+            InitializeComponent();
         }
 
         protected override void OnAppearing()
@@ -15,13 +15,11 @@ namespace BA_MobileGPS.Core.Views
             if (string.IsNullOrEmpty(pass.Text))
             {
                 pass.Focus();
-
             }
             if (string.IsNullOrEmpty(account.Text))
             {
                 account.Focus();
             }
-                   
         }
     }
 }

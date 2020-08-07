@@ -1,5 +1,4 @@
 ﻿using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service;
 using Syncfusion.Data;
 using Syncfusion.SfDataGrid.XForms;
 using System;
@@ -35,10 +34,8 @@ namespace BA_MobileGPS.Core.Views
             }
             catch (Exception ex)
             {
-
                 throw;
             }
-            
         }
 
         private void HideableToolbarItem_Clicked(object sender, EventArgs e)
@@ -84,6 +81,7 @@ namespace BA_MobileGPS.Core.Views
         public CustomActivityDetailsAggregate()
         {
         }
+
         public string TotalTime
         {
             get; set;

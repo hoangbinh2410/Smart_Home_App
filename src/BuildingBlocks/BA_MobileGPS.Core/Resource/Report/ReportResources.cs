@@ -596,7 +596,6 @@ namespace BA_MobileGPS.Core.Resource
 
         public static string ReportSignalLoss_Message_ValidateError_MinTimeLosing2 => Get(MobileResourceNames.ReportSignalLoss_Message_ValidateError_MinTimeLosing2, "Số phút mất tín hiệu nằm trong khoảng từ 5 đến 1000000000", "The number of minutes of signal loss ranges from 5 to 10 billion");
 
-
-        #endregion
+        #endregion Báo cáo mất tín hiệu
     }
 }

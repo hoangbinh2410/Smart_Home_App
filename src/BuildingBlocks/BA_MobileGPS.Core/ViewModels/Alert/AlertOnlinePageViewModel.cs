@@ -1,5 +1,4 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
@@ -160,15 +159,17 @@ namespace BA_MobileGPS.Core.ViewModels
         #region property
 
         private ObservableCollection<AlertOnlineDetailModel> listAlert = new ObservableCollection<AlertOnlineDetailModel>();
+
         public ObservableCollection<AlertOnlineDetailModel> ListAlert
         {
-            get => listAlert; 
+            get => listAlert;
             set
             {
                 SetProperty(ref listAlert, value);
                 RaisePropertyChanged();
             }
         }
+
         public int TotalRow { get; set; } = 0;
 
         public int PageCount { get; set; } = 20;
@@ -310,10 +311,10 @@ namespace BA_MobileGPS.Core.ViewModels
                             StartTime = alertSelected.StartTime
                         });
                         if (isSuccess)
-                        {                                                      
+                        {
                             GlobalResources.Current.TotalAlert--;
                             ListAlert.Remove(alertSelected);
-                            DisplayMessage.ShowMessageInfo(MobileResource.Alert_Message_Alert_Success);                           
+                            DisplayMessage.ShowMessageInfo(MobileResource.Alert_Message_Alert_Success);
                         }
                         else
                         {

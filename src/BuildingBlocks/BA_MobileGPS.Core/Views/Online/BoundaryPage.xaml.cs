@@ -1,11 +1,7 @@
 ﻿using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using Syncfusion.XForms.Buttons;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -18,7 +14,6 @@ namespace BA_MobileGPS.Core.Views
         public BoundaryPage()
         {
             InitializeComponent();
-
 
             ckbAllTitleCompany.StateChanged += CkbAllTitleCompany_StateChanged;
             ckbAllBoudaryCompany.StateChanged += CkbAllBoudaryCompany_StateChanged;

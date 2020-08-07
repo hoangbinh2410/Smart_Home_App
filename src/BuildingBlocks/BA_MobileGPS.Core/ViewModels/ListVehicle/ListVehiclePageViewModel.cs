@@ -11,7 +11,6 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
-using BA_MobileGPS.Utilities.Enums;
 using Prism.Commands;
 using Prism.Navigation;
 
@@ -54,6 +53,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IVehicleOnlineService vehicleOnlineService;
         private readonly IGeocodeService geocodeService;
         private readonly IPopupServices popupServices;
+
         public ListVehiclePageViewModel(INavigationService navigationService, IMapper mapper, IVehicleOnlineService vehicleOnlineService, IGeocodeService geocodeService, IPopupServices popupServices)
             : base(navigationService)
         {
@@ -71,8 +71,6 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
             EventAggregator.GetEvent<SelectedCompanyEvent>().Subscribe(OnCompanyChanged);
         }
-
-
 
         #region Lifecycle
 
@@ -116,22 +114,25 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
+
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
 
             GetListVehicleOnline();
-
         }
+
         public override void OnDestroy()
         {
             EventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
             EventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
             EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(OnCompanyChanged);
         }
-        #endregion
+
+        #endregion Lifecycle
 
         #region Property
+
         public SortOrder sortOrder = SortOrder.DefaultDES;
         public SortOrder SortOrder { get => sortOrder; set => SetProperty(ref sortOrder, value); }
 
@@ -204,9 +205,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public string searchedText;
         public string SearchedText { get => searchedText; set => SetProperty(ref searchedText, value); }
 
-        #endregion
-
-
+        #endregion Property
 
         #region Private Method
 
@@ -225,7 +224,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             companyChanged = true;
         }
-
 
         public void UpdateVehicleByCompany()
         {
@@ -372,7 +370,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 await NavigationService.NavigateAsync("ListVehicleHelpPage", useModalNavigation: true);
             });
-
         }
 
         private async void ChangeSort()
@@ -485,7 +482,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 ListVehicle = _mapper.Map<List<VehicleOnlineViewModel>>(listFilter).ToObservableCollection();
             }
         }
+
         private VehicleOnlineViewModel currentVehicle { get; set; }
+
         private void TapListVehicle(Syncfusion.ListView.XForms.ItemTappedEventArgs args)
         {
             TryExecute(async () =>
@@ -503,8 +502,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             { "vehicleItem",  selected.PrivateCode}
                         });
-
-
                 }
             });
         }
@@ -562,7 +559,6 @@ namespace BA_MobileGPS.Core.ViewModels
                }
            });
         }
-
 
         #endregion Private Method
 

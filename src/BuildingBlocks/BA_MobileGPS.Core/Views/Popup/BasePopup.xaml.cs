@@ -1,14 +1,9 @@
 ﻿using BA_MobileGPS.Core.Controls;
 using BA_MobileGPS.Core.Resource;
 using LabelHtml.Forms.Plugin.Abstractions;
-using Prism.AppModel;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -70,11 +65,11 @@ namespace BA_MobileGPS.Core.Views
             body.HorizontalOptions = LayoutOptions.Center;
 
             var title = new HtmlLabel();
-            title.Margin = new Thickness(20, 10,0, 0);
+            title.Margin = new Thickness(20, 10, 0, 0);
             //title.TextType = TextType.Html;
             title.Text = "<strong>" + _title + "</strong>";
             title.FontSize = 17;
-            title.FontAttributes = FontAttributes.Bold; 
+            title.FontAttributes = FontAttributes.Bold;
             title.HorizontalOptions = LayoutOptions.Center;
             title.VerticalTextAlignment = TextAlignment.Center;
 
@@ -86,7 +81,6 @@ namespace BA_MobileGPS.Core.Views
             title.TextColor = _textColor == null ? Color.Black : (Color)_textColor;
             messenger.TextColor = _textColor == null ? Color.Black : (Color)_textColor;
             messenger.HorizontalTextAlignment = TextAlignment.Start;
-
 
             var icon = new IconView();
             icon.WidthRequest = 60;
@@ -115,6 +109,7 @@ namespace BA_MobileGPS.Core.Views
                     body.Children.Add(messenger);
                     body.Children.Add(icon);
                     break;
+
                 case IconPosititon.Right:
                     messenger.Text += "\n";
                     footer.HeightRequest = 65;
@@ -130,6 +125,7 @@ namespace BA_MobileGPS.Core.Views
                     body.Children.Add(messenger);
                     body.Children.Add(icon);
                     break;
+
                 case IconPosititon.None:
                     panCake.Margin = new Thickness(20, 0);
                     messenger.Margin = new Thickness(20, 0, 20, 0);
@@ -140,6 +136,7 @@ namespace BA_MobileGPS.Core.Views
                     messenger.SetValue(Grid.RowProperty, 1);
                     body.Children.Add(messenger);
                     break;
+
                 default:
                     break;
             }
@@ -148,7 +145,6 @@ namespace BA_MobileGPS.Core.Views
 
             footer.HorizontalOptions = LayoutOptions.CenterAndExpand;
 
-
             var temp = new StackLayout();
             temp.Padding = 0;
             temp.Orientation = StackOrientation.Horizontal;
@@ -156,7 +152,6 @@ namespace BA_MobileGPS.Core.Views
             temp.Margin = new Thickness(0, 5, 0, 15);
 
             temp.Spacing = 25;
-
 
             var btnNo = new Button();
             btnNo.CornerRadius = 5;
@@ -184,11 +179,13 @@ namespace BA_MobileGPS.Core.Views
                 case PopupType.Yes:
                     temp.Children.Add(btnYes);
                     break;
+
                 case PopupType.YesNo:
                     btnYes.SetValue(Grid.ColumnProperty, 1);
                     temp.Children.Add(btnNo);
                     temp.Children.Add(btnYes);
                     break;
+
                 default:
                     break;
             }

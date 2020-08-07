@@ -212,8 +212,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             var respone = new List<ActivitySummariesModel>();
                             //Số ngày hoạt động thực tế
-                            var count  = ListDataSearch.Where(item => item.TotalKmGps > 0).GroupBy(u => u.FK_Date.ToString("dd/MM/yyyy")).ToList().Count;
-                            
+                            var count = ListDataSearch.Where(item => item.TotalKmGps > 0).GroupBy(u => u.FK_Date.ToString("dd/MM/yyyy")).ToList().Count;
+
                             var list = ListDataSearch.GroupBy(u => u.FK_Date.ToString("dd/MM/yyyy")).Select(grp => grp.ToList()).ToList();
                             //lấy giờ nhỏ nhất ngày đầu tiên
                             var iStartTimes = list[0].Select(x => x.StartTimes).Min();
@@ -363,7 +363,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         worksheet.Range[numberrow, numbercolum].Text = data[i].JoinFK_Date;
                     }
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = data[i].JoinStartTimes + " - "+ data[i].JoinEndTimes;
+                    worksheet.Range[numberrow, numbercolum].Text = data[i].JoinStartTimes + " - " + data[i].JoinEndTimes;
                     if (ShowActiveTime)
                     {
                         numbercolum += 1;
@@ -425,7 +425,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (ShowCurrentTime)
                 {
                     numbercolum += 1;
-           
                 }
                 numbercolum += 1;
                 if (ShowActiveTime)
@@ -438,7 +437,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     else
                     {
                         worksheet.Range[numberrow, numbercolum].Text = DateTimeHelper.FormatTimeSpan24h(new TimeSpan(data.Sum(x => x.ActivityTimes.Ticks)));
-                    } 
+                    }
                 }
                 if (ShowStopParkingTime)
                 {

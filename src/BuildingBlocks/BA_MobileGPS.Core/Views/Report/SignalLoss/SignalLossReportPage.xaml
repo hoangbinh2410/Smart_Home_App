@@ -295,7 +295,6 @@
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
                                 </Entry.Effects>
-
                             </Entry>
                         </Frame>
                     </StackLayout>
@@ -326,7 +325,6 @@
                                 WidthRequest="20" />
                         </sharpnado:MaterialFrame>
                     </StackLayout>
-
                 </Grid>
                 <syncDataGrid:SfDataGrid
                     x:Name="dataGrid"
@@ -543,7 +541,6 @@
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.CellTemplate>
                         </syncDataGrid:GridTemplateColumn>
-
                     </syncDataGrid:SfDataGrid.Columns>
 
                     <syncDataGrid:SfDataGrid.TableSummaryRows>
@@ -556,11 +553,9 @@
                                     Format="{}{TotalTimes}"
                                     MappingName="TotalTimes"
                                     SummaryType="Custom" />
-
                             </syncDataGrid:GridTableSummaryRow.SummaryColumns>
                         </syncDataGrid:GridTableSummaryRow>
                     </syncDataGrid:SfDataGrid.TableSummaryRows>
-
                 </syncDataGrid:SfDataGrid>
                 <StackLayout
                     Grid.Row="1"

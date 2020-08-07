@@ -1,6 +1,4 @@
-﻿using BA_MobileGPS;
-using BA_MobileGPS.Core;
-using BA_MobileGPS.Core.Constant;
+﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
@@ -99,7 +97,7 @@ namespace BA_MobileGPS.Core.Views
             StartTimmerCaculatorStatus();
         }
 
-        #endregion
+        #endregion Contructor
 
         #region Lifecycle
 
@@ -171,7 +169,7 @@ namespace BA_MobileGPS.Core.Views
             this.eventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
         }
 
-        #endregion
+        #endregion Lifecycle
 
         #region Property
 
@@ -180,7 +178,6 @@ namespace BA_MobileGPS.Core.Views
         private System.Timers.Timer timer;
 
         private CancellationTokenSource cts;
-
 
         /* Xe đang được chọn */
         private VehicleOnline mCarActive;
@@ -209,7 +206,7 @@ namespace BA_MobileGPS.Core.Views
         private bool infoStatusIsShown = false;
         private bool IsInitMarker = false;
 
-        #endregion Propety
+        #endregion Property
 
         #region Private Method
 
@@ -230,7 +227,6 @@ namespace BA_MobileGPS.Core.Views
         {
             try
             {
-
                 var result = boundary.Polygon.Split(',');
 
                 var color = Color.FromHex(ConvertIntToHex(boundary.Color));
@@ -271,14 +267,11 @@ namespace BA_MobileGPS.Core.Views
 
                     vm.Borders.Add(polyline);
                 }
-
-
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
-
         }
 
         public static string ConvertIntToHex(int value)
@@ -311,7 +304,6 @@ namespace BA_MobileGPS.Core.Views
             {
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
-
         }
 
         private void AddName(LandmarkResponse name)

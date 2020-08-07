@@ -126,8 +126,6 @@ namespace BA_MobileGPS.Core.ViewModels
             return data;
         }
 
-
-
         /// <summary>Gọi service truyền dữ liệu sang bên trang chi tiết</summary>
         /// <param name="OrderNumber">The order number.</param>
         /// <Modified>
@@ -257,7 +255,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     worksheet.Range[numberrow, numbercolum].Text = MobileResource.StopParkingReport_Table_StopLocation;
                 }
 
-
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.Font.Bold = true;
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.ColorIndex = ExcelKnownColors.Sky_blue;
                 //head
@@ -282,7 +279,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     numberrow += 1;
                     numbercolum = 1;
-                    // Số thứ tự 
+                    // Số thứ tự
                     worksheet.Range[numberrow, numbercolum].Text = data[i].OrderNumber.ToString();
                     // Biển số xe
                     if (ShowVehiclePlate)
@@ -293,13 +290,13 @@ namespace BA_MobileGPS.Core.ViewModels
                     //  Thời gian
                     numbercolum += 1;
                     worksheet.Range[numberrow, numbercolum].Text = DateTimeHelper.FormatDateTime(data[i].StartTime);
-                    //  Thời gian (phút) 
+                    //  Thời gian (phút)
                     if (ShowMinutes)
                     {
                         numbercolum += 1;
                         worksheet.Range[numberrow, numbercolum].Text = data[i].TotalTimeStop.ToString();
                     }
-                    // Thời gian dừng đỗ 
+                    // Thời gian dừng đỗ
                     if (ShowStopParkingTime)
                     {
                         numbercolum += 1;
@@ -317,7 +314,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         numbercolum += 1;
                         worksheet.Range[numberrow, numbercolum].Text = data[i].MinutesOfAirConditioningOn.ToString();
                     }
-                    // Tên lái xe  
+                    // Tên lái xe
                     if (ShowDriverName)
                     {
                         numbercolum += 1;
@@ -354,13 +351,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     numbercolum += 1;
                 }
-                //  Thời gian (phút) 
+                //  Thời gian (phút)
                 if (ShowMinutes)
                 {
                     numbercolum += 1;
                     worksheet.Range[numberrow, numbercolum].Text = data.Sum(x => x.TotalTimeStop).ToString();
                 }
-                // Thời gian dừng đỗ 
+                // Thời gian dừng đỗ
                 if (ShowStopParkingTime)
                 {
                     numbercolum += 1;

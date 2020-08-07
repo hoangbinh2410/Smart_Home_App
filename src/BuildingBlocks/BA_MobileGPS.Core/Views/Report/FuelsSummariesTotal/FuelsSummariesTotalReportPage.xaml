@@ -369,7 +369,6 @@
                                         VerticalOptions="Center"
                                         WidthRequest="20" />
                                 </sharpnado:MaterialFrame>
-
                             </StackLayout>
                             <StackLayout
                                 Grid.Row="1"
@@ -938,9 +937,7 @@
                                         </DataTemplate>
                                     </syncDataGrid:GridTemplateColumn.CellTemplate>
                                 </syncDataGrid:GridTemplateColumn>
-
                             </syncDataGrid:SfDataGrid.Columns>
-
                         </syncDataGrid:SfDataGrid>
                         <StackLayout
                             Grid.Row="1"

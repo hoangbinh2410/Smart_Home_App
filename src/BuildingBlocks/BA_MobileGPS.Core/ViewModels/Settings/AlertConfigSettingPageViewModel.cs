@@ -4,7 +4,6 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using Prism.Commands;
 using Prism.Navigation;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;

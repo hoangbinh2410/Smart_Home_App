@@ -174,7 +174,6 @@
                                     Text="{x:Static fontawesome:FontAwesomeIcons.AngleRight}"
                                     TextColor="{StaticResource PrimaryColor}"
                                     VerticalOptions="Center" />
-
                             </Grid>
                         </Grid>
                     </StackLayout>

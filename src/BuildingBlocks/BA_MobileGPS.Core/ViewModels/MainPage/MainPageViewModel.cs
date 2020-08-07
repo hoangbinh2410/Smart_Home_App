@@ -43,7 +43,7 @@ namespace BA_MobileGPS.Core.ViewModels
             IAppVersionService appVersionService,
             IAppDeviceService appDeviceService,
             INotificationService notificationService,
-            IIdentityHubService identityHubService, 
+            IIdentityHubService identityHubService,
             IVehicleOnlineHubService vehicleOnlineHubService,
             IAlertHubService alertHubService)
             : base(navigationService)
@@ -89,7 +89,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 GetNoticePopup();
 
                 GetCountVehicleDebtMoney();
-
             });
         }
 
@@ -156,6 +155,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
+
         #endregion Property
 
         #region PrivateMethod
@@ -174,6 +174,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 OnResumePage(true);
             }
         }
+
         private void SetTimeServer()
         {
             timer = new Timer

@@ -33,7 +33,5 @@ namespace BA_MobileGPS.Core.Resource
         public static string Login_Popup_Guarantee => Get(MobileResourceNames.Login_Popup_Guarantee, "Thông tin bảo hành", "Guarantee Informaion");
         public static string Login_Popup_RegisterSupport => Get(MobileResourceNames.Login_Popup_RegisterSupport, "Đăng kí tư vấn", "Support Register");
         public static string Login_Popup_BAGPSExperience => Get(MobileResourceNames.Login_Popup_BAGPSExperience, "Trải nghiệm BA GPS", "BA GPS Experience");
-
-
     }
 }

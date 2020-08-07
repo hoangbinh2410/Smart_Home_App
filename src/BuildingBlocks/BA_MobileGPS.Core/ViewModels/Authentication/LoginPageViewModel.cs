@@ -1,14 +1,11 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Resource;
 using BA_MobileGPS.Core.Views.Authentication;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Com.OneSignal;
-using Prism;
 using Prism.Commands;
-using Prism.Ioc;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -66,9 +63,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void Initialize(INavigationParameters parameters)
         {
-            GetInfomation();          
+            GetInfomation();
         }
-     
 
         private void GetInfomation()
         {
@@ -115,7 +111,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
-
                 switch (item.ItemType)
                 {
                     case LoginPopupItemType.OfflinePage:
@@ -137,12 +132,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     case LoginPopupItemType.BAGPSExperience:
                         await Launcher.OpenAsync(new Uri(item.Url));
                         break;
+
                     default:
                         _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
                         break;
                 }
             });
         }
+
         /// <summary>Kiểm tra xem server sống hay chết</summary>
         /// <Modified>
         /// Name     Date         Comments

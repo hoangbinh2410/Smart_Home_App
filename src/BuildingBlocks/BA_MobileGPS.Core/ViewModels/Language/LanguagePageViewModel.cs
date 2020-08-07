@@ -4,7 +4,6 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Events;
-using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -18,7 +17,6 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class LanguagePageViewModel : ViewModelBase
     {
-
         private readonly IEventAggregator _eventAggregator;
         private readonly ILanguageService _languageTypeService;
 
@@ -88,7 +86,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                var lst = _languageTypeService.All().ToList();              
+                var lst = _languageTypeService.All().ToList();
                 if (lst != null && lst.Count > 0)
                 {
                     var groupedData =
@@ -100,7 +98,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     LanguageResponeCollection = new ObservableCollection<LanguageRespone>(lst);
                     LanguageResponeCollectionSearched = new ObservableCollection<Grouping<string, LanguageRespone>>(groupedData);
                 }
-
             }
             catch (Exception ex)
             {
@@ -176,5 +173,4 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
     }
-
 }

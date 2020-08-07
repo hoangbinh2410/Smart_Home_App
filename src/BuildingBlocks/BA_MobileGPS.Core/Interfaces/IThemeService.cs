@@ -1,5 +1,4 @@
-﻿using BA_MobileGPS.Utilities.Enums;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.DependencyServices
 {
