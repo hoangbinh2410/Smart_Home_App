@@ -66,7 +66,7 @@ namespace BA_MobileGPS.Core.Droid.Logics
 
         protected override Marker CreateNativeItem(Pin outerItem)
         {
-            using var opts = new MarkerOptions()
+            var opts = new MarkerOptions()
                 .SetPosition(new LatLng(outerItem.Position.Latitude, outerItem.Position.Longitude))
                 .SetTitle(outerItem.Label)
                 .SetSnippet(outerItem.Address)
