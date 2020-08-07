@@ -42,7 +42,7 @@ namespace BA_MobileGPS.Core.Views
             }
             else
             {
-                Switcher.SelectedIndex = 2;
+                Switcher.SelectedIndex = 1;
                 Switcher.SelectedIndex = 0;
             }
 
