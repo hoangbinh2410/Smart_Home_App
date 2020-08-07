@@ -77,7 +77,10 @@
                     </StackLayout>
                 </Grid>
                 <StackLayout Spacing="10">
-                    <StackLayout Orientation="Horizontal" Spacing="10">
+                    <StackLayout
+                        IsVisible="{Binding CurrentAddress, Converter={StaticResource HasDataConverter}}"
+                        Orientation="Horizontal"
+                        Spacing="10">
                         <controls:IconView Source="ic_coordinates.png" />
                         <Label
                             FontSize="12"
