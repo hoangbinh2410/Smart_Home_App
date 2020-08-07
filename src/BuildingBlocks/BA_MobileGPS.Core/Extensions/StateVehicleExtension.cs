@@ -237,7 +237,7 @@ namespace BA_MobileGPS.Core.Extensions
 
         public static bool IsVehicleStopService(int messageID)
         {
-            return (messageID == 128) ? true : false;
+            return (messageID == 128|| messageID == 3) ? true : false;
         }
 
         /* Trạng thái gms */

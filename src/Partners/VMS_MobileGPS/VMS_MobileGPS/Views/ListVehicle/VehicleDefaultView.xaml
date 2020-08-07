@@ -3,11 +3,11 @@
     x:Class="VMS_MobileGPS.Views.VehicleDefaultView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
     Padding="0"
     CornerRadius="0">
     <sharpnado:MaterialFrame.Resources>
@@ -22,7 +22,6 @@
                 <ColumnDefinition Width=".3*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
                 <ffImage:CachedImage
                     BitmapOptimizations="True"
@@ -35,78 +34,41 @@
                     LineBreakMode="WordWrap"
                     Text="{Binding PrivateCode}" />
             </StackLayout>
-
             <StackLayout
                 Grid.Column="1"
                 HorizontalOptions="FillAndExpand"
+                Spacing="10"
                 VerticalOptions="EndAndExpand">
-                <Grid ColumnDefinitions="*,Auto">
+                <Grid ColumnDefinitions="*,100">
                     <StackLayout Grid.Column="0" HorizontalOptions="StartAndExpand">
                         <StackLayout Orientation="Horizontal" Spacing="10">
-                            <ffImage:CachedImage
-                                BitmapOptimizations="True"
-                                HeightRequest="15"
-                                Source="ic_turnon_time_on_day.png"
-                                VerticalOptions="Center"
-                                WidthRequest="15">
-                                <ffImage:CachedImage.Transformations>
-                                    <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
-                                </ffImage:CachedImage.Transformations>
-                            </ffImage:CachedImage>
+                            <controls:IconView Source="ic_turnon_time_on_day.png" />
                             <Label
                                 FontSize="12"
                                 Text="{Binding GPSTime, Converter={StaticResource DateTimeConverter}}"
                                 VerticalOptions="Center" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" Spacing="10">
-                            <ffImage:CachedImage
-                                BitmapOptimizations="True"
-                                HeightRequest="15"
-                                Source="ic_distance.png"
-                                VerticalOptions="Center"
-                                WidthRequest="15">
-                                <ffImage:CachedImage.Transformations>
-                                    <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
-                                </ffImage:CachedImage.Transformations>
-                            </ffImage:CachedImage>
+                            <controls:IconView Source="ic_distance.png" />
                             <Label
                                 FontSize="12"
                                 Text="{Binding TotalKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm}}"
                                 VerticalOptions="Center" />
                         </StackLayout>
                     </StackLayout>
-
                     <StackLayout
                         Grid.Column="1"
                         Padding="0,0,10,0"
                         HorizontalOptions="StartAndExpand">
                         <StackLayout Orientation="Horizontal" Spacing="10">
-                            <ffImage:CachedImage
-                                BitmapOptimizations="True"
-                                HeightRequest="15"
-                                Source="ic_engine.png"
-                                VerticalOptions="Center"
-                                WidthRequest="15">
-                                <ffImage:CachedImage.Transformations>
-                                    <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
-                                </ffImage:CachedImage.Transformations>
-                            </ffImage:CachedImage>
+                            <controls:IconView Source="ic_clock.png" />
                             <Label
                                 FontSize="12"
-                                Text="{Binding LostGSMTime, Converter={StaticResource SecondsToStringConverter}, StringFormat='{}({0})'}"
+                                Text="{Binding LostGSMTime, Converter={StaticResource SecondsToStringConverter}, StringFormat='{}{0}'}"
                                 VerticalOptions="Center" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" Spacing="10">
-                            <ffImage:CachedImage
-                                BitmapOptimizations="True"
-                                HeightRequest="15"
-                                Source="ic_velocity.png"
-                                VerticalOptions="Center"
-                                WidthRequest="15">
-                                <ffImage:CachedImage.Transformations>
-                                    <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
-                                </ffImage:CachedImage.Transformations>
-                            </ffImage:CachedImage>
+                            <controls:IconView Source="ic_speed.png" />
                             <Label
                                 FontSize="12"
                                 Text="{Binding Velocity, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Common_Lable_NMUnit}}"
@@ -114,65 +76,34 @@
                         </StackLayout>
                     </StackLayout>
                 </Grid>
-                <StackLayout>
+                <StackLayout Spacing="10">
                     <StackLayout Orientation="Horizontal" Spacing="10">
-                        <ffImage:CachedImage
-                            BitmapOptimizations="True"
-                            HeightRequest="15"
-                            Source="ic_coordinates.png"
-                            VerticalOptions="Center"
-                            WidthRequest="15">
-                            <ffImage:CachedImage.Transformations>
-                                <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
-                            </ffImage:CachedImage.Transformations>
-                        </ffImage:CachedImage>
+                        <controls:IconView Source="ic_coordinates.png" />
                         <Label
                             FontSize="12"
                             Text="{Binding Coordinates}"
                             VerticalOptions="Center" />
                     </StackLayout>
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <ffImage:CachedImage
-                            BitmapOptimizations="True"
-                            HeightRequest="15"
-                            Source="ic_fee.png"
-                            VerticalOptions="Center"
-                            WidthRequest="15">
-                            <ffImage:CachedImage.Transformations>
-                                <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
-                            </ffImage:CachedImage.Transformations>
-                        </ffImage:CachedImage>
+                    <StackLayout
+                        Padding="0,0,0,-2"
+                        IsVisible="{Binding MessageBAP, Converter={StaticResource HasDataConverter}}"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <controls:IconView Source="ic_fee.png" />
                         <Label
                             FontSize="12"
-                            Text="{Binding MaturityDate}"
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            LineBreakMode="TailTruncation"
+                            LineHeight="1.1"
+                            MaxLines="2"
+                            Text="{Binding MessageBAP}"
+                            TextColor="Red"
                             VerticalOptions="Center" />
                     </StackLayout>
                 </StackLayout>
-
-                <StackLayout
-                    IsVisible="{Binding MessageBAP, Converter={StaticResource HasDataConverter}}"
-                    Orientation="Horizontal"
-                    Spacing="10">
-                    <ffImage:CachedImage
-                        BitmapOptimizations="True"
-                        HeightRequest="15"
-                        Source="ic_lisence.png"
-                        VerticalOptions="Center"
-                        WidthRequest="15">
-                        <ffImage:CachedImage.Transformations>
-                            <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
-                        </ffImage:CachedImage.Transformations>
-                    </ffImage:CachedImage>
-                    <Label
-                        FontSize="12"
-                        Text="{Binding MessageBAP}"
-                        TextColor="Red"
-                        VerticalOptions="Center" />
-                </StackLayout>
             </StackLayout>
-
         </Grid>
-        <BoxView StyleClass="SlimLine" />
+        <BoxView Margin="10,0" StyleClass="SlimLine" />
     </StackLayout>
-
 </sharpnado:MaterialFrame>

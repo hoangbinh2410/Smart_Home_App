@@ -3,11 +3,12 @@
     x:Class="VMS_MobileGPS.Views.VehicleLostSignalView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
     Padding="0"
     BackgroundColor="White">
+
     <StackLayout>
         <Grid Padding="8" ColumnSpacing="10">
             <Grid.ColumnDefinitions>
@@ -39,35 +40,17 @@
                     Grid.Column="0"
                     Orientation="Horizontal"
                     Spacing="10">
-                    <ffImage:CachedImage
-                        BitmapOptimizations="True"
-                        HeightRequest="15"
-                        Source="ic_turnon_time_on_day.png"
-                        VerticalOptions="Center"
-                        WidthRequest="15">
-                        <ffImage:CachedImage.Transformations>
-                            <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
-                        </ffImage:CachedImage.Transformations>
-                    </ffImage:CachedImage>
+                    <controls:IconView Source="ic_turnon_time_on_day.png" />
                     <Label
                         FontSize="12"
-                        Text="{Binding GPSTime, Converter={StaticResource TimeConverter}}"
+                        Text="{Binding GPSTime, Converter={StaticResource DateTimeConverter}}"
                         VerticalOptions="Center" />
                 </StackLayout>
                 <StackLayout
                     Grid.Column="0"
                     Orientation="Horizontal"
                     Spacing="10">
-                    <ffImage:CachedImage
-                        BitmapOptimizations="True"
-                        HeightRequest="15"
-                        Source="ic_turnon_time_on_day.png"
-                        VerticalOptions="Center"
-                        WidthRequest="15">
-                        <ffImage:CachedImage.Transformations>
-                            <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
-                        </ffImage:CachedImage.Transformations>
-                    </ffImage:CachedImage>
+                    <controls:IconView Source="ic_clock.png" />
                     <Label
                         Margin="0"
                         FontSize="12"
@@ -76,31 +59,25 @@
                         VerticalOptions="Center" />
                 </StackLayout>
                 <StackLayout
+                    Padding="0,0,0,-2"
                     IsVisible="{Binding MessageBAP, Converter={StaticResource HasDataConverter}}"
                     Orientation="Horizontal"
                     Spacing="10">
-                    <ffImage:CachedImage
-                        BitmapOptimizations="True"
-                        HeightRequest="15"
-                        Source="ic_lisence.png"
-                        VerticalOptions="Center"
-                        WidthRequest="15">
-                        <ffImage:CachedImage.Transformations>
-                            <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
-                        </ffImage:CachedImage.Transformations>
-                    </ffImage:CachedImage>
+                    <controls:IconView Source="ic_fee.png" />
                     <Label
                         FontSize="12"
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        LineBreakMode="TailTruncation"
+                        LineHeight="1.1"
+                        MaxLines="2"
                         Text="{Binding MessageBAP}"
                         TextColor="Red"
                         VerticalOptions="Center" />
                 </StackLayout>
             </StackLayout>
         </Grid>
-        <sharpnado:MaterialFrame
-            Padding="0"
-            HeightRequest="1"
-            LightThemeBackgroundColor="{StaticResource TextSecondaryColor}" />
+        <BoxView Margin="10,0" StyleClass="SlimLine" />
     </StackLayout>
 
 </sharpnado:MaterialFrame>
