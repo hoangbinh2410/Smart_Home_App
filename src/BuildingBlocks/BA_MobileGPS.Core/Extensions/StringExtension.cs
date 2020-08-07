@@ -118,7 +118,7 @@ namespace Xamarin.Forms.Extensions
             {
                 if (time.Hours > 1)
                 {
-                    answer +=  string.Format("{0} {1} ", time.Hours, MobileResource.Common_Label_Hours);
+                    answer += string.Format("{0} {1} ", time.Hours, MobileResource.Common_Label_Hours);
                 }
                 else
                 {
@@ -129,7 +129,7 @@ namespace Xamarin.Forms.Extensions
             {
                 if (time.Minutes > 1)
                 {
-                    answer += string.Format("{0} {1}", time.Minutes , MobileResource.Common_Label_Minutes);
+                    answer += string.Format("{0} {1}", time.Minutes, MobileResource.Common_Label_Minutes);
                 }
                 else
                 {

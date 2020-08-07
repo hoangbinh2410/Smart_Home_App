@@ -68,6 +68,5 @@ namespace BA_MobileGPS.Core.Resource
         public static string DetailVehicle_Label_Vehicle_Status_Current => Get(MobileResourceNames.DetailVehicle_Label_Vehicle_Status_Current, "Trạng thái xe hiện tại", "Current vehicle status");
 
         public static string DetailVehicle_Label_ExpirationDate => Get(MobileResourceNames.DetailVehicle_Label_ExpirationDate, "Ngày hết hạn phí", "Expiration Date");
-       
     }
 }

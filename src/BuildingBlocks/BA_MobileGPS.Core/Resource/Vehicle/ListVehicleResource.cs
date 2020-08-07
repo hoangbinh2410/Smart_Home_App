@@ -42,6 +42,6 @@ namespace BA_MobileGPS.Core.Resource
         public static string ListVehicle_Label_VehicleLostGSM => Get(MobileResourceNames.ListVehicle_Label_VehicleLostGSM, "Phương tiện mất tín hiệu liên lạc, chưa đóng phí hoặc mất GPS", "Vehicle encounter GPS Signal lost, have yet paid the fee or lose GPS Signal ");
         public static string ListVehicle_Label_VehicleLostGSM2 => Get(MobileResourceNames.ListVehicle_Label_VehicleLostGSM2, "Phương tiện mất tín hiệu liên lạc, chưa đóng phí hoặc mất GPS", "Vehicle encounter GPS Signal lost, have yet paid the fee or lose GPS Signal ");
         public static string ListVehicle_Label_VehicleLostGSM2VMS => Get(MobileResourceNames.ListVehicle_Label_VehicleLostGSM2VMS, "Phương tiện mất tín hiệu liên lạc, chưa đóng phí hoặc mất GPS", "Fishing Boat encounter GPS Signal lost, have yet paid the fee or lose GPS Signal ");
-        public static string ListVehicle_Label_Note => Get(MobileResourceNames.ListVehicle_Label_Note, "Chú thích","Note");
+        public static string ListVehicle_Label_Note => Get(MobileResourceNames.ListVehicle_Label_Note, "Chú thích", "Note");
     }
 }
