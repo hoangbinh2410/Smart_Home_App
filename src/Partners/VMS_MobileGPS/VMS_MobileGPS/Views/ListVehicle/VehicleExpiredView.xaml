@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     Padding="0"
     BackgroundColor="White">
@@ -57,7 +58,7 @@
                     <controls:IconView Source="ic_clock.png" />
                     <Label
                         FontSize="12"
-                        Text="Ngày hết hạn"
+                        Text="{i18n:TranslateResource ListVehicle_Label_Vehicle_Expiration_Date}"
                         VerticalOptions="Center" />
                     <Label
                         Margin="-5,0,0,0"

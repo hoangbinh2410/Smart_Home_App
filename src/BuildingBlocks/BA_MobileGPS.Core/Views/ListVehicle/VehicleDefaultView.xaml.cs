@@ -1,10 +1,11 @@
-﻿using Xamarin.Forms;
+﻿using Sharpnado.MaterialFrame;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace BA_MobileGPS.Core.Views.ListVehicle
+namespace BA_MobileGPS.Core.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class VehicleDefaultView : Grid
+    public partial class VehicleDefaultView : MaterialFrame
     {
         public VehicleDefaultView()
         {

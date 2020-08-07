@@ -1,13 +1,10 @@
-﻿using BA_MobileGPS.Core.Resource;
+﻿using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.ViewModels;
-using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 
 using Prism.Navigation;
 
 using System;
-using System.Linq;
 using System.Reflection;
 using System.Timers;
 
@@ -28,15 +25,14 @@ namespace BA_MobileGPS.Core.Views
         }
 
         private Timer timer;
-        private readonly IHelperAdvanceService _helperAdvanceService;
 
         private bool infoStatusIsShown = false;
 
-        private readonly Animation animations = new Animation();
+        private readonly BA_MobileGPS.Core.Animation animations = new BA_MobileGPS.Core.Animation();
 
         private ListVehiclePageViewModel vm;
 
-        public ListVehiclePage(IHelperAdvanceService helperAdvanceService)
+        public ListVehiclePage()
         {
             try
             {
@@ -44,8 +40,6 @@ namespace BA_MobileGPS.Core.Views
 
                 // Initialize the View Model Object
                 vm = (ListVehiclePageViewModel)BindingContext;
-
-                this._helperAdvanceService = helperAdvanceService;
 
                 int pageWidth = (int)Application.Current.MainPage.Width;
 

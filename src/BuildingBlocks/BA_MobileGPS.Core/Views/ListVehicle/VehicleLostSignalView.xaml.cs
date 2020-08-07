@@ -1,10 +1,11 @@
-﻿using Xamarin.Forms;
+﻿using Sharpnado.MaterialFrame;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace BA_MobileGPS.Core.Views.ListVehicle
+namespace BA_MobileGPS.Core.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class VehicleLostSignalView : Grid
+    public partial class VehicleLostSignalView : MaterialFrame
     {
         public VehicleLostSignalView()
         {
