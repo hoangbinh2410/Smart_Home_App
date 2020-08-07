@@ -6,7 +6,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Prism.Unity.Forms" Version="7.2.0.1422" />
-		<PackageReference Include="Xamarin.Forms" Version="4.7.0.1239" />
+		<PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
 	</ItemGroup>
 
 	<ItemGroup>

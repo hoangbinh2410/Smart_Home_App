@@ -24,6 +24,7 @@
                 WidthRequest="280">
                 <StackLayout Spacing="10">
                     <Frame
+                        BackgroundColor="Transparent"
                         BorderColor="Transparent"
                         CornerRadius="0"
                         HasShadow="False"
