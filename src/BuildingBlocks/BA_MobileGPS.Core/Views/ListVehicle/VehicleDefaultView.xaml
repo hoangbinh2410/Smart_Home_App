@@ -52,7 +52,7 @@
                             <controls:IconView Source="ic_distance.png" />
                             <Label
                                 FontSize="12"
-                                Text="{Binding TotalKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm}}"
+                                Text="{Binding TotalKm, Converter={StaticResource KmConverter}}"
                                 VerticalOptions="Center" />
                         </StackLayout>
                     </StackLayout>
@@ -71,7 +71,7 @@
                             <controls:IconView Source="ic_speed.png" />
                             <Label
                                 FontSize="12"
-                                Text="{Binding Velocity, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Common_Lable_NMUnit}}"
+                                Text="{Binding Velocity, Converter={StaticResource VelocityConverter}}"
                                 VerticalOptions="Center" />
                         </StackLayout>
                     </StackLayout>

@@ -359,7 +359,7 @@
                             VerticalOptions="Center"
                             WidthRequest="20" />
                     </pancake:PancakeView>
-                    <pancake:PancakeView
+                    <!--<pancake:PancakeView
                         Padding="0"
                         BackgroundColor="{StaticResource PrimaryColor}"
                         CornerRadius="25"
@@ -376,7 +376,7 @@
                             Source="ic_bounded_area.png"
                             VerticalOptions="Center"
                             WidthRequest="20" />
-                    </pancake:PancakeView>
+                    </pancake:PancakeView>-->
                 </StackLayout>
                 <Frame
                     x:Name="frVehicleInfo"
@@ -406,13 +406,13 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 FontAttributes="Bold"
-                                Text="{i18n:TranslateResource Route_Label_TitleVMS}"
+                                Text="{i18n:TranslateResource Route_Label_Title}"
                                 TextColor="{StaticResource PrimaryColor}" />
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                Text="{Binding DateKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm, Converter={StaticResource LowerCaseConverter}}}"
+                                Text="{Binding DateKm, StringFormat='{}{0:###,###,##0.##} km'}"
                                 TextColor="Black" />
                             <BoxView
                                 Grid.Row="1"
@@ -444,11 +444,11 @@
                                 <Label
                                     FontSize="{StaticResource MyFontSizeSmall}"
                                     HorizontalOptions="Center"
-                                    Text="{i18n:TranslateResource Common_Lable_NMUnit}"
+                                    Text="km/h"
                                     TextColor="Gray" />
                                 <Label
                                     HorizontalOptions="Center"
-                                    Text="{Binding CurrentRoute.Velocity, Converter={StaticResource NMConverter}}"
+                                    Text="{Binding CurrentRoute.Velocity}"
                                     TextColor="{StaticResource PrimaryColor}" />
                             </StackLayout>
                         </Grid>
