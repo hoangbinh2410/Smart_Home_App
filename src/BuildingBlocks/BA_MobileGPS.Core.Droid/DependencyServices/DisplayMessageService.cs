@@ -17,31 +17,31 @@ namespace BA_MobileGPS.Core.Droid.DependencyServices
         public void ShowMessageError(string message, double time)
         {
             Activity activity = CrossCurrentActivity.Current.Activity;
-            new GlideToast.MakeToast(activity, message, (int)time, GlideToast.FailToast, GlideToast.Bottom, BA_MobileGPS.Core.Droid.Resource.Drawable.ic_notifications, "#ffffff").Show();
+            new GlideToast.MakeToast(activity, message, (int)time, GlideToast.FailToast, GlideToast.Bottom).Show();
         }
 
         public void ShowMessageInfo(string message, double time)
         {
             Activity activity = CrossCurrentActivity.Current.Activity;
-            new GlideToast.MakeToast(activity, message, (int)time, GlideToast.InfoToast, GlideToast.Bottom, BA_MobileGPS.Core.Droid.Resource.Drawable.ic_notifications, "#ffffff").Show();
+            new GlideToast.MakeToast(activity, message, (int)time, GlideToast.InfoToast, GlideToast.Bottom).Show();
         }
 
         public void ShowMessageWarning(string message, double time)
         {
             Activity activity = CrossCurrentActivity.Current.Activity;
-            new GlideToast.MakeToast(activity, message, (int)time, GlideToast.WarningToast, GlideToast.Bottom, BA_MobileGPS.Core.Droid.Resource.Drawable.ic_notifications, "#ffffff").Show();
+            new GlideToast.MakeToast(activity, message, (int)time, GlideToast.WarningToast, GlideToast.Bottom).Show();
         }
 
         public void ShowMessageSuccess(string message, double time)
         {
             Activity activity = CrossCurrentActivity.Current.Activity;
-            new GlideToast.MakeToast(activity, message, (int)time, GlideToast.SuccessToast, GlideToast.Bottom, BA_MobileGPS.Core.Droid.Resource.Drawable.ic_notifications, "#ffffff").Show();
+            new GlideToast.MakeToast(activity, message, (int)time, GlideToast.SuccessToast, GlideToast.Bottom).Show();
         }
 
         public void ShowToast(string message, double time)
         {
             Activity activity = CrossCurrentActivity.Current.Activity;
-            new GlideToast.MakeToast(activity, message, (int)time, GlideToast.FailToast, GlideToast.Bottom, BA_MobileGPS.Core.Droid.Resource.Drawable.ic_notifications, "#ffffff").Show();
+            new GlideToast.MakeToast(activity, message, (int)time, GlideToast.FailToast, GlideToast.Bottom).Show();
         }
     }
 }
