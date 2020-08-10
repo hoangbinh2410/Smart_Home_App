@@ -18,6 +18,37 @@
     xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
     Title="{Binding Title}"
     BackgroundColor="White">
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
+            <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                LineBreakMode="TailTruncation"
+                Text="{Binding Title}"
+                TextColor="{StaticResource WhiteColor}"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <ScrollView
             HorizontalOptions="FillAndExpand"
@@ -39,6 +70,7 @@
                     <views:DateTimePickerView
                         Grid.Row="0"
                         Grid.Column="0"
+                        BorderColor="{StaticResource GrayColor2}"
                         DateSelectedCommand="{Binding DateSelectedCommand}"
                         DateTime="{Binding FromDate}"
                         FontSize="13"
@@ -51,6 +83,7 @@
                     <views:DateTimePickerView
                         Grid.Row="0"
                         Grid.Column="1"
+                        BorderColor="{StaticResource GrayColor2}"
                         DateSelectedCommand="{Binding DateSelectedCommand}"
                         DateTime="{Binding ToDate}"
                         FontSize="13"
