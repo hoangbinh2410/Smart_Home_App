@@ -1,4 +1,4 @@
-﻿using BA_MobileGPS.Core.Resource;
+﻿using BA_MobileGPS.Core.Resources;
 
 using Syncfusion.SfPicker.XForms;
 

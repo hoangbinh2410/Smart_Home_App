@@ -30,8 +30,8 @@ namespace BA_MobileGPS.Core.Droid
         public IconClusterGenerator(Context context)
         {
             mContext = context;
-            mContainer = (LinearLayout)LayoutInflater.From(mContext).Inflate(Resource.Layout.amu_text_bubble_cluster, null);
-            mTextView = mTextView = (TextView)mContainer.FindViewById(Resource.Id.amu_text);
+            mContainer = (LinearLayout)LayoutInflater.From(mContext).Inflate(2131427369, null);
+            mTextView = mTextView = (TextView)mContainer.FindViewById(2131230805);
         }
 
         /**
