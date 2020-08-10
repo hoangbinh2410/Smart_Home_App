@@ -138,7 +138,7 @@ namespace BA_MobileGPS.Core
         {
             //1- Đối với TK companytype = 3 có nhóm đội , không có quyền xem khách lẻ : Ẩn icon chọn công ty, hiện icon nhóm đội (petajicohn/12341234)
             //2 - Đối với TK companytype = 3 có nhóm đội , có quyền xem khách lẻ(PermissionID = 18) : Hiện icon chọn công ty, hiện icon nhóm đội(admin1002/ 12341234)
-            if (UserHelper.isCompanyPartner((CompanyType)value) || (UserHelper.isCompanyEndUserWithPermisstion((CompanyType)value)))
+            if (UserHelper.isCompanyPartner((CompanyType)value) || UserHelper.isCompanyAdmin((CompanyType)value) || (UserHelper.isCompanyEndUserWithPermisstion((CompanyType)value)))
             {
                 return true;
             }
