@@ -2800,7 +2800,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\amu_text_bubble_cluster.xml" />
+    <AndroidResource Include="Resources\layout\cluster.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\photo_browser_overlay.xml" />
