@@ -26,10 +26,10 @@ namespace BA_MobileGPS.Core.Droid.DependencyServices
 
         protected void init()
         {
-            View view = Inflate(Context, 2131427438, this);
-            tvDescription = view.FindViewById<TextView>(2131231189);
-            tvInfo = view.FindViewById<TextView>(2131231190);
-            btnAction = view.FindViewById<ImageButton>(2131230835);
+            View view = Inflate(Context, Resource.Layout.photo_browser_overlay, this);
+            tvDescription = view.FindViewById<TextView>(Resource.Id.tvDescription);
+            tvInfo = view.FindViewById<TextView>(Resource.Id.tvInfo);
+            btnAction = view.FindViewById<ImageButton>(Resource.Id.btnCloseForms);
 
             if (_photoBrowser.ActionButtonPressed != null)
             {
