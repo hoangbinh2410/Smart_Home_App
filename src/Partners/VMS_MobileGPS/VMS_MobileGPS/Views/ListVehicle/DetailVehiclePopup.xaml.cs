@@ -1,5 +1,5 @@
 ﻿using BA_MobileGPS.Core.Models;
-using BA_MobileGPS.Core.Resource;
+using BA_MobileGPS.Core.Resources;
 using Prism;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
