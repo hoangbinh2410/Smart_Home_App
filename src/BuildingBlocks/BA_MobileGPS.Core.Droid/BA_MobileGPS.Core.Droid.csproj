@@ -296,9 +296,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\amu_text_bubble_cluster.axml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_cluster.png" />
   </ItemGroup>
   <ItemGroup>
@@ -1734,9 +1731,6 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_car_play.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\photo_browser_overlay.axml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_close_white.png" />
   </ItemGroup>
   <ItemGroup>
@@ -2803,6 +2797,13 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_infor_light.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\amu_text_bubble_cluster.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\photo_browser_overlay.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
