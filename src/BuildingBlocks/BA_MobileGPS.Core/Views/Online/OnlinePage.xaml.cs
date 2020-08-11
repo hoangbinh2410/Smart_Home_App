@@ -77,6 +77,11 @@ namespace BA_MobileGPS.Core.Views
             googleMap.UiSettings.MyLocationButtonEnabled = false;
             googleMap.UiSettings.RotateGesturesEnabled = false;
 
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                googleMap.ClusterOptions.RendererImage = BitmapDescriptorFactory.FromResource("ic_cluster.png");
+            }
+
             googleMap.ClusterClicked += Map_ClusterClicked;
             googleMap.PinClicked += MapOnPinClicked;
             googleMap.MapClicked += Map_MapClicked;
