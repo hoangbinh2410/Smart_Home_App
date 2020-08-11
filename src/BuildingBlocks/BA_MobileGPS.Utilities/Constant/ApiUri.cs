@@ -61,6 +61,8 @@
 
         public const string GET_VEHICLE_COMPANY = "api/vehicles/getlistcompanyid";
 
+        public const string GET_VEHICLE_COMPANY_BY_BUSINESSUSER = "api/vehicles/getlistcompanyidbybusinessuser";
+
         public const string GET_VEHICLE_ROUTE_HISTORY = "api/v2/route/gethistoryroute";
 
         public const string GET_VALIDATE_USER_CONFIG_ROUTE_HISTORY = "api/route/validationuserconfiggethistoryroute";

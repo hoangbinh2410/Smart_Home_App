@@ -66,7 +66,14 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             using (new HUDService(""))
             {
-                GetCompany();
+                if (UserHelper.isBusinessUser(UserInfo))
+                {
+                    GetCompanyByBusinessUser();
+                }
+                else
+                {
+                    GetCompany();
+                }
             }
         }
 
@@ -79,6 +86,34 @@ namespace BA_MobileGPS.Core.ViewModels
             else
             {
                 var listCompany = await vehicleOnlineService.GetListCompanyAsync(UserInfo.UserId, UserInfo.CompanyId);
+
+                if (listCompany != null)
+                {
+                    StaticSettings.ListCompany = listCompany;
+
+                    InitData(listCompany);
+
+                    if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0 && listCompany.FirstOrDefault(x => x.FK_CompanyID == Settings.CurrentCompany.FK_CompanyID) == null)
+                    {
+                        Settings.CurrentCompany = new Company();
+                    }
+                }
+                else
+                {
+                    StaticSettings.ListCompany = new List<Company>();
+                }
+            }
+        }
+
+        public async void GetCompanyByBusinessUser()
+        {
+            if (StaticSettings.ListCompany != null && StaticSettings.ListCompany.Count > 0)
+            {
+                InitData(StaticSettings.ListCompany);
+            }
+            else
+            {
+                var listCompany = await vehicleOnlineService.GetListCompanyByBusinessUserAsync(UserInfo.UserId);
 
                 if (listCompany != null)
                 {

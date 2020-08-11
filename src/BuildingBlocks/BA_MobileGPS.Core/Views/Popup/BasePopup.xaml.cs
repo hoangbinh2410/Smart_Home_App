@@ -1,5 +1,5 @@
 ﻿using BA_MobileGPS.Core.Controls;
-using BA_MobileGPS.Core.Resource;
+using BA_MobileGPS.Core.Resources;
 using LabelHtml.Forms.Plugin.Abstractions;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;

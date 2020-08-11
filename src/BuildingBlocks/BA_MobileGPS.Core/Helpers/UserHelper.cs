@@ -28,12 +28,35 @@ namespace BA_MobileGPS.Core
             return result;
         }
 
+        //Người dùng kinh doanh
+        public static bool isBusinessUser(LoginResponse loginResponse)
+        {
+            var result = false;
+
+            if (loginResponse.CompanyType == CompanyType.BinhAnh && loginResponse.UserType == UserType.BusinessUser)
+            {
+                result = true;
+            }
+            return result;
+        }
+
         //Đại lý
         public static bool isCompanyPartner(LoginResponse loginResponse)
         {
             var result = false;
 
             if (loginResponse.CompanyType == CompanyType.Partner)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public static bool isCompanyAdmin(CompanyType companyType)
+        {
+            var result = false;
+
+            if (companyType == CompanyType.BinhAnh)
             {
                 result = true;
             }

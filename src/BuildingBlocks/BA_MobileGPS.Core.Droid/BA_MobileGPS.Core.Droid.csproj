@@ -17,7 +17,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
     <AndroidUseAapt2>true</AndroidUseAapt2>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -110,8 +110,8 @@
     <Compile Include="GoogleMaps\MapRender\Utils.cs" />
     <Compile Include="GoogleMaps\MapRender\UtilsCluster.cs" />
     <Compile Include="MainApplication.cs" />
-    <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Setup\ToolSetup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -294,9 +294,6 @@
       <Project>{89a997b6-2157-4bad-a833-d3fa085b54ba}</Project>
       <Name>BA_MobileGPS.Utilities</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\amu_text_bubble_cluster.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_cluster.png" />
@@ -1734,9 +1731,6 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_car_play.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\photo_browser_overlay.axml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_close_white.png" />
   </ItemGroup>
   <ItemGroup>
@@ -2803,6 +2797,13 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_infor_light.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\cluster.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\photo_browser_overlay.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
