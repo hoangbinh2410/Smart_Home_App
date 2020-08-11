@@ -31,7 +31,7 @@ namespace BA_MobileGPS.Core.Droid
         {
             mContext = context;
             mContainer = (LinearLayout)LayoutInflater.From(mContext).Inflate(Resource.Layout.cluster, null);
-            mTextView = mTextView = (TextView)mContainer.FindViewById(Resource.Id.amu_text);
+            mTextView = mContainer.FindViewById<TextView>(Resource.Id.amu_text);
         }
 
         /**
