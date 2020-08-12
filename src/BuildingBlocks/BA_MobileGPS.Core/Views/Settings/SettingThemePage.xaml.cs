@@ -1,4 +1,4 @@
-﻿using BA_MobileGPS.Core.Resource;
+﻿using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.Themes;
 using Prism;
 using Prism.Ioc;
@@ -11,7 +11,6 @@ namespace BA_MobileGPS.Core.Views
         public SettingThemePage()
         {
             InitializeComponent();
-            
         }
 
         protected override void OnAppearing()
