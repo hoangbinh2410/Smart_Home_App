@@ -81,5 +81,7 @@
 	<string>3.0.0</string>
 	<key>CFBundleShortVersionString</key>
 	<string>3.0.0</string>
+  <key>UIUserInterfaceStyle</key>
+  <string>light</string>
 </dict>
 </plist>

@@ -7,6 +7,7 @@
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     Title="{i18n:TranslateResource Settings_Label_Title}"
     NavigationPage.BackButtonTitle="">
 
@@ -49,9 +50,9 @@
                     </sharpnado:MaterialFrame>
 
                     <StackLayout
-                        Padding="10"
+                        Padding="10,0"
                         BindableLayout.ItemsSource="{Binding MobileUserSettings}"
-                        Spacing="10">
+                        Spacing="0">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout
@@ -71,6 +72,25 @@
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
+                    <Grid
+                        Padding="10,0"
+                        ColumnDefinitions="*,Auto"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PushToSettingThemeCommand}" />
+                        </Grid.GestureRecognizers>
+                        <Label
+                            HorizontalOptions="StartAndExpand"
+                            Text="{i18n:TranslateResource Settings_Label_ChangeTheme}"
+                            VerticalOptions="Center" />
+                        <controls:FontAwesomeIcon
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            Text="{x:Static fontawesome:FontAwesomeIcons.AngleRight}"
+                            TextColor="{StaticResource PrimaryColor}"
+                            VerticalOptions="Center" />
+                    </Grid>
                 </StackLayout>
 
                 <StackLayout Spacing="0">

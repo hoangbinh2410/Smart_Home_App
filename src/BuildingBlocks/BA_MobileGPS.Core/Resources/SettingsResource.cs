@@ -22,5 +22,9 @@ namespace BA_MobileGPS.Core.Resources
         public static string Settings_Label_ListAlert => Get(MobileResourceNames.Settings_Label_ListAlert, "Danh sách cảnh báo", "List Alert");
 
         public static string Settings_Label_ListVehicleAlert => Get(MobileResourceNames.Settings_Label_ListVehicleAlert, "Danh sách xe nhận cảnh báo", "List Vehicle Receive Alert");
+        public static string Settings_Label_ChangeTheme => Get(MobileResourceNames.Settings_Label_ChangeTheme, "Thay đổi giao diện", "Change Theme");
+        public static string Settings_CheckBox_Light => Get(MobileResourceNames.Settings_CheckBox_Light, "Sáng", "Light");
+        public static string Settings_Checkbox_Dark => Get(MobileResourceNames.Settings_Checkbox_Dark, "Tối", "Dark");
+        public static string Settings_Checkbox_Custom => Get(MobileResourceNames.Settings_Checkbox_Custom, "Custom", "Custom");
     }
 }

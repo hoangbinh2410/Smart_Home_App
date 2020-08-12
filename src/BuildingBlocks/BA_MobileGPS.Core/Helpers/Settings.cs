@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Core.Themes;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Enums;
 using Newtonsoft.Json;
@@ -80,6 +81,9 @@ namespace BA_MobileGPS.Core
 
         private const string SortOrderKey = "SortOrderKey";
         private static readonly int SortOrderKeyDefault = (int)SortOrderType.DefaultDES;
+
+        private const string CurrentThemeKey = "CurrentThemeKey";
+        private static readonly string CurrentThemeDefault = Theme.Light.ToString();
 
         public static float Latitude
         {
@@ -256,6 +260,12 @@ namespace BA_MobileGPS.Core
         {
             get => AppSettings.GetValueOrDefault(SortOrderKey, SortOrderKeyDefault);
             set => AppSettings.AddOrUpdateValue(SortOrderKey, value);
+        }
+
+        public static string CurrentTheme
+        {
+            get => AppSettings.GetValueOrDefault(CurrentThemeKey, CurrentThemeDefault);
+            set => AppSettings.AddOrUpdateValue(CurrentThemeKey, value);
         }
     }
 }

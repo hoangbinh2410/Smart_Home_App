@@ -22,13 +22,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Update="Styles\Custom.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Styles\DarkColor.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Styles\LightColor.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Styles\VMS_Styles.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\ListVehicle\DetailVehiclePopup.xaml">

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace VMS_MobileGPS.Styles
+namespace BA_MobileGPS.Core.Themes
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class VMS_Styles : ResourceDictionary
+    public partial class Light : ResourceDictionary
     {
-        public VMS_Styles()
+        public Light()
         {
             InitializeComponent();
         }
