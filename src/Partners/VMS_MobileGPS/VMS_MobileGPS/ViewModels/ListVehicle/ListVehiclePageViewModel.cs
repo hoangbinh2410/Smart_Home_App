@@ -475,9 +475,13 @@ namespace VMS_MobileGPS.ViewModels
                 if (args.ItemData is VMSVehicleOnlineViewModel selected)
                 {
                     //Nếu messageId = 2 hoặc 3 là xe phải thu phí
-                    if (StateVehicleExtension.IsVehicleStopService(selected.MessageId))
+                    if ( StateVehicleExtension.IsVehicleStopService(selected.MessageId))
                     {
-                        var mes = string.IsNullOrEmpty(selected.MessageDetailBAP) ? selected.MessageBAP : selected.MessageDetailBAP;                     
+                        var mes = string.IsNullOrEmpty(selected.MessageDetailBAP) ? selected.MessageBAP : selected.MessageDetailBAP;
+                        if (selected.MessageId == 128)
+                        {
+                            mes = string.Format("Phương tiện {0} đã dừng dịch vụ từ ngày {1}", selected.PrivateCode, DateTimeHelper.FormatDate(selected.MaturityDate));
+                        }                      
                         ShowInfoMessageDetailBAP(mes);
                         return;
                     }
