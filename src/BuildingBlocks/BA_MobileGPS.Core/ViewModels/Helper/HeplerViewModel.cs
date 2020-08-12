@@ -4,47 +4,21 @@ using BA_MobileGPS.Entities;
 
 using Prism.Commands;
 using Prism.Navigation;
-
+using System;
 using System.Collections.Generic;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class HeplerViewModel : ViewModelBase
     {
-        private List<HeplerModel> Response => new List<HeplerModel>
-        {
-            new HeplerModel () { Icon = "ic_list_black", Title = MobileResource.Helper_Label_HeplperOnline, GuideType = GuideType.Online, IsShow =
-            CheckPermision(new List<PermissionKeyNames>
-            {
-                PermissionKeyNames.ViewModuleOnline,
-            })},
-            new HeplerModel () { Icon = "ic_list_black", Title = MobileResource.Helper_Label_Router, GuideType = GuideType.Router, IsShow =
-            CheckPermision(new List<PermissionKeyNames>
-            {
-                PermissionKeyNames.ViewModuleRoute,
-            })},
-            new HeplerModel () { Icon = "ic_list_black", Title = MobileResource.Helper_Label_Camera, GuideType = GuideType.Camera, IsShow  =
-            CheckPermision(new List<PermissionKeyNames>
-            {
-                PermissionKeyNames.AdminUtilityImageView,
-                PermissionKeyNames.AdminUtilityImageManagement
-            })},
-            new HeplerModel () { Icon = "ic_list_black", Title = MobileResource.Helper_Label_VihcleDebt, GuideType = GuideType.ListVihicleDebt, IsShow = MobileSettingHelper.IsUseVehicleDebtMoney },
-            new HeplerModel () { Icon = "ic_list_black", Title = MobileResource.Helper_Label_listVihicle, GuideType = GuideType.ListVihicle, IsShow = true },
-            new HeplerModel () { Icon = "ic_list_black", Title = MobileResource.Helper_Label_PourFuel, GuideType = GuideType.Report, IsShow = CheckPermision(new List<PermissionKeyNames>
-            {
-                PermissionKeyNames.ViewModuleReports,
-                PermissionKeyNames.ReportMachineOnView,
-                PermissionKeyNames.ReportMachineStateView
-            })},
-        };
-
-        private List<HeplerModel> listHelper;
-        public List<HeplerModel> ListHelper { get => listHelper; set => SetProperty(ref listHelper, value); }
+        private List<HeplerMenuModel> listHelper;
+        public List<HeplerMenuModel> ListHelper { get => listHelper; set => SetProperty(ref listHelper, value); }
 
         public ICommand ItemSelectedCommand { get; set; }
 
+        [Obsolete]
         public HeplerViewModel(INavigationService navigationService)
             : base(navigationService)
         {
@@ -54,17 +28,38 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            ListHelper = Response.FindAll(h => h.IsShow);
+            ShowHelpMenu();
         }
 
+        private void ShowHelpMenu()
+        {
+            var menuhelp = new List<HeplerMenuModel>();
+
+            var menu = StaticSettings.ListMenu;
+
+            if (menu != null && menu.Count > 0)
+            {
+                foreach (var item in menu)
+                {
+                    menuhelp.Add(new HeplerMenuModel()
+                    {
+                        Icon = "ic_list_black",
+                        Title = MobileResource.Helper_Label_Using + item.NameByCulture.ToLower(),
+                        Link = "https://www.youtube.com/channel/UC0vfDfFTKXXV_d7m86b1MhQ",
+                        IsShow = true
+                    });
+                }
+            }
+
+            ListHelper = menuhelp.FindAll(h => h.IsShow);
+        }
+
+        [Obsolete]
         private void ItemSelected(Syncfusion.ListView.XForms.ItemTappedEventArgs args)
         {
-            if (args.ItemData is HeplerModel hepler)
+            if (args.ItemData is HeplerMenuModel hepler)
             {
-                NavigationService.NavigateAsync("TutorialPage", parameters: new NavigationParameters
-                {
-                    { ParameterKey.HelperKey, hepler.GuideType }
-                });
+                Device.OpenUri(new Uri(hepler.Link));
             }
         }
     }
