@@ -422,12 +422,14 @@ namespace BA_MobileGPS.Service
                     response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     Logger.WriteError($"status :{response.StatusCode} content:{content}");
+                    StaticSettings.IsUnauthorized = false;
                 }
                 var message = await Task.Run(() => JsonConvert.DeserializeObject<ResponeMessage>(content, _serializerSettings));
             }
             else
             {
                 result = await Task.Run(() => JsonConvert.DeserializeObject<TResult>(content, _serializerSettings));
+                StaticSettings.IsUnauthorized = true;
             }
 
             return result;

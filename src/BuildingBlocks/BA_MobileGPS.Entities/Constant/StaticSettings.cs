@@ -34,5 +34,7 @@ namespace BA_MobileGPS.Entities
             ListVehilceFree = null;
             ListCompany = null;
         }
+
+        public static bool IsUnauthorized { get; set; }
     }
 }
