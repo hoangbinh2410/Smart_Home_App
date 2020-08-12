@@ -43,7 +43,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     menuhelp.Add(new HeplerMenuModel()
                     {
-                        Icon = "ic_list_black",
+                        Icon = item.IconMobile,
                         Title = MobileResource.Helper_Label_Using + item.NameByCulture.ToLower(),
                         Link = "https://www.youtube.com/channel/UC0vfDfFTKXXV_d7m86b1MhQ",
                         IsShow = true
