@@ -188,7 +188,7 @@ namespace VMS_MobileGPS.ViewModels
             }
         }
 
-        private List<VMSVehicleOnlineViewModel> ListVehicleByStatus;
+        private List<VMSVehicleOnlineViewModel> ListVehicleByStatus = new List<VMSVehicleOnlineViewModel>();
 
         private bool companyChanged;
 
@@ -296,7 +296,7 @@ namespace VMS_MobileGPS.ViewModels
                 {
                     ListVehicle = ListVehicleOrigin.ToObservableCollection();
                 }
-
+                ListVehicleByStatus = ListVehicleOrigin;
                 InitVehicleStatus();
             }
             catch (Exception ex)
@@ -477,7 +477,8 @@ namespace VMS_MobileGPS.ViewModels
                     //Nếu messageId = 2 hoặc 3 là xe phải thu phí
                     if (StateVehicleExtension.IsVehicleStopService(selected.MessageId))
                     {
-                        ShowInfoMessageDetailBAP(selected.MessageDetailBAP);
+                        var mes = string.IsNullOrEmpty(selected.MessageDetailBAP) ? selected.MessageBAP : selected.MessageDetailBAP;                     
+                        ShowInfoMessageDetailBAP(mes);
                         return;
                     }
                     currentVehicle = selected;

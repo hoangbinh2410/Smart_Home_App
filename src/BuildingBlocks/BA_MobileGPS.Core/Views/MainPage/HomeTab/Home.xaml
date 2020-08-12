@@ -19,7 +19,7 @@
                 <StackLayout Margin="0" Spacing="10">
                     <pancake:PancakeView
                         Padding="0"
-                        BackgroundColor="{StaticResource WhiteColor}"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         CornerRadius="10"
                         HasShadow="True"
                         HorizontalOptions="CenterAndExpand">
@@ -28,7 +28,7 @@
                                 BlurRadius="3"
                                 Opacity="0.1"
                                 Offset="0,2"
-                                Color="{StaticResource ShadowColor}" />
+                                Color="{DynamicResource ShadowColor}" />
                         </pancake:PancakeView.Shadow>
                         <ff:CachedImage
                             Margin="15"
@@ -54,7 +54,7 @@
         </Style>
     </ContentView.Resources>
     <Grid RowDefinitions="*,2.8*">
-        <Grid BackgroundColor="{StaticResource PrimaryColor}" VerticalOptions="Fill" />
+        <Grid BackgroundColor="{DynamicResource PrimaryColor}" VerticalOptions="Fill" />
         <Grid
             Grid.RowSpan="2"
             Padding="5,0"
@@ -134,9 +134,9 @@
                         Margin="10,5"
                         CornerRadius="10"
                         HasShadow="True"
-                        Style="{DynamicResource FavouriteBackgroundColor}">
+                        Style="{StaticResource FavouriteBackgroundColor}">
                         <pancake:PancakeView.Shadow>
-                            <pancake:DropShadow BlurRadius="2" Color="{StaticResource ShadowColor}" />
+                            <pancake:DropShadow BlurRadius="2" Color="{DynamicResource ShadowColor}" />
                         </pancake:PancakeView.Shadow>
                         <StackLayout Spacing="0">
                             <Grid Margin="10">
@@ -187,8 +187,7 @@
                         Grid.Row="1"
                         Margin="10,5"
                         Padding="0"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource GrayColor},
-                                                          Dark={StaticResource GrayColor}}"
+                        BackgroundColor="{DynamicResource GrayColor}"
                         CornerRadius="10"
                         HasShadow="False">
                         <StackLayout Spacing="0">

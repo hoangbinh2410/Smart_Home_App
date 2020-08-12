@@ -137,6 +137,15 @@
 	  <EmbeddedResource Update="Styles\Text.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Themes\Custom.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Themes\Dark.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Themes\Light.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Alert\AlertHandlingPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -263,6 +272,9 @@
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Settings\AlertVehicleSettingPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\SettingThemePage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>

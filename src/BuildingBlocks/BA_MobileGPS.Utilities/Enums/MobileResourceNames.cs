@@ -939,6 +939,10 @@
         Settings_Label_SettingReceiveAlert,
         Settings_Label_ListAlert,
         Settings_Label_ListVehicleAlert,
+        Settings_Label_ChangeTheme,
+        Settings_CheckBox_Light,
+        Settings_Checkbox_Dark,
+        Settings_Checkbox_Custom,
         #endregion
 
         #region VehicleGroupLookUp

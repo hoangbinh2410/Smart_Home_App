@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core;
+using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
@@ -26,9 +27,7 @@ namespace VMS_MobileGPS
 
         protected async override void OnInitialized()
         {
-            Resources.MergedDictionaries.Add(new DarkColor());
-            Resources.MergedDictionaries.Add(new LightColor());
-            Resources.MergedDictionaries.Add(new VMS_Styles());
+           
 
             base.OnInitialized();
 
@@ -45,7 +44,7 @@ namespace VMS_MobileGPS
 
             await NavigationService.NavigateAsync("/NavigationPage/OfflinePage");
         }
-
+      
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             base.RegisterTypes(containerRegistry);
@@ -54,6 +53,7 @@ namespace VMS_MobileGPS
 
             // Đăng ký config automapper
             AutoMapperConfig.RegisterMappings(containerRegistry);
+            
 
             containerRegistry.Register<IMessageService, MessageService>();
             containerRegistry.Register<IFishShipService, FishShipService>();
@@ -92,6 +92,11 @@ namespace VMS_MobileGPS
             containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
             containerRegistry.Register<ContentView, RoutePage>("RouteTab");
             containerRegistry.RegisterForNavigation<DetailVehiclePopup,DetailVehiclePopupViewModel>("DetailVehiclePopup");
+
+            containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
+            containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());
+            containerRegistry.Register<ResourceDictionary, VMS_MobileGPS.Styles.Custom>(Theme.Custom.ToString());
+
         }
     }
 }

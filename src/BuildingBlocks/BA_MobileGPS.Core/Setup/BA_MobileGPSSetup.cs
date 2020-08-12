@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BA_MobileGPS.Core.DependencyServices;
 using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities.Infrastructure.Repository;
@@ -80,6 +80,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.Register<IPingServerService, PingServerService>();
 
             containerRegistry.Register<IPopupServices, PopupServices>();
+            containerRegistry.Register<IThemeServices, ThemeServices>();
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)
@@ -176,6 +177,11 @@ namespace BA_MobileGPS.Core
             containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
             containerRegistry.Register<ContentView, RoutePage>("RouteTab");
             containerRegistry.Register<ContentView, Account>("AccountTab");
+
+            containerRegistry.Register<ResourceDictionary, Dark>(Theme.Dark.ToString());
+            containerRegistry.Register<ResourceDictionary, Light>(Theme.Light.ToString());
+            containerRegistry.Register<ResourceDictionary, Custom>(Theme.Custom.ToString());
+            containerRegistry.RegisterForNavigation<SettingThemePage, SettingThemePageViewModel>("SettingThemePage");
         }
     }
 }
