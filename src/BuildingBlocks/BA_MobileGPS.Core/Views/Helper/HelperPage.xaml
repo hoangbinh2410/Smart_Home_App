@@ -53,14 +53,15 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 Margin="10"
-                                HeightRequest="25"
-                                Source="{Binding Icon}"
-                                WidthRequest="25" />
+                                HeightRequest="30"
+                                Source="{Binding Icon, Converter={StaticResource AddRootImageConverter}}"
+                                WidthRequest="30" />
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 HorizontalOptions="Start"
                                 HorizontalTextAlignment="Start"
+                                LineBreakMode="TailTruncation"
                                 Text="{Binding Title}"
                                 VerticalOptions="Center" />
                             <controls:FontAwesomeIcon
