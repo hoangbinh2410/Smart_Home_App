@@ -126,6 +126,7 @@ namespace VMS_MobileGPS.ViewModels
             GetListVehicleOnline();
 
         }
+
         public override void OnDestroy()
         {
             EventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
