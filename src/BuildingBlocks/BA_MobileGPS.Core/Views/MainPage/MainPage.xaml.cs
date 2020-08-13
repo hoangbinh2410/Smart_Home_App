@@ -50,7 +50,7 @@ namespace BA_MobileGPS.Core.Views
                 var routeTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("RouteTab"); //RouteTab
                 ViewModelLocator.SetAutowirePartialView(routeTab, MainContentPage);
                 Switcher.Children.Add(routeTab);
-                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_voyage.png", Label = MobileResource.Menu_TabItem_Voyage });
+                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_route.png", Label = MobileResource.Menu_TabItem_Voyage });
             }
 
             var accountTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("AccountTab"); //Account
