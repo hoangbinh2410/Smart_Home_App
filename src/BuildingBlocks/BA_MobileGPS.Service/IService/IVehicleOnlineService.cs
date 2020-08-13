@@ -10,6 +10,8 @@ namespace BA_MobileGPS.Service
     {
         Task<List<Company>> GetListCompanyAsync(Guid userId, int companyID);
 
+        Task<List<Company>> GetListCompanyByBusinessUserAsync(Guid userId);
+
         Task<List<VehicleGroupModel>> GetListVehicleGroupAsync(Guid userId, int companyID);
 
         Task<List<Vehicle>> GetListVehicle(Guid userID, string groupIDs, int companyID, VehicleLookUpType type);

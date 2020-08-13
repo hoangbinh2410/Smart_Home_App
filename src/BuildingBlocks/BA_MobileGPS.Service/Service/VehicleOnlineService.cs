@@ -37,6 +37,25 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
+        public async Task<List<Company>> GetListCompanyByBusinessUserAsync(Guid userId)
+        {
+            List<Company> result = new List<Company>();
+            try
+            {
+                string url = $"{ApiUri.GET_VEHICLE_COMPANY_BY_BUSINESSUSER}?userId={userId}";
+                var data = await requestProvider.GetHandleOutputAsync<List<Company>>(url);
+                if (data != null)
+                {
+                    result = data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
         public async Task<List<Vehicle>> GetListVehicle(Guid userId, string groupIDs, int companyID, VehicleLookUpType type)
         {
             List<Vehicle> result = new List<Vehicle>();

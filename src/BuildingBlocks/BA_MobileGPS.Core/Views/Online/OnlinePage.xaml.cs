@@ -3,7 +3,7 @@ using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Models;
-using BA_MobileGPS.Core.Resource;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
@@ -41,6 +41,7 @@ namespace BA_MobileGPS.Core.Views
         }
 
         private readonly IEventAggregator eventAggregator;
+        private readonly IGeocodeService geocodeService;
         private readonly IDisplayMessage displayMessage;
         private readonly IHelperAdvanceService helperAdvanceService;
         private readonly IPageDialogService pageDialog;
@@ -57,6 +58,7 @@ namespace BA_MobileGPS.Core.Views
             //On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
 
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+            geocodeService = PrismApplicationBase.Current.Container.Resolve<IGeocodeService>();
             displayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
             helperAdvanceService = PrismApplicationBase.Current.Container.Resolve<IHelperAdvanceService>();
             pageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
@@ -76,6 +78,11 @@ namespace BA_MobileGPS.Core.Views
             googleMap.UiSettings.ZoomControlsEnabled = false;
             googleMap.UiSettings.MyLocationButtonEnabled = false;
             googleMap.UiSettings.RotateGesturesEnabled = false;
+
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                googleMap.ClusterOptions.RendererImage = BitmapDescriptorFactory.FromResource("ic_cluster.png");
+            }
 
             googleMap.ClusterClicked += Map_ClusterClicked;
             googleMap.PinClicked += MapOnPinClicked;
@@ -557,6 +564,7 @@ namespace BA_MobileGPS.Core.Views
                 if (carActive)
                 {
                     vm.CarActive = carInfo;
+                    vm.EngineState = StateVehicleExtension.EngineState(carInfo);
                 }
 
                 carInfo.IconImage = IconCodeHelper.GetMarkerResource(carInfo);
@@ -839,16 +847,10 @@ namespace BA_MobileGPS.Core.Views
 
                 mCarActive = carInfo;
                 vm.CarActive = carInfo;
-                vm.CurrentAddress = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(carInfo.Lat), GeoHelper.LongitudeToDergeeMinSec(carInfo.Lng));
 
-                if (vm.Circles.Count > 0)
-                {
-                    vm.ShowBorder();
-                }
-                else
-                {
-                    vm.HideBorder();
-                }
+                vm.EngineState = StateVehicleExtension.EngineState(carInfo);
+
+                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString());
 
                 //update active xe mới
                 UpdateBackgroundPinLable(carInfo, true);
@@ -858,6 +860,38 @@ namespace BA_MobileGPS.Core.Views
             else
             {
                 pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
+            }
+        }
+
+        private void Getaddress(string lat, string lng)
+        {
+            try
+            {
+                vm.CurrentAddress = MobileResource.Online_Label_Determining;
+                Task.Run(async () =>
+                {
+                    return await geocodeService.GetAddressByLatLng(lat, lng);
+                }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
+                {
+                    if (task.Status == TaskStatus.RanToCompletion)
+                    {
+                        if (!string.IsNullOrEmpty(task.Result))
+                        {
+                            vm.CurrentAddress = task.Result;
+                        }
+                    }
+                    else if (task.IsFaulted)
+                    {
+                        Logger.WriteError(MethodBase.GetCurrentMethod().Name, "Error");
+                    }
+                }));
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            }
+            finally
+            {
             }
         }
 
@@ -971,7 +1005,6 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         public async void HideBoxInfo()
         {
-            vm.HideBorder();
             SetNoPaddingWithFooter();
             eventAggregator.GetEvent<ShowTabItemEvent>().Publish(true);
             await _animations.Go(States.HideFilter, true);

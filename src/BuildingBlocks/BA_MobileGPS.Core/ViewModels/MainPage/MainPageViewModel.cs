@@ -3,7 +3,7 @@ using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Models;
-using BA_MobileGPS.Core.Resource;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -77,6 +77,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             TryExecute(async () =>
             {
+                
                 // Lấy danh sách cảnh báo
                 GetCountAlert();
 
@@ -85,6 +86,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 InsertOrUpdateAppDevice();
 
                 await ConnectSignalR();
+
+                InitVehilceOnline();
 
                 GetNoticePopup();
 
@@ -103,6 +106,19 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(SelectedCompanyChanged);
             EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
             DisconnectSignalR();
+        }
+
+        private void InitVehilceOnline()
+        {
+            if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+            {
+                //Join vào nhóm signalR để nhận dữ liệu online
+                JoinGroupSignalRCar(StaticSettings.ListVehilceOnline.Select(x => x.VehicleId.ToString()).ToList());
+            }
+            else
+            {
+                GetListVehicleOnlineResume();
+            }
         }
 
         private async void OnResumePage(bool args)
@@ -358,37 +374,49 @@ namespace BA_MobileGPS.Core.ViewModels
                 return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup);
             }, (result) =>
             {
-                if (result != null && result.Count > 0)
+                if (StaticSettings.IsUnauthorized)
                 {
-                    result.ForEach(x =>
+                    if (result != null && result.Count > 0)
                     {
-                        x.IconImage = IconCodeHelper.GetMarkerResource(x);
-                        x.StatusEngineer = StateVehicleExtension.EngineState(x);
+                        result.ForEach(x =>
+                        {
+                            x.IconImage = IconCodeHelper.GetMarkerResource(x);
+                            x.StatusEngineer = StateVehicleExtension.EngineState(x);
 
-                        if (!StateVehicleExtension.IsLostGPS(x.GPSTime, x.VehicleTime) && !StateVehicleExtension.IsLostGSM(x.VehicleTime))
-                        {
-                            x.SortOrder = 1;
-                        }
-                        else
-                        {
-                            x.SortOrder = 0;
-                        }
+                            if (!StateVehicleExtension.IsLostGPS(x.GPSTime, x.VehicleTime) && !StateVehicleExtension.IsLostGSM(x.VehicleTime))
+                            {
+                                x.SortOrder = 1;
+                            }
+                            else
+                            {
+                                x.SortOrder = 0;
+                            }
+                        });
+
+                        StaticSettings.ListVehilceOnline = result;
+
+                        //Join vào nhóm signalR để nhận dữ liệu online
+                        JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
+                    }
+                    else
+                    {
+                        StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
+                    }
+
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(true);
                     });
-
-                    StaticSettings.ListVehilceOnline = result;
-
-                    //Join vào nhóm signalR để nhận dữ liệu online
-                    JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
                 }
                 else
                 {
-                    StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        //Chỗ này sử lý logic khi server trả về trạng thái là thay đổi mật khẩu cần logout ra ngoài
+                        Logout();
+                        DisplayMessage.ShowMessageInfo("Phiên làm việc đã hết hạn bạn vui lòng đăng nhập lại");
+                    });
                 }
-
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(true);
-                });
             });
         }
 

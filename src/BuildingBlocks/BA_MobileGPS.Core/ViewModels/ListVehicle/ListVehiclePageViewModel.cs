@@ -6,7 +6,7 @@ using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
-using BA_MobileGPS.Core.Resource;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
 using BA_MobileGPS.Service;
@@ -494,7 +494,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     //Nếu messageId = 2 hoặc 3 là xe phải thu phí
                     if (StateVehicleExtension.IsVehicleStopService(selected.MessageId))
                     {
-                        ShowInfoMessageDetailBAP(selected.MessageDetailBAP);
+                        var mes = string.IsNullOrEmpty(selected.MessageDetailBAP) ? selected.MessageBAP : selected.MessageDetailBAP;
+                        ShowInfoMessageDetailBAP(mes);
                         return;
                     }
                     currentVehicle = selected;
@@ -521,7 +522,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetListVehicleOnline()
         {
-            RunOnBackground(async () =>
+            if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+            {
+                InitVehicleList();
+            }
+            else
+            {
+                RunOnBackground(async () =>
             {
                 var userID = StaticSettings.User.UserId;
                 if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
@@ -531,7 +538,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 int vehicleGroup = 0;
                 return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup);
             },
-           (result) =>
+                (result) =>
            {
                if (result != null && result.Count > 0)
                {
@@ -558,6 +565,7 @@ namespace BA_MobileGPS.Core.ViewModels
                    StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
                }
            });
+            }
         }
 
         #endregion Private Method

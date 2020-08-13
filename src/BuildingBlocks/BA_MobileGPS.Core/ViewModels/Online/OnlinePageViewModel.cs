@@ -2,7 +2,7 @@
 using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Models;
-using BA_MobileGPS.Core.Resource;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -29,7 +29,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand PushToFABPageCommand { get; private set; }
         public DelegateCommand<CameraIdledEventArgs> CameraIdledCommand { get; private set; }
         public DelegateCommand PushToDetailPageCommand { get; private set; }
-        public DelegateCommand PushToServicePackHistoryPageCommand { get; private set; }
         public ICommand PushtoListVehicleOnlineCommand { get; private set; }
         public DelegateCommand GoDistancePageCommand { get; private set; }
 
@@ -63,7 +62,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 mapType = MapType.Street;
                 ColorMapType = (Color)App.Current.Resources["PrimaryColor"];
             }
-
+            IsShowConfigLanmark = CompanyConfigurationHelper.IsShowConfigLanmark;
             zoomLevel = MobileUserSettingHelper.Mapzoom;
 
             NavigateToSettingsCommand = new DelegateCommand(NavigateToSettings);
@@ -73,7 +72,6 @@ namespace BA_MobileGPS.Core.ViewModels
             PushToDetailPageCommand = new DelegateCommand(PushtoDetailPage);
             CameraIdledCommand = new DelegateCommand<CameraIdledEventArgs>(UpdateMapInfo);
             GoDistancePageCommand = new DelegateCommand(GoDistancePage);
-            PushToServicePackHistoryPageCommand = new DelegateCommand(GoServicePackHistoryPage);
         }
 
         #endregion Contructor
@@ -132,21 +130,11 @@ namespace BA_MobileGPS.Core.ViewModels
         public string currentAddress = string.Empty;
         public string CurrentAddress { get => currentAddress; set => SetProperty(ref currentAddress, value); }
 
-        private bool isShowCircle;
+        public string engineState;
+        public string EngineState { get => engineState; set => SetProperty(ref engineState, value); }
 
-        public bool IsShowCircle
-        {
-            get { return isShowCircle; }
-            set
-            {
-                if (value)
-                {
-                    ShowBorder();
-                }
-                else HideBorder();
-                SetProperty(ref isShowCircle, value);
-            }
-        }
+        public bool isShowConfigLanmark;
+        public bool IsShowConfigLanmark { get => isShowConfigLanmark; set => SetProperty(ref isShowConfigLanmark, value); }
 
         #endregion Property
 
@@ -165,47 +153,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Common_Message_NotPermission, MobileResource.Common_Button_Close);
                 }
             });
-        }
-
-        public void ShowBorder()
-        {
-            Circles.Clear();
-
-            Circles.Add(new Circle
-            {
-                StrokeWidth = 2,
-                StrokeColor = (Color)App.Current.Resources["PrimaryColor"],
-                FillColor = Color.Transparent,
-                Radius = Distance.FromKilometers(10 * 1.852),
-                Center = new Position(CarActive.Lat, CarActive.Lng)
-            });
-
-            Circles.Add(new Circle
-            {
-                StrokeWidth = 2,
-                StrokeColor = (Color)App.Current.Resources["PrimaryColor"],
-                FillColor = Color.Transparent,
-                Radius = Distance.FromKilometers(20 * 1.852),
-                Center = new Position(CarActive.Lat, CarActive.Lng)
-            });
-
-            Circles.Add(new Circle
-            {
-                StrokeWidth = 2,
-                StrokeColor = (Color)App.Current.Resources["PrimaryColor"],
-                FillColor = Color.Transparent,
-                Radius = Distance.FromKilometers(30 * 1.852),
-                Center = new Position(CarActive.Lat, CarActive.Lng)
-            });
-
-            RaisePropertyChanged(nameof(Circles));
-        }
-
-        public void HideBorder()
-        {
-            Circles.Clear();
-
-            RaisePropertyChanged(nameof(Circles));
         }
 
         public void NavigateToSettings()
@@ -304,47 +251,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 };
 
                 await NavigationService.NavigateAsync("BaseNavigationPage/DistancePage", parameters, true);
-            });
-        }
-
-        private void GoServicePackHistoryPage()
-        {
-            SafeExecute(async () =>
-            {
-                // gọi service để lấy dữ liệu trả về
-                var input = new ShipDetailRequest()
-                {
-                    UserId = StaticSettings.User.UserId,
-                    vehiclePlate = CarActive.VehiclePlate,
-                };
-                var response = await detailVehicleService.GetShipDetail(input);
-                if (response != null)
-                {
-                    var model = new ShipDetailRespone()
-                    {
-                        Address = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(CarActive.Lat), GeoHelper.LongitudeToDergeeMinSec(CarActive.Lng)),
-                        Latitude = CarActive.Lat,
-                        Longtitude = CarActive.Lng,
-                        Km = CarActive.TotalKm,
-                        GPSTime = CarActive.GPSTime,
-                        VelocityGPS = CarActive.Velocity,
-                        IMEI = response.IMEI,
-                        PortDeparture = response.PortDeparture,
-                        ShipCaptainName = response.ShipCaptainName,
-                        ShipCaptainPhoneNumber = response.ShipCaptainPhoneNumber,
-                        ShipMembers = response.ShipMembers,
-                        ShipOwnerName = response.ShipOwnerName,
-                        ShipOwnerPhoneNumber = response.ShipOwnerPhoneNumber,
-                        PrivateCode = response.PrivateCode
-                    };
-
-                    var parameters = new NavigationParameters
-                    {
-                        { ParameterKey.ShipDetail, model }
-                    };
-
-                    await NavigationService.NavigateAsync("NavigationPage/ServicePackHistoryPage", parameters, true);
-                }
             });
         }
 
