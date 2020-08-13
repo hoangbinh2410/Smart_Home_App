@@ -521,7 +521,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetListVehicleOnline()
         {
-            RunOnBackground(async () =>
+            if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+            {
+                InitVehicleList();
+            }
+            else
+            {
+                RunOnBackground(async () =>
             {
                 var userID = StaticSettings.User.UserId;
                 if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
@@ -531,7 +537,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 int vehicleGroup = 0;
                 return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup);
             },
-           (result) =>
+                (result) =>
            {
                if (result != null && result.Count > 0)
                {
@@ -558,6 +564,7 @@ namespace BA_MobileGPS.Core.ViewModels
                    StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
                }
            });
+            }
         }
 
         #endregion Private Method

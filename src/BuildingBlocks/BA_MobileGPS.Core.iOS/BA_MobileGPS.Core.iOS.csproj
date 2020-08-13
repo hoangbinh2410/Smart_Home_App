@@ -1991,15 +1991,6 @@
     <BundleResource Include="Resources\ic_infor_light%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_ship2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_ship2%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_ship2%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\ic_save.png" />
   </ItemGroup>
   <ItemGroup>
@@ -2007,6 +1998,15 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_save%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_vehicle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_vehicle%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_vehicle%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

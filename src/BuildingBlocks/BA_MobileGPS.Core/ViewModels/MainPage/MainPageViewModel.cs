@@ -77,6 +77,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             TryExecute(async () =>
             {
+                
                 // Lấy danh sách cảnh báo
                 GetCountAlert();
 
@@ -85,6 +86,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 InsertOrUpdateAppDevice();
 
                 await ConnectSignalR();
+
+                InitVehilceOnline();
 
                 GetNoticePopup();
 
@@ -103,6 +106,19 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(SelectedCompanyChanged);
             EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
             DisconnectSignalR();
+        }
+
+        private void InitVehilceOnline()
+        {
+            if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+            {
+                //Join vào nhóm signalR để nhận dữ liệu online
+                JoinGroupSignalRCar(StaticSettings.ListVehilceOnline.Select(x => x.VehicleId.ToString()).ToList());
+            }
+            else
+            {
+                GetListVehicleOnlineResume();
+            }
         }
 
         private async void OnResumePage(bool args)
