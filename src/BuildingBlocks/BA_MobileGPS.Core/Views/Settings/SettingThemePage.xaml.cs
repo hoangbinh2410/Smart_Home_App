@@ -11,7 +11,6 @@ namespace BA_MobileGPS.Core.Views
         public SettingThemePage()
         {
             InitializeComponent();
-            
         }
 
         protected override void OnAppearing()

@@ -476,7 +476,7 @@ namespace VMS_MobileGPS.ViewModels
                 if (args.ItemData is VMSVehicleOnlineViewModel selected)
                 {
                     //Nếu messageId = 2 hoặc 3 là xe phải thu phí
-                    if (StateVehicleExtension.IsVehicleStopService(selected.MessageId))
+                    if ( StateVehicleExtension.IsVehicleStopService(selected.MessageId))
                     {
                         var mes = string.IsNullOrEmpty(selected.MessageDetailBAP) ? selected.MessageBAP : selected.MessageDetailBAP;
                         ShowInfoMessageDetailBAP(mes);
