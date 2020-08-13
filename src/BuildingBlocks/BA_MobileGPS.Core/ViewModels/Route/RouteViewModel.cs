@@ -721,7 +721,7 @@ namespace BA_MobileGPS.Core.ViewModels
             RouteLine = new Polyline
             {
                 IsClickable = false,
-                StrokeColor = Color.Gray,
+                StrokeColor = (Color)App.Current.Resources["TextSecondaryColor"],
                 StrokeWidth = 3f,
                 ZIndex = 1
             };
@@ -736,7 +736,7 @@ namespace BA_MobileGPS.Core.ViewModels
             CurrentLine = new Polyline
             {
                 IsClickable = false,
-                StrokeColor = Color.DeepSkyBlue,
+                StrokeColor = (Color)App.Current.Resources["PrimaryColor"],
                 StrokeWidth = 3f,
                 ZIndex = 2
             };
@@ -996,7 +996,7 @@ namespace BA_MobileGPS.Core.ViewModels
             CurrentLine = new Polyline
             {
                 IsClickable = false,
-                StrokeColor = Color.DeepSkyBlue,
+                StrokeColor = (Color)App.Current.Resources["PrimaryColor"],
                 StrokeWidth = 3f,
                 ZIndex = 2
             };

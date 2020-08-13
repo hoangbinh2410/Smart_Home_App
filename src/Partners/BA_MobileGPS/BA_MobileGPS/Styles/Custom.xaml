@@ -31,7 +31,7 @@
     <FileImageSource x:Key="HomePageTopImageSource" File="bg_HomeTop.png" />
     <FileImageSource x:Key="HomePageBotImageSource" File="bg_HomeBot.png" />
 
-    <Color x:Key="MainTabSelectedColor">#89DFFF</Color>
+    <Color x:Key="MainTabSelectedColor">#0D2D6C</Color>
     <Color x:Key="MainTabUnSelectedColor">#484848</Color>
 
     <Color x:Key="PopupYesBtnTextColor">White</Color>
