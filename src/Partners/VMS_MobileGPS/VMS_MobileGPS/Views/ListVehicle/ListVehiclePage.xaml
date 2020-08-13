@@ -172,7 +172,7 @@
                                 Foreground="{DynamicResource PrimaryColor}"
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
-                                Source="ic_doubleship.png"
+                                Source="ic_doublevehicle.png"
                                 VerticalOptions="Center"
                                 WidthRequest="20" />
                         </sharpnado:MaterialFrame>

@@ -21,7 +21,7 @@
     <pages:PopupPage.Resources />
 
     <pancakeview:PancakeView
-       BackgroundColor="{DynamicResource WhiteColor}"
+        BackgroundColor="{DynamicResource WhiteColor}"
         CornerRadius="10,10,0,0"
         HasShadow="True"
         VerticalOptions="EndAndExpand">
@@ -95,7 +95,7 @@
                                 Offset="0,0"
                                 Color="Black" />
                         </pancakeview:PancakeView.Shadow>
-                        <controls:IconView Source="ic_voyage.png" />
+                        <controls:IconView Source="ic_route.png" />
                     </pancakeview:PancakeView>
                     <Label Text="Hải trình" />
                 </StackLayout>

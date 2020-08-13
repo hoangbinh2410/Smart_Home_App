@@ -131,6 +131,76 @@ namespace BA_MobileGPS.Entities
 
             return false;
         }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        public bool FromByteArray32(byte[] data)
+        {
+            try
+            {
+                int Index = 0;
+
+                DateKm = SerializeLibrary.GetFloatFromArray(data, Index); Index += 4;
+                DirectionDetail = SerializeLibrary.GetStringFromArray32(data, Index, ref Index);
+
+                int lengthStopPoint = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
+                StatePoints = new List<StatePoint>();
+                for (int i = 0; i < lengthStopPoint; i++)
+                {
+                    var state = new StatePoint();
+                    state.StartIndex = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
+                    state.EndIndex = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
+                    state.State = (StateType)data[Index]; Index += 1;
+                    state.StartTime = SerializeLibrary.GetDateTimeFromArray(data, Index); Index += 8;
+                    state.Duration = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
+                    StatePoints.Add(state);
+                }
+
+                int lengthGSMPoint = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
+                GSMPoints = new List<GSMPoint>();
+                for (int i = 0; i < lengthGSMPoint; i++)
+                {
+                    var gsm = new GSMPoint();
+                    gsm.StartPoint = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
+                    gsm.EndPoint = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
+                    gsm.StartTime = SerializeLibrary.GetDateTimeFromArray(data, Index); Index += 8;
+                    gsm.Duration = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
+                    GSMPoints.Add(gsm);
+                }
+
+                int lengthVelocityPoints = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
+                VelocityPoints = new List<byte>();
+                for (int i = 0; i < lengthVelocityPoints; i++)
+                {
+                    byte velocity = (byte)SerializeLibrary.GetByteFromArray(data, Index); Index += 1;
+                    VelocityPoints.Add(velocity);
+                }
+
+                TimePoints = new TimePoint
+                {
+                    StartTime = SerializeLibrary.GetDateTimeFromArray(data, Index)
+                };
+                Index += 8;
+
+                int lengthAddedTimes = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
+                TimePoints.AddedTimes = new List<int>();
+                for (int i = 0; i < lengthVelocityPoints; i++)
+                {
+                    TimePoints.AddedTimes.Add(SerializeLibrary.GetInt32FromArray(data, Index));
+                    Index += 4;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+
+            return false;
+        }
     }
 
 

@@ -39,11 +39,6 @@
     </ContentPage.Resources>
     <Grid RowSpacing="0">
         <ff:CachedImage Aspect="AspectFill" Source="bg_Login.png" />
-        <Grid
-           BackgroundColor="{DynamicResource WhiteColor}"
-            HorizontalOptions="Fill"
-            Opacity="0.5"
-            VerticalOptions="Fill" />
         <Grid RowDefinitions="*,2.8*">
             <StackLayout
                 Grid.Row="0"
@@ -70,7 +65,7 @@
                 Grid.Row="0"
                 HeightRequest="60"
                 HorizontalOptions="Center"
-                Source="logo_VNSAT.png"
+                Source="logo_Login.png"
                 VerticalOptions="EndAndExpand" />
             <StackLayout Grid.Row="1" Spacing="15">
                 <Grid
@@ -87,7 +82,7 @@
                             <sharpnado:MaterialFrame HeightRequest="42">
                                 <controls:IconView
                                     Margin="9"
-                                      Foreground="{DynamicResource WhiteColor}"  
+                                    Foreground="{DynamicResource WhiteColor}"
                                     HorizontalOptions="Center"
                                     Source="ic_userwhite.png"
                                     VerticalOptions="CenterAndExpand" />
@@ -111,7 +106,7 @@
                             <sharpnado:MaterialFrame HeightRequest="42">
                                 <controls:IconView
                                     Margin="9"
-                                      Foreground="{DynamicResource WhiteColor}"  
+                                    Foreground="{DynamicResource WhiteColor}"
                                     HorizontalOptions="Center"
                                     Source="ic_lock.png"
                                     VerticalOptions="CenterAndExpand" />
@@ -177,7 +172,7 @@
                         <sharpnado:MaterialFrame>
                             <controls:IconView
                                 Margin="6"
-                                  Foreground="{DynamicResource WhiteColor}"  
+                                Foreground="{DynamicResource WhiteColor}"
                                 Source="ic_phone.png"
                                 VerticalOptions="CenterAndExpand" />
                             <sharpnado:MaterialFrame.GestureRecognizers>
@@ -187,7 +182,7 @@
                         <sharpnado:MaterialFrame>
                             <controls:IconView
                                 Margin="6"
-                                  Foreground="{DynamicResource WhiteColor}"  
+                                Foreground="{DynamicResource WhiteColor}"
                                 Source="ic_mail.png"
                                 VerticalOptions="CenterAndExpand" />
                             <sharpnado:MaterialFrame.GestureRecognizers>
@@ -197,7 +192,7 @@
                         <sharpnado:MaterialFrame>
                             <controls:IconView
                                 Margin="6"
-                                  Foreground="{DynamicResource WhiteColor}"  
+                                Foreground="{DynamicResource WhiteColor}"
                                 Source="ic_global.png"
                                 VerticalOptions="CenterAndExpand" />
                             <sharpnado:MaterialFrame.GestureRecognizers>
