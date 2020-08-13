@@ -63,7 +63,7 @@
                     <Label Text="{i18n:TranslateResource AccountTab_Label_MyInformation}" TextColor="{DynamicResource WhiteColor}" />
                     <controls:IconView
                         Margin="0,2,0,0"
-                        Foreground="White"
+                        Foreground="{DynamicResource WhiteColor}"
                         HeightRequest="10"
                         Source="ic_next.png"
                         WidthRequest="10" />

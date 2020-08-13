@@ -13,7 +13,7 @@
     <pages:PopupPage.Resources>
         <Style TargetType="Label">
             <Setter Property="LineHeight" Value="1.3" />
-            <Setter Property="TextColor" Value="{StaticResource TextSecondaryColor}" />
+            <Setter Property="TextColor" Value="{DynamicResource TextSecondaryColor}" />
         </Style>
         <Style TargetType="forms:CachedImage">
             <Setter Property="HeightRequest" Value="32" />
@@ -34,10 +34,10 @@
         <sharpnado:MaterialFrame
             Margin="40"
             Padding="0"
-            BorderColor="{StaticResource PrimaryColor}"
+            BorderColor="{DynamicResource PrimaryColor}"
             CornerRadius="10"
             HorizontalOptions="Center"
-            LightThemeBackgroundColor="White"
+            LightThemeBackgroundColor="{DynamicResource WhiteColor}"
             VerticalOptions="Center">
             <Grid RowDefinitions="Auto,*" RowSpacing="0">
                 <Grid Margin="5" HeightRequest="40">
@@ -46,10 +46,10 @@
                         HorizontalOptions="CenterAndExpand"
                         StyleClass="BoldText"
                         Text="{i18n:TranslateResource ListVehicle_Label_Note}"
-                        TextColor="{StaticResource TextPrimaryColor}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
                         VerticalOptions="Center" />
                     <controls:IconView
-                        Foreground="{StaticResource TextSecondaryColor}"
+                        Foreground="{DynamicResource TextSecondaryColor}"
                         HeightRequest="20"
                         HorizontalOptions="End"
                         Source="ic_close.png"

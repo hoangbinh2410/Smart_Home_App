@@ -17,7 +17,7 @@
     xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
     xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
     Title="{Binding Title}"
-    BackgroundColor="White">
+   BackgroundColor="{DynamicResource WhiteColor}">
     <NavigationPage.TitleView>
         <Grid
             ColumnSpacing="10"
@@ -45,7 +45,7 @@
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
                 Text="{Binding Title}"
-                TextColor="{StaticResource WhiteColor}"
+                TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
         </Grid>
     </NavigationPage.TitleView>
@@ -70,7 +70,7 @@
                     <views:DateTimePickerView
                         Grid.Row="0"
                         Grid.Column="0"
-                        BorderColor="{StaticResource GrayColor2}"
+                        BorderColor="{DynamicResource GrayColor2}"
                         DateSelectedCommand="{Binding DateSelectedCommand}"
                         DateTime="{Binding FromDate}"
                         FontSize="13"
@@ -83,7 +83,7 @@
                     <views:DateTimePickerView
                         Grid.Row="0"
                         Grid.Column="1"
-                        BorderColor="{StaticResource GrayColor2}"
+                        BorderColor="{DynamicResource GrayColor2}"
                         DateSelectedCommand="{Binding DateSelectedCommand}"
                         DateTime="{Binding ToDate}"
                         FontSize="13"
@@ -153,7 +153,7 @@
                             </combobox:SfComboBox.ComboBoxSource>
                         </combobox:SfComboBox>
                         <controls:IconView
-                            BackgroundColor="White"
+                           BackgroundColor="{DynamicResource WhiteColor}"
                             Foreground="DimGray"
                             HeightRequest="30"
                             HorizontalOptions="CenterAndExpand"
@@ -167,7 +167,7 @@
                         Grid.Row="1"
                         Grid.Column="0"
                         Padding="5,0,5,0"
-                        BorderColor="{StaticResource GrayColor2}"
+                        BorderColor="{DynamicResource GrayColor2}"
                         CornerRadius="5"
                         HasShadow="False"
                         HeightRequest="40"
@@ -232,7 +232,7 @@
                         <TapGestureRecognizer Command="{Binding GetDataCommand}" />
                     </controls:MaterialFrame.GestureRecognizers>
                     <controls:IconView
-                        Foreground="White"
+                          Foreground="{DynamicResource WhiteColor}"  
                         HeightRequest="25"
                         HorizontalOptions="Center"
                         Source="ic_search.png"
@@ -259,7 +259,7 @@
                             ShowLabel="True"
                             ShowLine="True">
                             <chart:ChartTrackballBehavior.LineStyle>
-                                <chart:ChartLineStyle StrokeColor="{StaticResource PrimaryColor}" StrokeWidth="2" />
+                                <chart:ChartLineStyle StrokeColor="{DynamicResource PrimaryColor}" StrokeWidth="2" />
                             </chart:ChartTrackballBehavior.LineStyle>
                         </local:ChartTrackballBehaviorExt>
                     </chart:SfChart.ChartBehaviors>

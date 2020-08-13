@@ -25,7 +25,7 @@
             <Frame
                 Margin="0,0,0,50"
                 Padding="15"
-                BackgroundColor="White"
+                BackgroundColor="{DynamicResource WhiteColor}"
                 CornerRadius="10"
                 HeightRequest="350"
                 HorizontalOptions="Center"
@@ -36,7 +36,7 @@
                             <Setter Property="CornerRadius" Value="25" />
                             <Setter Property="HasShadow" Value="False" />
                             <Setter Property="HeightRequest" Value="45" />
-                            <Setter Property="BorderColor" Value="{StaticResource PrimaryColor}" />
+                            <Setter Property="BorderColor" Value="{DynamicResource PrimaryColor}" />
                             <Setter Property="Padding" Value="0" />
                         </Style>
                     </StackLayout.Resources>
@@ -168,7 +168,7 @@
                                 VerticalOptions="Center" />
                         </StackLayout>
                     </Frame>
-                    <Frame BackgroundColor="{StaticResource PrimaryColor}">
+                    <Frame BackgroundColor="{DynamicResource PrimaryColor}">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GrantAllCommand}" NumberOfTapsRequired="1" />
                         </Frame.GestureRecognizers>

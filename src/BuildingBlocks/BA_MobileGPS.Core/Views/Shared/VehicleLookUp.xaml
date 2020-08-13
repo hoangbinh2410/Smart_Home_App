@@ -89,7 +89,7 @@
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="2"
-                                    BackgroundColor="{StaticResource GrayColor}"
+                                    BackgroundColor="{DynamicResource GrayColor}"
                                     HeightRequest="0.5"
                                     HorizontalOptions="FillAndExpand"
                                     VerticalOptions="Start" />

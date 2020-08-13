@@ -12,7 +12,7 @@
         <StackLayout
             Margin="20,50,20,20"
             Padding="10"
-            BackgroundColor="White"
+           BackgroundColor="{DynamicResource WhiteColor}"
             HorizontalOptions="Center"
             VerticalOptions="Center">
             <syncalendar:SfCalendar
@@ -32,8 +32,8 @@
                 Orientation="Horizontal"
                 VerticalOptions="Center">
                 <Button
-                    BackgroundColor="White"
-                    BorderColor="{StaticResource PrimaryColor}"
+                   BackgroundColor="{DynamicResource WhiteColor}"
+                    BorderColor="{DynamicResource PrimaryColor}"
                     BorderRadius="0"
                     BorderWidth="1"
                     Command="{Binding CancelCommand}"
@@ -41,9 +41,9 @@
                     FontSize="12"
                     HorizontalOptions="FillAndExpand"
                     Text="{i18n:TranslateResource Common_Button_Close}"
-                    TextColor="{StaticResource PrimaryColor}" />
+                    TextColor="{DynamicResource PrimaryColor}" />
                 <Button
-                    BackgroundColor="{StaticResource PrimaryColor}"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
                     BorderRadius="0"
                     Command="{Binding AggreeCommand}"
                     FontAttributes="Bold"

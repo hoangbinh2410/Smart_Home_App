@@ -33,7 +33,7 @@
                 <StackLayout Margin="10">
                     <input:SfTextInputLayout
                         ContainerType="Outlined"
-                        FocusedColor="{StaticResource PrimaryColor}"
+                        FocusedColor="{DynamicResource PrimaryColor}"
                         FocusedStrokeWidth="1"
                         HorizontalOptions="FillAndExpand"
                         LeadingViewPosition="Inside"
@@ -41,7 +41,7 @@
                         VerticalOptions="Start">
                         <input:SfTextInputLayout.LeadingView>
                             <controls:IconView
-                                Foreground="{StaticResource PrimaryColor}"
+                                Foreground="{DynamicResource PrimaryColor}"
                                 HorizontalOptions="Center"
                                 Source="ic_vehicleplate.png"
                                 VerticalOptions="Center" />
@@ -49,12 +49,12 @@
                         <Entry
                             MaxLength="250"
                             Placeholder="Biển hiệu"
-                            PlaceholderColor="{StaticResource TextPlaceHolderColor}"
+                            PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                             Text="{Binding FishTrip.ShipPlate}" />
                     </input:SfTextInputLayout>
                     <input:SfTextInputLayout
                         ContainerType="Outlined"
-                        FocusedColor="{StaticResource PrimaryColor}"
+                        FocusedColor="{DynamicResource PrimaryColor}"
                         FocusedStrokeWidth="1"
                         HorizontalOptions="FillAndExpand"
                         LeadingViewPosition="Inside"
@@ -62,7 +62,7 @@
                         VerticalOptions="Start">
                         <input:SfTextInputLayout.LeadingView>
                             <controls:IconView
-                                Foreground="{StaticResource PrimaryColor}"
+                                Foreground="{DynamicResource PrimaryColor}"
                                 HorizontalOptions="Center"
                                 Source="ic_devicename.png"
                                 VerticalOptions="Center" />
@@ -71,7 +71,7 @@
                             Keyboard="Numeric"
                             MaxLength="250"
                             Placeholder="IMEI"
-                            PlaceholderColor="{StaticResource TextPlaceHolderColor}"
+                            PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                             Text="{Binding FishTrip.Imei}" />
                     </input:SfTextInputLayout>
                 </StackLayout>
@@ -81,13 +81,13 @@
                         FontSize="{StaticResource MyFontSize}"
                         HorizontalOptions="StartAndExpand"
                         Text="Bắt đầu mẻ lưới"
-                        TextColor="{StaticResource PrimaryColor}" />
+                        TextColor="{DynamicResource PrimaryColor}" />
                     <Label
                         FontAttributes="Bold"
                         FontSize="{StaticResource MyFontSize}"
                         HorizontalOptions="End"
                         Text="Tự động"
-                        TextColor="{StaticResource PrimaryColor}">
+                        TextColor="{DynamicResource PrimaryColor}">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GetStartTimeCommand}" />
                         </Label.GestureRecognizers>
@@ -95,7 +95,7 @@
                 </StackLayout>
                 <Grid
                     Padding="10,5,10,5"
-                    BackgroundColor="White"
+                    BackgroundColor="{DynamicResource WhiteColor}"
                     RowSpacing="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -111,7 +111,7 @@
                         BorderColor="Transparent"
                         DateTime="{Binding FishTrip.StartTime, Converter={StaticResource DateTimeOffsetConverter}}"
                         HorizontalOptions="Start"
-                        IconColor="{StaticResource PrimaryColor}"
+                        IconColor="{DynamicResource PrimaryColor}"
                         IconPosition="Start"
                         PickerMode="Popup"
                         VerticalOptions="Center" />
@@ -129,7 +129,7 @@
                             FontSize="20"
                             HorizontalOptions="Center"
                             Text="{x:Static fontawesome:FontAwesomeIcons.LocationArrow}"
-                            TextColor="{StaticResource PrimaryColor}"
+                            TextColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="Center" />
                         <Label
                             FontAttributes="Bold"
@@ -148,13 +148,13 @@
                         FontSize="{StaticResource MyFontSize}"
                         HorizontalOptions="StartAndExpand"
                         Text="Kết thúc mẻ lưới"
-                        TextColor="{StaticResource PrimaryColor}" />
+                        TextColor="{DynamicResource PrimaryColor}" />
                     <Label
                         FontAttributes="Bold"
                         FontSize="{StaticResource MyFontSize}"
                         HorizontalOptions="End"
                         Text="Tự động"
-                        TextColor="{StaticResource PrimaryColor}">
+                        TextColor="{DynamicResource PrimaryColor}">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GetEndTimeCommand}" />
                         </Label.GestureRecognizers>
@@ -162,7 +162,7 @@
                 </StackLayout>
                 <Grid
                     Padding="10,5,10,5"
-                    BackgroundColor="White"
+                    BackgroundColor="{DynamicResource WhiteColor}"
                     RowSpacing="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -178,7 +178,7 @@
                         BorderColor="Transparent"
                         DateTime="{Binding FishTrip.EndTime, Converter={StaticResource DateTimeOffsetConverter}}"
                         HorizontalOptions="Start"
-                        IconColor="{StaticResource PrimaryColor}"
+                        IconColor="{DynamicResource PrimaryColor}"
                         IconPosition="Start"
                         PickerMode="Popup"
                         VerticalOptions="Center" />
@@ -196,7 +196,7 @@
                             FontSize="20"
                             HorizontalOptions="Center"
                             Text="{x:Static fontawesome:FontAwesomeIcons.LocationArrow}"
-                            TextColor="{StaticResource PrimaryColor}"
+                            TextColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="Center" />
                         <Label
                             FontAttributes="Bold"
@@ -217,18 +217,18 @@
                         FontAttributes="Bold"
                         FontSize="{StaticResource MyFontSize}"
                         Text="Tổng (Kg):"
-                        TextColor="{StaticResource PrimaryColor}"
+                        TextColor="{DynamicResource PrimaryColor}"
                         VerticalOptions="Center" />
                     <Label
                         FontAttributes="Bold"
                         FontSize="{StaticResource MyFontSize}"
                         HorizontalOptions="FillAndExpand"
                         Text="{Binding TotalWeight, StringFormat='{}{0:###,###,###,##0.##}'}"
-                        TextColor="{StaticResource PrimaryColor}"
+                        TextColor="{DynamicResource PrimaryColor}"
                         VerticalOptions="Center" />
                     <sharpnado:MaterialFrame
                         Padding="0"
-                        BackgroundColor="{StaticResource PrimaryColor}"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
                         CornerRadius="14"
                         HasShadow="False"
                         HeightRequest="28"
@@ -247,7 +247,7 @@
                     </sharpnado:MaterialFrame>
                 </StackLayout>
                 <StackLayout
-                    BackgroundColor="White"
+                    BackgroundColor="{DynamicResource WhiteColor}"
                     BindableLayout.ItemsSource="{Binding ListFish}"
                     HorizontalOptions="FillAndExpand"
                     Spacing="0"

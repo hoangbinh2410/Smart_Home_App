@@ -12,7 +12,7 @@
     xmlns:sfList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     Title="{i18n:TranslateResource VehicleGroupLookUp_Label_Title}">
     <StackLayout
-        BackgroundColor="{StaticResource WhiteColor}"
+        BackgroundColor="{DynamicResource WhiteColor}"
         HorizontalOptions="FillAndExpand"
         Spacing="0"
         VerticalOptions="FillAndExpand">
@@ -98,7 +98,7 @@
                                     WidthRequest="28" />
                                 <BoxView
                                     Grid.Row="1"
-                                    BackgroundColor="{StaticResource GrayColor}"
+                                    BackgroundColor="{DynamicResource GrayColor}"
                                     HeightRequest="0.5"
                                     HorizontalOptions="FillAndExpand"
                                     VerticalOptions="Start" />
@@ -116,7 +116,7 @@
             <StackLayout
                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                 AbsoluteLayout.LayoutFlags="All"
-                BackgroundColor="White"
+               BackgroundColor="{DynamicResource WhiteColor}"
                 IsVisible="{Binding HasVehicleGroup, Converter={StaticResource InvertBooleanConverter}}"
                 Spacing="10">
                 <!--  Image for display svg image  -->

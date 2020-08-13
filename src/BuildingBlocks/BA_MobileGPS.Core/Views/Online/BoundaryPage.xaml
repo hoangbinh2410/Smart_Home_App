@@ -30,7 +30,7 @@
                 <Label
                     Grid.ColumnSpan="3"
                     Padding="10"
-                    BackgroundColor="{StaticResource TextPrimaryColor}"
+                    BackgroundColor="{DynamicResource TextPrimaryColor}"
                     FontSize="14"
                     Text="Lựa chọn nhóm điểm công ty" />
                 <Grid
@@ -44,14 +44,14 @@
                     </Grid.ColumnDefinitions>
                     <checkbox:SfCheckBox
                         x:Name="ckbAllTitleCompany"
-                        CheckedColor="{StaticResource PrimaryColor}"
+                        CheckedColor="{DynamicResource PrimaryColor}"
                         CornerRadius="5"
                         FontSize="13"
                         Text="Tất cả các điểm" />
                     <checkbox:SfCheckBox
                         x:Name="ckbAllBoudaryCompany"
                         Grid.Column="1"
-                        CheckedColor="{StaticResource PrimaryColor}"
+                        CheckedColor="{DynamicResource PrimaryColor}"
                         CornerRadius="5"
                         FontSize="13"
                         IsEnabled="False"
@@ -59,7 +59,7 @@
                     <checkbox:SfCheckBox
                         x:Name="ckbAllNameCompany"
                         Grid.Column="2"
-                        CheckedColor="{StaticResource PrimaryColor}"
+                        CheckedColor="{DynamicResource PrimaryColor}"
                         CornerRadius="5"
                         FontSize="13"
                         IsEnabled="False"
@@ -80,7 +80,7 @@
                                     </Grid.ColumnDefinitions>
                                     <checkbox:SfCheckBox
                                         x:Name="ckbTitleCompany"
-                                        CheckedColor="{StaticResource PrimaryColor}"
+                                        CheckedColor="{DynamicResource PrimaryColor}"
                                         CornerRadius="5"
                                         FontSize="13"
                                         IsChecked="{Binding IsVisible}"
@@ -89,7 +89,7 @@
                                     <checkbox:SfCheckBox
                                         x:Name="ckbBoudaryCompany"
                                         Grid.Column="1"
-                                        CheckedColor="{StaticResource PrimaryColor}"
+                                        CheckedColor="{DynamicResource PrimaryColor}"
                                         CornerRadius="5"
                                         FontSize="13"
                                         IsChecked="{Binding IsDisplayBound}"
@@ -98,7 +98,7 @@
                                     <checkbox:SfCheckBox
                                         x:Name="ckbNameCompany"
                                         Grid.Column="2"
-                                        CheckedColor="{StaticResource PrimaryColor}"
+                                        CheckedColor="{DynamicResource PrimaryColor}"
                                         CornerRadius="5"
                                         FontSize="13"
                                         IsChecked="{Binding IsDisplayName}"
@@ -124,7 +124,7 @@
                 <Label
                     Grid.ColumnSpan="3"
                     Padding="10"
-                    BackgroundColor="{StaticResource TextPrimaryColor}"
+                    BackgroundColor="{DynamicResource TextPrimaryColor}"
                     FontSize="14"
                     Text="Nhóm điểm hệ thống" />
                 <Grid
@@ -138,14 +138,14 @@
                     </Grid.ColumnDefinitions>
                     <checkbox:SfCheckBox
                         x:Name="ckbAllTitle"
-                        CheckedColor="{StaticResource PrimaryColor}"
+                        CheckedColor="{DynamicResource PrimaryColor}"
                         CornerRadius="5"
                         FontSize="13"
                         Text="Tất cả" />
                     <checkbox:SfCheckBox
                         x:Name="ckbAllBoudary"
                         Grid.Column="1"
-                        CheckedColor="{StaticResource PrimaryColor}"
+                        CheckedColor="{DynamicResource PrimaryColor}"
                         CornerRadius="5"
                         FontSize="13"
                         IsEnabled="False"
@@ -153,7 +153,7 @@
                     <checkbox:SfCheckBox
                         x:Name="ckbAllName"
                         Grid.Column="2"
-                        CheckedColor="{StaticResource PrimaryColor}"
+                        CheckedColor="{DynamicResource PrimaryColor}"
                         CornerRadius="5"
                         FontSize="13"
                         IsEnabled="False"
@@ -174,7 +174,7 @@
                                     </Grid.ColumnDefinitions>
                                     <checkbox:SfCheckBox
                                         x:Name="ckbTitle"
-                                        CheckedColor="{StaticResource PrimaryColor}"
+                                        CheckedColor="{DynamicResource PrimaryColor}"
                                         CornerRadius="5"
                                         FontSize="13"
                                         IsChecked="{Binding IsVisible}"
@@ -183,7 +183,7 @@
                                     <checkbox:SfCheckBox
                                         x:Name="ckbBoudary"
                                         Grid.Column="1"
-                                        CheckedColor="{StaticResource PrimaryColor}"
+                                        CheckedColor="{DynamicResource PrimaryColor}"
                                         CornerRadius="5"
                                         FontSize="13"
                                         IsChecked="{Binding IsDisplayBound}"
@@ -192,7 +192,7 @@
                                     <checkbox:SfCheckBox
                                         x:Name="ckbName"
                                         Grid.Column="2"
-                                        CheckedColor="{StaticResource PrimaryColor}"
+                                        CheckedColor="{DynamicResource PrimaryColor}"
                                         CornerRadius="5"
                                         FontSize="13"
                                         IsChecked="{Binding IsDisplayName}"
@@ -207,7 +207,7 @@
             <Label
                 Grid.Row="2"
                 Padding="10"
-                BackgroundColor="{StaticResource PrimaryColor}"
+                BackgroundColor="{DynamicResource PrimaryColor}"
                 HorizontalOptions="FillAndExpand"
                 HorizontalTextAlignment="Center"
                 Text="XEM"

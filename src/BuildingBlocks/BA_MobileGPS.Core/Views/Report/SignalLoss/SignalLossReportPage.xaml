@@ -58,7 +58,7 @@
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
                 Text="{i18n:TranslateResource ReportSignalLoss_Label_TitlePage}"
-                TextColor="{StaticResource WhiteColor}"
+                TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
             <StackLayout
                 Grid.Column="2"
@@ -86,7 +86,7 @@
     </NavigationPage.TitleView>
     <ContentPage.Content>
         <AbsoluteLayout
-            BackgroundColor="{StaticResource WhiteColor}"
+            BackgroundColor="{DynamicResource WhiteColor}"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand">
             <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
@@ -123,7 +123,7 @@
                         x:Name="txtfromdate"
                         Grid.Row="0"
                         Grid.Column="0"
-                        BorderColor="{StaticResource GrayColor2}">
+                        BorderColor="{DynamicResource GrayColor2}">
                         <StackLayout
                             Padding="5,0,5,0"
                             HorizontalOptions="FillAndExpand"
@@ -144,7 +144,7 @@
                                 </Entry.Effects>
                             </Entry>
                             <controls:IconView
-                                Foreground="Black"
+                                  Foreground="{DynamicResource BlackColor}"  
                                 HeightRequest="20"
                                 HorizontalOptions="End"
                                 Source="ic_date_range_black.png"
@@ -158,7 +158,7 @@
                         Grid.Row="0"
                         Grid.Column="1"
                         Padding="0"
-                        BorderColor="{StaticResource GrayColor2}">
+                        BorderColor="{DynamicResource GrayColor2}">
                         <StackLayout
                             Padding="5,0,5,0"
                             HorizontalOptions="FillAndExpand"
@@ -179,7 +179,7 @@
                                 </Entry.Effects>
                             </Entry>
                             <controls:IconView
-                                Foreground="Black"
+                                  Foreground="{DynamicResource BlackColor}"  
                                 HeightRequest="20"
                                 HorizontalOptions="End"
                                 Source="ic_date_range_black.png"
@@ -197,14 +197,14 @@
                         HasShadow="False"
                         HeightRequest="35"
                         HorizontalOptions="Start"
-                        LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                        LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                         VerticalOptions="CenterAndExpand"
                         WidthRequest="35">
                         <sharpnado:MaterialFrame.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding SearchDataCommand}" />
                         </sharpnado:MaterialFrame.GestureRecognizers>
                         <controls:IconView
-                            Foreground="White"
+                              Foreground="{DynamicResource WhiteColor}"  
                             HeightRequest="20"
                             HorizontalOptions="Center"
                             Source="ic_search.png"
@@ -219,7 +219,7 @@
                         <Frame
                             x:Name="cmbVihicle"
                             Padding="0"
-                            BorderColor="{StaticResource GrayColor2}">
+                            BorderColor="{DynamicResource GrayColor2}">
                             <StackLayout
                                 Padding="5,0,5,0"
                                 HorizontalOptions="FillAndExpand"
@@ -240,7 +240,7 @@
                                     </Entry.Effects>
                                 </Entry>
                                 <controls:IconView
-                                    Foreground="Black"
+                                      Foreground="{DynamicResource BlackColor}"  
                                     HeightRequest="15"
                                     HorizontalOptions="End"
                                     Source="ic_sortdown.png"
@@ -252,7 +252,7 @@
                         <Frame
                             x:Name="cmbStatus"
                             Padding="0"
-                            BorderColor="{StaticResource GrayColor2}">
+                            BorderColor="{DynamicResource GrayColor2}">
                             <StackLayout
                                 Padding="5,0,5,0"
                                 HorizontalOptions="FillAndExpand"
@@ -273,7 +273,7 @@
                                     </Entry.Effects>
                                 </Entry>
                                 <controls:IconView
-                                    Foreground="Black"
+                                      Foreground="{DynamicResource BlackColor}"  
                                     HeightRequest="15"
                                     HorizontalOptions="End"
                                     Source="ic_sortdown.png"
@@ -282,7 +282,7 @@
                             </StackLayout>
                         </Frame>
                         <!--  Số phút mất tín hiệu  -->
-                        <Frame Padding="5,0,5,0" BorderColor="{StaticResource GrayColor2}">
+                        <Frame Padding="5,0,5,0" BorderColor="{DynamicResource GrayColor2}">
                             <Entry
                                 FontSize="{StaticResource FontSize11}"
                                 HorizontalOptions="Fill"
@@ -310,14 +310,14 @@
                             HeightRequest="35"
                             HorizontalOptions="Start"
                             IsVisible="{Binding IsExportExcel}"
-                            LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                            LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="CenterAndExpand"
                             WidthRequest="35">
                             <sharpnado:MaterialFrame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ExportExcellCommand}" />
                             </sharpnado:MaterialFrame.GestureRecognizers>
                             <controls:IconView
-                                Foreground="White"
+                                  Foreground="{DynamicResource WhiteColor}"  
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
                                 Source="ic_excel.png"
@@ -356,7 +356,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource DetailsReport_Table_Serial}"
-                                        TextColor="{StaticResource WhiteColor}" />
+                                        TextColor="{DynamicResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -380,7 +380,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_Title_StartTime}"
-                                        TextColor="{StaticResource WhiteColor}" />
+                                        TextColor="{DynamicResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -395,12 +395,12 @@
                                         <Label
                                             FontSize="{StaticResource FontSize10}"
                                             Text="{Binding StartTime, Converter={StaticResource TimeConverter}}"
-                                            TextColor="{StaticResource PrimaryColor}"
+                                            TextColor="{DynamicResource PrimaryColor}"
                                             YAlign="End" />
                                         <Label
                                             FontSize="{StaticResource FontSize10}"
                                             Text="{Binding StartTime, Converter={StaticResource DateConverter}}"
-                                            TextColor="{StaticResource PrimaryColor}"
+                                            TextColor="{DynamicResource PrimaryColor}"
                                             YAlign="Start" />
                                     </StackLayout>
                                 </DataTemplate>
@@ -419,7 +419,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_Title_EndTime}"
-                                        TextColor="{StaticResource WhiteColor}" />
+                                        TextColor="{DynamicResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -450,7 +450,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_Title_TimeLosing}"
-                                        TextColor="{StaticResource WhiteColor}" />
+                                        TextColor="{DynamicResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -476,7 +476,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_Title_StartAddress}"
-                                        TextColor="{StaticResource WhiteColor}" />
+                                        TextColor="{DynamicResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -502,7 +502,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_Title_EndAddress}"
-                                        TextColor="{StaticResource WhiteColor}" />
+                                        TextColor="{DynamicResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -528,7 +528,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{i18n:TranslateResource ReportSignalLoss_TitleStatus}"
-                                        TextColor="{StaticResource WhiteColor}" />
+                                        TextColor="{DynamicResource WhiteColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
@@ -559,7 +559,7 @@
                 </syncDataGrid:SfDataGrid>
                 <StackLayout
                     Grid.Row="1"
-                    BackgroundColor="White"
+                   BackgroundColor="{DynamicResource WhiteColor}"
                     HorizontalOptions="Center"
                     IsVisible="{Binding HasData, Converter={StaticResource InvertBooleanConverter}}"
                     Spacing="10"
@@ -576,7 +576,7 @@
                         HorizontalOptions="Center"
                         HorizontalTextAlignment="Center"
                         Text="{i18n:TranslateResource Common_Message_NoData}"
-                        TextColor="{StaticResource TextPrimaryColor}" />
+                        TextColor="{DynamicResource TextPrimaryColor}" />
                 </StackLayout>
             </Grid>
             <Grid
@@ -601,7 +601,7 @@
                 <Frame
                     Grid.Row="1"
                     Padding="10"
-                    BackgroundColor="White"
+                   BackgroundColor="{DynamicResource WhiteColor}"
                     CornerRadius="0"
                     HasShadow="False"
                     HorizontalOptions="FillAndExpand">
@@ -618,7 +618,7 @@
                         </Grid.ColumnDefinitions>
                         <Grid.Resources>
                             <Style TargetType="checkbox:SfCheckBox">
-                                <Setter Property="CheckedColor" Value="{StaticResource PrimaryColor}" />
+                                <Setter Property="CheckedColor" Value="{DynamicResource PrimaryColor}" />
                                 <Setter Property="CornerRadius" Value="5" />
                                 <Setter Property="FontSize" Value="13" />
                             </Style>
@@ -672,8 +672,8 @@
                             HorizontalOptions="FillAndExpand"
                             Orientation="Horizontal">
                             <Button
-                                BackgroundColor="White"
-                                BorderColor="{StaticResource PrimaryColor}"
+                               BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource PrimaryColor}"
                                 BorderRadius="0"
                                 BorderWidth="1"
                                 Clicked="HideableToolbarItem_Clicked"
@@ -683,10 +683,10 @@
                                 HorizontalOptions="FillAndExpand"
                                 Text="{i18n:TranslateResource Common_Button_Close,
                                                               Converter={StaticResource UpperCaseConverter}}"
-                                TextColor="{StaticResource PrimaryColor}" />
+                                TextColor="{DynamicResource PrimaryColor}" />
 
                             <Button
-                                BackgroundColor="{StaticResource PrimaryColor}"
+                                BackgroundColor="{DynamicResource PrimaryColor}"
                                 BorderRadius="0"
                                 Clicked="Button_Clicked"
                                 Command="{Binding SaveComlumnHideCommand}"
@@ -696,7 +696,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 Text="{i18n:TranslateResource Common_Button_SaveShowHideColumn,
                                                               Converter={StaticResource UpperCaseConverter}}"
-                                TextColor="{StaticResource WhiteColor}" />
+                                TextColor="{DynamicResource WhiteColor}" />
                         </StackLayout>
                     </Grid>
                 </Frame>

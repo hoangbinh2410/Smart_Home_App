@@ -19,7 +19,7 @@
             <sharpnado:MaterialFrame
                 Padding="15,10"
                 BackgroundColor="WhiteSmoke"
-                BorderColor="{StaticResource GrayColor}"
+                BorderColor="{DynamicResource GrayColor}"
                 CornerRadius="0"
                 HasShadow="False"
                 HorizontalOptions="FillAndExpand"
@@ -130,7 +130,7 @@
                             <TapGestureRecognizer Command="{Binding DownloadImageCommand}" />
                         </controls:MaterialFrame.GestureRecognizers>
                         <controls:IconView
-                            Foreground="White"
+                              Foreground="{DynamicResource WhiteColor}"
                             HeightRequest="30"
                             HorizontalOptions="Center"
                             Source="ic_cloud_download_black.png"

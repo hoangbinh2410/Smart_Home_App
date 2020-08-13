@@ -17,7 +17,7 @@
 
     <ContentPage.Content>
         <StackLayout
-            BackgroundColor="White"
+           BackgroundColor="{DynamicResource WhiteColor}"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand">
             <Grid Padding="10,0" RowSpacing="0">
@@ -35,7 +35,7 @@
                         <TapGestureRecognizer Command="{Binding SelectedAllVehicleCommand}" />
                     </StackLayout.GestureRecognizers>
                     <checkbox:SfCheckBox
-                        CheckedColor="{StaticResource PrimaryColor}"
+                        CheckedColor="{DynamicResource PrimaryColor}"
                         CornerRadius="5"
                         FontAttributes="Bold"
                         InputTransparent="True"
@@ -91,14 +91,14 @@
                     CornerRadius="10"
                     HasShadow="False"
                     HeightRequest="48"
-                    LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                    LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                     VerticalOptions="End"
                     WidthRequest="48">
                     <sharpnado:MaterialFrame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
                     </sharpnado:MaterialFrame.GestureRecognizers>
                     <controls:IconView
-                        Foreground="White"
+                          Foreground="{DynamicResource WhiteColor}"  
                         HeightRequest="30"
                         HorizontalOptions="Center"
                         Source="ic_doubleship.png"
@@ -115,7 +115,7 @@
                         <TapGestureRecognizer Command="{Binding SelectedAllVehicleNotConfiguredCommand}" />
                     </StackLayout.GestureRecognizers>
                     <checkbox:SfCheckBox
-                        CheckedColor="{StaticResource PrimaryColor}"
+                        CheckedColor="{DynamicResource PrimaryColor}"
                         CornerRadius="5"
                         FontAttributes="Bold"
                         InputTransparent="True"
@@ -135,7 +135,7 @@
                     <syncfusionList:SfListView.ItemTemplate>
                         <DataTemplate>
                             <checkbox:SfCheckBox
-                                CheckedColor="{StaticResource PrimaryColor}"
+                                CheckedColor="{DynamicResource PrimaryColor}"
                                 CornerRadius="5"
                                 InputTransparent="True"
                                 IsChecked="{Binding IsVisible}"
