@@ -99,7 +99,7 @@ namespace VMS_MobileGPS.ViewModels
 
                 companyChanged = false;
             }
-            else if(parameters?.GetValue<string>("pagetoNavigation") is string action)
+            else if (parameters?.GetValue<string>("pagetoNavigation") is string action)
             {
                 if (action == MobileResource.DetailVehicle_Label_TilePage)
                 {
@@ -478,7 +478,7 @@ namespace VMS_MobileGPS.ViewModels
                     //Nếu messageId = 2 hoặc 3 là xe phải thu phí
                     if (StateVehicleExtension.IsVehicleStopService(selected.MessageId))
                     {
-                        var mes = string.IsNullOrEmpty(selected.MessageDetailBAP) ? selected.MessageBAP : selected.MessageDetailBAP;                     
+                        var mes = string.IsNullOrEmpty(selected.MessageDetailBAP) ? selected.MessageBAP : selected.MessageDetailBAP;
                         ShowInfoMessageDetailBAP(mes);
                         return;
                     }
@@ -488,7 +488,7 @@ namespace VMS_MobileGPS.ViewModels
                             { "vehicleItem",  selected.PrivateCode}
                         });
 
-                  
+
                 }
             });
         }
@@ -508,7 +508,13 @@ namespace VMS_MobileGPS.ViewModels
 
         private void GetListVehicleOnline()
         {
-            RunOnBackground(async () =>
+            if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+            {
+                InitVehicleList();
+            }
+            else
+            {
+                RunOnBackground(async () =>
             {
                 var userID = StaticSettings.User.UserId;
                 if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
@@ -518,32 +524,33 @@ namespace VMS_MobileGPS.ViewModels
                 int vehicleGroup = 0;
                 return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup);
             },
-           (result) =>
-           {
-               if (result != null && result.Count > 0)
-               {
-                   result.ForEach(x =>
+                   (result) =>
                    {
-                       x.IconImage = IconCodeHelper.GetMarkerResource(x);
-                       x.StatusEngineer = StateVehicleExtension.EngineState(x);
-
-                       if (!StateVehicleExtension.IsLostGPS(x.GPSTime, x.VehicleTime) && !StateVehicleExtension.IsLostGSM(x.VehicleTime))
+                       if (result != null && result.Count > 0)
                        {
-                           x.SortOrder = 1;
+                           result.ForEach(x =>
+                           {
+                               x.IconImage = IconCodeHelper.GetMarkerResource(x);
+                               x.StatusEngineer = StateVehicleExtension.EngineState(x);
+
+                               if (!StateVehicleExtension.IsLostGPS(x.GPSTime, x.VehicleTime) && !StateVehicleExtension.IsLostGSM(x.VehicleTime))
+                               {
+                                   x.SortOrder = 1;
+                               }
+                               else
+                               {
+                                   x.SortOrder = 0;
+                               }
+                           });
+                           StaticSettings.ListVehilceOnline = result;
+                           InitVehicleList();
                        }
                        else
                        {
-                           x.SortOrder = 0;
+                           StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
                        }
                    });
-                   StaticSettings.ListVehilceOnline = result;
-                   InitVehicleList();
-               }
-               else
-               {
-                   StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
-               }
-           });
+            }
         }
 
 
@@ -561,7 +568,7 @@ namespace VMS_MobileGPS.ViewModels
                     { ParameterKey.CarDetail, param }
                 };
 
-                var a = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters,useModalNavigation: true);
+                var a = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, useModalNavigation: true);
             });
         }
 
