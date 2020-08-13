@@ -31,7 +31,7 @@
             <converter:HasDataConverter x:Key="HasDataConverter" />
         </ResourceDictionary>
         <Style TargetType="sharpnado:MaterialFrame">
-            <Setter Property="LightThemeBackgroundColor" Value="{DynamicResource PrimaryColor}" />
+            <Setter Property="LightThemeBackgroundColor" Value="{DynamicResource LoginIconBackgroundColor}" />
             <Setter Property="WidthRequest" Value="42" />
             <Setter Property="CornerRadius" Value="21" />
             <Setter Property="Padding" Value="0" />
@@ -59,7 +59,7 @@
                     WidthRequest="25" />
                 <Label
                     Text="{Binding Language.Description}"
-                    TextColor="{DynamicResource PrimaryColor}"
+                    TextColor="{DynamicResource LoginTextColor}"
                     VerticalOptions="Center" />
             </StackLayout>
             <ff:CachedImage
@@ -93,7 +93,7 @@
                                             Color="{DynamicResource WhiteColor}" />
                                     </sh:ImmutableShades>
                                 </sh:Shadows.Shades>
-                                <sharpnado:MaterialFrame HeightRequest="43">
+                                <sharpnado:MaterialFrame HeightRequest="43" WidthRequest="43">
                                     <controls:IconView
                                         Margin="9"
                                         Foreground="{DynamicResource WhiteColor}"
@@ -119,14 +119,28 @@
                         HasError="{Binding Password.IsNotValid}"
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
-                            <sharpnado:MaterialFrame HeightRequest="42">
-                                <controls:IconView
-                                    Margin="9"
-                                    Foreground="{DynamicResource WhiteColor}"
-                                    HorizontalOptions="Center"
-                                    Source="ic_lock.png"
-                                    VerticalOptions="CenterAndExpand" />
-                            </sharpnado:MaterialFrame>
+                            <sh:Shadows
+                                CornerRadius="21"
+                                HeightRequest="43"
+                                WidthRequest="43">
+                                <sh:Shadows.Shades>
+                                    <sh:ImmutableShades>
+                                        <sh:Shade
+                                            BlurRadius="4"
+                                            Opacity="0.3"
+                                            Offset="-2,0"
+                                            Color="{DynamicResource WhiteColor}" />
+                                    </sh:ImmutableShades>
+                                </sh:Shadows.Shades>
+                                <sharpnado:MaterialFrame HeightRequest="42">
+                                    <controls:IconView
+                                        Margin="9"
+                                        Foreground="{DynamicResource WhiteColor}"
+                                        HorizontalOptions="Center"
+                                        Source="ic_lock.png"
+                                        VerticalOptions="CenterAndExpand" />
+                                </sharpnado:MaterialFrame>
+                            </sh:Shadows>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
                             <Entry
@@ -144,16 +158,16 @@
                         Orientation="Horizontal"
                         WidthRequest="300">
                         <buttons:SfCheckBox
-                            CheckedColor="{DynamicResource PrimaryColor}"
+                            CheckedColor="{DynamicResource LoginTextColor}"
                             CornerRadius="0"
                             IsChecked="{Binding Rememberme}"
                             Text="{i18n:TranslateResource Login_Checkbox_Autologin}"
-                            TextColor="{DynamicResource TextSecondaryColor}"
-                            UncheckedColor="{DynamicResource TextSecondaryColor}" />
+                            TextColor="{DynamicResource LoginTextColor}"
+                            UncheckedColor="{DynamicResource LoginTextColor}" />
                         <Label
                             HorizontalOptions="EndAndExpand"
                             Text="{i18n:TranslateResource Login_Lable_Forgotpassword}"
-                            TextColor="{DynamicResource TextSecondaryColor}"
+                            TextColor="{DynamicResource LoginTextColor}"
                             VerticalOptions="Center">
                             <Label.Behaviors>
                                 <animation:ViewTappedBehavior AnimationType="Scale" />
@@ -201,7 +215,7 @@
                         <sharpnado:MaterialFrame>
                             <controls:IconView
                                 Margin="6"
-                                Foreground="{DynamicResource WhiteColor}"
+                                Foreground="{DynamicResource LoginIconColor}"
                                 Source="ic_phone.png"
                                 VerticalOptions="CenterAndExpand" />
                             <sharpnado:MaterialFrame.GestureRecognizers>
@@ -211,7 +225,7 @@
                         <sharpnado:MaterialFrame>
                             <controls:IconView
                                 Margin="6"
-                                Foreground="{DynamicResource WhiteColor}"
+                                Foreground="{DynamicResource LoginIconColor}"
                                 Source="ic_mail.png"
                                 VerticalOptions="CenterAndExpand" />
                             <sharpnado:MaterialFrame.GestureRecognizers>
@@ -221,7 +235,7 @@
                         <sharpnado:MaterialFrame>
                             <controls:IconView
                                 Margin="6"
-                                Foreground="{DynamicResource WhiteColor}"
+                                Foreground="{DynamicResource LoginIconColor}"
                                 Source="ic_global.png"
                                 VerticalOptions="CenterAndExpand" />
                             <sharpnado:MaterialFrame.GestureRecognizers>
@@ -231,7 +245,7 @@
                     </StackLayout>
                     <controls:IconView
                         Margin="0,0,20,0"
-                        Foreground="{DynamicResource PrimaryColor}"
+                        Foreground="{DynamicResource LoginIconBackgroundColor}"
                         HorizontalOptions="End"
                         Source="ic_foursquare.png"
                         WidthRequest="40">
