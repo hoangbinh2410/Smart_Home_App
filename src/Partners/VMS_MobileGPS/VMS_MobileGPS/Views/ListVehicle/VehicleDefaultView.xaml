@@ -9,7 +9,7 @@
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     Padding="0"
-    CornerRadius="0">
+    LightThemeBackgroundColor="Transparent">
     <sharpnado:MaterialFrame.Resources>
         <ResourceDictionary>
             <converters:NMConverter x:Key="NMConverter" />
@@ -98,7 +98,7 @@
                             LineHeight="1.1"
                             MaxLines="2"
                             Text="{Binding MessageBAP}"
-                            TextColor="Red"
+                            TextColor="{DynamicResource DangerousColor}"
                             VerticalOptions="Center" />
                     </StackLayout>
                 </StackLayout>

@@ -16,6 +16,7 @@
             <Setter Property="VerticalOptions" Value="CenterAndExpand" />
             <Setter Property="HorizontalOptions" Value="StartAndExpand" />
             <Setter Property="VerticalTextAlignment" Value="Center" />
+            <Setter Property="TextColor" Value="{DynamicResource TextPrimaryColor}" />
         </Style>
     </ContentView.Resources>
     <Grid BackgroundColor="{DynamicResource WhiteColor}" RowDefinitions="150,*,Auto">

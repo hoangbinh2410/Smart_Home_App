@@ -10,6 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:shapnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     Padding="0"
+    LightThemeBackgroundColor="Transparent"
     mc:Ignorable="d">
 
     <StackLayout>
@@ -48,7 +49,7 @@
                         LineHeight="1.1"
                         MaxLines="2"
                         Text="{Binding MessageBAP}"
-                        TextColor="Red"
+                        TextColor="{DynamicResource DangerousColor}"
                         VerticalOptions="Center" />
                 </StackLayout>
                 <StackLayout

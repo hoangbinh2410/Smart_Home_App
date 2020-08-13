@@ -92,7 +92,7 @@
                         HasShadow="False"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Border>
-                            <pancake:Border Thickness="1" Color="{DynamicResource WhiteColor}" />
+                            <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
                         </pancake:PancakeView.Border>
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer
@@ -104,7 +104,7 @@
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             Text="1H"
-                            TextColor="White" />
+                            TextColor="{DynamicResource WhiteColor}" />
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Grid.Column="1"
@@ -116,7 +116,7 @@
                         HasShadow="False"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Border>
-                            <pancake:Border Thickness="1" Color="{DynamicResource WhiteColor}" />
+                            <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
                         </pancake:PancakeView.Border>
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer
@@ -128,7 +128,7 @@
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             Text="4H"
-                            TextColor="White" />
+                            TextColor="{DynamicResource WhiteColor}" />
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Grid.Column="2"
@@ -140,7 +140,7 @@
                         HasShadow="False"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Border>
-                            <pancake:Border Thickness="1" Color="{DynamicResource WhiteColor}" />
+                            <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
                         </pancake:PancakeView.Border>
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer
@@ -152,7 +152,7 @@
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             Text="8H"
-                            TextColor="White" />
+                            TextColor="{DynamicResource WhiteColor}" />
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Grid.Column="3"
@@ -164,7 +164,7 @@
                         HasShadow="False"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Border>
-                            <pancake:Border Thickness="1" Color="{DynamicResource WhiteColor}" />
+                            <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
                         </pancake:PancakeView.Border>
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer
@@ -176,7 +176,7 @@
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             Text="24H"
-                            TextColor="White" />
+                            TextColor="{DynamicResource WhiteColor}" />
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Grid.Column="4"
@@ -188,7 +188,7 @@
                         HasShadow="False"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Border>
-                            <pancake:Border Thickness="1" Color="{DynamicResource WhiteColor}" />
+                            <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
                         </pancake:PancakeView.Border>
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer
@@ -517,7 +517,7 @@
                         VerticalOptions="Center"
                         WidthRequest="30">
                         <pancake:PancakeView.Border>
-                            <pancake:Border Thickness="3" Color="{DynamicResource WhiteColor}" />
+                            <pancake:Border Thickness="3" Color="{StaticResource WhiteColor}" />
                         </pancake:PancakeView.Border>
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ChangeSpeedCommand}" />
