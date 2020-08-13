@@ -494,7 +494,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     //Nếu messageId = 2 hoặc 3 là xe phải thu phí
                     if (StateVehicleExtension.IsVehicleStopService(selected.MessageId))
                     {
-                        ShowInfoMessageDetailBAP(selected.MessageDetailBAP);
+                        var mes = string.IsNullOrEmpty(selected.MessageDetailBAP) ? selected.MessageBAP : selected.MessageDetailBAP;
+                        ShowInfoMessageDetailBAP(mes);
                         return;
                     }
                     currentVehicle = selected;
