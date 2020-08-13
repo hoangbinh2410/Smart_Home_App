@@ -5352,67 +5352,67 @@ namespace BA_MobileGPS.Core.Droid
 			public static int ic_ship = 2131165737;
 			
 			// aapt resource value: 0x7F07022A
-			public static int ic_ship2 = 2131165738;
+			public static int ic_shipsolid = 2131165738;
 			
 			// aapt resource value: 0x7F07022B
-			public static int ic_shipsolid = 2131165739;
+			public static int ic_shortlogo = 2131165739;
 			
 			// aapt resource value: 0x7F07022C
-			public static int ic_shortlogo = 2131165740;
+			public static int ic_sortdown = 2131165740;
 			
 			// aapt resource value: 0x7F07022D
-			public static int ic_sortdown = 2131165741;
+			public static int ic_speed = 2131165741;
 			
 			// aapt resource value: 0x7F07022E
-			public static int ic_speed = 2131165742;
+			public static int ic_start = 2131165742;
 			
 			// aapt resource value: 0x7F07022F
-			public static int ic_start = 2131165743;
+			public static int ic_stop = 2131165743;
 			
 			// aapt resource value: 0x7F070230
-			public static int ic_stop = 2131165744;
+			public static int ic_stop_light = 2131165744;
 			
 			// aapt resource value: 0x7F070231
-			public static int ic_stop_light = 2131165745;
+			public static int ic_stop_white = 2131165745;
 			
 			// aapt resource value: 0x7F070232
-			public static int ic_stop_white = 2131165746;
+			public static int ic_successstatus = 2131165746;
 			
 			// aapt resource value: 0x7F070233
-			public static int ic_successstatus = 2131165747;
+			public static int ic_support = 2131165747;
 			
 			// aapt resource value: 0x7F070234
-			public static int ic_support = 2131165748;
+			public static int ic_telephone = 2131165748;
 			
 			// aapt resource value: 0x7F070235
-			public static int ic_telephone = 2131165749;
+			public static int ic_temperature = 2131165749;
 			
 			// aapt resource value: 0x7F070236
-			public static int ic_temperature = 2131165750;
+			public static int ic_time24 = 2131165750;
 			
 			// aapt resource value: 0x7F070237
-			public static int ic_time24 = 2131165751;
+			public static int ic_time_black = 2131165751;
 			
 			// aapt resource value: 0x7F070238
-			public static int ic_time_black = 2131165752;
+			public static int ic_time_running = 2131165752;
 			
 			// aapt resource value: 0x7F070239
-			public static int ic_time_running = 2131165753;
+			public static int ic_turnon_time_on_day = 2131165753;
 			
 			// aapt resource value: 0x7F07023A
-			public static int ic_turnon_time_on_day = 2131165754;
+			public static int ic_unchecked_checkbox = 2131165754;
 			
 			// aapt resource value: 0x7F07023B
-			public static int ic_unchecked_checkbox = 2131165755;
+			public static int ic_user = 2131165755;
 			
 			// aapt resource value: 0x7F07023C
-			public static int ic_user = 2131165756;
+			public static int ic_userwhite = 2131165756;
 			
 			// aapt resource value: 0x7F07023D
-			public static int ic_userwhite = 2131165757;
+			public static int ic_vector = 2131165757;
 			
 			// aapt resource value: 0x7F07023E
-			public static int ic_vector = 2131165758;
+			public static int ic_vehicle = 2131165758;
 			
 			// aapt resource value: 0x7F07023F
 			public static int ic_vehicleplate = 2131165759;
