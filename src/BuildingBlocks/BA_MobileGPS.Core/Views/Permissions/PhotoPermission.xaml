@@ -16,7 +16,7 @@
             <Frame
                 Margin="0,0,0,70"
                 Padding="15"
-                BackgroundColor="White"
+               BackgroundColor="{DynamicResource WhiteColor}"
                 CornerRadius="10"
                 HeightRequest="320"
                 HorizontalOptions="CenterAndExpand"
@@ -38,7 +38,7 @@
                             Margin="0,-10,-10,0"
                             FontAttributes="Bold"
                             Text="{x:Static fontawesome:FontAwesomeIcons.Times}"
-                            TextColor="{StaticResource PrimaryColor}" />
+                            TextColor="{DynamicResource PrimaryColor}" />
                     </Frame>
                     <Label
                         Margin="0,-60,0,0"
@@ -46,13 +46,13 @@
                         FontSize="20"
                         HorizontalOptions="Start"
                         Text="Cần được cấp quyền"
-                        TextColor="{StaticResource PrimaryColor}"
+                        TextColor="{DynamicResource PrimaryColor}"
                         VerticalOptions="Start" />
                     <Label
                         Margin="0"
                         FontSize="16"
                         Text="Ứng dụng này cần bạn cho phép truy cập thư viện ảnh để lấy ảnh của bạn, bạn có cho phép ứng dụng truy cập thư viện hình ảnh của bạn không?"
-                        TextColor="{StaticResource PrimaryColor}" />
+                        TextColor="{DynamicResource PrimaryColor}" />
                     <Frame
                         BackgroundColor="Transparent"
                         BorderColor="Transparent"
@@ -65,12 +65,12 @@
                             FontAttributes="Bold"
                             FontSize="80"
                             Text="{x:Static fontawesome:FontAwesomeIcons.Images}"
-                            TextColor="{StaticResource PrimaryColor}" />
+                            TextColor="{DynamicResource PrimaryColor}" />
                     </Frame>
                     <Frame
                         Margin="0,15,0,0"
                         Padding="35,10"
-                        BackgroundColor="{StaticResource PrimaryColor}"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
                         CornerRadius="20"
                         HasShadow="False"
                         HorizontalOptions="CenterAndExpand">

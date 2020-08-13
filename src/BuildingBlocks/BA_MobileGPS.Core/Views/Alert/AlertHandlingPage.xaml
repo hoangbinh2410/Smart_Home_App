@@ -44,22 +44,22 @@
                 <sh:Shade
                     BlurRadius="2"
                     Offset="0,0"
-                    Color="{StaticResource TextSecondaryColor}" />
+                    Color="{DynamicResource TextSecondaryColor}" />
             </sh:ImmutableShades>
         </sh:Shadows.Shades>
         <sharpnado:MaterialFrame
             Margin="30,0"
             Padding="15"
-            BackgroundColor="{StaticResource WhiteColor}"
-            BorderColor="{StaticResource PrimaryColor}"
+            BackgroundColor="{DynamicResource WhiteColor}"
+            BorderColor="{DynamicResource PrimaryColor}"
             CornerRadius="10">
             <Grid RowDefinitions="Auto,Auto,Auto">
                 <Label
                     FontAttributes="Bold"
-                    FontFamily="{StaticResource myFontLatoBold}"
+                    FontFamily="{DynamicResource myFontLatoBold}"
                     FontSize="Medium"
                     Text="Xử lý cảnh báo"
-                    TextColor="{StaticResource PrimaryColor}" />
+                    TextColor="{DynamicResource PrimaryColor}" />
                 <StackLayout
                     Grid.Row="1"
                     Spacing="0"
@@ -67,7 +67,7 @@
                     <inputLayout:SfTextInputLayout
                         Hint="{i18n:TranslateResource Alert_Label_AlertDetail}"
                         OutlineCornerRadius="16"
-                        UnfocusedColor="{StaticResource PrimaryColor}">
+                        UnfocusedColor="{DynamicResource PrimaryColor}">
                         <Editor IsReadOnly="True" Text="{Binding Alert.Content}" />
                     </inputLayout:SfTextInputLayout>
                     <inputLayout:SfTextInputLayout
@@ -77,7 +77,7 @@
                         IsEnabled="True"
                         IsHintAlwaysFloated="True"
                         OutlineCornerRadius="18"
-                        UnfocusedColor="{StaticResource PrimaryColor}">
+                        UnfocusedColor="{DynamicResource PrimaryColor}">
                         <Editor
                             HeightRequest="100"
                             Placeholder="Nội dung xử lý ..."
@@ -92,8 +92,8 @@
                     <!--  huỷ  -->
                     <Button
                         Padding="0"
-                        BackgroundColor="White"
-                        BorderColor="{StaticResource PrimaryColor}"
+                       BackgroundColor="{DynamicResource WhiteColor}"
+                        BorderColor="{DynamicResource PrimaryColor}"
                         BorderWidth="0.5"
                         Command="{Binding CancelCommand}"
                         CornerRadius="17"

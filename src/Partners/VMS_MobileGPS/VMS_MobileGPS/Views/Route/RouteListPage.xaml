@@ -22,7 +22,7 @@
             Spacing="0"
             VerticalOptions="FillAndExpand">
             <Grid
-                BackgroundColor="{StaticResource GrayColor}"
+                BackgroundColor="{DynamicResource GrayColor}"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="Start">
                 <Grid.ColumnDefinitions>
@@ -56,7 +56,7 @@
                     VerticalOptions="Center" />
             </Grid>
             <BoxView
-                BackgroundColor="{StaticResource GrayColor}"
+                BackgroundColor="{DynamicResource GrayColor}"
                 HeightRequest="0.5"
                 VerticalOptions="Start" />
             <syncfusionList:SfListView
@@ -118,7 +118,7 @@
                                 Orientation="Horizontal">
                                 <controls:IconView
                                     Margin="5,0,0,0"
-                                    Foreground="{StaticResource PrimaryColor}"
+                                    Foreground="{DynamicResource PrimaryColor}"
                                     HeightRequest="20"
                                     HorizontalOptions="Start"
                                     Source="ic_coordinates.png"
@@ -140,7 +140,7 @@
                             <BoxView
                                 Grid.Row="2"
                                 Grid.ColumnSpan="3"
-                                BackgroundColor="{StaticResource GrayColor2}"
+                                BackgroundColor="{DynamicResource GrayColor2}"
                                 HeightRequest="0.5"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="Start" />

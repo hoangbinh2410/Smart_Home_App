@@ -41,13 +41,13 @@
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
                 Text="{i18n:TranslateResource Camera_Label_TilePage}"
-                TextColor="{StaticResource WhiteColor}"
+                TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
         <StackLayout
-            BackgroundColor="White"
+            BackgroundColor="{DynamicResource WhiteColor}"
             HorizontalOptions="FillAndExpand"
             Spacing="0"
             VerticalOptions="FillAndExpand">
@@ -70,8 +70,8 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     Padding="5,0,5,0"
-                    BackgroundColor="White"
-                    BorderColor="{StaticResource GrayColor}"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    BorderColor="{DynamicResource GrayColor}"
                     CornerRadius="5"
                     HasShadow="False"
                     HeightRequest="35"
@@ -81,7 +81,7 @@
                     <TimePicker
                         FontSize="{StaticResource FontSize12}"
                         HorizontalOptions="FillAndExpand"
-                        TextColor="{StaticResource TextPrimaryColor}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
                         Time="{Binding TimeFrom}"
                         VerticalOptions="Center">
                         <TimePicker.Effects>
@@ -95,8 +95,8 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     Padding="5,0,5,0"
-                    BackgroundColor="White"
-                    BorderColor="{StaticResource GrayColor}"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    BorderColor="{DynamicResource GrayColor}"
                     CornerRadius="5"
                     HasShadow="False"
                     HeightRequest="35"
@@ -106,7 +106,7 @@
                     <TimePicker
                         FontSize="{StaticResource FontSize12}"
                         HorizontalOptions="FillAndExpand"
-                        TextColor="{StaticResource TextPrimaryColor}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
                         Time="{Binding TimeEnd}"
                         VerticalOptions="Center">
                         <TimePicker.Effects>
@@ -120,8 +120,8 @@
                     Grid.Row="0"
                     Grid.Column="2"
                     Padding="5,0,5,0"
-                    BackgroundColor="White"
-                    BorderColor="{StaticResource GrayColor}"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    BorderColor="{DynamicResource GrayColor}"
                     CornerRadius="5"
                     HasShadow="False"
                     HeightRequest="35"
@@ -132,7 +132,7 @@
                         Date="{Binding DayBefore}"
                         FontSize="{StaticResource FontSize12}"
                         HorizontalOptions="FillAndExpand"
-                        TextColor="{StaticResource TextPrimaryColor}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
                         VerticalOptions="Center">
                         <DatePicker.Effects>
                             <effects:BorderlessEffect />
@@ -145,8 +145,8 @@
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
                     Padding="0"
-                    BackgroundColor="White"
-                    BorderColor="{StaticResource GrayColor}"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    BorderColor="{DynamicResource GrayColor}"
                     CornerRadius="5"
                     HasShadow="False"
                     HeightRequest="35"
@@ -167,14 +167,14 @@
                             InputTransparent="True"
                             Placeholder="{i18n:TranslateResource Common_Label_Grid_VehiclePlate}"
                             Text="{Binding VehicleSelected.PrivateCode}"
-                            TextColor="{StaticResource TextPrimaryColor}"
+                            TextColor="{DynamicResource TextPrimaryColor}"
                             VerticalOptions="Center">
                             <Entry.Effects>
                                 <effects:BorderlessEffect />
                             </Entry.Effects>
                         </Entry>
                         <controls:IconView
-                            Foreground="{StaticResource TextPrimaryColor}"
+                            Foreground="{DynamicResource TextPrimaryColor}"
                             HeightRequest="15"
                             HorizontalOptions="End"
                             Source="ic_sortdown.png"
@@ -192,14 +192,14 @@
                     HeightRequest="35"
                     HorizontalOptions="Start"
                     IsVisible="{Binding IsEnableButtonExcell}"
-                    LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                    LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="35">
                     <sharpnado:MaterialFrame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SearchCameraCommand}" />
                     </sharpnado:MaterialFrame.GestureRecognizers>
                     <controls:IconView
-                        Foreground="White"
+                        Foreground="{DynamicResource WhiteColor}"
                         HeightRequest="20"
                         HorizontalOptions="Center"
                         Source="ic_search.png"
@@ -212,7 +212,7 @@
                 FontAttributes="Bold"
                 HorizontalOptions="StartAndExpand"
                 Text="{Binding Total, StringFormat='{}Tổng số ảnh: {0}'}"
-                TextColor="{StaticResource TextPrimaryColor}" />
+                TextColor="{DynamicResource TextPrimaryColor}" />
             <Grid Grid.Row="1">
                 <sfList:SfListView
                     x:Name="listView"
@@ -258,7 +258,7 @@
                                 </sharpnado:MaterialFrame>
                                 <StackLayout Orientation="Horizontal" Spacing="2">
                                     <controls:IconView
-                                        Foreground="{StaticResource PrimaryColor}"
+                                        Foreground="{DynamicResource PrimaryColor}"
                                         HeightRequest="15"
                                         Source="ic_location_black"
                                         VerticalOptions="Center"
@@ -273,7 +273,7 @@
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" Spacing="2">
                                     <controls:IconView
-                                        Foreground="{StaticResource PrimaryColor}"
+                                        Foreground="{DynamicResource PrimaryColor}"
                                         HeightRequest="15"
                                         Source="ic_turnon_time_on_day"
                                         VerticalOptions="Center"
@@ -312,7 +312,7 @@
                                     IsVisible="{Binding IsBusy, Source={x:Reference Name=listView}}"
                                     VerticalOptions="Center"
                                     WidthRequest="30"
-                                    Color="{StaticResource PrimaryColor}" />
+                                    Color="{DynamicResource PrimaryColor}" />
                             </Grid>
                         </DataTemplate>
                     </sfList:SfListView.LoadMoreTemplate>
@@ -336,7 +336,7 @@
                     <!--  Label to display content  -->
                     <Label
                         Text="{i18n:TranslateResource Common_Message_NoData}"
-                        TextColor="{StaticResource TextPrimaryColor}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
                         VerticalTextAlignment="Center" />
                 </StackLayout>
             </Grid>

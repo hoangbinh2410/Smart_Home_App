@@ -125,7 +125,7 @@
                         HorizontalOptions="CenterAndExpand"
                         InputTransparent="True"
                         IsToggled="{Binding IsConnectBLE}"
-                        OnColor="{StaticResource PrimaryColor}"
+                        OnColor="{DynamicResource PrimaryColor}"
                         VerticalOptions="CenterAndExpand" />
                 </StackLayout>
             </Grid>
@@ -179,7 +179,7 @@
                         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                             <controls:IconView
                                 Grid.Column="0"
-                                Foreground="{StaticResource PrimaryColor}"
+                                Foreground="{DynamicResource PrimaryColor}"
                                 Source="ic_mailoffline.png" />
                             <Label StyleClass="BoldText" Text="Gửi tin nhắn" />
                         </StackLayout>
@@ -204,7 +204,7 @@
                         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                             <controls:IconView
                                 Grid.Column="0"
-                                Foreground="{StaticResource PrimaryColor}"
+                                Foreground="{DynamicResource PrimaryColor}"
                                 HeightRequest="48"
                                 HorizontalOptions="CenterAndExpand"
                                 Source="ic_meluoi.png" />
@@ -224,7 +224,7 @@
                         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                             <controls:IconView
                                 Grid.Column="0"
-                                Foreground="{StaticResource PrimaryColor}"
+                                Foreground="{DynamicResource PrimaryColor}"
                                 Source="ic_mappoffline.png" />
                             <Label
                                 LineBreakMode="TailTruncation"

@@ -15,7 +15,7 @@
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Content>
         <StackLayout
-            BackgroundColor="White"
+            BackgroundColor="{DynamicResource WhiteColor}"
             HorizontalOptions="FillAndExpand"
             Spacing="0"
             VerticalOptions="FillAndExpand">
@@ -67,7 +67,7 @@
                         AbsoluteLayout.LayoutBounds="1,1,20,20"
                         AbsoluteLayout.LayoutFlags="PositionProportional"
                         BackgroundColor="WhiteSmoke"
-                        BorderColor="{StaticResource TextSecondaryColor}"
+                        BorderColor="{DynamicResource TextSecondaryColor}"
                         CornerRadius="10"
                         HasShadow="False">
                         <ffImage:CachedImage BackgroundColor="Transparent" Source="ic_camera.png">
@@ -88,12 +88,12 @@
                     <Label
                         FontAttributes="Bold"
                         Text="{Binding CurrentUser.UserName}"
-                        TextColor="{StaticResource PrimaryColor}"
+                        TextColor="{DynamicResource PrimaryColor}"
                         VerticalOptions="Center" />
                     <Label
                         FontAttributes="Bold"
                         Text="{i18n:TranslateResource UserInfo_Label_LoyaltyCustomer}"
-                        TextColor="{StaticResource PrimaryColor}"
+                        TextColor="{DynamicResource PrimaryColor}"
                         VerticalOptions="Center" />
                 </StackLayout>
                 <Label
@@ -102,7 +102,7 @@
                     Grid.Column="2"
                     FontAttributes="Bold"
                     Text="{Binding CurrentUser.XNCode, StringFormat='{}XN: {0}'}"
-                    TextColor="{StaticResource PrimaryColor}"
+                    TextColor="{DynamicResource PrimaryColor}"
                     VerticalOptions="Center" />
             </Grid>
             <BoxView
@@ -142,14 +142,14 @@
                         VerticalOptions="Start">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{i18n:TranslateResource UserInfo_Label_FullName}" TextColor="{StaticResource TextPrimaryColor}" />
+                                <Span Text="{i18n:TranslateResource UserInfo_Label_FullName}" TextColor="{DynamicResource TextPrimaryColor}" />
                                 <Span Text=" (*)" TextColor="OrangeRed" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
                     <input:SfTextInputLayout
                         ContainerType="Outlined"
-                        ErrorColor="{StaticResource DangerousColor}"
+                        ErrorColor="{DynamicResource DangerousColor}"
                         ErrorText="{Binding FullNameErrorMessage}"
                         HasError="{Binding FullNameHasError}"
                         HorizontalOptions="FillAndExpand"
@@ -159,7 +159,7 @@
                             <controls:FontAwesomeIcon
                                 FontAttributes="Bold"
                                 Text="{x:Static fontawesome:FontAwesomeIcons.User}"
-                                TextColor="{StaticResource PrimaryColor}" />
+                                TextColor="{DynamicResource PrimaryColor}" />
                         </input:SfTextInputLayout.LeadingView>
                         <Entry
                             MaxLength="250"
@@ -172,14 +172,14 @@
                         VerticalOptions="Start">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{i18n:TranslateResource UserInfo_Label_PhoneNumber}" TextColor="{StaticResource TextPrimaryColor}" />
-                                <Span Text=" (*)" TextColor="{StaticResource DangerousColor}" />
+                                <Span Text="{i18n:TranslateResource UserInfo_Label_PhoneNumber}" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text=" (*)" TextColor="{DynamicResource DangerousColor}" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
                     <input:SfTextInputLayout
                         ContainerType="Outlined"
-                        ErrorColor="{StaticResource DangerousColor}"
+                        ErrorColor="{DynamicResource DangerousColor}"
                         ErrorText="{Binding PhoneNumberErrorMessage}"
                         HasError="{Binding PhoneNumberHasError}"
                         HorizontalOptions="FillAndExpand"
@@ -189,7 +189,7 @@
                             <controls:FontAwesomeIcon
                                 FontAttributes="Bold"
                                 Text="{x:Static fontawesome:FontAwesomeIcons.Phone}"
-                                TextColor="{StaticResource PrimaryColor}" />
+                                TextColor="{DynamicResource PrimaryColor}" />
                         </input:SfTextInputLayout.LeadingView>
                         <Entry
                             Keyboard="Telephone"
@@ -203,13 +203,13 @@
                         VerticalOptions="Start">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{i18n:TranslateResource UserInfo_Label_Email}" TextColor="{StaticResource TextPrimaryColor}" />
+                                <Span Text="{i18n:TranslateResource UserInfo_Label_Email}" TextColor="{DynamicResource TextPrimaryColor}" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
                     <input:SfTextInputLayout
                         ContainerType="Outlined"
-                        ErrorColor="{StaticResource DangerousColor}"
+                        ErrorColor="{DynamicResource DangerousColor}"
                         ErrorText="{Binding EmailErrorMessage}"
                         HasError="{Binding EmailHasError}"
                         HorizontalOptions="FillAndExpand"
@@ -219,7 +219,7 @@
                             <controls:FontAwesomeIcon
                                 FontAttributes="Bold"
                                 Text="{x:Static fontawesome:FontAwesomeIcons.MailBulk}"
-                                TextColor="{StaticResource PrimaryColor}" />
+                                TextColor="{DynamicResource PrimaryColor}" />
                         </input:SfTextInputLayout.LeadingView>
                         <Entry
                             Keyboard="Email"
@@ -231,12 +231,12 @@
                         FontAttributes="Bold"
                         HorizontalOptions="StartAndExpand"
                         Text="{i18n:TranslateResource UserInfo_Label_DayOfBirth}"
-                        TextColor="{StaticResource TextPrimaryColor}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
                         VerticalOptions="Start" />
                     <input:SfTextInputLayout
-                        BackgroundColor="White"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         ContainerType="Outlined"
-                        ErrorColor="{StaticResource DangerousColor}"
+                        ErrorColor="{DynamicResource DangerousColor}"
                         ErrorText="{Binding DateOfBirthErrorMessage}"
                         HasError="{Binding DateOfBirthHasError}"
                         HorizontalOptions="FillAndExpand"
@@ -246,7 +246,7 @@
                             <controls:FontAwesomeIcon
                                 FontAttributes="Bold"
                                 Text="{x:Static fontawesome:FontAwesomeIcons.Calendar}"
-                                TextColor="{StaticResource PrimaryColor}" />
+                                TextColor="{DynamicResource PrimaryColor}" />
                         </input:SfTextInputLayout.LeadingView>
                         <controls:NullableDatePicker
                             Format="{Binding DateFormat}"
@@ -257,7 +257,7 @@
                         FontAttributes="Bold"
                         HorizontalOptions="StartAndExpand"
                         Text="{i18n:TranslateResource UserInfo_Label_Gender}"
-                        TextColor="{StaticResource TextPrimaryColor}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
                         VerticalOptions="Start" />
                     <Frame
                         Margin="0,5,0,0"
@@ -275,7 +275,7 @@
                                 FontAttributes="Bold"
                                 HorizontalOptions="Center"
                                 Text="{x:Static fontawesome:FontAwesomeIcons.Male}"
-                                TextColor="{StaticResource PrimaryColor}"
+                                TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center" />
                             <combobox:SfComboBox
                                 Margin="{OnPlatform Android='5,0,0,0',
@@ -294,11 +294,11 @@
                         FontAttributes="Bold"
                         HorizontalOptions="StartAndExpand"
                         Text="{i18n:TranslateResource UserInfo_Label_Career}"
-                        TextColor="{StaticResource TextPrimaryColor}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
                         VerticalOptions="Start" />
                     <input:SfTextInputLayout
                         ContainerType="Outlined"
-                        ErrorColor="{StaticResource DangerousColor}"
+                        ErrorColor="{DynamicResource DangerousColor}"
                         ErrorText="{Binding CareerErrorMessage}"
                         HasError="{Binding CareerHasError}"
                         HorizontalOptions="FillAndExpand"
@@ -309,7 +309,7 @@
                                 FontAttributes="Bold"
                                 HorizontalOptions="Center"
                                 Text="{x:Static fontawesome:FontAwesomeIcons.School}"
-                                TextColor="{StaticResource PrimaryColor}"
+                                TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center" />
                         </input:SfTextInputLayout.LeadingView>
                         <Entry
@@ -321,11 +321,11 @@
                         FontAttributes="Bold"
                         HorizontalOptions="StartAndExpand"
                         Text="{i18n:TranslateResource UserInfo_Label_Role}"
-                        TextColor="{StaticResource TextPrimaryColor}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
                         VerticalOptions="Start" />
                     <input:SfTextInputLayout
                         ContainerType="Outlined"
-                        ErrorColor="{StaticResource DangerousColor}"
+                        ErrorColor="{DynamicResource DangerousColor}"
                         ErrorText="{Binding RoleErrorMessage}"
                         HasError="{Binding RoleHasError}"
                         HorizontalOptions="FillAndExpand"
@@ -336,7 +336,7 @@
                                 FontAttributes="Bold"
                                 HorizontalOptions="Center"
                                 Text="{x:Static fontawesome:FontAwesomeIcons.Chair}"
-                                TextColor="{StaticResource PrimaryColor}"
+                                TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center" />
                         </input:SfTextInputLayout.LeadingView>
                         <Entry
@@ -348,7 +348,7 @@
                         FontAttributes="Bold"
                         HorizontalOptions="StartAndExpand"
                         Text="{i18n:TranslateResource UserInfo_Label_Religion}"
-                        TextColor="{StaticResource TextPrimaryColor}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
                         VerticalOptions="Start" />
                     <Frame
                         Margin="0,5,0,0"
@@ -366,7 +366,7 @@
                                 FontAttributes="Bold"
                                 HorizontalOptions="Center"
                                 Text="{x:Static fontawesome:FontAwesomeIcons.PrayingHands}"
-                                TextColor="{StaticResource PrimaryColor}"
+                                TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center" />
                             <combobox:SfComboBox
                                 Margin="{OnPlatform Android='5,0,0,0',
@@ -385,11 +385,11 @@
                         FontAttributes="Bold"
                         HorizontalOptions="StartAndExpand"
                         Text="{i18n:TranslateResource UserInfo_Label_Address}"
-                        TextColor="{StaticResource TextPrimaryColor}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
                         VerticalOptions="Start" />
                     <input:SfTextInputLayout
                         ContainerType="Outlined"
-                        ErrorColor="{StaticResource DangerousColor}"
+                        ErrorColor="{DynamicResource DangerousColor}"
                         ErrorText="{Binding AddressErrorMessage}"
                         HasError="{Binding AddressHasError}"
                         HorizontalOptions="FillAndExpand"
@@ -400,7 +400,7 @@
                                 FontAttributes="Bold"
                                 HorizontalOptions="Center"
                                 Text="{x:Static fontawesome:FontAwesomeIcons.LocationArrow}"
-                                TextColor="{StaticResource PrimaryColor}"
+                                TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center" />
                         </input:SfTextInputLayout.LeadingView>
                         <Entry
@@ -412,11 +412,11 @@
                         FontAttributes="Bold"
                         HorizontalOptions="StartAndExpand"
                         Text="{i18n:TranslateResource UserInfo_Label_Facebook}"
-                        TextColor="{StaticResource TextPrimaryColor}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
                         VerticalOptions="Start" />
                     <input:SfTextInputLayout
                         ContainerType="Outlined"
-                        ErrorColor="{StaticResource DangerousColor}"
+                        ErrorColor="{DynamicResource DangerousColor}"
                         ErrorText="{Binding FacebookErrorMessage}"
                         HasError="{Binding FacebookHasError}"
                         HorizontalOptions="FillAndExpand"
@@ -424,7 +424,7 @@
                         VerticalOptions="Start">
                         <input:SfTextInputLayout.LeadingView>
                             <controls:IconView
-                                Foreground="{StaticResource PrimaryColor}"
+                                Foreground="{DynamicResource PrimaryColor}"
                                 HeightRequest="25"
                                 HorizontalOptions="Center"
                                 Source="ic_fb.png"

@@ -18,12 +18,12 @@
     xmlns:viewcore="clr-namespace:BA_MobileGPS.Core.Views.PartialView;assembly=BA_MobileGPS.Core"
     x:Name="this"
     prism:ViewModelLocator.AutowireViewModel="True"
-    BackgroundColor="White"
+    BackgroundColor="{DynamicResource WhiteColor}"
     NavigationPage.BackButtonTitle="">
     <ContentView.Resources>
         <ResourceDictionary>
             <Style TargetType="controls:IconView">
-                <Setter Property="Foreground" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
                 <Setter Property="HeightRequest" Value="17" />
                 <Setter Property="WidthRequest" Value="17" />
                 <Setter Property="VerticalOptions" Value="Center" />
@@ -71,7 +71,7 @@
 
                         <pancake:PancakeView
                             Padding="0"
-                            BackgroundColor="{StaticResource WhiteColor}"
+                            BackgroundColor="{DynamicResource WhiteColor}"
                             CornerRadius="20"
                             HasShadow="True">
                             <pancake:PancakeView.Shadow>
@@ -85,12 +85,12 @@
                                 HorizontalOptions="FillAndExpand"
                                 Orientation="Horizontal">
                                 <pancake:PancakeView
-                                    BackgroundColor="{StaticResource PrimaryColor}"
+                                    BackgroundColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="20"
                                     WidthRequest="40">
                                     <controls:IconView
                                         Margin="13"
-                                        Foreground="{StaticResource WhiteColor}"
+                                        Foreground="{DynamicResource WhiteColor}"
                                         Source="ic_search.png" />
                                 </pancake:PancakeView>
                                 <Entry Placeholder="{i18n:TranslateResource Online_Label_SeachVehicle2}" Text="{Binding SearchedText}">
@@ -109,7 +109,7 @@
                         <pancake:PancakeView
                             Grid.Column="1"
                             Padding="0"
-                            BackgroundColor="White"
+                            BackgroundColor="{DynamicResource WhiteColor}"
                             CornerRadius="20"
                             HeightRequest="40"
                             VerticalOptions="End"
@@ -124,7 +124,7 @@
                                 <TapGestureRecognizer Command="{Binding ShowHelpCommand}" />
                             </pancake:PancakeView.GestureRecognizers>
                             <controls:IconView
-                                Foreground="{StaticResource PrimaryColor}"
+                                Foreground="{DynamicResource PrimaryColor}"
                                 HeightRequest="25"
                                 HorizontalOptions="Center"
                                 Source="ic_infor_light.png"
@@ -134,7 +134,7 @@
                         <pancake:PancakeView
                             Grid.Column="2"
                             Padding="0"
-                            BackgroundColor="White"
+                            BackgroundColor="{DynamicResource WhiteColor}"
                             CornerRadius="20"
                             HeightRequest="40"
                             VerticalOptions="End"
@@ -152,7 +152,7 @@
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
                                 Text="{x:Static fontawesome:FontAwesomeIcons.SortAmountUp}"
-                                TextColor="{StaticResource PrimaryColor}"
+                                TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center"
                                 WidthRequest="20" />
                         </pancake:PancakeView>
@@ -162,14 +162,14 @@
                             CornerRadius="20"
                             HasShadow="False"
                             HeightRequest="40"
-                            LightThemeBackgroundColor="{StaticResource WhiteColor}"
+                            LightThemeBackgroundColor="{DynamicResource WhiteColor}"
                             VerticalOptions="End"
                             WidthRequest="40">
                             <sharpnado:MaterialFrame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
                             </sharpnado:MaterialFrame.GestureRecognizers>
                             <controls:IconView
-                                Foreground="{StaticResource PrimaryColor}"
+                                Foreground="{DynamicResource PrimaryColor}"
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
                                 Source="ic_doubleship.png"
@@ -182,14 +182,14 @@
                             CornerRadius="20"
                             HasShadow="False"
                             HeightRequest="40"
-                            LightThemeBackgroundColor="{StaticResource WhiteColor}"
+                            LightThemeBackgroundColor="{DynamicResource WhiteColor}"
                             VerticalOptions="End"
                             WidthRequest="40">
                             <sharpnado:MaterialFrame.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="FilterCarType_Tapped" />
                             </sharpnado:MaterialFrame.GestureRecognizers>
                             <controls:IconView
-                                Foreground="{StaticResource PrimaryColor}"
+                                Foreground="{DynamicResource PrimaryColor}"
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
                                 Source="ic_filter.png"
@@ -230,7 +230,7 @@
                             <Label
                                 HorizontalOptions="Center"
                                 Text="{i18n:TranslateResource ListVehicle_Label_NotFound}"
-                                TextColor="{StaticResource TextSecondaryColor}"
+                                TextColor="{DynamicResource TextSecondaryColor}"
                                 VerticalOptions="Center"
                                 VerticalTextAlignment="Center" />
                         </StackLayout>
@@ -252,7 +252,7 @@
                     <Frame
                         Grid.Column="1"
                         Padding="0"
-                        BackgroundColor="{StaticResource PrimaryColor}"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
                         CornerRadius="0"
                         HasShadow="True"
                         HorizontalOptions="FillAndExpand"
@@ -269,7 +269,7 @@
                                 ItemTapped="TapStatusVehicle"
                                 ItemsSource="{Binding ListVehilceStatus}"
                                 SelectedItem="{Binding SelectedStatus}"
-                                SelectionBackgroundColor="{StaticResource TextPlaceHolderColor}"
+                                SelectionBackgroundColor="{DynamicResource TextPlaceHolderColor}"
                                 TapCommand="{Binding SelectStatusVehicleCommand}">
                                 <syncfusionList:SfListView.ItemTemplate>
                                     <DataTemplate>
@@ -292,20 +292,20 @@
                                                     <Label
                                                         HorizontalOptions="Start"
                                                         Text="{Binding Name}"
-                                                        TextColor="{StaticResource WhiteColor}"
+                                                        TextColor="{DynamicResource WhiteColor}"
                                                         VerticalOptions="Center" />
                                                     <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                                                         <Label
                                                             HorizontalOptions="Start"
                                                             Text="{Binding CountCar, Converter={StaticResource UnitConverter}, ConverterParameter={i18n:TranslateResource Common_Label_Vehicle, Converter={StaticResource LowerCaseConverter}}}"
-                                                            TextColor="{StaticResource WhiteColor}"
+                                                            TextColor="{DynamicResource WhiteColor}"
                                                             VerticalOptions="Center" />
                                                     </StackLayout>
                                                 </StackLayout>
                                             </StackLayout>
                                             <BoxView
                                                 Grid.Row="1"
-                                                BackgroundColor="{StaticResource GrayColor}"
+                                                BackgroundColor="{DynamicResource GrayColor}"
                                                 HeightRequest="0.5"
                                                 HorizontalOptions="FillAndExpand"
                                                 VerticalOptions="Start" />

@@ -56,7 +56,7 @@
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
                 Text="{i18n:TranslateResource FuelsSummariesReport_Label_TilePage}"
-                TextColor="{StaticResource WhiteColor}"
+                TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
             <StackLayout
                 Grid.Column="2"
@@ -106,7 +106,7 @@
                                     WidthRequest="40">
                                     <controls:IconView
                                         Margin="0,3,0,0"
-                                        Foreground="Black"
+                                          Foreground="{DynamicResource BlackColor}"  
                                         HeightRequest="20"
                                         HorizontalOptions="Center"
                                         Source="ic_checked.png"
@@ -124,7 +124,7 @@
                                     WidthRequest="40">
                                     <controls:IconView
                                         Margin="0,3,0,0"
-                                        Foreground="Black"
+                                          Foreground="{DynamicResource BlackColor}"  
                                         HeightRequest="20"
                                         HorizontalOptions="Center"
                                         Source="ic_checked.png"
@@ -142,7 +142,7 @@
                                     WidthRequest="40">
                                     <controls:IconView
                                         Margin="0,3,0,0"
-                                        Foreground="Black"
+                                          Foreground="{DynamicResource BlackColor}"  
                                         HeightRequest="20"
                                         HorizontalOptions="Center"
                                         Source="ic_checked.png"
@@ -160,7 +160,7 @@
                                     WidthRequest="40">
                                     <controls:IconView
                                         Margin="0,3,0,0"
-                                        Foreground="Black"
+                                          Foreground="{DynamicResource BlackColor}"  
                                         HeightRequest="20"
                                         HorizontalOptions="Center"
                                         Source="ic_checked.png"
@@ -178,7 +178,7 @@
             </sfPopup:SfPopupLayout.PopupView>
             <sfPopup:SfPopupLayout.Content>
                 <AbsoluteLayout
-                    BackgroundColor="{StaticResource WhiteColor}"
+                    BackgroundColor="{DynamicResource WhiteColor}"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand">
                     <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
@@ -203,8 +203,8 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 Padding="0"
-                                BackgroundColor="White"
-                                BorderColor="{StaticResource GrayColor2}"
+                               BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource GrayColor2}"
                                 CornerRadius="5"
                                 HasShadow="False"
                                 HeightRequest="35"
@@ -231,7 +231,7 @@
                                         </Entry.Effects>
                                     </Entry>
                                     <controls:IconView
-                                        Foreground="Black"
+                                          Foreground="{DynamicResource BlackColor}"  
                                         HeightRequest="20"
                                         HorizontalOptions="End"
                                         Source="ic_date_range_black.png"
@@ -245,8 +245,8 @@
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 Padding="0"
-                                BackgroundColor="White"
-                                BorderColor="{StaticResource GrayColor2}"
+                               BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource GrayColor2}"
                                 CornerRadius="5"
                                 HasShadow="False"
                                 HeightRequest="35"
@@ -273,7 +273,7 @@
                                         </Entry.Effects>
                                     </Entry>
                                     <controls:IconView
-                                        Foreground="Black"
+                                        Foreground="{DynamicResource BlackColor}"  
                                         HeightRequest="20"
                                         HorizontalOptions="End"
                                         Source="ic_date_range_black.png"
@@ -293,14 +293,14 @@
                                     HasShadow="False"
                                     HeightRequest="35"
                                     HorizontalOptions="Start"
-                                    LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                                    LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="CenterAndExpand"
                                     WidthRequest="35">
                                     <sharpnado:MaterialFrame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding SearchDataCommand}" />
                                     </sharpnado:MaterialFrame.GestureRecognizers>
                                     <controls:IconView
-                                        Foreground="White"
+                                          Foreground="{DynamicResource WhiteColor}"  
                                         HeightRequest="20"
                                         HorizontalOptions="Center"
                                         Source="ic_search.png"
@@ -318,8 +318,8 @@
                                 <Frame
                                     x:Name="cmbVihicle"
                                     Padding="0"
-                                    BackgroundColor="White"
-                                    BorderColor="{StaticResource GrayColor2}"
+                                   BackgroundColor="{DynamicResource WhiteColor}"
+                                    BorderColor="{DynamicResource GrayColor2}"
                                     CornerRadius="5"
                                     HasShadow="False"
                                     HeightRequest="35"
@@ -346,7 +346,7 @@
                                             </Entry.Effects>
                                         </Entry>
                                         <controls:IconView
-                                            Foreground="Black"
+                                              Foreground="{DynamicResource BlackColor}"  
                                             HeightRequest="15"
                                             HorizontalOptions="End"
                                             Source="ic_sortdown.png"
@@ -356,7 +356,7 @@
                                 </Frame>
                                 <sharpnado:MaterialFrame
                                     Padding="0"
-                                    BackgroundColor="{StaticResource PrimaryColor}"
+                                    BackgroundColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="5"
                                     HasShadow="False"
                                     HeightRequest="35"
@@ -367,7 +367,7 @@
                                         <TapGestureRecognizer Command="{Binding OpenPopupCommand}" />
                                     </sharpnado:MaterialFrame.GestureRecognizers>
                                     <controls:IconView
-                                        Foreground="White"
+                                          Foreground="{DynamicResource WhiteColor}"  
                                         HeightRequest="20"
                                         HorizontalOptions="Center"
                                         Source="ic_help.png"
@@ -387,14 +387,14 @@
                                     HeightRequest="35"
                                     HorizontalOptions="Start"
                                     IsVisible="{Binding IsExportExcel}"
-                                    LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                                    LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="CenterAndExpand"
                                     WidthRequest="35">
                                     <sharpnado:MaterialFrame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding ExportExcellCommand}" />
                                     </sharpnado:MaterialFrame.GestureRecognizers>
                                     <controls:IconView
-                                        Foreground="White"
+                                          Foreground="{DynamicResource WhiteColor}"  
                                         HeightRequest="20"
                                         HorizontalOptions="Center"
                                         Source="ic_excel.png"
@@ -435,7 +435,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_Serial}"
-                                                TextColor="{StaticResource WhiteColor}"
+                                                TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -469,7 +469,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_Date}"
-                                                TextColor="{StaticResource WhiteColor}"
+                                                TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -501,7 +501,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_StartEndTime}"
-                                                TextColor="{StaticResource WhiteColor}"
+                                                TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -520,7 +520,7 @@
                                                     FontSize="{StaticResource FontSize10}"
                                                     HorizontalOptions="FillAndExpand"
                                                     Text="{Binding StartTime, Converter={StaticResource TimeConverter}}"
-                                                    TextColor="{StaticResource PrimaryColor}"
+                                                    TextColor="{DynamicResource PrimaryColor}"
                                                     VerticalOptions="FillAndExpand"
                                                     XAlign="Center"
                                                     YAlign="End" />
@@ -528,7 +528,7 @@
                                                     FontSize="{StaticResource FontSize10}"
                                                     HorizontalOptions="FillAndExpand"
                                                     Text="{Binding EndTime, Converter={StaticResource TimeConverter}}"
-                                                    TextColor="{StaticResource PrimaryColor}"
+                                                    TextColor="{DynamicResource PrimaryColor}"
                                                     VerticalOptions="FillAndExpand"
                                                     XAlign="Center"
                                                     YAlign="Start" />
@@ -550,7 +550,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_NumberOfPour}"
-                                                TextColor="{StaticResource WhiteColor}"
+                                                TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -582,7 +582,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_NumberOfSuction}"
-                                                TextColor="{StaticResource WhiteColor}"
+                                                TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -614,7 +614,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_FirtLits}"
-                                                TextColor="{StaticResource WhiteColor}"
+                                                TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -646,7 +646,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_LitersOfPour}"
-                                                TextColor="{StaticResource WhiteColor}"
+                                                TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -680,7 +680,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_LitersOfSuction}"
-                                                TextColor="{StaticResource WhiteColor}"
+                                                TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -714,7 +714,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_LastLits}"
-                                                TextColor="{StaticResource WhiteColor}"
+                                                TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -748,7 +748,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_LitsConsumable}"
-                                                TextColor="{StaticResource WhiteColor}"
+                                                TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -782,7 +782,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_TotalKmGps}"
-                                                TextColor="{StaticResource WhiteColor}"
+                                                TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -816,7 +816,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_MinutesOfManchineOn}"
-                                                TextColor="{StaticResource WhiteColor}"
+                                                TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -850,7 +850,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_MinuteOfMachineOnStop}"
-                                                TextColor="{StaticResource WhiteColor}"
+                                                TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -884,7 +884,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_QuotaRegulations}"
-                                                TextColor="{StaticResource WhiteColor}"
+                                                TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -918,7 +918,7 @@
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
                                                 Text="{i18n:TranslateResource FuelsSummariesReport_Table_QuotaReality}"
-                                                TextColor="{StaticResource WhiteColor}"
+                                                TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
                                                 YAlign="Center" />
@@ -1073,7 +1073,7 @@
                         </syncDataGrid:SfDataGrid>
                         <StackLayout
                             Grid.Row="1"
-                            BackgroundColor="White"
+                           BackgroundColor="{DynamicResource WhiteColor}"
                             HorizontalOptions="Center"
                             IsVisible="{Binding HasData, Converter={StaticResource InvertBooleanConverter}}"
                             Spacing="10"
@@ -1090,7 +1090,7 @@
                                 HorizontalOptions="Center"
                                 HorizontalTextAlignment="Center"
                                 Text="{i18n:TranslateResource Common_Message_NoData}"
-                                TextColor="{StaticResource TextPrimaryColor}" />
+                                TextColor="{DynamicResource TextPrimaryColor}" />
                         </StackLayout>
                     </Grid>
                     <Grid
@@ -1115,7 +1115,7 @@
                         <Frame
                             Grid.Row="1"
                             Padding="10"
-                            BackgroundColor="White"
+                           BackgroundColor="{DynamicResource WhiteColor}"
                             CornerRadius="0"
                             HasShadow="False"
                             HorizontalOptions="FillAndExpand">
@@ -1139,7 +1139,7 @@
                                 <checkbox:SfCheckBox
                                     Grid.Row="0"
                                     Grid.Column="0"
-                                    CheckedColor="{StaticResource PrimaryColor}"
+                                    CheckedColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="5"
                                     FontSize="13"
                                     IsChecked="{Binding ShowOrderNumber}"
@@ -1149,7 +1149,7 @@
                                 <checkbox:SfCheckBox
                                     Grid.Row="0"
                                     Grid.Column="1"
-                                    CheckedColor="{StaticResource PrimaryColor}"
+                                    CheckedColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="5"
                                     FontSize="13"
                                     IsChecked="{Binding ShowFK_Date}"
@@ -1159,7 +1159,7 @@
                                 <checkbox:SfCheckBox
                                     Grid.Row="1"
                                     Grid.Column="0"
-                                    CheckedColor="{StaticResource PrimaryColor}"
+                                    CheckedColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="5"
                                     FontSize="13"
                                     IsChecked="{Binding ShowStartEndTime}"
@@ -1169,7 +1169,7 @@
                                 <checkbox:SfCheckBox
                                     Grid.Row="1"
                                     Grid.Column="1"
-                                    CheckedColor="{StaticResource PrimaryColor}"
+                                    CheckedColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="5"
                                     FontSize="13"
                                     IsChecked="{Binding ShowNumberOfPour}"
@@ -1179,7 +1179,7 @@
                                 <checkbox:SfCheckBox
                                     Grid.Row="2"
                                     Grid.Column="0"
-                                    CheckedColor="{StaticResource PrimaryColor}"
+                                    CheckedColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="5.0"
                                     FontSize="13"
                                     IsChecked="{Binding ShowNumberOfSuction}"
@@ -1189,7 +1189,7 @@
                                 <checkbox:SfCheckBox
                                     Grid.Row="2"
                                     Grid.Column="1"
-                                    CheckedColor="{StaticResource PrimaryColor}"
+                                    CheckedColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="5"
                                     FontSize="13"
                                     IsChecked="{Binding ShowFirtLits}"
@@ -1199,7 +1199,7 @@
                                 <checkbox:SfCheckBox
                                     Grid.Row="3"
                                     Grid.Column="0"
-                                    CheckedColor="{StaticResource PrimaryColor}"
+                                    CheckedColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="5.0"
                                     FontSize="13"
                                     IsChecked="{Binding ShowLitersOfPour}"
@@ -1209,7 +1209,7 @@
                                 <checkbox:SfCheckBox
                                     Grid.Row="3"
                                     Grid.Column="1"
-                                    CheckedColor="{StaticResource PrimaryColor}"
+                                    CheckedColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="5"
                                     FontSize="13"
                                     IsChecked="{Binding ShowLastLits}"
@@ -1219,7 +1219,7 @@
                                 <checkbox:SfCheckBox
                                     Grid.Row="4"
                                     Grid.Column="0"
-                                    CheckedColor="{StaticResource PrimaryColor}"
+                                    CheckedColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="5.0"
                                     FontSize="13"
                                     IsChecked="{Binding ShowLitersOfSuction}"
@@ -1229,7 +1229,7 @@
                                 <checkbox:SfCheckBox
                                     Grid.Row="4"
                                     Grid.Column="1"
-                                    CheckedColor="{StaticResource PrimaryColor}"
+                                    CheckedColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="5"
                                     FontSize="13"
                                     IsChecked="{Binding ShowLitsConsumable}"
@@ -1239,7 +1239,7 @@
                                 <checkbox:SfCheckBox
                                     Grid.Row="5"
                                     Grid.Column="0"
-                                    CheckedColor="{StaticResource PrimaryColor}"
+                                    CheckedColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="5.0"
                                     FontSize="13"
                                     IsChecked="{Binding ShowTotalKmGps}"
@@ -1249,7 +1249,7 @@
                                 <checkbox:SfCheckBox
                                     Grid.Row="5"
                                     Grid.Column="1"
-                                    CheckedColor="{StaticResource PrimaryColor}"
+                                    CheckedColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="5"
                                     FontSize="13"
                                     IsChecked="{Binding ShowMinutesOfManchineOn}"
@@ -1259,7 +1259,7 @@
                                 <checkbox:SfCheckBox
                                     Grid.Row="6"
                                     Grid.Column="0"
-                                    CheckedColor="{StaticResource PrimaryColor}"
+                                    CheckedColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="5"
                                     FontSize="13"
                                     IsChecked="{Binding ShowMinuteOfMachineOnStop}"
@@ -1269,7 +1269,7 @@
                                 <checkbox:SfCheckBox
                                     Grid.Row="6"
                                     Grid.Column="1"
-                                    CheckedColor="{StaticResource PrimaryColor}"
+                                    CheckedColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="5.0"
                                     FontSize="13"
                                     IsChecked="{Binding ShowQuotaRegulations}"
@@ -1279,7 +1279,7 @@
                                 <checkbox:SfCheckBox
                                     Grid.Row="7"
                                     Grid.Column="0"
-                                    CheckedColor="{StaticResource PrimaryColor}"
+                                    CheckedColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="5"
                                     FontSize="13"
                                     IsChecked="{Binding ShowQuotaReality}"
@@ -1293,8 +1293,8 @@
                                     HorizontalOptions="FillAndExpand"
                                     Orientation="Horizontal">
                                     <Button
-                                        BackgroundColor="White"
-                                        BorderColor="{StaticResource PrimaryColor}"
+                                       BackgroundColor="{DynamicResource WhiteColor}"
+                                        BorderColor="{DynamicResource PrimaryColor}"
                                         BorderRadius="0"
                                         BorderWidth="1"
                                         Clicked="HideableToolbarItem_Clicked"
@@ -1304,10 +1304,10 @@
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource Common_Button_Close,
                                                                       Converter={StaticResource UpperCaseConverter}}"
-                                        TextColor="{StaticResource PrimaryColor}" />
+                                        TextColor="{DynamicResource PrimaryColor}" />
 
                                     <Button
-                                        BackgroundColor="{StaticResource PrimaryColor}"
+                                        BackgroundColor="{DynamicResource PrimaryColor}"
                                         BorderRadius="0"
                                         Clicked="Button_Clicked"
                                         Command="{Binding SaveComlumnHideCommand}"
@@ -1317,7 +1317,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource Common_Button_SaveShowHideColumn,
                                                                       Converter={StaticResource UpperCaseConverter}}"
-                                        TextColor="{StaticResource WhiteColor}" />
+                                        TextColor="{DynamicResource WhiteColor}" />
                                 </StackLayout>
                             </Grid>
                         </Frame>

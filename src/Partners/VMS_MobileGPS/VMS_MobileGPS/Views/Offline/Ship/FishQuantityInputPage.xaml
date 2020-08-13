@@ -64,7 +64,7 @@
                 VerticalOptions="FillAndExpand">
                 <syncfusion:SfListView.RightSwipeTemplate>
                     <DataTemplate x:Name="RightSwipeTemplate">
-                        <Grid BackgroundColor="{StaticResource DangerousColor}">
+                        <Grid BackgroundColor="{DynamicResource DangerousColor}">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Delete_Tapped" />
                             </Grid.GestureRecognizers>
@@ -85,7 +85,7 @@
                     <DataTemplate>
                         <Grid
                             Padding="5,10,0,0"
-                            BackgroundColor="White"
+                            BackgroundColor="{DynamicResource WhiteColor}"
                             RowSpacing="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="15" />
@@ -107,7 +107,7 @@
                                 HorizontalOptions="Center"
                                 IsClippedToBounds="True"
                                 IsVisible="{Binding IsSynced, Converter={StaticResource InvertBooleanConverter}}"
-                                LightThemeBackgroundColor="{StaticResource DangerousColor}"
+                                LightThemeBackgroundColor="{DynamicResource DangerousColor}"
                                 VerticalOptions="Start"
                                 WidthRequest="10" />
                             <forms:CachedImage
@@ -188,7 +188,7 @@
             <sharpnado:MaterialFrame
                 Margin="20"
                 Padding="0"
-                BackgroundColor="{StaticResource PrimaryColor}"
+                BackgroundColor="{DynamicResource PrimaryColor}"
                 CornerRadius="30"
                 HasShadow="False"
                 HeightRequest="60"

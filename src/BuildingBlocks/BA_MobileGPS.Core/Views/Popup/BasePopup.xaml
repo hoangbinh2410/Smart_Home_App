@@ -30,7 +30,7 @@
                 Padding="0"
                 CornerRadius="10"
                 HorizontalOptions="Center"
-                Style="{DynamicResource MainBackgroundColor}"
+                Style="{StaticResource MainBackgroundColor}"
                 VerticalOptions="CenterAndExpand" />
 
         </Grid>

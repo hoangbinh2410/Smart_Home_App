@@ -15,7 +15,7 @@
 
     <ContentPage.Content>
         <StackLayout
-            BackgroundColor="White"
+           BackgroundColor="{DynamicResource WhiteColor}"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand">
             <Grid Padding="10,0" RowSpacing="5">
@@ -41,7 +41,7 @@
                         <Label
                             HorizontalOptions="StartAndExpand"
                             Text="{i18n:TranslateResource AlertConfig_Label_About_Time}"
-                            TextColor="{StaticResource PrimaryColor}"
+                            TextColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="Center"
                             VerticalTextAlignment="Center" />
                     </sharpnado:MaterialFrame.Content>
@@ -153,7 +153,7 @@
                             FontSize="{StaticResource FontSize14}"
                             HorizontalOptions="StartAndExpand"
                             Text="{i18n:TranslateResource AlertConfig_Label_Choose_Time_Zone}"
-                            TextColor="{StaticResource PrimaryColor}"
+                            TextColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="Center"
                             VerticalTextAlignment="Center" />
                     </sharpnado:MaterialFrame.Content>
@@ -170,7 +170,7 @@
                         <TapGestureRecognizer Command="{Binding SelectedAllTimeCommand}" />
                     </StackLayout.GestureRecognizers>
                     <checkbox:SfCheckBox
-                        CheckedColor="{StaticResource PrimaryColor}"
+                        CheckedColor="{DynamicResource PrimaryColor}"
                         CornerRadius="5"
                         FontAttributes="Bold"
                         FontSize="13"
@@ -196,7 +196,7 @@
                     <syncfusionList:SfListView.ItemTemplate>
                         <DataTemplate>
                             <checkbox:SfCheckBox
-                                CheckedColor="{StaticResource PrimaryColor}"
+                                CheckedColor="{DynamicResource PrimaryColor}"
                                 CornerRadius="5"
                                 InputTransparent="True"
                                 IsChecked="{Binding IsVisible}"

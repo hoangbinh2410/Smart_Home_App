@@ -43,15 +43,13 @@
                             <Label Text="{Binding Title}" VerticalOptions="Center" />
                             <pancake:PancakeView
                                 Padding="0"
-                                BackgroundColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
-                                                                  Dark={StaticResource BlueDarkColor}}"
+                                BackgroundColor="{DynamicResource BlueDarkColor}"
                                 CornerRadius="20"
                                 HeightRequest="40"
                                 WidthRequest="40">
                                 <controls:IconView
                                     Margin="10"
-                                    Foreground="{AppThemeBinding Light={StaticResource WhiteColor},
-                                                                 Dark={StaticResource WhiteColor}}"
+                                    Foreground="{DynamicResource WhiteColor}"
                                     Source="{Binding Icon}" />
                             </pancake:PancakeView>
 
@@ -75,8 +73,7 @@
                 </pancake:PancakeView.BackgroundGradientStops>
                 <controls:IconView
                     Margin="5"
-                    Foreground="{AppThemeBinding Light={StaticResource WhiteColor},
-                                                 Dark={StaticResource WhiteColor}}"
+                    Foreground="{DynamicResource WhiteColor}"
                     Source="ic_close.png" />
                 <pancake:PancakeView.Behaviors>
                     <animation1:ViewTappedBehavior AnimationType="Rotate" />

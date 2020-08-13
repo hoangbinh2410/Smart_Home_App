@@ -32,7 +32,7 @@
                 CornerRadius="0"
                 HasShadow="False"
                 HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="{StaticResource GrayColor}"
+                LightThemeBackgroundColor="{DynamicResource GrayColor}"
                 VerticalOptions="FillAndExpand">
 
                 <sharpnado:MaterialFrame.Content>
@@ -47,7 +47,7 @@
             <sharpnado:MaterialFrame
                 Grid.Row="1"
                 Padding="10,0,10,0"
-                BackgroundColor="White"
+                BackgroundColor="{DynamicResource WhiteColor}"
                 CornerRadius="0"
                 HasShadow="False"
                 HorizontalOptions="FillAndExpand"
@@ -80,7 +80,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 Orientation="Horizontal">
                                 <controls:IconView
-                                    Foreground="{StaticResource PrimaryColor}"
+                                    Foreground="{DynamicResource PrimaryColor}"
                                     HeightRequest="25"
                                     HorizontalOptions="Center"
                                     Source="ic_devicename.png"
@@ -119,7 +119,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 Orientation="Horizontal">
                                 <controls:IconView
-                                    Foreground="{StaticResource PrimaryColor}"
+                                    Foreground="{DynamicResource PrimaryColor}"
                                     HeightRequest="25"
                                     HorizontalOptions="Center"
                                     Source="ic_vehicleplate.png"
@@ -155,7 +155,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 Orientation="Horizontal">
                                 <controls:IconView
-                                    Foreground="{StaticResource PrimaryColor}"
+                                    Foreground="{DynamicResource PrimaryColor}"
                                     HeightRequest="25"
                                     HorizontalOptions="Center"
                                     Source="ic_devicestate.png"
@@ -196,7 +196,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 Orientation="Horizontal">
                                 <controls:IconView
-                                    Foreground="{StaticResource PrimaryColor}"
+                                    Foreground="{DynamicResource PrimaryColor}"
                                     HeightRequest="25"
                                     HorizontalOptions="Center"
                                     Source="ic_alarmsos.png"
@@ -244,7 +244,7 @@
                 CornerRadius="0"
                 HasShadow="False"
                 HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="{StaticResource GrayColor}"
+                LightThemeBackgroundColor="{DynamicResource GrayColor}"
                 VerticalOptions="FillAndExpand">
                 <sharpnado:MaterialFrame.Content>
                     <Grid Grid.Row="2" RowSpacing="0">
@@ -266,7 +266,7 @@
                             <controls:FontAwesomeIcon
                                 FontSize="25"
                                 Text="{x:Static fontawesome:FontAwesomeIcons.Trash}"
-                                TextColor="{StaticResource PrimaryColor}"
+                                TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center" />
                         </Grid>
                     </Grid>
@@ -285,27 +285,27 @@
                         <sharpnado:MaterialFrame
                             Grid.Row="1"
                             Padding="1"
-                            BackgroundColor="{StaticResource TextSecondaryColor}"
-                            BorderColor="{StaticResource TextSecondaryColor}"
+                            BackgroundColor="{DynamicResource TextSecondaryColor}"
+                            BorderColor="{DynamicResource TextSecondaryColor}"
                             CornerRadius="0"
                             HasShadow="False"
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="CenterAndExpand">
-                            <Grid BackgroundColor="{StaticResource TextSecondaryColor}" RowSpacing="0.5">
+                            <Grid BackgroundColor="{DynamicResource TextSecondaryColor}" RowSpacing="0.5">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <StackLayout
                                     Grid.Row="0"
-                                    BackgroundColor="White"
+                                    BackgroundColor="{DynamicResource WhiteColor}"
                                     Orientation="Horizontal">
                                     <controls:FontAwesomeIcon
                                         Margin="5,0,0,0"
                                         FontSize="20"
                                         HorizontalOptions="Center"
                                         Text="{x:Static fontawesome:FontAwesomeIcons.CalendarAlt}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center" />
                                     <Label
                                         Margin="5"
@@ -329,7 +329,7 @@
                                     <StackLayout
                                         Grid.Column="0"
                                         Padding="5"
-                                        BackgroundColor="White"
+                                        BackgroundColor="{DynamicResource WhiteColor}"
                                         HorizontalOptions="FillAndExpand"
                                         Spacing="0"
                                         VerticalOptions="CenterAndExpand">
@@ -337,7 +337,7 @@
                                             HorizontalTextAlignment="Center"
                                             LineBreakMode="TailTruncation"
                                             Text="Mã tàu"
-                                            TextColor="{StaticResource TextPlaceHolderColor}" />
+                                            TextColor="{DynamicResource TextPlaceHolderColor}" />
                                         <Label
                                             HorizontalTextAlignment="Center"
                                             LineBreakMode="TailTruncation"
@@ -347,7 +347,7 @@
                                     <StackLayout
                                         Grid.Column="1"
                                         Padding="5"
-                                        BackgroundColor="White"
+                                        BackgroundColor="{DynamicResource WhiteColor}"
                                         HorizontalOptions="FillAndExpand"
                                         Spacing="0"
                                         VerticalOptions="CenterAndExpand">
@@ -355,7 +355,7 @@
                                             HorizontalTextAlignment="Center"
                                             LineBreakMode="TailTruncation"
                                             Text="Trạng thái"
-                                            TextColor="{StaticResource TextPlaceHolderColor}" />
+                                            TextColor="{DynamicResource TextPlaceHolderColor}" />
                                         <Label
                                             HorizontalTextAlignment="Center"
                                             LineBreakMode="TailTruncation"

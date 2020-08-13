@@ -43,7 +43,7 @@
             ColumnDefinitions="Auto,*">
             <StackLayout Orientation="Horizontal">
                 <controls:IconView
-                    Foreground="{StaticResource PrimaryColor}"
+                    Foreground="{DynamicResource PrimaryColor}"
                     HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_vehiclesolid.png"
@@ -57,20 +57,25 @@
 
             <Label
                 Grid.Column="1"
+                CheckedColor="{DynamicResource BlueDarkColor}"
+                CornerRadius="0"
+                HeightRequest="20"
+                IsChecked="{Binding IsShowCircle}"
+                UncheckedColor="{DynamicResource BlueDarkColor}" 
                 HorizontalOptions="End"
                 Text="{Binding CarActive.VehicleTime, Converter={StaticResource DateTimeConverter}}" />
 
         </Grid>
         <BoxView
             Grid.Row="1"
-            BackgroundColor="{StaticResource GrayColor}"
+            BackgroundColor="{DynamicResource GrayColor}"
             HeightRequest="0.5"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start" />
         <Grid Grid.Row="2" Padding="10,0">
             <StackLayout Orientation="Horizontal">
                 <controls:IconView
-                    Foreground="{StaticResource PrimaryColor}"
+                    Foreground="{DynamicResource PrimaryColor}"
                     HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_coordinates.png"
@@ -83,12 +88,11 @@
         </Grid>
         <BoxView
             Grid.Row="3"
-            BackgroundColor="{StaticResource GrayColor}"
+            BackgroundColor="{DynamicResource GrayColor}"
             HeightRequest="0.5"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start" />
         <Grid Grid.Row="4" Padding="0,-10">
-
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width=".5*" />
                 <ColumnDefinition Width="Auto" />
@@ -111,18 +115,18 @@
                     LineBreakMode="TailTruncation"
                     Text="{i18n:TranslateResource Online_Label_Velocity,
                                                   Converter={StaticResource UpperCaseConverter}}"
-                    TextColor="{StaticResource TextSecondaryColor}" />
+                    TextColor="{DynamicResource TextSecondaryColor}" />
                 <Label
                     x:Name="txtVelocity"
                     HorizontalTextAlignment="Center"
                     LineBreakMode="TailTruncation"
                     Text="{Binding CarActive.Velocity, Converter={StaticResource VelocityConverter}}"
-                    TextColor="{StaticResource TextPrimaryColor}" />
+                    TextColor="{DynamicResource TextPrimaryColor}" />
             </StackLayout>
             <BoxView
                 Grid.Column="1"
                 WidthRequest="0.5"
-                Color="{StaticResource GrayColor}" />
+                Color="{DynamicResource GrayColor}" />
             <!--  Động cơ  -->
             <StackLayout
                 Grid.Column="2"
@@ -136,17 +140,17 @@
                     LineBreakMode="TailTruncation"
                     Text="{i18n:TranslateResource Online_Label_Engine,
                                                   Converter={StaticResource UpperCaseConverter}}"
-                    TextColor="{StaticResource TextSecondaryColor}" />
+                    TextColor="{DynamicResource TextSecondaryColor}" />
                 <Label
                     HorizontalTextAlignment="Center"
                     LineBreakMode="TailTruncation"
                     Text="{Binding EngineState}"
-                    TextColor="{StaticResource TextPrimaryColor}" />
+                    TextColor="{DynamicResource TextPrimaryColor}" />
             </StackLayout>
             <BoxView
                 Grid.Column="3"
                 WidthRequest="0.5"
-                Color="{StaticResource GrayColor}" />
+                Color="{DynamicResource GrayColor}" />
             <!--  ĐIỀU HÒA  -->
             <StackLayout
                 Grid.Column="4"
@@ -207,7 +211,7 @@
                 Padding="0,11"
                 CornerRadius="18"
                 HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="{StaticResource PrimaryColor}">
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}">
                 <sharpnado:MaterialFrame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PushToRouterPageCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
@@ -217,7 +221,7 @@
                         LineBreakMode="TailTruncation"
                         Text="{i18n:TranslateResource Route_Label_Title,
                                                       Converter={StaticResource UpperCaseConverter}}"
-                        TextColor="{StaticResource WhiteColor}" />
+                        TextColor="{DynamicResource WhiteColor}" />
                 </sharpnado:MaterialFrame.Content>
             </sharpnado:MaterialFrame>
             <sharpnado:MaterialFrame
@@ -225,7 +229,7 @@
                 Padding="0,11"
                 CornerRadius="18"
                 HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="{StaticResource PrimaryColor}">
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}">
                 <sharpnado:MaterialFrame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PushToDetailPageCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
@@ -235,7 +239,7 @@
                         LineBreakMode="TailTruncation"
                         Text="{i18n:TranslateResource Online_Button_Detail,
                                                       Converter={StaticResource UpperCaseConverter}}"
-                        TextColor="{StaticResource WhiteColor}" />
+                        TextColor="{DynamicResource WhiteColor}" />
                 </sharpnado:MaterialFrame.Content>
             </sharpnado:MaterialFrame>
         </Grid>
