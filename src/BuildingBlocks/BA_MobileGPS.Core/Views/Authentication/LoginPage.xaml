@@ -12,6 +12,7 @@
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms"
     prism:ViewModelLocator.AutowireViewModel="True">
@@ -79,14 +80,29 @@
                         HasError="{Binding UserName.IsNotValid}"
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
-                            <sharpnado:MaterialFrame HeightRequest="42">
-                                <controls:IconView
-                                    Margin="9"
-                                    Foreground="{DynamicResource WhiteColor}"
-                                    HorizontalOptions="Center"
-                                    Source="ic_userwhite.png"
-                                    VerticalOptions="CenterAndExpand" />
-                            </sharpnado:MaterialFrame>
+                            <sh:Shadows
+                                CornerRadius="21"
+                                HeightRequest="43"
+                                WidthRequest="43">
+                                <sh:Shadows.Shades>
+                                    <sh:ImmutableShades>
+                                        <sh:Shade
+                                            BlurRadius="4"
+                                            Opacity="0.3"
+                                            Offset="-2,0"
+                                            Color="{DynamicResource WhiteColor}" />
+                                    </sh:ImmutableShades>
+                                </sh:Shadows.Shades>
+                                <sharpnado:MaterialFrame HeightRequest="43">
+                                    <controls:IconView
+                                        Margin="9"
+                                        Foreground="{DynamicResource WhiteColor}"
+                                        HorizontalOptions="Center"
+                                        Source="ic_userwhite.png"
+                                        VerticalOptions="CenterAndExpand" />
+                                </sharpnado:MaterialFrame>
+
+                            </sh:Shadows>
                         </input:SfTextInputLayout.LeadingView>
                         <input:SfTextInputLayout.InputView>
                             <Entry
@@ -147,18 +163,31 @@
                             </Label.GestureRecognizers>
                         </Label>
                     </StackLayout>
-                    <Button
+                    <sh:Shadows
+                        x:Name="TabHost"
                         Grid.Row="3"
-                        Padding="0"
-                        BackgroundColor="{DynamicResource PrimaryColor}"
-                        Command="{Binding LoginCommand}"
-                        CornerRadius="20"
-                        HeightRequest="38"
-                        HorizontalOptions="Center"
-                        Text="{i18n:TranslateResource Login_Button_Login,
-                                                      Converter={StaticResource UpperCaseConverter}}"
-                        TextColor="White"
-                        WidthRequest="300" />
+                        CornerRadius="20">
+                        <sh:Shadows.Shades>
+                            <sh:ImmutableShades>
+                                <sh:Shade
+                                    BlurRadius="4"
+                                    Opacity="0.4"
+                                    Offset="0,0"
+                                    Color="{DynamicResource WhiteColor}" />
+                            </sh:ImmutableShades>
+                        </sh:Shadows.Shades>
+                        <Button
+                            Padding="0"
+                            BackgroundColor="{DynamicResource PrimaryColor}"
+                            Command="{Binding LoginCommand}"
+                            CornerRadius="20"
+                            HeightRequest="38"
+                            HorizontalOptions="Center"
+                            Text="{i18n:TranslateResource Login_Button_Login,
+                                                          Converter={StaticResource UpperCaseConverter}}"
+                            TextColor="White"
+                            WidthRequest="300" />
+                    </sh:Shadows>
                 </Grid>
                 <!--  Footer  -->
                 <Grid
