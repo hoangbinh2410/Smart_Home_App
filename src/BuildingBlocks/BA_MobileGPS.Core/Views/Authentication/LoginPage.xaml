@@ -93,7 +93,11 @@
                                             Color="{DynamicResource WhiteColor}" />
                                     </sh:ImmutableShades>
                                 </sh:Shadows.Shades>
-                                <sharpnado:MaterialFrame HeightRequest="43" WidthRequest="43">
+                                <sharpnado:MaterialFrame
+                                    CornerRadius="21"
+                                    HeightRequest="43"
+                                    LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                                    WidthRequest="43">
                                     <controls:IconView
                                         Margin="9"
                                         Foreground="{DynamicResource WhiteColor}"
@@ -132,7 +136,11 @@
                                             Color="{DynamicResource WhiteColor}" />
                                     </sh:ImmutableShades>
                                 </sh:Shadows.Shades>
-                                <sharpnado:MaterialFrame HeightRequest="42">
+                                <sharpnado:MaterialFrame
+                                    CornerRadius="21"
+                                    HeightRequest="43"
+                                    LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                                    WidthRequest="43">
                                     <controls:IconView
                                         Margin="9"
                                         Foreground="{DynamicResource WhiteColor}"
