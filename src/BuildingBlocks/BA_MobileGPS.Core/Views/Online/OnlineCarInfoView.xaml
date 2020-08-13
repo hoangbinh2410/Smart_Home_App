@@ -57,11 +57,6 @@
 
             <Label
                 Grid.Column="1"
-                CheckedColor="{DynamicResource BlueDarkColor}"
-                CornerRadius="0"
-                HeightRequest="20"
-                IsChecked="{Binding IsShowCircle}"
-                UncheckedColor="{DynamicResource BlueDarkColor}" 
                 HorizontalOptions="End"
                 Text="{Binding CarActive.VehicleTime, Converter={StaticResource DateTimeConverter}}" />
 
@@ -93,6 +88,7 @@
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start" />
         <Grid Grid.Row="4" Padding="0,-10">
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width=".5*" />
                 <ColumnDefinition Width="Auto" />
@@ -164,17 +160,17 @@
                     LineBreakMode="TailTruncation"
                     Text="{i18n:TranslateResource Online_Label_AirConditioning,
                                                   Converter={StaticResource UpperCaseConverter}}"
-                    TextColor="{StaticResource TextSecondaryColor}" />
+                    TextColor="{DynamicResource TextSecondaryColor}" />
                 <Label
                     HorizontalTextAlignment="Center"
                     LineBreakMode="TailTruncation"
                     Text="{Binding CarActive.State, Converter={StaticResource AirConditionerConverter}}"
-                    TextColor="{StaticResource TextPrimaryColor}" />
+                    TextColor="{DynamicResource TextPrimaryColor}" />
             </StackLayout>
             <BoxView
                 Grid.Column="5"
                 WidthRequest="0.5"
-                Color="{StaticResource GrayColor}" />
+                Color="{DynamicResource GrayColor}" />
             <!--  CỬA XE  -->
             <StackLayout
                 Grid.Column="6"
@@ -188,17 +184,17 @@
                     LineBreakMode="TailTruncation"
                     Text="{i18n:TranslateResource Online_Label_Cardoor,
                                                   Converter={StaticResource UpperCaseConverter}}"
-                    TextColor="{StaticResource TextSecondaryColor}" />
+                    TextColor="{DynamicResource TextSecondaryColor}" />
                 <Label
                     HorizontalTextAlignment="Center"
                     LineBreakMode="TailTruncation"
                     Text="{Binding CarActive.State, Converter={StaticResource DoorOpenConverter}}"
-                    TextColor="{StaticResource TextPrimaryColor}" />
+                    TextColor="{DynamicResource TextPrimaryColor}" />
             </StackLayout>
         </Grid>
         <BoxView
             Grid.Row="5"
-            BackgroundColor="{StaticResource GrayColor}"
+            BackgroundColor="{DynamicResource GrayColor}"
             HeightRequest="0.5"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start" />

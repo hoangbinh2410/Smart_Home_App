@@ -89,9 +89,9 @@
                     </sh:Shadows.Shades>
                     <sharpnado:MaterialFrame
                         Padding="10,0"
-                        BackgroundColor="{DynamicResource WhiteColor}"
                         CornerRadius="19"
                         HeightRequest="40"
+                        LightThemeBackgroundColor="{DynamicResource WhiteColor}"
                         VerticalOptions="Center">
                         <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                             <StackLayout.GestureRecognizers>
