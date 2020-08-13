@@ -4436,5 +4436,10 @@
 
         InputRegisterExport = 1210,
         FeedbackSend = 1211,
+
+        /// <summary>
+        /// Tin nhắn online tầu cá
+        /// </summary>
+        ViewMessageOnline = 2001,
     }
 }
