@@ -30,6 +30,7 @@
             </Style>
             <Style TargetType="Label">
                 <Setter Property="LineBreakMode" Value="TailTruncation" />
+                <Setter Property="TextColor" Value="{DynamicResource TextPrimaryColor}" />
             </Style>
             <DataTemplate x:Key="DefaultTemplateVMS">
                 <template1:VehicleDefaultView />
@@ -214,9 +215,10 @@
                             IsVisible="{Binding ListVehicle, Converter={StaticResource IsEmptyDataConverter}}"
                             Spacing="10"
                             VerticalOptions="Center">
-
-                            <!--  Image for display svg image  -->
-                            <!--  Image for display svg image  -->
+                            <!--
+                                Image for display svg image
+                                Image for display svg image
+                            -->
                             <ffsvg:SvgCachedImage
                                 Margin="{x:OnIdiom Phone='0,0,0,0',
                                                    Desktop='0',
@@ -225,7 +227,6 @@
                                 Source="NoItem.svg"
                                 VerticalOptions="Center"
                                 WidthRequest="200" />
-
                             <!--  Label to display content  -->
                             <Label
                                 HorizontalOptions="Center"

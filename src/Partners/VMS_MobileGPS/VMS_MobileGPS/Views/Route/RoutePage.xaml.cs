@@ -1,9 +1,11 @@
 ﻿using BA_MobileGPS.Core;
+using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RealmEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism;
+using Prism.Events;
 using Prism.Ioc;
 using Prism.Navigation;
 using System;
@@ -45,7 +47,11 @@ namespace VMS_MobileGPS.Views
             map.PinClicked += Map_PinClicked;
 
             helperAdvanceService = PrismApplicationBase.Current.Container.Resolve<IHelperAdvanceService>();
+            var eventRaise = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+            eventRaise.GetEvent<ThemeChangedEvent>().Subscribe(ThemeChanged);
         }
+
+      
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
@@ -257,6 +263,18 @@ namespace VMS_MobileGPS.Views
             }
 
             foreach (var btn in TimeSelector.Children.Where(b => b != button).Cast<ContentView>())
+            {
+                btn.BackgroundColor = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+                if (btn.Content is Label lbl2)
+                {
+                    lbl2.TextColor = Color.White;
+                }
+            }
+        }
+
+        private void ThemeChanged()
+        {
+            foreach (var btn in TimeSelector.Children.Cast<ContentView>())
             {
                 btn.BackgroundColor = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
                 if (btn.Content is Label lbl2)
