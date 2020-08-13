@@ -72,7 +72,7 @@
                 VerticalOptions="FillAndExpand">
                 <syncfusion:SfListView.RightSwipeTemplate>
                     <DataTemplate x:Name="RightSwipeTemplate">
-                        <Grid BackgroundColor="{StaticResource DangerousColor}">
+                        <Grid BackgroundColor="{DynamicResource DangerousColor}">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Delete_Tapped" />
                             </Grid.GestureRecognizers>
@@ -91,7 +91,7 @@
                 </syncfusion:SfListView.RightSwipeTemplate>
                 <syncfusion:SfListView.ItemTemplate>
                     <DataTemplate>
-                        <sharpnado:MaterialFrame Padding="10" LightThemeBackgroundColor="White">
+                        <sharpnado:MaterialFrame Padding="10" LightThemeBackgroundColor="{DynamicResource WhiteColor}">
                             <Grid ColumnSpacing="10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -132,7 +132,7 @@
                                         HorizontalOptions="StartAndExpand"
                                         LineBreakMode="TailTruncation"
                                         Text="{Binding LastMessage.Content}"
-                                        TextColor="{StaticResource TextPlaceHolderColor}" />
+                                        TextColor="{DynamicResource TextPlaceHolderColor}" />
                                 </StackLayout>
 
                                 <StackLayout
@@ -177,7 +177,7 @@
                     HorizontalOptions="Center"
                     HorizontalTextAlignment="Center"
                     Text="Không có tin nhắn nào"
-                    TextColor="{StaticResource TextPlaceHolderColor}" />
+                    TextColor="{DynamicResource TextPlaceHolderColor}" />
             </StackLayout>
         </Grid>
     </ContentPage.Content>

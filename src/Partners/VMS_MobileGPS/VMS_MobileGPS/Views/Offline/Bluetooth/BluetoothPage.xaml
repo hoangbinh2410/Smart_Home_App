@@ -19,7 +19,7 @@
     xmlns:vm="clr-namespace:VMS_MobileGPS.ViewModels"
     Title="Tìm và kết nối"
     x:DataType="vm:BluetoothViewModel"
-    BackgroundColor="White"
+    BackgroundColor="{DynamicResource WhiteColor}"
     NavigationPage.HasBackButton="True">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -91,7 +91,7 @@
                     CornerRadius="0"
                     HasShadow="False"
                     HorizontalOptions="FillAndExpand"
-                    LightThemeBackgroundColor="{StaticResource GrayColor}"
+                    LightThemeBackgroundColor="{DynamicResource GrayColor}"
                     VerticalOptions="FillAndExpand">
                     <sharpnado:MaterialFrame.Content>
                         <Label
@@ -107,7 +107,7 @@
                     Orientation="Horizontal"
                     Spacing="10">
                     <controls:IconView
-                        Foreground="{StaticResource PrimaryColor}"
+                        Foreground="{DynamicResource PrimaryColor}"
                         HeightRequest="30"
                         HorizontalOptions="End"
                         Source="ic_bluetooth.png"
@@ -145,7 +145,7 @@
                     CornerRadius="0"
                     HasShadow="False"
                     HorizontalOptions="FillAndExpand"
-                    LightThemeBackgroundColor="{StaticResource GrayColor}"
+                    LightThemeBackgroundColor="{DynamicResource GrayColor}"
                     VerticalOptions="FillAndExpand">
                     <sharpnado:MaterialFrame.Content>
                         <Label
@@ -202,7 +202,7 @@
                                         Orientation="Horizontal"
                                         Spacing="10">
                                         <controls:IconView
-                                            Foreground="{StaticResource PrimaryColor}"
+                                            Foreground="{DynamicResource PrimaryColor}"
                                             HeightRequest="30"
                                             HorizontalOptions="End"
                                             Source="ic_bluetooth.png"
@@ -243,7 +243,7 @@
                             HorizontalOptions="Center"
                             HorizontalTextAlignment="Center"
                             Text="Không tìm thấy thiết bị nào"
-                            TextColor="{StaticResource TextSecondaryColor}" />
+                            TextColor="{DynamicResource TextSecondaryColor}" />
                     </StackLayout>
                 </Grid>
                 <forms:AnimationView

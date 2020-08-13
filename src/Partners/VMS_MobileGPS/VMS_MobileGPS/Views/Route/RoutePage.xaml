@@ -182,7 +182,7 @@
                         Grid.Column="4"
                         Margin="-1,0,0,0"
                         Padding="5,6"
-                        BackgroundColor="White"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         BorderColor="White"
                         CornerRadius="0,15,0,15"
                         HasShadow="False"
@@ -301,7 +301,7 @@
                         x:Name="btnViewInfo"
                         Grid.Column="2"
                         Padding="0"
-                        BackgroundColor="White"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         CornerRadius="22"
                         Shadow="{x:StaticResource shadow}"
                         WidthRequest="45">
@@ -391,7 +391,7 @@
                     IsClippedToBounds="True"
                     Opacity="1">
                     <Grid>
-                        <ContentView BackgroundColor="White" Opacity=".9" />
+                        <ContentView BackgroundColor="{DynamicResource WhiteColor}" Opacity=".9" />
                         <Grid Padding="8" BackgroundColor="Transparent">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />

@@ -23,7 +23,7 @@
 
     <ContentPage.Content>
         <ScrollView
-            BackgroundColor="White"
+            BackgroundColor="{DynamicResource WhiteColor}"
             HorizontalOptions="FillAndExpand"
             Orientation="Vertical"
             VerticalOptions="FillAndExpand"
@@ -36,7 +36,7 @@
                         CornerRadius="0"
                         HasShadow="False"
                         HorizontalOptions="FillAndExpand"
-                        LightThemeBackgroundColor="{StaticResource TextPlaceHolderColor}"
+                        LightThemeBackgroundColor="{DynamicResource TextPlaceHolderColor}"
                         VerticalOptions="FillAndExpand">
 
                         <sharpnado:MaterialFrame.Content>
@@ -66,7 +66,7 @@
                                     <Switch
                                         HorizontalOptions="End"
                                         IsToggled="{Binding Value}"
-                                        OnColor="{StaticResource PrimaryColor}"
+                                        OnColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center" />
                                 </StackLayout>
                             </DataTemplate>
@@ -88,7 +88,7 @@
                             Grid.Column="1"
                             HorizontalOptions="End"
                             Text="{x:Static fontawesome:FontAwesomeIcons.AngleRight}"
-                            TextColor="{StaticResource PrimaryColor}"
+                            TextColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="Center" />
                     </Grid>
                 </StackLayout>
@@ -100,7 +100,7 @@
                         CornerRadius="0"
                         HasShadow="False"
                         HorizontalOptions="FillAndExpand"
-                        LightThemeBackgroundColor="{StaticResource TextPlaceHolderColor}"
+                        LightThemeBackgroundColor="{DynamicResource TextPlaceHolderColor}"
                         VerticalOptions="FillAndExpand">
 
                         <sharpnado:MaterialFrame.Content>
@@ -114,7 +114,7 @@
                     </sharpnado:MaterialFrame>
 
                     <StackLayout
-                        BackgroundColor="White"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         HorizontalOptions="FillAndExpand"
                         Spacing="10"
                         VerticalOptions="FillAndExpand">
@@ -145,7 +145,7 @@
                                     <controls:FontAwesomeIcon
                                         HorizontalOptions="Center"
                                         Text="{x:Static fontawesome:FontAwesomeIcons.LocationArrow}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center" />
 
                                     <Label
@@ -158,7 +158,7 @@
                                     Grid.Column="1"
                                     HorizontalOptions="End"
                                     Text="{x:Static fontawesome:FontAwesomeIcons.AngleRight}"
-                                    TextColor="{StaticResource PrimaryColor}"
+                                    TextColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="Center" />
                             </Grid>
                             <Grid Grid.Row="1" RowSpacing="0">
@@ -178,7 +178,7 @@
                                     <controls:FontAwesomeIcon
                                         HorizontalOptions="Center"
                                         Text="{x:Static fontawesome:FontAwesomeIcons.UserCog}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center" />
 
                                     <Label
@@ -192,7 +192,7 @@
                                     Grid.Column="1"
                                     HorizontalOptions="End"
                                     Text="{x:Static fontawesome:FontAwesomeIcons.AngleRight}"
-                                    TextColor="{StaticResource PrimaryColor}"
+                                    TextColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="Center" />
                             </Grid>
                         </Grid>

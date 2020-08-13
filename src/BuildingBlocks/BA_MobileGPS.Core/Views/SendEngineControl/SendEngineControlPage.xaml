@@ -48,7 +48,7 @@
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
                 Text="{i18n:TranslateResource SendEngineControl_Label_TilePage}"
-                TextColor="{StaticResource WhiteColor}"
+                TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
             <StackLayout
                 Grid.Column="2"
@@ -93,7 +93,7 @@
                                             Margin="0"
                                             ContainerType="Outlined"
                                             EnablePasswordVisibilityToggle="True"
-                                            FocusedColor="{StaticResource PrimaryColor}"
+                                            FocusedColor="{DynamicResource PrimaryColor}"
                                             FocusedStrokeWidth="1"
                                             HorizontalOptions="FillAndExpand"
                                             LeadingViewPosition="Inside"
@@ -106,7 +106,7 @@
                                                 IsPassword="True"
                                                 MaxLength="250"
                                                 Placeholder="{i18n:TranslateResource SendEngineControl_Popup_Placeholder_Password}"
-                                                PlaceholderColor="{StaticResource TextPlaceHolderColor}"
+                                                PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                                                 Text="{Binding Password}">
                                                 <Entry.Behaviors>
                                                     <behaviors:EntryPreventSpaceBehavior />
@@ -135,8 +135,8 @@
                                     Text="{i18n:TranslateResource SendEngineControl_Button_Warning}"
                                     VerticalOptions="Center" />
                                 <Button
-                                    BackgroundColor="White"
-                                    BorderColor="{StaticResource PrimaryColor}"
+                                    BackgroundColor="{DynamicResource WhiteColor}"
+                                    BorderColor="{DynamicResource PrimaryColor}"
                                     BorderWidth="1"
                                     Command="{Binding CloseCommand}"
                                     CornerRadius="5"
@@ -145,7 +145,7 @@
                                     HorizontalOptions="FillAndExpand"
                                     IsVisible="{Binding PasswordPopup}"
                                     Text="{i18n:TranslateResource SendEngineControl_Button_Close}"
-                                    TextColor="{StaticResource PrimaryColor}"
+                                    TextColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="Center" />
                                 <Button
                                     Command="{Binding SendCommand}"
@@ -188,8 +188,8 @@
                                 <Frame
                                     x:Name="cmbVihicle"
                                     Padding="0"
-                                    BackgroundColor="White"
-                                    BorderColor="{StaticResource GrayColor}"
+                                    BackgroundColor="{DynamicResource WhiteColor}"
+                                    BorderColor="{DynamicResource GrayColor}"
                                     CornerRadius="5"
                                     HasShadow="False"
                                     HeightRequest="35"
@@ -216,7 +216,7 @@
                                             </Entry.Effects>
                                         </Entry>
                                         <controls:IconView
-                                            Foreground="Black"
+                                            Foreground="{DynamicResource BlackColor}"
                                             HeightRequest="15"
                                             HorizontalOptions="End"
                                             Source="ic_sortdown.png"
@@ -231,8 +231,8 @@
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 Padding="0"
-                                BackgroundColor="White"
-                                BorderColor="{StaticResource GrayColor}"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource GrayColor}"
                                 CornerRadius="5"
                                 HasShadow="False"
                                 HeightRequest="35"
@@ -259,7 +259,7 @@
                                         </Entry.Effects>
                                     </Entry>
                                     <controls:IconView
-                                        Foreground="Black"
+                                        Foreground="{DynamicResource BlackColor}"
                                         HeightRequest="20"
                                         HorizontalOptions="End"
                                         Source="ic_date_range_black.png"
@@ -273,8 +273,8 @@
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 Padding="0"
-                                BackgroundColor="White"
-                                BorderColor="{StaticResource GrayColor}"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource GrayColor}"
                                 CornerRadius="5"
                                 HasShadow="False"
                                 HeightRequest="35"
@@ -301,7 +301,7 @@
                                         </Entry.Effects>
                                     </Entry>
                                     <controls:IconView
-                                        Foreground="Black"
+                                        Foreground="{DynamicResource BlackColor}"
                                         HeightRequest="20"
                                         HorizontalOptions="End"
                                         Source="ic_date_range_black.png"
@@ -538,7 +538,7 @@
                         </syncDataGrid:SfDataGrid>
                         <StackLayout
                             Grid.Row="1"
-                            BackgroundColor="White"
+                            BackgroundColor="{DynamicResource WhiteColor}"
                             HorizontalOptions="Center"
                             IsVisible="{Binding HasData, Converter={StaticResource InvertBooleanConverter}}"
                             Spacing="10"
@@ -552,7 +552,7 @@
                                 HorizontalOptions="Center"
                                 HorizontalTextAlignment="Center"
                                 Text="{i18n:TranslateResource Common_Message_NoData}"
-                                TextColor="{StaticResource TextPrimaryColor}" />
+                                TextColor="{DynamicResource TextPrimaryColor}" />
                         </StackLayout>
                     </Grid>
                 </AbsoluteLayout>

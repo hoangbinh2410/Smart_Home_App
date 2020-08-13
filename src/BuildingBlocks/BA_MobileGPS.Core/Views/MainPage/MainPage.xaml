@@ -37,7 +37,7 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <sharpnado:MaterialFrame Padding="0" LightThemeBackgroundColor="{StaticResource GrayColor}">
+        <sharpnado:MaterialFrame Padding="0" LightThemeBackgroundColor="{DynamicResource GrayColor}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -59,13 +59,13 @@
                                 BlurRadius="0"
                                 Opacity="0.3"
                                 Offset="0,-1"
-                                Color="{StaticResource TextSecondaryColor}" />
+                                Color="{DynamicResource TextSecondaryColor}" />
                         </sh:ImmutableShades>
                     </sh:Shadows.Shades>
                     <sharpnado:MaterialFrame
                         Padding="0"
                         CornerRadius="0"
-                        LightThemeBackgroundColor="{StaticResource WhiteColor}">
+                        LightThemeBackgroundColor="{DynamicResource WhiteColor}">
                         <tabs:TabHostView
                             x:Name="tabitem"
                             Padding="0"

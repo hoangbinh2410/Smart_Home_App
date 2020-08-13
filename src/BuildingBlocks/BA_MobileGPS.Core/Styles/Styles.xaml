@@ -91,7 +91,7 @@
         <Setter Property="ContainerType" Value="Outlined" />
         <Setter Property="FocusedStrokeWidth" Value="1" />
         <Setter Property="ErrorColor" Value="{DynamicResource DangerousColor}" />
-        <!--<Setter Property="FocusedColor" Value="{AppThemeBinding Light={StaticResource BluePrimaryColor}, Dark={StaticResource BluePrimaryColor}}" />-->
+
     </Style>
 
     <Style TargetType="ffImage:CachedImage">

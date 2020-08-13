@@ -23,7 +23,7 @@
         <Frame
             Margin="40,0,40,0"
             Padding="0"
-            BackgroundColor="White"
+           BackgroundColor="{DynamicResource WhiteColor}"
             CornerRadius="5"
             HorizontalOptions="Center"
             VerticalOptions="Center">
@@ -40,7 +40,7 @@
                     <StackLayout
                         Grid.Row="0"
                         Padding="10"
-                        BackgroundColor="{StaticResource PrimaryColor}"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
                         HorizontalOptions="FillAndExpand"
                         Orientation="Horizontal">
                         <Label
@@ -56,11 +56,11 @@
                             x:Name="date"
                             BorderColor="Transparent"
                             ColumnHeaderFontSize="13"
-                            ColumnHeaderTextColor="{StaticResource PrimaryColor}"
+                            ColumnHeaderTextColor="{DynamicResource PrimaryColor}"
                             HorizontalOptions="CenterAndExpand"
                             PickerMode="Default"
                             SelectedItem="{Binding SelectedTime}"
-                            SelectedItemTextColor="{StaticResource PrimaryColor}"
+                            SelectedItemTextColor="{DynamicResource PrimaryColor}"
                             ShowColumnHeader="True"
                             ShowFooter="False"
                             ShowHeader="False"
@@ -80,19 +80,19 @@
                         </Grid.ColumnDefinitions>
                         <Button
                             Grid.Column="0"
-                            BackgroundColor="White"
-                            BorderColor="{StaticResource PrimaryColor}"
+                           BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource PrimaryColor}"
                             BorderRadius="0"
                             BorderWidth="1"
                             Command="{Binding CloseTimePagePopupCommand}"
                             FontAttributes="Bold"
                             FontSize="12"
                             Text="{i18n:TranslateResource Common_Button_Close}"
-                            TextColor="{StaticResource PrimaryColor}" />
+                            TextColor="{DynamicResource PrimaryColor}" />
                         <Button
                             x:Name="btnIgree"
                             Grid.Column="1"
-                            BackgroundColor="{StaticResource PrimaryColor}"
+                            BackgroundColor="{DynamicResource PrimaryColor}"
                             BorderRadius="0"
                             Command="{Binding IgreeSelectedTimeCommand}"
                             FontAttributes="Bold"

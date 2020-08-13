@@ -25,7 +25,7 @@
         <Frame
             Margin="15"
             Padding="0"
-            BackgroundColor="White"
+           BackgroundColor="{DynamicResource WhiteColor}"
             CornerRadius="5"
             HorizontalOptions="Center"
             VerticalOptions="Center">

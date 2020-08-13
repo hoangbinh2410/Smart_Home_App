@@ -29,7 +29,7 @@
                 HorizontalOptions="FillAndExpand"
                 Source="bg_login.png"
                 VerticalOptions="FillAndExpand" />
-            <forms:CachedImage BackgroundColor="{StaticResource PrimaryColor}" Opacity=".8" />
+            <forms:CachedImage BackgroundColor="{DynamicResource PrimaryColor}" Opacity=".8" />
             <Grid BackgroundColor="Transparent">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -47,7 +47,7 @@
                         HorizontalTextAlignment="Center"
                         LineHeight="1.3"
                         Text="{Binding Name}"
-                        TextColor="{StaticResource OrangeColor}" />
+                        TextColor="{DynamicResource OrangeColor}" />
                 </StackLayout>
                 <sharpnado:MaterialFrame
                     Grid.Row="1"
@@ -79,8 +79,8 @@
                                 Orientation="Horizontal"
                                 VerticalOptions="End">
                                 <Button
-                                    BackgroundColor="White"
-                                    BorderColor="{StaticResource PrimaryColor}"
+                                    BackgroundColor="{DynamicResource WhiteColor}"
+                                    BorderColor="{DynamicResource PrimaryColor}"
                                     BorderRadius="0"
                                     BorderWidth="1"
                                     Command="{Binding SaveCacheCommand}"
@@ -89,9 +89,9 @@
                                     FontSize="12"
                                     HorizontalOptions="FillAndExpand"
                                     Text="Đã đọc"
-                                    TextColor="{StaticResource PrimaryColor}" />
+                                    TextColor="{DynamicResource PrimaryColor}" />
                                 <Button
-                                    BackgroundColor="{StaticResource PrimaryColor}"
+                                    BackgroundColor="{DynamicResource PrimaryColor}"
                                     BorderRadius="0"
                                     Command="{Binding FeedBackCommand}"
                                     CornerRadius="5"
@@ -120,7 +120,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="280" />
                                 </Grid.RowDefinitions>
-                                <Grid BackgroundColor="White">
+                                <Grid BackgroundColor="{DynamicResource WhiteColor}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
@@ -137,12 +137,12 @@
                                             FontFamily="Arial"
                                             FontSize="18"
                                             Text="Thông tin phản hồi"
-                                            TextColor="{StaticResource PrimaryColor}" />
+                                            TextColor="{DynamicResource PrimaryColor}" />
                                     </StackLayout>
                                     <ScrollView Grid.Row="2" Padding="10,0,10,5">
                                         <input:SfTextInputLayout
                                             ContainerType="Outlined"
-                                            ErrorColor="{StaticResource DangerousColor}"
+                                            ErrorColor="{DynamicResource DangerousColor}"
                                             ErrorText="{Binding ContentFeedback.ErrorFirst}"
                                             HasError="{Binding ContentFeedback.IsNotValid}"
                                             HorizontalOptions="FillAndExpand"
@@ -165,7 +165,7 @@
                                         Orientation="Horizontal"
                                         VerticalOptions="Start">
                                         <Button
-                                            BackgroundColor="{StaticResource PrimaryColor}"
+                                            BackgroundColor="{DynamicResource PrimaryColor}"
                                             BorderRadius="0"
                                             Command="{Binding SendFeedbackCommand}"
                                             CornerRadius="5"
@@ -175,8 +175,8 @@
                                             Text="Gửi phản hồi"
                                             TextColor="White" />
                                         <Button
-                                            BackgroundColor="White"
-                                            BorderColor="{StaticResource PrimaryColor}"
+                                            BackgroundColor="{DynamicResource WhiteColor}"
+                                            BorderColor="{DynamicResource PrimaryColor}"
                                             BorderRadius="0"
                                             BorderWidth="1"
                                             Command="{Binding CloseFeedbackCommand}"
@@ -185,7 +185,7 @@
                                             FontSize="12"
                                             HorizontalOptions="FillAndExpand"
                                             Text="Đóng"
-                                            TextColor="{StaticResource PrimaryColor}" />
+                                            TextColor="{DynamicResource PrimaryColor}" />
                                     </StackLayout>
                                 </Grid>
                             </Grid>

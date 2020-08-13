@@ -17,7 +17,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid
-            BackgroundColor="White"
+            BackgroundColor="{DynamicResource WhiteColor}"
             HorizontalOptions="FillAndExpand"
             RowSpacing="0"
             VerticalOptions="FillAndExpand">
@@ -74,7 +74,7 @@
                 x:Name="ScrollView"
                 Grid.Row="1"
                 Grid.Column="0"
-                BackgroundColor="White"
+                BackgroundColor="{DynamicResource WhiteColor}"
                 HorizontalOptions="FillAndExpand"
                 Orientation="Vertical"
                 VerticalScrollBarVisibility="Never">
@@ -100,7 +100,7 @@
                                     CornerRadius="10"
                                     HasShadow="False"
                                     HorizontalOptions="EndAndExpand"
-                                    LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                                    LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="FillAndExpand">
                                     <sharpnado:MaterialFrame.Content>
                                         <Label
@@ -130,11 +130,11 @@
             <sharpnado:MaterialFrame
                 Grid.Row="2"
                 Padding="5"
-                BorderColor="{StaticResource GrayColor}"
+                BorderColor="{DynamicResource GrayColor}"
                 CornerRadius="0"
                 HasShadow="True"
                 HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="White"
+                LightThemeBackgroundColor="{DynamicResource WhiteColor}"
                 VerticalOptions="End">
                 <sharpnado:MaterialFrame.Content>
                     <messages:ChatInputView />

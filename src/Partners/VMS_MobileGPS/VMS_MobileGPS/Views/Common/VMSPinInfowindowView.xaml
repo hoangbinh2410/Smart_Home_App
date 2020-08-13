@@ -6,7 +6,7 @@
     Padding="3,0"
     AnchorX="0.5"
     AnchorY="2"
-    BackgroundColor="White"
+    BackgroundColor="{DynamicResource WhiteColor}"
     FontAttributes="Bold"
     FontFamily="{StaticResource myFontLatoBold}"
     FontSize="12"

@@ -84,12 +84,12 @@
                                 BlurRadius="2"
                                 Opacity="0.5"
                                 Offset="0,0"
-                                Color="{StaticResource TextSecondaryColor}" />
+                                Color="{DynamicResource TextSecondaryColor}" />
                         </sh:ImmutableShades>
                     </sh:Shadows.Shades>
                     <sharpnado:MaterialFrame
                         Padding="10,0"
-                        BackgroundColor="{StaticResource WhiteColor}"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         CornerRadius="19"
                         HeightRequest="40"
                         VerticalOptions="Center">
@@ -109,7 +109,7 @@
                                 </Entry.Effects>
                             </Entry>
                             <controls:IconView
-                                Foreground="Black"
+                                Foreground="{DynamicResource BlackColor}"
                                 HeightRequest="15"
                                 Source="ic_sortdown.png"
                                 VerticalOptions="Center"
@@ -125,7 +125,7 @@
                                 BlurRadius="2"
                                 Opacity="0.5"
                                 Offset="0,0"
-                                Color="{StaticResource TextSecondaryColor}" />
+                                Color="{DynamicResource TextSecondaryColor}" />
                         </sh:ImmutableShades>
                     </sh:Shadows.Shades>
                     <sharpnado:MaterialFrame
@@ -133,7 +133,7 @@
                         Padding="10,0"
                         CornerRadius="19"
                         HeightRequest="40"
-                        LightThemeBackgroundColor="{StaticResource WhiteColor}">
+                        LightThemeBackgroundColor="{DynamicResource WhiteColor}">
                         <StackLayout
                             Orientation="Horizontal"
                             Spacing="0"
@@ -153,7 +153,7 @@
                                 </Entry.Effects>
                             </Entry>
                             <controls:IconView
-                                Foreground="Black"
+                                Foreground="{DynamicResource BlackColor}"
                                 HeightRequest="15"
                                 Source="ic_sortdown.png"
                                 VerticalOptions="Center"
@@ -165,7 +165,7 @@
                 <Frame
                     Grid.Column="2"
                     Padding="0"
-                    BackgroundColor="{StaticResource PrimaryColor}"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
                     CornerRadius="20"
                     HasShadow="False"
                     HeightRequest="40"
@@ -175,7 +175,7 @@
                     </Frame.GestureRecognizers>
                     <controls:IconView
                         Margin="10"
-                        Foreground="{StaticResource WhiteColor}"
+                        Foreground="{DynamicResource WhiteColor}"
                         HorizontalOptions="Center"
                         Source="ic_search.png"
                         VerticalOptions="Center" />
@@ -236,7 +236,7 @@
                             <sharpnado:MaterialFrame
                                 Padding="0"
                                 CornerRadius="10"
-                                LightThemeBackgroundColor="{StaticResource GrayColor}">
+                                LightThemeBackgroundColor="{DynamicResource GrayColor}">
                                 <Grid
                                     Padding="5"
                                     ColumnDefinitions="2*,8*"
@@ -252,10 +252,10 @@
                                             Padding="7,1"
                                             CornerRadius="4"
                                             HorizontalOptions="Center"
-                                            LightThemeBackgroundColor="{StaticResource PrimaryColor}">
+                                            LightThemeBackgroundColor="{DynamicResource PrimaryColor}">
                                             <Label
                                                 Text="{Binding StartTime, Converter={x:StaticResource TimeConverter}}"
-                                                TextColor="{StaticResource WhiteColor}"
+                                                TextColor="{DynamicResource WhiteColor}"
                                                 VerticalTextAlignment="Center" />
                                         </sharpnado:MaterialFrame>
                                     </StackLayout>
@@ -294,7 +294,7 @@
                                     IsVisible="{Binding IsBusy, Source={x:Reference Name=listView}}"
                                     VerticalOptions="Center"
                                     WidthRequest="30"
-                                    Color="{StaticResource PrimaryColor}" />
+                                    Color="{DynamicResource PrimaryColor}" />
                             </Grid>
                         </DataTemplate>
                     </syncfusionList:SfListView.LoadMoreTemplate>

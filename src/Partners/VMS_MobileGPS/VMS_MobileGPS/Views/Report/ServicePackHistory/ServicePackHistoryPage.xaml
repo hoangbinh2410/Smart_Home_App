@@ -14,7 +14,7 @@
     xmlns:vm="clr-namespace:VMS_MobileGPS.ViewModels"
     Title="Gói cước sử dụng"
     x:DataType="vm:ServicePackHistoryViewModel"
-    BackgroundColor="White"
+    BackgroundColor="{DynamicResource WhiteColor}"
     NavigationPage.BackButtonTitle=""
     mc:Ignorable="d">
     <NavigationPage.TitleView>
@@ -34,7 +34,7 @@
                 HorizontalOptions="Start"
                 LineBreakMode="TailTruncation"
                 Text="Gói cước sử dụng"
-                TextColor="{StaticResource WhiteColor}"
+                TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
             <ffImage:CachedImage
                 Grid.Column="1"
@@ -70,7 +70,7 @@
                     <views:DateTimePickerView
                         Grid.Row="0"
                         Grid.Column="0"
-                        BorderColor="{StaticResource GrayColor2}"
+                        BorderColor="{DynamicResource GrayColor2}"
                         DateSelectedCommand="{Binding DateSelectedCommand}"
                         DateTime="{Binding FromDate}"
                         FontSize="13"
@@ -83,7 +83,7 @@
                     <views:DateTimePickerView
                         Grid.Row="0"
                         Grid.Column="1"
-                        BorderColor="{StaticResource GrayColor2}"
+                        BorderColor="{DynamicResource GrayColor2}"
                         DateSelectedCommand="{Binding DateSelectedCommand}"
                         DateTime="{Binding ToDate}"
                         FontSize="13"
@@ -98,7 +98,7 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         Padding="5,0,5,0"
-                        BorderColor="{StaticResource GrayColor2}"
+                        BorderColor="{DynamicResource GrayColor2}"
                         CornerRadius="5"
                         HasShadow="False"
                         HeightRequest="40"
@@ -179,7 +179,7 @@
                             Label="Gói truyền dữ liệu"
                             XBindingPath="Month"
                             YBindingPath="Dvvtinfo.BlockSMS"
-                            Color="{StaticResource BluePrimaryColor}">
+                            Color="{DynamicResource BluePrimaryColor}">
                             <chart:ColumnSeries.TooltipTemplate>
                                 <DataTemplate>
                                     <StackLayout Spacing="2">
