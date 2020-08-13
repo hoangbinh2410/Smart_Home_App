@@ -34,4 +34,10 @@
 
     <Color x:Key="PopupYesBtnTextColor">White</Color>
     <Color x:Key="PopupYesBtnBackgroundColor">#00709A</Color>
+
+    <!--Login-->
+    <Color x:Key="LoginTextColor">White</Color>
+
+    <Color x:Key="LoginIconBackgroundColor">White</Color>
+    <Color x:Key="LoginIconColor">#0D2D6C</Color>
 </ResourceDictionary>

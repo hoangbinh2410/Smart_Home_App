@@ -28,11 +28,16 @@
     <FileImageSource x:Key="HomePageTopImageSource" File="bg_HomeTop.png" />
     <FileImageSource x:Key="HomePageBotImageSource" File="bg_HomeBot.png" />
 
-    <Color x:Key="MainTabSelectedColor">#00ADEF</Color>
+    <Color x:Key="MainTabSelectedColor">#0D2D6C</Color>
+    <Color x:Key="MainTabUnSelectedColor">#484848</Color>
 
     <Color x:Key="PopupYesBtnTextColor">White</Color>
 
     <Color x:Key="PopupYesBtnBackgroundColor">#00709A</Color>
+    <!--Login-->
+    <Color x:Key="LoginTextColor">White</Color>
 
+    <Color x:Key="LoginIconBackgroundColor">White</Color>
+    <Color x:Key="LoginIconColor">#0D2D6C</Color>
 
 </ResourceDictionary>

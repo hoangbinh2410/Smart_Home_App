@@ -9,11 +9,8 @@ using Prism.Events;
 using Prism.Ioc;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using VMS_MobileGPS.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -21,10 +18,11 @@ using Xamarin.Forms.Xaml;
 namespace VMS_MobileGPS.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RoutePage : ContentView, INavigationAware
+    public partial class RoutePage : ContentView, INavigationAware, IDestructible
     {
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
         private readonly IHelperAdvanceService helperAdvanceService;
+        private readonly IEventAggregator eventAggregator;
 
         private bool infoWindowIsShown;
         private bool viewHasAppeared;
@@ -47,11 +45,9 @@ namespace VMS_MobileGPS.Views
             map.PinClicked += Map_PinClicked;
 
             helperAdvanceService = PrismApplicationBase.Current.Container.Resolve<IHelperAdvanceService>();
-            var eventRaise = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
-            eventRaise.GetEvent<ThemeChangedEvent>().Subscribe(ThemeChanged);
+            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+            eventAggregator.GetEvent<ThemeChangedEvent>().Subscribe(ThemeChanged);
         }
-
-      
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
@@ -80,7 +76,6 @@ namespace VMS_MobileGPS.Views
                 viewHasAppeared = true;
             }
         }
-
 
         private void GoogleMapAddBoundary()
         {
@@ -175,7 +170,6 @@ namespace VMS_MobileGPS.Views
             {
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
-
         }
 
         private void AddName(LandmarkResponse name)
@@ -282,6 +276,11 @@ namespace VMS_MobileGPS.Views
                     lbl2.TextColor = Color.White;
                 }
             }
+        }
+
+        public void Destroy()
+        {
+            eventAggregator.GetEvent<ThemeChangedEvent>().Unsubscribe(ThemeChanged);
         }
     }
 }
