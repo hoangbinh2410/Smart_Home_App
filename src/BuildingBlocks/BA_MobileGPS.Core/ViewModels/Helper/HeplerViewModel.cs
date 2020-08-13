@@ -46,12 +46,11 @@ namespace BA_MobileGPS.Core.ViewModels
                         Icon = item.IconMobile,
                         Title = MobileResource.Helper_Label_Using + item.NameByCulture.ToLower(),
                         Link = "https://www.youtube.com/channel/UC0vfDfFTKXXV_d7m86b1MhQ",
-                        IsShow = true
                     });
                 }
             }
 
-            ListHelper = menuhelp.FindAll(h => h.IsShow);
+            ListHelper = menuhelp;
         }
 
         [Obsolete]

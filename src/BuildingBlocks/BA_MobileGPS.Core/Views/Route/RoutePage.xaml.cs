@@ -1,9 +1,11 @@
-﻿using BA_MobileGPS.Core.ViewModels;
+﻿using BA_MobileGPS.Core.Events;
+using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RealmEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism;
+using Prism.Events;
 using Prism.Ioc;
 using Prism.Navigation;
 using System;
@@ -15,10 +17,11 @@ using Xamarin.Forms.Xaml;
 namespace BA_MobileGPS.Core.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RoutePage : ContentView, INavigationAware
+    public partial class RoutePage : ContentView, INavigationAware, IDestructible
     {
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
         private readonly IHelperAdvanceService helperAdvanceService;
+        private readonly IEventAggregator eventAggregator;
 
         private bool infoWindowIsShown;
         private bool viewHasAppeared;
@@ -41,6 +44,8 @@ namespace BA_MobileGPS.Core.Views
             map.PinClicked += Map_PinClicked;
 
             helperAdvanceService = PrismApplicationBase.Current.Container.Resolve<IHelperAdvanceService>();
+            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+            eventAggregator.GetEvent<ThemeChangedEvent>().Subscribe(ThemeChanged);
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)
@@ -258,6 +263,23 @@ namespace BA_MobileGPS.Core.Views
                     lbl2.TextColor = Color.White;
                 }
             }
+        }
+
+        private void ThemeChanged()
+        {
+            foreach (var btn in TimeSelector.Children.Cast<ContentView>())
+            {
+                btn.BackgroundColor = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+                if (btn.Content is Label lbl2)
+                {
+                    lbl2.TextColor = Color.White;
+                }
+            }
+        }
+
+        public void Destroy()
+        {
+            eventAggregator.GetEvent<ThemeChangedEvent>().Unsubscribe(ThemeChanged);
         }
     }
 }
