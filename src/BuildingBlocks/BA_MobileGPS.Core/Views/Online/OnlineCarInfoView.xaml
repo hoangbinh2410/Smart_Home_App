@@ -46,7 +46,7 @@
                     Foreground="{StaticResource PrimaryColor}"
                     HeightRequest="20"
                     HorizontalOptions="Center"
-                    Source="ic_vehicle.png"
+                    Source="ic_vehiclesolid.png"
                     VerticalOptions="Center"
                     WidthRequest="20" />
                 <StackLayout Orientation="Horizontal" VerticalOptions="Center">

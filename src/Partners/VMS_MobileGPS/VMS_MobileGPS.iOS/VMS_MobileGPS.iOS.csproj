@@ -1071,5 +1071,41 @@
   <ItemGroup>
     <BundleResource Include="Resources\ic_vehicle.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_mornitoringsolid%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_mornitoringsolid%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_mornitoring%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_mornitoringsolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_mornitoring%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_mornitoring.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_shipsolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_shipsolid%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_shipsolid%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_vehiclesolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_vehiclesolid%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_vehiclesolid%403x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

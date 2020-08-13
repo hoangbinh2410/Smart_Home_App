@@ -28,7 +28,7 @@ namespace BA_MobileGPS.Core.Views
                 var listVehicleTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("ListVehicleTab"); //Phương tiện
                 ViewModelLocator.SetAutowirePartialView(listVehicleTab, MainContentPage);
                 Switcher.Children.Add(listVehicleTab);
-                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_ship.png", Label = MobileResource.Menu_TabItem_Vehicle });
+                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_vehicle.png", Label = MobileResource.Menu_TabItem_Vehicle });
             }
             tabitem.SelectedTabIndexChanged += Tabitem_SelectedTabIndexChanged;
             if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))

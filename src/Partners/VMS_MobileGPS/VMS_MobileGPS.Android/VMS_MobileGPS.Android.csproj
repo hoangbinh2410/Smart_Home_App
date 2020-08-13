@@ -373,9 +373,6 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_port.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_ship.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_sos.png" />
   </ItemGroup>
   <ItemGroup>
@@ -436,9 +433,6 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_port.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_ship.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_sos.png" />
   </ItemGroup>
   <ItemGroup>
@@ -457,9 +451,6 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_mornitoringsolid.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_ship.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_voyagesolid.png" />
   </ItemGroup>
   <ItemGroup>
@@ -470,9 +461,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_voyagesolid.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_ship.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_vmsdevice_off.png" />
@@ -492,10 +480,43 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_vehicle.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_Mornitoring.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_Mornitoring.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_mornitoringsolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_Mornitoring.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_mornitoringsolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_Mornitoring.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_mornitoringsolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_vehiclesolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_vehiclesolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_vehiclesolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_vehiclesolid.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadUnhandledDeviceExceptionVMS_MobileGPSAndroidHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionVMS_MobileGPSAndroidHideInfoBar="True" />
+      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionVMS_MobileGPSAndroidHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionVMS_MobileGPSAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
