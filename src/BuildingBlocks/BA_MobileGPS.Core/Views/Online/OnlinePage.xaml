@@ -116,12 +116,12 @@
                 <controls:IconView
                     Margin="8"
                     Foreground="{DynamicResource PrimaryColor}"
-                    Source="ic_doubleship.png"
+                    Source="ic_doublevehicle.png"
                     VerticalOptions="Center" />
             </pancake:PancakeView>
             <pancake:PancakeView
                 Grid.Column="2"
-               BackgroundColor="{DynamicResource WhiteColor}"
+                BackgroundColor="{DynamicResource WhiteColor}"
                 CornerRadius="22"
                 WidthRequest="45">
                 <pancake:PancakeView.GestureRecognizers>
