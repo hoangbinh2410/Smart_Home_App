@@ -104,13 +104,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     GoOnlinePage(currentVehicle);
                 }
-                else if (action == MobileResource.Route_Label_TitleVMS)
+                else if (action == MobileResource.Route_Label_Title)
                 {
                     GoRoutePage(currentVehicle);
-                }
-                else if (action == MobileResource.Route_Label_DistanceTitle)
-                {
-                    GoDistancePage(currentVehicle);
                 }
             }
         }
