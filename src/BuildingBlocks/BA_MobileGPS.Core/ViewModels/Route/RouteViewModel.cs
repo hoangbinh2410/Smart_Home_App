@@ -84,6 +84,7 @@ namespace BA_MobileGPS.Core.ViewModels
             FastEndCommand = new Command(FastEnd);
             ChangeSpeedCommand = new DelegateCommand(ChangeSpeed);
             EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
+            EventAggregator.GetEvent<ThemeChangedEvent>().Subscribe(ThemeChanged);
         }
 
         #endregion Contructor
@@ -121,6 +122,9 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (ctsRouting != null)
                 ctsRouting.Cancel();
+
+            EventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
+            EventAggregator.GetEvent<ThemeChangedEvent>().Unsubscribe(ThemeChanged);
         }
 
         #endregion Lifecycle
@@ -1120,6 +1124,17 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 PlaySpeed *= 2;
             }
+        }
+
+        private void ThemeChanged()
+        {
+            ColorMapType = MapType == MapType.Street
+                ? (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"]
+                : (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor2"];
+
+            FindCarColor = IsWatching
+                ? (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor2"]
+                : (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
         }
 
         #endregion PrivateMethod
