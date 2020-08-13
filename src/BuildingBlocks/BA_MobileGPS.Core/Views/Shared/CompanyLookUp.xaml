@@ -18,7 +18,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout
-        BackgroundColor="{StaticResource WhiteColor}"
+        BackgroundColor="{DynamicResource WhiteColor}"
         HorizontalOptions="FillAndExpand"
         Spacing="0"
         VerticalOptions="FillAndExpand">
@@ -91,7 +91,7 @@
                                 WidthRequest="28" />
                             <BoxView
                                 Grid.Row="1"
-                                BackgroundColor="{StaticResource GrayColor}"
+                                BackgroundColor="{DynamicResource GrayColor}"
                                 HeightRequest="0.5"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="Start" />
@@ -102,7 +102,7 @@
             <StackLayout
                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                 AbsoluteLayout.LayoutFlags="All"
-                BackgroundColor="White"
+               BackgroundColor="{DynamicResource WhiteColor}"
                 IsVisible="{Binding HasCompany, Converter={StaticResource InvertBooleanConverter}}"
                 Spacing="10">
                 <!--  Image for display svg image  -->

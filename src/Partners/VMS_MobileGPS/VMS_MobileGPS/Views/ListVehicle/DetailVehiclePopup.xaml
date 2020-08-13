@@ -21,7 +21,7 @@
     <pages:PopupPage.Resources />
 
     <pancakeview:PancakeView
-        BackgroundColor="White"
+        BackgroundColor="{DynamicResource WhiteColor}"
         CornerRadius="10,10,0,0"
         HasShadow="True"
         VerticalOptions="EndAndExpand">
@@ -37,7 +37,7 @@
                     FontSize="{StaticResource MyFontSizeLarge}"
                     StyleClass="BoldText"
                     Text="{Binding VehicleName}"
-                    TextColor="{StaticResource PrimaryColor}"
+                    TextColor="{DynamicResource PrimaryColor}"
                     VerticalOptions="Center" />
                 <controls:IconView
                     Foreground="Gray"
@@ -57,11 +57,11 @@
                         <Setter Property="HeightRequest" Value="60" />
                         <Setter Property="WidthRequest" Value="60" />
                         <Setter Property="CornerRadius" Value="30" />
-                        <Setter Property="BackgroundColor" Value="{StaticResource WhiteColor}" />
+                        <Setter Property="BackgroundColor" Value="{DynamicResource WhiteColor}" />
                         <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
                     </Style>
                     <Style TargetType="controls:IconView">
-                        <Setter Property="Foreground" Value="{StaticResource PrimaryColor}" />
+                        <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
                         <Setter Property="Margin" Value="15" />
                         <Setter Property="HorizontalOptions" Value="Center" />
                     </Style>

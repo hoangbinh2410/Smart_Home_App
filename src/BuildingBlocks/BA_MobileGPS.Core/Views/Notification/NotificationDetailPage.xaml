@@ -33,7 +33,7 @@
                     CornerRadius="0"
                     HasShadow="False"
                     HorizontalOptions="FillAndExpand"
-                    LightThemeBackgroundColor="{StaticResource TextSecondaryColor}"
+                    LightThemeBackgroundColor="{DynamicResource TextSecondaryColor}"
                     VerticalOptions="FillAndExpand">
 
                     <sharpnado:MaterialFrame.Content>
@@ -42,7 +42,7 @@
                                 FontSize="15"
                                 HorizontalOptions="Start"
                                 Text="{x:Static fontawesome:FontAwesomeIcons.File}"
-                                TextColor="{StaticResource PrimaryColor}"
+                                TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center">
                                 <controls:FontAwesomeIcon.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Path=BindingContext.DowloadFileCommand, Source={x:Reference Name=this}}" CommandParameter="{Binding .}" />
@@ -67,7 +67,7 @@
                         <DataTemplate>
                             <sharpnado:MaterialFrame
                                 Padding="0"
-                                BackgroundColor="White"
+                               BackgroundColor="{DynamicResource WhiteColor}"
                                 CornerRadius="5"
                                 HasShadow="True"
                                 HeightRequest="40"
@@ -83,7 +83,7 @@
                                         FontSize="30"
                                         HorizontalOptions="Center"
                                         Text="{x:Static fontawesome:FontAwesomeIcons.FileDownload}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center">
                                         <controls:FontAwesomeIcon.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Path=BindingContext.DowloadFileCommand, Source={x:Reference Name=this}}" CommandParameter="{Binding .}" />

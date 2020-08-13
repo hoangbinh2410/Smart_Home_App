@@ -20,7 +20,7 @@
 
     <ContentPage.Content>
         <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
-            <StackLayout BackgroundColor="{StaticResource WhiteColor}" Spacing="0">
+            <StackLayout BackgroundColor="{DynamicResource WhiteColor}" Spacing="0">
                 <!--  Ngày hết hạn phí  -->
                 <Grid Padding="10">
                     <Grid.RowDefinitions>
@@ -66,7 +66,7 @@
                     <Frame
                         Grid.Row="0"
                         Padding="10"
-                        BackgroundColor="{StaticResource GrayColor}"
+                        BackgroundColor="{DynamicResource GrayColor}"
                         CornerRadius="0"
                         HasShadow="False"
                         HorizontalOptions="FillAndExpand"
@@ -82,7 +82,7 @@
                     <sharpnado:MaterialFrame
                         Grid.Row="1"
                         Padding="10,0,10,0"
-                        BackgroundColor="White"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         CornerRadius="0"
                         HasShadow="False"
                         HorizontalOptions="FillAndExpand"
@@ -119,7 +119,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource PrimaryColor}"
+                                            Foreground="{DynamicResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="DeviceName.png"
@@ -142,7 +142,7 @@
                                     <BoxView
                                         Grid.Row="1"
                                         Grid.ColumnSpan="2"
-                                        BackgroundColor="{StaticResource GrayColor}"
+                                        BackgroundColor="{DynamicResource GrayColor}"
                                         HeightRequest="0.5"
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Start" />
@@ -165,7 +165,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource PrimaryColor}"
+                                            Foreground="{DynamicResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="DeviceBKS.png"
@@ -189,7 +189,7 @@
                                     <BoxView
                                         Grid.Row="1"
                                         Grid.ColumnSpan="2"
-                                        BackgroundColor="{StaticResource GrayColor}"
+                                        BackgroundColor="{DynamicResource GrayColor}"
                                         HeightRequest="0.5"
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Start" />
@@ -212,7 +212,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource PrimaryColor}"
+                                            Foreground="{DynamicResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_time_black.png"
@@ -236,7 +236,7 @@
                                     <BoxView
                                         Grid.Row="1"
                                         Grid.ColumnSpan="2"
-                                        BackgroundColor="{StaticResource GrayColor}"
+                                        BackgroundColor="{DynamicResource GrayColor}"
                                         HeightRequest="0.5"
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Start" />
@@ -260,7 +260,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource PrimaryColor}"
+                                            Foreground="{DynamicResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_time24.png"
@@ -284,7 +284,7 @@
                                     <BoxView
                                         Grid.Row="1"
                                         Grid.ColumnSpan="2"
-                                        BackgroundColor="{StaticResource GrayColor}"
+                                        BackgroundColor="{DynamicResource GrayColor}"
                                         HeightRequest="0.5"
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Start" />
@@ -307,7 +307,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource PrimaryColor}"
+                                            Foreground="{DynamicResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_speed.png"
@@ -331,7 +331,7 @@
                                     <BoxView
                                         Grid.Row="1"
                                         Grid.ColumnSpan="2"
-                                        BackgroundColor="{StaticResource GrayColor}"
+                                        BackgroundColor="{DynamicResource GrayColor}"
                                         HeightRequest="0.5"
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Start" />
@@ -354,7 +354,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource PrimaryColor}"
+                                            Foreground="{DynamicResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_coordinates.png"
@@ -378,7 +378,7 @@
                                     <BoxView
                                         Grid.Row="1"
                                         Grid.ColumnSpan="2"
-                                        BackgroundColor="{StaticResource GrayColor}"
+                                        BackgroundColor="{DynamicResource GrayColor}"
                                         HeightRequest="0.5"
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Start" />
@@ -400,7 +400,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource PrimaryColor}"
+                                            Foreground="{DynamicResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_distance.png"
@@ -436,7 +436,7 @@
                     <Frame
                         Grid.Row="0"
                         Padding="10"
-                        BackgroundColor="{StaticResource GrayColor}"
+                        BackgroundColor="{DynamicResource GrayColor}"
                         CornerRadius="0"
                         HasShadow="False"
                         HorizontalOptions="FillAndExpand"
@@ -450,7 +450,7 @@
                     <sharpnado:MaterialFrame
                         Grid.Row="1"
                         Padding="10,0,10,0"
-                        BackgroundColor="White"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         CornerRadius="0"
                         HasShadow="False"
                         HorizontalOptions="FillAndExpand"
@@ -483,7 +483,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource PrimaryColor}"
+                                            Foreground="{DynamicResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_user.png"
@@ -507,7 +507,7 @@
                                     <BoxView
                                         Grid.Row="1"
                                         Grid.ColumnSpan="2"
-                                        BackgroundColor="{StaticResource GrayColor}"
+                                        BackgroundColor="{DynamicResource GrayColor}"
                                         HeightRequest="0.5"
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Start" />
@@ -531,7 +531,7 @@
                                         Orientation="Horizontal"
                                         Spacing="10">
                                         <controls:IconView
-                                            Foreground="{StaticResource PrimaryColor}"
+                                            Foreground="{DynamicResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_phone_black.png"
@@ -555,7 +555,7 @@
                                     <BoxView
                                         Grid.Row="1"
                                         Grid.ColumnSpan="2"
-                                        BackgroundColor="{StaticResource GrayColor}"
+                                        BackgroundColor="{DynamicResource GrayColor}"
                                         HeightRequest="0.5"
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Start" />
@@ -578,7 +578,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource PrimaryColor}"
+                                            Foreground="{DynamicResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_caption.png"
@@ -602,7 +602,7 @@
                                     <BoxView
                                         Grid.Row="1"
                                         Grid.ColumnSpan="2"
-                                        BackgroundColor="{StaticResource GrayColor}"
+                                        BackgroundColor="{DynamicResource GrayColor}"
                                         HeightRequest="0.5"
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Start" />
@@ -626,7 +626,7 @@
                                         Orientation="Horizontal"
                                         Spacing="10">
                                         <controls:IconView
-                                            Foreground="{StaticResource PrimaryColor}"
+                                            Foreground="{DynamicResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_phone_black.png"
@@ -650,7 +650,7 @@
                                     <BoxView
                                         Grid.Row="1"
                                         Grid.ColumnSpan="2"
-                                        BackgroundColor="{StaticResource GrayColor}"
+                                        BackgroundColor="{DynamicResource GrayColor}"
                                         HeightRequest="0.5"
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Start" />
@@ -673,7 +673,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource PrimaryColor}"
+                                            Foreground="{DynamicResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_groupcar.png"
@@ -697,7 +697,7 @@
                                     <BoxView
                                         Grid.Row="1"
                                         Grid.ColumnSpan="2"
-                                        BackgroundColor="{StaticResource GrayColor}"
+                                        BackgroundColor="{DynamicResource GrayColor}"
                                         HeightRequest="0.5"
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Start" />
@@ -719,7 +719,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal">
                                         <controls:IconView
-                                            Foreground="{StaticResource PrimaryColor}"
+                                            Foreground="{DynamicResource PrimaryColor}"
                                             HeightRequest="20"
                                             HorizontalOptions="Center"
                                             Source="ic_port.png"

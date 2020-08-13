@@ -12,7 +12,7 @@
 
     <ContentPage.Content>
         <StackLayout
-            BackgroundColor="White"
+           BackgroundColor="{DynamicResource WhiteColor}"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand">
             <Grid Padding="10,0" RowSpacing="0">
@@ -30,7 +30,7 @@
                         <TapGestureRecognizer Command="{Binding SelectedAllAlertCompanyCommand}" />
                     </StackLayout.GestureRecognizers>
                     <checkbox:SfCheckBox
-                        CheckedColor="{StaticResource PrimaryColor}"
+                        CheckedColor="{DynamicResource PrimaryColor}"
                         CornerRadius="5"
                         FontAttributes="Bold"
                         InputTransparent="True"
@@ -58,7 +58,7 @@
                     <syncfusionList:SfListView.ItemTemplate>
                         <DataTemplate>
                             <checkbox:SfCheckBox
-                                CheckedColor="{StaticResource PrimaryColor}"
+                                CheckedColor="{DynamicResource PrimaryColor}"
                                 CornerRadius="5"
                                 InputTransparent="True"
                                 IsChecked="{Binding IsVisible}"

@@ -31,7 +31,7 @@
             </Label>
             <sharpnado:MaterialFrame
                 Padding="5"
-                BorderColor="{StaticResource GrayColor}"
+                BorderColor="{DynamicResource GrayColor}"
                 CornerRadius="20"
                 HasShadow="True"
                 HorizontalOptions="FillAndExpand"
@@ -64,7 +64,7 @@
                         Padding="0"
                         CornerRadius="20"
                         HeightRequest="40"
-                        LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                        LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                         WidthRequest="40">
                         <controls:FontAwesomeIcon
                             FontSize="20"

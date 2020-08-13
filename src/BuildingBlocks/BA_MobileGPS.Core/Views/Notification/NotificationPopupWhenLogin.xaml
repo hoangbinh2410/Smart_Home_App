@@ -22,7 +22,7 @@
     </pages:PopupPage.Animation>
     <pages:PopupPage.Content>
         <Grid>
-            <forms:CachedImage BackgroundColor="{StaticResource PrimaryColor}" Opacity=".8" />
+            <forms:CachedImage BackgroundColor="{DynamicResource PrimaryColor}" Opacity=".8" />
             <Grid BackgroundColor="Transparent">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -40,13 +40,13 @@
                         HorizontalTextAlignment="Center"
                         LineHeight="1.3"
                         Text="{Binding Name}"
-                        TextColor="{StaticResource OrangeColor}" />
+                        TextColor="{DynamicResource OrangeColor}" />
                 </StackLayout>
                 <sharpnado:MaterialFrame
                     Grid.Row="1"
                     Margin="20"
                     Padding="0"
-                    BackgroundColor="White"
+                   BackgroundColor="{DynamicResource WhiteColor}"
                     CornerRadius="10"
                     HasShadow="True"
                     HorizontalOptions="FillAndExpand"
@@ -71,8 +71,8 @@
                                 Orientation="Horizontal"
                                 VerticalOptions="End">
                                 <Button
-                                    BackgroundColor="White"
-                                    BorderColor="{StaticResource PrimaryColor}"
+                                   BackgroundColor="{DynamicResource WhiteColor}"
+                                    BorderColor="{DynamicResource PrimaryColor}"
                                     BorderRadius="0"
                                     BorderWidth="1"
                                     Command="{Binding ClosePageCommand}"
@@ -82,9 +82,9 @@
                                     HorizontalOptions="FillAndExpand"
                                     IsVisible="{Binding IsClosePage}"
                                     Text="Bỏ qua"
-                                    TextColor="{StaticResource PrimaryColor}" />
+                                    TextColor="{DynamicResource PrimaryColor}" />
                                 <Button
-                                    BackgroundColor="{StaticResource PrimaryColor}"
+                                    BackgroundColor="{DynamicResource PrimaryColor}"
                                     BorderRadius="0"
                                     Command="{Binding SaveCacheCommand}"
                                     CornerRadius="5"

@@ -7,11 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <!--  Color Primary  -->
-    <Color x:Key="BlueDarkColor">#004EDA</Color>
-    <Color x:Key="BluePrimaryColor">#00AEEF</Color>
-    <Color x:Key="PrimaryColor">#004EDA</Color>
-    <Color x:Key="BlueColor">#89DFFF</Color>
-    <Color x:Key="WhiteColor">White</Color>
+    <Color x:Key="BlueDarkColor">#033612</Color>
+    <Color x:Key="BluePrimaryColor">#069932</Color>
+    <Color x:Key="PrimaryColor">#044E1A</Color>
+    <Color x:Key="BlueColor">#ACD6B9</Color>
+    <Color x:Key="WhiteColor">#C8EBFA</Color>
+    <Color x:Key="BlackColor">#012B0E</Color>
     <!--  Other Color  -->
     <Color x:Key="OrangeColor">#4A7AFF</Color>
     <Color x:Key="GreenColor">#31CB73</Color>
@@ -19,18 +20,19 @@
     <Color x:Key="GrayColor2">#CCCCCC</Color>
     <Color x:Key="ShadowColor">#000000</Color>
     <!--  Text Color  -->
-    <Color x:Key="TextPrimaryColor">#484848</Color>
-    <Color x:Key="TextSecondaryColor">#7B7B7B</Color>
-    <Color x:Key="TextPlaceHolderColor">#C9C9C9</Color>
+    <Color x:Key="TextPrimaryColor">#665A00</Color>
+    <Color x:Key="TextSecondaryColor">#998700</Color>
+    <Color x:Key="TextPlaceHolderColor">#EBE08D</Color>
 
-    <Color x:Key="DangerousColor">#E63C2B</Color>
-    <Color x:Key="WarningColor">#FF9900</Color>
+    <Color x:Key="DangerousColor">#682312</Color>
+    <Color x:Key="WarningColor">#9D3F29</Color>
     <Color x:Key="PinkColor">#FFD8D8</Color>
 
     <FileImageSource x:Key="HomePageBotImageSource" File="bg_HomeBot.png" />
 
-    <Color x:Key="MainTabSelectedColor">#00ADEF</Color>
+    <Color x:Key="MainTabSelectedColor">#394265</Color>
 
     <Color x:Key="PopupYesBtnTextColor">White</Color>
+
     <Color x:Key="PopupYesBtnBackgroundColor">#00709A</Color>
 </ResourceDictionary>

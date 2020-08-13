@@ -45,7 +45,7 @@
             ColumnDefinitions="Auto,*">
             <StackLayout Orientation="Horizontal">
                 <controls:IconView
-                    Foreground="{StaticResource PrimaryColor}"
+                    Foreground="{DynamicResource PrimaryColor}"
                     HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_ship2.png"
@@ -65,25 +65,24 @@
 
             <buttons:SfCheckBox
                 Grid.Column="1"
-                CheckedColor="{AppThemeBinding Light={StaticResource BlueDarkColor},
-                                               Dark={StaticResource BlueDarkColor}}"
+                CheckedColor="{DynamicResource BlueDarkColor}"
                 CornerRadius="0"
                 HeightRequest="20"
                 HorizontalOptions="EndAndExpand"
                 IsChecked="{Binding IsShowCircle}"
                 Text="Vòng bao"
-                UncheckedColor="{StaticResource BlueDarkColor}" />
+                UncheckedColor="{DynamicResource BlueDarkColor}" />
         </Grid>
         <BoxView
             Grid.Row="1"
-            BackgroundColor="{StaticResource GrayColor}"
+            BackgroundColor="{DynamicResource GrayColor}"
             HeightRequest="0.5"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start" />
         <Grid Grid.Row="2" Padding="10,0">
             <StackLayout Orientation="Horizontal">
                 <controls:IconView
-                    Foreground="{StaticResource PrimaryColor}"
+                    Foreground="{DynamicResource PrimaryColor}"
                     HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_time24.png"
@@ -97,14 +96,14 @@
         </Grid>
         <BoxView
             Grid.Row="3"
-            BackgroundColor="{StaticResource GrayColor}"
+            BackgroundColor="{DynamicResource GrayColor}"
             HeightRequest="0.5"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start" />
         <Grid Grid.Row="4" Padding="10,0">
             <StackLayout Orientation="Horizontal">
                 <controls:IconView
-                    Foreground="{StaticResource PrimaryColor}"
+                    Foreground="{DynamicResource PrimaryColor}"
                     HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_coordinates.png"
@@ -117,7 +116,7 @@
         </Grid>
         <BoxView
             Grid.Row="5"
-            BackgroundColor="{StaticResource GrayColor}"
+            BackgroundColor="{DynamicResource GrayColor}"
             HeightRequest="0.5"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start" />
@@ -127,7 +126,7 @@
             ColumnDefinitions="*,*,Auto">
             <StackLayout Grid.Column="0" Orientation="Horizontal">
                 <controls:IconView
-                    Foreground="{StaticResource PrimaryColor}"
+                    Foreground="{DynamicResource PrimaryColor}"
                     HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_speed.png"
@@ -140,7 +139,7 @@
                 Orientation="Horizontal"
                 Spacing="3">
                 <controls:IconView
-                    Foreground="{StaticResource PrimaryColor}"
+                    Foreground="{DynamicResource PrimaryColor}"
                     HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_distance.png"
@@ -160,13 +159,13 @@
                     CornerRadius="10"
                     HeightRequest="20"
                     HorizontalOptions="Center"
-                    LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                    LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                     WidthRequest="20">
 
                     <sharpnado:MaterialFrame.Content>
                         <controls:IconView
                             Margin="5"
-                            Foreground="{StaticResource WhiteColor}"
+                            Foreground="{DynamicResource WhiteColor}"
                             HorizontalOptions="Center"
                             Source="ic_distance2.png"
                             VerticalOptions="Center" />
@@ -177,7 +176,7 @@
         </Grid>
         <BoxView
             Grid.Row="7"
-            BackgroundColor="{StaticResource GrayColor}"
+            BackgroundColor="{DynamicResource GrayColor}"
             HeightRequest="0.5"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start" />
@@ -190,7 +189,7 @@
                 Padding="0,11"
                 CornerRadius="18"
                 HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="{StaticResource PrimaryColor}">
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}">
                 <sharpnado:MaterialFrame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PushToRouterPageCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
@@ -200,7 +199,7 @@
                         LineBreakMode="TailTruncation"
                         Text="{i18n:TranslateResource Route_Label_TitleVMS,
                                                       Converter={StaticResource UpperCaseConverter}}"
-                        TextColor="{StaticResource WhiteColor}" />
+                        TextColor="{DynamicResource WhiteColor}" />
                 </sharpnado:MaterialFrame.Content>
             </sharpnado:MaterialFrame>
             <sharpnado:MaterialFrame
@@ -208,7 +207,7 @@
                 Padding="0,11"
                 CornerRadius="18"
                 HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="{StaticResource PrimaryColor}">
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}">
                 <sharpnado:MaterialFrame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PushToServicePackHistoryPageCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
@@ -218,7 +217,7 @@
                         LineBreakMode="TailTruncation"
                         Text="{i18n:TranslateResource Route_Label_FeeVMS,
                                                       Converter={StaticResource UpperCaseConverter}}"
-                        TextColor="{StaticResource WhiteColor}" />
+                        TextColor="{DynamicResource WhiteColor}" />
                 </sharpnado:MaterialFrame.Content>
             </sharpnado:MaterialFrame>
             <sharpnado:MaterialFrame
@@ -226,7 +225,7 @@
                 Padding="0,11"
                 CornerRadius="18"
                 HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="{StaticResource PrimaryColor}">
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}">
                 <sharpnado:MaterialFrame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PushToDetailPageCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
@@ -236,7 +235,7 @@
                         LineBreakMode="TailTruncation"
                         Text="{i18n:TranslateResource Online_Button_Detail,
                                                       Converter={StaticResource UpperCaseConverter}}"
-                        TextColor="{StaticResource WhiteColor}" />
+                        TextColor="{DynamicResource WhiteColor}" />
                 </sharpnado:MaterialFrame.Content>
             </sharpnado:MaterialFrame>
         </Grid>
