@@ -95,7 +95,7 @@
                                 Offset="0,0"
                                 Color="Black" />
                         </pancakeview:PancakeView.Shadow>
-                        <controls:IconView Source="ic_voyage.png" />
+                        <controls:IconView Source="ic_route.png" />
                     </pancakeview:PancakeView>
                     <Label Text="Hải trình" />
                 </StackLayout>
