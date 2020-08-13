@@ -340,9 +340,6 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\logo_VNSAT.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\avatar_default.png" />
   </ItemGroup>
   <ItemGroup>
@@ -476,5 +473,20 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_doublevehicle%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_car_play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_car_play%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_car_play%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bg_Account.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\logo_Login.png" />
   </ItemGroup>
 </Project>

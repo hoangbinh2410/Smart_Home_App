@@ -19,7 +19,12 @@
         </Style>
     </ContentView.Resources>
     <Grid BackgroundColor="{DynamicResource WhiteColor}" RowDefinitions="150,*,Auto">
-        <Grid BackgroundColor="{DynamicResource PrimaryColor}" />
+        <Grid Padding="0">
+            <ff:CachedImage
+                Aspect="AspectFill"
+                Source="bg_Account.png"
+                VerticalOptions="FillAndExpand" />
+        </Grid>
         <StackLayout
             Margin="30,0,0,20"
             Orientation="Horizontal"

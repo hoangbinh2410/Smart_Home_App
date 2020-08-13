@@ -1,8 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ResourceDictionary
-    x:Class="BA_MobileGPS.Styles.DarkColor"
+    x:Class="BA_MobileGPS.Styles.Custom"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
     <!--  Color Primary  -->
     <Color x:Key="BlueDarkColor">#0D2D6C</Color>
     <Color x:Key="BluePrimaryColor">#00AEEF</Color>
@@ -31,8 +34,5 @@
     <Color x:Key="MainTabSelectedColor">#00ADEF</Color>
 
     <Color x:Key="PopupYesBtnTextColor">White</Color>
-
     <Color x:Key="PopupYesBtnBackgroundColor">#00709A</Color>
-
-
 </ResourceDictionary>

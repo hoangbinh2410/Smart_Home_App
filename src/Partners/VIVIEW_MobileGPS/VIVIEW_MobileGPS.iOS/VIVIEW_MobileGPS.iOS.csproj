@@ -229,9 +229,6 @@
     <BundleResource Include="Resources\car_warn%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\logo_VNSAT.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\ic_logo.png" />
   </ItemGroup>
   <ItemGroup>
@@ -519,6 +516,18 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_doublevehicle%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_car_play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_car_play%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_car_play%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\logo_Login.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

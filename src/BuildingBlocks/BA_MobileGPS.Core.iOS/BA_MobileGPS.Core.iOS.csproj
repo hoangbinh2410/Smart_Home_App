@@ -1259,10 +1259,6 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_logolite%403x.png" />
-    <BundleResource Include="Resources\ic_car_play.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_car_play%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_close_white%402x.png" />

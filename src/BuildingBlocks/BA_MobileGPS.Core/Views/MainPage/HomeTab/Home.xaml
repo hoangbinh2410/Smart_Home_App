@@ -54,7 +54,12 @@
         </Style>
     </ContentView.Resources>
     <Grid RowDefinitions="*,2.8*">
-        <Grid BackgroundColor="{DynamicResource PrimaryColor}" VerticalOptions="Fill" />
+        <Grid Padding="0">
+            <ff:CachedImage
+                Aspect="AspectFill"
+                Source="bg_HomeTop.png"
+                VerticalOptions="FillAndExpand" />
+        </Grid>
         <Grid
             Grid.RowSpan="2"
             Padding="5,0"

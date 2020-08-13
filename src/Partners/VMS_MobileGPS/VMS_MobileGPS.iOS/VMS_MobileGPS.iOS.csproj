@@ -779,9 +779,6 @@
     <BundleResource Include="Resources\Launch_Screen.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\logo_VNSAT.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\z_sos.mp3" />
   </ItemGroup>
   <ItemGroup>
@@ -1124,6 +1121,9 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_doublevehicle%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\logo_Login.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
