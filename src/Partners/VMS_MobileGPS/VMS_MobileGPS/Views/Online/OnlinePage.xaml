@@ -116,7 +116,7 @@
                 <controls:IconView
                     Margin="8"
                     Foreground="{DynamicResource PrimaryColor}"
-                    Source="ic_doubleship.png"
+                    Source="ic_doublevehicle.png"
                     VerticalOptions="Center" />
             </pancake:PancakeView>
             <pancake:PancakeView

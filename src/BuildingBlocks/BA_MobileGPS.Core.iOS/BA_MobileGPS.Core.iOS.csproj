@@ -1883,15 +1883,6 @@
     <BundleResource Include="Resources\truck_warn%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_doubleship%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_doubleship.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_doubleship%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\ic_ship%403x.png" />
   </ItemGroup>
   <ItemGroup>

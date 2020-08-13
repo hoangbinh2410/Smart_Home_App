@@ -701,15 +701,6 @@
     <BundleResource Include="Resources\ic_devicestate.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_doubleship.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_doubleship%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_doubleship%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\ic_fishingnet.png" />
   </ItemGroup>
   <ItemGroup>
@@ -1124,6 +1115,15 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_routesolid%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_doublevehicle%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_doublevehicle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_doublevehicle%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

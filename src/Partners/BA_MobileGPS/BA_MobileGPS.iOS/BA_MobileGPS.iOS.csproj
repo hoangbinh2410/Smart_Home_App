@@ -468,4 +468,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\ic_vehiclesolid%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_doublevehicle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_doublevehicle%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_doublevehicle%403x.png" />
+  </ItemGroup>
 </Project>

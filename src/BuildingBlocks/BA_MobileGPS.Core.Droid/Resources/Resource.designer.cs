@@ -4467,7 +4467,7 @@ namespace BA_MobileGPS.Core.Droid
 			public static int ic_distance2 = 2131165442;
 			
 			// aapt resource value: 0x7F070103
-			public static int ic_doubleship = 2131165443;
+			public static int ic_doublevehicle = 2131165443;
 			
 			// aapt resource value: 0x7F070104
 			public static int ic_end = 2131165444;
