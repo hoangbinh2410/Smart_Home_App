@@ -201,6 +201,14 @@
         <Setter Property="VerticalOptions" Value="End" />
     </Style>
 
+    <!--  Top IconView : 4 icons  -->
+    <Style Class="TopFontIconView" TargetType="controls:FontAwesomeIcon">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="TextColor" Value="{DynamicResource WhiteColor}" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+    </Style>
+
     <Style Class="HomePageBotImage" TargetType="ffImage:CachedImage">
         <Setter Property="Source" Value="{DynamicResource HomePageBotImageSource}" />
     </Style>
