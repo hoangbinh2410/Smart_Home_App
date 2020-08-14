@@ -167,6 +167,7 @@
                         WidthRequest="300">
                         <buttons:SfCheckBox
                             CheckedColor="{DynamicResource PrimaryColor}"
+                            TickColor="{DynamicResource LoginTextColor}"
                             CornerRadius="0"
                             IsChecked="{Binding Rememberme}"
                             Text="{i18n:TranslateResource Login_Checkbox_Autologin}"
