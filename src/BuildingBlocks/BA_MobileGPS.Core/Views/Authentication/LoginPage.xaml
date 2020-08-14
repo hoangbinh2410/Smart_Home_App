@@ -80,9 +80,9 @@
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
                             <sh:Shadows
-                                CornerRadius="22"
-                                HeightRequest="44"
-                                WidthRequest="44">
+                                CornerRadius="21"
+                                HeightRequest="42"
+                                WidthRequest="42">
                                 <sh:Shadows.Shades>
                                     <sh:ImmutableShades>
                                         <sh:Shade
@@ -92,12 +92,11 @@
                                             Color="{DynamicResource WhiteColor}" />
                                     </sh:ImmutableShades>
                                 </sh:Shadows.Shades>
-                                <sharpnado:MaterialFrame
-                                    Margin="-1,0,0,0"
-                                    CornerRadius="22"
-                                    HeightRequest="44"
+                                <sharpnado:MaterialFrame TranslationX="-1.2"
+                                    CornerRadius="21"
+                                    HeightRequest="42"
                                     LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
-                                    WidthRequest="44">
+                                    WidthRequest="42">
                                     <controls:IconView
                                         Margin="9"
                                         Foreground="{DynamicResource WhiteColor}"
@@ -124,9 +123,9 @@
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
                             <sh:Shadows
-                                CornerRadius="22"
-                                HeightRequest="44"
-                                WidthRequest="44">
+                                CornerRadius="21"
+                                HeightRequest="42"
+                                WidthRequest="42">
                                 <sh:Shadows.Shades>
                                     <sh:ImmutableShades>
                                         <sh:Shade
@@ -137,11 +136,11 @@
                                     </sh:ImmutableShades>
                                 </sh:Shadows.Shades>
                                 <sharpnado:MaterialFrame
-                                    Margin="-1,0,0,0"
-                                    CornerRadius="22"
-                                    HeightRequest="44"
+                                    CornerRadius="21"
+                                    HeightRequest="42"
                                     LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
-                                    WidthRequest="44">
+                                    TranslationX="-1.2"
+                                    WidthRequest="42">
                                     <controls:IconView
                                         Margin="9"
                                         Foreground="{DynamicResource WhiteColor}"
@@ -166,15 +165,23 @@
                         HorizontalOptions="CenterAndExpand"
                         Orientation="Horizontal"
                         WidthRequest="300">
-                        <buttons:SfCheckBox
-                            BorderWidth="1"
-                            CheckedColor="{DynamicResource PrimaryColor}"
-                            CornerRadius="5"
-                            IsChecked="{Binding Rememberme}"
-                            Text="{i18n:TranslateResource Login_Checkbox_Autologin}"
-                            TextColor="{DynamicResource LoginTextColor}"
-                            TickColor="{DynamicResource LoginTextColor}"
-                            UncheckedColor="{DynamicResource LoginTextColor}" />
+                        <Grid>
+                            <buttons:SfCheckBox
+                                BorderWidth="1.5"
+                                CornerRadius="0"
+                                IsChecked="False"
+                                UncheckedColor="{DynamicResource LoginTextColor}" />
+                            <buttons:SfCheckBox
+                                BorderWidth="0.5"
+                                CheckedColor="Transparent"
+                                CornerRadius="0"
+                                FontSize="13.5"
+                                IsChecked="{Binding Rememberme}"
+                                Text="{i18n:TranslateResource Login_Checkbox_Autologin}"
+                                TextColor="{DynamicResource LoginTextColor}"
+                                TickColor="{DynamicResource LoginTextColor}"
+                                UncheckedColor="Transparent" />
+                        </Grid>
                         <Label
                             HorizontalOptions="EndAndExpand"
                             Text="{i18n:TranslateResource Login_Lable_Forgotpassword}"
