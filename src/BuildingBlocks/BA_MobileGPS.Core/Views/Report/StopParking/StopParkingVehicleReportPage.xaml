@@ -212,69 +212,16 @@
                             WidthRequest="20" />
                     </sharpnado:MaterialFrame>
 
-                    <Grid Grid.Row="1" Grid.ColumnSpan="3">
+                    <Grid Grid.Row="1" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width=".8*" />
-                            <ColumnDefinition Width=".8*" />
-                            <ColumnDefinition Width="1.4*" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <!--  Số phút dừng đỗ  -->
-                        <Frame
-                            x:Name="txtNumberOfStopParking"
-                            Padding="5,0,5,0"
-                            BackgroundColor="{DynamicResource WhiteColor}"
-                            BorderColor="{DynamicResource GrayColor2}"
-                            CornerRadius="5"
-                            HasShadow="False"
-                            HeightRequest="35"
-                            HorizontalOptions="FillAndExpand"
-                            IsClippedToBounds="True"
-                            VerticalOptions="Center">
-                            <Entry
-                                FontSize="{StaticResource FontSize11}"
-                                HorizontalOptions="FillAndExpand"
-                                Keyboard="Numeric"
-                                MaxLength="20"
-                                Placeholder="{i18n:TranslateResource StopParkingReport_Label_PlaceHolder_NumberOfStopParking}"
-                                Text="{Binding NumberOfStopParking}"
-                                VerticalOptions="Center">
-                                <Entry.Effects>
-                                    <effects:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
-                        </Frame>
-                        <!--  Số phút dừng nổ máy  -->
-                        <Frame
-                            x:Name="txtNumberOfStopRunEngine"
-                            Grid.Column="1"
-                            Padding="5,0,5,0"
-                            BackgroundColor="{DynamicResource WhiteColor}"
-                            BorderColor="{DynamicResource GrayColor2}"
-                            CornerRadius="5"
-                            HasShadow="False"
-                            HeightRequest="35"
-                            HorizontalOptions="FillAndExpand"
-                            IsClippedToBounds="True"
-                            VerticalOptions="Center"
-                            WidthRequest="100">
-                            <Entry
-                                FontSize="{StaticResource FontSize11}"
-                                HorizontalOptions="FillAndExpand"
-                                Keyboard="Numeric"
-                                MaxLength="20"
-                                Placeholder="{i18n:TranslateResource StopParkingReport_Label_PlaceHolder_NumberOfStopRunEngine}"
-                                Text="{Binding NumberOfStopRunEngine}"
-                                VerticalOptions="Center">
-                                <Entry.Effects>
-                                    <effects:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
-                        </Frame>
                         <!--  biển số xe  -->
                         <Frame
                             x:Name="cmbVihicle"
-                            Grid.Column="2"
+                            Grid.Column="0"
                             Padding="0"
                             BackgroundColor="{DynamicResource WhiteColor}"
                             BorderColor="{DynamicResource GrayColor2}"
@@ -312,31 +259,89 @@
                                     WidthRequest="15" />
                             </StackLayout>
                         </Frame>
-                        <StackLayout Grid.Column="3" Orientation="Horizontal">
-                            <!--  button ecxel  -->
-                            <sharpnado:MaterialFrame
-                                Padding="0"
-                                CornerRadius="5"
-                                HasShadow="False"
-                                HeightRequest="35"
-                                HorizontalOptions="Start"
-                                IsVisible="{Binding IsExportExcel}"
-                                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
-                                VerticalOptions="CenterAndExpand"
-                                WidthRequest="35">
-                                <sharpnado:MaterialFrame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding ExportExcellCommand}" />
-                                </sharpnado:MaterialFrame.GestureRecognizers>
-                                <controls:IconView
-                                    Foreground="{DynamicResource WhiteColor}"
-                                    HeightRequest="20"
-                                    HorizontalOptions="Center"
-                                    Source="ic_excel.png"
-                                    VerticalOptions="Center"
-                                    WidthRequest="20" />
-                            </sharpnado:MaterialFrame>
-                        </StackLayout>
+                        <!--  Số phút dừng đỗ  -->
+                        <Frame
+                            x:Name="txtNumberOfStopParking"
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
+                            VerticalOptions="Center">
+                            <Entry
+                                FontSize="{StaticResource FontSize11}"
+                                HorizontalOptions="FillAndExpand"
+                                Keyboard="Numeric"
+                                MaxLength="20"
+                                Placeholder="{i18n:TranslateResource StopParkingReport_Label_PlaceHolder_NumberOfStopParking}"
+                                Text="{Binding NumberOfStopParking}"
+                                VerticalOptions="Center">
+                                <Entry.Effects>
+                                    <effects:BorderlessEffect />
+                                </Entry.Effects>
+                            </Entry>
+                        </Frame>
+                        <!--  Số phút dừng nổ máy  -->
+                        <Frame
+                            x:Name="txtNumberOfStopRunEngine"
+                            Grid.Column="2"
+                            Padding="5,0,5,0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
+                            VerticalOptions="Center"
+                            WidthRequest="100">
+                            <Entry
+                                FontSize="{StaticResource FontSize11}"
+                                HorizontalOptions="FillAndExpand"
+                                Keyboard="Numeric"
+                                MaxLength="20"
+                                Placeholder="{i18n:TranslateResource StopParkingReport_Label_PlaceHolder_NumberOfStopRunEngine}"
+                                Text="{Binding NumberOfStopRunEngine}"
+                                VerticalOptions="Center">
+                                <Entry.Effects>
+                                    <effects:BorderlessEffect />
+                                </Entry.Effects>
+                            </Entry>
+                        </Frame>
+
+
                     </Grid>
+                    <StackLayout
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Orientation="Horizontal">
+                        <!--  button ecxel  -->
+                        <sharpnado:MaterialFrame
+                            Padding="0"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="Start"
+                            IsVisible="{Binding IsExportExcel}"
+                            LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="35">
+                            <sharpnado:MaterialFrame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ExportExcellCommand}" />
+                            </sharpnado:MaterialFrame.GestureRecognizers>
+                            <controls:IconView
+                                Foreground="{DynamicResource WhiteColor}"
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Source="ic_excel.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </sharpnado:MaterialFrame>
+                    </StackLayout>
                 </Grid>
                 <syncDataGrid:SfDataGrid
                     x:Name="dataGrid"

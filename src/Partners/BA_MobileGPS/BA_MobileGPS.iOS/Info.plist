@@ -85,5 +85,7 @@
 	<string>2.6.0</string>
 	<key>CFBundleShortVersionString</key>
 	<string>2.6.0</string>
+  <key>UIUserInterfaceStyle</key>
+  <string>light</string>
 </dict>
 </plist>
