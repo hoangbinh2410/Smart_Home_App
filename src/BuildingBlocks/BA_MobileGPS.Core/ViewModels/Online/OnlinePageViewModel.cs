@@ -103,9 +103,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private string carSearch;
         public string CarSearch { get => carSearch; set => SetProperty(ref carSearch, value); }
-        public ObservableCollection<Circle> Circles { get; set; } = new ObservableCollection<Circle>();
-        public ObservableCollection<Polygon> Boundaries { get; set; } = new ObservableCollection<Polygon>();
-        public ObservableCollection<Polyline> Borders { get; set; } = new ObservableCollection<Polyline>();
 
         public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
 
