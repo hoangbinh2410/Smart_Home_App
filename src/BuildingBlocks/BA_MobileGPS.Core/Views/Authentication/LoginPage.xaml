@@ -8,7 +8,6 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:prism="http://prismlibrary.com"
@@ -94,6 +93,7 @@
                                     </sh:ImmutableShades>
                                 </sh:Shadows.Shades>
                                 <sharpnado:MaterialFrame
+                                    Margin="-1,0,0,0"
                                     CornerRadius="22"
                                     HeightRequest="44"
                                     LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
@@ -137,6 +137,7 @@
                                     </sh:ImmutableShades>
                                 </sh:Shadows.Shades>
                                 <sharpnado:MaterialFrame
+                                    Margin="-1,0,0,0"
                                     CornerRadius="22"
                                     HeightRequest="44"
                                     LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
@@ -166,12 +167,13 @@
                         Orientation="Horizontal"
                         WidthRequest="300">
                         <buttons:SfCheckBox
+                            BorderWidth="1"
                             CheckedColor="{DynamicResource PrimaryColor}"
-                            TickColor="{DynamicResource LoginTextColor}"
-                            CornerRadius="0"
+                            CornerRadius="5"
                             IsChecked="{Binding Rememberme}"
                             Text="{i18n:TranslateResource Login_Checkbox_Autologin}"
                             TextColor="{DynamicResource LoginTextColor}"
+                            TickColor="{DynamicResource LoginTextColor}"
                             UncheckedColor="{DynamicResource LoginTextColor}" />
                         <Label
                             HorizontalOptions="EndAndExpand"
