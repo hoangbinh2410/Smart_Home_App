@@ -64,7 +64,7 @@
                 <controls:FontAwesomeIcon
                     Margin="5,0,5,0"
                     IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
-                    StyleClass="TopIconView"
+                    StyleClass="TopFontIconView"
                     Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
                     <controls:FontAwesomeIcon.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
@@ -72,7 +72,7 @@
                 </controls:FontAwesomeIcon>
                 <controls:FontAwesomeIcon
                     Margin="5,0,10,0"
-                    StyleClass="TopIconView"
+                    StyleClass="TopFontIconView"
                     Text="{x:Static fontawesome:FontAwesomeIcons.Cog}">
                     <controls:FontAwesomeIcon.GestureRecognizers>
                         <TapGestureRecognizer Tapped="HideableToolbarItem_Clicked" />
