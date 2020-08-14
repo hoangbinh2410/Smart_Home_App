@@ -211,13 +211,17 @@
                             VerticalOptions="Center"
                             WidthRequest="20" />
                     </sharpnado:MaterialFrame>
-                    <StackLayout
-                        Grid.Row="1"
-                        Grid.ColumnSpan="2"
-                        Orientation="Horizontal">
+                    <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
                         <!--  biển số xe  -->
                         <Frame
                             x:Name="cmbVihicle"
+                            Grid.Column="0"
                             Padding="0"
                             BorderColor="{DynamicResource GrayColor2}">
                             <StackLayout
@@ -251,6 +255,7 @@
                         <!--  Trạng Thái  -->
                         <Frame
                             x:Name="cmbStatus"
+                            Grid.Column="1"
                             Padding="0"
                             BorderColor="{DynamicResource GrayColor2}">
                             <StackLayout
@@ -272,17 +277,13 @@
                                         <effects:BorderlessEffect />
                                     </Entry.Effects>
                                 </Entry>
-                                <controls:IconView
-                                    Foreground="{DynamicResource BlackColor}"
-                                    HeightRequest="15"
-                                    HorizontalOptions="End"
-                                    Source="ic_sortdown.png"
-                                    VerticalOptions="Center"
-                                    WidthRequest="15" />
                             </StackLayout>
                         </Frame>
                         <!--  Số phút mất tín hiệu  -->
-                        <Frame Padding="5,0,5,0" BorderColor="{DynamicResource GrayColor2}">
+                        <Frame
+                            Grid.Column="2"
+                            Padding="5,0,5,0"
+                            BorderColor="{DynamicResource GrayColor2}">
                             <Entry
                                 FontSize="{StaticResource FontSize11}"
                                 HorizontalOptions="Fill"
@@ -297,7 +298,7 @@
                                 </Entry.Effects>
                             </Entry>
                         </Frame>
-                    </StackLayout>
+                    </Grid>
                     <StackLayout
                         Grid.Row="1"
                         Grid.Column="2"
