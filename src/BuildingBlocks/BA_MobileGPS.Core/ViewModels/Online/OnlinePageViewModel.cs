@@ -11,6 +11,7 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -22,6 +23,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private readonly IUserService userService;
         private readonly IDetailVehicleService detailVehicleService;
+        private readonly IUserLandmarkGroupService userLandmarkGroupService;
 
         public ICommand NavigateToSettingsCommand { get; private set; }
         public ICommand ChangeMapTypeCommand { get; private set; }
@@ -33,11 +35,12 @@ namespace BA_MobileGPS.Core.ViewModels
         public DelegateCommand GoDistancePageCommand { get; private set; }
 
         public OnlinePageViewModel(INavigationService navigationService,
-            IUserService userService, IDetailVehicleService detailVehicleService)
+            IUserService userService, IDetailVehicleService detailVehicleService,IUserLandmarkGroupService userLandmarkGroupService)
             : base(navigationService)
         {
             this.userService = userService;
             this.detailVehicleService = detailVehicleService;
+            this.userLandmarkGroupService = userLandmarkGroupService;
 
             if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
             {
@@ -72,6 +75,26 @@ namespace BA_MobileGPS.Core.ViewModels
             PushToDetailPageCommand = new DelegateCommand(PushtoDetailPage);
             CameraIdledCommand = new DelegateCommand<CameraIdledEventArgs>(UpdateMapInfo);
             GoDistancePageCommand = new DelegateCommand(GoDistancePage);
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+
+            if (parameters.TryGetValue(ParameterKey.Landmark, out List<UserLandmarkGroupRespone> listLandmark))
+            {
+                ListLandmark = listLandmark;
+
+                Pins.Clear();
+                Polygons.Clear();
+                GroundOverlays.Clear();
+                Polylines.Clear();
+
+                if (listLandmark.Count > 0 && listLandmark != null)
+                {
+                    GetLandmark(ListLandmark);
+                }
+            }
         }
 
         #endregion Contructor
@@ -136,9 +159,219 @@ namespace BA_MobileGPS.Core.ViewModels
         public bool isShowConfigLanmark;
         public bool IsShowConfigLanmark { get => isShowConfigLanmark; set => SetProperty(ref isShowConfigLanmark, value); }
 
+        private List<UserLandmarkGroupRespone> listLandmark;
+        public List<UserLandmarkGroupRespone> ListLandmark { get => listLandmark; set => SetProperty(ref listLandmark, value); }
+
+        public ObservableCollection<GroundOverlay> GroundOverlays { get; set; } = new ObservableCollection<GroundOverlay>();
+
+        public ObservableCollection<Pin> Pins { get; set; } = new ObservableCollection<Pin>();
+
+        public ObservableCollection<Polygon> Polygons { get; set; } = new ObservableCollection<Polygon>();
+
+        public ObservableCollection<Polyline> Polylines { get; set; } = new ObservableCollection<Polyline>();
+
         #endregion Property
 
         #region Private Method
+
+        public void GetLandmark(List<UserLandmarkGroupRespone> listmark)
+        {
+            SafeExecute(async () =>
+            {
+                var keygroup = string.Empty;
+                var keycategory = string.Empty;
+                foreach (var item in listmark)
+                {
+                    if (item.IsSystem)
+                    {
+                        keycategory += item.PK_LandmarksGroupID + ",";
+                    }
+                    else
+                    {
+                        keygroup += item.PK_LandmarksGroupID + ",";
+                    }
+                }
+                keygroup = keygroup != string.Empty ? keygroup.Substring(0, keygroup.Length - 1) : string.Empty;
+                keycategory = keycategory != string.Empty ? keycategory.Substring(0, keycategory.Length - 1) : string.Empty;
+
+                if (keygroup != string.Empty)
+                {
+                    // Lấy thông tin các điểm theo nhóm điểm công ty
+                    var list = await userLandmarkGroupService.GetDataLandmarkByGroupId(keygroup);
+
+                    GetLandmarkName(list);
+
+                    GetLandmarkDisplayBound(list, listmark, false);
+
+                    GetLandmarkDisplayName(list, listmark, false);
+
+                }
+
+                if (keycategory != string.Empty)
+                {
+                    // Lấy thông tin các điểm theo nhóm điểm hệ thống
+                    var list = await userLandmarkGroupService.GetDataLandmarkByCategory(keycategory);
+
+                    GetLandmarkName(list);
+
+                    GetLandmarkDisplayBound(list, listmark, true);
+
+                    GetLandmarkDisplayName(list, listmark, true);
+
+                }
+
+            });
+        }
+
+        /// <summary>Danh sách các điểm</summary>
+        /// <param name="list">The list.</param>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// linhlv  2/18/2020   created
+        /// </Modified>
+        private void GetLandmarkName(List<UserLandmarkRespone> list)
+        {
+            TryExecute(() =>
+            {
+                foreach (var item in list)
+                {
+                    AddGroundOverlay(item);
+                }
+            });
+        }
+
+        /// <summary>Danh sách các điểm không được tích vùng bao</summary>
+        /// <param name="list">The list.</param>
+        /// <param name="listmark">The listmark.</param>
+        /// <param name="IsSystem">if set to <c>true</c> [is system].</param>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// linhlv  2/18/2020   created
+        /// </Modified>
+        private void GetLandmarkDisplayBound(List<UserLandmarkRespone> list, List<UserLandmarkGroupRespone> listmark, bool IsSystem)
+        {
+            TryExecute(() =>
+            {
+                var listBoundary = list.Where(x => x.Polygon != string.Empty).ToList();
+
+                if (listBoundary != null && listBoundary.Count > 0)
+                {
+                    // Danh sách các điểm không được tích vùng bao
+
+                    var respones = listmark.Where(l => l.IsSystem == IsSystem && !l.IsDisplayBound).ToList();
+
+                    foreach (var item in respones)
+                    {
+                        listBoundary.RemoveAll(x => x.FK_LandmarksGroupID == item.PK_LandmarksGroupID);
+                    }
+
+                    foreach (var item in listBoundary)
+                    {
+                        AddBoundary(item);
+                    }
+                }
+            });
+        }
+
+        private void AddBoundary(UserLandmarkRespone boundary)
+        {
+            TryExecute(() =>
+            {
+                var result = boundary.Polygon.Split(',');
+
+                var color = Color.FromHex(StringHelper.ConvertIntToHex(boundary.Color));
+
+                if (boundary.IsClosed)
+                {
+                    var polygon = new Polygon
+                    {
+                        IsClickable = true,
+                        StrokeWidth = 1f,
+                        StrokeColor = color.MultiplyAlpha(.5),
+                        FillColor = color.MultiplyAlpha(.3),
+                        Tag = "POLYGON"
+                    };
+
+                    for (int i = 0; i < result.Length; i += 2)
+                    {
+                        polygon.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
+                    }
+
+                    Polygons.Add(polygon);
+                }
+                else
+                {
+                    var polyline = new Polyline
+                    {
+                        IsClickable = false,
+                        StrokeColor = color,
+                        StrokeWidth = 2f,
+                        Tag = "POLYLINE"
+                    };
+
+                    for (int i = 0; i < result.Length; i += 2)
+                    {
+                        polyline.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
+                    }
+
+                    Polylines.Add(polyline);
+                }
+            });
+        }
+
+        private void AddGroundOverlay(UserLandmarkRespone boundary)
+        {
+            TryExecute(() =>
+            {
+                var icon = boundary.IconApp != null && boundary.IconApp != string.Empty ? BitmapDescriptorFactory.FromResource(boundary.IconApp) : BitmapDescriptorFactory.FromResource("ic_point_freeway.png");
+
+                //var item = new GroundOverlay()
+                //{
+                //    Bounds = new Bounds(new Position(boundary.Latitude, boundary.Longitude), new Position(boundary.Latitude + 0.01d, boundary.Longitude + 0.01d)),
+                //    Icon = icon,
+                //    Tag = boundary.Name
+                //};
+
+                //GroundOverlays.Add(item);
+
+                Pins.Add(new Pin()
+                {
+                    Position = new Position(boundary.Latitude, boundary.Longitude),
+                    Label = boundary.Name,
+                    Anchor = new Point(0.5, 0.5),
+                    Icon = icon,
+                    Tag = boundary.Name,
+                });
+
+            });
+        }
+
+
+        /// <summary>Danh sách các điểm không được tích tên điểm</summary>
+        /// <param name="list">The list.</param>
+        /// <param name="listmark">The listmark.</param>
+        /// <param name="IsSystem">if set to <c>true</c> [is system].</param>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// linhlv  2/18/2020   created
+        /// </Modified>
+        private void GetLandmarkDisplayName(List<UserLandmarkRespone> list, List<UserLandmarkGroupRespone> listmark, bool IsSystem)
+        {
+            TryExecute(() =>
+            {
+                var respones = listmark.Where(l => l.IsSystem == IsSystem && !l.IsDisplayName).ToList();
+
+                foreach (var item in respones)
+                {
+                    list.RemoveAll(x => x.FK_LandmarksGroupID == item.PK_LandmarksGroupID);
+                }
+
+                foreach (var item in list)
+                {
+                    //AddGroundOverlay(item);
+                }
+            });
+        }
 
         private void PushtoRouterPage()
         {

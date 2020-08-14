@@ -41,6 +41,10 @@
                 <mapbindings:BindingPolygonsBehavior Value="{Binding Boundaries}" />
                 <mapbindings:BindingPolylinesBehavior Value="{Binding Borders}" />
                 <mapbindings:BindingCirclesBehavior Value="{Binding Circles}" />
+                <mapbindings:BindingPolygonsBehavior Value="{Binding Polygons}" />
+                <mapbindings:BindingPolylinesBehavior Value="{Binding Polylines}" />
+                <mapbindings:BindingGroundOverlaysBehavior Value="{Binding GroundOverlays}" />
+                <mapbindings:BindingPinsBehavior Value="{Binding Pins}" />
                 <mapbindings:BindingVisibleRegionBehavior Value="{Binding VisibleRegion}" />
                 <mapbindings:CameraIdledToCommandBehavior Command="{Binding CameraIdledCommand}" />
             </cluster:Map.Behaviors>
@@ -188,7 +192,7 @@
                     Foreground="{DynamicResource WhiteColor}"
                     HeightRequest="20"
                     HorizontalOptions="Center"
-                    Source="ic_bounded_area.png"
+                    Source="ic_settings.png"
                     VerticalOptions="Center"
                     WidthRequest="20" />
             </pancake:PancakeView>
