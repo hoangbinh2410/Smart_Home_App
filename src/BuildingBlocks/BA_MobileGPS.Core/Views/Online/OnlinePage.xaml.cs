@@ -160,8 +160,6 @@ namespace BA_MobileGPS.Core.Views
             {
                 InitOnline();
             }
-            GoogleMapAddBoundary();
-            GoogleMapAddName();
         }
 
         public void OnNavigatingTo(INavigationParameters parameters)
@@ -216,120 +214,6 @@ namespace BA_MobileGPS.Core.Views
         #endregion Property
 
         #region Private Method
-
-        private void GoogleMapAddBoundary()
-        {
-            vm.Boundaries.Clear();
-            vm.Borders.Clear();
-
-            var listBoudary = boundaryRepository.Find(b => b.IsShowBoudary);
-
-            foreach (var item in listBoudary)
-            {
-                AddBoundary(item);
-            }
-        }
-
-        private void AddBoundary(LandmarkResponse boundary)
-        {
-            try
-            {
-                var result = boundary.Polygon.Split(',');
-
-                var color = Color.FromHex(ConvertIntToHex(boundary.Color));
-
-                if (boundary.IsClosed)
-                {
-                    var polygon = new Polygon
-                    {
-                        IsClickable = true,
-                        StrokeWidth = 1f,
-                        StrokeColor = color.MultiplyAlpha(.5),
-                        FillColor = color.MultiplyAlpha(.3),
-                        Tag = "POLYGON"
-                    };
-
-                    for (int i = 0; i < result.Length; i += 2)
-                    {
-                        polygon.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
-                    }
-
-                    polygon.Clicked += Polygon_Clicked;
-                    vm.Boundaries.Add(polygon);
-                }
-                else
-                {
-                    var polyline = new Polyline
-                    {
-                        IsClickable = false,
-                        StrokeColor = color,
-                        StrokeWidth = 2f,
-                        Tag = "POLYGON"
-                    };
-
-                    for (int i = 0; i < result.Length; i += 2)
-                    {
-                        polyline.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
-                    }
-
-                    vm.Borders.Add(polyline);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-            }
-        }
-
-        public static string ConvertIntToHex(int value)
-        {
-            return value.ToString("X").PadLeft(6, '0');
-        }
-
-        private void Polygon_Clicked(object sender, EventArgs e)
-        {
-            HideBoxInfo();
-        }
-
-        private void GoogleMapAddName()
-        {
-            try
-            {
-                var listName = boundaryRepository.Find(b => b.IsShowName);
-
-                foreach (var pin in googleMap.Pins.Where(p => p.Tag.ToString().Contains("Boundary")).ToList())
-                {
-                    googleMap.Pins.Remove(pin);
-                }
-
-                foreach (var item in listName)
-                {
-                    AddName(item);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-            }
-        }
-
-        private void AddName(LandmarkResponse name)
-        {
-            try
-            {
-                googleMap.Pins.Add(new Pin
-                {
-                    Label = name.Name,
-                    Position = new Position(name.Latitude, name.Longitude),
-                    Icon = BitmapDescriptorFactory.FromView(new BoundaryNameInfoWindow(name.Name) { WidthRequest = name.Name.Length < 20 ? 6 * name.Name.Length : 110, HeightRequest = 18 * ((name.Name.Length / 20) + 1) }),
-                    Tag = "Boundary" + name.Name
-                });
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-            }
-        }
 
         private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
         {
