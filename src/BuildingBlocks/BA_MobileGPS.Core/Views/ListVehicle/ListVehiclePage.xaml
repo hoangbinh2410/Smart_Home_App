@@ -157,38 +157,50 @@
                                 VerticalOptions="Center"
                                 WidthRequest="20" />
                         </pancake:PancakeView>
-                        <sharpnado:MaterialFrame
+                        <pancake:PancakeView
                             Grid.Column="3"
                             Padding="0"
                             CornerRadius="20"
                             HasShadow="False"
                             HeightRequest="40"
-                            LightThemeBackgroundColor="{DynamicResource WhiteColor}"
+                            BackgroundColor="{DynamicResource WhiteColor}"
                             VerticalOptions="End"
                             WidthRequest="40">
-                            <sharpnado:MaterialFrame.GestureRecognizers>
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow
+                                    BlurRadius="3"
+                                    Offset="0,0"
+                                    Color="Black" />
+                            </pancake:PancakeView.Shadow>
+                            <pancake:PancakeView.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
-                            </sharpnado:MaterialFrame.GestureRecognizers>
+                            </pancake:PancakeView.GestureRecognizers>
                             <controls:IconView
                                 Foreground="{DynamicResource PrimaryColor}"
-                                HeightRequest="20"
+                                HeightRequest="25"
                                 HorizontalOptions="Center"
                                 Source="ic_doublevehicle.png"
                                 VerticalOptions="Center"
-                                WidthRequest="20" />
-                        </sharpnado:MaterialFrame>
-                        <sharpnado:MaterialFrame
+                                WidthRequest="25" />
+                        </pancake:PancakeView>
+                        <pancake:PancakeView
                             Grid.Column="4"
                             Padding="0"
                             CornerRadius="20"
                             HasShadow="False"
                             HeightRequest="40"
-                            LightThemeBackgroundColor="{DynamicResource WhiteColor}"
+                            BackgroundColor="{DynamicResource WhiteColor}"
                             VerticalOptions="End"
                             WidthRequest="40">
-                            <sharpnado:MaterialFrame.GestureRecognizers>
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow
+                                    BlurRadius="3"
+                                    Offset="0,0"
+                                    Color="Black" />
+                            </pancake:PancakeView.Shadow>
+                            <pancake:PancakeView.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="FilterCarType_Tapped" />
-                            </sharpnado:MaterialFrame.GestureRecognizers>
+                            </pancake:PancakeView.GestureRecognizers>
                             <controls:IconView
                                 Foreground="{DynamicResource PrimaryColor}"
                                 HeightRequest="20"
@@ -196,7 +208,7 @@
                                 Source="ic_filter.png"
                                 VerticalOptions="Center"
                                 WidthRequest="20" />
-                        </sharpnado:MaterialFrame>
+                        </pancake:PancakeView>
                     </Grid>
 
                     <Grid Grid.Row="2">

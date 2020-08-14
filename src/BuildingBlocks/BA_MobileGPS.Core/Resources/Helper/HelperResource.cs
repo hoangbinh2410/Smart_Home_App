@@ -4,7 +4,7 @@ namespace BA_MobileGPS.Core.Resources
 {
     public partial class MobileResource
     {
-        public static string Helper_Label_TilePage => Get(MobileResourceNames.Helper_Label_TitlePage, "Trợ giúp", "Helper");
+        public static string Helper_Label_TilePage => Get(MobileResourceNames.Helper_Label_TitlePage, "Hướng dẫn sử dụng", "Helper");
         public static string Helper_Label_HeplperOnline => Get(MobileResourceNames.Helper_Label_HeplperOnline, "Hướng dẫn sử dụng giám sát phương tiện", "Instructions for using car Online");
 
         public static string Helper_Label_Router => Get(MobileResourceNames.Helper_Label_HeplperRouter, "Hướng dẫn sử dụng lộ trình phương tiện", "Instructions for using car routes");

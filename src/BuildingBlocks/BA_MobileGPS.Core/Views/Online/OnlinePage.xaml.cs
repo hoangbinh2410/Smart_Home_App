@@ -587,7 +587,7 @@ namespace BA_MobileGPS.Core.Views
                         {
                             if (carActive)
                             {
-                                vm.CurrentAddress = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(carInfo.Lat), GeoHelper.LongitudeToDergeeMinSec(carInfo.Lng));
+                                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString());
                             }
                         });
                         //di chuyển biển số xe
