@@ -53,7 +53,7 @@
                 <controls:FontAwesomeIcon
                     Margin="5,0,5,0"
                     IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
-                    StyleClass="TopIconView"
+                    StyleClass="TopFontIconView"
                     Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
                     <controls:FontAwesomeIcon.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
@@ -61,7 +61,7 @@
                 </controls:FontAwesomeIcon>
                 <controls:FontAwesomeIcon
                     Margin="5,0,10,0"
-                    StyleClass="TopIconView"
+                    StyleClass="TopFontIconView"
                     Text="{x:Static fontawesome:FontAwesomeIcons.Cog}">
                     <controls:FontAwesomeIcon.GestureRecognizers>
                         <TapGestureRecognizer Tapped="HideableToolbarItem_Clicked" />
@@ -108,7 +108,7 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Padding="0"
-                       BackgroundColor="{DynamicResource WhiteColor}"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         BorderColor="{DynamicResource GrayColor2}"
                         CornerRadius="5"
                         HasShadow="False"
@@ -136,7 +136,7 @@
                                 </Entry.Effects>
                             </Entry>
                             <controls:IconView
-                                  Foreground="{DynamicResource BlackColor}"  
+                                Foreground="{DynamicResource BlackColor}"
                                 HeightRequest="20"
                                 HorizontalOptions="End"
                                 Source="ic_date_range_black.png"
@@ -149,7 +149,7 @@
                         Grid.Row="0"
                         Grid.Column="1"
                         Padding="0"
-                       BackgroundColor="{DynamicResource WhiteColor}"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         BorderColor="{DynamicResource GrayColor2}"
                         CornerRadius="5"
                         HasShadow="False"
@@ -177,7 +177,7 @@
                                 </Entry.Effects>
                             </Entry>
                             <controls:IconView
-                                  Foreground="{DynamicResource BlackColor}"  
+                                Foreground="{DynamicResource BlackColor}"
                                 HeightRequest="20"
                                 HorizontalOptions="End"
                                 Source="ic_date_range_black.png"
@@ -201,7 +201,7 @@
                             <TapGestureRecognizer Command="{Binding SearchDataCommand}" />
                         </sharpnado:MaterialFrame.GestureRecognizers>
                         <controls:IconView
-                              Foreground="{DynamicResource WhiteColor}"  
+                            Foreground="{DynamicResource WhiteColor}"
                             HeightRequest="20"
                             HorizontalOptions="Center"
                             Source="ic_search.png"
@@ -213,7 +213,7 @@
                         Grid.Row="1"
                         Grid.Column="0"
                         Padding="0"
-                       BackgroundColor="{DynamicResource WhiteColor}"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         BorderColor="{DynamicResource GrayColor2}"
                         CornerRadius="5"
                         HasShadow="False"
@@ -241,7 +241,7 @@
                                 </Entry.Effects>
                             </Entry>
                             <controls:IconView
-                                  Foreground="{DynamicResource BlackColor}"  
+                                Foreground="{DynamicResource BlackColor}"
                                 HeightRequest="15"
                                 HorizontalOptions="End"
                                 Source="ic_sortdown.png"
@@ -254,7 +254,7 @@
                         Grid.Row="1"
                         Grid.Column="1"
                         Padding="5,0,5,0"
-                       BackgroundColor="{DynamicResource WhiteColor}"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         BorderColor="{DynamicResource GrayColor2}"
                         CornerRadius="5"
                         HasShadow="False"
@@ -294,7 +294,7 @@
                                 <TapGestureRecognizer Command="{Binding ExportExcellCommand}" />
                             </sharpnado:MaterialFrame.GestureRecognizers>
                             <controls:IconView
-                                  Foreground="{DynamicResource WhiteColor}"  
+                                Foreground="{DynamicResource WhiteColor}"
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
                                 Source="ic_excel.png"
@@ -603,7 +603,7 @@
                 </syncDataGrid:SfDataGrid>
                 <StackLayout
                     Grid.Row="1"
-                   BackgroundColor="{DynamicResource WhiteColor}"
+                    BackgroundColor="{DynamicResource WhiteColor}"
                     HorizontalOptions="Center"
                     IsVisible="{Binding HasData, Converter={StaticResource InvertBooleanConverter}}"
                     Spacing="10"
@@ -647,7 +647,7 @@
                 <Frame
                     Grid.Row="1"
                     Padding="10"
-                   BackgroundColor="{DynamicResource WhiteColor}"
+                    BackgroundColor="{DynamicResource WhiteColor}"
                     CornerRadius="0"
                     HasShadow="True"
                     HorizontalOptions="FillAndExpand"
@@ -717,7 +717,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Button
                                     Grid.Column="0"
-                                   BackgroundColor="{DynamicResource WhiteColor}"
+                                    BackgroundColor="{DynamicResource WhiteColor}"
                                     BorderColor="{DynamicResource PrimaryColor}"
                                     BorderRadius="0"
                                     BorderWidth="1"
