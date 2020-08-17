@@ -36,7 +36,7 @@ namespace BA_MobileGPS
             //Nếu cài app lần đầu tiên hoặc có sự thay đổi dữ liệu trên server thì sẽ vào trang cập nhật thông tin vào localDB
             if (!Settings.IsFistInstallApp || Settings.IsChangeDataLocalDB)
             {
-                _ = await NavigationService.NavigateAsync("LoginPage");
+                _ = await NavigationService.NavigateAsync("InsertLocalDBPage");
             }
             else
             {
