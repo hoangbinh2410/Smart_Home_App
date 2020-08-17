@@ -52,7 +52,7 @@
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
                 Text="{i18n:TranslateResource SpeedOversReport_Label_TilePage}"
-                TextColor="{StaticResource WhiteColor}"
+                TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
             <StackLayout
                 Grid.Column="2"
@@ -61,7 +61,7 @@
                 <controls:FontAwesomeIcon
                     Margin="5,0,5,0"
                     IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
-                    StyleClass="TopIconView"
+                    StyleClass="TopFontIconView"
                     Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
                     <controls:FontAwesomeIcon.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
@@ -69,7 +69,7 @@
                 </controls:FontAwesomeIcon>
                 <controls:FontAwesomeIcon
                     Margin="5,0,10,0"
-                    StyleClass="TopIconView"
+                    StyleClass="TopFontIconView"
                     Text="{x:Static fontawesome:FontAwesomeIcons.Cog}">
                     <controls:FontAwesomeIcon.GestureRecognizers>
                         <TapGestureRecognizer Tapped="HideableToolbarItem_Clicked" />
@@ -80,7 +80,7 @@
     </NavigationPage.TitleView>
     <ContentPage.Content>
         <AbsoluteLayout
-            BackgroundColor="{StaticResource WhiteColor}"
+            BackgroundColor="{DynamicResource WhiteColor}"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand">
             <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
@@ -106,8 +106,8 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Padding="0"
-                        BackgroundColor="White"
-                        BorderColor="{StaticResource GrayColor2}"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        BorderColor="{DynamicResource GrayColor2}"
                         CornerRadius="5"
                         HasShadow="False"
                         HeightRequest="35"
@@ -134,7 +134,7 @@
                                 </Entry.Effects>
                             </Entry>
                             <controls:IconView
-                                Foreground="Black"
+                                Foreground="{DynamicResource BlackColor}"
                                 HeightRequest="20"
                                 HorizontalOptions="End"
                                 Source="ic_date_range_black.png"
@@ -148,8 +148,8 @@
                         Grid.Row="0"
                         Grid.Column="1"
                         Padding="0"
-                        BackgroundColor="White"
-                        BorderColor="{StaticResource GrayColor2}"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        BorderColor="{DynamicResource GrayColor2}"
                         CornerRadius="5"
                         HasShadow="False"
                         HeightRequest="35"
@@ -176,7 +176,7 @@
                                 </Entry.Effects>
                             </Entry>
                             <controls:IconView
-                                Foreground="Black"
+                                Foreground="{DynamicResource BlackColor}"
                                 HeightRequest="20"
                                 HorizontalOptions="End"
                                 Source="ic_date_range_black.png"
@@ -196,14 +196,14 @@
                             HasShadow="False"
                             HeightRequest="35"
                             HorizontalOptions="Start"
-                            LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                            LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="CenterAndExpand"
                             WidthRequest="35">
                             <sharpnado:MaterialFrame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SearchDataCommand}" />
                             </sharpnado:MaterialFrame.GestureRecognizers>
                             <controls:IconView
-                                Foreground="White"
+                                Foreground="{DynamicResource WhiteColor}"
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
                                 Source="ic_search.png"
@@ -219,8 +219,8 @@
                         <Frame
                             x:Name="cmbVihicle"
                             Padding="0"
-                            BackgroundColor="White"
-                            BorderColor="{StaticResource GrayColor2}"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
                             CornerRadius="5"
                             HasShadow="False"
                             HeightRequest="35"
@@ -247,7 +247,7 @@
                                     </Entry.Effects>
                                 </Entry>
                                 <controls:IconView
-                                    Foreground="Black"
+                                    Foreground="{DynamicResource BlackColor}"
                                     HeightRequest="15"
                                     HorizontalOptions="End"
                                     Source="ic_sortdown.png"
@@ -259,8 +259,8 @@
                         <Frame
                             x:Name="txtSpeed"
                             Padding="5,0,25,0"
-                            BackgroundColor="White"
-                            BorderColor="{StaticResource GrayColor2}"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
                             CornerRadius="5"
                             HasShadow="False"
                             HeightRequest="35"
@@ -293,14 +293,14 @@
                             HeightRequest="35"
                             HorizontalOptions="Start"
                             IsVisible="{Binding IsExportExcel}"
-                            LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                            LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="CenterAndExpand"
                             WidthRequest="35">
                             <sharpnado:MaterialFrame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ExportExcellCommand}" />
                             </sharpnado:MaterialFrame.GestureRecognizers>
                             <controls:IconView
-                                Foreground="White"
+                                Foreground="{DynamicResource WhiteColor}"
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
                                 Source="ic_excel.png"
@@ -340,7 +340,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource SpeedOversReport_Table_Serial}"
-                                        TextColor="{StaticResource WhiteColor}"
+                                        TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -372,7 +372,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource SpeedOversReport_Table_DetailVehiclePlate}"
-                                        TextColor="{StaticResource WhiteColor}"
+                                        TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -387,7 +387,7 @@
                                         CommandParameter="{Binding OrderNumber}"
                                         FontSize="{StaticResource FontSize10}"
                                         Text="{Binding PrivateCode}"
-                                        TextColor="{StaticResource PrimaryColor}" />
+                                        TextColor="{DynamicResource PrimaryColor}" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.CellTemplate>
                         </syncDataGrid:GridTemplateColumn>
@@ -403,7 +403,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource SpeedOversReport_Table_Date}"
-                                        TextColor="{StaticResource WhiteColor}"
+                                        TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -444,7 +444,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource SpeedOversReport_Table_Time}"
-                                        TextColor="{StaticResource WhiteColor}"
+                                        TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -478,7 +478,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource SpeedOversReport_Table_Distance}"
-                                        TextColor="{StaticResource WhiteColor}"
+                                        TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -512,7 +512,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource SpeedOversReport_Table_Vmax}"
-                                        TextColor="{StaticResource WhiteColor}"
+                                        TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -546,7 +546,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource SpeedOversReport_Table_StartAddress}"
-                                        TextColor="{StaticResource WhiteColor}"
+                                        TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -580,7 +580,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource SpeedOversReport_Table_EndAddress}"
-                                        TextColor="{StaticResource WhiteColor}"
+                                        TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -647,16 +647,14 @@
                                         </DataTemplate>
                                     </syncDataGrid:GridSummaryColumn.Template>
                                 </syncDataGrid:GridSummaryColumn>
-
                             </syncDataGrid:GridTableSummaryRow.SummaryColumns>
                         </syncDataGrid:GridTableSummaryRow>
                     </syncDataGrid:SfDataGrid.TableSummaryRows>
-
                 </syncDataGrid:SfDataGrid>
 
                 <StackLayout
                     Grid.Row="1"
-                    BackgroundColor="White"
+                    BackgroundColor="{DynamicResource WhiteColor}"
                     HorizontalOptions="Center"
                     IsVisible="{Binding HasData, Converter={StaticResource InvertBooleanConverter}}"
                     Spacing="10"
@@ -673,7 +671,7 @@
                         HorizontalOptions="Center"
                         HorizontalTextAlignment="Center"
                         Text="{i18n:TranslateResource Common_Message_NoData}"
-                        TextColor="{StaticResource TextPrimaryColor}" />
+                        TextColor="{DynamicResource TextPrimaryColor}" />
                 </StackLayout>
             </Grid>
             <Grid
@@ -698,7 +696,7 @@
                 <Frame
                     Grid.Row="1"
                     Padding="10"
-                    BackgroundColor="White"
+                    BackgroundColor="{DynamicResource WhiteColor}"
                     CornerRadius="0"
                     HasShadow="False"
                     HorizontalOptions="FillAndExpand">
@@ -718,7 +716,7 @@
                         <checkbox:SfCheckBox
                             Grid.Row="0"
                             Grid.Column="0"
-                            CheckedColor="{StaticResource PrimaryColor}"
+                            CheckedColor="{DynamicResource PrimaryColor}"
                             CornerRadius="5"
                             FontSize="13"
                             IsChecked="{Binding ShowSpeedOverTotalTime}"
@@ -728,7 +726,7 @@
                         <checkbox:SfCheckBox
                             Grid.Row="0"
                             Grid.Column="1"
-                            CheckedColor="{StaticResource PrimaryColor}"
+                            CheckedColor="{DynamicResource PrimaryColor}"
                             CornerRadius="5.0"
                             FontSize="13"
                             IsChecked="{Binding ShowSpeedOverTotalDistance}"
@@ -738,7 +736,7 @@
                         <checkbox:SfCheckBox
                             Grid.Row="1"
                             Grid.Column="0"
-                            CheckedColor="{StaticResource PrimaryColor}"
+                            CheckedColor="{DynamicResource PrimaryColor}"
                             CornerRadius="5"
                             FontSize="13"
                             IsChecked="{Binding ShowVmax}"
@@ -748,7 +746,7 @@
                         <checkbox:SfCheckBox
                             Grid.Row="1"
                             Grid.Column="1"
-                            CheckedColor="{StaticResource PrimaryColor}"
+                            CheckedColor="{DynamicResource PrimaryColor}"
                             CornerRadius="5.0"
                             FontSize="13"
                             IsChecked="{Binding ShowStartAddress}"
@@ -758,7 +756,7 @@
                         <checkbox:SfCheckBox
                             Grid.Row="2"
                             Grid.Column="0"
-                            CheckedColor="{StaticResource PrimaryColor}"
+                            CheckedColor="{DynamicResource PrimaryColor}"
                             CornerRadius="5"
                             FontSize="13"
                             IsChecked="{Binding ShowEndAddress}"
@@ -772,8 +770,8 @@
                             HorizontalOptions="FillAndExpand"
                             Orientation="Horizontal">
                             <Button
-                                BackgroundColor="White"
-                                BorderColor="{StaticResource PrimaryColor}"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource PrimaryColor}"
                                 BorderRadius="0"
                                 BorderWidth="1"
                                 Clicked="HideableToolbarItem_Clicked"
@@ -783,10 +781,10 @@
                                 HorizontalOptions="FillAndExpand"
                                 Text="{i18n:TranslateResource Common_Button_Close,
                                                               Converter={StaticResource UpperCaseConverter}}"
-                                TextColor="{StaticResource PrimaryColor}" />
+                                TextColor="{DynamicResource PrimaryColor}" />
 
                             <Button
-                                BackgroundColor="{StaticResource PrimaryColor}"
+                                BackgroundColor="{DynamicResource PrimaryColor}"
                                 BorderRadius="0"
                                 Clicked="Button_Clicked"
                                 Command="{Binding SaveComlumnHideCommand}"
@@ -796,7 +794,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 Text="{i18n:TranslateResource Common_Button_SaveShowHideColumn,
                                                               Converter={StaticResource UpperCaseConverter}}"
-                                TextColor="{StaticResource WhiteColor}" />
+                                TextColor="{DynamicResource WhiteColor}" />
                         </StackLayout>
                     </Grid>
                 </Frame>

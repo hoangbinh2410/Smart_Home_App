@@ -7,6 +7,7 @@
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     Title="{i18n:TranslateResource Settings_Label_Title}"
     NavigationPage.BackButtonTitle="">
 
@@ -22,7 +23,7 @@
 
     <ContentPage.Content>
         <ScrollView
-            BackgroundColor="White"
+            BackgroundColor="{DynamicResource WhiteColor}"
             HorizontalOptions="FillAndExpand"
             Orientation="Vertical"
             VerticalOptions="FillAndExpand"
@@ -35,7 +36,7 @@
                         CornerRadius="0"
                         HasShadow="False"
                         HorizontalOptions="FillAndExpand"
-                        LightThemeBackgroundColor="{StaticResource TextPlaceHolderColor}"
+                        LightThemeBackgroundColor="{DynamicResource TextPlaceHolderColor}"
                         VerticalOptions="FillAndExpand">
 
                         <sharpnado:MaterialFrame.Content>
@@ -49,9 +50,9 @@
                     </sharpnado:MaterialFrame>
 
                     <StackLayout
-                        Padding="10"
+                        Padding="10,0"
                         BindableLayout.ItemsSource="{Binding MobileUserSettings}"
-                        Spacing="10">
+                        Spacing="0">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout
@@ -65,12 +66,31 @@
                                     <Switch
                                         HorizontalOptions="End"
                                         IsToggled="{Binding Value}"
-                                        OnColor="{StaticResource PrimaryColor}"
+                                        OnColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center" />
                                 </StackLayout>
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
+                    <!--<Grid
+                        Padding="10,0"
+                        ColumnDefinitions="*,Auto"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PushToSettingThemeCommand}" />
+                        </Grid.GestureRecognizers>
+                        <Label
+                            HorizontalOptions="StartAndExpand"
+                            Text="{i18n:TranslateResource Settings_Label_ChangeTheme}"
+                            VerticalOptions="Center" />
+                        <controls:FontAwesomeIcon
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            Text="{x:Static fontawesome:FontAwesomeIcons.AngleRight}"
+                            TextColor="{DynamicResource PrimaryColor}"
+                            VerticalOptions="Center" />
+                    </Grid>-->
                 </StackLayout>
 
                 <StackLayout Spacing="0">
@@ -80,7 +100,7 @@
                         CornerRadius="0"
                         HasShadow="False"
                         HorizontalOptions="FillAndExpand"
-                        LightThemeBackgroundColor="{StaticResource TextPlaceHolderColor}"
+                        LightThemeBackgroundColor="{DynamicResource TextPlaceHolderColor}"
                         VerticalOptions="FillAndExpand">
 
                         <sharpnado:MaterialFrame.Content>
@@ -94,7 +114,7 @@
                     </sharpnado:MaterialFrame>
 
                     <StackLayout
-                        BackgroundColor="White"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         HorizontalOptions="FillAndExpand"
                         Spacing="10"
                         VerticalOptions="FillAndExpand">
@@ -125,7 +145,7 @@
                                     <controls:FontAwesomeIcon
                                         HorizontalOptions="Center"
                                         Text="{x:Static fontawesome:FontAwesomeIcons.LocationArrow}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center" />
 
                                     <Label
@@ -138,7 +158,7 @@
                                     Grid.Column="1"
                                     HorizontalOptions="End"
                                     Text="{x:Static fontawesome:FontAwesomeIcons.AngleRight}"
-                                    TextColor="{StaticResource PrimaryColor}"
+                                    TextColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="Center" />
                             </Grid>
                             <Grid Grid.Row="1" RowSpacing="0">
@@ -158,7 +178,7 @@
                                     <controls:FontAwesomeIcon
                                         HorizontalOptions="Center"
                                         Text="{x:Static fontawesome:FontAwesomeIcons.UserCog}"
-                                        TextColor="{StaticResource PrimaryColor}"
+                                        TextColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center" />
 
                                     <Label
@@ -172,9 +192,8 @@
                                     Grid.Column="1"
                                     HorizontalOptions="End"
                                     Text="{x:Static fontawesome:FontAwesomeIcons.AngleRight}"
-                                    TextColor="{StaticResource PrimaryColor}"
+                                    TextColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="Center" />
-
                             </Grid>
                         </Grid>
                     </StackLayout>

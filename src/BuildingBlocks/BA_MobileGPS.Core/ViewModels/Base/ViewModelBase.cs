@@ -9,7 +9,6 @@ using Prism.Commands;
 using Prism.Common;
 using Prism.Events;
 using Prism.Ioc;
-using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
 using Rg.Plugins.Popup.Services;
@@ -59,7 +58,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public DelegateCommand SelectVehicleGroupCommand { get; private set; }
 
-
         public ViewModelBase(INavigationService navigationService)
         {
             if (navigationService == null)
@@ -81,7 +79,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectVehicleGroupCommand = new DelegateCommand(SelectVehicleGroup);
             PushToAleartPageCommand = new DelegateCommand(PushToAlertPage);
             CallHotLineCommand = new DelegateCommand(CallHotLine);
-        }      
+        }
 
         ~ViewModelBase()
         {
@@ -333,7 +331,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         { ParameterKey.VehicleGroupsSelected, VehicleGroups }
                     };
 
-
                 await NavigationService.NavigateAsync("BaseNavigationPage/VehicleGroupLookUp", navigationPara, useModalNavigation: true);
             });
         }
@@ -345,6 +342,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("NavigationPage/AlertOnlinePage", useModalNavigation: true);
             });
         }
+
         private void CallHotLine()
         {
             if (!string.IsNullOrEmpty(MobileSettingHelper.HotlineGps))
@@ -354,7 +352,6 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         public ICommand PushToAleartPageCommand { get; }
-
 
         public ICommand PushToNoticePageCommand
         {
@@ -441,7 +438,5 @@ namespace BA_MobileGPS.Core.ViewModels
             Settings.Rememberme = false;
             await NavigationService.NavigateAsync("/LoginPage");
         }
-
-
     }
 }

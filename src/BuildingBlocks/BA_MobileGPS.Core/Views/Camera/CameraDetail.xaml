@@ -1,0 +1,156 @@
+﻿<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.CameraDetail"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:core="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:vm="clr-namespace:BA_MobileGPS.Core.ViewModels"
+    Title="{i18n:TranslateResource Camera_Label_TilePage}">
+    <ContentPage.Content>
+        <StackLayout
+            HorizontalOptions="FillAndExpand"
+            Spacing="5"
+            VerticalOptions="FillAndExpand">
+            <sharpnado:MaterialFrame
+                Padding="15,10"
+                BackgroundColor="WhiteSmoke"
+                BorderColor="{DynamicResource GrayColor}"
+                CornerRadius="0"
+                HasShadow="False"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Start">
+                <Grid HorizontalOptions="FillAndExpand" RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        HorizontalOptions="StartAndExpand"
+                        Text="{Binding VehiclePlate}"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        FontAttributes="Bold"
+                        HorizontalOptions="End"
+                        Text="{Binding PositionString}"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        HorizontalOptions="StartAndExpand"
+                        Text="{Binding ImageCamera.CreatedDate, Converter={StaticResource DateTimeConverter}}"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontAttributes="Bold"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Kênh: " />
+                                <Span Text="{Binding ImageCamera.Channel}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Grid>
+            </sharpnado:MaterialFrame>
+            <sharpnado:MaterialFrame
+                Margin="5,0,5,0"
+                Padding="0"
+                HasShadow="False"
+                HeightRequest="300"
+                HorizontalOptions="FillAndExpand"
+                IsClippedToBounds="True">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <cards:CoverFlowView
+                        HorizontalOptions="FillAndExpand"
+                        IsCyclical="False"
+                        ItemsSource="{Binding ListCameraImage}"
+                        SelectedIndex="{Binding Position}"
+                        VerticalOptions="FillAndExpand">
+                        <cards:CoverFlowView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout
+                                    BackgroundColor="Black"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CameraDetailViewModel}}, Path=TabImageCommand}" />
+                                    </StackLayout.GestureRecognizers>
+                                    <ffImage:CachedImage
+                                        Aspect="AspectFill"
+                                        BitmapOptimizations="True"
+                                        DownsampleToViewSize="True"
+                                        ErrorPlaceholder="camera_placeholder.png"
+                                        HorizontalOptions="FillAndExpand"
+                                        LoadingPlaceholder="camera_placeholder.png"
+                                        Source="{Binding ImageLink}"
+                                        VerticalOptions="FillAndExpand" />
+                                </StackLayout>
+                            </DataTemplate>
+                        </cards:CoverFlowView.ItemTemplate>
+                    </cards:CoverFlowView>
+                    <controls:FontAwesomeIcon
+                        Margin="8"
+                        FontAttributes="Bold"
+                        FontSize="25"
+                        HorizontalOptions="End"
+                        Text="{x:Static fontawesome:FontAwesomeIcons.Zoom}"
+                        TextColor="#FFFFFF"
+                        VerticalOptions="Start">
+                        <controls:FontAwesomeIcon.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding TabImageCommand}" />
+                        </controls:FontAwesomeIcon.GestureRecognizers>
+                    </controls:FontAwesomeIcon>
+                    <!--<controls:MaterialFrame
+                        Padding="0"
+                        BackgroundColor="{StaticResource Color_Navigation}"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HeightRequest="35"
+                        HorizontalOptions="End"
+                        VerticalOptions="End"
+                        WidthRequest="35">
+                        <controls:MaterialFrame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding DownloadImageCommand}" />
+                        </controls:MaterialFrame.GestureRecognizers>
+                        <controls:IconView
+                              Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="30"
+                            HorizontalOptions="Center"
+                            Source="ic_cloud_download_black.png"
+                            VerticalOptions="Center"
+                            WidthRequest="30" />
+                    </controls:MaterialFrame>-->
+                </Grid>
+            </sharpnado:MaterialFrame>
+            <sharpnado:MaterialFrame
+                Margin="5,0,5,5"
+                Padding="0"
+                HasShadow="False"
+                HorizontalOptions="FillAndExpand"
+                IsClippedToBounds="True"
+                VerticalOptions="FillAndExpand">
+                <core:Map
+                    x:Name="Map"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand" />
+            </sharpnado:MaterialFrame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

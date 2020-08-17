@@ -1,5 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Resource;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -42,7 +42,6 @@ namespace BA_MobileGPS.Core.ViewModels
             DisplayComlumnHide();
 
             IsExportExcel = CheckPermision((int)PermissionKeyNames.ReportSignalLossExport);
-          
         }
 
         public ICommand DetailSignalLossCommand { get; private set; }
@@ -96,7 +95,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override SignalLossRequest SetDataInput()
         {
-
             return new SignalLossRequest
             {
                 CompanyID = CurrentComanyID,
@@ -108,7 +106,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 PageSize = base.PageSize,
                 Type = (byte)StatusSignalLossSelected.Key
             };
-         
         }
 
         public override IList<SignalLossResponse> ConvertDataBeforeDisplay(IList<SignalLossResponse> data)
@@ -464,7 +461,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 }
             }
-            
+
             return true;
         }
     }

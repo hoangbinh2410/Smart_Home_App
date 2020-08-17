@@ -23,7 +23,7 @@
             <convertersvms:BLEConnectionStateColorConverter x:Key="BLEConnectionStateColorConverter" />
             <convertersvms:OfflineMapDeviceCodeConverter x:Key="OfflineMapDeviceCodeConverter" />
             <Style TargetType="controls:IconView">
-                <Setter Property="Foreground" Value="{AppThemeBinding Dark={StaticResource PrimaryColor}, Light={StaticResource PrimaryColor}}" />
+                <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
                 <Setter Property="VerticalOptions" Value="Center" />
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="HeightRequest" Value="20" />
@@ -34,7 +34,7 @@
                 <Setter Property="HorizontalOptions" Value="StartAndExpand" />
             </Style>
             <Style TargetType="BoxView">
-                <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource TextPlaceHolderColor}, Dark={StaticResource TextPlaceHolderColor}}" />
+                <Setter Property="Color" Value="{DynamicResource TextPlaceHolderColor}" />
                 <Setter Property="Grid.ColumnSpan" Value="2" />
                 <Setter Property="Opacity" Value="0.2" />
             </Style>
@@ -42,7 +42,7 @@
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="CornerRadius" Value="15" />
                 <Setter Property="Margin" Value="10,0" />
-                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
+                <Setter Property="TextColor" Value="{DynamicResource WhiteColor}" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -160,7 +160,7 @@
                     CornerRadius="21"
                     HasShadow="True"
                     HeightRequest="42"
-                    LightThemeBackgroundColor="White"
+                    LightThemeBackgroundColor="{DynamicResource WhiteColor}"
                     WidthRequest="42">
                     <sharpnado:MaterialFrame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SwitchToMyLocationCommand}" />
@@ -172,7 +172,7 @@
                 Grid.Row="1"
                 Margin="0,-13,0,0"
                 Padding="10"
-                BackgroundColor="White"
+                BackgroundColor="{DynamicResource WhiteColor}"
                 CornerRadius="20,20,0,0"
                 HasShadow="True"
                 VerticalOptions="End">
@@ -183,17 +183,21 @@
                         Color="Black" />
                 </pancake:PancakeView.Shadow>
                 <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto,Auto,30">
-                    <StackLayout
-                        HorizontalOptions="CenterAndExpand"
-                        Orientation="Horizontal"
-                        Spacing="5">
-                        <Label Text="TRẠNG THÁI THIẾT BỊ:" TextColor="{AppThemeBinding Dark={StaticResource PrimaryColor}, Light={StaticResource PrimaryColor}}" />
+                    <Grid
+                        ColumnDefinitions="Auto,*"
+                        ColumnSpacing="5"
+                        HorizontalOptions="CenterAndExpand">
                         <Label
+                            MaxLines="1"
+                            Text="TRẠNG THÁI THIẾT BỊ:"
+                            TextColor="{DynamicResource PrimaryColor}" />
+                        <Label
+                            Grid.Column="1"
                             LineBreakMode="TailTruncation"
                             MaxLines="1"
                             Text="{Binding BluetoothStatus, Mode=OneWay}"
                             TextColor="{Binding BluetoothStatusTextColor, Mode=OneWay}" />
-                    </StackLayout>
+                    </Grid>
                     <Grid
                         Grid.Row="1"
                         ColumnDefinitions="40,*"

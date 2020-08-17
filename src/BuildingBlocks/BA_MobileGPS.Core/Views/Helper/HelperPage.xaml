@@ -35,7 +35,7 @@
                     <sharpnado:MaterialFrame
                         Margin="5"
                         Padding="0"
-                        BackgroundColor="White"
+                       BackgroundColor="{DynamicResource WhiteColor}"
                         CornerRadius="0"
                         HasShadow="False"
                         IsClippedToBounds="True">
@@ -53,14 +53,15 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 Margin="10"
-                                HeightRequest="25"
-                                Source="{Binding Icon}"
-                                WidthRequest="25" />
+                                HeightRequest="30"
+                                Source="{Binding Icon, Converter={StaticResource AddRootImageConverter}}"
+                                WidthRequest="30" />
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 HorizontalOptions="Start"
                                 HorizontalTextAlignment="Start"
+                                LineBreakMode="TailTruncation"
                                 Text="{Binding Title}"
                                 VerticalOptions="Center" />
                             <controls:FontAwesomeIcon
@@ -68,13 +69,13 @@
                                 Grid.Column="2"
                                 Margin="10"
                                 Text="{x:Static fontawesome:FontAwesomeIcons.AngleRight}"
-                                TextColor="{StaticResource PrimaryColor}"
+                                TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center" />
                             <BoxView
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="3"
-                                BackgroundColor="{StaticResource PrimaryColor}"
+                                BackgroundColor="{DynamicResource PrimaryColor}"
                                 HeightRequest="1"
                                 HorizontalOptions="FillAndExpand" />
                         </Grid>

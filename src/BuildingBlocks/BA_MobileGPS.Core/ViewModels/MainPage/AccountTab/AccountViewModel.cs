@@ -1,4 +1,4 @@
-﻿using BA_MobileGPS.Core.Resource;
+﻿using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -73,16 +73,16 @@ namespace BA_MobileGPS.Core.ViewModels
             });
 
             // Hướng dẫn sử dụng
-            //list.Add(new MenuItem
-            //{
-            //    Title = MobileResource.AccountTab_Label_DeviceManual,
-            //    Icon = "ic_devicemanual.png",
-            //    UseModalNavigation = true,
-            //    Url = "NavigationPage/HelperPage",
-            //    MenuType = MenuType.DeviceManual,
-            //    IsEnable = true,
-            //    IconColor = Color.FromHex("#FF9900")
-            //});
+            list.Add(new MenuItem
+            {
+                Title = MobileResource.AccountTab_Label_DeviceManual,
+                Icon = "ic_devicemanual.png",
+                UseModalNavigation = true,
+                Url = "NavigationPage/HelperPage",
+                MenuType = MenuType.DeviceManual,
+                IsEnable = true,
+                IconColor = Color.FromHex("#FF9900")
+            });
             // Giới thiệu BAGPS
             list.Add(new MenuItem
             {
@@ -150,7 +150,7 @@ namespace BA_MobileGPS.Core.ViewModels
             //        MenuType = MenuType.UpgradeVersion,
             //        IsEnable = true
             //    });
-            //}           
+            //}
 
             MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
@@ -178,18 +178,23 @@ namespace BA_MobileGPS.Core.ViewModels
                         case MenuType.ChangePassword:
                             await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation);
                             break;
+
                         case MenuType.CustomerSupport:
                             await Launcher.OpenAsync(new Uri(item.Url));
                             break;
+
                         case MenuType.BAGPSIntro:
                             await Launcher.OpenAsync(new Uri(item.Url));
                             break;
+
                         case MenuType.Share:
                             await Launcher.OpenAsync(new Uri(item.Url));
                             break;
+
                         case MenuType.Rating:
                             await Launcher.OpenAsync(new Uri(item.Url));
                             break;
+
                         default:
                             await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation);
                             break;
@@ -228,10 +233,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
         }
-
     }
 
-    public  enum MenuType
+    public enum MenuType
     {
         Notification,
         ChangePassword,

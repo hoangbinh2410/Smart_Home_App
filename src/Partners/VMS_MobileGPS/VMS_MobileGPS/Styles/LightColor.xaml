@@ -9,6 +9,7 @@
     <Color x:Key="PrimaryColor">#004EDA</Color>
     <Color x:Key="BlueColor">#89DFFF</Color>
     <Color x:Key="WhiteColor">White</Color>
+    <Color x:Key="BlackColor">Black</Color>
     <!--  Other Color  -->
     <Color x:Key="OrangeColor">#4A7AFF</Color>
     <Color x:Key="GreenColor">#31CB73</Color>
@@ -24,14 +25,17 @@
     <Color x:Key="WarningColor">#FF9900</Color>
     <Color x:Key="PinkColor">#FFD8D8</Color>
 
-
-    <FileImageSource x:Key="HomePageTopImageSource" File="bg_HomeTop.png" />
     <FileImageSource x:Key="HomePageBotImageSource" File="bg_HomeBot.png" />
 
-    <Color x:Key="MainTabSelectedColor">#00ADEF</Color>
+    <Color x:Key="MainTabSelectedColor">#004EDA</Color>
+    <Color x:Key="MainTabUnSelectedColor">#C9C9C9</Color>
 
     <Color x:Key="PopupYesBtnTextColor">White</Color>
     <Color x:Key="PopupYesBtnBackgroundColor">#00709A</Color>
+    <!--Login-->
+    <Color x:Key="LoginTextColor">#7B7B7B</Color>
 
+    <Color x:Key="LoginIconBackgroundColor">#004EDA</Color>
+    <Color x:Key="LoginIconColor">White</Color>
 
 </ResourceDictionary>

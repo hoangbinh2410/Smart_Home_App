@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BA_MobileGPS.Core.DependencyServices;
 using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities.Infrastructure.Repository;
@@ -80,12 +80,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.Register<IPingServerService, PingServerService>();
 
             containerRegistry.Register<IPopupServices, PopupServices>();
-
-            ViewModelLocationProvider.Register<Home, HomeViewModel>();
-            ViewModelLocationProvider.Register<Account, AccountViewModel>();
-            containerRegistry.Register<ContentView, Home>("HomeTab");
-            containerRegistry.Register<ContentView, Account>("AccountTab");
-
+            containerRegistry.Register<IThemeServices, ThemeServices>();
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)
@@ -157,8 +152,38 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<NotificationDetailPage, NotificationDetailPageViewModel>("NotificationDetailPage");
 
             containerRegistry.RegisterForNavigation<VehicleDebtMoneyPage, VehicleDebtMoneyPageViewModel>("VehicleDebtMoneyPage");
+            containerRegistry.RegisterForNavigation<VehicleDetailPage, VehicleDetailViewModel>("VehicleDetailPage");
             containerRegistry.RegisterForNavigation<LoginPreviewFeaturesPage, LoginPreviewFeaturesPageViewModel>();
 
+            containerRegistry.RegisterForNavigation<RouteListPage, RouteListViewModel>("RouteListPage");
+
+            containerRegistry.RegisterForNavigation<ListCameraVehicle, ListCameraVehicleViewModel>("ListCameraVehicle");
+            containerRegistry.RegisterForNavigation<CameraDetail, CameraDetailViewModel>("CameraDetail");
+
+            containerRegistry.RegisterForNavigation<SendEngineControlPage, SendEngineControlViewModel>("SendEngineControlPage");
+
+            containerRegistry.RegisterForNavigation<BoundaryPage, BoundaryViewModel>("BoundaryPage");
+
+            containerRegistry.RegisterForNavigation<ListVehicleHelpPage, ListVehicleHelpViewModel>("ListVehicleHelpPage");
+            containerRegistry.RegisterForNavigation<DetailVehiclePopup, DetailVehiclePopupViewModel>("DetailVehiclePopup");
+          
+
+            ViewModelLocationProvider.Register<Home, HomeViewModel>();
+            ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
+            ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
+            ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
+            ViewModelLocationProvider.Register<Account, AccountViewModel>();
+
+            containerRegistry.Register<ContentView, Home>("HomeTab");
+            containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
+            containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
+            containerRegistry.Register<ContentView, RoutePage>("RouteTab");
+            containerRegistry.Register<ContentView, Account>("AccountTab");
+
+            containerRegistry.Register<ResourceDictionary, Dark>(Theme.Dark.ToString());
+            containerRegistry.Register<ResourceDictionary, Light>(Theme.Light.ToString());
+            containerRegistry.Register<ResourceDictionary, Custom>(Theme.Custom.ToString());
+            containerRegistry.RegisterForNavigation<SettingThemePage, SettingThemePageViewModel>("SettingThemePage");
         }
     }
 }

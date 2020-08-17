@@ -92,7 +92,7 @@
                             </Grid.ColumnDefinitions>
                             <StackLayout
                                 Grid.Column="0"
-                                BackgroundColor="{StaticResource PrimaryColor}"
+                                BackgroundColor="{DynamicResource PrimaryColor}"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand">
                                 <StackLayout.GestureRecognizers>
@@ -152,7 +152,7 @@
                 </sfList:SfListView.RightSwipeTemplate>
                 <sfList:SfListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="5" BackgroundColor="White">
+                        <Grid Padding="5" BackgroundColor="{DynamicResource WhiteColor}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -232,7 +232,7 @@
                                 IsVisible="{Binding IsBusy, Source={x:Reference Name=listView}}"
                                 VerticalOptions="Center"
                                 WidthRequest="30"
-                                Color="{StaticResource PrimaryColor}" />
+                                Color="{DynamicResource PrimaryColor}" />
                         </Grid>
                     </DataTemplate>
                 </sfList:SfListView.LoadMoreTemplate>

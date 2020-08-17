@@ -10,14 +10,14 @@
         <Frame
             Margin="40"
             Padding="0"
-            BackgroundColor="White"
+            BackgroundColor="{DynamicResource WhiteColor}"
             CornerRadius="10"
             HasShadow="False"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="CenterAndExpand">
             <StackLayout Spacing="0">
                 <Label
-                    BackgroundColor="{StaticResource PrimaryColor}"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
                     FontAttributes="Bold"
                     FontSize="20"
                     HeightRequest="45"
@@ -32,7 +32,7 @@
                     FontSize="18"
                     HorizontalOptions="Center"
                     Text="Vĩ độ"
-                    TextColor="{StaticResource PrimaryColor}" />
+                    TextColor="{DynamicResource PrimaryColor}" />
                 <StackLayout Margin="10,0,10,0" Orientation="Horizontal">
                     <input:SfTextInputLayout
                         ContainerType="Outlined"
@@ -85,7 +85,7 @@
                     FontSize="18"
                     HorizontalOptions="Center"
                     Text="Kinh độ"
-                    TextColor="{StaticResource PrimaryColor}" />
+                    TextColor="{DynamicResource PrimaryColor}" />
                 <StackLayout Margin="10,0,10,0" Orientation="Horizontal">
                     <input:SfTextInputLayout
                         ContainerType="Outlined"
@@ -137,7 +137,7 @@
                     HorizontalOptions="Center"
                     IsVisible="{Binding ErrorText, Converter={StaticResource HasDataConverter}}"
                     Text="{Binding ErrorText}"
-                    TextColor="{StaticResource DangerousColor}" />
+                    TextColor="{DynamicResource DangerousColor}" />
                 <StackLayout
                     Margin="10"
                     HorizontalOptions="FillAndExpand"

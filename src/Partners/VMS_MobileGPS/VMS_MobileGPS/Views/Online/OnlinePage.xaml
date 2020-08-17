@@ -70,7 +70,7 @@
             VerticalOptions="StartAndExpand">
             <pancake:PancakeView
                 Padding="0"
-                BackgroundColor="{StaticResource WhiteColor}"
+                BackgroundColor="{DynamicResource WhiteColor}"
                 CornerRadius="22"
                 HasShadow="True">
                 <pancake:PancakeView.GestureRecognizers>
@@ -81,12 +81,12 @@
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal">
                     <pancake:PancakeView
-                        BackgroundColor="{StaticResource PrimaryColor}"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
                         CornerRadius="22"
                         WidthRequest="45">
                         <controls:IconView
                             Margin="13"
-                            Foreground="{StaticResource WhiteColor}"
+                            Foreground="{DynamicResource WhiteColor}"
                             Source="ic_search.png" />
                     </pancake:PancakeView>
                     <Entry
@@ -94,9 +94,9 @@
                         HorizontalOptions="FillAndExpand"
                         InputTransparent="True"
                         Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
-                        PlaceholderColor="{StaticResource TextPlaceHolderColor}"
+                        PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                         Text="{Binding CarSearch}"
-                        TextColor="{StaticResource TextPrimaryColor}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
                         VerticalOptions="Center">
                         <Entry.Effects>
                             <effects:BorderlessEffect />
@@ -107,7 +107,7 @@
             <pancake:PancakeView
                 Grid.Column="1"
                 Padding="0"
-                BackgroundColor="{StaticResource WhiteColor}"
+                BackgroundColor="{DynamicResource WhiteColor}"
                 CornerRadius="22"
                 WidthRequest="45">
                 <pancake:PancakeView.GestureRecognizers>
@@ -115,13 +115,13 @@
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Margin="8"
-                    Foreground="{StaticResource PrimaryColor}"
-                    Source="ic_doubleship.png"
+                    Foreground="{DynamicResource PrimaryColor}"
+                    Source="ic_doublevehicle.png"
                     VerticalOptions="Center" />
             </pancake:PancakeView>
             <pancake:PancakeView
                 Grid.Column="2"
-                BackgroundColor="White"
+                BackgroundColor="{DynamicResource WhiteColor}"
                 CornerRadius="22"
                 WidthRequest="45">
                 <pancake:PancakeView.GestureRecognizers>
@@ -129,7 +129,7 @@
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Margin="8"
-                    Foreground="{StaticResource PrimaryColor}"
+                    Foreground="{DynamicResource PrimaryColor}"
                     Source="ic_filter.png" />
             </pancake:PancakeView>
         </Grid>
@@ -142,7 +142,7 @@
             VerticalOptions="End">
             <pancake:PancakeView
                 Padding="0"
-                BackgroundColor="{StaticResource WhiteColor}"
+                BackgroundColor="{DynamicResource WhiteColor}"
                 CornerRadius="25"
                 HeightRequest="50"
                 WidthRequest="50">
@@ -150,7 +150,7 @@
                     <TapGestureRecognizer Tapped="GetMylocation" />
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
-                    Foreground="{StaticResource PrimaryColor}"
+                    Foreground="{DynamicResource PrimaryColor}"
                     HeightRequest="25"
                     HorizontalOptions="Center"
                     Source="ic_vector.png"
@@ -159,7 +159,7 @@
             </pancake:PancakeView>
             <pancake:PancakeView
                 Padding="0"
-                BackgroundColor="{StaticResource WhiteColor}"
+                BackgroundColor="{Binding BackgroundMapType}"
                 CornerRadius="25"
                 HeightRequest="50"
                 WidthRequest="50">
@@ -176,7 +176,7 @@
             </pancake:PancakeView>
             <pancake:PancakeView
                 Padding="0"
-                BackgroundColor="{StaticResource PrimaryColor}"
+                BackgroundColor="{DynamicResource PrimaryColor}"
                 CornerRadius="25"
                 HeightRequest="50"
                 WidthRequest="50">
@@ -184,7 +184,7 @@
                     <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
-                    Foreground="{StaticResource WhiteColor}"
+                    Foreground="{DynamicResource WhiteColor}"
                     HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_bounded_area.png"
@@ -199,7 +199,7 @@
             Padding="0,10"
             AbsoluteLayout.LayoutBounds="0,1,1,350"
             AbsoluteLayout.LayoutFlags="YProportional, WidthProportional"
-            BackgroundColor="{StaticResource WhiteColor}"
+            BackgroundColor="{DynamicResource WhiteColor}"
             CornerRadius="20,20,0,0"
             HasShadow="False"
             HeightRequest="200"
@@ -228,7 +228,7 @@
             <Frame
                 Grid.Column="1"
                 Padding="0"
-                BackgroundColor="{StaticResource PrimaryColor}"
+                BackgroundColor="{DynamicResource PrimaryColor}"
                 CornerRadius="0"
                 HasShadow="True"
                 HorizontalOptions="FillAndExpand"
@@ -245,7 +245,7 @@
                         ItemTapped="TapStatusVehicel"
                         ItemsSource="{Binding ListVehilceStatus, Mode=OneWay}"
                         SelectedItem="{Binding SelectedVehicleStatus}"
-                        SelectionBackgroundColor="{StaticResource TextPlaceHolderColor}"
+                        SelectionBackgroundColor="{DynamicResource TextPlaceHolderColor}"
                         TapCommand="{Binding SelectStatusVehicelCommand}">
                         <syncfusion:SfListView.ItemTemplate>
                             <DataTemplate>
@@ -268,20 +268,20 @@
                                             <Label
                                                 HorizontalOptions="Start"
                                                 Text="{Binding Name}"
-                                                TextColor="{StaticResource WhiteColor}"
+                                                TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="Center" />
                                             <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                                                 <Label
                                                     HorizontalOptions="Start"
                                                     Text="{Binding CountCar, Converter={StaticResource UnitConverter}, ConverterParameter={i18n:TranslateResource Common_Label_Vehicle, Converter={StaticResource LowerCaseConverter}}}"
-                                                    TextColor="{StaticResource WhiteColor}"
+                                                    TextColor="{DynamicResource WhiteColor}"
                                                     VerticalOptions="Center" />
                                             </StackLayout>
                                         </StackLayout>
                                     </StackLayout>
                                     <BoxView
                                         Grid.Row="1"
-                                        BackgroundColor="{StaticResource GrayColor}"
+                                        BackgroundColor="{DynamicResource GrayColor}"
                                         HeightRequest="0.5"
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Start" />

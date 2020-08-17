@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.ListCameraVehicle"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:sfList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    x:Name="this"
+    Title="{i18n:TranslateResource Camera_Label_TilePage}"
+    NavigationPage.BackButtonTitle="">
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
+            <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                LineBreakMode="TailTruncation"
+                Text="{i18n:TranslateResource Camera_Label_TilePage}"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout
+            BackgroundColor="{DynamicResource WhiteColor}"
+            HorizontalOptions="FillAndExpand"
+            Spacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid
+                Padding="10"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Start">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <!--  từ giờ  -->
+                <Frame
+                    x:Name="pkTimeFrom"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Padding="5,0,5,0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    BorderColor="{DynamicResource GrayColor}"
+                    CornerRadius="5"
+                    HasShadow="False"
+                    HeightRequest="35"
+                    HorizontalOptions="FillAndExpand"
+                    IsClippedToBounds="True"
+                    VerticalOptions="Center">
+                    <TimePicker
+                        FontSize="{StaticResource FontSize12}"
+                        HorizontalOptions="FillAndExpand"
+                        TextColor="{DynamicResource TextPrimaryColor}"
+                        Time="{Binding TimeFrom}"
+                        VerticalOptions="Center">
+                        <TimePicker.Effects>
+                            <effects:BorderlessEffect />
+                        </TimePicker.Effects>
+                    </TimePicker>
+                </Frame>
+                <!--  đến giờ  -->
+                <Frame
+                    x:Name="pkTimeTo"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Padding="5,0,5,0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    BorderColor="{DynamicResource GrayColor}"
+                    CornerRadius="5"
+                    HasShadow="False"
+                    HeightRequest="35"
+                    HorizontalOptions="FillAndExpand"
+                    IsClippedToBounds="True"
+                    VerticalOptions="Center">
+                    <TimePicker
+                        FontSize="{StaticResource FontSize12}"
+                        HorizontalOptions="FillAndExpand"
+                        TextColor="{DynamicResource TextPrimaryColor}"
+                        Time="{Binding TimeEnd}"
+                        VerticalOptions="Center">
+                        <TimePicker.Effects>
+                            <effects:BorderlessEffect />
+                        </TimePicker.Effects>
+                    </TimePicker>
+                </Frame>
+                <!--  chọn ngày  -->
+                <Frame
+                    x:Name="dpkDaybefore"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Padding="5,0,5,0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    BorderColor="{DynamicResource GrayColor}"
+                    CornerRadius="5"
+                    HasShadow="False"
+                    HeightRequest="35"
+                    HorizontalOptions="FillAndExpand"
+                    IsClippedToBounds="True"
+                    VerticalOptions="Center">
+                    <DatePicker
+                        Date="{Binding DayBefore}"
+                        FontSize="{StaticResource FontSize12}"
+                        HorizontalOptions="FillAndExpand"
+                        TextColor="{DynamicResource TextPrimaryColor}"
+                        VerticalOptions="Center">
+                        <DatePicker.Effects>
+                            <effects:BorderlessEffect />
+                        </DatePicker.Effects>
+                    </DatePicker>
+                </Frame>
+                <!--  tìm biển kiểm soát  -->
+                <Frame
+                    x:Name="cbVehicle"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Padding="0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    BorderColor="{DynamicResource GrayColor}"
+                    CornerRadius="5"
+                    HasShadow="False"
+                    HeightRequest="35"
+                    HorizontalOptions="FillAndExpand"
+                    IsClippedToBounds="True"
+                    VerticalOptions="Center">
+                    <StackLayout
+                        Padding="5,0,5,0"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal"
+                        VerticalOptions="Center">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectVehicleRouterCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <Entry
+                            FontSize="{StaticResource FontSize12}"
+                            HorizontalOptions="FillAndExpand"
+                            InputTransparent="True"
+                            Placeholder="{i18n:TranslateResource Common_Label_Grid_VehiclePlate}"
+                            Text="{Binding VehicleSelected.PrivateCode}"
+                            TextColor="{DynamicResource TextPrimaryColor}"
+                            VerticalOptions="Center">
+                            <Entry.Effects>
+                                <effects:BorderlessEffect />
+                            </Entry.Effects>
+                        </Entry>
+                        <controls:IconView
+                            Foreground="{DynamicResource TextPrimaryColor}"
+                            HeightRequest="15"
+                            HorizontalOptions="End"
+                            Source="ic_sortdown.png"
+                            VerticalOptions="Center"
+                            WidthRequest="15" />
+                    </StackLayout>
+                </Frame>
+                <sharpnado:MaterialFrame
+                    x:Name="btnSearch"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Padding="0"
+                    CornerRadius="5"
+                    HasShadow="False"
+                    HeightRequest="35"
+                    HorizontalOptions="Start"
+                    IsVisible="{Binding IsEnableButtonExcell}"
+                    LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="35">
+                    <sharpnado:MaterialFrame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SearchCameraCommand}" />
+                    </sharpnado:MaterialFrame.GestureRecognizers>
+                    <controls:IconView
+                        Foreground="{DynamicResource WhiteColor}"
+                        HeightRequest="20"
+                        HorizontalOptions="Center"
+                        Source="ic_search.png"
+                        VerticalOptions="Center"
+                        WidthRequest="20" />
+                </sharpnado:MaterialFrame>
+            </Grid>
+            <Label
+                Margin="10,0,0,10"
+                FontAttributes="Bold"
+                HorizontalOptions="StartAndExpand"
+                Text="{Binding Total, StringFormat='{}Tổng số ảnh: {0}'}"
+                TextColor="{DynamicResource TextPrimaryColor}" />
+            <Grid Grid.Row="1">
+                <sfList:SfListView
+                    x:Name="listView"
+                    AutoFitMode="Height"
+                    BackgroundColor="#ffffff"
+                    HorizontalOptions="FillAndExpand"
+                    IsScrollBarVisible="False"
+                    ItemsSource="{Binding ListCameraImage, Mode=OneWay}"
+                    LoadMoreCommand="{Binding LoadMoreItemsCommand}"
+                    LoadMoreCommandParameter="{Binding Source={x:Reference listView}}"
+                    LoadMoreOption="Auto"
+                    SelectionBackgroundColor="Transparent"
+                    VerticalOptions="FillAndExpand">
+                    <sfList:SfListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout
+                                Padding="10"
+                                HorizontalOptions="FillAndExpand"
+                                Spacing="2">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.ViewCameraDetailCommand, Source={Reference this}}" CommandParameter="{Binding .}" />
+                                </StackLayout.GestureRecognizers>
+                                <sharpnado:MaterialFrame
+                                    Padding="0,5,0,5"
+                                    CornerRadius="5"
+                                    HasShadow="False"
+                                    HeightRequest="120"
+                                    HorizontalOptions="FillAndExpand"
+                                    IsClippedToBounds="True"
+                                    VerticalOptions="Start"
+                                    WidthRequest="120">
+                                    <ffImage:CachedImage
+                                        Aspect="AspectFit"
+                                        BitmapOptimizations="True"
+                                        DownsampleToViewSize="True"
+                                        ErrorPlaceholder="camera_placeholder.png"
+                                        HeightRequest="120"
+                                        HorizontalOptions="FillAndExpand"
+                                        LoadingPlaceholder="camera_placeholder.png"
+                                        Source="{Binding ImageLink}"
+                                        VerticalOptions="FillAndExpand"
+                                        WidthRequest="120" />
+                                </sharpnado:MaterialFrame>
+                                <StackLayout Orientation="Horizontal" Spacing="2">
+                                    <controls:IconView
+                                        Foreground="{DynamicResource PrimaryColor}"
+                                        HeightRequest="15"
+                                        Source="ic_location_black"
+                                        VerticalOptions="Center"
+                                        WidthRequest="15" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="10"
+                                        HorizontalTextAlignment="Start"
+                                        LineBreakMode="WordWrap"
+                                        Text="{Binding Address}"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="2">
+                                    <controls:IconView
+                                        Foreground="{DynamicResource PrimaryColor}"
+                                        HeightRequest="15"
+                                        Source="ic_turnon_time_on_day"
+                                        VerticalOptions="Center"
+                                        WidthRequest="15" />
+                                    <Label
+                                        FontSize="10"
+                                        HorizontalOptions="StartAndExpand"
+                                        Text="{Binding CreatedDate, Converter={StaticResource TimeConverter}}"
+                                        TextColor="Red"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        FontSize="10"
+                                        HorizontalOptions="End"
+                                        Text="Kênh: "
+                                        TextColor="Black"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        FontSize="10"
+                                        HorizontalOptions="End"
+                                        Text="{Binding Channel}"
+                                        TextColor="Black"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+                            </StackLayout>
+                        </DataTemplate>
+                    </sfList:SfListView.ItemTemplate>
+                    <sfList:SfListView.LoadMoreTemplate>
+                        <DataTemplate>
+                            <Grid
+                                Padding="3"
+                                HeightRequest="30"
+                                WidthRequest="30">
+                                <sfList:LoadMoreIndicator
+                                    HeightRequest="30"
+                                    IsRunning="{Binding IsBusy, Source={x:Reference Name=listView}}"
+                                    IsVisible="{Binding IsBusy, Source={x:Reference Name=listView}}"
+                                    VerticalOptions="Center"
+                                    WidthRequest="30"
+                                    Color="{DynamicResource PrimaryColor}" />
+                            </Grid>
+                        </DataTemplate>
+                    </sfList:SfListView.LoadMoreTemplate>
+                </sfList:SfListView>
+
+                <StackLayout
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding ListCameraImage, Converter={StaticResource IsEmptyDataConverter}}"
+                    Spacing="10"
+                    VerticalOptions="Center">
+
+                    <!--  Image for display svg image  -->
+                    <ffsvg:SvgCachedImage
+                        BackgroundColor="Transparent"
+                        HeightRequest="200"
+                        Source="NoPhotos.svg"
+                        VerticalOptions="Center"
+                        WidthRequest="200" />
+
+                    <!--  Label to display content  -->
+                    <Label
+                        Text="{i18n:TranslateResource Common_Message_NoData}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
+                        VerticalTextAlignment="Center" />
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

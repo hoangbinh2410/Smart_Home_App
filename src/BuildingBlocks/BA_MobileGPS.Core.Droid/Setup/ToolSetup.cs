@@ -2,6 +2,7 @@
 using Android.OS;
 
 using BA_MobileGPS.Core.Droid;
+using BA_MobileGPS.Core.Droid.DependencyServices;
 using FFImageLoading.Forms.Platform;
 using LabelHtml.Forms.Plugin.Droid;
 using PanCardView.Droid;
@@ -41,6 +42,8 @@ namespace BA_MobileGPS.Droid.Setup
 
             //Html Label
             HtmlLabelRenderer.Initialize();
+
+            PlatformImageViewer.Init(activity);
         }
     }
 }

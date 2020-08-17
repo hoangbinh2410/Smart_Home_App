@@ -78,8 +78,10 @@
 		<true/>
 	</dict>
 	<key>CFBundleVersion</key>
-	<string>3.0.0</string>
+	<string>3.1.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.0.0</string>
+	<string>3.1.0</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>light</string>
 </dict>
 </plist>

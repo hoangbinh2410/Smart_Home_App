@@ -5,7 +5,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Xamarin.Forms" Version="4.7.0.1239" />
+		<PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -22,16 +22,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Update="Styles\Custom.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Styles\DarkColor.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Styles\LightColor.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Styles\VMS_Styles.xaml">
+	  <EmbeddedResource Update="Views\ListVehicle\DetailVehiclePopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\ListVehicle\DetailVehiclePopup.xaml">
+	  <EmbeddedResource Update="Views\ListVehicle\VehicleStopServiceView.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\ListVehicle\VehicleUnpaidView.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Report\ServicePackHistory\PackageInfosPage.xaml">

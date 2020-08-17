@@ -6,7 +6,7 @@ using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Models;
-using BA_MobileGPS.Core.Resource;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
@@ -73,12 +73,14 @@ namespace VMS_MobileGPS.ViewModels
             if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
             {
                 mapType = MapType.Hybrid;
-                ColorMapType = (Color)App.Current.Resources["GrayColor2"];
+                ColorMapType = (Color)App.Current.Resources["WhiteColor"];
+                BackgroundMapType = (Color)App.Current.Resources["PrimaryColor"];
             }
             else
             {
                 mapType = MapType.Street;
                 ColorMapType = (Color)App.Current.Resources["PrimaryColor"];
+                BackgroundMapType = (Color)App.Current.Resources["WhiteColor"];
             }
 
             zoomLevel = MobileUserSettingHelper.Mapzoom;
@@ -113,6 +115,9 @@ namespace VMS_MobileGPS.ViewModels
 
         private Color colorMapType;
         public Color ColorMapType { get => colorMapType; set => SetProperty(ref colorMapType, value); }
+
+        private Color backgroundMapType;
+        public Color BackgroundMapType { get => backgroundMapType; set => SetProperty(ref backgroundMapType, value); }
 
         private List<int> selectedVehicleGroup;
         public List<int> SelectedVehicleGroup { get => selectedVehicleGroup; set => SetProperty(ref selectedVehicleGroup, value); }
@@ -239,11 +244,13 @@ namespace VMS_MobileGPS.ViewModels
                 if (MapType == MapType.Street)
                 {
                     MapType = MapType.Hybrid;
-                    ColorMapType = (Color)App.Current.Resources["GrayColor2"];
+                    ColorMapType = (Color)App.Current.Resources["WhiteColor"];
+                    BackgroundMapType = (Color)App.Current.Resources["PrimaryColor"];
                 }
                 else
                 {
                     ColorMapType = (Color)App.Current.Resources["PrimaryColor"];
+                    BackgroundMapType = (Color)App.Current.Resources["WhiteColor"];
                     MapType = MapType.Street;
                 }
                 byte maptype = 1;

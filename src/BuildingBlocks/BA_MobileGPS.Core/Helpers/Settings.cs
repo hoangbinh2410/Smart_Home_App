@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Core.Themes;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Enums;
 using Newtonsoft.Json;
@@ -72,9 +73,6 @@ namespace BA_MobileGPS.Core
         private const string LoadedMap = "LoadMap";
         private static readonly bool IsLoadedMapDefault = false;
 
-        private const string FirstLoadLogin = "FirstLoadLogin";
-        private static readonly bool FirstLoadLoginDefault = true;
-
         private const string FistInstallPopup = "FisrtPopup";
         private static readonly bool FistInstallPopupDefault = true;
 
@@ -83,6 +81,9 @@ namespace BA_MobileGPS.Core
 
         private const string SortOrderKey = "SortOrderKey";
         private static readonly int SortOrderKeyDefault = (int)SortOrderType.DefaultDES;
+
+        private const string CurrentThemeKey = "CurrentThemeKey";
+        private static readonly string CurrentThemeDefault = Theme.Light.ToString();
 
         public static float Latitude
         {
@@ -243,11 +244,6 @@ namespace BA_MobileGPS.Core
             set => AppSettings.AddOrUpdateValue(LoadedMap, value);
         }
 
-        public static bool IsFirstLoadLogin
-        {
-            get => AppSettings.GetValueOrDefault(FirstLoadLogin, FirstLoadLoginDefault);
-            set => AppSettings.AddOrUpdateValue(FirstLoadLogin, value);
-        }
         public static bool IsFirstPopup
         {
             get => AppSettings.GetValueOrDefault(FistInstallPopup, FistInstallPopupDefault);
@@ -264,6 +260,12 @@ namespace BA_MobileGPS.Core
         {
             get => AppSettings.GetValueOrDefault(SortOrderKey, SortOrderKeyDefault);
             set => AppSettings.AddOrUpdateValue(SortOrderKey, value);
+        }
+
+        public static string CurrentTheme
+        {
+            get => AppSettings.GetValueOrDefault(CurrentThemeKey, CurrentThemeDefault);
+            set => AppSettings.AddOrUpdateValue(CurrentThemeKey, value);
         }
     }
 }

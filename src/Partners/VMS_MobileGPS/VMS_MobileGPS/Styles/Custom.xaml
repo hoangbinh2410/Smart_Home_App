@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    x:Class="VMS_MobileGPS.Styles.Custom"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <!--  Color Primary  -->
+    <Color x:Key="BlueDarkColor">#033612</Color>
+    <Color x:Key="BluePrimaryColor">#069932</Color>
+    <Color x:Key="PrimaryColor">#044E1A</Color>
+    <Color x:Key="BlueColor">#ACD6B9</Color>
+    <Color x:Key="WhiteColor">#C8EBFA</Color>
+    <Color x:Key="BlackColor">#012B0E</Color>
+    <!--  Other Color  -->
+    <Color x:Key="OrangeColor">#4A7AFF</Color>
+    <Color x:Key="GreenColor">#31CB73</Color>
+    <Color x:Key="GrayColor">#F3F3F3</Color>
+    <Color x:Key="GrayColor2">#CCCCCC</Color>
+    <Color x:Key="ShadowColor">#000000</Color>
+    <!--  Text Color  -->
+    <Color x:Key="TextPrimaryColor">#665A00</Color>
+    <Color x:Key="TextSecondaryColor">#998700</Color>
+    <Color x:Key="TextPlaceHolderColor">#EBE08D</Color>
+
+    <Color x:Key="DangerousColor">#682312</Color>
+    <Color x:Key="WarningColor">#9D3F29</Color>
+    <Color x:Key="PinkColor">#FFD8D8</Color>
+
+    <FileImageSource x:Key="HomePageBotImageSource" File="bg_HomeBot.png" />
+
+    <Color x:Key="MainTabSelectedColor">#004EDA</Color>
+    <Color x:Key="MainTabUnSelectedColor">#C9C9C9</Color>
+
+    <Color x:Key="PopupYesBtnTextColor">White</Color>
+
+    <Color x:Key="PopupYesBtnBackgroundColor">#00709A</Color>
+
+    <!--  Login  -->
+    <Color x:Key="LoginTextColor">#7B7B7B</Color>
+
+    <Color x:Key="LoginIconBackgroundColor">#004EDA</Color>
+    <Color x:Key="LoginIconColor">White</Color>
+</ResourceDictionary>

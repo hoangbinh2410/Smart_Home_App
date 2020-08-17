@@ -83,7 +83,7 @@
                     x:Name="ckbAllBoudary"
                     Grid.Row="1"
                     Grid.Column="0"
-                    CheckedColor="{StaticResource BlueDarkColor}"
+                    CheckedColor="{DynamicResource BlueDarkColor}"
                     CornerRadius="5"
                     FontFamily="{StaticResource myFontFamily}"
                     FontSize="13"
@@ -92,7 +92,7 @@
                     x:Name="ckbAllName"
                     Grid.Row="1"
                     Grid.Column="1"
-                    CheckedColor="{StaticResource BlueDarkColor}"
+                    CheckedColor="{DynamicResource BlueDarkColor}"
                     CornerRadius="5.0"
                     FontFamily="{StaticResource myFontFamily}"
                     FontSize="13"
@@ -129,7 +129,7 @@
                                     x:Name="ckbBoudary"
                                     Grid.Row="1"
                                     Grid.Column="0"
-                                    CheckedColor="{StaticResource BlueDarkColor}"
+                                    CheckedColor="{DynamicResource BlueDarkColor}"
                                     CornerRadius="5"
                                     FontFamily="{StaticResource myFontFamily}"
                                     FontSize="13"
@@ -140,7 +140,7 @@
                                     x:Name="ckbName"
                                     Grid.Row="1"
                                     Grid.Column="1"
-                                    CheckedColor="{StaticResource BlueDarkColor}"
+                                    CheckedColor="{DynamicResource BlueDarkColor}"
                                     CornerRadius="5.0"
                                     FontFamily="{StaticResource myFontFamily}"
                                     FontSize="13"
@@ -159,7 +159,7 @@
                 Orientation="Horizontal">
                 <Button
                     Padding="10,0"
-                    BackgroundColor="{StaticResource BlueDarkColor}"
+                    BackgroundColor="{DynamicResource BlueDarkColor}"
                     Command="{Binding CanelCommand}"
                     CornerRadius="5"
                     FontAttributes="Bold"
@@ -169,10 +169,10 @@
                     HorizontalOptions="FillAndExpand"
                     Text="{i18n:TranslateResource Common_Button_Cancel,
                                                   Converter={StaticResource UpperCaseConverter}}"
-                    TextColor="{StaticResource WhiteColor}" />
+                    TextColor="{DynamicResource WhiteColor}" />
                 <Button
                     Padding="10,0"
-                    BackgroundColor="{StaticResource BlueDarkColor}"
+                    BackgroundColor="{DynamicResource BlueDarkColor}"
                     Command="{Binding UpdateCommand}"
                     CornerRadius="5"
                     FontAttributes="Bold"
@@ -182,7 +182,7 @@
                     HorizontalOptions="FillAndExpand"
                     Text="{i18n:TranslateResource Common_Button_Update,
                                                   Converter={StaticResource UpperCaseConverter}}"
-                    TextColor="{StaticResource WhiteColor}" />
+                    TextColor="{DynamicResource WhiteColor}" />
             </StackLayout>
         </Grid>
     </ContentPage.Content>

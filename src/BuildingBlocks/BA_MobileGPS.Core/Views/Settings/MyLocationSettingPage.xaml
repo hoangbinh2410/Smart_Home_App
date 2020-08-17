@@ -53,7 +53,7 @@
                     <TapGestureRecognizer Command="{Binding MyLocationCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
                 <controls:IconView
-                    Foreground="{StaticResource PrimaryColor}"
+                    Foreground="{DynamicResource PrimaryColor}"
                     HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_vector.png"
@@ -76,7 +76,7 @@
                     <TapGestureRecognizer Command="{Binding ChangeMapTypeCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
                 <controls:IconView
-                    Foreground="{StaticResource PrimaryColor}"
+                    Foreground="{DynamicResource PrimaryColor}"
                     HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_map_type.png"

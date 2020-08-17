@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core;
+using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Styles;
 using BA_MobileGPS.Utilities.Constant;
 using BA_MobileGPS.Utilities.Enums;
@@ -7,6 +8,7 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Prism;
 using Prism.Ioc;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS
 {
@@ -20,8 +22,6 @@ namespace BA_MobileGPS
 
         protected async override void OnInitialized()
         {
-            Resources.MergedDictionaries.Add(new Colors());
-
             base.OnInitialized();
 
             ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerThat;
@@ -52,6 +52,10 @@ namespace BA_MobileGPS
 
             // Đăng ký config automapper
             AutoMapperConfig.RegisterMappings(containerRegistry);
+
+            containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
+            containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());
+            containerRegistry.Register<ResourceDictionary, BA_MobileGPS.Styles.Custom>(Theme.Custom.ToString());
         }
     }
 }

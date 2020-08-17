@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<sharpnado:MaterialFrame
+    x:Class="BA_MobileGPS.Core.Views.VehicleDefaultView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    Padding="0"
+    CornerRadius="0">
+    <sharpnado:MaterialFrame.Resources>
+        <ResourceDictionary>
+            <converters:NMConverter x:Key="NMConverter" />
+            <converters:UnitConverter x:Key="UnitConverter" />
+        </ResourceDictionary>
+    </sharpnado:MaterialFrame.Resources>
+    <StackLayout>
+        <Grid Padding="8" ColumnSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".3*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <ffImage:CachedImage
+                    BitmapOptimizations="True"
+                    HeightRequest="30"
+                    Source="{Binding IconImage}"
+                    WidthRequest="30" />
+                <Label
+                    FontSize="12"
+                    HorizontalOptions="Center"
+                    LineBreakMode="WordWrap"
+                    Text="{Binding PrivateCode}" />
+            </StackLayout>
+            <StackLayout
+                Grid.Column="1"
+                HorizontalOptions="FillAndExpand"
+                Spacing="10"
+                VerticalOptions="EndAndExpand">
+                <Grid ColumnDefinitions="*,100">
+                    <StackLayout Grid.Column="0" HorizontalOptions="StartAndExpand">
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <controls:IconView Source="ic_turnon_time_on_day.png" />
+                            <Label
+                                FontSize="12"
+                                Text="{Binding GPSTime, Converter={StaticResource DateTimeConverter}}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <controls:IconView Source="ic_distance.png" />
+                            <Label
+                                FontSize="12"
+                                Text="{Binding TotalKm, Converter={StaticResource KmConverter}}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Column="1"
+                        Padding="0,0,10,0"
+                        HorizontalOptions="StartAndExpand">
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <controls:IconView Source="ic_clock.png" />
+                            <Label
+                                FontSize="12"
+                                Text="{Binding LostGSMTime, Converter={StaticResource SecondsToStringConverter}, StringFormat='{}{0}'}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <controls:IconView Source="ic_speed.png" />
+                            <Label
+                                FontSize="12"
+                                Text="{Binding Velocity, Converter={StaticResource VelocityConverter}}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </StackLayout>
+                </Grid>
+                <StackLayout Spacing="10">
+                    <StackLayout
+                        IsVisible="{Binding CurrentAddress, Converter={StaticResource HasDataConverter}}"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <controls:IconView Source="ic_coordinates.png" />
+                        <Label
+                            FontSize="12"
+                            Text="{Binding CurrentAddress}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                    <StackLayout
+                        Padding="0,0,0,-2"
+                        IsVisible="{Binding MessageBAP, Converter={StaticResource HasDataConverter}}"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <controls:IconView Source="ic_fee.png" />
+                        <Label
+                            FontSize="12"
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            LineBreakMode="TailTruncation"
+                            LineHeight="1.1"
+                            MaxLines="2"
+                            Text="{Binding MessageBAP}"
+                            TextColor="Red"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+        <BoxView Margin="10,0" StyleClass="SlimLine" />
+    </StackLayout>
+</sharpnado:MaterialFrame>

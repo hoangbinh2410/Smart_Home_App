@@ -1,4 +1,4 @@
-﻿using BA_MobileGPS.Core.Resource;
+﻿using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
@@ -25,14 +25,17 @@ namespace BA_MobileGPS.Core.ViewModels
         private void InitItems()
         {
             var list = new List<LoginPopupItem>();
-            // Ra khơi
-            list.Add(new LoginPopupItem
+            if (App.AppType == Entities.AppType.VMS)
             {
-                Title = MobileResource.Login_Popup_Starting_Page,
-                Icon = "ic_fishingnet.png",
-                Url = "/NavigationPage/OfflinePage",
-                ItemType = LoginPopupItemType.OfflinePage
-            });
+                // Ra khơi
+                list.Add(new LoginPopupItem
+                {
+                    Title = MobileResource.Login_Popup_Starting_Page,
+                    Icon = "ic_fishingnet.png",
+                    Url = "/NavigationPage/OfflinePage",
+                    ItemType = LoginPopupItemType.OfflinePage,
+                });
+            }
             // Hướng dẫn sử dụng
             list.Add(new LoginPopupItem
             {
@@ -49,7 +52,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Url = MobileSettingHelper.WebGps,
                 ItemType = LoginPopupItemType.Guarantee,
             });
-         
+
             // Trải nghiệm BAGPS
             list.Add(new LoginPopupItem
             {

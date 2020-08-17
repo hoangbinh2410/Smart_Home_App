@@ -1,12 +1,8 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Resource;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
-using BA_MobileGPS.Utilities;
-using Prism.Commands;
 using Prism.Navigation;
-using System;
-using System.Reflection;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -30,6 +26,5 @@ namespace BA_MobileGPS.Core.ViewModels
                 SelectedFuelsSummaries = FuelsSummariesDetail;
             }
         }
-
     }
 }

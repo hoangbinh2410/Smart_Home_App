@@ -1,5 +1,5 @@
 ﻿using BA_MobileGPS.Core.Extensions;
-using BA_MobileGPS.Core.Resource;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 
@@ -303,8 +303,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private readonly Color[] ColorChart = new Color[]
         {
-            (Color)PrismApplicationBase.Current.Resources["Color_SoftRed"],
-            (Color)PrismApplicationBase.Current.Resources["Color_Navigation"]
+            (Color)PrismApplicationBase.Current.Resources["WhiteColor"],
+            (Color)PrismApplicationBase.Current.Resources["PrimaryColor"]
         };
 
         public override void OnGetDataFail()

@@ -13,11 +13,11 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="ActiveIndicator" TargetType="Frame">
-                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}" />
             </Style>
             <Style x:Key="InactiveIndicator" TargetType="Frame">
-                <Setter Property="BackgroundColor" Value="{StaticResource GrayColor}" />
-                <Setter Property="OutlineColor" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource GrayColor}" />
+                <Setter Property="OutlineColor" Value="{DynamicResource PrimaryColor}" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>

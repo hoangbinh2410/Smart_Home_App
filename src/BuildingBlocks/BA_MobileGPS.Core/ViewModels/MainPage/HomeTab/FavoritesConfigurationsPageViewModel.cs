@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
 
-using BA_MobileGPS.Core.Resource;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 
 using Prism.Commands;
 using Prism.Navigation;
-using Prism.Services;
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

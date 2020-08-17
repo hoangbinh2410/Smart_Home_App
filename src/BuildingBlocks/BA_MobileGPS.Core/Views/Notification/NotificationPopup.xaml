@@ -24,7 +24,7 @@
         <controls:CustomShadowFrame
             Margin="20,100,20,100"
             Padding="0"
-            BackgroundColor="White"
+           BackgroundColor="{DynamicResource WhiteColor}"
             BorderWidth="0"
             CornerRadius="10"
             HasShadow="True"
@@ -48,7 +48,7 @@
                     <controls:IconView
                         Grid.Row="0"
                         Margin="5"
-                        Foreground="{StaticResource PrimaryColor}"
+                        Foreground="{DynamicResource PrimaryColor}"
                         HeightRequest="30"
                         HorizontalOptions="End"
                         Source="ic_close_white.png"
@@ -66,8 +66,8 @@
                         Orientation="Horizontal"
                         VerticalOptions="End">
                         <Button
-                            BackgroundColor="White"
-                            BorderColor="{StaticResource PrimaryColor}"
+                           BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource PrimaryColor}"
                             BorderRadius="0"
                             BorderWidth="1"
                             Command="{Binding ClosePageCommand}"
@@ -76,9 +76,9 @@
                             FontSize="12"
                             HorizontalOptions="FillAndExpand"
                             Text="Bỏ qua"
-                            TextColor="{StaticResource PrimaryColor}" />
+                            TextColor="{DynamicResource PrimaryColor}" />
                         <Button
-                            BackgroundColor="{StaticResource PrimaryColor}"
+                            BackgroundColor="{DynamicResource PrimaryColor}"
                             BorderRadius="0"
                             Command="{Binding ViewMoreCommand}"
                             CornerRadius="5"

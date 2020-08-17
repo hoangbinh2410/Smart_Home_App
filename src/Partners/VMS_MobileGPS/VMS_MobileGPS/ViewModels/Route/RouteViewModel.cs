@@ -3,7 +3,7 @@ using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Models;
-using BA_MobileGPS.Core.Resource;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RealmEntity;
@@ -88,6 +88,7 @@ namespace VMS_MobileGPS.ViewModels
             FastEndCommand = new Command(FastEnd);
             ChangeSpeedCommand = new DelegateCommand(ChangeSpeed);
             EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
+            EventAggregator.GetEvent<ThemeChangedEvent>().Subscribe(ThemeChanged);
         }
 
         #endregion
@@ -722,7 +723,7 @@ namespace VMS_MobileGPS.ViewModels
             RouteLine = new Polyline
             {
                 IsClickable = false,
-                StrokeColor = Color.Gray,
+                StrokeColor = (Color)App.Current.Resources["TextSecondaryColor"],
                 StrokeWidth = 3f,
                 ZIndex = 1
             };
@@ -737,7 +738,7 @@ namespace VMS_MobileGPS.ViewModels
             CurrentLine = new Polyline
             {
                 IsClickable = false,
-                StrokeColor = Color.DeepSkyBlue,
+                StrokeColor = (Color)App.Current.Resources["PrimaryColor"],
                 StrokeWidth = 3f,
                 ZIndex = 2
             };
@@ -997,7 +998,7 @@ namespace VMS_MobileGPS.ViewModels
             CurrentLine = new Polyline
             {
                 IsClickable = false,
-                StrokeColor = Color.DeepSkyBlue,
+                StrokeColor = (Color)App.Current.Resources["PrimaryColor"],
                 StrokeWidth = 3f,
                 ZIndex = 2
             };
@@ -1125,11 +1126,19 @@ namespace VMS_MobileGPS.ViewModels
             {
                 PlaySpeed *= 2;
             }
-
-
-
-
         }
+
+        private void ThemeChanged()
+        {
+            ColorMapType = MapType == MapType.Street
+                ? (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"]
+                : (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor2"];
+
+            FindCarColor = IsWatching
+                ? (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor2"]
+                : (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+        }
+
 
         #endregion
     }

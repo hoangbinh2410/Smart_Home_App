@@ -1,5 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Resource;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -209,7 +209,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     numbercolum += 1;
                     worksheet.Range[numberrow, numbercolum].Text = MobileResource.DetailsReport_Table_TimeActive;
                 }
-                // Km GPS   
+                // Km GPS
                 if (ShowKmGPS)
                 {
                     numbercolum += 1;
@@ -262,8 +262,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     numbercolum += 1;
                     worksheet.Range[numberrow, numbercolum].Text = MobileResource.DetailsReport_Table_TripCompensatory;
-                }                    
-               
+                }
+
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.Font.Bold = true;
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.ColorIndex = ExcelKnownColors.Sky_blue;
                 //head
@@ -283,7 +283,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     numberrow += 1;
                     numbercolum = 1;
-                    // Số thứ tự 
+                    // Số thứ tự
                     worksheet.Range[numberrow, numbercolum].Text = data[i].OrderNumber.ToString();
                     // Ngày tháng
                     if (ShowCurrentTime)

@@ -11,6 +11,15 @@
         public bool IsShow { get; set; }
     }
 
+    public class HeplerMenuModel
+    {
+        public string Icon { get; set; }
+
+        public string Title { get; set; }
+
+        public string Link { get; set; }
+    }
+
     public enum GuideType
     {
         //hướng dẫn sử dụng giám sát xe

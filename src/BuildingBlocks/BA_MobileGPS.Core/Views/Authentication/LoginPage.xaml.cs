@@ -6,18 +6,19 @@ namespace BA_MobileGPS.Core.Views
     {
         public LoginPage()
         {
-            InitializeComponent();         
+            InitializeComponent();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (Settings.IsFirstLoadLogin)
+            if (string.IsNullOrEmpty(pass.Text))
             {
-                account.Text = string.Empty;
-                pass.Text = string.Empty;
-                Settings.IsFirstLoadLogin = false;
-
+                pass.Focus();
+            }
+            if (string.IsNullOrEmpty(account.Text))
+            {
+                account.Focus();
             }
         }
     }

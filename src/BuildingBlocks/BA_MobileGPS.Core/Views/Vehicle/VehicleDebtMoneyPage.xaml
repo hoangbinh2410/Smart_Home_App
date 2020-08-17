@@ -42,7 +42,7 @@
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
                 Text="{Binding Title}"
-                TextColor="{StaticResource WhiteColor}"
+                TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
             <StackLayout
                 Grid.Column="2"
@@ -63,7 +63,7 @@
     <ContentPage.Content>
         <tabView:SfTabView
             x:Name="tabview"
-            BackgroundColor="{StaticResource PrimaryColor}"
+            BackgroundColor="{DynamicResource PrimaryColor}"
             DisplayMode="Text"
             SelectedIndex="{Binding SelectedIndexTab}"
             VisibleHeaderCount="2">
@@ -83,12 +83,12 @@
 
             <tabView:SfTabItem
                 Title="{i18n:TranslateResource VehicleDebtMoney_Label_VehicleDebt}"
-                SelectionColor="{StaticResource PrimaryColor}"
+                SelectionColor="{DynamicResource PrimaryColor}"
                 TitleFontAttributes="Bold"
                 TitleFontColor="White"
                 TitleFontSize="14">
                 <tabView:SfTabItem.Content>
-                    <Grid Padding="10" BackgroundColor="White">
+                    <Grid Padding="10" BackgroundColor="{DynamicResource WhiteColor}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
@@ -114,8 +114,8 @@
                                 Grid.Column="0"
                                 Margin="0"
                                 Padding="0"
-                                BackgroundColor="White"
-                                BorderColor="{StaticResource GrayColor2}"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource GrayColor2}"
                                 CornerRadius="5"
                                 HasShadow="False"
                                 HeightRequest="40"
@@ -150,8 +150,8 @@
                                 Grid.Column="1"
                                 Margin="0"
                                 Padding="0"
-                                BackgroundColor="White"
-                                BorderColor="{StaticResource GrayColor2}"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource GrayColor2}"
                                 CornerRadius="5"
                                 HasShadow="False"
                                 HeightRequest="40"
@@ -178,7 +178,7 @@
                                         </Entry.Effects>
                                     </Entry>
                                     <controls:IconView
-                                        Foreground="Black"
+                                        Foreground="{DynamicResource BlackColor}"
                                         HeightRequest="15"
                                         HorizontalOptions="End"
                                         Source="ic_sortdown.png"
@@ -205,7 +205,7 @@
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     HorizontalOptions="StartAndExpand"
-                                    TextColor="{StaticResource PrimaryColor}"
+                                    TextColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="Center">
                                     <Label.FormattedText>
                                         <FormattedString>
@@ -218,7 +218,7 @@
                                     x:Name="lbHelp"
                                     Grid.Row="0"
                                     Grid.Column="1"
-                                    Foreground="{StaticResource PrimaryColor}"
+                                    Foreground="{DynamicResource PrimaryColor}"
                                     HorizontalOptions="End"
                                     Source="ic_help.png"
                                     VerticalOptions="Center"
@@ -283,14 +283,14 @@
 
             <tabView:SfTabItem
                 Title="{i18n:TranslateResource VehicleDebtMoney_Label_SearchFee}"
-                SelectionColor="{StaticResource PrimaryColor}"
+                SelectionColor="{DynamicResource PrimaryColor}"
                 TitleFontAttributes="Bold"
                 TitleFontColor="White"
                 TitleFontSize="14">
                 <tabView:SfTabItem.Content>
                     <StackLayout
                         Padding="10"
-                        BackgroundColor="White"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         HorizontalOptions="FillAndExpand"
                         Spacing="10"
                         VerticalOptions="FillAndExpand">
@@ -307,8 +307,8 @@
                                 Grid.Column="0"
                                 Margin="0"
                                 Padding="0"
-                                BackgroundColor="White"
-                                BorderColor="{StaticResource GrayColor2}"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource GrayColor2}"
                                 CornerRadius="5"
                                 HasShadow="False"
                                 HeightRequest="40"
@@ -342,8 +342,8 @@
                                 Grid.Column="1"
                                 Margin="0"
                                 Padding="0"
-                                BackgroundColor="White"
-                                BorderColor="{StaticResource GrayColor2}"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource GrayColor2}"
                                 CornerRadius="5"
                                 HasShadow="False"
                                 HeightRequest="40"
@@ -370,7 +370,7 @@
                                         </Entry.Effects>
                                     </Entry>
                                     <controls:IconView
-                                        Foreground="Black"
+                                        Foreground="{DynamicResource BlackColor}"
                                         HeightRequest="15"
                                         HorizontalOptions="End"
                                         Source="ic_sortdown.png"
@@ -382,7 +382,7 @@
 
                         <Label
                             HorizontalOptions="StartAndExpand"
-                            TextColor="{StaticResource PrimaryColor}"
+                            TextColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>

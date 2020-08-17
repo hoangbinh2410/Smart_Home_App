@@ -37,13 +37,13 @@
             VerticalOptions="FillAndExpand">
             <Grid
                 x:Name="TimeSelectorContainer"
-                BackgroundColor="{StaticResource PrimaryColor}"
+                BackgroundColor="{DynamicResource PrimaryColor}"
                 HeightRequest="40"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="Start">
                 <Grid
                     Padding="8,0,8,8"
-                    BackgroundColor="{StaticResource PrimaryColor}"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="End">
                     <Grid.ColumnDefinitions>
@@ -62,7 +62,7 @@
                         DateSelectedCommand="{Binding DateSelectedCommand}"
                         DateTime="{Binding DateStart}"
                         HorizontalOptions="FillAndExpand"
-                        IconColor="{StaticResource PrimaryColor}"
+                        IconColor="{DynamicResource PrimaryColor}"
                         PickerMode="Popup"
                         VerticalOptions="Center" />
                     <views:DateTimePickerView
@@ -73,21 +73,21 @@
                         DateSelectedCommand="{Binding DateSelectedCommand}"
                         DateTime="{Binding DateEnd}"
                         HorizontalOptions="FillAndExpand"
-                        IconColor="{StaticResource PrimaryColor}"
+                        IconColor="{DynamicResource PrimaryColor}"
                         PickerMode="Popup"
                         VerticalOptions="Center" />
                 </Grid>
                 <Grid
                     x:Name="TimeSelector"
                     Padding="8,0,8,8"
-                    BackgroundColor="{StaticResource PrimaryColor}"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
                     ColumnSpacing="0"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Start">
                     <pancake:PancakeView
                         Grid.Column="0"
                         Padding="5,6"
-                        BackgroundColor="{StaticResource PrimaryColor}"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
                         CornerRadius="15,0,15,0"
                         HasShadow="False"
                         VerticalOptions="Center">
@@ -104,13 +104,13 @@
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             Text="1H"
-                            TextColor="White" />
+                            TextColor="{DynamicResource WhiteColor}" />
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Grid.Column="1"
                         Margin="-1,0,0,0"
                         Padding="5,6"
-                        BackgroundColor="{StaticResource PrimaryColor}"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
                         BorderColor="White"
                         CornerRadius="0"
                         HasShadow="False"
@@ -128,13 +128,13 @@
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             Text="4H"
-                            TextColor="White" />
+                            TextColor="{DynamicResource WhiteColor}" />
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Grid.Column="2"
                         Margin="-1,0,0,0"
                         Padding="5,6"
-                        BackgroundColor="{StaticResource PrimaryColor}"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
                         BorderColor="White"
                         CornerRadius="0"
                         HasShadow="False"
@@ -152,13 +152,13 @@
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             Text="8H"
-                            TextColor="White" />
+                            TextColor="{DynamicResource WhiteColor}" />
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Grid.Column="3"
                         Margin="-1,0,0,0"
                         Padding="5,6"
-                        BackgroundColor="{StaticResource PrimaryColor}"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
                         BorderColor="White"
                         CornerRadius="0"
                         HasShadow="False"
@@ -176,13 +176,13 @@
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             Text="24H"
-                            TextColor="White" />
+                            TextColor="{DynamicResource WhiteColor}" />
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Grid.Column="4"
                         Margin="-1,0,0,0"
                         Padding="5,6"
-                        BackgroundColor="White"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         BorderColor="White"
                         CornerRadius="0,15,0,15"
                         HasShadow="False"
@@ -201,7 +201,7 @@
                             HorizontalOptions="Center"
                             Text="{i18n:TranslateResource Route_Label_More,
                                                           Converter={StaticResource UpperCaseConverter}}"
-                            TextColor="{StaticResource PrimaryColor}" />
+                            TextColor="{DynamicResource PrimaryColor}" />
                     </pancake:PancakeView>
                 </Grid>
             </Grid>
@@ -242,7 +242,7 @@
                     VerticalOptions="StartAndExpand">
                     <pancake:PancakeView
                         Padding="0"
-                        BackgroundColor="{StaticResource WhiteColor}"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         CornerRadius="22"
                         Shadow="{x:StaticResource shadow}">
                         <pancake:PancakeView.GestureRecognizers>
@@ -253,12 +253,12 @@
                             HorizontalOptions="FillAndExpand"
                             Orientation="Horizontal">
                             <pancake:PancakeView
-                                BackgroundColor="{StaticResource PrimaryColor}"
+                                BackgroundColor="{DynamicResource PrimaryColor}"
                                 CornerRadius="22"
                                 WidthRequest="45">
                                 <controls:IconView
                                     Margin="13"
-                                    Foreground="{StaticResource WhiteColor}"
+                                    Foreground="{DynamicResource WhiteColor}"
                                     Source="ic_search.png" />
                             </pancake:PancakeView>
                             <Entry
@@ -266,9 +266,9 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
-                                PlaceholderColor="{StaticResource TextPlaceHolderColor}"
+                                PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                                 Text="{Binding Vehicle.PrivateCode}"
-                                TextColor="{StaticResource TextPrimaryColor}"
+                                TextColor="{DynamicResource TextPrimaryColor}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
@@ -281,7 +281,7 @@
                         x:Name="btnListRoute"
                         Grid.Column="1"
                         Padding="0"
-                        BackgroundColor="{StaticResource WhiteColor}"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         CornerRadius="22"
                         Shadow="{x:StaticResource shadow}"
                         WidthRequest="45">
@@ -289,7 +289,7 @@
                             <TapGestureRecognizer Command="{Binding ViewListCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
-                            Foreground="{StaticResource PrimaryColor}"
+                            Foreground="{DynamicResource PrimaryColor}"
                             HeightRequest="20"
                             HorizontalOptions="Center"
                             Source="ic_list_route.png"
@@ -301,7 +301,7 @@
                         x:Name="btnViewInfo"
                         Grid.Column="2"
                         Padding="0"
-                        BackgroundColor="White"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         CornerRadius="22"
                         Shadow="{x:StaticResource shadow}"
                         WidthRequest="45">
@@ -310,7 +310,7 @@
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
                             x:Name="IconInfo"
-                            Foreground="{StaticResource GrayColor2}"
+                            Foreground="{DynamicResource GrayColor2}"
                             HeightRequest="25"
                             HorizontalOptions="Center"
                             Source="ic_info_outline_white.png"
@@ -325,7 +325,7 @@
                     AbsoluteLayout.LayoutFlags="PositionProportional">
                     <pancake:PancakeView
                         Padding="0"
-                        BackgroundColor="{StaticResource WhiteColor}"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         CornerRadius="25"
                         HeightRequest="50"
                         Shadow="{x:StaticResource shadow}"
@@ -334,7 +334,7 @@
                             <TapGestureRecognizer Command="{Binding WatchVehicleCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
-                            Foreground="{StaticResource PrimaryColor}"
+                            Foreground="{DynamicResource PrimaryColor}"
                             HeightRequest="25"
                             HorizontalOptions="Center"
                             Source="ic_vector.png"
@@ -343,7 +343,7 @@
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Padding="0"
-                        BackgroundColor="{StaticResource WhiteColor}"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         CornerRadius="25"
                         HeightRequest="50"
                         Shadow="{x:StaticResource shadow}"
@@ -361,7 +361,7 @@
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Padding="0"
-                        BackgroundColor="{StaticResource PrimaryColor}"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
                         CornerRadius="25"
                         HeightRequest="50"
                         Shadow="{x:StaticResource shadow}"
@@ -370,7 +370,7 @@
                             <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
-                            Foreground="{StaticResource WhiteColor}"
+                            Foreground="{DynamicResource WhiteColor}"
                             HeightRequest="20"
                             HorizontalOptions="Center"
                             Source="ic_bounded_area.png"
@@ -385,13 +385,13 @@
                     AbsoluteLayout.LayoutBounds="0,0,AutoSize,AutoSize"
                     AbsoluteLayout.LayoutFlags="PositionProportional"
                     BackgroundColor="Transparent"
-                    BorderColor="{StaticResource GrayColor}"
+                    BorderColor="{DynamicResource GrayColor}"
                     CornerRadius="5"
                     HasShadow="False"
                     IsClippedToBounds="True"
                     Opacity="1">
                     <Grid>
-                        <ContentView BackgroundColor="White" Opacity=".9" />
+                        <ContentView BackgroundColor="{DynamicResource WhiteColor}" Opacity=".9" />
                         <Grid Padding="8" BackgroundColor="Transparent">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -407,7 +407,7 @@
                                 Grid.Column="0"
                                 FontAttributes="Bold"
                                 Text="{i18n:TranslateResource Route_Label_TitleVMS}"
-                                TextColor="{StaticResource PrimaryColor}" />
+                                TextColor="{DynamicResource PrimaryColor}" />
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="1"
@@ -450,7 +450,7 @@
                                 <Label
                                     HorizontalOptions="Center"
                                     Text="{Binding CurrentRoute.Velocity, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm, Converter={StaticResource LowerCaseConverter}}}"
-                                    TextColor="{StaticResource PrimaryColor}" />
+                                    TextColor="{DynamicResource PrimaryColor}" />
                             </StackLayout>
                         </Grid>
                     </Grid>
@@ -458,7 +458,7 @@
             </AbsoluteLayout>
             <Grid
                 Padding="5"
-                BackgroundColor="{StaticResource PrimaryColor}"
+                BackgroundColor="{DynamicResource PrimaryColor}"
                 HorizontalOptions="FillAndExpand"
                 InputTransparent="{Binding PlayControlEnabled}"
                 VerticalOptions="End">
@@ -508,7 +508,7 @@
                     <pancake:PancakeView
                         x:Name="lbSpeedCar"
                         Padding="0"
-                        BackgroundColor="{StaticResource PrimaryColor}"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
                         BorderColor="White"
                         CornerRadius="15"
                         HasShadow="False"

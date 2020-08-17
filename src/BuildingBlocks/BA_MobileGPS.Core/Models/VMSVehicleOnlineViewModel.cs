@@ -1,6 +1,5 @@
 ﻿using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Entities;
-
 using System;
 
 namespace BA_MobileGPS.Core.Models
@@ -49,7 +48,6 @@ namespace BA_MobileGPS.Core.Models
 
         private byte messageId;
         public byte MessageId { get => messageId; set => SetProperty(ref messageId, value, nameof(IsShowDetail)); }
-
         public byte KindID { set; get; }
 
         private DateTime daturityDate;
@@ -98,8 +96,13 @@ namespace BA_MobileGPS.Core.Models
         {
             get
             {
-                return MessageId == 128 ? false : true;
+                return (MessageId == 2 || MessageId == 3 || MessageId == 128) ? false : true;
             }
+        }
+
+        public string Coordinates
+        {
+            get { return string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(this.Lat), GeoHelper.LongitudeToDergeeMinSec(this.Lng)); }
         }
     }
 }

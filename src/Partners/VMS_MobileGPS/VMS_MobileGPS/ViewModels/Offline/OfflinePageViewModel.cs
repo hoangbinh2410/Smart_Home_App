@@ -1,7 +1,7 @@
 ﻿using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Delegates.Shinny;
 using BA_MobileGPS.Core.Helpers;
-using BA_MobileGPS.Core.Resource;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Models;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;

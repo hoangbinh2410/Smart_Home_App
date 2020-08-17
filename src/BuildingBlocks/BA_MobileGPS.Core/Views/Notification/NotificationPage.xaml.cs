@@ -26,6 +26,7 @@ namespace BA_MobileGPS.Core.Views
                 listView.ResetSwipe();
             }
         }
+
         private void ReadNoitice_Tapped(object sender, EventArgs e)
         {
             if (((VisualElement)sender).BindingContext is NotificationRespone item && BindingContext is NotificationPageViewModel viewModel)
@@ -34,6 +35,5 @@ namespace BA_MobileGPS.Core.Views
                 listView.ResetSwipe();
             }
         }
-
     }
 }

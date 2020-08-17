@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -75,9 +73,9 @@ namespace BA_MobileGPS.Core.Behaviors
             base.OnDetachingFrom(bindable);
         }
 
-        bool _isAnimating = false;
+        private bool _isAnimating = false;
 
-        void View_Tapped(object sender, EventArgs e)
+        private void View_Tapped(object sender, EventArgs e)
         {
             if (_isAnimating)
                 return;
@@ -144,7 +142,7 @@ namespace BA_MobileGPS.Core.Behaviors
             });
         }
 
-        void OnBindingContextChanged(object sender, EventArgs e)
+        private void OnBindingContextChanged(object sender, EventArgs e)
         {
             OnBindingContextChanged();
         }

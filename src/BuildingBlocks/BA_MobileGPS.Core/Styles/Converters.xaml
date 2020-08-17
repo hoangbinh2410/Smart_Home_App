@@ -45,6 +45,8 @@
 
     <converters:SelectedComboxEventArgsConverter x:Key="SelectedComboxEventArgsConverter" />
 
+    <converters:ComboBoxSelectionChangingEventArgsConverter x:Key="ComboBoxSelectionChangingEventArgsConverter" />
+
     <converters:HasDataConverter x:Key="HasDataConverter" />
 
     <converters:IsEmptyDataConverter x:Key="IsEmptyDataConverter" />
@@ -58,4 +60,16 @@
     <converters:ShowHideColumnConverter x:Key="ShowHideColumnConverter" />
 
     <converters:UnitConverter x:Key="UnitConverter" />
+
+    <converters:DoorOpenConverter x:Key="DoorOpenConverter" />
+
+    <converters:AirConditionerConverter x:Key="AirConditionerConverter" />
+
+    <converters:CountStopParkingConverter x:Key="CountStopParkingConverter" />
+
+    <converters:CraneConverter x:Key="CraneConverter" />
+
+    <converters:ConcreteConverter x:Key="ConcreteConverter" />
+
+    <converters:MemoryStickConverter x:Key="MemoryStickConverter" />
 </ResourceDictionary>

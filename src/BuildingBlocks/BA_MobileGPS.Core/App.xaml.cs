@@ -1,4 +1,5 @@
 using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities.Constant;
 using Prism;
@@ -34,23 +35,20 @@ namespace BA_MobileGPS.Core
 
         protected override void OnInitialized()
         {
-            InitializeComponent();
-            Resources.MergedDictionaries.Add(new Styles.Fonts());
-            Resources.MergedDictionaries.Add(new Styles.Styles());
-            Resources.MergedDictionaries.Add(new Styles.Converters());
-            Resources.MergedDictionaries.Add(new Styles.Text());
+            InitializeComponent();                     
 
             BA_MobileGPSSetup.Initialize();
 
             OneSignalHelper.RegisterOneSignal(OneSignalKey);
+
+            SetTheme();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             BA_MobileGPSSetup.RegisterServices(containerRegistry);
             BA_MobileGPSSetup.RegisterPages(containerRegistry);
-
-           
+            
         }
 
         protected override void OnStart()
@@ -68,6 +66,24 @@ namespace BA_MobileGPS.Core
         {
             base.OnSleep();
             _eventAggregator.GetEvent<OnSleepEvent>().Publish(true);
+        }
+
+        private void SetTheme()
+        {
+            var themeServices = Current.Container.Resolve<IThemeServices>();
+            if (Settings.CurrentTheme == Theme.Light.ToString())
+            {
+                themeServices.ChangeTheme(Theme.Light);
+            }
+            else if (Settings.CurrentTheme == Theme.Dark.ToString())
+            {
+                themeServices.ChangeTheme(Theme.Dark);
+            }
+            else
+            {
+                themeServices.ChangeTheme(Theme.Custom);
+            }
+
         }
     }
 }

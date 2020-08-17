@@ -51,7 +51,7 @@
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
                 Text="{i18n:TranslateResource PourFuelReport_Label_TilePage}"
-                TextColor="{StaticResource WhiteColor}"
+                TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
             <StackLayout
                 Grid.Column="2"
@@ -60,7 +60,7 @@
                 <controls:FontAwesomeIcon
                     Margin="5,0,5,0"
                     IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
-                    StyleClass="TopIconView"
+                    StyleClass="TopFontIconView"
                     Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
                     <controls:FontAwesomeIcon.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
@@ -68,7 +68,7 @@
                 </controls:FontAwesomeIcon>
                 <controls:FontAwesomeIcon
                     Margin="5,0,10,0"
-                    StyleClass="TopIconView"
+                    StyleClass="TopFontIconView"
                     Text="{x:Static fontawesome:FontAwesomeIcons.Cog}">
                     <controls:FontAwesomeIcon.GestureRecognizers>
                         <TapGestureRecognizer Tapped="HideableToolbarItem_Clicked" />
@@ -79,7 +79,7 @@
     </NavigationPage.TitleView>
     <ContentPage.Content>
         <AbsoluteLayout
-            BackgroundColor="{StaticResource WhiteColor}"
+            BackgroundColor="{DynamicResource WhiteColor}"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand">
             <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
@@ -105,8 +105,8 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Padding="0"
-                        BackgroundColor="White"
-                        BorderColor="{StaticResource GrayColor2}"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        BorderColor="{DynamicResource GrayColor2}"
                         CornerRadius="5"
                         HasShadow="False"
                         HeightRequest="35"
@@ -133,7 +133,7 @@
                                 </Entry.Effects>
                             </Entry>
                             <controls:IconView
-                                Foreground="Black"
+                                Foreground="{DynamicResource BlackColor}"
                                 HeightRequest="20"
                                 HorizontalOptions="End"
                                 Source="ic_date_range_black.png"
@@ -147,8 +147,8 @@
                         Grid.Row="0"
                         Grid.Column="1"
                         Padding="0"
-                        BackgroundColor="White"
-                        BorderColor="{StaticResource GrayColor2}"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        BorderColor="{DynamicResource GrayColor2}"
                         CornerRadius="5"
                         HasShadow="False"
                         HeightRequest="35"
@@ -175,7 +175,7 @@
                                 </Entry.Effects>
                             </Entry>
                             <controls:IconView
-                                Foreground="Black"
+                                Foreground="{DynamicResource BlackColor}"
                                 HeightRequest="20"
                                 HorizontalOptions="End"
                                 Source="ic_date_range_black.png"
@@ -195,14 +195,14 @@
                             HasShadow="False"
                             HeightRequest="35"
                             HorizontalOptions="Start"
-                            LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                            LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="CenterAndExpand"
                             WidthRequest="35">
                             <sharpnado:MaterialFrame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SearchDataCommand}" />
                             </sharpnado:MaterialFrame.GestureRecognizers>
                             <controls:IconView
-                                Foreground="White"
+                                Foreground="{DynamicResource WhiteColor}"
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
                                 Source="ic_search.png"
@@ -210,16 +210,20 @@
                                 WidthRequest="20" />
                         </sharpnado:MaterialFrame>
                     </StackLayout>
-                    <StackLayout
-                        Grid.Row="1"
-                        Grid.ColumnSpan="2"
-                        Orientation="Horizontal">
+                    <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
                         <!--  biển số xe  -->
                         <Frame
                             x:Name="cmbVihicle"
+                            Grid.Column="0"
                             Padding="0"
-                            BackgroundColor="White"
-                            BorderColor="{StaticResource GrayColor2}"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
                             CornerRadius="5"
                             HasShadow="False"
                             HeightRequest="35"
@@ -246,7 +250,7 @@
                                     </Entry.Effects>
                                 </Entry>
                                 <controls:IconView
-                                    Foreground="Black"
+                                    Foreground="{DynamicResource BlackColor}"
                                     HeightRequest="15"
                                     HorizontalOptions="End"
                                     Source="ic_sortdown.png"
@@ -258,9 +262,10 @@
                         <!--  Trạng Thái  -->
                         <Frame
                             x:Name="cmbStatus"
+                            Grid.Column="1"
                             Padding="0"
-                            BackgroundColor="White"
-                            BorderColor="{StaticResource GrayColor2}"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
                             CornerRadius="5"
                             HasShadow="False"
                             HeightRequest="35"
@@ -286,22 +291,16 @@
                                         <effects:BorderlessEffect />
                                     </Entry.Effects>
                                 </Entry>
-                                <controls:IconView
-                                    Foreground="Black"
-                                    HeightRequest="15"
-                                    HorizontalOptions="End"
-                                    Source="ic_sortdown.png"
-                                    VerticalOptions="Center"
-                                    WidthRequest="15" />
                             </StackLayout>
                         </Frame>
 
                         <!--  số lít  -->
                         <Frame
                             x:Name="txtLiter"
+                            Grid.Column="2"
                             Padding="5,0,5,0"
-                            BackgroundColor="White"
-                            BorderColor="{StaticResource GrayColor2}"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
                             CornerRadius="5"
                             HasShadow="False"
                             HeightRequest="35"
@@ -321,7 +320,7 @@
                                 </Entry.Effects>
                             </Entry>
                         </Frame>
-                    </StackLayout>
+                    </Grid>
                     <StackLayout
                         Grid.Row="1"
                         Grid.Column="2"
@@ -334,14 +333,14 @@
                             HeightRequest="35"
                             HorizontalOptions="Start"
                             IsVisible="{Binding IsExportExcel}"
-                            LightThemeBackgroundColor="{StaticResource PrimaryColor}"
+                            LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="CenterAndExpand"
                             WidthRequest="35">
                             <sharpnado:MaterialFrame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ExportExcellCommand}" />
                             </sharpnado:MaterialFrame.GestureRecognizers>
                             <controls:IconView
-                                Foreground="White"
+                                Foreground="{DynamicResource WhiteColor}"
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
                                 Source="ic_excel.png"
@@ -382,7 +381,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource PourFuelReport_Table_Serial}"
-                                        TextColor="{StaticResource WhiteColor}"
+                                        TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -414,7 +413,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource PourFuelReport_Table_Date}"
-                                        TextColor="{StaticResource WhiteColor}"
+                                        TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -433,7 +432,7 @@
                                             FontSize="{StaticResource FontSize10}"
                                             HorizontalOptions="FillAndExpand"
                                             Text="{Binding StartTime, Converter={StaticResource DateTimeConverter}}"
-                                            TextColor="{StaticResource PrimaryColor}"
+                                            TextColor="{DynamicResource PrimaryColor}"
                                             VerticalOptions="FillAndExpand"
                                             XAlign="Center"
                                             YAlign="Center" />
@@ -455,7 +454,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource PourFuelReport_CheckBox_Liters}"
-                                        TextColor="{StaticResource WhiteColor}"
+                                        TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -488,7 +487,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource PourFuelReport_Table_Status}"
-                                        TextColor="{StaticResource WhiteColor}"
+                                        TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -520,7 +519,7 @@
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         Text="{i18n:TranslateResource PourFuelReport_Table_Address}"
-                                        TextColor="{StaticResource WhiteColor}"
+                                        TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
                                         YAlign="Center" />
@@ -575,7 +574,7 @@
 
                 <StackLayout
                     Grid.Row="1"
-                    BackgroundColor="White"
+                    BackgroundColor="{DynamicResource WhiteColor}"
                     HorizontalOptions="Center"
                     IsVisible="{Binding HasData, Converter={StaticResource InvertBooleanConverter}}"
                     Spacing="10"
@@ -592,7 +591,7 @@
                         HorizontalOptions="Center"
                         HorizontalTextAlignment="Center"
                         Text="{i18n:TranslateResource Common_Message_NoData}"
-                        TextColor="{StaticResource TextPrimaryColor}" />
+                        TextColor="{DynamicResource TextPrimaryColor}" />
                 </StackLayout>
             </Grid>
             <Grid
@@ -617,7 +616,7 @@
                 <Frame
                     Grid.Row="1"
                     Padding="10"
-                    BackgroundColor="White"
+                    BackgroundColor="{DynamicResource WhiteColor}"
                     CornerRadius="0"
                     HasShadow="False"
                     HorizontalOptions="FillAndExpand">
@@ -634,7 +633,7 @@
                         <checkbox:SfCheckBox
                             Grid.Row="0"
                             Grid.Column="0"
-                            CheckedColor="{StaticResource PrimaryColor}"
+                            CheckedColor="{DynamicResource PrimaryColor}"
                             CornerRadius="5"
                             FontSize="13"
                             IsChecked="{Binding ShowAddress}"
@@ -644,7 +643,7 @@
                         <checkbox:SfCheckBox
                             Grid.Row="0"
                             Grid.Column="1"
-                            CheckedColor="{StaticResource PrimaryColor}"
+                            CheckedColor="{DynamicResource PrimaryColor}"
                             CornerRadius="5.0"
                             FontSize="13"
                             IsChecked="{Binding ShowStatus}"
@@ -658,8 +657,8 @@
                             HorizontalOptions="FillAndExpand"
                             Orientation="Horizontal">
                             <Button
-                                BackgroundColor="White"
-                                BorderColor="{StaticResource PrimaryColor}"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource PrimaryColor}"
                                 BorderRadius="0"
                                 BorderWidth="1"
                                 Clicked="HideableToolbarItem_Clicked"
@@ -669,10 +668,10 @@
                                 HorizontalOptions="FillAndExpand"
                                 Text="{i18n:TranslateResource Common_Button_Close,
                                                               Converter={StaticResource UpperCaseConverter}}"
-                                TextColor="{StaticResource PrimaryColor}" />
+                                TextColor="{DynamicResource PrimaryColor}" />
 
                             <Button
-                                BackgroundColor="{StaticResource PrimaryColor}"
+                                BackgroundColor="{DynamicResource PrimaryColor}"
                                 BorderRadius="0"
                                 Clicked="Button_Clicked"
                                 Command="{Binding SaveComlumnHideCommand}"
@@ -682,7 +681,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 Text="{i18n:TranslateResource Common_Button_SaveShowHideColumn,
                                                               Converter={StaticResource UpperCaseConverter}}"
-                                TextColor="{StaticResource WhiteColor}" />
+                                TextColor="{DynamicResource WhiteColor}" />
                         </StackLayout>
                     </Grid>
                 </Frame>

@@ -1,5 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Resource;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -268,7 +268,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     numberrow += 1;
                     numbercolum = 1;
-                    // Số thứ tự 
+                    // Số thứ tự
                     worksheet.Range[numberrow, numbercolum].Text = data[i].OrderNumber.ToString();
 
                     //  thời gian bắt đầu
@@ -313,14 +313,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 worksheet.Range[4, 1, numberrow, numbercolum].BorderAround();
                 worksheet.Range[4, 1, numberrow, numbercolum].BorderInside(ExcelLineStyle.Thin, ExcelKnownColors.Black);
-
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
-
 
         public override void InitForm()
         {

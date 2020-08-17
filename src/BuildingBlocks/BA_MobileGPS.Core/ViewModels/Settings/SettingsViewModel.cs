@@ -1,8 +1,8 @@
-﻿using BA_MobileGPS.Core.Resource;
+﻿using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
-
+using Prism.Commands;
 using Prism.Navigation;
 
 using System.Collections.ObjectModel;
@@ -25,6 +25,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SaveSettingsCommand { get; private set; }
         public ICommand PushToSettingMapCommand { get; private set; }
         public ICommand PushToSettingReceiveAlertCommand { get; private set; }
+        public ICommand PushToSettingThemeCommand { get; }
 
         public SettingsViewModel(INavigationService navigationService, IUserService userService) : base(navigationService)
         {
@@ -33,6 +34,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SaveSettingsCommand = new Command(SaveSettings);
             PushToSettingMapCommand = new Command(PushToSettingMap);
             PushToSettingReceiveAlertCommand = new Command(PushToSettingReceiveAlert);
+            PushToSettingThemeCommand = new DelegateCommand(PushToSettingTheme);
         }
 
         public override void OnPageAppearingFirstTime()
@@ -123,6 +125,14 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(async () =>
             {
                 await NavigationService.NavigateAsync("AlertConfigSettingPage", useModalNavigation: false);
+            });
+        }
+
+        private void PushToSettingTheme()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("SettingThemePage", useModalNavigation: false);
             });
         }
     }

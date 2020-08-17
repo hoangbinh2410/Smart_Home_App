@@ -16,10 +16,16 @@
             <Setter Property="VerticalOptions" Value="CenterAndExpand" />
             <Setter Property="HorizontalOptions" Value="StartAndExpand" />
             <Setter Property="VerticalTextAlignment" Value="Center" />
+            <Setter Property="TextColor" Value="{DynamicResource TextPrimaryColor}" />
         </Style>
     </ContentView.Resources>
-    <Grid BackgroundColor="{StaticResource WhiteColor}" RowDefinitions="150,*,Auto">
-        <Grid BackgroundColor="{StaticResource PrimaryColor}" />
+    <Grid BackgroundColor="{DynamicResource WhiteColor}" RowDefinitions="150,*,Auto">
+        <Grid Padding="0">
+            <ff:CachedImage
+                Aspect="AspectFill"
+                Source="bg_Account.png"
+                VerticalOptions="FillAndExpand" />
+        </Grid>
         <StackLayout
             Margin="30,0,0,20"
             Orientation="Horizontal"
@@ -51,9 +57,8 @@
                     FontFamily="{StaticResource myFontLatoBold}"
                     LineBreakMode="WordWrap"
                     Text="{Binding UserInfo.FullName, Converter={StaticResource UpperCaseConverter}}"
-                    TextColor="{AppThemeBinding Light={StaticResource WhiteColor},
-                                                Dark={StaticResource WhiteColor}}" />
-                <Label Text="{Binding UserInfo.PhoneNumber}" TextColor="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
+                    TextColor="{DynamicResource WhiteColor}" />
+                <Label Text="{Binding UserInfo.PhoneNumber}" TextColor="{DynamicResource WhiteColor}" />
                 <StackLayout
                     Padding="0"
                     Orientation="Horizontal"
@@ -61,10 +66,10 @@
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding PushToProfileCommand}" NumberOfTapsRequired="1" />
                     </StackLayout.GestureRecognizers>
-                    <Label Text="{i18n:TranslateResource AccountTab_Label_MyInformation}" TextColor="{AppThemeBinding Light={StaticResource WhiteColor}, Dark={StaticResource WhiteColor}}" />
+                    <Label Text="{i18n:TranslateResource AccountTab_Label_MyInformation}" TextColor="{DynamicResource WhiteColor}" />
                     <controls:IconView
                         Margin="0,2,0,0"
-                        Foreground="White"
+                        Foreground="{DynamicResource WhiteColor}"
                         HeightRequest="10"
                         Source="ic_next.png"
                         WidthRequest="10" />
