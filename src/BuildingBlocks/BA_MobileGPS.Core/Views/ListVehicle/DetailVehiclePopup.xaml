@@ -51,7 +51,7 @@
                 </controls:IconView>
             </Grid>
             <BoxView StyleClass="SlimLine" />
-            <Grid Padding="20,10,20,15" ColumnDefinitions="*,*,*">
+            <Grid Padding="20,10,20,15" ColumnDefinitions="*,*,*,*">
                 <Grid.Resources>
                     <Style TargetType="pancakeview:PancakeView">
                         <Setter Property="HeightRequest" Value="60" />
@@ -113,6 +113,21 @@
                         <controls:IconView Source="ic_guarantee.png" />
                     </pancakeview:PancakeView>
                     <Label Text="Thông tin phương tiện" />
+                </StackLayout>
+                <StackLayout Grid.Column="3" Spacing="10">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigativeCommand}" CommandParameter="Camera" />
+                    </StackLayout.GestureRecognizers>
+                    <pancakeview:PancakeView>
+                        <pancakeview:PancakeView.Shadow>
+                            <pancakeview:DropShadow
+                                BlurRadius="2"
+                                Offset="0,0"
+                                Color="Black" />
+                        </pancakeview:PancakeView.Shadow>
+                        <controls:IconView Source="ic_guarantee.png" />
+                    </pancakeview:PancakeView>
+                    <Label Text="Camera" />
                 </StackLayout>
             </Grid>
         </StackLayout>
