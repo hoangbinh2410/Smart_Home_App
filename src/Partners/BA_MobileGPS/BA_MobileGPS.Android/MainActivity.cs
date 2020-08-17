@@ -4,7 +4,7 @@ using Android.OS;
 
 using BA_MobileGPS.Core.Droid;
 using BA_MobileGPS.Droid.Setup;
-
+using LibVLCSharp.Forms.Platforms.Android;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Droid
@@ -21,7 +21,7 @@ namespace BA_MobileGPS.Droid
             base.OnCreate(bundle);
 
             Forms.SetFlags(new string[] { "CarouselView_Experimental", "IndicatorView_Experimental", "FastRenderers_Experimental", "AppTheme_Experimental" });
-
+           
             Forms.Init(this, bundle);
 
             ToolSetup.Initialize(this, bundle);
