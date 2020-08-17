@@ -96,7 +96,8 @@
                                     CornerRadius="21"
                                     HeightRequest="42"
                                     LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
-                                    TranslationX="{OnPlatform Android=-1.2,iOS=-2.2}"
+                                    TranslationX="{OnPlatform Android=-1.2,
+                                                              iOS=-2.2}"
                                     WidthRequest="42">
                                     <controls:IconView
                                         Margin="9"
@@ -123,7 +124,7 @@
                         HasError="{Binding Password.IsNotValid}"
                         StyleClass="LoginEntry">
                         <input:SfTextInputLayout.LeadingView>
-                            <sh:Shadows 
+                            <sh:Shadows
                                 CornerRadius="21"
                                 HeightRequest="42"
                                 WidthRequest="42">
@@ -140,7 +141,8 @@
                                     CornerRadius="21"
                                     HeightRequest="42"
                                     LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
-                                    TranslationX="{OnPlatform Android=-1.2,iOS=-2.2}"
+                                    TranslationX="{OnPlatform Android=-1.2,
+                                                              iOS=-2.2}"
                                     WidthRequest="42">
                                     <controls:IconView
                                         Margin="9"
@@ -170,13 +172,15 @@
                             <buttons:SfCheckBox
                                 BorderWidth="1"
                                 CornerRadius="0"
+                                FontFamily="{StaticResource myFontFamily}"
                                 IsChecked="False"
                                 UncheckedColor="{DynamicResource LoginTextColor}" />
                             <buttons:SfCheckBox
                                 BorderWidth="0.5"
                                 CheckedColor="Transparent"
                                 CornerRadius="0"
-                                FontSize="{OnPlatform Android=13.5,
+                                FontFamily="{StaticResource myFontFamily}"
+                                FontSize="{OnPlatform Android=13,
                                                       iOS=14}"
                                 IsChecked="{Binding Rememberme}"
                                 Text="{i18n:TranslateResource Login_Checkbox_Autologin}"
