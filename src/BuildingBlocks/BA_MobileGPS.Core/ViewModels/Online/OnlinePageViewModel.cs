@@ -29,6 +29,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand ChangeMapTypeCommand { get; private set; }
         public ICommand PushToRouterPageCommand { get; private set; }
         public ICommand PushToFABPageCommand { get; private set; }
+
+        public ICommand PushDirectvehicleOnlineCommand { get; private set; }
         public DelegateCommand<CameraIdledEventArgs> CameraIdledCommand { get; private set; }
         public DelegateCommand PushToDetailPageCommand { get; private set; }
         public ICommand PushtoListVehicleOnlineCommand { get; private set; }
@@ -58,12 +60,14 @@ namespace BA_MobileGPS.Core.ViewModels
             if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
             {
                 mapType = MapType.Hybrid;
-                ColorMapType = (Color)App.Current.Resources["GrayColor2"];
+                ColorMapType = (Color)App.Current.Resources["WhiteColor"];
+                BackgroundMapType = (Color)App.Current.Resources["PrimaryColor"];
             }
             else
             {
                 mapType = MapType.Street;
                 ColorMapType = (Color)App.Current.Resources["PrimaryColor"];
+                BackgroundMapType = (Color)App.Current.Resources["WhiteColor"];
             }
             IsShowConfigLanmark = CompanyConfigurationHelper.IsShowConfigLanmark;
             zoomLevel = MobileUserSettingHelper.Mapzoom;
@@ -75,6 +79,7 @@ namespace BA_MobileGPS.Core.ViewModels
             PushToDetailPageCommand = new DelegateCommand(PushtoDetailPage);
             CameraIdledCommand = new DelegateCommand<CameraIdledEventArgs>(UpdateMapInfo);
             GoDistancePageCommand = new DelegateCommand(GoDistancePage);
+            PushDirectvehicleOnlineCommand = new DelegateCommand(PushDirectvehicleOnline);
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -114,6 +119,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private Color colorMapType;
         public Color ColorMapType { get => colorMapType; set => SetProperty(ref colorMapType, value); }
+
+        private Color backgroundMapType;
+        public Color BackgroundMapType { get => backgroundMapType; set => SetProperty(ref backgroundMapType, value); }
 
         private List<int> selectedVehicleGroup;
         public List<int> SelectedVehicleGroup { get => selectedVehicleGroup; set => SetProperty(ref selectedVehicleGroup, value); }
@@ -170,6 +178,34 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Property
 
         #region Private Method
+
+        [Obsolete]
+        private void PushDirectvehicleOnline()
+        {
+            TryExecute(async () =>
+            {
+                // Namth: thêm đoạn check quyền location thì mới cho phép tiếp tục hoạt động.
+                if (await PermissionHelper.CheckLocationPermissions())
+                {
+                    string map = string.Empty;
+                    var mylocation = await LocationHelper.GetGpsLocation();
+                    if (mylocation != null)
+                    {
+                        map = string.Format("https://www.google.com/maps/dir/{0};{1}/{2};{3}", mylocation.Latitude.ToString(), mylocation.Longitude.ToString(), carActive.Lat.ToString(), carActive.Lng.ToString());
+                    }
+                    else
+                    {
+                        map = string.Format("https://www.google.com/maps/dir/{0};{1}", carActive.Lat.ToString(), carActive.Lng.ToString());
+                    }
+                    Device.OpenUri(new Uri(ReplaceMapURL(map)));
+                }
+            });
+        }
+
+        public string ReplaceMapURL(string map)
+        {
+            return map.Replace(",", ".").Replace(";", ",");
+        }
 
         public void GetLandmark(List<UserLandmarkGroupRespone> listmark)
         {
@@ -400,11 +436,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (MapType == MapType.Street)
                 {
                     MapType = MapType.Hybrid;
-                    ColorMapType = (Color)App.Current.Resources["GrayColor2"];
+                    ColorMapType = (Color)App.Current.Resources["WhiteColor"];
+                    BackgroundMapType = (Color)App.Current.Resources["PrimaryColor"];
                 }
                 else
                 {
                     ColorMapType = (Color)App.Current.Resources["PrimaryColor"];
+                    BackgroundMapType = (Color)App.Current.Resources["WhiteColor"];
                     MapType = MapType.Street;
                 }
                 byte maptype = 1;
