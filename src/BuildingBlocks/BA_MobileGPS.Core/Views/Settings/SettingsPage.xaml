@@ -72,7 +72,7 @@
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
-                    <Grid
+                    <!--<Grid
                         Padding="10,0"
                         ColumnDefinitions="*,Auto"
                         HeightRequest="40"
@@ -90,7 +90,7 @@
                             Text="{x:Static fontawesome:FontAwesomeIcons.AngleRight}"
                             TextColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="Center" />
-                    </Grid>
+                    </Grid>-->
                 </StackLayout>
 
                 <StackLayout Spacing="0">
