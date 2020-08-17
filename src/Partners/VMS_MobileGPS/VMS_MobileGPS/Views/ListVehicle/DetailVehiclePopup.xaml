@@ -82,7 +82,7 @@
                         </pancakeview:PancakeView.Shadow>
                         <controls:IconView Source="ic_mornitoring.png" />
                     </pancakeview:PancakeView>
-                    <Label Text="Giám sát phương tiện" />
+                    <Label Text="{i18n:TranslateResource Online_Label_TitlePage}" />
                 </StackLayout>
                 <StackLayout Grid.Column="1" Spacing="10">
                     <StackLayout.GestureRecognizers>
@@ -97,7 +97,7 @@
                         </pancakeview:PancakeView.Shadow>
                         <controls:IconView Source="ic_route.png" />
                     </pancakeview:PancakeView>
-                    <Label Text="Hải trình" />
+                    <Label Text="{i18n:TranslateResource Route_Label_TitleVMS}" />
                 </StackLayout>
                 <StackLayout Grid.Column="2" Spacing="10">
                     <StackLayout.GestureRecognizers>
@@ -112,7 +112,7 @@
                         </pancakeview:PancakeView.Shadow>
                         <controls:IconView Margin="20" Source="ic_distance2.png" />
                     </pancakeview:PancakeView>
-                    <Label Text="Khoảng cách" />
+                    <Label Text="{i18n:TranslateResource Route_Label_DistanceTitle}" />
                 </StackLayout>
                 <StackLayout Grid.Column="3" Spacing="10">
                     <StackLayout.GestureRecognizers>
@@ -127,7 +127,7 @@
                         </pancakeview:PancakeView.Shadow>
                         <controls:IconView Source="ic_guarantee.png" />
                     </pancakeview:PancakeView>
-                    <Label Text="Thông tin phương tiện" />
+                    <Label Text="{i18n:TranslateResource DetailVehicle_Label_TilePage}" />
                 </StackLayout>
             </Grid>
         </StackLayout>
