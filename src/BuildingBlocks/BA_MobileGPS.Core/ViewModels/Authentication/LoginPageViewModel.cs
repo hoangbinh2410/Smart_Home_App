@@ -83,14 +83,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 Password.Value = Settings.Password;
                 if (Settings.Rememberme)
                 {
-                    rememberme = true;
+                    Rememberme = true;
                 }
             }
             else
             {
                 UserName.Value = string.Empty;
                 Password.Value = string.Empty;
-                rememberme = false;
+                Rememberme = false;
             }
             PingServerStatus();
         }
