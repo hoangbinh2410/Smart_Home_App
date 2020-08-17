@@ -108,6 +108,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     GoRoutePage(currentVehicle);
                 }
+                else if (action == "Camera")
+                {
+                    GotoStreamPage(currentVehicle);
+                }
             }
         }
 
@@ -600,7 +604,19 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        public void GoDistancePage(VehicleOnlineViewModel selected)
+     
+     
+
+        private void ShowInfoMessageDetailBAP(string content)
+        {
+            SafeExecute(async () =>
+            {
+                var title = MobileResource.Common_Message_Warning;
+                await popupServices.ShowNotificatonPopup(title, content);
+            });
+        }
+
+        public void GotoStreamPage(VehicleOnlineViewModel selected)
         {
             SafeExecute(async () =>
             {
@@ -610,16 +626,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.VehicleOnline, param }
                 };
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/DistancePage", parameters, true);
-            });
-        }
-
-        private void ShowInfoMessageDetailBAP(string content)
-        {
-            SafeExecute(async () =>
-            {
-                var title = MobileResource.Common_Message_Warning;
-                await popupServices.ShowNotificatonPopup(title, content);
+                await NavigationService.NavigateAsync("NavigationPage/CameraStream", parameters, true);
             });
         }
 
