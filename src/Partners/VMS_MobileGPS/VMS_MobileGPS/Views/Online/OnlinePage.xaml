@@ -159,7 +159,7 @@
             </pancake:PancakeView>
             <pancake:PancakeView
                 Padding="0"
-                BackgroundColor="{DynamicResource WhiteColor}"
+                BackgroundColor="{Binding BackgroundMapType}"
                 CornerRadius="25"
                 HeightRequest="50"
                 WidthRequest="50">
