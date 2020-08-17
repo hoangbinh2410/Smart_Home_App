@@ -37,13 +37,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
             // Hướng dẫn sử dụng
-            list.Add(new LoginPopupItem
-            {
-                Title = MobileResource.Login_Popup_Manual,
-                Icon = "ic_support.png",
-                Url = "NavigationPage/HelperPage",
-                ItemType = LoginPopupItemType.Manual,
-            });
+            //list.Add(new LoginPopupItem
+            //{
+            //    Title = MobileResource.Login_Popup_Manual,
+            //    Icon = "ic_support.png",
+            //    Url = "NavigationPage/HelperPage",
+            //    ItemType = LoginPopupItemType.Manual,
+            //});
             // Thông tin bảo hành
             list.Add(new LoginPopupItem
             {
