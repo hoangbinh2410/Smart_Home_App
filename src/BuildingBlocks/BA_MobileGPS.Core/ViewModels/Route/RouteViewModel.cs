@@ -28,6 +28,7 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         #region Contructor
 
+        private readonly IGeocodeService geocodeService;
         private readonly IVehicleRouteService vehicleRouteService;
         private readonly IDisplayMessage displayMessage;
 
@@ -49,21 +50,24 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand FastEndCommand { get; }
         public ICommand ChangeSpeedCommand { get; }
 
-        public RouteViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService, IDisplayMessage displayMessage)
+        public RouteViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService, IDisplayMessage displayMessage, IGeocodeService geocodeService)
            : base(navigationService)
         {
             this.vehicleRouteService = vehicleRouteService;
             this.displayMessage = displayMessage;
+            this.geocodeService = geocodeService;
 
             if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
             {
                 mapType = MapType.Hybrid;
-                colorMapType = (Color)App.Current.Resources["GrayColor"];
+                ColorMapType = (Color)App.Current.Resources["WhiteColor"];
+                BackgroundMapType = (Color)App.Current.Resources["PrimaryColor"];
             }
             else
             {
                 mapType = MapType.Street;
-                colorMapType = (Color)App.Current.Resources["PrimaryColor"];
+                ColorMapType = (Color)App.Current.Resources["PrimaryColor"];
+                BackgroundMapType = (Color)App.Current.Resources["WhiteColor"];
             }
 
             TimeSelectedCommand = new Command<string>(TimeSelected);
@@ -167,8 +171,11 @@ namespace BA_MobileGPS.Core.ViewModels
         private MapType mapType;
         public MapType MapType { get => mapType; set => SetProperty(ref mapType, value); }
 
-        private Color colorMapType = (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor"];
+        private Color colorMapType = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
         public Color ColorMapType { get => colorMapType; set => SetProperty(ref colorMapType, value); }
+
+        private Color backgroundMapType = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+        public Color BackgroundMapType { get => backgroundMapType; set => SetProperty(ref backgroundMapType, value); }
 
         private Color findCarColor = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
         public Color FindCarColor { get => findCarColor; set => SetProperty(ref findCarColor, value); }
@@ -283,12 +290,14 @@ namespace BA_MobileGPS.Core.ViewModels
             if (MapType == MapType.Street)
             {
                 MapType = MapType.Hybrid;
-                ColorMapType = (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor2"];
+                ColorMapType = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
+                BackgroundMapType = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
             }
             else
             {
-                MapType = MapType.Street;
                 ColorMapType = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+                BackgroundMapType = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
+                MapType = MapType.Street;
             }
         }
 
@@ -798,14 +807,28 @@ namespace BA_MobileGPS.Core.ViewModels
                 args.Handled = true;
                 return;
             }
-            args.Pin.Address = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(args.Pin.Position.Latitude), GeoHelper.LongitudeToDergeeMinSec(args.Pin.Position.Longitude));
-            args.Handled = false;
 
-            //if (GetControl<Map>("map") is Map map)
-            //{
-            //    AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(args.Pin.Position), TimeSpan.FromMilliseconds(100));
-            //    map.SelectedPin = args.Pin;
-            //}
+            args.Handled = true;
+
+            if (ctsAddress != null)
+                ctsAddress.Cancel();
+
+            ctsAddress = new CancellationTokenSource();
+
+            Task.Run(async () =>
+            {
+                if (ctsAddress.IsCancellationRequested)
+                    throw new Exception();
+                return await geocodeService.GetAddressByLatLng(args.Pin.Position.Latitude.ToString(), args.Pin.Position.Longitude.ToString());
+            }, ctsAddress.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
+            {
+                if (task.Status == TaskStatus.RanToCompletion && !ctsAddress.IsCancellationRequested)
+                {
+                    args.Pin.Address = task.Result;
+                }
+            }));
+
+            args.Handled = false;
         }
 
         private void PlayStop()
@@ -1130,7 +1153,11 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             ColorMapType = MapType == MapType.Street
                 ? (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"]
-                : (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor2"];
+                : (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
+
+            BackgroundMapType = MapType == MapType.Street
+                ? (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"]
+                : (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
 
             FindCarColor = IsWatching
                 ? (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor2"]
