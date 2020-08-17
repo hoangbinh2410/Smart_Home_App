@@ -255,12 +255,14 @@
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Grid.Row="2"
-                        Margin="15,0,15,-150"
+                        Margin="{OnPlatform Android='15,0,15,0',
+                                            iOS='15,0,15,-180'}"
                         CornerRadius="15,15,0,0"
                         HasShadow="False">
                         <ff:CachedImage
                             Aspect="AspectFill"
-                            HeightRequest="300"
+                            HeightRequest="{OnPlatform Android=200,
+                                                       iOS=350}"
                             StyleClass="HomePageBotImage" />
                     </pancake:PancakeView>
                 </Grid>
