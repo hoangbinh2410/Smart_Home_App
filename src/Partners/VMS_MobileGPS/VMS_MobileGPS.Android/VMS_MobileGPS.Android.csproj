@@ -540,10 +540,16 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\bg_Account.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\NoPhotos.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\NoItem.svg" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadUnhandledDeviceExceptionVMS_MobileGPSAndroidHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionVMS_MobileGPSAndroidHideInfoBar="True" />
+      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionVMS_MobileGPSAndroidHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionVMS_MobileGPSAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
