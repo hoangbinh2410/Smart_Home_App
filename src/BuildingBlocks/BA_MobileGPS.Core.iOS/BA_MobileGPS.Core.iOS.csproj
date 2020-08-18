@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDelegate.cs" />
+    <Compile Include="CustomRenderer\CameraStreamRenderer.cs" />
     <Compile Include="CustomRenderer\ContentPageRenderer.cs" />
     <Compile Include="CustomRenderer\CustomEditorRenderer.cs" />
     <Compile Include="CustomRenderer\EntryMinusRenderer.cs" />

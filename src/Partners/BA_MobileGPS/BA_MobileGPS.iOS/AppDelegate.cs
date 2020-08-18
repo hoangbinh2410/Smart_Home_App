@@ -1,8 +1,8 @@
 ﻿using BA_MobileGPS.Core.iOS;
 using BA_MobileGPS.Core.iOS.Setup;
-
+using BA_MobileGPS.Core.Views;
 using Foundation;
-
+using System.Linq;
 using UIKit;
 using Xamarin.Forms;
 
@@ -42,5 +42,7 @@ namespace BA_MobileGPS.iOS
 
             return base.FinishedLaunching(app, options);
         }
+
+       
     }
 }

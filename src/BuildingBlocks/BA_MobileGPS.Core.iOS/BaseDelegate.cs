@@ -1,8 +1,9 @@
 ﻿using BA_MobileGPS.Core.iOS.DependencyServices;
+using BA_MobileGPS.Core.Views;
 using Foundation;
 using Prism;
 using Prism.Ioc;
-
+using System.Linq;
 using UIKit;
 
 using UserNotifications;
@@ -52,6 +53,16 @@ namespace BA_MobileGPS.Core.iOS
                 containerRegistry.RegisterInstance<ITooltipService>(new iOSTooltipService());
                 containerRegistry.RegisterInstance<IDownloader>(new IosDownloader());
             }
+        }
+
+        public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, UIWindow forWindow)
+        {
+            var mainPage = Xamarin.Forms.Application.Current.MainPage;
+            if (mainPage.Navigation.NavigationStack.Last() is CameraStream)
+            {
+                return UIInterfaceOrientationMask.AllButUpsideDown;
+            }
+            return UIInterfaceOrientationMask.Portrait;
         }
     }
 }

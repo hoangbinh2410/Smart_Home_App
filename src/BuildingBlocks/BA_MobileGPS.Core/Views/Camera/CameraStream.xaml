@@ -42,7 +42,7 @@
         </Grid>
     </NavigationPage.TitleView>
     <Grid>
-        <vlc:MediaPlayerElement
+        <vlc:MediaPlayerElement 
             x:Name="media"
             HorizontalOptions="Fill"
             LibVLC="{Binding LibVLC}"
@@ -86,14 +86,7 @@
                                         Spacing="0">
                                         <Slider x:Name="SeekBar" Style="{TemplateBinding SeekBarStyle}" />
                                     </StackLayout>
-                                    <StackLayout Orientation="Horizontal" Style="{TemplateBinding ButtonBarStyle}">
-                                        <StackLayout
-                                            HorizontalOptions="Start"
-                                            Orientation="Horizontal"
-                                            VerticalOptions="Center">
-                                            <Button x:Name="AudioTracksSelectionButton" Style="{TemplateBinding AudioTracksSelectionButtonStyle}" />
-                                            <Button x:Name="ClosedCaptionsSelectionButton" Style="{TemplateBinding ClosedCaptionsSelectionButtonStyle}" />
-                                        </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
                                         <ContentPresenter
                                             Content="{TemplateBinding ButtonBarStartArea}"
                                             HorizontalOptions="Start"
@@ -102,10 +95,8 @@
                                             HorizontalOptions="CenterAndExpand"
                                             Orientation="Horizontal"
                                             VerticalOptions="Center">
-                                            <Button x:Name="RewindButton" Style="{TemplateBinding RewindButtonStyle}" />
                                             <Button x:Name="PlayPauseButton" Style="{TemplateBinding PlayPauseButtonStyle}" />
                                             <Button x:Name="StopButton" Style="{TemplateBinding StopButtonStyle}" />
-                                            <Button x:Name="SeekButton" Style="{TemplateBinding SeekButtonStyle}" />
                                         </StackLayout>
                                         <ContentPresenter
                                             Content="{TemplateBinding ButtonBarEndArea}"
@@ -115,8 +106,13 @@
                                             HorizontalOptions="End"
                                             Orientation="Horizontal"
                                             VerticalOptions="Center">
-                                            <Button x:Name="AspectRatioButton" Style="{TemplateBinding AspectRatioButtonStyle}" />
-                                            <Button x:Name="CastButton" Style="{TemplateBinding CastButtonStyle}" />
+                                            <Button
+                                                x:Name="AspectRatioButton"
+                                                Clicked="AspectRatioButton_Clicked"
+                                                Style="{TemplateBinding AspectRatioButtonStyle}" />
+
+
+
                                         </StackLayout>
                                     </StackLayout>
                                 </StackLayout>
