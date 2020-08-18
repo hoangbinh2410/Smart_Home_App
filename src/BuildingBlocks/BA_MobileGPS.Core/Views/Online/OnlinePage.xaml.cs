@@ -747,35 +747,52 @@ namespace BA_MobileGPS.Core.Views
             }
         }
 
-        private void Getaddress(string lat, string lng)
+        //private void Getaddress(string lat, string lng)
+        //{
+        //    try
+        //    {
+        //        vm.CurrentAddress = MobileResource.Online_Label_Determining;
+        //        Task.Run(async () =>
+        //        {
+        //            return await geocodeService.GetAddressByLatLng(lat, lng);
+        //        }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
+        //        {
+        //            if (task.Status == TaskStatus.RanToCompletion)
+        //            {
+        //                if (!string.IsNullOrEmpty(task.Result))
+        //                {
+        //                    vm.CurrentAddress = task.Result;
+        //                }
+        //            }
+        //            else if (task.IsFaulted)
+        //            {
+        //                Logger.WriteError(MethodBase.GetCurrentMethod().Name, "Error");
+        //            }
+        //        }));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+        //    }
+        //    finally
+        //    {
+        //    }
+        //}
+
+        private async void Getaddress(string lat, string lng)
         {
             try
             {
                 vm.CurrentAddress = MobileResource.Online_Label_Determining;
-                Task.Run(async () =>
+                var address = await geocodeService.GetAddressByLatLng(lat, lng);
+                if (!string.IsNullOrEmpty(address))
                 {
-                    return await geocodeService.GetAddressByLatLng(lat, lng);
-                }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
-                {
-                    if (task.Status == TaskStatus.RanToCompletion)
-                    {
-                        if (!string.IsNullOrEmpty(task.Result))
-                        {
-                            vm.CurrentAddress = task.Result;
-                        }
-                    }
-                    else if (task.IsFaulted)
-                    {
-                        Logger.WriteError(MethodBase.GetCurrentMethod().Name, "Error");
-                    }
-                }));
+                    vm.CurrentAddress = address;
+                }
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-            }
-            finally
-            {
             }
         }
 
