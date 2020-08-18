@@ -17,6 +17,7 @@ using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -471,7 +472,7 @@ namespace BA_MobileGPS.Core.Views
                         {
                             if (carActive)
                             {
-                                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString());
+                                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
                             }
                         });
                         //di chuyển biển số xe
@@ -734,7 +735,7 @@ namespace BA_MobileGPS.Core.Views
 
                 vm.EngineState = StateVehicleExtension.EngineState(carInfo);
 
-                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString());
+                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
 
                 //update active xe mới
                 UpdateBackgroundPinLable(carInfo, true);
@@ -779,15 +780,20 @@ namespace BA_MobileGPS.Core.Views
         //    }
         //}
 
-        private async void Getaddress(string lat, string lng)
+        private async void Getaddress(string lat, string lng, long vehicleID)
         {
             try
             {
+                Debug.Write(string.Format("Getaddress : LAT: {0} , lng: {1}", lat, lng));
                 vm.CurrentAddress = MobileResource.Online_Label_Determining;
                 var address = await geocodeService.GetAddressByLatLng(lat, lng);
                 if (!string.IsNullOrEmpty(address))
                 {
-                    vm.CurrentAddress = address;
+                    if (vm.CarActive.VehicleId == vehicleID)
+                    {
+                        vm.CarActive.CurrentAddress = address;
+                    }
+
                 }
             }
             catch (Exception ex)

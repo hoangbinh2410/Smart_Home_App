@@ -77,7 +77,7 @@
                     VerticalOptions="Center"
                     WidthRequest="20" />
                 <StackLayout Orientation="Horizontal">
-                    <Label LineBreakMode="TailTruncation" Text="{Binding CurrentAddress}" />
+                    <Label LineBreakMode="TailTruncation" Text="{Binding CarActive.CurrentAddress}" />
                 </StackLayout>
             </StackLayout>
         </Grid>

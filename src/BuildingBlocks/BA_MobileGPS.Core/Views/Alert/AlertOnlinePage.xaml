@@ -14,7 +14,6 @@
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     x:Name="this"
-    BackgroundColor="Gray"
     NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
         <ResourceDictionary />
