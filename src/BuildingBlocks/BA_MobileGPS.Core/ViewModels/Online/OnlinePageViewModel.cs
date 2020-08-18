@@ -36,6 +36,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand PushtoListVehicleOnlineCommand { get; private set; }
         public DelegateCommand GoDistancePageCommand { get; private set; }
 
+        [Obsolete]
         public OnlinePageViewModel(INavigationService navigationService,
             IUserService userService, IDetailVehicleService detailVehicleService,IUserLandmarkGroupService userLandmarkGroupService)
             : base(navigationService)
@@ -232,7 +233,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     // Lấy thông tin các điểm theo nhóm điểm công ty
                     var list = await userLandmarkGroupService.GetDataLandmarkByGroupId(keygroup);
 
-                    GetLandmarkName(list);
+                   // GetLandmarkName(list);
 
                     GetLandmarkDisplayBound(list, listmark, false);
 
@@ -245,7 +246,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     // Lấy thông tin các điểm theo nhóm điểm hệ thống
                     var list = await userLandmarkGroupService.GetDataLandmarkByCategory(keycategory);
 
-                    GetLandmarkName(list);
+                   // GetLandmarkName(list);
 
                     GetLandmarkDisplayBound(list, listmark, true);
 
@@ -401,7 +402,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 foreach (var item in list)
                 {
-                    //AddGroundOverlay(item);
+                    AddGroundOverlay(item);
                 }
             });
         }
