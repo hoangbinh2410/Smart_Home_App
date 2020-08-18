@@ -63,7 +63,7 @@
             </StackLayout>
             <ff:CachedImage
                 Grid.Row="0"
-                HeightRequest="60"
+                HeightRequest="50"
                 HorizontalOptions="Center"
                 Source="logo_Login.png"
                 VerticalOptions="EndAndExpand" />
@@ -82,6 +82,7 @@
                             <sh:Shadows
                                 CornerRadius="21"
                                 HeightRequest="42"
+                                Scale="1.01"
                                 WidthRequest="42">
                                 <sh:Shadows.Shades>
                                     <sh:ImmutableShades>
@@ -127,6 +128,7 @@
                             <sh:Shadows
                                 CornerRadius="21"
                                 HeightRequest="42"
+                                Scale="1.01"
                                 WidthRequest="42">
                                 <sh:Shadows.Shades>
                                     <sh:ImmutableShades>
@@ -167,27 +169,32 @@
                         Grid.Row="2"
                         HorizontalOptions="CenterAndExpand"
                         Orientation="Horizontal"
+                        Spacing="0"
                         WidthRequest="300">
-                        <Grid>
+                        <Grid TranslationX="-5">
                             <buttons:SfCheckBox
                                 BorderWidth="1"
                                 CornerRadius="0"
                                 FontFamily="{StaticResource myFontFamily}"
                                 IsChecked="False"
+                                ScaleX="0.8"
+                                ScaleY="0.8"
                                 UncheckedColor="{DynamicResource LoginTextColor}" />
                             <buttons:SfCheckBox
                                 BorderWidth="0.5"
                                 CheckedColor="Transparent"
                                 CornerRadius="0"
-                                FontFamily="{StaticResource myFontFamily}"
-                                FontSize="{OnPlatform Android=13,
-                                                      iOS=14}"
                                 IsChecked="{Binding Rememberme}"
-                                Text="{i18n:TranslateResource Login_Checkbox_Autologin}"
-                                TextColor="{DynamicResource LoginTextColor}"
+                                ScaleX="0.8"
+                                ScaleY="0.8"
                                 TickColor="{DynamicResource LoginTextColor}"
                                 UncheckedColor="Transparent" />
                         </Grid>
+                        <Label
+                            Text="{i18n:TranslateResource Login_Checkbox_Autologin}"
+                            TextColor="{DynamicResource LoginTextColor}"
+                            TranslationX="-7"
+                            VerticalOptions="Center" />
                         <Label
                             HorizontalOptions="EndAndExpand"
                             Text="{i18n:TranslateResource Login_Lable_Forgotpassword}"

@@ -185,6 +185,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.Register<ResourceDictionary, Custom>(Theme.Custom.ToString());
             containerRegistry.RegisterForNavigation<SettingThemePage, SettingThemePageViewModel>("SettingThemePage");
             containerRegistry.RegisterForNavigation<CameraStream, CameraStreamViewModel>("CameraStream");
+            containerRegistry.RegisterForNavigation<RegisterConsultPage, RegisterConsultPageViewModel>("RegisterConsultPage");
         }
     }
 }

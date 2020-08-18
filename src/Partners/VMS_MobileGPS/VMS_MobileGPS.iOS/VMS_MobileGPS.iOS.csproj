@@ -1128,5 +1128,11 @@
   <ItemGroup>
     <BundleResource Include="Resources\bg_Account.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\NoPhotos.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\NoItem.svg" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

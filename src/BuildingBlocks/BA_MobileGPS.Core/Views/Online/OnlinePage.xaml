@@ -168,6 +168,23 @@
                 HeightRequest="50"
                 WidthRequest="50">
                 <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PushDirectvehicleOnlineCommand}" />
+                </pancake:PancakeView.GestureRecognizers>
+                <controls:IconView
+                    Foreground="{DynamicResource PrimaryColor}"
+                    HeightRequest="25"
+                    HorizontalOptions="Center"
+                    Source="direction.png"
+                    VerticalOptions="Center"
+                    WidthRequest="25" />
+            </pancake:PancakeView>
+            <pancake:PancakeView
+                Padding="0"
+                BackgroundColor="{Binding BackgroundMapType}"
+                CornerRadius="25"
+                HeightRequest="50"
+                WidthRequest="50">
+                <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ChangeMapTypeCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
