@@ -796,7 +796,7 @@ namespace BA_MobileGPS.Core.Views
                         {
                             if (vm.CarActive.VehicleId == vehicleID)
                             {
-                                vm.CarActive.CurrentAddress = task.Result;
+                                vm.CurrentAddress = task.Result;
                             }
                         }
                     }
