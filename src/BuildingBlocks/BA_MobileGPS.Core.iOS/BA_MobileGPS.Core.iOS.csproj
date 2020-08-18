@@ -1087,9 +1087,6 @@
     <BundleResource Include="Resources\ic_play%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\NoItem.svg" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\ic_bellstand.png" />
   </ItemGroup>
   <ItemGroup>

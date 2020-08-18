@@ -492,4 +492,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\Launch_Screen.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\NoItem.svg" />
+  </ItemGroup>
 </Project>
