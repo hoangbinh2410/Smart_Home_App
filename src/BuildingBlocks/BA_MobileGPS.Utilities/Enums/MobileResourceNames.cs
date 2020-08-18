@@ -103,6 +103,7 @@
         Login_Popup_Manual,
         Login_Popup_Guarantee,
         Login_Popup_RegisterSupport,
+        Login_Popup_Network,
         Login_Popup_BAGPSExperience,
         #endregion Login
 
