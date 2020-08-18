@@ -352,6 +352,45 @@ namespace BA_MobileGPS.Entities
         /// </summary>
         [JsonProperty("77")]
         public string SIMPhoneNumber { set; get; }
+
+        ////////////////////////////////////////
+        /// <summary>
+        /// ẩn hiện với đang đỗ
+        /// </summary>
+        public bool IsShowParkingVehicleNow
+        {
+            get
+            {
+                if (VelocityGPS > 3)
+                {
+                   return false;
+                }
+                else
+                {
+                 
+                    return StopTime != null ? true : false;
+                }
+            }
+        }
+
+        ////////////////////////////////////////
+        /// <summary>
+        /// ẩn hiện với dừng đỗ nổ máy
+        /// </summary>
+        public bool IsShowParkingTurnOnVehicle
+        {
+            get
+            {
+                if (VelocityGPS > 3)
+                {
+                    return false;
+                }
+                else
+                {
+                    return StopTime != null ? true : false;
+                }
+            }
+        }
     }
 
     public class VehicleHtn

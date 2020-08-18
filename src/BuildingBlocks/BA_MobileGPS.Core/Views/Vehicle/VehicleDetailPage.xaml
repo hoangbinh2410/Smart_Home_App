@@ -33,7 +33,7 @@
                     <!--  phần thu phí trong trường hợp xe nợ phí  -->
                     <Grid
                         Grid.Row="0"
-                        IsVisible="{Binding IsVisibleInforChargeMoney}"
+                        IsVisible="{Binding InforDetail.IsExpried}"
                         RowSpacing="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -161,7 +161,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.SIMPhoneNumber}"
+                                            Text="{Binding InforDetail.SIMPhoneNumber}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -209,7 +209,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.IMEI}"
+                                            Text="{Binding InforDetail.IMEI}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -256,7 +256,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.JoinSystemDate, Converter={StaticResource DateConverter}}"
+                                            Text="{Binding InforDetail.JoinSystemDate, Converter={StaticResource DateConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -272,7 +272,7 @@
                                     <!--  Ngày hết hạn  -->
                                     <Grid
                                         Grid.Row="3"
-                                        IsVisible="{Binding IsMCExpried}"
+                                        IsVisible="{Binding InforDetail.MCExpried, Converter={StaticResource HasDataConverter}}"
                                         RowSpacing="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -306,7 +306,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.MCExpried, Converter={StaticResource DateConverter}}"
+                                            Text="{Binding InforDetail.MCExpried, Converter={StaticResource DateConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -408,7 +408,6 @@
                                                 Source="ic_vehicleplate.png"
                                                 VerticalOptions="Center"
                                                 WidthRequest="20" />
-                                            <!--  {Binding InforCommonVehicle.IconVehicle}  -->
                                             <Label
                                                 Text="{i18n:TranslateResource DetailVehicle_Label_VehiclePlate}"
                                                 VerticalOptions="Center"
@@ -419,7 +418,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.VehiclePlate}"
+                                            Text="{Binding InforDetail.VehiclePlate}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -462,9 +461,10 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
+                                            HorizontalTextAlignment="Start"
                                             LineBreakMode="WordWrap"
                                             MaxLines="2"
-                                            Text="{Binding InforCommonVehicle.Address}"
+                                            Text="{Binding InforDetail.Address}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -511,7 +511,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.Time, Converter={StaticResource DateTimeConverter}}"
+                                            Text="{Binding InforDetail.VehicleTime, Converter={StaticResource DateTimeConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -558,7 +558,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.Speed, Converter={StaticResource VelocityConverter}}"
+                                            Text="{Binding InforDetail.VelocityGPS, Converter={StaticResource VelocityConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -652,7 +652,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.KilometInToDay, Converter={StaticResource KmConverter}}"
+                                            Text="{Binding InforDetail.TotalKm, Converter={StaticResource KmConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -668,7 +668,7 @@
                                     <!--  KM tích luỹ  -->
                                     <Grid
                                         Grid.Row="6"
-                                        IsVisible="{Binding IsShowkilometAccumulated}"
+                                        IsVisible="{Binding InforDetail.KilometAccumulated, Converter={StaticResource HasDataConverter}}"
                                         RowSpacing="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -702,7 +702,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.KilometAccumulated, Converter={StaticResource KmConverter}}"
+                                            Text="{Binding InforDetail.KilometAccumulated, Converter={StaticResource KmConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -718,7 +718,7 @@
                                     <!--  Dừng đỗ  -->
                                     <Grid
                                         Grid.Row="7"
-                                        IsVisible="{Binding IsShowcountStopVehicle}"
+                                        IsVisible="{Binding InforDetail.StopCount, Converter={StaticResource HasDataConverter}}"
                                         RowSpacing="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -752,7 +752,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.CountStopVehicle, Converter={StaticResource CountStopParkingConverter}}"
+                                            Text="{Binding InforDetail.StopCount, Converter={StaticResource CountStopParkingConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -764,7 +764,6 @@
                                             HorizontalOptions="FillAndExpand"
                                             VerticalOptions="Start" />
                                     </Grid>
-
                                     <!--  Đang đỗ  -->
                                     <Grid
                                         Grid.Row="8"
@@ -802,7 +801,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.ParkingVehicleNow, Converter={StaticResource MinutesToStringShortConverter}}"
+                                            Text="{Binding InforDetail.StopTime, Converter={StaticResource MinutesToStringShortConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -818,7 +817,7 @@
                                     <!--  Dừng đỗ nổ máy  -->
                                     <Grid
                                         Grid.Row="9"
-                                        IsVisible="{Binding IsShowParkingTurnOnVehecle}"
+                                        IsVisible="{Binding IsShowParkingTurnOnVehicle}"
                                         RowSpacing="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -852,7 +851,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.ParkingTurnOnVehecle, Converter={StaticResource MinutesOfDrivingTimeConverter}}"
+                                            Text="{Binding InforDetail.ParkingTurnOnVehecle, Converter={StaticResource MinutesOfDrivingTimeConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -899,7 +898,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.StatusEngineer, Converter={StaticResource AirConditionerConverter}}"
+                                            Text="{Binding InforDetail.StatusEngineer, Converter={StaticResource AirConditionerConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -915,7 +914,7 @@
                                     <!--  Số lần mở cửa  -->
                                     <Grid
                                         Grid.Row="11"
-                                        IsVisible="{Binding IsShowCountOpenDoor}"
+                                        IsVisible="{Binding InforDetail.VehicleHtn.DoorOpenCount, Converter={StaticResource HasDataConverter}}"
                                         RowSpacing="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -949,7 +948,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.CountOpenDoor}"
+                                            Text="{Binding InforDetail.VehicleHtn.DoorOpenCount}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -965,7 +964,7 @@
                                     <!--  Ben / Cẩu  -->
                                     <Grid
                                         Grid.Row="12"
-                                        IsVisible="{Binding IsShowCrane}"
+                                        IsVisible="{Binding InforDetail.Crane, Converter={StaticResource HasDataConverter}}"
                                         RowSpacing="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -999,7 +998,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.StatusEngineer, Converter={StaticResource CraneConverter}}"
+                                            Text="{Binding InforDetail.StatusEngineer, Converter={StaticResource CraneConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -1015,7 +1014,7 @@
                                     <!--  Nhiên liệu  -->
                                     <Grid
                                         Grid.Row="13"
-                                        IsVisible="{Binding IsShowFuel}"
+                                        IsVisible="{Binding InforDetail.VehicleNl.IsUseFuel}"
                                         RowSpacing="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -1049,7 +1048,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.Fuel}"
+                                            Text="{Binding Fuel}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -1065,7 +1064,7 @@
                                     <!--  Nhiệt độ  -->
                                     <Grid
                                         Grid.Row="14"
-                                        IsVisible="{Binding IsShowTemperature}"
+                                        IsVisible="{Binding Temperature, Converter={StaticResource HasDataConverter}}"
                                         RowSpacing="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -1099,7 +1098,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.Temperature}"
+                                            Text="{Binding Temperature}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -1115,7 +1114,7 @@
                                     <!--  Bê tông  -->
                                     <Grid
                                         Grid.Row="15"
-                                        IsVisible="{Binding IsShowConcrete}"
+                                        IsVisible="{Binding InforDetail.ConcretePump, Converter={StaticResource HasDataConverter}}"
                                         RowSpacing="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -1149,7 +1148,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.StatusEngineer, Converter={StaticResource ConcreteConverter}}"
+                                            Text="{Binding InforDetail.StatusEngineer, Converter={StaticResource ConcreteConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -1196,7 +1195,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.MemoryStick, Converter={StaticResource MemoryStickConverter}}"
+                                            Text="{Binding InforDetail.VehicleHtn.MemoryStatusLabel, Converter={StaticResource MemoryStickConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -1212,7 +1211,7 @@
                                     <!--  Cửa  -->
                                     <Grid
                                         Grid.Row="17"
-                                        IsVisible="{Binding IsShowDoor}"
+                                        IsVisible="{Binding InforDetail.Door, Converter={StaticResource HasDataConverter}}"
                                         RowSpacing="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -1246,7 +1245,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.StatusEngineer, Converter={StaticResource DoorOpenConverter}}"
+                                            Text="{Binding InforDetail.StatusEngineer, Converter={StaticResource DoorOpenConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -1342,7 +1341,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforBGT.DriverName}"
+                                            Text="{Binding InforDetail.VehicleHtn.DriverName}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -1390,7 +1389,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforBGT.DriverLicense}"
+                                            Text="{Binding InforDetail.VehicleHtn.DriverLicense}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -1437,7 +1436,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforBGT.PhoneNumber}"
+                                            Text="{Binding InforDetail.VehicleHtn.MobileNumber}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -1484,7 +1483,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.MinutesOfDrivingTimeContinuous, Converter={StaticResource MinutesOfDrivingTimeConverter}}"
+                                            Text="{Binding InforDetail.VehicleHtn.MinutesOfDrivingTimeContinuous, Converter={StaticResource MinutesOfDrivingTimeConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -1531,7 +1530,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.MinutesOfDrivingTimeInDay, Converter={StaticResource MinutesOfDrivingTimeConverter}}"
+                                            Text="{Binding InforDetail.VehicleHtn.MinutesOfDrivingTimeInDay, Converter={StaticResource MinutesOfDrivingTimeConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -1578,7 +1577,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforCommonVehicle.SpeedOverCount, Converter={StaticResource CountStopParkingConverter}}"
+                                            Text="{Binding InforDetail.SpeedOverCount, Converter={StaticResource CountStopParkingConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -1624,7 +1623,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforBGT.DepartmentOfManagement}"
+                                            Text="{Binding InforDetail.DepartmentManager}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
