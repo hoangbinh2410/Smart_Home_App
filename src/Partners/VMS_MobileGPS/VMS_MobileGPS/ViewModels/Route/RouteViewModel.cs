@@ -1123,10 +1123,14 @@ namespace VMS_MobileGPS.ViewModels
             MoveToCurrent();
         }
 
-        private void ChangeSpeed()
+        private async void ChangeSpeed()
         {
             if (PlaySpeed >= SPEED_MAX)
             {
+                PlaySpeed = 4;
+                await Task.Delay(1000);
+                PlaySpeed = 2;
+                await Task.Delay(1000);
                 PlaySpeed = 1;
             }
             else
