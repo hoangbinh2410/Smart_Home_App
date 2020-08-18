@@ -126,7 +126,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         break;
 
                     case LoginPopupItemType.RegisterSupport:
-                        _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
+                        _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);                       
                         break;
 
                     case LoginPopupItemType.BAGPSExperience:
