@@ -117,6 +117,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         _ = await NavigationService.NavigateAsync(item.Url);
                         break;
 
+                    case LoginPopupItemType.Network:
+                        await Launcher.OpenAsync(new Uri(item.Url));
+                        break;
+
                     case LoginPopupItemType.Manual:
                         _ = await NavigationService.NavigateAsync(item.Url);
                         break;
@@ -126,7 +130,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         break;
 
                     case LoginPopupItemType.RegisterSupport:
-                        _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);                       
+                        _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
                         break;
 
                     case LoginPopupItemType.BAGPSExperience:

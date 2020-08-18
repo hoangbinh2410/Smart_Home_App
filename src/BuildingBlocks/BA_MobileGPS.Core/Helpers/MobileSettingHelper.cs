@@ -108,6 +108,8 @@ namespace BA_MobileGPS.Core
 
         public static string WebGps => Get(MobileConfigurationNames.WebGps, "https://bagps.vn/");
 
+        public static string Network => Get(MobileConfigurationNames.Network, "https://bagps.vn/mang-luoi");
+
         public static string LinkAppStore => Get(MobileConfigurationNames.LinkAppStore, "https://itunes.apple.com/app/id1332270275");
 
         public static string LinkCHPlay => Get(MobileConfigurationNames.LinkCHPlay, "https://play.google.com/store/apps/details?id=vn.vietnamcnn.gpsmobile");
