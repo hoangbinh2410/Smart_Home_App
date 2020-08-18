@@ -979,7 +979,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 double dLat = (CurrentRoute.Latitude - PinCar.Position.Latitude) / MARKER_MOVE_STEP;
                 double dLng = (CurrentRoute.Longitude - PinCar.Position.Longitude) / MARKER_MOVE_STEP;
-
                 double animateIndex = 1;
 
                 while (animateIndex <= MARKER_MOVE_STEP && !ctsRouting.IsCancellationRequested)
@@ -1137,10 +1136,14 @@ namespace BA_MobileGPS.Core.ViewModels
             MoveToCurrent();
         }
 
-        private void ChangeSpeed()
+        private async void ChangeSpeed()
         {
             if (PlaySpeed >= SPEED_MAX)
             {
+                PlaySpeed = 4;
+                await Task.Delay(1000);
+                PlaySpeed = 2;
+                await Task.Delay(1000);
                 PlaySpeed = 1;
             }
             else

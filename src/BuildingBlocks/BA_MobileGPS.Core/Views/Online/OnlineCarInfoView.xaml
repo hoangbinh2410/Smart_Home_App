@@ -213,7 +213,8 @@
                 </sharpnado:MaterialFrame.GestureRecognizers>
                 <sharpnado:MaterialFrame.Content>
                     <Label
-                        FontSize="10"
+                        FontFamily="{StaticResource myFontFamily}"
+                        FontSize="{StaticResource MyFontSize}"
                         LineBreakMode="TailTruncation"
                         Text="{i18n:TranslateResource Route_Label_Title,
                                                       Converter={StaticResource UpperCaseConverter}}"
@@ -231,7 +232,8 @@
                 </sharpnado:MaterialFrame.GestureRecognizers>
                 <sharpnado:MaterialFrame.Content>
                     <Label
-                        FontSize="10"
+                        FontFamily="{StaticResource myFontFamily}"
+                        FontSize="{StaticResource MyFontSize}"
                         LineBreakMode="TailTruncation"
                         Text="{i18n:TranslateResource Online_Button_Detail,
                                                       Converter={StaticResource UpperCaseConverter}}"
