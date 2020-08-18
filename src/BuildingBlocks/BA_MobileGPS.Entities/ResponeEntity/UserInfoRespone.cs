@@ -21,7 +21,7 @@ namespace BA_MobileGPS.Entities
         private string avatarPathLocal;
         public string AvatarPathLocal { get => avatarPathLocal; set => SetProperty(ref avatarPathLocal, value, nameof(AvatarDisplay)); }
 
-        public ImageSource AvatarDisplay => string.IsNullOrWhiteSpace(AvatarPathLocal) ? (string.IsNullOrWhiteSpace(AvatarUrl) ? "ic_launcher.png" : $"{ServerConfig.ApiEndpoint}{AvatarUrl}") : ImageSource.FromFile(AvatarPathLocal);
+        public ImageSource AvatarDisplay => string.IsNullOrWhiteSpace(AvatarPathLocal) ? (string.IsNullOrWhiteSpace(AvatarUrl) ? "avatar_default.png" : $"{ServerConfig.ApiEndpoint}{AvatarUrl}") : ImageSource.FromFile(AvatarPathLocal);
 
         [JsonProperty("2")]
         public string FullName { get; set; }
