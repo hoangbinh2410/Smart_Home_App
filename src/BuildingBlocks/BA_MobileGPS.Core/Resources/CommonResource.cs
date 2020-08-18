@@ -85,7 +85,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Common_Property_Invalid(string property) => Get(MobileResourceNames.Common_Property_Invalid, string.Format("{0} không hợp lệ", property), string.Format("{0} is not valid", property));
 
-        public static string Common_Property_NullOrEmpty(string property) => Get(MobileResourceNames.Common_Property_NullOrEmpty, string.Format("{0} không được trống", property), string.Format("{0} cannot be empty", property));
+        public static string Common_Property_NullOrEmpty(string property) => Get(MobileResourceNames.Common_Property_NullOrEmpty, string.Format("{0} không được để trống", property), string.Format("{0} cannot be empty", property));
 
         public static string Common_Property_MinLength(string property) => Get(MobileResourceNames.Common_Property_MinLength, string.Format("{0} phải có ít nhất 3 kí tự", property), string.Format("{0} must have at least 3 characters", property));
 
