@@ -65,13 +65,13 @@
     </NavigationPage.TitleView>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*" RowSpacing="0">
-            <image:CachedImage
+            <!--<image:CachedImage
                 Grid.RowSpan="2"
                 Aspect="AspectFill"
                 BitmapOptimizations="True"
                 HorizontalOptions="FillAndExpand"
                 Source="bg_app.png"
-                VerticalOptions="FillAndExpand" />
+                VerticalOptions="FillAndExpand" />-->
             <Grid
                 Padding="15,10"
                 ColumnDefinitions="*,*,Auto"
@@ -307,7 +307,6 @@
                     VerticalOptions="Center">
                     <!--  Image for display svg image  -->
                     <ffsvg:SvgCachedImage
-                        BackgroundColor="Transparent"
                         HeightRequest="200"
                         Source="NoItem.svg"
                         VerticalOptions="Center"
