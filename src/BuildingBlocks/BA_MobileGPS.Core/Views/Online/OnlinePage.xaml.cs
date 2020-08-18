@@ -780,21 +780,31 @@ namespace BA_MobileGPS.Core.Views
         //    }
         //}
 
-        private async void Getaddress(string lat, string lng, long vehicleID)
+        private void Getaddress(string lat, string lng, long vehicleID)
         {
             try
             {
-                Debug.Write(string.Format("Getaddress : LAT: {0} , lng: {1}", lat, lng));
                 vm.CurrentAddress = MobileResource.Online_Label_Determining;
-                var address = await geocodeService.GetAddressByLatLng(lat, lng);
-                if (!string.IsNullOrEmpty(address))
+                Task.Run(async () =>
                 {
-                    if (vm.CarActive.VehicleId == vehicleID)
+                    return await geocodeService.GetAddressByLatLng(lat, lng);
+                }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
+                {
+                    if (task.Status == TaskStatus.RanToCompletion)
                     {
-                        vm.CarActive.CurrentAddress = address;
+                        if (!string.IsNullOrEmpty(task.Result))
+                        {
+                            if (vm.CarActive.VehicleId == vehicleID)
+                            {
+                                vm.CarActive.CurrentAddress = task.Result;
+                            }
+                        }
                     }
-
-                }
+                    else if (task.IsFaulted)
+                    {
+                        Logger.WriteError(MethodBase.GetCurrentMethod().Name, "Error");
+                    }
+                }));
             }
             catch (Exception ex)
             {
