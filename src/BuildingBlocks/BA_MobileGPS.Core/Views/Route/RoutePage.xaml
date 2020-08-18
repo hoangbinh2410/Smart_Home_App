@@ -342,7 +342,7 @@
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Padding="0"
-                        BackgroundColor="{DynamicResource WhiteColor}"
+                        BackgroundColor="{Binding BackgroundMapType}"
                         CornerRadius="25"
                         HeightRequest="50"
                         Shadow="{x:StaticResource shadow}"
@@ -443,7 +443,7 @@
                                 <Label
                                     FontSize="{StaticResource MyFontSizeSmall}"
                                     HorizontalOptions="Center"
-                                    Text="km/h"
+                                    Text="Km/h"
                                     TextColor="Gray" />
                                 <Label
                                     HorizontalOptions="Center"
