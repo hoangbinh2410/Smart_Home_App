@@ -13,6 +13,7 @@
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <converter:TabItemColorConverter x:Key="TabItemColorConverter" />
+        <converter:TabItemTextColorConverter x:Key="TabItemTextColorConverter" />
         <ControlTemplate x:Key="TabItemTemplate">
             <StackLayout
                 HorizontalOptions="Center"
@@ -28,7 +29,7 @@
                     LineBreakMode="TailTruncation"
                     Text="{TemplateBinding Label}"
                     TextColor="{TemplateBinding IsSelected,
-                                                Converter={x:StaticResource TabItemColorConverter}}" />
+                                                Converter={x:StaticResource TabItemTextColorConverter}}" />
             </StackLayout>
         </ControlTemplate>
         <Style TargetType="tabs:BottomTabItem">
