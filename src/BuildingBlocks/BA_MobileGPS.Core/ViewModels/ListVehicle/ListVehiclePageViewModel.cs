@@ -623,10 +623,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 var param = _mapper.Map<VehicleOnline>(selected);
                 var parameters = new NavigationParameters
                 {
-                    { ParameterKey.VehicleOnline, param }
+                    { "Camera", param }
                 };
 
-                await NavigationService.NavigateAsync("NavigationPage/CameraStream", parameters, true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/CameraStream", parameters, true);
             });
         }
 

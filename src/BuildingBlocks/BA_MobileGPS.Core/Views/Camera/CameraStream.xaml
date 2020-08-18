@@ -44,14 +44,13 @@
     <Grid>
         <vlc:MediaPlayerElement
             x:Name="media"
-            HeightRequest="400"
-            HorizontalOptions="Center"
+            HorizontalOptions="Fill"
             LibVLC="{Binding LibVLC}"
             MediaPlayer="{Binding MediaPlayer}"
-            VerticalOptions="Center"
-            WidthRequest="300">
+            VerticalOptions="Start">
             <vlc:MediaPlayerElement.PlaybackControls>
                 <vlc:PlaybackControls
+                    BufferingProgress="1"
                     ButtonColor="Red"
                     IsRewindButtonVisible="False"
                     IsSeekButtonVisible="False"

@@ -19,19 +19,10 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            try
+            if (parameters?.GetValue<VehicleOnline>("Camera") is VehicleOnline cardetail)
             {
-                if (parameters?.GetValue<VehicleOnline>("Camera") is VehicleOnline cardetail)
-                {
-                    vehicleOnline = cardetail;
-                }
+                vehicleOnline = cardetail;
             }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-
             SetUpVlc();
         }
 
@@ -39,10 +30,13 @@ namespace BA_MobileGPS.Core.ViewModels
         public LibVLC LibVLC
         {
             get { return libVLC; }
-            set { SetProperty(ref libVLC, value);
+            set
+            {
+                SetProperty(ref libVLC, value);
                 RaisePropertyChanged();
             }
         }
+
         private MediaPlayer mediaPlayer;
         public MediaPlayer MediaPlayer
         {
@@ -57,18 +51,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 LibVLCSharp.Shared.Core.Initialize();
                 LibVLC = new LibVLC();
 
+                //var media = new Media(LibVLC,
+                //    new Uri("rtsp://222.254.34.167:1935/live/869092030973074_CAM1"));
                 var media = new Media(LibVLC,
-                    new Uri("rtsp://222.254.34.167:1935/live/869092030973074_CAM1"));
+                    new Uri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"));
 
                 MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true };
+                MediaPlayer.Play();
             }
             catch (Exception ex)
             {
 
                 throw;
             }
-
-            MediaPlayer.Play();
         }
     }
 }
