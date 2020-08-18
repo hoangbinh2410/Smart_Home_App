@@ -160,10 +160,10 @@
                         <pancake:PancakeView
                             Grid.Column="3"
                             Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
                             CornerRadius="20"
                             HasShadow="False"
                             HeightRequest="40"
-                            BackgroundColor="{DynamicResource WhiteColor}"
                             VerticalOptions="End"
                             WidthRequest="40">
                             <pancake:PancakeView.Shadow>
@@ -186,10 +186,10 @@
                         <pancake:PancakeView
                             Grid.Column="4"
                             Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
                             CornerRadius="20"
                             HasShadow="False"
                             HeightRequest="40"
-                            BackgroundColor="{DynamicResource WhiteColor}"
                             VerticalOptions="End"
                             WidthRequest="40">
                             <pancake:PancakeView.Shadow>
