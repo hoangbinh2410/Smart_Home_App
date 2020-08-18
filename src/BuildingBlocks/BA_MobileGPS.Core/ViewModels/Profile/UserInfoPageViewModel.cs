@@ -543,11 +543,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (task.Result)
                     {
-                        StaticSettings.User.UserName = CurrentUser.UserName?.Trim();
-                        StaticSettings.User.FullName = CurrentUser.FullName?.Trim();
-                        StaticSettings.User.PhoneNumber = CurrentUser.PhoneNumber?.Trim();
-
-                        await NavigationService.GoBackAsync(useModalNavigation: true);
+                        if (StaticSettings.User != null)
+                        {
+                            StaticSettings.User.UserName = CurrentUser.UserName?.Trim();
+                            StaticSettings.User.FullName = CurrentUser.FullName?.Trim();
+                            StaticSettings.User.PhoneNumber = CurrentUser.PhoneNumber?.Trim();
+                            await NavigationService.GoBackAsync(useModalNavigation: true);
+                        }
                     }
                 }
                 else if (task.IsFaulted)
