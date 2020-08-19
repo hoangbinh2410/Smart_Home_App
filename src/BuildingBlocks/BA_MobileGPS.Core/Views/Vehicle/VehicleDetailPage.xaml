@@ -464,7 +464,7 @@
                                             HorizontalTextAlignment="Start"
                                             LineBreakMode="WordWrap"
                                             MaxLines="2"
-                                            Text="{Binding InforDetail.Address}"
+                                            Text="{Binding Address}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -511,7 +511,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforDetail.VehicleTime, Converter={StaticResource DateTimeConverter}}"
+                                            Text="{Binding VehicleTime, Converter={StaticResource DateTimeConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -558,7 +558,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforDetail.VelocityGPS, Converter={StaticResource VelocityConverter}}"
+                                            Text="{Binding VelocityGPS, Converter={StaticResource VelocityConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -652,7 +652,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforDetail.TotalKm, Converter={StaticResource KmConverter}}"
+                                            Text="{Binding TotalKm, Converter={StaticResource KmConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -801,7 +801,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforDetail.StopTime, Converter={StaticResource MinutesToStringShortConverter}}"
+                                            Text="{Binding StopTime, Converter={StaticResource MinutesToStringShortConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
