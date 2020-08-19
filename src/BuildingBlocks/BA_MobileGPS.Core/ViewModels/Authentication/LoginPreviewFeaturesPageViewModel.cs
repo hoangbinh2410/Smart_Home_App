@@ -37,13 +37,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
             // Thông tin bảo hành
-            list.Add(new LoginPopupItem
-            {
-                Title = MobileResource.Login_Popup_Guarantee,
-                Icon = "ic_guarantee.png",
-                Url = MobileSettingHelper.WebGps,
-                ItemType = LoginPopupItemType.Guarantee,
-            });
+            //list.Add(new LoginPopupItem
+            //{
+            //    Title = MobileResource.Login_Popup_Guarantee,
+            //    Icon = "ic_guarantee.png",
+            //    Url = MobileSettingHelper.WebGps,
+            //    ItemType = LoginPopupItemType.Guarantee,
+            //});
             // Mạng lưới
             list.Add(new LoginPopupItem
             {
