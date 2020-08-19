@@ -4,7 +4,7 @@ namespace BA_MobileGPS.Core.Resources
 {
     public partial class MobileResource
     {
-        public static string Online_Label_TitlePage => Get(MobileResourceNames.Online_Label_TitlePage, "Theo dõi phương tiện", "Tracking vehicle");
+        public static string Online_Label_TitlePage => Get(MobileResourceNames.Online_Label_TitlePage, "Giám sát phương tiện", "Tracking vehicle");
         public static string Online_Label_Determining => Get(MobileResourceNames.Online_Label_Determining, "Đang xác định địa chỉ.....", "Determining the address.....");
         public static string Online_Label_SeachVehicle => Get(MobileResourceNames.Online_Label_SeachVehicle, "Tìm kiếm biển số phương tiện", "Search vehicle");
         public static string Online_Label_SeachVehicle2 => Get(MobileResourceNames.Online_Label_SeachVehicle2, "Tìm kiếm phương tiện", "Search vehicle");

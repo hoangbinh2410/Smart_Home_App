@@ -360,11 +360,11 @@
                                 </Frame>
                                 <sharpnado:MaterialFrame
                                     Padding="0"
-                                    BackgroundColor="{DynamicResource PrimaryColor}"
                                     CornerRadius="5"
                                     HasShadow="False"
                                     HeightRequest="35"
                                     HorizontalOptions="Start"
+                                    LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="CenterAndExpand"
                                     WidthRequest="35">
                                     <sharpnado:MaterialFrame.GestureRecognizers>
