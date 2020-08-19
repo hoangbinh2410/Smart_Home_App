@@ -3,6 +3,7 @@ using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 
 using Prism.Commands;
@@ -11,28 +12,32 @@ using Prism.Navigation;
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class VehicleDetailViewModel : ViewModelBase
     {
         private readonly IDetailVehicleService detailVehicleService;
-
-        public VehicleDetailViewModel(INavigationService navigationService,
+        private readonly IGeocodeService geocodeService;
+        public VehicleDetailViewModel(INavigationService navigationService, IGeocodeService geocodeService,
             IDetailVehicleService detailVehicleService) : base(navigationService)
         {
+            this.geocodeService = geocodeService;
             this.detailVehicleService = detailVehicleService;
 
             Title = MobileResource.DetailVehicle_Label_TilePage;
 
-            InforBGT = new InforBGTResponse();
             MessageInforChargeMoney = string.Empty;
          
             _engineState = MobileResource.Common_Label_TurnOff;
 
             InitLoadCommand = new DelegateCommand(InitLoadCommandExecute);
             RefeshCommand = new DelegateCommand(InitLoadCommandExecute);
+            EventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(OnReceiveSendCarSignalR);
+            EventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -43,12 +48,19 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 PK_VehicleID = (int)cardetail.VehicleId;
                 VehiclePlate = cardetail.VehiclePlate;
+                Address = cardetail.CurrentAddress;
+                InitLoadCommandExecute();
             }
-            InitLoadCommandExecute();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
+        }
+
+        public override void OnDestroy()
+        {
+            EventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
+            EventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
         }
 
         #region property
@@ -67,16 +79,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private string temperature;
         public string Temperature { get => temperature; set => SetProperty(ref temperature, value); }
 
-        #region các thông tin chung của xe có sự thay đổi theo cấu hình
-
-        private bool _isShowparkingVehicleNow;
-        public bool IsShowParkingVehicleNow { get => _isShowparkingVehicleNow; set => SetProperty(ref _isShowparkingVehicleNow, value); }
-
-        private bool _isShowparkingTurnOnVehecle;
-        public bool IsShowParkingTurnOnVehecle { get => _isShowparkingTurnOnVehecle; set => SetProperty(ref _isShowparkingTurnOnVehecle, value); }
-
-        #endregion các thông tin chung của xe có sự thay đổi theo cấu hình
-
         #region thông tin phí
 
         // nội dung câu thông báo thu phí
@@ -87,9 +89,6 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion thông tin phí
 
         // thông tin BGT
-        private InforBGTResponse _inforBGT;
-
-        public InforBGTResponse InforBGT { get => _inforBGT; set => SetProperty(ref _inforBGT, value); }
 
         public string _engineState = string.Empty;
 
@@ -98,6 +97,26 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return _engineState; }
             set { SetProperty(ref _engineState, value); }
         }
+
+        private string address;
+
+        public string Address { get => address; set => SetProperty(ref address, value); }
+
+        private DateTime vehicleTime;
+
+        public DateTime VehicleTime { get => vehicleTime; set => SetProperty(ref vehicleTime, value); }
+
+        private int velocityGPS;
+
+        public int VelocityGPS { get => velocityGPS; set => SetProperty(ref velocityGPS, value); }
+
+        private float totalKm;
+
+        public float TotalKm { get => totalKm; set => SetProperty(ref totalKm, value); }
+
+        private int stopTime;
+
+        public int StopTime { get => stopTime; set => SetProperty(ref stopTime, value); }
 
         #endregion property
 
@@ -150,6 +169,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         InforDetail = response;
                         Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
                         Temperature = response.Temperature2 == null ? string.Format("[{0} °C]", response.Temperature) : string.Format("[{0} °C]", response.Temperature) + " - " + string.Format("[{0} °C]", response.Temperature2);
+                        VehicleTime = response.VehicleTime;
+                        VelocityGPS = response.VelocityGPS;
+                        TotalKm = (float)response.TotalKm;
+                        StopTime = (int)response.StopTime;
 
                         //Động cơ
                         EngineState = StateVehicleExtension.EngineState(new VehicleOnline
@@ -187,6 +210,57 @@ namespace BA_MobileGPS.Core.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        private void OnReceiveSendCarSignalR(VehicleOnline carInfo)
+        {
+            if (carInfo == null || PK_VehicleID != carInfo.VehicleId)
+            {
+                return;
+            }
+
+            if (carInfo != null)
+            {
+                if (CompanyConfigurationHelper.VehicleOnlineAddressEnabled)
+                {
+                    if (StateVehicleExtension.IsMovingAndEngineON(carInfo))
+                    {
+                        Task.Run(async () =>
+                        {
+                            return await geocodeService.GetAddressByLatLng(carInfo.Lat.ToString(), carInfo.Lng.ToString());
+                        }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
+                        {
+                            if (task.Status == TaskStatus.RanToCompletion)
+                            {
+                                TryExecute(() =>
+                                {
+                                    Address = task.Result;
+                                });
+                            }
+                        }));
+                    }
+                }
+                ////////////////
+                VehicleTime = carInfo.VehicleTime;
+                VelocityGPS = carInfo.Velocity;
+                TotalKm = (float)carInfo.TotalKm;
+                StopTime = carInfo.StopTime;
+
+                //Động cơ
+                EngineState = StateVehicleExtension.EngineState(carInfo);
+               
+            }
+        }
+
+        private void OnReLoadVehicleOnlineCarSignalR(bool arg)
+        {
+            if (arg)
+            {
+                using (new HUDService())
+                {
+                    InitLoadCommandExecute();
+                }
             }
         }
 
