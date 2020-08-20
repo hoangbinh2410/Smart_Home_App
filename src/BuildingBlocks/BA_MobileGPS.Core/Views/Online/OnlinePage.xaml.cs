@@ -96,6 +96,7 @@ namespace BA_MobileGPS.Core.Views
 
             mCarActive = new VehicleOnline();
             mCurrentVehicleList = new List<VehicleOnline>();
+            btnDirectvehicleOnline.IsVisible = false;
 
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
@@ -278,12 +279,16 @@ namespace BA_MobileGPS.Core.Views
 
                 _animations.Add(States.ShowFilter, new[] {
                                                             new ViewTransition(boxInfo, AnimationType.TranslationY, 0, 300, delay: 300), // Active and visible
-                                                new ViewTransition(boxInfo, AnimationType.Opacity, 1, 0), // Active and visible
+                                                            new ViewTransition(boxInfo, AnimationType.Opacity, 1, 0), // Active and visible
+
+                                                          
                                                           });
 
                 _animations.Add(States.HideFilter, new[] {
                                                             new ViewTransition(boxInfo, AnimationType.TranslationY, 300),
                                                             new ViewTransition(boxInfo, AnimationType.Opacity, 0),
+
+                                                           
                                                           });
 
                 await _animations.Go(States.HideFilter, false);
@@ -733,6 +738,8 @@ namespace BA_MobileGPS.Core.Views
                 mCarActive = carInfo;
                 vm.CarActive = carInfo;
 
+                btnDirectvehicleOnline.IsVisible = true;
+
                 vm.EngineState = StateVehicleExtension.EngineState(carInfo);
 
                 Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
@@ -796,7 +803,7 @@ namespace BA_MobileGPS.Core.Views
                         {
                             if (vm.CarActive.VehicleId == vehicleID)
                             {
-                                vm.CarActive.CurrentAddress = task.Result;
+                                vm.CurrentAddress = task.Result;
                             }
                         }
                     }
@@ -829,6 +836,7 @@ namespace BA_MobileGPS.Core.Views
 
             vm.CarActive = new VehicleOnline();
             mCarActive = new VehicleOnline();
+            btnDirectvehicleOnline.IsVisible = false;
         }
 
         /// <summary>

@@ -49,6 +49,10 @@ namespace BA_MobileGPS.Core.ViewModels
         private FuelChartDisplay currentChartDisplay;
         public FuelChartDisplay CurrentChartDisplay { get => currentChartDisplay; set => SetProperty(ref currentChartDisplay, value); }
 
+        private bool isShowInfo;
+
+        public bool IsShowInfo { get => isShowInfo; set => SetProperty(ref isShowInfo, value); }
+
         public ICommand DateSelectedCommand { get; }
         public ICommand TimeSelectingCommand { get; }
         public ICommand TimeSelectedCommand { get; }
@@ -67,6 +71,7 @@ namespace BA_MobileGPS.Core.ViewModels
             TimeSelectedCommand = new Command<SelectionChangedEventArgs>(TimeSelected);
             StateChangedCommand = new Command<StateChangedEventArgs>(StateChanged);
             TrackballCreatedCommand = new Command<ChartTrackballCreatedEventArgs>(TrackballCreated);
+            IsShowInfo = false;
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -87,6 +92,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (Vehicle != null)
             {
                 GetData();
+                IsShowInfo = false;
             }
         }
 
@@ -101,6 +107,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (Vehicle != null)
                     {
                         GetData();
+                        IsShowInfo = false;
                     }
                 }
             });
@@ -119,6 +126,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (Vehicle != null)
             {
                 GetData();
+                IsShowInfo = false;
             }
         }
 
@@ -130,6 +138,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (ListDataReport != null)
             {
                 OnGetDataSuccess();
+                IsShowInfo = false;
             }
         }
 
@@ -169,6 +178,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         CurrentChartDisplay = result[0];
                         ListFuelSumary = result;
+                        if(CurrentChartDisplay.NumberOfLiters == 0 && CurrentChartDisplay.VelocityGPS==0)
+                        {
+                            IsShowInfo = false;
+                        }
+                        else
+                        {
+                            IsShowInfo = true;
+                        }
                     },
                     cts: cts);
                 }
@@ -281,7 +298,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             MachineStatus = StateVehicleExtension.EngineStateConverter(c.MachineStatus),
                             CurrentAddress = c.CurrentAddress
                         })
-                        .Where(c => ShowByTime || c.NumberOfLiters > 0).ToList();
+                        .Where(c => (ShowByTime && c.NumberOfLiters >= 0) || c.NumberOfLiters > 0).ToList();
 
                         result.Add(new SplineAreaSeries()
                         {
@@ -303,8 +320,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private readonly Color[] ColorChart = new Color[]
         {
-            (Color)PrismApplicationBase.Current.Resources["WhiteColor"],
-            (Color)PrismApplicationBase.Current.Resources["PrimaryColor"]
+            Color.FromHex("#ED4337"),
+            (Color)PrismApplicationBase.Current.Resources["WhiteColor"]
         };
 
         public override void OnGetDataFail()

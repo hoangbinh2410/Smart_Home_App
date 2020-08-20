@@ -54,6 +54,7 @@
         HotlineGps,
         EmailSupport,
         WebGps,
+        Network,
         LinkAppStore,
         LinkCHPlay,
         LinkShareApp,

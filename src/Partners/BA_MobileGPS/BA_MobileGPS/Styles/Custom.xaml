@@ -33,6 +33,8 @@
 
     <Color x:Key="MainTabSelectedColor">#0D2D6C</Color>
     <Color x:Key="MainTabUnSelectedColor">#0D2D6C</Color>
+    <Color x:Key="MainTabSelectedTextColor">#0D2D6C</Color>
+    <Color x:Key="MainTabUnSelectedTextColor">#57606F</Color>
 
     <Color x:Key="PopupYesBtnTextColor">White</Color>
     <Color x:Key="PopupYesBtnBackgroundColor">#00709A</Color>
