@@ -6,6 +6,7 @@ using System.Linq;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Prism.Ioc;
+using Xamarin.Forms.Markup;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -14,13 +15,13 @@ namespace BA_MobileGPS.Core.Views
         public DetailCamera()
         {
             InitializeComponent();
-        }
+            
+        }       
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
             var eventCenter =  Prism.PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
-            eventCenter.GetEvent<SetFitScreenEvent>().Subscribe(SetFitScreen);
         }
 
 
@@ -88,17 +89,29 @@ namespace BA_MobileGPS.Core.Views
             var orientation = videoTrack.Orientation;
             return orientation == VideoOrientation.LeftBottom || orientation == VideoOrientation.RightTop;
         }
+        
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            var eventCenter = Prism.PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
-            eventCenter.GetEvent<SetFitScreenEvent>().Unsubscribe(SetFitScreen);
         }
-    }
-
-    public class SetFitScreenEvent : PubSubEvent
-    {
-
-    }
+        private double _width = 0;
+        private double _height = 0;
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height);
+            if (_width != width || _height != height)
+            {
+                _width = width;
+                _height = height;
+                if (width > height)
+                {
+                    SetFitScreen();
+                }
+            }
+            
+           
+           
+        }
+    }  
 }

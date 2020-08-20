@@ -83,7 +83,7 @@ namespace BA_MobileGPS.Core.iOS.Setup
 
             // HtmlLabel
             HtmlLabelRenderer.Initialize();
-          
+            LibVLCSharpFormsRenderer.Init();
         }
     }
 }

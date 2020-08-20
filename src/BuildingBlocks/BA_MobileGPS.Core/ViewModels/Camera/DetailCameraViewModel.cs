@@ -21,6 +21,22 @@ namespace BA_MobileGPS.Core.ViewModels
             videoLoaded = false;
 
         }
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+            MediaPlayer.Buffering += MediaPlayer_Buffering;
+        }
+
+        private bool screenOrientPortrait;
+        public bool ScreenOrientPortrait  //true = doc
+        {
+            get { return screenOrientPortrait; }
+            set
+            {
+                SetProperty(ref screenOrientPortrait, value);
+                RaisePropertyChanged();
+            }
+        }
 
         private LibVLC libVLC;
         public LibVLC LibVLC
@@ -32,11 +48,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
-        public override void OnPageAppearingFirstTime()
-        {
-            base.OnPageAppearingFirstTime();
-            MediaPlayer.Buffering += MediaPlayer_Buffering;
-        }
+      
         private MediaPlayer mediaPlayer;     
         public MediaPlayer MediaPlayer
         {
@@ -55,6 +67,15 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        public override void OnResume()
+        {
+            base.OnResume();
+            var media = new Media(LibVLC,
+                  new Uri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"));
+
+            MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true };
+            MediaPlayer.Play();
+        }
         public ICommand PlayCommand { get; }
         public ICommand ScreenSizeChangedCommand { get; }
 
@@ -64,9 +85,12 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 LibVLCSharp.Shared.Core.Initialize();
                 LibVLC = new LibVLC();
-                
+
+                //var media = new Media(LibVLC,
+                //    new Uri("rtsp://222.254.34.167:1935/live/869092030971235_CAM1"));
+
                 var media = new Media(LibVLC,
-                    new Uri("rtsp://222.254.34.167:1935/live/869092030971235_CAM1"));
+                    new Uri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"));
 
                 MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true };
                 MediaPlayer.SetAdjustInt(VideoAdjustOption.Enable, 10);
@@ -95,10 +119,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     VideoLoaded = true;
-                });                
-                EventAggregator.GetEvent<SetFitScreenEvent>().Publish();
-            }
-            
+                });                            
+            }            
         }
 
         private void Play()
@@ -116,26 +138,20 @@ namespace BA_MobileGPS.Core.ViewModels
             var a = MediaPlayer.AdjustInt(VideoAdjustOption.Enable);
             var b = MediaPlayer.AdjustInt(VideoAdjustOption.Gamma);
         }
-        private bool screenOrientPortrait;
-        public bool ScreenOrientPortrait  //true = doc
-        {
-            get { return screenOrientPortrait; }
-            set { SetProperty(ref screenOrientPortrait, value);
-                RaisePropertyChanged();
-            }
-        }
-        
+
+
+
+
+
         private void ScreenSizeChanged()
         {
             if (ScreenOrientPortrait)
             {
-                DependencyService.Get<IScreenOrientServices>().ForceLandscape();
-                EventAggregator.GetEvent<SetFitScreenEvent>().Publish();
+                DependencyService.Get<IScreenOrientServices>().ForceLandscape();               
             }
             else
             {
-                DependencyService.Get<IScreenOrientServices>().ForcePortrait();
-                EventAggregator.GetEvent<SetFitScreenEvent>().Publish();
+                DependencyService.Get<IScreenOrientServices>().ForcePortrait();              
             }
             ScreenOrientPortrait = !ScreenOrientPortrait;
         }
