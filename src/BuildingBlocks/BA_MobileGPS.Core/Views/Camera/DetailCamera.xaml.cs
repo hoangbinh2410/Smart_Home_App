@@ -1,8 +1,11 @@
-﻿using LibVLCSharp.Shared;
+﻿using BA_MobileGPS.Core.Interfaces;
+using LibVLCSharp.Shared;
+using Prism.Events;
 using System;
 using System.Linq;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Prism.Ioc;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -16,59 +19,45 @@ namespace BA_MobileGPS.Core.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            media.MediaPlayer.UpdateViewpoint(90,90,0,120);
-            media.MediaPlayer.SetAdjustInt(VideoAdjustOption.Enable, 1);
-            media.MediaPlayer.SetAdjustInt(VideoAdjustOption.Hue, 50);
-            media.MediaPlayer.SetAdjustInt(VideoAdjustOption.Brightness, 100);
+            var eventCenter =  Prism.PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+            eventCenter.GetEvent<SetFitScreenEvent>().Subscribe(SetFitScreen);
         }
-        private bool Straight = true; // dọc
-        private void TapGestureRecognizer_Tapped(object sender, System.EventArgs e)
+
+
+        private void SetFitScreen()
         {
-            if (Straight)
+            var videoView = media.VideoView;
+            var videoTrack = GetVideoTrack(media.MediaPlayer);
+            if (videoTrack == null)
             {
-                media.MediaPlayer.UpdateViewpoint(90, 90, 0, 120);
-                media.MediaPlayer.SetAdjustInt(VideoAdjustOption.Enable, 1);
-                media.MediaPlayer.SetAdjustInt(VideoAdjustOption.Hue, 50);
-                media.MediaPlayer.SetAdjustInt(VideoAdjustOption.Brightness, 100);
-                var mediaPlayer = media.MediaPlayer;
-                
-                var videoTrack = GetVideoTrack(mediaPlayer);
-                var videoView = media.VideoView;
-               // media.RotateTo(90);
-                var height = videoView.Height;
-                var width = videoView.Width;
-                //if (videoTrack == null)
-                //{
-                //    return;
-                //}
-                //var track = (VideoTrack)videoTrack;
-                
-                //var videoSwapped = IsVideoSwapped(track);
-                //var videoWidth = videoSwapped ? track.Height : track.Width;
-                //var videoHeigth = videoSwapped ? track.Width : track.Height;
-                //if (videoWidth == 0 || videoHeigth == 0)
-                //{
-                //    mediaPlayer.Scale = 0;
-                //}
-                //else
-                //{
-                //    if (track.SarNum != track.SarDen)
-                //    {
-                //        videoWidth = videoWidth * track.SarNum / track.SarDen;
-                //    }
-
-                //    var ar = videoWidth / (double)videoHeigth;
-                //    var videoViewWidth = videoView.Width;
-                //    var videoViewHeight = videoView.Height;
-                //    var dar = videoViewWidth / videoViewHeight;
-
-                //    var rawPixelsPerViewPixel = DeviceDisplay.MainDisplayInfo.Density;
-                //    var displayWidth = videoViewWidth * rawPixelsPerViewPixel;
-                //    var displayHeight = videoViewHeight * rawPixelsPerViewPixel;
-                //    mediaPlayer.Scale = (float)(dar >= ar ? (displayWidth / videoWidth) : (displayHeight / videoHeigth));
-                //}
-                //mediaPlayer.AspectRatio = null;
+                return;
             }
+            var track = (VideoTrack)videoTrack;
+            var videoSwapped = IsVideoSwapped(track);
+            var videoWidth = videoSwapped ? track.Height : track.Width;
+            var videoHeigth = videoSwapped ? track.Width : track.Height;
+            if (videoWidth == 0 || videoHeigth == 0)
+            {
+                media.MediaPlayer.Scale = 0;
+            }
+            else
+            {
+                if (track.SarNum != track.SarDen)
+                {
+                    videoWidth = videoWidth * track.SarNum / track.SarDen;
+                }
+
+                var ar = videoWidth / (double)videoHeigth;
+                var videoViewWidth = videoView.Width;
+                var videoViewHeight = videoView.Height;
+                var dar = videoViewWidth / videoViewHeight;
+
+                var rawPixelsPerViewPixel = Device.Info.ScalingFactor;
+                var displayWidth = videoViewWidth * rawPixelsPerViewPixel;
+                var displayHeight = videoViewHeight * rawPixelsPerViewPixel;
+                media.MediaPlayer.Scale = (float)(dar >= ar ? (displayWidth / videoWidth) : (displayHeight / videoHeigth));
+            }
+            media.MediaPlayer.AspectRatio = null;
         }
 
         private VideoTrack? GetVideoTrack(MediaPlayer mediaPlayer)
@@ -99,5 +88,17 @@ namespace BA_MobileGPS.Core.Views
             var orientation = videoTrack.Orientation;
             return orientation == VideoOrientation.LeftBottom || orientation == VideoOrientation.RightTop;
         }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            var eventCenter = Prism.PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+            eventCenter.GetEvent<SetFitScreenEvent>().Unsubscribe(SetFitScreen);
+        }
+    }
+
+    public class SetFitScreenEvent : PubSubEvent
+    {
+
     }
 }

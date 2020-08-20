@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.iOS.DependencyServices;
+﻿using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Core.iOS.DependencyServices;
 using BA_MobileGPS.Core.Views;
 using Foundation;
 using Prism;
@@ -53,6 +54,7 @@ namespace BA_MobileGPS.Core.iOS
                 containerRegistry.RegisterInstance<IAudioManager>(new AppleAudioManager());
                 containerRegistry.RegisterInstance<ITooltipService>(new iOSTooltipService());
                 containerRegistry.RegisterInstance<IDownloader>(new IosDownloader());
+                containerRegistry.RegisterInstance<IScreenOrientServices>(new ScreenOrientServices());
             }
         }    
     }

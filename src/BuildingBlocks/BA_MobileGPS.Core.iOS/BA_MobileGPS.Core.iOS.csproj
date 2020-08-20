@@ -56,6 +56,7 @@
     <Compile Include="DependencyServices\PreviewControllerDS.cs" />
     <Compile Include="DependencyServices\SaveAndViewIOS.cs" />
     <Compile Include="DependencyServices\SaveService.cs" />
+    <Compile Include="DependencyServices\ScreenOrientServices.cs" />
     <Compile Include="DependencyServices\SettingsService.cs" />
     <Compile Include="DependencyServices\StatusBarHelper.cs" />
     <Compile Include="Effects\BorderlessEffect.cs" />

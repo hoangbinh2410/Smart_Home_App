@@ -1,12 +1,9 @@
-﻿using LibVLCSharp.Forms.Shared;
+﻿using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Core.Views;
 using LibVLCSharp.Shared;
 using Prism.Commands;
-using Prism.Events;
-using Prism.Mvvm;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -17,10 +14,12 @@ namespace BA_MobileGPS.Core.ViewModels
         public DetailCameraViewModel(INavigationService navigationService) : base(navigationService)
         {
             SetUpVlc();
-            CameraLoading = true;
             PlayCommand = new DelegateCommand(Play);
-            PlayIconSource = "ic_heart.png";
-   
+            PlayIconSource = "ic_stop_white.png";
+            ScreenSizeChangedCommand = new DelegateCommand(ScreenSizeChanged);
+            ScreenOrientPortrait = true;
+            videoLoaded = false;
+
         }
 
         private LibVLC libVLC;
@@ -47,15 +46,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private bool cameraLoading;
-        public bool CameraLoading
-        {
-            get { return cameraLoading; }
-            set { SetProperty(ref cameraLoading, value);
-                RaisePropertyChanged();
-            }
-        }
-
         private string playIconSource;
         public string PlayIconSource
         {
@@ -66,7 +56,8 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         public ICommand PlayCommand { get; }
- 
+        public ICommand ScreenSizeChangedCommand { get; }
+
         private void SetUpVlc()
         {
             try
@@ -77,7 +68,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 var media = new Media(LibVLC,
                     new Uri("rtsp://222.254.34.167:1935/live/869092030971235_CAM1"));
 
-                MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true };      
+                MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true };
+                MediaPlayer.SetAdjustInt(VideoAdjustOption.Enable, 10);
+                MediaPlayer.SetAdjustInt(VideoAdjustOption.Gamma, 80);
                 MediaPlayer.Play();              
             }
             catch (Exception ex)
@@ -86,37 +79,75 @@ namespace BA_MobileGPS.Core.ViewModels
                 throw;
             }
         }
-        private bool LoadingSupport = true;
+        private bool videoLoaded;
+        public bool VideoLoaded
+        {
+            get { return videoLoaded; }
+            set { SetProperty(ref videoLoaded, value); 
+                RaisePropertyChanged(); }
+        }
+
+      
         private void MediaPlayer_Buffering(object sender, MediaPlayerBufferingEventArgs e)
         {
-            if (LoadingSupport)
+            if (!VideoLoaded)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    CameraLoading = false;
-                });
-                LoadingSupport = false;
-            }           
+                    VideoLoaded = true;
+                });                
+                EventAggregator.GetEvent<SetFitScreenEvent>().Publish();
+            }
+            
         }
+
         private void Play()
         {
             if (MediaPlayer.IsPlaying)
             {
                 MediaPlayer.Pause();
-                PlayIconSource = "ic_lock.png";
+                PlayIconSource = "ic_play_arrow_white.png"; 
             }
             else
             {
                 MediaPlayer.Play();
-                PlayIconSource = "ic_heart.png";
+                PlayIconSource = "ic_stop_white.png";
+            }
+            var a = MediaPlayer.AdjustInt(VideoAdjustOption.Enable);
+            var b = MediaPlayer.AdjustInt(VideoAdjustOption.Gamma);
+        }
+        private bool screenOrientPortrait;
+        public bool ScreenOrientPortrait  //true = doc
+        {
+            get { return screenOrientPortrait; }
+            set { SetProperty(ref screenOrientPortrait, value);
+                RaisePropertyChanged();
             }
         }
+        
+        private void ScreenSizeChanged()
+        {
+            if (ScreenOrientPortrait)
+            {
+                DependencyService.Get<IScreenOrientServices>().ForceLandscape();
+                EventAggregator.GetEvent<SetFitScreenEvent>().Publish();
+            }
+            else
+            {
+                DependencyService.Get<IScreenOrientServices>().ForcePortrait();
+                EventAggregator.GetEvent<SetFitScreenEvent>().Publish();
+            }
+            ScreenOrientPortrait = !ScreenOrientPortrait;
+        }
 
-       
-
-     
-
-
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            if (!ScreenOrientPortrait)
+            {
+                DependencyService.Get<IScreenOrientServices>().ForcePortrait();
+            }
+        }
     }
    
 }
