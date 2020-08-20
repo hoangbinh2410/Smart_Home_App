@@ -1,5 +1,4 @@
 ﻿using BA_MobileGPS.Core.Interfaces;
-using BA_MobileGPS.Core.Views;
 using LibVLCSharp.Shared;
 using Prism.Commands;
 using Prism.Navigation;
@@ -11,6 +10,8 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class DetailCameraViewModel : ViewModelBase
     {
+        private readonly string videoUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
+
         public DetailCameraViewModel(INavigationService navigationService) : base(navigationService)
         {
             SetUpVlc();
@@ -19,15 +20,35 @@ namespace BA_MobileGPS.Core.ViewModels
             ScreenSizeChangedCommand = new DelegateCommand(ScreenSizeChanged);
             ScreenOrientPortrait = true;
             videoLoaded = false;
-
         }
+
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
             MediaPlayer.Buffering += MediaPlayer_Buffering;
         }
 
+        public override void OnResume()
+        {
+            base.OnResume();
+            var media = new Media(LibVLC,
+                  new Uri(videoUrl));
+
+            MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true };
+            MediaPlayer.Play();
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            if (!ScreenOrientPortrait)
+            {
+                DependencyService.Get<IScreenOrientServices>().ForcePortrait();
+            }
+        }
+
         private bool screenOrientPortrait;
+
         public bool ScreenOrientPortrait  //true = doc
         {
             get { return screenOrientPortrait; }
@@ -39,6 +60,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private LibVLC libVLC;
+
         public LibVLC LibVLC
         {
             get { return libVLC; }
@@ -48,34 +70,31 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
-      
-        private MediaPlayer mediaPlayer;     
+
+        private MediaPlayer mediaPlayer;
+
         public MediaPlayer MediaPlayer
         {
             get { return mediaPlayer; }
-            set { SetProperty(ref mediaPlayer, value);
+            set
+            {
+                SetProperty(ref mediaPlayer, value);
                 RaisePropertyChanged();
             }
         }
 
         private string playIconSource;
+
         public string PlayIconSource
         {
             get { return playIconSource; }
-            set { SetProperty(ref playIconSource, value);
+            set
+            {
+                SetProperty(ref playIconSource, value);
                 RaisePropertyChanged();
             }
-        }
+        }      
 
-        public override void OnResume()
-        {
-            base.OnResume();
-            var media = new Media(LibVLC,
-                  new Uri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"));
-
-            MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true };
-            MediaPlayer.Play();
-        }
         public ICommand PlayCommand { get; }
         public ICommand ScreenSizeChangedCommand { get; }
 
@@ -90,28 +109,31 @@ namespace BA_MobileGPS.Core.ViewModels
                 //    new Uri("rtsp://222.254.34.167:1935/live/869092030971235_CAM1"));
 
                 var media = new Media(LibVLC,
-                    new Uri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"));
+                    new Uri(videoUrl));
 
                 MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true };
                 MediaPlayer.SetAdjustInt(VideoAdjustOption.Enable, 10);
                 MediaPlayer.SetAdjustInt(VideoAdjustOption.Gamma, 80);
-                MediaPlayer.Play();              
+                MediaPlayer.Play();
             }
             catch (Exception ex)
             {
-
                 throw;
             }
         }
+
         private bool videoLoaded;
+
         public bool VideoLoaded
         {
             get { return videoLoaded; }
-            set { SetProperty(ref videoLoaded, value); 
-                RaisePropertyChanged(); }
+            set
+            {
+                SetProperty(ref videoLoaded, value);
+                RaisePropertyChanged();
+            }
         }
 
-      
         private void MediaPlayer_Buffering(object sender, MediaPlayerBufferingEventArgs e)
         {
             if (!VideoLoaded)
@@ -119,8 +141,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     VideoLoaded = true;
-                });                            
-            }            
+                });
+            }
         }
 
         private void Play()
@@ -128,7 +150,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (MediaPlayer.IsPlaying)
             {
                 MediaPlayer.Pause();
-                PlayIconSource = "ic_play_arrow_white.png"; 
+                PlayIconSource = "ic_play_arrow_white.png";
             }
             else
             {
@@ -139,31 +161,17 @@ namespace BA_MobileGPS.Core.ViewModels
             var b = MediaPlayer.AdjustInt(VideoAdjustOption.Gamma);
         }
 
-
-
-
-
         private void ScreenSizeChanged()
         {
             if (ScreenOrientPortrait)
             {
-                DependencyService.Get<IScreenOrientServices>().ForceLandscape();               
+                DependencyService.Get<IScreenOrientServices>().ForceLandscape();
             }
             else
             {
-                DependencyService.Get<IScreenOrientServices>().ForcePortrait();              
-            }
-            ScreenOrientPortrait = !ScreenOrientPortrait;
-        }
-
-        public override void OnDestroy()
-        {
-            base.OnDestroy();
-            if (!ScreenOrientPortrait)
-            {
                 DependencyService.Get<IScreenOrientServices>().ForcePortrait();
             }
-        }
+            ScreenOrientPortrait = !ScreenOrientPortrait;
+        }      
     }
-   
 }

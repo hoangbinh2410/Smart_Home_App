@@ -7,6 +7,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Prism.Ioc;
 using Xamarin.Forms.Markup;
+using BA_MobileGPS.Core.ViewModels;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -21,9 +22,18 @@ namespace BA_MobileGPS.Core.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            var eventCenter =  Prism.PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+            media.MediaPlayer.Buffering += MediaPlayer_Buffering;
         }
 
+        private bool runOneTime = true;
+        private void MediaPlayer_Buffering(object sender, MediaPlayerBufferingEventArgs e)
+        {
+            if (runOneTime)
+            {
+                SetFitScreen();
+                runOneTime = false;
+            }
+        }
 
         private void SetFitScreen()
         {
@@ -90,11 +100,6 @@ namespace BA_MobileGPS.Core.Views
             return orientation == VideoOrientation.LeftBottom || orientation == VideoOrientation.RightTop;
         }
         
-
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-        }
         private double _width = 0;
         private double _height = 0;
         protected override void OnSizeAllocated(double width, double height)
@@ -106,8 +111,15 @@ namespace BA_MobileGPS.Core.Views
                 _height = height;
                 if (width > height)
                 {
-                    SetFitScreen();
+                    Grid.SetRowSpan(media, 2);
+                    Grid.SetRowSpan(indicator, 2);
                 }
+                else
+                {
+                    Grid.SetRowSpan(media, 1);
+                    Grid.SetRowSpan(indicator, 1);
+                }
+                SetFitScreen();
             }
             
            

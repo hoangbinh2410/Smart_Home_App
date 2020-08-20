@@ -11,7 +11,7 @@
     Title="Camera 1"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.HasNavigationBar="{Binding ScreenOrientPortrait}">
-    <Grid>
+    <Grid RowDefinitions="*,*">
         <vlc:MediaPlayerElement
             x:Name="media"
             HorizontalOptions="FillAndExpand"
@@ -67,6 +67,7 @@
             </vlc:MediaPlayerElement.PlaybackControls>
         </vlc:MediaPlayerElement>
         <busyindicator:SfBusyIndicator
+            x:Name="indicator"
             AnimationType="SingleCircle"
             BackgroundColor="Transparent"
             EnableAnimation="True"
