@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.DetailCamera"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
+    x:Name="this"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <Grid>
+        <vlc:MediaPlayerElement
+            x:Name="media"
+            HorizontalOptions="FillAndExpand"
+            LibVLC="{Binding LibVLC}"
+            MediaPlayer="{Binding MediaPlayer}"
+            VerticalOptions="FillAndExpand">
+            <vlc:MediaPlayerElement.PlaybackControls>
+                <vlc:PlaybackControls ShowAndHideAutomatically="False">
+                    <vlc:PlaybackControls.ControlTemplate>
+                        <ControlTemplate>
+                            <StackLayout Spacing="0">
+                                <Label
+                                    IsVisible="{TemplateBinding ErrorMessage,
+                                                                Converter={StaticResource ObjectToBoolConverter}}"
+                                    Style="{TemplateBinding MessageStyle}"
+                                    Text="{TemplateBinding ErrorMessage}" />
+                                <StackLayout x:Name="ControlsPanel" Style="{TemplateBinding ControlsPanelStyle}">
+                                    <Grid>
+                                        <StackLayout
+                                            HorizontalOptions="CenterAndExpand"
+                                            Orientation="Horizontal"
+                                            VerticalOptions="Center">
+                                            <Button x:Name="PlayPauseButton" IsVisible="False" />
+                                            <Button x:Name="StopButton" IsVisible="False" />
+                                            <controls:IconView
+                                                Foreground="YellowGreen"
+                                                HeightRequest="30"
+                                                Source="{Binding BindingContext.PlayIconSource, Source={x:Reference this}}" />
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding BindingContext.PlayCommand, Source={x:Reference this}}" />
+                                            </StackLayout.GestureRecognizers>
+                                        </StackLayout>
+                                        <StackLayout
+                                            HorizontalOptions="End"
+                                            Orientation="Horizontal"
+                                            VerticalOptions="Center">
+                                            <controls:IconView
+                                                Foreground="YellowGreen"
+                                                HeightRequest="25"
+                                                Source="ic_crane.png" />
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                                            </StackLayout.GestureRecognizers>
+                                        </StackLayout>
+                                    </Grid>
+                                </StackLayout>
+                            </StackLayout>
+                        </ControlTemplate>
+                    </vlc:PlaybackControls.ControlTemplate>
+                </vlc:PlaybackControls>
+            </vlc:MediaPlayerElement.PlaybackControls>
+        </vlc:MediaPlayerElement>
+        <busyindicator:SfBusyIndicator
+            Title="Loading..."
+            AnimationType="Ball"
+            BackgroundColor="Transparent"
+            EnableAnimation="True"
+            IsBusy="{Binding CameraLoading}"
+            TextColor="White"
+            ViewBoxHeight="100"
+            ViewBoxWidth="100" />
+    </Grid>
+</ContentPage>

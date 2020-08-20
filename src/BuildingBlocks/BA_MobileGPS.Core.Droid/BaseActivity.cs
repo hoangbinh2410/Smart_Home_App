@@ -32,7 +32,7 @@ namespace BA_MobileGPS.Core.Droid
 
             base.AttachBaseContext(@base.CreateConfigurationContext(config));
 
-            OrientDevice();
+
         }
 
         public class AndroidInitializer : IPlatformInitializer
@@ -51,18 +51,6 @@ namespace BA_MobileGPS.Core.Droid
             }
         }
 
-        private void OrientDevice()
-        {
-            MessagingCenter.Subscribe<CameraStream>(this, "Unspecified", sender =>
-            {
-                RequestedOrientation = ScreenOrientation.Unspecified;
-
-            });
-
-            MessagingCenter.Subscribe<CameraStream>(this, "Portrait", sender =>
-            {
-                RequestedOrientation = ScreenOrientation.Portrait;
-            });
-        }
+     
     }
 }
