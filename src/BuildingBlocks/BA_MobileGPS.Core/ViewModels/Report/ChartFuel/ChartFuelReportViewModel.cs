@@ -313,8 +313,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private readonly Color[] ColorChart = new Color[]
         {
-            Color.FromHex("#ED4337"),
-            (Color)PrismApplicationBase.Current.Resources["WhiteColor"]
+            (Color)PrismApplicationBase.Current.Resources["DangerousColor"],
+            (Color)PrismApplicationBase.Current.Resources["PrimaryColor"]
         };
 
         public override void OnGetDataFail()
