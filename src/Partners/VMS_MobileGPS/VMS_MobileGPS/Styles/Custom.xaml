@@ -32,6 +32,8 @@
 
     <Color x:Key="MainTabSelectedColor">#004EDA</Color>
     <Color x:Key="MainTabUnSelectedColor">#C9C9C9</Color>
+    <Color x:Key="MainTabSelectedTextColor">#004EDA</Color>
+    <Color x:Key="MainTabUnSelectedTextColor">#C9C9C9</Color>
 
     <Color x:Key="PopupYesBtnTextColor">White</Color>
 
@@ -39,7 +41,9 @@
 
     <!--  Login  -->
     <Color x:Key="LoginTextColor">#7B7B7B</Color>
-
     <Color x:Key="LoginIconBackgroundColor">#004EDA</Color>
     <Color x:Key="LoginIconColor">White</Color>
+    <Color x:Key="LoginGradientStartColor">#00ADE5</Color>
+    <Color x:Key="LoginGradientEndColor">#0D2D6C</Color>
+
 </ResourceDictionary>

@@ -36,23 +36,22 @@ namespace BA_MobileGPS.Core.ViewModels
                     ItemType = LoginPopupItemType.OfflinePage,
                 });
             }
-            // Hướng dẫn sử dụng
-            list.Add(new LoginPopupItem
-            {
-                Title = MobileResource.Login_Popup_Manual,
-                Icon = "ic_support.png",
-                Url = "NavigationPage/HelperPage",
-                ItemType = LoginPopupItemType.Manual,
-            });
             // Thông tin bảo hành
+            //list.Add(new LoginPopupItem
+            //{
+            //    Title = MobileResource.Login_Popup_Guarantee,
+            //    Icon = "ic_guarantee.png",
+            //    Url = MobileSettingHelper.WebGps,
+            //    ItemType = LoginPopupItemType.Guarantee,
+            //});
+            // Mạng lưới
             list.Add(new LoginPopupItem
             {
-                Title = MobileResource.Login_Popup_Guarantee,
-                Icon = "ic_guarantee.png",
-                Url = MobileSettingHelper.WebGps,
-                ItemType = LoginPopupItemType.Guarantee,
+                Title = MobileResource.Login_Popup_Network,
+                Icon = "ic_network.png",
+                Url = MobileSettingHelper.Network,
+                ItemType = LoginPopupItemType.Network,
             });
-
             // Trải nghiệm BAGPS
             list.Add(new LoginPopupItem
             {
@@ -131,6 +130,7 @@ namespace BA_MobileGPS.Core.ViewModels
         OfflinePage,
         Manual,
         Guarantee,
+        Network,
         RegisterSupport,
         BAGPSExperience,
     }

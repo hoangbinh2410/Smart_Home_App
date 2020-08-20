@@ -17,7 +17,7 @@
     xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
     xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
     Title="{Binding Title}"
-   BackgroundColor="{DynamicResource WhiteColor}">
+    BackgroundColor="{DynamicResource WhiteColor}">
     <NavigationPage.TitleView>
         <Grid
             ColumnSpacing="10"
@@ -153,7 +153,7 @@
                             </combobox:SfComboBox.ComboBoxSource>
                         </combobox:SfComboBox>
                         <controls:IconView
-                           BackgroundColor="{DynamicResource WhiteColor}"
+                            BackgroundColor="{DynamicResource WhiteColor}"
                             Foreground="DimGray"
                             HeightRequest="30"
                             HorizontalOptions="CenterAndExpand"
@@ -232,7 +232,7 @@
                         <TapGestureRecognizer Command="{Binding GetDataCommand}" />
                     </controls:MaterialFrame.GestureRecognizers>
                     <controls:IconView
-                          Foreground="{DynamicResource WhiteColor}"  
+                          Foreground="{DynamicResource WhiteColor}"
                         HeightRequest="25"
                         HorizontalOptions="Center"
                         Source="ic_search.png"
@@ -265,8 +265,8 @@
                     </chart:SfChart.ChartBehaviors>
                     <chart:SfChart.PrimaryAxis>
                         <chart:DateTimeAxis
-                            Interval="2"
-                            IntervalType="Hours"
+                            Interval="60"
+                            IntervalType="Minutes"
                             Maximum="{Binding MaximumDate}"
                             Minimum="{Binding MinimumDate}"
                             ShowTrackballInfo="True">
@@ -284,6 +284,7 @@
                 </chart:SfChart>
                 <Grid
                     Padding="10,0,10,15"
+                    IsVisible="{Binding IsShowInfo}"
                     RowSpacing="10"
                     VerticalOptions="End">
                     <Grid.ColumnDefinitions>
@@ -428,7 +429,10 @@
                                 <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
                             </ffImage:CachedImage.Transformations>
                         </ffImage:CachedImage>
-                        <Label FontSize="14" Text="{Binding CurrentChartDisplay.CurrentAddress}" />
+                        <Label
+                            FontSize="14"
+                            HorizontalTextAlignment="Start"
+                            Text="{Binding CurrentChartDisplay.CurrentAddress}" />
                     </StackLayout>
                 </Grid>
             </StackLayout>

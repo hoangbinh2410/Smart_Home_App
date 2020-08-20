@@ -17,6 +17,7 @@ using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -95,6 +96,7 @@ namespace BA_MobileGPS.Core.Views
 
             mCarActive = new VehicleOnline();
             mCurrentVehicleList = new List<VehicleOnline>();
+            btnDirectvehicleOnline.IsVisible = false;
 
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
@@ -136,7 +138,7 @@ namespace BA_MobileGPS.Core.Views
             }
             else if (parameters.ContainsKey(ParameterKey.Company) && parameters.GetValue<Company>(ParameterKey.Company) is Company company)
             {
-                vm.CarSearch = MobileResource.Online_Label_SeachVehicle2;
+                vm.CarSearch = string.Empty;
 
                 HideBoxStatus();
 
@@ -146,7 +148,7 @@ namespace BA_MobileGPS.Core.Views
             }
             else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
             {
-                vm.CarSearch = MobileResource.Online_Label_SeachVehicle2;
+                vm.CarSearch = string.Empty;
 
                 vm.VehicleGroups = vehiclegroup;
 
@@ -277,12 +279,16 @@ namespace BA_MobileGPS.Core.Views
 
                 _animations.Add(States.ShowFilter, new[] {
                                                             new ViewTransition(boxInfo, AnimationType.TranslationY, 0, 300, delay: 300), // Active and visible
-                                                new ViewTransition(boxInfo, AnimationType.Opacity, 1, 0), // Active and visible
+                                                            new ViewTransition(boxInfo, AnimationType.Opacity, 1, 0), // Active and visible
+
+                                                          
                                                           });
 
                 _animations.Add(States.HideFilter, new[] {
                                                             new ViewTransition(boxInfo, AnimationType.TranslationY, 300),
                                                             new ViewTransition(boxInfo, AnimationType.Opacity, 0),
+
+                                                           
                                                           });
 
                 await _animations.Go(States.HideFilter, false);
@@ -471,7 +477,7 @@ namespace BA_MobileGPS.Core.Views
                         {
                             if (carActive)
                             {
-                                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString());
+                                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
                             }
                         });
                         //di chuyển biển số xe
@@ -732,9 +738,11 @@ namespace BA_MobileGPS.Core.Views
                 mCarActive = carInfo;
                 vm.CarActive = carInfo;
 
+                btnDirectvehicleOnline.IsVisible = true;
+
                 vm.EngineState = StateVehicleExtension.EngineState(carInfo);
 
-                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString());
+                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
 
                 //update active xe mới
                 UpdateBackgroundPinLable(carInfo, true);
@@ -747,7 +755,39 @@ namespace BA_MobileGPS.Core.Views
             }
         }
 
-        private void Getaddress(string lat, string lng)
+        //private void Getaddress(string lat, string lng)
+        //{
+        //    try
+        //    {
+        //        vm.CurrentAddress = MobileResource.Online_Label_Determining;
+        //        Task.Run(async () =>
+        //        {
+        //            return await geocodeService.GetAddressByLatLng(lat, lng);
+        //        }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
+        //        {
+        //            if (task.Status == TaskStatus.RanToCompletion)
+        //            {
+        //                if (!string.IsNullOrEmpty(task.Result))
+        //                {
+        //                    vm.CurrentAddress = task.Result;
+        //                }
+        //            }
+        //            else if (task.IsFaulted)
+        //            {
+        //                Logger.WriteError(MethodBase.GetCurrentMethod().Name, "Error");
+        //            }
+        //        }));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+        //    }
+        //    finally
+        //    {
+        //    }
+        //}
+
+        private void Getaddress(string lat, string lng, long vehicleID)
         {
             try
             {
@@ -761,7 +801,10 @@ namespace BA_MobileGPS.Core.Views
                     {
                         if (!string.IsNullOrEmpty(task.Result))
                         {
-                            vm.CurrentAddress = task.Result;
+                            if (vm.CarActive.VehicleId == vehicleID)
+                            {
+                                vm.CurrentAddress = task.Result;
+                            }
                         }
                     }
                     else if (task.IsFaulted)
@@ -773,9 +816,6 @@ namespace BA_MobileGPS.Core.Views
             catch (Exception ex)
             {
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-            }
-            finally
-            {
             }
         }
 
@@ -796,6 +836,7 @@ namespace BA_MobileGPS.Core.Views
 
             vm.CarActive = new VehicleOnline();
             mCarActive = new VehicleOnline();
+            btnDirectvehicleOnline.IsVisible = false;
         }
 
         /// <summary>
@@ -820,7 +861,7 @@ namespace BA_MobileGPS.Core.Views
         {
             try
             {
-                vm.CarSearch = MobileResource.Online_Label_SeachVehicle2;
+                vm.CarSearch = string.Empty;
                 if (mCarActive != null && mCarActive.VehicleId > 0)
                 {
                     HideBoxInfoCarActive(mCarActive);
@@ -939,7 +980,7 @@ namespace BA_MobileGPS.Core.Views
 
             HideBoxInfo();
 
-            vm.CarSearch = MobileResource.Online_Label_SeachVehicle2;
+            vm.CarSearch = string.Empty;
 
             if ((args as Syncfusion.ListView.XForms.ItemTappedEventArgs).ItemData is VehicleStatusViewModel item)
             {
