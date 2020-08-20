@@ -265,8 +265,8 @@
                     </chart:SfChart.ChartBehaviors>
                     <chart:SfChart.PrimaryAxis>
                         <chart:DateTimeAxis
-                            Interval="2"
-                            IntervalType="Hours"
+                            Interval="60"
+                            IntervalType="Minutes"
                             Maximum="{Binding MaximumDate}"
                             Minimum="{Binding MinimumDate}"
                             ShowTrackballInfo="True">
@@ -283,8 +283,8 @@
                     </chart:SfChart.SecondaryAxis>
                 </chart:SfChart>
                 <Grid
-                    IsVisible="{Binding IsShowInfo}"
                     Padding="10,0,10,15"
+                    IsVisible="{Binding IsShowInfo}"
                     RowSpacing="10"
                     VerticalOptions="End">
                     <Grid.ColumnDefinitions>
