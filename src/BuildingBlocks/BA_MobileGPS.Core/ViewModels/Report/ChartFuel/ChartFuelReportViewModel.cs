@@ -178,7 +178,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         CurrentChartDisplay = result[0];
                         ListFuelSumary = result;
-                        IsShowInfo = true;
+                        if(CurrentChartDisplay.NumberOfLiters == 0 && CurrentChartDisplay.VelocityGPS==0)
+                        {
+                            IsShowInfo = false;
+                        }
+                        else
+                        {
+                            IsShowInfo = true;
+                        }
                     },
                     cts: cts);
                 }
@@ -291,7 +298,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             MachineStatus = StateVehicleExtension.EngineStateConverter(c.MachineStatus),
                             CurrentAddress = c.CurrentAddress
                         })
-                        .Where(c => ShowByTime || c.NumberOfLiters > 0).ToList();
+                        .Where(c => (ShowByTime && c.NumberOfLiters >= 0) || c.NumberOfLiters > 0).ToList();
 
                         result.Add(new SplineAreaSeries()
                         {
@@ -313,8 +320,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private readonly Color[] ColorChart = new Color[]
         {
-            (Color)PrismApplicationBase.Current.Resources["DangerousColor"],
-            (Color)PrismApplicationBase.Current.Resources["PrimaryColor"]
+            Color.FromHex("#ED4337"),
+            (Color)PrismApplicationBase.Current.Resources["WhiteColor"]
         };
 
         public override void OnGetDataFail()
