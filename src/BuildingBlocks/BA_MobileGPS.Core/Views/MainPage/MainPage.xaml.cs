@@ -17,7 +17,11 @@ namespace BA_MobileGPS.Core.Views
     {
         public MainPage()
         {
+
             InitializeComponent();
+
+            bool checkpermissiononline = false;
+
             var home = PrismApplicationBase.Current.Container.Resolve<ContentView>("HomeTab"); //Home
             ViewModelLocator.SetAutowirePartialView(home, MainContentPage);
             Switcher.Children.Add(home);// Trang home
@@ -33,16 +37,12 @@ namespace BA_MobileGPS.Core.Views
             tabitem.SelectedTabIndexChanged += Tabitem_SelectedTabIndexChanged;
             if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
             {
+                checkpermissiononline = true;
                 var online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online
                 ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
                 Switcher.Children.Add(online);
                 tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_mornitoring.png", Label = MobileResource.Menu_TabItem_Monitoring });
                 Switcher.SelectedIndex = Switcher.Children.Count - 1;
-            }
-            else
-            {
-                Switcher.SelectedIndex = 1;
-                Switcher.SelectedIndex = 0;
             }
 
             if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
@@ -58,6 +58,11 @@ namespace BA_MobileGPS.Core.Views
             Switcher.Children.Add(accountTab);
             tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_account.png", Label = MobileResource.Menu_TabItem_Account });
 
+            if (!checkpermissiononline)
+            {
+                Switcher.SelectedIndex = 1;
+                Switcher.SelectedIndex = 0;
+            }
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitAnimation();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
