@@ -98,6 +98,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="VideoLAN.LibVLC.iOS">
+      <Version>3.3.10</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
     <PackageReference Include="Prism.Unity.Forms">
       <Version>7.2.0.1422</Version>
