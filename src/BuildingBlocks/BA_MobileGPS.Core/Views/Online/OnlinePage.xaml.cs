@@ -288,7 +288,7 @@ namespace BA_MobileGPS.Core.Views
                                                             new ViewTransition(boxInfo, AnimationType.TranslationY, 300),
                                                             new ViewTransition(boxInfo, AnimationType.Opacity, 0),
 
-                                                           
+
                                                           });
 
                 await _animations.Go(States.HideFilter, false);
@@ -382,10 +382,15 @@ namespace BA_MobileGPS.Core.Views
 
                     // Chạy lại hàm tính toán trạng thái xe
                     InitVehicleStatus(mVehicleList);
+
+                    googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(listPin[0].Lat, listPin[0].Lng), 5));
+
                 }
                 else
                 {
-                    googleMap.Pins.Clear();
+                    googleMap.ClusteredPins.Clear();
+
+                    googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(Settings.Latitude, Settings.Longitude), 5));
                 }
             }
         }
@@ -406,10 +411,14 @@ namespace BA_MobileGPS.Core.Views
             if (listResult.Count > 0)
             {
                 InitPinVehicle(ConvertMarkerPin(listResult));
+
+                googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(listResult[0].Lat, listResult[0].Lng), 5));
             }
             else
             {
-                googleMap.Pins.Clear();
+                googleMap.ClusteredPins.Clear();
+
+                googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(Settings.Latitude, Settings.Longitude), 5));
             }
 
             // Chạy lại hàm tính toán trạng thái xe
