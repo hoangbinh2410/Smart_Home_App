@@ -11,9 +11,10 @@
     xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
     x:Name="this"
     Title="Camera 1"
+    BackgroundColor="Black"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.HasNavigationBar="{Binding ScreenOrientPortrait, Mode=OneWay}">
-    <Grid RowDefinitions="*,*">
+    <Grid BackgroundColor="Black">
         <vlc:MediaPlayerElement
             x:Name="media"
             HorizontalOptions="FillAndExpand"
@@ -75,7 +76,7 @@
             EnableAnimation="True"
             IsBusy="{Binding VideoLoaded, Converter={StaticResource InvertBooleanConverter}}"
             TextColor="{DynamicResource WhiteColor}"
-            ViewBoxHeight="100"
-            ViewBoxWidth="100" />
+            ViewBoxHeight="50"
+            ViewBoxWidth="50" />
     </Grid>
 </ContentPage>
