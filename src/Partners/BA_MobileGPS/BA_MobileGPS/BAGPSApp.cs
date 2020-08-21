@@ -34,12 +34,7 @@ namespace BA_MobileGPS
             AppCenter.Start("ios=b9feff6c-5277-4e97-97e9-8a8e5c939eef;" +
                    "android=db0089bc-c6e2-4df4-bead-0368ccef3cd6",
                    typeof(Analytics), typeof(Crashes));
-
-            if (DeviceInfo.Platform == DevicePlatform.iOS)
-            {
-                DependencyService.Get<IScreenOrientServices>().ForcePortrait();
-            }
-
+    
             //Nếu cài app lần đầu tiên hoặc có sự thay đổi dữ liệu trên server thì sẽ vào trang cập nhật thông tin vào localDB
             if (!Settings.IsFistInstallApp || Settings.IsChangeDataLocalDB)
             {
