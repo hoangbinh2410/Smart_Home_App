@@ -10,7 +10,7 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class DetailCameraViewModel : ViewModelBase
     {
-        private readonly string videoUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
+        private readonly string videoUrl = "rtsp://222.254.34.167:1935/live/869092030971235_CAM1";
 
         public DetailCameraViewModel(INavigationService navigationService) : base(navigationService)
         {
@@ -93,33 +93,23 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref playIconSource, value);
                 RaisePropertyChanged();
             }
-        }      
+        }
 
         public ICommand PlayCommand { get; }
         public ICommand ScreenSizeChangedCommand { get; }
 
         private void SetUpVlc()
         {
-            try
-            {
-                LibVLCSharp.Shared.Core.Initialize();
-                LibVLC = new LibVLC();
+            LibVLCSharp.Shared.Core.Initialize();
+            LibVLC = new LibVLC();
 
-                var media = new Media(LibVLC,
-                    new Uri("rtsp://222.254.34.167:1935/live/869092030971235_CAM1"));
+            var media = new Media(LibVLC,
+                new Uri(videoUrl));
 
-                //var media = new Media(LibVLC,
-                //    new Uri(videoUrl));
-
-                MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true };
-                MediaPlayer.SetAdjustInt(VideoAdjustOption.Enable, 10);
-                MediaPlayer.SetAdjustInt(VideoAdjustOption.Gamma, 80);
-                MediaPlayer.Play();
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true };
+            MediaPlayer.SetAdjustInt(VideoAdjustOption.Enable, 10);
+            MediaPlayer.SetAdjustInt(VideoAdjustOption.Gamma, 80);
+            MediaPlayer.Play();
         }
 
         private bool videoLoaded;
@@ -172,6 +162,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 DependencyService.Get<IScreenOrientServices>().ForcePortrait();
             }
             ScreenOrientPortrait = !ScreenOrientPortrait;
-        }      
+        }
     }
 }

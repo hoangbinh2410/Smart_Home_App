@@ -5,12 +5,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
     xmlns:prism="http://prismlibrary.com"
     xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
     x:Name="this"
     Title="Camera 1"
     prism:ViewModelLocator.AutowireViewModel="True"
-    NavigationPage.HasNavigationBar="{Binding ScreenOrientPortrait}">
+    NavigationPage.HasNavigationBar="{Binding ScreenOrientPortrait, Mode=OneWay}">
     <Grid RowDefinitions="*,*">
         <vlc:MediaPlayerElement
             x:Name="media"
@@ -31,15 +33,15 @@
                                 <StackLayout x:Name="ControlsPanel" Style="{TemplateBinding ControlsPanelStyle}">
                                     <Grid>
                                         <StackLayout
-                                            HorizontalOptions="CenterAndExpand"
+                                            HorizontalOptions="Start"
                                             Orientation="Horizontal"
                                             VerticalOptions="Center">
                                             <Button x:Name="PlayPauseButton" IsVisible="False" />
                                             <Button x:Name="StopButton" IsVisible="False" />
                                             <controls:IconView
-                                                Margin="0,10"
-                                                Foreground="YellowGreen"
-                                                HeightRequest="30"
+                                                Margin="10"
+                                                Foreground="{DynamicResource WhiteColor}"
+                                                HeightRequest="25"
                                                 Source="{Binding BindingContext.PlayIconSource, Source={x:Reference this}}" />
                                             <StackLayout.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding BindingContext.PlayCommand, Source={x:Reference this}}" />
@@ -50,10 +52,10 @@
                                             Orientation="Horizontal"
                                             VerticalOptions="Center">
                                             <controls:IconView
-                                                Margin="0,10,10,10"
-                                                Foreground="YellowGreen"
-                                                HeightRequest="30"
-                                                Source="ic_distance2.png" />
+                                                Margin="0,10,20,10"
+                                                Foreground="{DynamicResource WhiteColor}"
+                                                HeightRequest="25"
+                                                Source="ic_fullscreen.png" />
                                             <StackLayout.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding BindingContext.ScreenSizeChangedCommand, Source={x:Reference this}}" />
                                             </StackLayout.GestureRecognizers>
@@ -72,8 +74,8 @@
             BackgroundColor="Transparent"
             EnableAnimation="True"
             IsBusy="{Binding VideoLoaded, Converter={StaticResource InvertBooleanConverter}}"
-            TextColor="YellowGreen"
-            ViewBoxHeight="120"
-            ViewBoxWidth="120" />
+            TextColor="{DynamicResource WhiteColor}"
+            ViewBoxHeight="100"
+            ViewBoxWidth="100" />
     </Grid>
 </ContentPage>

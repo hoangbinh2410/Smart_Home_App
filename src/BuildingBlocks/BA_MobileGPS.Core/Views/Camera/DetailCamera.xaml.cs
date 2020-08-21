@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Prism.Ioc;
 using Xamarin.Forms.Markup;
 using BA_MobileGPS.Core.ViewModels;
+using Prism.AppModel;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -111,13 +112,22 @@ namespace BA_MobileGPS.Core.Views
                 _height = height;
                 if (width > height)
                 {
+                    if (Device.RuntimePlatform == Device.iOS)
+                    {
+                        NavigationPage.SetHasNavigationBar(this, false);
+                    }                   
                     Grid.SetRowSpan(media, 2);
                     Grid.SetRowSpan(indicator, 2);
                 }
                 else
                 {
+                    if (Device.RuntimePlatform == Device.iOS)
+                    {
+                        NavigationPage.SetHasNavigationBar(this, true);
+                    }
                     Grid.SetRowSpan(media, 1);
                     Grid.SetRowSpan(indicator, 1);
+                                     
                 }
                 SetFitScreen();
             }
