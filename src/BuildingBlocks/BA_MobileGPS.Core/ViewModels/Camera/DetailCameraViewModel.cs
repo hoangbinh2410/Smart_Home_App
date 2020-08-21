@@ -105,11 +105,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 LibVLCSharp.Shared.Core.Initialize();
                 LibVLC = new LibVLC();
 
-                //var media = new Media(LibVLC,
-                //    new Uri("rtsp://222.254.34.167:1935/live/869092030971235_CAM1"));
-
                 var media = new Media(LibVLC,
-                    new Uri(videoUrl));
+                    new Uri("rtsp://222.254.34.167:1935/live/869092030971235_CAM1"));
+
+                //var media = new Media(LibVLC,
+                //    new Uri(videoUrl));
 
                 MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true };
                 MediaPlayer.SetAdjustInt(VideoAdjustOption.Enable, 10);
