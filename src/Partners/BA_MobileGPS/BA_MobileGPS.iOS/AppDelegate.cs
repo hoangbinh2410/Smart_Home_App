@@ -43,6 +43,15 @@ namespace BA_MobileGPS.iOS
             return base.FinishedLaunching(app, options);
         }
 
-       
+        public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, UIWindow forWindow)
+        {
+            var mainPage = Xamarin.Forms.Application.Current.MainPage;
+            if (mainPage.Navigation.NavigationStack.Last() is DetailCamera
+                && UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
+            {
+                return UIInterfaceOrientationMask.AllButUpsideDown;
+            }
+            return UIInterfaceOrientationMask.Portrait;
+        }
     }
 }
