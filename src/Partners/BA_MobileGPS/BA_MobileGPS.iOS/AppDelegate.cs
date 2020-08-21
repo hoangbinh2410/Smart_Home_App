@@ -2,6 +2,7 @@
 using BA_MobileGPS.Core.iOS.Setup;
 using BA_MobileGPS.Core.Views;
 using Foundation;
+using Prism.Common;
 using System.Linq;
 using UIKit;
 using Xamarin.Forms;
@@ -43,15 +44,6 @@ namespace BA_MobileGPS.iOS
             return base.FinishedLaunching(app, options);
         }
 
-        public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, UIWindow forWindow)
-        {
-            var mainPage = Xamarin.Forms.Application.Current.MainPage;
-            if (mainPage.Navigation.NavigationStack.Last() is DetailCamera
-                && UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
-            {
-                return UIInterfaceOrientationMask.AllButUpsideDown;
-            }
-            return UIInterfaceOrientationMask.Portrait;
-        }
+       
     }
 }

@@ -3,6 +3,7 @@ using BA_MobileGPS.Core.iOS.DependencyServices;
 using BA_MobileGPS.Core.Views;
 using Foundation;
 using Prism;
+using Prism.Common;
 using Prism.Ioc;
 using System.Linq;
 using UIKit;
@@ -56,6 +57,16 @@ namespace BA_MobileGPS.Core.iOS
                 containerRegistry.RegisterInstance<IDownloader>(new IosDownloader());
                 containerRegistry.RegisterInstance<IScreenOrientServices>(new ScreenOrientServices());
             }
-        }    
+        }
+        public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, UIWindow forWindow)
+        {
+            var mainPage = Xamarin.Forms.Application.Current.MainPage;
+            if (PageUtilities.GetCurrentPage(mainPage) is DetailCamera
+                && UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
+            {
+                return UIInterfaceOrientationMask.AllButUpsideDown;
+            }
+            return UIInterfaceOrientationMask.Portrait;
+        }
     }
 }
