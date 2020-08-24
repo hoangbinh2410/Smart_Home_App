@@ -5,18 +5,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
-    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
     xmlns:prism="http://prismlibrary.com"
     xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
     x:Name="this"
     Title="Camera 1"
-    BackgroundColor="Black"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.HasNavigationBar="{Binding ScreenOrientPortrait, Mode=OneWay}">
-    <Grid BackgroundColor="Black">
+    <Grid
+        x:Name="main"
+        BackgroundColor="Black"
+        RowDefinitions="*,400,*">
         <vlc:MediaPlayerElement
             x:Name="media"
+            Grid.Row="1"
             HorizontalOptions="FillAndExpand"
             LibVLC="{Binding LibVLC}"
             MediaPlayer="{Binding MediaPlayer}"
@@ -43,10 +44,31 @@
                                                 Margin="10"
                                                 Foreground="{DynamicResource WhiteColor}"
                                                 HeightRequest="25"
-                                                Source="{Binding BindingContext.PlayIconSource, Source={x:Reference this}}" />
-                                            <StackLayout.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding BindingContext.PlayCommand, Source={x:Reference this}}" />
-                                            </StackLayout.GestureRecognizers>
+                                                Source="{Binding BindingContext.PlayIconSource, Source={x:Reference this}}"
+                                                WidthRequest="25">
+                                                <controls:IconView.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding BindingContext.ScreenOrientPortrait, Source={x:Reference this}}"
+                                                        TargetType="controls:IconView"
+                                                        Value="true">
+                                                        <Setter Property="Margin" Value="20,10,0,10" />
+                                                    </DataTrigger>
+                                                    <DataTrigger
+                                                        Binding="{Binding BindingContext.ScreenOrientPortrait, Source={x:Reference this}}"
+                                                        TargetType="controls:IconView"
+                                                        Value="false">
+                                                        <Setter Property="Margin" Value="70,10,0,10" />
+                                                    </DataTrigger>
+                                                </controls:IconView.Triggers>
+                                                <controls:IconView.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding BindingContext.PlayCommand, Source={x:Reference this}}" />
+                                                </controls:IconView.GestureRecognizers>
+                                            </controls:IconView>
+                                            <controls:IconView
+                                                Foreground="{DynamicResource WhiteColor}"
+                                                HeightRequest="25"
+                                                Source="ic_camera.png"
+                                                WidthRequest="25" />
                                         </StackLayout>
                                         <StackLayout
                                             HorizontalOptions="End"
@@ -55,8 +77,26 @@
                                             <controls:IconView
                                                 Margin="0,10,20,10"
                                                 Foreground="{DynamicResource WhiteColor}"
-                                                HeightRequest="25"
-                                                Source="ic_fullscreen.png" />
+                                                HeightRequest="30"
+                                                Source="ic_fullscreen.png"
+                                                WidthRequest="30">
+                                                <controls:IconView.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding BindingContext.ScreenOrientPortrait, Source={x:Reference this}}"
+                                                        TargetType="controls:IconView"
+                                                        Value="true">
+                                                        <Setter Property="Margin" Value="0,10,20,10" />
+                                                        <Setter Property="Source" Value="ic_fullscreen.png" />
+                                                    </DataTrigger>
+                                                    <DataTrigger
+                                                        Binding="{Binding BindingContext.ScreenOrientPortrait, Source={x:Reference this}}"
+                                                        TargetType="controls:IconView"
+                                                        Value="false">
+                                                        <Setter Property="Margin" Value="0,10,60,10" />
+                                                        <Setter Property="Source" Value="ic_normalscreen.png" />
+                                                    </DataTrigger>
+                                                </controls:IconView.Triggers>
+                                            </controls:IconView>
                                             <StackLayout.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding BindingContext.ScreenSizeChangedCommand, Source={x:Reference this}}" />
                                             </StackLayout.GestureRecognizers>
@@ -71,6 +111,7 @@
         </vlc:MediaPlayerElement>
         <busyindicator:SfBusyIndicator
             x:Name="indicator"
+            Grid.Row="1"
             AnimationType="SingleCircle"
             BackgroundColor="Transparent"
             EnableAnimation="True"

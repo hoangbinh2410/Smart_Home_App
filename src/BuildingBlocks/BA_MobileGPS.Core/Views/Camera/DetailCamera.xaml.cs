@@ -17,8 +17,8 @@ namespace BA_MobileGPS.Core.Views
         public DetailCamera()
         {
             InitializeComponent();
-            
-        }       
+
+        }
 
         protected override void OnAppearing()
         {
@@ -70,6 +70,9 @@ namespace BA_MobileGPS.Core.Views
             //    media.MediaPlayer.Scale = (float)(dar >= ar ? (displayWidth / videoWidth) : (displayHeight / videoHeigth));
             //}
             //media.MediaPlayer.AspectRatio = null;
+            media.MediaPlayer.AspectRatio = "16:9";
+            media.MediaPlayer.Scale = 0;
+
         }
 
         private VideoTrack? GetVideoTrack(MediaPlayer mediaPlayer)
@@ -100,7 +103,7 @@ namespace BA_MobileGPS.Core.Views
             var orientation = videoTrack.Orientation;
             return orientation == VideoOrientation.LeftBottom || orientation == VideoOrientation.RightTop;
         }
-        
+
         private double _width = 0;
         private double _height = 0;
         protected override void OnSizeAllocated(double width, double height)
@@ -114,26 +117,34 @@ namespace BA_MobileGPS.Core.Views
                 {
                     if (Device.RuntimePlatform == Device.iOS)
                     {
-                        NavigationPage.SetHasNavigationBar(this, false);
-                    }                   
-                   // Grid.SetRowSpan(media, 2);
-                    //Grid.SetRowSpan(indicator, 2);
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            ((DetailCameraViewModel)this.BindingContext).ScreenOrientPortrait = false;
+                        });
+                    }
+                    main.RowDefinitions = new RowDefinitionCollection();
+                    Grid.SetRow(media, 0);
+                    Grid.SetRow(indicator, 0);                                     
                 }
                 else
                 {
                     if (Device.RuntimePlatform == Device.iOS)
                     {
-                        NavigationPage.SetHasNavigationBar(this, true);
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            ((DetailCameraViewModel)this.BindingContext).ScreenOrientPortrait = true;
+                        });
                     }
-                   // Grid.SetRowSpan(media, 1);
-                   // Grid.SetRowSpan(indicator, 1);
-                                     
+                    main.RowDefinitions = new RowDefinitionCollection() { 
+                        new RowDefinition() { Height = GridLength.Star }, 
+                        new RowDefinition() { Height = new GridLength(380)}, 
+                        new RowDefinition() { Height = GridLength.Star } 
+                    };
+                    Grid.SetRow(media, 1);
+                    Grid.SetRow(indicator, 1);
                 }
                 SetFitScreen();
             }
-            
-           
-           
         }
-    }  
+    }
 }

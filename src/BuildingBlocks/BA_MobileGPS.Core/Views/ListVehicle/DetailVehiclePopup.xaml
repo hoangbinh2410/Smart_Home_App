@@ -125,7 +125,7 @@
                                 Offset="0,0"
                                 Color="Black" />
                         </pancakeview:PancakeView.Shadow>
-                        <controls:IconView Source="ic_guarantee.png" />
+                        <controls:IconView Source="ic_camera.png" />
                     </pancakeview:PancakeView>
                     <Label Text="Camera" />
                 </StackLayout>
