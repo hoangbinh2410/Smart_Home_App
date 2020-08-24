@@ -34,14 +34,14 @@
         ColumnDefinitions="*,*"
         RowDefinitions="*,*"
         RowSpacing="5">
-        <StackLayout Spacing="0" VerticalOptions="Fill">
+        <StackLayout Spacing="0" VerticalOptions="FillAndExpand">
             <Label
                 Margin="10,5"
                 FontSize="16"
                 HorizontalOptions="Start"
                 Text="Camera 1"
                 VerticalOptions="Start" />
-            <Frame Padding="0" VerticalOptions="FillAndExpand">
+            <Frame Padding="0" HeightRequest="300">
                 <ffImage:CachedImage Aspect="AspectFill" Source="avatar_default.png">
                     <ffImage:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ImageTapCommand}" CommandParameter="1" />
@@ -53,14 +53,14 @@
         <StackLayout
             Grid.Column="1"
             Spacing="0"
-            VerticalOptions="Fill">
+            VerticalOptions="FillAndExpand">
             <Label
                 Margin="10,5"
                 FontSize="16"
                 HorizontalOptions="Start"
                 Text="Camera 2"
                 VerticalOptions="Start" />
-            <Frame Padding="0" VerticalOptions="FillAndExpand">
+            <Frame Padding="0" HeightRequest="300">
                 <ffImage:CachedImage Aspect="AspectFill" Source="avatar_default.png">
                     <ffImage:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ImageTapCommand}" CommandParameter="1" />
@@ -72,14 +72,14 @@
         <StackLayout
             Grid.Row="1"
             Spacing="0"
-            VerticalOptions="Fill">
+            VerticalOptions="FillAndExpand">
             <Label
                 Margin="10,5"
                 FontSize="16"
                 HorizontalOptions="Start"
                 Text="Camera 3"
                 VerticalOptions="Start" />
-            <Frame Padding="0" VerticalOptions="FillAndExpand">
+            <Frame Padding="0" HeightRequest="300">
                 <ffImage:CachedImage Aspect="AspectFill" Source="avatar_default.png">
                     <ffImage:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ImageTapCommand}" CommandParameter="1" />
@@ -91,14 +91,14 @@
             Grid.Row="1"
             Grid.Column="1"
             Spacing="0"
-            VerticalOptions="Fill">
+            VerticalOptions="FillAndExpand">
             <Label
                 Margin="10,5"
                 FontSize="16"
                 HorizontalOptions="Start"
                 Text="Camera 4"
                 VerticalOptions="Start" />
-            <Frame Padding="0" VerticalOptions="FillAndExpand">
+            <Frame Padding="0" HeightRequest="300">
                 <ffImage:CachedImage Aspect="AspectFill" Source="avatar_default.png">
                     <ffImage:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ImageTapCommand}" CommandParameter="1" />
