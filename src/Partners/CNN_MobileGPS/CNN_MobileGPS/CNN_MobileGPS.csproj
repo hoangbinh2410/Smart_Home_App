@@ -14,8 +14,8 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Styles\Colors.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
+    <Compile Update="Styles\Custom.xaml.cs">
+      <DependentUpon>Custom.xaml</DependentUpon>
     </Compile>
     <Compile Update="Styles\DarkColor.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Styles\Colors.xaml">
+    <EmbeddedResource Update="Styles\Custom.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
