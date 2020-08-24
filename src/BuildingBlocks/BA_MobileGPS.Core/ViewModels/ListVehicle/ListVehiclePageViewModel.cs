@@ -626,7 +626,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { "Camera", param }
                 };
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/StreamPicture", parameters, true);
+                await NavigationService.NavigateAsync("NavigationPage/StreamPicture", parameters, true);
             });
         }
 

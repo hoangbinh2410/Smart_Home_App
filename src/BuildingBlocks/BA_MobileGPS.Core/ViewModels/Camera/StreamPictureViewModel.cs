@@ -29,7 +29,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ImageTap(object index)
         {
-            NavigationService.NavigateAsync("BaseNavigationPage/DetailCamera", useModalNavigation:true);
+            NavigationService.NavigateAsync("DetailCamera", useModalNavigation:false);
         }
 
         public ICommand ImageTapCommand { get; }

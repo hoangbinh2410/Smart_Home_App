@@ -5,29 +5,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:prism="http://prismlibrary.com"
-    x:Name="this"
+    x:Name="this" NavigationPage.BackButtonTitle=""
     Title="Camera Stream"
     prism:ViewModelLocator.AutowireViewModel="True">
-    <NavigationPage.TitleView>
-        <Grid
-            ColumnSpacing="10"
-            HeightRequest="44"
-            HorizontalOptions="FillAndExpand">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="35" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label
-                Grid.Column="1"
-                FontAttributes="Bold"
-                FontSize="20"
-                HorizontalOptions="Center"
-                LineBreakMode="TailTruncation"
-                Text="{Binding Source={x:Reference this}, Path=Title}"
-                TextColor="{DynamicResource WhiteColor}"
-                VerticalOptions="Center" />
-        </Grid>
-    </NavigationPage.TitleView>
+   <ContentPage.ToolbarItems>
+        <ToolbarItem
+            x:Name="btnClose"
+            Command="{Binding ClosePageCommand}"
+            Icon="ic_close.png"
+            Order="Primary"
+            Priority="0"
+            Text="Đóng" />
+    </ContentPage.ToolbarItems>
     <Grid
         x:Name="main"
         Margin="0,0,0,25"
