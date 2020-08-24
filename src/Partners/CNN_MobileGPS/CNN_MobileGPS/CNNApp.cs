@@ -1,12 +1,14 @@
 ﻿using BA_MobileGPS.Core;
-using CNN_MobileGPS.Styles;
+using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Utilities.Constant;
 using BA_MobileGPS.Utilities.Enums;
+using CNN_MobileGPS.Styles;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Prism;
 using Prism.Ioc;
+using Xamarin.Forms;
 
 namespace CNN_MobileGPS
 {
@@ -20,10 +22,6 @@ namespace CNN_MobileGPS
 
         protected async override void OnInitialized()
         {
-            Resources.MergedDictionaries.Add(new DarkColor());
-            Resources.MergedDictionaries.Add(new LightColor());
-            Resources.MergedDictionaries.Add(new Colors());
-
             base.OnInitialized();
 
             ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerCNN;
@@ -38,7 +36,7 @@ namespace CNN_MobileGPS
             //Nếu cài app lần đầu tiên hoặc có sự thay đổi dữ liệu trên server thì sẽ vào trang cập nhật thông tin vào localDB
             if (!Settings.IsFistInstallApp || Settings.IsChangeDataLocalDB)
             {
-                _ = await NavigationService.NavigateAsync("LoginPage");
+                _ = await NavigationService.NavigateAsync("InsertLocalDBPage");
             }
             else
             {
@@ -54,6 +52,10 @@ namespace CNN_MobileGPS
 
             // Đăng ký config automapper
             AutoMapperConfig.RegisterMappings(containerRegistry);
+
+            containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
+            containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());
+            containerRegistry.Register<ResourceDictionary, CNN_MobileGPS.Styles.Custom>(Theme.Custom.ToString());
         }
     }
 }
