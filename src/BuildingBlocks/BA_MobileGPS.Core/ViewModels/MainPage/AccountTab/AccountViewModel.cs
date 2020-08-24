@@ -58,7 +58,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Url = "NavigationPage/NotificationPage",
                 MenuType = MenuType.Notification,
                 IsEnable = true,
-                IconColor = Color.FromHex("#00aeef")
+                IconColor = (Color)App.Current.Resources["PrimaryColor"]
             });
             // Đổi mật khẩu
             list.Add(new MenuItem
