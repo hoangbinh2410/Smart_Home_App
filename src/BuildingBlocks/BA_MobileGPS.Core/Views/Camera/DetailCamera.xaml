@@ -14,7 +14,7 @@
     <Grid
         x:Name="main"
         BackgroundColor="Black"
-        RowDefinitions="*,400,*">
+        RowDefinitions="*,380,*">
         <vlc:MediaPlayerElement
             x:Name="media"
             Grid.Row="1"
@@ -23,7 +23,7 @@
             MediaPlayer="{Binding MediaPlayer}"
             VerticalOptions="FillAndExpand">
             <vlc:MediaPlayerElement.PlaybackControls>
-                <vlc:PlaybackControls ShowAndHideAutomatically="False">
+                <vlc:PlaybackControls>
                     <vlc:PlaybackControls.ControlTemplate>
                         <ControlTemplate>
                             <StackLayout IsEnabled="{Binding BindingContext.VideoLoaded, Source={x:Reference this}}" Spacing="0">
@@ -68,7 +68,11 @@
                                                 Foreground="{DynamicResource WhiteColor}"
                                                 HeightRequest="25"
                                                 Source="ic_camera.png"
-                                                WidthRequest="25" />
+                                                WidthRequest="25">
+                                                <controls:IconView.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding BindingContext.TakeScreenShotCommand, Source={x:Reference this}}" />
+                                                </controls:IconView.GestureRecognizers>
+                                            </controls:IconView>
                                         </StackLayout>
                                         <StackLayout
                                             HorizontalOptions="End"
@@ -92,7 +96,7 @@
                                                         Binding="{Binding BindingContext.ScreenOrientPortrait, Source={x:Reference this}}"
                                                         TargetType="controls:IconView"
                                                         Value="false">
-                                                        <Setter Property="Margin" Value="0,10,60,10" />
+                                                        <Setter Property="Margin" Value="0,10,75,10" />
                                                         <Setter Property="Source" Value="ic_normalscreen.png" />
                                                     </DataTrigger>
                                                 </controls:IconView.Triggers>

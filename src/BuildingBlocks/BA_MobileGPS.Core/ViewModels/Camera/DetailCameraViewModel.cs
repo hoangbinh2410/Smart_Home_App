@@ -1,27 +1,50 @@
 ﻿using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Entities;
+using BA_MobileGPS.Service.IService;
 using LibVLCSharp.Shared;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
+using System.IO;
 using System.Windows.Input;
 using Xamarin.Forms;
+
+
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class DetailCameraViewModel : ViewModelBase
     {
-        private readonly string videoUrl = "rtsp://222.254.34.167:1935/live/869092030971235_CAM1";
-
-        public DetailCameraViewModel(INavigationService navigationService) : base(navigationService)
+        private string videoUrl = "";
+        private readonly IStreamCameraService streamCameraService;
+        public DetailCameraViewModel(INavigationService navigationService,IStreamCameraService streamCameraService) : base(navigationService)
         {
-            SetUpVlc();
-            PlayCommand = new DelegateCommand(Play);
+            this.streamCameraService = streamCameraService;            
             PlayIconSource = "ic_stop_white.png";
+            PlayCommand = new DelegateCommand(Play);            
             ScreenSizeChangedCommand = new DelegateCommand(ScreenSizeChanged);
+            TakeScreenShotCommand = new DelegateCommand(TakeScreenShot);
             ScreenOrientPortrait = true;
             videoLoaded = false;
+            var a = new StreamStartRequest() { CustomerID = 1010, Channel = 5, VehicleName = "PNC.CAM1" };
+
         }
 
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            if (parameters?.GetValue<string>("Channel") is string link)
+            {
+                videoUrl = link;
+                SetUpVlc();
+            }
+            else
+            {
+                NavigationService.GoBack();
+            }
+            base.OnNavigatedTo(parameters);
+          
+           
+        }
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
@@ -45,6 +68,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 DependencyService.Get<IScreenOrientServices>().ForcePortrait();
             }
+            //streamCameraService.StopStream(new StreamStopRequest() { })
         }
 
         private bool screenOrientPortrait;
@@ -97,7 +121,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand PlayCommand { get; }
         public ICommand ScreenSizeChangedCommand { get; }
-
+        public ICommand TakeScreenShotCommand { get; }
         private void SetUpVlc()
         {
             LibVLCSharp.Shared.Core.Initialize();
@@ -162,6 +186,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 DependencyService.Get<IScreenOrientServices>().ForcePortrait();
             }
             ScreenOrientPortrait = !ScreenOrientPortrait;
+        }
+        private void TakeScreenShot()
+        {
+           // var a = MediaPlayer.TakeSnapshot(0,"BAGPS",800,600);
+
+            //var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+           
         }
     }
 }

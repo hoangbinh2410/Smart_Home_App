@@ -4,11 +4,14 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:prism="http://prismlibrary.com"
-    x:Name="this" NavigationPage.BackButtonTitle=""
+    xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    x:Name="this"
     Title="Camera Stream"
-    prism:ViewModelLocator.AutowireViewModel="True">
-   <ContentPage.ToolbarItems>
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.BackButtonTitle="">
+    <ContentPage.ToolbarItems>
         <ToolbarItem
             x:Name="btnClose"
             Command="{Binding ClosePageCommand}"
@@ -17,84 +20,62 @@
             Priority="0"
             Text="Đóng" />
     </ContentPage.ToolbarItems>
-    <Grid
-        x:Name="main"
-        Margin="0,0,0,25"
-        ColumnDefinitions="*,*"
-        RowDefinitions="*,*"
-        RowSpacing="5">
-        <StackLayout Spacing="0" VerticalOptions="FillAndExpand">
-            <Label
-                Margin="10,5"
-                FontSize="16"
-                HorizontalOptions="Start"
-                Text="Camera 1"
-                VerticalOptions="Start" />
-            <Frame Padding="0" HeightRequest="300">
-                <ffImage:CachedImage Aspect="AspectFill" Source="avatar_default.png">
-                    <ffImage:CachedImage.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ImageTapCommand}" CommandParameter="1" />
-                    </ffImage:CachedImage.GestureRecognizers>
-                </ffImage:CachedImage>
-            </Frame>
-        </StackLayout>
-
+    <Grid BackgroundColor="{DynamicResource GrayColor2}">
+        <xforms:SfListView
+            ItemSize="300"
+            ItemSpacing="5"
+            ItemsSource="{Binding StreamSource, Mode=OneWay}"
+            TapCommand="{Binding ImageTapCommand}">
+            <xforms:SfListView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout
+                        BackgroundColor="Red"
+                        Spacing="0"
+                        VerticalOptions="FillAndExpand">
+                        <Label
+                            Margin="10,5"
+                            FontSize="16"
+                            HorizontalOptions="Start"
+                            Text="{Binding Channel}"
+                            VerticalOptions="Start" />
+                        <Frame
+                            Padding="0"
+                            HorizontalOptions="Fill"
+                            VerticalOptions="FillAndExpand">
+                            <ffImage:CachedImage Aspect="AspectFill" Source="avatar_default.png" />
+                        </Frame>
+                    </StackLayout>
+                </DataTemplate>
+            </xforms:SfListView.ItemTemplate>
+            <xforms:SfListView.LayoutManager>
+                <xforms:GridLayout SpanCount="2" />
+            </xforms:SfListView.LayoutManager>
+        </xforms:SfListView>
         <StackLayout
-            Grid.Column="1"
+            BackgroundColor="Transparent"
+            HorizontalOptions="Center"
+            IsVisible="{Binding StreamSource, Converter={StaticResource IsEmptyDataConverter}}"
             Spacing="0"
-            VerticalOptions="FillAndExpand">
-            <Label
-                Margin="10,5"
-                FontSize="16"
-                HorizontalOptions="Start"
-                Text="Camera 2"
-                VerticalOptions="Start" />
-            <Frame Padding="0" HeightRequest="300">
-                <ffImage:CachedImage Aspect="AspectFill" Source="avatar_default.png">
-                    <ffImage:CachedImage.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ImageTapCommand}" CommandParameter="1" />
-                    </ffImage:CachedImage.GestureRecognizers>
-                </ffImage:CachedImage>
-            </Frame>
-        </StackLayout>
+            VerticalOptions="Center">
 
-        <StackLayout
-            Grid.Row="1"
-            Spacing="0"
-            VerticalOptions="FillAndExpand">
-            <Label
-                Margin="10,5"
-                FontSize="16"
-                HorizontalOptions="Start"
-                Text="Camera 3"
-                VerticalOptions="Start" />
-            <Frame Padding="0" HeightRequest="300">
-                <ffImage:CachedImage Aspect="AspectFill" Source="avatar_default.png">
-                    <ffImage:CachedImage.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ImageTapCommand}" CommandParameter="1" />
-                    </ffImage:CachedImage.GestureRecognizers>
-                </ffImage:CachedImage>
-            </Frame>
-        </StackLayout>
-        <StackLayout
-            Grid.Row="1"
-            Grid.Column="1"
-            Spacing="0"
-            VerticalOptions="FillAndExpand">
-            <Label
-                Margin="10,5"
-                FontSize="16"
-                HorizontalOptions="Start"
-                Text="Camera 4"
-                VerticalOptions="Start" />
-            <Frame Padding="0" HeightRequest="300">
-                <ffImage:CachedImage Aspect="AspectFill" Source="avatar_default.png">
-                    <ffImage:CachedImage.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ImageTapCommand}" CommandParameter="1" />
-                    </ffImage:CachedImage.GestureRecognizers>
-                </ffImage:CachedImage>
-            </Frame>
-        </StackLayout>
+            <!--  Image for display svg image  -->
+            <!--  Image for display svg image  -->
+            <ffsvg:SvgCachedImage
+                Margin="{x:OnIdiom Phone='0,0,0,0',
+                                   Desktop='0',
+                                   Tablet='0'}"
+                HeightRequest="250"
+                Source="NoItem.svg"
+                VerticalOptions="Center"
+                WidthRequest="250" />
 
+            <!--  Label to display content  -->
+            <Label
+                HorizontalOptions="Center"
+                Text="{Binding InternalMessenger, Mode=OneWay}"
+                TextColor="{DynamicResource TextSecondaryColor}"
+                VerticalOptions="Center"
+                VerticalTextAlignment="Center" />
+        </StackLayout>
     </Grid>
 </ContentPage>

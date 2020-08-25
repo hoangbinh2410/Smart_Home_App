@@ -20,22 +20,6 @@ namespace BA_MobileGPS.Core.Views
 
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            media.MediaPlayer.Buffering += MediaPlayer_Buffering;
-        }
-
-        private bool runOneTime = true;
-        private void MediaPlayer_Buffering(object sender, MediaPlayerBufferingEventArgs e)
-        {
-            if (runOneTime)
-            {
-                SetFitScreen();
-                runOneTime = false;
-            }
-        }
-
         private void SetFitScreen()
         {
             //var videoView = media.VideoView;
@@ -70,9 +54,23 @@ namespace BA_MobileGPS.Core.Views
             //    media.MediaPlayer.Scale = (float)(dar >= ar ? (displayWidth / videoWidth) : (displayHeight / videoHeigth));
             //}
             //media.MediaPlayer.AspectRatio = null;
-            media.MediaPlayer.AspectRatio = "16:9";
-            media.MediaPlayer.Scale = 0;
+           // Set16_9();
 
+        }
+
+        private void Set16_9()
+        {
+            try
+            {
+                media.MediaPlayer.AspectRatio = "16:9";
+                media.MediaPlayer.Scale = 0;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
         }
 
         private VideoTrack? GetVideoTrack(MediaPlayer mediaPlayer)
