@@ -55,11 +55,11 @@
 
         public const string GET_VEHICLE_LIST = "api/vehicles/getlistvehicleplate";
 
-        public const string GET_VEHICLEONLINE = "api/v2/vehicles/getlistvehicleonline";
+        public const string GET_VEHICLEONLINE = "api/v3/vehicles/getlistvehicleonline";
 
         public const string GET_VEHICLE_GROUP = "api/vehicles/getlistgroups";
 
-        public const string GET_VEHICLE_COMPANY = "api/vehicles/getlistcompanyid";
+        public const string GET_VEHICLE_COMPANY = "api/v2/vehicles/getlistcompanyid";
 
         public const string GET_VEHICLE_COMPANY_BY_BUSINESSUSER = "api/vehicles/getlistcompanyidbybusinessuser";
 

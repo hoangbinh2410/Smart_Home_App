@@ -363,15 +363,24 @@ namespace BA_MobileGPS.Core.ViewModels
         private void GetListVehicleOnlineResume()
         {
             var userID = UserInfo.UserId;
+            var companyID = UserInfo.CompanyId;
+            var xnCode = UserInfo.XNCode;
+            var userType = UserInfo.UserType;
+            var companyType = UserInfo.CompanyType;
+
             if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
             {
                 userID = Settings.CurrentCompany.UserId;
+                companyID = Settings.CurrentCompany.FK_CompanyID;
+                xnCode = Settings.CurrentCompany.XNCode;
+                userType = Settings.CurrentCompany.UserType;
+                companyType = Settings.CurrentCompany.CompanyType;
             }
             int vehicleGroup = 0;
 
             RunOnBackground(async () =>
             {
-                return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup);
+                return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
             }, (result) =>
             {
                 if (StaticSettings.IsUnauthorized)
