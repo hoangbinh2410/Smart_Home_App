@@ -296,7 +296,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.ReportPourFuelSelected, SelectPourFuelVehicleItem }
                 };
-                await NavigationService.NavigateAsync("PourFuelDetailReport", p, useModalNavigation: false);
+                await NavigationService.NavigateAsync("PourFuelDetailReportPage", p, useModalNavigation: false);
             }
             catch (Exception ex)
             {
