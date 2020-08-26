@@ -186,7 +186,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private List<VehicleOnlineViewModel> ListVehicleByStatus;
+        private List<VehicleOnlineViewModel> ListVehicleByStatus = new List<VehicleOnlineViewModel>();
 
         private bool companyChanged;
 
@@ -291,7 +291,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     ListVehicle = ListVehicleOrigin.ToObservableCollection();
                 }
-
+                ListVehicleByStatus = ListVehicleOrigin;
                 InitVehicleStatus();
             }
             catch (Exception ex)
