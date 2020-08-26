@@ -4,6 +4,7 @@ using BA_MobileGPS.Service.IService;
 using LibVLCSharp.Shared;
 using Prism.Commands;
 using Prism.Navigation;
+using Syncfusion.SfCalendar.XForms;
 using System;
 using System.IO;
 using System.Timers;
@@ -19,6 +20,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private string videoUrl = "";
         private readonly IStreamCameraService streamCameraService;
         private Timer timer;
+
         public DetailCameraViewModel(INavigationService navigationService,IStreamCameraService streamCameraService) : base(navigationService)
         {
             this.streamCameraService = streamCameraService;            
@@ -26,13 +28,14 @@ namespace BA_MobileGPS.Core.ViewModels
             PlayCommand = new DelegateCommand(Play);            
             ScreenSizeChangedCommand = new DelegateCommand(ScreenSizeChanged);
             TakeScreenShotCommand = new DelegateCommand(TakeScreenShot);
+            NavigationBackTappedCommand = new DelegateCommand(NavigationBackTapped);
             ScreenOrientPortrait = true;
             VideoLoaded = false;
             var a = new StreamStartRequest() { CustomerID = 1010, Channel = 5, VehicleName = "PNC.CAM1" };
-            RemainTime = "0:00";
-         
-            
+            RemainTime = "0:00";                     
         }
+
+
         private int time = 180;
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -45,9 +48,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            if (parameters?.GetValue<string>("Channel") is string link)
+            if (parameters?.GetValue<StreamStart>("Channel") is StreamStart link)
             {
-                videoUrl = link;
+                videoUrl = link.Link;
+                Title = "Kênh " + link.Channel.ToString();
                 SetUpVlc();
             }
             else
@@ -82,8 +86,9 @@ namespace BA_MobileGPS.Core.ViewModels
             timer.Dispose();
             MediaPlayer.Dispose();
             LibVLC.Dispose();
-            //streamCameraService.StopStream(new StreamStopRequest() { })
+            //streamCameraService.StopStream(new StreamStopRequest() { });
         }
+     
 
         private string remainTime;
         public string RemainTime
@@ -144,6 +149,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand PlayCommand { get; }
         public ICommand ScreenSizeChangedCommand { get; }
         public ICommand TakeScreenShotCommand { get; }
+        public ICommand NavigationBackTappedCommand { get; }
         private void SetUpVlc()
         {
             LibVLCSharp.Shared.Core.Initialize();
@@ -227,5 +233,23 @@ namespace BA_MobileGPS.Core.ViewModels
            // var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
            
         }
+
+        private void NavigationBackTapped()
+        {
+            TryExecute(async () =>
+            {
+                var title = "Thông báo";
+                var content = "Bạn muốn quay lại, việc load lai camera sẽ mất 10s";
+                var res = await PageDialog.DisplayAlertAsync(title, content, "Đồng ý", "Hủy");
+                if (res)
+                {
+                    await NavigationService.GoBackAsync();
+                }
+            });
+
+
+
+        }
+           
     }
 }

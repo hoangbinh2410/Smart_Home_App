@@ -20,6 +20,8 @@ namespace BA_MobileGPS.Core.Views
 
         }
 
+
+       
         private void SetFitScreen()
         {
             //var videoView = media.VideoView;
@@ -144,5 +146,7 @@ namespace BA_MobileGPS.Core.Views
                 SetFitScreen();
             }
         }
+
+     
     }
 }

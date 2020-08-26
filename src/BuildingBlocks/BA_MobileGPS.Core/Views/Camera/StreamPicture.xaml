@@ -22,6 +22,9 @@
             Text="Đóng" />
     </ContentPage.ToolbarItems>
     <Grid>
+        <Grid>
+            <ffImage:CachedImage Aspect="AspectFill" Source="bg_app.png" />
+        </Grid>
         <StackLayout>
             <sharpnado:MaterialFrame
                 Padding="10"

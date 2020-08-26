@@ -8,9 +8,32 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
     x:Name="this"
-    Title="Camera 1"
+    Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.HasBackButton="False"
     NavigationPage.HasNavigationBar="{Binding ScreenOrientPortrait, Mode=OneWay}">
+    <NavigationPage.TitleView>
+        <Grid HorizontalOptions="FillAndExpand">
+            <controls:IconView
+                Foreground="{DynamicResource WhiteColor}"
+                HeightRequest="25"
+                HorizontalOptions="Start"
+                Rotation="180"
+                Source="ic_next.png"
+                WidthRequest="25">
+                <controls:IconView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigationBackTappedCommand}" />
+                </controls:IconView.GestureRecognizers>
+            </controls:IconView>
+            <Label
+                FontSize="{StaticResource MyFontSizeLarge}"
+                HorizontalOptions="Center"
+                StyleClass="BoldText"
+                Text="{Binding Path=Title, Source={x:Reference this}}"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
     <Grid
         x:Name="main"
         BackgroundColor="Black"
@@ -77,7 +100,7 @@
                                                 Padding="4"
                                                 BackgroundColor="White"
                                                 VerticalOptions="Center">
-                                                <Label Text="{Binding BindingContext.RemainTime, Source={x:Reference this}}" />
+                                                <Label StyleClass="BoldText" Text="{Binding BindingContext.RemainTime, Source={x:Reference this}}" />
                                             </StackLayout>
                                         </StackLayout>
                                         <StackLayout
@@ -122,15 +145,15 @@
 
         <busyindicator:SfBusyIndicator
             x:Name="indicator"
-            Title="Đang tải dữ liệu"
+            Title="Đang tải dữ liệu ..."
             Grid.Row="1"
-            AnimationType="DoubleCircle"
+            AnimationType="Cupertino"
             BackgroundColor="Transparent"
             EnableAnimation="True"
             IsBusy="{Binding VideoLoaded, Converter={StaticResource InvertBooleanConverter}}"
             TextColor="{DynamicResource WhiteColor}"
             ViewBoxHeight="50"
             ViewBoxWidth="50"
-            Duration="0.3" />
+            Duration="0.8" />
     </Grid>
 </ContentPage>

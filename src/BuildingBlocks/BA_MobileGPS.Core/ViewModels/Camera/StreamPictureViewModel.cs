@@ -45,7 +45,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var parameters = new NavigationParameters
                 {
-                    { "Channel", seletedChanel.Link }
+                    { "Channel", seletedChanel }
                 };
                 NavigationService.NavigateAsync("DetailCamera", parameters, useModalNavigation: false);
             }                   
@@ -69,14 +69,14 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
 
-        private string custommerId = "1010";
+        private string vehiclePate = "CAMPNC1";
         private void GetCameraInfor()
         {
             using (new HUDService())
             {
                 TryExecute(async () =>
                 {
-                    var statusResponse = await streamCameraService.GetDevicesStatus((int)ConditionType.MXN, custommerId);
+                    var statusResponse = await streamCameraService.GetDevicesStatus((int)ConditionType.BKS, vehiclePate);
 
                     if (statusResponse.Data != null && statusResponse.Data.Count > 0)
                     {
