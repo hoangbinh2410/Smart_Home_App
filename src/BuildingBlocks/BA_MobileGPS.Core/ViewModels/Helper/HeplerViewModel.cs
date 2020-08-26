@@ -39,14 +39,32 @@ namespace BA_MobileGPS.Core.ViewModels
 
             if (menu != null && menu.Count > 0)
             {
+                menuhelp.Add(new HeplerMenuModel()
+                {
+                    Icon = "ic_Lock.png",
+                    Title = MobileResource.Helper_Label_Using + MobileResource.Login_Button_Login.ToLower(),
+                    Link = "https://www.youtube.com/watch?v=xWXajsW-jCw"
+                });
                 foreach (var item in menu)
                 {
-                    menuhelp.Add(new HeplerMenuModel()
+                    if ((int)PermissionKeyNames.ViewModuleOnline == item.PK_MenuItemID) // Giám sát
                     {
-                        Icon = item.IconMobile,
-                        Title = MobileResource.Helper_Label_Using + item.NameByCulture.ToLower(),
-                        Link = "https://www.youtube.com/channel/UC0vfDfFTKXXV_d7m86b1MhQ",
-                    });
+                        menuhelp.Add(new HeplerMenuModel()
+                        {
+                            Icon = item.IconMobile,
+                            Title = MobileResource.Helper_Label_Using + item.NameByCulture.ToLower(),
+                            Link = "https://www.youtube.com/watch?v=CJ0yCXZ4ywI"
+                        });
+                    }
+                    else if ((int)PermissionKeyNames.ViewModuleRoute == item.PK_MenuItemID) // hải trình lộ trình
+                    {
+                        menuhelp.Add(new HeplerMenuModel()
+                        {
+                            Icon = item.IconMobile,
+                            Title = MobileResource.Helper_Label_Using + item.NameByCulture.ToLower(),
+                            Link = "https://www.youtube.com/watch?v=UTvyfgeLfq8"
+                        });
+                    }
                 }
             }
 
