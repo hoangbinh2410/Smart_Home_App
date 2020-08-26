@@ -16,7 +16,7 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class DetailCameraViewModel : ViewModelBase
     {
-        private string videoUrl = "rtsp://222.254.34.167:1935/live/869092030971235_CAM1";
+        private string videoUrl = "";
         private readonly IStreamCameraService streamCameraService;
         private Timer timer;
         public DetailCameraViewModel(INavigationService navigationService,IStreamCameraService streamCameraService) : base(navigationService)
@@ -47,7 +47,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (parameters?.GetValue<string>("Channel") is string link)
             {
-                //videoUrl = link;
+                videoUrl = link;
                 SetUpVlc();
             }
             else

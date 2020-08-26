@@ -84,8 +84,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         // var camActive = Convert.ToString(camChanel, 2);
                         var camResponse = await streamCameraService.StartStream(new StreamStartRequest()
                         {
-                            //Channel = data.CameraChannel,
-                            Channel = 15,
+                            Channel = data.CameraChannel,
+                            //Channel = 15,
                             CustomerID = Convert.ToInt32(data.CustomerID),
                             VehicleName = data.VehicleName
                         });
