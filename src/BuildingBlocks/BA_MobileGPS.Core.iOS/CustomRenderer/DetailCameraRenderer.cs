@@ -18,5 +18,12 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
             base.ViewWillDisappear(animated);
             UIDevice.CurrentDevice.SetValueForKey(NSNumber.FromNInt((int)(UIInterfaceOrientation.Portrait)), new NSString("orientation"));
         }
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            if (ViewController != null && ViewController.NavigationController != null)
+                ViewController.NavigationController.InteractivePopGestureRecognizer.Enabled = false;
+        }
     }
 }

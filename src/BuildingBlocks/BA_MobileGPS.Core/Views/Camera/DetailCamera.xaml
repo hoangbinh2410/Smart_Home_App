@@ -124,7 +124,7 @@
             x:Name="indicator"
             Title="Đang tải dữ liệu"
             Grid.Row="1"
-            AnimationType="ECG"
+            AnimationType="DoubleCircle"
             BackgroundColor="Transparent"
             EnableAnimation="True"
             IsBusy="{Binding VideoLoaded, Converter={StaticResource InvertBooleanConverter}}"

@@ -80,6 +80,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 DependencyService.Get<IScreenOrientServices>().ForcePortrait();
             }
             timer.Dispose();
+            MediaPlayer.Dispose();
+            LibVLC.Dispose();
             //streamCameraService.StopStream(new StreamStopRequest() { })
         }
 
