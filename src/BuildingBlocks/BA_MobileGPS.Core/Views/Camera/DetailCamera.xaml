@@ -50,11 +50,11 @@
                     <vlc:PlaybackControls.ControlTemplate>
                         <ControlTemplate>
                             <StackLayout IsEnabled="{Binding BindingContext.VideoLoaded, Source={x:Reference this}}" Spacing="0">
-                                <Label
+                                <!--<Label
                                     IsVisible="{TemplateBinding ErrorMessage,
                                                                 Converter={StaticResource ObjectToBoolConverter}}"
                                     Style="{TemplateBinding MessageStyle}"
-                                    Text="{TemplateBinding ErrorMessage}" />
+                                    Text="{TemplateBinding ErrorMessage}" />-->
                                 <StackLayout x:Name="ControlsPanel" Style="{TemplateBinding ControlsPanelStyle}">
                                     <Grid>
                                         <StackLayout

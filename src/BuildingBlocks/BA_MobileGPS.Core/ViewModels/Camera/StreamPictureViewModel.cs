@@ -45,10 +45,12 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var parameters = new NavigationParameters
                 {
-                    { "Channel", seletedChanel }
+                    { "Channel", seletedChanel },
+                    { "Request", request }
                 };
+
                 NavigationService.NavigateAsync("DetailCamera", parameters, useModalNavigation: false);
-            }                   
+            }
         }
 
         public ICommand ImageTapCommand { get; }
@@ -64,11 +66,14 @@ namespace BA_MobileGPS.Core.ViewModels
         public string InternalMessenger
         {
             get { return internalMessenger; }
-            set { SetProperty(ref internalMessenger, value); 
-                RaisePropertyChanged(); }
+            set
+            {
+                SetProperty(ref internalMessenger, value);
+                RaisePropertyChanged();
+            }
         }
 
-
+        private StreamStartRequest request;
         private string vehiclePate = "CAMPNC1";
         private void GetCameraInfor()
         {
@@ -81,14 +86,13 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (statusResponse.Data != null && statusResponse.Data.Count > 0)
                     {
                         var data = statusResponse.Data[0];
-                        // var camActive = Convert.ToString(camChanel, 2);
-                        var camResponse = await streamCameraService.StartStream(new StreamStartRequest()
+                        request = new StreamStartRequest()
                         {
                             Channel = data.CameraChannel,
-                            //Channel = 15,
                             CustomerID = Convert.ToInt32(data.CustomerID),
                             VehicleName = data.VehicleName
-                        });
+                        };
+                        var camResponse = await streamCameraService.StartStream(request);
                         StreamSource = camResponse.Data;
                     }
                     else
