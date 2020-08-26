@@ -31,7 +31,7 @@ namespace BA_MobileGPS.Core.ViewModels
             Title = MobileResource.DetailVehicle_Label_TilePage;
 
             MessageInforChargeMoney = string.Empty;
-         
+
             _engineState = MobileResource.Common_Label_TurnOff;
 
             InitLoadCommand = new DelegateCommand(InitLoadCommandExecute);
@@ -48,7 +48,14 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 PK_VehicleID = (int)cardetail.VehicleId;
                 VehiclePlate = cardetail.VehiclePlate;
-                Address = cardetail.CurrentAddress;
+                if (cardetail.CurrentAddress != null)
+                {
+                    Address = cardetail.CurrentAddress;
+                }
+                else
+                {
+                    Getaddress(cardetail.Lat.ToString(), cardetail.Lng.ToString());
+                }
                 InitLoadCommandExecute();
             }
         }
@@ -164,7 +171,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     };
                     var response = await detailVehicleService.LoadAllInforVehicle(input);
 
-                    if(response != null)
+                    if (response != null)
                     {
                         InforDetail = response;
                         Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
@@ -226,19 +233,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (StateVehicleExtension.IsMovingAndEngineON(carInfo))
                     {
-                        Task.Run(async () =>
-                        {
-                            return await geocodeService.GetAddressByLatLng(carInfo.Lat.ToString(), carInfo.Lng.ToString());
-                        }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
-                        {
-                            if (task.Status == TaskStatus.RanToCompletion)
-                            {
-                                TryExecute(() =>
-                                {
-                                    Address = task.Result;
-                                });
-                            }
-                        }));
+                        Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString());
                     }
                 }
                 ////////////////
@@ -249,7 +244,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 //Động cơ
                 EngineState = StateVehicleExtension.EngineState(carInfo);
-               
+
             }
         }
 
@@ -261,6 +256,34 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     InitLoadCommandExecute();
                 }
+            }
+        }
+
+        private void Getaddress(string lat, string lng)
+        {
+            try
+            {
+                Task.Run(async () =>
+                {
+                    return await geocodeService.GetAddressByLatLng(lat, lng);
+                }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
+                {
+                    if (task.Status == TaskStatus.RanToCompletion)
+                    {
+                        if (!string.IsNullOrEmpty(task.Result))
+                        {
+                            Address = task.Result;
+                        }
+                    }
+                    else if (task.IsFaulted)
+                    {
+                        Logger.WriteError(MethodBase.GetCurrentMethod().Name, "Error");
+                    }
+                }));
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
