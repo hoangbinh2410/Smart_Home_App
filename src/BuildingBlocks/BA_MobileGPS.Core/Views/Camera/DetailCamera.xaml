@@ -73,6 +73,12 @@
                                                     <TapGestureRecognizer Command="{Binding BindingContext.TakeScreenShotCommand, Source={x:Reference this}}" />
                                                 </controls:IconView.GestureRecognizers>
                                             </controls:IconView>
+                                            <StackLayout
+                                                Padding="4"
+                                                BackgroundColor="White"
+                                                VerticalOptions="Center">
+                                                <Label Text="{Binding BindingContext.RemainTime, Source={x:Reference this}}" />
+                                            </StackLayout>
                                         </StackLayout>
                                         <StackLayout
                                             HorizontalOptions="End"
@@ -113,15 +119,18 @@
                 </vlc:PlaybackControls>
             </vlc:MediaPlayerElement.PlaybackControls>
         </vlc:MediaPlayerElement>
+
         <busyindicator:SfBusyIndicator
             x:Name="indicator"
+            Title="Đang tải dữ liệu"
             Grid.Row="1"
-            AnimationType="SingleCircle"
+            AnimationType="ECG"
             BackgroundColor="Transparent"
             EnableAnimation="True"
             IsBusy="{Binding VideoLoaded, Converter={StaticResource InvertBooleanConverter}}"
             TextColor="{DynamicResource WhiteColor}"
             ViewBoxHeight="50"
-            ViewBoxWidth="50" />
+            ViewBoxWidth="50"
+            Duration="0.3" />
     </Grid>
 </ContentPage>

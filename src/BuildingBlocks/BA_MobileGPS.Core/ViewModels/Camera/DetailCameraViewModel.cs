@@ -6,6 +6,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.IO;
+using System.Timers;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -15,8 +16,9 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class DetailCameraViewModel : ViewModelBase
     {
-        private string videoUrl = "";
+        private string videoUrl = "rtsp://222.254.34.167:1935/live/869092030971235_CAM1";
         private readonly IStreamCameraService streamCameraService;
+        private Timer timer;
         public DetailCameraViewModel(INavigationService navigationService,IStreamCameraService streamCameraService) : base(navigationService)
         {
             this.streamCameraService = streamCameraService;            
@@ -25,25 +27,34 @@ namespace BA_MobileGPS.Core.ViewModels
             ScreenSizeChangedCommand = new DelegateCommand(ScreenSizeChanged);
             TakeScreenShotCommand = new DelegateCommand(TakeScreenShot);
             ScreenOrientPortrait = true;
-            videoLoaded = false;
+            VideoLoaded = false;
             var a = new StreamStartRequest() { CustomerID = 1010, Channel = 5, VehicleName = "PNC.CAM1" };
-
+            RemainTime = "0:00";
+         
+            
+        }
+        private int time = 180;
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            time -= 1;
+            TimeSpan t = TimeSpan.FromSeconds(time);
+            RemainTime = string.Format("{0:D2}:{1:D2}",
+                t.Minutes,
+                t.Seconds);
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             if (parameters?.GetValue<string>("Channel") is string link)
             {
-                videoUrl = link;
+                //videoUrl = link;
                 SetUpVlc();
             }
             else
             {
                 NavigationService.GoBack();
             }
-            base.OnNavigatedTo(parameters);
-          
-           
+            base.OnNavigatedTo(parameters);                  
         }
         public override void OnPageAppearingFirstTime()
         {
@@ -68,7 +79,16 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 DependencyService.Get<IScreenOrientServices>().ForcePortrait();
             }
+            timer.Dispose();
             //streamCameraService.StopStream(new StreamStopRequest() { })
+        }
+
+        private string remainTime;
+        public string RemainTime
+        {
+            get { return remainTime; }
+            set { SetProperty(ref remainTime, value);
+                RaisePropertyChanged(); }
         }
 
         private bool screenOrientPortrait;
@@ -147,16 +167,27 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
-
+        private int count = 0;
         private void MediaPlayer_Buffering(object sender, MediaPlayerBufferingEventArgs e)
         {
-            if (!VideoLoaded)
+          
+            if (count > 1)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     VideoLoaded = true;
                 });
+                if (timer == null)
+                {
+                    timer = new Timer();
+                    timer.Interval = 1000;
+                    timer.Elapsed += Timer_Elapsed;
+
+                    timer.Start();
+                }
+               
             }
+            count += 1;
         }
 
         private void Play()
@@ -191,7 +222,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
            // var a = MediaPlayer.TakeSnapshot(0,"BAGPS",800,600);
 
-            //var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+           // var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
            
         }
     }
