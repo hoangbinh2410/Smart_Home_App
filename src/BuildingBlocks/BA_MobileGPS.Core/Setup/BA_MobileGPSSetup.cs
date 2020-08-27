@@ -5,6 +5,8 @@ using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities.Infrastructure.Repository;
 using BA_MobileGPS.Service;
+using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Service.Service;
 using BA_MobileGPS.Utilities.Constant;
 
 using Prism.Ioc;
@@ -78,6 +80,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.Register<ISendEngineControlService, SendEngineControlService>();
             containerRegistry.Register<IUserLandmarkGroupService, UserLandmarkGroupService>();
             containerRegistry.Register<IPingServerService, PingServerService>();
+            containerRegistry.Register<IStreamCameraService, StreamCameraService>();
 
             containerRegistry.Register<IPopupServices, PopupServices>();
             containerRegistry.Register<IThemeServices, ThemeServices>();
@@ -184,7 +187,9 @@ namespace BA_MobileGPS.Core
             containerRegistry.Register<ResourceDictionary, Light>(Theme.Light.ToString());
             containerRegistry.Register<ResourceDictionary, Custom>(Theme.Custom.ToString());
             containerRegistry.RegisterForNavigation<SettingThemePage, SettingThemePageViewModel>("SettingThemePage");
+            containerRegistry.RegisterForNavigation<StreamPicture, StreamPictureViewModel>("StreamPicture");
             containerRegistry.RegisterForNavigation<RegisterConsultPage, RegisterConsultPageViewModel>("RegisterConsultPage");
+            containerRegistry.RegisterForNavigation<DetailCamera, DetailCameraViewModel>("DetailCamera");
         }
     }
 }

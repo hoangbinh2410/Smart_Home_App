@@ -3,8 +3,9 @@ using Android.Content.PM;
 using Android.OS;
 
 using BA_MobileGPS.Core.Droid;
+using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Droid.Setup;
-
+using LibVLCSharp.Forms.Platforms.Android;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Droid
@@ -27,6 +28,12 @@ namespace BA_MobileGPS.Droid
             ToolSetup.Initialize(this, bundle);
 
             LoadApplication(new BAGPSApp(new AndroidInitializer()));
+
+
+           
         }
+
+        
+      
     }
 }

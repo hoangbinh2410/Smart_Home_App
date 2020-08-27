@@ -1,11 +1,15 @@
 ﻿using Android.Content;
+using Android.Content.PM;
 using Android.Content.Res;
 using Android.Runtime;
 using BA_MobileGPS.Core.Droid.DependencyServices;
+using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Core.Views;
 using Plugin.Permissions;
 using Prism;
 using Prism.Ioc;
 using Shiny;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Droid
 {
@@ -28,6 +32,7 @@ namespace BA_MobileGPS.Core.Droid
             };
 
             base.AttachBaseContext(@base.CreateConfigurationContext(config));
+
         }
 
         public class AndroidInitializer : IPlatformInitializer
@@ -43,7 +48,11 @@ namespace BA_MobileGPS.Core.Droid
                 containerRegistry.RegisterInstance<ITooltipService>(new DroidTooltipService());
                 containerRegistry.RegisterInstance<IDownloader>(new AndroidDownloader());
                 containerRegistry.RegisterInstance<IAppVersionService>(new AppVersionService());
+                containerRegistry.RegisterInstance<IScreenOrientServices>(new ScreenOrientServices());
             }
         }
+
+        
+     
     }
 }

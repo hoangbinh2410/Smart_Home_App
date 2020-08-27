@@ -114,6 +114,21 @@
                     </pancakeview:PancakeView>
                     <Label Text="{i18n:TranslateResource DetailVehicle_Label_TilePage}" />
                 </StackLayout>
+                <StackLayout Grid.Column="3" Spacing="10">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigativeCommand}" CommandParameter="Camera" />
+                    </StackLayout.GestureRecognizers>
+                    <pancakeview:PancakeView>
+                        <pancakeview:PancakeView.Shadow>
+                            <pancakeview:DropShadow
+                                BlurRadius="2"
+                                Offset="0,0"
+                                Color="Black" />
+                        </pancakeview:PancakeView.Shadow>
+                        <controls:IconView Source="ic_camera.png" />
+                    </pancakeview:PancakeView>
+                    <Label Text="Camera" />
+                </StackLayout>
             </Grid>
         </StackLayout>
     </pancakeview:PancakeView>
