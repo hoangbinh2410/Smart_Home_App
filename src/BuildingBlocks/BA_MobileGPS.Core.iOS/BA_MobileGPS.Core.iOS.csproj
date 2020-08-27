@@ -2002,7 +2002,7 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_normalscreen%403x.png" />
-     </ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_engine_car%403x.png" />
   </ItemGroup>
@@ -2011,6 +2011,24 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_engine_car%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_mute.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_mute%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_mute%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_volumespeaker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_volumespeaker%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_volumespeaker%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

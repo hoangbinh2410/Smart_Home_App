@@ -30,9 +30,10 @@ namespace BA_MobileGPS.Core.ViewModels
             ScreenOrientPortrait = true;
             VideoLoaded = false;
             RemainTime = "0:00";
+           
         }
 
-        private int time = 180;
+        private int time = 50;
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -48,7 +49,7 @@ namespace BA_MobileGPS.Core.ViewModels
             RemainTime = string.Format("{0:D2}:{1:D2}",
                 t.Minutes,
                 t.Seconds);
-            if (time == 160)
+            if (time == 30)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -317,7 +318,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         var a = await NavigationService.GoBackAsync();
                     });
                 }
-            
+
             });
         }
     }
