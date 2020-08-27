@@ -91,7 +91,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = MobileSettingHelper.WebGps,
                 MenuType = MenuType.BAGPSIntro,
-                IsEnable = true,
+                IsEnable = MobileSettingHelper.IsUseBAGPSIntroduce,
                 IconColor = Color.FromHex("#0A46B1")
             });
             // Chia sẻ
@@ -138,19 +138,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsEnable = true,
                 IconColor = Color.FromHex("#E63C2B")
             });
-            // Nâng cấp phiên bản
-            //if (Settings.AppVersionDB != AppVersion)
-            //{
-            //    list.Add(new MenuItem
-            //    {
-            //        Title = string.Format(MobileResource.Menu_Label_Upgrade, Settings.AppVersionDB),
-            //        Icon = "ic_upgrade.png",
-            //        UseModalNavigation = true,
-            //        Url = Settings.AppLinkDownload,
-            //        MenuType = MenuType.UpgradeVersion,
-            //        IsEnable = true
-            //    });
-            //}
 
             MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }

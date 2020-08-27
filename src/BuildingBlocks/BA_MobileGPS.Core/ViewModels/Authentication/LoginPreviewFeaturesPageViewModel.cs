@@ -5,6 +5,7 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 using Xamarin.Forms.Extensions;
@@ -36,14 +37,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     ItemType = LoginPopupItemType.OfflinePage,
                 });
             }
-            // Thông tin bảo hành
-            //list.Add(new LoginPopupItem
-            //{
-            //    Title = MobileResource.Login_Popup_Guarantee,
-            //    Icon = "ic_guarantee.png",
-            //    Url = MobileSettingHelper.WebGps,
-            //    ItemType = LoginPopupItemType.Guarantee,
-            //});
             // Mạng lưới
             list.Add(new LoginPopupItem
             {
@@ -51,6 +44,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Icon = "ic_network.png",
                 Url = MobileSettingHelper.Network,
                 ItemType = LoginPopupItemType.Network,
+                IsEnable = MobileSettingHelper.IsUseNetwork
             });
             // Trải nghiệm BAGPS
             list.Add(new LoginPopupItem
@@ -59,6 +53,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Icon = "ic_minilogo.png",
                 Url = MobileSettingHelper.LinkYoutube,
                 ItemType = LoginPopupItemType.BAGPSExperience,
+                IsEnable = MobileSettingHelper.IsUseExperience
             });
             // Đăng kí tư vấn
             list.Add(new LoginPopupItem
@@ -67,8 +62,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 Icon = "ic_chatsupport.png",
                 Url = "BaseNavigationPage/RegisterConsultPage",
                 ItemType = LoginPopupItemType.RegisterSupport,
+                IsEnable = MobileSettingHelper.IsUseRegisterSupport
             });
-            Items = list.ToObservableCollection();
+            Items = list.Where(x => x.IsEnable = true).ToObservableCollection();
         }
 
         private async void Navigate(ItemTappedEventArgs args)
@@ -123,6 +119,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public string Url { get; set; }
 
         public LoginPopupItemType ItemType { get; set; }
+
+        public bool IsEnable { get; set; }
     }
 
     public enum LoginPopupItemType

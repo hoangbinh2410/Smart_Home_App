@@ -372,12 +372,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        //private string hotline;
-        //public string Hotline { get => hotline; set => SetProperty(ref hotline, value); }
-
-        //private string emailSupport;
-        //public string EmailSupport { get => emailSupport; set => SetProperty(ref emailSupport, value); }
-
         private bool rememberme;
 
         public bool Rememberme
@@ -406,14 +400,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand OpenLoginFragmentCommand => new DelegateCommand(() =>
         {
-            NavigationService.NavigateAsync("LoginPreviewFeaturesPage");
-        });
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("LoginPreviewFeaturesPage");
+            });
 
-        //public ICommand PushToRegisterConsultCommand => new DelegateCommand(() =>
-        //{
-        //    SafeExecute(async () => await NavigationService.NavigateAsync("BaseNavigationPage/RegisterConsultPage", null, useModalNavigation: true));
-        //    //SafeExecute(async () => await NavigationService.NavigateAsync("MenuNavigationPage/VerifyCodeOtpPage", null, useModalNavigation: true));
-        //});
+        });
 
         public ICommand OpenWebGPSCommand => new DelegateCommand(() =>
         {
