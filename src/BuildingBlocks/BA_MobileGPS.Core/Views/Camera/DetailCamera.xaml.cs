@@ -20,8 +20,14 @@ namespace BA_MobileGPS.Core.Views
 
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+          
+        }
 
        
+
         private void SetFitScreen()
         {
             //var videoView = media.VideoView;

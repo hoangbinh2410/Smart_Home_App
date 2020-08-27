@@ -5,7 +5,9 @@ using Prism.Navigation;
 using Syncfusion.ListView.XForms;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -24,7 +26,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             this.streamCameraService = streamCameraService;
             ImageTapCommand = new DelegateCommand<object>(ImageTap);
-            StreamSource = new List<StreamStart>();
+            StreamSource = new ObservableCollection<StreamStart>();
         }
 
         private VehicleOnline vehicleOnline { get; set; }
@@ -35,8 +37,8 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters?.GetValue<VehicleOnline>("Camera") is VehicleOnline cardetail)
             {
                 vehicleOnline = cardetail;
-            }
-            GetCameraInfor();
+                GetCameraInfor();
+            }           
         }
 
         private void ImageTap(object obj)
@@ -45,16 +47,18 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var parameters = new NavigationParameters
                 {
-                    { "Channel", seletedChanel }
+                    { "Channel", seletedChanel },
+                    { "Request", request }
                 };
+
                 NavigationService.NavigateAsync("DetailCamera", parameters, useModalNavigation: false);
-            }                   
+            }
         }
 
         public ICommand ImageTapCommand { get; }
-        private List<StreamStart> streamSource;
+        private ObservableCollection<StreamStart> streamSource;
 
-        public List<StreamStart> StreamSource
+        public ObservableCollection<StreamStart> StreamSource
         {
             get { return streamSource; }
             set { SetProperty(ref streamSource, value); }
@@ -64,11 +68,14 @@ namespace BA_MobileGPS.Core.ViewModels
         public string InternalMessenger
         {
             get { return internalMessenger; }
-            set { SetProperty(ref internalMessenger, value); 
-                RaisePropertyChanged(); }
+            set
+            {
+                SetProperty(ref internalMessenger, value);
+                RaisePropertyChanged();
+            }
         }
 
-
+        private StreamStartRequest request;
         private string vehiclePate = "CAMPNC1";
         private void GetCameraInfor()
         {
@@ -80,20 +87,23 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     if (statusResponse.Data != null && statusResponse.Data.Count > 0)
                     {
-                        var data = statusResponse.Data[0];
-                        // var camActive = Convert.ToString(camChanel, 2);
-                        var camResponse = await streamCameraService.StartStream(new StreamStartRequest()
+                        var temp = new List<StreamStart>();
+                        foreach (var data in statusResponse.Data)
                         {
-                            Channel = data.CameraChannel,
-                            //Channel = 15,
-                            CustomerID = Convert.ToInt32(data.CustomerID),
-                            VehicleName = data.VehicleName
-                        });
-                        StreamSource = camResponse.Data;
+                            request = new StreamStartRequest()
+                            {
+                                Channel = data.CameraChannel,
+                                CustomerID = Convert.ToInt32(data.CustomerID),
+                                VehicleName = data.VehicleName
+                            };
+                            var camResponse = await streamCameraService.StartStream(request);
+                            temp.AddRange(camResponse.Data);
+                        }
+                        StreamSource = temp.ToObservableCollection();
                     }
                     else
                     {
-                        InternalMessenger = statusResponse.InternalMessage;
+                        InternalMessenger = statusResponse.UserMessage;
                     }
                 });
             }

@@ -54,7 +54,7 @@
                                     IsVisible="{TemplateBinding ErrorMessage,
                                                                 Converter={StaticResource ObjectToBoolConverter}}"
                                     Style="{TemplateBinding MessageStyle}"
-                                    Text="{TemplateBinding ErrorMessage}" />
+                                    Text="Reconnect..." />
                                 <StackLayout x:Name="ControlsPanel" Style="{TemplateBinding ControlsPanelStyle}">
                                     <Grid>
                                         <StackLayout
@@ -96,19 +96,27 @@
                                                     <TapGestureRecognizer Command="{Binding BindingContext.TakeScreenShotCommand, Source={x:Reference this}}" />
                                                 </controls:IconView.GestureRecognizers>
                                             </controls:IconView>
-                                            <StackLayout
-                                                Padding="4"
-                                                BackgroundColor="White"
-                                                VerticalOptions="Center">
-                                                <Label StyleClass="BoldText" Text="{Binding BindingContext.RemainTime, Source={x:Reference this}}" />
-                                            </StackLayout>
+                                            <controls:IconView
+                                                Foreground="{DynamicResource WhiteColor}"
+                                                HeightRequest="25"
+                                                Source="ic_volumespeaker.png"
+                                                WidthRequest="25">
+                                                <!--<controls:IconView.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding BindingContext.TakeScreenShotCommand, Source={x:Reference this}}" />
+                                                </controls:IconView.GestureRecognizers>-->
+                                            </controls:IconView>
                                         </StackLayout>
                                         <StackLayout
                                             HorizontalOptions="End"
                                             Orientation="Horizontal"
                                             VerticalOptions="Center">
+                                            <Label
+                                                StyleClass="BoldText"
+                                                Text="{Binding BindingContext.RemainTime, Source={x:Reference this}}"
+                                                TextColor="{DynamicResource WhiteColor}"
+                                                VerticalOptions="Center" />
                                             <controls:IconView
-                                                Margin="0,10,20,10"
+                                                Margin="10,10,20,10"
                                                 Foreground="{DynamicResource WhiteColor}"
                                                 HeightRequest="30"
                                                 Source="ic_fullscreen.png"
@@ -118,21 +126,21 @@
                                                         Binding="{Binding BindingContext.ScreenOrientPortrait, Source={x:Reference this}}"
                                                         TargetType="controls:IconView"
                                                         Value="true">
-                                                        <Setter Property="Margin" Value="0,10,20,10" />
+                                                        <Setter Property="Margin" Value="10,10,20,10" />
                                                         <Setter Property="Source" Value="ic_fullscreen.png" />
                                                     </DataTrigger>
                                                     <DataTrigger
                                                         Binding="{Binding BindingContext.ScreenOrientPortrait, Source={x:Reference this}}"
                                                         TargetType="controls:IconView"
                                                         Value="false">
-                                                        <Setter Property="Margin" Value="0,10,75,10" />
+                                                        <Setter Property="Margin" Value="10,10,75,10" />
                                                         <Setter Property="Source" Value="ic_normalscreen.png" />
                                                     </DataTrigger>
                                                 </controls:IconView.Triggers>
+                                                <controls:IconView.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding BindingContext.ScreenSizeChangedCommand, Source={x:Reference this}}" />
+                                                </controls:IconView.GestureRecognizers>
                                             </controls:IconView>
-                                            <StackLayout.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding BindingContext.ScreenSizeChangedCommand, Source={x:Reference this}}" />
-                                            </StackLayout.GestureRecognizers>
                                         </StackLayout>
                                     </Grid>
                                 </StackLayout>
