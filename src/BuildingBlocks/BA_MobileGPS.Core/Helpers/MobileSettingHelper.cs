@@ -156,6 +156,8 @@ namespace BA_MobileGPS.Core
 
         public static bool IsUseNetwork => Get(MobileConfigurationNames.IsUseNetwork, true);
 
+        public static bool IsUseBAGPSIntroduce => Get(MobileConfigurationNames.IsUseBAGPSIntroduce, true);
+
         public static bool IsUseRegisterSupport => Get(MobileConfigurationNames.IsUseExperience, true);
 
         public static bool IsUseForgotpassword => Get(MobileConfigurationNames.IsUseForgotpassword, true);

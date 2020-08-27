@@ -85,6 +85,7 @@
         IsUseNetwork,
         IsUseRegisterSupport,
         IsUseVehicleDebtMoney,
+        IsUseBAGPSIntroduce,
         IsStartOnlinePage,
         CountDateOfPayment,
         DefaultMinTimeLossGPS,
