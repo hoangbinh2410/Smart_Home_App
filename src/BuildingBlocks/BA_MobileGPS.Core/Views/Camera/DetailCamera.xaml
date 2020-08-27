@@ -101,6 +101,9 @@
                                                 BackgroundColor="White"
                                                 VerticalOptions="Center">
                                                 <Label StyleClass="BoldText" Text="{Binding BindingContext.RemainTime, Source={x:Reference this}}" />
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="RequestMoreStreamTimeCommand" />
+                                                </StackLayout.GestureRecognizers>
                                             </StackLayout>
                                         </StackLayout>
                                         <StackLayout

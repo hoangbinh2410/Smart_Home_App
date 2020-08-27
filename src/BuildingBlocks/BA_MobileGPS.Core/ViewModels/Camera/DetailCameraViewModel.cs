@@ -26,12 +26,13 @@ namespace BA_MobileGPS.Core.ViewModels
             ScreenSizeChangedCommand = new DelegateCommand(ScreenSizeChanged);
             TakeScreenShotCommand = new DelegateCommand(TakeScreenShot);
             NavigationBackTappedCommand = new DelegateCommand(NavigationBackTapped);
+            RequestMoreStreamTimeCommand = new DelegateCommand(RequestMoreTimeStream);
             ScreenOrientPortrait = true;
             VideoLoaded = false;
             RemainTime = "0:00";
         }
 
-        private int time = 20;
+        private int time = 180;
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -199,6 +200,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand ScreenSizeChangedCommand { get; }
         public ICommand TakeScreenShotCommand { get; }
         public ICommand NavigationBackTappedCommand { get; }
+        public ICommand RequestMoreStreamTimeCommand { get; }
 
         private void SetUpVlc()
         {
@@ -315,6 +317,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         var a = await NavigationService.GoBackAsync();
                     });
                 }
+            
             });
         }
     }
