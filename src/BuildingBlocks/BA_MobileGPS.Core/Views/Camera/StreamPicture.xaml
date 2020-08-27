@@ -26,6 +26,22 @@
             <ffImage:CachedImage Aspect="AspectFill" Source="bg_app.png" />
         </Grid>
         <StackLayout>
+            <StackLayout
+                Padding="10,5"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                Spacing="10">
+                <Entry
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Nhập biển số ..."
+                    Text="{Binding BKS}" />
+                <Button
+                    Command="{Binding OKCommand}"
+                    CornerRadius="5"
+                    HeightRequest="35"
+                    Text="OK"
+                    WidthRequest="80" />
+            </StackLayout>
             <sharpnado:MaterialFrame
                 Padding="10"
                 CornerRadius="0"
@@ -78,11 +94,7 @@
                                             VerticalOptions="Center"
                                             WidthRequest="30" />
                                     </Grid>
-
                                 </Frame>
-
-
-
                             </StackLayout>
                         </sharpnado:MaterialFrame>
                     </DataTemplate>

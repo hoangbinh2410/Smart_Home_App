@@ -27,6 +27,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this.streamCameraService = streamCameraService;
             ImageTapCommand = new DelegateCommand<object>(ImageTap);
             StreamSource = new ObservableCollection<StreamStart>();
+            OKCommand = new DelegateCommand(OKClicked);
         }
 
         private VehicleOnline vehicleOnline { get; set; }
@@ -37,7 +38,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters?.GetValue<VehicleOnline>("Camera") is VehicleOnline cardetail)
             {
                 vehicleOnline = cardetail;
-                GetCameraInfor();
+                OKClicked();
             }           
         }
 
@@ -74,16 +75,22 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
-
+        private string bKS;
+        public string BKS
+        {
+            get { return bKS; }
+            set { SetProperty(ref bKS, value); }
+        }
+        public ICommand OKCommand { get; }
         private StreamStartRequest request;
         private string vehiclePate = "CAMPNC1";
-        private void GetCameraInfor()
+        private void GetCameraInfor(string bks)
         {
             using (new HUDService())
             {
                 TryExecute(async () =>
                 {
-                    var statusResponse = await streamCameraService.GetDevicesStatus((int)ConditionType.BKS, vehiclePate);
+                    var statusResponse = await streamCameraService.GetDevicesStatus((int)ConditionType.BKS, bks);
 
                     if (statusResponse.Data != null && statusResponse.Data.Count > 0)
                     {
@@ -107,6 +114,20 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 });
             }
+        }
+        public override void OnResume()
+        {
+            base.OnResume();
+            OKClicked();
+        }
+
+        private void OKClicked()
+        {
+            if (string.IsNullOrEmpty(BKS))
+            {
+                GetCameraInfor(vehiclePate);
+            }
+            else GetCameraInfor(BKS);
         }
     }
 

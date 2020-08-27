@@ -30,10 +30,10 @@ namespace BA_MobileGPS.Core.ViewModels
             ScreenOrientPortrait = true;
             VideoLoaded = false;
             RemainTime = "0:00";
-           
+
         }
 
-        private int time = 50;
+        private int time = 180;
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -49,7 +49,7 @@ namespace BA_MobileGPS.Core.ViewModels
             RemainTime = string.Format("{0:D2}:{1:D2}",
                 t.Minutes,
                 t.Seconds);
-            if (time == 30)
+            if (time == 90)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -94,7 +94,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 this.request = request;
                 videoUrl = link.Link;
-
                 channel = link.Channel;
                 Title = "Kênh " + link.Channel.ToString();
                 SetUpVlc();
@@ -104,22 +103,16 @@ namespace BA_MobileGPS.Core.ViewModels
                 NavigationService.GoBack();
             }
             base.OnNavigatedTo(parameters);
-        }
+        }       
 
-        public override void OnPageAppearingFirstTime()
+        public override void OnSleep()
         {
-            base.OnPageAppearingFirstTime();
-        }
-
-        public override void OnResume()
-        {
-            base.OnResume();
-            var media = new Media(LibVLC,
-                  new Uri(videoUrl));
-
-            MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true };
-
-            MediaPlayer.Play();
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await NavigationService.GoBackAsync();
+            });
+            base.OnSleep();
+           
         }
 
         public override void OnDestroy()
@@ -207,7 +200,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             LibVLCSharp.Shared.Core.Initialize();
             LibVLC = new LibVLC();
-
             InitMediaPlayer();
         }
 
@@ -219,7 +211,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     InitMediaPlayer();
-                });
+                });             
             });
         }
 
@@ -261,7 +253,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     timer = new Timer();
                     timer.Interval = 1000;
                     timer.Elapsed += Timer_Elapsed;
-
+                    timer.Start();
+                }
+                if (timer != null && !timer.Enabled)
+                {
                     timer.Start();
                 }
             }
@@ -318,7 +313,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         var a = await NavigationService.GoBackAsync();
                     });
                 }
-
             });
         }
     }
