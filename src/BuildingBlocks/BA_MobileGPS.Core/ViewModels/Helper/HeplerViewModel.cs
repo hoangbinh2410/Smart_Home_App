@@ -41,7 +41,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 menuhelp.Add(new HeplerMenuModel()
                 {
-                    Icon = "ic_Lock.png",
+                    Icon = "ic_lock.png",
                     Title = MobileResource.Helper_Label_Using + MobileResource.Login_Button_Login.ToLower(),
                     Link = "https://www.youtube.com/watch?v=xWXajsW-jCw"
                 });
