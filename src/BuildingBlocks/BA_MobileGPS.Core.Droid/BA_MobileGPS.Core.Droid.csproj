@@ -1079,9 +1079,6 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_home.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_lock.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_logout.png" />
   </ItemGroup>
   <ItemGroup>
@@ -1163,9 +1160,6 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_FourSquare.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_lock.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_manual.png" />
   </ItemGroup>
   <ItemGroup>
@@ -1224,9 +1218,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_home.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_lock.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_logout.png" />
@@ -1302,9 +1293,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_home.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_lock.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_logout.png" />
