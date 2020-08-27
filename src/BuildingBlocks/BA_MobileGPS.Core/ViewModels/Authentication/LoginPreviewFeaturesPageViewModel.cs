@@ -64,7 +64,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 ItemType = LoginPopupItemType.RegisterSupport,
                 IsEnable = MobileSettingHelper.IsUseRegisterSupport
             });
-            Items = list.Where(x => x.IsEnable = true).ToObservableCollection();
+            Items = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
 
         private async void Navigate(ItemTappedEventArgs args)
