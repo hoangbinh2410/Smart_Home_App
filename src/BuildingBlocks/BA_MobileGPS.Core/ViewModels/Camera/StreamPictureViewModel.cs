@@ -35,8 +35,8 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters?.GetValue<VehicleOnline>("Camera") is VehicleOnline cardetail)
             {
                 vehicleOnline = cardetail;
-            }
-            GetCameraInfor();
+                GetCameraInfor();
+            }           
         }
 
         private void ImageTap(object obj)

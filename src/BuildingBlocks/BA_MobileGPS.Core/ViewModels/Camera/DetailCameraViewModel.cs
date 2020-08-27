@@ -4,15 +4,11 @@ using BA_MobileGPS.Service.IService;
 using LibVLCSharp.Shared;
 using Prism.Commands;
 using Prism.Navigation;
-using Syncfusion.SfCalendar.XForms;
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Input;
 using Xamarin.Forms;
-
-
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -35,14 +31,17 @@ namespace BA_MobileGPS.Core.ViewModels
             RemainTime = "0:00";
         }
 
+        private int time = 20;
 
-        private int time = 180;
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             time -= 1;
-            if (time < 0)
+            if (time == 0)
             {
-                time = 0;
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    var a = await NavigationService.GoBackAsync();
+                });
             }
             TimeSpan t = TimeSpan.FromSeconds(time);
             RemainTime = string.Format("{0:D2}:{1:D2}",
@@ -55,7 +54,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     RequestMoreTimeStream();
                 });
             }
-
         }
 
         private void RequestMoreTimeStream()
@@ -87,12 +85,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private StreamStartRequest request = new StreamStartRequest();
         private int channel = 0;
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             if (parameters?.GetValue<StreamStart>("Channel") is StreamStart link && (parameters?.GetValue<StreamStartRequest>("Request") is StreamStartRequest request))
             {
                 this.request = request;
                 videoUrl = link.Link;
+
                 channel = link.Channel;
                 Title = "Kênh " + link.Channel.ToString();
                 SetUpVlc();
@@ -103,6 +103,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             base.OnNavigatedTo(parameters);
         }
+
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
@@ -126,14 +127,16 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 DependencyService.Get<IScreenOrientServices>().ForcePortrait();
             }
-            timer.Stop();
-            timer.Dispose();
-            MediaPlayer.Stop();
-            MediaPlayer.Dispose();
+
+            if (timer != null)
+            {
+                timer.Stop();
+                timer.Dispose();
+            }
         }
 
-
         private string remainTime;
+
         public string RemainTime
         {
             get { return remainTime; }
@@ -196,6 +199,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand ScreenSizeChangedCommand { get; }
         public ICommand TakeScreenShotCommand { get; }
         public ICommand NavigationBackTappedCommand { get; }
+
         private void SetUpVlc()
         {
             LibVLCSharp.Shared.Core.Initialize();
@@ -238,7 +242,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
+
         private int count = 0;
+
         private void MediaPlayer_Buffering(object sender, MediaPlayerBufferingEventArgs e)
         {
             if (count > 1)
@@ -255,7 +261,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     timer.Start();
                 }
-
             }
             count += 1;
         }
@@ -274,8 +279,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 timer.Start();
                 PlayIconSource = "ic_stop_white.png";
             }
-            var a = MediaPlayer.AdjustInt(VideoAdjustOption.Enable);
-            var b = MediaPlayer.AdjustInt(VideoAdjustOption.Gamma);
         }
 
         private void ScreenSizeChanged()
@@ -290,12 +293,12 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             ScreenOrientPortrait = !ScreenOrientPortrait;
         }
+
         private void TakeScreenShot()
         {
             // var a = MediaPlayer.TakeSnapshot(0,"BAGPS",800,600);
 
             // var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-
         }
 
         private void NavigationBackTapped()
@@ -307,13 +310,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 var res = await PageDialog.DisplayAlertAsync(title, content, "Đồng ý", "Hủy");
                 if (res)
                 {
-                    await NavigationService.GoBackAsync();
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var a = await NavigationService.GoBackAsync();
+                    });
                 }
             });
-
-
-
         }
-
     }
 }
