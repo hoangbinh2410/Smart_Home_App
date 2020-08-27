@@ -85,7 +85,7 @@
     <ContentPage.Content>
         <sfPopup:SfPopupLayout x:Name="popupLayout" IsOpen="{Binding DisplayPopup}">
             <sfPopup:SfPopupLayout.PopupView>
-                <sfPopup:PopupView HeaderTitle="BA GPS" ShowFooter="False">
+                <sfPopup:PopupView HeaderTitle="{i18n:TranslateResource Common_Label_BAGPS}" ShowFooter="False">
                     <sfPopup:PopupView.ContentTemplate>
                         <DataTemplate>
                             <Grid Padding="0,0,10,0">
