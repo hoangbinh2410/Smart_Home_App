@@ -34,7 +34,7 @@
                 <sharpnado:MaterialFrame
                     Grid.Row="1"
                     Padding="10,0,10,0"
-                   BackgroundColor="{DynamicResource WhiteColor}"
+                    BackgroundColor="{DynamicResource WhiteColor}"
                     CornerRadius="0"
                     HasShadow="False"
                     HorizontalOptions="FillAndExpand"

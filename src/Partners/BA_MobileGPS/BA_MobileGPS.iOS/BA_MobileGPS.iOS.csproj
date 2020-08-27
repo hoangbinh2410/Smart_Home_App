@@ -88,6 +88,7 @@
     <BundleResource Include="Resources\fa-regular-400.ttf" />
     <BundleResource Include="Resources\fa-solid-900.ttf" />
     <BundleResource Include="Resources\Roboto-Bold.ttf" />
+    <BundleResource Include="Resources\bluetooth.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

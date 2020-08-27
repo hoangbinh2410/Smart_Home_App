@@ -41,7 +41,7 @@
     <Color x:Key="LoginTextColor">#57606F</Color>
     <Color x:Key="LoginIconBackgroundColor">#00A9A5</Color>
     <Color x:Key="LoginIconColor">White</Color>
-    <Color x:Key="LoginGradientStartColor">White</Color>
-    <Color x:Key="LoginGradientEndColor">White</Color>
+    <Color x:Key="LoginGradientStartColor">#00A9A5</Color>
+    <Color x:Key="LoginGradientEndColor">#FCE0B9</Color>
 
 </ResourceDictionary>
