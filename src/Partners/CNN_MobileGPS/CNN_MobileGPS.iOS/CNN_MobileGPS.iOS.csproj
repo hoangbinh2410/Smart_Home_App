@@ -120,6 +120,7 @@
     <BundleResource Include="vi.lproj\InfoPlist.strings" />
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork%402x" />
+    <BundleResource Include="Resources\bluetooth.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -82,6 +82,8 @@
         UserNameToken,
         PasswordToken,
         IsUseExperience,
+        IsUseNetwork,
+        IsUseRegisterSupport,
         IsUseVehicleDebtMoney,
         IsStartOnlinePage,
         CountDateOfPayment,
