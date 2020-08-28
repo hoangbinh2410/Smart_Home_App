@@ -169,17 +169,19 @@ namespace BA_MobileGPS.Core
 
             containerRegistry.RegisterForNavigation<ListVehicleHelpPage, ListVehicleHelpViewModel>("ListVehicleHelpPage");
             containerRegistry.RegisterForNavigation<DetailVehiclePopup, DetailVehiclePopupViewModel>("DetailVehiclePopup");
-          
+
 
             ViewModelLocationProvider.Register<Home, HomeViewModel>();
             ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
+            ViewModelLocationProvider.Register<OnlinePageNoCluster, OnlinePageViewModel>();
             ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
             ViewModelLocationProvider.Register<Account, AccountViewModel>();
 
             containerRegistry.Register<ContentView, Home>("HomeTab");
             containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
             containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
+            containerRegistry.Register<ContentView, OnlinePageNoCluster>("OnlineTabNoCluster");
             containerRegistry.Register<ContentView, RoutePage>("RouteTab");
             containerRegistry.Register<ContentView, Account>("AccountTab");
 

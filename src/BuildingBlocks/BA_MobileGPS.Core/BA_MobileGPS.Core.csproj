@@ -91,6 +91,9 @@
 	    <SubType>Code</SubType>
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Online\OnlinePageNoCluster.xaml.cs">
+	    <DependentUpon>OnlinePageNoCluster.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Popup\BasePopup.xaml.cs">
 	    <DependentUpon>BasePopup.xaml</DependentUpon>
 	  </Compile>
