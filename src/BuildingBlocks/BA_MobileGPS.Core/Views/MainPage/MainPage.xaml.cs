@@ -38,9 +38,21 @@ namespace BA_MobileGPS.Core.Views
             if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
             {
                 checkpermissiononline = true;
-                var online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online
-                ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
-                Switcher.Children.Add(online);
+
+                //cấu hình cty này dùng Cluster thì mới mở forms Cluster
+                if (MobileUserSettingHelper.EnableShowCluster)
+                {
+                    var online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online
+                    ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
+                    Switcher.Children.Add(online);
+                }
+                else
+                {
+                    var online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTabNoCluster"); //Online
+                    ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
+                    Switcher.Children.Add(online);
+                }
+
                 tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_mornitoring.png", Label = MobileResource.Menu_TabItem_Monitoring });
                 Switcher.SelectedIndex = Switcher.Children.Count - 1;
             }

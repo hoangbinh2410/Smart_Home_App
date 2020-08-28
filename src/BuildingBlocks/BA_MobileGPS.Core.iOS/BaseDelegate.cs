@@ -1,11 +1,15 @@
-﻿using BA_MobileGPS.Core.iOS.DependencyServices;
+﻿using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Core.iOS.DependencyServices;
+using BA_MobileGPS.Core.Views;
 using Foundation;
 using Prism;
+using Prism.Common;
 using Prism.Ioc;
-
+using System.Linq;
 using UIKit;
 
 using UserNotifications;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.iOS
 {
@@ -34,7 +38,7 @@ namespace BA_MobileGPS.Core.iOS
                 return true;
 
             return base.OpenUrl(app, url, options);
-        }
+        }       
 
         protected class IOSInitializer : IPlatformInitializer
         {
@@ -51,7 +55,18 @@ namespace BA_MobileGPS.Core.iOS
                 containerRegistry.RegisterInstance<IAudioManager>(new AppleAudioManager());
                 containerRegistry.RegisterInstance<ITooltipService>(new iOSTooltipService());
                 containerRegistry.RegisterInstance<IDownloader>(new IosDownloader());
+                containerRegistry.RegisterInstance<IScreenOrientServices>(new ScreenOrientServices());
             }
+        }
+        public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, UIWindow forWindow)
+        {
+            var mainPage = Xamarin.Forms.Application.Current.MainPage;
+            if (PageUtilities.GetCurrentPage(mainPage) is DetailCamera
+                && UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
+            {
+                return UIInterfaceOrientationMask.AllButUpsideDown;
+            }
+            return UIInterfaceOrientationMask.Portrait;
         }
     }
 }

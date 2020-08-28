@@ -5,6 +5,8 @@ using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities.Infrastructure.Repository;
 using BA_MobileGPS.Service;
+using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Service.Service;
 using BA_MobileGPS.Utilities.Constant;
 
 using Prism.Ioc;
@@ -78,6 +80,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.Register<ISendEngineControlService, SendEngineControlService>();
             containerRegistry.Register<IUserLandmarkGroupService, UserLandmarkGroupService>();
             containerRegistry.Register<IPingServerService, PingServerService>();
+            containerRegistry.Register<IStreamCameraService, StreamCameraService>();
 
             containerRegistry.Register<IPopupServices, PopupServices>();
             containerRegistry.Register<IThemeServices, ThemeServices>();
@@ -166,17 +169,19 @@ namespace BA_MobileGPS.Core
 
             containerRegistry.RegisterForNavigation<ListVehicleHelpPage, ListVehicleHelpViewModel>("ListVehicleHelpPage");
             containerRegistry.RegisterForNavigation<DetailVehiclePopup, DetailVehiclePopupViewModel>("DetailVehiclePopup");
-          
+
 
             ViewModelLocationProvider.Register<Home, HomeViewModel>();
             ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
+            ViewModelLocationProvider.Register<OnlinePageNoCluster, OnlinePageViewModel>();
             ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
             ViewModelLocationProvider.Register<Account, AccountViewModel>();
 
             containerRegistry.Register<ContentView, Home>("HomeTab");
             containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
             containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
+            containerRegistry.Register<ContentView, OnlinePageNoCluster>("OnlineTabNoCluster");
             containerRegistry.Register<ContentView, RoutePage>("RouteTab");
             containerRegistry.Register<ContentView, Account>("AccountTab");
 
@@ -184,7 +189,9 @@ namespace BA_MobileGPS.Core
             containerRegistry.Register<ResourceDictionary, Light>(Theme.Light.ToString());
             containerRegistry.Register<ResourceDictionary, Custom>(Theme.Custom.ToString());
             containerRegistry.RegisterForNavigation<SettingThemePage, SettingThemePageViewModel>("SettingThemePage");
+            containerRegistry.RegisterForNavigation<StreamPicture, StreamPictureViewModel>("StreamPicture");
             containerRegistry.RegisterForNavigation<RegisterConsultPage, RegisterConsultPageViewModel>("RegisterConsultPage");
+            containerRegistry.RegisterForNavigation<DetailCamera, DetailCameraViewModel>("DetailCamera");
         }
     }
 }

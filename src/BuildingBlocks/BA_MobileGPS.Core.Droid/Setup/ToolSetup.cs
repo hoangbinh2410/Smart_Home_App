@@ -5,6 +5,8 @@ using BA_MobileGPS.Core.Droid;
 using BA_MobileGPS.Core.Droid.DependencyServices;
 using FFImageLoading.Forms.Platform;
 using LabelHtml.Forms.Plugin.Droid;
+using LibVLCSharp.Forms.Platforms.Android;
+using LibVLCSharp.Forms.Shared;
 using PanCardView.Droid;
 using Plugin.Toasts;
 using Sharpnado.Presentation.Forms.Droid;
@@ -44,6 +46,7 @@ namespace BA_MobileGPS.Droid.Setup
             HtmlLabelRenderer.Initialize();
 
             PlatformImageViewer.Init(activity);
+            LibVLCSharpFormsRenderer.Init();
         }
     }
 }

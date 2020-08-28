@@ -107,6 +107,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (task.Result)
                     {
+                        StaticSettings.ClearStaticSettings();
+                        GlobalResources.Current.TotalAlert = 0;
+                        Settings.Rememberme = false;
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            await NavigationService.NavigateAsync("/LoginPage");
+                        });
                     }
                 }
             }));

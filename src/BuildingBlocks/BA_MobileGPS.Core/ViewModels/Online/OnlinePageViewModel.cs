@@ -359,15 +359,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var icon = boundary.IconApp != null && boundary.IconApp != string.Empty ? BitmapDescriptorFactory.FromResource(boundary.IconApp) : BitmapDescriptorFactory.FromResource("ic_point_freeway.png");
 
-                //var item = new GroundOverlay()
-                //{
-                //    Bounds = new Bounds(new Position(boundary.Latitude, boundary.Longitude), new Position(boundary.Latitude + 0.01d, boundary.Longitude + 0.01d)),
-                //    Icon = icon,
-                //    Tag = boundary.Name
-                //};
-
-                //GroundOverlays.Add(item);
-
                 Pins.Add(new Pin()
                 {
                     Position = new Position(boundary.Latitude, boundary.Longitude),

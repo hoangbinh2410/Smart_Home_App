@@ -40,6 +40,7 @@
     <Compile Include="BaseDelegate.cs" />
     <Compile Include="CustomRenderer\ContentPageRenderer.cs" />
     <Compile Include="CustomRenderer\CustomEditorRenderer.cs" />
+    <Compile Include="CustomRenderer\DetailCameraRenderer.cs" />
     <Compile Include="CustomRenderer\EntryMinusRenderer.cs" />
     <Compile Include="CustomRenderer\FrameShadowRenderer.cs" />
     <Compile Include="CustomRenderer\IconViewRenderer.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="DependencyServices\PreviewControllerDS.cs" />
     <Compile Include="DependencyServices\SaveAndViewIOS.cs" />
     <Compile Include="DependencyServices\SaveService.cs" />
+    <Compile Include="DependencyServices\ScreenOrientServices.cs" />
     <Compile Include="DependencyServices\SettingsService.cs" />
     <Compile Include="DependencyServices\StatusBarHelper.cs" />
     <Compile Include="Effects\BorderlessEffect.cs" />
@@ -101,6 +103,9 @@
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
       <Version>3.1.3</Version>
     </PackageReference>
+    <PackageReference Include="LibVLCSharp.Forms">
+      <Version>3.4.7</Version>
+    </PackageReference>
     <PackageReference Include="Rg.Plugins.Popup">
       <Version>2.0.0.4</Version>
     </PackageReference>
@@ -109,6 +114,9 @@
     </PackageReference>
     <PackageReference Include="Ricardo.MWPhotoBrowser.iOS">
       <Version>2.1.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="VideoLAN.LibVLC.iOS">
+      <Version>3.3.10</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugin.HtmlLabel">
       <Version>4.1.3</Version>
@@ -1978,6 +1986,24 @@
     <BundleResource Include="Resources\direction%402x.png" />
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\ic_fullscreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fullscreen%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fullscreen%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_normalscreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_normalscreen%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_normalscreen%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
     <BundleResource Include="Resources\ic_engine_car%403x.png" />
   </ItemGroup>
   <ItemGroup>
@@ -1985,6 +2011,24 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_engine_car%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_mute.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_mute%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_mute%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_volumespeaker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_volumespeaker%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_volumespeaker%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

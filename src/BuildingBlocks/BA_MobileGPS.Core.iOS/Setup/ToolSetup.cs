@@ -4,6 +4,7 @@ using BA_MobileGPS.Utilities.Constant;
 using FFImageLoading.Forms.Platform;
 using FFImageLoading.Svg.Forms;
 using LabelHtml.Forms.Plugin.iOS;
+using LibVLCSharp.Forms.Shared;
 using Lottie.Forms.iOS.Renderers;
 using PanCardView.iOS;
 using Plugin.Toasts;
@@ -82,7 +83,7 @@ namespace BA_MobileGPS.Core.iOS.Setup
 
             // HtmlLabel
             HtmlLabelRenderer.Initialize();
-            
+            LibVLCSharpFormsRenderer.Init();
         }
     }
 }
