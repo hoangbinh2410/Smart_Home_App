@@ -26,7 +26,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Login_Message_AccountLocked => Get(MobileResourceNames.Login_Message_AccountLocked, "Tài khoản của bạn đang bị khóa", " Your account was locked");
         public static string Login_ForgotPassword_PopupTitle => Get(MobileResourceNames.Login_ForgotPassword_PopupTitle, "Quên mật khẩu", " Forgot Password");
-        public static string Login_ForgotPassword_PopupContent => Get(MobileResourceNames.Login_ForgotPassword_PopupContent, "Để đảm bảo an toàn thông tin, Quý khách vui lòng liên hệ <strong> <font color={0}> 1900 6464 </font> </strong> để được cấp lại mật khẩu", " To ensure information security, please contact <strong> 19006464 </strong> for a password reset");
+        public static string Login_ForgotPassword_PopupContent => Get(MobileResourceNames.Login_ForgotPassword_PopupContent, string.Format("Để đảm bảo an toàn thông tin, Quý khách vui lòng liên hệ <strong> <font color={0}> {0} </font> </strong> để được cấp lại mật khẩu", MobileSettingHelper.HotlineGps), string.Format(" To ensure information security, please contact <strong> {0} </strong> for a password reset", MobileSettingHelper.HotlineGps));
         public static string Login_Popup_Starting_Page => Get(MobileResourceNames.Login_Popup_Starting_Page, "Ra khơi", "Starting Page");
 
         public static string Login_Popup_Manual => Get(MobileResourceNames.Login_Popup_Manual, "Trợ giúp", "User Manual");
