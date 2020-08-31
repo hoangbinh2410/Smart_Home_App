@@ -83,7 +83,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
         public ICommand OKCommand { get; }
         private StreamStartRequest request;
-        private string vehiclePate = "CAMPNC1";
+        private string vehiclePate = "CAMTEST2";
         private void GetCameraInfor(string bks)
         {
             using (new HUDService())
