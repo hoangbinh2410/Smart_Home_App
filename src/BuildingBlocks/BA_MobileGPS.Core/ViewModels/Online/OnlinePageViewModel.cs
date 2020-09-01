@@ -233,7 +233,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     // Lấy thông tin các điểm theo nhóm điểm công ty
                     var list = await userLandmarkGroupService.GetDataLandmarkByGroupId(keygroup);
 
-                   // GetLandmarkName(list);
+                    GetLandmarkName(list);
 
                     GetLandmarkDisplayBound(list, listmark, false);
 
@@ -246,7 +246,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     // Lấy thông tin các điểm theo nhóm điểm hệ thống
                     var list = await userLandmarkGroupService.GetDataLandmarkByCategory(keycategory);
 
-                   // GetLandmarkName(list);
+                    GetLandmarkName(list);
 
                     GetLandmarkDisplayBound(list, listmark, true);
 
