@@ -915,7 +915,14 @@ namespace BA_MobileGPS.Core.Views
         /// <param name="args"></param>
         private void MapOnPinClicked(object sender, PinClickedEventArgs args)
         {
-            args.Handled = true;
+            if (args.Pin != null)
+            {
+                args.Handled = true;
+            }
+            else
+            {
+                args.Handled = false;
+            }
 
             try
             {
