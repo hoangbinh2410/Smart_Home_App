@@ -15,5 +15,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string Helper_Label_VihcleDebt => Get(MobileResourceNames.Helper_Label_HeplperVihcleDebt, "Hướng dẫn sử dụng danh sách phương tiện nợ phí", "Instructions for using vehicle debt list");
 
         public static string Helper_Label_Using => Get(MobileResourceNames.Helper_Label_Using, "Hướng dẫn sử dụng ", "Instructions for using ");
+
+        public static string Helper_Label_Using2 => Get(MobileResourceNames.Helper_Label_Using2, "Hướng dẫn sử dụng tính năng ", "Instructions for using ");
     }
 }

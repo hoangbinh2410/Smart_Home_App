@@ -2013,6 +2013,15 @@
     <BundleResource Include="Resources\ic_engine_car%402x.png" />
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\ic_login_tutorial.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_login_tutorial%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_login_tutorial%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
     <BundleResource Include="Resources\ic_mute.png" />
   </ItemGroup>
   <ItemGroup>
