@@ -38,12 +38,8 @@
             <cluster:Map.Behaviors>
                 <mapbindings:MoveToRegionBehavior Request="{Binding MoveToRegionRequest}" />
                 <mapbindings:AnimateCameraBehavior Request="{Binding AnimateCameraRequest}" />
-                <mapbindings:BindingPolygonsBehavior Value="{Binding Boundaries}" />
-                <mapbindings:BindingPolylinesBehavior Value="{Binding Borders}" />
-                <mapbindings:BindingCirclesBehavior Value="{Binding Circles}" />
                 <mapbindings:BindingPolygonsBehavior Value="{Binding Polygons}" />
                 <mapbindings:BindingPolylinesBehavior Value="{Binding Polylines}" />
-                <mapbindings:BindingGroundOverlaysBehavior Value="{Binding GroundOverlays}" />
                 <mapbindings:BindingPinsBehavior Value="{Binding Pins}" />
                 <mapbindings:BindingVisibleRegionBehavior Value="{Binding VisibleRegion}" />
                 <mapbindings:CameraIdledToCommandBehavior Command="{Binding CameraIdledCommand}" />
