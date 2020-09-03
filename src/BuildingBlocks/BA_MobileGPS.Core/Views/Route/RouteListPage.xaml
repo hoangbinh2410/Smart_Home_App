@@ -8,7 +8,7 @@
     xmlns:m="clr-namespace:BA_MobileGPS.Entities;assembly=BA_MobileGPS.Entities"
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     x:Name="this"
-    Title="{i18n:TranslateResource Route_Label_TitleVMS}">
+    Title="{i18n:TranslateResource Route_Label_ListTitle}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:TodayConverter x:Key="TodayConverter" />
