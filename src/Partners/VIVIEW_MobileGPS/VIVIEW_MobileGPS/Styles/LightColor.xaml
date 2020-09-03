@@ -4,9 +4,9 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <!--  Color Primary  -->
-    <Color x:Key="BlueDarkColor">#00A9A5</Color>
+    <Color x:Key="BlueDarkColor">#0088CC</Color>
     <Color x:Key="BluePrimaryColor">#00AEEF</Color>
-    <Color x:Key="PrimaryColor">#00A9A5</Color>
+    <Color x:Key="PrimaryColor">#0088CC</Color>
     <Color x:Key="BlueColor">#89DFFF</Color>
     <Color x:Key="WhiteColor">White</Color>
     <Color x:Key="BlackColor">Black</Color>
@@ -29,9 +29,9 @@
     <FileImageSource x:Key="HomePageTopImageSource" File="bg_HomeTop.png" />
     <FileImageSource x:Key="HomePageBotImageSource" File="bg_HomeBot.png" />
 
-    <Color x:Key="MainTabSelectedColor">#00A9A5</Color>
-    <Color x:Key="MainTabUnSelectedColor">#00A9A5</Color>
-    <Color x:Key="MainTabSelectedTextColor">#00A9A5</Color>
+    <Color x:Key="MainTabSelectedColor">#0088CC</Color>
+    <Color x:Key="MainTabUnSelectedColor">#0088CC</Color>
+    <Color x:Key="MainTabSelectedTextColor">#0D2D6C</Color>
     <Color x:Key="MainTabUnSelectedTextColor">#57606F</Color>
 
 
@@ -39,9 +39,9 @@
     <Color x:Key="PopupYesBtnBackgroundColor">#00709A</Color>
     <!--  Login  -->
     <Color x:Key="LoginTextColor">#57606F</Color>
-    <Color x:Key="LoginIconBackgroundColor">#00A9A5</Color>
+    <Color x:Key="LoginIconBackgroundColor">#0088CC</Color>
     <Color x:Key="LoginIconColor">White</Color>
-    <Color x:Key="LoginGradientStartColor">#00A9A5</Color>
+    <Color x:Key="LoginGradientStartColor">#0088CC</Color>
     <Color x:Key="LoginGradientEndColor">#FCE0B9</Color>
 
 </ResourceDictionary>
