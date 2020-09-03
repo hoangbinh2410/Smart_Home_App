@@ -9,6 +9,7 @@ using Microsoft.AppCenter.Crashes;
 using Prism;
 using Prism.Ioc;
 using Xamarin.Forms;
+using CNN_MobileGPS.ViewModels;
 
 namespace CNN_MobileGPS
 {
@@ -52,6 +53,8 @@ namespace CNN_MobileGPS
 
             // Đăng ký config automapper
             AutoMapperConfig.RegisterMappings(containerRegistry);
+
+            containerRegistry.RegisterForNavigation<BA_MobileGPS.Core.Views.HelperPage, HeplerViewModel>("HelperPage");
 
             containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
             containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());
