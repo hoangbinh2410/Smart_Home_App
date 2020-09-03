@@ -755,8 +755,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
             Polylines.Add(RouteLine);
             Polylines.Add(CurrentLine);
-
-            PlayStop();
         }
 
         private string PinLabel(VehicleRoute vehicle)
