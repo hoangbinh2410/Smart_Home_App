@@ -43,7 +43,7 @@ namespace CNN_MobileGPS.ViewModels
                 {
                     Icon = "ic_login_tutorial.png",
                     Title = MobileResource.Helper_Label_Using2 + MobileResource.Login_Button_Login.ToLower(),
-                    Link = "https://www.youtube.com/watch?v=xWXajsW-jCw"
+                    Link = "https://www.youtube.com/watch?v=v-RgTxws1V0"
                 });
                 foreach (var item in menu)
                 {
@@ -53,7 +53,7 @@ namespace CNN_MobileGPS.ViewModels
                         {
                             Icon = item.IconMobile,
                             Title = MobileResource.Helper_Label_Using2 + item.NameByCulture.ToLower(),
-                            Link = "https://www.youtube.com/watch?v=CJ0yCXZ4ywI"
+                            Link = "https://www.youtube.com/watch?v=Gi90YeXezfE"
                         });
                     }
                     else if ((int)PermissionKeyNames.ViewModuleRoute == item.PK_MenuItemID) // hải trình lộ trình
@@ -62,7 +62,7 @@ namespace CNN_MobileGPS.ViewModels
                         {
                             Icon = item.IconMobile,
                             Title = MobileResource.Helper_Label_Using2 + item.NameByCulture.ToLower(),
-                            Link = "https://www.youtube.com/watch?v=UTvyfgeLfq8"
+                            Link = "https://www.youtube.com/watch?v=85UfWyzFcpI&t=14s"
                         });
                     }
                 }
@@ -71,7 +71,7 @@ namespace CNN_MobileGPS.ViewModels
                 {
                     Icon = "ic_anglebell.png",
                     Title = MobileResource.Helper_Label_Using2 + MobileResource.Common_Message_Warning.ToLower(),
-                    Link = "https://www.youtube.com/watch?v=2Dr8L65wfGc"
+                    Link = "https://www.youtube.com/watch?v=MYuiYmc6ncc&t=4s"
                 });
             }
 
