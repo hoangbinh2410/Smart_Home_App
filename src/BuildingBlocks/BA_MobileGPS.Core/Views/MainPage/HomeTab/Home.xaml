@@ -67,11 +67,10 @@
             RowDefinitions="80,Auto">
             <Grid Padding="15,0">
                 <ff:CachedImage
-                    HeightRequest="30"
+                    HeightRequest="25"
                     HorizontalOptions="Start"
                     Source="ic_logo.png"
-                    VerticalOptions="EndAndExpand"
-                    WidthRequest="70" />
+                    VerticalOptions="EndAndExpand" />
                 <StackLayout
                     HorizontalOptions="End"
                     Orientation="Horizontal"
