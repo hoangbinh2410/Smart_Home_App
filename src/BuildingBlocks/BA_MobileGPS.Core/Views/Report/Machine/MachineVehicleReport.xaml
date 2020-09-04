@@ -216,7 +216,7 @@
 
                     <StackLayout
                         Grid.Row="1"
-                        Grid.ColumnSpan="3"
+                        Grid.ColumnSpan="2"
                         Orientation="Horizontal">
                         <!--  số phút  -->
                         <Frame
@@ -231,6 +231,7 @@
                             VerticalOptions="Center">
                             <Entry
                                 Margin="5,0,5,0"
+                                FontSize="{StaticResource FontSize12}"
                                 HorizontalOptions="FillAndExpand"
                                 Keyboard="Numeric"
                                 MaxLength="20"
@@ -273,14 +274,7 @@
                                         <effects:BorderlessEffect />
                                     </Entry.Effects>
                                 </Entry>
-                                <controls:IconView
-                                    Margin="0,0,5,0"
-                                    Foreground="{DynamicResource BlackColor}"
-                                    HeightRequest="15"
-                                    HorizontalOptions="End"
-                                    Source="ic_sortdown.png"
-                                    VerticalOptions="Center"
-                                    WidthRequest="15" />
+
                             </StackLayout>
                         </Frame>
                         <!--  Trạng Thái  -->
@@ -313,39 +307,35 @@
                                         <effects:BorderlessEffect />
                                     </Entry.Effects>
                                 </Entry>
-                                <controls:IconView
-                                    Margin="0,0,5,0"
-                                    Foreground="{DynamicResource BlackColor}"
-                                    HeightRequest="15"
-                                    HorizontalOptions="End"
-                                    Source="ic_sortdown.png"
-                                    VerticalOptions="Center"
-                                    WidthRequest="15" />
+
                             </StackLayout>
                         </Frame>
-                        <!--  button ecxel  -->
-                        <sharpnado:MaterialFrame
-                            Padding="0"
-                            CornerRadius="5"
-                            HasShadow="False"
-                            HeightRequest="35"
-                            HorizontalOptions="Start"
-                            IsVisible="{Binding IsExportExcel}"
-                            LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
-                            VerticalOptions="CenterAndExpand"
-                            WidthRequest="35">
-                            <sharpnado:MaterialFrame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ExportExcellCommand}" />
-                            </sharpnado:MaterialFrame.GestureRecognizers>
-                            <controls:IconView
-                                Foreground="{DynamicResource WhiteColor}"
-                                HeightRequest="20"
-                                HorizontalOptions="Center"
-                                Source="ic_excel.png"
-                                VerticalOptions="Center"
-                                WidthRequest="20" />
-                        </sharpnado:MaterialFrame>
+
                     </StackLayout>
+                    <!--  button ecxel  -->
+                    <sharpnado:MaterialFrame
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Padding="0"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HeightRequest="35"
+                        HorizontalOptions="Start"
+                        IsVisible="{Binding IsExportExcel}"
+                        LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="35">
+                        <sharpnado:MaterialFrame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ExportExcellCommand}" />
+                        </sharpnado:MaterialFrame.GestureRecognizers>
+                        <controls:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            Source="ic_excel.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
+                    </sharpnado:MaterialFrame>
                 </Grid>
                 <syncDataGrid:SfDataGrid
                     x:Name="dataGrid"
