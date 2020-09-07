@@ -72,6 +72,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool showStopLocation = true;
         public bool ShowStopLocation { get => showStopLocation; set => SetProperty(ref showStopLocation, value); }
 
+        private bool showTemperature = true;
+        public bool ShowTemperature { get => showTemperature; set => SetProperty(ref showTemperature, value); }
+
         private string numberOfStopParking = string.Empty;
         public string NumberOfStopParking { get => numberOfStopParking; set => SetProperty(ref numberOfStopParking, value); }
 
@@ -230,6 +233,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     numbercolum += 1;
                     worksheet.Range[numberrow, numbercolum].Text = MobileResource.StopParkingReport_Table_MinutesTurnOnAirConditioner;
                 }
+                // Nhiệt độ
+                if (ShowTemperature)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = MobileResource.StopParkingReport_Table_Temperature;
+                }
                 // Tên lái xe
                 if (ShowDriverName)
                 {
@@ -313,6 +322,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         numbercolum += 1;
                         worksheet.Range[numberrow, numbercolum].Text = data[i].MinutesOfAirConditioningOn.ToString();
+                    }
+                    // Nhiệt độ
+                    if (ShowTemperature)
+                    {
+                        numbercolum += 1;
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].Temperature;
                     }
                     // Tên lái xe
                     if (ShowDriverName)
@@ -428,7 +443,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     { 6, ShowStopParkingTime },
                     { 7, ShowMinutesStopRunEngine },
                     { 8, ShowMinutesTurnOnAirConditioner },
-                    { 9, ShowStopLocation }
+                    { 9, ShowStopLocation },
+                    { 10, ShowTemperature }
                 };
             }
         }
@@ -476,6 +492,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         case 9:
                             ShowStopLocation = item.Value;
+                            break;
+
+                        case 10:
+                            ShowTemperature = item.Value;
                             break;
                     }
                 }

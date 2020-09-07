@@ -490,6 +490,8 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string StopParkingReport_Table_MinutesTurnOnAirConditioner => Get(MobileResourceNames.StopParkingReport_Table_MinutesTurnOnAirConditioner, "Bật ĐH khi dừng (phút)", "Turn On Air Conditioner (minutes)");
 
+        public static string StopParkingReport_Table_Temperature => Get(MobileResourceNames.StopParkingReport_Table_Temperature, "Nhiệt độ", "Temperature");
+
         public static string StopParkingReport_Table_StopLocation => Get(MobileResourceNames.StopParkingReport_Table_StopLocation, "Địa điểm", "Location");
 
         public static string StopParkingReport_CheckBox_DriverName => Get(MobileResourceNames.StopParkingReport_CheckBox_DriverName, "Tên lái xe", "Driver Name");
