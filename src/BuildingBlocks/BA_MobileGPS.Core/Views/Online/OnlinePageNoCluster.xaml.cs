@@ -232,7 +232,7 @@ namespace BA_MobileGPS.Core.Views
             }
             else
             {
-                HideBoxInfo();
+                HideBoxInfoCarActive(mCarActive);
             }
         }
 
@@ -751,38 +751,6 @@ namespace BA_MobileGPS.Core.Views
             }
         }
 
-        //private void Getaddress(string lat, string lng)
-        //{
-        //    try
-        //    {
-        //        vm.CurrentAddress = MobileResource.Online_Label_Determining;
-        //        Task.Run(async () =>
-        //        {
-        //            return await geocodeService.GetAddressByLatLng(lat, lng);
-        //        }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
-        //        {
-        //            if (task.Status == TaskStatus.RanToCompletion)
-        //            {
-        //                if (!string.IsNullOrEmpty(task.Result))
-        //                {
-        //                    vm.CurrentAddress = task.Result;
-        //                }
-        //            }
-        //            else if (task.IsFaulted)
-        //            {
-        //                Logger.WriteError(MethodBase.GetCurrentMethod().Name, "Error");
-        //            }
-        //        }));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-        //    }
-        //    finally
-        //    {
-        //    }
-        //}
-
         private void Getaddress(string lat, string lng, long vehicleID)
         {
             try
@@ -1069,11 +1037,6 @@ namespace BA_MobileGPS.Core.Views
                 });
             }
         }
-
-        //private void SelectMenuFAB(object sender, XViewEventArgs e)
-        //{
-        //    vm.PushToFABPageCommand.Execute(e.EventIndex);
-        //}
 
         public async void GetMylocation(object sender, EventArgs e)
         {

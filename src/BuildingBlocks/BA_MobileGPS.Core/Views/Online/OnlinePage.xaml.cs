@@ -245,7 +245,7 @@ namespace BA_MobileGPS.Core.Views
             }
             else
             {
-                HideBoxInfo();
+                HideBoxInfoCarActive(mCarActive);
             }
         }
 
@@ -719,8 +719,6 @@ namespace BA_MobileGPS.Core.Views
 
                         lstpin[1].Icon = BitmapDescriptorFactory.FromView(new PinInfowindowView(carinfo.PrivateCode));
                     }
-
-                    //googleMap.Cluster();
                 });
             }
         }
@@ -763,38 +761,6 @@ namespace BA_MobileGPS.Core.Views
                 pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
             }
         }
-
-        //private void Getaddress(string lat, string lng)
-        //{
-        //    try
-        //    {
-        //        vm.CurrentAddress = MobileResource.Online_Label_Determining;
-        //        Task.Run(async () =>
-        //        {
-        //            return await geocodeService.GetAddressByLatLng(lat, lng);
-        //        }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
-        //        {
-        //            if (task.Status == TaskStatus.RanToCompletion)
-        //            {
-        //                if (!string.IsNullOrEmpty(task.Result))
-        //                {
-        //                    vm.CurrentAddress = task.Result;
-        //                }
-        //            }
-        //            else if (task.IsFaulted)
-        //            {
-        //                Logger.WriteError(MethodBase.GetCurrentMethod().Name, "Error");
-        //            }
-        //        }));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-        //    }
-        //    finally
-        //    {
-        //    }
-        //}
 
         private void Getaddress(string lat, string lng, long vehicleID)
         {
@@ -1089,11 +1055,6 @@ namespace BA_MobileGPS.Core.Views
                 });
             }
         }
-
-        //private void SelectMenuFAB(object sender, XViewEventArgs e)
-        //{
-        //    vm.PushToFABPageCommand.Execute(e.EventIndex);
-        //}
 
         public async void GetMylocation(object sender, EventArgs e)
         {
