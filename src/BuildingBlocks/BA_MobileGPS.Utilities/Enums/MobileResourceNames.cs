@@ -733,6 +733,7 @@
         StopParkingReport_Table_StopParkingTime,
         StopParkingReport_Table_MinutesStopRunEngine,
         StopParkingReport_Table_MinutesTurnOnAirConditioner,
+        StopParkingReport_Table_Temperature,
         StopParkingReport_Table_StopLocation,
 
         StopParkingReport_CheckBox_DriverName,
