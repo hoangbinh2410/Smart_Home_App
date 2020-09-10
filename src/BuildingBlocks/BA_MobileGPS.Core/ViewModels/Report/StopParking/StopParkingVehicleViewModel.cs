@@ -125,6 +125,10 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 item.OrderNumber = ++i;
                 item.StopParkingTime = MinusTimeSpanHelper.MinusTimeSpan(item.EndTime, item.StartTime);
+                if (!string.IsNullOrEmpty(item.Temperature))
+                {
+                    item.Temperature = String.Format("{0:0.00}", decimal.Parse(item.Temperature.Replace(".", ",")));
+                }
             }
             return data;
         }
