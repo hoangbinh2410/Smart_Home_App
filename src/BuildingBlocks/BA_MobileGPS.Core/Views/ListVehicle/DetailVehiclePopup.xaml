@@ -51,8 +51,12 @@
                 </controls:IconView>
             </Grid>
             <BoxView StyleClass="SlimLine" />
-            <Grid Padding="20,10,20,15" ColumnDefinitions="*,*,*">
-                <Grid.Resources>
+            <FlexLayout
+                Padding="20,10"
+                AlignItems="Stretch"
+                Direction="Row"
+                JustifyContent="SpaceBetween">
+                <FlexLayout.Resources>
                     <Style TargetType="pancakeview:PancakeView">
                         <Setter Property="HeightRequest" Value="60" />
                         <Setter Property="WidthRequest" Value="60" />
@@ -67,8 +71,9 @@
                     </Style>
                     <Style TargetType="Label">
                         <Setter Property="FontSize" Value="13" />
+                        <Setter Property="WidthRequest" Value="80" />
                     </Style>
-                </Grid.Resources>
+                </FlexLayout.Resources>
                 <StackLayout Spacing="10">
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigativeCommand}" CommandParameter="{i18n:TranslateResource Online_Label_TitlePage}" />
@@ -82,9 +87,9 @@
                         </pancakeview:PancakeView.Shadow>
                         <controls:IconView Source="ic_mornitoring.png" />
                     </pancakeview:PancakeView>
-                    <Label Text="{i18n:TranslateResource Online_Label_TitlePage}" />
+                    <Label LineBreakMode="WordWrap" Text="{i18n:TranslateResource Online_Label_TitlePage}" />
                 </StackLayout>
-                <StackLayout Grid.Column="1" Spacing="10">
+                <StackLayout Spacing="10" VerticalOptions="StartAndExpand">
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigativeCommand}" CommandParameter="{i18n:TranslateResource Route_Label_Title}" />
                     </StackLayout.GestureRecognizers>
@@ -97,9 +102,9 @@
                         </pancakeview:PancakeView.Shadow>
                         <controls:IconView Source="ic_route.png" />
                     </pancakeview:PancakeView>
-                    <Label Text="{i18n:TranslateResource Route_Label_Title}" />
+                    <Label LineBreakMode="WordWrap" Text="{i18n:TranslateResource Route_Label_Title}" />
                 </StackLayout>
-                <StackLayout Grid.Column="2" Spacing="10">
+                <StackLayout Spacing="10">
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigativeCommand}" CommandParameter="{i18n:TranslateResource DetailVehicle_Label_TilePage}" />
                     </StackLayout.GestureRecognizers>
@@ -112,9 +117,9 @@
                         </pancakeview:PancakeView.Shadow>
                         <controls:IconView Source="ic_guarantee.png" />
                     </pancakeview:PancakeView>
-                    <Label Text="{i18n:TranslateResource DetailVehicle_Label_TilePage}" />
+                    <Label LineBreakMode="WordWrap" Text="{i18n:TranslateResource DetailVehicle_Label_TilePage}" />
                 </StackLayout>
-                <!--<StackLayout Grid.Column="3" Spacing="10">
+                <!--<StackLayout Spacing="10">
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigativeCommand}" CommandParameter="Camera" />
                     </StackLayout.GestureRecognizers>
@@ -127,9 +132,9 @@
                         </pancakeview:PancakeView.Shadow>
                         <controls:IconView Source="ic_camera.png" />
                     </pancakeview:PancakeView>
-                    <Label Text="Camera" />
+                    <Label LineBreakMode="WordWrap" Text="Camera" />
                 </StackLayout>-->
-            </Grid>
+            </FlexLayout>
         </StackLayout>
     </pancakeview:PancakeView>
 </pages:PopupPage>

@@ -77,7 +77,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             TryExecute(async () =>
             {
-                
+
                 // Lấy danh sách cảnh báo
                 GetCountAlert();
 
@@ -178,7 +178,51 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
         {
-            SelectedIndex = (int)obj.Item1;
+            switch (obj.Item1)
+            {
+                case ItemTabPageEnums.HomePage:
+                    SelectedIndex = (int)obj.Item1;
+                    break;
+                case ItemTabPageEnums.ListVehiclePage:
+                    SelectedIndex = (int)obj.Item1;
+                    break;
+                case ItemTabPageEnums.OnlinePage:
+                    int indexonline = (int)ItemTabPageEnums.OnlinePage;
+                    if (!CheckPermision((int)PermissionKeyNames.VehicleView))
+                    {
+                        indexonline -= 1;
+                    }
+                    SelectedIndex = indexonline;
+                    break;
+                case ItemTabPageEnums.RoutePage:
+                    int indexroute = (int)ItemTabPageEnums.RoutePage;
+                    if (!CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
+                    {
+                        indexroute -= 1;
+                    }
+                    else if (!CheckPermision((int)PermissionKeyNames.VehicleView))
+                    {
+                        indexroute -= 1;
+                    }
+                    SelectedIndex = indexroute;
+                    break;
+                case ItemTabPageEnums.ProfilePage:
+                    int indexprofile = (int)ItemTabPageEnums.ProfilePage;
+                    if (!CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
+                    {
+                        indexprofile -= 1;
+                    }
+                    else if (!CheckPermision((int)PermissionKeyNames.VehicleView))
+                    {
+                        indexprofile -= 1;
+                    }
+                    else if (!CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
+                    {
+                        indexprofile -= 1;
+                    }
+                    SelectedIndex = indexprofile;
+                    break;
+            }
         }
 
         public override void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
