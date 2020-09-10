@@ -790,6 +790,7 @@ namespace BA_MobileGPS.Core.Views
         /// <param name="carinfo"></param>
         private void HideBoxInfoCarActive(VehicleOnline carinfo)
         {
+            vm.CarSearch = string.Empty;
             HideBoxStatus(); // ẩn tạm chưa có box trạng thái
 
             HideBoxInfo();
