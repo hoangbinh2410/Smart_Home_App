@@ -51,8 +51,12 @@
                 </controls:IconView>
             </Grid>
             <BoxView StyleClass="SlimLine" />
-            <Grid Padding="20,10,20,15" ColumnDefinitions="*,*,*">
-                <Grid.Resources>
+            <FlexLayout
+                Padding="20,10"
+                AlignItems="Center"
+                Direction="Row"
+                JustifyContent="SpaceBetween">
+                <FlexLayout.Resources>
                     <Style TargetType="pancakeview:PancakeView">
                         <Setter Property="HeightRequest" Value="60" />
                         <Setter Property="WidthRequest" Value="60" />
@@ -68,7 +72,7 @@
                     <Style TargetType="Label">
                         <Setter Property="FontSize" Value="13" />
                     </Style>
-                </Grid.Resources>
+                </FlexLayout.Resources>
                 <StackLayout Spacing="10">
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigativeCommand}" CommandParameter="{i18n:TranslateResource Online_Label_TitlePage}" />
@@ -129,7 +133,7 @@
                     </pancakeview:PancakeView>
                     <Label Text="Camera" />
                 </StackLayout>-->
-            </Grid>
+            </FlexLayout>
         </StackLayout>
     </pancakeview:PancakeView>
 </pages:PopupPage>
