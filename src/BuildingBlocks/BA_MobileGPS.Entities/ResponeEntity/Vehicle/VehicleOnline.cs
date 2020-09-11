@@ -110,17 +110,21 @@ namespace BA_MobileGPS.Entities
         ///* Cập nhật lại dữ liệu */
         public void Update(VehicleOnlineMessage message)
         {
-            this.VehicleId = message.VehicleId;
-            this.VehiclePlate = message.VehiclePlate;
-            this.Lat = message.Lat;
-            this.Lng = message.Lng;
-            this.State = message.State;
-            this.Velocity = message.Velocity;
-            this.GPSTime = message.GPSTime;
-            this.VehicleTime = message.VehicleTime;
-            this.IconCode = message.IconCode;
-            this.Direction = message.Direction;
-            this.StopTime = message.StopTime;
+            if (message.GPSTime > this.GPSTime && message.VehicleTime > this.VehicleTime)
+            {
+                this.VehicleId = message.VehicleId;
+                this.VehiclePlate = message.VehiclePlate;
+                this.Lat = message.Lat;
+                this.Lng = message.Lng;
+                this.State = message.State;
+                this.Velocity = message.Velocity;
+                this.GPSTime = message.GPSTime;
+                this.VehicleTime = message.VehicleTime;
+                this.IconCode = message.IconCode;
+                this.Direction = message.Direction;
+                this.StopTime = message.StopTime;
+            }
+
         }
     }
 }

@@ -262,6 +262,50 @@ namespace BA_MobileGPS.Core.Extensions
             return false;
         }
 
+
+        public static bool IsVehicleUpdate(DateTime gpstime, DateTime vehicleTime)
+        {
+            //nếu thời gian hiện tại - thời gian của xe mà lớn hơn 2 thì update xe đó
+            var time = StaticSettings.TimeServer.Subtract(vehicleTime).TotalMinutes;
+            if (time >= MobileSettingHelper.TimeVehicleSync)//Nếu xe mất GPS
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        public static List<long> GetVehicleSyncData(List<VehicleOnline> mVehicleList)
+        {
+            var result = new List<long>();
+            if (mVehicleList != null && mVehicleList.Count > 0)
+            {
+                mVehicleList.ForEach(x =>
+                {
+                    if (IsVehicleUpdate(x.GPSTime, x.VehicleTime))
+                    {
+                        result.Add(x.VehicleId);
+                    }
+                });
+            }
+            return result;
+        }
+
+        public static List<VehicleOnline> GetVehicleLostGPSAndLostGSM()
+        {
+            var result = new List<VehicleOnline>();
+            if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+            {
+                StaticSettings.ListVehilceOnline.ForEach(x =>
+                {
+                    if (IsLostGPS(x.GPSTime, x.VehicleTime) || IsLostGSM(x.VehicleTime))
+                    {
+                        result.Add(x);
+                    }
+                });
+            }
+            return result;
+        }
         /* Trạng thái gps */
 
         public static bool IsLostGPSIcon(DateTime gpstime, DateTime vehicleTime)

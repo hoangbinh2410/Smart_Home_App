@@ -86,6 +86,7 @@ namespace BA_MobileGPS.Core.Views
             btnDirectvehicleOnline.IsVisible = false;
 
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
+            this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
 
             IsInitMarker = false;
@@ -110,7 +111,7 @@ namespace BA_MobileGPS.Core.Views
                     var clusterpin = googleMap.Pins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
                     if (clusterpin != null)
                     {
-                        var vehicleselect = mCurrentVehicleList.FirstOrDefault(x => x.VehiclePlate == vehiclePlate.VehiclePlate);
+                        var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehiclePlate == vehiclePlate.VehiclePlate);
                         if (vehicleselect != null)
                         {
                             vm.CarSearch = vehicleselect.PrivateCode;
@@ -160,6 +161,7 @@ namespace BA_MobileGPS.Core.Views
             timer.Stop();
             timer.Dispose();
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
+            this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
         }
 
@@ -204,6 +206,22 @@ namespace BA_MobileGPS.Core.Views
 
         #region Private Method
 
+        private void OnReLoadVehicleOnlineCarSignalR(bool arg)
+        {
+            if (arg)
+            {
+                if (mCarActive.VehicleId != -1 && string.IsNullOrEmpty(mCarActive.VehiclePlate))
+                {
+                    var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehiclePlate == mCarActive.VehiclePlate);
+                    if (vehicleselect != null)
+                    {
+                        vm.CarSearch = vehicleselect.PrivateCode;
+                        UpdateSelectVehicle(vehicleselect);
+                    }
+                }
+            }
+        }
+
         private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
         {
             if (obj != null
@@ -217,7 +235,7 @@ namespace BA_MobileGPS.Core.Views
                     var clusterpin = googleMap.Pins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
                     if (clusterpin != null)
                     {
-                        var vehicleselect = mCurrentVehicleList.FirstOrDefault(x => x.VehiclePlate == vehiclePlate.VehiclePlate);
+                        var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehiclePlate == vehiclePlate.VehiclePlate);
                         if (vehicleselect != null)
                         {
                             vm.CarSearch = vehicleselect.PrivateCode;

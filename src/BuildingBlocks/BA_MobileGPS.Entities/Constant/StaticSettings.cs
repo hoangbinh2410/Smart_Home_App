@@ -25,6 +25,8 @@ namespace BA_MobileGPS.Entities
 
         public static DateTime TimeServer { get; set; }
 
+        public static DateTime LastSyncTime { get; set; }
+
         public static void ClearStaticSettings()
         {
             User = null;

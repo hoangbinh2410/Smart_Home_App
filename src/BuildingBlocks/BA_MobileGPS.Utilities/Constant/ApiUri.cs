@@ -57,6 +57,8 @@
 
         public const string GET_VEHICLEONLINE = "api/v2/vehicles/getlistvehicleonline";
 
+        public const string GET_VEHICLEONLINESYNC = "api/v2/vehicles/syncvehicleonline";
+
         public const string GET_VEHICLE_GROUP = "api/vehicles/getlistgroups";
 
         public const string GET_VEHICLE_COMPANY = "api/vehicles/getlistcompanyid";

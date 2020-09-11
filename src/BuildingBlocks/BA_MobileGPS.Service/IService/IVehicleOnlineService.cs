@@ -18,6 +18,9 @@ namespace BA_MobileGPS.Service
 
         Task<List<VehicleOnline>> GetListVehicleOnline(Guid userId, int groupId);
 
+
+        Task<List<VehicleOnlineMessage>> GetListVehicleOnlineSync(VehicleOnlineRequest vehiclerequest);
+
         Task<List<LandmarkResponse>> GetListBoundary();
     }
 }
