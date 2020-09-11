@@ -62,6 +62,7 @@
         ConfigUseAccountKit,
         NumberOfDigitVerifyCode,
         AuthenticationSecond,
+        TimeVehicleSync,
         LengthAndPrefixNumberPhone,
         ConfigDangerousChar,
         ConfigUnitDebtMoney,

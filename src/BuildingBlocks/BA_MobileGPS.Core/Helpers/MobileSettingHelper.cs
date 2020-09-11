@@ -177,5 +177,8 @@ namespace BA_MobileGPS.Core
         public static int TimeVehicleOffline => Get(MobileConfigurationNames.TimeVehicleOffline, 2);
         public static string LinkYoutube => Get(MobileConfigurationNames.LinkYoutube, "https://www.youtube.com/channel/UC0vfDfFTKXXV_d7m86b1MhQ");
         public static string LinkBAGPS => Get(MobileConfigurationNames.LinkBAGPS, "https://bagps.vn/");
+
+
+        public static int TimeVehicleSync => Get(MobileConfigurationNames.TimeVehicleSync, 2);
     }
 }
