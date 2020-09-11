@@ -63,6 +63,7 @@
         NumberOfDigitVerifyCode,
         AuthenticationSecond,
         TimeVehicleSync,
+        TimmerVehicleSync,
         LengthAndPrefixNumberPhone,
         ConfigDangerousChar,
         ConfigUnitDebtMoney,
