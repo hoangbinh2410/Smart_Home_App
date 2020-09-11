@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Constant;
+﻿using AutoMapper;
+using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
@@ -35,6 +36,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IIdentityHubService identityHubService;
         private readonly IVehicleOnlineHubService vehicleOnlineHubService;
         private readonly IAlertHubService alertHubService;
+        private readonly IMapper _mapper;
         private Timer timer;
         private Timer timerSyncData;
 
@@ -46,7 +48,7 @@ namespace BA_MobileGPS.Core.ViewModels
             INotificationService notificationService,
             IIdentityHubService identityHubService,
             IVehicleOnlineHubService vehicleOnlineHubService,
-            IAlertHubService alertHubService)
+            IAlertHubService alertHubService, IMapper mapper)
             : base(navigationService)
         {
             this.vehicleOnlineService = vehicleOnlineService;
@@ -58,6 +60,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this.identityHubService = identityHubService;
             this.vehicleOnlineHubService = vehicleOnlineHubService;
             this.alertHubService = alertHubService;
+            this._mapper = mapper;
 
             StaticSettings.TimeServer = UserInfo.TimeServer.AddSeconds(1);
             SetTimeServer();
@@ -102,6 +105,8 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnDestroy();
             timer.Stop();
             timer.Dispose();
+            timerSyncData.Stop();
+            timerSyncData.Dispose();
             EventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
             EventAggregator.GetEvent<OnResumeEvent>().Unsubscribe(OnResumePage);
             EventAggregator.GetEvent<OnSleepEvent>().Unsubscribe(OnSleepPage);
@@ -368,7 +373,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void OnReceiveSendCarSignalR(object sender, string e)
         {
-            Debug.Write("OnReceiveSendCarSignalR" + e);
             var carInfo = JsonConvert.DeserializeObject<VehicleOnlineMessage>(e);
             if (carInfo != null)
             {
@@ -517,13 +521,25 @@ namespace BA_MobileGPS.Core.ViewModels
                         return await vehicleOnlineService.GetListVehicleOnlineSync(request);
                     }, (result) =>
                     {
-                        StaticSettings.LastSyncTime = DateTime.Now;
                         if (result != null && result.Count > 0)
                         {
+                            StaticSettings.LastSyncTime = DateTime.Now;
                             Parallel.For(0, result.Count, action =>
                             {
                                 SendDataCar(result[action]);
                             });
+                        }
+                        else
+                        {
+                            var lst = StateVehicleExtension.GetVehicleLostGPSAndLostGSM();
+                            if (lst != null && lst.Count > 0)
+                            {
+                                Parallel.For(0, lst.Count, action =>
+                                {
+                                    var vehicle = _mapper.Map<VehicleOnlineMessage>(lst[action]);
+                                    SendDataCar(vehicle);
+                                });
+                            }
                         }
                     });
                 }
