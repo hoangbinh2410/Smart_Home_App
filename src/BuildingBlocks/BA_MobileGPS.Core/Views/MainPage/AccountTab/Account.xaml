@@ -26,16 +26,17 @@
                 Source="bg_Account.png"
                 VerticalOptions="FillAndExpand" />
         </Grid>
-        <StackLayout
-            Margin="30,0,0,20"
-            Orientation="Horizontal"
-            Spacing="10"
+        <Grid
+            Margin="30,0,30,20"
+            ColumnDefinitions="90,*"
+            ColumnSpacing="10"
             VerticalOptions="EndAndExpand">
             <pancake:PancakeView
                 Padding="0"
                 BackgroundColor="Transparent"
                 CornerRadius="45"
                 HeightRequest="90"
+                VerticalOptions="Center"
                 WidthRequest="90">
                 <pancake:PancakeView.Border>
                     <pancake:Border Thickness="1" Color="White" />
@@ -51,18 +52,26 @@
                     <ff:CachedImage Aspect="AspectFill" Source="{Binding UserInfo.AvatarUrl, Converter={StaticResource AddRootImageConverter}}" />
                 </pancake:PancakeView>
             </pancake:PancakeView>
-            <StackLayout Spacing="7" VerticalOptions="CenterAndExpand">
+            <StackLayout
+                Grid.Column="1"
+                Spacing="7"
+                VerticalOptions="Center">
                 <Label
                     FontAttributes="Bold"
                     FontFamily="{StaticResource myFontLatoBold}"
-                    LineBreakMode="WordWrap"
+                    LineBreakMode="TailTruncation"
+                    MaxLines="1"
                     Text="{Binding UserInfo.FullName, Converter={StaticResource UpperCaseConverter}}"
                     TextColor="{DynamicResource WhiteColor}" />
-                <Label Text="{Binding UserInfo.PhoneNumber}" TextColor="{DynamicResource WhiteColor}" />
+                <Label
+                    Margin="5,0,0,0"
+                    Text="{Binding UserInfo.PhoneNumber}"
+                    TextColor="{DynamicResource WhiteColor}" />
                 <StackLayout
                     Padding="0"
+                    HorizontalOptions="Start"
                     Orientation="Horizontal"
-                    Spacing="5">
+                    Spacing="2">
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding PushToProfileCommand}" NumberOfTapsRequired="1" />
                     </StackLayout.GestureRecognizers>
@@ -75,7 +84,7 @@
                         WidthRequest="10" />
                 </StackLayout>
             </StackLayout>
-        </StackLayout>
+        </Grid>
         <syncfusion:SfListView
             Grid.Row="1"
             Padding="10,0"
