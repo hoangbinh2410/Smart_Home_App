@@ -257,7 +257,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             timerSyncData = new Timer
             {
-                Interval = 60000
+                Interval = MobileSettingHelper.TimmerVehicleSync
             };
             timerSyncData.Elapsed += TimerSyncData;
 

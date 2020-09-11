@@ -180,5 +180,7 @@ namespace BA_MobileGPS.Core
 
 
         public static int TimeVehicleSync => Get(MobileConfigurationNames.TimeVehicleSync, 2);
+
+        public static int TimmerVehicleSync => Get(MobileConfigurationNames.TimmerVehicleSync, 60000);
     }
 }
