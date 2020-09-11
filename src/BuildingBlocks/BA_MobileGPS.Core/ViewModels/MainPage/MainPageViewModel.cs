@@ -36,6 +36,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IVehicleOnlineHubService vehicleOnlineHubService;
         private readonly IAlertHubService alertHubService;
         private Timer timer;
+        private Timer timerSyncData;
 
         public MainPageViewModel(INavigationService navigationService, IVehicleOnlineService vehicleOnlineService,
             IAlertService alertService,
@@ -60,6 +61,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             StaticSettings.TimeServer = UserInfo.TimeServer.AddSeconds(1);
             SetTimeServer();
+            StartTimmerSynData();
             EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
             EventAggregator.GetEvent<OnResumeEvent>().Subscribe(OnResumePage);
             EventAggregator.GetEvent<OnSleepEvent>().Subscribe(OnSleepPage);
@@ -246,9 +248,25 @@ namespace BA_MobileGPS.Core.ViewModels
             timer.Start();
         }
 
+        private void StartTimmerSynData()
+        {
+            timerSyncData = new Timer
+            {
+                Interval = 60000
+            };
+            timerSyncData.Elapsed += TimerSyncData;
+
+            timerSyncData.Start();
+        }
+
         private void UpdateTimeServer(object sender, ElapsedEventArgs e)
         {
             StaticSettings.TimeServer = StaticSettings.TimeServer.AddSeconds(1);
+        }
+
+        private void TimerSyncData(object sender, ElapsedEventArgs e)
+        {
+            SyncVehicleOnline();
         }
 
         private async Task ConnectSignalR()
@@ -354,23 +372,28 @@ namespace BA_MobileGPS.Core.ViewModels
             var carInfo = JsonConvert.DeserializeObject<VehicleOnlineMessage>(e);
             if (carInfo != null)
             {
-                var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == carInfo.VehicleId);
-                if (vehicle != null && !StateVehicleExtension.IsVehicleDebtMoney(vehicle.MessageId, vehicle.DataExt))
-                {
-                    vehicle.Update(carInfo);
-                    vehicle.IconImage = IconCodeHelper.GetMarkerResource(vehicle);
-                    vehicle.StatusEngineer = StateVehicleExtension.EngineState(vehicle);
-                    if (!StateVehicleExtension.IsLostGPS(vehicle.GPSTime, vehicle.VehicleTime) && !StateVehicleExtension.IsLostGSM(vehicle.VehicleTime))
-                    {
-                        vehicle.SortOrder = 1;
-                    }
-                    else
-                    {
-                        vehicle.SortOrder = 0;
-                    }
+                SendDataCar(carInfo);
+            }
+        }
 
-                    EventAggregator.GetEvent<ReceiveSendCarEvent>().Publish(vehicle);
+        private void SendDataCar(VehicleOnlineMessage carInfo)
+        {
+            var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == carInfo.VehicleId);
+            if (vehicle != null && !StateVehicleExtension.IsVehicleDebtMoney(vehicle.MessageId, vehicle.DataExt))
+            {
+                vehicle.Update(carInfo);
+                vehicle.IconImage = IconCodeHelper.GetMarkerResource(vehicle);
+                vehicle.StatusEngineer = StateVehicleExtension.EngineState(vehicle);
+                if (!StateVehicleExtension.IsLostGPS(vehicle.GPSTime, vehicle.VehicleTime) && !StateVehicleExtension.IsLostGSM(vehicle.VehicleTime))
+                {
+                    vehicle.SortOrder = 1;
                 }
+                else
+                {
+                    vehicle.SortOrder = 0;
+                }
+
+                EventAggregator.GetEvent<ReceiveSendCarEvent>().Publish(vehicle);
             }
         }
 
@@ -462,6 +485,49 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                 }
             });
+        }
+
+        private void SyncVehicleOnline()
+        {
+            if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+            {
+                //Lấy xe thời gian hiện tại trừ thời gian của xe =< 2 và nhỏ hơn 5
+                // Lấy những xe có th
+                var listVehicleMoving = StateVehicleExtension.GetVehicleSyncData(StaticSettings.ListVehilceOnline);
+                if (listVehicleMoving != null && listVehicleMoving.Count > 0)
+                {
+                    var vehicelIDs = string.Join(",", listVehicleMoving);
+                    var userID = UserInfo.UserId;
+                    var companyID = UserInfo.CompanyId;
+                    if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                    {
+                        userID = Settings.CurrentCompany.UserId;
+                        companyID = Settings.CurrentCompany.FK_CompanyID;
+                    }
+                    var request = new VehicleOnlineRequest()
+                    {
+                        CompanyID = companyID,
+                        LastSync = StaticSettings.LastSyncTime,
+                        UserId = userID,
+                        VehicelIDs = vehicelIDs,
+                        XnCode = UserInfo.XNCode
+                    };
+                    RunOnBackground(async () =>
+                    {
+                        return await vehicleOnlineService.GetListVehicleOnlineSync(request);
+                    }, (result) =>
+                    {
+                        StaticSettings.LastSyncTime = DateTime.Now;
+                        if (result != null && result.Count > 0)
+                        {
+                            Parallel.For(0, result.Count, action =>
+                            {
+                                SendDataCar(result[action]);
+                            });
+                        }
+                    });
+                }
+            }
         }
 
         private void SelectedCompanyChanged(int companyID)

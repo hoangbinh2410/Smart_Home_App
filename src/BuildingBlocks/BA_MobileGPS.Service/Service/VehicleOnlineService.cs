@@ -132,5 +132,20 @@ namespace BA_MobileGPS.Service
             }
             return new List<LandmarkResponse>();
         }
+
+        public async Task<List<VehicleOnlineMessage>> GetListVehicleOnlineSync(VehicleOnlineRequest vehiclerequest)
+        {
+            List<VehicleOnlineMessage> result = new List<VehicleOnlineMessage>();
+            try
+            {
+                string url = ApiUri.GET_VEHICLEONLINESYNC;
+                result = await requestProvider.PostAsync<VehicleOnlineRequest, List<VehicleOnlineMessage>>(url, vehiclerequest);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
     }
 }
