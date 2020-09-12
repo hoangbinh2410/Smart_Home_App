@@ -69,7 +69,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void GetInfomation()
         {
             GetMobileSetting();
-            GetVersionDBLogin();
+            //GetVersionDBLogin();
             GetMobileVersion();
 
             if (!string.IsNullOrEmpty(Settings.CurrentLanguage))
@@ -92,7 +92,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Password.Value = string.Empty;
                 Rememberme = false;
             }
-            PingServerStatus();
+            GetNoticePopup();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -184,17 +184,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             MobileSettingHelper.DicMobileConfigurations.Add(item.Name, item.Value);
                         }
                     });
-
-                    //EmailSupport = MobileSettingHelper.EmailSupport;
-                    //Hotline = MobileSettingHelper.HotlineGps;
-
-                    if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
-                    {
-                        if (Settings.Rememberme)
-                        {
-                            LoginCommand.Execute(null);
-                        }
-                    }
                 }
             });
         }
@@ -307,6 +296,16 @@ namespace BA_MobileGPS.Core.ViewModels
                         // lưu version DB hiện tại
                         Settings.TempVersionName = versionDB.VersionName;
                         Settings.AppVersionDB = versionDB.VersionName;
+                    }
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
+                    {
+                        if (Settings.Rememberme)
+                        {
+                            LoginCommand.Execute(null);
+                        }
                     }
                 }
             });
