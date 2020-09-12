@@ -123,7 +123,12 @@ namespace BA_MobileGPS.Entities
                 this.IconCode = message.IconCode;
                 this.Direction = message.Direction;
                 this.StopTime = message.StopTime;
-                this.TotalKm = message.TotalKm;
+
+                if (message.TotalKm > 0)
+                {
+                    this.TotalKm = message.TotalKm;
+                }
+
             }
 
         }
