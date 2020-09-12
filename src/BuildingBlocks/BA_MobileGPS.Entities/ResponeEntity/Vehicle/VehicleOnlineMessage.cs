@@ -63,6 +63,9 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("18")]
         public int StopTime { get; set; }
 
+        [JsonProperty("19")]
+        public double TotalKm { get; set; }
+
         [JsonIgnore]
         public bool IsEnableAcc { set; get; }
     }

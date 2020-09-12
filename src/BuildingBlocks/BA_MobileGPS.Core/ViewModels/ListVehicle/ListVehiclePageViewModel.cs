@@ -336,6 +336,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 vehicle.StopTime = carInfo.StopTime;
                 vehicle.IconCode = carInfo.IconCode;
                 vehicle.State = carInfo.State;
+                vehicle.TotalKm = carInfo.TotalKm;
                 vehicle.StatusEngineer = StateVehicleExtension.EngineState(carInfo);
                 vehicle.IconImage = IconCodeHelper.GetMarkerResource(carInfo);
 
@@ -604,8 +605,8 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-     
-     
+
+
 
         private void ShowInfoMessageDetailBAP(string content)
         {
