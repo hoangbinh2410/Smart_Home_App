@@ -267,7 +267,7 @@ namespace BA_MobileGPS.Core.Extensions
         {
             //nếu thời gian hiện tại - thời gian của xe mà lớn hơn 2 thì update xe đó
             var time = StaticSettings.TimeServer.Subtract(vehicleTime).TotalMinutes;
-            if (time >= MobileSettingHelper.TimeVehicleSync)//Nếu xe mất GPS
+            if (time >= CompanyConfigurationHelper.TimeVehicleSync)//Nếu xe mất GPS
             {
                 return true;
             }
