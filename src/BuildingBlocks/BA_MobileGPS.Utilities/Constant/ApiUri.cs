@@ -169,7 +169,7 @@
 
         #region Vehicle detail
 
-        public const string GET_VEHICLEDETAIL = "api/v2/vehicles/getvehicledetail";
+        public const string GET_VEHICLEDETAIL = "api/v3/vehicles/getvehicledetail";
 
         public const string GET_ADDRESSESBYLATLNG = "api/address/batchaddress";
 

@@ -92,7 +92,7 @@
                     <!--  huỷ  -->
                     <Button
                         Padding="0"
-                       BackgroundColor="{DynamicResource WhiteColor}"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         BorderColor="{DynamicResource PrimaryColor}"
                         BorderWidth="0.5"
                         Command="{Binding CancelCommand}"
