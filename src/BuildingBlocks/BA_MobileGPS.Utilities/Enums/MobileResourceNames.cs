@@ -1141,6 +1141,7 @@
         AccountTab_Label_Share,
         AccountTab_Label_Rating,
         AccountTab_Label_Setting,
+        AccountTab_Label_Upgrade,
         AccountTab_Label_Logout,
         AccountTab_Label_MessageWarningLogout,
         AccountTab_Label_MyInformation,
