@@ -74,7 +74,6 @@ namespace BA_MobileGPS.Core
             containerRegistry.Register<ICameraService, CameraService>();
             containerRegistry.Register<IGuideService, GuideService>();
             containerRegistry.Register<IHelperService, HelperService>();
-            containerRegistry.Register<IHelperAdvanceService, HelperAdvanceService>();
             containerRegistry.Register<IAppDeviceService, AppDeviceService>();
             containerRegistry.Register<INotificationService, NotificationService>();
             containerRegistry.Register<ISendEngineControlService, SendEngineControlService>();

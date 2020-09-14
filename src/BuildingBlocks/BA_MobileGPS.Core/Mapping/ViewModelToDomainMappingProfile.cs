@@ -27,8 +27,6 @@ namespace BA_MobileGPS.Core
 
             CreateMap<VehicleOnlineViewModel, VehicleOnlineMessage>();
 
-            CreateMap<HelperAdvance, HelperAdvanceRealm>();
-
             if (App.AppType == AppType.VMS)
             {
                 CreateMap<VMSVehicleOnlineViewModel, VehicleOnline>();

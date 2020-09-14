@@ -1,5 +1,4 @@
-﻿using BA_MobileGPS.Service;
-using System;
+﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -8,19 +7,14 @@ namespace BA_MobileGPS.Core.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FuelsSummariesTotalReportPage : ContentPage
     {
-        private readonly IHelperAdvanceService _helperAdvanceService;
-
         private bool IsShowFilter = false;
 
-        public FuelsSummariesTotalReportPage(IHelperAdvanceService helperAdvanceService)
+        public FuelsSummariesTotalReportPage()
         {
             InitializeComponent();
 
             showhideColumn.TranslateTo(0, (int)Application.Current.MainPage.Height, 250);
             IsShowFilter = !IsShowFilter;
-
-            _helperAdvanceService = helperAdvanceService;
-
             if (Device.RuntimePlatform == Device.Android)
             {
                 dataGrid.RowHeight = 55;
