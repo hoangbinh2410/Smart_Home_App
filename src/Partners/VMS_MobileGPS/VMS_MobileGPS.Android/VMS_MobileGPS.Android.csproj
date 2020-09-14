@@ -80,7 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1364" />
-    <PackageReference Include="Realm" Version="4.3.0" />
+    <PackageReference Include="Realm" Version="5.0.1" />
     <PackageReference Include="Xamarin.Build.Download">
       <Version>0.10.0</Version>
     </PackageReference>
