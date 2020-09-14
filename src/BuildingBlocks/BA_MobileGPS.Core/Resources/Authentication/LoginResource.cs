@@ -35,5 +35,8 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Login_Popup_Network => Get(MobileResourceNames.Login_Popup_Network, "Mạng lưới", "BA Network");
         public static string Login_Popup_BAGPSExperience => Get(MobileResourceNames.Login_Popup_BAGPSExperience, "Trải nghiệm BA GPS", "BA GPS Experience");
+
+        public static string Login_UserNameProperty_NullOrEmpty => Get(MobileResourceNames.Login_UserNameProperty_NullOrEmpty, "Tên đăng nhập không được để trống", "Username cannot be empty");
+        public static string Login_PasswordProperty_NullOrEmpty => Get(MobileResourceNames.Login_UserNameProperty_NullOrEmpty, "Mật khẩu không được để trống", "Password cannot be empty");
     }
 }

@@ -66,6 +66,13 @@ namespace BA_MobileGPS.Core.ViewModels
             GetInfomation();
         }
 
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+           
+            _ = MobileResource.Get("Login_UserNameProperty_NullOrEmpty");
+        }
+
         private void GetInfomation()
         {
             GetMobileSetting();
@@ -296,6 +303,14 @@ namespace BA_MobileGPS.Core.ViewModels
                         // lưu version DB hiện tại
                         Settings.TempVersionName = versionDB.VersionName;
                         Settings.AppVersionDB = versionDB.VersionName;
+
+                        if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
+                        {
+                            if (Settings.Rememberme)
+                            {
+                                LoginCommand.Execute(null);
+                            }
+                        }
                     }
                 }
                 else
@@ -525,8 +540,8 @@ namespace BA_MobileGPS.Core.ViewModels
             UserName = new ValidatableObject<string>();
             Password = new ValidatableObject<string>();
 
-            UserName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = MobileResource.Common_Property_NullOrEmpty(MobileResource.Login_Textbox_UserName) });
-            Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = MobileResource.Common_Property_NullOrEmpty(MobileResource.Login_Textbox_Password) });
+            UserName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = MobileResource.Login_UserNameProperty_NullOrEmpty });
+            Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = MobileResource.Login_PasswordProperty_NullOrEmpty });
         }
 
         private void GetLanguageType()

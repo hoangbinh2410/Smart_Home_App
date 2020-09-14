@@ -105,6 +105,8 @@
         Login_Popup_RegisterSupport,
         Login_Popup_Network,
         Login_Popup_BAGPSExperience,
+        Login_UserNameProperty_NullOrEmpty,
+        Login_PasswordProperty_NullOrEmpty,
         #endregion Login
 
         #region ChangePassword
