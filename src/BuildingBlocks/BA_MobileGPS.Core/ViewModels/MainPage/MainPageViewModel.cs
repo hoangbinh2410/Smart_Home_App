@@ -141,19 +141,20 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (IsConnected)
             {
-                await ConnectSignalR();
+               
                 if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                 {
                     //Join vào nhóm signalR để nhận dữ liệu online
                     GetListVehicleOnlineResume();
                 }
-                //kiểm tra xem có thông báo nào không
-                GetNofitication();
-
                 if (StaticSettings.TimeServer < DateTime.Now)
                 {
                     StaticSettings.TimeServer = DateTime.Now;
                 }
+                await ConnectSignalR();
+                //kiểm tra xem có thông báo nào không
+                GetNofitication();
+               
             }
             else
             {
