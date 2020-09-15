@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BA_MobileGPS.Core.Interfaces;
+﻿using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
@@ -7,6 +6,7 @@ using BA_MobileGPS.Entities.Infrastructure.Repository;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Service.Service;
+using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 
 using Prism.Ioc;
@@ -34,7 +34,7 @@ namespace BA_MobileGPS.Core
 
             // This updates INavigationService and registers PopupNavigation.Instance
             containerRegistry.RegisterPopupNavigationService();
-
+            containerRegistry.Register<IMapper, MapperUtility>();
             containerRegistry.RegisterSingleton(typeof(IRealmBaseService<,>), typeof(RealmBaseService<,>));
 
             containerRegistry.Register<IRealmConnection, RealmConnection>();
@@ -168,7 +168,6 @@ namespace BA_MobileGPS.Core
 
             containerRegistry.RegisterForNavigation<ListVehicleHelpPage, ListVehicleHelpViewModel>("ListVehicleHelpPage");
             containerRegistry.RegisterForNavigation<DetailVehiclePopup, DetailVehiclePopupViewModel>("DetailVehiclePopup");
-
 
             ViewModelLocationProvider.Register<Home, HomeViewModel>();
             ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();

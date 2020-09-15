@@ -1,19 +1,17 @@
-﻿using AutoMapper;
-
-using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.Infrastructure.Repository;
-
+using BA_MobileGPS.Service.Utilities;
 using Realms;
-
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace BA_MobileGPS.Service
 {
     public class RealmBaseService<TEntity, TViewModel> : IRealmBaseService<TEntity, TViewModel>
-        where TEntity : RealmObject, IRealmEntity
-        where TViewModel : class
+        where TEntity : RealmObject, IRealmEntity, new()
+        where TViewModel : class, new()
     {
         private readonly IBaseRepository _baseRepository;
         private readonly IMapper _mapper;
@@ -28,9 +26,9 @@ namespace BA_MobileGPS.Service
         {
             try
             {
-                var entity = _mapper.Map<TEntity>(viewModel);
+                var entity = _mapper.MapProperties<TEntity>(viewModel);
                 var result = _baseRepository.Add(entity);
-                return _mapper.Map<TViewModel>(result);
+                return viewModel;
             }
             catch (Exception ex)
             {
@@ -42,7 +40,7 @@ namespace BA_MobileGPS.Service
         {
             try
             {
-                var entities = _mapper.Map<IEnumerable<TViewModel>, IEnumerable<TEntity>>(viewModels);
+                var entities = _mapper.MapListProperties<TEntity>(viewModels);
                 _baseRepository.AddRange(entities);
             }
             catch (Exception ex)
@@ -55,7 +53,7 @@ namespace BA_MobileGPS.Service
         {
             try
             {
-                var entities = _mapper.Map<IEnumerable<TEntity>>(viewModels);
+                var entities = _mapper.MapListProperties<TEntity>(viewModels);
                 _baseRepository.AddRangeAsync(entities);
             }
             catch (Exception ex)
@@ -68,9 +66,9 @@ namespace BA_MobileGPS.Service
         {
             try
             {
-                var entity = _mapper.Map<TEntity>(viewModel);
+                var entity = _mapper.MapProperties<TEntity>(viewModel);
                 entity = _baseRepository.Update(entity);
-                return _mapper.Map<TViewModel>(entity);
+                return viewModel;
             }
             catch (Exception ex)
             {
@@ -131,7 +129,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 var entity = _baseRepository.Get<TEntity>(id);
-                return _mapper.Map<TViewModel>(entity);
+                return _mapper.MapProperties<TViewModel>(entity);
             }
             catch (Exception ex)
             {
@@ -144,7 +142,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 var entity = _baseRepository.Get(predicate);
-                return _mapper.Map<TViewModel>(entity);
+                return _mapper.MapProperties<TViewModel>(entity);
             }
             catch (Exception ex)
             {
@@ -169,7 +167,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 var entities = _baseRepository.All<TEntity>();
-                return _mapper.Map<IEnumerable<TViewModel>>(entities);
+                return _mapper.MapListProperties<TViewModel>(entities);
             }
             catch (Exception ex)
             {
@@ -182,7 +180,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 var entities = _baseRepository.Find(predicate);
-                return _mapper.Map<IEnumerable<TViewModel>>(entities);
+                return _mapper.MapListProperties<TViewModel>(entities);
             }
             catch (Exception ex)
             {

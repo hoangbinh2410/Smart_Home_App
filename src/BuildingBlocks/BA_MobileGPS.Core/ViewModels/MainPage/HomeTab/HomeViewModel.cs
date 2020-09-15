@@ -1,9 +1,9 @@
-﻿using AutoMapper;
-using BA_MobileGPS.Core.Events;
+﻿using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
+using BA_MobileGPS.Service.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using Syncfusion.Data.Extensions;
@@ -88,7 +88,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (result != null && result.Count > 0)
                     {
-                        MenuReponse = mapper.Map<List<HomeMenuItemViewModel>>(result);
+                        MenuReponse = mapper.MapListProperties<HomeMenuItemViewModel>(result.ToList());
 
                         GenMenu();
                     }
@@ -122,7 +122,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     MenuItemParentID = m1.MenuItemParentID,
                     LanguageCode = m1.LanguageCode,
                 };
-            StaticSettings.ListMenuOriginGroup = mapper.Map<List<HomeMenuItem>>(menus);
+            StaticSettings.ListMenuOriginGroup = mapper.MapListProperties<HomeMenuItem>(menus.ToList());
 
             if (!string.IsNullOrEmpty(menuFavoriteIds))
             {
@@ -158,7 +158,7 @@ namespace BA_MobileGPS.Core.ViewModels
             var notFavorites = result.Where(s => !s.IsFavorited).ToList();
             GenerateListFeatures(notFavorites);
             HasFavorite = FavouriteMenuItems.Count != 0;
-            StaticSettings.ListMenu = mapper.Map<List<HomeMenuItem>>(result);
+            StaticSettings.ListMenu = mapper.MapListProperties<HomeMenuItem>(result.ToList());
         }
 
         private void GenerateFavouriteMenu(List<HomeMenuItemViewModel> input)

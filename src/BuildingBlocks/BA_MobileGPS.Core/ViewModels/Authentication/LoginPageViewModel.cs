@@ -79,10 +79,10 @@ namespace BA_MobileGPS.Core.ViewModels
             //GetVersionDBLogin();
             GetMobileVersion();
 
-            if (!string.IsNullOrEmpty(Settings.CurrentLanguage))
-            {
-                GetLanguageType();
-            }
+            //if (!string.IsNullOrEmpty(Settings.CurrentLanguage))
+            //{
+            //    GetLanguageType();
+            //}
 
             if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
             {
@@ -99,7 +99,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Password.Value = string.Empty;
                 Rememberme = false;
             }
-            GetNoticePopup();
+            //GetNoticePopup();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

@@ -56,7 +56,7 @@ namespace CNN_MobileGPS
             AppType = BA_MobileGPS.Entities.AppType.CNN;
 
             // Đăng ký config automapper
-            AutoMapperConfig.RegisterMappings(containerRegistry);
+            //AutoMapperConfig.RegisterMappings(containerRegistry);
 
             containerRegistry.RegisterForNavigation<BA_MobileGPS.Core.Views.HelperPage, HeplerViewModel>("HelperPage");
 
