@@ -171,7 +171,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 VehiclePlate = listOnline.VehiclePlate,
                 PrivateCode = listOnline.PrivateCode,
                 GroupIDs = listOnline.GroupIDs,
-                Imei = string.Empty
+                Imei = listOnline.Imei
             });
         }
 
