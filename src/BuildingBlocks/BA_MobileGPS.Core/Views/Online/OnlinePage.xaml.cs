@@ -102,6 +102,7 @@ namespace BA_MobileGPS.Core.Views
             IsInitMarker = false;
 
             StartTimmerCaculatorStatus();
+            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
         }
 
         #endregion Contructor
@@ -164,7 +165,9 @@ namespace BA_MobileGPS.Core.Views
 
         public void OnNavigatingTo(INavigationParameters parameters)
         {
-        }
+           
+
+        }       
 
         public void Destroy()
         {

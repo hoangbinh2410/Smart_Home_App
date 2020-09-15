@@ -7,6 +7,7 @@ using Prism.Ioc;
 using Prism.Mvvm;
 using Sharpnado.Presentation.Forms.CustomViews.Tabs;
 using System;
+using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
@@ -19,11 +20,12 @@ namespace BA_MobileGPS.Core.Views
         {
 
             InitializeComponent();
-
+          
             bool checkpermissiononline = false;
 
             var home = PrismApplicationBase.Current.Container.Resolve<ContentView>("HomeTab"); //Home
             ViewModelLocator.SetAutowirePartialView(home, MainContentPage);
+
             Switcher.Children.Add(home);// Trang home
             tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_home.png", Label = MobileResource.Menu_TabItem_Home });
 
@@ -75,6 +77,10 @@ namespace BA_MobileGPS.Core.Views
                 Switcher.SelectedIndex = 1;
                 Switcher.SelectedIndex = 0;
             }
+
+
+           
+
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitAnimation();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);

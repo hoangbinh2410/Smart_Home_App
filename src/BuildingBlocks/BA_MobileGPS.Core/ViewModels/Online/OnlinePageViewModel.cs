@@ -201,6 +201,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ObservableCollection<Polyline> Polylines { get; set; } = new ObservableCollection<Polyline>();
 
+        public string CountCarParameter { get; } = MobileResource.Common_Label_Vehicle.Trim().ToLower(); // Thay TranslateResource
+
         #endregion Property
 
         #region Private Method

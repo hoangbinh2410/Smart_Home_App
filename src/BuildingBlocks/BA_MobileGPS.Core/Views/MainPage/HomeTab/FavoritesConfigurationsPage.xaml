@@ -3,16 +3,13 @@
     x:Class="BA_MobileGPS.Core.Views.FavoritesConfigurationsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:controls1="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    xmlns:converter="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:data="clr-namespace:Syncfusion.DataSource;assembly=Syncfusion.DataSource.Portable"
-    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     xmlns:sfList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
-    Title="{i18n:TranslateResource Favorites_Label_TilePage}"
+    x:Name="main"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -74,17 +71,14 @@
             x:Name="btnAlert"
             Command="{Binding SaveCommand}"
             Order="Primary"
-            Priority="1"
-            Text="{i18n:TranslateResource Common_Button_Save}" />
+            Priority="1" />
     </ContentPage.ToolbarItems>
     <StackLayout Spacing="0">
         <SearchBar
-            x:Name="searchVehicle"
+            x:Name="searchBarIOS"
             HorizontalOptions="StartAndExpand"
             IsVisible="{OnPlatform iOS=true,
                                    Android=false}"
-            Placeholder="{i18n:TranslateResource Common_Message_SearchText}"
-            
             Text="{Binding SearchedText}"
             VerticalOptions="Center">
             <SearchBar.Behaviors>
@@ -104,10 +98,9 @@
                 IsClippedToBounds="True">
                 <controls1:MaterialFrame.Content>
                     <SearchBar
-                        x:Name="searchVehicle2"
+                        x:Name="searchBarAndroid"
                         HeightRequest="40"
                         HorizontalOptions="CenterAndExpand"
-                        Placeholder="{i18n:TranslateResource Common_Message_SearchText}"
                         Text="{Binding SearchedText}"
                         VerticalOptions="Center">
                         <SearchBar.Behaviors>

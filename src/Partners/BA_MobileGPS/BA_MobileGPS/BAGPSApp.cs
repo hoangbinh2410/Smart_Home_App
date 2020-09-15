@@ -53,7 +53,7 @@ namespace BA_MobileGPS
             AppType = BA_MobileGPS.Entities.AppType.BinhAnh;
 
             // Đăng ký config automapper
-            AutoMapperConfig.RegisterMappings(containerRegistry);
+           // AutoMapperConfig.RegisterMappings(containerRegistry);
 
             containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
             containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());
