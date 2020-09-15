@@ -49,7 +49,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             var list = new List<MenuItem>();
 
-            // Đổi mật khẩu
+            // Thông báo
             list.Add(new MenuItem
             {
                 Title = MobileResource.AccountTab_Label_Notification,
@@ -127,6 +127,17 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsEnable = true,
                 IconColor = Color.FromHex("#673AB7")
             });
+            // Nâng cấp phiên bản
+            list.Add(new MenuItem
+            {
+                Title = string.Format(MobileResource.AccountTab_Label_Upgrade, Settings.AppVersionDB),
+                Icon = "ic_upgrade.png",
+                UseModalNavigation = true,
+                Url = Settings.AppLinkDownload,
+                MenuType = MenuType.UpgradeVersion,
+                IsEnable = Settings.AppVersionDB != AppVersion ? true : false,
+                IconColor = (Color)App.Current.Resources["PrimaryColor"]
+            });
             // Đăng xuất
             list.Add(new MenuItem
             {
@@ -181,6 +192,9 @@ namespace BA_MobileGPS.Core.ViewModels
                         case MenuType.Rating:
                             await Launcher.OpenAsync(new Uri(item.Url));
                             break;
+                        case MenuType.UpgradeVersion:
+                            await Launcher.OpenAsync(new Uri(item.Url));
+                            break;
 
                         default:
                             await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation);
@@ -232,6 +246,7 @@ namespace BA_MobileGPS.Core.ViewModels
         Share,
         Rating,
         Setting,
+        UpgradeVersion,
         Logout
     }
 
