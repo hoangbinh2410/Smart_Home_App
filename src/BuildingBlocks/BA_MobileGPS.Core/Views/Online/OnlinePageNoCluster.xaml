@@ -7,7 +7,6 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:mapbindings="clr-namespace:BA_MobileGPS.Core.GoogleMap.Behaviors"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
@@ -87,10 +86,10 @@
                             Source="ic_search.png" />
                     </pancake:PancakeView>
                     <Entry
+                        x:Name="entrySearch"
                         FontSize="14"
                         HorizontalOptions="FillAndExpand"
                         InputTransparent="True"
-                        Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
                         PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                         Text="{Binding CarSearch}"
                         TextColor="{DynamicResource TextPrimaryColor}"
@@ -289,7 +288,7 @@
                                             <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                                                 <Label
                                                     HorizontalOptions="Start"
-                                                    Text="{Binding CountCar, Converter={StaticResource UnitConverter}, ConverterParameter={i18n:TranslateResource Common_Label_Vehicle, Converter={StaticResource LowerCaseConverter}}}"
+                                                    Text="{Binding CountCar, Converter={StaticResource UnitConverter}, ConverterParameter={Binding CountCarParameter}}"
                                                     TextColor="{DynamicResource WhiteColor}"
                                                     VerticalOptions="Center" />
                                             </StackLayout>

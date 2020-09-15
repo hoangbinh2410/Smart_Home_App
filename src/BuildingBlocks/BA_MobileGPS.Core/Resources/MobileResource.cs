@@ -80,6 +80,10 @@ namespace BA_MobileGPS.Core.Resources
             //    Logger.WriteError(MethodBase.GetCurrentMethod().Name, string.Format("{0} with Key = {1} has an Exception: {2}", MethodBase.GetCurrentMethod().Name, key.ToString(), ex));
             //}
             sw.Stop();
+            if (sw.ElapsedMilliseconds > 300)
+            {
+
+            }
             Debug.WriteLine(string.Format("MobileResourceGet {0} : {1}", key.ToString(), sw.ElapsedMilliseconds));
 
 
