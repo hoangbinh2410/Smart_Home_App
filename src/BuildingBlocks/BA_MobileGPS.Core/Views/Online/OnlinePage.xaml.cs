@@ -24,6 +24,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Diagnostics;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -51,11 +52,10 @@ namespace BA_MobileGPS.Core.Views
 
         public OnlinePage()
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             InitializeComponent();
             googleMap.UiSettings.ZoomControlsEnabled = false;
-
-            //On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
-
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             geocodeService = PrismApplicationBase.Current.Container.Resolve<IGeocodeService>();
             displayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
@@ -87,8 +87,6 @@ namespace BA_MobileGPS.Core.Views
             googleMap.MapClicked += Map_MapClicked;
             googleMap.CameraIdled += GoogleMap_CameraIdled;
 
-            googleMap.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
-
             InitAnimation();
 
             mCarActive = new VehicleOnline();
@@ -102,11 +100,21 @@ namespace BA_MobileGPS.Core.Views
             IsInitMarker = false;
 
             StartTimmerCaculatorStatus();
+            sw.Stop();
+            Debug.WriteLine(string.Format("OnlinePageContructor : {0}", sw.ElapsedMilliseconds));
+
+            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
         }
 
         #endregion Contructor
 
         #region Lifecycle
+        private bool viewHasAppeared = false;
+
+        public void OnPageAppearingFirstTime()
+        {
+            googleMap.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
+        }
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
@@ -114,6 +122,13 @@ namespace BA_MobileGPS.Core.Views
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
+            if (!viewHasAppeared)
+            {
+                OnPageAppearingFirstTime();
+
+                viewHasAppeared = true;
+            }
+
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
                 if (googleMap.ClusteredPins != null && googleMap.ClusteredPins.Count > 0)
@@ -164,7 +179,9 @@ namespace BA_MobileGPS.Core.Views
 
         public void OnNavigatingTo(INavigationParameters parameters)
         {
-        }
+           
+
+        }       
 
         public void Destroy()
         {
@@ -287,6 +304,8 @@ namespace BA_MobileGPS.Core.Views
         {
             try
             {
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
                 if (_animations == null)
                 {
                     return;
@@ -322,6 +341,9 @@ namespace BA_MobileGPS.Core.Views
                 }
 
                 await _animations.Go(States.HideStatus, false);
+
+                sw.Stop();
+                Debug.WriteLine(string.Format("OnlinePageInitAnimation : {0}", sw.ElapsedMilliseconds));
             }
             catch (Exception ex)
             {

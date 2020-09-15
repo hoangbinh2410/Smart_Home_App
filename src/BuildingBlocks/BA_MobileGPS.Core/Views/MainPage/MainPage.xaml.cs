@@ -7,6 +7,7 @@ using Prism.Ioc;
 using Prism.Mvvm;
 using Sharpnado.Presentation.Forms.CustomViews.Tabs;
 using System;
+using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
@@ -17,19 +18,17 @@ namespace BA_MobileGPS.Core.Views
     {
         public MainPage()
         {
-
             InitializeComponent();
-
+            var resove = PrismApplicationBase.Current.Container;
             bool checkpermissiononline = false;
-
-            var home = PrismApplicationBase.Current.Container.Resolve<ContentView>("HomeTab"); //Home
+            var home = resove.Resolve<ContentView>("HomeTab"); //Home
             ViewModelLocator.SetAutowirePartialView(home, MainContentPage);
+
             Switcher.Children.Add(home);// Trang home
             tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_home.png", Label = MobileResource.Menu_TabItem_Home });
-
             if (CheckPermision((int)PermissionKeyNames.VehicleView))
             {
-                var listVehicleTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("ListVehicleTab"); //Phương tiện
+                var listVehicleTab = resove.Resolve<ContentView>("ListVehicleTab"); //Phương tiện
                 ViewModelLocator.SetAutowirePartialView(listVehicleTab, MainContentPage);
                 Switcher.Children.Add(listVehicleTab);
                 tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_vehicle.png", Label = MobileResource.Menu_TabItem_Vehicle });
@@ -38,44 +37,39 @@ namespace BA_MobileGPS.Core.Views
             if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
             {
                 checkpermissiononline = true;
-
+                var online = new ContentView();
                 //cấu hình cty này dùng Cluster thì mới mở forms Cluster
                 if (MobileUserSettingHelper.EnableShowCluster)
                 {
-                    var online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online
-                    ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
-                    Switcher.Children.Add(online);
+                    online = resove.Resolve<ContentView>("OnlineTab"); //Online
                 }
                 else
                 {
-                    var online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTabNoCluster"); //Online
-                    ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
-                    Switcher.Children.Add(online);
+                    online = resove.Resolve<ContentView>("OnlineTabNoCluster"); //Online
                 }
 
+                ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
+                Switcher.Children.Add(online);
                 tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_mornitoring.png", Label = MobileResource.Menu_TabItem_Monitoring });
                 Switcher.SelectedIndex = Switcher.Children.Count - 1;
             }
-
             if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
             {
-                var routeTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("RouteTab"); //RouteTab
+                var routeTab = resove.Resolve<ContentView>("RouteTab"); //RouteTab
                 ViewModelLocator.SetAutowirePartialView(routeTab, MainContentPage);
                 Switcher.Children.Add(routeTab);
                 tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_route.png", Label = App.AppType == AppType.VMS ? MobileResource.Menu_TabItem_Voyage : MobileResource.Menu_TabItem_Route });
             }
-
-            var accountTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("AccountTab"); //Account
+            var accountTab = resove.Resolve<ContentView>("AccountTab"); //Account
             ViewModelLocator.SetAutowirePartialView(accountTab, MainContentPage);
             Switcher.Children.Add(accountTab);
             tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_account.png", Label = MobileResource.Menu_TabItem_Account });
-
             if (!checkpermissiononline)
             {
                 Switcher.SelectedIndex = 1;
                 Switcher.SelectedIndex = 0;
             }
-            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+            eventAggregator = resove.Resolve<IEventAggregator>();
             InitAnimation();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
 
