@@ -58,32 +58,28 @@ namespace BA_MobileGPS.Core.Resources
             Stopwatch sw = new Stopwatch();
             sw.Start();
             var val = App.CurrentLanguage == CultureCountry.Vietnamese ? defaultValue : defaultValueEng;
-            //try
-            //{
-            //    var configDict = DicMobileResource;
-
-            //    // Neu dictionary chua key nay thi moi lay ra, neu ko tra ve gia tri mac dinh
-            //    if (configDict != null && configDict.Count > 0 && configDict.ContainsKey(key.ToString()))
-            //    {
-            //        var setting = configDict[key.ToString()].ToString();
-
-            //        var converter = TypeDescriptor.GetConverter(typeof(T));
-            //        if (converter != null)
-            //        {
-            //            // this will throw an exception when conversion is not possible
-            //            val = (T)converter.ConvertFromString(setting);
-            //        }
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Logger.WriteError(MethodBase.GetCurrentMethod().Name, string.Format("{0} with Key = {1} has an Exception: {2}", MethodBase.GetCurrentMethod().Name, key.ToString(), ex));
-            //}
-            sw.Stop();
-            if (sw.ElapsedMilliseconds > 300)
+            try
             {
+                var configDict = DicMobileResource;
 
+                // Neu dictionary chua key nay thi moi lay ra, neu ko tra ve gia tri mac dinh
+                if (configDict != null && configDict.Count > 0 && configDict.ContainsKey(key.ToString()))
+                {
+                    var setting = configDict[key.ToString()].ToString();
+
+                    var converter = TypeDescriptor.GetConverter(typeof(string));
+                    if (converter != null)
+                    {
+                        // this will throw an exception when conversion is not possible
+                        val = (string)converter.ConvertFromString(setting);
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, string.Format("{0} with Key = {1} has an Exception: {2}", MethodBase.GetCurrentMethod().Name, key.ToString(), ex));
+            }
+            sw.Stop();
             Debug.WriteLine(string.Format("MobileResourceGet {0} : {1}", key.ToString(), sw.ElapsedMilliseconds));
 
 
