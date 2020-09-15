@@ -307,7 +307,7 @@
                                                     <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                                                         <Label
                                                             HorizontalOptions="Start"
-                                                            Text="{Binding CountCar, Converter={StaticResource UnitConverter}, ConverterParameter={Binding CountCarParameter}}"
+                                                            Text="{Binding CountCar, Converter={StaticResource UnitConverter}}"
                                                             TextColor="{DynamicResource WhiteColor}"
                                                             VerticalOptions="Center" />
                                                     </StackLayout>
