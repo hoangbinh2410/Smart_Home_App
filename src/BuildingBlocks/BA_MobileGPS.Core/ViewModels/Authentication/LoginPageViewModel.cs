@@ -570,19 +570,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 StaticSettings.User = user;
                 Settings.UserName = UserName.Value;
                 Settings.Password = Password.Value;
-                //Neu co su thay doi ngon ngu thi update lai ngon nghu
-                if (MobileUserSettingHelper.DefautLanguage != Language.PK_LanguageID)
-                {
-                    //Update lại userlanguage
-                    var ischanglanguage = await languageTypeService.UpdateLanguageByUser(new RequestUpdateLanguage()
-                    {
-                        FK_LanguageID = Language.PK_LanguageID,
-                        FK_UserID = user.UserId
-                    });
-                }
-
                 OneSignal.Current.SendTag("UserID", user.UserId.ToString().ToUpper());
-
                 //nếu nhớ mật khẩu thì lưu lại thông tin username và password
                 if (Rememberme)
                 {
@@ -593,13 +581,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     Settings.Rememberme = false;
                 }
                 CultureInfo.CurrentCulture = new CultureInfo(Language.CodeName);
-
                 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Language.CodeName);
-                //nếu cần xác thực OTP thì mở trang xác thực OTP
-                //if (user.IsNeededOtp)
-                //{
-                //    await NavigationService.NavigateAsync("MenuNavigationPage/VerifyCodeOtpPage", null, useModalNavigation: true);
-                //}
                 //nếu cần đổi mật khẩu thì mở trang đổi mật khẩu
                 if (user.IsNeedChangePassword)
                 {
