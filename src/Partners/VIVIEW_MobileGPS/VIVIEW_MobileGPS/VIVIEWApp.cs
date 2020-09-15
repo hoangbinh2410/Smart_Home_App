@@ -51,9 +51,6 @@ namespace VIVIEW_MobileGPS
 
             AppType = BA_MobileGPS.Entities.AppType.Viview;
 
-            // Đăng ký config automapper
-            AutoMapperConfig.RegisterMappings(containerRegistry);
-
             containerRegistry.RegisterForNavigation<BA_MobileGPS.Core.Views.HelperPage, HeplerViewModel>("HelperPage");
 
             containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
