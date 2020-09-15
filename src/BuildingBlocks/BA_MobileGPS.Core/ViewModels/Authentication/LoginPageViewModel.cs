@@ -9,6 +9,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -350,6 +351,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         Settings.CurrentLanguage = Language.CodeName;
 
+                        App.CurrentLanguage = Language.CodeName;
+
                         //Update lại ngôn ngữ trên giao diện
                         MobileResource._DicMobileResource = null;
 
@@ -566,20 +569,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Settings.CurrentCompany = null;
                 }
+                //nếu nhớ mật khẩu thì lưu lại thông tin username và password
+                if (Rememberme)
+                    Settings.Rememberme = true;
                 StaticSettings.Token = user.AccessToken;
                 StaticSettings.User = user;
                 Settings.UserName = UserName.Value;
                 Settings.Password = Password.Value;
                 OneSignal.Current.SendTag("UserID", user.UserId.ToString().ToUpper());
-                //nếu nhớ mật khẩu thì lưu lại thông tin username và password
-                if (Rememberme)
-                {
-                    Settings.Rememberme = true;
-                }
-                else
-                {
-                    Settings.Rememberme = false;
-                }
                 CultureInfo.CurrentCulture = new CultureInfo(Language.CodeName);
                 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Language.CodeName);
                 //nếu cần đổi mật khẩu thì mở trang đổi mật khẩu
@@ -589,8 +586,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
+                    Stopwatch sw1 = new Stopwatch();
+                    sw1.Start();
                     await NavigationService.NavigateAsync("/MainPage");
+                    sw1.Stop();
+                    Debug.WriteLine(string.Format("NavigateMainPage : {0}", sw1.ElapsedMilliseconds));
                 }
+
             }
             catch (Exception ex)
             {

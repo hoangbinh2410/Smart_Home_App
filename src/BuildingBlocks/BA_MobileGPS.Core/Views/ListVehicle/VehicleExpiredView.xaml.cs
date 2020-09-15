@@ -1,4 +1,5 @@
-﻿using Sharpnado.MaterialFrame;
+﻿using BA_MobileGPS.Core.Resources;
+using Sharpnado.MaterialFrame;
 using Xamarin.Forms.Xaml;
 
 namespace BA_MobileGPS.Core.Views
@@ -9,6 +10,7 @@ namespace BA_MobileGPS.Core.Views
         public VehicleExpiredView()
         {
             InitializeComponent();
+            lblExpriedDate.Text = MobileResource.ListVehicle_Label_Vehicle_Expiration_Date;
         }
     }
 }

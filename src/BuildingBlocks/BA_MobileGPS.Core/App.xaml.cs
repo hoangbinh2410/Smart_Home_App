@@ -29,13 +29,15 @@ namespace BA_MobileGPS.Core
 
         public static AppType AppType = AppType.BinhAnh;
 
+        public static string CurrentLanguage = Settings.CurrentLanguage;
+
         public virtual string OneSignalKey => Config.OneSignalKey;
 
         protected override IContainerExtension CreateContainerExtension() => PrismContainerExtension.Current;
 
         protected override void OnInitialized()
         {
-            InitializeComponent();                     
+            InitializeComponent();
 
             BA_MobileGPSSetup.Initialize();
 
@@ -48,7 +50,7 @@ namespace BA_MobileGPS.Core
         {
             BA_MobileGPSSetup.RegisterServices(containerRegistry);
             BA_MobileGPSSetup.RegisterPages(containerRegistry);
-           
+
         }
 
         protected override void OnStart()
