@@ -13,6 +13,7 @@ using Plugin.Toasts;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -74,13 +75,25 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Contructor
 
         #region Lifecycle
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+            TryExecute(async () =>
+            {
+                await ConnectSignalR();
+                InitVehilceOnline();
+            });
+
+        }
 
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
 
-            TryExecute(async () =>
+            TryExecute(() =>
             {
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
                 // Lấy danh sách cảnh báo
                 GetCountAlert();
 
@@ -88,13 +101,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 InsertOrUpdateAppDevice();
 
-                await ConnectSignalR();
-
-                InitVehilceOnline();
-
                 GetNoticePopup();
 
                 GetCountVehicleDebtMoney();
+                sw.Stop();
+                Debug.WriteLine(string.Format("MainPageViewModelInitialize : {0}", sw.ElapsedMilliseconds));
             });
         }
 
@@ -130,17 +141,14 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (IsConnected)
             {
-                using (new HUDService(MobileResource.Common_Message_Processing))
+                await ConnectSignalR();
+                if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                 {
-                    await ConnectSignalR();
-                    if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
-                    {
-                        //Join vào nhóm signalR để nhận dữ liệu online
-                        GetListVehicleOnlineResume();
-                    }
-                    //kiểm tra xem có thông báo nào không
-                    GetNofitication();
+                    //Join vào nhóm signalR để nhận dữ liệu online
+                    GetListVehicleOnlineResume();
                 }
+                //kiểm tra xem có thông báo nào không
+                GetNofitication();
 
                 if (StaticSettings.TimeServer < DateTime.Now)
                 {

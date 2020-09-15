@@ -3,9 +3,8 @@ using Android.Content.PM;
 using Android.OS;
 
 using BA_MobileGPS.Core.Droid;
-using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Droid.Setup;
-using LibVLCSharp.Forms.Platforms.Android;
+using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Droid
@@ -25,15 +24,13 @@ namespace BA_MobileGPS.Droid
 
             Forms.Init(this, bundle);
 
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             ToolSetup.Initialize(this, bundle);
+            sw.Stop();
+            System.Diagnostics.Debug.WriteLine(string.Format("ToolSetup.Initialize : {0}", sw.ElapsedMilliseconds));
 
             LoadApplication(new BAGPSApp(new AndroidInitializer()));
-
-
-           
         }
-
-        
-      
     }
 }

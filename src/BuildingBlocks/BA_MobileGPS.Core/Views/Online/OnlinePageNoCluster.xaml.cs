@@ -73,9 +73,6 @@ namespace BA_MobileGPS.Core.Views
             googleMap.PinClicked += MapOnPinClicked;
             googleMap.MapClicked += Map_MapClicked;
             googleMap.CameraIdled += GoogleMap_CameraIdled;
-
-            googleMap.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
-
             InitAnimation();
 
             mCarActive = new VehicleOnline();
@@ -94,13 +91,24 @@ namespace BA_MobileGPS.Core.Views
         #endregion Contructor
 
         #region Lifecycle
+        private bool viewHasAppeared = false;
 
+        public void OnPageAppearingFirstTime()
+        {
+            googleMap.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
+        }
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
         }
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
+            if (!viewHasAppeared)
+            {
+                OnPageAppearingFirstTime();
+
+                viewHasAppeared = true;
+            }
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
                 if (googleMap.Pins != null && googleMap.Pins.Count > 0)
