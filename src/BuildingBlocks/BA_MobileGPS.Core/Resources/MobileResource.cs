@@ -88,19 +88,19 @@ namespace BA_MobileGPS.Core.Resources
         {
             get
             {
-                //if (_DicMobileResource == null)
-                //{
-                //    try
-                //    {
-                //        var service = Prism.PrismApplicationBase.Current.Container.Resolve<IResourceService>();
+                if (_DicMobileResource == null)
+                {
+                    try
+                    {
+                        var service = Prism.PrismApplicationBase.Current.Container.Resolve<IResourceService>();
 
-                //        _DicMobileResource = service.Find(x => x.CodeName == Settings.CurrentLanguage).ToDictionary(k => k.Name, v => v.Value);
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-                //    }
-                //}
+                        _DicMobileResource = service.Find(x => x.CodeName == Settings.CurrentLanguage).ToDictionary(k => k.Name, v => v.Value);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                    }
+                }
                 return _DicMobileResource;
             }
         }

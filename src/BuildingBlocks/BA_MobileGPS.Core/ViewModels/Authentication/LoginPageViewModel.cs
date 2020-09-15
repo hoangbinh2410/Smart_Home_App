@@ -69,7 +69,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
-           
+
             _ = MobileResource.Get("Login_UserNameProperty_NullOrEmpty");
         }
 
@@ -79,10 +79,10 @@ namespace BA_MobileGPS.Core.ViewModels
             //GetVersionDBLogin();
             GetMobileVersion();
 
-            //if (!string.IsNullOrEmpty(Settings.CurrentLanguage))
-            //{
-            //    GetLanguageType();
-            //}
+            if (!string.IsNullOrEmpty(Settings.CurrentLanguage))
+            {
+                GetLanguageType();
+            }
 
             if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
             {
@@ -99,7 +99,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Password.Value = string.Empty;
                 Rememberme = false;
             }
-            //GetNoticePopup();
+            GetNoticePopup();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -546,15 +546,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetLanguageType()
         {
-            TryExecute(() =>
-            {
-                //lấy hết resource theo ngôn ngữ
-                var lstlanguage = languageTypeService.Find(x => x.CodeName == Settings.CurrentLanguage)?.FirstOrDefault();
-                if (lstlanguage != null)
-                {
-                    Language = lstlanguage;
-                }
-            });
+            Task.Run(() =>
+           {
+               var lstlanguage = languageTypeService.Find(x => x.CodeName == Settings.CurrentLanguage)?.FirstOrDefault();
+
+               if (lstlanguage != null)
+               {
+                   Language = lstlanguage;
+               }
+           });
         }
 
         private async void OnLoginSuccess(LoginResponse user)
