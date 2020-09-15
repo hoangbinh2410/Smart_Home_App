@@ -220,7 +220,7 @@ namespace BA_MobileGPS.Core.Views
         {
             if (arg)
             {
-                if (mCarActive.VehicleId != -1 && string.IsNullOrEmpty(mCarActive.VehiclePlate))
+                if (mCarActive.VehicleId != -1 && !string.IsNullOrEmpty(mCarActive.VehiclePlate))
                 {
                     var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehiclePlate == mCarActive.VehiclePlate);
                     if (vehicleselect != null)
