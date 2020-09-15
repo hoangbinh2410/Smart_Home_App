@@ -20,6 +20,8 @@
         AlertMinBlockSMS,
         CountDateOfPayment,
         IsShowConfigLanmark,
-        IsDisplayPopupSendEngineControl
+        IsDisplayPopupSendEngineControl,
+        TimeVehicleSync,
+        TimmerVehicleSync,
     }
 }

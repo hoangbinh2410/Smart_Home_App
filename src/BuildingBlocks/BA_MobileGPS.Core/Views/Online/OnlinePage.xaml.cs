@@ -17,7 +17,6 @@ using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -44,7 +43,6 @@ namespace BA_MobileGPS.Core.Views
         private readonly IEventAggregator eventAggregator;
         private readonly IGeocodeService geocodeService;
         private readonly IDisplayMessage displayMessage;
-        private readonly IHelperAdvanceService helperAdvanceService;
         private readonly IPageDialogService pageDialog;
         private readonly IVehicleOnlineService vehicleOnlineService;
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
@@ -61,7 +59,6 @@ namespace BA_MobileGPS.Core.Views
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             geocodeService = PrismApplicationBase.Current.Container.Resolve<IGeocodeService>();
             displayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
-            helperAdvanceService = PrismApplicationBase.Current.Container.Resolve<IHelperAdvanceService>();
             pageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
             vehicleOnlineService = PrismApplicationBase.Current.Container.Resolve<IVehicleOnlineService>();
             boundaryRepository = PrismApplicationBase.Current.Container.Resolve<IRealmBaseService<BoundaryRealm, LandmarkResponse>>();
@@ -218,6 +215,7 @@ namespace BA_MobileGPS.Core.Views
         #endregion Property
 
         #region Private Method
+
         private void OnReLoadVehicleOnlineCarSignalR(bool arg)
         {
             if (arg)
@@ -297,15 +295,11 @@ namespace BA_MobileGPS.Core.Views
                 _animations.Add(States.ShowFilter, new[] {
                                                             new ViewTransition(boxInfo, AnimationType.TranslationY, 0, 300, delay: 300), // Active and visible
                                                             new ViewTransition(boxInfo, AnimationType.Opacity, 1, 0), // Active and visible
-
-                                                          
                                                           });
 
                 _animations.Add(States.HideFilter, new[] {
                                                             new ViewTransition(boxInfo, AnimationType.TranslationY, 300),
                                                             new ViewTransition(boxInfo, AnimationType.Opacity, 0),
-
-
                                                           });
 
                 await _animations.Go(States.HideFilter, false);
@@ -401,7 +395,6 @@ namespace BA_MobileGPS.Core.Views
                     InitVehicleStatus(mVehicleList);
 
                     googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(listPin[0].Lat, listPin[0].Lng), 5));
-
                 }
                 else
                 {

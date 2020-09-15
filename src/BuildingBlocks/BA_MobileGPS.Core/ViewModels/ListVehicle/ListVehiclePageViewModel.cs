@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-using BA_MobileGPS.Core.Constant;
+﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
@@ -10,6 +8,7 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
 using BA_MobileGPS.Service;
+using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
@@ -144,17 +143,17 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (StaticSettings.ListVehilceOnline != null)
                 {
                     if (SortOrder == SortOrder.PrivateCodeASC)
-                        return _mapper.Map<List<VehicleOnlineViewModel>>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).OrderBy(x => x.PrivateCode));
+                        return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).OrderBy(x => x.PrivateCode).ToList());
                     else if (SortOrder == SortOrder.PrivateCodeDES)
-                        return _mapper.Map<List<VehicleOnlineViewModel>>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).OrderByDescending(x => x.PrivateCode));
+                        return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).OrderByDescending(x => x.PrivateCode).ToList());
                     else if (SortOrder == SortOrder.TimeASC)
-                        return _mapper.Map<List<VehicleOnlineViewModel>>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).OrderBy(x => x.VehicleTime));
+                        return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).OrderBy(x => x.VehicleTime).ToList());
                     else if (SortOrder == SortOrder.TimeDES)
-                        return _mapper.Map<List<VehicleOnlineViewModel>>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).OrderByDescending(x => x.VehicleTime));
+                        return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).OrderByDescending(x => x.VehicleTime).ToList());
                     else if (SortOrder == SortOrder.DefaultASC)
-                        return _mapper.Map<List<VehicleOnlineViewModel>>(StaticSettings.ListVehilceOnline.OrderBy(x => x.SortOrder));
+                        return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderBy(x => x.SortOrder).ToList());
                     else
-                        return _mapper.Map<List<VehicleOnlineViewModel>>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder));
+                        return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).ToList());
                 }
                 else
                 {
@@ -302,7 +301,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public void InitVehicleStatus()
         {
-            var vehicleList = _mapper.Map<List<VehicleOnline>>(ListVehicle);
+            var vehicleList = _mapper.MapListProperties<VehicleOnline>(ListVehicle.ToList());
 
             CountVehicle = vehicleList.Count();
 
@@ -336,6 +335,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 vehicle.StopTime = carInfo.StopTime;
                 vehicle.IconCode = carInfo.IconCode;
                 vehicle.State = carInfo.State;
+                if (carInfo.TotalKm > 0)
+                {
+                    vehicle.TotalKm = carInfo.TotalKm;
+                }
                 vehicle.StatusEngineer = StateVehicleExtension.EngineState(carInfo);
                 vehicle.IconImage = IconCodeHelper.GetMarkerResource(carInfo);
 
@@ -467,7 +470,7 @@ namespace BA_MobileGPS.Core.ViewModels
             // Lọc theo trạng thái xe
             if (selected != null)
             {
-                List<VehicleOnline> listVehicle = _mapper.Map<List<VehicleOnline>>(ListVehicleByGroup);
+                List<VehicleOnline> listVehicle = _mapper.MapListProperties<VehicleOnline>(ListVehicleByGroup);
                 var listFilter = StateVehicleExtension.GetVehicleCarByStatus(listVehicle, (VehicleStatusGroup)selected.ID);
 
                 if (listFilter != null)
@@ -478,8 +481,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                 }
 
-                ListVehicleByStatus = _mapper.Map<List<VehicleOnlineViewModel>>(listFilter);
-                ListVehicle = _mapper.Map<List<VehicleOnlineViewModel>>(listFilter).ToObservableCollection();
+                ListVehicleByStatus = _mapper.MapListProperties<VehicleOnlineViewModel>(listFilter);
+                ListVehicle = _mapper.MapListProperties<VehicleOnlineViewModel>(listFilter).ToObservableCollection();
             }
         }
 
@@ -509,7 +512,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public void CacularVehicleStatus()
         {
-            var vehicleList = _mapper.Map<List<VehicleOnline>>(ListVehicleByGroup);
+            var vehicleList = _mapper.MapListProperties<VehicleOnline>(ListVehicleByGroup);
 
             if (ListVehilceStatus != null && ListVehilceStatus.Count > 0)
             {
@@ -576,7 +579,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                var param = _mapper.Map<VehicleOnline>(selected);
+                var param = _mapper.MapProperties<VehicleOnline>(selected);
                 var parameters = new NavigationParameters
                 {
                     { ParameterKey.CarDetail, param }
@@ -590,7 +593,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(() =>
             {
-                var param = _mapper.Map<VehicleOnline>(selected);
+                var param = _mapper.MapProperties<VehicleOnline>(selected);
                 EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, param));
             });
         }
@@ -599,13 +602,10 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(() =>
             {
-                var param = _mapper.Map<VehicleOnline>(selected);
+                var param = _mapper.MapProperties<VehicleOnline>(selected);
                 EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.OnlinePage, param));
             });
         }
-
-     
-     
 
         private void ShowInfoMessageDetailBAP(string content)
         {
@@ -620,7 +620,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                var param = _mapper.Map<VehicleOnline>(selected);
+                var param = _mapper.MapProperties<VehicleOnline>(selected);
                 var parameters = new NavigationParameters
                 {
                     { "Camera", param }

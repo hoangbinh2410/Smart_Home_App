@@ -1,11 +1,9 @@
-﻿using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service;
+﻿using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 
 using Prism.Navigation;
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -19,24 +17,19 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IResourceService resourceService;
         private readonly ILanguageService languageTypeService;
         private readonly IDBVersionService dBVersionService;
-        private readonly IHelperAdvanceService helperAdvanceService;
 
         public InsertLocalDBPageViewModel(INavigationService navigationService, IResourceService resourceService,
-            ILanguageService languageTypeService, IDBVersionService dBVersionService,
-            IHelperAdvanceService helperAdvanceService)
+            ILanguageService languageTypeService, IDBVersionService dBVersionService)
             : base(navigationService)
         {
             this.resourceService = resourceService;
             this.languageTypeService = languageTypeService;
             this.dBVersionService = dBVersionService;
-            this.helperAdvanceService = helperAdvanceService;
         }
 
         public override void OnPageAppearingFirstTime()
         {
             GetVersionDB();
-
-            InsertHelperAdvance();
         }
 
         private void GetVersionDB()
@@ -210,60 +203,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
             return result;
-        }
-
-        private void InsertHelperAdvance()
-        {
-            RunOnBackground(() =>
-            {
-                var list = helperAdvanceService.All().ToList();
-                if (list == null || list.Count == 0)
-                {
-                    var listHelp = new List<HelperAdvance>
-                {
-                    new HelperAdvance()
-                    {
-                        HelperAdvanceID = (int)HelpAdvanceEnum.HomePage,
-                        IsViewHelp = false
-                    },
-                    new HelperAdvance()
-                    {
-                        HelperAdvanceID = (int)HelpAdvanceEnum.ListVehiclePage,
-                        IsViewHelp = false
-                    },
-                    new HelperAdvance()
-                    {
-                        HelperAdvanceID = (int)HelpAdvanceEnum.OnlinePage,
-                        IsViewHelp = false
-                    },
-                    new HelperAdvance()
-                    {
-                        HelperAdvanceID = (int)HelpAdvanceEnum.RoutePage,
-                        IsViewHelp = false
-                    },
-                    new HelperAdvance()
-                    {
-                        HelperAdvanceID = (int)HelpAdvanceEnum.ListCameraVehicle,
-                        IsViewHelp = false
-                    },
-                    new HelperAdvance()
-                    {
-                        HelperAdvanceID = (int)HelpAdvanceEnum.AlertOnlinePage,
-                        IsViewHelp = false
-                    },
-                    new HelperAdvance()
-                    {
-                        HelperAdvanceID = (int)HelpAdvanceEnum.FeedbackPage,
-                        IsViewHelp = false
-                    }
-                };
-
-                    foreach (var item in listHelp)
-                    {
-                        helperAdvanceService.Add(item);
-                    }
-                }
-            });
         }
     }
 }

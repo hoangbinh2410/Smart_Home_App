@@ -1,8 +1,7 @@
-﻿using AutoMapper;
-
-using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.Infrastructure.Repository;
 using BA_MobileGPS.Entities.RealmEntity;
+using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 

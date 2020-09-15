@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BA_MobileGPS.Core.Constant;
+﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
@@ -7,13 +6,13 @@ using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
+using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities;
 using Newtonsoft.Json;
 using Plugin.Toasts;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -82,7 +81,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
             TryExecute(async () =>
             {
-
                 // Lấy danh sách cảnh báo
                 GetCountAlert();
 
@@ -190,9 +188,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 case ItemTabPageEnums.HomePage:
                     SelectedIndex = (int)obj.Item1;
                     break;
+
                 case ItemTabPageEnums.ListVehiclePage:
                     SelectedIndex = (int)obj.Item1;
                     break;
+
                 case ItemTabPageEnums.OnlinePage:
                     int indexonline = (int)ItemTabPageEnums.OnlinePage;
                     if (!CheckPermision((int)PermissionKeyNames.VehicleView))
@@ -201,6 +201,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     SelectedIndex = indexonline;
                     break;
+
                 case ItemTabPageEnums.RoutePage:
                     int indexroute = (int)ItemTabPageEnums.RoutePage;
                     if (!CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
@@ -213,6 +214,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     SelectedIndex = indexroute;
                     break;
+
                 case ItemTabPageEnums.ProfilePage:
                     int indexprofile = (int)ItemTabPageEnums.ProfilePage;
                     if (!CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
@@ -257,7 +259,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             timerSyncData = new Timer
             {
-                Interval = 60000
+                Interval = CompanyConfigurationHelper.TimmerVehicleSync
             };
             timerSyncData.Elapsed += TimerSyncData;
 
@@ -536,7 +538,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 Parallel.For(0, lst.Count, action =>
                                 {
-                                    var vehicle = _mapper.Map<VehicleOnlineMessage>(lst[action]);
+                                    var vehicle = _mapper.MapProperties<VehicleOnlineMessage>(lst[action]);
                                     SendDataCar(vehicle);
                                 });
                             }
