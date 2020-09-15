@@ -12,7 +12,6 @@
     <sharpnado:MaterialFrame.Resources>
         <ResourceDictionary>
             <converters:NMConverter x:Key="NMConverter" />
-            <converters:UnitConverter x:Key="UnitConverter" />
         </ResourceDictionary>
     </sharpnado:MaterialFrame.Resources>
     <StackLayout>
