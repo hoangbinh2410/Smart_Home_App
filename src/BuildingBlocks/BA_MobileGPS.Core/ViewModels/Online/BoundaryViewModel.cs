@@ -24,6 +24,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand UpdateCommand { get; private set; }
 
+        private bool isListGroup = true;
+        public bool IsListGroup { get => isListGroup; set => SetProperty(ref isListGroup, value); }
+
+        private int numberRow = 1;
+        public int NumberRow { get => numberRow; set => SetProperty(ref numberRow, value); }
+
         public BoundaryViewModel(INavigationService navigationService, IUserLandmarkGroupService userLandmarkGroupService) : base(navigationService)
         {
             this.userLandmarkGroupService = userLandmarkGroupService;
@@ -61,6 +67,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 else
                 {
                     ListLandmarkGroup = new ObservableCollection<UserLandmarkGroupRespone>();
+                    IsListGroup = false;
+                    NumberRow = 0;
                 }
             });
         }

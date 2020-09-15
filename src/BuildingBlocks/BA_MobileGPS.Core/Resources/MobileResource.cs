@@ -30,7 +30,7 @@ namespace BA_MobileGPS.Core.Resources
                     instance = new MobileResource();
                     sw.Stop();
                     Debug.WriteLine(string.Format("InstanceMobileResource: {0}", sw.ElapsedMilliseconds));
-                   
+
                 }
                 return instance;
             }
@@ -40,7 +40,12 @@ namespace BA_MobileGPS.Core.Resources
         {
             try
             {
-                return Instance.GetType().GetProperty(key).GetValue(Instance)?.ToString() ?? key;
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                string value = Instance.GetType().GetProperty(key).GetValue(Instance)?.ToString() ?? key;
+                sw.Stop();
+                Debug.WriteLine(string.Format("MobileResourceGetProperty {0} : {1}", key.ToString(), sw.ElapsedMilliseconds));
+                return value;
             }
             catch
             {
@@ -48,12 +53,11 @@ namespace BA_MobileGPS.Core.Resources
             }
         }
 
-        public static T Get<T>(MobileResourceNames key, T defaultValue, T defaultValueEng) where T : IConvertible
+        public static string Get(MobileResourceNames key, string defaultValue, string defaultValueEng)
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            var cultureInfo = Settings.CurrentLanguage;
-            var val = cultureInfo == CultureCountry.Vietnamese ? defaultValue : defaultValueEng;
+            var val = App.CurrentLanguage == CultureCountry.Vietnamese ? defaultValue : defaultValueEng;
             try
             {
                 var configDict = DicMobileResource;
@@ -63,11 +67,11 @@ namespace BA_MobileGPS.Core.Resources
                 {
                     var setting = configDict[key.ToString()].ToString();
 
-                    var converter = TypeDescriptor.GetConverter(typeof(T));
+                    var converter = TypeDescriptor.GetConverter(typeof(string));
                     if (converter != null)
                     {
                         // this will throw an exception when conversion is not possible
-                        val = (T)converter.ConvertFromString(setting);
+                        val = (string)converter.ConvertFromString(setting);
                     }
                 }
             }
@@ -77,7 +81,7 @@ namespace BA_MobileGPS.Core.Resources
             }
             sw.Stop();
             Debug.WriteLine(string.Format("MobileResourceGet {0} : {1}", key.ToString(), sw.ElapsedMilliseconds));
-            
+
 
             return val;
         }
@@ -94,7 +98,7 @@ namespace BA_MobileGPS.Core.Resources
                     {
                         var service = Prism.PrismApplicationBase.Current.Container.Resolve<IResourceService>();
 
-                        _DicMobileResource = service.Find(x => x.CodeName == Settings.CurrentLanguage).ToDictionary(k => k.Name, v => v.Value);
+                        _DicMobileResource = service.Find(x => x.CodeName == App.CurrentLanguage).ToDictionary(k => k.Name, v => v.Value);
                     }
                     catch (Exception ex)
                     {

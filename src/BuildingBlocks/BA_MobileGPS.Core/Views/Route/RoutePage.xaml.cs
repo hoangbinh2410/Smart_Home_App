@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Events;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RealmEntity;
@@ -44,6 +45,9 @@ namespace BA_MobileGPS.Core.Views
 
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             eventAggregator.GetEvent<ThemeChangedEvent>().Subscribe(ThemeChanged);
+            lblMore.Text = MobileResource.Route_Label_More.Trim().ToUpper();
+            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
+            lblTitle.Text = MobileResource.Route_Label_Title;
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)

@@ -19,16 +19,12 @@ namespace BA_MobileGPS.Core.Views
         private bool checkpermissiononline = false;
         public MainPage()
         {
-
             InitializeComponent();
-            var a = new Stopwatch();
-            a.Start();
+
             var home = new Home(); //Home                     
             ViewModelLocator.SetAutowirePartialView(home, MainContentPage); 
             Switcher.Children.Add(home);// Trang home
             tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_home.png", Label = MobileResource.Menu_TabItem_Home });
-            a.Stop();
-            Debug.WriteLine("DDDDDDDDDD: " + a.ElapsedMilliseconds);
             if (CheckPermision((int)PermissionKeyNames.VehicleView))
             {
                 var listVehicleTab = new ContentView(); //Home
@@ -80,7 +76,6 @@ namespace BA_MobileGPS.Core.Views
                 tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_mornitoring.png", Label = MobileResource.Menu_TabItem_Monitoring });
                 Switcher.SelectedIndex = Switcher.Children.Count - 1;
             }
-
             if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
             {
                 var routeTab = new ContentView();
@@ -100,9 +95,7 @@ namespace BA_MobileGPS.Core.Views
             var accountTab = new Account(); //Account
             ViewModelLocator.SetAutowirePartialView(accountTab, MainContentPage);
             Switcher.Children.Add(accountTab);
-            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_account.png", Label = MobileResource.Menu_TabItem_Account });
-            
-
+            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_account.png", Label = MobileResource.Menu_TabItem_Account });      
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitAnimation();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);

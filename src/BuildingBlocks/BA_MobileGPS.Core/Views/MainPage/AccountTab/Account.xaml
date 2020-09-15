@@ -5,8 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms">
     <ContentView.Resources>
         <Style TargetType="Label">
@@ -73,7 +73,7 @@
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding PushToProfileCommand}" NumberOfTapsRequired="1" />
                     </StackLayout.GestureRecognizers>
-                    <Label Text="{i18n:TranslateResource AccountTab_Label_MyInformation}" TextColor="{DynamicResource WhiteColor}" />
+                    <Label x:Name="lblMyInformation" TextColor="{DynamicResource WhiteColor}" />
                     <controls:IconView
                         Margin="0,2,0,0"
                         Foreground="{DynamicResource WhiteColor}"

@@ -6,7 +6,6 @@
     xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     BackgroundColor="#90FFFFFF">
@@ -42,10 +41,10 @@
             <Grid RowDefinitions="Auto,*" RowSpacing="0">
                 <Grid Margin="5" HeightRequest="40">
                     <Label
+                        x:Name="lblNote"
                         FontSize="16"
                         HorizontalOptions="CenterAndExpand"
                         StyleClass="BoldText"
-                        Text="{i18n:TranslateResource ListVehicle_Label_Note}"
                         TextColor="{DynamicResource TextPrimaryColor}"
                         VerticalOptions="Center" />
                     <controls:IconView
@@ -72,10 +71,10 @@
                         Spacing="8">
                         <forms:CachedImage Source="car_blue.png" VerticalOptions="Center" />
                         <Label
+                            x:Name="lblVehicleNormal"
                             FontAttributes="Bold"
                             FontSize="12"
                             HorizontalTextAlignment="Start"
-                            Text="{i18n:TranslateResource ListVehicle_Label_VehicleNormal2VMS}"
                             VerticalOptions="Center" />
                     </StackLayout>
                     <BoxView Opacity="0.5" StyleClass="SlimLine" />
@@ -85,10 +84,10 @@
                         Spacing="8">
                         <forms:CachedImage Source="car_grey.png" VerticalOptions="Center" />
                         <Label
+                            x:Name="lblVehicleStop"
                             FontAttributes="Bold"
                             FontSize="12"
                             HorizontalTextAlignment="Start"
-                            Text="{i18n:TranslateResource ListVehicle_Label_VehicleStop2VMS}"
                             VerticalOptions="Center" />
                     </StackLayout>
                     <BoxView Opacity="0.5" StyleClass="SlimLine" />
@@ -98,10 +97,10 @@
                         Spacing="8">
                         <forms:CachedImage Source="car_red.png" VerticalOptions="Center" />
                         <Label
+                            x:Name="lblVehicleSpeeding"
                             FontAttributes="Bold"
                             FontSize="12"
                             HorizontalTextAlignment="Start"
-                            Text="{i18n:TranslateResource ListVehicle_Label_VehicleSpeeding2VMS}"
                             VerticalOptions="Center" />
                     </StackLayout>
                     <BoxView Opacity="0.5" StyleClass="SlimLine" />
@@ -111,10 +110,10 @@
                         Spacing="8">
                         <forms:CachedImage Source="ic_lost_gps.png" VerticalOptions="Center" />
                         <Label
+                            x:Name="lblVehicleLostGPS"
                             FontAttributes="Bold"
                             FontSize="12"
                             HorizontalTextAlignment="Start"
-                            Text="{i18n:TranslateResource ListVehicle_Label_VehicleLostGPS2VMS}"
                             VerticalOptions="Center" />
                     </StackLayout>
                     <BoxView Opacity="0.5" StyleClass="SlimLine" />
@@ -124,10 +123,10 @@
                         Spacing="8">
                         <forms:CachedImage Source="car_warn.png" VerticalOptions="Center" />
                         <Label
+                            x:Name="lblVehicleLostGSM"
                             FontAttributes="Bold"
                             FontSize="12"
                             HorizontalTextAlignment="Start"
-                            Text="{i18n:TranslateResource ListVehicle_Label_VehicleLostGSM2VMS}"
                             VerticalOptions="Center" />
                     </StackLayout>
                 </StackLayout>

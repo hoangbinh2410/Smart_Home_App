@@ -9,10 +9,7 @@
     BackgroundColor="Transparent">
     <ContentPage.Content>
         <Grid>
-            <ffImage:CachedImage
-                Aspect="AspectFill"
-                Source="Launch_Screen.png"
-                VerticalOptions="Start" />
+            <ffImage:CachedImage Aspect="AspectFill" Source="Launch_Screen.png" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>
