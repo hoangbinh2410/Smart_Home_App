@@ -94,7 +94,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    return await GetListVehicle(groupid);
+                    return GetListVehicle(groupid);
                 }
 
             }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
@@ -130,7 +130,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }));
         }
 
-        public async Task<List<Vehicle>> GetListVehicle(string groupids)
+        public List<Vehicle> GetListVehicle(string groupids)
         {
             List<Vehicle> result = new List<Vehicle>();
             try
@@ -142,18 +142,18 @@ namespace BA_MobileGPS.Core.ViewModels
                     foreach (var item in groupid)
                     {
                         listOnline = StaticSettings.ListVehilceOnline.FindAll(v => v.GroupIDs.Split(',').Contains(item));
-                        Parallel.For(0, listOnline.Count, action =>
+                        foreach (var lst in listOnline)
                         {
-                            result.Add(AddListVehicle(listOnline[action]));
-                        });
+                            result.Add(AddListVehicle(lst));
+                        }
                     }
                 }
                 else
                 {
-                    Parallel.For(0, listOnline.Count, action =>
+                    foreach (var lst in listOnline)
                     {
-                        result.Add(AddListVehicle(listOnline[action]));
-                    });
+                        result.Add(AddListVehicle(lst));
+                    } 
                 }
             }
             catch (Exception ex)
@@ -171,7 +171,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 VehiclePlate = listOnline.VehiclePlate,
                 PrivateCode = listOnline.PrivateCode,
                 GroupIDs = listOnline.GroupIDs,
-                Imei = string.Empty
+                Imei = listOnline.Imei
             });
         }
 

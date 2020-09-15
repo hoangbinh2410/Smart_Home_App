@@ -15,7 +15,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Grid>
+            <Grid IsVisible="{Binding IsListGroup}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40" />
                     <RowDefinition Height="Auto" />
@@ -112,7 +112,7 @@
                     </StackLayout>
                 </ScrollView>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="{Binding NumberRow}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40" />
                     <RowDefinition Height="Auto" />
