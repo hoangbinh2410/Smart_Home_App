@@ -16,19 +16,26 @@ namespace BA_MobileGPS.Core.Views
 {
     public partial class MainPage : ContentPage
     {
+        private bool checkpermissiononline = false;
         public MainPage()
         {
             InitializeComponent();
-            var resove = PrismApplicationBase.Current.Container;
-            bool checkpermissiononline = false;
-            var home = resove.Resolve<ContentView>("HomeTab"); //Home
-            ViewModelLocator.SetAutowirePartialView(home, MainContentPage);
 
+            var home = new Home(); //Home                     
+            ViewModelLocator.SetAutowirePartialView(home, MainContentPage); 
             Switcher.Children.Add(home);// Trang home
             tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_home.png", Label = MobileResource.Menu_TabItem_Home });
             if (CheckPermision((int)PermissionKeyNames.VehicleView))
             {
-                var listVehicleTab = resove.Resolve<ContentView>("ListVehicleTab"); //Phương tiện
+                var listVehicleTab = new ContentView(); //Home
+                if (App.AppType == AppType.VMS || App.AppType == AppType.Moto)
+                {
+                    listVehicleTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("ListVehicleTab"); //Phương tiện
+                }
+                else
+                {
+                    listVehicleTab = new ListVehiclePage();
+                }
                 ViewModelLocator.SetAutowirePartialView(listVehicleTab, MainContentPage);
                 Switcher.Children.Add(listVehicleTab);
                 tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_vehicle.png", Label = MobileResource.Menu_TabItem_Vehicle });
@@ -37,17 +44,33 @@ namespace BA_MobileGPS.Core.Views
             if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
             {
                 checkpermissiononline = true;
-                var online = new ContentView();
-                //cấu hình cty này dùng Cluster thì mới mở forms Cluster
-                if (MobileUserSettingHelper.EnableShowCluster)
+                var online = new ContentView(); //Home
+                if (App.AppType == AppType.VMS || App.AppType == AppType.Moto)
                 {
-                    online = resove.Resolve<ContentView>("OnlineTab"); //Online
+                    //cấu hình cty này dùng Cluster thì mới mở forms Cluster
+                    if (MobileUserSettingHelper.EnableShowCluster)
+                    {
+                        online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online                       
+                    }
+                    else
+                    {
+                        online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTabNoCluster"); //Online
+                    }
                 }
                 else
                 {
-                    online = resove.Resolve<ContentView>("OnlineTabNoCluster"); //Online
-                }
+                    //cấu hình cty này dùng Cluster thì mới mở forms Cluster
+                    if (MobileUserSettingHelper.EnableShowCluster)
+                    {
+                        online = new OnlinePage();
 
+                    }
+                    else
+                    {
+                        online = new OnlinePageNoCluster();
+
+                    }
+                }
                 ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
                 Switcher.Children.Add(online);
                 tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_mornitoring.png", Label = MobileResource.Menu_TabItem_Monitoring });
@@ -55,24 +78,27 @@ namespace BA_MobileGPS.Core.Views
             }
             if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
             {
-                var routeTab = resove.Resolve<ContentView>("RouteTab"); //RouteTab
+                var routeTab = new ContentView();
+                if (App.AppType == AppType.VMS || App.AppType == AppType.Moto)
+                {
+                    routeTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("RouteTab"); //RouteTab
+                }
+                else
+                {
+                    routeTab = new RoutePage();
+                }
+
                 ViewModelLocator.SetAutowirePartialView(routeTab, MainContentPage);
                 Switcher.Children.Add(routeTab);
                 tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_route.png", Label = App.AppType == AppType.VMS ? MobileResource.Menu_TabItem_Voyage : MobileResource.Menu_TabItem_Route });
             }
-            var accountTab = resove.Resolve<ContentView>("AccountTab"); //Account
+            var accountTab = new Account(); //Account
             ViewModelLocator.SetAutowirePartialView(accountTab, MainContentPage);
             Switcher.Children.Add(accountTab);
-            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_account.png", Label = MobileResource.Menu_TabItem_Account });
-            if (!checkpermissiononline)
-            {
-                Switcher.SelectedIndex = 1;
-                Switcher.SelectedIndex = 0;
-            }
-            eventAggregator = resove.Resolve<IEventAggregator>();
+            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_account.png", Label = MobileResource.Menu_TabItem_Account });      
+            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitAnimation();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
-
             previousIndex = Switcher.SelectedIndex;
         }
 
@@ -101,8 +127,15 @@ namespace BA_MobileGPS.Core.Views
             }
         }
 
+
         protected override void OnAppearing()
         {
+            if (!checkpermissiononline)
+            {
+                //Switcher.SelectedIndex = 1;
+                Switcher.SelectedIndex = 0;
+            }
+
             base.OnAppearing();
             if (Device.RuntimePlatform == Device.iOS)
             {

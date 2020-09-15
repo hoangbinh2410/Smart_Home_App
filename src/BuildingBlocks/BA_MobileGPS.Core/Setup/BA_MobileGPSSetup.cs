@@ -176,12 +176,12 @@ namespace BA_MobileGPS.Core
             ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
             ViewModelLocationProvider.Register<Account, AccountViewModel>();
 
-            containerRegistry.Register<ContentView, Home>("HomeTab");
+            //containerRegistry.Register<ContentView, Home>("HomeTab");
             containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
             containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
             containerRegistry.Register<ContentView, OnlinePageNoCluster>("OnlineTabNoCluster");
             containerRegistry.Register<ContentView, RoutePage>("RouteTab");
-            containerRegistry.Register<ContentView, Account>("AccountTab");
+           // containerRegistry.Register<ContentView, Account>("AccountTab");
 
             containerRegistry.Register<ResourceDictionary, Dark>(Theme.Dark.ToString());
             containerRegistry.Register<ResourceDictionary, Light>(Theme.Light.ToString());
