@@ -6,6 +6,7 @@ using Prism.Ioc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -24,7 +25,12 @@ namespace BA_MobileGPS.Core.Resources
                 // Lazy load => design Pattern
                 if (instance == null)
                 {
+                    Stopwatch sw = new Stopwatch();
+                    sw.Start();
                     instance = new MobileResource();
+                    sw.Stop();
+                    Debug.WriteLine(string.Format("InstanceMobileResource: {0}", sw.ElapsedMilliseconds));
+                   
                 }
                 return instance;
             }
@@ -44,6 +50,8 @@ namespace BA_MobileGPS.Core.Resources
 
         public static T Get<T>(MobileResourceNames key, T defaultValue, T defaultValueEng) where T : IConvertible
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             var cultureInfo = Settings.CurrentLanguage;
             var val = cultureInfo == CultureCountry.Vietnamese ? defaultValue : defaultValueEng;
             try
@@ -67,6 +75,9 @@ namespace BA_MobileGPS.Core.Resources
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, string.Format("{0} with Key = {1} has an Exception: {2}", MethodBase.GetCurrentMethod().Name, key.ToString(), ex));
             }
+            sw.Stop();
+            Debug.WriteLine(string.Format("MobileResourceGet {0} : {1}", key.ToString(), sw.ElapsedMilliseconds));
+            
 
             return val;
         }

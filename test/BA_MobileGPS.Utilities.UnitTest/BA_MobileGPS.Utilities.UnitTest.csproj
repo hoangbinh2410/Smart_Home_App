@@ -19,4 +19,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BuildingBlocks\BA_MobileGPS.Core\BA_MobileGPS.Core.csproj" />
+    <ProjectReference Include="..\..\src\BuildingBlocks\BA_MobileGPS.Entities\BA_MobileGPS.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

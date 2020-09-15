@@ -4,10 +4,10 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="AutoMapper" Version="10.0.0" />
-		<PackageReference Include="IdentityModel" Version="4.3.1" />
-		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.1.7" />
-		<PackageReference Include="Realm" Version="4.3.0" />
+		<!--<PackageReference Include="AutoMapper" Version="10.0.0" />-->
+		<PackageReference Include="IdentityModel" Version="4.4.0" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.1.8" />
+		<PackageReference Include="Realm" Version="5.0.1" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\BA_MobileGPS.Entities\BA_MobileGPS.Entities.csproj" />

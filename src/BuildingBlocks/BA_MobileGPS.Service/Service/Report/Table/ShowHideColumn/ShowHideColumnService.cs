@@ -1,7 +1,6 @@
-﻿using AutoMapper;
-
-using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.Infrastructure.Repository;
+using BA_MobileGPS.Service.Utilities;
 
 namespace BA_MobileGPS.Service
 {
