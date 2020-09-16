@@ -141,7 +141,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (IsConnected)
             {
-               
+                await ConnectSignalR();
                 if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                 {
                     //Join vào nhóm signalR để nhận dữ liệu online
@@ -151,7 +151,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     StaticSettings.TimeServer = DateTime.Now;
                 }
-                await ConnectSignalR();
                 //kiểm tra xem có thông báo nào không
                 GetNofitication();
                
