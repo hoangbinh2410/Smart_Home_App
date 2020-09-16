@@ -514,6 +514,7 @@ namespace BA_MobileGPS.Core.Views
                     if (carActive)
                     {
                         googleMap.AnimateCamera(CameraUpdateFactory.NewPosition(new Position(carInfo.Lat, carInfo.Lng)));
+                        Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
                     }
                 }
             }
