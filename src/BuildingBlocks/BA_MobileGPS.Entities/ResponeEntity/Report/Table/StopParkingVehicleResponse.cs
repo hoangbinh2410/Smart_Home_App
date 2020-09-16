@@ -22,5 +22,7 @@ namespace BA_MobileGPS.Entities
         public int MinutesOfAirConditioningOn { get; set; }//Bật điều hoà khi dùng
 
         public string Address { get; set; } //Địa điểm dừng
+
+        public string Temperature { get; set; } //Hiện trạng nhiệt độ
     }
 }

@@ -5,10 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     Padding="0"
-   BackgroundColor="{DynamicResource WhiteColor}">
+    BackgroundColor="{DynamicResource WhiteColor}">
     <StackLayout>
         <Grid Padding="8" ColumnSpacing="10">
             <Grid.ColumnDefinitions>
@@ -55,8 +54,8 @@
                     Spacing="10">
                     <controls:IconView Source="ic_engine.png" />
                     <Label
+                        x:Name="lblExpiredDate"
                         FontSize="12"
-                        Text="{i18n:TranslateResource ListVehicle_Label_Vehicle_Expiration_Date}"
                         VerticalOptions="Center" />
                     <Label
                         Margin="-5,0,0,0"

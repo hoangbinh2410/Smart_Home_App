@@ -12,6 +12,15 @@ namespace BA_MobileGPS.Entities
 
         public string Message { get; set; }
     }
+    public class ResponseStreamBase<T>
+    {
+        public T Data { get; set; }
+
+        public string InternalMessage { get; set; }
+
+        public int StatusCode { get; set; }
+
+        public string UserMessage { get; set; }
 
     public class ResponseBaseV2<T>
     {

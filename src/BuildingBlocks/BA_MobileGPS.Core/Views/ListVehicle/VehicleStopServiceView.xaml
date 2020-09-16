@@ -6,7 +6,6 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:shapnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     Padding="0"
@@ -58,8 +57,8 @@
                     Spacing="10">
                     <controls:IconView Source="ic_clock.png" />
                     <Label
+                        x:Name="lblStoppingDate"
                         FontSize="12"
-                        Text="{i18n:TranslateResource ListVehicle_Label_Vehicle_Stop_Date}"
                         VerticalOptions="Center" />
                     <Label
                         Margin="-5,0,0,0"

@@ -1,5 +1,4 @@
 ﻿using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service;
 
 using Syncfusion.SfDataGrid.XForms;
 
@@ -11,15 +10,12 @@ namespace BA_MobileGPS.Core.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class VehicleDebtMoneyPage : ContentPage
     {
-        private readonly IHelperAdvanceService _helperAdvanceService;
-
-        public VehicleDebtMoneyPage(IHelperAdvanceService helperAdvanceService)
+        public VehicleDebtMoneyPage()
         {
             InitializeComponent();
 
             dataGrid.CellRenderers.Remove("CaptionSummary");
             dataGrid.CellRenderers.Add("CaptionSummary", new GridCaptionSummaryCellRendererExt());
-            this._helperAdvanceService = helperAdvanceService;
 
             dataGrid.QueryCellStyle += DataGrid_QueryCellStyle1;
             datagridvehiclefree.QueryCellStyle += Datagridvehiclefree_QueryCellStyle;

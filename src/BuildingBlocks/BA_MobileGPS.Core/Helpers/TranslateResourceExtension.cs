@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.Resources;
 
 using System;
+using System.Diagnostics;
 using System.Globalization;
 
 using Xamarin.Forms;
@@ -20,7 +21,12 @@ namespace BA_MobileGPS.Core.Helpers
             if (Text == null)
                 return "";
 
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             var translation = MobileResource.Get(Text);
+            sw.Stop();
+            Debug.WriteLine(string.Format("TranslateResourceExtension {0} : {1}", Text, sw.ElapsedMilliseconds));
+           
 
             if (translation == null)
             {

@@ -64,5 +64,9 @@ namespace BA_MobileGPS.Core
         public static bool IsShowConfigLanmark => Get(CompanyConfigurationNames.IsShowConfigLanmark, false);
 
         public static bool IsDisplayPopupSendEngineControl => Get(CompanyConfigurationNames.IsDisplayPopupSendEngineControl, false);
+
+        public static int TimeVehicleSync => Get(CompanyConfigurationNames.TimeVehicleSync, MobileSettingHelper.TimeVehicleSync);
+
+        public static int TimmerVehicleSync => Get(CompanyConfigurationNames.TimmerVehicleSync, MobileSettingHelper.TimmerVehicleSync);
     }
 }

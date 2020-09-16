@@ -123,6 +123,7 @@
     <BundleResource Include="Resources\Roboto-Regular.ttf" />
     <ITunesArtwork Include="iTunesArtwork%402x" />
     <ITunesArtwork Include="iTunesArtwork" />
+    <BundleResource Include="Resources\internetconnection.json" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\Contents.json">
@@ -142,12 +143,15 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
+    <PackageReference Include="VideoLAN.LibVLC.iOS">
+      <Version>3.3.10</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1364" />
     <PackageReference Include="Prism.Unity.Forms">
       <Version>7.2.0.1422</Version>
     </PackageReference>
     <PackageReference Include="Realm">
-      <Version>4.3.0</Version>
+      <Version>5.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Build.Download">
       <Version>0.10.0</Version>
@@ -528,6 +532,15 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\logo_Login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bg_Account.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Launch_Screen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\NoItem.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

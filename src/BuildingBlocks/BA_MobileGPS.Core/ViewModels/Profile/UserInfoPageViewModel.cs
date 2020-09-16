@@ -52,12 +52,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             this.categoryService = categoryService;
             this.userService = userService;
-
-            //if (CurrentUser.DateOfBirth == null)
-            //{
-            //    CurrentUser.DateOfBirth = new DateTime(1970, 1, 1);
-            //}
-
             AvatarTappedCommand = new DelegateCommand(AvatarTapped);
             UpdateUserInfoCommand = new DelegateCommand(UpdateUserInfo);
         }
@@ -376,7 +370,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
             if (string.IsNullOrWhiteSpace(CurrentUser.Email))
             {
-                //EmailErrorMessage = MobileResource.Common_Property_NullOrEmpty(MobileResource.UserInfo_Label_Email);
                 return true;
             }
             if (StringHelper.HasDangerousChars(CurrentUser.Email))

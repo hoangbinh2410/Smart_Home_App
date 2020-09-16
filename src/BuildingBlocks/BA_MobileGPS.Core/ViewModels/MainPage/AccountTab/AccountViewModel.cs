@@ -49,7 +49,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             var list = new List<MenuItem>();
 
-            // Đổi mật khẩu
+            // Thông báo
             list.Add(new MenuItem
             {
                 Title = MobileResource.AccountTab_Label_Notification,
@@ -91,7 +91,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = MobileSettingHelper.WebGps,
                 MenuType = MenuType.BAGPSIntro,
-                IsEnable = true,
+                IsEnable = MobileSettingHelper.IsUseBAGPSIntroduce,
                 IconColor = Color.FromHex("#0A46B1")
             });
             // Chia sẻ
@@ -127,6 +127,17 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsEnable = true,
                 IconColor = Color.FromHex("#673AB7")
             });
+            // Nâng cấp phiên bản
+            list.Add(new MenuItem
+            {
+                Title = string.Format(MobileResource.AccountTab_Label_Upgrade, Settings.AppVersionDB),
+                Icon = "ic_upgrade.png",
+                UseModalNavigation = true,
+                Url = Settings.AppLinkDownload,
+                MenuType = MenuType.UpgradeVersion,
+                IsEnable = Settings.AppVersionDB != AppVersion ? true : false,
+                IconColor = (Color)App.Current.Resources["PrimaryColor"]
+            });
             // Đăng xuất
             list.Add(new MenuItem
             {
@@ -138,19 +149,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsEnable = true,
                 IconColor = Color.FromHex("#E63C2B")
             });
-            // Nâng cấp phiên bản
-            //if (Settings.AppVersionDB != AppVersion)
-            //{
-            //    list.Add(new MenuItem
-            //    {
-            //        Title = string.Format(MobileResource.Menu_Label_Upgrade, Settings.AppVersionDB),
-            //        Icon = "ic_upgrade.png",
-            //        UseModalNavigation = true,
-            //        Url = Settings.AppLinkDownload,
-            //        MenuType = MenuType.UpgradeVersion,
-            //        IsEnable = true
-            //    });
-            //}
 
             MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
@@ -192,6 +190,9 @@ namespace BA_MobileGPS.Core.ViewModels
                             break;
 
                         case MenuType.Rating:
+                            await Launcher.OpenAsync(new Uri(item.Url));
+                            break;
+                        case MenuType.UpgradeVersion:
                             await Launcher.OpenAsync(new Uri(item.Url));
                             break;
 
@@ -245,6 +246,7 @@ namespace BA_MobileGPS.Core.ViewModels
         Share,
         Rating,
         Setting,
+        UpgradeVersion,
         Logout
     }
 

@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -36,9 +37,11 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand PushtoListVehicleOnlineCommand { get; private set; }
         public DelegateCommand GoDistancePageCommand { get; private set; }
 
+        public bool IsCheckShowLandmark { get; set; } = false;
+
         [Obsolete]
         public OnlinePageViewModel(INavigationService navigationService,
-            IUserService userService, IDetailVehicleService detailVehicleService,IUserLandmarkGroupService userLandmarkGroupService)
+            IUserService userService, IDetailVehicleService detailVehicleService, IUserLandmarkGroupService userLandmarkGroupService)
             : base(navigationService)
         {
             this.userService = userService;
@@ -91,15 +94,37 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 ListLandmark = listLandmark;
 
+                ShowLandmark();
+            }
+        }
+
+        private void ShowLandmark()
+        {
+            if (ZoomLevel >= 10)
+            {
+                if (!IsCheckShowLandmark)
+                {
+                    if (ListLandmark != null)
+                    {
+                        if (ListLandmark.Count > 0)
+                        {
+                            Pins.Clear();
+                            Polygons.Clear();
+                            GroundOverlays.Clear();
+                            Polylines.Clear();
+                            GetLandmark(ListLandmark);
+                            IsCheckShowLandmark = true;
+                        }
+                    }
+                }
+            }
+            else
+            {
                 Pins.Clear();
                 Polygons.Clear();
                 GroundOverlays.Clear();
                 Polylines.Clear();
-
-                if (listLandmark.Count > 0 && listLandmark != null)
-                {
-                    GetLandmark(ListLandmark);
-                }
+                IsCheckShowLandmark = false;
             }
         }
 
@@ -176,6 +201,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ObservableCollection<Polyline> Polylines { get; set; } = new ObservableCollection<Polyline>();
 
+        public string CountCarParameter { get; } = MobileResource.Common_Label_Vehicle.Trim().ToLower(); // Thay TranslateResource
+
         #endregion Property
 
         #region Private Method
@@ -233,11 +260,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     // Lấy thông tin các điểm theo nhóm điểm công ty
                     var list = await userLandmarkGroupService.GetDataLandmarkByGroupId(keygroup);
 
-                   // GetLandmarkName(list);
+                    if (list != null && list.Count > 0)
+                    {
+                        GetLandmarkName(list);
 
-                    GetLandmarkDisplayBound(list, listmark, false);
+                        GetLandmarkDisplayBound(list, listmark, false);
 
-                    GetLandmarkDisplayName(list, listmark, false);
+                        GetLandmarkDisplayName(list, listmark, false);
+                    }
 
                 }
 
@@ -246,12 +276,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     // Lấy thông tin các điểm theo nhóm điểm hệ thống
                     var list = await userLandmarkGroupService.GetDataLandmarkByCategory(keycategory);
 
-                   // GetLandmarkName(list);
+                    if (list != null && list.Count > 0)
+                    {
+                        GetLandmarkName(list);
 
-                    GetLandmarkDisplayBound(list, listmark, true);
+                        GetLandmarkDisplayBound(list, listmark, true);
 
-                    GetLandmarkDisplayName(list, listmark, true);
-
+                        GetLandmarkDisplayName(list, listmark, true);
+                    }
                 }
 
             });
@@ -358,15 +390,6 @@ namespace BA_MobileGPS.Core.ViewModels
             TryExecute(() =>
             {
                 var icon = boundary.IconApp != null && boundary.IconApp != string.Empty ? BitmapDescriptorFactory.FromResource(boundary.IconApp) : BitmapDescriptorFactory.FromResource("ic_point_freeway.png");
-
-                //var item = new GroundOverlay()
-                //{
-                //    Bounds = new Bounds(new Position(boundary.Latitude, boundary.Longitude), new Position(boundary.Latitude + 0.01d, boundary.Longitude + 0.01d)),
-                //    Icon = icon,
-                //    Tag = boundary.Name
-                //};
-
-                //GroundOverlays.Add(item);
 
                 Pins.Add(new Pin()
                 {
@@ -494,6 +517,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (args != null && args.Position != null)
             {
                 ZoomLevel = args.Position.Zoom;
+                ShowLandmark();
             }
         }
 

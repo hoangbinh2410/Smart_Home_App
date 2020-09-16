@@ -8,25 +8,13 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <syncTheme:SyncfusionThemeDictionary>
-                    <syncTheme:SyncfusionThemeDictionary.MergedDictionaries>
-                        <ResourceDictionary>
-                            <x:String x:Key="SfTextInputLayoutTheme">CustomTheme</x:String>
-                            <Color x:Key="SfTextInputLayoutLineColor">Transparent</Color>
-                        </ResourceDictionary>
-                    </syncTheme:SyncfusionThemeDictionary.MergedDictionaries>
-                </syncTheme:SyncfusionThemeDictionary>
-            </ResourceDictionary.MergedDictionaries>
             <converter:HasDataConverter x:Key="HasDataConverter" />
         </ResourceDictionary>
         <Style TargetType="sharpnado:MaterialFrame">
@@ -76,8 +64,12 @@
                     <input:SfTextInputLayout
                         ContainerType="Outlined"
                         ErrorText="{Binding UserName.ErrorFirst}"
+                        FocusedColor="Transparent"
+                        FocusedStrokeWidth="0"
                         HasError="{Binding UserName.IsNotValid}"
-                        StyleClass="LoginEntry">
+                        StyleClass="LoginEntry"
+                        UnfocusedColor="Transparent"
+                        UnfocusedStrokeWidth="0">
                         <input:SfTextInputLayout.LeadingView>
                             <sh:Shadows
                                 CornerRadius="21"
@@ -115,15 +107,18 @@
                                 x:Name="account"
                                 HeightRequest="{OnPlatform Android=40,
                                                            iOS=30}"
-                                Placeholder="{i18n:TranslateResource Login_Textbox_UserName}"
                                 Text="{Binding UserName.Value}" />
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
                     <input:SfTextInputLayout
                         Grid.Row="1"
                         ErrorText="{Binding Password.ErrorFirst}"
+                        FocusedColor="Transparent"
+                        FocusedStrokeWidth="0"
                         HasError="{Binding Password.IsNotValid}"
-                        StyleClass="LoginEntry">
+                        StyleClass="LoginEntry"
+                        UnfocusedColor="Transparent"
+                        UnfocusedStrokeWidth="0">
                         <input:SfTextInputLayout.LeadingView>
                             <sh:Shadows
                                 CornerRadius="21"
@@ -161,7 +156,6 @@
                                 HeightRequest="{OnPlatform Android=40,
                                                            iOS=30}"
                                 IsPassword="True"
-                                Placeholder="{i18n:TranslateResource Login_Textbox_Password}"
                                 Text="{Binding Password.Value}" />
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
@@ -191,13 +185,13 @@
                                 UncheckedColor="Transparent" />
                         </Grid>
                         <Label
-                            Text="{i18n:TranslateResource Login_Checkbox_Autologin}"
+                            x:Name="checkautologin"
                             TextColor="{DynamicResource LoginTextColor}"
                             TranslationX="-7"
                             VerticalOptions="Center" />
                         <Label
+                            x:Name="forgotpassword"
                             HorizontalOptions="EndAndExpand"
-                            Text="{i18n:TranslateResource Login_Lable_Forgotpassword}"
                             TextColor="{DynamicResource LoginTextColor}"
                             VerticalOptions="Center">
                             <Label.Behaviors>
@@ -222,14 +216,13 @@
                             </sh:ImmutableShades>
                         </sh:Shadows.Shades>
                         <Button
+                            x:Name="btnLogin"
                             Padding="0"
                             BackgroundColor="{DynamicResource PrimaryColor}"
                             Command="{Binding LoginCommand}"
                             CornerRadius="20"
                             HeightRequest="38"
                             HorizontalOptions="Center"
-                            Text="{i18n:TranslateResource Login_Button_Login,
-                                                          Converter={StaticResource UpperCaseConverter}}"
                             TextColor="White"
                             WidthRequest="300" />
                     </sh:Shadows>

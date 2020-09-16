@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core;
-using VIVIEW_MobileGPS.Styles;
+using BA_MobileGPS.Core.Themes;
+using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Utilities.Constant;
 using BA_MobileGPS.Utilities.Enums;
 using Microsoft.AppCenter;
@@ -7,6 +8,8 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Prism;
 using Prism.Ioc;
+using VIVIEW_MobileGPS.Styles;
+using Xamarin.Forms;
 
 namespace VIVIEW_MobileGPS
 {
@@ -20,10 +23,6 @@ namespace VIVIEW_MobileGPS
 
         protected async override void OnInitialized()
         {
-            Resources.MergedDictionaries.Add(new DarkColor());
-            Resources.MergedDictionaries.Add(new LightColor());
-            Resources.MergedDictionaries.Add(new Colors());
-
             base.OnInitialized();
 
             ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerVIVIEW;
@@ -38,7 +37,7 @@ namespace VIVIEW_MobileGPS
             //Nếu cài app lần đầu tiên hoặc có sự thay đổi dữ liệu trên server thì sẽ vào trang cập nhật thông tin vào localDB
             if (!Settings.IsFistInstallApp || Settings.IsChangeDataLocalDB)
             {
-                _ = await NavigationService.NavigateAsync("LoginPage");
+                _ = await NavigationService.NavigateAsync("InsertLocalDBPage");
             }
             else
             {
@@ -50,10 +49,13 @@ namespace VIVIEW_MobileGPS
         {
             base.RegisterTypes(containerRegistry);
 
-            AppType = BA_MobileGPS.Entities.AppType.CNN;
+            AppType = BA_MobileGPS.Entities.AppType.Viview;
 
-            // Đăng ký config automapper
-            AutoMapperConfig.RegisterMappings(containerRegistry);
+            containerRegistry.RegisterForNavigation<BA_MobileGPS.Core.Views.HelperPage, HeplerViewModel>("HelperPage");
+
+            containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
+            containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());
+            containerRegistry.Register<ResourceDictionary, VIVIEW_MobileGPS.Styles.Custom>(Theme.Custom.ToString());
         }
     }
 }

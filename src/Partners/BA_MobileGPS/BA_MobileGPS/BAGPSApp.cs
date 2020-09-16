@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core;
+using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Styles;
 using BA_MobileGPS.Utilities.Constant;
@@ -8,6 +9,8 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Prism;
 using Prism.Ioc;
+using System.Diagnostics;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS
@@ -33,6 +36,8 @@ namespace BA_MobileGPS
                    "android=db0089bc-c6e2-4df4-bead-0368ccef3cd6",
                    typeof(Analytics), typeof(Crashes));
 
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             //Nếu cài app lần đầu tiên hoặc có sự thay đổi dữ liệu trên server thì sẽ vào trang cập nhật thông tin vào localDB
             if (!Settings.IsFistInstallApp || Settings.IsChangeDataLocalDB)
             {
@@ -42,20 +47,22 @@ namespace BA_MobileGPS
             {
                 _ = await NavigationService.NavigateAsync("LoginPage");
             }
+            sw.Stop();
+            Debug.WriteLine(string.Format("NavigateLoginPage : {0}", sw.ElapsedMilliseconds));
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             base.RegisterTypes(containerRegistry);
 
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             AppType = BA_MobileGPS.Entities.AppType.BinhAnh;
-
-            // Đăng ký config automapper
-            AutoMapperConfig.RegisterMappings(containerRegistry);
-
             containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
             containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());
             containerRegistry.Register<ResourceDictionary, BA_MobileGPS.Styles.Custom>(Theme.Custom.ToString());
+            sw.Stop();
+            Debug.WriteLine(string.Format("RegisterTypesApp : {0}", sw.ElapsedMilliseconds));
         }
     }
 }

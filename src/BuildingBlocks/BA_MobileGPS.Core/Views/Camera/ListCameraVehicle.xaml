@@ -19,9 +19,9 @@
             HeightRequest="44"
             HorizontalOptions="FillAndExpand">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="35" />
                 <ColumnDefinition Width="*" />
-
+                <ColumnDefinition Width="35" />
             </Grid.ColumnDefinitions>
             <ffImage:CachedImage
                 Grid.Column="0"
@@ -40,7 +40,7 @@
                 FontSize="20"
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
-                Text="{i18n:TranslateResource Camera_Label_TilePage}"
+                Text="{Binding Source={x:Reference this}, Path=Title}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
         </Grid>

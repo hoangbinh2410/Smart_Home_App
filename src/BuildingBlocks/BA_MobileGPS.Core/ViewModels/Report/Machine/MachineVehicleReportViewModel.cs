@@ -189,7 +189,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.ReportMachineVehicleSelected, SelectMachineVehicleItem }
                 };
-                await NavigationService.NavigateAsync("DetailMachineVehicleReport", p, useModalNavigation: false);
+                await NavigationService.NavigateAsync("MachineDetailVehicleReport", p, useModalNavigation: false);
             }
             catch (Exception ex)
             {

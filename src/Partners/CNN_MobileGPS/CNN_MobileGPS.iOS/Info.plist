@@ -73,14 +73,14 @@
 		<true/>
 	</dict>
 	<key>CFBundleVersion</key>
-	<string>3.0.0</string>
+	<string>3.3.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.0.0</string>
+	<string>3.3.0</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>XSLaunchImageAssets</key>
 	<string>Assets.xcassets/LaunchImage.launchimage</string>
 	<key>UIUserInterfaceStyle</key>
-	<string>light</string>
+	<string>Light</string>
 </dict>
 </plist>

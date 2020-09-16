@@ -1,9 +1,8 @@
-﻿using AutoMapper;
-
-using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
+using BA_MobileGPS.Service.Utilities;
 
 using Prism.Commands;
 using Prism.Navigation;
@@ -142,7 +141,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GenMenu()
         {
-            listMenu = _mapper.Map<List<HomeMenuItemViewModel>>(StaticSettings.ListMenu);
+            listMenu = _mapper.MapListProperties<HomeMenuItemViewModel>(StaticSettings.ListMenu);
 
             FavoriteMenuItems = new ObservableCollection<HomeMenuItemViewModel>(listMenu.FindAll(m => m.IsFavorited == true));
             MenuItems = new ObservableCollection<HomeMenuItemViewModel>(listMenu);
@@ -229,7 +228,7 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         public List<HomeMenuItemViewModel> GetOriginMenu()
         {
-            return _mapper.Map<List<HomeMenuItemViewModel>>(StaticSettings.ListMenuOriginGroup);
+            return _mapper.MapListProperties<HomeMenuItemViewModel>(StaticSettings.ListMenuOriginGroup);
         }
 
         /// <summary>
