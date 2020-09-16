@@ -21,7 +21,7 @@ namespace BA_MobileGPS.Entities
         public int StatusCode { get; set; }
 
         public string UserMessage { get; set; }
-
+    }
     public class ResponseBaseV2<T>
     {
         public T Data { get; set; }
