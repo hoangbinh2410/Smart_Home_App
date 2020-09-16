@@ -468,8 +468,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             var request = new LoginRequest
                             {
-                                UserName = UserName.Value,
-                                Password = Password.Value,
+                                UserName = UserName.Value.Trim(),
+                                Password = Password.Value.Trim(),
                                 AppType = App.AppType
                             };
                             // Lấy thông tin token
