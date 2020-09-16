@@ -96,6 +96,7 @@
         Login_Lable_Hotline,
         Login_Lable_SelectLanguage,
         Login_Message_AccountPasswordIncorrect,
+        Login_Message_AccountAllowedSystem,
         Login_Message_AccountLocked,
         Login_ForgotPassword_PopupTitle,
         Login_ForgotPassword_PopupContent,

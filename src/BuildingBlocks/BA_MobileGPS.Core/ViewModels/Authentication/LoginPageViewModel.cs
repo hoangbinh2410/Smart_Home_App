@@ -513,9 +513,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                                     case LoginStatus.WrongAppType:
 
-                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountPasswordIncorrect);
-
-                                        //DisplayMessage.ShowMessageInfo("Tài khoản của bạn không được phép đăng nhập hệ thống");
+                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountAllowedSystem);
                                         break;
                                 }
                             }
