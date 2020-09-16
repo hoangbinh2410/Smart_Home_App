@@ -226,7 +226,7 @@ namespace BA_MobileGPS.Core.Views
                     if (vehicleselect != null)
                     {
                         vm.CarSearch = vehicleselect.PrivateCode;
-                        UpdateSelectVehicle(vehicleselect);
+                        UpdateSelectVehicle(vehicleselect, true);
                     }
                 }
             }
@@ -356,13 +356,13 @@ namespace BA_MobileGPS.Core.Views
             }
         }
 
-        private void UpdateSelectVehicle(VehicleOnline vehicle)
+        private void UpdateSelectVehicle(VehicleOnline vehicle, bool isReloadVehicle = false)
         {
             if (vehicle != null)
             {
                 try
                 {
-                    if (vehicle.VehiclePlate != mCarActive.VehiclePlate)
+                    if (vehicle.VehicleId != mCarActive.VehicleId || isReloadVehicle)
                     {
                         ShowBoxInfoCarActive(vehicle, vehicle.MessageId, vehicle.DataExt);
 
