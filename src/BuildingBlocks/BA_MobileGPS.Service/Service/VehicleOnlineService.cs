@@ -80,8 +80,8 @@ namespace BA_MobileGPS.Service
             List<VehicleOnline> result = new List<VehicleOnline>();
             try
             {
-                string url = $"{ApiUri.GET_VEHICLEONLINE}?userId={userId}&vehicleGroupID={groupId}&companyID={companyID}&xnCode={xnCode}&userType={userType}&companyType={companyType}";
-                var data = await requestProvider.GetHandleOutputAsync<ResponseBaseV2<List<VehicleOnline>>>(url);
+                string url = $"{ApiUri.GET_VEHICLEONLINE}?userId={userId}&groupID={groupId}&companyID={companyID}&xnCode={xnCode}&userType={(int)userType}&companyType={(int)companyType}";
+                var data = await requestProvider.GetAsync<ResponseBaseV2<List<VehicleOnline>>>(url);
                 if (data != null && data.Data.Count > 0)
                 {
                     result = data.Data;

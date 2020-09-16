@@ -30,7 +30,7 @@ namespace BA_MobileGPS
             ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerThat;
             ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerThat;
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerThat;
-            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerThat;
+            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerLinhLV;
 
             AppCenter.Start("ios=b9feff6c-5277-4e97-97e9-8a8e5c939eef;" +
                    "android=db0089bc-c6e2-4df4-bead-0368ccef3cd6",
