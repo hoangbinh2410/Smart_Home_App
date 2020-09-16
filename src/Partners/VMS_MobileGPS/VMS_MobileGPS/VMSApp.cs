@@ -50,11 +50,7 @@ namespace VMS_MobileGPS
             base.RegisterTypes(containerRegistry);
 
             AppType = BA_MobileGPS.Entities.AppType.VMS;
-
-            // Đăng ký config automapper
-            AutoMapperConfig.RegisterMappings(containerRegistry);
-            
-
+          
             containerRegistry.Register<IMessageService, MessageService>();
             containerRegistry.Register<IFishShipService, FishShipService>();
             containerRegistry.Register<ISOSHistoryService, SOSHistoryService>();

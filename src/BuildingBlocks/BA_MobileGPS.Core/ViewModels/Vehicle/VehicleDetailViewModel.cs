@@ -261,10 +261,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (arg)
             {
-                using (new HUDService())
-                {
-                    InitLoadCommandExecute();
-                }
+                InitLoadCommandExecute();
             }
         }
 

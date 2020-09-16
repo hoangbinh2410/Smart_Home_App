@@ -9,6 +9,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -66,10 +67,17 @@ namespace BA_MobileGPS.Core.ViewModels
             GetInfomation();
         }
 
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+
+            _ = MobileResource.Get("Login_UserNameProperty_NullOrEmpty");
+        }
+
         private void GetInfomation()
         {
             GetMobileSetting();
-            GetVersionDBLogin();
+            //GetVersionDBLogin();
             GetMobileVersion();
 
             if (!string.IsNullOrEmpty(Settings.CurrentLanguage))
@@ -92,7 +100,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Password.Value = string.Empty;
                 Rememberme = false;
             }
-            PingServerStatus();
+            GetNoticePopup();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -184,17 +192,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             MobileSettingHelper.DicMobileConfigurations.Add(item.Name, item.Value);
                         }
                     });
-
-                    //EmailSupport = MobileSettingHelper.EmailSupport;
-                    //Hotline = MobileSettingHelper.HotlineGps;
-
-                    if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
-                    {
-                        if (Settings.Rememberme)
-                        {
-                            LoginCommand.Execute(null);
-                        }
-                    }
                 }
             });
         }
@@ -307,6 +304,24 @@ namespace BA_MobileGPS.Core.ViewModels
                         // lưu version DB hiện tại
                         Settings.TempVersionName = versionDB.VersionName;
                         Settings.AppVersionDB = versionDB.VersionName;
+
+                        if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
+                        {
+                            if (Settings.Rememberme)
+                            {
+                                LoginCommand.Execute(null);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
+                    {
+                        if (Settings.Rememberme)
+                        {
+                            LoginCommand.Execute(null);
+                        }
                     }
                 }
             });
@@ -335,6 +350,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (Settings.CurrentLanguage != Language.CodeName)
                     {
                         Settings.CurrentLanguage = Language.CodeName;
+
+                        App.CurrentLanguage = Language.CodeName;
 
                         //Update lại ngôn ngữ trên giao diện
                         MobileResource._DicMobileResource = null;
@@ -526,21 +543,21 @@ namespace BA_MobileGPS.Core.ViewModels
             UserName = new ValidatableObject<string>();
             Password = new ValidatableObject<string>();
 
-            UserName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = MobileResource.Common_Property_NullOrEmpty(MobileResource.Login_Textbox_UserName) });
-            Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = MobileResource.Common_Property_NullOrEmpty(MobileResource.Login_Textbox_Password) });
+            UserName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = MobileResource.Login_UserNameProperty_NullOrEmpty });
+            Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = MobileResource.Login_PasswordProperty_NullOrEmpty });
         }
 
         private void GetLanguageType()
         {
-            TryExecute(() =>
-            {
-                //lấy hết resource theo ngôn ngữ
-                var lstlanguage = languageTypeService.Find(x => x.CodeName == Settings.CurrentLanguage)?.FirstOrDefault();
-                if (lstlanguage != null)
-                {
-                    Language = lstlanguage;
-                }
-            });
+            Task.Run(() =>
+           {
+               var lstlanguage = languageTypeService.Find(x => x.CodeName == Settings.CurrentLanguage)?.FirstOrDefault();
+
+               if (lstlanguage != null)
+               {
+                   Language = lstlanguage;
+               }
+           });
         }
 
         private async void OnLoginSuccess(LoginResponse user)
@@ -552,40 +569,16 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Settings.CurrentCompany = null;
                 }
+                //nếu nhớ mật khẩu thì lưu lại thông tin username và password
+                if (Rememberme)
+                    Settings.Rememberme = true;
                 StaticSettings.Token = user.AccessToken;
                 StaticSettings.User = user;
                 Settings.UserName = UserName.Value;
                 Settings.Password = Password.Value;
-                //Neu co su thay doi ngon ngu thi update lai ngon nghu
-                if (MobileUserSettingHelper.DefautLanguage != Language.PK_LanguageID)
-                {
-                    //Update lại userlanguage
-                    var ischanglanguage = await languageTypeService.UpdateLanguageByUser(new RequestUpdateLanguage()
-                    {
-                        FK_LanguageID = Language.PK_LanguageID,
-                        FK_UserID = user.UserId
-                    });
-                }
-
                 OneSignal.Current.SendTag("UserID", user.UserId.ToString().ToUpper());
-
-                //nếu nhớ mật khẩu thì lưu lại thông tin username và password
-                if (Rememberme)
-                {
-                    Settings.Rememberme = true;
-                }
-                else
-                {
-                    Settings.Rememberme = false;
-                }
                 CultureInfo.CurrentCulture = new CultureInfo(Language.CodeName);
-
                 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Language.CodeName);
-                //nếu cần xác thực OTP thì mở trang xác thực OTP
-                //if (user.IsNeededOtp)
-                //{
-                //    await NavigationService.NavigateAsync("MenuNavigationPage/VerifyCodeOtpPage", null, useModalNavigation: true);
-                //}
                 //nếu cần đổi mật khẩu thì mở trang đổi mật khẩu
                 if (user.IsNeedChangePassword)
                 {
@@ -593,8 +586,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
+                    Stopwatch sw1 = new Stopwatch();
+                    sw1.Start();
                     await NavigationService.NavigateAsync("/MainPage");
+                    sw1.Stop();
+                    Debug.WriteLine(string.Format("NavigateMainPage : {0}", sw1.ElapsedMilliseconds));
                 }
+
             }
             catch (Exception ex)
             {

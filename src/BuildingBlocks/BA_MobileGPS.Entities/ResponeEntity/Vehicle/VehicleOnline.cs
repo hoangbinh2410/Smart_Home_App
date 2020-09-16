@@ -92,6 +92,9 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("26")]
         public string MessageDetailBAP { get; set; }
 
+        [JsonProperty("27")]
+        public string Imei { set; get; }
+
         [JsonIgnore]
         public int STT { set; get; }
 
@@ -123,6 +126,12 @@ namespace BA_MobileGPS.Entities
                 this.IconCode = message.IconCode;
                 this.Direction = message.Direction;
                 this.StopTime = message.StopTime;
+
+                if (message.TotalKm > 0)
+                {
+                    this.TotalKm = message.TotalKm;
+                }
+
             }
 
         }

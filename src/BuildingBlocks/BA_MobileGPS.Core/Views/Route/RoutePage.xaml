@@ -9,7 +9,6 @@
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
     xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:googlemapsBehaviors="clr-namespace:BA_MobileGPS.Core.GoogleMap.Behaviors;assembly=BA_MobileGPS.Core"
-    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
@@ -197,10 +196,9 @@
                                 Tapped="TimeSelectorOther_Tapped" />
                         </pancake:PancakeView.GestureRecognizers>
                         <Label
+                            x:Name="lblMore"
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
-                            Text="{i18n:TranslateResource Route_Label_More,
-                                                          Converter={StaticResource UpperCaseConverter}}"
                             TextColor="{DynamicResource PrimaryColor}" />
                     </pancake:PancakeView>
                 </Grid>
@@ -262,10 +260,10 @@
                                     Source="ic_search.png" />
                             </pancake:PancakeView>
                             <Entry
+                                x:Name="entrySearch"
                                 FontSize="14"
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
-                                Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
                                 PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                                 Text="{Binding Vehicle.PrivateCode}"
                                 TextColor="{DynamicResource TextPrimaryColor}"
@@ -402,10 +400,10 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Label
+                                x:Name="lblTitle"
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 FontAttributes="Bold"
-                                Text="{i18n:TranslateResource Route_Label_Title}"
                                 TextColor="{DynamicResource PrimaryColor}" />
                             <Label
                                 Grid.Row="0"

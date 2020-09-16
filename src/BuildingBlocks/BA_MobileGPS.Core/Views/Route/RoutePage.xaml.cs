@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Events;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RealmEntity;
@@ -20,7 +21,6 @@ namespace BA_MobileGPS.Core.Views
     public partial class RoutePage : ContentView, INavigationAware, IDestructible
     {
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
-        private readonly IHelperAdvanceService helperAdvanceService;
         private readonly IEventAggregator eventAggregator;
 
         private bool infoWindowIsShown;
@@ -43,9 +43,11 @@ namespace BA_MobileGPS.Core.Views
 
             map.PinClicked += Map_PinClicked;
 
-            helperAdvanceService = PrismApplicationBase.Current.Container.Resolve<IHelperAdvanceService>();
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             eventAggregator.GetEvent<ThemeChangedEvent>().Subscribe(ThemeChanged);
+            lblMore.Text = MobileResource.Route_Label_More.Trim().ToUpper();
+            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
+            lblTitle.Text = MobileResource.Route_Label_Title;
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)

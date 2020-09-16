@@ -13,11 +13,11 @@ namespace BA_MobileGPS.Service
     {
         public ServicePackHistoryRequest Request { get; set; }
 
-        private readonly IRequestProvider RequestProvider;
+        private readonly IRequestProvider _requestProvider;
 
         public ServicePackageHistoryService(IRequestProvider requestProvider)
         {
-            RequestProvider = requestProvider;
+            _requestProvider = requestProvider;
         }
 
         public Task<int> GetCount()
@@ -29,7 +29,7 @@ namespace BA_MobileGPS.Service
         {
             try
             {
-                var temp = await RequestProvider.PostAsync<ServicePackHistoryRequest, BaseResponse<List<ServicePackHistory>>>(ApiUri.GET_HISTORY_PACKAGE, Request);
+                var temp = await _requestProvider.PostAsync<ServicePackHistoryRequest, BaseResponse<List<ServicePackHistory>>>(ApiUri.GET_HISTORY_PACKAGE, Request);
                 if (temp != null)
                 {
                     if (temp.Success)
@@ -50,11 +50,24 @@ namespace BA_MobileGPS.Service
             throw new NotImplementedException();
         }
 
-        public async Task<BaseResponse<ServicePackageInfo>> GetCurrentServicePack(dynamic request)
+        //public async Task<BaseResponse<ServicePackageInfo>> GetCurrentServicePack(dynamic request)
+        //{
+        //    try
+        //    {
+        //        return await _requestProvider.PostAsync<dynamic, BaseResponse<ServicePackageInfo>>(ApiUri.GET_CURRENT_PACKAGE, request);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+        //    }
+        //    return default;
+        //}
+
+        public async Task<BaseResponse<List<ShipPackage>>> GetShipPackages()
         {
             try
             {
-                return await RequestProvider.PostAsync<dynamic, BaseResponse<ServicePackageInfo>>(ApiUri.GET_CURRENT_PACKAGE, request);
+                return await _requestProvider.GetAsync<BaseResponse<List<ShipPackage>>>(ApiUri.GET_SHIP_PACKAGE);
             }
             catch (Exception ex)
             {
@@ -63,17 +76,9 @@ namespace BA_MobileGPS.Service
             return default;
         }
 
-        public async Task<BaseResponse<List<ShipPackage>>> GetShipPackages()
+        public Task<BaseResponse<ServicePackageInfo>> GetCurrentServicePack(dynamic request)
         {
-            try
-            {
-                return await RequestProvider.GetAsync<BaseResponse<List<ShipPackage>>>(ApiUri.GET_SHIP_PACKAGE);
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return default;
+            throw new NotImplementedException();
         }
     }
 }

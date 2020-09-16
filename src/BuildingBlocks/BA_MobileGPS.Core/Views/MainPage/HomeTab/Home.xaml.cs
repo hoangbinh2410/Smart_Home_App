@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using BA_MobileGPS.Core.Resources;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -7,6 +8,10 @@ namespace BA_MobileGPS.Core.Views
         public Home()
         {
             InitializeComponent();
+            lblHighlight.Text = MobileResource.Common_Label_HighLight;
+            lblFeatures.Text = MobileResource.Common_Label_Features;
         }
+        
+        
     }
 }
