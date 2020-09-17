@@ -7,4 +7,8 @@ namespace BA_MobileGPS.Core.Events
     public class TabItemSwitchEvent : PubSubEvent<Tuple<ItemTabPageEnums, object>>
     {
     }
+
+    public class TabSelectedChangedEvent : PubSubEvent<int>
+    {
+    }
 }

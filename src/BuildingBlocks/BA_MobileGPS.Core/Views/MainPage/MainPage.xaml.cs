@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Helpers;
+﻿using BA_MobileGPS.Core.Events;
+using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using Prism;
@@ -20,9 +21,8 @@ namespace BA_MobileGPS.Core.Views
         public MainPage()
         {
             InitializeComponent();
-
             var home = new Home(); //Home                     
-            ViewModelLocator.SetAutowirePartialView(home, MainContentPage); 
+            ViewModelLocator.SetAutowirePartialView(home, MainContentPage);
             Switcher.Children.Add(home);// Trang home
             tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_home.png", Label = MobileResource.Menu_TabItem_Home });
             if (CheckPermision((int)PermissionKeyNames.VehicleView))
@@ -95,9 +95,9 @@ namespace BA_MobileGPS.Core.Views
             var accountTab = new Account(); //Account
             ViewModelLocator.SetAutowirePartialView(accountTab, MainContentPage);
             Switcher.Children.Add(accountTab);
-            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_account.png", Label = MobileResource.Menu_TabItem_Account });      
-            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_account.png", Label = MobileResource.Menu_TabItem_Account });
             InitAnimation();
+            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
             previousIndex = Switcher.SelectedIndex;
         }
@@ -123,6 +123,12 @@ namespace BA_MobileGPS.Core.Views
                     path = path.Replace("File:", string.Empty).Trim();
                     ((BottomTabItem)tabitem.Tabs[index]).IconImageSource = path;
                 }
+
+                if(this.eventAggregator != null)
+                {
+                    this.eventAggregator.GetEvent<TabSelectedChangedEvent>().Publish(index);
+                }
+
                 previousIndex = index;
             }
         }
