@@ -77,7 +77,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void InitData()
         {
-            Task.Run(async () =>
+            Task.Run(() =>
             {
                 var currentCompany = Settings.CurrentCompany;
 
@@ -89,7 +89,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 if (LookUpType == VehicleLookUpType.VehicleRoute)
                 {
-                    return await vehicleOnlineService.GetListVehicle(currentCompany?.UserId ?? UserInfo.UserId, groupid, currentCompany?.FK_CompanyID ?? CurrentComanyID, LookUpType);
+                    return GetListVehicle(groupid, true);
                 }
                 else
                 {
@@ -126,12 +126,17 @@ namespace BA_MobileGPS.Core.ViewModels
             }));
         }
 
-        public List<Vehicle> GetListVehicle(string groupids)
+        public List<Vehicle> GetListVehicle(string groupids, bool isRoute = false)
         {
             List<Vehicle> result = new List<Vehicle>();
             try
             {
                 var listOnline = StaticSettings.ListVehilceOnline.DeepCopy();
+
+                if (isRoute)
+                {
+                    listOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                }
                 if (!string.IsNullOrEmpty(groupids))
                 {
                     var groupid = groupids.Split(',');
