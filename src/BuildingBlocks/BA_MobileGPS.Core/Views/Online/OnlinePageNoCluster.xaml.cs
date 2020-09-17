@@ -541,7 +541,7 @@ namespace BA_MobileGPS.Core.Views
                     {
                         using (new HUDService(MobileResource.Common_Message_Processing))
                         {
-                            var list = StaticSettings.ListVehilceOnline;
+                            var list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
                             if (list != null && list.Count > 0)
                             {
                                 //Nếu là công ty thường thì mặc định load xe của công ty lên bản đồ
