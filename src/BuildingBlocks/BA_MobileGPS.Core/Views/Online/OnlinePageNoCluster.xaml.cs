@@ -1026,6 +1026,7 @@ namespace BA_MobileGPS.Core.Views
             }
             else
             {
+                CacularVehicleStatus();
                 await _animations.Go(States.ShowStatus, true);
             }
 

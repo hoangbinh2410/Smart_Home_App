@@ -1057,12 +1057,11 @@ namespace BA_MobileGPS.Core.Views
             }
             else
             {
+                CacularVehicleStatus();
                 await _animations.Go(States.ShowStatus, true);
             }
 
             infoStatusIsShown = !infoStatusIsShown;
-
-            //InitVehicleStatus(mVehicleList);
         }
 
         private bool IsInMapScreen(Position latlng)
