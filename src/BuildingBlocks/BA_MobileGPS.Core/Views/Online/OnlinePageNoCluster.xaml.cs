@@ -133,6 +133,10 @@ namespace BA_MobileGPS.Core.Views
                         displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
                     }
                 }
+                else
+                {
+                    displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
+                }
             }
             else if (parameters.ContainsKey(ParameterKey.Company) && parameters.GetValue<Company>(ParameterKey.Company) is Company company)
             {
