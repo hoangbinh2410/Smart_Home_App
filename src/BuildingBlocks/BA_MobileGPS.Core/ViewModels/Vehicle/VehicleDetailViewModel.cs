@@ -34,8 +34,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             _engineState = MobileResource.Common_Label_TurnOff;
 
-            InitLoadCommand = new DelegateCommand(InitLoadCommandExecute);
-            RefeshCommand = new DelegateCommand(InitLoadCommandExecute);
+            RefeshCommand = new DelegateCommand(GetVehicleDetail);
             EventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(OnReceiveSendCarSignalR);
             EventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
         }
@@ -56,7 +55,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Getaddress(cardetail.Lat.ToString(), cardetail.Lng.ToString());
                 }
-                InitLoadCommandExecute();
+                GetVehicleDetail();
             }
         }
 
@@ -128,8 +127,6 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion property
 
         #region command
-
-        public DelegateCommand InitLoadCommand { get; private set; }
         public ICommand RefeshCommand { get; private set; }
 
         #endregion command
@@ -143,90 +140,58 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Name     Date         Comments
         /// hoangdt  3/15/2019   created
         /// </Modified>
-        public async void InitLoadCommandExecute()
+        public void GetVehicleDetail()
         {
-            // gọi hàm dưới server để lấy dữ liệu về
-            if (IsBusy)
+            // gọi service để lấy dữ liệu trả về
+            var input = new DetailVehicleRequest()
             {
-                return;
-            }
-            IsBusy = true;
-            try
+                XnCode = StaticSettings.User.XNCode,
+                VehiclePlate = VehiclePlate,
+                CompanyId = StaticSettings.User.CompanyId
+            };
+            RunOnBackground(async () =>
             {
-                if (IsConnected)
+                return await detailVehicleService.GetVehicleDetail(input);
+            }, (response) =>
+            {
+                if (response != null)
                 {
-                    Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("");
-                    var userID = StaticSettings.User.UserId;
-                    // Kiểm tra xem có chọn cty khác không
-                    if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                    InforDetail = response;
+                    if (response.VehicleNl == null)
                     {
-                        userID = Settings.CurrentCompany.UserId;
+                        InforDetail.VehicleNl = new VehicleNl();
                     }
-                    // gọi service để lấy dữ liệu trả về
-                    var input = new DetailVehicleRequest()
+                    else
                     {
-                        //UserId = userID,
-                        //vehicleID = PK_VehicleID,
-                        //vehiclePlate = VehiclePlate,
-                        XnCode = StaticSettings.User.XNCode,
-                        VehiclePlate = VehiclePlate,
-                        CompanyId = StaticSettings.User.CompanyId
-                    };
-                    var response = await detailVehicleService.GetVehicleDetail(input);
+                        Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
+                    }
+                    Temperature = response.Temperature2 == null ? string.Format("[{0} °C]", response.Temperature) : string.Format("[{0} °C]", response.Temperature) + " - " + string.Format("[{0} °C]", response.Temperature2);
+                    VehicleTime = response.VehicleTime;
+                    VelocityGPS = response.VelocityGPS;
+                    TotalKm = response.TotalKm.GetValueOrDefault();
+                    StopTime = response.StopTime.GetValueOrDefault();
 
-                    if (response != null)
+                    //Động cơ
+                    EngineState = StateVehicleExtension.EngineState(new VehicleOnline
                     {
-                        InforDetail = response;
-                        if (response.VehicleNl == null)
-                        {
-                            InforDetail.VehicleNl = new VehicleNl();
-                        }
-                        else
-                        {
-                            Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
-                        }                                             
-                        Temperature = response.Temperature2 == null ? string.Format("[{0} °C]", response.Temperature) : string.Format("[{0} °C]", response.Temperature) + " - " + string.Format("[{0} °C]", response.Temperature2);
-                        VehicleTime = response.VehicleTime;
-                        VelocityGPS = response.VelocityGPS;
-                        TotalKm = response.TotalKm.GetValueOrDefault();
-                        StopTime = response.StopTime.GetValueOrDefault();
+                        VehicleTime = response.VehicleTime,
+                        State = response.StatusEngineer.GetValueOrDefault(),
+                        Velocity = response.VelocityGPS,
+                        GPSTime = response.GPSTime,
+                        IsEnableAcc = response.AccStatus.GetValueOrDefault()
+                    });
 
-                        //Động cơ
-                        EngineState = StateVehicleExtension.EngineState(new VehicleOnline
-                        {
-                            VehicleTime = response.VehicleTime,
-                            IconCode = response.IconVehicle,
-                            State = response.StatusEngineer.GetValueOrDefault(),
-                            Velocity = response.VelocityGPS,
-                            GPSTime = response.GPSTime,
-                            IsEnableAcc = response.AccStatus.GetValueOrDefault()
-                        });
-
-                        // hiện thị lên là xe đang nợ cần đóng tiền thu phí
-                        if (response.IsExpried)
-                        {
-                            MessageInforChargeMoney = string.Format(MobileResource.DetailVehicle_MessageFee, response.ExpriedDate.ToString("dd/MM/yyyy"));
-                        }
-                        else
-                        {
-                            MessageInforChargeMoney = string.Empty;
-                        }
-                    }                   
+                    // hiện thị lên là xe đang nợ cần đóng tiền thu phí
+                    if (response.IsExpried)
+                    {
+                        MessageInforChargeMoney = string.Format(MobileResource.DetailVehicle_MessageFee, response.ExpriedDate.ToString("dd/MM/yyyy"));
+                    }
+                    else
+                    {
+                        MessageInforChargeMoney = string.Empty;
+                    }
                 }
-                else
-                {
-                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            finally
-            {
-                IsBusy = false;
-                Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
-            }
+            });
         }
 
         private void OnReceiveSendCarSignalR(VehicleOnline carInfo)
@@ -247,7 +212,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 VelocityGPS = carInfo.Velocity;
                 TotalKm = (float)carInfo.TotalKm;
                 StopTime = carInfo.StopTime;
-
                 //Động cơ
                 EngineState = StateVehicleExtension.EngineState(carInfo);
 
@@ -258,7 +222,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (arg)
             {
-                InitLoadCommandExecute();
+                GetVehicleDetail();
             }
         }
 
