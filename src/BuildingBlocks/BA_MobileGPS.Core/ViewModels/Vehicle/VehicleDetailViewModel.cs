@@ -165,21 +165,31 @@ namespace BA_MobileGPS.Core.ViewModels
                     // gọi service để lấy dữ liệu trả về
                     var input = new DetailVehicleRequest()
                     {
-                        UserId = userID,
-                        vehicleID = PK_VehicleID,
-                        vehiclePlate = VehiclePlate,
+                        //UserId = userID,
+                        //vehicleID = PK_VehicleID,
+                        //vehiclePlate = VehiclePlate,
+                        XnCode = StaticSettings.User.XNCode,
+                        VehiclePlate = VehiclePlate,
+                        CompanyId = StaticSettings.User.CompanyId
                     };
                     var response = await detailVehicleService.LoadAllInforVehicle(input);
 
                     if (response != null)
                     {
                         InforDetail = response;
-                        Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
+                        if (response.VehicleNl == null)
+                        {
+                            InforDetail.VehicleNl = new VehicleNl();
+                        }
+                        else
+                        {
+                            Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
+                        }                                             
                         Temperature = response.Temperature2 == null ? string.Format("[{0} °C]", response.Temperature) : string.Format("[{0} °C]", response.Temperature) + " - " + string.Format("[{0} °C]", response.Temperature2);
                         VehicleTime = response.VehicleTime;
                         VelocityGPS = response.VelocityGPS;
-                        TotalKm = (float)response.TotalKm;
-                        StopTime = (int)response.StopTime;
+                        TotalKm = response.TotalKm.GetValueOrDefault();
+                        StopTime = response.StopTime.GetValueOrDefault();
 
                         //Động cơ
                         EngineState = StateVehicleExtension.EngineState(new VehicleOnline
@@ -201,9 +211,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             MessageInforChargeMoney = string.Empty;
                         }
-                    }
-
-                    Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
+                    }                   
                 }
                 else
                 {
@@ -217,6 +225,7 @@ namespace BA_MobileGPS.Core.ViewModels
             finally
             {
                 IsBusy = false;
+                Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
             }
         }
 
