@@ -80,6 +80,7 @@ namespace BA_MobileGPS.Core.Views
             }
             else
             {
+                vm.CacularVehicleStatus();
                 await animations.Go(States.ShowStatus, true);
             }
 
