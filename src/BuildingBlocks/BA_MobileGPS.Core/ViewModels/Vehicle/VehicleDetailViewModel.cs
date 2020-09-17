@@ -77,8 +77,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public string VehiclePlate { get; set; }
 
-        private VehicleOnlineDetailViewModel inforDetail;
-        public VehicleOnlineDetailViewModel InforDetail { get => inforDetail; set => SetProperty(ref inforDetail, value); }
+        private Entities.VehicleDetailViewModel inforDetail;
+        public Entities.VehicleDetailViewModel InforDetail { get => inforDetail; set => SetProperty(ref inforDetail, value); }
 
         private string fuel;
         public string Fuel { get => fuel; set => SetProperty(ref fuel, value); }
@@ -198,7 +198,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             IconCode = response.IconVehicle,
                             State = response.StatusEngineer.GetValueOrDefault(),
                             Velocity = response.VelocityGPS,
-                            GPSTime = response.VehicleTime,
+                            GPSTime = response.GPSTime,
                             IsEnableAcc = response.AccStatus.GetValueOrDefault()
                         });
 

@@ -24,13 +24,13 @@ namespace BA_MobileGPS.Service
         /// Name     Date         Comments
         /// hoangdt  3/15/2019   created
         /// </Modified>
-        public async Task<VehicleOnlineDetailViewModel> GetVehicleDetail(DetailVehicleRequest input)
+        public async Task<VehicleDetailViewModel> GetVehicleDetail(DetailVehicleRequest input)
         {
-            var respone = new VehicleOnlineDetailViewModel();
+            var respone = new VehicleDetailViewModel();
             try
             {
                 var URL = string.Format(ApiUri.GET_VEHICLEDETAIL + "/?xnCode={0}&vehiclePlate={1}&companyId={2}", input.XnCode, input.VehiclePlate, input.CompanyId);
-                var temp = await _IRequestProvider.GetAsync<ResponseBaseV2<VehicleOnlineDetailViewModel>>(URL);
+                var temp = await _IRequestProvider.GetAsync<ResponseBaseV2<VehicleDetailViewModel>>(URL);
                 if (temp != null && temp.Data != null)
                 {
                     respone = temp.Data;
