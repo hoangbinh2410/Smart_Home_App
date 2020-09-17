@@ -78,7 +78,15 @@ namespace BA_MobileGPS.Core.ViewModels
         public string VehiclePlate { get; set; }
 
         private Entities.VehicleDetailViewModel inforDetail;
-        public Entities.VehicleDetailViewModel InforDetail { get => inforDetail; set => SetProperty(ref inforDetail, value); }
+        public Entities.VehicleDetailViewModel InforDetail
+        {
+            get { return inforDetail; }
+            set
+            {
+                SetProperty(ref inforDetail, value);
+                RaisePropertyChanged();
+            }
+        }
 
         private string fuel;
         public string Fuel { get => fuel; set => SetProperty(ref fuel, value); }
@@ -125,6 +133,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public int StopTime { get => stopTime; set => SetProperty(ref stopTime, value); }
 
+        private bool isFuelVisible;
+        public bool IsFuelVisible
+        {
+            get { return isFuelVisible; }
+            set { SetProperty(ref isFuelVisible, value);
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion property
 
         #region command
@@ -165,9 +182,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     // gọi service để lấy dữ liệu trả về
                     var input = new DetailVehicleRequest()
                     {
-                        //UserId = userID,
-                        //vehicleID = PK_VehicleID,
-                        //vehiclePlate = VehiclePlate,
                         XnCode = StaticSettings.User.XNCode,
                         VehiclePlate = VehiclePlate,
                         CompanyId = StaticSettings.User.CompanyId
@@ -177,14 +191,15 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (response != null)
                     {
                         InforDetail = response;
-                        if (response.VehicleNl == null)
+                        if (response.VehicleNl != null)
                         {
-                            InforDetail.VehicleNl = new VehicleNl();
+                            IsFuelVisible = response.VehicleNl.IsUseFuel;
+                            Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
                         }
                         else
                         {
-                            Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
-                        }                                             
+                            IsFuelVisible = false;
+                        }
                         Temperature = response.Temperature2 == null ? string.Format("[{0} °C]", response.Temperature) : string.Format("[{0} °C]", response.Temperature) + " - " + string.Format("[{0} °C]", response.Temperature2);
                         VehicleTime = response.VehicleTime;
                         VelocityGPS = response.VelocityGPS;
