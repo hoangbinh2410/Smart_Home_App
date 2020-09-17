@@ -668,9 +668,18 @@ namespace VMS_MobileGPS.Views
         private void GetListVehicleOnline()
         {
             var userID = StaticSettings.User.UserId;
+            var companyID = StaticSettings.User.CompanyId;
+            var xnCode = StaticSettings.User.XNCode;
+            var userType = StaticSettings.User.UserType;
+            var companyType = StaticSettings.User.CompanyType;
+
             if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
             {
                 userID = Settings.CurrentCompany.UserId;
+                companyID = Settings.CurrentCompany.FK_CompanyID;
+                xnCode = Settings.CurrentCompany.XNCode;
+                userType = Settings.CurrentCompany.UserType;
+                companyType = Settings.CurrentCompany.CompanyType;
             }
             int vehicleGroup = 0;
 
@@ -683,7 +692,7 @@ namespace VMS_MobileGPS.Views
             {
                 await Task.Delay(500, cts.Token);
 
-                return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup);
+                return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
             }, cts.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
                 if (task.Status == TaskStatus.RanToCompletion)

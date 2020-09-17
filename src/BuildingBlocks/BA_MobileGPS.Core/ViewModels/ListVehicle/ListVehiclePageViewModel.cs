@@ -205,7 +205,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public string searchedText;
         public string SearchedText { get => searchedText; set => SetProperty(ref searchedText, value); }
 
-        public string CountCarParameter { get; } = MobileResource.Common_Label_Vehicle.Trim().ToLower();
+       
 
         #endregion Property
 
@@ -534,12 +534,21 @@ namespace BA_MobileGPS.Core.ViewModels
                 RunOnBackground(async () =>
             {
                 var userID = StaticSettings.User.UserId;
+                var companyID = StaticSettings.User.CompanyId;
+                var xnCode = StaticSettings.User.XNCode;
+                var userType = StaticSettings.User.UserType;
+                var companyType = StaticSettings.User.CompanyType;
+
                 if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
                 {
                     userID = Settings.CurrentCompany.UserId;
+                    companyID = Settings.CurrentCompany.FK_CompanyID;
+                    xnCode = Settings.CurrentCompany.XNCode;
+                    userType = Settings.CurrentCompany.UserType;
+                    companyType = Settings.CurrentCompany.CompanyType;
                 }
                 int vehicleGroup = 0;
-                return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup);
+                return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
             },
                 (result) =>
            {
