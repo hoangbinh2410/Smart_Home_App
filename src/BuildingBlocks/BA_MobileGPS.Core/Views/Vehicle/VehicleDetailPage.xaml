@@ -1019,7 +1019,7 @@
                                     <!--  Nhiên liệu  -->
                                     <Grid
                                         Grid.Row="13"
-                                        IsVisible="{Binding InforDetail.VehicleNl.IsUseFuel}"
+                                        IsVisible="{Binding IsFuelVisible}"
                                         RowSpacing="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />

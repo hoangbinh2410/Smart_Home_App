@@ -77,7 +77,15 @@ namespace BA_MobileGPS.Core.ViewModels
         public string VehiclePlate { get; set; }
 
         private Entities.VehicleDetailViewModel inforDetail;
-        public Entities.VehicleDetailViewModel InforDetail { get => inforDetail; set => SetProperty(ref inforDetail, value); }
+        public Entities.VehicleDetailViewModel InforDetail
+        {
+            get { return inforDetail; }
+            set
+            {
+                SetProperty(ref inforDetail, value);
+                RaisePropertyChanged();
+            }
+        }
 
         private string fuel;
         public string Fuel { get => fuel; set => SetProperty(ref fuel, value); }
@@ -123,6 +131,15 @@ namespace BA_MobileGPS.Core.ViewModels
         private int stopTime;
 
         public int StopTime { get => stopTime; set => SetProperty(ref stopTime, value); }
+
+        private bool isFuelVisible;
+        public bool IsFuelVisible
+        {
+            get { return isFuelVisible; }
+            set { SetProperty(ref isFuelVisible, value);
+                RaisePropertyChanged();
+            }
+        }
 
         #endregion property
 
