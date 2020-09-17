@@ -172,7 +172,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         VehiclePlate = VehiclePlate,
                         CompanyId = StaticSettings.User.CompanyId
                     };
-                    var response = await detailVehicleService.LoadAllInforVehicle(input);
+                    var response = await detailVehicleService.GetVehicleDetail(input);
 
                     if (response != null)
                     {
