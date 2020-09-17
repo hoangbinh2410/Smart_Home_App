@@ -74,18 +74,16 @@
                         </StackLayout>
                     </StackLayout>
                 </Grid>
-                <StackLayout IsVisible="{Binding IsShowStopTime}">
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <controls:IconView Source="ic_parking.png" />
-                        <Label
-                            FontSize="12"
-                            Text="{Binding StopTime, Converter={StaticResource MinutesToStringShortConverter}}"
-                            VerticalOptions="Center" />
-                    </StackLayout>
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <controls:IconView Source="ic_parking.png" />
+                    <Label
+                        FontSize="12"
+                        Text="{Binding StopTime, Converter={StaticResource MinutesToStringShortConverter}}"
+                        VerticalOptions="Center" />
                 </StackLayout>
                 <StackLayout Spacing="10">
                     <StackLayout
-                        IsVisible="{Binding CurrentAddress, Converter={StaticResource HasDataConverter}}"
+                        IsVisible="{Binding CurrentAddress, Converter={StaticResource StringToBoolConverter}}"
                         Orientation="Horizontal"
                         Spacing="10">
                         <controls:IconView Source="ic_coordinates.png" />
@@ -96,7 +94,7 @@
                     </StackLayout>
                     <StackLayout
                         Padding="0,0,0,-2"
-                        IsVisible="{Binding MessageBAP, Converter={StaticResource HasDataConverter}}"
+                        IsVisible="{Binding MessageBAP, Converter={StaticResource StringToBoolConverter}}"
                         Orientation="Horizontal"
                         Spacing="10">
                         <controls:IconView Source="ic_fee.png" />

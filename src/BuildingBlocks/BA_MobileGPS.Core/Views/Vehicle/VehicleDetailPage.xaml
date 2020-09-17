@@ -17,7 +17,12 @@
             <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding RefeshCommand}"
+            Icon="ic_refresh.png"
+            Priority="1" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
             <StackLayout BackgroundColor="{StaticResource WhiteColor}" Spacing="0">
