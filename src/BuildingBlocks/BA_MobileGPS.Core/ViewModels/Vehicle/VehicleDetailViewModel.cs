@@ -136,7 +136,9 @@ namespace BA_MobileGPS.Core.ViewModels
         public bool IsFuelVisible
         {
             get { return isFuelVisible; }
-            set { SetProperty(ref isFuelVisible, value);
+            set
+            {
+                SetProperty(ref isFuelVisible, value);
                 RaisePropertyChanged();
             }
         }
@@ -174,13 +176,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (response != null)
                 {
                     InforDetail = response;
-                    if (response.VehicleNl == null)
+                    InforDetail = response;
+                    if (response.VehicleNl != null)
                     {
-                        InforDetail.VehicleNl = new VehicleNl();
+                        IsFuelVisible = response.VehicleNl.IsUseFuel;
+                        Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
                     }
                     else
                     {
-                        Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
+                        IsFuelVisible = false;
                     }
                     Temperature = response.Temperature2 == null ? string.Format("[{0} °C]", response.Temperature) : string.Format("[{0} °C]", response.Temperature) + " - " + string.Format("[{0} °C]", response.Temperature2);
                     VehicleTime = response.VehicleTime;
