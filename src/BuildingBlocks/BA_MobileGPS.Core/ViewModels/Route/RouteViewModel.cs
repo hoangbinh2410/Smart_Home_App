@@ -89,6 +89,7 @@ namespace BA_MobileGPS.Core.ViewModels
             ChangeSpeedCommand = new DelegateCommand(ChangeSpeed);
             EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
             EventAggregator.GetEvent<ThemeChangedEvent>().Subscribe(ThemeChanged);
+            EventAggregator.GetEvent<TabSelectedChangedEvent>().Subscribe(TabSelectedChanged);
         }
 
         #endregion Contructor
@@ -129,6 +130,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             EventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
             EventAggregator.GetEvent<ThemeChangedEvent>().Unsubscribe(ThemeChanged);
+            EventAggregator.GetEvent<TabSelectedChangedEvent>().Subscribe(TabSelectedChanged);
         }
 
         #endregion Lifecycle
@@ -252,6 +254,11 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 StopRoute();
             }
+        }
+
+        private void TabSelectedChanged(int obj)
+        {
+            StopRoute();
         }
 
         private void TimeSelected(string args)

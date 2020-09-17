@@ -79,7 +79,6 @@ namespace BA_MobileGPS.Core.ViewModels
             NavigateToSettingsCommand = new DelegateCommand(NavigateToSettings);
             ChangeMapTypeCommand = new DelegateCommand(ChangeMapType);
             PushToRouterPageCommand = new DelegateCommand(PushtoRouterPage);
-            PushToFABPageCommand = new DelegateCommand<object>(PushtoFABPage);
             PushToDetailPageCommand = new DelegateCommand(PushtoDetailPage);
             CameraIdledCommand = new DelegateCommand<CameraIdledEventArgs>(UpdateMapInfo);
             GoDistancePageCommand = new DelegateCommand(GoDistancePage);
@@ -490,32 +489,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     MapZoom = (byte)MobileUserSettingHelper.Mapzoom
                 });
                 MobileUserSettingHelper.Set(MobileUserConfigurationNames.MBMapType, maptype);
-            });
-        }
-
-        private void PushtoFABPage(object index)
-        {
-            SafeExecute(async () =>
-            {
-                switch ((int)index)
-                {
-                    case 1:
-                        await NavigationService.NavigateAsync("ListVehiclePage", null, useModalNavigation: false);
-                        break;
-
-                    case 2:
-
-                        StaticSettings.ClearStaticSettings();
-                        GlobalResources.Current.TotalAlert = 0;
-
-                        await NavigationService.NavigateAsync("/NavigationPage/LandingPage");
-
-                        break;
-
-                    case 3:
-                        await NavigationService.NavigateAsync("MenuNavigationPage/HeplerPage", null, useModalNavigation: true);
-                        break;
-                }
             });
         }
 
