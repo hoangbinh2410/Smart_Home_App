@@ -16,12 +16,12 @@ namespace BA_MobileGPS.Core
 
             if (value is DateTime date1)
             {
-                return (string)parameter == "ToLocal" ? date1.ToLocalTime().ToString("HH:mm dd/MM/yyyy") : date1.FormatDateTime();
+                return (string)parameter == "ToLocal" ? date1.ToLocalTime().ToString("HH:mm:ss dd/MM/yyyy") : date1.FormatDateTimeWithSecond();
             }
 
             if (value is DateTimeOffset date2)
             {
-                return (string)parameter == "ToLocal" ? date2.DateTime.ToLocalTime().ToString("HH:mm dd/MM/yyyy") : date2.DateTime.FormatDateTime();
+                return (string)parameter == "ToLocal" ? date2.DateTime.ToLocalTime().ToString("HH:mm:ss dd/MM/yyyy") : date2.DateTime.FormatDateTimeWithSecond();
             }
 
             return result;

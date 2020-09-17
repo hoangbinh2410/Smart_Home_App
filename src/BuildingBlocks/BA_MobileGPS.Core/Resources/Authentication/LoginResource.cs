@@ -23,7 +23,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string Login_Lable_SelectLanguage => Get(MobileResourceNames.Login_Lable_SelectLanguage, "Chọn ngôn ngữ", "Select Language");
 
         public static string Login_Message_AccountPasswordIncorrect => Get(MobileResourceNames.Login_Message_AccountPasswordIncorrect, "Tài khoản hoặc mật khẩu không chính xác", "Account or password is incorrect");
-
+        public static string Login_Message_AccountAllowedSystem => Get(MobileResourceNames.Login_Message_AccountPasswordIncorrect, "Tài khoản của bạn không được phép đăng nhập hệ thống", "Your account is not allowed to log in to the system");
         public static string Login_Message_AccountLocked => Get(MobileResourceNames.Login_Message_AccountLocked, "Tài khoản của bạn đang bị khóa", " Your account was locked");
         public static string Login_ForgotPassword_PopupTitle => Get(MobileResourceNames.Login_ForgotPassword_PopupTitle, "Quên mật khẩu", " Forgot Password");
         public static string Login_ForgotPassword_PopupContent => Get(MobileResourceNames.Login_ForgotPassword_PopupContent, string.Format("Để đảm bảo an toàn thông tin, Quý khách vui lòng liên hệ <strong> <font color={0}> {0} </font> </strong> để được cấp lại mật khẩu", MobileSettingHelper.HotlineGps), string.Format(" To ensure information security, please contact <strong> {0} </strong> for a password reset", MobileSettingHelper.HotlineGps));
