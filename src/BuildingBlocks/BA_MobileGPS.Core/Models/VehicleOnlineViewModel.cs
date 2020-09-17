@@ -1,9 +1,4 @@
-﻿using BA_MobileGPS.Core;
-using BA_MobileGPS.Core.Extensions;
-using BA_MobileGPS.Core.Resources;
-using BA_MobileGPS.Utilities;
-
-using System;
+﻿using System;
 
 namespace BA_MobileGPS.Entities
 {
@@ -50,7 +45,7 @@ namespace BA_MobileGPS.Entities
         public double TotalKm { get => totalKm; set => SetProperty(ref totalKm, value); }
 
         private byte messageId;
-        public byte MessageId { get => messageId; set => SetProperty(ref messageId, value, nameof(IsShowDetail), nameof(Message2), nameof(Message4)); }
+        public byte MessageId { get => messageId; set => SetProperty(ref messageId, value, nameof(IsShowDetail)); }
 
         public byte KindID { set; get; }
 
@@ -75,88 +70,15 @@ namespace BA_MobileGPS.Entities
         public int LostGSMTime => (int)StaticSettings.TimeServer.Subtract(VehicleTime).TotalSeconds;
 
         public int stopTime;
-        public int StopTime { get => stopTime; set => SetProperty(ref stopTime, value, relatedProperty: nameof(IsShowStopTime)); }
+        public int StopTime { get => stopTime; set => SetProperty(ref stopTime, value); }
 
         public bool isShowStopTime;
-
-        public bool IsShowStopTime
-        {
-            get
-            {
-                if (StateVehicleExtension.IsStoping(Velocity) && StopTime > 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
-            set => SetProperty(ref isShowStopTime, value);
-        }
 
         public bool IsShowDetail
         {
             get
             {
                 return (MessageId == 2 || MessageId == 3 || MessageId == 128) ? false : true;
-            }
-        }
-
-        public string Message2
-        {
-            get
-            {
-                switch (MessageId)
-                {
-                    case 0:
-                    case 1:
-                        var countdate = MaturityDate.Subtract(StaticSettings.TimeServer).TotalDays - 1;
-                        //X = Ngày hiện tại – ngày hết hạn -1. Nếu X<=60 ngày(60 là số cấu hình) thì mới hiển thị thông tin đến hạn đóng phí. Còn không thì không hiển thị (Cấu hình bảng [Mobile.Configurations])
-                        if (countdate > 0 && countdate <= CompanyConfigurationHelper.CountDateOfPayment)
-                        {
-                            return MobileResource.ListVehicle_Label_Vehicle_Expired_Date;
-                        }
-                        else
-                        {
-                            return string.Empty;
-                        }
-                    case 2: return MobileResource.ListVehicle_Label_Vehicle_Expiration_Date;
-
-                    case 3: return MobileResource.ListVehicle_Label_Vehicle_Expiration_Date;
-
-                    case 128: return MobileResource.ListVehicle_Label_Vehicle_Stop_Date;
-                }
-                return string.Empty;
-            }
-        }
-
-        public string Message4
-        {
-            get
-            {
-                switch (MessageId)
-                {
-                    case 0:
-                    case 1:
-                        var countdate = MaturityDate.Subtract(StaticSettings.TimeServer).TotalDays - 1;
-                        //X = Ngày hiện tại – ngày hết hạn -1. Nếu X<=60 ngày(60 là số cấu hình) thì mới hiển thị thông tin đến hạn đóng phí. Còn không thì không hiển thị (Cấu hình bảng [Mobile.Configurations])
-                        if (countdate > 0 && countdate <= CompanyConfigurationHelper.CountDateOfPayment)
-                        {
-                            return DateTimeHelper.FormatDate(MaturityDate);
-                        }
-                        else
-                        {
-                            return string.Empty;
-                        }
-                    case 2: return DateTimeHelper.FormatDate(MaturityDate);
-
-                    case 3: return DateTimeHelper.FormatDate(MaturityDate);
-
-                    case 128: return DateTimeHelper.FormatDate(MaturityDate);
-                }
-                return string.Empty;
             }
         }
     }

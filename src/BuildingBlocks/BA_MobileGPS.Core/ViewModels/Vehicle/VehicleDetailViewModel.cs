@@ -34,8 +34,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             _engineState = MobileResource.Common_Label_TurnOff;
 
-            InitLoadCommand = new DelegateCommand(InitLoadCommandExecute);
-            RefeshCommand = new DelegateCommand(InitLoadCommandExecute);
+            RefeshCommand = new DelegateCommand(GetVehicleDetail);
             EventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(OnReceiveSendCarSignalR);
             EventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
         }
@@ -56,7 +55,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Getaddress(cardetail.Lat.ToString(), cardetail.Lng.ToString());
                 }
-                InitLoadCommandExecute();
+                GetVehicleDetail();
             }
         }
 
@@ -77,8 +76,16 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public string VehiclePlate { get; set; }
 
-        private VehicleOnlineDetailViewModel inforDetail;
-        public VehicleOnlineDetailViewModel InforDetail { get => inforDetail; set => SetProperty(ref inforDetail, value); }
+        private Entities.VehicleDetailViewModel inforDetail;
+        public Entities.VehicleDetailViewModel InforDetail
+        {
+            get { return inforDetail; }
+            set
+            {
+                SetProperty(ref inforDetail, value);
+                RaisePropertyChanged();
+            }
+        }
 
         private string fuel;
         public string Fuel { get => fuel; set => SetProperty(ref fuel, value); }
@@ -125,11 +132,20 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public int StopTime { get => stopTime; set => SetProperty(ref stopTime, value); }
 
+        private bool isFuelVisible;
+        public bool IsFuelVisible
+        {
+            get { return isFuelVisible; }
+            set
+            {
+                SetProperty(ref isFuelVisible, value);
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion property
 
         #region command
-
-        public DelegateCommand InitLoadCommand { get; private set; }
         public ICommand RefeshCommand { get; private set; }
 
         #endregion command
@@ -143,81 +159,60 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Name     Date         Comments
         /// hoangdt  3/15/2019   created
         /// </Modified>
-        public async void InitLoadCommandExecute()
+        public void GetVehicleDetail()
         {
-            // gọi hàm dưới server để lấy dữ liệu về
-            if (IsBusy)
+            // gọi service để lấy dữ liệu trả về
+            var input = new DetailVehicleRequest()
             {
-                return;
-            }
-            IsBusy = true;
-            try
+                XnCode = StaticSettings.User.XNCode,
+                VehiclePlate = VehiclePlate,
+                CompanyId = StaticSettings.User.CompanyId
+            };
+            RunOnBackground(async () =>
             {
-                if (IsConnected)
+                return await detailVehicleService.GetVehicleDetail(input);
+            }, (response) =>
+            {
+                if (response != null)
                 {
-                    Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("");
-                    var userID = StaticSettings.User.UserId;
-                    // Kiểm tra xem có chọn cty khác không
-                    if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                    InforDetail = response;
+                    InforDetail = response;
+                    if (response.VehicleNl != null)
                     {
-                        userID = Settings.CurrentCompany.UserId;
-                    }
-                    // gọi service để lấy dữ liệu trả về
-                    var input = new DetailVehicleRequest()
-                    {
-                        UserId = userID,
-                        vehicleID = PK_VehicleID,
-                        vehiclePlate = VehiclePlate,
-                    };
-                    var response = await detailVehicleService.LoadAllInforVehicle(input);
-
-                    if (response != null)
-                    {
-                        InforDetail = response;
+                        IsFuelVisible = response.VehicleNl.IsUseFuel;
                         Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
-                        Temperature = response.Temperature2 == null ? string.Format("[{0} °C]", response.Temperature) : string.Format("[{0} °C]", response.Temperature) + " - " + string.Format("[{0} °C]", response.Temperature2);
-                        VehicleTime = response.VehicleTime;
-                        VelocityGPS = response.VelocityGPS;
-                        TotalKm = (float)response.TotalKm;
-                        StopTime = (int)response.StopTime;
-
-                        //Động cơ
-                        EngineState = StateVehicleExtension.EngineState(new VehicleOnline
-                        {
-                            VehicleTime = response.VehicleTime,
-                            IconCode = response.IconVehicle,
-                            State = response.StatusEngineer.GetValueOrDefault(),
-                            Velocity = response.VelocityGPS,
-                            GPSTime = response.VehicleTime,
-                            IsEnableAcc = response.AccStatus.GetValueOrDefault()
-                        });
-
-                        // hiện thị lên là xe đang nợ cần đóng tiền thu phí
-                        if (response.IsExpried)
-                        {
-                            MessageInforChargeMoney = string.Format(MobileResource.DetailVehicle_MessageFee, response.ExpriedDate.ToString("dd/MM/yyyy"));
-                        }
-                        else
-                        {
-                            MessageInforChargeMoney = string.Empty;
-                        }
                     }
+                    else
+                    {
+                        IsFuelVisible = false;
+                    }
+                    Temperature = response.Temperature2 == null ? string.Format("[{0} °C]", response.Temperature) : string.Format("[{0} °C]", response.Temperature) + " - " + string.Format("[{0} °C]", response.Temperature2);
+                    VehicleTime = response.VehicleTime;
+                    VelocityGPS = response.VelocityGPS;
+                    TotalKm = response.TotalKm.GetValueOrDefault();
+                    StopTime = response.StopTime.GetValueOrDefault();
 
-                    Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
+                    //Động cơ
+                    EngineState = StateVehicleExtension.EngineState(new VehicleOnline
+                    {
+                        VehicleTime = response.VehicleTime,
+                        State = response.StatusEngineer.GetValueOrDefault(),
+                        Velocity = response.VelocityGPS,
+                        GPSTime = response.GPSTime,
+                        IsEnableAcc = response.AccStatus.GetValueOrDefault()
+                    });
+
+                    // hiện thị lên là xe đang nợ cần đóng tiền thu phí
+                    if (response.IsExpried)
+                    {
+                        MessageInforChargeMoney = string.Format(MobileResource.DetailVehicle_MessageFee, response.ExpriedDate.ToString("dd/MM/yyyy"));
+                    }
+                    else
+                    {
+                        MessageInforChargeMoney = string.Empty;
+                    }
                 }
-                else
-                {
-                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            });
         }
 
         private void OnReceiveSendCarSignalR(VehicleOnline carInfo)
@@ -229,19 +224,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
             if (carInfo != null)
             {
-                if (CompanyConfigurationHelper.VehicleOnlineAddressEnabled)
+                if (StateVehicleExtension.IsMovingAndEngineON(carInfo))
                 {
-                    if (StateVehicleExtension.IsMovingAndEngineON(carInfo))
-                    {
-                        Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString());
-                    }
+                    Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString());
                 }
                 ////////////////
                 VehicleTime = carInfo.VehicleTime;
                 VelocityGPS = carInfo.Velocity;
                 TotalKm = (float)carInfo.TotalKm;
                 StopTime = carInfo.StopTime;
-
                 //Động cơ
                 EngineState = StateVehicleExtension.EngineState(carInfo);
 
@@ -252,7 +243,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (arg)
             {
-                InitLoadCommandExecute();
+                GetVehicleDetail();
             }
         }
 
