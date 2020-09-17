@@ -235,12 +235,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
             if (carInfo != null)
             {
-                if (CompanyConfigurationHelper.VehicleOnlineAddressEnabled)
+                if (StateVehicleExtension.IsMovingAndEngineON(carInfo))
                 {
-                    if (StateVehicleExtension.IsMovingAndEngineON(carInfo))
-                    {
-                        Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString());
-                    }
+                    Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString());
                 }
                 ////////////////
                 VehicleTime = carInfo.VehicleTime;
