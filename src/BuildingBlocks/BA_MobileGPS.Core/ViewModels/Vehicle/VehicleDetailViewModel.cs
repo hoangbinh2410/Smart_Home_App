@@ -188,8 +188,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         Temperature = response.Temperature2 == null ? string.Format("[{0} °C]", response.Temperature) : string.Format("[{0} °C]", response.Temperature) + " - " + string.Format("[{0} °C]", response.Temperature2);
                         VehicleTime = response.VehicleTime;
                         VelocityGPS = response.VelocityGPS;
-                        TotalKm = (float)response.TotalKm;
-                        StopTime = (int)response.StopTime;
+                        TotalKm = response.TotalKm.GetValueOrDefault();
+                        StopTime = response.StopTime.GetValueOrDefault();
 
                         //Động cơ
                         EngineState = StateVehicleExtension.EngineState(new VehicleOnline

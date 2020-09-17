@@ -31,10 +31,10 @@ namespace BA_MobileGPS.Service
             {
                // var URL = string.Format(ApiUri.GET_VEHICLEDETAIL + "/?UserId={0}&vehiclePlate={1}&vehicleID={2}", input.UserId, input.vehiclePlate, input.vehicleID);
                 var URL = string.Format(ApiUri.GET_VEHICLEDETAIL + "/?xnCode={0}&vehiclePlate={1}&companyId={2}", input.XnCode, input.VehiclePlate, input.CompanyId);
-                var temp = await _IRequestProvider.GetAsync<VehicleOnlineDetailViewModel>(URL);
-                if (temp != null)
+                var temp = await _IRequestProvider.GetAsync<ResponseBaseV2<VehicleOnlineDetailViewModel>>(URL);
+                if (temp != null && temp.Data != null)
                 {
-                    respone = temp;
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)
