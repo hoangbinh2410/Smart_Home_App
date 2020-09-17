@@ -309,16 +309,12 @@
                             <DataTemplate>
                                 <StackLayout HorizontalOptions="Center">
                                     <StackLayout Orientation="Horizontal" Spacing="10">
-                                        <ffImage:CachedImage
-                                            BitmapOptimizations="True"
+                                        <controls:IconView
+                                            Foreground="{DynamicResource PrimaryColor}"
                                             HeightRequest="20"
                                             Source="ic_nl.png"
                                             VerticalOptions="Center"
-                                            WidthRequest="20">
-                                            <ffImage:CachedImage.Transformations>
-                                                <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
-                                            </ffImage:CachedImage.Transformations>
-                                        </ffImage:CachedImage>
+                                            WidthRequest="20" />
                                         <Label
                                             FontSize="14"
                                             Text="{Binding Title}"
@@ -339,16 +335,12 @@
                         Grid.Column="0"
                         Orientation="Horizontal"
                         Spacing="10">
-                        <ffImage:CachedImage
-                            BitmapOptimizations="True"
+                        <controls:IconView
+                            Foreground="{DynamicResource PrimaryColor}"
                             HeightRequest="20"
                             Source="ic_turnon_time_on_day.png"
                             VerticalOptions="Center"
-                            WidthRequest="20">
-                            <ffImage:CachedImage.Transformations>
-                                <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
-                            </ffImage:CachedImage.Transformations>
-                        </ffImage:CachedImage>
+                            WidthRequest="20" />
                         <Label
                             FontSize="14"
                             Text="{Binding CurrentChartDisplay.Time, Converter={StaticResource DateTimeConverter}}"
@@ -359,16 +351,12 @@
                         Grid.Column="1"
                         Orientation="Horizontal"
                         Spacing="10">
-                        <ffImage:CachedImage
-                            BitmapOptimizations="True"
+                        <controls:IconView
+                            Foreground="{DynamicResource PrimaryColor}"
                             HeightRequest="20"
                             Source="ic_velocity.png"
                             VerticalOptions="Center"
-                            WidthRequest="20">
-                            <ffImage:CachedImage.Transformations>
-                                <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
-                            </ffImage:CachedImage.Transformations>
-                        </ffImage:CachedImage>
+                            WidthRequest="20" />
                         <Label
                             FontSize="14"
                             Text="{Binding CurrentChartDisplay.VelocityGPS, Converter={StaticResource VelocityConverter}}"
@@ -379,16 +367,12 @@
                         Grid.Column="0"
                         Orientation="Horizontal"
                         Spacing="10">
-                        <ffImage:CachedImage
-                            BitmapOptimizations="True"
+                        <controls:IconView
+                            Foreground="{DynamicResource PrimaryColor}"
                             HeightRequest="20"
                             Source="ic_distance.png"
                             VerticalOptions="Center"
-                            WidthRequest="20">
-                            <ffImage:CachedImage.Transformations>
-                                <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
-                            </ffImage:CachedImage.Transformations>
-                        </ffImage:CachedImage>
+                            WidthRequest="20" />
                         <Label
                             FontSize="14"
                             Text="{Binding CurrentChartDisplay.Km, Converter={StaticResource KmConverter}}"
@@ -399,16 +383,12 @@
                         Grid.Column="1"
                         Orientation="Horizontal"
                         Spacing="10">
-                        <ffImage:CachedImage
-                            BitmapOptimizations="True"
+                        <controls:IconView
+                            Foreground="{DynamicResource PrimaryColor}"
                             HeightRequest="20"
                             Source="ic_engine.png"
                             VerticalOptions="Center"
-                            WidthRequest="20">
-                            <ffImage:CachedImage.Transformations>
-                                <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
-                            </ffImage:CachedImage.Transformations>
-                        </ffImage:CachedImage>
+                            WidthRequest="20" />
                         <Label
                             FontSize="14"
                             Text="{Binding CurrentChartDisplay.MachineStatus}"
@@ -420,15 +400,11 @@
                         Grid.ColumnSpan="2"
                         Orientation="Horizontal"
                         Spacing="5">
-                        <ffImage:CachedImage
-                            BitmapOptimizations="True"
+                        <controls:IconView
+                            Foreground="{DynamicResource PrimaryColor}"
                             HeightRequest="20"
                             Source="ic_location_black.png"
-                            WidthRequest="20">
-                            <ffImage:CachedImage.Transformations>
-                                <transformations:TintTransformation EnableSolidColor="True" HexColor="#26A1D9" />
-                            </ffImage:CachedImage.Transformations>
-                        </ffImage:CachedImage>
+                            WidthRequest="20" />
                         <Label
                             FontSize="14"
                             HorizontalTextAlignment="Start"
