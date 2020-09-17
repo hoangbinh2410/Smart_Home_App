@@ -75,16 +75,16 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<List<VehicleOnline>> GetListVehicleOnline(Guid userId, int groupId)
+        public async Task<List<VehicleOnline>> GetListVehicleOnline(Guid userId, int groupId, int companyID, int xnCode, UserType userType, CompanyType companyType)
         {
             List<VehicleOnline> result = new List<VehicleOnline>();
             try
             {
-                string url = $"{ApiUri.GET_VEHICLEONLINE}?userId={userId}&vehicleGroupID={groupId}";
-                var data = await requestProvider.GetHandleOutputAsync<List<VehicleOnline>>(url);
-                if (data != null)
+                string url = $"{ApiUri.GET_VEHICLEONLINE}?userId={userId}&groupID={groupId}&companyID={companyID}&xnCode={xnCode}&userType={(int)userType}&companyType={(int)companyType}";
+                var data = await requestProvider.GetAsync<ResponseBaseV2<List<VehicleOnline>>>(url);
+                if (data != null && data.Data.Count > 0)
                 {
-                    result = data;
+                    result = data.Data;
                 }
             }
             catch (Exception ex)

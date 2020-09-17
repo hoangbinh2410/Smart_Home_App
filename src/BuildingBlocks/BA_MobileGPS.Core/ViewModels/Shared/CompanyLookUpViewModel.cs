@@ -251,15 +251,22 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                var companyID = UserInfo.CompanyId;
                 var userID = UserInfo.UserId;
+                var companyID = UserInfo.CompanyId;
+                var xnCode = UserInfo.XNCode;
+                var userType = UserInfo.UserType;
+                var companyType = UserInfo.CompanyType;
+
                 if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
                 {
-                    companyID = Settings.CurrentCompany.FK_CompanyID;
                     userID = Settings.CurrentCompany.UserId;
+                    companyID = Settings.CurrentCompany.FK_CompanyID;
+                    xnCode = Settings.CurrentCompany.XNCode;
+                    userType = Settings.CurrentCompany.UserType;
+                    companyType = Settings.CurrentCompany.CompanyType;
                 }
                 int vehicleGroup = 0;
-                var list = await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup);
+                var list = await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
                 if (list != null && list.Count > 0)
                 {
                     list.ForEach(x =>
