@@ -23,6 +23,9 @@
             <Setter Property="HasShadow" Value="True" />
             <Setter Property="Shadow" Value="{StaticResource shadow}" />
         </Style>
+        <cluster:HasDataBackgroundColorConverter x:Key="HasDataBackgroundColorConverter" />
+
+        <cluster:HasDataIconColorConverter x:Key="HasDataIconColorConverter" />
     </ContentView.Resources>
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
@@ -106,7 +109,7 @@
             <pancake:PancakeView
                 Grid.Column="1"
                 Padding="0"
-                BackgroundColor="{DynamicResource WhiteColor}"
+                BackgroundColor="{Binding VehicleGroups, Converter={StaticResource HasDataBackgroundColorConverter}}"
                 CornerRadius="22"
                 WidthRequest="45">
                 <pancake:PancakeView.GestureRecognizers>
@@ -114,7 +117,7 @@
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Margin="8"
-                    Foreground="{DynamicResource PrimaryColor}"
+                    Foreground="{Binding VehicleGroups, Converter={StaticResource HasDataIconColorConverter}}"
                     Source="ic_doublevehicle.png"
                     VerticalOptions="Center" />
             </pancake:PancakeView>
