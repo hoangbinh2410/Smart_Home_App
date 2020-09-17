@@ -136,17 +136,25 @@ namespace BA_MobileGPS.Core.Views
                     var clusterpin = googleMap.ClusteredPins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
                     if (clusterpin != null)
                     {
-                        var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehiclePlate == vehiclePlate.VehiclePlate);
+                        var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehicleId == vehiclePlate.VehicleId);
                         if (vehicleselect != null)
                         {
                             vm.CarSearch = vehicleselect.PrivateCode;
                             UpdateSelectVehicle(vehicleselect);
+                        }
+                        else
+                        {
+                            pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
                         }
                     }
                     else
                     {
                         displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
                     }
+                }
+                else
+                {
+                    displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
                 }
             }
             else if (parameters.ContainsKey(ParameterKey.Company) && parameters.GetValue<Company>(ParameterKey.Company) is Company company)
@@ -179,9 +187,9 @@ namespace BA_MobileGPS.Core.Views
 
         public void OnNavigatingTo(INavigationParameters parameters)
         {
-           
 
-        }       
+
+        }
 
         public void Destroy()
         {
@@ -237,13 +245,13 @@ namespace BA_MobileGPS.Core.Views
         {
             if (arg)
             {
-                if (mCarActive.VehicleId != -1 && string.IsNullOrEmpty(mCarActive.VehiclePlate))
+                if (mCarActive.VehicleId != -1 && !string.IsNullOrEmpty(mCarActive.VehiclePlate))
                 {
                     var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehiclePlate == mCarActive.VehiclePlate);
                     if (vehicleselect != null)
                     {
                         vm.CarSearch = vehicleselect.PrivateCode;
-                        UpdateSelectVehicle(vehicleselect);
+                        UpdateSelectVehicle(vehicleselect, true);
                     }
                 }
             }
@@ -267,6 +275,10 @@ namespace BA_MobileGPS.Core.Views
                         {
                             vm.CarSearch = vehicleselect.PrivateCode;
                             UpdateSelectVehicle(vehicleselect);
+                        }
+                        else
+                        {
+                            pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
                         }
                     }
                     else
@@ -374,13 +386,13 @@ namespace BA_MobileGPS.Core.Views
             }
         }
 
-        private void UpdateSelectVehicle(VehicleOnline vehicle)
+        private void UpdateSelectVehicle(VehicleOnline vehicle, bool isReloadVehicle = false)
         {
             if (vehicle != null)
             {
                 try
                 {
-                    if (vehicle.VehiclePlate != mCarActive.VehiclePlate)
+                    if (vehicle.VehicleId != mCarActive.VehicleId || isReloadVehicle)
                     {
                         ShowBoxInfoCarActive(vehicle, vehicle.MessageId, vehicle.DataExt);
 
@@ -532,6 +544,7 @@ namespace BA_MobileGPS.Core.Views
                     if (carActive)
                     {
                         googleMap.AnimateCamera(CameraUpdateFactory.NewPosition(new Position(carInfo.Lat, carInfo.Lng)));
+                        Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
                     }
                 }
             }

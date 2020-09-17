@@ -248,6 +248,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 GetVehicleRoute();
             }
+            else
+            {
+                StopRoute();
+            }
         }
 
         private void TimeSelected(string args)
@@ -878,6 +882,21 @@ namespace BA_MobileGPS.Core.ViewModels
                     map.UiSettings.ZoomGesturesEnabled = true;
 
                 PageDialog.DisplayAlertAsync("", ex.Message, MobileResource.Common_Button_OK);
+            }
+        }
+
+        private void StopRoute()
+        {
+
+            if (IsPlaying)
+            {
+                if (ctsRouting != null)
+                    ctsRouting.Cancel();
+
+                if (GetControl<Map>("map") is Map map)
+                    map.UiSettings.ZoomGesturesEnabled = true;
+
+                IsPlaying = false;
             }
         }
 

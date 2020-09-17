@@ -57,6 +57,12 @@ namespace BA_MobileGPS.Core.ViewModels
             SearchVehicleCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehicle);
         }
 
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+            InitData();
+        }
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             if (parameters != null)
@@ -67,17 +73,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     SelectedVehicleGroups = VehicleGroups;
                 }
             }
-
-            InitData();
         }
 
         private void InitData()
         {
-            if (IsBusy || !IsConnected)
-                return;
-
-            // UserDialogs.Instance.ShowLoading("");
-
             Task.Run(async () =>
             {
                 var currentCompany = Settings.CurrentCompany;
@@ -96,11 +95,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     return GetListVehicle(groupid);
                 }
-
             }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
-                //UserDialogs.Instance.HideLoading();
-
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
                     SetFocus("SearchText");
@@ -135,13 +131,13 @@ namespace BA_MobileGPS.Core.ViewModels
             List<Vehicle> result = new List<Vehicle>();
             try
             {
-                var listOnline = StaticSettings.ListVehilceOnline;
-                if (groupids != string.Empty)
+                var listOnline = StaticSettings.ListVehilceOnline.DeepCopy();
+                if (!string.IsNullOrEmpty(groupids))
                 {
                     var groupid = groupids.Split(',');
                     foreach (var item in groupid)
                     {
-                        listOnline = StaticSettings.ListVehilceOnline.FindAll(v => v.GroupIDs.Split(',').Contains(item));
+                        listOnline = listOnline.FindAll(v => v.GroupIDs.Split(',').Contains(item));
                         foreach (var lst in listOnline)
                         {
                             result.Add(AddListVehicle(lst));
@@ -153,7 +149,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     foreach (var lst in listOnline)
                     {
                         result.Add(AddListVehicle(lst));
-                    } 
+                    }
                 }
             }
             catch (Exception ex)

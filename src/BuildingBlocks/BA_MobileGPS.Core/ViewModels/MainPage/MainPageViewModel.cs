@@ -147,13 +147,13 @@ namespace BA_MobileGPS.Core.ViewModels
                     //Join vào nhóm signalR để nhận dữ liệu online
                     GetListVehicleOnlineResume();
                 }
-                //kiểm tra xem có thông báo nào không
-                GetNofitication();
-
                 if (StaticSettings.TimeServer < DateTime.Now)
                 {
                     StaticSettings.TimeServer = DateTime.Now;
                 }
+                //kiểm tra xem có thông báo nào không
+                GetNofitication();
+               
             }
             else
             {

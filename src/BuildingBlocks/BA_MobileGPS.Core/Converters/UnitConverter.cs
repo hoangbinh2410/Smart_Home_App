@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BA_MobileGPS.Core.Resources;
+using System;
 using System.Globalization;
 
 using Xamarin.Forms;
@@ -14,7 +15,7 @@ namespace BA_MobileGPS.Core
                 return string.Empty;
             }
 
-            return $"{value.ToString()} {parameter.ToString()}";
+            return $"{value.ToString()} {MobileResource.Common_Label_Vehicle.Trim().ToLower()}";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -114,5 +114,20 @@
                 </DataTemplate>
             </syncfusion:SfListView.ItemTemplate>
         </syncfusion:SfListView>
+        <StackLayout
+            Grid.Row="2"
+            Margin="20"
+            HorizontalOptions="StartAndExpand"
+            Orientation="Horizontal"
+            VerticalOptions="StartAndExpand">
+            <Label
+                HorizontalOptions="Center"
+                Text="Version : "
+                VerticalOptions="Center" />
+            <Label
+                HorizontalOptions="Center"
+                Text="{Binding AppVersion}"
+                VerticalOptions="Center" />
+        </StackLayout>
     </Grid>
 </ContentView>

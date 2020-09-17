@@ -265,7 +265,5 @@ namespace BA_MobileGPS.Core.ViewModels
         public Color IconColor { get; set; }
 
         public bool IsEnable { get; set; }
-
-        //public PermissionKeyNames PermissionKeyNames { get; set; }
     }
 }

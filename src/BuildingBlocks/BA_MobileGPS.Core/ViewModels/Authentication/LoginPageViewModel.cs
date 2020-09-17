@@ -468,8 +468,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             var request = new LoginRequest
                             {
-                                UserName = UserName.Value,
-                                Password = Password.Value,
+                                UserName = UserName.Value.Trim(),
+                                Password = Password.Value.Trim(),
                                 AppType = App.AppType
                             };
                             // Lấy thông tin token
@@ -513,9 +513,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                                     case LoginStatus.WrongAppType:
 
-                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountPasswordIncorrect);
-
-                                        //DisplayMessage.ShowMessageInfo("Tài khoản của bạn không được phép đăng nhập hệ thống");
+                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountAllowedSystem);
                                         break;
                                 }
                             }
