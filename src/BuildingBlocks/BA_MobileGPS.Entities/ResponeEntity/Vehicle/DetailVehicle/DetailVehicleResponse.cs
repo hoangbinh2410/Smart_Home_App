@@ -153,7 +153,7 @@ namespace BA_MobileGPS.Entities
         public double Distance { get; set; }
     }
 
-    public class VehicleOnlineDetailViewModel
+    public class VehicleDetailViewModel
     {
         [JsonProperty("0")]
         public VehicleHtn VehicleHtn { set; get; }
@@ -173,14 +173,8 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("5")]
         public float? TotalKm { set; get; }
 
-        [JsonProperty("6")]
-        public int PercenInternalBattery { set; get; }
-
         [JsonProperty("7")]
         public float? Temperature { set; get; }
-
-        [JsonProperty("8")]
-        public double Battery { set; get; }
 
         [JsonProperty("9")]
         public float? Temperature2 { set; get; }
@@ -188,169 +182,126 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("10")]
         public byte MessageId { get; set; }
 
-        [JsonProperty("11")]
-        public byte KindID { get; set; } = 1;
-
-        /// <summary>
-        /// Ngày hết hạn
-        /// </summary>
         [JsonProperty("12")]
         public DateTime? MCExpried { get; set; }
 
-        /// <summary>
-        /// Biển số xe
-        /// </summary>
-        [JsonProperty("50")]
+        [JsonProperty("13")]
         public string VehiclePlate { set; get; }
 
-        /// <summary>
-        /// Icon của xe
-        /// </summary>
-        [JsonProperty("51")]
-        public IconCode IconVehicle { set; get; }
+        [JsonProperty("14")]
+        public IconCode IconVehicle { set; get; }  // xem lai
 
         /// <summary>
         /// Thời gian hiện tại trên xe
         /// </summary>
-        [JsonProperty("52")]
+        [JsonProperty("15")]
         public DateTime VehicleTime { set; get; }
 
         /// <summary>
         /// Trạng thái bật tắt của máy
         /// </summary>
-        [JsonProperty("53")]
+        [JsonProperty("16")]
         public int? StatusEngineer { set; get; }
 
         /// <summary>
         /// Tổng số knm tích lũy từ lúc lắp GPS
         /// </summary>
-        [JsonProperty("54")]
+        [JsonProperty("17")]
         public double? KilometAccumulated { set; get; }
 
         /// <summary>
         /// Thời gian dừng đỗ mà máy vẫn bật
         /// </summary>
-        [JsonProperty("55")]
+        [JsonProperty("18")]
         public int? ParkingTurnOnVehecle { set; get; }
 
         /// <summary>
         /// Trạng thái điều hòa
         /// </summary>
-        [JsonProperty("56")]
-        public bool? AirCondition { set; get; }
+        [JsonProperty("19")]
+        public bool? AirCondition { set; get; }  // k co o API cu
 
         /// <summary>
         /// Trạng thái của cẩu
         /// </summary>
-        [JsonProperty("57")]
+        [JsonProperty("20")]
         public bool? Crane { set; get; }
 
         /// <summary>
         /// Trạng thái của ben
         /// </summary>
-        [JsonProperty("58")]
+        [JsonProperty("21")]
         public bool? Ben { set; get; }
 
         /// <summary>
         /// Trạng thái của bồn bê tông
         /// </summary>
-        [JsonProperty("59")]
+        [JsonProperty("22")]
         public bool? Concrete { set; get; }
-
         /// <summary>
         /// Thông tin địa chỉ
         /// </summary>
-        [JsonProperty("60")]
+        [JsonProperty("23")]
         public string Address { set; get; }
 
         /// <summary>
         /// Ngày hết hạn
         /// </summary>
-        [JsonProperty("61")]
+        [JsonProperty("24")]
         public DateTime ExpriedDate { set; get; }
 
         /// <summary>
         /// Đã hết hạn hay chưa
         /// </summary>
-        [JsonProperty("62")]
+        [JsonProperty("25")]
         public bool IsExpried { set; get; }
 
         /// <summary>
         /// Tốc độ GPS
         /// </summary>
-        [JsonProperty("63")]
+        [JsonProperty("26")]
         public int VelocityGPS { set; get; }
 
         /// <summary>
         /// Thời gian theo GPS
         /// </summary>
-        [JsonProperty("64")]
+        [JsonProperty("27")]
         public DateTime GPSTime { set; get; }
 
         /// <summary>
         /// Sở quản lý
         /// </summary>
-        [JsonProperty("65")]
+        [JsonProperty("28")]
         public string DepartmentManager { set; get; }
-
-        /// <summary>
-        /// Trạng thái của thẻ nhớ
-        /// </summary>
-        [JsonProperty("66")]
-        public MemoryStatus MemoryStatus { set; get; }
-
-        /// <summary>
-        /// Danh sách thông tin nhiên liệu
-        /// </summary>
-        [JsonProperty("67")]
-        public double[] NumberLitsOfPerBottle { set; get; }
-
-        /// <summary>
-        /// Loại hình vận tải - loại xe
-        /// </summary>
-        [JsonProperty("68")]
-        public byte? TransportTypeID { set; get; }
-
-        /// <summary>
-        /// Số điện thoại đăng kí của xe
-        /// </summary>
-        [JsonProperty("69")]
-        public string PhoneNumber { set; get; }
 
         /// <summary>
         /// Trạng thái ACC
         /// </summary>
-        [JsonProperty("70")]
+        [JsonProperty("29")]
         public bool? AccStatus { set; get; }
 
-        [JsonProperty("71")]
-        public uint LogfileProcessModules { set; get; }
-
-        [JsonProperty("72")]
-        public int CancelErrorOptions { set; get; }
-
-        [JsonProperty("73")]
+        [JsonProperty("30")]
         public bool? Door { set; get; }
 
-        [JsonProperty("74")]
+        [JsonProperty("31")]
         public bool? ConcretePump { set; get; }
 
         /// <summary>
         /// Số IMEI đăng kí của xe
         /// </summary>
-        [JsonProperty("75")]
+        [JsonProperty("32")]
         public string IMEI { set; get; }
 
         /// <summary>
         /// Ngày đăng ký dịch vụ
         /// </summary>
-        [JsonProperty("76")]
+        [JsonProperty("33")]
         public DateTime JoinSystemDate { set; get; }
 
         /// <summary>
-        /// Số sim điện thoại đăng ký
+        /// Số sim điện thoại đăng kí 
         /// </summary>
-        [JsonProperty("77")]
+        [JsonProperty("34")]
         public string SIMPhoneNumber { set; get; }
 
         ////////////////////////////////////////
@@ -408,7 +359,7 @@ namespace BA_MobileGPS.Entities
         public int DrivingViolationCount { set; get; }
 
         [JsonProperty("4")]
-        public string MemoryStatusLabel { set; get; }
+        public string MemoryStatusLabel { set; get; } 
 
         [JsonProperty("5")]
         public int MinutesOfDrivingTimeContinuous { set; get; }
@@ -418,12 +369,6 @@ namespace BA_MobileGPS.Entities
 
         [JsonProperty("7")]
         public string MobileNumber { set; get; }
-
-        [JsonProperty("8")]
-        public string PrinterLineStatus { set; get; }
-
-        [JsonProperty("9")]
-        public string VIN { set; get; }
     }
 
     public class VehicleNl

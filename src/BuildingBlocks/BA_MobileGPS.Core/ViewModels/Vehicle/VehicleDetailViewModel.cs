@@ -77,8 +77,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public string VehiclePlate { get; set; }
 
-        private VehicleOnlineDetailViewModel inforDetail;
-        public VehicleOnlineDetailViewModel InforDetail { get => inforDetail; set => SetProperty(ref inforDetail, value); }
+        private Entities.VehicleDetailViewModel inforDetail;
+        public Entities.VehicleDetailViewModel InforDetail { get => inforDetail; set => SetProperty(ref inforDetail, value); }
 
         private string fuel;
         public string Fuel { get => fuel; set => SetProperty(ref fuel, value); }
@@ -165,21 +165,31 @@ namespace BA_MobileGPS.Core.ViewModels
                     // gọi service để lấy dữ liệu trả về
                     var input = new DetailVehicleRequest()
                     {
-                        UserId = userID,
-                        vehicleID = PK_VehicleID,
-                        vehiclePlate = VehiclePlate,
+                        //UserId = userID,
+                        //vehicleID = PK_VehicleID,
+                        //vehiclePlate = VehiclePlate,
+                        XnCode = StaticSettings.User.XNCode,
+                        VehiclePlate = VehiclePlate,
+                        CompanyId = StaticSettings.User.CompanyId
                     };
-                    var response = await detailVehicleService.LoadAllInforVehicle(input);
+                    var response = await detailVehicleService.GetVehicleDetail(input);
 
                     if (response != null)
                     {
                         InforDetail = response;
-                        Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
+                        if (response.VehicleNl == null)
+                        {
+                            InforDetail.VehicleNl = new VehicleNl();
+                        }
+                        else
+                        {
+                            Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
+                        }                                             
                         Temperature = response.Temperature2 == null ? string.Format("[{0} °C]", response.Temperature) : string.Format("[{0} °C]", response.Temperature) + " - " + string.Format("[{0} °C]", response.Temperature2);
                         VehicleTime = response.VehicleTime;
                         VelocityGPS = response.VelocityGPS;
-                        TotalKm = (float)response.TotalKm;
-                        StopTime = (int)response.StopTime;
+                        TotalKm = response.TotalKm.GetValueOrDefault();
+                        StopTime = response.StopTime.GetValueOrDefault();
 
                         //Động cơ
                         EngineState = StateVehicleExtension.EngineState(new VehicleOnline
@@ -188,7 +198,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             IconCode = response.IconVehicle,
                             State = response.StatusEngineer.GetValueOrDefault(),
                             Velocity = response.VelocityGPS,
-                            GPSTime = response.VehicleTime,
+                            GPSTime = response.GPSTime,
                             IsEnableAcc = response.AccStatus.GetValueOrDefault()
                         });
 
@@ -201,9 +211,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             MessageInforChargeMoney = string.Empty;
                         }
-                    }
-
-                    Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
+                    }                   
                 }
                 else
                 {
@@ -217,6 +225,7 @@ namespace BA_MobileGPS.Core.ViewModels
             finally
             {
                 IsBusy = false;
+                Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
             }
         }
 

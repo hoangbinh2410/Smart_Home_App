@@ -6,7 +6,7 @@ namespace BA_MobileGPS
 {
     public interface IDetailVehicleService
     {
-        Task<VehicleOnlineDetailViewModel> LoadAllInforVehicle(DetailVehicleRequest input);
+        Task<VehicleDetailViewModel> GetVehicleDetail(DetailVehicleRequest input);
 
         Task<ShipDetailRespone> GetShipDetail(ShipDetailRequest input);
     }
