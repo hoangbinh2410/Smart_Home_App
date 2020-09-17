@@ -165,9 +165,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     // gọi service để lấy dữ liệu trả về
                     var input = new DetailVehicleRequest()
                     {
-                        //UserId = userID,
-                        //vehicleID = PK_VehicleID,
-                        //vehiclePlate = VehiclePlate,
                         XnCode = StaticSettings.User.XNCode,
                         VehiclePlate = VehiclePlate,
                         CompanyId = StaticSettings.User.CompanyId
