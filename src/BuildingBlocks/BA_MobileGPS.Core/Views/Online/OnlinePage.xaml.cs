@@ -981,17 +981,23 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         private async void ShowBoxInfo()
         {
-            AppSettings.IsNextTab = false;
             SetPaddingWithFooter();
-            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(false);
+            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(AppSettings.IsNextTab);
             await _animations.Go(States.ShowFilter, true);
+            AppSettings.IsNextTab = false;
         }
 
-        private void ShowTabItem(bool check)
+        private async void ShowTabItem(bool check)
         {
             if (AppSettings.IsNextTab == check)
             {
-                HideBoxInfo();
+                vm.CarSearch = string.Empty;
+                if (mCarActive != null && mCarActive.VehicleId > 0)
+                {
+                    HideBoxInfoCarActive(mCarActive);
+                }
+                SetNoPaddingWithFooter();
+                await _animations.Go(States.HideFilter, true);
             }
         }
 
