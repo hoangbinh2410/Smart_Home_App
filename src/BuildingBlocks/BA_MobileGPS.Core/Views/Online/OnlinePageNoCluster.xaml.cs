@@ -948,7 +948,6 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         public async void HideBoxInfo()
         {
-            AppSettings.IsNextTab = false;
             SetNoPaddingWithFooter();
             eventAggregator.GetEvent<ShowTabItemEvent>().Publish(true);
             await _animations.Go(States.HideFilter, true);
@@ -959,24 +958,40 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         private async void ShowBoxInfo()
         {
-            SetPaddingWithFooter();
-            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(AppSettings.IsNextTab);
-            await _animations.Go(States.ShowFilter, true);
-            AppSettings.IsNextTab = false;
+            if (AppSettings.IsNextTab)
+            {
+                AppSettings.IsNextTab = false;
+            }
+            else
+            {
+                SetPaddingWithFooter();
+                eventAggregator.GetEvent<ShowTabItemEvent>().Publish(false);
+                await _animations.Go(States.ShowFilter, true);
+                AppSettings.IsNextTab = false;
+            }
         }
 
-        private async void ShowTabItem(bool check)
+        private async void ShowTabItem()
         {
-            if (AppSettings.IsNextTab == check)
+            HideBoxStatus(); // ẩn tạm chưa có box trạng thái
+
+            SetNoPaddingWithFooter();
+
+            await _animations.Go(States.HideFilter, true);
+
+            if (mCarActive.VehicleId > 0)
             {
-                vm.CarSearch = string.Empty;
-                if (mCarActive != null && mCarActive.VehicleId > 0)
-                {
-                    HideBoxInfoCarActive(mCarActive);
-                }
-                SetNoPaddingWithFooter();
-                await _animations.Go(States.HideFilter, true);
+                UpdateBackgroundPinLable(mCarActive);
             }
+
+            vm.CarActive = new VehicleOnline();
+            mCarActive = new VehicleOnline();
+            btnDirectvehicleOnline.IsVisible = false;
+
+            if(AppSettings.IsNextTab)
+            {
+                AppSettings.IsNextTab = false;
+            }    
         }
 
         /* Set padding map khi có thông tin xe ở footer - tracking */

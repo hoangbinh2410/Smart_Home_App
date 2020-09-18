@@ -131,13 +131,21 @@ namespace BA_MobileGPS.Core.Views
                 {
                     this.eventAggregator.GetEvent<TabSelectedChangedEvent>().Publish(index);
 
-                    AppSettings.IsNextTab = true;
+                    if (!AppSettings.IsNextTab)
+                    {
+                        eventAggregator.GetEvent<ShowTabItemOnlineEvent>().Publish();
 
-                    eventAggregator.GetEvent<ShowTabItemOnlineEvent>().Publish(AppSettings.IsNextTab);
+                        ViewExtensions.CancelAnimations(TabHost);
 
-                    ViewExtensions.CancelAnimations(TabHost);
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            await _animations.Go(States.ShowFilter, false);
+                        });
 
-                    ShowTab();
+                        AppSettings.IsNextTab = true;
+                    }
+
+
                 }
 
                 previousIndex = index;
@@ -184,12 +192,12 @@ namespace BA_MobileGPS.Core.Views
                 }
 
                 _animations.Add(States.ShowFilter, new[] {
-                                                            new ViewTransition(TabHost, AnimationType.TranslationY, 0, 300, delay: 300), // Active and visible
+                                                            new ViewTransition(TabHost, AnimationType.TranslationY, 0, 100, delay: 100), // Active and visible
                                                 new ViewTransition(TabHost, AnimationType.Opacity, 1, 0), // Active and visible
                                                           });
 
                 _animations.Add(States.HideFilter, new[] {
-                                                            new ViewTransition(TabHost, AnimationType.TranslationY, 300),
+                                                            new ViewTransition(TabHost, AnimationType.TranslationY, 100),
                                                             new ViewTransition(TabHost, AnimationType.Opacity, 0),
                                                           });
 
@@ -205,19 +213,18 @@ namespace BA_MobileGPS.Core.Views
 
         private void ShowTabItem(bool check)
         {
-            if(!AppSettings.IsNextTab)
+
+
+            if (check)
             {
-                if (check)
-                {
-                    ShowTab();
-                }
-                else
-                {
-                    HideTab();
-                }
-            }    
-                
-            
+                ShowTab();
+            }
+            else
+            {
+                HideTab();
+            }
+
+
         }
 
         /// <summary>
@@ -233,13 +240,7 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         private async void ShowTab()
         {
-
-            //ViewExtensions.CancelAnimations(TabHost);
-
-
-
             await _animations.Go(States.ShowFilter, true);
-
         }
 
         public virtual bool CheckPermision(int PermissionKey)

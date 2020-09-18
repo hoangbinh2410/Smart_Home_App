@@ -6,7 +6,7 @@ namespace BA_MobileGPS.Core
     {
     }
 
-    public class ShowTabItemOnlineEvent : PubSubEvent<bool>
+    public class ShowTabItemOnlineEvent : PubSubEvent
     {
     }
 }
