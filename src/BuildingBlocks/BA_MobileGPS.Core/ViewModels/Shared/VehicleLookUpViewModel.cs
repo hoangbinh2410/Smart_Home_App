@@ -35,6 +35,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private static List<Vehicle> ListVehicleOrigin = new List<Vehicle>();
 
+        private List<VehicleOnline> ListResultOnline = new List<VehicleOnline>();
+
         private List<Vehicle> listVehicle = new List<Vehicle>();
         public List<Vehicle> ListVehicle { get => listVehicle; set => SetProperty(ref listVehicle, value); }
 
@@ -57,12 +59,6 @@ namespace BA_MobileGPS.Core.ViewModels
             SearchVehicleCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehicle);
         }
 
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-            InitData();
-        }
-
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             if (parameters != null)
@@ -71,6 +67,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     LookUpType = type;
                     SelectedVehicleGroups = VehicleGroups;
+                    InitData();
                 }
             }
         }
@@ -131,8 +128,8 @@ namespace BA_MobileGPS.Core.ViewModels
             List<Vehicle> result = new List<Vehicle>();
             try
             {
-                var listOnline = StaticSettings.ListVehilceOnline.DeepCopy();
-
+                var listOnline = StaticSettings.ListVehilceOnline;
+                
                 if (isRoute)
                 {
                     listOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
@@ -142,8 +139,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     var groupid = groupids.Split(',');
                     foreach (var item in groupid)
                     {
-                        listOnline = listOnline.FindAll(v => v.GroupIDs.Split(',').Contains(item));
-                        foreach (var lst in listOnline)
+                        ListResultOnline = listOnline.FindAll(v => v.GroupIDs.Split(',').Contains(item));
+                        foreach (var lst in ListResultOnline)
                         {
                             result.Add(AddListVehicle(lst));
                         }
