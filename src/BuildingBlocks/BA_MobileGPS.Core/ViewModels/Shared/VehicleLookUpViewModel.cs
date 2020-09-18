@@ -78,19 +78,13 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var currentCompany = Settings.CurrentCompany;
 
-                string groupid = string.Empty;
-                if (SelectedVehicleGroups != null && SelectedVehicleGroups.Length > 0)
-                {
-                    groupid = string.Join(",", SelectedVehicleGroups);
-                }
-
                 if (LookUpType == VehicleLookUpType.VehicleRoute)
                 {
-                    return GetListVehicle(groupid, true);
+                    return GetListVehicle(SelectedVehicleGroups, true);
                 }
                 else
                 {
-                    return GetListVehicle(groupid);
+                    return GetListVehicle(SelectedVehicleGroups);
                 }
             }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
@@ -123,7 +117,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }));
         }
 
-        public List<Vehicle> GetListVehicle(string groupids, bool isRoute = false)
+        public List<Vehicle> GetListVehicle(int[] groupids, bool isRoute = false)
         {
             List<Vehicle> result = new List<Vehicle>();
             try
@@ -134,12 +128,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     listOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
                 }
-                if (!string.IsNullOrEmpty(groupids))
+                if(groupids != null && groupids.Length > 0)
                 {
-                    var groupid = groupids.Split(',');
-                    foreach (var item in groupid)
+                    foreach (var item in groupids)
                     {
-                        ListResultOnline = listOnline.FindAll(v => v.GroupIDs.Split(',').Contains(item));
+                        ListResultOnline = listOnline.FindAll(v => v.GroupIDs.Contains(item.ToString()));
                         foreach (var lst in ListResultOnline)
                         {
                             result.Add(AddListVehicle(lst));

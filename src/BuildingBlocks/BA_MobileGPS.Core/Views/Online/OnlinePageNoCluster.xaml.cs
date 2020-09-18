@@ -82,6 +82,7 @@ namespace BA_MobileGPS.Core.Views
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
+            this.eventAggregator.GetEvent<ShowTabItemOnlineEvent>().Subscribe(ShowTabItem);
 
             IsInitMarker = false;
 
@@ -177,6 +178,7 @@ namespace BA_MobileGPS.Core.Views
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
+            this.eventAggregator.GetEvent<ShowTabItemOnlineEvent>().Unsubscribe(ShowTabItem);
         }
 
         #endregion Lifecycle
@@ -310,7 +312,11 @@ namespace BA_MobileGPS.Core.Views
                                                             new ViewTransition(boxInfo, AnimationType.Opacity, 0),
                                                           });
 
+
                 await _animations.Go(States.HideFilter, false);
+
+
+
 
                 var pageWidth = Xamarin.Forms.Application.Current?.MainPage?.Width;
 
@@ -329,7 +335,10 @@ namespace BA_MobileGPS.Core.Views
                                                           });
                 }
 
+
                 await _animations.Go(States.HideStatus, false);
+
+
             }
             catch (Exception ex)
             {
@@ -755,6 +764,8 @@ namespace BA_MobileGPS.Core.Views
 
         private void ShowBoxInfoCarActive(VehicleOnline carInfo, int messageId, int dataExt)
         {
+
+
             //nếu messageId==128 thì là xe dừng dịch vụ
             if (messageId == 128)
             {
@@ -937,6 +948,7 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         public async void HideBoxInfo()
         {
+            AppSettings.IsNextTab = false;
             SetNoPaddingWithFooter();
             eventAggregator.GetEvent<ShowTabItemEvent>().Publish(true);
             await _animations.Go(States.HideFilter, true);
@@ -948,8 +960,23 @@ namespace BA_MobileGPS.Core.Views
         private async void ShowBoxInfo()
         {
             SetPaddingWithFooter();
-            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(false);
+            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(AppSettings.IsNextTab);
             await _animations.Go(States.ShowFilter, true);
+            AppSettings.IsNextTab = false;
+        }
+
+        private async void ShowTabItem(bool check)
+        {
+            if (AppSettings.IsNextTab == check)
+            {
+                vm.CarSearch = string.Empty;
+                if (mCarActive != null && mCarActive.VehicleId > 0)
+                {
+                    HideBoxInfoCarActive(mCarActive);
+                }
+                SetNoPaddingWithFooter();
+                await _animations.Go(States.HideFilter, true);
+            }
         }
 
         /* Set padding map khi có thông tin xe ở footer - tracking */

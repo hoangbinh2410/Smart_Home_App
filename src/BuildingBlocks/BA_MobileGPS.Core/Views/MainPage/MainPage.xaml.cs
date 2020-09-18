@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Events;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
@@ -18,6 +19,8 @@ namespace BA_MobileGPS.Core.Views
     public partial class MainPage : ContentPage
     {
         private bool checkpermissiononline = false;
+
+        private Stopwatch sw = new Stopwatch();
         public MainPage()
         {
             InitializeComponent();
@@ -124,12 +127,21 @@ namespace BA_MobileGPS.Core.Views
                     ((BottomTabItem)tabitem.Tabs[index]).IconImageSource = path;
                 }
 
-                if(this.eventAggregator != null)
+                if (this.eventAggregator != null)
                 {
                     this.eventAggregator.GetEvent<TabSelectedChangedEvent>().Publish(index);
+
+                    AppSettings.IsNextTab = true;
+
+                    eventAggregator.GetEvent<ShowTabItemOnlineEvent>().Publish(AppSettings.IsNextTab);
+
+                    ViewExtensions.CancelAnimations(TabHost);
+
+                    ShowTab();
                 }
 
                 previousIndex = index;
+
             }
         }
 
@@ -181,7 +193,9 @@ namespace BA_MobileGPS.Core.Views
                                                             new ViewTransition(TabHost, AnimationType.Opacity, 0),
                                                           });
 
-                await _animations.Go(States.ShowFilter, false);
+
+                await _animations.Go(States.HideStatus, false);
+
             }
             catch (Exception ex)
             {
@@ -191,20 +205,25 @@ namespace BA_MobileGPS.Core.Views
 
         private void ShowTabItem(bool check)
         {
-            if (check)
+            if(!AppSettings.IsNextTab)
             {
-                ShowBoxInfo();
-            }
-            else
-            {
-                HideBoxInfo();
-            }
+                if (check)
+                {
+                    ShowTab();
+                }
+                else
+                {
+                    HideTab();
+                }
+            }    
+                
+            
         }
 
         /// <summary>
         /// ẩn tab
         /// </summary>
-        public async void HideBoxInfo()
+        public async void HideTab()
         {
             await _animations.Go(States.HideFilter, true);
         }
@@ -212,9 +231,15 @@ namespace BA_MobileGPS.Core.Views
         /// <summary>
         /// Hiển thị tab
         /// </summary>
-        private async void ShowBoxInfo()
+        private async void ShowTab()
         {
+
+            //ViewExtensions.CancelAnimations(TabHost);
+
+
+
             await _animations.Go(States.ShowFilter, true);
+
         }
 
         public virtual bool CheckPermision(int PermissionKey)

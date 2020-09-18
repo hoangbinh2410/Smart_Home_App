@@ -96,6 +96,7 @@ namespace BA_MobileGPS.Core.Views
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
+            this.eventAggregator.GetEvent<ShowTabItemOnlineEvent>().Subscribe(ShowTabItem);
 
             IsInitMarker = false;
 
@@ -198,6 +199,7 @@ namespace BA_MobileGPS.Core.Views
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
+            this.eventAggregator.GetEvent<ShowTabItemOnlineEvent>().Unsubscribe(ShowTabItem);
         }
 
         #endregion Lifecycle
@@ -968,6 +970,7 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         public async void HideBoxInfo()
         {
+            AppSettings.IsNextTab = false;
             SetNoPaddingWithFooter();
             eventAggregator.GetEvent<ShowTabItemEvent>().Publish(true);
             await _animations.Go(States.HideFilter, true);
@@ -978,9 +981,18 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         private async void ShowBoxInfo()
         {
+            AppSettings.IsNextTab = false;
             SetPaddingWithFooter();
             eventAggregator.GetEvent<ShowTabItemEvent>().Publish(false);
             await _animations.Go(States.ShowFilter, true);
+        }
+
+        private void ShowTabItem(bool check)
+        {
+            if (AppSettings.IsNextTab == check)
+            {
+                HideBoxInfo();
+            }
         }
 
         /* Set padding map khi có thông tin xe ở footer - tracking */
