@@ -201,7 +201,9 @@
         public const string POST_READYFORSTREAM = "api/stream/start";
         public const string POST_ENDSTREAM = "api/stream/stop";
         public const string POST_GETMORETIMESTREAM = "api/stream/ping";
-        public const string GET_DEVICESTREAMINFOR = "api/stream/devices?conditionType={0}&conditionValue={1}";
+        public const string GET_DEVICESTREAMINFOR = "api/stream/devices";
+        public const string GET_IMAGESLIMIT = "api/stream/getimagelimit";
+        public const string GET_IMAGESTIME = "api/stream/getimagetime";
         #endregion Camera
 
         #region Guide

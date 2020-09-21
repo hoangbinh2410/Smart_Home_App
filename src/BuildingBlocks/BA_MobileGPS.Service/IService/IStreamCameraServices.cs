@@ -19,8 +19,10 @@ namespace BA_MobileGPS.Service.IService
         /// 3: Tìm theo IMEI</param>
         /// <param name="conditionValue">Thông tin tìm kiếm</param>
         /// <returns></returns>
-        Task<StreamDevicesResponse> GetDevicesStatus(int conditionType, string conditionValue);
+        Task<StreamDevicesResponse> GetDevicesStatus(int type, string value);
 
-       
+        Task<List<CaptureImageData>> GetCaptureImageLimit(string xncode, string vehiclePlate, string limit);
+
+        Task<List<CaptureImageData>> GetCaptureImageTime(string xncode, string vehiclePlate, DateTime fromTime, DateTime toTime);
     }
 }

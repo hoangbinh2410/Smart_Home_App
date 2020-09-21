@@ -6,9 +6,9 @@ namespace BA_MobileGPS.Entities
 {
     public abstract class StreamRequestBase
     {
-        public int CustomerID { get; set; }
+        public string xnCode { get; set; }
 
-        public string VehicleName { get; set; }
+        public string VehiclePlate { get; set; }
 
         public int Channel { get; set; }
     }

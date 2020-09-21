@@ -17,12 +17,13 @@ namespace BA_MobileGPS.Service.Service
         {
             this.requestProvider = requestProvider;
         }
-        public async Task<StreamDevicesResponse> GetDevicesStatus(int conditionType, string conditionValue)
+
+        public async Task<StreamDevicesResponse> GetDevicesStatus(int type, string value)
         {
             var result = new StreamDevicesResponse();
             try
-            {             
-                string url=  string.Format(ApiUri.GET_DEVICESTREAMINFOR, conditionType, conditionValue);
+            {
+                string url = string.Format(ApiUri.GET_DEVICESTREAMINFOR + "?conditionType={0}&conditionValue={1}", type, value);
                 result = await requestProvider.GetAsync<StreamDevicesResponse>(url);
             }
             catch (Exception ex)
@@ -31,6 +32,7 @@ namespace BA_MobileGPS.Service.Service
             }
             return result;
         }
+
 
         public async Task<StreamPingResponse> RequestMoreStreamTime(StreamPingRequest request)
         {
@@ -41,15 +43,15 @@ namespace BA_MobileGPS.Service.Service
                 result = await requestProvider.PostAsync<StreamPingRequest, StreamPingResponse>(url, request);
             }
             catch (Exception ex)
-            {              
+            {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-               
+
             }
             return result;
         }
 
         public async Task<StreamStartResponse> StartStream(StreamStartRequest request)
-        {           
+        {
             var result = new StreamStartResponse();
             try
             {
@@ -80,5 +82,42 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
+        public async Task<List<CaptureImageData>> GetCaptureImageLimit(string xncode, string vehiclePlate, string limit)
+        {
+            var result = new List<CaptureImageData>();
+            try
+            {
+                string url = string.Format(ApiUri.GET_IMAGESLIMIT + "?xncode={0}&vehiclePlate={1}&limit={2}", xncode, vehiclePlate, limit);
+                var response = await requestProvider.GetAsync<ResponseStreamBase<List<CaptureImageData>>>(url);
+                if (response != null && response.Data.Count > 0)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<List<CaptureImageData>> GetCaptureImageTime(string xncode, string vehiclePlate, DateTime fromTime, DateTime toTime)
+        {
+            var result = new List<CaptureImageData>();
+            try
+            {
+                string url = string.Format(ApiUri.GET_IMAGESTIME + "?xncode={0}&vehiclePlate={1}&fromTime={2}&toTime={3}", xncode, vehiclePlate, fromTime, toTime);
+                var response = await requestProvider.GetAsync<ResponseStreamBase<List<CaptureImageData>>>(url);
+                if (response != null && response.Data.Count > 0)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
     }
 }

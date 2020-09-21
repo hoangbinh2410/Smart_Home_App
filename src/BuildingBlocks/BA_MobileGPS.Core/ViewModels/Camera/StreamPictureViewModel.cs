@@ -99,9 +99,9 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             request = new StreamStartRequest()
                             {
-                                Channel = data.CameraChannel,
-                                CustomerID = Convert.ToInt32(data.CustomerID),
-                                VehicleName = data.VehicleName
+                                //Channel = data.CameraChannel,
+                                xnCode = data.XnCode,
+                                VehiclePlate = data.VehiclePlate
                             };
                             var camResponse = await streamCameraService.StartStream(request);
                             temp.AddRange(camResponse.Data);
