@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Events;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
@@ -18,6 +19,8 @@ namespace BA_MobileGPS.Core.Views
     public partial class MainPage : ContentPage
     {
         private bool checkpermissiononline = false;
+
+        private Stopwatch sw = new Stopwatch();
         public MainPage()
         {
             InitializeComponent();
@@ -124,12 +127,29 @@ namespace BA_MobileGPS.Core.Views
                     ((BottomTabItem)tabitem.Tabs[index]).IconImageSource = path;
                 }
 
-                if(this.eventAggregator != null)
+                if (this.eventAggregator != null)
                 {
                     this.eventAggregator.GetEvent<TabSelectedChangedEvent>().Publish(index);
+
+                    if (!AppSettings.IsNextTab)
+                    {
+                        eventAggregator.GetEvent<ShowTabItemOnlineEvent>().Publish();
+
+                        ViewExtensions.CancelAnimations(TabHost);
+
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            await _animations.Go(States.ShowFilter, false);
+                        });
+
+                        AppSettings.IsNextTab = true;
+                    }
+
+
                 }
 
                 previousIndex = index;
+
             }
         }
 
@@ -172,16 +192,18 @@ namespace BA_MobileGPS.Core.Views
                 }
 
                 _animations.Add(States.ShowFilter, new[] {
-                                                            new ViewTransition(TabHost, AnimationType.TranslationY, 0, 300, delay: 300), // Active and visible
+                                                            new ViewTransition(TabHost, AnimationType.TranslationY, 0, 100, delay: 100), // Active and visible
                                                 new ViewTransition(TabHost, AnimationType.Opacity, 1, 0), // Active and visible
                                                           });
 
                 _animations.Add(States.HideFilter, new[] {
-                                                            new ViewTransition(TabHost, AnimationType.TranslationY, 300),
+                                                            new ViewTransition(TabHost, AnimationType.TranslationY, 100),
                                                             new ViewTransition(TabHost, AnimationType.Opacity, 0),
                                                           });
 
-                await _animations.Go(States.ShowFilter, false);
+
+                await _animations.Go(States.HideStatus, false);
+
             }
             catch (Exception ex)
             {
@@ -191,20 +213,24 @@ namespace BA_MobileGPS.Core.Views
 
         private void ShowTabItem(bool check)
         {
+
+
             if (check)
             {
-                ShowBoxInfo();
+                ShowTab();
             }
             else
             {
-                HideBoxInfo();
+                HideTab();
             }
+
+
         }
 
         /// <summary>
         /// ẩn tab
         /// </summary>
-        public async void HideBoxInfo()
+        public async void HideTab()
         {
             await _animations.Go(States.HideFilter, true);
         }
@@ -212,7 +238,7 @@ namespace BA_MobileGPS.Core.Views
         /// <summary>
         /// Hiển thị tab
         /// </summary>
-        private async void ShowBoxInfo()
+        private async void ShowTab()
         {
             await _animations.Go(States.ShowFilter, true);
         }
