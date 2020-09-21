@@ -85,15 +85,16 @@ namespace BA_MobileGPS.Core.ViewModels
             });
 
         }
-
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
 
-            TryExecute(() =>
+            TryExecute(async () =>
             {
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
+                await ConnectSignalROnline();
+                InitVehilceOnline();
                 // Lấy danh sách cảnh báo
                 GetCountAlert();
 
@@ -141,6 +142,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (IsConnected)
             {
+                await ConnectSignalROnline();
                 await ConnectSignalR();
                 if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                 {
@@ -300,6 +302,13 @@ namespace BA_MobileGPS.Core.ViewModels
             await alertHubService.Connect();
 
             alertHubService.onReceiveAlertSignalR += OnReceiveAlertSignalR;
+        }
+        private async Task ConnectSignalROnline()
+        {
+            // Khởi tạo signalR
+            await vehicleOnlineHubService.Connect();
+
+            vehicleOnlineHubService.onReceiveSendCarSignalR += OnReceiveSendCarSignalR;
         }
 
         private async void DisconnectSignalR()
