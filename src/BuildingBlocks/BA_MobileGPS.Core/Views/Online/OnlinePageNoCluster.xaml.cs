@@ -490,7 +490,7 @@ namespace BA_MobileGPS.Core.Views
                 if (carActive)
                 {
                     vm.CarActive = carInfo;
-                    vm.EngineState = StateVehicleExtension.EngineState(carInfo);
+                    vm.EngineState = carInfo.StatusEngineer;
                 }
 
                 carInfo.IconImage = IconCodeHelper.GetMarkerResource(carInfo);
