@@ -522,6 +522,7 @@ namespace BA_MobileGPS.Core.Views
                 }
                 else
                 {
+                    item.Rotation = carInfo.Direction * 45;
                     itemLable.Position = new Position(carInfo.Lat, carInfo.Lng);
                     item.Position = new Position(carInfo.Lat, carInfo.Lng);
                     if (carActive)
