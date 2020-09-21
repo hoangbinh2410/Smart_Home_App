@@ -341,7 +341,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     vehicle.TotalKm = carInfo.TotalKm;
                 }
-                vehicle.StatusEngineer = StateVehicleExtension.EngineState(carInfo);
+                vehicle.StatusEngineer = carInfo.StatusEngineer;
                 vehicle.IconImage = IconCodeHelper.GetMarkerResource(carInfo);
 
                 if (CompanyConfigurationHelper.VehicleOnlineAddressEnabled)

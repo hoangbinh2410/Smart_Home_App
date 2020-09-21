@@ -393,7 +393,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void SendDataCar(VehicleOnlineMessage carInfo)
         {
             var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == carInfo.VehicleId);
-            if (vehicle != null && !StateVehicleExtension.IsVehicleDebtMoney(vehicle.MessageId, vehicle.DataExt))
+            if (vehicle != null && !StateVehicleExtension.IsVehicleDebtMoney(vehicle.MessageId, vehicle.DataExt) && vehicle.VehicleTime < carInfo.VehicleTime)
             {
                 vehicle.Update(carInfo);
                 vehicle.IconImage = IconCodeHelper.GetMarkerResource(vehicle);
