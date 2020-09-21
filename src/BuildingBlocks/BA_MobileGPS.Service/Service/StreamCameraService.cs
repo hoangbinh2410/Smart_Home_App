@@ -23,7 +23,7 @@ namespace BA_MobileGPS.Service.Service
             var result = new StreamDevicesResponse();
             try
             {
-                string url = string.Format(ApiUri.GET_DEVICESTREAMINFOR + "?conditionType={0}&conditionValue={1}", type, value);
+                string url = string.Format(ApiUri.GET_DEVICESTREAMINFOR + "?type={0}&value={1}", type, value);
                 result = await requestProvider.GetAsync<StreamDevicesResponse>(url);
             }
             catch (Exception ex)
