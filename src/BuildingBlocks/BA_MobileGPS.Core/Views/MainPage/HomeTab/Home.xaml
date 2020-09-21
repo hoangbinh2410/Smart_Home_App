@@ -194,10 +194,24 @@
                         CornerRadius="10"
                         HasShadow="False">
                         <StackLayout Spacing="0">
-                            <Label
-                                x:Name="lblFeatures"
-                                Padding="10"
-                                StyleClass="GroupTitleLabel,BoldText" />
+                            <StackLayout Orientation="Horizontal">
+                                <Label
+                                    x:Name="lblFeatures"
+                                    Padding="10"
+                                    StyleClass="GroupTitleLabel,BoldText" />
+                                <controls:IconView
+                                    Margin="0,0,5,0"
+                                    Foreground="LightCoral"
+                                    HeightRequest="30"
+                                    HorizontalOptions="EndAndExpand"
+                                    Source="ic_camera.png"
+                                    VerticalOptions="Center">
+                                    <controls:IconView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding GotoCameraPageCommand}" NumberOfTapsRequired="1" />
+                                    </controls:IconView.GestureRecognizers>
+                                </controls:IconView>
+                            </StackLayout>
+
                             <BoxView class="SlimLine" />
                             <Grid
                                 x:Name="parentFeatures"

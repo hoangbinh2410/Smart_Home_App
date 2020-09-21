@@ -111,8 +111,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 await NavigationService.GoBackAsync();
             });
-            base.OnSleep();
-           
+            base.OnSleep();          
         }
 
         public override void OnDestroy()

@@ -4368,8 +4368,8 @@ namespace BA_MobileGPS.Core.Droid
 			// aapt resource value: 0x7F0700E1
 			public static int googleg_standard_color_18 = 2131165409;
 			
-			// aapt resource value: 0x7F070258
-			public static int Icon = 2131165784;
+			// aapt resource value: 0x7F070259
+			public static int Icon = 2131165785;
 			
 			// aapt resource value: 0x7F0700E2
 			public static int ic_account = 2131165410;
@@ -5362,547 +5362,550 @@ namespace BA_MobileGPS.Core.Droid
 			public static int ic_ratingstar = 2131165739;
 			
 			// aapt resource value: 0x7F07022C
-			public static int ic_route = 2131165740;
+			public static int ic_refresh = 2131165740;
 			
 			// aapt resource value: 0x7F07022D
-			public static int ic_routesolid = 2131165741;
+			public static int ic_route = 2131165741;
 			
 			// aapt resource value: 0x7F07022E
-			public static int ic_save = 2131165742;
+			public static int ic_routesolid = 2131165742;
 			
 			// aapt resource value: 0x7F07022F
-			public static int ic_search = 2131165743;
+			public static int ic_save = 2131165743;
 			
 			// aapt resource value: 0x7F070230
-			public static int ic_settings = 2131165744;
+			public static int ic_search = 2131165744;
 			
 			// aapt resource value: 0x7F070231
-			public static int ic_sharecircle = 2131165745;
+			public static int ic_settings = 2131165745;
 			
 			// aapt resource value: 0x7F070232
-			public static int ic_ship = 2131165746;
+			public static int ic_sharecircle = 2131165746;
 			
 			// aapt resource value: 0x7F070233
-			public static int ic_shipsolid = 2131165747;
+			public static int ic_ship = 2131165747;
 			
 			// aapt resource value: 0x7F070234
-			public static int ic_shortlogo = 2131165748;
+			public static int ic_shipsolid = 2131165748;
 			
 			// aapt resource value: 0x7F070235
-			public static int ic_sortdown = 2131165749;
+			public static int ic_shortlogo = 2131165749;
 			
 			// aapt resource value: 0x7F070236
-			public static int ic_speed = 2131165750;
+			public static int ic_sortdown = 2131165750;
 			
 			// aapt resource value: 0x7F070237
-			public static int ic_start = 2131165751;
+			public static int ic_speed = 2131165751;
 			
 			// aapt resource value: 0x7F070238
-			public static int ic_stop = 2131165752;
+			public static int ic_start = 2131165752;
 			
 			// aapt resource value: 0x7F070239
-			public static int ic_stop_light = 2131165753;
+			public static int ic_stop = 2131165753;
 			
 			// aapt resource value: 0x7F07023A
-			public static int ic_stop_white = 2131165754;
+			public static int ic_stop_light = 2131165754;
 			
 			// aapt resource value: 0x7F07023B
-			public static int ic_successstatus = 2131165755;
+			public static int ic_stop_white = 2131165755;
 			
 			// aapt resource value: 0x7F07023C
-			public static int ic_support = 2131165756;
+			public static int ic_successstatus = 2131165756;
 			
 			// aapt resource value: 0x7F07023D
-			public static int ic_telephone = 2131165757;
+			public static int ic_support = 2131165757;
 			
 			// aapt resource value: 0x7F07023E
-			public static int ic_temperature = 2131165758;
+			public static int ic_telephone = 2131165758;
 			
 			// aapt resource value: 0x7F07023F
-			public static int ic_time24 = 2131165759;
+			public static int ic_temperature = 2131165759;
 			
 			// aapt resource value: 0x7F070240
-			public static int ic_time_black = 2131165760;
+			public static int ic_time24 = 2131165760;
 			
 			// aapt resource value: 0x7F070241
-			public static int ic_time_running = 2131165761;
+			public static int ic_time_black = 2131165761;
 			
 			// aapt resource value: 0x7F070242
-			public static int ic_turnon_time_on_day = 2131165762;
+			public static int ic_time_running = 2131165762;
 			
 			// aapt resource value: 0x7F070243
-			public static int ic_unchecked_checkbox = 2131165763;
+			public static int ic_turnon_time_on_day = 2131165763;
 			
 			// aapt resource value: 0x7F070244
-			public static int ic_upgrade = 2131165764;
+			public static int ic_unchecked_checkbox = 2131165764;
 			
 			// aapt resource value: 0x7F070245
-			public static int ic_user = 2131165765;
+			public static int ic_upgrade = 2131165765;
 			
 			// aapt resource value: 0x7F070246
-			public static int ic_userwhite = 2131165766;
+			public static int ic_user = 2131165766;
 			
 			// aapt resource value: 0x7F070247
-			public static int ic_vector = 2131165767;
+			public static int ic_userwhite = 2131165767;
 			
 			// aapt resource value: 0x7F070248
-			public static int ic_vehicle = 2131165768;
+			public static int ic_vector = 2131165768;
 			
 			// aapt resource value: 0x7F070249
-			public static int ic_vehicleplate = 2131165769;
+			public static int ic_vehicle = 2131165769;
 			
 			// aapt resource value: 0x7F07024A
-			public static int ic_vehiclesolid = 2131165770;
+			public static int ic_vehicleplate = 2131165770;
 			
 			// aapt resource value: 0x7F07024B
-			public static int ic_velocity = 2131165771;
-			
-			// aapt resource value: 0x7F070254
-			public static int ic_volumespeaker = 2131165780;
+			public static int ic_vehiclesolid = 2131165771;
 			
 			// aapt resource value: 0x7F07024C
-			public static int ic_vol_mute = 2131165772;
-			
-			// aapt resource value: 0x7F07024D
-			public static int ic_vol_type_speaker_dark = 2131165773;
-			
-			// aapt resource value: 0x7F07024E
-			public static int ic_vol_type_speaker_group_dark = 2131165774;
-			
-			// aapt resource value: 0x7F07024F
-			public static int ic_vol_type_speaker_group_light = 2131165775;
-			
-			// aapt resource value: 0x7F070250
-			public static int ic_vol_type_speaker_light = 2131165776;
-			
-			// aapt resource value: 0x7F070251
-			public static int ic_vol_type_tv_dark = 2131165777;
-			
-			// aapt resource value: 0x7F070252
-			public static int ic_vol_type_tv_light = 2131165778;
-			
-			// aapt resource value: 0x7F070253
-			public static int ic_vol_unmute = 2131165779;
+			public static int ic_velocity = 2131165772;
 			
 			// aapt resource value: 0x7F070255
-			public static int ic_Voyage = 2131165781;
+			public static int ic_volumespeaker = 2131165781;
+			
+			// aapt resource value: 0x7F07024D
+			public static int ic_vol_mute = 2131165773;
+			
+			// aapt resource value: 0x7F07024E
+			public static int ic_vol_type_speaker_dark = 2131165774;
+			
+			// aapt resource value: 0x7F07024F
+			public static int ic_vol_type_speaker_group_dark = 2131165775;
+			
+			// aapt resource value: 0x7F070250
+			public static int ic_vol_type_speaker_group_light = 2131165776;
+			
+			// aapt resource value: 0x7F070251
+			public static int ic_vol_type_speaker_light = 2131165777;
+			
+			// aapt resource value: 0x7F070252
+			public static int ic_vol_type_tv_dark = 2131165778;
+			
+			// aapt resource value: 0x7F070253
+			public static int ic_vol_type_tv_light = 2131165779;
+			
+			// aapt resource value: 0x7F070254
+			public static int ic_vol_unmute = 2131165780;
 			
 			// aapt resource value: 0x7F070256
-			public static int ic_voyagesolid = 2131165782;
+			public static int ic_Voyage = 2131165782;
 			
 			// aapt resource value: 0x7F070257
-			public static int ic_warning_ben = 2131165783;
+			public static int ic_voyagesolid = 2131165783;
 			
-			// aapt resource value: 0x7F070259
-			public static int info_shape = 2131165785;
-			
-			// aapt resource value: 0x7F07025B
-			public static int inputlayout_togglecollapseicon = 2131165787;
-			
-			// aapt resource value: 0x7F07025C
-			public static int inputlayout_togglevisibleicon = 2131165788;
+			// aapt resource value: 0x7F070258
+			public static int ic_warning_ben = 2131165784;
 			
 			// aapt resource value: 0x7F07025A
-			public static int input_layout_drop_down_icon = 2131165786;
+			public static int info_shape = 2131165786;
+			
+			// aapt resource value: 0x7F07025C
+			public static int inputlayout_togglecollapseicon = 2131165788;
 			
 			// aapt resource value: 0x7F07025D
-			public static int layoutBorder = 2131165789;
+			public static int inputlayout_togglevisibleicon = 2131165789;
+			
+			// aapt resource value: 0x7F07025B
+			public static int input_layout_drop_down_icon = 2131165787;
 			
 			// aapt resource value: 0x7F07025E
-			public static int motorbike_blue = 2131165790;
+			public static int layoutBorder = 2131165790;
 			
 			// aapt resource value: 0x7F07025F
-			public static int motorbike_green = 2131165791;
+			public static int motorbike_blue = 2131165791;
 			
 			// aapt resource value: 0x7F070260
-			public static int motorbike_grey = 2131165792;
+			public static int motorbike_green = 2131165792;
 			
 			// aapt resource value: 0x7F070261
-			public static int motorbike_orange = 2131165793;
+			public static int motorbike_grey = 2131165793;
 			
 			// aapt resource value: 0x7F070262
-			public static int motorbike_red = 2131165794;
+			public static int motorbike_orange = 2131165794;
 			
 			// aapt resource value: 0x7F070263
-			public static int motorbike_stop = 2131165795;
+			public static int motorbike_red = 2131165795;
 			
 			// aapt resource value: 0x7F070264
-			public static int motorbike_warn = 2131165796;
+			public static int motorbike_stop = 2131165796;
 			
 			// aapt resource value: 0x7F070265
-			public static int motorcycles_blue = 2131165797;
+			public static int motorbike_warn = 2131165797;
 			
 			// aapt resource value: 0x7F070266
-			public static int motorcycles_grey = 2131165798;
+			public static int motorcycles_blue = 2131165798;
 			
 			// aapt resource value: 0x7F070267
-			public static int motorcycles_orange = 2131165799;
+			public static int motorcycles_grey = 2131165799;
 			
 			// aapt resource value: 0x7F070268
-			public static int motorcycles_red = 2131165800;
+			public static int motorcycles_orange = 2131165800;
 			
 			// aapt resource value: 0x7F070269
-			public static int motorcycles_satellite = 2131165801;
+			public static int motorcycles_red = 2131165801;
 			
 			// aapt resource value: 0x7F07026A
-			public static int motorcycles_warn = 2131165802;
+			public static int motorcycles_satellite = 2131165802;
 			
 			// aapt resource value: 0x7F07026B
-			public static int motorcycles_yellow = 2131165803;
+			public static int motorcycles_warn = 2131165803;
 			
 			// aapt resource value: 0x7F07026C
-			public static int mr_button_connected_dark = 2131165804;
+			public static int motorcycles_yellow = 2131165804;
 			
 			// aapt resource value: 0x7F07026D
-			public static int mr_button_connected_light = 2131165805;
+			public static int mr_button_connected_dark = 2131165805;
 			
 			// aapt resource value: 0x7F07026E
-			public static int mr_button_connecting_dark = 2131165806;
+			public static int mr_button_connected_light = 2131165806;
 			
 			// aapt resource value: 0x7F07026F
-			public static int mr_button_connecting_light = 2131165807;
+			public static int mr_button_connecting_dark = 2131165807;
 			
 			// aapt resource value: 0x7F070270
-			public static int mr_button_dark = 2131165808;
+			public static int mr_button_connecting_light = 2131165808;
 			
 			// aapt resource value: 0x7F070271
-			public static int mr_button_dark_static = 2131165809;
+			public static int mr_button_dark = 2131165809;
 			
 			// aapt resource value: 0x7F070272
-			public static int mr_button_light = 2131165810;
+			public static int mr_button_dark_static = 2131165810;
 			
 			// aapt resource value: 0x7F070273
-			public static int mr_button_light_static = 2131165811;
+			public static int mr_button_light = 2131165811;
 			
 			// aapt resource value: 0x7F070274
-			public static int mr_cast_checkbox = 2131165812;
+			public static int mr_button_light_static = 2131165812;
 			
 			// aapt resource value: 0x7F070275
-			public static int mr_cast_group_seekbar_track = 2131165813;
+			public static int mr_cast_checkbox = 2131165813;
 			
 			// aapt resource value: 0x7F070276
-			public static int mr_cast_mute_button = 2131165814;
+			public static int mr_cast_group_seekbar_track = 2131165814;
 			
 			// aapt resource value: 0x7F070277
-			public static int mr_cast_route_seekbar_track = 2131165815;
+			public static int mr_cast_mute_button = 2131165815;
 			
 			// aapt resource value: 0x7F070278
-			public static int mr_cast_stop = 2131165816;
+			public static int mr_cast_route_seekbar_track = 2131165816;
 			
 			// aapt resource value: 0x7F070279
-			public static int mr_cast_thumb = 2131165817;
+			public static int mr_cast_stop = 2131165817;
 			
 			// aapt resource value: 0x7F07027A
-			public static int mr_dialog_close_dark = 2131165818;
+			public static int mr_cast_thumb = 2131165818;
 			
 			// aapt resource value: 0x7F07027B
-			public static int mr_dialog_close_light = 2131165819;
+			public static int mr_dialog_close_dark = 2131165819;
 			
 			// aapt resource value: 0x7F07027C
-			public static int mr_dialog_material_background_dark = 2131165820;
+			public static int mr_dialog_close_light = 2131165820;
 			
 			// aapt resource value: 0x7F07027D
-			public static int mr_dialog_material_background_light = 2131165821;
+			public static int mr_dialog_material_background_dark = 2131165821;
 			
 			// aapt resource value: 0x7F07027E
-			public static int mr_group_collapse = 2131165822;
+			public static int mr_dialog_material_background_light = 2131165822;
 			
 			// aapt resource value: 0x7F07027F
-			public static int mr_group_expand = 2131165823;
+			public static int mr_group_collapse = 2131165823;
 			
 			// aapt resource value: 0x7F070280
-			public static int mr_media_pause_dark = 2131165824;
+			public static int mr_group_expand = 2131165824;
 			
 			// aapt resource value: 0x7F070281
-			public static int mr_media_pause_light = 2131165825;
+			public static int mr_media_pause_dark = 2131165825;
 			
 			// aapt resource value: 0x7F070282
-			public static int mr_media_play_dark = 2131165826;
+			public static int mr_media_pause_light = 2131165826;
 			
 			// aapt resource value: 0x7F070283
-			public static int mr_media_play_light = 2131165827;
+			public static int mr_media_play_dark = 2131165827;
 			
 			// aapt resource value: 0x7F070284
-			public static int mr_media_stop_dark = 2131165828;
+			public static int mr_media_play_light = 2131165828;
 			
 			// aapt resource value: 0x7F070285
-			public static int mr_media_stop_light = 2131165829;
+			public static int mr_media_stop_dark = 2131165829;
 			
 			// aapt resource value: 0x7F070286
-			public static int mr_vol_type_audiotrack_dark = 2131165830;
+			public static int mr_media_stop_light = 2131165830;
 			
 			// aapt resource value: 0x7F070287
-			public static int mr_vol_type_audiotrack_light = 2131165831;
+			public static int mr_vol_type_audiotrack_dark = 2131165831;
 			
 			// aapt resource value: 0x7F070288
-			public static int mtrl_snackbar_background = 2131165832;
+			public static int mr_vol_type_audiotrack_light = 2131165832;
 			
 			// aapt resource value: 0x7F070289
-			public static int mtrl_tabs_default_indicator = 2131165833;
+			public static int mtrl_snackbar_background = 2131165833;
 			
 			// aapt resource value: 0x7F07028A
-			public static int navigation_empty_icon = 2131165834;
+			public static int mtrl_tabs_default_indicator = 2131165834;
 			
 			// aapt resource value: 0x7F07028B
-			public static int NoItem = 2131165835;
+			public static int navigation_empty_icon = 2131165835;
 			
 			// aapt resource value: 0x7F07028C
-			public static int NoPhotos = 2131165836;
+			public static int NoItem = 2131165836;
 			
 			// aapt resource value: 0x7F07028D
-			public static int notification_action_background = 2131165837;
+			public static int NoPhotos = 2131165837;
 			
 			// aapt resource value: 0x7F07028E
-			public static int notification_bg = 2131165838;
+			public static int notification_action_background = 2131165838;
 			
 			// aapt resource value: 0x7F07028F
-			public static int notification_bg_low = 2131165839;
+			public static int notification_bg = 2131165839;
 			
 			// aapt resource value: 0x7F070290
-			public static int notification_bg_low_normal = 2131165840;
+			public static int notification_bg_low = 2131165840;
 			
 			// aapt resource value: 0x7F070291
-			public static int notification_bg_low_pressed = 2131165841;
+			public static int notification_bg_low_normal = 2131165841;
 			
 			// aapt resource value: 0x7F070292
-			public static int notification_bg_normal = 2131165842;
+			public static int notification_bg_low_pressed = 2131165842;
 			
 			// aapt resource value: 0x7F070293
-			public static int notification_bg_normal_pressed = 2131165843;
+			public static int notification_bg_normal = 2131165843;
 			
 			// aapt resource value: 0x7F070294
-			public static int notification_icon_background = 2131165844;
+			public static int notification_bg_normal_pressed = 2131165844;
 			
 			// aapt resource value: 0x7F070295
-			public static int notification_template_icon_bg = 2131165845;
+			public static int notification_icon_background = 2131165845;
 			
 			// aapt resource value: 0x7F070296
-			public static int notification_template_icon_low_bg = 2131165846;
+			public static int notification_template_icon_bg = 2131165846;
 			
 			// aapt resource value: 0x7F070297
-			public static int notification_tile_bg = 2131165847;
+			public static int notification_template_icon_low_bg = 2131165847;
 			
 			// aapt resource value: 0x7F070298
-			public static int notify_panel_notification_icon_bg = 2131165848;
+			public static int notification_tile_bg = 2131165848;
 			
 			// aapt resource value: 0x7F070299
-			public static int notSelected = 2131165849;
+			public static int notify_panel_notification_icon_bg = 2131165849;
 			
 			// aapt resource value: 0x7F07029A
-			public static int popup_forms_android_close_icon = 2131165850;
+			public static int notSelected = 2131165850;
 			
 			// aapt resource value: 0x7F07029B
-			public static int popup_forms_android_shadow = 2131165851;
+			public static int popup_forms_android_close_icon = 2131165851;
 			
 			// aapt resource value: 0x7F07029C
-			public static int popup_forms_dark_theme_close_icon = 2131165852;
+			public static int popup_forms_android_shadow = 2131165852;
 			
 			// aapt resource value: 0x7F07029D
-			public static int popup_forms_light_theme_close_icon = 2131165853;
+			public static int popup_forms_dark_theme_close_icon = 2131165853;
 			
 			// aapt resource value: 0x7F07029E
-			public static int rescue_blue = 2131165854;
+			public static int popup_forms_light_theme_close_icon = 2131165854;
 			
 			// aapt resource value: 0x7F07029F
-			public static int rescue_grey = 2131165855;
+			public static int rescue_blue = 2131165855;
 			
 			// aapt resource value: 0x7F0702A0
-			public static int rescue_orange = 2131165856;
+			public static int rescue_grey = 2131165856;
 			
 			// aapt resource value: 0x7F0702A1
-			public static int rescue_red = 2131165857;
+			public static int rescue_orange = 2131165857;
 			
 			// aapt resource value: 0x7F0702A2
-			public static int rescue_warn = 2131165858;
+			public static int rescue_red = 2131165858;
 			
 			// aapt resource value: 0x7F0702A3
-			public static int roundCornerButton = 2131165859;
+			public static int rescue_warn = 2131165859;
 			
 			// aapt resource value: 0x7F0702A4
-			public static int RoundedBackground = 2131165860;
+			public static int roundCornerButton = 2131165860;
 			
 			// aapt resource value: 0x7F0702A5
-			public static int roundedbg = 2131165861;
+			public static int RoundedBackground = 2131165861;
 			
 			// aapt resource value: 0x7F0702A6
-			public static int roundedbgdark = 2131165862;
+			public static int roundedbg = 2131165862;
 			
 			// aapt resource value: 0x7F0702A7
-			public static int RoundedSearchBarBackground = 2131165863;
+			public static int roundedbgdark = 2131165863;
 			
 			// aapt resource value: 0x7F0702A8
-			public static int savebutton = 2131165864;
+			public static int RoundedSearchBarBackground = 2131165864;
 			
 			// aapt resource value: 0x7F0702A9
-			public static int selected = 2131165865;
+			public static int savebutton = 2131165865;
 			
 			// aapt resource value: 0x7F0702AA
-			public static int Separator = 2131165866;
+			public static int selected = 2131165866;
 			
 			// aapt resource value: 0x7F0702AB
-			public static int success_shape = 2131165867;
+			public static int Separator = 2131165867;
 			
 			// aapt resource value: 0x7F0702AC
-			public static int tank_blue = 2131165868;
+			public static int success_shape = 2131165868;
 			
 			// aapt resource value: 0x7F0702AD
-			public static int tank_grey = 2131165869;
+			public static int tank_blue = 2131165869;
 			
 			// aapt resource value: 0x7F0702AE
-			public static int tank_orange = 2131165870;
+			public static int tank_grey = 2131165870;
 			
 			// aapt resource value: 0x7F0702AF
-			public static int tank_red = 2131165871;
+			public static int tank_orange = 2131165871;
 			
 			// aapt resource value: 0x7F0702B0
-			public static int tank_warn = 2131165872;
+			public static int tank_red = 2131165872;
 			
 			// aapt resource value: 0x7F0702B1
-			public static int taxi_blue = 2131165873;
+			public static int tank_warn = 2131165873;
 			
 			// aapt resource value: 0x7F0702B2
-			public static int taxi_grey = 2131165874;
+			public static int taxi_blue = 2131165874;
 			
 			// aapt resource value: 0x7F0702B3
-			public static int taxi_orange = 2131165875;
+			public static int taxi_grey = 2131165875;
 			
 			// aapt resource value: 0x7F0702B4
-			public static int taxi_red = 2131165876;
+			public static int taxi_orange = 2131165876;
 			
 			// aapt resource value: 0x7F0702B5
-			public static int taxi_warn = 2131165877;
+			public static int taxi_red = 2131165877;
 			
 			// aapt resource value: 0x7F0702B6
-			public static int text_color_button = 2131165878;
+			public static int taxi_warn = 2131165878;
 			
 			// aapt resource value: 0x7F0702B7
-			public static int tipper_blue = 2131165879;
+			public static int text_color_button = 2131165879;
 			
 			// aapt resource value: 0x7F0702B8
-			public static int tipper_grey = 2131165880;
+			public static int tipper_blue = 2131165880;
 			
 			// aapt resource value: 0x7F0702B9
-			public static int tipper_orange = 2131165881;
+			public static int tipper_grey = 2131165881;
 			
 			// aapt resource value: 0x7F0702BA
-			public static int tipper_red = 2131165882;
+			public static int tipper_orange = 2131165882;
 			
 			// aapt resource value: 0x7F0702BB
-			public static int tipper_warn = 2131165883;
+			public static int tipper_red = 2131165883;
 			
 			// aapt resource value: 0x7F0702BC
-			public static int toolbaritem_background = 2131165884;
+			public static int tipper_warn = 2131165884;
 			
 			// aapt resource value: 0x7F0702BD
-			public static int toolbaritem_pressed = 2131165885;
+			public static int toolbaritem_background = 2131165885;
 			
 			// aapt resource value: 0x7F0702BE
-			public static int tooltip_arrow_down = 2131165886;
+			public static int toolbaritem_pressed = 2131165886;
 			
 			// aapt resource value: 0x7F0702BF
-			public static int tooltip_arrow_down_left = 2131165887;
+			public static int tooltip_arrow_down = 2131165887;
 			
 			// aapt resource value: 0x7F0702C0
-			public static int tooltip_arrow_down_right = 2131165888;
+			public static int tooltip_arrow_down_left = 2131165888;
 			
 			// aapt resource value: 0x7F0702C1
-			public static int tooltip_arrow_left = 2131165889;
+			public static int tooltip_arrow_down_right = 2131165889;
 			
 			// aapt resource value: 0x7F0702C2
-			public static int tooltip_arrow_right = 2131165890;
+			public static int tooltip_arrow_left = 2131165890;
 			
 			// aapt resource value: 0x7F0702C3
-			public static int tooltip_arrow_up = 2131165891;
+			public static int tooltip_arrow_right = 2131165891;
 			
 			// aapt resource value: 0x7F0702C4
-			public static int tooltip_arrow_up_left = 2131165892;
+			public static int tooltip_arrow_up = 2131165892;
 			
 			// aapt resource value: 0x7F0702C5
-			public static int tooltip_arrow_up_right = 2131165893;
+			public static int tooltip_arrow_up_left = 2131165893;
 			
 			// aapt resource value: 0x7F0702C6
-			public static int tooltip_frame_dark = 2131165894;
+			public static int tooltip_arrow_up_right = 2131165894;
 			
 			// aapt resource value: 0x7F0702C7
-			public static int tooltip_frame_light = 2131165895;
+			public static int tooltip_frame_dark = 2131165895;
 			
 			// aapt resource value: 0x7F0702C8
-			public static int tooltip_no_arrow = 2131165896;
+			public static int tooltip_frame_light = 2131165896;
 			
 			// aapt resource value: 0x7F0702C9
-			public static int train_blue = 2131165897;
+			public static int tooltip_no_arrow = 2131165897;
 			
 			// aapt resource value: 0x7F0702CA
-			public static int train_grey = 2131165898;
+			public static int train_blue = 2131165898;
 			
 			// aapt resource value: 0x7F0702CB
-			public static int train_orange = 2131165899;
+			public static int train_grey = 2131165899;
 			
 			// aapt resource value: 0x7F0702CC
-			public static int train_red = 2131165900;
+			public static int train_orange = 2131165900;
 			
 			// aapt resource value: 0x7F0702CD
-			public static int train_warn = 2131165901;
-			
-			// aapt resource value: 0x7F0702D4
-			public static int trashtwo_blue = 2131165908;
-			
-			// aapt resource value: 0x7F0702D5
-			public static int trashtwo_grey = 2131165909;
-			
-			// aapt resource value: 0x7F0702D6
-			public static int trashtwo_orange = 2131165910;
-			
-			// aapt resource value: 0x7F0702D7
-			public static int trashtwo_red = 2131165911;
-			
-			// aapt resource value: 0x7F0702D8
-			public static int trashtwo_stop = 2131165912;
-			
-			// aapt resource value: 0x7F0702D9
-			public static int trashtwo_warn = 2131165913;
+			public static int train_red = 2131165901;
 			
 			// aapt resource value: 0x7F0702CE
-			public static int trash_blue = 2131165902;
+			public static int train_warn = 2131165902;
 			
-			// aapt resource value: 0x7F0702CF
-			public static int trash_grey = 2131165903;
+			// aapt resource value: 0x7F0702D5
+			public static int trashtwo_blue = 2131165909;
 			
-			// aapt resource value: 0x7F0702D0
-			public static int trash_orange = 2131165904;
+			// aapt resource value: 0x7F0702D6
+			public static int trashtwo_grey = 2131165910;
 			
-			// aapt resource value: 0x7F0702D1
-			public static int trash_red = 2131165905;
+			// aapt resource value: 0x7F0702D7
+			public static int trashtwo_orange = 2131165911;
 			
-			// aapt resource value: 0x7F0702D2
-			public static int trash_stop = 2131165906;
+			// aapt resource value: 0x7F0702D8
+			public static int trashtwo_red = 2131165912;
 			
-			// aapt resource value: 0x7F0702D3
-			public static int trash_warn = 2131165907;
+			// aapt resource value: 0x7F0702D9
+			public static int trashtwo_stop = 2131165913;
 			
 			// aapt resource value: 0x7F0702DA
-			public static int truck_blue = 2131165914;
+			public static int trashtwo_warn = 2131165914;
+			
+			// aapt resource value: 0x7F0702CF
+			public static int trash_blue = 2131165903;
+			
+			// aapt resource value: 0x7F0702D0
+			public static int trash_grey = 2131165904;
+			
+			// aapt resource value: 0x7F0702D1
+			public static int trash_orange = 2131165905;
+			
+			// aapt resource value: 0x7F0702D2
+			public static int trash_red = 2131165906;
+			
+			// aapt resource value: 0x7F0702D3
+			public static int trash_stop = 2131165907;
+			
+			// aapt resource value: 0x7F0702D4
+			public static int trash_warn = 2131165908;
 			
 			// aapt resource value: 0x7F0702DB
-			public static int truck_grey = 2131165915;
+			public static int truck_blue = 2131165915;
 			
 			// aapt resource value: 0x7F0702DC
-			public static int truck_orange = 2131165916;
+			public static int truck_grey = 2131165916;
 			
 			// aapt resource value: 0x7F0702DD
-			public static int truck_red = 2131165917;
+			public static int truck_orange = 2131165917;
 			
 			// aapt resource value: 0x7F0702DE
-			public static int truck_warn = 2131165918;
-			
-			// aapt resource value: 0x7F0702E0
-			public static int undoButton = 2131165920;
+			public static int truck_red = 2131165918;
 			
 			// aapt resource value: 0x7F0702DF
-			public static int undo_redo_background = 2131165919;
+			public static int truck_warn = 2131165919;
 			
 			// aapt resource value: 0x7F0702E1
-			public static int warning_shape = 2131165921;
+			public static int undoButton = 2131165921;
+			
+			// aapt resource value: 0x7F0702E0
+			public static int undo_redo_background = 2131165920;
+			
+			// aapt resource value: 0x7F0702E2
+			public static int warning_shape = 2131165922;
 			
 			static Drawable()
 			{

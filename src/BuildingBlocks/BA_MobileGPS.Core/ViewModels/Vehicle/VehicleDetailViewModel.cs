@@ -176,7 +176,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (response != null)
                 {
                     InforDetail = response;
-                    InforDetail = response;
                     if (response.VehicleNl != null)
                     {
                         IsFuelVisible = response.VehicleNl.IsUseFuel;

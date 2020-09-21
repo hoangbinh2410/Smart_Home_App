@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="BA_MobileGPS.Core.Views.Camera.MonitoringCamera.Template4Camera"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core.Converters"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:local="clr-namespace:BA_MobileGPS.Core.Views.Camera.MonitoringCamera"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
+    mc:Ignorable="d">
+    <ContentView.Resources>
+        <vlc:PlaybackControls x:Key="hidePlaybackControl">
+            <vlc:PlaybackControls.ControlTemplate>
+                <ControlTemplate>
+                    <StackLayout IsVisible="False">
+                        <StackLayout x:Name="ControlsPanel" Style="{TemplateBinding ControlsPanelStyle}">
+                            <Grid>
+                                <StackLayout>
+                                    <Button x:Name="PlayPauseButton" IsVisible="False" />
+                                    <Button x:Name="StopButton" IsVisible="False" />
+                                </StackLayout>
+                                <StackLayout />
+                            </Grid>
+                        </StackLayout>
+                    </StackLayout>
+                </ControlTemplate>
+            </vlc:PlaybackControls.ControlTemplate>
+        </vlc:PlaybackControls>
+        <converter:CameraTextBorderConverter x:Key="CameraTextBorderConverter" />
+    </ContentView.Resources>
+
+    <Grid
+        ColumnDefinitions="*,*"
+        ColumnSpacing="2"
+        RowDefinitions="*,*"
+        RowSpacing="2">
+        <Grid BackgroundColor="Black" RowDefinitions="40,*">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraSelectedEnum.FirstCamera}" />
+            </Grid.GestureRecognizers>
+            <Frame
+                x:Name="frCam1"
+                BackgroundColor="Transparent"
+                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraSelectedEnum.FirstCamera}}"
+                InputTransparent="True">
+                <Frame.Triggers>
+                    <DataTrigger
+                        Binding="{Binding Source={x:Reference frCam1}, Path=BorderColor}"
+                        TargetType="Frame"
+                        Value="#03BE0B">
+                        <Setter Property="BackgroundColor" Value="#03BE0B" />
+                    </DataTrigger>
+                </Frame.Triggers>
+                <Label
+                    StyleClass="BoldText"
+                    Text="Kênh 1"
+                    TextColor="#FAFF00"
+                    VerticalOptions="Center">
+                    <Label.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Source={x:Reference frCam1}, Path=BorderColor}"
+                            TargetType="Label"
+                            Value="#03BE0B">
+                            <Setter Property="TextColor" Value="{DynamicResource WhiteColor}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </Frame>
+            <vlc:MediaPlayerElement
+                x:Name="topLeftCam"
+                Grid.Row="1"
+                InputTransparent="True"
+                LibVLC="{Binding LibVLC}"
+                MediaPlayer="{Binding MediaPlayerNo1}"
+                PlaybackControls="{StaticResource hidePlaybackControl}" />
+            <Grid
+                Grid.RowSpan="2"
+                BackgroundColor="White"
+                InputTransparent="True"
+                Opacity="0.2">
+                <Grid.Triggers>
+                    <DataTrigger
+                        Binding="{Binding Source={x:Reference frCam1}, Path=BorderColor}"
+                        TargetType="Grid"
+                        Value="#03BE0B">
+                        <Setter Property="BackgroundColor" Value="Transparent" />
+                    </DataTrigger>
+                </Grid.Triggers>
+            </Grid>
+        </Grid>
+
+        <Grid
+            Grid.Row="1"
+            Grid.Column="0"
+            BackgroundColor="Black"
+            RowDefinitions="40,*">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraSelectedEnum.SecondCamera}" />
+            </Grid.GestureRecognizers>
+            <Frame
+                x:Name="frCam2"
+                BackgroundColor="Transparent"
+                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraSelectedEnum.SecondCamera}}"
+                InputTransparent="True">
+                <Frame.Triggers>
+
+                    <DataTrigger
+                        Binding="{Binding Source={x:Reference frCam2}, Path=BorderColor}"
+                        TargetType="Frame"
+                        Value="#03BE0B">
+                        <Setter Property="BackgroundColor" Value="#03BE0B" />
+                    </DataTrigger>
+                </Frame.Triggers>
+                <Label
+                    StyleClass="BoldText"
+                    Text="Kênh 2"
+                    TextColor="#FAFF00"
+                    VerticalOptions="Center">
+                    <Label.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Source={x:Reference frCam2}, Path=BorderColor}"
+                            TargetType="Label"
+                            Value="#03BE0B">
+                            <Setter Property="TextColor" Value="{DynamicResource WhiteColor}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </Frame>
+            <vlc:MediaPlayerElement
+                x:Name="bottomLeftCam"
+                Grid.Row="1"
+                InputTransparent="True"
+                LibVLC="{Binding LibVLC}"
+                MediaPlayer="{Binding MediaPlayerNo2}"
+                PlaybackControls="{StaticResource hidePlaybackControl}" />
+            <Grid
+                Grid.RowSpan="2"
+                BackgroundColor="White"
+                InputTransparent="True"
+                Opacity="0.2">
+                <Grid.Triggers>
+                    <DataTrigger
+                        Binding="{Binding Source={x:Reference frCam2}, Path=BorderColor}"
+                        TargetType="Grid"
+                        Value="#03BE0B">
+                        <Setter Property="BackgroundColor" Value="Transparent" />
+                    </DataTrigger>
+                </Grid.Triggers>
+            </Grid>
+        </Grid>
+
+        <Grid
+            Grid.Column="1"
+            BackgroundColor="Black"
+            RowDefinitions="40,*">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraSelectedEnum.ThirdCamera}" />
+            </Grid.GestureRecognizers>
+            <Frame
+                x:Name="frCam3"
+                BackgroundColor="Transparent"
+                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraSelectedEnum.ThirdCamera}}"
+                InputTransparent="True">
+                <Frame.Triggers>
+
+                    <DataTrigger
+                        Binding="{Binding Source={x:Reference frCam3}, Path=BorderColor}"
+                        TargetType="Frame"
+                        Value="#03BE0B">
+                        <Setter Property="BackgroundColor" Value="#03BE0B" />
+                    </DataTrigger>
+                </Frame.Triggers>
+                <Label
+                    StyleClass="BoldText"
+                    Text="Kênh 3"
+                    TextColor="#FAFF00"
+                    VerticalOptions="Center">
+                    <Label.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Source={x:Reference frCam3}, Path=BorderColor}"
+                            TargetType="Label"
+                            Value="#03BE0B">
+                            <Setter Property="TextColor" Value="{DynamicResource WhiteColor}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </Frame>
+            <vlc:MediaPlayerElement
+                x:Name="topRightCam"
+                Grid.Row="1"
+                InputTransparent="True"
+                LibVLC="{Binding LibVLC}"
+                MediaPlayer="{Binding MediaPlayerNo3}"
+                PlaybackControls="{StaticResource hidePlaybackControl}" />
+            <Grid
+                Grid.RowSpan="2"
+                BackgroundColor="White"
+                InputTransparent="True"
+                Opacity="0.2">
+                <Grid.Triggers>
+                    <DataTrigger
+                        Binding="{Binding Source={x:Reference frCam3}, Path=BorderColor}"
+                        TargetType="Grid"
+                        Value="#03BE0B">
+                        <Setter Property="BackgroundColor" Value="Transparent" />
+                    </DataTrigger>
+                </Grid.Triggers>
+            </Grid>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            Grid.Column="1"
+            BackgroundColor="Black"
+            RowDefinitions="40,*">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraSelectedEnum.FourthCamera}" />
+            </Grid.GestureRecognizers>
+            <Frame
+                x:Name="frCam4"
+                BackgroundColor="Transparent"
+                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraSelectedEnum.FourthCamera}}"
+                InputTransparent="True">
+                <Frame.Triggers>
+                    <DataTrigger
+                        Binding="{Binding Source={x:Reference frCam4}, Path=BorderColor}"
+                        TargetType="Frame"
+                        Value="#03BE0B">
+                        <Setter Property="BackgroundColor" Value="#03BE0B" />
+                    </DataTrigger>
+                </Frame.Triggers>
+                <Label
+                    StyleClass="BoldText"
+                    Text="Kênh 4"
+                    TextColor="#FAFF00"
+                    VerticalOptions="Center">
+                    <Label.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Source={x:Reference frCam4}, Path=BorderColor}"
+                            TargetType="Label"
+                            Value="#03BE0B">
+                            <Setter Property="TextColor" Value="{DynamicResource WhiteColor}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </Frame>
+            <vlc:MediaPlayerElement
+                x:Name="bottomRightCam"
+                Grid.Row="1"
+                InputTransparent="True"
+                LibVLC="{Binding LibVLC}"
+                MediaPlayer="{Binding MediaPlayerNo4}"
+                PlaybackControls="{StaticResource hidePlaybackControl}" />
+            <Grid
+                Grid.RowSpan="2"
+                BackgroundColor="White"
+                InputTransparent="True"
+                Opacity="0.2">
+                <Grid.Triggers>
+                    <DataTrigger
+                        Binding="{Binding Source={x:Reference frCam4}, Path=BorderColor}"
+                        TargetType="Grid"
+                        Value="#03BE0B">
+                        <Setter Property="BackgroundColor" Value="Transparent" />
+                    </DataTrigger>
+                </Grid.Triggers>
+            </Grid>
+        </Grid>
+    </Grid>
+
+</ContentView>

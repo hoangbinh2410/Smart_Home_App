@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using BA_MobileGPS.Core.Views.Camera.MonitoringCamera;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -6,7 +7,27 @@ namespace BA_MobileGPS.Core.Views
     {
         public CameraManagingPage()
         {
-            InitializeComponent();
+            try
+            {
+               
+                InitializeComponent();
+                
+            }
+            catch (System.Exception ex)
+            {
+
+                throw;
+            }                       
         }
+        protected override void OnAppearing()
+        {  
+            cameraPanel.Children.Add(new Template4Camera());
+            base.OnAppearing();
+        }
+
+
+
+
+
     }
 }

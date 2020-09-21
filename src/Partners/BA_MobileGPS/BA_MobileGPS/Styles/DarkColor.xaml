@@ -43,5 +43,7 @@
     <Color x:Key="LoginIconColor">#0D2D6C</Color>
     <Color x:Key="LoginGradientStartColor">#00ADE5</Color>
     <Color x:Key="LoginGradientEndColor">#0D2D6C</Color>
+    <!--  Camera  -->
+    <Color x:Key="UnselectedColor">#DBFF00</Color>
 
 </ResourceDictionary>
