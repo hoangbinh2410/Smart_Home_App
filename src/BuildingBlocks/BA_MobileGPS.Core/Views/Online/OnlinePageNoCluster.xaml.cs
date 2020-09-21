@@ -97,7 +97,7 @@ namespace BA_MobileGPS.Core.Views
 
         public void OnPageAppearingFirstTime()
         {
-            googleMap.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
+            InitialCameraUpdate();
         }
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
@@ -577,6 +577,7 @@ namespace BA_MobileGPS.Core.Views
                                     }
                                 }
                             }
+                            InitialCameraUpdate();
                         }
                     }
                 }
