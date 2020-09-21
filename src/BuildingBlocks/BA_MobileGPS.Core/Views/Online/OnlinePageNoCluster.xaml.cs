@@ -384,7 +384,7 @@ namespace BA_MobileGPS.Core.Views
                             var lstpin = googleMap.Pins.Where(x => x.Label == vehicle.VehiclePlate).ToList();
                             if (lstpin != null && lstpin.Count > 1)
                             {
-                                googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(lstpin[0].Position.Latitude, lstpin[0].Position.Longitude), 19));
+                                googleMap.AnimateCamera(CameraUpdateFactory.NewPosition(new Position(lstpin[0].Position.Latitude, lstpin[0].Position.Longitude)));
                             }
                         });
                     }
@@ -522,6 +522,7 @@ namespace BA_MobileGPS.Core.Views
                 }
                 else
                 {
+                    item.Rotation = carInfo.Direction * 45;
                     itemLable.Position = new Position(carInfo.Lat, carInfo.Lng);
                     item.Position = new Position(carInfo.Lat, carInfo.Lng);
                     if (carActive)
