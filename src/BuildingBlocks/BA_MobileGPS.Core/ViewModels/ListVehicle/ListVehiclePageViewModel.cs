@@ -118,8 +118,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-
-            GetListVehicleOnline();
         }
 
         public override void OnDestroy()
@@ -205,7 +203,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public string searchedText;
         public string SearchedText { get => searchedText; set => SetProperty(ref searchedText, value); }
 
-       
+
 
         #endregion Property
 
@@ -216,6 +214,10 @@ namespace BA_MobileGPS.Core.ViewModels
             if (arg)
             {
                 InitVehicleList();
+            }
+            else
+            {
+                GetListVehicleOnline();
             }
         }
 
@@ -339,7 +341,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     vehicle.TotalKm = carInfo.TotalKm;
                 }
-                vehicle.StatusEngineer = StateVehicleExtension.EngineState(carInfo);
+                vehicle.StatusEngineer = carInfo.StatusEngineer;
                 vehicle.IconImage = IconCodeHelper.GetMarkerResource(carInfo);
 
                 if (CompanyConfigurationHelper.VehicleOnlineAddressEnabled)
@@ -528,55 +530,6 @@ namespace BA_MobileGPS.Core.ViewModels
             if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
             {
                 InitVehicleList();
-            }
-            else
-            {
-                RunOnBackground(async () =>
-            {
-                var userID = StaticSettings.User.UserId;
-                var companyID = StaticSettings.User.CompanyId;
-                var xnCode = StaticSettings.User.XNCode;
-                var userType = StaticSettings.User.UserType;
-                var companyType = StaticSettings.User.CompanyType;
-
-                if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
-                {
-                    userID = Settings.CurrentCompany.UserId;
-                    companyID = Settings.CurrentCompany.FK_CompanyID;
-                    xnCode = Settings.CurrentCompany.XNCode;
-                    userType = Settings.CurrentCompany.UserType;
-                    companyType = Settings.CurrentCompany.CompanyType;
-                }
-                int vehicleGroup = 0;
-                return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
-            },
-                (result) =>
-           {
-               if (result != null && result.Count > 0)
-               {
-                   result.ForEach(x =>
-                   {
-                       x.IconImage = IconCodeHelper.GetMarkerResource(x);
-                       x.StatusEngineer = StateVehicleExtension.EngineState(x);
-
-                       if (!StateVehicleExtension.IsLostGPS(x.GPSTime, x.VehicleTime) && !StateVehicleExtension.IsLostGSM(x.VehicleTime))
-                       {
-                           x.SortOrder = 1;
-                       }
-                       else
-                       {
-                           x.SortOrder = 0;
-                       }
-                   });
-                   StaticSettings.ListVehilceOnline = result;
-
-                   InitVehicleList();
-               }
-               else
-               {
-                   StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
-               }
-           });
             }
         }
 

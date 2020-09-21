@@ -133,7 +133,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else
             {
-                GetListVehicleOnlineResume();
+                GetListVehicleOnlineResume(false);
             }
         }
 
@@ -153,7 +153,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 //kiểm tra xem có thông báo nào không
                 GetNofitication();
-               
+
             }
             else
             {
@@ -393,7 +393,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void SendDataCar(VehicleOnlineMessage carInfo)
         {
             var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == carInfo.VehicleId);
-            if (vehicle != null && !StateVehicleExtension.IsVehicleDebtMoney(vehicle.MessageId, vehicle.DataExt))
+            if (vehicle != null && !StateVehicleExtension.IsVehicleDebtMoney(vehicle.MessageId, vehicle.DataExt) && vehicle.VehicleTime < carInfo.VehicleTime)
             {
                 vehicle.Update(carInfo);
                 vehicle.IconImage = IconCodeHelper.GetMarkerResource(vehicle);
@@ -441,7 +441,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private void GetListVehicleOnlineResume()
+        private void GetListVehicleOnlineResume(bool isresume = true)
         {
             var userID = UserInfo.UserId;
             var companyID = UserInfo.CompanyId;
@@ -495,7 +495,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(true);
+                        if (isresume)
+                        {
+                            EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(true);
+                        }
+                        else
+                        {
+                            EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
+                        }
                     });
                 }
                 else

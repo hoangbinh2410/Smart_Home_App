@@ -70,9 +70,9 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             var response = await streamCameraService.RequestMoreStreamTime(new StreamPingRequest()
             {
-                CustomerID = request.CustomerID,
+                xnCode = request.xnCode,
                 Duration = 600,
-                VehicleName = request.VehicleName,
+                VehiclePlate = request.VehiclePlate,
                 Channel = channel
             });
             if (response.Data)
