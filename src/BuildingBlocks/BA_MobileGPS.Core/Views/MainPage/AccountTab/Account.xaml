@@ -86,7 +86,7 @@
         <syncfusion:SfListView
             Grid.Row="1"
             Padding="10,0"
-            ItemSpacing="10"
+            ItemSpacing="8"
             ItemsSource="{Binding MenuItems, Mode=OneWay}"
             SelectionBackgroundColor="Transparent"
             TapCommand="{Binding NavigateCommand}">
@@ -116,7 +116,7 @@
         </syncfusion:SfListView>
         <StackLayout
             Grid.Row="2"
-            Margin="20"
+            Margin="20,0,20,10"
             HorizontalOptions="StartAndExpand"
             Orientation="Horizontal"
             VerticalOptions="StartAndExpand">

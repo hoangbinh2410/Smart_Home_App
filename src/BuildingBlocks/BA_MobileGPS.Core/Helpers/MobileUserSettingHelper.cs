@@ -91,7 +91,7 @@ namespace BA_MobileGPS.Core
 
         public static string MenuReport => Get(MobileUserConfigurationNames.MenuReport, "");
 
-        public static bool EnableShowCluster => Get(MobileUserConfigurationNames.EnableShowCluster, true);
+        public static bool EnableShowCluster => Get(MobileUserConfigurationNames.EnableShowCluster, false);
 
         public static bool ShowNotification => Get(MobileUserConfigurationNames.ShowNotification, true);
 

@@ -31,15 +31,15 @@
                 Color="Black" />
         </pancakeview:PancakeView.Shadow>
         <StackLayout Spacing="0">
-            <Grid Padding="10">
+            <Grid Padding="10" BackgroundColor="{DynamicResource PrimaryColor}">
                 <Label
                     FontSize="{StaticResource MyFontSizeLarge}"
                     StyleClass="BoldText"
                     Text="{Binding VehicleName}"
-                    TextColor="{DynamicResource PrimaryColor}"
+                    TextColor="{DynamicResource WhiteColor}"
                     VerticalOptions="Center" />
                 <controls:IconView
-                    Foreground="Gray"
+                    Foreground="{DynamicResource WhiteColor}"
                     HeightRequest="25"
                     HorizontalOptions="End"
                     Source="ic_close.png"
