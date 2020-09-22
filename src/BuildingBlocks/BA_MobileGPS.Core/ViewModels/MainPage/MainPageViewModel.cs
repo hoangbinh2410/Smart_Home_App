@@ -140,34 +140,43 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private async void OnResumePage(bool args)
         {
-            if (IsConnected)
+            if (DateTime.Now.Subtract(StaticSettings.TimeSleep).TotalMinutes >= MobileSettingHelper.TimeSleep)
             {
-                await ConnectSignalROnline();
-                await ConnectSignalR();
-                if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
-                {
-                    //Join vào nhóm signalR để nhận dữ liệu online
-                    GetListVehicleOnlineResume();
-                }
-                if (StaticSettings.TimeServer < DateTime.Now)
-                {
-                    StaticSettings.TimeServer = DateTime.Now;
-                }
-                //kiểm tra xem có thông báo nào không
-                GetNofitication();
-
+                Logout();
             }
             else
             {
-                Device.BeginInvokeOnMainThread(() =>
+                if (IsConnected)
                 {
-                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
-                });
+                    await ConnectSignalROnline();
+                    await ConnectSignalR();
+                    if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+                    {
+                        //Join vào nhóm signalR để nhận dữ liệu online
+                        GetListVehicleOnlineResume();
+                    }
+                    if (StaticSettings.TimeServer < DateTime.Now)
+                    {
+                        StaticSettings.TimeServer = DateTime.Now;
+                    }
+                    //kiểm tra xem có thông báo nào không
+                    GetNofitication();
+
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                    });
+                }
             }
+
         }
 
         private void OnSleepPage(bool obj)
         {
+            StaticSettings.TimeSleep = DateTime.Now;
             DisconnectSignalR();
         }
 
