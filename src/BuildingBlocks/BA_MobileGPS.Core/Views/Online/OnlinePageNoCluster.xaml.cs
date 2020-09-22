@@ -491,7 +491,7 @@ namespace BA_MobileGPS.Core.Views
 
                 // Các xe đang off hoặc khoảng cách quá ngắn thì bỏ qua và nằm trong màn hình
                 if (StateVehicleExtension.IsStopAndEngineOff(carInfo)
-                        && GeoHelper.IsBetweenLatlng(item.Position.Latitude, item.Position.Longitude, carInfo.Lat, carInfo.Lng))
+                        || GeoHelper.IsBetweenLatlng(item.Position.Latitude, item.Position.Longitude, carInfo.Lat, carInfo.Lng) || carInfo.Velocity == 0)
                 {
                     return;
                 }
@@ -544,6 +544,7 @@ namespace BA_MobileGPS.Core.Views
                     {
                         using (new HUDService(MobileResource.Common_Message_Processing))
                         {
+                            vm.VehicleGroups = null;
                             HideBoxInfoCarActive(new VehicleOnline() { VehicleId = 1 });
                             var list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
                             if (list != null && list.Count > 0)
