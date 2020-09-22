@@ -3,23 +3,16 @@
     x:Class="BA_MobileGPS.Core.Views.CameraManagingPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
-    xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.HasBackButton="False">
     <ContentPage.Resources>
-
-        <Style TargetType="Frame">
-            <Setter Property="BackgroundColor" Value="Transparent" />
-            <Setter Property="CornerRadius" Value="2" />
-            <Setter Property="HorizontalOptions" Value="Center" />
-            <Setter Property="VerticalOptions" Value="Center" />
-            <Setter Property="Padding" Value="6,2" />
-            <Setter Property="Margin" Value="0,10,0,0" />
-        </Style>
+        <converter:HasDataBackgroundColorConverter x:Key="HasDataBackgroundColorConverter" />
+        <converter:HasDataIconColorConverter x:Key="HasDataIconColorConverter" />
     </ContentPage.Resources>
     <NavigationPage.TitleView>
         <Grid VerticalOptions="End">
@@ -51,9 +44,9 @@
             <pancake:PancakeView
                 Padding="0"
                 BackgroundColor="{DynamicResource WhiteColor}"
-                CornerRadius="20"
+                CornerRadius="22"
                 HasShadow="True"
-                HeightRequest="40"
+                HeightRequest="45"
                 VerticalOptions="Center">
                 <pancake:PancakeView.Shadow>
                     <pancake:DropShadow
@@ -61,41 +54,45 @@
                         Offset="0,0"
                         Color="Black" />
                 </pancake:PancakeView.Shadow>
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                </pancake:PancakeView.GestureRecognizers>
                 <StackLayout
                     Padding="0"
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal">
                     <pancake:PancakeView
                         BackgroundColor="{DynamicResource PrimaryColor}"
-                        CornerRadius="20"
-                        WidthRequest="40">
+                        CornerRadius="22"
+                        WidthRequest="45">
                         <icons:IconView
                             Margin="13"
                             Foreground="{DynamicResource WhiteColor}"
                             Source="ic_search.png" />
                     </pancake:PancakeView>
-                    <Entry Placeholder="Tìm kiếm phương tiện">
+                    <Entry
+                        x:Name="entrySearch"
+                        FontSize="14"
+                        HorizontalOptions="FillAndExpand"
+                        InputTransparent="True"
+                        PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
+                        Text="{Binding VehicleSelectedPlate}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
+                        VerticalOptions="Center">
                         <Entry.Effects>
                             <effects:BorderlessEffect />
                         </Entry.Effects>
                     </Entry>
-                    <icons:IconView
-                        Margin="0,0,10,0"
-                        Foreground="Gray"
-                        HeightRequest="20"
-                        HorizontalOptions="EndAndExpand"
-                        Source="ic_sortdown.png"
-                        WidthRequest="20" />
                 </StackLayout>
             </pancake:PancakeView>
             <pancake:PancakeView
                 Grid.Column="1"
                 Padding="0"
-                BackgroundColor="White"
-                CornerRadius="20"
-                HeightRequest="40"
+                BackgroundColor="{Binding VehicleGroups, Converter={StaticResource HasDataBackgroundColorConverter}}"
+                CornerRadius="22"
+                HeightRequest="45"
                 VerticalOptions="Center"
-                WidthRequest="40">
+                WidthRequest="45">
                 <pancake:PancakeView.Shadow>
                     <pancake:DropShadow
                         BlurRadius="3"
@@ -106,15 +103,12 @@
                     <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
                 <icons:IconView
-                    Foreground="{DynamicResource PrimaryColor}"
-                    HeightRequest="25"
-                    HorizontalOptions="Center"
+                    Margin="8"
+                    Foreground="{Binding VehicleGroups, Converter={StaticResource HasDataIconColorConverter}}"
                     Source="ic_doublevehicle.png"
-                    VerticalOptions="Center"
-                    WidthRequest="25" />
+                    VerticalOptions="Center" />
             </pancake:PancakeView>
         </Grid>
-
         <!--  Vehicle Plate  -->
         <Grid
             Grid.Row="1"
@@ -143,13 +137,21 @@
                     Margin="10"
                     Foreground="{DynamicResource WhiteColor}"
                     HeightRequest="25"
-                    Source="ic_stop_white.png"
-                    WidthRequest="25" />
+                    Source="{Binding PlayButtonIconSource}"
+                    WidthRequest="25">
+                    <icons:IconView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PlayCommand}" />
+                    </icons:IconView.GestureRecognizers>
+                </icons:IconView>
                 <icons:IconView
                     Foreground="{DynamicResource WhiteColor}"
                     HeightRequest="25"
                     Source="ic_volumespeaker.png"
-                    WidthRequest="25" />
+                    WidthRequest="25">
+                    <icons:IconView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding VolumeChangedCommand}" />
+                    </icons:IconView.GestureRecognizers>
+                </icons:IconView>
             </StackLayout>
             <StackLayout
                 Padding="0,0,10,0"

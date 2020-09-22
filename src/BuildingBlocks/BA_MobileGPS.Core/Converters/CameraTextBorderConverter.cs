@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Text;
 using Xamarin.Forms;
 
-namespace BA_MobileGPS.Core.Converters
+namespace BA_MobileGPS.Core
 {
     public class CameraTextBorderConverter : IValueConverter
     {
