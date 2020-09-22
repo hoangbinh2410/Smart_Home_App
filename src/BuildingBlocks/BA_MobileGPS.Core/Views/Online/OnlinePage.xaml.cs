@@ -453,13 +453,20 @@ namespace BA_MobileGPS.Core.Views
             {
                 InitPinVehicle(ConvertMarkerPin(listResult));
 
-                googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(listResult[0].Lat, listResult[0].Lng), 5));
+                var listPositon = new List<Position>();
+                listResult.ForEach(x =>
+                {
+                    listPositon.Add(new Position(x.Lat, x.Lng));
+                });
+                var bounds = GeoHelper.FromPositions(listPositon);
+
+                googleMap.AnimateCamera(CameraUpdateFactory.NewBounds(bounds, 60));
             }
             else
             {
                 googleMap.ClusteredPins.Clear();
 
-                googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(Settings.Latitude, Settings.Longitude), 5));
+                googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom));
             }
 
             // Chạy lại hàm tính toán trạng thái xe
