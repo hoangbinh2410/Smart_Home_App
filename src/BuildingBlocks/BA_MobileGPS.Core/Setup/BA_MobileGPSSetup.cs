@@ -190,6 +190,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<StreamPicture, StreamPictureViewModel>("StreamPicture");
             containerRegistry.RegisterForNavigation<RegisterConsultPage, RegisterConsultPageViewModel>("RegisterConsultPage");
             containerRegistry.RegisterForNavigation<DetailCamera, DetailCameraViewModel>("DetailCamera");
+            containerRegistry.RegisterForNavigation<ReLoginPage, ReLoginPageViewModel>();
         }
     }
 }

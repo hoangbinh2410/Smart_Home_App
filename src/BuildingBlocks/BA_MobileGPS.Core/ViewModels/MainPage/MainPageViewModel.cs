@@ -140,38 +140,37 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private async void OnResumePage(bool args)
         {
-            if (DateTime.Now.Subtract(StaticSettings.TimeSleep).TotalMinutes >= MobileSettingHelper.TimeSleep)
+            if (IsConnected)
             {
-                Logout();
+                await ConnectSignalROnline();
+                await ConnectSignalR();
+                if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+                {
+                    if (DateTime.Now.Subtract(StaticSettings.TimeSleep).TotalMinutes >= MobileSettingHelper.TimeSleep)
+                    {
+                        GetListVehicleOnlineResume(true);
+                    }
+                    else
+                    {
+                        GetListVehicleOnlineResume();
+                    }
+
+                }
+                if (StaticSettings.TimeServer < DateTime.Now)
+                {
+                    StaticSettings.TimeServer = DateTime.Now;
+                }
+                //kiểm tra xem có thông báo nào không
+                GetNofitication();
+
             }
             else
             {
-                if (IsConnected)
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    await ConnectSignalROnline();
-                    await ConnectSignalR();
-                    if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
-                    {
-                        //Join vào nhóm signalR để nhận dữ liệu online
-                        GetListVehicleOnlineResume();
-                    }
-                    if (StaticSettings.TimeServer < DateTime.Now)
-                    {
-                        StaticSettings.TimeServer = DateTime.Now;
-                    }
-                    //kiểm tra xem có thông báo nào không
-                    GetNofitication();
-
-                }
-                else
-                {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
-                    });
-                }
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                });
             }
-
         }
 
         private void OnSleepPage(bool obj)
@@ -459,7 +458,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private void GetListVehicleOnlineResume()
+        private void GetListVehicleOnlineResume(bool isRelogin = false)
         {
             var userID = UserInfo.UserId;
             var companyID = UserInfo.CompanyId;
@@ -513,8 +512,16 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(true);
+                        if (isRelogin)
+                        {
+                            EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(true);
+                        }
+                        else
+                        {
+                            EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
+                        }
                     });
+
                 }
                 else
                 {
