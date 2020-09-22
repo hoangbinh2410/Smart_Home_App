@@ -65,10 +65,8 @@ namespace BA_MobileGPS.Core.Views
             googleMap.UiSettings.ZoomControlsEnabled = false;
             googleMap.UiSettings.MyLocationButtonEnabled = false;
             googleMap.UiSettings.RotateGesturesEnabled = false;
-            googleMap.ClusterClicked += Map_ClusterClicked;
             googleMap.PinClicked += MapOnPinClicked;
             googleMap.MapClicked += Map_MapClicked;
-            googleMap.CameraIdled += GoogleMap_CameraIdled;
             InitAnimation();
 
             mCarActive = new VehicleOnline();
@@ -787,19 +785,6 @@ namespace BA_MobileGPS.Core.Views
         }
 
         /// <summary>
-        /// sự kiện khi di chuyển map
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void GoogleMap_CameraIdled(object sender, CameraIdledEventArgs e)
-        {
-            if (Device.RuntimePlatform == Device.Android)
-            {
-                googleMap.Cluster();
-            }
-        }
-
-        /// <summary>
         /// Sự kiện khi click vào map
         /// </summary>
         /// <param name="sender"></param>
@@ -821,27 +806,6 @@ namespace BA_MobileGPS.Core.Views
             catch (Exception ex)
             {
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-            }
-        }
-
-        /// <summary>
-        /// Sự kiện khi click vào Cluster
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Map_ClusterClicked(object sender, ClusterClickedEventArgs e)
-        {
-            e.Handled = true;
-            if (e.Pins != null && e.Pins.Count() > 0)
-            {
-                var listPositon = new List<Position>();
-                e.Pins.ToList().ForEach(x =>
-                {
-                    listPositon.Add(x.Position);
-                });
-                var bounds = GeoHelper.FromPositions(listPositon);
-
-                googleMap.AnimateCamera(CameraUpdateFactory.NewBounds(bounds, 40));
             }
         }
 
