@@ -57,8 +57,10 @@
                 <Label
                     FontAttributes="Bold"
                     FontFamily="{StaticResource myFontLatoBold}"
+                    HorizontalOptions="StartAndExpand"
+                    HorizontalTextAlignment="Start"
                     LineBreakMode="TailTruncation"
-                    MaxLines="1"
+                    MaxLines="2"
                     Text="{Binding UserInfo.FullName, Converter={StaticResource UpperCaseConverter}}"
                     TextColor="{DynamicResource WhiteColor}" />
                 <Label
