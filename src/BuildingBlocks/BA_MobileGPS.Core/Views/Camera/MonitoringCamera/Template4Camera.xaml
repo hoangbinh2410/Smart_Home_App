@@ -13,6 +13,14 @@
     <ContentView.Resources>
         <converter:CameraTextBorderConverter x:Key="CameraTextBorderConverter" />
         <converter:ShowHideColumnConverter x:Key="ShowHideColumnConverter" />
+        <Style x:Key="cameraTextFrame" TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="CornerRadius" Value="2" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="Padding" Value="6,2" />
+            <Setter Property="Margin" Value="0,10,0,0" />
+        </Style>
         <Style TargetType="indicator:SfBusyIndicator">
             <Setter Property="AnimationType" Value="Cupertino" />
             <Setter Property="BackgroundColor" Value="Transparent" />
@@ -22,20 +30,15 @@
             <Setter Property="ViewBoxWidth" Value="35" />
             <Setter Property="Duration" Value="0.8" />
         </Style>
-        <Style x:Key="cameraTextFrame" TargetType="Frame">
-            <Setter Property="BackgroundColor" Value="Transparent" />
-            <Setter Property="CornerRadius" Value="2" />
-            <Setter Property="HorizontalOptions" Value="Center" />
-            <Setter Property="VerticalOptions" Value="Center" />
-            <Setter Property="Padding" Value="6,2" />
-            <Setter Property="Margin" Value="0,10,0,0" />
-        </Style>
+
     </ContentView.Resources>
     <Grid
         ColumnDefinitions="*,*"
         ColumnSpacing="2"
         RowDefinitions="*,*"
         RowSpacing="2">
+
+        <!--  Cam 1  -->
         <Grid BackgroundColor="Black" RowDefinitions="40,*">
             <Grid.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraSelectedEnum.FirstCamera}" />
@@ -90,7 +93,7 @@
                 </Grid.Triggers>
             </Grid>
         </Grid>
-
+        <!--  Cam 2  -->
         <Grid
             Grid.Row="1"
             Grid.Column="0"
@@ -149,7 +152,7 @@
                 </Grid.Triggers>
             </Grid>
         </Grid>
-
+        <!--  Cam 3  -->
         <Grid
             Grid.Column="1"
             BackgroundColor="Black"
@@ -207,6 +210,7 @@
                 </Grid.Triggers>
             </Grid>
         </Grid>
+        <!--  Cam 4  -->
         <Grid
             Grid.Row="1"
             Grid.Column="1"
