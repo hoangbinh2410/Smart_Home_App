@@ -514,11 +514,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (isRelogin)
                         {
-                            EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(true);
+                            EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
                         }
                         else
                         {
-                            EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
+                            EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(true);
                         }
                     });
 
