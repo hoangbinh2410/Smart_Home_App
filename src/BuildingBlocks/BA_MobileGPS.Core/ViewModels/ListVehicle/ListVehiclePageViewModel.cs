@@ -346,7 +346,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 if (CompanyConfigurationHelper.VehicleOnlineAddressEnabled)
                 {
-                    if (StateVehicleExtension.IsMovingAndEngineON(carInfo) || !GeoHelper.IsBetweenLatlng(vehicle.Lat, vehicle.Lng, carInfo.Lat, carInfo.Lng))
+                    if (StateVehicleExtension.IsMovingAndEngineON(carInfo) && !GeoHelper.IsBetweenLatlng(vehicle.Lat, vehicle.Lng, carInfo.Lat, carInfo.Lng))
                     {
                         Task.Run(async () =>
                         {

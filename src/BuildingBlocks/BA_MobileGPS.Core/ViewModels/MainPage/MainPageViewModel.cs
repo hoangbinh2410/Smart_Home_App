@@ -85,15 +85,16 @@ namespace BA_MobileGPS.Core.ViewModels
             });
 
         }
-
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
 
-            TryExecute(() =>
+            TryExecute(async () =>
             {
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
+                await ConnectSignalROnline();
+                InitVehilceOnline();
                 // Lấy danh sách cảnh báo
                 GetCountAlert();
 
@@ -133,7 +134,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else
             {
-                GetListVehicleOnlineResume(false);
+                GetListVehicleOnline();
             }
         }
 
@@ -141,11 +142,19 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (IsConnected)
             {
+                await ConnectSignalROnline();
                 await ConnectSignalR();
                 if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                 {
-                    //Join vào nhóm signalR để nhận dữ liệu online
-                    GetListVehicleOnlineResume();
+                    if (DateTime.Now.Subtract(StaticSettings.TimeSleep).TotalMinutes >= MobileSettingHelper.TimeSleep)
+                    {
+                        GetListVehicleOnlineResume(true);
+                    }
+                    else
+                    {
+                        GetListVehicleOnlineResume();
+                    }
+
                 }
                 if (StaticSettings.TimeServer < DateTime.Now)
                 {
@@ -166,6 +175,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void OnSleepPage(bool obj)
         {
+            StaticSettings.TimeSleep = DateTime.Now;
             DisconnectSignalR();
         }
 
@@ -300,6 +310,13 @@ namespace BA_MobileGPS.Core.ViewModels
             await alertHubService.Connect();
 
             alertHubService.onReceiveAlertSignalR += OnReceiveAlertSignalR;
+        }
+        private async Task ConnectSignalROnline()
+        {
+            // Khởi tạo signalR
+            await vehicleOnlineHubService.Connect();
+
+            vehicleOnlineHubService.onReceiveSendCarSignalR += OnReceiveSendCarSignalR;
         }
 
         private async void DisconnectSignalR()
@@ -441,7 +458,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private void GetListVehicleOnlineResume(bool isresume = true)
+        private void GetListVehicleOnlineResume(bool isRelogin = false)
         {
             var userID = UserInfo.UserId;
             var companyID = UserInfo.CompanyId;
@@ -495,15 +512,16 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        if (isresume)
-                        {
-                            EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(true);
-                        }
-                        else
+                        if (isRelogin)
                         {
                             EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
                         }
+                        else
+                        {
+                            EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(true);
+                        }
                     });
+
                 }
                 else
                 {
@@ -513,6 +531,63 @@ namespace BA_MobileGPS.Core.ViewModels
                         Logout();
                         DisplayMessage.ShowMessageInfo("Phiên làm việc đã hết hạn bạn vui lòng đăng nhập lại");
                     });
+                }
+            });
+        }
+
+        private void GetListVehicleOnline()
+        {
+            var userID = UserInfo.UserId;
+            var companyID = UserInfo.CompanyId;
+            var xnCode = UserInfo.XNCode;
+            var userType = UserInfo.UserType;
+            var companyType = UserInfo.CompanyType;
+
+            if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+            {
+                userID = Settings.CurrentCompany.UserId;
+                companyID = Settings.CurrentCompany.FK_CompanyID;
+                xnCode = Settings.CurrentCompany.XNCode;
+                userType = Settings.CurrentCompany.UserType;
+                companyType = Settings.CurrentCompany.CompanyType;
+            }
+            int vehicleGroup = 0;
+
+            RunOnBackground(async () =>
+            {
+                return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
+            }, (result) =>
+            {
+                if (result != null && result.Count > 0)
+                {
+                    result.ForEach(x =>
+                    {
+                        x.IconImage = IconCodeHelper.GetMarkerResource(x);
+                        x.StatusEngineer = StateVehicleExtension.EngineState(x);
+
+                        if (!StateVehicleExtension.IsLostGPS(x.GPSTime, x.VehicleTime) && !StateVehicleExtension.IsLostGSM(x.VehicleTime))
+                        {
+                            x.SortOrder = 1;
+                        }
+                        else
+                        {
+                            x.SortOrder = 0;
+                        }
+                    });
+
+                    StaticSettings.ListVehilceOnline = result;
+
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
+                    });
+
+                    //Join vào nhóm signalR để nhận dữ liệu online
+                    JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
+                }
+                else
+                {
+                    StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
                 }
             });
         }

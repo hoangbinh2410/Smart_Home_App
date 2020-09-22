@@ -5,7 +5,5 @@
         public static readonly string ThemeKey = "Theme";
 
         public static readonly string CustomColorsKey = "CustomColors";
-
-        public static bool IsNextTab = false;
     }
 }
