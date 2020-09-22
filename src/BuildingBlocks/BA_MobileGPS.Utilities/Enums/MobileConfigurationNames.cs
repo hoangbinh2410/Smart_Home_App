@@ -64,6 +64,7 @@
         AuthenticationSecond,
         TimeVehicleSync,
         TimmerVehicleSync,
+        TimeSleep,
         LengthAndPrefixNumberPhone,
         ConfigDangerousChar,
         ConfigUnitDebtMoney,

@@ -65,16 +65,14 @@
     </NavigationPage.TitleView>
     <ContentPage.Content>
         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
             <sfList:SfListView
                 x:Name="listView"
                 Grid.Row="0"
                 Padding="0"
                 AllowSwiping="True"
-                AutoFitMode="Height"
+                AutoFitMode="None"
                 BackgroundColor="Transparent"
+                ItemSize="120"
                 ItemSpacing="1"
                 ItemsSource="{Binding ListNotice, Mode=OneWay}"
                 LoadMoreCommand="{Binding LoadMoreItemsCommand}"
@@ -152,7 +150,10 @@
                 </sfList:SfListView.RightSwipeTemplate>
                 <sfList:SfListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="5" BackgroundColor="{DynamicResource WhiteColor}">
+                        <Grid
+                            Padding="5"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            HeightRequest="200">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />

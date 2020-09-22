@@ -45,8 +45,6 @@ namespace BA_MobileGPS.Core.Views
         private readonly IGeocodeService geocodeService;
         private readonly IDisplayMessage displayMessage;
         private readonly IPageDialogService pageDialog;
-        private readonly IVehicleOnlineService vehicleOnlineService;
-        private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
 
         private readonly BA_MobileGPS.Core.Animation _animations = new BA_MobileGPS.Core.Animation();
 
@@ -60,8 +58,6 @@ namespace BA_MobileGPS.Core.Views
             geocodeService = PrismApplicationBase.Current.Container.Resolve<IGeocodeService>();
             displayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
             pageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
-            vehicleOnlineService = PrismApplicationBase.Current.Container.Resolve<IVehicleOnlineService>();
-            boundaryRepository = PrismApplicationBase.Current.Container.Resolve<IRealmBaseService<BoundaryRealm, LandmarkResponse>>();
 
             // Initialize the View Model Object
             vm = (OnlinePageViewModel)BindingContext;
@@ -206,8 +202,6 @@ namespace BA_MobileGPS.Core.Views
 
         private System.Timers.Timer timer;
 
-        private CancellationTokenSource cts;
-
         /* Xe đang được chọn */
         private VehicleOnline mCarActive;
 
@@ -255,6 +249,7 @@ namespace BA_MobileGPS.Core.Views
             }
             else
             {
+                IsInitMarker = false;
                 InitOnline();
             }
         }
@@ -541,6 +536,7 @@ namespace BA_MobileGPS.Core.Views
                 }
                 else
                 {
+                    item.Rotation = carInfo.Direction * 45;
                     itemLable.Position = new Position(carInfo.Lat, carInfo.Lng);
                     item.Position = new Position(carInfo.Lat, carInfo.Lng);
                     if (carActive)
@@ -569,6 +565,7 @@ namespace BA_MobileGPS.Core.Views
                     {
                         using (new HUDService(MobileResource.Common_Message_Processing))
                         {
+                            HideBoxInfoCarActive(new VehicleOnline() { VehicleId = 1 });
                             var list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
                             if (list != null && list.Count > 0)
                             {
@@ -595,80 +592,16 @@ namespace BA_MobileGPS.Core.Views
                                     }
                                 }
                             }
+                            InitialCameraUpdate();
                         }
                     }
                 }
-                //else
-                //{
-                //    GetListVehicleOnline();
-                //}
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
-
-        //private void GetListVehicleOnline()
-        //{
-        //    var userID = StaticSettings.User.UserId;
-        //    var companyID = StaticSettings.User.CompanyId;
-        //    var xnCode = StaticSettings.User.XNCode;
-        //    var userType = StaticSettings.User.UserType;
-        //    var companyType = StaticSettings.User.CompanyType;
-
-        //    if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
-        //    {
-        //        userID = Settings.CurrentCompany.UserId;
-        //        companyID = Settings.CurrentCompany.FK_CompanyID;
-        //        xnCode = Settings.CurrentCompany.XNCode;
-        //        userType = Settings.CurrentCompany.UserType;
-        //        companyType = Settings.CurrentCompany.CompanyType;
-        //    }
-        //    int vehicleGroup = 0;
-
-        //    if (cts != null)
-        //        cts.Cancel(true);
-
-        //    cts = new CancellationTokenSource();
-
-        //    Task.Run(async () =>
-        //    {
-        //        await Task.Delay(100, cts.Token);
-
-        //        return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
-        //    }, cts.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
-        //    {
-        //        if (task.Status == TaskStatus.RanToCompletion)
-        //        {
-        //            if (task.Result != null && task.Result.Count > 0)
-        //            {
-        //                task.Result.ForEach(x =>
-        //                {
-        //                    x.IconImage = IconCodeHelper.GetMarkerResource(x);
-        //                    x.StatusEngineer = StateVehicleExtension.EngineState(x);
-
-        //                    if (!StateVehicleExtension.IsLostGPS(x.GPSTime, x.VehicleTime) && !StateVehicleExtension.IsLostGSM(x.VehicleTime))
-        //                    {
-        //                        x.SortOrder = 1;
-        //                    }
-        //                    else
-        //                    {
-        //                        x.SortOrder = 0;
-        //                    }
-        //                });
-
-        //                StaticSettings.ListVehilceOnline = task.Result;
-        //                InitialCameraUpdate();
-        //                InitOnline();
-        //            }
-        //            else
-        //            {
-        //                StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
-        //            }
-        //        }
-        //    }));
-        //}
 
         private void InitialCameraUpdate()
         {
@@ -980,17 +913,9 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         private async void ShowBoxInfo()
         {
-            if (AppSettings.IsNextTab)
-            {
-                AppSettings.IsNextTab = false;
-            }
-            else
-            {
-                SetPaddingWithFooter();
-                eventAggregator.GetEvent<ShowTabItemEvent>().Publish(false);
-                await _animations.Go(States.ShowFilter, true);
-                AppSettings.IsNextTab = false;
-            }
+            SetPaddingWithFooter();
+            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(false);
+            await _animations.Go(States.ShowFilter, true);
         }
 
         private async void ShowTabItem()
@@ -1009,11 +934,6 @@ namespace BA_MobileGPS.Core.Views
             vm.CarActive = new VehicleOnline();
             mCarActive = new VehicleOnline();
             btnDirectvehicleOnline.IsVisible = false;
-
-            if (AppSettings.IsNextTab)
-            {
-                AppSettings.IsNextTab = false;
-            }
         }
 
         /* Set padding map khi có thông tin xe ở footer - tracking */
@@ -1037,12 +957,6 @@ namespace BA_MobileGPS.Core.Views
         {
             await _animations.Go(States.HideStatus, true);
             infoStatusIsShown = false;
-        }
-
-        private async void ShowBoxStatus()
-        {
-            await _animations.Go(States.ShowStatus, true);
-            infoStatusIsShown = true;
         }
 
         private void TapStatusVehicel(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs args)

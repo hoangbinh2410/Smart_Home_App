@@ -19,8 +19,6 @@ namespace BA_MobileGPS.Core.Views
     public partial class MainPage : ContentPage
     {
         private bool checkpermissiononline = false;
-
-        private Stopwatch sw = new Stopwatch();
         public MainPage()
         {
             InitializeComponent();
@@ -126,31 +124,15 @@ namespace BA_MobileGPS.Core.Views
                     path = path.Replace("File:", string.Empty).Trim();
                     ((BottomTabItem)tabitem.Tabs[index]).IconImageSource = path;
                 }
-
                 if (this.eventAggregator != null)
                 {
                     this.eventAggregator.GetEvent<TabSelectedChangedEvent>().Publish(index);
-
-                    if (!AppSettings.IsNextTab)
-                    {
-                        eventAggregator.GetEvent<ShowTabItemOnlineEvent>().Publish();
-
-                        ViewExtensions.CancelAnimations(TabHost);
-
-                        Device.BeginInvokeOnMainThread(async () =>
-                        {
-                            await _animations.Go(States.ShowFilter, false);
-                        });
-
-                        AppSettings.IsNextTab = true;
-                    }
-
-
                 }
 
                 previousIndex = index;
 
             }
+
         }
 
 
@@ -213,8 +195,6 @@ namespace BA_MobileGPS.Core.Views
 
         private void ShowTabItem(bool check)
         {
-
-
             if (check)
             {
                 ShowTab();
@@ -223,8 +203,6 @@ namespace BA_MobileGPS.Core.Views
             {
                 HideTab();
             }
-
-
         }
 
         /// <summary>
