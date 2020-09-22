@@ -211,7 +211,7 @@
                                     </controls:IconView.GestureRecognizers>
                                 </controls:IconView>
                             </StackLayout>
-
+                            
                             <BoxView class="SlimLine" />
                             <Grid
                                 x:Name="parentFeatures"

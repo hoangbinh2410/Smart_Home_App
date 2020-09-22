@@ -192,6 +192,8 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<DetailCamera, DetailCameraViewModel>("DetailCamera");
 
             containerRegistry.RegisterForNavigation<CameraManagingPage, CameraManagingPageViewModel>("CameraManagingPage");
+
+            containerRegistry.RegisterForNavigation<ImageManagingPage, ImageManagingPageViewModel>("ImageManagingPage");
         }
     }
 }

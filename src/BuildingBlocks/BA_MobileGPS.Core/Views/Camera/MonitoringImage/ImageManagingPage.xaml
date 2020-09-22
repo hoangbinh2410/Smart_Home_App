@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.ImageManagingPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.HasBackButton="False">
+    <ContentPage.Resources>
+
+        <Style TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="CornerRadius" Value="2" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="Padding" Value="6,2" />
+            <Setter Property="Margin" Value="0,10,0,0" />
+        </Style>
+    </ContentPage.Resources>
+    <NavigationPage.TitleView>
+        <Grid VerticalOptions="End">
+            <icons:IconView
+                Foreground="{DynamicResource WhiteColor}"
+                HeightRequest="25"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <icons:IconView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </icons:IconView.GestureRecognizers>
+            </icons:IconView>
+            <Label
+                HorizontalOptions="Center"
+                StyleClass="GroupTitleLabel,BoldText"
+                Text="Camera"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
+    <ScrollView>
+
+
+        <Grid RowDefinitions="Auto,Auto,*" RowSpacing="2">
+            <!--  Search area  -->
+            <Grid
+                Padding="10,0"
+                ColumnDefinitions="*,Auto,Auto,Auto"
+                ColumnSpacing="10"
+                HeightRequest="60">
+                <pancake:PancakeView
+                    Padding="0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    CornerRadius="20"
+                    HasShadow="True"
+                    HeightRequest="40"
+                    VerticalOptions="Center">
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                    </pancake:PancakeView.GestureRecognizers>
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow
+                            BlurRadius="3"
+                            Offset="0,0"
+                            Color="Black" />
+                    </pancake:PancakeView.Shadow>
+                    <StackLayout
+                        Padding="0"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <pancake:PancakeView
+                            BackgroundColor="{DynamicResource PrimaryColor}"
+                            CornerRadius="20"
+                            WidthRequest="40">
+                            <icons:IconView
+                                Margin="13"
+                                Foreground="{DynamicResource WhiteColor}"
+                                Source="ic_search.png" />
+                        </pancake:PancakeView>
+                        <Entry
+                            x:Name="entrySearch"
+                            FontSize="14"
+                            HorizontalOptions="FillAndExpand"
+                            InputTransparent="True"
+                            PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
+                            Text="{Binding CarSearch}"
+                            TextColor="{DynamicResource TextPrimaryColor}"
+                            VerticalOptions="Center">
+                            <Entry.Effects>
+                                <effects:BorderlessEffect />
+                            </Entry.Effects>
+                        </Entry>
+                    </StackLayout>
+                </pancake:PancakeView>
+                <pancake:PancakeView
+                    Grid.Column="1"
+                    Padding="0"
+                    BackgroundColor="White"
+                    CornerRadius="20"
+                    HeightRequest="40"
+                    VerticalOptions="Center"
+                    WidthRequest="40">
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow
+                            BlurRadius="3"
+                            Offset="0,0"
+                            Color="Black" />
+                    </pancake:PancakeView.Shadow>
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
+                    </pancake:PancakeView.GestureRecognizers>
+                    <icons:IconView
+                        Foreground="{DynamicResource PrimaryColor}"
+                        HeightRequest="25"
+                        HorizontalOptions="Center"
+                        Source="ic_doublevehicle.png"
+                        VerticalOptions="Center"
+                        WidthRequest="25" />
+                </pancake:PancakeView>
+                <pancake:PancakeView
+                    Grid.Column="2"
+                    Padding="0"
+                    BackgroundColor="White"
+                    CornerRadius="20"
+                    HeightRequest="40"
+                    VerticalOptions="Center"
+                    WidthRequest="40">
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow
+                            BlurRadius="3"
+                            Offset="0,0"
+                            Color="Black" />
+                    </pancake:PancakeView.Shadow>
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
+                    </pancake:PancakeView.GestureRecognizers>
+                    <icons:IconView
+                        Foreground="{DynamicResource PrimaryColor}"
+                        HeightRequest="25"
+                        HorizontalOptions="Center"
+                        Source="ic_doublevehicle.png"
+                        VerticalOptions="Center"
+                        WidthRequest="25" />
+                </pancake:PancakeView>
+                <pancake:PancakeView
+                    Grid.Column="3"
+                    Padding="0"
+                    BackgroundColor="White"
+                    CornerRadius="20"
+                    HeightRequest="40"
+                    VerticalOptions="Center"
+                    WidthRequest="40">
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow
+                            BlurRadius="3"
+                            Offset="0,0"
+                            Color="Black" />
+                    </pancake:PancakeView.Shadow>
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
+                    </pancake:PancakeView.GestureRecognizers>
+                    <icons:IconView
+                        Foreground="{DynamicResource PrimaryColor}"
+                        HeightRequest="25"
+                        HorizontalOptions="Center"
+                        Source="ic_doublevehicle.png"
+                        VerticalOptions="Center"
+                        WidthRequest="25" />
+                </pancake:PancakeView>
+            </Grid>
+            <Grid
+                Grid.Row="1"
+                Padding="10,0,10,10"
+                RowDefinitions="Auto,Auto"
+                VerticalOptions="StartAndExpand">
+                <Label
+                    HorizontalOptions="Start"
+                    Text="10 phương tiện xem gần nhất"
+                    TextColor="{DynamicResource TextPrimaryColor}"
+                    VerticalOptions="Start" />
+                <syncfusionList:SfListView
+                    x:Name="listView"
+                    Grid.Row="1"
+                    HeightRequest="{Binding ListHeght}"
+                    ItemSpacing="3,0,3,0"
+                    ItemsSource="{Binding ListImage, Mode=TwoWay}"
+                    SelectionBackgroundColor="Transparent"
+                    TapCommand="{Binding Path=BindingContext.TapItemsCommand, Source={x:Reference listView}}"
+                    VerticalOptions="Start">
+                    <syncfusionList:SfListView.LayoutManager>
+                        <syncfusionList:GridLayout SpanCount="{Binding SpanCount}" />
+                    </syncfusionList:SfListView.LayoutManager>
+                    <syncfusionList:SfListView.ItemTemplate>
+                        <DataTemplate>
+                            <pancake:PancakeView
+                                Grid.Row="1"
+                                Padding="0"
+                                BackgroundColor="{DynamicResource PrimaryColor}"
+                                CornerRadius="20"
+                                HeightRequest="30"
+                                VerticalOptions="Center">
+                                <Label
+                                    HorizontalOptions="Center"
+                                    Text="{Binding Name}"
+                                    TextColor="{DynamicResource WhiteColor}"
+                                    VerticalOptions="Center" />
+                            </pancake:PancakeView>
+                        </DataTemplate>
+                    </syncfusionList:SfListView.ItemTemplate>
+                </syncfusionList:SfListView>
+            </Grid>
+            <!--  Image  -->
+
+            <Grid x:Name="ImagePanel" Grid.Row="2" />
+
+        </Grid>
+    </ScrollView>
+</ContentPage>

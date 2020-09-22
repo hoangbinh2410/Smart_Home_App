@@ -1,0 +1,476 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="BA_MobileGPS.Core.Views.Camera.MonitoringImage.Template4Image"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core.Converters"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:local="clr-namespace:BA_MobileGPS.Core.Views.Camera.MonitoringCamera"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
+    mc:Ignorable="d">
+
+    <Grid RowDefinitions="Auto,Auto">
+        <Grid
+            Margin="0,0,0,-10"
+            Padding="10,0"
+            BackgroundColor="{DynamicResource PrimaryColor}"
+            HeightRequest="40"
+            VerticalOptions="Start">
+            <StackLayout
+                Padding="0"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal">
+                <Label
+                    HorizontalOptions="Start"
+                    StyleClass="GroupTitleLabel,BoldText"
+                    Text="30A-56789"
+                    TextColor="{DynamicResource WhiteColor}"
+                    VerticalOptions="Center" />
+                <pancake:PancakeView WidthRequest="15">
+                    <icons:IconView Foreground="{DynamicResource WhiteColor}" Source="ic_star.png" />
+                </pancake:PancakeView>
+            </StackLayout>
+            <StackLayout
+                Padding="0"
+                HorizontalOptions="End"
+                Orientation="Horizontal">
+                <pancake:PancakeView WidthRequest="40">
+                    <icons:IconView
+                        Margin="8"
+                        Foreground="{DynamicResource WhiteColor}"
+                        Source="ic_image.png" />
+                </pancake:PancakeView>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding TabCommandDetail}" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto">
+                <pancake:PancakeView Padding="0" CornerRadius="0,0,5,5">
+                    <pancake:PancakeView.Border>
+                        <pancake:Border Thickness="1" Color="{DynamicResource GrayColor2}" />
+                    </pancake:PancakeView.Border>
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow
+                            BlurRadius="1"
+                            Offset="0,0"
+                            Color="Black" />
+                    </pancake:PancakeView.Shadow>
+                    <StackLayout
+                        Padding="0"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="2">
+                        <sharpnado:MaterialFrame
+                            Padding="0"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Start">
+                            <ffImage:CachedImage
+                                Aspect="AspectFill"
+                                BackgroundColor="White"
+                                BitmapOptimizations="True"
+                                DownsampleToViewSize="True"
+                                ErrorPlaceholder="camera_placeholder.png"
+                                HeightRequest="150"
+                                HorizontalOptions="FillAndExpand"
+                                LoadingPlaceholder="camera_placeholder.png"
+                                Source="https://baoquocte.vn/stores/news_dataimages/dieulinh/012020/29/15/nhung-buc-anh-dep-tuyet-voi-ve-tinh-ban.jpg"
+                                VerticalOptions="FillAndExpand" />
+                        </sharpnado:MaterialFrame>
+                        <Grid
+                            Padding="0,5"
+                            ColumnDefinitions="Auto,*,*"
+                            RowDefinitions="Auto,Auto,Auto"
+                            RowSpacing="3">
+                            <icons:IconView
+                                Foreground="{DynamicResource PrimaryColor}"
+                                HeightRequest="15"
+                                Source="ic_location_black"
+                                VerticalOptions="Center"
+                                WidthRequest="15" />
+                            <Label
+                                Grid.Column="1"
+                                FontAttributes="Bold"
+                                FontSize="10"
+                                HorizontalOptions="StartAndExpand"
+                                HorizontalTextAlignment="Start"
+                                LineBreakMode="WordWrap"
+                                Text="00:00:00 20/08/2020"
+                                VerticalOptions="Center" />
+                            <icons:IconView
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Foreground="{DynamicResource PrimaryColor}"
+                                HeightRequest="15"
+                                HorizontalOptions="Start"
+                                Source="ic_location_black"
+                                VerticalOptions="Center"
+                                WidthRequest="15" />
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                FontSize="10"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                LineBreakMode="WordWrap"
+                                MaxLines="2"
+                                Text="Lô 14 P. Nguyễn Cảnh Dị, Đại Kim, Hoàng Mai, Hà Nội"
+                                VerticalOptions="Center" />
+                            <icons:IconView
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Foreground="{DynamicResource PrimaryColor}"
+                                HeightRequest="15"
+                                Source="ic_location_black"
+                                VerticalOptions="Center"
+                                WidthRequest="15" />
+                            <Label
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                FontSize="10"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                LineBreakMode="WordWrap"
+                                Text="Xe quá tốc độ"
+                                VerticalOptions="Center" />
+                            <StackLayout
+                                Grid.RowSpan="3"
+                                Grid.Column="2"
+                                HorizontalOptions="CenterAndExpand"
+                                Orientation="Vertical"
+                                VerticalOptions="CenterAndExpand">
+                                <pancake:PancakeView
+                                    Padding="0"
+                                    BackgroundGradientEndPoint="1,1"
+                                    BackgroundGradientStartPoint="0,0"
+                                    CornerRadius="25"
+                                    HeightRequest="50"
+                                    HorizontalOptions="EndAndExpand"
+                                    WidthRequest="50">
+                                    <pancake:PancakeView.BackgroundGradientStops>
+                                        <pancake:GradientStopCollection>
+                                            <pancake:GradientStop Offset="0" Color="{StaticResource PrimaryColor}" />
+                                            <pancake:GradientStop Offset="1" Color="{StaticResource BluePrimaryColor}" />
+                                        </pancake:GradientStopCollection>
+                                    </pancake:PancakeView.BackgroundGradientStops>
+                                    <pancake:PancakeView
+                                        Padding="0"
+                                        BackgroundGradientEndPoint="1,1"
+                                        BackgroundGradientStartPoint="0,0"
+                                        CornerRadius="23"
+                                        HeightRequest="46"
+                                        HorizontalOptions="CenterAndExpand"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="46">
+                                        <pancake:PancakeView.BackgroundGradientStops>
+                                            <pancake:GradientStopCollection>
+                                                <pancake:GradientStop Offset="0" Color="White" />
+                                                <pancake:GradientStop Offset="1" Color="White" />
+                                            </pancake:GradientStopCollection>
+                                        </pancake:PancakeView.BackgroundGradientStops>
+                                        <StackLayout Spacing="0" VerticalOptions="Center">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontFamily="Arial"
+                                                FontSize="12"
+                                                Text="60" />
+                                            <Label FontSize="10" Text="km/h" />
+                                        </StackLayout>
+                                    </pancake:PancakeView>
+                                </pancake:PancakeView>
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                </pancake:PancakeView>
+                <pancake:PancakeView
+                    Grid.Column="1"
+                    Padding="0"
+                    CornerRadius="0,0,5,5">
+                    <pancake:PancakeView.Border>
+                        <pancake:Border Thickness="1" Color="{DynamicResource GrayColor2}" />
+                    </pancake:PancakeView.Border>
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow
+                            BlurRadius="1"
+                            Offset="0,0"
+                            Color="Black" />
+                    </pancake:PancakeView.Shadow>
+                    <StackLayout
+                        Padding="0"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="2">
+                        <sharpnado:MaterialFrame
+                            Padding="0"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Start">
+                            <ffImage:CachedImage
+                                Aspect="AspectFill"
+                                BackgroundColor="White"
+                                BitmapOptimizations="True"
+                                DownsampleToViewSize="True"
+                                ErrorPlaceholder="camera_placeholder.png"
+                                HeightRequest="150"
+                                HorizontalOptions="FillAndExpand"
+                                LoadingPlaceholder="camera_placeholder.png"
+                                Source="https://baoquocte.vn/stores/news_dataimages/dieulinh/012020/29/15/nhung-buc-anh-dep-tuyet-voi-ve-tinh-ban.jpg"
+                                VerticalOptions="FillAndExpand" />
+                        </sharpnado:MaterialFrame>
+                        <Grid
+                            Padding="0,5"
+                            ColumnDefinitions="Auto,*,*"
+                            RowDefinitions="Auto,Auto,Auto"
+                            RowSpacing="3">
+                            <icons:IconView
+                                Foreground="{DynamicResource PrimaryColor}"
+                                HeightRequest="15"
+                                Source="ic_location_black"
+                                VerticalOptions="Center"
+                                WidthRequest="15" />
+                            <Label
+                                Grid.Column="1"
+                                FontAttributes="Bold"
+                                FontSize="10"
+                                HorizontalOptions="StartAndExpand"
+                                HorizontalTextAlignment="Start"
+                                LineBreakMode="WordWrap"
+                                Text="00:00:00 20/08/2020"
+                                VerticalOptions="Center" />
+                            <icons:IconView
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Foreground="{DynamicResource PrimaryColor}"
+                                HeightRequest="15"
+                                HorizontalOptions="Start"
+                                Source="ic_location_black"
+                                VerticalOptions="Center"
+                                WidthRequest="15" />
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                FontSize="10"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                LineBreakMode="WordWrap"
+                                MaxLines="2"
+                                Text="Lô 14 P. Nguyễn Cảnh Dị, Đại Kim, Hoàng Mai, Hà Nội"
+                                VerticalOptions="Center" />
+                            <icons:IconView
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Foreground="{DynamicResource PrimaryColor}"
+                                HeightRequest="15"
+                                Source="ic_location_black"
+                                VerticalOptions="Center"
+                                WidthRequest="15" />
+                            <Label
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                FontSize="10"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                LineBreakMode="WordWrap"
+                                Text="Xe quá tốc độ"
+                                VerticalOptions="Center" />
+                            <StackLayout
+                                Grid.RowSpan="3"
+                                Grid.Column="2"
+                                HorizontalOptions="CenterAndExpand"
+                                Orientation="Vertical"
+                                VerticalOptions="CenterAndExpand">
+                                <pancake:PancakeView
+                                    Padding="0"
+                                    BackgroundGradientEndPoint="1,1"
+                                    BackgroundGradientStartPoint="0,0"
+                                    CornerRadius="25"
+                                    HeightRequest="50"
+                                    HorizontalOptions="EndAndExpand"
+                                    WidthRequest="50">
+                                    <pancake:PancakeView.BackgroundGradientStops>
+                                        <pancake:GradientStopCollection>
+                                            <pancake:GradientStop Offset="0" Color="{StaticResource PrimaryColor}" />
+                                            <pancake:GradientStop Offset="1" Color="{StaticResource BluePrimaryColor}" />
+                                        </pancake:GradientStopCollection>
+                                    </pancake:PancakeView.BackgroundGradientStops>
+                                    <pancake:PancakeView
+                                        Padding="0"
+                                        BackgroundGradientEndPoint="1,1"
+                                        BackgroundGradientStartPoint="0,0"
+                                        CornerRadius="23"
+                                        HeightRequest="46"
+                                        HorizontalOptions="CenterAndExpand"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="46">
+                                        <pancake:PancakeView.BackgroundGradientStops>
+                                            <pancake:GradientStopCollection>
+                                                <pancake:GradientStop Offset="0" Color="White" />
+                                                <pancake:GradientStop Offset="1" Color="White" />
+                                            </pancake:GradientStopCollection>
+                                        </pancake:PancakeView.BackgroundGradientStops>
+                                        <StackLayout Spacing="0" VerticalOptions="Center">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontFamily="Arial"
+                                                FontSize="12"
+                                                Text="60" />
+                                            <Label FontSize="10" Text="km/h" />
+                                        </StackLayout>
+                                    </pancake:PancakeView>
+                                </pancake:PancakeView>
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                </pancake:PancakeView>
+                <pancake:PancakeView
+                    Grid.Row="1"
+                    Padding="0"
+                    CornerRadius="0,0,5,5">
+                    <pancake:PancakeView.Border>
+                        <pancake:Border Thickness="1" Color="{DynamicResource GrayColor2}" />
+                    </pancake:PancakeView.Border>
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow
+                            BlurRadius="1"
+                            Offset="0,0"
+                            Color="Black" />
+                    </pancake:PancakeView.Shadow>
+                    <StackLayout
+                        Padding="0"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="2">
+                        <sharpnado:MaterialFrame
+                            Padding="0"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Start">
+                            <ffImage:CachedImage
+                                Aspect="AspectFill"
+                                BackgroundColor="White"
+                                BitmapOptimizations="True"
+                                DownsampleToViewSize="True"
+                                ErrorPlaceholder="camera_placeholder.png"
+                                HeightRequest="150"
+                                HorizontalOptions="FillAndExpand"
+                                LoadingPlaceholder="camera_placeholder.png"
+                                Source="https://baoquocte.vn/stores/news_dataimages/dieulinh/012020/29/15/nhung-buc-anh-dep-tuyet-voi-ve-tinh-ban.jpg"
+                                VerticalOptions="FillAndExpand" />
+                        </sharpnado:MaterialFrame>
+                        <Grid
+                            Padding="0,5"
+                            ColumnDefinitions="Auto,*,*"
+                            RowDefinitions="Auto,Auto,Auto"
+                            RowSpacing="3">
+                            <icons:IconView
+                                Foreground="{DynamicResource PrimaryColor}"
+                                HeightRequest="15"
+                                Source="ic_location_black"
+                                VerticalOptions="Center"
+                                WidthRequest="15" />
+                            <Label
+                                Grid.Column="1"
+                                FontAttributes="Bold"
+                                FontSize="10"
+                                HorizontalOptions="StartAndExpand"
+                                HorizontalTextAlignment="Start"
+                                LineBreakMode="WordWrap"
+                                Text="00:00:00 20/08/2020"
+                                VerticalOptions="Center" />
+                            <icons:IconView
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Foreground="{DynamicResource PrimaryColor}"
+                                HeightRequest="15"
+                                HorizontalOptions="Start"
+                                Source="ic_location_black"
+                                VerticalOptions="Center"
+                                WidthRequest="15" />
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                FontSize="10"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                LineBreakMode="WordWrap"
+                                MaxLines="2"
+                                Text="Lô 14 P. Nguyễn Cảnh Dị, Đại Kim, Hoàng Mai, Hà Nội"
+                                VerticalOptions="Center" />
+                            <icons:IconView
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Foreground="{DynamicResource PrimaryColor}"
+                                HeightRequest="15"
+                                Source="ic_location_black"
+                                VerticalOptions="Center"
+                                WidthRequest="15" />
+                            <Label
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                FontSize="10"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                LineBreakMode="WordWrap"
+                                Text="Xe quá tốc độ"
+                                VerticalOptions="Center" />
+                            <StackLayout
+                                Grid.RowSpan="3"
+                                Grid.Column="2"
+                                HorizontalOptions="CenterAndExpand"
+                                Orientation="Vertical"
+                                VerticalOptions="CenterAndExpand">
+                                <pancake:PancakeView
+                                    Padding="0"
+                                    BackgroundGradientEndPoint="1,1"
+                                    BackgroundGradientStartPoint="0,0"
+                                    CornerRadius="25"
+                                    HeightRequest="50"
+                                    HorizontalOptions="EndAndExpand"
+                                    WidthRequest="50">
+                                    <pancake:PancakeView.BackgroundGradientStops>
+                                        <pancake:GradientStopCollection>
+                                            <pancake:GradientStop Offset="0" Color="{StaticResource PrimaryColor}" />
+                                            <pancake:GradientStop Offset="1" Color="{StaticResource BluePrimaryColor}" />
+                                        </pancake:GradientStopCollection>
+                                    </pancake:PancakeView.BackgroundGradientStops>
+                                    <pancake:PancakeView
+                                        Padding="0"
+                                        BackgroundGradientEndPoint="1,1"
+                                        BackgroundGradientStartPoint="0,0"
+                                        CornerRadius="23"
+                                        HeightRequest="46"
+                                        HorizontalOptions="CenterAndExpand"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="46">
+                                        <pancake:PancakeView.BackgroundGradientStops>
+                                            <pancake:GradientStopCollection>
+                                                <pancake:GradientStop Offset="0" Color="White" />
+                                                <pancake:GradientStop Offset="1" Color="White" />
+                                            </pancake:GradientStopCollection>
+                                        </pancake:PancakeView.BackgroundGradientStops>
+                                        <StackLayout Spacing="0" VerticalOptions="Center">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontFamily="Arial"
+                                                FontSize="12"
+                                                Text="60" />
+                                            <Label FontSize="10" Text="km/h" />
+                                        </StackLayout>
+                                    </pancake:PancakeView>
+                                </pancake:PancakeView>
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                </pancake:PancakeView>
+            </Grid>
+
+        </Grid>
+    </Grid>
+
+
+</ContentView>
