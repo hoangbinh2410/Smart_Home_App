@@ -80,7 +80,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 if (LookUpType == VehicleLookUpType.VehicleRoute)
                 {
-                    return GetListVehicle(SelectedVehicleGroups, true);
+                    return GetListVehicle(SelectedVehicleGroups);
                 }
                 else
                 {
@@ -117,18 +117,13 @@ namespace BA_MobileGPS.Core.ViewModels
             }));
         }
 
-        public List<Vehicle> GetListVehicle(int[] groupids, bool isRoute = false)
+        public List<Vehicle> GetListVehicle(int[] groupids)
         {
             List<Vehicle> result = new List<Vehicle>();
             try
             {
-                var listOnline = StaticSettings.ListVehilceOnline;
-                
-                if (isRoute)
-                {
-                    listOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
-                }
-                if(groupids != null && groupids.Length > 0)
+                var listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                if (groupids != null && groupids.Length > 0)
                 {
                     foreach (var item in groupids)
                     {
