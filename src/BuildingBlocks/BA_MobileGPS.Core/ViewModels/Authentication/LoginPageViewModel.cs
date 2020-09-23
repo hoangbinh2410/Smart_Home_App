@@ -302,6 +302,16 @@ namespace BA_MobileGPS.Core.ViewModels
                                     }
                                 });
                             }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
+                                {
+                                    if (Settings.Rememberme)
+                                    {
+                                        LoginCommand.Execute(null);
+                                    }
+                                }
+                            }
                         }
                     }
                     else
