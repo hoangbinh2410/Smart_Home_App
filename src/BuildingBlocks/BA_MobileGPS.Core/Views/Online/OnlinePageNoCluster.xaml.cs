@@ -76,7 +76,6 @@ namespace BA_MobileGPS.Core.Views
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
-            this.eventAggregator.GetEvent<ShowTabItemOnlineEvent>().Subscribe(ShowTabItem);
 
             IsInitMarker = false;
 
@@ -168,7 +167,6 @@ namespace BA_MobileGPS.Core.Views
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
-            this.eventAggregator.GetEvent<ShowTabItemOnlineEvent>().Unsubscribe(ShowTabItem);
         }
 
         #endregion Lifecycle
@@ -861,24 +859,6 @@ namespace BA_MobileGPS.Core.Views
             SetPaddingWithFooter();
             eventAggregator.GetEvent<ShowTabItemEvent>().Publish(false);
             await _animations.Go(States.ShowFilter, true);
-        }
-
-        private async void ShowTabItem()
-        {
-            HideBoxStatus(); // ẩn tạm chưa có box trạng thái
-
-            SetNoPaddingWithFooter();
-
-            await _animations.Go(States.HideFilter, true);
-
-            if (mCarActive.VehicleId > 0)
-            {
-                UpdateBackgroundPinLable(mCarActive);
-            }
-
-            vm.CarActive = new VehicleOnline();
-            mCarActive = new VehicleOnline();
-            btnDirectvehicleOnline.IsVisible = false;
         }
 
         /* Set padding map khi có thông tin xe ở footer - tracking */
