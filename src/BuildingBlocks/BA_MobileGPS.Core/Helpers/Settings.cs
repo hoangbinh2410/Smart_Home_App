@@ -85,6 +85,9 @@ namespace BA_MobileGPS.Core
         private const string CurrentThemeKey = "CurrentThemeKey";
         private static readonly string CurrentThemeDefault = Theme.Light.ToString();
 
+        private const string LastViewVehicleImageKey = "LastViewVehicleImageKey";
+        private static readonly string LastViewVehicleImageDefault = string.Empty;
+
         public static float Latitude
         {
             get => AppSettings.GetValueOrDefault(IdLatitude, LatitudeDefault);
@@ -266,6 +269,12 @@ namespace BA_MobileGPS.Core
         {
             get => AppSettings.GetValueOrDefault(CurrentThemeKey, CurrentThemeDefault);
             set => AppSettings.AddOrUpdateValue(CurrentThemeKey, value);
+        }
+
+        public static string LastViewVehicleImage
+        {
+            get => AppSettings.GetValueOrDefault(LastViewVehicleImageKey, LastViewVehicleImageDefault);
+            set => AppSettings.AddOrUpdateValue(LastViewVehicleImageKey, value);
         }
     }
 }

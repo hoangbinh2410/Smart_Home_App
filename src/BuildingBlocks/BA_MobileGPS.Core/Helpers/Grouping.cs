@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace BA_MobileGPS.Core
@@ -19,5 +20,19 @@ namespace BA_MobileGPS.Core
         }
 
         public static ObservableCollection<T> All { private set; get; }
+    }
+
+
+    public class ObservableGroupCollection<K, T> : ObservableCollection<T>
+    {
+        // NB: This is the GroupDisplayBinding above for displaying the header
+        public K Key { get; private set; }
+        public ObservableCollection<T> All { private set; get; }
+
+        public ObservableGroupCollection(K key, List<T> items)
+        {
+            Key = key;
+            All = new ObservableCollection<T>(items);
+        }
     }
 }

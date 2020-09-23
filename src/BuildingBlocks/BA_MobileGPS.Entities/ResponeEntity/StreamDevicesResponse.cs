@@ -137,6 +137,11 @@ namespace BA_MobileGPS.Entities
         public List<CaptureImageData> Data { get; set; }
     }
 
+    public class CaptureImageResponse : ResponseStreamBase<List<CaptureImageData>>
+    {
+
+    }
+
     public class CaptureImageModel : ResponseStreamBase<List<CaptureImageGroup>>
     {
 

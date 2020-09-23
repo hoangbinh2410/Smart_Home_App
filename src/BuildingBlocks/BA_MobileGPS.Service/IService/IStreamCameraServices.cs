@@ -25,6 +25,6 @@ namespace BA_MobileGPS.Service.IService
 
         Task<List<CaptureImageData>> GetCaptureImageTime(string xncode, string vehiclePlate, DateTime fromTime, DateTime toTime);
 
-        Task<List<CaptureImageGroup>> GetListCaptureImage(StreamImageRequest request);
+        Task<List<CaptureImageData>> GetListCaptureImage(StreamImageRequest request);
     }
 }

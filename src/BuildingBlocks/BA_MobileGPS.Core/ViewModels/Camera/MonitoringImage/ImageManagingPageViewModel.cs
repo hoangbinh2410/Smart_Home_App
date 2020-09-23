@@ -1,10 +1,8 @@
 ﻿using BA_MobileGPS.Service.IService;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+
 
 using System.Windows.Input;
 
@@ -12,9 +10,8 @@ using System.Collections.ObjectModel;
 using BA_MobileGPS.Utilities;
 using System.Reflection;
 using BA_MobileGPS.Entities;
-using PanCardView.Extensions;
-using System.Reactive.Linq;
-using Syncfusion.Data.Extensions;
+using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
+using BA_MobileGPS.Core.Constant;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -26,6 +23,10 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand TapItemsCommand { get; set; }
 
         public ICommand TabCommandDetail { get; set; }
+
+        public ICommand TapCommandListGroup { get; set; }
+
+        public ICommand TabCommandFavorites { get; set; }
         
 
         public ImageManagingPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService) : base(navigationService)
@@ -34,10 +35,57 @@ namespace BA_MobileGPS.Core.ViewModels
             SpanCount = 1;
             ListHeight = 1;
             TapItemsCommand = new DelegateCommand<object>(TapItems);
-            TabCommandDetail = new DelegateCommand(TabDetail);
+            TabCommandDetail = new DelegateCommand<object>(TabDetail);
+            TapCommandListGroup = new DelegateCommand<ItemTappedEventArgs>(TapListGroup);
+            TabCommandFavorites = new DelegateCommand<object>(TabFavorites);
         }
 
-        private void TabDetail()
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
+            {
+                
+            }
+            else if (parameters.ContainsKey(ParameterKey.Company) && parameters.GetValue<Company>(ParameterKey.Company) is Company company)
+            {
+               
+            }
+            else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
+            {
+                VehicleGroups = vehiclegroup;
+                
+            }
+        }
+
+
+        private async void TapListGroup(ItemTappedEventArgs args)
+        {
+            try
+            {
+                if (!(args.ItemData is CaptureImageData item) || string.IsNullOrEmpty(item.Url))
+                    return;
+                else
+                {
+                    // chuyen dang detail
+                    //await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+                    //    {
+                    //        { "popupitem",  item}
+                    //    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
+
+        private void TabDetail(object obj)
+        {
+            //chuyên trang detail
+        }
+
+        private void TabFavorites(object obj)
         {
             //chuyên trang detail
         }
@@ -66,9 +114,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ObservableCollection<ImageSourceModel> ListLastView { get => listLastView; set => SetProperty(ref listLastView, value); }
 
-        private ObservableCollection<CaptureImageGroup> listGroup;
+        private ObservableCollection<CaptureImageData> listGroup;
 
-        public ObservableCollection<CaptureImageGroup> ListGroup { get => listGroup; set => SetProperty(ref listGroup, value); }
+        public ObservableCollection<CaptureImageData> ListGroup { get => listGroup; set => SetProperty(ref listGroup, value); }
+
 
         private ObservableCollection<CaptureImageData> listImage;
 
@@ -91,21 +140,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     var request = new StreamImageRequest()
                     {
-                        xnCode = 1010,
-                        VehiclePlates = "BACAM1409,BACAM1450"
+                        xnCode = 7644,
+                        VehiclePlates = "29B15081"
                     };
 
                     var response = await _streamCameraService.GetListCaptureImage(request);
 
                     if (response != null && response.Count > 0)
                     {
-                        ListGroup = response.ToObservableCollection();
-                        
-                        
+                        ListGroup = new ObservableCollection<CaptureImageData>(response);
                     }
                     else
                     {
-                        ListGroup = new ObservableCollection<CaptureImageGroup>();
+                        ListGroup = new ObservableCollection<CaptureImageData>();
                     }
                 });
             }
@@ -144,7 +191,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 respone[1] = 10 > count ? count : 10;
                 respone[2] = count > 5 ? 80 : 40;
             }
-            else if(width <= 1080 && width > 768)
+            else if (width <= 1080 && width > 768)
             {
                 respone[0] = 4;
                 respone[1] = 8 > count ? count : 8;

@@ -13,12 +13,9 @@ using BA_MobileGPS.Core.ViewModels;
 namespace BA_MobileGPS.Core.Views.Camera.MonitoringImage
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Template4Image : ContentView
+    public partial class Template1Image : ContentView
     {
-
-        private ImageManagingPageViewModel vm;
-
-        public Template4Image()
+        public Template1Image()
         {
             InitializeComponent();
 

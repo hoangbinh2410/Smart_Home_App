@@ -120,13 +120,13 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<List<CaptureImageGroup>> GetListCaptureImage(StreamImageRequest request)
+        public async Task<List<CaptureImageData>> GetListCaptureImage(StreamImageRequest request)
         {
-            var result = new List<CaptureImageGroup>();
+            var result = new List<CaptureImageData>();
             try
             {
                 string url = $"{ApiUri.GET_IMAGES}";
-                var response = await requestProvider.PostAsync<StreamImageRequest, CaptureImageModel>(url, request);
+                var response = await requestProvider.PostAsync<StreamImageRequest, CaptureImageResponse>(url, request);
                 if (response != null && response.Data.Count > 0)
                 {
                     result = response.Data;
