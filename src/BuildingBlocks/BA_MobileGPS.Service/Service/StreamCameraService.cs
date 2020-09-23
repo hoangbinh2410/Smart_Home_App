@@ -119,5 +119,25 @@ namespace BA_MobileGPS.Service.Service
             }
             return result;
         }
+
+        public async Task<List<CaptureImageGroup>> GetListCaptureImage(StreamImageRequest request)
+        {
+            var result = new List<CaptureImageGroup>();
+            try
+            {
+                string url = $"{ApiUri.GET_IMAGES}";
+                var response = await requestProvider.PostAsync<StreamImageRequest, CaptureImageModel>(url, request);
+                if (response != null && response.Data.Count > 0)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+
+            }
+            return result;
+        }
     }
 }

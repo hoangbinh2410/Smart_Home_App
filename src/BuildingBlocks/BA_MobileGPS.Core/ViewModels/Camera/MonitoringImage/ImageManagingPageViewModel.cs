@@ -1,31 +1,38 @@
-﻿using BA_MobileGPS.Core.Views.Camera.MonitoringCamera;
-using LibVLCSharp.Shared;
+﻿using BA_MobileGPS.Service.IService;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 using System.Windows.Input;
-using Xamarin.Forms;
+
 using System.Collections.ObjectModel;
 using BA_MobileGPS.Utilities;
 using System.Reflection;
+using BA_MobileGPS.Entities;
+using PanCardView.Extensions;
+using System.Reactive.Linq;
+using Syncfusion.Data.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class ImageManagingPageViewModel : ViewModelBase
     {
+
+        private readonly IStreamCameraService _streamCameraService;
+
         public ICommand TapItemsCommand { get; set; }
 
         public ICommand TabCommandDetail { get; set; }
         
 
-        public ImageManagingPageViewModel(INavigationService navigationService) : base(navigationService)
+        public ImageManagingPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService) : base(navigationService)
         {
+            _streamCameraService = streamCameraService;
             SpanCount = 1;
-            ListHeght = 1;
+            ListHeight = 1;
             TapItemsCommand = new DelegateCommand<object>(TapItems);
             TabCommandDetail = new DelegateCommand(TabDetail);
         }
@@ -38,7 +45,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private void TapItems(object obj)
         {
             var listview = obj as Syncfusion.ListView.XForms.ItemTappedEventArgs;
-          
             try
             {
                 // truyền key xử lý ở đây
@@ -48,31 +54,67 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-            
         }
 
         private int spanCount;
         public int SpanCount { get => spanCount; set => SetProperty(ref spanCount, value); }
 
-        private int listHeght;
-        public int ListHeght { get => listHeght; set => SetProperty(ref listHeght, value); }
+        private int listHeight;
+        public int ListHeight { get => listHeight; set => SetProperty(ref listHeight, value); }
 
-        private ObservableCollection<ImageSourceModel> listImage;
+        private ObservableCollection<ImageSourceModel> listLastView;
 
-        public ObservableCollection<ImageSourceModel> ListImage
-        {
-            get => listImage;
-            set
-            {
-                SetProperty(ref listImage, value);
-                RaisePropertyChanged();
-            }
-        }
+        public ObservableCollection<ImageSourceModel> ListLastView { get => listLastView; set => SetProperty(ref listLastView, value); }
+
+        private ObservableCollection<CaptureImageGroup> listGroup;
+
+        public ObservableCollection<CaptureImageGroup> ListGroup { get => listGroup; set => SetProperty(ref listGroup, value); }
+
+        private ObservableCollection<CaptureImageData> listImage;
+
+        public ObservableCollection<CaptureImageData> ListImage { get => listImage; set => SetProperty(ref listImage, value); }
 
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
 
+            ShowLastView();
+
+            ShowImage();
+        }
+
+        private void ShowImage()
+        {
+            using (new HUDService())
+            {
+                TryExecute(async () =>
+                {
+                    var request = new StreamImageRequest()
+                    {
+                        xnCode = 1010,
+                        VehiclePlates = "BACAM1409,BACAM1450"
+                    };
+
+                    var response = await _streamCameraService.GetListCaptureImage(request);
+
+                    if (response != null && response.Count > 0)
+                    {
+                        ListGroup = response.ToObservableCollection();
+                        
+                        
+                    }
+                    else
+                    {
+                        ListGroup = new ObservableCollection<CaptureImageGroup>();
+                    }
+                });
+            }
+        }
+
+
+
+        private void ShowLastView()
+        {
             // Số lượng xem gần nhất trả về ví dụ 10
             var listcount = 10;
 
@@ -80,12 +122,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
             SpanCount = view[0]; // số lượng xếp
 
-            ListHeght = view[2]; // gán chiều cao cho listview
+            ListHeight = view[2]; // gán chiều cao cho listview
 
-            ListImage = new ObservableCollection<ImageSourceModel>();
+            ListLastView = new ObservableCollection<ImageSourceModel>();
             for (int i = 0; i < view[1]; i++)
             {
-                ListImage.Add(new ImageSourceModel
+                ListLastView.Add(new ImageSourceModel
                 {
                     Name = "30K123" + i
                 });

@@ -24,5 +24,7 @@ namespace BA_MobileGPS.Service.IService
         Task<List<CaptureImageData>> GetCaptureImageLimit(string xncode, string vehiclePlate, string limit);
 
         Task<List<CaptureImageData>> GetCaptureImageTime(string xncode, string vehiclePlate, DateTime fromTime, DateTime toTime);
+
+        Task<List<CaptureImageGroup>> GetListCaptureImage(StreamImageRequest request);
     }
 }

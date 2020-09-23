@@ -4,6 +4,10 @@ using Xamarin.Forms.Xaml;
 using Prism.Ioc;
 using System;
 using Prism.Navigation;
+using Syncfusion.ListView.XForms;
+using Syncfusion.ListView.XForms.Control.Helpers;
+using System.Reflection;
+using System.Linq;
 
 namespace BA_MobileGPS.Core.Views.Camera.MonitoringImage
 {
@@ -17,5 +21,14 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringImage
         }
 
 
+        private void listGroup_Loaded(object sender, Syncfusion.ListView.XForms.ListViewLoadedEventArgs e)
+        {
+            var favouriteListView = ((SfListView)sender);
+
+            var visualContainer = favouriteListView.GetVisualContainer();
+            var totalextent = (double)visualContainer.GetType().GetRuntimeProperties().FirstOrDefault(container => container.Name == "TotalExtent").GetValue(visualContainer);
+
+            favouriteListView.HeightRequest = totalextent + 10;
+        }
     }
 }

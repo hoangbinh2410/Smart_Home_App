@@ -130,6 +130,18 @@ namespace BA_MobileGPS.Entities
 
     }
 
+    public class CaptureImageGroup
+    {
+        public string VehiclePlate { get; set; }
+
+        public List<CaptureImageData> Data { get; set; }
+    }
+
+    public class CaptureImageModel : ResponseStreamBase<List<CaptureImageGroup>>
+    {
+
+    }
+
     public class CaptureImageData
     {
         [JsonProperty("v")]
