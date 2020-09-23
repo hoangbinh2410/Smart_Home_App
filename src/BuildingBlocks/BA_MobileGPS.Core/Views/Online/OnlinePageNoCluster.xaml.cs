@@ -155,11 +155,6 @@ namespace BA_MobileGPS.Core.Views
                 UpdateVehicleByVehicleGroup(vehiclegroup);
             }
         }
-
-        public void OnNavigatingTo(INavigationParameters parameters)
-        {
-        }
-
         public void Destroy()
         {
             timer.Stop();
@@ -375,7 +370,7 @@ namespace BA_MobileGPS.Core.Views
                             var lstpin = googleMap.Pins.Where(x => x.Label == vehicle.VehiclePlate).ToList();
                             if (lstpin != null && lstpin.Count > 1)
                             {
-                                googleMap.AnimateCamera(CameraUpdateFactory.NewPosition(new Position(lstpin[0].Position.Latitude, lstpin[0].Position.Longitude)));
+                                googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(lstpin[0].Position.Latitude, lstpin[0].Position.Longitude), vm.ZoomLevel));
                             }
                         });
                     }

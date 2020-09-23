@@ -183,6 +183,8 @@ namespace BA_MobileGPS.Core
 
         public static int TimmerVehicleSync => Get(MobileConfigurationNames.TimmerVehicleSync, 60000);
         public static int TimeSleep => Get(MobileConfigurationNames.TimeSleep, 5);
+        public static int Mapzoom => Get(MobileConfigurationNames.Mapzoom, 14);
+
 
 
     }
