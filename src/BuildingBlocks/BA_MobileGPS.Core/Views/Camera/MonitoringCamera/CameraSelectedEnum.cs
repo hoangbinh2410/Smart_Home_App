@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
 {
-    public enum CameraSelectedEnum
+    public enum CameraEnum
     {
         FirstCamera,
         SecondCamera,

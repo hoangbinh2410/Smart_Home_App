@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.Views.Camera.MonitoringCamera;
+using Prism.Mvvm;
 using Syncfusion.ListView.XForms.Control.Helpers;
 using System.Linq;
 using System.Reflection;
@@ -26,6 +27,8 @@ namespace BA_MobileGPS.Core.Views
         {
 
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
+            var cam = new Template4Camera();
+            ViewModelLocator.SetAutowirePartialView(cam, this);
             cameraPanel.Children.Add(new Template4Camera());
             base.OnAppearing();
         }

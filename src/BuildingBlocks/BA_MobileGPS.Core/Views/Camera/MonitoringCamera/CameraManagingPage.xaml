@@ -6,17 +6,13 @@
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
-    xmlns:indicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
-    xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
-    xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.HasBackButton="False">
     <ContentPage.Resources>
         <converter:HasDataBackgroundColorConverter x:Key="HasDataBackgroundColorConverter" />
         <converter:HasDataIconColorConverter x:Key="HasDataIconColorConverter" />
-
     </ContentPage.Resources>
     <NavigationPage.TitleView>
         <Grid VerticalOptions="End">
@@ -122,7 +118,7 @@
             <Label
                 HorizontalOptions="Start"
                 StyleClass="GroupTitleLabel,BoldText"
-                Text="Biển số ở đây"
+                Text="{Binding VehicleSelectedPlate}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
         </Grid>
@@ -144,7 +140,7 @@
                     Source="{Binding PlayButtonIconSource}"
                     WidthRequest="25">
                     <icons:IconView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding PlayCommand}" />
+                        <TapGestureRecognizer Command="{Binding PlayTappedCommand}" />
                     </icons:IconView.GestureRecognizers>
                 </icons:IconView>
                 <icons:IconView
@@ -167,7 +163,11 @@
                     Foreground="{DynamicResource WhiteColor}"
                     HeightRequest="25"
                     Source="ic_settings.png"
-                    WidthRequest="25" />
+                    WidthRequest="25">
+                    <icons:IconView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SettingTappedCommand}" />
+                    </icons:IconView.GestureRecognizers>
+                </icons:IconView>
                 <icons:IconView
                     Foreground="{DynamicResource WhiteColor}"
                     HeightRequest="25"

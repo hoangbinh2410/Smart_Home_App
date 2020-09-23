@@ -18,7 +18,7 @@ namespace BA_MobileGPS.Core
             {
                 return unSelected;
             }
-            if ((CameraSelectedEnum)value == (CameraSelectedEnum)parameter)
+            if ((CameraEnum)value == (CameraEnum)parameter)
                 return selected;
             else
                 return unSelected;

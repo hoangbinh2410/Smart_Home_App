@@ -22,31 +22,105 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly string stopIconSource = "ic_stop_white.png";
         private readonly string volumeIconSource = "ic_volumespeaker";
         private readonly string muteIconSource = "ic_mute";
-        //private string videoUrl1 = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4";
-        //private string videoUrl2 = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4";
-        //private string videoUrl3 = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4";
-        //private string videoUrl4 = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4";
+        private readonly string videoUrl1 = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4";
+        private readonly string videoUrl2 = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4";
+        private readonly string videoUrl3 = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4";
+        private readonly string videoUrl4 = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4";
+
+        private List<CameraEnum> currentCamera { get; set; } = new List<CameraEnum>();
 
         private readonly IStreamCameraService _streamCameraService;
         public CameraManagingPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService) : base(navigationService)
         {
             _streamCameraService = streamCameraService;
-            PlayCommand = new DelegateCommand(Play);
+            PlayTappedCommand = new DelegateCommand(PlayTapped);
             CameraFrameTappedCommand = new DelegateCommand<object>(CameraFrameTapped);
             VolumeChangedCommand = new DelegateCommand(VolumeChanged);
-            playButtonIconSource = stopIconSource;
+            playButtonIconSource = playIconSource;
             volumeButtonIconSource = muteIconSource;
+            SettingTappedCommand = new DelegateCommand(SettingTapped);
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
-                VehicleSelectedPlate = vehiclePlate.VehiclePlate;
-                GetCameraInfor("BACAM1409");
+                try
+                {
+                    if (!string.IsNullOrEmpty(VehicleSelectedPlate) || VehicleSelectedPlate != vehiclePlate.VehiclePlate)
+                    {
+                        VehicleSelectedPlate = vehiclePlate.VehiclePlate;
+                        //GetCameraInfor("BACAM1409");
+                        var allCams = new List<CameraEnum>()
+                        {
+                            CameraEnum.FirstCamera,
+                            CameraEnum.SecondCamera,
+                            CameraEnum.ThirdCamera,
+                            CameraEnum.FourthCamera,
+                        };
+                        EventAggregator.GetEvent<HideVideoViewEvent>().Publish(allCams);
+                                               
+                        if (vehiclePlate.VehiclePlate == "98B00048")
+                        {
+                            InitCamera1(videoUrl1);
+                            InitCamera2(videoUrl2);
+                            InitCamera3(videoUrl3);
+                            InitCamera4(videoUrl4);
+                            currentCamera = new List<CameraEnum>()
+                            {
+                                CameraEnum.FirstCamera,
+                                CameraEnum.SecondCamera,
+                                CameraEnum.ThirdCamera,
+                                CameraEnum.FourthCamera,
+                            };
+                            EventAggregator.GetEvent<ShowVideoViewEvent>().Publish(currentCamera);
+                        }
+                        else if (vehiclePlate.VehiclePlate == "98B00821")
+                        {
+                            InitCamera1(videoUrl3);
+                            InitCamera2(videoUrl3);
+                            InitCamera3(videoUrl3);
+                            currentCamera = new List<CameraEnum>()
+                            {
+                                CameraEnum.FirstCamera,
+                                CameraEnum.SecondCamera,
+                                CameraEnum.ThirdCamera,
+                            };
+                            EventAggregator.GetEvent<ShowVideoViewEvent>().Publish(currentCamera);
+                        }
+                        else if (vehiclePlate.VehiclePlate == "98B00874")
+                        {
+                            InitCamera3(videoUrl2);
+                            InitCamera4(videoUrl1);
+                            currentCamera = new List<CameraEnum>()
+                            {
+                                CameraEnum.ThirdCamera,
+                                CameraEnum.FourthCamera
+                            };
+                            EventAggregator.GetEvent<ShowVideoViewEvent>().Publish(currentCamera);
+                        }
+                        else
+                        {
+                            InitCamera4(videoUrl4);
+                            currentCamera = new List<CameraEnum>()
+                            {
+                                CameraEnum.FourthCamera
+                            };
+                            EventAggregator.GetEvent<ShowVideoViewEvent>().Publish(currentCamera);
+                        }
+                        SelectedCamera = currentCamera.First();
+                        PlayButtonIconSource = stopIconSource;
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
             }
             else
             {
+                // Đóng busy indicator
                 IsCam1Loaded = true;
                 IsCam2Loaded = true;
                 IsCam3Loaded = true;
@@ -161,8 +235,19 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private CameraSelectedEnum selectedCamera;
-        public CameraSelectedEnum SelectedCamera
+        private bool isPlayBackControlEnable;
+        public bool IsPlayBackControlEnable
+        {
+            get { return isPlayBackControlEnable; }
+            set
+            {
+                SetProperty(ref isPlayBackControlEnable, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private CameraEnum? selectedCamera;
+        public CameraEnum? SelectedCamera
         {
             get { return selectedCamera; }
             set
@@ -192,60 +277,65 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
-        public ICommand PlayCommand { get; }
-        private void Play()
+        public ICommand PlayTappedCommand { get; }
+        private void PlayTapped()
         {
-            switch (SelectedCamera)
+            Device.BeginInvokeOnMainThread(() =>
             {
-                case CameraSelectedEnum.FirstCamera:
-                    if (MediaPlayerNo1.CanPause)
-                    {
-                        MediaPlayerNo1.Pause();
-                        PlayButtonIconSource = playIconSource;
-                    }
-                    else
-                    {
-                        MediaPlayerNo1.Play();
-                        PlayButtonIconSource = stopIconSource;
-                    }
-                    break;
-                case CameraSelectedEnum.SecondCamera:
-                    if (MediaPlayerNo2.CanPause)
-                    {
-                        MediaPlayerNo2.Pause();
-                        PlayButtonIconSource = playIconSource;
-                    }
-                    else
-                    {
-                        MediaPlayerNo2.Play();
-                        PlayButtonIconSource = stopIconSource;
-                    }
-                    break;
-                case CameraSelectedEnum.ThirdCamera:
-                    if (MediaPlayerNo3.CanPause)
-                    {
-                        MediaPlayerNo3.Pause();
-                        PlayButtonIconSource = playIconSource;
-                    }
-                    else
-                    {
-                        MediaPlayerNo3.Play();
-                        PlayButtonIconSource = stopIconSource;
-                    }
-                    break;
-                case CameraSelectedEnum.FourthCamera:
-                    if (MediaPlayerNo4.CanPause)
-                    {
-                        MediaPlayerNo4.Pause();
-                        PlayButtonIconSource = playIconSource;
-                    }
-                    else
-                    {
-                        MediaPlayerNo4.Play();
-                        PlayButtonIconSource = stopIconSource;
-                    }
-                    break;
-            }
+                switch (SelectedCamera)
+                {
+                    case CameraEnum.FirstCamera:
+                        if (MediaPlayerNo1.IsPlaying)
+                        {
+                            MediaPlayerNo1.Pause();
+                            PlayButtonIconSource = playIconSource;
+                        }
+                        else
+                        {                           
+                            MediaPlayerNo1.Play();
+                            PlayButtonIconSource = stopIconSource;
+                        }
+                        break;
+                    case CameraEnum.SecondCamera:
+                        if (MediaPlayerNo2.IsPlaying)
+                        {
+                            MediaPlayerNo2.Pause();
+                            PlayButtonIconSource = playIconSource;
+                        }
+                        else
+                        {
+                            MediaPlayerNo2.Play();
+                            PlayButtonIconSource = stopIconSource;
+                        }
+                        break;
+                    case CameraEnum.ThirdCamera:
+                        if (MediaPlayerNo3.IsPlaying)
+                        {
+                            MediaPlayerNo3.Pause();
+                            PlayButtonIconSource = playIconSource;
+                        }
+                        else
+                        {
+                            MediaPlayerNo3.Play();
+                            PlayButtonIconSource = stopIconSource;
+                        }
+                        break;
+                    case CameraEnum.FourthCamera:
+                        if (MediaPlayerNo4.IsPlaying)
+                        {
+                            MediaPlayerNo4.Pause();
+                            PlayButtonIconSource = playIconSource;
+                        }
+                        else
+                        {
+                            MediaPlayerNo4.Play();
+                            PlayButtonIconSource = stopIconSource;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            });
         }
 
         private void SetUpVlc()
@@ -256,6 +346,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void InitCamera1(string url)
         {
+            IsCam1Loaded = false;
             var mediaNo1 = new Media(LibVLC, new Uri(url));
             MediaPlayerNo1 = new MediaPlayer(mediaNo1) { AspectRatio = "4:3", Scale = 0, Mute = true };
             MediaPlayerNo1.TimeChanged += MediaPlayerNo1_TimeChanged;
@@ -272,8 +363,9 @@ namespace BA_MobileGPS.Core.ViewModels
         }
         private void InitCamera2(string url)
         {
+            IsCam2Loaded = false;
             var mediaNo1 = new Media(LibVLC, new Uri(url));
-            MediaPlayerNo2 = new MediaPlayer(mediaNo1) { AspectRatio = "4:3", Scale = 0 , Mute = true };
+            MediaPlayerNo2 = new MediaPlayer(mediaNo1) { AspectRatio = "4:3", Scale = 0, Mute = true };
             MediaPlayerNo2.TimeChanged += MediaPlayerNo2_TimeChanged;
             MediaPlayerNo2.Play();
         }
@@ -287,8 +379,9 @@ namespace BA_MobileGPS.Core.ViewModels
         }
         private void InitCamera3(string url)
         {
+            IsCam3Loaded = false;
             var mediaNo1 = new Media(LibVLC, new Uri(url));
-            MediaPlayerNo3 = new MediaPlayer(mediaNo1) { AspectRatio = "4:3", Scale = 0 , Mute = true };
+            MediaPlayerNo3 = new MediaPlayer(mediaNo1) { AspectRatio = "4:3", Scale = 0, Mute = true };
             MediaPlayerNo3.TimeChanged += MediaPlayerNo3_TimeChanged;
             MediaPlayerNo3.Play();
         }
@@ -303,8 +396,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void InitCamera4(string url)
         {
+            IsCam4Loaded = false;
             var mediaNo1 = new Media(LibVLC, new Uri(url));
-            MediaPlayerNo4 = new MediaPlayer(mediaNo1) { AspectRatio = "4:3", Scale = 0 , Mute = true };
+            MediaPlayerNo4 = new MediaPlayer(mediaNo1) { AspectRatio = "4:3", Scale = 0, Mute = true };
             MediaPlayerNo4.TimeChanged += MediaPlayerNo4_TimeChanged;
             MediaPlayerNo4.Play();
         }
@@ -323,19 +417,19 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             switch (SelectedCamera)
             {
-                case CameraSelectedEnum.FirstCamera:
+                case CameraEnum.FirstCamera:
                     MediaPlayerNo1.Mute = !MediaPlayerNo1.Mute;
                     VolumeButtonIconSource = MediaPlayerNo1.Mute ? muteIconSource : volumeIconSource;
                     break;
-                case CameraSelectedEnum.SecondCamera:
+                case CameraEnum.SecondCamera:
                     MediaPlayerNo2.Mute = !MediaPlayerNo2.Mute;
                     VolumeButtonIconSource = MediaPlayerNo2.Mute ? muteIconSource : volumeIconSource;
                     break;
-                case CameraSelectedEnum.ThirdCamera:
+                case CameraEnum.ThirdCamera:
                     MediaPlayerNo3.Mute = !MediaPlayerNo3.Mute;
                     VolumeButtonIconSource = MediaPlayerNo3.Mute ? muteIconSource : volumeIconSource;
                     break;
-                case CameraSelectedEnum.FourthCamera:
+                case CameraEnum.FourthCamera:
                     MediaPlayerNo4.Mute = !MediaPlayerNo4.Mute;
                     VolumeButtonIconSource = MediaPlayerNo4.Mute ? muteIconSource : volumeIconSource;
                     break;
@@ -344,84 +438,90 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand CameraFrameTappedCommand { get; }
         private void CameraFrameTapped(object obj)
         {
-            SelectedCamera = (CameraSelectedEnum)obj;
-            switch (SelectedCamera)
+            var camObj = (CameraEnum)obj;
+            if (currentCamera.Contains(camObj))
             {
-                case CameraSelectedEnum.FirstCamera:
-                    if (MediaPlayerNo1 != null)
-                    {
-                        PlayButtonIconSource = MediaPlayerNo1.IsPlaying ? stopIconSource : playIconSource;
-                    }
-
-                    break;
-                case CameraSelectedEnum.SecondCamera:
-                    PlayButtonIconSource = MediaPlayerNo2.IsPlaying ? stopIconSource : playIconSource;
-                    break;
-                case CameraSelectedEnum.ThirdCamera:
-                    PlayButtonIconSource = MediaPlayerNo3.IsPlaying ? stopIconSource : playIconSource;
-                    break;
-                case CameraSelectedEnum.FourthCamera:
-                    PlayButtonIconSource = MediaPlayerNo4.IsPlaying ? stopIconSource : playIconSource;
-                    break;
-            }
-        }
-
-        private void GetCameraInfor(string bks)
-        {
-            using (new HUDService())
-            {
-                TryExecute(async () =>
+                SelectedCamera = camObj;
+                switch (camObj)
                 {
-                    var deviceResponse = await _streamCameraService.GetDevicesStatus(ConditionType.BKS, bks);
-                    // only 1 data
-                    var deviceResponseData = deviceResponse?.Data?.FirstOrDefault();
-                    if (deviceResponseData != null)
-                    {
-                        var cameraActiveQuantity = deviceResponseData.CameraChannels?.Where(x => x.IsPlug).ToList();
-
-                        foreach (var data in cameraActiveQuantity)
-                        {
-                            var request = new StreamStartRequest()
-                            {
-                                Channel = data.Channel,
-                                xnCode = deviceResponseData.XnCode,
-                                VehiclePlate = bks
-                            };
-                            var camResponse = await _streamCameraService.StartStream(request);
-                            var camResponseData = camResponse?.Data?.FirstOrDefault();
-                            if (camResponseData != null)
-                            {
-                                Device.BeginInvokeOnMainThread(() =>
-                                {
-                                    switch (camResponseData.Channel)
-                                    {
-                                        case 1:
-                                            InitCamera1(camResponseData.Link);
-                                            break;
-                                        case 2:
-                                            InitCamera2(camResponseData.Link);
-                                            break;
-                                        case 3:
-                                            InitCamera3(camResponseData.Link);
-                                            break;
-                                        case 4:
-                                            InitCamera4(camResponseData.Link);
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                });
-                            }
-                        }
-                    }
-                    else
-                    {
-                        // k co infor
-                    }
-                });
-
+                    case CameraEnum.FirstCamera:
+                        PlayButtonIconSource = MediaPlayerNo1.IsPlaying ? stopIconSource : playIconSource;
+                        VolumeButtonIconSource = MediaPlayerNo1.Mute ? muteIconSource : volumeIconSource;
+                        break;
+                    case CameraEnum.SecondCamera:
+                        PlayButtonIconSource = MediaPlayerNo2.IsPlaying ? stopIconSource : playIconSource;
+                        VolumeButtonIconSource = MediaPlayerNo2.Mute ? muteIconSource : volumeIconSource;
+                        break;
+                    case CameraEnum.ThirdCamera:
+                        PlayButtonIconSource = MediaPlayerNo3.IsPlaying ? stopIconSource : playIconSource;
+                        VolumeButtonIconSource = MediaPlayerNo3.Mute ? muteIconSource : volumeIconSource;
+                        break;
+                    case CameraEnum.FourthCamera:
+                        PlayButtonIconSource = MediaPlayerNo4.IsPlaying ? stopIconSource : playIconSource;
+                        VolumeButtonIconSource = MediaPlayerNo4.Mute ? muteIconSource : volumeIconSource;
+                        break;
+                }
             }
         }
+
+        public ICommand SettingTappedCommand { get; set; }
+
+        private void SettingTapped()
+        {
+
+        }
+
+        //private void GetCameraInfor(string bks)
+        //{
+        //    using (new HUDService())
+        //    {
+        //        TryExecute(async () =>
+        //        {
+        //            var deviceResponse = await _streamCameraService.GetDevicesStatus(ConditionType.BKS, bks);
+        //            // only 1 data
+        //            var deviceResponseData = deviceResponse?.Data?.FirstOrDefault();
+        //            if (deviceResponseData != null)
+        //            {
+        //                var cameraActiveQuantity = deviceResponseData.CameraChannels?.Where(x => x.IsPlug).ToList();
+
+        //                foreach (var data in cameraActiveQuantity)
+        //                {
+        //                    var request = new StreamStartRequest()
+        //                    {
+        //                        Channel = data.Channel,
+        //                        xnCode = deviceResponseData.XnCode,
+        //                        VehiclePlate = bks
+        //                    };
+        //                    var camResponse = await _streamCameraService.StartStream(request);
+        //                    var camResponseData = camResponse?.Data?.FirstOrDefault();
+        //                    if (camResponseData != null)
+        //                    {
+        //                        Device.BeginInvokeOnMainThread(() =>
+        //                        {
+        //                            switch (camResponseData.Channel)
+        //                            {
+        //                                case 1:
+        //                                    InitCamera1(camResponseData.Link);
+        //                                    break;
+        //                                case 2:
+        //                                    InitCamera2(camResponseData.Link);
+        //                                    break;
+        //                                case 3:
+        //                                    InitCamera3(camResponseData.Link);
+        //                                    break;
+        //                                case 4:
+        //                                    InitCamera4(camResponseData.Link);
+        //                                    break;
+        //                                default:
+        //                                    break;
+        //                            }
+        //                        });
+        //                    }
+        //                }
+        //            }
+        //        });
+        //    }
+        //}
         public override void OnDestroy()
         {
             var mediaPlayer1 = MediaPlayerNo1;

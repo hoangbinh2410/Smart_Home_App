@@ -41,12 +41,12 @@
         <!--  Cam 1  -->
         <Grid BackgroundColor="Black" RowDefinitions="40,*">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraSelectedEnum.FirstCamera}" />
+                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.FirstCamera}" />
             </Grid.GestureRecognizers>
             <Frame
                 x:Name="frCam1"
                 BackgroundColor="Transparent"
-                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraSelectedEnum.FirstCamera}}"
+                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.FirstCamera}}"
                 InputTransparent="True"
                 Style="{StaticResource cameraTextFrame}">
                 <Frame.Triggers>
@@ -93,6 +93,7 @@
                 </Grid.Triggers>
             </Grid>
         </Grid>
+
         <!--  Cam 2  -->
         <Grid
             Grid.Row="1"
@@ -100,12 +101,12 @@
             BackgroundColor="Black"
             RowDefinitions="40,*">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraSelectedEnum.SecondCamera}" />
+                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.SecondCamera}" />
             </Grid.GestureRecognizers>
             <Frame
                 x:Name="frCam2"
                 BackgroundColor="Transparent"
-                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraSelectedEnum.SecondCamera}}"
+                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.SecondCamera}}"
                 InputTransparent="True"
                 Style="{StaticResource cameraTextFrame}">
                 <Frame.Triggers>
@@ -152,18 +153,19 @@
                 </Grid.Triggers>
             </Grid>
         </Grid>
+
         <!--  Cam 3  -->
         <Grid
             Grid.Column="1"
             BackgroundColor="Black"
             RowDefinitions="40,*">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraSelectedEnum.ThirdCamera}" />
+                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.ThirdCamera}" />
             </Grid.GestureRecognizers>
             <Frame
                 x:Name="frCam3"
                 BackgroundColor="Transparent"
-                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraSelectedEnum.ThirdCamera}}"
+                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.ThirdCamera}}"
                 InputTransparent="True"
                 Style="{StaticResource cameraTextFrame}">
                 <Frame.Triggers>
@@ -210,6 +212,7 @@
                 </Grid.Triggers>
             </Grid>
         </Grid>
+
         <!--  Cam 4  -->
         <Grid
             Grid.Row="1"
@@ -217,12 +220,12 @@
             BackgroundColor="Black"
             RowDefinitions="40,*">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraSelectedEnum.FourthCamera}" />
+                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.FourthCamera}" />
             </Grid.GestureRecognizers>
             <Frame
                 x:Name="frCam4"
                 BackgroundColor="Transparent"
-                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraSelectedEnum.FourthCamera}}"
+                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.FourthCamera}}"
                 InputTransparent="True"
                 Style="{StaticResource cameraTextFrame}">
                 <Frame.Triggers>
@@ -269,6 +272,7 @@
                 </Grid.Triggers>
             </Grid>
         </Grid>
+
     </Grid>
 
 </ContentView>
