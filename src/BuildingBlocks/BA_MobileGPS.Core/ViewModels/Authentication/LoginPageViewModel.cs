@@ -289,13 +289,28 @@ namespace BA_MobileGPS.Core.ViewModels
                                     {
                                         return;
                                     }
-                                    else //bỏ qua
+                                    else if (action == cancel)
                                     {
-                                        // lưu biến vào đây
                                         Settings.TempVersionName = versionDB.VersionName;
                                         return;
                                     }
+                                    else //bỏ qua
+                                    {
+                                        // lưu biến vào đây
+                                        return;
+
+                                    }
                                 });
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
+                                {
+                                    if (Settings.Rememberme)
+                                    {
+                                        LoginCommand.Execute(null);
+                                    }
+                                }
                             }
                         }
                     }

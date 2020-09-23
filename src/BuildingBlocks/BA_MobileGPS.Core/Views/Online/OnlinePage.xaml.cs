@@ -396,7 +396,7 @@ namespace BA_MobileGPS.Core.Views
                             var lstpin = googleMap.ClusteredPins.Where(x => x.Label == vehicle.VehiclePlate).ToList();
                             if (lstpin != null && lstpin.Count > 1)
                             {
-                                googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(lstpin[0].Position.Latitude, lstpin[0].Position.Longitude), 19));
+                                googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(lstpin[0].Position.Latitude, lstpin[0].Position.Longitude), vm.ZoomLevel));
                             }
                         });
                     }
