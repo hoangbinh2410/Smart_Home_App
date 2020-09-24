@@ -33,6 +33,7 @@
 
     </ContentView.Resources>
     <Grid
+        x:Name="parentPanel"
         ColumnDefinitions="*,*"
         ColumnSpacing="2"
         RowDefinitions="*,*"
@@ -43,6 +44,14 @@
             <Grid.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.FirstCamera}" />
             </Grid.GestureRecognizers>
+            <Label
+                Margin="0,0,10,0"
+                FontSize="17"
+                HorizontalOptions="End"
+                StyleClass="BoldText"
+                Text="{Binding Cam1ReloadCount}"
+                TextColor="White"
+                VerticalOptions="Center" />
             <Frame
                 x:Name="frCam1"
                 BackgroundColor="Transparent"
@@ -103,6 +112,14 @@
             <Grid.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.SecondCamera}" />
             </Grid.GestureRecognizers>
+            <Label
+                Margin="0,0,10,0"
+                FontSize="17"
+                HorizontalOptions="End"
+                StyleClass="BoldText"
+                Text="{Binding Cam2ReloadCount}"
+                TextColor="White"
+                VerticalOptions="Center" />
             <Frame
                 x:Name="frCam2"
                 BackgroundColor="Transparent"
@@ -162,6 +179,14 @@
             <Grid.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.ThirdCamera}" />
             </Grid.GestureRecognizers>
+            <Label
+                Margin="0,0,10,0"
+                FontSize="17"
+                HorizontalOptions="End"
+                StyleClass="BoldText"
+                Text="{Binding Cam3ReloadCount}"
+                TextColor="White"
+                VerticalOptions="Center" />
             <Frame
                 x:Name="frCam3"
                 BackgroundColor="Transparent"
@@ -222,6 +247,14 @@
             <Grid.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.FourthCamera}" />
             </Grid.GestureRecognizers>
+            <Label
+                Margin="0,0,10,0"
+                FontSize="17"
+                HorizontalOptions="End"
+                StyleClass="BoldText"
+                Text="{Binding Cam4ReloadCount}"
+                TextColor="White"
+                VerticalOptions="Center" />
             <Frame
                 x:Name="frCam4"
                 BackgroundColor="Transparent"

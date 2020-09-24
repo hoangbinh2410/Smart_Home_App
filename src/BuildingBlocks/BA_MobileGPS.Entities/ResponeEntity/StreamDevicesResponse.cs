@@ -13,98 +13,70 @@ namespace BA_MobileGPS.Entities
     public class StreamDevices
     {
         public string AdminAppVersion { get; set; }
-
         public int BatteryVoltage { get; set; }
-
         public string CameraAppVersion { get; set; }
-
         public List<CameraChannel> CameraChannels { get; set; }
-
         public Coreboard Coreboard { get; set; }
-
-        public string XnCode { get; set; }
-
+        public string CustomerID { get; set; }
         public string DeviceID { get; set; }
-
         public string DeviceIP { get; set; }
-
         public int DeviceState { get; set; }
-
         public DateTime DeviceTime { get; set; }
-
         public int DeviceType { get; set; }
-
         public int ErrorCode { get; set; }
-
         public string Firmware { get; set; }
-
         public int GpsSpeed { get; set; }
-
         public string IMEI { get; set; }
-
         public string IMEI2 { get; set; }
-
         public DateTime LastCapturedTime { get; set; }
-
         public DateTime LastStreamingTime { get; set; }
-
-        //Vĩ độ 
         public double Latitude { get; set; }
-
-        //Kinh độ 
         public double Longitude { get; set; }
-
         public int NetworkBand { get; set; }
-
         public int NetworkType { get; set; }
-
         public string SIMIMEI { get; set; }
-
         public string SIMIMEI2 { get; set; }
-
         public List<StorageDevices> StorageDevices { get; set; }
-
-        //Thời gian cập nhật trạng thái 
         public DateTime UpdatedTime { get; set; }
+        public string VehicleName { get; set; }
 
-        //Biển số 
-        public string VehiclePlate { get; set; }
+        public string VehiclePlate
+        {
+            get { return VehicleName; }
+            set { value = VehicleName; }
+        }
+
+        public string XnCode
+        {
+            get { return CustomerID; }
+            set { value = CustomerID; }
+        }
     }
 
     public class CameraChannel
     {
         public int CameraStatus { get; set; }
-
         public int Channel { get; set; }
-
         public int ErrorCode { get; set; }
-
         public bool IsPlug { get; set; }
-
         public bool IsRecording { get; set; }
-
         public bool IsStreaming { get; set; }
+        public int StreamingTimeout { get; set; }
     }
 
     public class Coreboard
     {
         public int RamFreeSize { get; set; }
-
         public int StorageFreeSize { get; set; }
-
         public double Temperature { get; set; }
     }
 
     public class StorageDevices
     {
         public int ErrorCode { get; set; }
-
-        public int FreeSize { get; set; }
-
+        public object FreeSize { get; set; }
         public bool IsInserted { get; set; }
-
         public object TotalSize { get; set; }
-
         public int Type { get; set; }
     }
 

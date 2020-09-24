@@ -33,9 +33,5 @@ namespace BA_MobileGPS.Core.Views
             base.OnAppearing();
         }
 
-        private void SfListView_Loaded(object sender, Syncfusion.ListView.XForms.ListViewLoadedEventArgs e)
-        {                 
-            //listView.ItemSize = listView.Height / 2 - 0.5;           
-        }
     }
 }
