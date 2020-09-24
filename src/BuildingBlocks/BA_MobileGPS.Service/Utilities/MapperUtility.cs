@@ -39,20 +39,14 @@ namespace BA_MobileGPS.Service.Utilities
         public TDestination MapProperties<TDestination>(object source)
            where TDestination : class, new()
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
             var destination = Activator.CreateInstance<TDestination>();
             MatchAndMap(source, destination);
-            sw.Stop();
-            Debug.WriteLine(string.Format("MapProperties : {0}", sw.ElapsedMilliseconds));
             return destination;
         }
 
         public List<TDestination> MapListProperties<TDestination>(object sources)
           where TDestination : class, new()
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
             var destinations = new List<TDestination>();
             if (sources != null && sources is IList && sources.GetType().IsGenericType)
             {
@@ -63,10 +57,6 @@ namespace BA_MobileGPS.Service.Utilities
                     destinations.Add(destination);
                 }
             }
-            sw.Stop();
-            Debug.WriteLine(string.Format("MapListProperties : {0}", sw.ElapsedMilliseconds));
-           
-
             return destinations;
         }
     }

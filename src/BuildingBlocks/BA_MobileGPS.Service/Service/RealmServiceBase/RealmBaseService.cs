@@ -142,7 +142,11 @@ namespace BA_MobileGPS.Service
             try
             {
                 var entity = _baseRepository.Get(predicate);
-                return _mapper.MapProperties<TViewModel>(entity);
+                if (entity != null)
+                {
+                    return _mapper.MapProperties<TViewModel>(entity);
+                }
+                return null;
             }
             catch (Exception ex)
             {
@@ -167,7 +171,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 var entities = _baseRepository.All<TEntity>();
-                return _mapper.MapListProperties<TViewModel>(entities);
+                return _mapper.MapListProperties<TViewModel>(entities.ToList());
             }
             catch (Exception ex)
             {
@@ -180,7 +184,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 var entities = _baseRepository.Find(predicate);
-                return _mapper.MapListProperties<TViewModel>(entities);
+                return _mapper.MapListProperties<TViewModel>(entities.ToList());
             }
             catch (Exception ex)
             {
