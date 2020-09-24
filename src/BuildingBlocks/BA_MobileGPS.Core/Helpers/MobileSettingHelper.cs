@@ -185,6 +185,8 @@ namespace BA_MobileGPS.Core
         public static int TimeSleep => Get(MobileConfigurationNames.TimeSleep, 5);
         public static int Mapzoom => Get(MobileConfigurationNames.Mapzoom, 14);
 
+        public static int ClusterMapzoom => Get(MobileConfigurationNames.Mapzoom, 16);
+
 
 
     }
