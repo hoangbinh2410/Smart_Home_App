@@ -55,7 +55,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.ReportPourFuelSelected, SelectedPourFuel }
                 };
-                await NavigationService.NavigateAsync("ChartFuelReportPage", p, useModalNavigation: false);
+                await NavigationService.NavigateAsync("NavigationPage/ChartFuelReportPage", p, useModalNavigation: true);
             }
             catch (Exception ex)
             {

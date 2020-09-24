@@ -75,16 +75,16 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<List<VehicleOnline>> GetListVehicleOnline(Guid userId, int groupId)
+        public async Task<List<VehicleOnline>> GetListVehicleOnline(Guid userId, int groupId, int companyID, int xnCode, UserType userType, CompanyType companyType)
         {
             List<VehicleOnline> result = new List<VehicleOnline>();
             try
             {
-                string url = $"{ApiUri.GET_VEHICLEONLINE}?userId={userId}&vehicleGroupID={groupId}";
-                var data = await requestProvider.GetHandleOutputAsync<List<VehicleOnline>>(url);
+                string url = $"{ApiUri.GET_VEHICLEONLINE}?userId={userId}&groupID={groupId}&companyID={companyID}&xnCode={xnCode}&userType={(int)userType}&companyType={(int)companyType}";
+                var data = await requestProvider.GetAsync<ResponseBaseV2<List<VehicleOnline>>>(url);
                 if (data != null)
                 {
-                    result = data;
+                    result = data.Data;
                 }
             }
             catch (Exception ex)
@@ -131,6 +131,21 @@ namespace BA_MobileGPS.Service
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
             return new List<LandmarkResponse>();
+        }
+
+        public async Task<List<VehicleOnlineMessage>> GetListVehicleOnlineSync(VehicleOnlineRequest vehiclerequest)
+        {
+            List<VehicleOnlineMessage> result = new List<VehicleOnlineMessage>();
+            try
+            {
+                string url = ApiUri.GET_VEHICLEONLINESYNC;
+                result = await requestProvider.PostAsync<VehicleOnlineRequest, List<VehicleOnlineMessage>>(url, vehiclerequest);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
         }
     }
 }

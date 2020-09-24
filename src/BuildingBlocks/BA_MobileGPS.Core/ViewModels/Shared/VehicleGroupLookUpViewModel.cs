@@ -49,7 +49,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
             SearchVehicleGroupCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehicleGroup);
         }
-
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+            InitData();
+        }
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -60,9 +64,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     SelectedVehicleGroups = VehicleGroups;
                 }
-            }
-
-            InitData();
+            }  
         }
 
         private void InitData()

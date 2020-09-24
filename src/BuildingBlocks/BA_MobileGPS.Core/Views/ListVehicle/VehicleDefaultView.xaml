@@ -6,14 +6,12 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     Padding="0"
     CornerRadius="0">
     <sharpnado:MaterialFrame.Resources>
         <ResourceDictionary>
             <converters:NMConverter x:Key="NMConverter" />
-            <converters:UnitConverter x:Key="UnitConverter" />
         </ResourceDictionary>
     </sharpnado:MaterialFrame.Resources>
     <StackLayout>
@@ -61,10 +59,10 @@
                         Padding="0,0,10,0"
                         HorizontalOptions="StartAndExpand">
                         <StackLayout Orientation="Horizontal" Spacing="10">
-                            <controls:IconView Source="ic_clock.png" />
+                            <controls:IconView Source="ic_engine_car.png" />
                             <Label
                                 FontSize="12"
-                                Text="{Binding LostGSMTime, Converter={StaticResource SecondsToStringConverter}, StringFormat='{}{0}'}"
+                                Text="{Binding StatusEngineer}"
                                 VerticalOptions="Center" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" Spacing="10">
@@ -76,9 +74,16 @@
                         </StackLayout>
                     </StackLayout>
                 </Grid>
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <controls:IconView Source="ic_parking.png" />
+                    <Label
+                        FontSize="12"
+                        Text="{Binding StopTime, Converter={StaticResource MinutesToStringShortConverter}}"
+                        VerticalOptions="Center" />
+                </StackLayout>
                 <StackLayout Spacing="10">
                     <StackLayout
-                        IsVisible="{Binding CurrentAddress, Converter={StaticResource HasDataConverter}}"
+                        IsVisible="{Binding CurrentAddress, Converter={StaticResource StringToBoolConverter}}"
                         Orientation="Horizontal"
                         Spacing="10">
                         <controls:IconView Source="ic_coordinates.png" />
@@ -89,7 +94,7 @@
                     </StackLayout>
                     <StackLayout
                         Padding="0,0,0,-2"
-                        IsVisible="{Binding MessageBAP, Converter={StaticResource HasDataConverter}}"
+                        IsVisible="{Binding MessageBAP, Converter={StaticResource StringToBoolConverter}}"
                         Orientation="Horizontal"
                         Spacing="10">
                         <controls:IconView Source="ic_fee.png" />

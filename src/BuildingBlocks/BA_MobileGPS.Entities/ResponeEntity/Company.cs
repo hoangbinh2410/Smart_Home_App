@@ -15,6 +15,12 @@ namespace BA_MobileGPS.Entities
 
         public Guid UserId { set; get; }
 
+        public int XNCode { get; set; }
+
+        public UserType UserType { get; set; }
+
+        public CompanyType CompanyType { get; set; }
+
         private bool isSelected;
 
         [JsonIgnore]

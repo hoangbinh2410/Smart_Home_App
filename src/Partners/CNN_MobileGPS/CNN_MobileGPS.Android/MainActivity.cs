@@ -1,7 +1,6 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using CNN_MobileGPS;
 using BA_MobileGPS.Core.Droid;
 using BA_MobileGPS.Droid.Setup;
 using Xamarin.Forms;

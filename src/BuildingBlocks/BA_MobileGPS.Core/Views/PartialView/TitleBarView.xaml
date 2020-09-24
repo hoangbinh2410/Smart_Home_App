@@ -15,11 +15,10 @@
         <Grid StyleClass="TitleBarGrid">
             <ffImage:CachedImage
                 Margin="0,0,0,5"
-                HeightRequest="30"
+                HeightRequest="25"
                 HorizontalOptions="StartAndExpand"
                 Source="ic_logo.png"
-                VerticalOptions="EndAndExpand"
-                WidthRequest="70" />
+                VerticalOptions="EndAndExpand" />
             <StackLayout
                 Margin="0"
                 HorizontalOptions="End"

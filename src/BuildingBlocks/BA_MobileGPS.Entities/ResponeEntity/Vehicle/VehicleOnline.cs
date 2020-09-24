@@ -92,6 +92,9 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("26")]
         public string MessageDetailBAP { get; set; }
 
+        [JsonProperty("27")]
+        public string Imei { set; get; }
+
         [JsonIgnore]
         public int STT { set; get; }
 
@@ -110,17 +113,27 @@ namespace BA_MobileGPS.Entities
         ///* Cập nhật lại dữ liệu */
         public void Update(VehicleOnlineMessage message)
         {
-            this.VehicleId = message.VehicleId;
-            this.VehiclePlate = message.VehiclePlate;
-            this.Lat = message.Lat;
-            this.Lng = message.Lng;
-            this.State = message.State;
-            this.Velocity = message.Velocity;
-            this.GPSTime = message.GPSTime;
-            this.VehicleTime = message.VehicleTime;
-            this.IconCode = message.IconCode;
-            this.Direction = message.Direction;
-            this.StopTime = message.StopTime;
+            if (message.GPSTime > this.GPSTime && message.VehicleTime > this.VehicleTime)
+            {
+                this.VehicleId = message.VehicleId;
+                this.VehiclePlate = message.VehiclePlate;
+                this.Lat = message.Lat;
+                this.Lng = message.Lng;
+                this.State = message.State;
+                this.Velocity = message.Velocity;
+                this.GPSTime = message.GPSTime;
+                this.VehicleTime = message.VehicleTime;
+                this.IconCode = message.IconCode;
+                this.Direction = message.Direction;
+                this.StopTime = message.StopTime;
+
+                if (message.TotalKm > 0)
+                {
+                    this.TotalKm = message.TotalKm;
+                }
+
+            }
+
         }
     }
 }

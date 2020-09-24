@@ -17,7 +17,12 @@
             <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding RefeshCommand}"
+            Icon="ic_refresh.png"
+            Priority="1" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
             <StackLayout BackgroundColor="{StaticResource WhiteColor}" Spacing="0">
@@ -767,7 +772,7 @@
                                     <!--  Đang đỗ  -->
                                     <Grid
                                         Grid.Row="8"
-                                        IsVisible="{Binding IsShowParkingVehicleNow}"
+                                        IsVisible="{Binding InforDetail.IsShowParkingVehicleNow}"
                                         RowSpacing="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -817,7 +822,7 @@
                                     <!--  Dừng đỗ nổ máy  -->
                                     <Grid
                                         Grid.Row="9"
-                                        IsVisible="{Binding IsShowParkingTurnOnVehicle}"
+                                        IsVisible="{Binding InforDetail.IsShowParkingTurnOnVehicle}"
                                         RowSpacing="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -1014,7 +1019,7 @@
                                     <!--  Nhiên liệu  -->
                                     <Grid
                                         Grid.Row="13"
-                                        IsVisible="{Binding InforDetail.VehicleNl.IsUseFuel}"
+                                        IsVisible="{Binding IsFuelVisible}"
                                         RowSpacing="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />

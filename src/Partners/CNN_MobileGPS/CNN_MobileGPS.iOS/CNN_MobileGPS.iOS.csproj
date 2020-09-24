@@ -120,6 +120,8 @@
     <BundleResource Include="vi.lproj\InfoPlist.strings" />
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork%402x" />
+    <BundleResource Include="Resources\bluetooth.json" />
+    <BundleResource Include="Resources\internetconnection.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -128,12 +130,15 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
+    <PackageReference Include="VideoLAN.LibVLC.iOS">
+      <Version>3.3.10</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />
     <PackageReference Include="Prism.Unity.Forms">
       <Version>7.2.0.1422</Version>
     </PackageReference>
     <PackageReference Include="Realm">
-      <Version>4.3.0</Version>
+      <Version>5.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Build.Download">
       <Version>0.10.0</Version>
@@ -514,6 +519,15 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\logo_Login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Launch_Screen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\NoItem.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bg_Account.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

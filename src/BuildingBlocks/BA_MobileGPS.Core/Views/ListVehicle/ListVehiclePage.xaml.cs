@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.ViewModels;
+﻿using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Utilities;
 
 using Prism.Navigation;
@@ -67,6 +68,8 @@ namespace BA_MobileGPS.Core.Views
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
+            entrySearchVehicle.Placeholder = MobileResource.Online_Label_SeachVehicle2;
+            lblNotFound.Text = MobileResource.ListVehicle_Label_NotFound;
         }
 
         private async void FilterCarType_Tapped(object sender, EventArgs e)
@@ -77,6 +80,7 @@ namespace BA_MobileGPS.Core.Views
             }
             else
             {
+                vm.CacularVehicleStatus();
                 await animations.Go(States.ShowStatus, true);
             }
 

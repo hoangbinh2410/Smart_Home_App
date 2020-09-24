@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
 
 using System;
@@ -91,7 +92,7 @@ namespace BA_MobileGPS.Core
 
         public static string MenuReport => Get(MobileUserConfigurationNames.MenuReport, "");
 
-        public static bool EnableShowCluster => Get(MobileUserConfigurationNames.EnableShowCluster, true);
+        public static bool EnableShowCluster => Get(MobileUserConfigurationNames.EnableShowCluster, false);
 
         public static bool ShowNotification => Get(MobileUserConfigurationNames.ShowNotification, true);
 
@@ -191,6 +192,6 @@ namespace BA_MobileGPS.Core
 
         public static int MapType => Get(MobileUserConfigurationNames.MBMapType, 1);
 
-        public static double Mapzoom => Get(MobileUserConfigurationNames.MBMapZoom, 7d);
+        public static double Mapzoom => Get(MobileUserConfigurationNames.MBMapZoom, MobileSettingHelper.Mapzoom);
     }
 }

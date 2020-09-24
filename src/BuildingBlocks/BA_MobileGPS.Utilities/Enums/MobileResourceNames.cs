@@ -96,6 +96,7 @@
         Login_Lable_Hotline,
         Login_Lable_SelectLanguage,
         Login_Message_AccountPasswordIncorrect,
+        Login_Message_AccountAllowedSystem,
         Login_Message_AccountLocked,
         Login_ForgotPassword_PopupTitle,
         Login_ForgotPassword_PopupContent,
@@ -105,6 +106,8 @@
         Login_Popup_RegisterSupport,
         Login_Popup_Network,
         Login_Popup_BAGPSExperience,
+        Login_UserNameProperty_NullOrEmpty,
+        Login_PasswordProperty_NullOrEmpty,
         #endregion Login
 
         #region ChangePassword
@@ -733,6 +736,7 @@
         StopParkingReport_Table_StopParkingTime,
         StopParkingReport_Table_MinutesStopRunEngine,
         StopParkingReport_Table_MinutesTurnOnAirConditioner,
+        StopParkingReport_Table_Temperature,
         StopParkingReport_Table_StopLocation,
 
         StopParkingReport_CheckBox_DriverName,
@@ -847,6 +851,7 @@
         Helper_Label_TitlePage,
         Helper_Label_HeplperVihcleDebt,
         Helper_Label_Using,
+        Helper_Label_Using2,
         Helper_Label_HeplperRouter,
         Helper_Label_HeplperListVhicle,
         Helper_Label_HeplperCamera,
@@ -1139,6 +1144,7 @@
         AccountTab_Label_Share,
         AccountTab_Label_Rating,
         AccountTab_Label_Setting,
+        AccountTab_Label_Upgrade,
         AccountTab_Label_Logout,
         AccountTab_Label_MessageWarningLogout,
         AccountTab_Label_MyInformation,

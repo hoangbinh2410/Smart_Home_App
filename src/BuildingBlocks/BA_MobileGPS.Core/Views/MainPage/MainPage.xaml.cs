@@ -1,4 +1,6 @@
-﻿using BA_MobileGPS.Core.Helpers;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Events;
+using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using Prism;
@@ -7,6 +9,7 @@ using Prism.Ioc;
 using Prism.Mvvm;
 using Sharpnado.Presentation.Forms.CustomViews.Tabs;
 using System;
+using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
@@ -15,21 +18,25 @@ namespace BA_MobileGPS.Core.Views
 {
     public partial class MainPage : ContentPage
     {
+        private bool checkpermissiononline = false;
         public MainPage()
         {
-
             InitializeComponent();
-
-            bool checkpermissiononline = false;
-
-            var home = PrismApplicationBase.Current.Container.Resolve<ContentView>("HomeTab"); //Home
+            var home = new Home(); //Home                     
             ViewModelLocator.SetAutowirePartialView(home, MainContentPage);
             Switcher.Children.Add(home);// Trang home
             tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_home.png", Label = MobileResource.Menu_TabItem_Home });
-
             if (CheckPermision((int)PermissionKeyNames.VehicleView))
             {
-                var listVehicleTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("ListVehicleTab"); //Phương tiện
+                var listVehicleTab = new ContentView(); //Home
+                if (App.AppType == AppType.VMS || App.AppType == AppType.Moto)
+                {
+                    listVehicleTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("ListVehicleTab"); //Phương tiện
+                }
+                else
+                {
+                    listVehicleTab = new ListVehiclePage();
+                }
                 ViewModelLocator.SetAutowirePartialView(listVehicleTab, MainContentPage);
                 Switcher.Children.Add(listVehicleTab);
                 tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_vehicle.png", Label = MobileResource.Menu_TabItem_Vehicle });
@@ -38,35 +45,61 @@ namespace BA_MobileGPS.Core.Views
             if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
             {
                 checkpermissiononline = true;
-                var online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online
+                var online = new ContentView(); //Home
+                if (App.AppType == AppType.VMS || App.AppType == AppType.Moto)
+                {
+                    //cấu hình cty này dùng Cluster thì mới mở forms Cluster
+                    if (MobileUserSettingHelper.EnableShowCluster)
+                    {
+                        online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online                       
+                    }
+                    else
+                    {
+                        online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTabNoCluster"); //Online
+                    }
+                }
+                else
+                {
+                    //cấu hình cty này dùng Cluster thì mới mở forms Cluster
+                    if (MobileUserSettingHelper.EnableShowCluster)
+                    {
+                        online = new OnlinePage();
+
+                    }
+                    else
+                    {
+                        online = new OnlinePageNoCluster();
+
+                    }
+                }
                 ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
                 Switcher.Children.Add(online);
                 tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_mornitoring.png", Label = MobileResource.Menu_TabItem_Monitoring });
                 Switcher.SelectedIndex = Switcher.Children.Count - 1;
             }
-
             if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
             {
-                var routeTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("RouteTab"); //RouteTab
+                var routeTab = new ContentView();
+                if (App.AppType == AppType.VMS || App.AppType == AppType.Moto)
+                {
+                    routeTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("RouteTab"); //RouteTab
+                }
+                else
+                {
+                    routeTab = new RoutePage();
+                }
+
                 ViewModelLocator.SetAutowirePartialView(routeTab, MainContentPage);
                 Switcher.Children.Add(routeTab);
                 tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_route.png", Label = App.AppType == AppType.VMS ? MobileResource.Menu_TabItem_Voyage : MobileResource.Menu_TabItem_Route });
             }
-
-            var accountTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("AccountTab"); //Account
+            var accountTab = new Account(); //Account
             ViewModelLocator.SetAutowirePartialView(accountTab, MainContentPage);
             Switcher.Children.Add(accountTab);
             tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_account.png", Label = MobileResource.Menu_TabItem_Account });
-
-            if (!checkpermissiononline)
-            {
-                Switcher.SelectedIndex = 1;
-                Switcher.SelectedIndex = 0;
-            }
-            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitAnimation();
+            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
-
             previousIndex = Switcher.SelectedIndex;
         }
 
@@ -91,12 +124,26 @@ namespace BA_MobileGPS.Core.Views
                     path = path.Replace("File:", string.Empty).Trim();
                     ((BottomTabItem)tabitem.Tabs[index]).IconImageSource = path;
                 }
+                if (this.eventAggregator != null)
+                {
+                    this.eventAggregator.GetEvent<TabSelectedChangedEvent>().Publish(index);
+                }
+
                 previousIndex = index;
+
             }
+
         }
+
 
         protected override void OnAppearing()
         {
+            if (!checkpermissiononline)
+            {
+                //Switcher.SelectedIndex = 1;
+                Switcher.SelectedIndex = 0;
+            }
+
             base.OnAppearing();
             if (Device.RuntimePlatform == Device.iOS)
             {
@@ -127,16 +174,18 @@ namespace BA_MobileGPS.Core.Views
                 }
 
                 _animations.Add(States.ShowFilter, new[] {
-                                                            new ViewTransition(TabHost, AnimationType.TranslationY, 0, 300, delay: 300), // Active and visible
+                                                            new ViewTransition(TabHost, AnimationType.TranslationY, 0, 100, delay: 100), // Active and visible
                                                 new ViewTransition(TabHost, AnimationType.Opacity, 1, 0), // Active and visible
                                                           });
 
                 _animations.Add(States.HideFilter, new[] {
-                                                            new ViewTransition(TabHost, AnimationType.TranslationY, 300),
+                                                            new ViewTransition(TabHost, AnimationType.TranslationY, 100),
                                                             new ViewTransition(TabHost, AnimationType.Opacity, 0),
                                                           });
 
-                await _animations.Go(States.ShowFilter, false);
+
+                await _animations.Go(States.HideStatus, false);
+
             }
             catch (Exception ex)
             {
@@ -148,18 +197,18 @@ namespace BA_MobileGPS.Core.Views
         {
             if (check)
             {
-                ShowBoxInfo();
+                ShowTab();
             }
             else
             {
-                HideBoxInfo();
+                HideTab();
             }
         }
 
         /// <summary>
         /// ẩn tab
         /// </summary>
-        public async void HideBoxInfo()
+        public async void HideTab()
         {
             await _animations.Go(States.HideFilter, true);
         }
@@ -167,7 +216,7 @@ namespace BA_MobileGPS.Core.Views
         /// <summary>
         /// Hiển thị tab
         /// </summary>
-        private async void ShowBoxInfo()
+        private async void ShowTab()
         {
             await _animations.Go(States.ShowFilter, true);
         }

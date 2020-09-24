@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.ViewModels;
+﻿using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using Syncfusion.XForms.Buttons;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace BA_MobileGPS.Core.Views
             ckbAllTitle.StateChanged += CkbAllTitle_StateChanged;
             ckbAllBoudary.StateChanged += CkbAllBoudary_StateChanged;
             ckbAllName.StateChanged += CkbAllName_StateChanged;
+            btnView.Text = MobileResource.Common_Button_View;
         }
 
         private void CkbAllTitleCompany_StateChanged(object sender, StateChangedEventArgs e)

@@ -55,15 +55,17 @@
 
         public const string GET_VEHICLE_LIST = "api/vehicles/getlistvehicleplate";
 
-        public const string GET_VEHICLEONLINE = "api/v2/vehicles/getlistvehicleonline";
+        public const string GET_VEHICLEONLINE = "api/v3/vehicles/getlistvehicleonline";
+
+        public const string GET_VEHICLEONLINESYNC = "api/v2/vehicles/syncvehicleonline";
 
         public const string GET_VEHICLE_GROUP = "api/vehicles/getlistgroups";
 
-        public const string GET_VEHICLE_COMPANY = "api/vehicles/getlistcompanyid";
+        public const string GET_VEHICLE_COMPANY = "api/v2/vehicles/getlistcompanyid";
 
         public const string GET_VEHICLE_COMPANY_BY_BUSINESSUSER = "api/vehicles/getlistcompanyidbybusinessuser";
 
-        public const string GET_VEHICLE_ROUTE_HISTORY = "api/v2/route/gethistoryroute";
+        public const string GET_VEHICLE_ROUTE_HISTORY = "api/v3/route/gethistoryroute";
 
         public const string GET_VALIDATE_USER_CONFIG_ROUTE_HISTORY = "api/route/validationuserconfiggethistoryroute";
 
@@ -167,7 +169,7 @@
 
         #region Vehicle detail
 
-        public const string GET_VEHICLEDETAIL = "api/v2/vehicles/getvehicledetail";
+        public const string GET_VEHICLEDETAIL = "api/v3/vehicles/getvehicledetail";
 
         public const string GET_ADDRESSESBYLATLNG = "api/address/batchaddress";
 
@@ -196,7 +198,10 @@
         #region Camera
 
         public const string GET_CAMERAIMAGE = "api/v2/cameras/getcameraimage";
-
+        public const string POST_READYFORSTREAM = "api/stream/start";
+        public const string POST_ENDSTREAM = "api/stream/stop";
+        public const string POST_GETMORETIMESTREAM = "api/stream/ping";
+        public const string GET_DEVICESTREAMINFOR = "api/stream/devices?conditionType={0}&conditionValue={1}";
         #endregion Camera
 
         #region Guide

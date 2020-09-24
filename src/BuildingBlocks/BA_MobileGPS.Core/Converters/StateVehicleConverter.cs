@@ -14,6 +14,10 @@ namespace BA_MobileGPS.Core
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null)
+            {
+                return string.Empty;
+            }
             return StateVehicleExtension.EngineStateConverter((int)value);
         }
 
@@ -27,6 +31,10 @@ namespace BA_MobileGPS.Core
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null)
+            {
+                return string.Empty;
+            }
             return StateVehicleExtension.DoorOpen((int)value);
         }
 
@@ -40,6 +48,10 @@ namespace BA_MobileGPS.Core
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null)
+            {
+                return string.Empty;
+            }
             return StateVehicleExtension.AirConditionerOn((int)value);
         }
 
@@ -110,6 +122,10 @@ namespace BA_MobileGPS.Core
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null)
+            {
+                return string.Empty;
+            }
             return StateVehicleExtension.BenState((int)value);
         }
 
@@ -123,6 +139,10 @@ namespace BA_MobileGPS.Core
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null)
+            {
+                return string.Empty;
+            }
             return StateVehicleExtension.CraneState((int)value);
         }
 
@@ -158,6 +178,10 @@ namespace BA_MobileGPS.Core
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null)
+            {
+                return string.Empty;
+            }
             return StateVehicleExtension.ConcreteState((int)value);
         }
 

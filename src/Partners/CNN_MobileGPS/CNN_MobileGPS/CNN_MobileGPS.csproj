@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -6,7 +6,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Prism.Unity.Forms" Version="7.2.0.1422" />
-		<PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
+		<PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -14,8 +14,8 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Styles\Colors.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
+    <Compile Update="Styles\Custom.xaml.cs">
+      <DependentUpon>Custom.xaml</DependentUpon>
     </Compile>
     <Compile Update="Styles\DarkColor.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Styles\Colors.xaml">
+    <EmbeddedResource Update="Styles\Custom.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

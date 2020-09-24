@@ -154,6 +154,12 @@ namespace BA_MobileGPS.Core
 
         public static bool IsUseExperience => Get(MobileConfigurationNames.IsUseExperience, true);
 
+        public static bool IsUseNetwork => Get(MobileConfigurationNames.IsUseNetwork, true);
+
+        public static bool IsUseBAGPSIntroduce => Get(MobileConfigurationNames.IsUseBAGPSIntroduce, true);
+
+        public static bool IsUseRegisterSupport => Get(MobileConfigurationNames.IsUseRegisterSupport, true);
+
         public static bool IsUseForgotpassword => Get(MobileConfigurationNames.IsUseForgotpassword, true);
 
         public static bool IsUseVehicleDebtMoney => Get(MobileConfigurationNames.IsUseVehicleDebtMoney, true);
@@ -171,5 +177,17 @@ namespace BA_MobileGPS.Core
         public static int TimeVehicleOffline => Get(MobileConfigurationNames.TimeVehicleOffline, 2);
         public static string LinkYoutube => Get(MobileConfigurationNames.LinkYoutube, "https://www.youtube.com/channel/UC0vfDfFTKXXV_d7m86b1MhQ");
         public static string LinkBAGPS => Get(MobileConfigurationNames.LinkBAGPS, "https://bagps.vn/");
+
+
+        public static int TimeVehicleSync => Get(MobileConfigurationNames.TimeVehicleSync, 2);
+
+        public static int TimmerVehicleSync => Get(MobileConfigurationNames.TimmerVehicleSync, 60000);
+        public static int TimeSleep => Get(MobileConfigurationNames.TimeSleep, 5);
+        public static int Mapzoom => Get(MobileConfigurationNames.Mapzoom, 14);
+
+        public static int ClusterMapzoom => Get(MobileConfigurationNames.Mapzoom, 16);
+
+
+
     }
 }

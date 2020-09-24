@@ -40,6 +40,7 @@
     <Compile Include="BaseDelegate.cs" />
     <Compile Include="CustomRenderer\ContentPageRenderer.cs" />
     <Compile Include="CustomRenderer\CustomEditorRenderer.cs" />
+    <Compile Include="CustomRenderer\DetailCameraRenderer.cs" />
     <Compile Include="CustomRenderer\EntryMinusRenderer.cs" />
     <Compile Include="CustomRenderer\FrameShadowRenderer.cs" />
     <Compile Include="CustomRenderer\IconViewRenderer.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="DependencyServices\PreviewControllerDS.cs" />
     <Compile Include="DependencyServices\SaveAndViewIOS.cs" />
     <Compile Include="DependencyServices\SaveService.cs" />
+    <Compile Include="DependencyServices\ScreenOrientServices.cs" />
     <Compile Include="DependencyServices\SettingsService.cs" />
     <Compile Include="DependencyServices\StatusBarHelper.cs" />
     <Compile Include="Effects\BorderlessEffect.cs" />
@@ -99,16 +101,22 @@
       <Version>2.6.3</Version>
     </PackageReference>
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
-      <Version>3.1.2</Version>
+      <Version>3.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="LibVLCSharp.Forms">
+      <Version>3.4.8</Version>
     </PackageReference>
     <PackageReference Include="Rg.Plugins.Popup">
-      <Version>2.0.0.3</Version>
+      <Version>2.0.0.5</Version>
     </PackageReference>
     <PackageReference Include="EasyTipView">
       <Version>1.0.1</Version>
     </PackageReference>
     <PackageReference Include="Ricardo.MWPhotoBrowser.iOS">
       <Version>2.1.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="VideoLAN.LibVLC.iOS">
+      <Version>3.3.10</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugin.HtmlLabel">
       <Version>4.1.3</Version>
@@ -126,22 +134,22 @@
       <Version>2.4.11.982</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.8.0.1269</Version>
+      <Version>4.8.0.1451</Version>
     </PackageReference>
     <PackageReference Include="Com.OneSignal">
-      <Version>3.10.0</Version>
+      <Version>3.10.1</Version>
     </PackageReference>
     <PackageReference Include="IdentityModel">
-      <Version>4.3.1</Version>
+      <Version>4.4.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter">
-      <Version>3.4.0</Version>
+      <Version>3.4.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Analytics">
-      <Version>3.4.0</Version>
+      <Version>3.4.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Crashes">
-      <Version>3.4.0</Version>
+      <Version>3.4.2</Version>
     </PackageReference>
     <PackageReference Include="Plugin.Permissions">
       <Version>6.0.1</Version>
@@ -164,20 +172,20 @@
     <PackageReference Include="Shiny.Prism">
       <Version>7.2.0.1054</Version>
     </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.2.0.54" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.2.0.54" />
-    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="18.2.0.54" />
-    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="18.2.0.54" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.2.0.54" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.2.0.54" />
-    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.2.0.54" />
-    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="18.2.0.54" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.2.0.54" />
-    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="18.2.0.54" />
-    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="18.2.0.54" />
-    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="18.2.0.54" />
-    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="18.2.0.54" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.2.0.54" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="18.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="18.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="18.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="18.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="18.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="18.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="18.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.2.0.59" />
     <PackageReference Include="MonkeyCache.FileStore" Version="1.3.0" />
     <PackageReference Include="Toast.iOS">
       <Version>1.2.0</Version>
@@ -1976,6 +1984,78 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\direction%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fullscreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fullscreen%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_fullscreen%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_normalscreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_normalscreen%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_normalscreen%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_engine_car%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_engine_car.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_engine_car%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_login_tutorial.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_login_tutorial%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_login_tutorial%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_mute.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_mute%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_mute%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_volumespeaker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_volumespeaker%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_volumespeaker%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_upgrade%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_upgrade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_upgrade%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_refresh%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_refresh%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -35,6 +35,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private static List<Vehicle> ListVehicleOrigin = new List<Vehicle>();
 
+        private List<VehicleOnline> ListResultOnline = new List<VehicleOnline>();
+
         private List<Vehicle> listVehicle = new List<Vehicle>();
         public List<Vehicle> ListVehicle { get => listVehicle; set => SetProperty(ref listVehicle, value); }
 
@@ -65,34 +67,27 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     LookUpType = type;
                     SelectedVehicleGroups = VehicleGroups;
+                    InitData();
                 }
             }
-
-            InitData();
         }
 
         private void InitData()
         {
-            if (IsBusy || !IsConnected)
-                return;
-
-            // UserDialogs.Instance.ShowLoading("");
-
-            Task.Run(async () =>
+            Task.Run(() =>
             {
                 var currentCompany = Settings.CurrentCompany;
 
-                string groupid = string.Empty;
-                if (SelectedVehicleGroups != null && SelectedVehicleGroups.Length > 0)
+                if (LookUpType == VehicleLookUpType.VehicleRoute)
                 {
-                    groupid = string.Join(",", SelectedVehicleGroups);
+                    return GetListVehicle(SelectedVehicleGroups);
                 }
-
-                return await vehicleOnlineService.GetListVehicle(currentCompany?.UserId ?? UserInfo.UserId, groupid, currentCompany?.FK_CompanyID ?? CurrentComanyID, LookUpType);
+                else
+                {
+                    return GetListVehicle(SelectedVehicleGroups);
+                }
             }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
-                //UserDialogs.Instance.HideLoading();
-
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
                     SetFocus("SearchText");
@@ -120,6 +115,50 @@ namespace BA_MobileGPS.Core.ViewModels
                     Logger.WriteError(MethodBase.GetCurrentMethod().Name, task.Exception?.GetRootException().Message);
                 }
             }));
+        }
+
+        public List<Vehicle> GetListVehicle(int[] groupids)
+        {
+            List<Vehicle> result = new List<Vehicle>();
+            try
+            {
+                var listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                if (groupids != null && groupids.Length > 0)
+                {
+                    foreach (var item in groupids)
+                    {
+                        ListResultOnline = listOnline.FindAll(v => v.GroupIDs.Contains(item.ToString()));
+                        foreach (var lst in ListResultOnline)
+                        {
+                            result.Add(AddListVehicle(lst));
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var lst in listOnline)
+                    {
+                        result.Add(AddListVehicle(lst));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result.Distinct().ToList();
+        }
+
+        private Vehicle AddListVehicle(VehicleOnline listOnline)
+        {
+            return (new Vehicle
+            {
+                VehicleId = listOnline.VehicleId,
+                VehiclePlate = listOnline.VehiclePlate,
+                PrivateCode = listOnline.PrivateCode,
+                GroupIDs = listOnline.GroupIDs,
+                Imei = listOnline.Imei
+            });
         }
 
         private void SearchVehicle(TextChangedEventArgs args)
