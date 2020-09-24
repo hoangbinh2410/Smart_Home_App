@@ -128,6 +128,10 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
             {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
+                });
                 //Join vào nhóm signalR để nhận dữ liệu online
                 JoinGroupSignalRCar(StaticSettings.ListVehilceOnline.Select(x => x.VehicleId.ToString()).ToList());
             }
