@@ -25,25 +25,29 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
         {
             foreach (var item in obj)
             {
-                switch (item)
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    case CameraEnum.FirstCamera:
-                        frCam1.IsEnabled = true;
-                        topLeftCam.IsVisible = true;
-                        break;
-                    case CameraEnum.SecondCamera:
-                        frCam1.IsEnabled = true;
-                        bottomLeftCam.IsVisible = true;
-                        break;
-                    case CameraEnum.ThirdCamera:
-                        frCam1.IsEnabled = true;
-                        topRightCam.IsVisible = true;
-                        break;
-                    case CameraEnum.FourthCamera:
-                        frCam1.IsEnabled = true;
-                        bottomRightCam.IsVisible = true;
-                        break;
-                }
+                    switch (item)
+                    {
+                        case CameraEnum.FirstCamera:
+                            frCam1.IsEnabled = true;
+                            topLeftCam.IsVisible = true;
+                            break;
+                        case CameraEnum.SecondCamera:
+                            frCam1.IsEnabled = true;
+                            bottomLeftCam.IsVisible = true;
+                            break;
+                        case CameraEnum.ThirdCamera:
+                            frCam1.IsEnabled = true;
+                            topRightCam.IsVisible = true;
+                            break;
+                        case CameraEnum.FourthCamera:
+                            frCam1.IsEnabled = true;
+                            bottomRightCam.IsVisible = true;
+                            break;
+                    }
+                });
+              
             }
         }
 
@@ -104,14 +108,16 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
 
         private void FullScreenCam1()
         {
+           
             parentPanel.ColumnDefinitions.Add(new ColumnDefinition());
             parentPanel.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0) });
-
+            
             parentPanel.RowDefinitions.Add(new RowDefinition());
             parentPanel.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0) });
         }
         private void FullScreenCam2()
         {
+
             parentPanel.ColumnDefinitions.Add(new ColumnDefinition());
             parentPanel.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0) });
                       

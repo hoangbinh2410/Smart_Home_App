@@ -36,7 +36,7 @@
                 VerticalOptions="Center" />
         </Grid>
     </NavigationPage.TitleView>
-    <Grid RowDefinitions="Auto,Auto,*,Auto" RowSpacing="2">
+    <Grid RowDefinitions="Auto,Auto,*" RowSpacing="0">
         <!--  Search area  -->
         <Grid
             Padding="10,0"
@@ -130,9 +130,11 @@
         <Grid x:Name="cameraPanel" Grid.Row="2" />
         <!--  Main PlayBack Control  -->
         <Grid
-            Grid.Row="3"
+            Grid.Row="2"
             Padding="7,2"
-            BackgroundColor="{DynamicResource PrimaryColor}">
+            BackgroundColor="Transparent"
+            IsEnabled="{Binding SelectedCamera, Converter={StaticResource HasDataConverter}}"
+            VerticalOptions="End">
             <StackLayout
                 HorizontalOptions="Start"
                 Orientation="Horizontal"
