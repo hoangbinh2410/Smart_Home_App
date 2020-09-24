@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Views.Camera.MonitoringImage;
+﻿using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.Views.Camera.MonitoringImage;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
@@ -9,9 +10,8 @@ namespace BA_MobileGPS.Core.Views
         {
             try
             {
-               
                 InitializeComponent();
-                
+                entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
             }
             catch (System.Exception ex)
             {

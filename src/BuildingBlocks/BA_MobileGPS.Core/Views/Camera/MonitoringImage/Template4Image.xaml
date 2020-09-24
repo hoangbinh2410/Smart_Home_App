@@ -13,153 +13,16 @@
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     x:Name="root"
     mc:Ignorable="d">
-    <!--<ContentView.Resources>
-        <ResourceDictionary>
-            <DataTemplate x:Key="itemTemplate">
-                <pancake:PancakeView Padding="0" CornerRadius="0,0,5,5">
-                    <pancake:PancakeView.Border>
-                        <pancake:Border Thickness="1" Color="{DynamicResource GrayColor2}" />
-                    </pancake:PancakeView.Border>
-                    <pancake:PancakeView.Shadow>
-                        <pancake:DropShadow
-                            BlurRadius="1"
-                            Offset="0,0"
-                            Color="Black" />
-                    </pancake:PancakeView.Shadow>
-                    <StackLayout
-                        Padding="0"
-                        BackgroundColor="{DynamicResource WhiteColor}"
-                        HorizontalOptions="FillAndExpand"
-                        Spacing="2">
-                        <sharpnado:MaterialFrame
-                            Padding="0"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="Start">
-                            <ffImage:CachedImage
-                                Aspect="AspectFill"
-                                BackgroundColor="White"
-                                BitmapOptimizations="True"
-                                DownsampleToViewSize="True"
-                                ErrorPlaceholder="camera_placeholder.png"
-                                HeightRequest="150"
-                                HorizontalOptions="FillAndExpand"
-                                LoadingPlaceholder="camera_placeholder.png"
-                                Source="{Binding Url}"
-                                VerticalOptions="FillAndExpand" />
-                        </sharpnado:MaterialFrame>
-                        <Grid
-                            Padding="0,5"
-                            ColumnDefinitions="Auto,*,*"
-                            RowDefinitions="Auto,Auto,Auto"
-                            RowSpacing="3">
-                            <icons:IconView
-                                Foreground="{DynamicResource PrimaryColor}"
-                                HeightRequest="15"
-                                Source="ic_location_black"
-                                VerticalOptions="Center"
-                                WidthRequest="15" />
-                            <Label
-                                Grid.Column="1"
-                                FontAttributes="Bold"
-                                FontSize="10"
-                                HorizontalOptions="StartAndExpand"
-                                HorizontalTextAlignment="Start"
-                                LineBreakMode="WordWrap"
-                                Text="00:00:00 20/08/2020"
-                                VerticalOptions="Center" />
-                            <icons:IconView
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                Foreground="{DynamicResource PrimaryColor}"
-                                HeightRequest="15"
-                                HorizontalOptions="Start"
-                                Source="ic_location_black"
-                                VerticalOptions="Center"
-                                WidthRequest="15" />
-                            <Label
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                FontSize="10"
-                                HorizontalOptions="Start"
-                                HorizontalTextAlignment="Start"
-                                LineBreakMode="WordWrap"
-                                MaxLines="2"
-                                Text="Lô 14 P. Nguyễn Cảnh Dị, Đại Kim, Hoàng Mai, Hà Nội"
-                                VerticalOptions="Center" />
-                            <icons:IconView
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                Foreground="{DynamicResource PrimaryColor}"
-                                HeightRequest="15"
-                                Source="ic_location_black"
-                                VerticalOptions="Center"
-                                WidthRequest="15" />
-                            <Label
-                                Grid.Row="2"
-                                Grid.Column="1"
-                                FontSize="10"
-                                HorizontalOptions="Start"
-                                HorizontalTextAlignment="Start"
-                                LineBreakMode="WordWrap"
-                                Text="Xe quá tốc độ"
-                                VerticalOptions="Center" />
-                            <StackLayout
-                                Grid.RowSpan="3"
-                                Grid.Column="2"
-                                HorizontalOptions="CenterAndExpand"
-                                Orientation="Vertical"
-                                VerticalOptions="CenterAndExpand">
-                                <pancake:PancakeView
-                                    Padding="0"
-                                    BackgroundGradientEndPoint="1,1"
-                                    BackgroundGradientStartPoint="0,0"
-                                    CornerRadius="25"
-                                    HeightRequest="50"
-                                    HorizontalOptions="EndAndExpand"
-                                    WidthRequest="50">
-                                    <pancake:PancakeView.BackgroundGradientStops>
-                                        <pancake:GradientStopCollection>
-                                            <pancake:GradientStop Offset="0" Color="{StaticResource PrimaryColor}" />
-                                            <pancake:GradientStop Offset="1" Color="{StaticResource BluePrimaryColor}" />
-                                        </pancake:GradientStopCollection>
-                                    </pancake:PancakeView.BackgroundGradientStops>
-                                    <pancake:PancakeView
-                                        Padding="0"
-                                        BackgroundGradientEndPoint="1,1"
-                                        BackgroundGradientStartPoint="0,0"
-                                        CornerRadius="23"
-                                        HeightRequest="46"
-                                        HorizontalOptions="CenterAndExpand"
-                                        VerticalOptions="CenterAndExpand"
-                                        WidthRequest="46">
-                                        <pancake:PancakeView.BackgroundGradientStops>
-                                            <pancake:GradientStopCollection>
-                                                <pancake:GradientStop Offset="0" Color="White" />
-                                                <pancake:GradientStop Offset="1" Color="White" />
-                                            </pancake:GradientStopCollection>
-                                        </pancake:PancakeView.BackgroundGradientStops>
-                                        <StackLayout Spacing="0" VerticalOptions="Center">
-                                            <Label
-                                                FontAttributes="Bold"
-                                                FontFamily="Arial"
-                                                FontSize="12"
-                                                Text="60" />
-                                            <Label FontSize="10" Text="km/h" />
-                                        </StackLayout>
-                                    </pancake:PancakeView>
-                                </pancake:PancakeView>
-                            </StackLayout>
-                        </Grid>
-                    </StackLayout>
-                </pancake:PancakeView>
-            </DataTemplate>
-        </ResourceDictionary>
-    </ContentView.Resources>-->
     <syncfusionList:SfListView
         x:Name="listview"
         AutoFitMode="Height"
+        BackgroundColor="{DynamicResource WhiteColor}"
         HorizontalOptions="FillAndExpand"
-        ItemsSource="{Binding ListGroup}"
+        ItemsSource="{Binding ListGroup, Mode=TwoWay}"
+        LoadMoreCommand="{Binding LoadMoreItemsCommand}"
+        LoadMoreCommandParameter="{Binding Source={x:Reference listview}}"
+        LoadMoreOption="Auto"
+        SelectionBackgroundColor="Transparent"
         TapCommand="{Binding TapCommandListGroup}"
         VerticalOptions="FillAndExpand">
         <syncfusionList:SfListView.LayoutManager>
@@ -207,13 +70,10 @@
                                     Foreground="{DynamicResource WhiteColor}"
                                     Source="ic_image.png" />
                             </pancake:PancakeView>
-
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding BindingContext.TabCommandDetail, Source={Reference root}}" CommandParameter="{Binding Key}" />
                             </StackLayout.GestureRecognizers>
-
                         </StackLayout>
-
                     </Grid>
                 </ViewCell>
             </DataTemplate>
@@ -263,7 +123,7 @@
                                 <icons:IconView
                                     Foreground="{DynamicResource PrimaryColor}"
                                     HeightRequest="15"
-                                    Source="ic_location_black"
+                                    Source="ic_time_black"
                                     VerticalOptions="Center"
                                     WidthRequest="15" />
                                 <Label
@@ -273,7 +133,7 @@
                                     HorizontalOptions="StartAndExpand"
                                     HorizontalTextAlignment="Start"
                                     LineBreakMode="WordWrap"
-                                    Text="{Binding Time}"
+                                    Text="{Binding Time, Converter={StaticResource DateTimeConverter}}"
                                     VerticalOptions="Center" />
                                 <icons:IconView
                                     Grid.Row="1"
@@ -292,14 +152,14 @@
                                     HorizontalTextAlignment="Start"
                                     LineBreakMode="WordWrap"
                                     MaxLines="2"
-                                    Text="{Binding Address}"
+                                    Text="{Binding CurrentAddress}"
                                     VerticalOptions="Center" />
-                                <!--<icons:IconView
+                                <icons:IconView
                                     Grid.Row="2"
                                     Grid.Column="0"
                                     Foreground="{DynamicResource PrimaryColor}"
                                     HeightRequest="15"
-                                    Source="ic_location_black"
+                                    Source="ic_info_outline_white"
                                     VerticalOptions="Center"
                                     WidthRequest="15" />
                                 <Label
@@ -310,7 +170,7 @@
                                     HorizontalTextAlignment="Start"
                                     LineBreakMode="WordWrap"
                                     Text="Xe quá tốc độ"
-                                    VerticalOptions="Center" />-->
+                                    VerticalOptions="Center" />
                                 <StackLayout
                                     Grid.RowSpan="3"
                                     Grid.Column="2"
@@ -363,64 +223,5 @@
                 </ViewCell>
             </DataTemplate>
         </syncfusionList:SfListView.ItemTemplate>
-
-        <!--<syncfusionList:SfListView.DataSource>
-            <data:DataSource>
-                <data:DataSource.GroupDescriptors>
-                    <data:GroupDescriptor PropertyName="VehiclePlate" />
-                </data:DataSource.GroupDescriptors>
-                <data:DataSource.Items>
-                    <data:DataSource Source="Data" />
-                </data:DataSource.Items>
-            </data:DataSource>
-        </syncfusionList:SfListView.DataSource>
-        <syncfusionList:SfListView.GroupHeaderTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <ViewCell.View>
-                        <Grid
-                            Margin="0,0,0,-10"
-                            Padding="10,0"
-                            BackgroundColor="{DynamicResource PrimaryColor}"
-                            HeightRequest="40"
-                            VerticalOptions="Start">
-                            <StackLayout
-                                Padding="0"
-                                HorizontalOptions="FillAndExpand"
-                                Orientation="Horizontal">
-                                <Label
-                                    HorizontalOptions="Start"
-                                    StyleClass="GroupTitleLabel,BoldText"
-                                    Text="{Binding Key}"
-                                    TextColor="{DynamicResource WhiteColor}"
-                                    VerticalOptions="Center" />
-                                <pancake:PancakeView WidthRequest="15">
-                                    <icons:IconView Foreground="{DynamicResource WhiteColor}" Source="ic_star.png" />
-                                </pancake:PancakeView>
-                            </StackLayout>
-                            <StackLayout
-                                Padding="0"
-                                HorizontalOptions="End"
-                                Orientation="Horizontal">
-                                <pancake:PancakeView WidthRequest="40">
-                                    <icons:IconView
-                                        Margin="8"
-                                        Foreground="{DynamicResource WhiteColor}"
-                                        Source="ic_image.png" />
-                                </pancake:PancakeView>
-
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding TabCommandDetail}" />
-                                </StackLayout.GestureRecognizers>
-
-                            </StackLayout>
-
-                        </Grid>
-                    </ViewCell.View>
-                </ViewCell>
-            </DataTemplate>
-        </syncfusionList:SfListView.GroupHeaderTemplate>-->
-
     </syncfusionList:SfListView>
-
 </ContentView>

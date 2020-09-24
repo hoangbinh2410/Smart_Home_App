@@ -12,17 +12,7 @@
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.HasBackButton="False">
-    <ContentPage.Resources>
 
-        <Style TargetType="Frame">
-            <Setter Property="BackgroundColor" Value="Transparent" />
-            <Setter Property="CornerRadius" Value="2" />
-            <Setter Property="HorizontalOptions" Value="Center" />
-            <Setter Property="VerticalOptions" Value="Center" />
-            <Setter Property="Padding" Value="6,2" />
-            <Setter Property="Margin" Value="0,10,0,0" />
-        </Style>
-    </ContentPage.Resources>
     <NavigationPage.TitleView>
         <Grid VerticalOptions="End">
             <icons:IconView
@@ -43,9 +33,6 @@
                 VerticalOptions="Center" />
         </Grid>
     </NavigationPage.TitleView>
-
-
-
     <Grid RowDefinitions="Auto,Auto,*" RowSpacing="2">
         <!--  Search area  -->
         <Grid
@@ -136,16 +123,13 @@
                         Offset="0,0"
                         Color="Black" />
                 </pancake:PancakeView.Shadow>
-                <pancake:PancakeView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
-                </pancake:PancakeView.GestureRecognizers>
                 <icons:IconView
                     Foreground="{DynamicResource PrimaryColor}"
-                    HeightRequest="25"
+                    HeightRequest="15"
                     HorizontalOptions="Center"
-                    Source="ic_doublevehicle.png"
+                    Source="ic_chose_template.png"
                     VerticalOptions="Center"
-                    WidthRequest="25" />
+                    WidthRequest="15" />
             </pancake:PancakeView>
             <pancake:PancakeView
                 Grid.Column="3"
@@ -161,14 +145,12 @@
                         Offset="0,0"
                         Color="Black" />
                 </pancake:PancakeView.Shadow>
-                <pancake:PancakeView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
-                </pancake:PancakeView.GestureRecognizers>
+
                 <icons:IconView
                     Foreground="{DynamicResource PrimaryColor}"
                     HeightRequest="25"
                     HorizontalOptions="Center"
-                    Source="ic_doublevehicle.png"
+                    Source="ic_refresh.png"
                     VerticalOptions="Center"
                     WidthRequest="25" />
             </pancake:PancakeView>
@@ -176,11 +158,12 @@
         <Grid
             Grid.Row="1"
             Padding="10,0,10,10"
+            IsVisible="{Binding IsShowLastViewVehicle}"
             RowDefinitions="Auto,Auto"
             VerticalOptions="StartAndExpand">
             <Label
                 HorizontalOptions="Start"
-                Text="10 phương tiện xem gần nhất"
+                Text="Phương tiện xem gần nhất"
                 TextColor="{DynamicResource TextPrimaryColor}"
                 VerticalOptions="Start" />
             <syncfusionList:SfListView

@@ -21,9 +21,9 @@ namespace BA_MobileGPS.Service.IService
         /// <returns></returns>
         Task<StreamDevicesResponse> GetDevicesStatus(int type, string value);
 
-        Task<List<CaptureImageData>> GetCaptureImageLimit(string xncode, string vehiclePlate, string limit);
+        Task<List<CaptureImageData>> GetCaptureImageLimit(int xncode, string vehiclePlate, int limit);
 
-        Task<List<CaptureImageData>> GetCaptureImageTime(string xncode, string vehiclePlate, DateTime fromTime, DateTime toTime);
+        Task<List<CaptureImageData>> GetCaptureImageTime(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime);
 
         Task<List<CaptureImageData>> GetListCaptureImage(StreamImageRequest request);
     }

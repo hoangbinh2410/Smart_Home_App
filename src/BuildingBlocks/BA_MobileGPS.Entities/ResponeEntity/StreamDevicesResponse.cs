@@ -181,5 +181,8 @@ namespace BA_MobileGPS.Entities
 
         [JsonProperty("e")]
         public string ExtraInfo { get; set; } // ExtraInfo
+
+        [JsonProperty("z")]
+        public string CurrentAddress { get; set; } // Address
     }
 }

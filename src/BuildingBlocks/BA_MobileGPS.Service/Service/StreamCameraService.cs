@@ -82,7 +82,7 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<List<CaptureImageData>> GetCaptureImageLimit(string xncode, string vehiclePlate, string limit)
+        public async Task<List<CaptureImageData>> GetCaptureImageLimit(int xncode, string vehiclePlate, int limit)
         {
             var result = new List<CaptureImageData>();
             try
@@ -101,7 +101,7 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<List<CaptureImageData>> GetCaptureImageTime(string xncode, string vehiclePlate, DateTime fromTime, DateTime toTime)
+        public async Task<List<CaptureImageData>> GetCaptureImageTime(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime)
         {
             var result = new List<CaptureImageData>();
             try

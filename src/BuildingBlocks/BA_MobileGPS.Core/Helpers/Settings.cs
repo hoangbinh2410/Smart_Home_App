@@ -88,6 +88,9 @@ namespace BA_MobileGPS.Core
         private const string LastViewVehicleImageKey = "LastViewVehicleImageKey";
         private static readonly string LastViewVehicleImageDefault = string.Empty;
 
+        private const string ShowViewVehicleImageKey = "ShowViewVehicleImageKey";
+        private static readonly int ShowViewVehicleImageDefault = 10;
+
         public static float Latitude
         {
             get => AppSettings.GetValueOrDefault(IdLatitude, LatitudeDefault);
@@ -276,5 +279,12 @@ namespace BA_MobileGPS.Core
             get => AppSettings.GetValueOrDefault(LastViewVehicleImageKey, LastViewVehicleImageDefault);
             set => AppSettings.AddOrUpdateValue(LastViewVehicleImageKey, value);
         }
+
+        public static int ShowViewVehicleImage
+        {
+            get => AppSettings.GetValueOrDefault(ShowViewVehicleImageKey, ShowViewVehicleImageDefault);
+            set => AppSettings.AddOrUpdateValue(ShowViewVehicleImageKey, value);
+        }
+        
     }
 }
