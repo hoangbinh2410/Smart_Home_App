@@ -81,7 +81,6 @@ namespace BA_MobileGPS.Core.ViewModels
             TryExecute(async () =>
             {
                 await ConnectSignalR();
-                InitVehilceOnline();
             });
 
         }

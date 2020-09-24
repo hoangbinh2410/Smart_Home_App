@@ -225,5 +225,10 @@ namespace BA_MobileGPS.Core.Views
         {
             return StaticSettings.User.Permissions.IndexOf(PermissionKey) != -1;
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }
