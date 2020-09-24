@@ -10,6 +10,7 @@ using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -19,6 +20,8 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class CameraManagingPageViewModel : ViewModelBase
     {
+        Stopwatch stopwatchCam1 = new Stopwatch();
+        Stopwatch stopwatchCam2 = new Stopwatch();
         private readonly string playIconSource = "ic_play_arrow_white.png";
         private readonly string stopIconSource = "ic_stop_white.png";
         private readonly string volumeIconSource = "ic_volumespeaker";
@@ -67,14 +70,14 @@ namespace BA_MobileGPS.Core.ViewModels
                         };
                     EventAggregator.GetEvent<HideVideoViewEvent>().Publish(allCams);
                     VehicleSelectedPlate = vehiclePlate.VehiclePlate;
-                    GetCameraInfor("TESTTBI");
+                    GetCameraInfor("BACAM1409");
                     SelectedCamera = currentCamera.FirstOrDefault();
 
                     PlayButtonIconSource = stopIconSource;
-                    cam1ReloadCount = 0;
-                    cam2ReloadCount = 0;
-                    cam3ReloadCount = 0;
-                    cam4ReloadCount = 0;
+                    Cam1ReloadCount = 0;
+                    Cam2ReloadCount = 0;
+                    Cam3ReloadCount = 0;
+                    Cam4ReloadCount = 0;
 
                 }
             }
@@ -360,12 +363,14 @@ namespace BA_MobileGPS.Core.ViewModels
             MediaPlayerNo1.TimeChanged += MediaPlayerNo1_TimeChanged;
             MediaPlayerNo1.EncounteredError += MediaPlayerNo1_EncounteredError;
             MediaPlayerNo1.Play();
+            stopwatchCam1.Start();
         }
 
         private void MediaPlayerNo1_EncounteredError(object sender, EventArgs e)
         {
             TryExecute(async () =>
             {
+                stopwatchCam1.Stop();
                 await Task.Delay(2000);
                 InitCamera1(videoUrl1);
             });
@@ -379,6 +384,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsCam1Loaded = true;
                 MediaPlayerNo1.TimeChanged -= MediaPlayerNo1_TimeChanged;
                 ShowVideoView(CameraEnum.FirstCamera);
+                stopwatchCam1.Stop();
+                Cam1ReloadCount += (int)(stopwatchCam1.ElapsedMilliseconds / 1000);
+                
             }
         }
         private void InitCamera2(string url)
@@ -389,12 +397,14 @@ namespace BA_MobileGPS.Core.ViewModels
             MediaPlayerNo2.TimeChanged += MediaPlayerNo2_TimeChanged;
             MediaPlayerNo2.EncounteredError += MediaPlayerNo2_EncounteredError; ;
             MediaPlayerNo2.Play();
+            stopwatchCam2.Start();
         }
 
         private void MediaPlayerNo2_EncounteredError(object sender, EventArgs e)
         {
             TryExecute(async () =>
             {
+                stopwatchCam2.Stop();
                 await Task.Delay(2000);
                 InitCamera2(videoUrl2);
             });
@@ -408,6 +418,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsCam2Loaded = true;
                 MediaPlayerNo2.TimeChanged -= MediaPlayerNo2_TimeChanged;
                 ShowVideoView(CameraEnum.SecondCamera);
+                stopwatchCam2.Stop();
+                Cam2ReloadCount += (int)(stopwatchCam1.ElapsedMilliseconds / 1000);
             }
         }
         private void InitCamera3(string url)
@@ -537,6 +549,22 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 EventAggregator.GetEvent<SwitchToNormalScreenEvent>().Publish();
                 DependencyService.Get<IScreenOrientServices>().ForcePortrait();
+                if (MediaPlayerNo1 != null)
+                {
+                    MediaPlayerNo1.AspectRatio = "4:3";
+                }
+                if (MediaPlayerNo2 != null)
+                {
+                    MediaPlayerNo2.AspectRatio = "4:3";
+                }
+                if (MediaPlayerNo3 != null)
+                {
+                    MediaPlayerNo3.AspectRatio = "4:3";
+                }
+                if (MediaPlayerNo4 !=null)
+                {
+                    MediaPlayerNo4.AspectRatio = "4:3";
+                }                             
             }
             else
             {
@@ -544,15 +572,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 switch (SelectedCamera)
                 {
                     case CameraEnum.FirstCamera:
+                        MediaPlayerNo1.AspectRatio = "16:9";
                         EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.FirstCamera);
                         break;
                     case CameraEnum.SecondCamera:
+                        MediaPlayerNo2.AspectRatio = "16:9";
                         EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.SecondCamera);
                         break;
                     case CameraEnum.ThirdCamera:
+                        MediaPlayerNo3.AspectRatio = "16:9";
                         EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.ThirdCamera);
                         break;
                     case CameraEnum.FourthCamera:
+                        MediaPlayerNo4.AspectRatio = "16:9";
                         EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.FourthCamera);
                         break;
                 }
@@ -572,77 +604,81 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         // camrera active filter
                         var cameraActiveQuantity = deviceResponseData.CameraChannels?.Where(x => x.IsPlug).ToList();
-
                         foreach (var data in cameraActiveQuantity)
                         {
-                            var request = new StreamStartRequest()
-                            {
-                                Channel = data.Channel,
-                                xnCode = deviceResponseData.XnCode,
-                                VehiclePlate = bks
-                            };
-                            var countRequest = 0;
-                            var temp = true;
-                            StreamStart camResponseData = null;
-                            while (temp)
-                            {
-                                countRequest += 1;
-                                var camResponse = await _streamCameraService.StartStream(request);
-                                await Task.Delay(1000);
-                                // wait 1s then request get to check Chanel result
-                                var checkResult = await _streamCameraService.GetDevicesStatus(ConditionType.BKS, bks);
-                                if ((bool)checkResult?.Data?.FirstOrDefault()?.CameraChannels.FirstOrDefault(x => x.Channel == data.Channel).IsStreaming)
-                                {
-                                    camResponseData = camResponse.Data.FirstOrDefault();
-                                    temp = false;
-                                }
-                                switch (data.Channel)
-                                {
-                                    case 1:
-                                        Cam1ReloadCount += 1;
-                                        break;
-                                    case 2:
-                                        Cam2ReloadCount += 1;
-                                        break;
-                                    case 3:
-                                        Cam3ReloadCount += 1;
-                                        break;
-                                    case 4:
-                                        Cam4ReloadCount += 1;
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
+                            TryExecute(async() => {
 
-                            if (camResponseData != null)
-                            {
-                                switch (camResponseData.Channel)
+                                var request = new StreamStartRequest()
                                 {
-                                    case 1:
-                                        videoUrl1 = camResponseData.Link;
-                                        InitCamera1(videoUrl1);
-                                        break;
-                                    case 2:
-                                        videoUrl2 = camResponseData.Link;
-                                        InitCamera2(videoUrl2);
-                                        break;
-                                    case 3:
-                                        videoUrl3 = camResponseData.Link;
-                                        InitCamera3(videoUrl3);
-                                        break;
-                                    case 4:
-                                        videoUrl4 = camResponseData.Link;
-                                        InitCamera4(videoUrl4);
-                                        break;
-                                    default:
-                                        break;
+                                    Channel = data.Channel,
+                                    xnCode = deviceResponseData.XnCode,
+                                    VehiclePlate = bks
+                                };
+                                var countRequest = 0;
+                                var temp = true;
+                                StreamStart camResponseData = null;
+                                while (temp)
+                                {
+                                    countRequest += 1;
+                                    var camResponse = await _streamCameraService.StartStream(request);
+                                  
+                                    var checkResult = await _streamCameraService.GetDevicesStatus(ConditionType.BKS, bks);
+                                    if ((bool)checkResult?.Data?.FirstOrDefault()?.CameraChannels.FirstOrDefault(x => x.Channel == data.Channel).IsStreaming)
+                                    {
+                                        camResponseData = camResponse.Data.FirstOrDefault();
+                                        temp = false;
+                                    }
+                                    // wait 1s
+                                    await Task.Delay(1000);
+                                   
+                                    switch (data.Channel)
+                                    {
+                                        case 1:
+                                            Cam1ReloadCount += 1;
+                                            break;
+                                        case 2:
+                                            Cam2ReloadCount += 1;
+                                            break;
+                                        case 3:
+                                            Cam3ReloadCount += 1;
+                                            break;
+                                        case 4:
+                                            Cam4ReloadCount += 1;
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                // data hav isssue
-                            }
+
+                                if (camResponseData != null)
+                                {
+                                    switch (camResponseData.Channel)
+                                    {
+                                        case 1:
+                                            videoUrl1 = camResponseData.Link;
+                                            InitCamera1(videoUrl1);
+                                            break;
+                                        case 2:
+                                            videoUrl2 = camResponseData.Link;
+                                            InitCamera2(videoUrl2);
+                                            break;
+                                        case 3:
+                                            videoUrl3 = camResponseData.Link;
+                                            InitCamera3(videoUrl3);
+                                            break;
+                                        case 4:
+                                            videoUrl4 = camResponseData.Link;
+                                            InitCamera4(videoUrl4);
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    // data hav isssue
+                                }
+                            });                         
                         }
                     }
                     else
@@ -652,9 +688,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
         }
-
-        
-
+     
         private void ShowVideoView(CameraEnum camera)
         {
             EventAggregator.GetEvent<ShowVideoViewEvent>().Publish(new List<CameraEnum>() { camera });

@@ -91,7 +91,7 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
             parentPanel.RowDefinitions.Clear();
             switch (obj)
             {
-                case CameraEnum.FirstCamera:
+                case CameraEnum.FirstCamera:                    
                     FullScreenCam1();
                     break;
                 case CameraEnum.SecondCamera:
@@ -107,8 +107,7 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
         }
 
         private void FullScreenCam1()
-        {
-           
+        {         
             parentPanel.ColumnDefinitions.Add(new ColumnDefinition());
             parentPanel.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0) });
             
@@ -155,7 +154,7 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
             parentPanel.ColumnDefinitions.Add(new ColumnDefinition());
 
             parentPanel.RowDefinitions.Add(new RowDefinition());
-            parentPanel.RowDefinitions.Add(new RowDefinition());
+            parentPanel.RowDefinitions.Add(new RowDefinition());  
         }
     }
 
