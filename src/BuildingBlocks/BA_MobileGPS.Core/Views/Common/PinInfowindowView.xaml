@@ -6,13 +6,11 @@
     Padding="3,0"
     AnchorX="0.5"
     AnchorY="2"
-   BackgroundColor="{DynamicResource WhiteColor}"
+    BackgroundColor="{DynamicResource WhiteColor}"
     FontAttributes="Bold"
     FontFamily="{StaticResource myFontLatoBold}"
     FontSize="12"
     HeightRequest="{OnPlatform iOS=15,
                                Default=-1}"
     HorizontalTextAlignment="Center"
-    TextColor="#333333"
-    WidthRequest="{OnPlatform iOS=75,
-                              Default=-1}" />
+    TextColor="#333333" />

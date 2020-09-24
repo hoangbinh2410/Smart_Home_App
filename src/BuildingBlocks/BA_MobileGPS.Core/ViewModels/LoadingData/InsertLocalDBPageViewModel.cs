@@ -185,7 +185,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     foreach (var item in lstlanguage)
                     {
                         var model = languageTypeService.Get(r => r.PK_LanguageID == item.PK_LanguageID);
-                        if (model != null)
+                        if (model != null && !string.IsNullOrEmpty(model.CodeName))
                         {
                             languageTypeService.Update(item);
                         }
