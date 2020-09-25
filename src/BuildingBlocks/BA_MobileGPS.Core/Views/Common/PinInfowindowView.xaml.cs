@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using Prism.AppModel;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace BA_MobileGPS.Core.Views
@@ -11,6 +12,14 @@ namespace BA_MobileGPS.Core.Views
             InitializeComponent();
 
             Text = text;
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                WidthRequest = (text.Trim().Length * 10);
+            }
+            else
+            {
+                WidthRequest = -1;
+            }
         }
     }
 }

@@ -65,6 +65,8 @@
         TimeVehicleSync,
         TimmerVehicleSync,
         TimeSleep,
+        Mapzoom,
+        ClusterMapzoom,
         LengthAndPrefixNumberPhone,
         ConfigDangerousChar,
         ConfigUnitDebtMoney,

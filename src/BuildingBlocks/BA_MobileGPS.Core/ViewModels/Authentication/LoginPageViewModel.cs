@@ -85,14 +85,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 GetLanguageType();
             }
 
-            if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
+            if (Settings.Rememberme)
             {
                 UserName.Value = Settings.UserName;
                 Password.Value = Settings.Password;
-                if (Settings.Rememberme)
-                {
-                    Rememberme = true;
-                }
+                Rememberme = true;
             }
             else
             {
@@ -289,13 +286,28 @@ namespace BA_MobileGPS.Core.ViewModels
                                     {
                                         return;
                                     }
-                                    else //bỏ qua
+                                    else if (action == cancel)
                                     {
-                                        // lưu biến vào đây
                                         Settings.TempVersionName = versionDB.VersionName;
                                         return;
                                     }
+                                    else //bỏ qua
+                                    {
+                                        // lưu biến vào đây
+                                        return;
+
+                                    }
                                 });
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
+                                {
+                                    if (Settings.Rememberme)
+                                    {
+                                        LoginCommand.Execute(null);
+                                    }
+                                }
                             }
                         }
                     }
@@ -569,11 +581,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 //nếu nhớ mật khẩu thì lưu lại thông tin username và password
                 if (Rememberme)
+                {
+                    Settings.UserName = UserName.Value;
+                    Settings.Password = Password.Value;
                     Settings.Rememberme = true;
+                }
                 StaticSettings.Token = user.AccessToken;
                 StaticSettings.User = user;
-                Settings.UserName = UserName.Value;
-                Settings.Password = Password.Value;
                 OneSignal.Current.SendTag("UserID", user.UserId.ToString().ToUpper());
                 CultureInfo.CurrentCulture = new CultureInfo(Language.CodeName);
                 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Language.CodeName);

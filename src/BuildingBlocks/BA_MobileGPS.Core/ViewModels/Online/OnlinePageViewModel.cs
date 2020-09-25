@@ -99,7 +99,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ShowLandmark()
         {
-            if (ZoomLevel >= 10)
+            if (ZoomLevel >= 10 && IsShowConfigLanmark)
             {
                 if (!IsCheckShowLandmark)
                 {
@@ -179,6 +179,14 @@ namespace BA_MobileGPS.Core.ViewModels
         private double zoomLevel;
 
         public double ZoomLevel { get => zoomLevel; set => SetProperty(ref zoomLevel, value); }
+
+        private double zoomLevelFist;
+
+        public double ZoomLevelFist { get => zoomLevelFist; set => SetProperty(ref zoomLevelFist, value); }
+
+        private double zoomLevelLast;
+
+        public double ZoomLevelLast { get => zoomLevelLast; set => SetProperty(ref zoomLevelLast, value); }
 
         public string currentAddress = string.Empty;
         public string CurrentAddress { get => currentAddress; set => SetProperty(ref currentAddress, value); }
@@ -489,7 +497,21 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (args != null && args.Position != null)
             {
-                ZoomLevel = args.Position.Zoom;
+                if (ZoomLevelFist == 0 && args.Position.Zoom != MobileUserSettingHelper.Mapzoom)
+                {
+                    ZoomLevelFist = args.Position.Zoom;
+                }
+
+                if (ZoomLevelFist > 0 && args.Position.Zoom != ZoomLevelFist)
+                {
+                    ZoomLevelLast = args.Position.Zoom;
+                }
+
+                if (ZoomLevelLast > 0)
+                {
+                    ZoomLevel = args.Position.Zoom;
+                }
+
                 ShowLandmark();
             }
         }

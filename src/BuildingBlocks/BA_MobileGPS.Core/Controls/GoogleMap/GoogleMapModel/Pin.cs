@@ -114,6 +114,8 @@ namespace BA_MobileGPS.Core
 
         public object NativeObject { get; set; }
 
+        public bool IsRunning { get; set; }
+
         [Obsolete("Please use Map.PinClicked instead of this")]
         public event EventHandler Clicked;
 
@@ -208,37 +210,46 @@ namespace BA_MobileGPS.Core
 
         public void MarkerAnimation(double latitude, double longitude, Action callback)
         {
-            //gán lại vòng quay
-            double mMoveIndex = 0;
-            double MAX_MOVE_STEP = 40;
-            var startPosition = this.Position;
-
-            var finalPosition = new Position(latitude, longitude);
-            double elapsed = 0;
-            double t;
-            double v;
-
-            Device.StartTimer(TimeSpan.FromMilliseconds(100), () =>
+            if (this.IsRunning)
             {
-                // Calculate progress using interpolator
-                elapsed = elapsed + 100;
-                t = elapsed / 4000;
-                v = GeoHelper.GetInterpolation(t);
+                callback();
+            }
+            else
+            {
+                IsRunning = true;
+                //gán lại vòng quay
+                double mMoveIndex = 0;
+                double MAX_MOVE_STEP = 40;
+                var startPosition = this.Position;
 
-                var postionnew = GeoHelper.Interpolate(v,
-                    new Position(startPosition.Latitude, startPosition.Longitude),
-                    new Position(latitude, longitude));
+                var finalPosition = new Position(latitude, longitude);
+                double elapsed = 0;
+                double t;
+                double v;
 
-                mMoveIndex = mMoveIndex + 1;
-                this.Position = new Position(postionnew.Latitude, postionnew.Longitude);
-                if (mMoveIndex > MAX_MOVE_STEP)
+                Device.StartTimer(TimeSpan.FromMilliseconds(100), () =>
                 {
-                    callback();
-                    return false;
-                }
+                    // Calculate progress using interpolator
+                    elapsed = elapsed + 100;
+                    t = elapsed / 4000;
+                    v = GeoHelper.GetInterpolation(t);
 
-                return true;
-            });
+                    var postionnew = GeoHelper.Interpolate(v,
+                        new Position(startPosition.Latitude, startPosition.Longitude),
+                        new Position(latitude, longitude));
+
+                    mMoveIndex = mMoveIndex + 1;
+                    this.Position = new Position(postionnew.Latitude, postionnew.Longitude);
+                    if (mMoveIndex > MAX_MOVE_STEP)
+                    {
+                        IsRunning = false;
+                        callback();
+                        return false;
+                    }
+
+                    return true;
+                });
+            }
         }
     }
 }
