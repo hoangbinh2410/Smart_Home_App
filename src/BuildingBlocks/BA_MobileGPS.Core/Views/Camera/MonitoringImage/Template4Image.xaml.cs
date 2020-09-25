@@ -15,9 +15,6 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringImage
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Template4Image : ContentView
     {
-
-        private ImageManagingPageViewModel vm;
-
         public Template4Image()
         {
             InitializeComponent();

@@ -22,7 +22,7 @@
         TapCommand="{Binding TapCommandListGroup}"
         VerticalOptions="FillAndExpand">
         <syncfusionList:SfListView.LayoutManager>
-            <syncfusionList:GridLayout SpanCount="1" />
+            <syncfusionList:GridLayout SpanCount="2" />
         </syncfusionList:SfListView.LayoutManager>
         <syncfusionList:SfListView.DataSource>
             <data:DataSource>
@@ -112,8 +112,8 @@
                                     VerticalOptions="FillAndExpand" />
                             </sharpnado:MaterialFrame>
                             <Grid
-                                Padding="0,5"
-                                ColumnDefinitions="Auto,*,*"
+                                Padding="5"
+                                ColumnDefinitions="Auto,*,Auto"
                                 RowDefinitions="Auto,Auto,Auto"
                                 RowSpacing="3">
                                 <icons:IconView

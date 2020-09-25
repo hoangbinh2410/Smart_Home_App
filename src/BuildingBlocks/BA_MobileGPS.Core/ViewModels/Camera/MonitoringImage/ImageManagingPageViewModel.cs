@@ -215,41 +215,12 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool isShowLastViewVehicle = true;
         public bool IsShowLastViewVehicle { get => isShowLastViewVehicle; set => SetProperty(ref isShowLastViewVehicle, value); }
 
-        private async void ShowImage()
+        private void ShowImage()
         {
             using (new HUDService())
             {
-                //TryExecute(async () =>
-                //{
-                try
+                TryExecute(async () =>
                 {
-                    //var request = new StreamImageRequest();
-
-                    //if (CarSearch != string.Empty)
-                    //{
-                    //    request.xnCode = 7644;
-                    //    request.VehiclePlates = CarSearch;
-
-                    //    PageCount = 5;
-                    //    PageIndex = 1;
-                    //}
-                    //else
-                    //{
-
-                    //    //lstVehicleString = StaticSettings.ListVehilceOnline.Select(x => x.VehiclePlate).
-                    //    if (mVehicleString != null)
-                    //    {
-                    //        var lst = GetListPage(mVehicleString, PageIndex, PageCount);
-                    //    }
-
-
-
-
-
-                    //    request.xnCode = 7644;
-                    //    //request.VehiclePlates = string.Join(",",lst;
-                    //}
-
                     var request = new StreamImageRequest()
                     {
                         xnCode = 7644,
@@ -272,14 +243,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         ListGroup = new ObservableCollection<CaptureImageData>();
                     }
-                }
-                catch (Exception ex)
-                {
-
-                    throw;
-                }
-
-                // });
+                });
             }
         }
 

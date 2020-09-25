@@ -17,7 +17,16 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringImage
     {
         public Template1Image()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
 
             // Initialize the View Model Object
         }

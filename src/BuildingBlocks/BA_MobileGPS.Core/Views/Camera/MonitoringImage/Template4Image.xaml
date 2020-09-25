@@ -114,7 +114,7 @@
                             </sharpnado:MaterialFrame>
                             <Grid
                                 Padding="5"
-                                ColumnDefinitions="Auto,*,*"
+                                ColumnDefinitions="Auto,*,Auto"
                                 RowDefinitions="Auto,Auto,Auto"
                                 RowSpacing="3">
                                 <icons:IconView
