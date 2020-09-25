@@ -19,9 +19,6 @@
         BackgroundColor="{DynamicResource WhiteColor}"
         HorizontalOptions="FillAndExpand"
         ItemsSource="{Binding ListGroup, Mode=TwoWay}"
-        LoadMoreCommand="{Binding LoadMoreItemsCommand}"
-        LoadMoreCommandParameter="{Binding Source={x:Reference listview}}"
-        LoadMoreOption="Auto"
         SelectionBackgroundColor="Transparent"
         TapCommand="{Binding TapCommandListGroup}"
         VerticalOptions="FillAndExpand">

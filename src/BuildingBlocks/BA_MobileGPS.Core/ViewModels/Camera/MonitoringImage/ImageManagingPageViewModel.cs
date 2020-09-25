@@ -12,6 +12,9 @@ using System.Reflection;
 using BA_MobileGPS.Entities;
 using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 using BA_MobileGPS.Core.Constant;
+using System.Collections.Generic;
+using System.Linq;
+using Syncfusion.XlsIO.Parser.Biff_Records;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -57,6 +60,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
                 CarSearch = vehiclePlate.VehiclePlate;
+                ShowImage();
             }
             else if (parameters.ContainsKey(ParameterKey.Company) && parameters.GetValue<Company>(ParameterKey.Company) is Company company)
             {
@@ -68,16 +72,18 @@ namespace BA_MobileGPS.Core.ViewModels
                 CarSearch = string.Empty;
             }
             ShowLastView();
+
         }
 
-        private async void LoadMoreItems(object obj)
+        private void LoadMoreItems(object obj)
         {
             var listview = obj as Syncfusion.ListView.XForms.SfListView;
             listview.IsBusy = true;
             try
             {
-                //PageIndex++;
-                //await AddListAsync(PageIndex);
+                PageIndex++;
+
+                ShowImage();
             }
             catch (Exception ex)
             {
@@ -92,7 +98,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool CanLoadMoreItems(object obj)
         {
-            //if (ListAlert.Count >= TotalRow || ListAlert.Count < PageCount)
+            //if (ListNotice.Count < PageIndex * PageCount || IsMaxLoadMore)
             //    return false;
             return true;
         }
@@ -168,9 +174,39 @@ namespace BA_MobileGPS.Core.ViewModels
         private string carSearch;
         public string CarSearch { get => carSearch; set => SetProperty(ref carSearch, value); }
 
+        private int pageIndex;
+
+        public int PageIndex { get => pageIndex; set => SetProperty(ref pageIndex, value); }
+
+        private int pageCount;
+
+        public int PageCount { get => pageCount; set => SetProperty(ref pageCount, value); }
+
+        private bool isMaxLoadMore;
+
+        public bool IsMaxLoadMore { get => isMaxLoadMore; set => SetProperty(ref isMaxLoadMore, value); }
+
         private ObservableCollection<LastViewVehicleImageModel> listLastView;
 
         public ObservableCollection<LastViewVehicleImageModel> ListLastView { get => listLastView; set => SetProperty(ref listLastView, value); }
+
+        private List<LastViewVehicleImageModel> lstVehicleString { get; set; }
+
+        private List<string> mVehicleString
+        {
+            get
+            {
+                if (StaticSettings.ListVehilceOnline != null)
+                {
+                    //nếu khóa BAP rồi thì ko hiển thị trên Map nữa
+                    return StaticSettings.ListVehilceOnline.Select(x => x.VehiclePlate).ToList();
+                }
+                else
+                {
+                    return new List<string>();
+                }
+            }
+        }
 
         private ObservableCollection<CaptureImageData> listGroup;
 
@@ -179,30 +215,46 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool isShowLastViewVehicle = true;
         public bool IsShowLastViewVehicle { get => isShowLastViewVehicle; set => SetProperty(ref isShowLastViewVehicle, value); }
 
-        private void ShowImage()
+        private async void ShowImage()
         {
             using (new HUDService())
             {
-                TryExecute(async () =>
+                //TryExecute(async () =>
+                //{
+                try
                 {
-                    var request = new StreamImageRequest();
+                    //var request = new StreamImageRequest();
 
-                    if (CarSearch != string.Empty)
-                    {
-                        request.xnCode = 7644;
-                        request.VehiclePlates = CarSearch;
-                    }
-                    else
-                    {
-                        request.xnCode = 7644;
-                        request.VehiclePlates = "79B03279,29B15081";
-                    }
-
-                    //var request = new StreamImageRequest()
+                    //if (CarSearch != string.Empty)
                     //{
-                    //    xnCode = 7644,
-                    //    VehiclePlates = "79B03279,29B15081"
-                    //};
+                    //    request.xnCode = 7644;
+                    //    request.VehiclePlates = CarSearch;
+
+                    //    PageCount = 5;
+                    //    PageIndex = 1;
+                    //}
+                    //else
+                    //{
+
+                    //    //lstVehicleString = StaticSettings.ListVehilceOnline.Select(x => x.VehiclePlate).
+                    //    if (mVehicleString != null)
+                    //    {
+                    //        var lst = GetListPage(mVehicleString, PageIndex, PageCount);
+                    //    }
+
+
+
+
+
+                    //    request.xnCode = 7644;
+                    //    //request.VehiclePlates = string.Join(",",lst;
+                    //}
+
+                    var request = new StreamImageRequest()
+                    {
+                        xnCode = 7644,
+                        VehiclePlates = "79B03279,29B15081"
+                    };
 
                     //var request = new StreamImageRequest()
                     //{
@@ -220,8 +272,20 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         ListGroup = new ObservableCollection<CaptureImageData>();
                     }
-                });
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+
+                // });
             }
+        }
+
+        private List<string> GetListPage(List<string> list, int page, int pageSize)
+        {
+            return list.Skip(page * pageSize).Take(pageSize).ToList();
         }
 
         private void ShowLastView()
