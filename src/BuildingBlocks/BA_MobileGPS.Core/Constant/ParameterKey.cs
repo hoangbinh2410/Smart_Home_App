@@ -51,5 +51,8 @@
 
         public const string AlertCompanyConfig = "AlertCompanyConfig";
         public const string AlertVehicleConfig = "AlertVehicleConfig";
+
+        public const string RequestTime = "RequestTime";
+        public const string CurrentRemainTime = "CurrentRemainTime";
     }
 }

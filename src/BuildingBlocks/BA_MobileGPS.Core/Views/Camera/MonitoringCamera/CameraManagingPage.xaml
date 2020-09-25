@@ -160,7 +160,7 @@
             <StackLayout
                 HorizontalOptions="Start"
                 Orientation="Horizontal"
-                Spacing="0">
+                Spacing="5">
                 <icons:IconView
                     Margin="10"
                     Foreground="{DynamicResource WhiteColor}"
@@ -185,7 +185,7 @@
                 Padding="0,0,10,0"
                 HorizontalOptions="End"
                 Orientation="Horizontal"
-                Spacing="0">
+                Spacing="5">
                 <icons:IconView
                     Margin="10"
                     Foreground="{DynamicResource WhiteColor}"
