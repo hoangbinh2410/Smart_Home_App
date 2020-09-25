@@ -46,8 +46,7 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
                             bottomRightCam.IsVisible = true;
                             break;
                     }
-                });
-              
+                });             
             }
         }
 
