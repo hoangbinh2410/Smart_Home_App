@@ -12,21 +12,212 @@
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     mc:Ignorable="d">
-    <ListView IsGroupingEnabled="true" ItemsSource="{Binding ListOfPeople}">
-        <ListView.GroupHeaderTemplate>
+    <syncfusionList:SfListView
+        x:Name="listview"
+        AutoFitMode="Height"
+        BackgroundColor="{DynamicResource WhiteColor}"
+        HorizontalOptions="FillAndExpand"
+        ItemsSource="{Binding ListGroup, Mode=TwoWay}"
+        SelectionBackgroundColor="Transparent"
+        TapCommand="{Binding TapCommandListGroup}"
+        VerticalOptions="FillAndExpand">
+        <syncfusionList:SfListView.LayoutManager>
+            <syncfusionList:GridLayout SpanCount="1" />
+        </syncfusionList:SfListView.LayoutManager>
+        <syncfusionList:SfListView.DataSource>
+            <data:DataSource>
+                <data:DataSource.GroupDescriptors>
+                    <data:GroupDescriptor PropertyName="VehiclePlate" />
+                </data:DataSource.GroupDescriptors>
+            </data:DataSource>
+        </syncfusionList:SfListView.DataSource>
+        <syncfusionList:SfListView.GroupHeaderTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <Label Text="{Binding Heading}" />
+                    <Grid
+                        Padding="10,0"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
+                        HeightRequest="40"
+                        VerticalOptions="Start">
+                        <StackLayout
+                            Padding="0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal">
+                            <Label
+                                HorizontalOptions="Start"
+                                StyleClass="GroupTitleLabel,BoldText"
+                                Text="{Binding Key}"
+                                TextColor="{DynamicResource WhiteColor}"
+                                VerticalOptions="Center" />
+                            <pancake:PancakeView WidthRequest="15">
+                                <icons:IconView Foreground="{DynamicResource WhiteColor}" Source="ic_star.png" />
+                                <pancake:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.TabCommandFavorites, Source={Reference root}}" CommandParameter="{Binding Key}" />
+                                </pancake:PancakeView.GestureRecognizers>
+                            </pancake:PancakeView>
+                        </StackLayout>
+                        <StackLayout
+                            Padding="0"
+                            HorizontalOptions="End"
+                            Orientation="Horizontal">
+                            <pancake:PancakeView WidthRequest="40">
+                                <icons:IconView
+                                    Margin="8"
+                                    Foreground="{DynamicResource WhiteColor}"
+                                    Source="ic_image.png" />
+                            </pancake:PancakeView>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.TabCommandDetail, Source={Reference root}}" CommandParameter="{Binding Key}" />
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </Grid>
                 </ViewCell>
             </DataTemplate>
-        </ListView.GroupHeaderTemplate>
-
-        <ListView.ItemTemplate>
+        </syncfusionList:SfListView.GroupHeaderTemplate>
+        <syncfusionList:SfListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <Label Text="{Binding DisplayName}" />
+                    <pancake:PancakeView
+                        Margin="3"
+                        Padding="0"
+                        CornerRadius="0,0,5,5">
+                        <pancake:PancakeView.Border>
+                            <pancake:Border Thickness="1" Color="{DynamicResource GrayColor2}" />
+                        </pancake:PancakeView.Border>
+                        <pancake:PancakeView.Shadow>
+                            <pancake:DropShadow
+                                BlurRadius="1"
+                                Offset="0,0"
+                                Color="Black" />
+                        </pancake:PancakeView.Shadow>
+                        <StackLayout
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            HorizontalOptions="FillAndExpand"
+                            Spacing="2">
+                            <sharpnado:MaterialFrame
+                                Padding="0"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Start">
+                                <ffImage:CachedImage
+                                    Aspect="AspectFill"
+                                    BackgroundColor="White"
+                                    BitmapOptimizations="True"
+                                    DownsampleToViewSize="True"
+                                    ErrorPlaceholder="camera_placeholder.png"
+                                    HeightRequest="150"
+                                    HorizontalOptions="FillAndExpand"
+                                    LoadingPlaceholder="camera_placeholder.png"
+                                    Source="{Binding Url}"
+                                    VerticalOptions="FillAndExpand" />
+                            </sharpnado:MaterialFrame>
+                            <Grid
+                                Padding="0,5"
+                                ColumnDefinitions="Auto,*,*"
+                                RowDefinitions="Auto,Auto,Auto"
+                                RowSpacing="3">
+                                <icons:IconView
+                                    Foreground="{DynamicResource PrimaryColor}"
+                                    HeightRequest="15"
+                                    Source="ic_time_black"
+                                    VerticalOptions="Center"
+                                    WidthRequest="15" />
+                                <Label
+                                    Grid.Column="1"
+                                    FontAttributes="Bold"
+                                    FontSize="10"
+                                    HorizontalOptions="StartAndExpand"
+                                    HorizontalTextAlignment="Start"
+                                    LineBreakMode="WordWrap"
+                                    Text="{Binding Time, Converter={StaticResource DateTimeConverter}}"
+                                    VerticalOptions="Center" />
+                                <icons:IconView
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Foreground="{DynamicResource PrimaryColor}"
+                                    HeightRequest="15"
+                                    HorizontalOptions="Start"
+                                    Source="ic_location_black"
+                                    VerticalOptions="Center"
+                                    WidthRequest="15" />
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    FontSize="10"
+                                    HorizontalOptions="Start"
+                                    HorizontalTextAlignment="Start"
+                                    LineBreakMode="WordWrap"
+                                    MaxLines="2"
+                                    Text="{Binding CurrentAddress}"
+                                    VerticalOptions="Center" />
+                                <icons:IconView
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Foreground="{DynamicResource PrimaryColor}"
+                                    HeightRequest="15"
+                                    Source="ic_info_outline_white"
+                                    VerticalOptions="Center"
+                                    WidthRequest="15" />
+                                <Label
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    FontSize="10"
+                                    HorizontalOptions="Start"
+                                    HorizontalTextAlignment="Start"
+                                    LineBreakMode="WordWrap"
+                                    Text="Xe quá tốc độ"
+                                    VerticalOptions="Center" />
+                                <StackLayout
+                                    Grid.RowSpan="3"
+                                    Grid.Column="2"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Orientation="Vertical"
+                                    VerticalOptions="CenterAndExpand">
+                                    <pancake:PancakeView
+                                        Padding="0"
+                                        BackgroundGradientEndPoint="1,1"
+                                        BackgroundGradientStartPoint="0,0"
+                                        CornerRadius="25"
+                                        HeightRequest="50"
+                                        HorizontalOptions="EndAndExpand"
+                                        WidthRequest="50">
+                                        <pancake:PancakeView.BackgroundGradientStops>
+                                            <pancake:GradientStopCollection>
+                                                <pancake:GradientStop Offset="0" Color="{StaticResource PrimaryColor}" />
+                                                <pancake:GradientStop Offset="1" Color="{StaticResource BluePrimaryColor}" />
+                                            </pancake:GradientStopCollection>
+                                        </pancake:PancakeView.BackgroundGradientStops>
+                                        <pancake:PancakeView
+                                            Padding="0"
+                                            BackgroundGradientEndPoint="1,1"
+                                            BackgroundGradientStartPoint="0,0"
+                                            CornerRadius="23"
+                                            HeightRequest="46"
+                                            HorizontalOptions="CenterAndExpand"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="46">
+                                            <pancake:PancakeView.BackgroundGradientStops>
+                                                <pancake:GradientStopCollection>
+                                                    <pancake:GradientStop Offset="0" Color="White" />
+                                                    <pancake:GradientStop Offset="1" Color="White" />
+                                                </pancake:GradientStopCollection>
+                                            </pancake:PancakeView.BackgroundGradientStops>
+                                            <StackLayout Spacing="0" VerticalOptions="Center">
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    FontFamily="Arial"
+                                                    FontSize="12"
+                                                    Text="{Binding Speed}" />
+                                                <Label FontSize="10" Text="km/h" />
+                                            </StackLayout>
+                                        </pancake:PancakeView>
+                                    </pancake:PancakeView>
+                                </StackLayout>
+                            </Grid>
+                        </StackLayout>
+                    </pancake:PancakeView>
                 </ViewCell>
             </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+        </syncfusionList:SfListView.ItemTemplate>
+    </syncfusionList:SfListView>
 </ContentView>
