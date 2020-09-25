@@ -7,15 +7,23 @@ using System.Reflection;
 using Xamarin.Forms;
 using Xamarin.Forms.Markup;
 
+using Prism.Ioc;
+using Prism.Events;
+using Prism.Navigation;
+using System;
+
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class CameraManagingPage : ContentPage
+    public partial class CameraManagingPage : ContentPage, IDestructible
     {
+        private IEventAggregator eventAggregator { get; } = Prism.PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
         public CameraManagingPage()
         {
             try
             {                
-                InitializeComponent();                
+                InitializeComponent();
+                eventAggregator.GetEvent<SwitchToFullScreenEvent>().Subscribe(SwitchToFullScreen);
+                eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Subscribe(SwitchToNormal);
             }
             catch (System.Exception ex)
             {
@@ -23,6 +31,17 @@ namespace BA_MobileGPS.Core.Views
                 throw;
             }                       
         }
+
+        private void SwitchToNormal()
+        {
+            Grid.SetRow(playbackControl, 3);
+        }
+
+        private void SwitchToFullScreen(CameraEnum obj)
+        {
+            Grid.SetRow(playbackControl, 2);
+        }
+
         protected override void OnAppearing()
         {
 
@@ -33,5 +52,10 @@ namespace BA_MobileGPS.Core.Views
             base.OnAppearing();
         }
 
+        public void Destroy()
+        {
+            eventAggregator.GetEvent<SwitchToFullScreenEvent>().Unsubscribe(SwitchToFullScreen);
+            eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Unsubscribe(SwitchToNormal);
+        }
     }
 }
