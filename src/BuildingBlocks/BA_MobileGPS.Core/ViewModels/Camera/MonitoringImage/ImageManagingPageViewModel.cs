@@ -33,6 +33,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand LoadMoreItemsCommand { get; set; }
 
+        public ICommand RefeshCommand { get; set; }
 
         public ImageManagingPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService) : base(navigationService)
         {
@@ -44,14 +45,16 @@ namespace BA_MobileGPS.Core.ViewModels
             TapCommandListGroup = new DelegateCommand<ItemTappedEventArgs>(TapListGroup);
             TabCommandFavorites = new DelegateCommand<object>(TabFavorites);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
+            RefeshCommand = new DelegateCommand(ShowImage);
             CarSearch = string.Empty;
         }
 
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-
             ShowImage();
+
+            ShowLastView();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -71,8 +74,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 VehicleGroups = vehiclegroup;
                 CarSearch = string.Empty;
             }
-            ShowLastView();
-
         }
 
         private void LoadMoreItems(object obj)

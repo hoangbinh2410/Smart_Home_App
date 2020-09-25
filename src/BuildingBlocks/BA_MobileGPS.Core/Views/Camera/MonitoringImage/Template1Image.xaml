@@ -11,6 +11,7 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    x:Name="root"
     mc:Ignorable="d">
     <syncfusionList:SfListView
         x:Name="listview"
@@ -21,9 +22,6 @@
         SelectionBackgroundColor="Transparent"
         TapCommand="{Binding TapCommandListGroup}"
         VerticalOptions="FillAndExpand">
-        <syncfusionList:SfListView.LayoutManager>
-            <syncfusionList:GridLayout SpanCount="2" />
-        </syncfusionList:SfListView.LayoutManager>
         <syncfusionList:SfListView.DataSource>
             <data:DataSource>
                 <data:DataSource.GroupDescriptors>
@@ -105,7 +103,7 @@
                                     BitmapOptimizations="True"
                                     DownsampleToViewSize="True"
                                     ErrorPlaceholder="camera_placeholder.png"
-                                    HeightRequest="150"
+                                    HeightRequest="230"
                                     HorizontalOptions="FillAndExpand"
                                     LoadingPlaceholder="camera_placeholder.png"
                                     Source="{Binding Url}"
