@@ -102,6 +102,23 @@ namespace BA_MobileGPS.Entities
 
     }
 
+    public class CaptureImageGroup
+    {
+        public string VehiclePlate { get; set; }
+
+        public List<CaptureImageData> Data { get; set; }
+    }
+
+    public class CaptureImageResponse : ResponseStreamBase<List<CaptureImageData>>
+    {
+
+    }
+
+    public class CaptureImageModel : ResponseStreamBase<List<CaptureImageGroup>>
+    {
+
+    }
+
     public class CaptureImageData
     {
         [JsonProperty("v")]
@@ -136,5 +153,8 @@ namespace BA_MobileGPS.Entities
 
         [JsonProperty("e")]
         public string ExtraInfo { get; set; } // ExtraInfo
+
+        [JsonProperty("z")]
+        public string CurrentAddress { get; set; } // Address
     }
 }

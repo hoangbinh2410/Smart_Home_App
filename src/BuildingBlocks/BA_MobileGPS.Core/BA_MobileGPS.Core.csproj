@@ -60,6 +60,15 @@
 	  <ProjectReference Include="..\BA_MobileGPS.Utilities\BA_MobileGPS.Utilities.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Update="Views\Camera\MonitoringImage\ImageManagingPage.xaml.cs">
+	    <DependentUpon>ImageManagingPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Camera\MonitoringImage\Template1Image.xaml.cs">
+	    <DependentUpon>Template1Image.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Camera\MonitoringImage\Template4Image.xaml.cs">
+	    <DependentUpon>Template4Image.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\ListVehicle\DetailVehiclePopup.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>

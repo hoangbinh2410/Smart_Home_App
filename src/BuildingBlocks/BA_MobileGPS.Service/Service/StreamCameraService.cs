@@ -88,7 +88,7 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<List<CaptureImageData>> GetCaptureImageLimit(string xncode, string vehiclePlate, string limit)
+        public async Task<List<CaptureImageData>> GetCaptureImageLimit(int xncode, string vehiclePlate, int limit)
         {
             var result = new List<CaptureImageData>();
             try
@@ -107,7 +107,7 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<List<CaptureImageData>> GetCaptureImageTime(string xncode, string vehiclePlate, DateTime fromTime, DateTime toTime)
+        public async Task<List<CaptureImageData>> GetCaptureImageTime(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime)
         {
             var result = new List<CaptureImageData>();
             try
@@ -122,6 +122,26 @@ namespace BA_MobileGPS.Service.Service
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<List<CaptureImageData>> GetListCaptureImage(StreamImageRequest request)
+        {
+            var result = new List<CaptureImageData>();
+            try
+            {
+                string url = $"{ApiUri.GET_IMAGES}";
+                var response = await requestProvider.PostAsync<StreamImageRequest, CaptureImageResponse>(url, request);
+                if (response != null && response.Data.Count > 0)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+
             }
             return result;
         }
