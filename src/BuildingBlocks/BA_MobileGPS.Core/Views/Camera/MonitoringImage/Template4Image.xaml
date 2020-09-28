@@ -13,6 +13,9 @@
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     x:Name="root"
     mc:Ignorable="d">
+    <ContentView.Resources>
+        <ResourceDictionary />
+    </ContentView.Resources>
     <syncfusionList:SfListView
         x:Name="listview"
         AutoFitMode="Height"
@@ -54,7 +57,7 @@
                                 TextColor="{DynamicResource WhiteColor}"
                                 VerticalOptions="Center" />
                             <pancake:PancakeView WidthRequest="15">
-                                <icons:IconView Foreground="{DynamicResource WhiteColor}" Source="ic_star.png" />
+                                <icons:IconView Foreground="{Binding Key, Converter={StaticResource FavoritesColorConverter}}" Source="ic_star.png" />
                                 <pancake:PancakeView.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding BindingContext.TabCommandFavorites, Source={Reference root}}" CommandParameter="{Binding Key}" />
                                 </pancake:PancakeView.GestureRecognizers>
