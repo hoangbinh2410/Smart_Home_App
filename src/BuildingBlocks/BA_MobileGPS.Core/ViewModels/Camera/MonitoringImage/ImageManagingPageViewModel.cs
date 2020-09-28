@@ -30,7 +30,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand TapCommandListGroup { get; set; }
 
-        public ICommand TabCommandFavorites { get; set; }
 
         public ICommand LoadMoreItemsCommand { get; set; }
 
@@ -44,7 +43,6 @@ namespace BA_MobileGPS.Core.ViewModels
             TapItemsCommand = new DelegateCommand<object>(TapItems);
             TabCommandDetail = new DelegateCommand<object>(TabDetail);
             TapCommandListGroup = new DelegateCommand<ItemTappedEventArgs>(TapListGroup);
-            TabCommandFavorites = new DelegateCommand<string>(TabFavorites);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
             RefeshCommand = new DelegateCommand(ShowImage);
             CarSearch = string.Empty;
@@ -178,58 +176,6 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private void TabFavorites(string VehiclePlate)
-        {
-            try
-            {
-                UpdateFavoritesVehicleImage(VehiclePlate);
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-        }
-
-        private void UpdateFavoritesVehicleImage(string VehiclePlate)
-        {
-            if (Settings.FavoritesVehicleImage == string.Empty) // lần đầu
-            {
-                Settings.FavoritesVehicleImage = VehiclePlate;
-            }
-            else
-            {
-                var split = Settings.LastViewVehicleImage.Split(',');
-
-                string[] temp = new string[split.Length];
-
-                var splitVehicle = split.Where(x => x == VehiclePlate).ToArray();
-
-                if (splitVehicle.Length > 0) // đã có trong list thì xóa đi
-                {
-                    split = split.Where(x => x != VehiclePlate).ToArray();
-
-                    temp = new string[split.Length];
-
-                    for (int i = 0; i < split.Length; i++)
-                    {
-                        temp[i] = split[i];
-                    }
-                }
-                else
-                {
-                    temp = new string[split.Length + 1];
-
-                    for (int i = 0; i < split.Length; i++)
-                    {
-                        temp[i] = split[i];
-                    }
-
-                    temp[split.Length] = VehiclePlate;
-                }
-                
-                Settings.LastViewVehicleImage = string.Join(",", temp);
-            }
-        }
 
         private async void TapItems(object obj)
         {

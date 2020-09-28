@@ -129,6 +129,9 @@
                         Offset="0,0"
                         Color="Black" />
                 </pancake:PancakeView.Shadow>
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="SelectView_Tapped" />
+                </pancake:PancakeView.GestureRecognizers>
                 <icons:IconView
                     Foreground="{DynamicResource PrimaryColor}"
                     HeightRequest="15"
@@ -151,7 +154,9 @@
                         Offset="0,0"
                         Color="Black" />
                 </pancake:PancakeView.Shadow>
-
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RefeshCommand}" />
+                </pancake:PancakeView.GestureRecognizers>
                 <icons:IconView
                     Foreground="{DynamicResource PrimaryColor}"
                     HeightRequest="25"
