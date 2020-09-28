@@ -187,11 +187,12 @@ namespace BA_MobileGPS.Core
             containerRegistry.Register<ResourceDictionary, Light>(Theme.Light.ToString());
             containerRegistry.Register<ResourceDictionary, Custom>(Theme.Custom.ToString());
             containerRegistry.RegisterForNavigation<SettingThemePage, SettingThemePageViewModel>("SettingThemePage");
-
-            containerRegistry.RegisterForNavigation<RegisterConsultPage, RegisterConsultPageViewModel>("RegisterConsultPage");
-            containerRegistry.RegisterForNavigation<DetailCamera, DetailCameraViewModel>("DetailCamera");
+            
+            containerRegistry.RegisterForNavigation<RegisterConsultPage, RegisterConsultPageViewModel>("RegisterConsultPage");  
 
             containerRegistry.RegisterForNavigation<CameraManagingPage, CameraManagingPageViewModel>("CameraManagingPage");
+
+            containerRegistry.RegisterForNavigation<DetailCamera, DetailCameraViewModel>("DetailCamera");
 
             containerRegistry.RegisterForNavigation<ImageManagingPage, ImageManagingPageViewModel>("ImageManagingPage");
             containerRegistry.RegisterForNavigation<ImageDetailPage, ImageDetailViewModel>("ImageDetailPage");

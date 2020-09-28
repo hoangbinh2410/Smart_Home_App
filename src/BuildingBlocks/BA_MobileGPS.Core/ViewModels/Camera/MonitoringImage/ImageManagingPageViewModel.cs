@@ -34,6 +34,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand LoadMoreItemsCommand { get; set; }
 
+        public ICommand RefeshCommand { get; set; }
 
         public ImageManagingPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService) : base(navigationService)
         {
@@ -45,6 +46,7 @@ namespace BA_MobileGPS.Core.ViewModels
             TapCommandListGroup = new DelegateCommand<ItemTappedEventArgs>(TapListGroup);
             TabCommandFavorites = new DelegateCommand<object>(TabFavorites);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
+            RefeshCommand = new DelegateCommand(ShowImage);
             CarSearch = string.Empty;
             PageCount = 5;
         }
@@ -54,6 +56,8 @@ namespace BA_MobileGPS.Core.ViewModels
             base.Initialize(parameters);
             GetVehicleString();
             ShowImage();
+
+            ShowLastView();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -75,8 +79,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 ListGroup = new ObservableCollection<CaptureImageData>();
                 GetVehicleString();
             }
-            ShowLastView();
-
         }
 
 
@@ -227,14 +229,25 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        private ObservableCollection<CaptureImageData> listGroup;
+
+        public ObservableCollection<CaptureImageData> ListGroup { get => listGroup; set => SetProperty(ref listGroup, value); }
+
+        private bool isShowLastViewVehicle = true;
+        public bool IsShowLastViewVehicle { get => isShowLastViewVehicle; set => SetProperty(ref isShowLastViewVehicle, value); }
+
         private void ShowImage()
         {
             using (new HUDService())
             {
                 TryExecute(() =>
                 {
+                    var request = new StreamImageRequest()
                     if (CarSearch != string.Empty)
                     {
+                        xnCode = 7644,
+                        VehiclePlates = "79B03279,29B15081"
+                    };
                         ShowImageSearch();
                     }
                     else
@@ -245,6 +258,11 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+                    //var request = new StreamImageRequest()
+                    //{
+                    //    xnCode = 999,
+                    //    VehiclePlates = "QCPASS_HIEUDT,TESTTBI,QCPASSTHAIVV"
+                    //};
         private void ShowImageSearch()
         {
             TryExecute(async () =>
@@ -253,9 +271,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 request.xnCode = UserInfo.XNCode;
                 request.VehiclePlates = CarSearch;
 
+                    var response = await _streamCameraService.GetListCaptureImage(request);
                 PageIndex = 1;
                 IsMaxLoadMore = true;
 
+                    if (response != null && response.Count > 0)
                 var response = await _streamCameraService.GetListCaptureImage(request);
 
                 if (response != null && response.Count > 0)
@@ -278,6 +298,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     var lst = GetListPage(mVehicleString, PageIndex, PageCount);
                     if (lst != null && lst.Count > 0)
+                TryExecute(async () =>
+                {
+                    var request = new StreamImageRequest()
                     {
                         request.xnCode = UserInfo.XNCode;
                         request.VehiclePlates = string.Join(",", lst);
@@ -301,6 +324,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     ListGroup = lst.ToObservableCollection();
                 }
             });
+                });
+            }
         }
 
         private List<string> GetListPage(List<string> list, int page, int pageSize)

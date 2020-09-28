@@ -116,8 +116,8 @@
                                     VerticalOptions="FillAndExpand" />
                             </sharpnado:MaterialFrame>
                             <Grid
-                                Padding="0,5"
-                                ColumnDefinitions="Auto,*,*"
+                                Padding="5"
+                                ColumnDefinitions="Auto,*,Auto"
                                 RowDefinitions="Auto,Auto,Auto"
                                 RowSpacing="3">
                                 <icons:IconView
