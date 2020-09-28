@@ -120,14 +120,12 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             TryExecute(async () =>
             {
+                var xnCode = StaticSettings.User.XNCode;
 
-                var xnCode = 7644;
-                //var xnCode = StaticSettings.User.XNCode;
-
-                //if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
-                //{
-                //    xnCode = Settings.CurrentCompany.XNCode;
-                //}
+                if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                {
+                    xnCode = Settings.CurrentCompany.XNCode;
+                }
 
                 ListCameraImage = new List<CaptureImageData>();
                 ListCameraImage = await _streamCameraService.GetCaptureImageLimit(xnCode, VehiclePlate, 50);

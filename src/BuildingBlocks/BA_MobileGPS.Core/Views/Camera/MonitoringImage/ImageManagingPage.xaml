@@ -3,6 +3,7 @@
     x:Class="BA_MobileGPS.Core.Views.ImageManagingPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
@@ -12,7 +13,12 @@
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.HasBackButton="False">
-
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:HasDataBackgroundColorConverter x:Key="HasDataBackgroundColorConverter" />
+            <converter:HasDataIconColorConverter x:Key="HasDataIconColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <NavigationPage.TitleView>
         <Grid VerticalOptions="End">
             <icons:IconView
@@ -87,7 +93,7 @@
             <pancake:PancakeView
                 Grid.Column="1"
                 Padding="0"
-                BackgroundColor="White"
+                BackgroundColor="{Binding VehicleGroups, Converter={StaticResource HasDataBackgroundColorConverter}}"
                 CornerRadius="20"
                 HeightRequest="40"
                 VerticalOptions="Center"
@@ -102,7 +108,7 @@
                     <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
                 <icons:IconView
-                    Foreground="{DynamicResource PrimaryColor}"
+                    Foreground="{Binding VehicleGroups, Converter={StaticResource HasDataIconColorConverter}}"
                     HeightRequest="25"
                     HorizontalOptions="Center"
                     Source="ic_doublevehicle.png"

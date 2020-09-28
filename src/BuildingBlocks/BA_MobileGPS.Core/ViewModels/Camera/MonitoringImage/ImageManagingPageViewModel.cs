@@ -34,6 +34,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand LoadMoreItemsCommand { get; set; }
 
+        public ICommand RefeshCommand { get; set; }
 
         public ImageManagingPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService) : base(navigationService)
         {
@@ -45,6 +46,7 @@ namespace BA_MobileGPS.Core.ViewModels
             TapCommandListGroup = new DelegateCommand<ItemTappedEventArgs>(TapListGroup);
             TabCommandFavorites = new DelegateCommand<object>(TabFavorites);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
+            RefeshCommand = new DelegateCommand(ShowImage);
             CarSearch = string.Empty;
             PageCount = 5;
         }
@@ -53,7 +55,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.Initialize(parameters);
             GetVehicleString();
-            ShowImage();
+            ShowLastView();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -72,11 +74,9 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 VehicleGroups = vehiclegroup;
                 CarSearch = string.Empty;
-                ListGroup = new ObservableCollection<CaptureImageData>();
                 GetVehicleString();
+                ShowImage();
             }
-            ShowLastView();
-
         }
 
 
@@ -250,13 +250,19 @@ namespace BA_MobileGPS.Core.ViewModels
             TryExecute(async () =>
             {
                 var request = new StreamImageRequest();
-                request.xnCode = UserInfo.XNCode;
+
+                var xnCode = StaticSettings.User.XNCode;
+
+                if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                {
+                    xnCode = Settings.CurrentCompany.XNCode;
+                }
+                request.xnCode = xnCode;
                 request.VehiclePlates = CarSearch;
 
+                var response = await _streamCameraService.GetListCaptureImage(request);
                 PageIndex = 1;
                 IsMaxLoadMore = true;
-
-                var response = await _streamCameraService.GetListCaptureImage(request);
 
                 if (response != null && response.Count > 0)
                 {
@@ -279,7 +285,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     var lst = GetListPage(mVehicleString, PageIndex, PageCount);
                     if (lst != null && lst.Count > 0)
                     {
-                        request.xnCode = UserInfo.XNCode;
+                        var xnCode = StaticSettings.User.XNCode;
+
+                        if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                        {
+                            xnCode = Settings.CurrentCompany.XNCode;
+                        }
+                        request.xnCode = xnCode;
+
                         request.VehiclePlates = string.Join(",", lst);
 
                         IsMaxLoadMore = false;
