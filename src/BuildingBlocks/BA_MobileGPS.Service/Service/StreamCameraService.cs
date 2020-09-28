@@ -10,12 +10,6 @@ using System.Threading.Tasks;
 
 namespace BA_MobileGPS.Service.Service
 {
-    public enum ConditionType
-    {
-        MXN = 1,
-        BKS = 2,
-        IMEI = 3
-    }
     public class StreamCameraService : IStreamCameraService
     {
         private readonly IRequestProvider requestProvider;
@@ -24,12 +18,12 @@ namespace BA_MobileGPS.Service.Service
             this.requestProvider = requestProvider;
         }
 
-        public async Task<StreamDevicesResponse> GetDevicesStatus(ConditionType type, string value)
+        public async Task<StreamDevicesResponse> GetDevicesStatus(int type, string value)
         {
             var result = new StreamDevicesResponse();
             try
             {
-                string url = string.Format(ApiUri.GET_DEVICESTREAMINFOR + "?type={0}&value={1}", (int)type, value);
+                string url = string.Format(ApiUri.GET_DEVICESTREAMINFOR + "?type={0}&value={1}", type, value);
                 result = await requestProvider.GetAsync<StreamDevicesResponse>(url);
             }
             catch (Exception ex)

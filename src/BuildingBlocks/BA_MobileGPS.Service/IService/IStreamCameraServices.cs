@@ -1,5 +1,4 @@
 ﻿using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service.Service;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,7 +19,7 @@ namespace BA_MobileGPS.Service.IService
         /// 3: Tìm theo IMEI</param>
         /// <param name="conditionValue">Thông tin tìm kiếm</param>
         /// <returns></returns>
-        Task<StreamDevicesResponse> GetDevicesStatus(ConditionType type, string value);
+        Task<StreamDevicesResponse> GetDevicesStatus(int type, string value);
 
         Task<List<CaptureImageData>> GetCaptureImageLimit(int xncode, string vehiclePlate, int limit);
 

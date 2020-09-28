@@ -3,64 +3,47 @@
     x:Class="BA_MobileGPS.Core.Views.Camera.MonitoringCamera.Template4Camera"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core.Converters"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:indicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:local="clr-namespace:BA_MobileGPS.Core.Views.Camera.MonitoringCamera"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
     mc:Ignorable="d">
     <ContentView.Resources>
+        <vlc:PlaybackControls x:Key="hidePlaybackControl">
+            <vlc:PlaybackControls.ControlTemplate>
+                <ControlTemplate>
+                    <StackLayout IsVisible="False">
+                        <StackLayout x:Name="ControlsPanel" Style="{TemplateBinding ControlsPanelStyle}">
+                            <Grid>
+                                <StackLayout>
+                                    <Button x:Name="PlayPauseButton" IsVisible="False" />
+                                    <Button x:Name="StopButton" IsVisible="False" />
+                                </StackLayout>
+                                <StackLayout />
+                            </Grid>
+                        </StackLayout>
+                    </StackLayout>
+                </ControlTemplate>
+            </vlc:PlaybackControls.ControlTemplate>
+        </vlc:PlaybackControls>
         <converter:CameraTextBorderConverter x:Key="CameraTextBorderConverter" />
-        <converter:ShowHideColumnConverter x:Key="ShowHideColumnConverter" />
-        <Style x:Key="cameraTextFrame" TargetType="Frame">
-            <Setter Property="BackgroundColor" Value="Transparent" />
-            <Setter Property="CornerRadius" Value="2" />
-            <Setter Property="HorizontalOptions" Value="Start" />
-            <Setter Property="VerticalOptions" Value="Start" />
-            <Setter Property="Padding" Value="6,2" />
-            <Setter Property="Margin" Value="10,10,0,0" />
-        </Style>
-        <Style TargetType="indicator:SfBusyIndicator">
-            <Setter Property="AnimationType" Value="Cupertino" />
-            <Setter Property="BackgroundColor" Value="Transparent" />
-            <Setter Property="EnableAnimation" Value="True" />
-            <Setter Property="TextColor" Value="White" />
-            <Setter Property="ViewBoxHeight" Value="35" />
-            <Setter Property="ViewBoxWidth" Value="35" />
-            <Setter Property="Duration" Value="0.8" />
-        </Style>
-
     </ContentView.Resources>
+
     <Grid
-        x:Name="parentPanel"
         ColumnDefinitions="*,*"
-        ColumnSpacing="1"
+        ColumnSpacing="2"
         RowDefinitions="*,*"
-        RowSpacing="1">
-        <!--  Cam 1  -->
-        <Grid BackgroundColor="Black" RowDefinitions="Auto,*">
+        RowSpacing="2">
+        <Grid BackgroundColor="Black" RowDefinitions="40,*">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.FirstCamera}" />
+                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraSelectedEnum.FirstCamera}" />
             </Grid.GestureRecognizers>
-            <vlc:VideoView
-                x:Name="topLeftCam"
-                InputTransparent="True"
-                MediaPlayer="{Binding MediaPlayerNo1}" />
-            <Label
-                Margin="0,0,10,0"
-                FontSize="17"
-                HorizontalOptions="End"
-                StyleClass="BoldText"
-                Text="{Binding Cam1ReloadCount}"
-                TextColor="White"
-                VerticalOptions="Start" />
             <Frame
                 x:Name="frCam1"
                 BackgroundColor="Transparent"
-                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.FirstCamera}}"
-                InputTransparent="True"
-                Style="{StaticResource cameraTextFrame}">
+                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraSelectedEnum.FirstCamera}}"
+                InputTransparent="True">
                 <Frame.Triggers>
                     <DataTrigger
                         Binding="{Binding Source={x:Reference frCam1}, Path=BorderColor}"
@@ -84,8 +67,13 @@
                     </Label.Triggers>
                 </Label>
             </Frame>
-
-            <indicator:SfBusyIndicator IsBusy="{Binding IsCam1Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
+            <vlc:MediaPlayerElement
+                x:Name="topLeftCam"
+                Grid.Row="1"
+                InputTransparent="True"
+                LibVLC="{Binding LibVLC}"
+                MediaPlayer="{Binding MediaPlayerNo1}"
+                PlaybackControls="{StaticResource hidePlaybackControl}" />
             <Grid
                 Grid.RowSpan="2"
                 BackgroundColor="White"
@@ -102,34 +90,21 @@
             </Grid>
         </Grid>
 
-        <!--  Cam 2  -->
         <Grid
             Grid.Row="1"
             Grid.Column="0"
             BackgroundColor="Black"
-            RowDefinitions="Auto,*">
+            RowDefinitions="40,*">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.SecondCamera}" />
+                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraSelectedEnum.SecondCamera}" />
             </Grid.GestureRecognizers>
-            <vlc:VideoView
-                x:Name="bottomLeftCam"
-                InputTransparent="True"
-                MediaPlayer="{Binding MediaPlayerNo2}" />
-            <Label
-                Margin="0,0,10,0"
-                FontSize="17"
-                HorizontalOptions="End"
-                StyleClass="BoldText"
-                Text="{Binding Cam2ReloadCount}"
-                TextColor="White"
-                VerticalOptions="Start" />
             <Frame
                 x:Name="frCam2"
                 BackgroundColor="Transparent"
-                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.SecondCamera}}"
-                InputTransparent="True"
-                Style="{StaticResource cameraTextFrame}">
+                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraSelectedEnum.SecondCamera}}"
+                InputTransparent="True">
                 <Frame.Triggers>
+
                     <DataTrigger
                         Binding="{Binding Source={x:Reference frCam2}, Path=BorderColor}"
                         TargetType="Frame"
@@ -152,8 +127,13 @@
                     </Label.Triggers>
                 </Label>
             </Frame>
-
-            <indicator:SfBusyIndicator IsBusy="{Binding IsCam2Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
+            <vlc:MediaPlayerElement
+                x:Name="bottomLeftCam"
+                Grid.Row="1"
+                InputTransparent="True"
+                LibVLC="{Binding LibVLC}"
+                MediaPlayer="{Binding MediaPlayerNo2}"
+                PlaybackControls="{StaticResource hidePlaybackControl}" />
             <Grid
                 Grid.RowSpan="2"
                 BackgroundColor="White"
@@ -170,33 +150,20 @@
             </Grid>
         </Grid>
 
-        <!--  Cam 3  -->
         <Grid
             Grid.Column="1"
             BackgroundColor="Black"
-            RowDefinitions="Auto,*">
+            RowDefinitions="40,*">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.ThirdCamera}" />
+                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraSelectedEnum.ThirdCamera}" />
             </Grid.GestureRecognizers>
-            <vlc:VideoView
-                x:Name="topRightCam"
-                InputTransparent="True"
-                MediaPlayer="{Binding MediaPlayerNo3}" />
-            <Label
-                Margin="0,0,10,0"
-                FontSize="17"
-                HorizontalOptions="End"
-                StyleClass="BoldText"
-                Text="{Binding Cam3ReloadCount}"
-                TextColor="White"
-                VerticalOptions="Start" />
             <Frame
                 x:Name="frCam3"
                 BackgroundColor="Transparent"
-                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.ThirdCamera}}"
-                InputTransparent="True"
-                Style="{StaticResource cameraTextFrame}">
+                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraSelectedEnum.ThirdCamera}}"
+                InputTransparent="True">
                 <Frame.Triggers>
+
                     <DataTrigger
                         Binding="{Binding Source={x:Reference frCam3}, Path=BorderColor}"
                         TargetType="Frame"
@@ -219,8 +186,13 @@
                     </Label.Triggers>
                 </Label>
             </Frame>
-
-            <indicator:SfBusyIndicator IsBusy="{Binding IsCam3Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
+            <vlc:MediaPlayerElement
+                x:Name="topRightCam"
+                Grid.Row="1"
+                InputTransparent="True"
+                LibVLC="{Binding LibVLC}"
+                MediaPlayer="{Binding MediaPlayerNo3}"
+                PlaybackControls="{StaticResource hidePlaybackControl}" />
             <Grid
                 Grid.RowSpan="2"
                 BackgroundColor="White"
@@ -236,33 +208,19 @@
                 </Grid.Triggers>
             </Grid>
         </Grid>
-
-        <!--  Cam 4  -->
         <Grid
             Grid.Row="1"
             Grid.Column="1"
-            BackgroundColor="Black">
+            BackgroundColor="Black"
+            RowDefinitions="40,*">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.FourthCamera}" />
+                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraSelectedEnum.FourthCamera}" />
             </Grid.GestureRecognizers>
-            <vlc:VideoView
-                x:Name="bottomRightCam"
-                InputTransparent="True"
-                MediaPlayer="{Binding MediaPlayerNo4}" />
-            <Label
-                Margin="0,10,10,0"
-                FontSize="17"
-                HorizontalOptions="End"
-                StyleClass="BoldText"
-                Text="{Binding Cam4ReloadCount}"
-                TextColor="White"
-                VerticalOptions="Start" />
             <Frame
                 x:Name="frCam4"
                 BackgroundColor="Transparent"
-                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.FourthCamera}}"
-                InputTransparent="True"
-                Style="{StaticResource cameraTextFrame}">
+                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraSelectedEnum.FourthCamera}}"
+                InputTransparent="True">
                 <Frame.Triggers>
                     <DataTrigger
                         Binding="{Binding Source={x:Reference frCam4}, Path=BorderColor}"
@@ -286,8 +244,13 @@
                     </Label.Triggers>
                 </Label>
             </Frame>
-
-            <indicator:SfBusyIndicator IsBusy="{Binding IsCam4Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
+            <vlc:MediaPlayerElement
+                x:Name="bottomRightCam"
+                Grid.Row="1"
+                InputTransparent="True"
+                LibVLC="{Binding LibVLC}"
+                MediaPlayer="{Binding MediaPlayerNo4}"
+                PlaybackControls="{StaticResource hidePlaybackControl}" />
             <Grid
                 Grid.RowSpan="2"
                 BackgroundColor="White"
@@ -303,7 +266,6 @@
                 </Grid.Triggers>
             </Grid>
         </Grid>
-
     </Grid>
 
 </ContentView>
