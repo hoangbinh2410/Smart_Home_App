@@ -250,7 +250,7 @@ namespace BA_MobileGPS.Core.ViewModels
             TryExecute(async () =>
             {
                 var request = new StreamImageRequest();
-                request.xnCode = 7644;
+                request.xnCode = UserInfo.XNCode;
                 request.VehiclePlates = CarSearch;
 
                 PageIndex = 1;
@@ -279,7 +279,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     var lst = GetListPage(mVehicleString, PageIndex, PageCount);
                     if (lst != null && lst.Count > 0)
                     {
-                        request.xnCode = 7644;
+                        request.xnCode = UserInfo.XNCode;
                         request.VehiclePlates = string.Join(",", lst);
 
                         IsMaxLoadMore = false;
