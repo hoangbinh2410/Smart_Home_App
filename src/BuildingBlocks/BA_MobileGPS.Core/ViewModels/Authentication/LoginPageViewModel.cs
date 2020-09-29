@@ -598,11 +598,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    Stopwatch sw1 = new Stopwatch();
-                    sw1.Start();
                     await NavigationService.NavigateAsync("/MainPage");
-                    sw1.Stop();
-                    Debug.WriteLine(string.Format("NavigateMainPage : {0}", sw1.ElapsedMilliseconds));
                 }
 
             }

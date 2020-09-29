@@ -90,8 +90,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
             TryExecute(async () =>
             {
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
                 await ConnectSignalROnline();
                 InitVehilceOnline();
                 // Lấy danh sách cảnh báo
@@ -104,8 +102,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 GetNoticePopup();
 
                 GetCountVehicleDebtMoney();
-                sw.Stop();
-                Debug.WriteLine(string.Format("MainPageViewModelInitialize : {0}", sw.ElapsedMilliseconds));
             });
         }
 

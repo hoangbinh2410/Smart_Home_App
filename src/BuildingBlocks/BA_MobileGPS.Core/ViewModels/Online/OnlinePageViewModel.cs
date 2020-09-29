@@ -12,8 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -23,7 +23,6 @@ namespace BA_MobileGPS.Core.ViewModels
         #region Contructor
 
         private readonly IUserService userService;
-        private readonly IDetailVehicleService detailVehicleService;
         private readonly IUserLandmarkGroupService userLandmarkGroupService;
 
         public ICommand NavigateToSettingsCommand { get; private set; }
@@ -39,23 +38,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public bool IsCheckShowLandmark { get; set; } = false;
 
-        [Obsolete]
         public OnlinePageViewModel(INavigationService navigationService,
-            IUserService userService, IDetailVehicleService detailVehicleService, IUserLandmarkGroupService userLandmarkGroupService)
+            IUserService userService, IUserLandmarkGroupService userLandmarkGroupService)
             : base(navigationService)
         {
             this.userService = userService;
-            this.detailVehicleService = detailVehicleService;
             this.userLandmarkGroupService = userLandmarkGroupService;
-
-            if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
-            {
-                Title = Settings.CurrentCompany.CompanyName;
-            }
-            else
-            {
-                Title = MobileResource.Online_Label_TitlePage;
-            }
 
             carActive = new VehicleOnline();
             selectedVehicleGroup = new List<int>();
@@ -208,13 +196,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ObservableCollection<Polyline> Polylines { get; set; } = new ObservableCollection<Polyline>();
 
-
-
         #endregion Property
 
         #region Private Method
 
-        [Obsolete]
         private void PushDirectvehicleOnline()
         {
             TryExecute(async () =>
@@ -232,7 +217,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         map = string.Format("https://www.google.com/maps/dir/{0};{1}", carActive.Lat.ToString(), carActive.Lng.ToString());
                     }
-                    Device.OpenUri(new Uri(ReplaceMapURL(map)));
+                    await Launcher.OpenAsync(new Uri(ReplaceMapURL(map)));
                 }
             });
         }
@@ -275,7 +260,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         GetLandmarkDisplayName(list, listmark, false);
                     }
-
                 }
 
                 if (keycategory != string.Empty)
@@ -292,7 +276,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         GetLandmarkDisplayName(list, listmark, true);
                     }
                 }
-
             });
         }
 
@@ -406,10 +389,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     Icon = icon,
                     Tag = boundary.Name,
                 });
-
             });
         }
-
 
         /// <summary>Danh sách các điểm không được tích tên điểm</summary>
         /// <param name="list">The list.</param>

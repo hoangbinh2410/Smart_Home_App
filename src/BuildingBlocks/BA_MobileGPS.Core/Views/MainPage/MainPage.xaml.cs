@@ -228,7 +228,7 @@ namespace BA_MobileGPS.Core.Views
 
         protected override bool OnBackButtonPressed()
         {
-            return true;
+            return base.OnBackButtonPressed();
         }
     }
 }

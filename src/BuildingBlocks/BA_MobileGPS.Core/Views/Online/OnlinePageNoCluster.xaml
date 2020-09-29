@@ -26,6 +26,8 @@
         <cluster:HasDataBackgroundColorConverter x:Key="HasDataBackgroundColorConverter" />
 
         <cluster:HasDataIconColorConverter x:Key="HasDataIconColorConverter" />
+        <cluster:SelectedStatusBackgroundColorConverter x:Key="SelectedStatusBackgroundColorConverter" />
+        <cluster:SelectedStatusIconColorConverter x:Key="SelectedStatusIconColorConverter" />
     </ContentView.Resources>
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
@@ -120,7 +122,7 @@
             </pancake:PancakeView>
             <pancake:PancakeView
                 Grid.Column="2"
-                BackgroundColor="{DynamicResource WhiteColor}"
+                BackgroundColor="{Binding VehicleStatusSelected, Converter={StaticResource SelectedStatusBackgroundColorConverter}}"
                 CornerRadius="22"
                 WidthRequest="45">
                 <pancake:PancakeView.GestureRecognizers>
@@ -128,7 +130,7 @@
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Margin="8"
-                    Foreground="{DynamicResource PrimaryColor}"
+                    Foreground="{Binding VehicleStatusSelected, Converter={StaticResource SelectedStatusIconColorConverter}}"
                     Source="ic_filter.png" />
             </pancake:PancakeView>
         </Grid>
