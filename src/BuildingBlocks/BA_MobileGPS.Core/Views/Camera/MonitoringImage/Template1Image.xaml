@@ -24,7 +24,7 @@
         AutoFitMode="Height"
         BackgroundColor="{DynamicResource WhiteColor}"
         HorizontalOptions="FillAndExpand"
-        ItemsSource="{Binding ListGroup, Mode=TwoWay}"
+        ItemsSource="{Binding ListGroup}"
         SelectionBackgroundColor="Transparent"
         TapCommand="{Binding TapCommandListGroup}"
         VerticalOptions="FillAndExpand">

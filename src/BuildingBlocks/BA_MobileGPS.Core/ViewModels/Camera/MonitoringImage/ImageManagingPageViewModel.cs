@@ -44,7 +44,7 @@ namespace BA_MobileGPS.Core.ViewModels
             TabCommandDetail = new DelegateCommand<object>(TabDetail);
             TapCommandListGroup = new DelegateCommand<ItemTappedEventArgs>(TapListGroup);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
-            RefeshCommand = new DelegateCommand(ShowImage);
+            RefeshCommand = new DelegateCommand(RefeshImage);
             CarSearch = string.Empty;
             PageCount = 5;
         }
@@ -99,6 +99,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public bool IsMaxLoadMore { get => isMaxLoadMore; set => SetProperty(ref isMaxLoadMore, value); }
 
+        private bool isRefesh = false;
+
+        public bool IsRefesh { get => isRefesh; set => SetProperty(ref isRefesh, value); }
+
         private ObservableCollection<CaptureImageData> listGroup = new ObservableCollection<CaptureImageData>();
 
         public ObservableCollection<CaptureImageData> ListGroup { get => listGroup; set => SetProperty(ref listGroup, value); }
@@ -134,7 +138,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool CanLoadMoreItems(object obj)
         {
-            if (mVehicleString.Count < PageIndex * PageCount || IsMaxLoadMore)
+            if (mVehicleString.Count < PageIndex * PageCount || IsMaxLoadMore || IsRefesh)
                 return false;
             return true;
         }
@@ -235,6 +239,25 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 });
             }
+        }
+
+        private void RefeshImage()
+        {
+            TryExecute(() =>
+            {
+                IsRefesh = true;
+                if (CarSearch == string.Empty)
+                {
+                    PageIndex = 1;
+                    ListGroup = new ObservableCollection<CaptureImageData>();
+                    ShowImageLoad();
+                }
+                else
+                {
+                    ShowImageSearch();
+                }
+                IsRefesh = false;
+            });
         }
 
         private void ShowImageSearch()
