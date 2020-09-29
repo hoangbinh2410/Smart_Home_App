@@ -438,8 +438,9 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             StaticSettings.ClearStaticSettings();
             GlobalResources.Current.TotalAlert = 0;
-            Settings.Rememberme = false;
-            await NavigationService.NavigateAsync("/LoginPage");
+            var navigationPara = new NavigationParameters();
+            navigationPara.Add(ParameterKey.Logout, true);
+            await NavigationService.NavigateAsync("/LoginPage", navigationPara);
         }
     }
 }
