@@ -7,11 +7,31 @@
     xmlns:core="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
-    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    xmlns:vm="clr-namespace:BA_MobileGPS.Core.ViewModels"
-    Title="{i18n:TranslateResource CameraImage_Label_TileDetailPage}">
+    xmlns:vm="clr-namespace:BA_MobileGPS.Core.ViewModels">
+    <NavigationPage.TitleView>
+        <Grid HorizontalOptions="FillAndExpand">
+            <Label
+                FontSize="{StaticResource MyFontSizeLarge}"
+                HorizontalOptions="Start"
+                StyleClass="BoldText"
+                Text="{Binding Title}"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+            <controls:IconView
+                Margin="10,0"
+                Foreground="{DynamicResource WhiteColor}"
+                HeightRequest="15"
+                HorizontalOptions="End"
+                Source="ic_download.png"
+                WidthRequest="15">
+                <controls:IconView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DownloadImageCommand}" />
+                </controls:IconView.GestureRecognizers>
+            </controls:IconView>
+        </Grid>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <StackLayout
             HorizontalOptions="FillAndExpand"
