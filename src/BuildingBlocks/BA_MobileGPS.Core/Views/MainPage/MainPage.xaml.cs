@@ -236,7 +236,7 @@ namespace BA_MobileGPS.Core.Views
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     // Confirmation dialog "Are you sure you want to close?"
-                    bExit = await DisplayAlert("", "Bạn có chắc chắn muốn thoát khỏi Ứng dụng không?","Bỏ qua","Đồng ý");
+                    bExit = await DisplayAlert("", "Bạn có chắc chắn muốn thoát khỏi Ứng dụng không?", "Đồng ý", "Bỏ qua");
                     if (bExit)
                     {
                         // Toast notification... "Press back button again to close"
