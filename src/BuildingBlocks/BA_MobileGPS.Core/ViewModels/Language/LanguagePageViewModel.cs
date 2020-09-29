@@ -86,7 +86,23 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                var lst = _languageTypeService.All().ToList();
+                var lst = new List<LanguageRespone>()
+                {
+                    new LanguageRespone()
+                    {
+                        CodeName = CultureCountry.Vietnamese,
+                        Icon = "flag_vn.png",
+                        Description = "Tiếng Việt",
+                        PK_LanguageID = 1
+                    },
+                    new LanguageRespone()
+                    {
+                        CodeName = CultureCountry.English,
+                        Icon = "flag_us.png",
+                        Description = "English",
+                        PK_LanguageID = 2
+                    },
+                };
                 if (lst != null && lst.Count > 0)
                 {
                     var groupedData =

@@ -225,5 +225,29 @@ namespace BA_MobileGPS.Core.Views
         {
             return StaticSettings.User.Permissions.IndexOf(PermissionKey) != -1;
         }
+
+
+        bool bExit = false;
+
+        protected override bool OnBackButtonPressed()
+        {
+            base.OnBackButtonPressed();
+            if (!bExit)
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    // Confirmation dialog "Are you sure you want to close?"
+                    bExit = await DisplayAlert("", "Bạn có chắc chắn muốn thoát khỏi Ứng dụng không?", "Đồng ý", "Bỏ qua");
+                    if (bExit)
+                    {
+                        // Toast notification... "Press back button again to close"
+                        DependencyService.Get<IDisplayMessage>().ShowMessageInfo("Back thêm lần nữa để thoát ứng dụng");
+                        this.OnBackButtonPressed();
+                    }
+                });
+            else
+                return false;
+
+            return true;
+        }
     }
 }

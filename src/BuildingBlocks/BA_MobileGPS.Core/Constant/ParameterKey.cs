@@ -51,5 +51,7 @@
 
         public const string AlertCompanyConfig = "AlertCompanyConfig";
         public const string AlertVehicleConfig = "AlertVehicleConfig";
+
+        public const string Logout = "Logout";
     }
 }

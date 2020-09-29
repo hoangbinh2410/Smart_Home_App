@@ -50,6 +50,9 @@ namespace BA_MobileGPS.Core.ViewModels
         public int[] _vehicleGroups;
         public int[] VehicleGroups { get => _vehicleGroups; set => SetProperty(ref _vehicleGroups, value); }
 
+        public VehicleStatusGroup _vehicleStatusSelected = VehicleStatusGroup.All;
+        public VehicleStatusGroup VehicleStatusSelected { get => _vehicleStatusSelected; set => SetProperty(ref _vehicleStatusSelected, value); }
+
         public DelegateCommand SelectCompanyCommand { get; private set; }
 
         public DelegateCommand SelectVehicleCommand { get; private set; }
@@ -435,8 +438,9 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             StaticSettings.ClearStaticSettings();
             GlobalResources.Current.TotalAlert = 0;
-            Settings.Rememberme = false;
-            await NavigationService.NavigateAsync("/LoginPage");
+            var navigationPara = new NavigationParameters();
+            navigationPara.Add(ParameterKey.Logout, true);
+            await NavigationService.NavigateAsync("/LoginPage", navigationPara);
         }
     }
 }

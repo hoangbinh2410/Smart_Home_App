@@ -444,6 +444,31 @@ namespace BA_MobileGPS.Core.Views
             InitVehicleStatus(listResult);
         }
 
+        public void UpdateVehicleByStatus(List<VehicleOnline> mVehicleList, VehicleStatusGroup vehiclestategroup)
+        {
+            vm.VehicleStatusSelected = vehiclestategroup;
+            var listFilter = StateVehicleExtension.GetVehicleCarByStatus(mVehicleList, vehiclestategroup);
+            if (listFilter != null)
+            {
+                var listPin = ConvertMarkerPin(listFilter);
+
+                //Vẽ xe lên bản đồ
+                InitPinVehicle(listPin);
+
+                if (listPin.Count > 0)
+                {
+                    var listPositon = new List<Position>();
+                    listPin.ForEach(x =>
+                    {
+                        listPositon.Add(new Position(x.Lat, x.Lng));
+                    });
+                    var bounds = GeoHelper.FromPositions(listPositon);
+
+                    googleMap.AnimateCamera(CameraUpdateFactory.NewBounds(bounds, 40));
+                }
+            }
+        }
+
         private List<VehicleOnlineMarker> ConvertMarkerPin(List<VehicleOnline> lisVehicle)
         {
             var listmarker = new List<VehicleOnlineMarker>();
@@ -897,26 +922,7 @@ namespace BA_MobileGPS.Core.Views
             {
                 Device.StartTimer(TimeSpan.FromMilliseconds(300), () =>
                 {
-                    var listFilter = StateVehicleExtension.GetVehicleCarByStatus(mCurrentVehicleList, (VehicleStatusGroup)item.ID);
-                    if (listFilter != null)
-                    {
-                        var listPin = ConvertMarkerPin(listFilter);
-
-                        //Vẽ xe lên bản đồ
-                        InitPinVehicle(listPin);
-
-                        if (listPin.Count > 0)
-                        {
-                            var listPositon = new List<Position>();
-                            listPin.ForEach(x =>
-                            {
-                                listPositon.Add(new Position(x.Lat, x.Lng));
-                            });
-                            var bounds = GeoHelper.FromPositions(listPositon);
-
-                            googleMap.AnimateCamera(CameraUpdateFactory.NewBounds(bounds, 40));
-                        }
-                    }
+                    UpdateVehicleByStatus(mCurrentVehicleList, (VehicleStatusGroup)item.ID);
                     return false;
                 });
             }
