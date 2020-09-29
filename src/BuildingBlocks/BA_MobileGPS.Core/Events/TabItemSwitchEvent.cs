@@ -11,4 +11,9 @@ namespace BA_MobileGPS.Core.Events
     public class TabSelectedChangedEvent : PubSubEvent<int>
     {
     }
+
+
+    public class BackButtonEvent : PubSubEvent<bool>
+    {
+    }
 }

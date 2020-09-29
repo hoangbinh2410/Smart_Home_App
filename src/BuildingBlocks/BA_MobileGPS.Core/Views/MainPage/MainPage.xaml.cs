@@ -10,6 +10,8 @@ using Prism.Mvvm;
 using Sharpnado.Presentation.Forms.CustomViews.Tabs;
 using System;
 using System.Diagnostics;
+using System.Timers;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
@@ -231,23 +233,39 @@ namespace BA_MobileGPS.Core.Views
 
         protected override bool OnBackButtonPressed()
         {
-            base.OnBackButtonPressed();
             if (!bExit)
-                Device.BeginInvokeOnMainThread(async () =>
-                {
-                    // Confirmation dialog "Are you sure you want to close?"
-                    bExit = await DisplayAlert("", "Bạn có chắc chắn muốn thoát khỏi Ứng dụng không?", "Đồng ý", "Bỏ qua");
-                    if (bExit)
-                    {
-                        // Toast notification... "Press back button again to close"
-                        DependencyService.Get<IDisplayMessage>().ShowMessageInfo("Back thêm lần nữa để thoát ứng dụng");
-                        this.OnBackButtonPressed();
-                    }
-                });
-            else
-                return false;
+            {
+                this.eventAggregator.GetEvent<BackButtonEvent>().Publish(true);
+                ShowAlertWhen2Back();
+                return bExit;
+            }
+            return false;
+        }
 
-            return true;
+        /// <summary>
+        /// Thực hiện delay giá trị
+        /// </summary>
+        /// <param name="timers"></param>
+        /// <param name="action"></param>
+        /// <param name="timeDelay">đơn vị miliseconds</param>
+        public Timer PostDelayed(Timer timers, Action action, int timeDelay)
+        {
+            timers.Interval = timeDelay;
+            timers.AutoReset = false; //so that it only calls the method once
+            timers.Elapsed += (s, args) =>
+            {
+                timers.Close();
+                MainThread.BeginInvokeOnMainThread(() => { action?.Invoke(); });
+            };
+            timers.Start();
+            return timers;
+        }
+
+        private void ShowAlertWhen2Back()
+        {
+            DependencyService.Get<IDisplayMessage>().ShowMessageInfo("Back thêm lần nữa để thoát ứng dụng");
+            bExit = !bExit;
+            PostDelayed(new Timer(), () => bExit = false, 2000);
         }
     }
 }
