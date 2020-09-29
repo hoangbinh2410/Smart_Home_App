@@ -11,7 +11,7 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:vm="clr-namespace:BA_MobileGPS.Core.ViewModels"
-    Title="{i18n:TranslateResource Camera_Label_TilePage}">
+    Title="{i18n:TranslateResource CameraImage_Label_TileDetailPage}">
     <ContentPage.Content>
         <StackLayout
             HorizontalOptions="FillAndExpand"
