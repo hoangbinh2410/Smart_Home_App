@@ -39,7 +39,7 @@
         RowDefinitions="*,*"
         RowSpacing="1">
         <!--  Cam 1  -->
-        <Grid BackgroundColor="Black" RowDefinitions="Auto,*">
+        <Grid BackgroundColor="Black">
             <Grid.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.CAM1}" />
             </Grid.GestureRecognizers>
@@ -87,7 +87,6 @@
 
             <indicator:SfBusyIndicator IsBusy="{Binding IsCam1Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
             <Grid
-                Grid.RowSpan="2"
                 BackgroundColor="White"
                 InputTransparent="True"
                 Opacity="0.2">

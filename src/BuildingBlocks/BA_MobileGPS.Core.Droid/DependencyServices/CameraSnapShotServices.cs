@@ -34,8 +34,8 @@ namespace BA_MobileGPS.Core.Droid.DependencyServices
                 BitmapFactory.Options bmOptions = new BitmapFactory.Options();
                 Bitmap bitmap = BitmapFactory.DecodeFile(oldPath, bmOptions);
 
-                var name = "tessssst.jpg";
-                var IMAGES_FOLDER_NAME = "AAAAAAA";
+                var name = DateTime.Now.ToString("yyyyMMddHHmmss");
+                var IMAGES_FOLDER_NAME = "BAGPS_CAMERA";
 
                 if (Build.VERSION.SdkInt >= BuildVersionCodes.Q)
                 {
@@ -54,7 +54,9 @@ namespace BA_MobileGPS.Core.Droid.DependencyServices
                 {
                     var imagesDir = Android.OS.Environment.GetExternalStoragePublicDirectory(
                             Android.OS.Environment.DirectoryDcim).ToString() + "/" + IMAGES_FOLDER_NAME;
-
+               
+                    if (!Directory.Exists(imagesDir))
+                        Directory.CreateDirectory(imagesDir);
                     var filePath = System.IO.Path.Combine(imagesDir, name);
                     var stream = new FileStream(filePath, FileMode.Create);
                     bitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
@@ -64,7 +66,7 @@ namespace BA_MobileGPS.Core.Droid.DependencyServices
             }
             catch (Exception ex)
             {
-
+                return false;
                 throw;
             }
       
