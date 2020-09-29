@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Text;
 using Xamarin.Forms;
 
-namespace BA_MobileGPS.Core
+namespace BA_MobileGPS.Core.Converters
 {
     public class CameraTextBorderConverter : IValueConverter
     {
@@ -18,7 +18,7 @@ namespace BA_MobileGPS.Core
             {
                 return unSelected;
             }
-            if ((CameraEnum)value == (CameraEnum)parameter)
+            if ((CameraSelectedEnum)value == (CameraSelectedEnum)parameter)
                 return selected;
             else
                 return unSelected;

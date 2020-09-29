@@ -61,7 +61,7 @@ namespace BA_MobileGPS.Core.iOS
         public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, UIWindow forWindow)
         {
             var mainPage = Xamarin.Forms.Application.Current.MainPage;
-            if (PageUtilities.GetCurrentPage(mainPage) is CameraManagingPage
+            if (PageUtilities.GetCurrentPage(mainPage) is DetailCamera
                 && UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
             {
                 return UIInterfaceOrientationMask.AllButUpsideDown;

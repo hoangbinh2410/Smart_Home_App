@@ -88,6 +88,9 @@ namespace BA_MobileGPS.Core
         private const string LastViewVehicleImageKey = "LastViewVehicleImageKey";
         private static readonly string LastViewVehicleImageDefault = string.Empty;
 
+        private const string FavoritesVehicleImageKey = "FavoritesVehicleImageKey";
+        private static readonly string FavoritesVehicleImageDefault = string.Empty;
+
         private const string ShowViewVehicleImageKey = "ShowViewVehicleImageKey";
         private static readonly int ShowViewVehicleImageDefault = 10;
 
@@ -278,6 +281,12 @@ namespace BA_MobileGPS.Core
         {
             get => AppSettings.GetValueOrDefault(LastViewVehicleImageKey, LastViewVehicleImageDefault);
             set => AppSettings.AddOrUpdateValue(LastViewVehicleImageKey, value);
+        }
+
+        public static string FavoritesVehicleImage
+        {
+            get => AppSettings.GetValueOrDefault(FavoritesVehicleImageKey, FavoritesVehicleImageDefault);
+            set => AppSettings.AddOrUpdateValue(FavoritesVehicleImageKey, value);
         }
 
         public static int ShowViewVehicleImage

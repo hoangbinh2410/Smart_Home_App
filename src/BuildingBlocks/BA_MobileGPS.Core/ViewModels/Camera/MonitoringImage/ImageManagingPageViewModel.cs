@@ -15,6 +15,7 @@ using BA_MobileGPS.Core.Constant;
 using System.Collections.Generic;
 using System.Linq;
 using Syncfusion.XlsIO.Parser.Biff_Records;
+using Syncfusion.Data.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -29,10 +30,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand TapCommandListGroup { get; set; }
 
-        public ICommand TabCommandFavorites { get; set; }
 
         public ICommand LoadMoreItemsCommand { get; set; }
 
+        public ICommand RefeshCommand { get; set; }
 
         public ImageManagingPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService) : base(navigationService)
         {
@@ -42,16 +43,17 @@ namespace BA_MobileGPS.Core.ViewModels
             TapItemsCommand = new DelegateCommand<object>(TapItems);
             TabCommandDetail = new DelegateCommand<object>(TabDetail);
             TapCommandListGroup = new DelegateCommand<ItemTappedEventArgs>(TapListGroup);
-            TabCommandFavorites = new DelegateCommand<object>(TabFavorites);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
+            RefeshCommand = new DelegateCommand(ShowImage);
             CarSearch = string.Empty;
+            PageCount = 5;
         }
 
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-
-            ShowImage();
+            GetVehicleString();
+            ShowLastView();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -70,10 +72,45 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 VehicleGroups = vehiclegroup;
                 CarSearch = string.Empty;
+                GetVehicleString();
+                ShowImage();
             }
-            ShowLastView();
-
         }
+
+
+        private int spanCount;
+        public int SpanCount { get => spanCount; set => SetProperty(ref spanCount, value); }
+
+        private int listHeight;
+        public int ListHeight { get => listHeight; set => SetProperty(ref listHeight, value); }
+
+        private string carSearch;
+        public string CarSearch { get => carSearch; set => SetProperty(ref carSearch, value); }
+
+        private int pageIndex;
+
+        public int PageIndex { get => pageIndex; set => SetProperty(ref pageIndex, value); }
+
+        private int pageCount;
+
+        public int PageCount { get => pageCount; set => SetProperty(ref pageCount, value); }
+
+        private bool isMaxLoadMore;
+
+        public bool IsMaxLoadMore { get => isMaxLoadMore; set => SetProperty(ref isMaxLoadMore, value); }
+
+        private ObservableCollection<CaptureImageData> listGroup = new ObservableCollection<CaptureImageData>();
+
+        public ObservableCollection<CaptureImageData> ListGroup { get => listGroup; set => SetProperty(ref listGroup, value); }
+
+        private bool isShowLastViewVehicle = true;
+        public bool IsShowLastViewVehicle { get => isShowLastViewVehicle; set => SetProperty(ref isShowLastViewVehicle, value); }
+
+        private ObservableCollection<LastViewVehicleImageModel> listLastView;
+
+        public ObservableCollection<LastViewVehicleImageModel> ListLastView { get => listLastView; set => SetProperty(ref listLastView, value); }
+
+        private List<string> mVehicleString { get; set; }
 
         private void LoadMoreItems(object obj)
         {
@@ -82,7 +119,6 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 PageIndex++;
-
                 ShowImage();
             }
             catch (Exception ex)
@@ -98,8 +134,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool CanLoadMoreItems(object obj)
         {
-            //if (ListNotice.Count < PageIndex * PageCount || IsMaxLoadMore)
-            //    return false;
+            if (mVehicleString.Count < PageIndex * PageCount || IsMaxLoadMore)
+                return false;
             return true;
         }
 
@@ -139,10 +175,6 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private void TabFavorites(object obj)
-        {
-            //chuyên trang detail
-        }
 
         private async void TapItems(object obj)
         {
@@ -165,86 +197,115 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private int spanCount;
-        public int SpanCount { get => spanCount; set => SetProperty(ref spanCount, value); }
-
-        private int listHeight;
-        public int ListHeight { get => listHeight; set => SetProperty(ref listHeight, value); }
-
-        private string carSearch;
-        public string CarSearch { get => carSearch; set => SetProperty(ref carSearch, value); }
-
-        private int pageIndex;
-
-        public int PageIndex { get => pageIndex; set => SetProperty(ref pageIndex, value); }
-
-        private int pageCount;
-
-        public int PageCount { get => pageCount; set => SetProperty(ref pageCount, value); }
-
-        private bool isMaxLoadMore;
-
-        public bool IsMaxLoadMore { get => isMaxLoadMore; set => SetProperty(ref isMaxLoadMore, value); }
-
-        private ObservableCollection<LastViewVehicleImageModel> listLastView;
-
-        public ObservableCollection<LastViewVehicleImageModel> ListLastView { get => listLastView; set => SetProperty(ref listLastView, value); }
-
-        private List<LastViewVehicleImageModel> lstVehicleString { get; set; }
-
-        private List<string> mVehicleString
+        private void GetVehicleString()
         {
-            get
+            if (StaticSettings.ListVehilceOnline != null)
             {
-                if (StaticSettings.ListVehilceOnline != null)
+                var listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                if (VehicleGroups != null && VehicleGroups.Length > 0)
                 {
-                    //nếu khóa BAP rồi thì ko hiển thị trên Map nữa
-                    return StaticSettings.ListVehilceOnline.Select(x => x.VehiclePlate).ToList();
+                    mVehicleString = listOnline.FindAll(v => v.GroupIDs.Split(',').ToList()
+                        .Exists(g => VehicleGroups.Contains(Convert.ToInt32(g))))
+                        .Select(x => x.VehiclePlate).ToList();
                 }
                 else
                 {
-                    return new List<string>();
+                    mVehicleString = listOnline.Select(x => x.VehiclePlate).ToList();
                 }
             }
+            else
+            {
+                mVehicleString = new List<string>();
+            }
         }
-
-        private ObservableCollection<CaptureImageData> listGroup;
-
-        public ObservableCollection<CaptureImageData> ListGroup { get => listGroup; set => SetProperty(ref listGroup, value); }
-
-        private bool isShowLastViewVehicle = true;
-        public bool IsShowLastViewVehicle { get => isShowLastViewVehicle; set => SetProperty(ref isShowLastViewVehicle, value); }
 
         private void ShowImage()
         {
             using (new HUDService())
             {
-                TryExecute(async () =>
+                TryExecute(() =>
                 {
-                    var request = new StreamImageRequest()
+                    if (CarSearch != string.Empty)
                     {
-                        xnCode = 7644,
-                        VehiclePlates = "79B03279,29B15081"
-                    };
-
-                    //var request = new StreamImageRequest()
-                    //{
-                    //    xnCode = 999,
-                    //    VehiclePlates = "QCPASS_HIEUDT,TESTTBI,QCPASSTHAIVV"
-                    //};
-
-                    var response = await _streamCameraService.GetListCaptureImage(request);
-
-                    if (response != null && response.Count > 0)
-                    {
-                        ListGroup = new ObservableCollection<CaptureImageData>(response);
+                        ShowImageSearch();
                     }
                     else
                     {
-                        ListGroup = new ObservableCollection<CaptureImageData>();
+                        ShowImageLoad();
                     }
                 });
             }
+        }
+
+        private void ShowImageSearch()
+        {
+            TryExecute(async () =>
+            {
+                var request = new StreamImageRequest();
+
+                var xnCode = StaticSettings.User.XNCode;
+
+                if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                {
+                    xnCode = Settings.CurrentCompany.XNCode;
+                }
+                request.xnCode = xnCode;
+                request.VehiclePlates = CarSearch;
+
+                var response = await _streamCameraService.GetListCaptureImage(request);
+                PageIndex = 1;
+                IsMaxLoadMore = true;
+
+                if (response != null && response.Count > 0)
+                {
+                    ListGroup = new ObservableCollection<CaptureImageData>(response);
+                }
+                else
+                {
+                    ListGroup = new ObservableCollection<CaptureImageData>();
+                }
+            });
+        }
+
+        private void ShowImageLoad()
+        {
+            TryExecute(async () =>
+            {
+                var request = new StreamImageRequest();
+                if (mVehicleString != null && mVehicleString.Count > 0)
+                {
+                    var lst = GetListPage(mVehicleString, PageIndex, PageCount);
+                    if (lst != null && lst.Count > 0)
+                    {
+                        var xnCode = StaticSettings.User.XNCode;
+
+                        if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                        {
+                            xnCode = Settings.CurrentCompany.XNCode;
+                        }
+                        request.xnCode = xnCode;
+
+                        request.VehiclePlates = string.Join(",", lst);
+
+                        IsMaxLoadMore = false;
+                    }
+                    else
+                    {
+                        IsMaxLoadMore = true;
+                    }
+                }
+
+                var response = await _streamCameraService.GetListCaptureImage(request);
+
+                if (response != null && response.Count > 0)
+                {
+                    var lst = ListGroup.ToList();
+
+                    lst.AddRange(response);
+
+                    ListGroup = lst.ToObservableCollection();
+                }
+            });
         }
 
         private List<string> GetListPage(List<string> list, int page, int pageSize)

@@ -13,6 +13,7 @@ using Xamarin.Forms;
 using Realms.Exceptions;
 using Xamarin.Forms.Extensions;
 using System.Linq;
+using BA_MobileGPS.Core.Resources;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -46,6 +47,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ImageDetailViewModel(INavigationService navigationService, IStreamCameraService streamCameraService, IDownloader downloader) : base(navigationService)
         {
+            Title = MobileResource.CameraImage_Label_TitleDetailPage;
             _streamCameraService = streamCameraService;
             this.downloader = downloader;
             downloader.OnFileDownloaded += Downloader_OnFileDownloaded;
@@ -120,14 +122,12 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             TryExecute(async () =>
             {
+                var xnCode = StaticSettings.User.XNCode;
 
-                var xnCode = 7644;
-                //var xnCode = StaticSettings.User.XNCode;
-
-                //if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
-                //{
-                //    xnCode = Settings.CurrentCompany.XNCode;
-                //}
+                if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                {
+                    xnCode = Settings.CurrentCompany.XNCode;
+                }
 
                 ListCameraImage = new List<CaptureImageData>();
                 ListCameraImage = await _streamCameraService.GetCaptureImageLimit(xnCode, VehiclePlate, 50);
@@ -295,11 +295,11 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (e.FileSaved)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Camera", "Lưu hình ảnh thành công", "OK");
+                    await PageDialog.DisplayAlertAsync("Camera", "Lưu hình ảnh thành công", "OK");
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Camera", "Lưu hình ảnh không thành công", "OK");
+                    await PageDialog.DisplayAlertAsync("Camera", "Lưu hình ảnh không thành công", "OK");
                 }
             });
         }
