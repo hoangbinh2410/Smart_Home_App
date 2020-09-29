@@ -92,6 +92,7 @@ namespace BA_MobileGPS.Core.Views
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
+            this.eventAggregator.GetEvent<BackButtonEvent>().Subscribe(AndroidBackButton);
 
             IsInitMarker = false;
 
@@ -190,6 +191,7 @@ namespace BA_MobileGPS.Core.Views
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
+            this.eventAggregator.GetEvent<BackButtonEvent>().Unsubscribe(AndroidBackButton);
         }
 
         #endregion Lifecycle
@@ -380,7 +382,18 @@ namespace BA_MobileGPS.Core.Views
                 });
             }
         }
-
+        private void AndroidBackButton(bool obj)
+        {
+            vm.CarSearch = string.Empty;
+            if (mCarActive != null && mCarActive.VehicleId > 0)
+            {
+                HideBoxInfoCarActive(mCarActive);
+            }
+            else
+            {
+                HideBoxStatus();
+            }
+        }
         private void UpdateSelectVehicle(VehicleOnline vehicle, bool isReloadVehicle = false)
         {
             if (vehicle != null)

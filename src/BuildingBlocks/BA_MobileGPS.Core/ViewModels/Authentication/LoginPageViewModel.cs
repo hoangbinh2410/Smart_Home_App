@@ -86,6 +86,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         GetInfomation(true);
                     }
                 }
+                else
+                {
+                    GetInfomation();
+                }
             }
             else
             {

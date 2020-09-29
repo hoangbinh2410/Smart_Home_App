@@ -52,6 +52,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public VehicleStatusGroup _vehicleStatusSelected = VehicleStatusGroup.All;
         public VehicleStatusGroup VehicleStatusSelected { get => _vehicleStatusSelected; set => SetProperty(ref _vehicleStatusSelected, value); }
+        public List<VehicleOnline> ListVehicleStatus { get; set; }
 
         public DelegateCommand SelectCompanyCommand { get; private set; }
 
@@ -308,7 +309,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", useModalNavigation: true, parameters: new NavigationParameters
                         {
                             { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleOnline },
-                            {  ParameterKey.VehicleGroupsSelected, VehicleGroups}
+                            {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
+                            {  ParameterKey.VehicleStatusSelected, ListVehicleStatus}
                         });
             });
         }
@@ -320,7 +322,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", useModalNavigation: true, parameters: new NavigationParameters
                         {
                             { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleRoute },
-                              {  ParameterKey.VehicleGroupsSelected, VehicleGroups}
+                            {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
+                            {  ParameterKey.VehicleStatusSelected, ListVehicleStatus}
                         });
             });
         }
