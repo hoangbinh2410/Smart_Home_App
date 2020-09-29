@@ -119,7 +119,6 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 PageIndex++;
-
                 ShowImage();
             }
             catch (Exception ex)
