@@ -47,6 +47,7 @@
     <Compile Include="CustomRenderer\NullableDatePickerRenderer.cs" />
     <Compile Include="DependencyServices\AppleAudioManager.cs" />
     <Compile Include="DependencyServices\AppVersionService.cs" />
+    <Compile Include="DependencyServices\CameraSnapShotServices.cs" />
     <Compile Include="DependencyServices\DisplayMessageService.cs" />
     <Compile Include="DependencyServices\AppleHUDService.cs" />
     <Compile Include="DependencyServices\IosDownloader.cs" />
@@ -2092,7 +2093,7 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_redlocation%403x.png" />
-    </ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_image.png" />
   </ItemGroup>
@@ -2119,6 +2120,15 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_chose_template%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_share.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_share%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_share%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

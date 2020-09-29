@@ -40,8 +40,6 @@ namespace BA_MobileGPS.Core.Droid
         {
             public void RegisterTypes(IContainerRegistry containerRegistry)
             {
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
                 // Register any platform specific implementations
                 containerRegistry.RegisterInstance<IDisplayMessage>(new DisplayMessageService());
                 containerRegistry.RegisterInstance<ISettingsService>(new SettingsService());
@@ -52,8 +50,7 @@ namespace BA_MobileGPS.Core.Droid
                 containerRegistry.RegisterInstance<IDownloader>(new AndroidDownloader());
                 containerRegistry.RegisterInstance<IAppVersionService>(new AppVersionService());
                 containerRegistry.RegisterInstance<IScreenOrientServices>(new ScreenOrientServices());
-                sw.Stop();
-                Debug.WriteLine(string.Format("RegisterTypes : {0}", sw.ElapsedMilliseconds));
+                containerRegistry.RegisterInstance<ICameraSnapShotServices>(new CameraSnapShotServices());
             }
         }
 

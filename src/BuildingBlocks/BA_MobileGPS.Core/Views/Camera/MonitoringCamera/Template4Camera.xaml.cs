@@ -29,19 +29,19 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
                 {
                     switch (item)
                     {
-                        case CameraEnum.FirstCamera:
+                        case CameraEnum.CAM1:
                             frCam1.IsEnabled = true;
                             topLeftCam.IsVisible = true;
                             break;
-                        case CameraEnum.SecondCamera:
+                        case CameraEnum.CAM2:
                             frCam1.IsEnabled = true;
                             bottomLeftCam.IsVisible = true;
                             break;
-                        case CameraEnum.ThirdCamera:
+                        case CameraEnum.CAM3:
                             frCam1.IsEnabled = true;
                             topRightCam.IsVisible = true;
                             break;
-                        case CameraEnum.FourthCamera:
+                        case CameraEnum.CAM4:
                             frCam1.IsEnabled = true;
                             bottomRightCam.IsVisible = true;
                             break;
@@ -56,19 +56,19 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
             {
                 switch (item)
                 {
-                    case CameraEnum.FirstCamera:
+                    case CameraEnum.CAM1:
                         frCam1.IsEnabled = false;
                         topLeftCam.IsVisible = false;
                         break;
-                    case CameraEnum.SecondCamera:
+                    case CameraEnum.CAM2:
                         frCam2.IsEnabled = false;
                         bottomLeftCam.IsVisible = false;
                         break;
-                    case CameraEnum.ThirdCamera:
+                    case CameraEnum.CAM3:
                         frCam3.IsEnabled = false;
                         topRightCam.IsVisible = false;
                         break;
-                    case CameraEnum.FourthCamera:
+                    case CameraEnum.CAM4:
                         frCam4.IsEnabled = false;
                         bottomRightCam.IsVisible = false;
                         break;
@@ -90,16 +90,16 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
             parentPanel.RowDefinitions.Clear();
             switch (obj)
             {
-                case CameraEnum.FirstCamera:                    
+                case CameraEnum.CAM1:                    
                     FullScreenCam1();
                     break;
-                case CameraEnum.SecondCamera:
+                case CameraEnum.CAM2:
                     FullScreenCam2();
                     break;
-                case CameraEnum.ThirdCamera:
+                case CameraEnum.CAM3:
                     FullScreenCam3();
                     break;
-                case CameraEnum.FourthCamera:
+                case CameraEnum.CAM4:
                     FullScreenCam4();
                     break;
             }

@@ -47,7 +47,7 @@
                     x:Name="slider"
                     Margin="20,0"
                     Maximum="60"
-                    Minimum="3"
+                    Minimum="6"
                     ThumbColor="{DynamicResource PrimaryColor}"
                     VerticalOptions="CenterAndExpand" />
                 <Grid

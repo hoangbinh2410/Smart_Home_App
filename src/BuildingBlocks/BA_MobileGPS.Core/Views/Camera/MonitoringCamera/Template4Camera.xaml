@@ -41,7 +41,7 @@
         <!--  Cam 1  -->
         <Grid BackgroundColor="Black" RowDefinitions="Auto,*">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.FirstCamera}" />
+                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.CAM1}" />
             </Grid.GestureRecognizers>
             <vlc:VideoView
                 x:Name="topLeftCam"
@@ -58,7 +58,7 @@
             <Frame
                 x:Name="frCam1"
                 BackgroundColor="Transparent"
-                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.FirstCamera}}"
+                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.CAM1}}"
                 InputTransparent="True"
                 Style="{StaticResource cameraTextFrame}">
                 <Frame.Triggers>
@@ -109,7 +109,7 @@
             BackgroundColor="Black"
             RowDefinitions="Auto,*">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.SecondCamera}" />
+                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.CAM2}" />
             </Grid.GestureRecognizers>
             <vlc:VideoView
                 x:Name="bottomLeftCam"
@@ -126,7 +126,7 @@
             <Frame
                 x:Name="frCam2"
                 BackgroundColor="Transparent"
-                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.SecondCamera}}"
+                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.CAM2}}"
                 InputTransparent="True"
                 Style="{StaticResource cameraTextFrame}">
                 <Frame.Triggers>
@@ -176,7 +176,7 @@
             BackgroundColor="Black"
             RowDefinitions="Auto,*">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.ThirdCamera}" />
+                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.CAM3}" />
             </Grid.GestureRecognizers>
             <vlc:VideoView
                 x:Name="topRightCam"
@@ -193,7 +193,7 @@
             <Frame
                 x:Name="frCam3"
                 BackgroundColor="Transparent"
-                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.ThirdCamera}}"
+                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.CAM3}}"
                 InputTransparent="True"
                 Style="{StaticResource cameraTextFrame}">
                 <Frame.Triggers>
@@ -243,7 +243,7 @@
             Grid.Column="1"
             BackgroundColor="Black">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.FourthCamera}" />
+                <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.CAM4}" />
             </Grid.GestureRecognizers>
             <vlc:VideoView
                 x:Name="bottomRightCam"
@@ -260,7 +260,7 @@
             <Frame
                 x:Name="frCam4"
                 BackgroundColor="Transparent"
-                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.FourthCamera}}"
+                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.CAM4}}"
                 InputTransparent="True"
                 Style="{StaticResource cameraTextFrame}">
                 <Frame.Triggers>
