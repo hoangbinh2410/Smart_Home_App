@@ -212,6 +212,7 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         public async void HideTab()
         {
+            isHideTabOnline = true;
             await _animations.Go(States.HideFilter, true);
         }
 
@@ -220,6 +221,7 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         private async void ShowTab()
         {
+            isHideTabOnline = false;
             await _animations.Go(States.ShowFilter, true);
         }
 
@@ -230,15 +232,25 @@ namespace BA_MobileGPS.Core.Views
 
 
         bool bExit = false;
+        bool isHideTabOnline = false;
 
         protected override bool OnBackButtonPressed()
         {
-            if (!bExit)
+            if (isHideTabOnline)
             {
                 this.eventAggregator.GetEvent<BackButtonEvent>().Publish(true);
-                ShowAlertWhen2Back();
-                return bExit;
+                return true;
             }
+            else
+            {
+                if (!bExit)
+                {
+
+                    ShowAlertWhen2Back();
+                    return bExit;
+                }
+            }
+
             return false;
         }
 
@@ -263,9 +275,13 @@ namespace BA_MobileGPS.Core.Views
 
         private void ShowAlertWhen2Back()
         {
-            DependencyService.Get<IDisplayMessage>().ShowMessageInfo("Back thêm lần nữa để thoát ứng dụng");
+            DependencyService.Get<IDisplayMessage>().ShowToast("Back thêm lần nữa để thoát ứng dụng");
             bExit = !bExit;
-            PostDelayed(new Timer(), () => bExit = false, 2000);
+            PostDelayed(new Timer(), () =>
+            {
+                isHideTabOnline = false;
+                bExit = false;
+            }, 2000);
         }
     }
 }
