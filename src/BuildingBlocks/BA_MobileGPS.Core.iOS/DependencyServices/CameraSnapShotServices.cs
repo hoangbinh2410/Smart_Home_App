@@ -10,10 +10,10 @@ namespace BA_MobileGPS.Core.iOS.DependencyServices
     {
         public string GetFolderPath()
         {
-            throw new NotImplementedException();
+            return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         }
 
-        public bool SaveSnapShotToGalery()
+        public bool SaveSnapShotToGalery(string oldPath)
         {
             throw new NotImplementedException();
         }

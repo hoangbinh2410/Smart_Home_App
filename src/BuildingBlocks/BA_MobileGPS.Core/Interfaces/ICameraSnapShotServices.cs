@@ -7,6 +7,6 @@ namespace BA_MobileGPS.Core.Interfaces
     public interface ICameraSnapShotServices
     {
         string GetFolderPath();
-        bool SaveSnapShotToGalery();
+        bool SaveSnapShotToGalery(string oldPath);
     }
 }

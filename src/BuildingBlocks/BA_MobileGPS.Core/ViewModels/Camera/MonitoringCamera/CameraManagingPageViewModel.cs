@@ -741,15 +741,18 @@ namespace BA_MobileGPS.Core.ViewModels
                    var current = DateTime.Now.ToString("yyyyMMddHHmmss");
                    var fileName = Enum.GetName(typeof(CameraEnum), SelectedCamera) + current + ".jpg";
                    var filePath = Path.Combine(folderPath, fileName);
+                   /// Android / data / vn.bagps.gpsmobile / files / Pictures"
                    switch (SelectedCamera)
                    {
                        case CameraEnum.CAM1:
                            MediaPlayerNo1.TakeSnapshot(0, filePath, 0, 0);
                            bool doesExist1 = File.Exists(filePath);
+                           var a = DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(filePath);
                            break;
 
                        case CameraEnum.CAM2:
-
+                           MediaPlayerNo2.TakeSnapshot(0, filePath, 0, 0);
+                           bool doesExis= File.Exists(filePath);
                            break;
 
                        case CameraEnum.CAM3:

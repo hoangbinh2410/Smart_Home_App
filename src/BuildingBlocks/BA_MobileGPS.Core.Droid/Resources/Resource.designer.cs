@@ -4381,46 +4381,55 @@ namespace BA_MobileGPS.Core.Droid
 			public static int ic_accountsolid = 2131165411;
 			
 			// aapt resource value: 0x7F0700E4
-			public static int ic_air_conditioner = 2131165412;
+			public static int ic_addtime = 2131165412;
 			
 			// aapt resource value: 0x7F0700E5
-			public static int ic_alert_speeding = 2131165413;
+			public static int ic_air_conditioner = 2131165413;
 			
 			// aapt resource value: 0x7F0700E6
-			public static int ic_anglebell = 2131165414;
+			public static int ic_alert_speeding = 2131165414;
 			
 			// aapt resource value: 0x7F0700E7
-			public static int ic_arrow_tracking = 2131165415;
+			public static int ic_anglebell = 2131165415;
 			
 			// aapt resource value: 0x7F0700E8
-			public static int ic_audiotrack_dark = 2131165416;
+			public static int ic_arrow_tracking = 2131165416;
 			
 			// aapt resource value: 0x7F0700E9
-			public static int ic_audiotrack_light = 2131165417;
+			public static int ic_audiotrack_dark = 2131165417;
 			
 			// aapt resource value: 0x7F0700EA
-			public static int ic_bellstand = 2131165418;
+			public static int ic_audiotrack_light = 2131165418;
 			
 			// aapt resource value: 0x7F0700EB
-			public static int ic_bounded_area = 2131165419;
+			public static int ic_bellstand = 2131165419;
 			
 			// aapt resource value: 0x7F0700EC
-			public static int ic_camera = 2131165420;
+			public static int ic_blueclock = 2131165420;
 			
 			// aapt resource value: 0x7F0700ED
-			public static int ic_car_play = 2131165421;
+			public static int ic_bounded_area = 2131165421;
 			
 			// aapt resource value: 0x7F0700EE
-			public static int ic_chamthan = 2131165422;
+			public static int ic_camera = 2131165422;
 			
 			// aapt resource value: 0x7F0700EF
-			public static int ic_changepassword = 2131165423;
+			public static int ic_car_play = 2131165423;
 			
 			// aapt resource value: 0x7F0700F0
-			public static int ic_chatsupport = 2131165424;
+			public static int ic_chamthan = 2131165424;
+			
+			// aapt resource value: 0x7F0700F1
+			public static int ic_changepassword = 2131165425;
 			
 			// aapt resource value: 0x7F0700F2
-			public static int ic_checked = 2131165426;
+			public static int ic_chatsupport = 2131165426;
+			
+			// aapt resource value: 0x7F0700F4
+			public static int ic_checked = 2131165428;
+			
+			// aapt resource value: 0x7F0700F5
+			public static int ic_checked_checkbox = 2131165429;
 			
 			// aapt resource value: 0x7F0700F3
 			public static int ic_check_black_24dp = 2131165427;
