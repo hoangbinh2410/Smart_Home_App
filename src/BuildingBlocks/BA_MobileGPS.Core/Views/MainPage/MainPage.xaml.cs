@@ -250,7 +250,7 @@ namespace BA_MobileGPS.Core.Views
                     return bExit;
                 }
             }
-
+            StaticSettings.ClearStaticSettings();
             return false;
         }
 

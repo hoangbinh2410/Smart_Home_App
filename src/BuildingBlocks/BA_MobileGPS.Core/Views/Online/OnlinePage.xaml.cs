@@ -191,7 +191,7 @@ namespace BA_MobileGPS.Core.Views
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
-            this.eventAggregator.GetEvent<BackButtonEvent>().Subscribe(AndroidBackButton);
+            this.eventAggregator.GetEvent<BackButtonEvent>().Unsubscribe(AndroidBackButton);
         }
 
         #endregion Lifecycle

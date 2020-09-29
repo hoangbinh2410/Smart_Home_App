@@ -32,11 +32,15 @@ namespace BA_MobileGPS.Entities
         public static void ClearStaticSettings()
         {
             User = null;
+            Token = string.Empty;
+            ListMenu = new List<HomeMenuItem>();
+            ListMenuOriginGroup = new List<HomeMenuItem>();
             ListVehilceOnline = null;
             ListAlertType = null;
             ListVehilceDebtMoney = null;
             ListVehilceFree = null;
             ListCompany = null;
+            LastSyncTime = DateTime.Now;
         }
 
         public static bool IsUnauthorized { get; set; }
