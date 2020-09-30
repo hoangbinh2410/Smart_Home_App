@@ -11,12 +11,7 @@ using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public enum ConditionType
-    {
-        MXN = 1,
-        BKS = 2,
-        IMEI = 3
-    }
+    
 
     public class StreamPictureViewModel : ViewModelBase
     {
@@ -90,7 +85,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 TryExecute(async () =>
                 {
-                    var statusResponse = await streamCameraService.GetDevicesStatus((int)ConditionType.BKS, bks);
+                    var statusResponse = await streamCameraService.GetDevicesStatus(ConditionType.BKS, bks);
 
                     if (statusResponse.Data != null && statusResponse.Data.Count > 0)
                     {
