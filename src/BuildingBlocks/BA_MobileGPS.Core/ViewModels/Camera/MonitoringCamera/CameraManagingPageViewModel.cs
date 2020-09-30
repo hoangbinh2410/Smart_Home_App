@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -37,8 +38,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private string currentXnCode { get; set; }
         private string currentVehiclePlate { get; set; }
        
-      
-
         private const int maxTimeCameraRemain = 598; //second       
 
         private List<CameraEnum> currentCamera { get; set; } = new List<CameraEnum>();
@@ -96,7 +95,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     IsCAM4Error = false;
                     EventAggregator.GetEvent<HideVideoViewEvent>().Publish(allCams);
                     VehicleSelectedPlate = vehiclePlate.VehiclePlate;
-                    GetCameraInfor("QATEST1");
+                    GetCameraInfor("CAMTEST1");
                     SelectedCamera = currentCamera.FirstOrDefault();                  
                     
                 }
@@ -1005,6 +1004,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
+           
             foreach (var item in currentCamera)
             {
                 TryExecute(async () =>
