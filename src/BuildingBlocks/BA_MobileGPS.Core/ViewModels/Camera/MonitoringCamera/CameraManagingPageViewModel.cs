@@ -70,6 +70,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (!string.IsNullOrEmpty(VehicleSelectedPlate) || VehicleSelectedPlate != vehiclePlate.VehiclePlate)
                 {
+                    currentCamera.Clear();
                     // reset selected cam
                     SelectedCamera = null;
                     var allCams = new List<CameraEnum>()
@@ -97,7 +98,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     VehicleSelectedPlate = vehiclePlate.VehiclePlate;
                     GetCameraInfor("QATEST1");
                     SelectedCamera = currentCamera.FirstOrDefault();                  
-                   
+                    
                 }
             }
             if (parameters.ContainsKey(ParameterKey.RequestTime) && parameters.GetValue<int>(ParameterKey.RequestTime) is int time)
@@ -758,28 +759,31 @@ namespace BA_MobileGPS.Core.ViewModels
         private void SetLanscape()
         {
             DependencyService.Get<IScreenOrientServices>().ForceLandscape();
-            switch (SelectedCamera)
+            Device.BeginInvokeOnMainThread(() =>
             {
-                case CameraEnum.CAM1:
-                    MediaPlayerNo1.AspectRatio = "16:9";
-                    EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.CAM1);
-                    break;
+                switch (SelectedCamera)
+                {
+                    case CameraEnum.CAM1:
+                        MediaPlayerNo1.AspectRatio = "16:9";
+                        EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.CAM1);
+                        break;
 
-                case CameraEnum.CAM2:
-                    MediaPlayerNo2.AspectRatio = "16:9";
-                    EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.CAM2);
-                    break;
+                    case CameraEnum.CAM2:
+                        MediaPlayerNo2.AspectRatio = "16:9";
+                        EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.CAM2);
+                        break;
 
-                case CameraEnum.CAM3:
-                    MediaPlayerNo3.AspectRatio = "16:9";
-                    EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.CAM3);
-                    break;
+                    case CameraEnum.CAM3:
+                        MediaPlayerNo3.AspectRatio = "16:9";
+                        EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.CAM3);
+                        break;
 
-                case CameraEnum.CAM4:
-                    MediaPlayerNo4.AspectRatio = "16:9";
-                    EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.CAM4);
-                    break;
-            }
+                    case CameraEnum.CAM4:
+                        MediaPlayerNo4.AspectRatio = "16:9";
+                        EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.CAM4);
+                        break;
+                }
+            });         
         }
 
         public ICommand ScreenShotTappedCommand { get; }

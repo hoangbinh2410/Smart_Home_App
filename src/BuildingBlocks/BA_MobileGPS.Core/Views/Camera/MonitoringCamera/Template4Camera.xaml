@@ -69,6 +69,7 @@
                         Value="True">
                         <Setter Property="BorderColor" Value="Red" />
                     </DataTrigger>
+
                 </Frame.Triggers>
                 <Label
                     StyleClass="BoldText"
