@@ -225,8 +225,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
+                throw;
             }
         }
 
