@@ -48,11 +48,12 @@
                 InputTransparent="True"
                 MediaPlayer="{Binding MediaPlayerNo1}" />
             <Label
+                x:Name="lblErrCam1"
                 Margin="0,10,5,0"
                 HorizontalOptions="End"
                 IsVisible="{Binding IsCAM1Error}"
                 StyleClass="BoldText"
-                Text="KHÔNG CÓ TÍN HIỆU"
+                Text="LỖI KẾT NỐI"
                 TextColor="Red"
                 VerticalOptions="Start" />
             <Frame
@@ -63,26 +64,17 @@
                 Style="{StaticResource cameraTextFrame}">
                 <Frame.Triggers>
                     <DataTrigger
-                        Binding="{Binding Source={x:Reference frCam1}, Path=BorderColor}"
+                        Binding="{Binding IsCAM1Error}"
                         TargetType="Frame"
-                        Value="#03BE0B">
-                        <Setter Property="BackgroundColor" Value="#03BE0B" />
+                        Value="True">
+                        <Setter Property="BorderColor" Value="Red" />
                     </DataTrigger>
                 </Frame.Triggers>
                 <Label
                     StyleClass="BoldText"
                     Text="Kênh 1"
-                    TextColor="{DynamicResource WhiteColor}"
-                    VerticalOptions="Center">
-                    <Label.Triggers>
-                        <DataTrigger
-                            Binding="{Binding Source={x:Reference frCam1}, Path=BorderColor}"
-                            TargetType="Label"
-                            Value="#0C852E">
-                            <Setter Property="TextColor" Value="#0C852E" />
-                        </DataTrigger>
-                    </Label.Triggers>
-                </Label>
+                    TextColor="{Binding Source={x:Reference frCam1}, Path=BorderColor, Mode=OneWay}"
+                    VerticalOptions="Center" />
             </Frame>
             <indicator:SfBusyIndicator IsBusy="{Binding IsCam1Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
             <Grid
@@ -113,11 +105,12 @@
                 InputTransparent="True"
                 MediaPlayer="{Binding MediaPlayerNo2}" />
             <Label
+                x:Name="lblCam2Err"
                 Margin="0,10,5,0"
                 HorizontalOptions="End"
                 IsVisible="{Binding IsCAM2Error}"
                 StyleClass="BoldText"
-                Text="KHÔNG CÓ TÍN HIỆU"
+                Text="LỖI KẾT NỐI"
                 TextColor="Red"
                 VerticalOptions="Start" />
             <Frame
@@ -128,26 +121,17 @@
                 Style="{StaticResource cameraTextFrame}">
                 <Frame.Triggers>
                     <DataTrigger
-                        Binding="{Binding Source={x:Reference frCam2}, Path=BorderColor}"
+                        Binding="{Binding IsCAM2Error}"
                         TargetType="Frame"
-                        Value="#03BE0B">
-                        <Setter Property="BackgroundColor" Value="#03BE0B" />
+                        Value="True">
+                        <Setter Property="BorderColor" Value="Red" />
                     </DataTrigger>
                 </Frame.Triggers>
                 <Label
                     StyleClass="BoldText"
                     Text="Kênh 2"
-                    TextColor="{DynamicResource WhiteColor}"
-                    VerticalOptions="Center">
-                    <Label.Triggers>
-                        <DataTrigger
-                            Binding="{Binding Source={x:Reference frCam2}, Path=BorderColor}"
-                            TargetType="Label"
-                            Value="#0C852E">
-                            <Setter Property="TextColor" Value="#0C852E" />
-                        </DataTrigger>
-                    </Label.Triggers>
-                </Label>
+                    TextColor="{Binding Source={x:Reference frCam2}, Path=BorderColor, Mode=OneWay}"
+                    VerticalOptions="Center" />
             </Frame>
 
             <indicator:SfBusyIndicator IsBusy="{Binding IsCam2Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
@@ -176,11 +160,12 @@
                 InputTransparent="True"
                 MediaPlayer="{Binding MediaPlayerNo3}" />
             <Label
+                x:Name="lblErrCam3"
                 Margin="0,10,5,0"
                 HorizontalOptions="End"
                 IsVisible="{Binding IsCAM3Error}"
                 StyleClass="BoldText"
-                Text="KHÔNG CÓ TÍN HIỆU"
+                Text="LỖI KẾT NỐI"
                 TextColor="Red"
                 VerticalOptions="Start" />
             <Frame
@@ -191,26 +176,17 @@
                 Style="{StaticResource cameraTextFrame}">
                 <Frame.Triggers>
                     <DataTrigger
-                        Binding="{Binding Source={x:Reference frCam3}, Path=BorderColor}"
+                        Binding="{Binding IsCAM3Error}"
                         TargetType="Frame"
-                        Value="#03BE0B">
-                        <Setter Property="BackgroundColor" Value="#03BE0B" />
+                        Value="True">
+                        <Setter Property="BorderColor" Value="Red" />
                     </DataTrigger>
                 </Frame.Triggers>
                 <Label
                     StyleClass="BoldText"
                     Text="Kênh 3"
-                    TextColor="{DynamicResource WhiteColor}"
-                    VerticalOptions="Center">
-                    <Label.Triggers>
-                        <DataTrigger
-                            Binding="{Binding Source={x:Reference frCam3}, Path=BorderColor}"
-                            TargetType="Label"
-                            Value="#0C852E">
-                            <Setter Property="TextColor" Value="#0C852E" />
-                        </DataTrigger>
-                    </Label.Triggers>
-                </Label>
+                    TextColor="{Binding Source={x:Reference frCam3}, Path=BorderColor, Mode=OneWay}"
+                    VerticalOptions="Center" />
             </Frame>
             <indicator:SfBusyIndicator IsBusy="{Binding IsCam3Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
             <Grid
@@ -241,11 +217,12 @@
                 InputTransparent="True"
                 MediaPlayer="{Binding MediaPlayerNo4}" />
             <Label
+                x:Name="lblErrCam4"
                 Margin="0,10,5,0"
                 HorizontalOptions="End"
                 IsVisible="{Binding IsCAM4Error}"
                 StyleClass="BoldText"
-                Text="KHÔNG CÓ TÍN HIỆU"
+                Text="LỖI KẾT NỐI"
                 TextColor="Red"
                 VerticalOptions="Start" />
             <Frame
@@ -256,26 +233,17 @@
                 Style="{StaticResource cameraTextFrame}">
                 <Frame.Triggers>
                     <DataTrigger
-                        Binding="{Binding Source={x:Reference frCam4}, Path=BorderColor}"
+                        Binding="{Binding IsCAM4Error}"
                         TargetType="Frame"
-                        Value="#03BE0B">
-                        <Setter Property="BackgroundColor" Value="#03BE0B" />
+                        Value="True">
+                        <Setter Property="BorderColor" Value="Red" />
                     </DataTrigger>
                 </Frame.Triggers>
                 <Label
                     StyleClass="BoldText"
                     Text="Kênh 4"
-                    TextColor="{DynamicResource WhiteColor}"
-                    VerticalOptions="Center">
-                    <Label.Triggers>
-                        <DataTrigger
-                            Binding="{Binding Source={x:Reference frCam4}, Path=BorderColor}"
-                            TargetType="Label"
-                            Value="#0C852E">
-                            <Setter Property="TextColor" Value="#0C852E" />
-                        </DataTrigger>
-                    </Label.Triggers>
-                </Label>
+                    TextColor="{Binding Source={x:Reference frCam4}, Path=BorderColor, Mode=OneWay}"
+                    VerticalOptions="Center" />
             </Frame>
             <indicator:SfBusyIndicator IsBusy="{Binding IsCam4Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
             <Grid
@@ -293,5 +261,4 @@
             </Grid>
         </Grid>
     </Grid>
-
 </ContentView>

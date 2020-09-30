@@ -28,4 +28,23 @@ namespace BA_MobileGPS.Core
             return value.ToString();
         }
     }
+    public class TimeRemainVisibleConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null || parameter == null)
+            {
+                return false;
+            }
+            if ((CameraEnum)value == (CameraEnum)parameter)
+                return true;
+            else
+                return false;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value.ToString();
+        }
+    }
 }
