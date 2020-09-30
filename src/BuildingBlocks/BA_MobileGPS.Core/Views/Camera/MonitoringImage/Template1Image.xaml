@@ -28,6 +28,9 @@
             BackgroundColor="{DynamicResource WhiteColor}"
             HorizontalOptions="FillAndExpand"
             ItemsSource="{Binding ListGroup}"
+            LoadMoreCommand="{Binding LoadMoreItemsCommand}"
+            LoadMoreCommandParameter="{Binding Source={x:Reference listview}}"
+            LoadMoreOption="Auto"
             SelectionBackgroundColor="Transparent"
             TapCommand="{Binding TapCommandListGroup}"
             VerticalOptions="FillAndExpand">
@@ -48,7 +51,7 @@
                             VerticalOptions="Start">
                             <StackLayout
                                 Padding="0"
-                                HorizontalOptions="FillAndExpand"
+                                HorizontalOptions="Start"
                                 Orientation="Horizontal">
                                 <Label
                                     HorizontalOptions="Start"

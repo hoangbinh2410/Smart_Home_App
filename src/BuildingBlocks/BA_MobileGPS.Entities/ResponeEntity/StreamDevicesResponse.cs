@@ -159,5 +159,7 @@ namespace BA_MobileGPS.Entities
 
         [JsonProperty("z")]
         public string CurrentAddress { get; set; } // Address
+
+        public bool IsFavorites { get; set; }
     }
 }

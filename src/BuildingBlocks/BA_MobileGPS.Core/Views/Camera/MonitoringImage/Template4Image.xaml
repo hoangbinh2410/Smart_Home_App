@@ -3,6 +3,7 @@
     x:Class="BA_MobileGPS.Core.Views.Camera.MonitoringImage.Template4Image"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:data="clr-namespace:Syncfusion.DataSource;assembly=Syncfusion.DataSource.Portable"
@@ -10,6 +11,7 @@
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:local="clr-namespace:BA_MobileGPS.Core.Views.Camera.MonitoringImage"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
@@ -54,8 +56,9 @@
                             HeightRequest="40"
                             VerticalOptions="Start">
                             <StackLayout
+                                x:Name="lblName"
                                 Padding="0"
-                                HorizontalOptions="FillAndExpand"
+                                HorizontalOptions="Start"
                                 Orientation="Horizontal">
                                 <Label
                                     HorizontalOptions="Start"
@@ -64,14 +67,14 @@
                                     TextColor="{DynamicResource WhiteColor}"
                                     VerticalOptions="Center" />
                                 <icons:IconView
-                                    Foreground="{Binding Key, Converter={StaticResource FavoritesColorConverter}}"
+                                    Foreground="{Binding Items[0].IsFavorites, Converter={StaticResource FavoritesColorConverter}}"
                                     HeightRequest="20"
                                     HorizontalOptions="Start"
                                     Source="ic_star.png"
                                     VerticalOptions="Center"
                                     WidthRequest="20" />
                                 <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                                    <TapGestureRecognizer Command="{Binding BindingContext.TabCommandFavorites, Source={Reference root}}" CommandParameter="{Binding Key}" />
                                 </StackLayout.GestureRecognizers>
                             </StackLayout>
                             <StackLayout

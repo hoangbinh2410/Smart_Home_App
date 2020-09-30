@@ -129,13 +129,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     xnCode = Settings.CurrentCompany.XNCode;
                 }
 
-                ListCameraImage = new List<CaptureImageData>();
                 ListCameraImage = await _streamCameraService.GetCaptureImageLimit(xnCode, VehiclePlate, 50);
                 if (ListCameraImage != null && ListCameraImage.Count > 0)
                 {
                     if(ImageCamera !=null)
                     {
-                        Position = ListCameraImage.IndexOf(ImageCamera);
+                        Position = ListCameraImage.Select(x => x.Url).ToList().IndexOf(ImageCamera.Url);
                     }
                     else
                     {
@@ -238,29 +237,38 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         private void TabImage()
         {
-            if (Device.RuntimePlatform == Device.Android)
+            try
             {
-                new PhotoBrowser
+                if (Device.RuntimePlatform == Device.Android)
                 {
-                    Photos = new List<Photo>(ListphotoImages),
-                    ActionButtonPressed = (index) =>
+                    new PhotoBrowser
                     {
-                        PhotoBrowser.Close();
-                    },
-                    StartIndex = Position,
-                    EnableGrid = true
-                }.Show();
-            }
-            else
-            {
-                new PhotoBrowser
+                        Photos = new List<Photo>(ListphotoImages),
+                        ActionButtonPressed = (index) =>
+                        {
+                            PhotoBrowser.Close();
+                        },
+                        StartIndex = Position,
+                        EnableGrid = true
+                    }.Show();
+                }
+                else
                 {
-                    Photos = new List<Photo>(ListphotoImages),
-                    ActionButtonPressed = null,
-                    StartIndex = Position,
-                    EnableGrid = true
-                }.Show();
+                    new PhotoBrowser
+                    {
+                        Photos = new List<Photo>(ListphotoImages),
+                        ActionButtonPressed = null,
+                        StartIndex = Position,
+                        EnableGrid = true
+                    }.Show();
+                }
             }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
         }
 
         /// <summary>

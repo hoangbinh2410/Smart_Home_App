@@ -28,12 +28,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand TabCommandDetail { get; set; }
 
-        public ICommand TapCommandListGroup { get; set; }
+        public ICommand TabCommandFavorites { get; set; }
 
+        public ICommand TapCommandListGroup { get; set; }
 
         public ICommand LoadMoreItemsCommand { get; set; }
 
         public ICommand RefeshCommand { get; set; }
+
 
         public ImageManagingPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService) : base(navigationService)
         {
@@ -42,6 +44,7 @@ namespace BA_MobileGPS.Core.ViewModels
             ListHeight = 1;
             TapItemsCommand = new DelegateCommand<object>(TapItems);
             TabCommandDetail = new DelegateCommand<object>(TabDetail);
+            TabCommandFavorites = new DelegateCommand<object>(TabFavorites);
             TapCommandListGroup = new DelegateCommand<ItemTappedEventArgs>(TapListGroup);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
             RefeshCommand = new DelegateCommand(RefeshImage);
@@ -105,7 +108,18 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private ObservableCollection<CaptureImageData> listGroup = new ObservableCollection<CaptureImageData>();
 
-        public ObservableCollection<CaptureImageData> ListGroup { get => listGroup; set => SetProperty(ref listGroup, value); }
+        public ObservableCollection<CaptureImageData> ListGroup
+        {
+            get { return listGroup; }
+            set
+            {
+                SetProperty(ref listGroup, value);
+                RaisePropertyChanged();
+            }
+        }
+
+
+        //public ObservableCollection<CaptureImageData> ListGroup { get => listGroup; set => SetProperty(ref listGroup, value); }
 
         private bool isShowLastViewVehicle = true;
         public bool IsShowLastViewVehicle { get => isShowLastViewVehicle; set => SetProperty(ref isShowLastViewVehicle, value); }
@@ -179,7 +193,77 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
+        private void TabFavorites(object obj)
+        {
+            try
+            {
+                string VehiclePlate = (string)obj;
+                if (Settings.FavoritesVehicleImage == string.Empty) // lần đầu
+                {
+                    Settings.FavoritesVehicleImage = VehiclePlate;
+                }
+                else
+                {
+                    var split = Settings.FavoritesVehicleImage.Split(',');
 
+                    string[] temp = new string[split.Length];
+
+                    var splitVehicle = split.Where(x => x == VehiclePlate).ToArray();
+
+                    if (splitVehicle.Length > 0) // đã có trong list thì xóa đi
+                    {
+                        split = split.Where(x => x != VehiclePlate).ToArray();
+
+                        temp = new string[split.Length];
+
+                        for (int i = 0; i < split.Length; i++)
+                        {
+                            temp[i] = split[i];
+                        }
+                    }
+                    else
+                    {
+                        temp = new string[split.Length + 1];
+
+                        for (int i = 0; i < split.Length; i++)
+                        {
+                            temp[i] = split[i];
+                        }
+
+                        temp[split.Length] = VehiclePlate;
+                    }
+
+                    Settings.FavoritesVehicleImage = string.Join(",", temp);
+                }
+
+                //
+
+                var lst = ListGroup.Where(x => x.VehiclePlate == VehiclePlate).ToList();
+                if (lst.Count > 0)
+                {
+                    foreach (var item in lst)
+                    {
+                        if (Settings.FavoritesVehicleImage.Contains(item.VehiclePlate))
+                        {
+                            item.IsFavorites = true;
+                        }
+                        else
+                        {
+                            item.IsFavorites = false;
+                        }
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+               // throw;
+            }
+            
+        }
+            
         private async void TapItems(object obj)
         {
             var listview = obj as Syncfusion.ListView.XForms.ItemTappedEventArgs;
@@ -282,6 +366,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (response != null && response.Count > 0)
                 {
                     ListGroup = new ObservableCollection<CaptureImageData>(response);
+                    foreach (var item in ListGroup)
+                    {
+                        if (Settings.FavoritesVehicleImage.Contains(item.VehiclePlate))
+                        {
+                            item.IsFavorites = true;
+                        }    
+                    }
                 }
                 else
                 {
@@ -322,6 +413,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 if (response != null && response.Count > 0)
                 {
+                    foreach (var item in response)
+                    {
+                        if (Settings.FavoritesVehicleImage.Contains(item.VehiclePlate))
+                        {
+                            item.IsFavorites = true;
+                        }
+                    }
+
                     var lst = ListGroup.ToList();
 
                     lst.AddRange(response);
@@ -338,6 +437,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ShowLastView()
         {
+            
             // nếu lần đầu vào chưa có lịch sử xem gần nhất
             if (string.IsNullOrEmpty(Settings.LastViewVehicleImage))
             {
