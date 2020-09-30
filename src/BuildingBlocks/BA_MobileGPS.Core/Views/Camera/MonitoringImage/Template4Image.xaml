@@ -132,7 +132,7 @@
                                 <Grid
                                     Padding="5"
                                     ColumnDefinitions="Auto,*,Auto"
-                                    RowDefinitions="Auto,Auto,Auto"
+                                    RowDefinitions="Auto,Auto,Auto,Auto"
                                     RowSpacing="3">
                                     <icons:IconView
                                         Foreground="{DynamicResource PrimaryColor}"
@@ -154,8 +154,7 @@
                                         Grid.Column="0"
                                         Foreground="{DynamicResource PrimaryColor}"
                                         HeightRequest="15"
-                                        HorizontalOptions="Start"
-                                        Source="ic_location_black"
+                                        Source="ic_camera"
                                         VerticalOptions="Center"
                                         WidthRequest="15" />
                                     <Label
@@ -165,15 +164,15 @@
                                         HorizontalOptions="Start"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
-                                        MaxLines="2"
-                                        Text="{Binding CurrentAddress}"
+                                        Text="{Binding Channel, StringFormat='{}Kênh: {0}'}"
                                         VerticalOptions="Center" />
                                     <icons:IconView
                                         Grid.Row="2"
                                         Grid.Column="0"
                                         Foreground="{DynamicResource PrimaryColor}"
                                         HeightRequest="15"
-                                        Source="ic_info_outline_white"
+                                        HorizontalOptions="Start"
+                                        Source="ic_location_black"
                                         VerticalOptions="Center"
                                         WidthRequest="15" />
                                     <Label
@@ -183,10 +182,28 @@
                                         HorizontalOptions="Start"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
+                                        MaxLines="2"
+                                        Text="{Binding CurrentAddress}"
+                                        VerticalOptions="Center" />
+                                    <icons:IconView
+                                        Grid.Row="3"
+                                        Grid.Column="0"
+                                        Foreground="{DynamicResource PrimaryColor}"
+                                        HeightRequest="15"
+                                        Source="ic_info_outline_white"
+                                        VerticalOptions="Center"
+                                        WidthRequest="15" />
+                                    <Label
+                                        Grid.Row="3"
+                                        Grid.Column="1"
+                                        FontSize="10"
+                                        HorizontalOptions="Start"
+                                        HorizontalTextAlignment="Start"
+                                        LineBreakMode="WordWrap"
                                         Text="Xe quá tốc độ"
                                         VerticalOptions="Center" />
                                     <StackLayout
-                                        Grid.RowSpan="3"
+                                        Grid.RowSpan="4"
                                         Grid.Column="2"
                                         HorizontalOptions="CenterAndExpand"
                                         Orientation="Vertical"
