@@ -11,9 +11,8 @@ namespace BA_MobileGPS.Core
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            //var param = (CameraSelectedEnum)parameter;
-            Color unSelected = Color.FromHex("#DBFF00");
-            Color selected = Color.FromHex("#03BE0B");
+            Color unSelected = Color.White;
+            Color selected = Color.FromHex("#0C852E");
             if (value == null || parameter == null)
             {
                 return unSelected;

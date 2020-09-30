@@ -44,7 +44,7 @@ namespace BA_MobileGPS.Core.Droid.DependencyServices
                     contentValues.Put(MediaColumns.DisplayName, name);
                     contentValues.Put(MediaColumns.MimeType, "image/jpg");
                     contentValues.Put(MediaColumns.RelativePath, "DCIM/" + IMAGES_FOLDER_NAME);
-                    var imageUri = resolver.Insert(MediaStore.Images.Media.ExternalContentUri, contentValues);
+                    var imageUri = resolver.Insert(Images.Media.ExternalContentUri, contentValues);
                     var fos = resolver.OpenOutputStream(imageUri);
                     var saved = bitmap.Compress(Bitmap.CompressFormat.Jpeg, 100, fos);
                     fos.Flush();
