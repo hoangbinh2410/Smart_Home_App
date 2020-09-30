@@ -346,4 +346,27 @@ namespace BA_MobileGPS.Core
             return default;
         }
     }
+
+    public class NumberToTimeConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (!(value is int result))
+            {
+                return "";
+            }
+            else
+            {
+                TimeSpan t = TimeSpan.FromSeconds(result);
+                return  string.Format("{0:D2}:{1:D2}",
+                    t.Minutes,
+                    t.Seconds);               
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return default;
+        }
+    }
 }

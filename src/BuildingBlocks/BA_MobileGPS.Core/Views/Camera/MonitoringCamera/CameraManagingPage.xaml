@@ -3,10 +3,11 @@
     x:Class="BA_MobileGPS.Core.Views.CameraManagingPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
-    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:local="clr-namespace:BA_MobileGPS.Core.Views.Camera.MonitoringCamera"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True"
@@ -17,6 +18,8 @@
         <converter:HasDataIconColorConverter x:Key="HasDataIconColorConverter" />
         <converter:ShowHideColumnConverter x:Key="ShowHideColumnConverter" />
         <converter:CameraNameConverter x:Key="CameraNameConverter" />
+        <converter:NumberToTimeConverter x:Key="NumberToTimeConverter" />
+        <converter:TimeRemainVisibleConverter x:Key="TimeRemainVisibleConverter" />
     </ContentPage.Resources>
     <NavigationPage.TitleView>
         <Grid VerticalOptions="End">
@@ -232,6 +235,7 @@
                     </icons:IconView.GestureRecognizers>
                 </icons:IconView>
             </StackLayout>
+
             <StackLayout
                 Grid.Column="2"
                 Margin="0,0,45,0"
@@ -245,6 +249,32 @@
                         <Setter Property="Margin" Value="0,0,15,0" />
                     </DataTrigger>
                 </StackLayout.Triggers>
+                <Grid HeightRequest="25" WidthRequest="45">
+                    <Label
+                        IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM1}}"
+                        StyleClass="BoldText"
+                        Text="{Binding TotalTimeCam1, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                    <Label
+                        IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM2}}"
+                        StyleClass="BoldText"
+                        Text="{Binding TotalTimeCam2, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                    <Label
+                        IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM3}}"
+                        StyleClass="BoldText"
+                        Text="{Binding TotalTimeCam3, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                    <Label
+                        IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM4}}"
+                        StyleClass="BoldText"
+                        Text="{Binding TotalTimeCam4, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                </Grid>
                 <icons:IconView
                     Foreground="{DynamicResource WhiteColor}"
                     HeightRequest="25"

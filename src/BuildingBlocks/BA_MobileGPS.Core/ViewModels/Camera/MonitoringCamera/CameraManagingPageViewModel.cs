@@ -1,32 +1,28 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Interfaces;
-using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.Views.Camera.MonitoringCamera;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
-using BA_MobileGPS.Service.Service;
 using LibVLCSharp.Shared;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using Prism.Services.Dialogs.Popups;
-using Syncfusion.XlsIO.Parser.Biff_Records;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class CameraManagingPageViewModel : ViewModelBase
     {
-        private readonly Stopwatch stopwatchCam1 = new Stopwatch();
-        private readonly Stopwatch stopwatchCam2 = new Stopwatch();
+        private Timer timer;
+        private readonly int maxLoadingTime = 28;
         private readonly string playIconSource = "ic_play_arrow_white.png";
         private readonly string stopIconSource = "ic_stop_white.png";
         private readonly string volumeIconSource = "ic_volumespeaker";
@@ -35,14 +31,14 @@ namespace BA_MobileGPS.Core.ViewModels
         private string videoUrl2 = string.Empty;
         private string videoUrl3 = string.Empty;
         private string videoUrl4 = string.Empty;
+        private double cam1LoadingTime = 0;
+        private double cam2LoadingTime = 0;
+        private double cam3LoadingTime = 0;
+        private double cam4LoadingTime = 0;
         private string currentXnCode { get; set; }
         private string currentVehiclePlate { get; set; }
-        private long totalTimeCam1 { get; set; }
-        private long totalTimeCam2 { get; set; }
-        private long totalTimeCam3 { get; set; }
-        private long totalTimeCam4 { get; set; }
-        private const int maxTimeCameraRemain = 600000; //milisecond
-        private const int pingRequestDelayTime = 30000; //milisecond : time between two request extra time for current video
+       
+        private const int maxTimeCameraRemain = 598; //second       
 
         private List<CameraEnum> currentCamera { get; set; } = new List<CameraEnum>();
 
@@ -73,6 +69,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (!string.IsNullOrEmpty(VehicleSelectedPlate) || VehicleSelectedPlate != vehiclePlate.VehiclePlate)
                 {
+                    currentCamera.Clear();
                     // reset selected cam
                     SelectedCamera = null;
                     var allCams = new List<CameraEnum>()
@@ -82,15 +79,25 @@ namespace BA_MobileGPS.Core.ViewModels
                             CameraEnum.CAM3,
                             CameraEnum.CAM4,
                         };
+                    TotalTimeCam1 = 0;
+                    TotalTimeCam2 = 0;
+                    TotalTimeCam3 = 0;
+                    TotalTimeCam4 = 0;
+
+                    cam1LoadingTime = 0;
+                    cam2LoadingTime = 0;
+                    cam3LoadingTime = 0;
+                    cam4LoadingTime = 0;
+
+                    IsCAM1Error = false;
+                    IsCAM2Error = false;
+                    IsCAM3Error = false;
+                    IsCAM4Error = false;
                     EventAggregator.GetEvent<HideVideoViewEvent>().Publish(allCams);
                     VehicleSelectedPlate = vehiclePlate.VehiclePlate;
-                    GetCameraInfor("BACAM1409");
-                    SelectedCamera = currentCamera.FirstOrDefault();
-
-                    Cam1ReloadCount = 0;
-                    Cam2ReloadCount = 0;
-                    Cam3ReloadCount = 0;
-                    Cam4ReloadCount = 0;
+                    GetCameraInfor("CAMTEST1");
+                    SelectedCamera = currentCamera.FirstOrDefault();                  
+                    
                 }
             }
             if (parameters.ContainsKey(ParameterKey.RequestTime) && parameters.GetValue<int>(ParameterKey.RequestTime) is int time)
@@ -104,6 +111,50 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.Initialize(parameters);
             SetUpVlc();
+
+        }
+        private int totalTimeCam1;// second
+        public int TotalTimeCam1
+        {
+            get { return totalTimeCam1; }
+            set
+            {
+                SetProperty(ref totalTimeCam1, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private int totalTimeCam2; // second
+        public int TotalTimeCam2
+        {
+            get { return totalTimeCam2; }
+            set
+            {
+                SetProperty(ref totalTimeCam2, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private int totalTimeCam3;// second
+        public int TotalTimeCam3
+        {
+            get { return totalTimeCam3; }
+            set
+            {
+                SetProperty(ref totalTimeCam3, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private int totalTimeCam4;// second
+        public int TotalTimeCam4
+        {
+            get { return totalTimeCam4; }
+            set
+            {
+                SetProperty(ref totalTimeCam4, value);
+                RaisePropertyChanged();
+            }
         }
 
         private LibVLC libVLC;
@@ -130,7 +181,6 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private bool isCam1Loaded;
-
         public bool IsCam1Loaded
         {
             get { return isCam1Loaded; }
@@ -142,7 +192,6 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private MediaPlayer mediaPlayerNo2;
-
         public MediaPlayer MediaPlayerNo2
         {
             get { return mediaPlayerNo2; }
@@ -273,50 +322,41 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private int cam1ReloadCount;
-
-        public int Cam1ReloadCount // Time before video play
+        private bool isCAM1Error;
+        public bool IsCAM1Error
         {
-            get { return cam1ReloadCount; }
-            set
-            {
-                SetProperty(ref cam1ReloadCount, value);
+            get { return isCAM1Error; }
+            set { SetProperty(ref isCAM1Error, value);
                 RaisePropertyChanged();
             }
         }
-
-        private int cam2ReloadCount;
-
-        public int Cam2ReloadCount // Time before video play
+        private bool isCAM2Error;
+        public bool IsCAM2Error
         {
-            get { return cam2ReloadCount; }
+            get { return isCAM2Error; }
             set
             {
-                SetProperty(ref cam2ReloadCount, value);
+                SetProperty(ref isCAM2Error, value);
                 RaisePropertyChanged();
             }
         }
-
-        private int cam3ReloadCount;
-
-        public int Cam3ReloadCount // Time before video play
+        private bool isCAM3Error;
+        public bool IsCAM3Error
         {
-            get { return cam3ReloadCount; }
+            get { return isCAM3Error; }
             set
             {
-                SetProperty(ref cam3ReloadCount, value);
+                SetProperty(ref isCAM3Error, value);
                 RaisePropertyChanged();
             }
         }
-
-        private int cam4ReloadCount;
-
-        public int Cam4ReloadCount // Time before video play
+        private bool isCAM4Error;
+        public bool IsCAM4Error
         {
-            get { return cam4ReloadCount; }
+            get { return isCAM4Error; }
             set
             {
-                SetProperty(ref cam4ReloadCount, value);
+                SetProperty(ref isCAM4Error, value);
                 RaisePropertyChanged();
             }
         }
@@ -325,76 +365,80 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void PlayTapped()
         {
-            Device.BeginInvokeOnMainThread(() =>
+            if (CanExcute())
             {
-                switch (SelectedCamera)
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    case CameraEnum.CAM1:
-                        if (IsCam1Loaded)
-                        {
-                            if (MediaPlayerNo1.IsPlaying)
+                    switch (SelectedCamera)
+                    {
+                        case CameraEnum.CAM1:
+                            if (IsCam1Loaded)
                             {
-                                MediaPlayerNo1.Pause();
-                                PlayButtonIconSource = playIconSource;
+                                if (MediaPlayerNo1.IsPlaying)
+                                {
+                                    MediaPlayerNo1.Pause();
+                                    PlayButtonIconSource = playIconSource;
+                                }
+                                else
+                                {
+                                    MediaPlayerNo1.Play();
+                                    PlayButtonIconSource = stopIconSource;
+                                }
                             }
-                            else
+                            break;
+                        case CameraEnum.CAM2:
+                            if (IsCam2Loaded)
                             {
-                                MediaPlayerNo1.Play();
-                                PlayButtonIconSource = stopIconSource;
+                                if (MediaPlayerNo2.IsPlaying)
+                                {
+                                    MediaPlayerNo2.Pause();
+                                    PlayButtonIconSource = playIconSource;
+                                }
+                                else
+                                {
+                                    MediaPlayerNo2.Play();
+                                    PlayButtonIconSource = stopIconSource;
+                                }
                             }
-                        }
-                        break;
-                    case CameraEnum.CAM2:
-                        if (IsCam2Loaded)
-                        {
-                            if (MediaPlayerNo2.IsPlaying)
-                            {
-                                MediaPlayerNo2.Pause();
-                                PlayButtonIconSource = playIconSource;
-                            }
-                            else
-                            {
-                                MediaPlayerNo2.Play();
-                                PlayButtonIconSource = stopIconSource;
-                            }
-                        }
-                        break;
+                            break;
 
-                    case CameraEnum.CAM3:
-                        if (IsCam3Loaded)
-                        {
-                            if (MediaPlayerNo3.IsPlaying)
+                        case CameraEnum.CAM3:
+                            if (IsCam3Loaded)
                             {
-                                MediaPlayerNo3.Pause();
-                                PlayButtonIconSource = playIconSource;
+                                if (MediaPlayerNo3.IsPlaying)
+                                {
+                                    MediaPlayerNo3.Pause();
+                                    PlayButtonIconSource = playIconSource;
+                                }
+                                else
+                                {
+                                    MediaPlayerNo3.Play();
+                                    PlayButtonIconSource = stopIconSource;
+                                }
                             }
-                            else
-                            {
-                                MediaPlayerNo3.Play();
-                                PlayButtonIconSource = stopIconSource;
-                            }
-                        }
-                        break;
+                            break;
 
-                    case CameraEnum.CAM4:
-                        if (IsCam4Loaded)
-                        {
-                            if (MediaPlayerNo4.IsPlaying)
+                        case CameraEnum.CAM4:
+                            if (IsCam4Loaded)
                             {
-                                MediaPlayerNo4.Pause();
-                                PlayButtonIconSource = playIconSource;
+                                if (MediaPlayerNo4.IsPlaying)
+                                {
+                                    MediaPlayerNo4.Pause();
+                                    PlayButtonIconSource = playIconSource;
+                                }
+                                else
+                                {
+                                    MediaPlayerNo4.Play();
+                                    PlayButtonIconSource = stopIconSource;
+                                }
                             }
-                            else
-                            {
-                                MediaPlayerNo4.Play();
-                                PlayButtonIconSource = stopIconSource;
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            });
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            }
+           
         }
 
         private void SetUpVlc()
@@ -412,20 +456,32 @@ namespace BA_MobileGPS.Core.ViewModels
             MediaPlayerNo1.TimeChanged += MediaPlayerNo1_TimeChanged;
             MediaPlayerNo1.EncounteredError += MediaPlayerNo1_EncounteredError;
             MediaPlayerNo1.Play();
-            stopwatchCam1.Start();
+
         }
 
         private void MediaPlayerNo1_EncounteredError(object sender, EventArgs e)
         {
             TryExecute(async () =>
             {
-                stopwatchCam1.Stop();
-                await Task.Delay(2000);
                 MediaPlayerNo1.EncounteredError -= MediaPlayerNo1_EncounteredError;
-                MediaPlayerNo1.TimeChanged -= MediaPlayerNo1_TimeChanged;
-                InitCamera1(videoUrl1);
+              
+                if (cam1LoadingTime <= maxLoadingTime)
+                {                  
+                    await Task.Delay(200);
+                    cam1LoadingTime += 0.2;
+                    InitCamera1(videoUrl1);
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        EventAggregator.GetEvent<HideVideoViewEvent>().Publish(new List<CameraEnum>() { CameraEnum.CAM1 });
+                        IsCam1Loaded = true;
+                        IsCAM1Error = true;
+                    });
+                }
             });
-            Cam1ReloadCount += 2;
+
         }
 
         private void MediaPlayerNo1_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
@@ -435,24 +491,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 PlayButtonIconSource = stopIconSource;
                 IsCam1Loaded = true;
                 ShowVideoView(CameraEnum.CAM1);
-                stopwatchCam1.Stop();
-                Cam1ReloadCount += (int)(stopwatchCam1.ElapsedMilliseconds / 1000);
-                totalTimeCam1 = 3;
-            }
-            else
-            {
-                if (e.Time % pingRequestDelayTime == 0) // check ping 30000 ms per time
-                {
-                    var remain = totalTimeCam1 * 60 * 1000 - e.Time;
-                    if (remain > maxTimeCameraRemain - pingRequestDelayTime)
-                    {
-                        TryExecute(async () =>
-                        {
-                            await SendRequestTime(600, 1);
-                        });
-                    }
-                }
-            }
+                TotalTimeCam1 = 180;
+                MediaPlayerNo1.TimeChanged -= MediaPlayerNo1_TimeChanged;
+            }            
         }
 
         private void InitCamera2(string url)
@@ -464,20 +505,30 @@ namespace BA_MobileGPS.Core.ViewModels
             MediaPlayerNo2.TimeChanged += MediaPlayerNo2_TimeChanged;
             MediaPlayerNo2.EncounteredError += MediaPlayerNo2_EncounteredError;
             MediaPlayerNo2.Play();
-            stopwatchCam2.Start();
         }
 
         private void MediaPlayerNo2_EncounteredError(object sender, EventArgs e)
         {
             TryExecute(async () =>
             {
-                stopwatchCam2.Stop();
-                await Task.Delay(2000);
                 MediaPlayerNo2.EncounteredError -= MediaPlayerNo2_EncounteredError;
-                MediaPlayerNo2.TimeChanged -= MediaPlayerNo2_TimeChanged;
-                InitCamera2(videoUrl2);
+               
+                if (cam2LoadingTime <= maxLoadingTime)
+                {                 
+                    await Task.Delay(200);
+                    cam2LoadingTime += 0.2;
+                    InitCamera2(videoUrl2);
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        EventAggregator.GetEvent<HideVideoViewEvent>().Publish(new List<CameraEnum>() { CameraEnum.CAM2 });
+                        IsCam2Loaded = true;
+                        IsCAM2Error = true;
+                    });                  
+                }
             });
-            Cam2ReloadCount += 2;
         }
 
         private void MediaPlayerNo2_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
@@ -487,24 +538,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 PlayButtonIconSource = stopIconSource;
                 IsCam2Loaded = true;
                 ShowVideoView(CameraEnum.CAM2);
-                stopwatchCam2.Stop();
-                Cam2ReloadCount += (int)(stopwatchCam1.ElapsedMilliseconds / 1000);
-                totalTimeCam2 = 3;
+                TotalTimeCam2 = 180;
+                MediaPlayerNo2.TimeChanged -= MediaPlayerNo2_TimeChanged;
             }
-            else
-            {
-                if (e.Time % pingRequestDelayTime == 0) // check ping 30000 ms per time
-                {
-                    var remain = totalTimeCam2 * 60 * 1000 - e.Time;
-                    if (remain > maxTimeCameraRemain - pingRequestDelayTime)
-                    {
-                        TryExecute(async () =>
-                        {
-                            await SendRequestTime(600, 2);
-                        });
-                    }
-                }
-            }
+          
         }
 
         private void InitCamera3(string url)
@@ -522,12 +559,25 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             TryExecute(async () =>
             {
-                await Task.Delay(2000);
-                MediaPlayerNo3.EncounteredError -= MediaPlayerNo3_EncounteredError;
-                MediaPlayerNo3.TimeChanged -= MediaPlayerNo3_TimeChanged;
-                InitCamera3(videoUrl3);
+                MediaPlayerNo3.EncounteredError -= MediaPlayerNo3_EncounteredError;               
+                if (cam3LoadingTime < maxLoadingTime)
+                {                 
+                    await Task.Delay(200);
+                    cam3LoadingTime += 0.2;
+                    InitCamera3(videoUrl3);
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        EventAggregator.GetEvent<HideVideoViewEvent>().Publish(new List<CameraEnum>() { CameraEnum.CAM3 });
+                        IsCam3Loaded = true;
+                        IsCAM3Error = true;
+                    });
+                }
+
             });
-            Cam3ReloadCount += 2;
+
         }
 
         private void MediaPlayerNo3_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
@@ -537,22 +587,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 PlayButtonIconSource = stopIconSource;
                 IsCam3Loaded = true;
                 ShowVideoView(CameraEnum.CAM3);
-                totalTimeCam3 = 3;
+                TotalTimeCam3 = 180;
+                MediaPlayerNo3.TimeChanged -= MediaPlayerNo3_TimeChanged;
             }
-            else
-            {
-                if (e.Time % pingRequestDelayTime == 0) // check ping 30000 ms per time
-                {
-                    var remain = totalTimeCam3 * 60 * 1000 - e.Time;
-                    if (remain > maxTimeCameraRemain - pingRequestDelayTime)
-                    {
-                        TryExecute(async () =>
-                        {
-                            await SendRequestTime(600, 3);
-                        });
-                    }
-                }
-            }
+      
         }
 
         private void InitCamera4(string url)
@@ -570,12 +608,25 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             TryExecute(async () =>
             {
-                await Task.Delay(2000);
-                MediaPlayerNo4.EncounteredError -= MediaPlayerNo4_EncounteredError;
-                MediaPlayerNo4.TimeChanged -= MediaPlayerNo4_TimeChanged;
-                InitCamera4(videoUrl4);
+                MediaPlayerNo4.EncounteredError -= MediaPlayerNo4_EncounteredError;              
+                if (cam4LoadingTime <= maxLoadingTime)
+                {                 
+                    await Task.Delay(200);
+                    cam4LoadingTime += 0.2;                  
+                    InitCamera4(videoUrl4);
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        EventAggregator.GetEvent<HideVideoViewEvent>().Publish(new List<CameraEnum>() { CameraEnum.CAM3 });
+                        IsCam4Loaded = true;
+                        IsCAM4Error = true;
+                    });
+                }
+
             });
-            Cam4ReloadCount += 2;
+
         }
 
         private void MediaPlayerNo4_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
@@ -585,50 +636,41 @@ namespace BA_MobileGPS.Core.ViewModels
                 PlayButtonIconSource = stopIconSource;
                 IsCam4Loaded = true;
                 ShowVideoView(CameraEnum.CAM4);
-                totalTimeCam4 = 3;
+                TotalTimeCam4 = 180;
+                MediaPlayerNo4.TimeChanged -= MediaPlayerNo4_TimeChanged;
             }
-            else
-            {
-                if (e.Time % pingRequestDelayTime == 0) // check ping 30000 ms per time
-                {
-                    var remain = totalTimeCam4 * 60 * 1000 - e.Time;
-                    if (remain > maxTimeCameraRemain - pingRequestDelayTime)
-                    {
-                        TryExecute(async () =>
-                        {
-                            await SendRequestTime(600, 4);
-                        });                        
-                    }                   
-                }
-            }
+       
         }
 
         public ICommand VolumeChangedCommand { get; }
 
         private void VolumeChanged()
         {
-            switch (SelectedCamera)
+            if (CanExcute())
             {
-                case CameraEnum.CAM1:
-                    MediaPlayerNo1.Mute = !MediaPlayerNo1.Mute;
-                    VolumeButtonIconSource = MediaPlayerNo1.Mute ? muteIconSource : volumeIconSource;
-                    break;
+                switch (SelectedCamera)
+                {
+                    case CameraEnum.CAM1:
+                        MediaPlayerNo1.Mute = !MediaPlayerNo1.Mute;
+                        VolumeButtonIconSource = MediaPlayerNo1.Mute ? muteIconSource : volumeIconSource;
+                        break;
 
-                case CameraEnum.CAM2:
-                    MediaPlayerNo2.Mute = !MediaPlayerNo2.Mute;
-                    VolumeButtonIconSource = MediaPlayerNo2.Mute ? muteIconSource : volumeIconSource;
-                    break;
+                    case CameraEnum.CAM2:
+                        MediaPlayerNo2.Mute = !MediaPlayerNo2.Mute;
+                        VolumeButtonIconSource = MediaPlayerNo2.Mute ? muteIconSource : volumeIconSource;
+                        break;
 
-                case CameraEnum.CAM3:
-                    MediaPlayerNo3.Mute = !MediaPlayerNo3.Mute;
-                    VolumeButtonIconSource = MediaPlayerNo3.Mute ? muteIconSource : volumeIconSource;
-                    break;
+                    case CameraEnum.CAM3:
+                        MediaPlayerNo3.Mute = !MediaPlayerNo3.Mute;
+                        VolumeButtonIconSource = MediaPlayerNo3.Mute ? muteIconSource : volumeIconSource;
+                        break;
 
-                case CameraEnum.CAM4:
-                    MediaPlayerNo4.Mute = !MediaPlayerNo4.Mute;
-                    VolumeButtonIconSource = MediaPlayerNo4.Mute ? muteIconSource : volumeIconSource;
-                    break;
-            }
+                    case CameraEnum.CAM4:
+                        MediaPlayerNo4.Mute = !MediaPlayerNo4.Mute;
+                        VolumeButtonIconSource = MediaPlayerNo4.Mute ? muteIconSource : volumeIconSource;
+                        break;
+                }
+            }        
         }
 
         public ICommand CameraFrameTappedCommand { get; }
@@ -668,41 +710,56 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void RequestTimeTapped()
         {
-            SafeExecute(async () =>
+            if (CanExcute())
             {
-                await NavigationService.NavigateAsync("RequestMoreTimePopup");
-            });
+                SafeExecute(async () =>
+                {
+                    await NavigationService.NavigateAsync("RequestMoreTimePopup");
+                });
+            }        
         }
 
         public ICommand FullScreenTappedCommand { get; }
 
         private void FullScreenTapped()
         {
-            IsFullScreenOff = !IsFullScreenOff;
-            if (IsFullScreenOff)
+            if (CanExcute())
             {
-                EventAggregator.GetEvent<SwitchToNormalScreenEvent>().Publish();
-                DependencyService.Get<IScreenOrientServices>().ForcePortrait();
-                if (MediaPlayerNo1 != null)
+                IsFullScreenOff = !IsFullScreenOff;
+                if (IsFullScreenOff)
                 {
-                    MediaPlayerNo1.AspectRatio = "4:3";
+                    EventAggregator.GetEvent<SwitchToNormalScreenEvent>().Publish();
+                    DependencyService.Get<IScreenOrientServices>().ForcePortrait();
+                    if (MediaPlayerNo1 != null)
+                    {
+                        MediaPlayerNo1.AspectRatio = "4:3";
+                    }
+                    if (MediaPlayerNo2 != null)
+                    {
+                        MediaPlayerNo2.AspectRatio = "4:3";
+                    }
+                    if (MediaPlayerNo3 != null)
+                    {
+                        MediaPlayerNo3.AspectRatio = "4:3";
+                    }
+                    if (MediaPlayerNo4 != null)
+                    {
+                        MediaPlayerNo4.AspectRatio = "4:3";
+                    }
                 }
-                if (MediaPlayerNo2 != null)
+                else
                 {
-                    MediaPlayerNo2.AspectRatio = "4:3";
-                }
-                if (MediaPlayerNo3 != null)
-                {
-                    MediaPlayerNo3.AspectRatio = "4:3";
-                }
-                if (MediaPlayerNo4 != null)
-                {
-                    MediaPlayerNo4.AspectRatio = "4:3";
+                    SetLanscape();
                 }
             }
-            else
+
+        }
+
+        private void SetLanscape()
+        {
+            DependencyService.Get<IScreenOrientServices>().ForceLandscape();
+            Device.BeginInvokeOnMainThread(() =>
             {
-                DependencyService.Get<IScreenOrientServices>().ForceLandscape();
                 switch (SelectedCamera)
                 {
                     case CameraEnum.CAM1:
@@ -725,48 +782,58 @@ namespace BA_MobileGPS.Core.ViewModels
                         EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.CAM4);
                         break;
                 }
-            }
+            });         
         }
 
         public ICommand ScreenShotTappedCommand { get; }
         private void ScreenShotTapped()
         {
             TryExecute(async () =>
-           {
-               var photoPermission = await PermissionHelper.CheckPhotoPermissions();
-               var storagePermission = await PermissionHelper.CheckStoragePermissions();
-               if (photoPermission && storagePermission)
-               {
-                   var folderPath = DependencyService.Get<ICameraSnapShotServices>().GetFolderPath();
-                   var current = DateTime.Now.ToString("yyyyMMddHHmmss");
-                   var fileName = Enum.GetName(typeof(CameraEnum), SelectedCamera) + current + ".jpg";
-                   var filePath = Path.Combine(folderPath, fileName);
-                   /// Android / data / vn.bagps.gpsmobile / files / Pictures"
-                   switch (SelectedCamera)
-                   {
-                       case CameraEnum.CAM1:
-                           MediaPlayerNo1.TakeSnapshot(0, filePath, 0, 0);
-                           bool doesExist1 = File.Exists(filePath);
-                           var a = DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(filePath);
-                           break;
+            {
+                var photoPermission = await PermissionHelper.CheckPhotoPermissions();
+                var storagePermission = await PermissionHelper.CheckStoragePermissions();
+                if (photoPermission && storagePermission)
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        SetLanscape();
+                    });
+                    
+                    var folderPath = DependencyService.Get<ICameraSnapShotServices>().GetFolderPath();
+                    var current = DateTime.Now.ToString("yyyyMMddHHmmss");
+                    var fileName = Enum.GetName(typeof(CameraEnum), SelectedCamera) + current + ".jpg";
+                    var filePath = Path.Combine(folderPath, fileName);
+                    switch (SelectedCamera)
+                    {
+                        case CameraEnum.CAM1:
+                            MediaPlayerNo1.TakeSnapshot(0, filePath, 0, 0);
+                            break;
 
-                       case CameraEnum.CAM2:
-                           MediaPlayerNo2.TakeSnapshot(0, filePath, 0, 0);
-                           bool doesExis= File.Exists(filePath);
-                           break;
+                        case CameraEnum.CAM2:
+                            MediaPlayerNo2.TakeSnapshot(0, filePath, 0, 0);
+                            break;
 
-                       case CameraEnum.CAM3:
+                        case CameraEnum.CAM3:
+                            MediaPlayerNo3.TakeSnapshot(0, filePath, 0, 0);
+                            break;
 
-                           break;
-
-                       case CameraEnum.CAM4:
-
-                           break;
-                   }
-               }
-
-
-           });                                  
+                        case CameraEnum.CAM4:
+                            MediaPlayerNo4.TakeSnapshot(0, filePath, 0, 0);
+                            break;
+                    }
+                    if (File.Exists(filePath))
+                    {
+                        DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(filePath);
+                    }
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        SetLanscape();
+                    });
+                }
+            });
         }
 
         private void GetCameraInfor(string bks)
@@ -816,22 +883,22 @@ namespace BA_MobileGPS.Core.ViewModels
                                         case 1:
                                             //Bật busy indicator
                                             IsCam1Loaded = false;
-                                            Cam1ReloadCount += 1;
+                                            cam1LoadingTime += 1;
                                             break;
 
                                         case 2:
                                             IsCam2Loaded = false;
-                                            Cam2ReloadCount += 1;
+                                            cam2LoadingTime += 1;
                                             break;
 
                                         case 3:
                                             IsCam3Loaded = false;
-                                            Cam3ReloadCount += 1;
+                                            cam3LoadingTime += 1;
                                             break;
 
                                         case 4:
                                             IsCam4Loaded = false;
-                                            Cam4ReloadCount += 1;
+                                            cam4LoadingTime += 1;
                                             break;
 
                                         default:
@@ -886,6 +953,13 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             EventAggregator.GetEvent<ShowVideoViewEvent>().Publish(new List<CameraEnum>() { camera });
             currentCamera.Add(camera);
+            if (timer == null)
+            {
+                timer = new Timer();
+                timer.Interval = 1000;
+                timer.Elapsed += Timer_Elapsed;
+                timer.Start();
+            }
         }
 
         private void RequestMoreTimeStream(int minutes)
@@ -895,19 +969,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 switch (SelectedCamera)
                 {
                     case CameraEnum.CAM1:
-                        totalTimeCam1 += minutes;
+                        TotalTimeCam1 += minutes * 60;
                         break;
 
                     case CameraEnum.CAM2:
-                        totalTimeCam2 += minutes;
+                        TotalTimeCam2 += minutes * 60;
                         break;
 
                     case CameraEnum.CAM3:
-                        totalTimeCam3 += minutes;
+                        TotalTimeCam3 += minutes * 60;
                         break;
 
                     case CameraEnum.CAM4:
-                        totalTimeCam4 += minutes;
+                        TotalTimeCam4 += minutes * 60;
                         break;
                 }
             }
@@ -925,7 +999,101 @@ namespace BA_MobileGPS.Core.ViewModels
             if (!response.Data) // false : try request again
             {
                 await SendRequestTime(timeSecond, chanel);
-            }          
+            }
+        }
+
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+           
+            foreach (var item in currentCamera)
+            {
+                TryExecute(async () =>
+                {
+                    switch (item)
+                    {
+                        case CameraEnum.CAM1:
+                            if (TotalTimeCam1 > 0)
+                            {
+                                TotalTimeCam1 -= 1;
+                            }
+                            
+                            if (TotalTimeCam1 % 10 == 0 && TotalTimeCam1 > maxTimeCameraRemain)
+                            {
+                                await SendRequestTime(600, 1);
+                            }
+                            break;
+                        case CameraEnum.CAM2:
+                            if (TotalTimeCam2 > 0)
+                            {
+                                TotalTimeCam2 -= 1;
+                            }
+                           
+                            if (TotalTimeCam2 % 10 == 0 && TotalTimeCam2 > maxTimeCameraRemain)
+                            {
+                                await SendRequestTime(600, 2);
+                            }
+                            break;
+                        case CameraEnum.CAM3:
+                            if (TotalTimeCam3 > 0)
+                            {
+                                TotalTimeCam3 -= 1;
+                            }
+                                
+                            if (TotalTimeCam3 % 10 == 0 && TotalTimeCam3 > maxTimeCameraRemain)
+                            {
+                                await SendRequestTime(600, 3);
+                            }
+                            break;
+                        case CameraEnum.CAM4:
+                            if (TotalTimeCam4 > 0)
+                            {
+                                TotalTimeCam4 -= 1;
+                            }
+                           
+                            if (TotalTimeCam4 % 10 == 0 && TotalTimeCam4 > maxTimeCameraRemain)
+                            {
+                                await SendRequestTime(600, 4);
+                            }
+                            break;
+                    }
+                });
+                
+            }
+        }
+
+        private bool CanExcute()
+        {
+           switch(SelectedCamera)
+            {
+                case CameraEnum.CAM1:
+                    if (MediaPlayerNo1 != null && MediaPlayerNo1.Time > 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                case CameraEnum.CAM2:
+                    if (MediaPlayerNo2 != null && MediaPlayerNo2.Time > 0)
+                    {
+                        return true;
+                    }
+                    return false;
+             
+                case CameraEnum.CAM3:
+                    if (MediaPlayerNo3 != null && MediaPlayerNo3.Time > 0)
+                    {
+                        return true;
+                    }
+                    return false;
+            
+                case CameraEnum.CAM4:
+                    if (MediaPlayerNo4 != null && MediaPlayerNo4.Time > 0)
+                    {
+                        return true;
+                    }
+                    return false;                  
+                default:
+                    return false;
+            }  
         }
 
         public override void OnDestroy()
@@ -949,6 +1117,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
             LibVLC?.Dispose();
             LibVLC = null;
+
+            if (timer != null)
+            {
+                timer.Stop();
+                timer.Dispose();
+            }
         }
     }
 }

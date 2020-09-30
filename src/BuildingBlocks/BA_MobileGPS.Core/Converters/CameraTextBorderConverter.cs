@@ -11,9 +11,8 @@ namespace BA_MobileGPS.Core
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            //var param = (CameraSelectedEnum)parameter;
-            Color unSelected = Color.FromHex("#DBFF00");
-            Color selected = Color.FromHex("#03BE0B");
+            Color unSelected = Color.White;
+            Color selected = Color.FromHex("#0C852E");
             if (value == null || parameter == null)
             {
                 return unSelected;
@@ -22,6 +21,25 @@ namespace BA_MobileGPS.Core
                 return selected;
             else
                 return unSelected;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value.ToString();
+        }
+    }
+    public class TimeRemainVisibleConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null || parameter == null)
+            {
+                return false;
+            }
+            if ((CameraEnum)value == (CameraEnum)parameter)
+                return true;
+            else
+                return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
