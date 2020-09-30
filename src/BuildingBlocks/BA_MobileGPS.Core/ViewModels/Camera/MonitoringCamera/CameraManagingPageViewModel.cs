@@ -95,11 +95,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     IsCAM4Error = false;
                     EventAggregator.GetEvent<HideVideoViewEvent>().Publish(allCams);
                     VehicleSelectedPlate = vehiclePlate.VehiclePlate;
-                    GetCameraInfor("QCPASSTHAIVV");
-                    SelectedCamera = currentCamera.FirstOrDefault();
-
-                   
-
+                    GetCameraInfor("QATEST1");
+                    SelectedCamera = currentCamera.FirstOrDefault();                  
                    
                 }
             }
@@ -368,76 +365,80 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void PlayTapped()
         {
-            Device.BeginInvokeOnMainThread(() =>
+            if (CanExcute())
             {
-                switch (SelectedCamera)
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    case CameraEnum.CAM1:
-                        if (IsCam1Loaded)
-                        {
-                            if (MediaPlayerNo1.IsPlaying)
+                    switch (SelectedCamera)
+                    {
+                        case CameraEnum.CAM1:
+                            if (IsCam1Loaded)
                             {
-                                MediaPlayerNo1.Pause();
-                                PlayButtonIconSource = playIconSource;
+                                if (MediaPlayerNo1.IsPlaying)
+                                {
+                                    MediaPlayerNo1.Pause();
+                                    PlayButtonIconSource = playIconSource;
+                                }
+                                else
+                                {
+                                    MediaPlayerNo1.Play();
+                                    PlayButtonIconSource = stopIconSource;
+                                }
                             }
-                            else
+                            break;
+                        case CameraEnum.CAM2:
+                            if (IsCam2Loaded)
                             {
-                                MediaPlayerNo1.Play();
-                                PlayButtonIconSource = stopIconSource;
+                                if (MediaPlayerNo2.IsPlaying)
+                                {
+                                    MediaPlayerNo2.Pause();
+                                    PlayButtonIconSource = playIconSource;
+                                }
+                                else
+                                {
+                                    MediaPlayerNo2.Play();
+                                    PlayButtonIconSource = stopIconSource;
+                                }
                             }
-                        }
-                        break;
-                    case CameraEnum.CAM2:
-                        if (IsCam2Loaded)
-                        {
-                            if (MediaPlayerNo2.IsPlaying)
-                            {
-                                MediaPlayerNo2.Pause();
-                                PlayButtonIconSource = playIconSource;
-                            }
-                            else
-                            {
-                                MediaPlayerNo2.Play();
-                                PlayButtonIconSource = stopIconSource;
-                            }
-                        }
-                        break;
+                            break;
 
-                    case CameraEnum.CAM3:
-                        if (IsCam3Loaded)
-                        {
-                            if (MediaPlayerNo3.IsPlaying)
+                        case CameraEnum.CAM3:
+                            if (IsCam3Loaded)
                             {
-                                MediaPlayerNo3.Pause();
-                                PlayButtonIconSource = playIconSource;
+                                if (MediaPlayerNo3.IsPlaying)
+                                {
+                                    MediaPlayerNo3.Pause();
+                                    PlayButtonIconSource = playIconSource;
+                                }
+                                else
+                                {
+                                    MediaPlayerNo3.Play();
+                                    PlayButtonIconSource = stopIconSource;
+                                }
                             }
-                            else
-                            {
-                                MediaPlayerNo3.Play();
-                                PlayButtonIconSource = stopIconSource;
-                            }
-                        }
-                        break;
+                            break;
 
-                    case CameraEnum.CAM4:
-                        if (IsCam4Loaded)
-                        {
-                            if (MediaPlayerNo4.IsPlaying)
+                        case CameraEnum.CAM4:
+                            if (IsCam4Loaded)
                             {
-                                MediaPlayerNo4.Pause();
-                                PlayButtonIconSource = playIconSource;
+                                if (MediaPlayerNo4.IsPlaying)
+                                {
+                                    MediaPlayerNo4.Pause();
+                                    PlayButtonIconSource = playIconSource;
+                                }
+                                else
+                                {
+                                    MediaPlayerNo4.Play();
+                                    PlayButtonIconSource = stopIconSource;
+                                }
                             }
-                            else
-                            {
-                                MediaPlayerNo4.Play();
-                                PlayButtonIconSource = stopIconSource;
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            });
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            }
+           
         }
 
         private void SetUpVlc()
@@ -452,7 +453,8 @@ namespace BA_MobileGPS.Core.ViewModels
             MediaPlayerNo1 = null;
             var mediaNo1 = new Media(LibVLC, new Uri(url));
             MediaPlayerNo1 = new MediaPlayer(mediaNo1) { AspectRatio = "4:3", Scale = 0, Mute = true };
-           
+            MediaPlayerNo1.TimeChanged += MediaPlayerNo1_TimeChanged;
+            MediaPlayerNo1.EncounteredError += MediaPlayerNo1_EncounteredError;
             MediaPlayerNo1.Play();
 
         }

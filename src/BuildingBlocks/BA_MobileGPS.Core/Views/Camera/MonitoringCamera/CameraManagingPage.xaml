@@ -235,7 +235,7 @@
                     </icons:IconView.GestureRecognizers>
                 </icons:IconView>
             </StackLayout>
-            <buttons:SfCheckBox />
+
             <StackLayout
                 Grid.Column="2"
                 Margin="0,0,45,0"
