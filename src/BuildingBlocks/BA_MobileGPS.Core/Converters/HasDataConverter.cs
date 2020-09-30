@@ -93,4 +93,58 @@ namespace BA_MobileGPS.Core
             return value;
         }
     }
+
+    public class SelectedStatusBackgroundColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            //if null then not visible
+            if (value == null)
+                return (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
+
+            //if empty string then not visible
+            if ((BA_MobileGPS.Entities.VehicleStatusGroup)value == Entities.VehicleStatusGroup.All)
+            {
+                return (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
+            }
+            else
+            {
+                return (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
+
+    public class SelectedStatusIconColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            //if null then not visible
+            if (value == null)
+                return (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+
+            //if empty string then not visible
+            if ((BA_MobileGPS.Entities.VehicleStatusGroup)value == Entities.VehicleStatusGroup.All)
+            {
+                return (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+            }
+            else
+            {
+                return (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
+
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
+
+  
 }

@@ -22,8 +22,6 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class AccountViewModel : ViewModelBase
     {
-        private readonly IAuthenticationService authenticationService;
-
         private string appVersion;
         public string AppVersion { get => appVersion; set => SetProperty(ref appVersion, value); }
 
@@ -36,8 +34,6 @@ namespace BA_MobileGPS.Core.ViewModels
              IAuthenticationService authenticationService)
             : base(navigationService)
         {
-            this.authenticationService = authenticationService;
-
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(Navigate);
 
             AppVersion = appVersionService.GetAppVersion();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Android.App;
+using Android.Widget;
 using BA_MobileGPS.Core.Droid.DependencyServices;
 using Com.JeevanDeshmukh.GlideToastLib;
 using Plugin.CurrentActivity;
@@ -40,8 +41,7 @@ namespace BA_MobileGPS.Core.Droid.DependencyServices
 
         public void ShowToast(string message, double time)
         {
-            Activity activity = CrossCurrentActivity.Current.Activity;
-            new GlideToast.MakeToast(activity, message, (int)time, GlideToast.FailToast, GlideToast.Bottom).Show();
+            Toast.MakeText(Forms.Context, message, ToastLength.Long).Show();
         }
     }
 }
