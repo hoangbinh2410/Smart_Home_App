@@ -177,13 +177,13 @@
                 TextColor="{DynamicResource TextPrimaryColor}"
                 VerticalOptions="Start" />
             <syncfusionList:SfListView
-                x:Name="listView"
+                x:Name="listLastView"
                 Grid.Row="1"
                 HeightRequest="{Binding ListHeight}"
                 ItemSpacing="3,0,3,0"
                 ItemsSource="{Binding ListLastView, Mode=TwoWay}"
                 SelectionBackgroundColor="Transparent"
-                TapCommand="{Binding Path=BindingContext.TapItemsCommand, Source={x:Reference listView}}"
+                TapCommand="{Binding Path=BindingContext.TapItemsCommand, Source={x:Reference listLastView}}"
                 VerticalOptions="Start">
                 <syncfusionList:SfListView.LayoutManager>
                     <syncfusionList:GridLayout SpanCount="{Binding SpanCount}" />
@@ -194,7 +194,7 @@
                             Grid.Row="1"
                             Padding="0"
                             BackgroundColor="{DynamicResource PrimaryColor}"
-                            CornerRadius="20"
+                            CornerRadius="15"
                             HeightRequest="30"
                             VerticalOptions="Center">
                             <Label

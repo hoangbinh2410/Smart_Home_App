@@ -50,5 +50,10 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringImage
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
+
+        private void chkFa_StateChanged(object sender, Syncfusion.XForms.Buttons.StateChangedEventArgs e)
+        {
+
+        }
     }
 }

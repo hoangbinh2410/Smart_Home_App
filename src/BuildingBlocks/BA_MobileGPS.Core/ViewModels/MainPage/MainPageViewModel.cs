@@ -81,7 +81,6 @@ namespace BA_MobileGPS.Core.ViewModels
             TryExecute(async () =>
             {
                 await ConnectSignalR();
-                InitVehilceOnline();
             });
 
         }
@@ -91,8 +90,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
             TryExecute(async () =>
             {
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
                 await ConnectSignalROnline();
                 InitVehilceOnline();
                 // Lấy danh sách cảnh báo
@@ -105,8 +102,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 GetNoticePopup();
 
                 GetCountVehicleDebtMoney();
-                sw.Stop();
-                Debug.WriteLine(string.Format("MainPageViewModelInitialize : {0}", sw.ElapsedMilliseconds));
             });
         }
 
@@ -129,6 +124,10 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
             {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
+                });
                 //Join vào nhóm signalR để nhận dữ liệu online
                 JoinGroupSignalRCar(StaticSettings.ListVehilceOnline.Select(x => x.VehicleId.ToString()).ToList());
             }

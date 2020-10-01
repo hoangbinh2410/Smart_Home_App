@@ -77,22 +77,17 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetListMenu()
         {
-            if (!IsConnected)
-                return;
-            TryExecute(() =>
+            RunOnBackground(async () =>
             {
-                RunOnBackground(async () =>
+                return await homeService.GetHomeMenuAsync((int)App.AppType, Settings.CurrentLanguage);
+            }, (result) =>
+            {
+                if (result != null && result.Count > 0)
                 {
-                    return await homeService.GetHomeMenuAsync((int)App.AppType, Settings.CurrentLanguage);
-                }, (result) =>
-                {
-                    if (result != null && result.Count > 0)
-                    {
-                        MenuReponse = mapper.MapListProperties<HomeMenuItemViewModel>(result.ToList());
+                    MenuReponse = mapper.MapListProperties<HomeMenuItemViewModel>(result.ToList());
 
-                        GenMenu();
-                    }
-                });
+                    GenMenu();
+                }
             });
         }
 

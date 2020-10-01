@@ -9,7 +9,6 @@
         public const string VehicleOnline = "VehicleOnline";
         public const string VehiclePlate = "VehiclePlate";
         public const string Vehicle = "Vehicle";
-        public const string VehicleGroupSelected = "VehicleGroupSelected";
         public const string ReportPourFuelSelected = "ReportPourFuelSelected";
         public const string ReportSignalLossSelected = "ReportSignalLossSelected";
         public const string ReportTemperatureSelected = "ReportTemperatureSelected";
@@ -54,5 +53,8 @@
 
         public const string RequestTime = "RequestTime";
         public const string CurrentRemainTime = "CurrentRemainTime";
+        public const string Logout = "Logout";
+        public const string VehicleStatusSelected = "VehicleStatusSelected";
+        
     }
 }

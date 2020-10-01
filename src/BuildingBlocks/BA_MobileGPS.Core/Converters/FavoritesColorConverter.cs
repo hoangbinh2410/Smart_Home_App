@@ -19,13 +19,38 @@ namespace BA_MobileGPS.Core
                 return unFavorites;
             }
 
-            if(Settings.FavoritesVehicleImage.Contains((string)value))
+            if ((bool)value)
             {
                 return favorites;
             }
             else
             {
                 return unFavorites;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value.ToString();
+        }
+    }
+
+    public class FavoritesBoolColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return false;
+            }
+
+            if (Settings.FavoritesVehicleImage.Contains((string)value))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

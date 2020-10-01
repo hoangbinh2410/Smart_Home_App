@@ -133,5 +133,33 @@ namespace BA_MobileGPS.Core.iOS.DependencyServices
                  })
                  .Show();
         }
+
+        public void ShowToast(string message, double time = 5000)
+        {
+            // More configurations
+            Toast.MakeToast(message)
+                 .SetPosition(ToastPosition.Bottom) // Default is Bottom
+                 .SetDuration(time) // Default is Regular
+                 .SetShowShadow(false) // Default is true
+                 .SetAnimator(new ScaleAnimator()) // Default is FadeAnimator
+                 .SetBlockTouches(false) // Default is false. If false touches that occur on the toast will be sent down to parent view
+                 .SetAutoDismiss(true) // Default is true. If set to false Dismiss button will be shown
+                 .SetDismissButtonTitle("X")
+                 .SetParentController(null)
+                 .SetAppearance(new ToastAppearance
+                 {
+                     Color = UIColor.Black,
+                     CornerRadius = 8,
+                     DismissButtonColor = UIColor.White
+                     // Other properties removed for brevity
+                 }).SetLayout(new ToastLayout
+                 {
+                     PaddingLeading = 16,
+                     PaddingTrailing = 16,
+                     Spacing = 6,
+                     // Other properties removed for brevity
+                 })
+                 .Show();
+        }
     }
 }

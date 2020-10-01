@@ -10,6 +10,8 @@ using Prism.Mvvm;
 using Sharpnado.Presentation.Forms.CustomViews.Tabs;
 using System;
 using System.Diagnostics;
+using System.Timers;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
@@ -210,6 +212,7 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         public async void HideTab()
         {
+            isHideTabOnline = true;
             await _animations.Go(States.HideFilter, true);
         }
 
@@ -218,12 +221,67 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         private async void ShowTab()
         {
+            isHideTabOnline = false;
             await _animations.Go(States.ShowFilter, true);
         }
 
         public virtual bool CheckPermision(int PermissionKey)
         {
             return StaticSettings.User.Permissions.IndexOf(PermissionKey) != -1;
+        }
+
+
+        bool bExit = false;
+        bool isHideTabOnline = false;
+
+        protected override bool OnBackButtonPressed()
+        {
+            if (isHideTabOnline)
+            {
+                this.eventAggregator.GetEvent<BackButtonEvent>().Publish(true);
+                return true;
+            }
+            else
+            {
+                if (!bExit)
+                {
+
+                    ShowAlertWhen2Back();
+                    return bExit;
+                }
+            }
+            StaticSettings.ClearStaticSettings();
+            return false;
+        }
+
+        /// <summary>
+        /// Thực hiện delay giá trị
+        /// </summary>
+        /// <param name="timers"></param>
+        /// <param name="action"></param>
+        /// <param name="timeDelay">đơn vị miliseconds</param>
+        public Timer PostDelayed(Timer timers, Action action, int timeDelay)
+        {
+            timers.Interval = timeDelay;
+            timers.AutoReset = false; //so that it only calls the method once
+            timers.Elapsed += (s, args) =>
+            {
+                timers.Close();
+                MainThread.BeginInvokeOnMainThread(() => { action?.Invoke(); });
+            };
+            timers.Start();
+            return timers;
+        }
+
+        private void ShowAlertWhen2Back()
+        {
+            DependencyService.Get<IDisplayMessage>().ShowToast("Back thêm lần nữa để thoát ứng dụng");
+            bExit = !bExit;
+            PostDelayed(new Timer(), () =>
+            {
+                isHideTabOnline = false;
+                bExit = false;
+            }, 2000);
         }
     }
 }

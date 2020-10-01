@@ -82,38 +82,6 @@ namespace BA_MobileGPS.Core.ViewModels
                                         }
                                     }
                                     break;
-
-                                case LocalDBNames.LANGUAGETYPERESOURCES: // update lại bảng language type: chọn ngôn ngữ
-                                    if (dbLocal != null && dbLocal.Count() > 0)
-                                    {
-                                        var lastUpdateDBLocal = dbLocal.Where(x => x.TableName == item.TableName).FirstOrDefault();
-                                        // khác version và có thời gian update lớn hơn thời gian lưu trong db thì mới cập nhật
-                                        if (lastUpdateDBLocal != null && lastUpdateDBLocal.UpdatedDate <= item.UpdatedDate && item.VersionDB != lastUpdateDBLocal.VersionDB)
-                                        {
-                                            result = await GetLanguageType();
-                                            if (result)
-                                            {
-                                                // update vào bảng local db
-                                                lastUpdateDBLocal.VersionDB = item.VersionDB;
-                                                lastUpdateDBLocal.UpdatedDate = DateTime.Now;
-                                                dBVersionService.Update(lastUpdateDBLocal);
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        result = await GetLanguageType();
-                                        if (result)
-                                        {
-                                            // thêm mới vào bảng local db
-                                            item.UpdatedDate = DateTime.Now;
-                                            dBVersionService.Add(item);
-                                        }
-                                    }
-                                    break;
-
-                                default:
-                                    break;
                             }
                         }
                     }

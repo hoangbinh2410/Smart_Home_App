@@ -499,4 +499,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\NoItem.svg" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_download.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_download%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_download%403x.png" />
+  </ItemGroup>
 </Project>
