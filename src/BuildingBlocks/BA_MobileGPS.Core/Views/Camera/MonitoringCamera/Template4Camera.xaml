@@ -79,6 +79,7 @@
             </Frame>
             <indicator:SfBusyIndicator IsBusy="{Binding IsCam1Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
             <Grid
+                x:Name="gridCloseCam1"
                 BackgroundColor="White"
                 InputTransparent="True"
                 Opacity="0.2">
@@ -88,6 +89,14 @@
                         TargetType="Grid"
                         Value="#0C852E">
                         <Setter Property="BackgroundColor" Value="Transparent" />
+                    </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding TotalTimeCam1}"
+                        TargetType="Grid"
+                        Value="0">
+                        <Setter Property="BackgroundColor" Value="Black" />
+                        <Setter Property="Opacity" Value="1" />
+                        <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                 </Grid.Triggers>
             </Grid>
@@ -137,6 +146,7 @@
 
             <indicator:SfBusyIndicator IsBusy="{Binding IsCam2Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
             <Grid
+                x:Name="gridCloseCam2"
                 BackgroundColor="White"
                 InputTransparent="True"
                 Opacity="0.2">
@@ -146,6 +156,14 @@
                         TargetType="Grid"
                         Value="#0C852E">
                         <Setter Property="BackgroundColor" Value="Transparent" />
+                    </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding TotalTimeCam2}"
+                        TargetType="Grid"
+                        Value="0">
+                        <Setter Property="BackgroundColor" Value="Black" />
+                        <Setter Property="Opacity" Value="1" />
+                        <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                 </Grid.Triggers>
             </Grid>
@@ -191,6 +209,7 @@
             </Frame>
             <indicator:SfBusyIndicator IsBusy="{Binding IsCam3Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
             <Grid
+                x:Name="gridCloseCam3"
                 BackgroundColor="White"
                 InputTransparent="True"
                 Opacity="0.2">
@@ -200,6 +219,14 @@
                         TargetType="Grid"
                         Value="#0C852E">
                         <Setter Property="BackgroundColor" Value="Transparent" />
+                    </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding TotalTimeCam3}"
+                        TargetType="Grid"
+                        Value="0">
+                        <Setter Property="BackgroundColor" Value="Black" />
+                        <Setter Property="Opacity" Value="1" />
+                        <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                 </Grid.Triggers>
             </Grid>
@@ -248,6 +275,7 @@
             </Frame>
             <indicator:SfBusyIndicator IsBusy="{Binding IsCam4Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
             <Grid
+                x:Name="gridCloseCam4"
                 BackgroundColor="White"
                 InputTransparent="True"
                 Opacity="0.2">
@@ -257,6 +285,14 @@
                         TargetType="Grid"
                         Value="#0C852E">
                         <Setter Property="BackgroundColor" Value="Transparent" />
+                    </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding TotalTimeCam4}"
+                        TargetType="Grid"
+                        Value="0">
+                        <Setter Property="BackgroundColor" Value="Black" />
+                        <Setter Property="Opacity" Value="1" />
+                        <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                 </Grid.Triggers>
             </Grid>

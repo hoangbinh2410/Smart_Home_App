@@ -23,12 +23,12 @@ namespace BA_MobileGPS.Core.ViewModels
             await NavigationService.GoBackAsync();
         }
 
-        private async void SetTimeValue(object obj)
+        private void SetTimeValue(object obj)
         {
             try
             {
                 var time = Convert.ToInt32(obj);
-                await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+                NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
                         {
                             { ParameterKey.RequestTime,  time}
                         });
