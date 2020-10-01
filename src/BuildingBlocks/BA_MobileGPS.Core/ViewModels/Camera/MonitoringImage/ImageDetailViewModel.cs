@@ -319,11 +319,14 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (e.FileSaved)
                 {
+                    // Lưu ảnh vào gallery 
                     if (File.Exists(FilePath))
                     {
                         DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(FilePath);
+                        // xóa ảnh tại path cũ
+                        File.Delete(FilePath);
                     }
-
+                    
                     await PageDialog.DisplayAlertAsync("Camera", "Lưu hình ảnh thành công", "OK");
                 }
                 else
