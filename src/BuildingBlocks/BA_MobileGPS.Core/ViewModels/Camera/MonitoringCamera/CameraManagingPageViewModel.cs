@@ -56,6 +56,7 @@ namespace BA_MobileGPS.Core.ViewModels
             FullScreenTappedCommand = new DelegateCommand(FullScreenTapped);
             isFullScreenOff = true;
             ScreenShotTappedCommand = new DelegateCommand(ScreenShotTapped);
+            ShareTappedCommand = new DelegateCommand(ShareTapped);
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -838,8 +839,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     if (File.Exists(filePath))
                     {
-                        DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(filePath);
-                        await Xamarin.Essentials.Share.RequestAsync(new Xamarin.Essentials.ShareFileRequest(new Xamarin.Essentials.ShareFile(filePath)));
+                        DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(filePath);                     
                     }
                 }
                 else
@@ -851,6 +851,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
            
+        }
+
+        public ICommand ShareTappedCommand { get; }
+        private void ShareTapped()
+        {
+            //ScreenShotTapped();
+            //Xamarin.Essentials.Share.RequestAsync(new Xamarin.Essentials.ShareFileRequest(new Xamarin.Essentials.ShareFile(filePath)));
         }
 
         private void GetCameraInfor(string bks)
