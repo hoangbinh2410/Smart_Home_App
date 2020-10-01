@@ -11,6 +11,9 @@ using Prism.Ioc;
 using Prism.Events;
 using Prism.Navigation;
 using System;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+using System.Collections.Generic;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -82,9 +85,13 @@ namespace BA_MobileGPS.Core.Views
 
         protected override void OnAppearing()
         {
-
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;      
             base.OnAppearing();
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                var safe = On<iOS>().SafeAreaInsets();
+                Padding = new Thickness(0, 0, 0, safe.Bottom);
+            }
         }
 
         public void Destroy()
@@ -96,6 +103,25 @@ namespace BA_MobileGPS.Core.Views
     }
 
     public class SetCameraLayoutEvent : PubSubEvent<int>
+    {
+
+    }
+
+    public class ShowVideoViewEvent : PubSubEvent<List<CameraEnum>>
+    {
+
+    }
+    public class HideVideoViewEvent : PubSubEvent<List<CameraEnum>>
+    {
+
+    }
+
+    public class SwitchToFullScreenEvent : PubSubEvent<CameraEnum>
+    {
+
+    }
+
+    public class SwitchToNormalScreenEvent : PubSubEvent
     {
 
     }

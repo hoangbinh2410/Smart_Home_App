@@ -19,7 +19,9 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
             eventAggregator.GetEvent<ShowVideoViewEvent>().Subscribe(ShowVideoView);
             eventAggregator.GetEvent<SwitchToFullScreenEvent>().Subscribe(FullScreen);
             eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Subscribe(SwitchToNormal);
-        }       
+        }
+
+     
 
         private void ShowVideoView(List<CameraEnum> obj)
         {
@@ -86,6 +88,8 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
             eventAggregator.GetEvent<SwitchToFullScreenEvent>().Unsubscribe(FullScreen);
             eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Unsubscribe(SwitchToNormal);
         }
+
+      
 
         private void FullScreen(CameraEnum obj)
         {
@@ -160,22 +164,5 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
         }
     }
 
-    public class ShowVideoViewEvent : PubSubEvent<List<CameraEnum>>
-    {
-
-    }
-    public class HideVideoViewEvent : PubSubEvent<List<CameraEnum>>
-    {
-
-    }
-
-    public class SwitchToFullScreenEvent : PubSubEvent<CameraEnum>
-    {
-
-    }
-
-    public class SwitchToNormalScreenEvent : PubSubEvent
-    {
-
-    }
+ 
 }
