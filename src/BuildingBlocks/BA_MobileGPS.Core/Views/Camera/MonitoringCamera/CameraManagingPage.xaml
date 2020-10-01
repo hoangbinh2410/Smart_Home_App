@@ -22,7 +22,7 @@
         <converter:TimeRemainVisibleConverter x:Key="TimeRemainVisibleConverter" />
     </ContentPage.Resources>
     <NavigationPage.TitleView>
-        <Grid VerticalOptions="End">
+        <Grid VerticalOptions="Center">
             <icons:IconView
                 Foreground="{DynamicResource WhiteColor}"
                 HeightRequest="25"

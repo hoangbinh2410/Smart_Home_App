@@ -95,8 +95,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     IsCAM3Error = false;
                     IsCAM4Error = false;
                     EventAggregator.GetEvent<HideVideoViewEvent>().Publish(allCams);
-                    //VehicleSelectedPlate = vehiclePlate.VehiclePlate;
-                    //GetCameraInfor("CAMTEST1");
+                
+                  
                     if (vehiclePlate.VehiclePlate == "98B00048")
                     {
                         VehicleSelectedPlate = "CAMTEST1";
@@ -104,13 +104,13 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else if(vehiclePlate.VehiclePlate == "98B00562")
                     {
-                        VehicleSelectedPlate = "BACAM1409";
-                        GetCameraInfor("BACAM1409");
+                        VehicleSelectedPlate = "QATEST1";
+                        GetCameraInfor("QATEST1");
                     }
                     else
                     {
-                        VehicleSelectedPlate = "QATEST1";
-                        GetCameraInfor("QATEST1");
+                        VehicleSelectedPlate = vehiclePlate.VehiclePlate;
+                        GetCameraInfor(VehicleSelectedPlate);
                     }
                     SelectedCamera = currentCamera.FirstOrDefault();                  
                     
@@ -908,7 +908,8 @@ namespace BA_MobileGPS.Core.ViewModels
                                 {
                                     Channel = data.Channel,
                                     xnCode = deviceResponseData.XnCode,
-                                    VehiclePlate = bks
+                                    VehiclePlate = bks,
+                                    IMEI = deviceResponseData.IMEI
                                 };
                                 var countRequest = 0;
                                 var temp = true;

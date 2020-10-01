@@ -11,6 +11,7 @@ namespace BA_MobileGPS.Entities
         public string VehiclePlate { get; set; }
 
         public int Channel { get; set; }
+        public string IMEI { get; set; }
     }
     public class StreamStartRequest : StreamRequestBase
     {
