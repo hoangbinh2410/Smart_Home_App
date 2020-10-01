@@ -2,7 +2,7 @@
 using Prism.Commands;
 using Prism.Navigation;
 using System;
-
+using BA_MobileGPS.Service;
 
 using System.Windows.Input;
 
@@ -21,6 +21,7 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class ImageManagingPageViewModel : ViewModelBase
     {
+        private readonly IRealmBaseService<LastViewVehicleRealm, LastViewVehicleRespone> _lastViewVehicleRepository;
 
         private readonly IStreamCameraService _streamCameraService;
 
@@ -37,9 +38,12 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand RefeshCommand { get; set; }
 
 
-        public ImageManagingPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService) : base(navigationService)
+        public ImageManagingPageViewModel(INavigationService navigationService,
+            IStreamCameraService streamCameraService,
+            IRealmBaseService<LastViewVehicleRealm, LastViewVehicleRespone> lastViewVehicleRepository) : base(navigationService)
         {
             _streamCameraService = streamCameraService;
+            _lastViewVehicleRepository = lastViewVehicleRepository;
             SpanCount = 1;
             ListHeight = 1;
             TapItemsCommand = new DelegateCommand<object>(TapItems);
@@ -118,7 +122,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
-
 
         //public ObservableCollection<CaptureImageData> ListGroup { get => listGroup; set => SetProperty(ref listGroup, value); }
 
@@ -254,17 +257,14 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                     }
                 }
-
-
             }
             catch (Exception ex)
             {
-
-               // throw;
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-            
+
         }
-            
+
         private async void TapItems(object obj)
         {
             var listview = obj as Syncfusion.ListView.XForms.ItemTappedEventArgs;
@@ -315,12 +315,13 @@ namespace BA_MobileGPS.Core.ViewModels
                         mlistVehicle.Add(item);
                     }
                 }
+                //add
                 mVehicleString = new List<string>();
-                if(mlistVehicleFavorites.Count>0 && mlistVehicleFavorites!= null)
+                if (mlistVehicleFavorites.Count > 0 && mlistVehicleFavorites != null)
                 {
                     mVehicleString.AddRange(mlistVehicleFavorites);
                 }
-                if(mlistVehicle.Count > 0 && mlistVehicle != null)
+                if (mlistVehicle.Count > 0 && mlistVehicle != null)
                 {
                     mVehicleString.AddRange(mlistVehicle);
                 }
@@ -356,7 +357,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsRefesh = true;
                 if (CarSearch == string.Empty)
                 {
-                    PageIndex = 1;
+                    PageIndex = 0;
                     ListGroup = new ObservableCollection<CaptureImageData>();
                     ShowImageLoad();
                 }
@@ -384,7 +385,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 request.VehiclePlates = CarSearch;
 
                 var response = await _streamCameraService.GetListCaptureImage(request);
-                PageIndex = 1;
+                PageIndex = 0;
                 IsMaxLoadMore = true;
 
                 if (response != null && response.Count > 0)
@@ -395,7 +396,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (Settings.FavoritesVehicleImage.Contains(item.VehiclePlate))
                         {
                             item.IsFavorites = true;
-                        }    
+                        }
                     }
                 }
                 else
@@ -461,20 +462,21 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ShowLastView()
         {
-            
-            // nếu lần đầu vào chưa có lịch sử xem gần nhất
-            if (string.IsNullOrEmpty(Settings.LastViewVehicleImage))
+            var userId = StaticSettings.User.UserId;
+
+            if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
             {
-                // ẩn cột đi
-                IsShowLastViewVehicle = false;
+                userId = Settings.CurrentCompany.UserId;
             }
-            else
+
+            var lst = _lastViewVehicleRepository.All()?.Where(item => item.UserId == userId.ToString()).OrderByDescending(x => x.Id).ToList();
+
+            // nếu lần đầu vào chưa có lịch sử xem gần nhất
+            if (lst.Count > 0 && lst != null)
             {
                 IsShowLastViewVehicle = true;
 
-                var split = Settings.LastViewVehicleImage.Split(',');
-
-                var view = GetImageLastView(split.Length);
+                var view = GetImageLastView(lst.Count);
 
                 SpanCount = view[0]; // số lượng xếp.
 
@@ -483,13 +485,18 @@ namespace BA_MobileGPS.Core.ViewModels
                 ListHeight = view[1]; // gán chiều cao cho listview
 
                 ListLastView = new ObservableCollection<LastViewVehicleImageModel>();
-                for (int i = 0; i < split.Length; i++)
+                for (int i = 0; i < lst.Count; i++)
                 {
                     ListLastView.Add(new LastViewVehicleImageModel
                     {
-                        Name = split[i]
+                        Name = lst[i].VehiclePlate
                     });
                 }
+            }
+            else
+            {
+                // ẩn cột đi
+                IsShowLastViewVehicle = false;
             }
         }
 
@@ -497,12 +504,12 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             var respone = new int[2];
             var width = Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Width;
-            if (width > 1080)
+            if (width > 1200)
             {
                 respone[0] = 5;
                 respone[1] = count > 5 ? 80 : 40;
             }
-            else if (width <= 1080 && width > 768)
+            else if (width <= 1200 && width > 768)
             {
                 respone[0] = 4;
                 respone[1] = count > 4 ? 80 : 40;

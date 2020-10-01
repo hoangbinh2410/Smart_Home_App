@@ -440,7 +440,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public async void Logout()
         {
             StaticSettings.ClearStaticSettings();
-            Settings.LastViewVehicleImage = string.Empty;
             GlobalResources.Current.TotalAlert = 0;
             var navigationPara = new NavigationParameters();
             navigationPara.Add(ParameterKey.Logout, true);

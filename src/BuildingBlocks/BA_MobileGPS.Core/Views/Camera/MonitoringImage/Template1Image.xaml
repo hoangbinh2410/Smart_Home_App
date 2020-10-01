@@ -50,6 +50,7 @@
                             HeightRequest="40"
                             VerticalOptions="Start">
                             <StackLayout
+                                x:Name="lblName"
                                 Padding="0"
                                 HorizontalOptions="Start"
                                 Orientation="Horizontal">
@@ -60,14 +61,14 @@
                                     TextColor="{DynamicResource WhiteColor}"
                                     VerticalOptions="Center" />
                                 <icons:IconView
-                                    Foreground="{Binding Key, Converter={StaticResource FavoritesColorConverter}}"
+                                    Foreground="{Binding Items[0].IsFavorites, Converter={StaticResource FavoritesColorConverter}}"
                                     HeightRequest="20"
                                     HorizontalOptions="Start"
                                     Source="ic_star.png"
                                     VerticalOptions="Center"
                                     WidthRequest="20" />
                                 <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                                    <TapGestureRecognizer Command="{Binding BindingContext.TabCommandFavorites, Source={Reference root}}" CommandParameter="{Binding Key}" />
                                 </StackLayout.GestureRecognizers>
                             </StackLayout>
                             <StackLayout
