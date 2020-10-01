@@ -324,7 +324,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(FilePath);
                         // xóa ảnh tại path cũ
-                        File.Delete(FilePath);
+                        //File.Delete(FilePath);
                     }
                     
                     await PageDialog.DisplayAlertAsync("Camera", "Lưu hình ảnh thành công", "OK");
