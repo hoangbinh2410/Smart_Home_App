@@ -1126,7 +1126,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 currentCamera.Remove(item);
                             }
                             else
-                            {
+                            {                               
                                 TotalTimeCam1 -= 1;
                             }
 
