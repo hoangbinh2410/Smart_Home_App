@@ -57,6 +57,7 @@ namespace BA_MobileGPS.Core.ViewModels
             base.Initialize(parameters);
             GetVehicleString();
             ShowLastView();
+            ShowImage();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -289,6 +290,8 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (StaticSettings.ListVehilceOnline != null)
             {
+                var mlistVehicle = new List<string>();
+                var mlistVehicleFavorites = new List<string>();
                 var listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
                 if (VehicleGroups != null && VehicleGroups.Length > 0)
                 {
@@ -299,6 +302,27 @@ namespace BA_MobileGPS.Core.ViewModels
                 else
                 {
                     mVehicleString = listOnline.Select(x => x.VehiclePlate).ToList();
+                }
+                // Lấy danh sách ưa thích
+                foreach (var item in mVehicleString)
+                {
+                    if (Settings.FavoritesVehicleImage.Contains(item))
+                    {
+                        mlistVehicleFavorites.Add(item);
+                    }
+                    else
+                    {
+                        mlistVehicle.Add(item);
+                    }
+                }
+                mVehicleString = new List<string>();
+                if(mlistVehicleFavorites.Count>0 && mlistVehicleFavorites!= null)
+                {
+                    mVehicleString.AddRange(mlistVehicleFavorites);
+                }
+                if(mlistVehicle.Count > 0 && mlistVehicle != null)
+                {
+                    mVehicleString.AddRange(mlistVehicle);
                 }
             }
             else
