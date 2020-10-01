@@ -11,6 +11,9 @@ using Prism.Ioc;
 using Prism.Events;
 using Prism.Navigation;
 using System;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+using System.Collections.Generic;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -24,12 +27,50 @@ namespace BA_MobileGPS.Core.Views
                 InitializeComponent();
                 eventAggregator.GetEvent<SwitchToFullScreenEvent>().Subscribe(SwitchToFullScreen);
                 eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Subscribe(SwitchToNormal);
+                eventAggregator.GetEvent<SetCameraLayoutEvent>().Subscribe(SetCameraLayout);
             }
             catch (System.Exception ex)
             {
 
                 throw;
             }                       
+        }
+
+        private void SetCameraLayout(int obj)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                cameraPanel.Children.Clear();
+                if (obj == 1)
+                {
+                    var cam = new Template1Camera();
+                    ViewModelLocator.SetAutowirePartialView(cam, this);
+                    cameraPanel.Children.Add(cam);
+                }
+                else if (obj == 2)
+                {
+                    var cam = new Template2Camera();
+                    ViewModelLocator.SetAutowirePartialView(cam, this);
+                    cameraPanel.Children.Add(cam);
+                }
+                else if(obj == 4)
+                {
+                    var cam = new Template4Camera();
+                    ViewModelLocator.SetAutowirePartialView(cam, this);
+                    cameraPanel.Children.Add(cam);
+                }
+                else if (obj == 0)
+                {
+                    var a = new Label();
+                    a.Text = " KHÔNG CÓ CAMERA";
+                    a.FontSize = 20;
+                    a.HorizontalOptions = LayoutOptions.Center;
+                    a.VerticalOptions = LayoutOptions.Center;
+                    a.TextColor = Color.Red;
+                    cameraPanel.Children.Add(a);
+                }
+            });
+        
         }
 
         private void SwitchToNormal()
@@ -44,18 +85,44 @@ namespace BA_MobileGPS.Core.Views
 
         protected override void OnAppearing()
         {
-
-            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
-            var cam = new Template4Camera();
-            ViewModelLocator.SetAutowirePartialView(cam, this);
-            cameraPanel.Children.Add(new Template4Camera());
+            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;      
             base.OnAppearing();
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                var safe = On<iOS>().SafeAreaInsets();
+                Padding = new Thickness(0, 0, 0, safe.Bottom);
+            }
         }
 
         public void Destroy()
         {
             eventAggregator.GetEvent<SwitchToFullScreenEvent>().Unsubscribe(SwitchToFullScreen);
             eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Unsubscribe(SwitchToNormal);
+            eventAggregator.GetEvent<SetCameraLayoutEvent>().Unsubscribe(SetCameraLayout);
         }
+    }
+
+    public class SetCameraLayoutEvent : PubSubEvent<int>
+    {
+
+    }
+
+    public class ShowVideoViewEvent : PubSubEvent<List<CameraEnum>>
+    {
+
+    }
+    public class HideVideoViewEvent : PubSubEvent<List<CameraEnum>>
+    {
+
+    }
+
+    public class SwitchToFullScreenEvent : PubSubEvent<CameraEnum>
+    {
+
+    }
+
+    public class SwitchToNormalScreenEvent : PubSubEvent
+    {
+
     }
 }

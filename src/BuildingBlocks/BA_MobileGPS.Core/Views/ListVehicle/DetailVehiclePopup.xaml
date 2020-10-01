@@ -118,7 +118,7 @@
                     </pancakeview:PancakeView>
                     <Label x:Name="lblDetailTitle" LineBreakMode="WordWrap" />
                 </StackLayout>
-                <!--<StackLayout Spacing="10">
+                <StackLayout Spacing="10">
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigativeCommand}" CommandParameter="Camera" />
                     </StackLayout.GestureRecognizers>
@@ -132,7 +132,7 @@
                         <controls:IconView Source="ic_camera.png" />
                     </pancakeview:PancakeView>
                     <Label LineBreakMode="WordWrap" Text="Camera" />
-                </StackLayout>-->
+                </StackLayout>
             </FlexLayout>
         </StackLayout>
     </pancakeview:PancakeView>
