@@ -270,15 +270,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #endregion Property Binding
-
-        #region Camera
-        public ICommand GotoCameraPageCommand { get => new DelegateCommand(GotoCameraPage); }
-        private async void GotoCameraPage()
-        {
-
-           var a = await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage",useModalNavigation: true);
-        }
-        #endregion
+   
     }
 
     public class ItemSupport

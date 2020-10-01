@@ -75,12 +75,25 @@ namespace BA_MobileGPS.Core.Views
 
         private void SwitchToNormal()
         {
-            Grid.SetRow(playbackControl, 3);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                Grid.SetRow(playbackControl, 3);
+                if (Device.RuntimePlatform == Device.iOS)
+                {
+                    var safe = On<iOS>().SafeAreaInsets();
+                    Padding = new Thickness(0, 0, 0, safe.Bottom);
+                }
+            });
+          
         }
 
         private void SwitchToFullScreen(CameraEnum obj)
         {
-            Grid.SetRow(playbackControl, 2);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                Grid.SetRow(playbackControl, 2);
+                Padding = new Thickness(0, 0, 0, 0);
+            });        
         }
 
         protected override void OnAppearing()
