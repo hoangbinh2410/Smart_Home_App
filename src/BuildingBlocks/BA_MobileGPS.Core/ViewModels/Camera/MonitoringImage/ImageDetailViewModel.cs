@@ -153,6 +153,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     else
                     {
                         Position = 0;
+                        ImageCamera = ListCameraImage.FirstOrDefault();
                     }
 
                     PositionString = string.Format("{0}/{1}", Position + 1, ListCameraImage.Count);
