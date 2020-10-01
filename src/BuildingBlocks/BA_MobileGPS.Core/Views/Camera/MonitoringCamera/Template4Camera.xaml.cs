@@ -30,19 +30,19 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
                     switch (item)
                     {
                         case CameraEnum.CAM1:
-                            frCam1.IsEnabled = true;
+                            frCam1.IsVisible = true;
                             topLeftCam.IsVisible = true;
                             break;
                         case CameraEnum.CAM2:
-                            frCam1.IsEnabled = true;
+                            frCam1.IsVisible = true;
                             bottomLeftCam.IsVisible = true;
                             break;
                         case CameraEnum.CAM3:
-                            frCam1.IsEnabled = true;
+                            frCam1.IsVisible = true;
                             topRightCam.IsVisible = true;
                             break;
                         case CameraEnum.CAM4:
-                            frCam1.IsEnabled = true;
+                            frCam1.IsVisible = true;
                             bottomRightCam.IsVisible = true;
                             break;
                     }
@@ -54,25 +54,28 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
         {
             foreach (var item in obj)
             {
-                switch (item)
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    case CameraEnum.CAM1:
-                        frCam1.IsEnabled = false;
-                        topLeftCam.IsVisible = false;
-                        break;
-                    case CameraEnum.CAM2:
-                        frCam2.IsEnabled = false;
-                        bottomLeftCam.IsVisible = false;
-                        break;
-                    case CameraEnum.CAM3:
-                        frCam3.IsEnabled = false;
-                        topRightCam.IsVisible = false;
-                        break;
-                    case CameraEnum.CAM4:
-                        frCam4.IsEnabled = false;
-                        bottomRightCam.IsVisible = false;
-                        break;
-                }
+                    switch (item)
+                    {
+                        case CameraEnum.CAM1:
+                            frCam1.IsVisible = false;
+                            topLeftCam.IsVisible = false;
+                            break;
+                        case CameraEnum.CAM2:
+                            frCam2.IsVisible = false;
+                            bottomLeftCam.IsVisible = false;
+                            break;
+                        case CameraEnum.CAM3:
+                            frCam3.IsVisible = false;
+                            topRightCam.IsVisible = false;
+                            break;
+                        case CameraEnum.CAM4:
+                            frCam4.IsVisible = false;
+                            bottomRightCam.IsVisible = false;
+                            break;
+                    }
+                });               
             }
         }
 

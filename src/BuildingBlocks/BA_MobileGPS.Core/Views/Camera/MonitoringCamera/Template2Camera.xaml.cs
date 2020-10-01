@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Template2Camera : View
+    public partial class Template2Camera : ContentView
     {
         public Template2Camera()
         {

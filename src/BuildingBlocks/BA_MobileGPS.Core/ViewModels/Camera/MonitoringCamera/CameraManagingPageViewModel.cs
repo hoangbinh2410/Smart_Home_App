@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Core.Views.Camera.MonitoringCamera;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
@@ -8,13 +9,12 @@ using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Input;
-using Xamarin.Essentials;
+
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -94,8 +94,23 @@ namespace BA_MobileGPS.Core.ViewModels
                     IsCAM3Error = false;
                     IsCAM4Error = false;
                     EventAggregator.GetEvent<HideVideoViewEvent>().Publish(allCams);
-                    VehicleSelectedPlate = vehiclePlate.VehiclePlate;
-                    GetCameraInfor("CAMTEST1");
+                    //VehicleSelectedPlate = vehiclePlate.VehiclePlate;
+                    //GetCameraInfor("CAMTEST1");
+                    if (vehiclePlate.VehiclePlate == "98B00048")
+                    {
+                        VehicleSelectedPlate = "CAMTEST1";
+                        GetCameraInfor("CAMTEST1");
+                    }
+                    else if(vehiclePlate.VehiclePlate == "98B00562")
+                    {
+                        VehicleSelectedPlate = "BACAM1409";
+                        GetCameraInfor("BACAM1409");
+                    }
+                    else
+                    {
+                        VehicleSelectedPlate = "QATEST1";
+                        GetCameraInfor("QATEST1");
+                    }
                     SelectedCamera = currentCamera.FirstOrDefault();                  
                     
                 }
@@ -824,6 +839,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (File.Exists(filePath))
                     {
                         DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(filePath);
+                        await Xamarin.Essentials.Share.RequestAsync(new Xamarin.Essentials.ShareFileRequest(new Xamarin.Essentials.ShareFile(filePath)));
                     }
                 }
                 else
@@ -834,6 +850,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                 }
             });
+           
         }
 
         private void GetCameraInfor(string bks)
@@ -845,14 +862,39 @@ namespace BA_MobileGPS.Core.ViewModels
                     var deviceResponse = await _streamCameraService.GetDevicesStatus(ConditionType.BKS, bks);
                     // only 1 data
                     var deviceResponseData = deviceResponse?.Data?.FirstOrDefault();
+                    if (deviceResponseData == null)
+                    {
+                        EventAggregator.GetEvent<SetCameraLayoutEvent>().Publish(0);
+                    }
                     if (deviceResponseData != null)
                     {
                         currentXnCode = deviceResponseData.XnCode;
                         currentVehiclePlate = deviceResponseData.VehiclePlate;
                         // camrera active filter
                         var cameraActiveQuantity = deviceResponseData.CameraChannels?.Where(x => x.IsPlug).ToList();
-                        foreach (var data in cameraActiveQuantity)
+                        if (cameraActiveQuantity != null && cameraActiveQuantity.Count >0)
                         {
+                            if (cameraActiveQuantity.Count == 1)
+                            {
+                                EventAggregator.GetEvent<SetCameraLayoutEvent>().Publish(1);
+                            }
+                            else if (cameraActiveQuantity.Count == 2)
+                            {
+                                EventAggregator.GetEvent<SetCameraLayoutEvent>().Publish(2);
+                            }
+                            else if (cameraActiveQuantity.Count == 3 || cameraActiveQuantity.Count == 4)
+                            {
+                                EventAggregator.GetEvent<SetCameraLayoutEvent>().Publish(4);
+                            }
+                        }
+                        else
+                        {
+                            EventAggregator.GetEvent<SetCameraLayoutEvent>().Publish(0);
+                        }
+
+                        for (int i = 0; i < cameraActiveQuantity.Count; i++)
+                        {
+                            CameraChannel data = cameraActiveQuantity[i];
                             TryExecute(async () =>
                             {
                                 var request = new StreamStartRequest()
@@ -878,7 +920,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                     // wait 1s
                                     await Task.Delay(1000);
 
-                                    switch (data.Channel)
+                                    switch (i+1)
                                     {
                                         case 1:
                                             //Bật busy indicator
@@ -985,6 +1027,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         break;
                 }
             }
+          
         }
 
         private async Task SendRequestTime(int timeSecond, int chanel)
@@ -1120,6 +1163,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             if (timer != null)
             {
+                timer.Elapsed -= Timer_Elapsed;
                 timer.Stop();
                 timer.Dispose();
             }
