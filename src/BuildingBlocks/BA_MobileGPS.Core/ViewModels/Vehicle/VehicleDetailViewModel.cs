@@ -37,6 +37,7 @@ namespace BA_MobileGPS.Core.ViewModels
             RefeshCommand = new DelegateCommand(GetVehicleDetail);
             EventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(OnReceiveSendCarSignalR);
             EventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
+            GotoCameraPageComamnd = new DelegateCommand<object>(GotoCameraPage);
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -275,5 +276,18 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #endregion execute command
+
+        #region Camera
+        public ICommand GotoCameraPageComamnd { get; }
+        private async void GotoCameraPage(object obj)
+        {
+            var param = obj.ToString();
+            await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+                        {
+                            { "pagetoNavigation",  param}
+                        });
+
+        }
+        #endregion
     }
 }
