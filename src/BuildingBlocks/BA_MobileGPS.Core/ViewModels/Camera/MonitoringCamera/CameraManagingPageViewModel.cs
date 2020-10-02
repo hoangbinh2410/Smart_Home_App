@@ -497,7 +497,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void InitCamera1(string url)
         {
             IsCam1Loaded = false;
-            MediaPlayerNo1 = null;
+       
             var mediaNo1 = new Media(LibVLC, new Uri(url));
 
             MediaPlayerNo1 = new MediaPlayer(mediaNo1) { AspectRatio = "4:3", Scale = 0, Mute = true };
@@ -545,7 +545,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void InitCamera2(string url)
         {
             IsCam2Loaded = false;
-            MediaPlayerNo2 = null;
+
             var mediaNo1 = new Media(LibVLC, new Uri(url));
             MediaPlayerNo2 = new MediaPlayer(mediaNo1) { AspectRatio = "4:3", Scale = 0, Mute = true };
             MediaPlayerNo2.TimeChanged += MediaPlayerNo2_TimeChanged;
@@ -592,7 +592,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void InitCamera3(string url)
         {
             IsCam3Loaded = false;
-            MediaPlayerNo3 = null;
+        
             var mediaNo1 = new Media(LibVLC, new Uri(url));
             MediaPlayerNo3 = new MediaPlayer(mediaNo1) { AspectRatio = "4:3", Scale = 0, Mute = true };
             MediaPlayerNo3.TimeChanged += MediaPlayerNo3_TimeChanged;
@@ -638,7 +638,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void InitCamera4(string url)
         {
             IsCam4Loaded = false;
-            MediaPlayerNo4 = null;
+         
             var mediaNo1 = new Media(LibVLC, new Uri(url));
 
             MediaPlayerNo4 = new MediaPlayer(mediaNo1) { AspectRatio = "4:3", Scale = 0, Mute = true };
