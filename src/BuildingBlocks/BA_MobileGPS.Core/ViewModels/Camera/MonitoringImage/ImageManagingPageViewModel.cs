@@ -189,14 +189,36 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void TabDetail(object obj)
         {
-            //chuyên trang detail
+            //chuyên trang danh sách camera
             SafeExecute(async () =>
             {
-                var parameters = new NavigationParameters
+                var vehicleOnline = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == (string)obj);
+                if (vehicleOnline != null)
                 {
-                    { ParameterKey.VehiclePlate, obj }
-                };
-                await NavigationService.NavigateAsync("ImageDetailPage", parameters, useModalNavigation: false);
+                    var vehicle = new Vehicle
+                    {
+                        VehicleId = vehicleOnline.VehicleId,
+                        VehiclePlate = vehicleOnline.VehiclePlate,
+                        PrivateCode = vehicleOnline.PrivateCode,
+                        GroupIDs = vehicleOnline.GroupIDs,
+                        Imei = vehicleOnline.Imei
+                    };
+
+                    var parameters = new NavigationParameters
+                    {
+                        { ParameterKey.VehicleRoute, vehicle }
+                    };
+
+                    await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, useModalNavigation: true);
+                }
+                else
+                {
+                    var parameters = new NavigationParameters
+                    {
+                        { ParameterKey.VehiclePlate, obj }
+                    };
+                    await NavigationService.NavigateAsync("ImageDetailPage", parameters, useModalNavigation: false);
+                }
             });
         }
 
@@ -268,20 +290,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
         }
 
-        private async void TapItems(object obj)
+        private void TapItems(object obj)
         {
             var listview = obj as Syncfusion.ListView.XForms.ItemTappedEventArgs;
             try
             {
                 // truyền key xử lý ở đây
-                var VehiclePlate = ((LastViewVehicleImageModel)listview.ItemData).Name;
+                CarSearch = ((LastViewVehicleImageModel)listview.ItemData).Name;
 
-                // chuyen dang detail
-                var parameters = new NavigationParameters
-                {
-                    { ParameterKey.VehiclePlate, VehiclePlate }
-                };
-                await NavigationService.NavigateAsync("ImageDetailPage", parameters, useModalNavigation: false);
+                ShowImageSearch();
             }
             catch (Exception ex)
             {
@@ -413,7 +430,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             TryExecute(async () =>
             {
-               
+
                 if (mVehicleString != null && mVehicleString.Count > 0)
                 {
                     var request = new StreamImageRequest();
@@ -448,7 +465,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         ListGroup = new ObservableCollection<CaptureImageData>();
                     }
-                }   
+                }
             });
         }
 
@@ -563,6 +580,18 @@ namespace BA_MobileGPS.Core.ViewModels
                 respone[1] = count > 3 ? 80 : 40;
             }
             return respone;
+        }
+
+        private Vehicle AddListVehicle(VehicleOnline listOnline)
+        {
+            return (new Vehicle
+            {
+                VehicleId = listOnline.VehicleId,
+                VehiclePlate = listOnline.VehiclePlate,
+                PrivateCode = listOnline.PrivateCode,
+                GroupIDs = listOnline.GroupIDs,
+                Imei = listOnline.Imei
+            });
         }
 
     }
