@@ -63,18 +63,22 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
                         case CameraEnum.CAM1:
                             frCam1.IsVisible = false;
                             topLeftCam.IsVisible = false;
+                         
                             break;
                         case CameraEnum.CAM2:
                             frCam2.IsVisible = false;
                             bottomLeftCam.IsVisible = false;
+        
                             break;
                         case CameraEnum.CAM3:
                             frCam3.IsVisible = false;
                             topRightCam.IsVisible = false;
+      
                             break;
                         case CameraEnum.CAM4:
                             frCam4.IsVisible = false;
                             bottomRightCam.IsVisible = false;
+
                             break;
                     }
                 });               

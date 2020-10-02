@@ -88,7 +88,16 @@
                         Value="#0C852E">
                         <Setter Property="BackgroundColor" Value="Transparent" />
                     </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding TotalTimeCam1}"
+                        TargetType="Grid"
+                        Value="0">
+                        <Setter Property="BackgroundColor" Value="Black" />
+                        <Setter Property="Opacity" Value="1" />
+                        <Setter Property="InputTransparent" Value="False" />
+                    </DataTrigger>
                 </Grid.Triggers>
+
             </Grid>
         </Grid>
 
@@ -145,6 +154,14 @@
                         TargetType="Grid"
                         Value="#0C852E">
                         <Setter Property="BackgroundColor" Value="Transparent" />
+                    </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding TotalTimeCam2}"
+                        TargetType="Grid"
+                        Value="0">
+                        <Setter Property="BackgroundColor" Value="Black" />
+                        <Setter Property="Opacity" Value="1" />
+                        <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                 </Grid.Triggers>
             </Grid>
