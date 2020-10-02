@@ -491,7 +491,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void SetUpVlc()
         {
             LibVLCSharp.Shared.Core.Initialize();
-            LibVLC = new LibVLC("--no-osd");
+            LibVLC = new LibVLC("--no-osd", "--rtsp-tcp");
         }
 
         private void InitCamera1(string url)
