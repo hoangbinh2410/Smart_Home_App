@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Core.Views.Camera.MonitoringCamera;
@@ -11,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Input;
@@ -99,27 +101,18 @@ namespace BA_MobileGPS.Core.ViewModels
                     IsCAM4Error = false;
                     EventAggregator.GetEvent<HideVideoViewEvent>().Publish(allCams);
 
+                    VehicleSelectedPlate = vehiclePlate.VehiclePlate;
+                    GetCameraInfor(VehicleSelectedPlate);
 
-                    if (vehiclePlate.VehiclePlate == "98B00048")
-                    {
-                        VehicleSelectedPlate = "CAMTEST1";
-                        GetCameraInfor("CAMTEST1");
-                    }
-                    else if (vehiclePlate.VehiclePlate == "98B00562")
-                    {
-                        VehicleSelectedPlate = "QATEST1";
-                        GetCameraInfor("QATEST1");
-                    }
-                    else
-                    {
-                        VehicleSelectedPlate = vehiclePlate.VehiclePlate;
-                        GetCameraInfor(VehicleSelectedPlate);
-                    }
                     SelectedCamera = currentCamera.FirstOrDefault();
 
                 }
             }
-            if (parameters.ContainsKey(ParameterKey.RequestTime) && parameters.GetValue<int>(ParameterKey.RequestTime) is int time)
+            else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
+            {
+                VehicleGroups = vehiclegroup;
+            }
+            else if (parameters.ContainsKey(ParameterKey.RequestTime) && parameters.GetValue<int>(ParameterKey.RequestTime) is int time)
             {
                 if (BugNavigation)
                 {
@@ -127,6 +120,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 BugNavigation = !BugNavigation;
             }
+
             base.OnNavigatedTo(parameters);
         }
 
@@ -518,7 +512,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                 }
             });
-
         }
 
         private void MediaPlayerNo1_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
@@ -831,52 +824,62 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private async Task<string> TakeSnapShot()
         {
-            var photoPermission = await PermissionHelper.CheckPhotoPermissions();
-            var storagePermission = await PermissionHelper.CheckStoragePermissions();
-            if (photoPermission && storagePermission)
+            try
             {
-                Device.BeginInvokeOnMainThread(() =>
+                var photoPermission = await PermissionHelper.CheckPhotoPermissions();
+                var storagePermission = await PermissionHelper.CheckStoragePermissions();
+                if (photoPermission && storagePermission)
                 {
-                    SetLanscape();
-                });
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        SetLanscape();
+                    });
 
-                var folderPath = DependencyService.Get<ICameraSnapShotServices>().GetFolderPath();
-                var current = DateTime.Now.ToString("yyyyMMddHHmmss");
-                var fileName = Enum.GetName(typeof(CameraEnum), SelectedCamera) + current + ".jpg";
-                var filePath = Path.Combine(folderPath, fileName);
-                switch (SelectedCamera)
-                {
-                    case CameraEnum.CAM1:
-                        MediaPlayerNo1.TakeSnapshot(0, filePath, 0, 0);
-                        break;
+                    var folderPath = DependencyService.Get<ICameraSnapShotServices>().GetFolderPath();
+                    var current = DateTime.Now.ToString("yyyyMMddHHmmss");
+                    var fileName = Enum.GetName(typeof(CameraEnum), SelectedCamera) + current + ".jpg";
+                    var filePath = Path.Combine(folderPath, fileName);
+                    switch (SelectedCamera)
+                    {
+                        case CameraEnum.CAM1:
+                            MediaPlayerNo1.TakeSnapshot(0, filePath, 0, 0);
+                            break;
 
-                    case CameraEnum.CAM2:
-                        MediaPlayerNo2.TakeSnapshot(0, filePath, 0, 0);
-                        break;
+                        case CameraEnum.CAM2:
+                            MediaPlayerNo2.TakeSnapshot(0, filePath, 0, 0);
+                            break;
 
-                    case CameraEnum.CAM3:
-                        MediaPlayerNo3.TakeSnapshot(0, filePath, 0, 0);
-                        break;
+                        case CameraEnum.CAM3:
+                            MediaPlayerNo3.TakeSnapshot(0, filePath, 0, 0);
+                            break;
 
-                    case CameraEnum.CAM4:
-                        MediaPlayerNo4.TakeSnapshot(0, filePath, 0, 0);
-                        break;
+                        case CameraEnum.CAM4:
+                            MediaPlayerNo4.TakeSnapshot(0, filePath, 0, 0);
+                            break;
+                    }
+                    if (File.Exists(filePath))
+                    {
+                        DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(filePath);
+                        return filePath;
+                    }
+                    return string.Empty;
                 }
-                if (File.Exists(filePath))
+                else
                 {
-                    DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(filePath);
-                    return filePath;
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        SetLanscape();
+                    });
+                    return string.Empty;
                 }
+            }
+            catch (Exception ex)
+            {
+
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
                 return string.Empty;
             }
-            else
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    SetLanscape();
-                });
-                return string.Empty;
-            }
+
 
         }
 
