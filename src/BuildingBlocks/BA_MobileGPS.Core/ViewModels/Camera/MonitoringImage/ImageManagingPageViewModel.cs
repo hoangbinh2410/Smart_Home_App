@@ -488,32 +488,37 @@ namespace BA_MobileGPS.Core.ViewModels
                         request.VehiclePlates = string.Join(",", lst);
 
                         IsMaxLoadMore = false;
+
+                        var response = await _streamCameraService.GetListCaptureImage(request);
+
+                        if (response != null && response.Count > 0)
+                        {
+                            if (ListGroup.Count > 0 && ListGroup != null)
+                            {
+                                foreach (var item in response)
+                                {
+                                    if (Settings.FavoritesVehicleImage.Contains(item.VehiclePlate))
+                                    {
+                                        item.IsFavorites = true;
+                                    }
+                                }
+
+                                ListGroup.AddRange(response);
+                            }
+                            else
+                            {
+                                ListGroup = new ObservableCollection<CaptureImageData>(response);
+                            }
+                        }
+                        else
+                        {
+                            PageIndex++;
+                            ShowImageLoadMore();
+                        }
                     }
                     else
                     {
                         IsMaxLoadMore = true;
-                    }
-
-                    var response = await _streamCameraService.GetListCaptureImage(request);
-
-                    if (response != null && response.Count > 0)
-                    {
-                        if(ListGroup.Count> 0 && ListGroup != null)
-                        {
-                            foreach (var item in response)
-                            {
-                                if (Settings.FavoritesVehicleImage.Contains(item.VehiclePlate))
-                                {
-                                    item.IsFavorites = true;
-                                }
-                            }
-
-                            ListGroup.AddRange(response);
-                        }
-                        else
-                        {
-                            ListGroup = new ObservableCollection<CaptureImageData>(response);
-                        }
                     }
                 }
             });
