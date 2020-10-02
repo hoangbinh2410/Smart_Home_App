@@ -126,8 +126,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        //public ObservableCollection<CaptureImageData> ListGroup { get => listGroup; set => SetProperty(ref listGroup, value); }
-
         private bool isShowLastViewVehicle = true;
         public bool IsShowLastViewVehicle { get => isShowLastViewVehicle; set => SetProperty(ref isShowLastViewVehicle, value); }
 
@@ -473,7 +471,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             TryExecute(async () =>
             {
-
                 if (mVehicleString != null && mVehicleString.Count > 0)
                 {
                     var request = new StreamImageRequest();
@@ -501,15 +498,22 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     if (response != null && response.Count > 0)
                     {
-                        foreach (var item in response)
+                        if(ListGroup.Count> 0 && ListGroup != null)
                         {
-                            if (Settings.FavoritesVehicleImage.Contains(item.VehiclePlate))
+                            foreach (var item in response)
                             {
-                                item.IsFavorites = true;
+                                if (Settings.FavoritesVehicleImage.Contains(item.VehiclePlate))
+                                {
+                                    item.IsFavorites = true;
+                                }
                             }
-                        }
 
-                        ListGroup.AddRange(response);
+                            ListGroup.AddRange(response);
+                        }
+                        else
+                        {
+                            ListGroup = new ObservableCollection<CaptureImageData>(response);
+                        }
                     }
                 }
             });
@@ -580,18 +584,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 respone[1] = count > 3 ? 80 : 40;
             }
             return respone;
-        }
-
-        private Vehicle AddListVehicle(VehicleOnline listOnline)
-        {
-            return (new Vehicle
-            {
-                VehicleId = listOnline.VehicleId,
-                VehiclePlate = listOnline.VehiclePlate,
-                PrivateCode = listOnline.PrivateCode,
-                GroupIDs = listOnline.GroupIDs,
-                Imei = listOnline.Imei
-            });
         }
 
     }
