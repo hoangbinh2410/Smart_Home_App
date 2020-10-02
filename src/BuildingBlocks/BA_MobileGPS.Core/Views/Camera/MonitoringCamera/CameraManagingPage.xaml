@@ -228,6 +228,7 @@
                 <icons:IconView
                     Foreground="{DynamicResource WhiteColor}"
                     HeightRequest="25"
+                    IsVisible="False"
                     Source="ic_share"
                     WidthRequest="25">
                     <icons:IconView.GestureRecognizers>
@@ -249,7 +250,16 @@
                         <Setter Property="Margin" Value="0,0,15,0" />
                     </DataTrigger>
                 </StackLayout.Triggers>
-                <Grid HeightRequest="25" WidthRequest="45">
+                <!--<buttons:SfCheckBox
+                    CheckedColor="White"
+                    IsChecked="{Binding AutoAddTime}"
+                    Text="Tự gia hạn"
+                    TextColor="White"
+                    UncheckedColor="White" />
+                <Grid
+                    HeightRequest="25"
+                    IsVisible="{Binding AutoAddTime, Converter={StaticResource ShowHideColumnConverter}}"
+                    WidthRequest="45">
                     <Label
                         IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM1}}"
                         StyleClass="BoldText"
@@ -274,10 +284,11 @@
                         Text="{Binding TotalTimeCam4, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
                         TextColor="White"
                         VerticalOptions="Center" />
-                </Grid>
+                </Grid>-->
                 <icons:IconView
                     Foreground="{DynamicResource WhiteColor}"
                     HeightRequest="25"
+                    IsVisible="{Binding AutoAddTime, Converter={StaticResource ShowHideColumnConverter}}"
                     Source="ic_addtime.png"
                     WidthRequest="25">
                     <icons:IconView.GestureRecognizers>
@@ -289,6 +300,14 @@
                     HeightRequest="25"
                     Source="ic_fullscreen.png"
                     WidthRequest="25">
+                    <icons:IconView.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsFullScreenOff}"
+                            TargetType="icons:IconView"
+                            Value="false">
+                            <Setter Property="Source" Value="ic_normalscreen" />
+                        </DataTrigger>
+                    </icons:IconView.Triggers>
                     <icons:IconView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding FullScreenTappedCommand}" />
                     </icons:IconView.GestureRecognizers>
