@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Syncfusion.XlsIO.Parser.Biff_Records;
 using Syncfusion.Data.Extensions;
+using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -54,6 +55,7 @@ namespace BA_MobileGPS.Core.ViewModels
             RefeshCommand = new DelegateCommand(RefeshImage);
             CarSearch = string.Empty;
             PageCount = 5;
+            PageIndex = 0;
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -81,6 +83,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 VehicleGroups = vehiclegroup;
                 CarSearch = string.Empty;
                 GetVehicleString();
+                PageIndex = 0;
                 ShowImage();
             }
         }
@@ -141,7 +144,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 PageIndex++;
-                ShowImage();
+                ShowImageLoadMore();
             }
             catch (Exception ex)
             {
@@ -410,9 +413,53 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             TryExecute(async () =>
             {
-                var request = new StreamImageRequest();
+               
                 if (mVehicleString != null && mVehicleString.Count > 0)
                 {
+                    var request = new StreamImageRequest();
+                    var lst = GetListPage(mVehicleString, PageIndex, PageCount);
+                    if (lst != null && lst.Count > 0)
+                    {
+                        var xnCode = StaticSettings.User.XNCode;
+
+                        if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                        {
+                            xnCode = Settings.CurrentCompany.XNCode;
+                        }
+                        request.xnCode = xnCode;
+
+                        request.VehiclePlates = string.Join(",", lst);
+                    }
+
+                    var response = await _streamCameraService.GetListCaptureImage(request);
+
+                    if (response != null && response.Count > 0)
+                    {
+                        foreach (var item in response)
+                        {
+                            if (Settings.FavoritesVehicleImage.Contains(item.VehiclePlate))
+                            {
+                                item.IsFavorites = true;
+                            }
+                        }
+                        ListGroup = new ObservableCollection<CaptureImageData>(response);
+                    }
+                    else
+                    {
+                        ListGroup = new ObservableCollection<CaptureImageData>();
+                    }
+                }   
+            });
+        }
+
+        private void ShowImageLoadMore()
+        {
+            TryExecute(async () =>
+            {
+
+                if (mVehicleString != null && mVehicleString.Count > 0)
+                {
+                    var request = new StreamImageRequest();
                     var lst = GetListPage(mVehicleString, PageIndex, PageCount);
                     if (lst != null && lst.Count > 0)
                     {
@@ -432,25 +479,21 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         IsMaxLoadMore = true;
                     }
-                }
 
-                var response = await _streamCameraService.GetListCaptureImage(request);
+                    var response = await _streamCameraService.GetListCaptureImage(request);
 
-                if (response != null && response.Count > 0)
-                {
-                    foreach (var item in response)
+                    if (response != null && response.Count > 0)
                     {
-                        if (Settings.FavoritesVehicleImage.Contains(item.VehiclePlate))
+                        foreach (var item in response)
                         {
-                            item.IsFavorites = true;
+                            if (Settings.FavoritesVehicleImage.Contains(item.VehiclePlate))
+                            {
+                                item.IsFavorites = true;
+                            }
                         }
+
+                        ListGroup.AddRange(response);
                     }
-
-                    var lst = ListGroup.ToList();
-
-                    lst.AddRange(response);
-
-                    ListGroup = lst.ToObservableCollection();
                 }
             });
         }
