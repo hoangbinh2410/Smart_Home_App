@@ -40,6 +40,7 @@ namespace BA_MobileGPS.Core.Views
         {          
             Device.BeginInvokeOnMainThread(() =>
             {
+                
                 noDataImage.IsVisible = false;
                 cameraPanel.Children.Clear();
                 if (obj == 1)

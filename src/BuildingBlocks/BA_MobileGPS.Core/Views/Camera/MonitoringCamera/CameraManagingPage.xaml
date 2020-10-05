@@ -3,11 +3,13 @@
     x:Class="BA_MobileGPS.Core.Views.CameraManagingPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:local="clr-namespace:BA_MobileGPS.Core.Views.Camera.MonitoringCamera"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True"
@@ -161,31 +163,44 @@
             <StackLayout Spacing="0">
                 <StackLayout
                     x:Name="inforBoard"
-                    Padding="10,4,0,4"
+                    Padding="10,3"
                     BackgroundColor="Black"
-                    IsVisible="False"
+                    IsVisible="{Binding IsFullScreenOff}"
                     Spacing="5">
                     <StackLayout Orientation="Horizontal">
                         <ff:CachedImage
                             Margin="3,0,0,0"
                             HeightRequest="20"
                             Source="ic_greencamera" />
-                        <Label StyleClass="BoldText" Text="{Binding SelectedCamera, Converter={StaticResource CameraNameConverter}}" />
+                        <Label
+                            x:Name="lblCamName"
+                            StyleClass="BoldText"
+                            Text="{Binding SelectedCamera, Converter={StaticResource CameraNameConverter}}"
+                            TextColor="{DynamicResource WhiteColor}" />
+                        <ff:CachedImage
+                            Margin="20,0,0,0"
+                            HeightRequest="20"
+                            Source="ic_blueclock" />
+                        <Label
+                            LineBreakMode="TailTruncation"
+                            MaxLines="1"
+                            Text="{Binding CurrentTime}"
+                            TextColor="{DynamicResource WhiteColor}" />
                     </StackLayout>
-
                     <StackLayout Orientation="Horizontal">
                         <ff:CachedImage HeightRequest="20" Source="ic_redlocation" />
                         <Label
                             LineBreakMode="TailTruncation"
                             MaxLines="2"
-                            Text="{Binding CurrentAddress}" />
+                            Text="{Binding CurrentAddress}"
+                            TextColor="{DynamicResource WhiteColor}" />
                     </StackLayout>
                     <StackLayout.Triggers>
                         <DataTrigger
-                            Binding="{Binding IsFullScreenOff}"
+                            Binding="{Binding Source={x:Reference lblCamName}, Path=Text.Length}"
                             TargetType="StackLayout"
-                            Value="true">
-                            <Setter Property="IsVisible" Value="True" />
+                            Value="0">
+                            <Setter Property="IsVisible" Value="False" />
                         </DataTrigger>
                     </StackLayout.Triggers>
                 </StackLayout>
@@ -206,8 +221,7 @@
                 <Grid
                     Padding="5,7"
                     BackgroundColor="#4D000000"
-                    ColumnDefinitions="Auto,*,Auto"
-                    IsEnabled="{Binding SelectedCamera, Converter={StaticResource HasDataConverter}}">
+                    ColumnDefinitions="Auto,*,Auto">
                     <Grid.Triggers>
                         <DataTrigger
                             Binding="{Binding IsFullScreenOff}"
@@ -229,6 +243,21 @@
                                 <Setter Property="Margin" Value="15,0,0,0" />
                             </DataTrigger>
                         </StackLayout.Triggers>
+                        <icons:IconView
+                            Foreground="Red"
+                            HeightRequest="25"
+                            IsVisible="True"
+                            Source="ic_livestream"
+                            WidthRequest="25">
+                            <icons:IconView.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsFullScreenOff}"
+                                    TargetType="icons:IconView"
+                                    Value="true">
+                                    <Setter Property="IsVisible" Value="False" />
+                                </DataTrigger>
+                            </icons:IconView.Triggers>
+                        </icons:IconView>
                         <icons:IconView
                             Foreground="{DynamicResource WhiteColor}"
                             HeightRequest="25"
@@ -296,41 +325,42 @@
                                 <Setter Property="Margin" Value="0,0,15,0" />
                             </DataTrigger>
                         </StackLayout.Triggers>
-                        <!--<buttons:SfCheckBox
-                    CheckedColor="White"
-                    IsChecked="{Binding AutoAddTime}"
-                    Text="Tự gia hạn"
-                    TextColor="White"
-                    UncheckedColor="White" />
-                <Grid
-                    HeightRequest="25"
-                    IsVisible="{Binding AutoAddTime, Converter={StaticResource ShowHideColumnConverter}}"
-                    WidthRequest="45">
-                    <Label
-                        IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM1}}"
-                        StyleClass="BoldText"
-                        Text="{Binding TotalTimeCam1, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
-                        TextColor="White"
-                        VerticalOptions="Center" />
-                    <Label
-                        IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM2}}"
-                        StyleClass="BoldText"
-                        Text="{Binding TotalTimeCam2, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
-                        TextColor="White"
-                        VerticalOptions="Center" />
-                    <Label
-                        IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM3}}"
-                        StyleClass="BoldText"
-                        Text="{Binding TotalTimeCam3, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
-                        TextColor="White"
-                        VerticalOptions="Center" />
-                    <Label
-                        IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM4}}"
-                        StyleClass="BoldText"
-                        Text="{Binding TotalTimeCam4, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
-                        TextColor="White"
-                        VerticalOptions="Center" />
-                </Grid>-->
+                        <!--  Gia han thoi gian  -->
+                        <buttons:SfCheckBox
+                            CheckedColor="White"
+                            IsChecked="{Binding AutoAddTime}"
+                            Text="Tự gia hạn"
+                            TextColor="White"
+                            UncheckedColor="White" />
+                        <Grid
+                            HeightRequest="25"
+                            IsVisible="{Binding AutoAddTime, Converter={StaticResource ShowHideColumnConverter}}"
+                            WidthRequest="45">
+                            <Label
+                                IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM1}}"
+                                StyleClass="BoldText"
+                                Text="{Binding TotalTimeCam1, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
+                                TextColor="White"
+                                VerticalOptions="Center" />
+                            <Label
+                                IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM2}}"
+                                StyleClass="BoldText"
+                                Text="{Binding TotalTimeCam2, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
+                                TextColor="White"
+                                VerticalOptions="Center" />
+                            <Label
+                                IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM3}}"
+                                StyleClass="BoldText"
+                                Text="{Binding TotalTimeCam3, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
+                                TextColor="White"
+                                VerticalOptions="Center" />
+                            <Label
+                                IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM4}}"
+                                StyleClass="BoldText"
+                                Text="{Binding TotalTimeCam4, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
+                                TextColor="White"
+                                VerticalOptions="Center" />
+                        </Grid>
                         <icons:IconView
                             Foreground="{DynamicResource WhiteColor}"
                             HeightRequest="25"
@@ -361,10 +391,6 @@
                     </StackLayout>
                 </Grid>
             </StackLayout>
-
         </Grid>
-
-
-
     </Grid>
 </ContentPage>
