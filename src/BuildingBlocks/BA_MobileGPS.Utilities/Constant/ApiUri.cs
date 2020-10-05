@@ -248,6 +248,7 @@
         #region ping
 
         public const string GET_PING_SERVER_STATUS = "api/ping/serverstatus";
+        public const string GET_TIMESERVER = "api/ping/timeserver";
 
         #endregion ping
 
