@@ -1,6 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Entities.ResponeEntity.Camera;
+using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism.Navigation;
 using BA_MobileGPS.Service.IService;
@@ -10,15 +10,18 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 using Xamarin.Forms;
-using Realms.Exceptions;
-using Xamarin.Forms.Extensions;
 using System.Linq;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.Interfaces;
+using System.IO;
+using System.Reflection;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class ImageDetailViewModel : ViewModelBase
     {
+        private readonly IRealmBaseService<LastViewVehicleRealm, LastViewVehicleRespone> _lastViewVehicleRepository;
+
         private readonly IStreamCameraService _streamCameraService;
 
         private string vehiclePlate;
@@ -42,13 +45,20 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private readonly IDownloader downloader;
 
+        private string filePath;
+        public string FilePath { get => filePath; set => SetProperty(ref filePath, value); }
+
         private ObservableCollection<Photo> listphotoImages;
         public ObservableCollection<Photo> ListphotoImages { get => listphotoImages; set => SetProperty(ref listphotoImages, value); }
 
-        public ImageDetailViewModel(INavigationService navigationService, IStreamCameraService streamCameraService, IDownloader downloader) : base(navigationService)
+        public ImageDetailViewModel(INavigationService navigationService,
+            IStreamCameraService streamCameraService,
+            IRealmBaseService<LastViewVehicleRealm, LastViewVehicleRespone> lastViewVehicleRepository,
+            IDownloader downloader) : base(navigationService)
         {
             Title = MobileResource.CameraImage_Label_TitleDetailPage;
             _streamCameraService = streamCameraService;
+            _lastViewVehicleRepository = lastViewVehicleRepository;
             this.downloader = downloader;
             downloader.OnFileDownloaded += Downloader_OnFileDownloaded;
             DownloadImageCommand = new Command(DownloadImage);
@@ -80,40 +90,44 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void UpdateLastViewVehicleImage()
         {
-            if(Settings.LastViewVehicleImage == string.Empty) // lần đầu
+            var userId = StaticSettings.User.UserId;
+
+            if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
             {
-                Settings.LastViewVehicleImage = VehiclePlate;
+                userId = Settings.CurrentCompany.UserId;
+            }
+
+            var lst = _lastViewVehicleRepository.All()?.Where(x => x.UserId == userId.ToString()).ToList();
+            if (lst != null && lst.Count > 0)
+            {
+                var lstVehicle = lst.FirstOrDefault(x => x.VehiclePlate == VehiclePlate);
+                if (lstVehicle == null) // chưa có thì mới add
+                {
+                    var index = _lastViewVehicleRepository.GetLastId();
+
+                    if (lst.Count == Settings.ShowViewVehicleImage) // nếu bằng số lastview
+                    {
+                        // xóa phần tử
+                        _lastViewVehicleRepository.Delete(lst.FirstOrDefault().Id);
+                    }
+
+                    // add
+                    _lastViewVehicleRepository.Add(new LastViewVehicleRespone()
+                    {
+                        Id = index + 1,
+                        UserId = userId.ToString(),
+                        VehiclePlate = VehiclePlate
+                    });
+                }    
             }
             else
             {
-                var split = Settings.LastViewVehicleImage.Split(',');
-
-                split = split.Where(x => x != VehiclePlate).ToArray();
-
-                string[] temp = new string[split.Length];
-
-                if (split.Length < Settings.ShowViewVehicleImage) // nếu chưa số lastview
+                _lastViewVehicleRepository.Add(new LastViewVehicleRespone()
                 {
-                    temp = new string[split.Length + 1];
-
-                    temp[0] = VehiclePlate;
-
-                    for (int i = 0; i < split.Length; i++)
-                    {
-                        temp[i + 1] = split[i];
-                    }
-                }
-                else // nếu đủ rồi và là 1 biển số mới
-                {
-                    temp[0] = VehiclePlate;
-
-                    for (int i = 0; i < split.Length - 1; i++)
-                    {
-                        temp[i + 1] = split[i];
-                    }
-                }
-               
-                Settings.LastViewVehicleImage = string.Join(",", temp);
+                    Id = 1,
+                    UserId = userId.ToString(),
+                    VehiclePlate = VehiclePlate
+                });
             }
         }
 
@@ -132,13 +146,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 ListCameraImage = await _streamCameraService.GetCaptureImageLimit(xnCode, VehiclePlate, 50);
                 if (ListCameraImage != null && ListCameraImage.Count > 0)
                 {
-                    if(ImageCamera !=null)
+                    if (ImageCamera != null)
                     {
                         Position = ListCameraImage.Select(x => x.Url).ToList().IndexOf(ImageCamera.Url);
                     }
                     else
                     {
                         Position = 0;
+                        ImageCamera = ListCameraImage.FirstOrDefault();
                     }
 
                     PositionString = string.Format("{0}/{1}", Position + 1, ListCameraImage.Count);
@@ -224,9 +239,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw;
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -265,10 +280,9 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             catch (Exception ex)
             {
-
-                throw;
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-            
+
         }
 
         /// <summary>
@@ -282,11 +296,13 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         private void DownloadImage()
         {
-            SafeExecute(async () =>
+            TryExecute(async () =>
             {
-                if (await PermissionHelper.CheckStoragePermissions())
+                var photoPermission = await PermissionHelper.CheckPhotoPermissions();
+                var storagePermission = await PermissionHelper.CheckStoragePermissions();
+                if (photoPermission && storagePermission)
                 {
-                    downloader.DownloadFile(ImageCamera.Url, "GPS-Camera");
+                    FilePath = downloader.DownloadFileGetPath(ImageCamera.Url, "GPS-Camera");
                 }
             });
         }
@@ -304,6 +320,14 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (e.FileSaved)
                 {
+                    // Lưu ảnh vào gallery 
+                    if (File.Exists(FilePath))
+                    {
+                        DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(FilePath);
+                        // xóa ảnh tại path cũ
+                        //File.Delete(FilePath);
+                    }
+                    
                     await PageDialog.DisplayAlertAsync("Camera", "Lưu hình ảnh thành công", "OK");
                 }
                 else

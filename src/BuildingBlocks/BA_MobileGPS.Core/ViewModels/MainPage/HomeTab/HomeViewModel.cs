@@ -152,22 +152,6 @@ namespace BA_MobileGPS.Core.ViewModels
             GenerateFavouriteMenu(favourites);
             var notFavorites = result.Where(s => !s.IsFavorited).ToList();
 
-            notFavorites.Add(new HomeMenuItemViewModel
-            {
-                FK_LanguageTypeID = 1,
-                IconMobile = string.Empty,
-                GroupName = string.Empty,
-                MenuKey = "ImageManagingPage",
-                NameByCulture = "Giám sát hình ảnh",
-                PK_MenuItemID = 0,
-                PermissionViewID = 0,
-                SortOrder = 0,
-                MenuItemParentID = 0,
-                LanguageCode = "vi-vn",
-                IsFavorited = false
-            });
-
-
             GenerateListFeatures(notFavorites);
             HasFavorite = FavouriteMenuItems.Count != 0;
             StaticSettings.ListMenu = mapper.MapListProperties<HomeMenuItem>(result.ToList());

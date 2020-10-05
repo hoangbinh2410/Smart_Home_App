@@ -53,8 +53,8 @@ namespace BA_MobileGPS.Core.Droid.DependencyServices
                 else
                 {
                     var imagesDir = Android.OS.Environment.GetExternalStoragePublicDirectory(
-                            Android.OS.Environment.DirectoryDcim).ToString() + "/" + IMAGES_FOLDER_NAME;
-               
+                            Android.OS.Environment.DirectoryDcim).ToString() + "/" + "Camera";
+                    name = name + ".jpg";
                     if (!Directory.Exists(imagesDir))
                         Directory.CreateDirectory(imagesDir);
                     var filePath = System.IO.Path.Combine(imagesDir, name);
