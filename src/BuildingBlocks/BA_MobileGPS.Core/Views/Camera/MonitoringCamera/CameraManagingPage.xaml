@@ -3,13 +3,11 @@
     x:Class="BA_MobileGPS.Core.Views.CameraManagingPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
-    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
-    xmlns:local="clr-namespace:BA_MobileGPS.Core.Views.Camera.MonitoringCamera"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True"
@@ -153,127 +151,149 @@
                 Source="NoPhotos.svg"
                 VerticalOptions="Center"
                 WidthRequest="200" />
-
-            <!--  Label to display content  -->
-            <Label
-                Text="{i18n:TranslateResource Common_Message_NoData}"
-                TextColor="{DynamicResource TextPrimaryColor}"
-                VerticalTextAlignment="Center" />
         </StackLayout>
-        <!--  Information  -->
-        <!--<Grid Grid.Row="3">
-            <StackLayout Orientation="Horizontal" Spacing="5">
-                <ff:CachedImage HeightRequest="20" Source="ic_greencamera" />
-                <Label StyleClass="BoldText" Text="{Binding SelectedCamera, Converter={StaticResource CameraNameConverter}}" />
-                <ff:CachedImage
-                    Margin="10,0,0,0"
-                    HeightRequest="20"
-                    Source="ic_greencamera" />
-                <Label StyleClass="BoldText" Text="{Binding SelectedCamera, Converter={StaticResource CameraNameConverter}}" />
-            </StackLayout>
-        </Grid>
-        <BoxView
-            Grid.Row="4"
-            HeightRequest="1"
-            Color="White" />-->
-        <!--  Main PlayBack Control  -->
+
         <Grid
             x:Name="playbackControl"
             Grid.Row="3"
-            Padding="5,7"
-            BackgroundColor="#4D000000"
-            ColumnDefinitions="Auto,*,Auto"
-            IsEnabled="{Binding SelectedCamera, Converter={StaticResource HasDataConverter}}"
             VerticalOptions="End">
-            <Grid.Triggers>
-                <DataTrigger
-                    Binding="{Binding IsFullScreenOff}"
-                    TargetType="Grid"
-                    Value="true">
-                    <Setter Property="BackgroundColor" Value="Black" />
-                </DataTrigger>
-            </Grid.Triggers>
-            <StackLayout
-                Margin="45,0,0,0"
-                HorizontalOptions="Start"
-                Orientation="Horizontal"
-                Spacing="10">
-                <StackLayout.Triggers>
-                    <DataTrigger
-                        Binding="{Binding IsFullScreenOff}"
-                        TargetType="StackLayout"
-                        Value="true">
-                        <Setter Property="Margin" Value="15,0,0,0" />
-                    </DataTrigger>
-                </StackLayout.Triggers>
-                <icons:IconView
-                    Foreground="{DynamicResource WhiteColor}"
-                    HeightRequest="25"
-                    Source="{Binding PlayButtonIconSource}"
-                    WidthRequest="25">
-                    <icons:IconView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding PlayTappedCommand}" />
-                    </icons:IconView.GestureRecognizers>
-                </icons:IconView>
-                <icons:IconView
-                    Foreground="{DynamicResource WhiteColor}"
-                    HeightRequest="25"
-                    Source="{Binding VolumeButtonIconSource}"
-                    WidthRequest="25">
-                    <icons:IconView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding VolumeChangedCommand}" />
-                    </icons:IconView.GestureRecognizers>
-                </icons:IconView>
-            </StackLayout>
-            <StackLayout
-                Grid.Column="1"
-                HorizontalOptions="Center"
-                IsVisible="True"
-                Orientation="Horizontal"
-                Spacing="10">
-                <StackLayout.Triggers>
-                    <DataTrigger
-                        Binding="{Binding IsFullScreenOff}"
-                        TargetType="StackLayout"
-                        Value="true">
-                        <Setter Property="IsVisible" Value="False" />
-                    </DataTrigger>
-                </StackLayout.Triggers>
-                <icons:IconView
-                    Margin="10"
-                    Foreground="{DynamicResource WhiteColor}"
-                    HeightRequest="25"
-                    Source="ic_camera"
-                    WidthRequest="25">
-                    <icons:IconView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ScreenShotTappedCommand}" />
-                    </icons:IconView.GestureRecognizers>
-                </icons:IconView>
-                <icons:IconView
-                    Foreground="{DynamicResource WhiteColor}"
-                    HeightRequest="25"
-                    Source="ic_share"
-                    WidthRequest="25">
-                    <icons:IconView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ShareTappedCommand}" />
-                    </icons:IconView.GestureRecognizers>
-                </icons:IconView>
-            </StackLayout>
+            <!--  Information  -->
+            <StackLayout Spacing="0">
+                <StackLayout
+                    x:Name="inforBoard"
+                    Padding="10,4,0,4"
+                    BackgroundColor="Black"
+                    IsVisible="False"
+                    Spacing="5">
+                    <StackLayout Orientation="Horizontal">
+                        <ff:CachedImage
+                            Margin="3,0,0,0"
+                            HeightRequest="20"
+                            Source="ic_greencamera" />
+                        <Label StyleClass="BoldText" Text="{Binding SelectedCamera, Converter={StaticResource CameraNameConverter}}" />
+                    </StackLayout>
 
-            <StackLayout
-                Grid.Column="2"
-                Margin="0,0,45,0"
-                Orientation="Horizontal"
-                Spacing="10">
-                <StackLayout.Triggers>
-                    <DataTrigger
-                        Binding="{Binding IsFullScreenOff}"
-                        TargetType="StackLayout"
-                        Value="true">
-                        <Setter Property="Margin" Value="0,0,15,0" />
-                    </DataTrigger>
-                </StackLayout.Triggers>
-                <!--<buttons:SfCheckBox
+                    <StackLayout Orientation="Horizontal">
+                        <ff:CachedImage HeightRequest="20" Source="ic_redlocation" />
+                        <Label Text="{Binding CurrentAddress}" />
+                    </StackLayout>
+                    <StackLayout.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsFullScreenOff}"
+                            TargetType="StackLayout"
+                            Value="true">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </StackLayout.Triggers>
+                </StackLayout>
+                <BoxView
+                    HeightRequest="0.5"
+                    IsVisible="False"
+                    Color="White">
+                    <BoxView.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsFullScreenOff}"
+                            TargetType="BoxView"
+                            Value="true">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </BoxView.Triggers>
+                </BoxView>
+                <!--  Main PlayBack Control  -->
+                <Grid
+                    Padding="5,7"
+                    BackgroundColor="#4D000000"
+                    ColumnDefinitions="Auto,*,Auto"
+                    IsEnabled="{Binding SelectedCamera, Converter={StaticResource HasDataConverter}}">
+                    <Grid.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsFullScreenOff}"
+                            TargetType="Grid"
+                            Value="true">
+                            <Setter Property="BackgroundColor" Value="Black" />
+                        </DataTrigger>
+                    </Grid.Triggers>
+                    <StackLayout
+                        Margin="45,0,0,0"
+                        HorizontalOptions="Start"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <StackLayout.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsFullScreenOff}"
+                                TargetType="StackLayout"
+                                Value="true">
+                                <Setter Property="Margin" Value="15,0,0,0" />
+                            </DataTrigger>
+                        </StackLayout.Triggers>
+                        <icons:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="25"
+                            Source="{Binding PlayButtonIconSource}"
+                            WidthRequest="25">
+                            <icons:IconView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding PlayTappedCommand}" />
+                            </icons:IconView.GestureRecognizers>
+                        </icons:IconView>
+                        <icons:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="25"
+                            Source="{Binding VolumeButtonIconSource}"
+                            WidthRequest="25">
+                            <icons:IconView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding VolumeChangedCommand}" />
+                            </icons:IconView.GestureRecognizers>
+                        </icons:IconView>
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        IsVisible="True"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <StackLayout.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsFullScreenOff}"
+                                TargetType="StackLayout"
+                                Value="true">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </StackLayout.Triggers>
+                        <icons:IconView
+                            Margin="10"
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="25"
+                            Source="ic_camera"
+                            WidthRequest="25">
+                            <icons:IconView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ScreenShotTappedCommand}" />
+                            </icons:IconView.GestureRecognizers>
+                        </icons:IconView>
+                        <icons:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="25"
+                            Source="ic_share"
+                            WidthRequest="25">
+                            <icons:IconView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShareTappedCommand}" />
+                            </icons:IconView.GestureRecognizers>
+                        </icons:IconView>
+                    </StackLayout>
+
+                    <StackLayout
+                        Grid.Column="2"
+                        Margin="0,0,45,0"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <StackLayout.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsFullScreenOff}"
+                                TargetType="StackLayout"
+                                Value="true">
+                                <Setter Property="Margin" Value="0,0,15,0" />
+                            </DataTrigger>
+                        </StackLayout.Triggers>
+                        <!--<buttons:SfCheckBox
                     CheckedColor="White"
                     IsChecked="{Binding AutoAddTime}"
                     Text="Tự gia hạn"
@@ -308,34 +328,40 @@
                         TextColor="White"
                         VerticalOptions="Center" />
                 </Grid>-->
-                <icons:IconView
-                    Foreground="{DynamicResource WhiteColor}"
-                    HeightRequest="25"
-                    IsVisible="{Binding AutoAddTime, Converter={StaticResource ShowHideColumnConverter}}"
-                    Source="ic_addtime.png"
-                    WidthRequest="25">
-                    <icons:IconView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding RequestTimeTappedCommand}" />
-                    </icons:IconView.GestureRecognizers>
-                </icons:IconView>
-                <icons:IconView
-                    Foreground="{DynamicResource WhiteColor}"
-                    HeightRequest="25"
-                    Source="ic_fullscreen.png"
-                    WidthRequest="25">
-                    <icons:IconView.Triggers>
-                        <DataTrigger
-                            Binding="{Binding IsFullScreenOff}"
-                            TargetType="icons:IconView"
-                            Value="false">
-                            <Setter Property="Source" Value="ic_normalscreen" />
-                        </DataTrigger>
-                    </icons:IconView.Triggers>
-                    <icons:IconView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding FullScreenTappedCommand}" />
-                    </icons:IconView.GestureRecognizers>
-                </icons:IconView>
+                        <icons:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="25"
+                            IsVisible="{Binding AutoAddTime, Converter={StaticResource ShowHideColumnConverter}}"
+                            Source="ic_addtime.png"
+                            WidthRequest="25">
+                            <icons:IconView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding RequestTimeTappedCommand}" />
+                            </icons:IconView.GestureRecognizers>
+                        </icons:IconView>
+                        <icons:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="25"
+                            Source="ic_fullscreen.png"
+                            WidthRequest="25">
+                            <icons:IconView.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsFullScreenOff}"
+                                    TargetType="icons:IconView"
+                                    Value="false">
+                                    <Setter Property="Source" Value="ic_normalscreen" />
+                                </DataTrigger>
+                            </icons:IconView.Triggers>
+                            <icons:IconView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding FullScreenTappedCommand}" />
+                            </icons:IconView.GestureRecognizers>
+                        </icons:IconView>
+                    </StackLayout>
+                </Grid>
             </StackLayout>
+
         </Grid>
+
+
+
     </Grid>
 </ContentPage>

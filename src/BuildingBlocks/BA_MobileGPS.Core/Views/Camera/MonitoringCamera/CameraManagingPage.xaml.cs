@@ -45,19 +45,19 @@ namespace BA_MobileGPS.Core.Views
                 if (obj == 1)
                 {
                     var cam = new Template1Camera();
-                    ViewModelLocator.SetAutowirePartialView(cam, this);
+                  
                     cameraPanel.Children.Add(cam);
                 }
                 else if (obj == 2)
                 {
                     var cam = new Template2Camera();
-                    ViewModelLocator.SetAutowirePartialView(cam, this);
+                   
                     cameraPanel.Children.Add(cam);
                 }
                 else if(obj == 4)
                 {
                     var cam = new Template4Camera();
-                    ViewModelLocator.SetAutowirePartialView(cam, this);
+                
                     cameraPanel.Children.Add(cam);
                 }
                 else if (obj == 0)
@@ -111,15 +111,6 @@ namespace BA_MobileGPS.Core.Views
     }
 
     public class SetCameraLayoutEvent : PubSubEvent<int>
-    {
-
-    }
-
-    public class ShowVideoViewEvent : PubSubEvent<List<CameraEnum>>
-    {
-
-    }
-    public class HideVideoViewEvent : PubSubEvent<List<CameraEnum>>
     {
 
     }

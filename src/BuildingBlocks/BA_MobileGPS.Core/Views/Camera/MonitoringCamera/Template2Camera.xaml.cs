@@ -20,14 +20,10 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
             InitializeComponent();
             eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Subscribe(SwitchToNormal);
             eventAggregator.GetEvent<SwitchToFullScreenEvent>().Subscribe(FullScreen);
-            eventAggregator.GetEvent<HideVideoViewEvent>().Subscribe(HideVideoView);
-            eventAggregator.GetEvent<ShowVideoViewEvent>().Subscribe(ShowVideoView);
         }
 
         public void Destroy()
         {
-            eventAggregator.GetEvent<HideVideoViewEvent>().Unsubscribe(HideVideoView);
-            eventAggregator.GetEvent<ShowVideoViewEvent>().Unsubscribe(ShowVideoView);
             eventAggregator.GetEvent<SwitchToFullScreenEvent>().Unsubscribe(FullScreen);
             eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Unsubscribe(SwitchToNormal);
         }
@@ -64,50 +60,6 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
             parentPanel.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0) });
             parentPanel.RowDefinitions.Add(new RowDefinition());
         }
-        private void ShowVideoView(List<CameraEnum> obj)
-        {
-            foreach (var item in obj)
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    switch (item)
-                    {
-                        case CameraEnum.CAM1:
-                            frCam1.IsVisible = true;
-                            topLeftCam.IsVisible = true;
-                            break;
-                        case CameraEnum.CAM2:
-                            frCam1.IsVisible = true;
-                            bottomLeftCam.IsVisible = true;
-                            break;
-                        default:
-                            break;
-                    }
-                });
-            }
-        }
-
-        private void HideVideoView(List<CameraEnum> obj)
-        {
-            foreach (var item in obj)
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    switch (item)
-                    {
-                        case CameraEnum.CAM1:
-                            frCam1.IsVisible = false;
-                            topLeftCam.IsVisible = false;
-                            break;
-                        case CameraEnum.CAM2:
-                            frCam2.IsVisible = false;
-                            bottomLeftCam.IsVisible = false;
-                            break;
-                        default:
-                            break;
-                    }
-                });
-            }
-        }
+     
     }
 }
