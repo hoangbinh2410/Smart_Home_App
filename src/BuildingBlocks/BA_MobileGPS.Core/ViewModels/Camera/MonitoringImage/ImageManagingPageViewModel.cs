@@ -63,7 +63,10 @@ namespace BA_MobileGPS.Core.ViewModels
             base.Initialize(parameters);
             GetVehicleString();
             ShowLastView();
-            ShowImage();
+            if (!parameters.ContainsKey(ParameterKey.Vehicle))
+            {
+                ShowImage();
+            }
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
