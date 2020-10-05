@@ -228,7 +228,6 @@
                 <icons:IconView
                     Foreground="{DynamicResource WhiteColor}"
                     HeightRequest="25"
-                    IsVisible="False"
                     Source="ic_share"
                     WidthRequest="25">
                     <icons:IconView.GestureRecognizers>

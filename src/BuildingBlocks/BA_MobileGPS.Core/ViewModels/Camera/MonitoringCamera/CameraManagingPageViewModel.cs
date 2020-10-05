@@ -1135,6 +1135,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 base.OnResume();
                 SelectedCamera = null;
                 ReLoadCamera();
+                DependencyService.Get<IScreenOrientServices>().ForcePortrait();
             }
             BugNavigation = !BugNavigation;
         }
