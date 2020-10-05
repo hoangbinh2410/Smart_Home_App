@@ -175,7 +175,10 @@
 
                     <StackLayout Orientation="Horizontal">
                         <ff:CachedImage HeightRequest="20" Source="ic_redlocation" />
-                        <Label Text="{Binding CurrentAddress}" />
+                        <Label
+                            LineBreakMode="TailTruncation"
+                            MaxLines="2"
+                            Text="{Binding CurrentAddress}" />
                     </StackLayout>
                     <StackLayout.Triggers>
                         <DataTrigger

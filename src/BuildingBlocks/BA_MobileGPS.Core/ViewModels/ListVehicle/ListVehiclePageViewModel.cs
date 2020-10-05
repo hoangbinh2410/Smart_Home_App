@@ -108,9 +108,17 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     GoRoutePage(currentVehicle);
                 }
-                else if (action == "Camera")
+                else if (action == "Image")
                 {
                     GotoCameraPage(currentVehicle);
+                }
+                else if (action == "Nhiên liệu")
+                {
+                    GotoFuelPage(currentVehicle);
+                }
+                else if (action == "Video")
+                {
+                    GotoVideoPage(currentVehicle);
                 }
             }
         }
@@ -579,6 +587,34 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         public void GotoCameraPage(VehicleOnlineViewModel selected)
+        {
+            SafeExecute(async () =>
+            {
+                var param = _mapper.MapProperties<Vehicle>(selected);
+                var parameters = new NavigationParameters
+                {
+                    { ParameterKey.Vehicle, param }
+                };
+
+                await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true);
+            });
+        }
+
+        public void GotoFuelPage(VehicleOnlineViewModel selected)
+        {
+            SafeExecute(async () =>
+            {
+                var param = _mapper.MapProperties<Vehicle>(selected);
+                var parameters = new NavigationParameters
+                {
+                    { ParameterKey.Vehicle, param }
+                };
+
+                await NavigationService.NavigateAsync("NavigationPage/PourFuelReportPage", parameters, true);
+            });
+        }
+
+        public void GotoVideoPage(VehicleOnlineViewModel selected)
         {
             SafeExecute(async () =>
             {
