@@ -163,9 +163,9 @@
             <StackLayout Spacing="0">
                 <StackLayout
                     x:Name="inforBoard"
-                    Padding="10,4,0,4"
+                    Padding="10,3"
                     BackgroundColor="Black"
-                    IsVisible="False"
+                    IsVisible="{Binding IsFullScreenOff}"
                     Spacing="5">
                     <StackLayout Orientation="Horizontal">
                         <ff:CachedImage
@@ -173,6 +173,7 @@
                             HeightRequest="20"
                             Source="ic_greencamera" />
                         <Label
+                            x:Name="lblCamName"
                             StyleClass="BoldText"
                             Text="{Binding SelectedCamera, Converter={StaticResource CameraNameConverter}}"
                             TextColor="{DynamicResource WhiteColor}" />
@@ -196,10 +197,10 @@
                     </StackLayout>
                     <StackLayout.Triggers>
                         <DataTrigger
-                            Binding="{Binding IsFullScreenOff}"
+                            Binding="{Binding Source={x:Reference lblCamName}, Path=Text.Length}"
                             TargetType="StackLayout"
-                            Value="true">
-                            <Setter Property="IsVisible" Value="True" />
+                            Value="0">
+                            <Setter Property="IsVisible" Value="False" />
                         </DataTrigger>
                     </StackLayout.Triggers>
                 </StackLayout>
@@ -220,8 +221,7 @@
                 <Grid
                     Padding="5,7"
                     BackgroundColor="#4D000000"
-                    ColumnDefinitions="Auto,*,Auto"
-                    IsEnabled="{Binding SelectedCamera, Converter={StaticResource HasDataConverter}}">
+                    ColumnDefinitions="Auto,*,Auto">
                     <Grid.Triggers>
                         <DataTrigger
                             Binding="{Binding IsFullScreenOff}"
@@ -274,15 +274,6 @@
                             WidthRequest="25">
                             <icons:IconView.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding VolumeChangedCommand}" />
-                            </icons:IconView.GestureRecognizers>
-                        </icons:IconView>
-                        <icons:IconView
-                            Foreground="{DynamicResource WhiteColor}"
-                            HeightRequest="25"
-                            Source="ic_reload"
-                            WidthRequest="25">
-                            <icons:IconView.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ReloadCommand}" />
                             </icons:IconView.GestureRecognizers>
                         </icons:IconView>
                     </StackLayout>

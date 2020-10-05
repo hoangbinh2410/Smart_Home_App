@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:indicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:local="clr-namespace:BA_MobileGPS.Core.Views.Camera.MonitoringCamera"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -79,9 +80,34 @@
             <indicator:SfBusyIndicator IsBusy="{Binding IsCam1Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
             <Grid
                 x:Name="gridCloseCam1"
-                BackgroundColor="White"
-                InputTransparent="True"
-                Opacity="0.2">
+                BackgroundColor="#33FFFFFF"
+                InputTransparent="True">
+                <icons:IconView
+                    Foreground="{DynamicResource WhiteColor}"
+                    HeightRequest="30"
+                    HorizontalOptions="Center"
+                    IsVisible="False"
+                    Source="ic_reload"
+                    VerticalOptions="Center"
+                    WidthRequest="30">
+                    <icons:IconView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ReloadCommand}" CommandParameter="{x:Static local:CameraEnum.CAM1}" />
+                    </icons:IconView.GestureRecognizers>
+                    <icons:IconView.Triggers>
+                        <DataTrigger
+                            Binding="{Binding TotalTimeCam1, Mode=OneWay}"
+                            TargetType="icons:IconView"
+                            Value="0">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding IsCAM1Error}"
+                            TargetType="icons:IconView"
+                            Value="True">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </icons:IconView.Triggers>
+                </icons:IconView>
                 <Grid.Triggers>
                     <DataTrigger
                         Binding="{Binding Source={x:Reference frCam1}, Path=BorderColor}"
@@ -94,7 +120,12 @@
                         TargetType="Grid"
                         Value="0">
                         <Setter Property="BackgroundColor" Value="Black" />
-                        <Setter Property="Opacity" Value="1" />
+                        <Setter Property="InputTransparent" Value="False" />
+                    </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding IsCAM1Error}"
+                        TargetType="Grid"
+                        Value="True">
                         <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                 </Grid.Triggers>
@@ -146,9 +177,34 @@
             <indicator:SfBusyIndicator IsBusy="{Binding IsCam2Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
             <Grid
                 x:Name="gridCloseCam2"
-                BackgroundColor="White"
-                InputTransparent="True"
-                Opacity="0.2">
+                BackgroundColor="#33FFFFFF"
+                InputTransparent="True">
+                <icons:IconView
+                    Foreground="{DynamicResource WhiteColor}"
+                    HeightRequest="30"
+                    HorizontalOptions="Center"
+                    IsVisible="False"
+                    Source="ic_reload"
+                    VerticalOptions="Center"
+                    WidthRequest="30">
+                    <icons:IconView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ReloadCommand}" CommandParameter="{x:Static local:CameraEnum.CAM2}" />
+                    </icons:IconView.GestureRecognizers>
+                    <icons:IconView.Triggers>
+                        <DataTrigger
+                            Binding="{Binding TotalTimeCam2, Mode=OneWay}"
+                            TargetType="icons:IconView"
+                            Value="0">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding IsCAM2Error}"
+                            TargetType="icons:IconView"
+                            Value="True">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </icons:IconView.Triggers>
+                </icons:IconView>
                 <Grid.Triggers>
                     <DataTrigger
                         Binding="{Binding Source={x:Reference frCam2}, Path=BorderColor}"
@@ -161,7 +217,12 @@
                         TargetType="Grid"
                         Value="0">
                         <Setter Property="BackgroundColor" Value="Black" />
-                        <Setter Property="Opacity" Value="1" />
+                        <Setter Property="InputTransparent" Value="False" />
+                    </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding IsCAM2Error}"
+                        TargetType="Grid"
+                        Value="True">
                         <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                 </Grid.Triggers>
@@ -209,9 +270,34 @@
             <indicator:SfBusyIndicator IsBusy="{Binding IsCam3Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
             <Grid
                 x:Name="gridCloseCam3"
-                BackgroundColor="White"
-                InputTransparent="True"
-                Opacity="0.2">
+                BackgroundColor="#33FFFFFF"
+                InputTransparent="True">
+                <icons:IconView
+                    Foreground="{DynamicResource WhiteColor}"
+                    HeightRequest="30"
+                    HorizontalOptions="Center"
+                    IsVisible="False"
+                    Source="ic_reload"
+                    VerticalOptions="Center"
+                    WidthRequest="30">
+                    <icons:IconView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ReloadCommand}" CommandParameter="{x:Static local:CameraEnum.CAM3}" />
+                    </icons:IconView.GestureRecognizers>
+                    <icons:IconView.Triggers>
+                        <DataTrigger
+                            Binding="{Binding TotalTimeCam3, Mode=OneWay}"
+                            TargetType="icons:IconView"
+                            Value="0">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding IsCAM3Error}"
+                            TargetType="icons:IconView"
+                            Value="True">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </icons:IconView.Triggers>
+                </icons:IconView>
                 <Grid.Triggers>
                     <DataTrigger
                         Binding="{Binding Source={x:Reference frCam3}, Path=BorderColor}"
@@ -224,7 +310,12 @@
                         TargetType="Grid"
                         Value="0">
                         <Setter Property="BackgroundColor" Value="Black" />
-                        <Setter Property="Opacity" Value="1" />
+                        <Setter Property="InputTransparent" Value="False" />
+                    </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding IsCAM3Error}"
+                        TargetType="Grid"
+                        Value="True">
                         <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                 </Grid.Triggers>
@@ -275,9 +366,34 @@
             <indicator:SfBusyIndicator IsBusy="{Binding IsCam4Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
             <Grid
                 x:Name="gridCloseCam4"
-                BackgroundColor="White"
-                InputTransparent="True"
-                Opacity="0.2">
+                BackgroundColor="#33FFFFFF"
+                InputTransparent="True">
+                <icons:IconView
+                    Foreground="{DynamicResource WhiteColor}"
+                    HeightRequest="30"
+                    HorizontalOptions="Center"
+                    IsVisible="False"
+                    Source="ic_reload"
+                    VerticalOptions="Center"
+                    WidthRequest="30">
+                    <icons:IconView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ReloadCommand}" CommandParameter="{x:Static local:CameraEnum.CAM4}" />
+                    </icons:IconView.GestureRecognizers>
+                    <icons:IconView.Triggers>
+                        <DataTrigger
+                            Binding="{Binding TotalTimeCam4, Mode=OneWay}"
+                            TargetType="icons:IconView"
+                            Value="0">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding IsCAM4Error}"
+                            TargetType="icons:IconView"
+                            Value="True">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </icons:IconView.Triggers>
+                </icons:IconView>
                 <Grid.Triggers>
                     <DataTrigger
                         Binding="{Binding Source={x:Reference frCam4}, Path=BorderColor}"
@@ -290,7 +406,12 @@
                         TargetType="Grid"
                         Value="0">
                         <Setter Property="BackgroundColor" Value="Black" />
-                        <Setter Property="Opacity" Value="1" />
+                        <Setter Property="InputTransparent" Value="False" />
+                    </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding IsCAM4Error}"
+                        TargetType="Grid"
+                        Value="True">
                         <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                 </Grid.Triggers>
