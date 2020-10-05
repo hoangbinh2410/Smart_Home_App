@@ -300,14 +300,8 @@ namespace BA_MobileGPS.Core.ViewModels
             identityHubService.onReceivePushLogoutToAllUserInCompany += onReceivePushLogoutToAllUserInCompany;
             identityHubService.onReceivePushLogoutToUser += onReceivePushLogoutToUser;
 
-            // Khởi tạo signalR
-            await vehicleOnlineHubService.Connect();
-
-            vehicleOnlineHubService.onReceiveSendCarSignalR += OnReceiveSendCarSignalR;
-
             // Khởi tạo alertlR
             await alertHubService.Connect();
-
             alertHubService.onReceiveAlertSignalR += OnReceiveAlertSignalR;
         }
         private async Task ConnectSignalROnline()
