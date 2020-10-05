@@ -211,6 +211,9 @@
     <AndroidResource Include="Resources\drawable\NoItem.svg" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_reload.png" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_cameraonline.png" />
   </ItemGroup>
   <ItemGroup>
