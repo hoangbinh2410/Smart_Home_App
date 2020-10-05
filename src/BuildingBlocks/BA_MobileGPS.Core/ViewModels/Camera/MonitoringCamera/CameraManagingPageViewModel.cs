@@ -579,14 +579,22 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void MediaPlayerNo2_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
         {
-            if (e.Time > 0 && !IsCam2Loaded)
+            try
             {
-                PlayButtonIconSource = stopIconSource;
-                IsCam2Loaded = true;
-                ShowVideoView(CameraEnum.CAM2);
-                TotalTimeCam2 = 180;
-                MediaPlayerNo2.TimeChanged -= MediaPlayerNo2_TimeChanged;
+                if (e.Time > 0 && !IsCam2Loaded)
+                {
+                    PlayButtonIconSource = stopIconSource;
+                    IsCam2Loaded = true;
+                    ShowVideoView(CameraEnum.CAM2);
+                    TotalTimeCam2 = 180;
+                    MediaPlayerNo2.TimeChanged -= MediaPlayerNo2_TimeChanged;
+                }
             }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError("MediaPlayerNo2_TimeChanged", ex);
+            }
+           
         }
 
         private void InitCamera3(string url)
