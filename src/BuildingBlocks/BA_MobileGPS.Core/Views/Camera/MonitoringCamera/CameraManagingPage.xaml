@@ -6,6 +6,8 @@
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:local="clr-namespace:BA_MobileGPS.Core.Views.Camera.MonitoringCamera"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
@@ -136,6 +138,28 @@
         </Grid>
         <!--  Camera  -->
         <Grid x:Name="cameraPanel" Grid.Row="2" />
+        <StackLayout
+            x:Name="noDataImage"
+            Grid.Row="2"
+            BackgroundColor="Transparent"
+            HorizontalOptions="Center"
+            Spacing="10"
+            VerticalOptions="Center">
+
+            <!--  Image for display svg image  -->
+            <ffsvg:SvgCachedImage
+                BackgroundColor="Transparent"
+                HeightRequest="200"
+                Source="NoPhotos.svg"
+                VerticalOptions="Center"
+                WidthRequest="200" />
+
+            <!--  Label to display content  -->
+            <Label
+                Text="{i18n:TranslateResource Common_Message_NoData}"
+                TextColor="{DynamicResource TextPrimaryColor}"
+                VerticalTextAlignment="Center" />
+        </StackLayout>
         <!--  Information  -->
         <!--<Grid Grid.Row="3">
             <StackLayout Orientation="Horizontal" Spacing="5">

@@ -37,9 +37,10 @@ namespace BA_MobileGPS.Core.Views
         }
 
         private void SetCameraLayout(int obj)
-        {
+        {          
             Device.BeginInvokeOnMainThread(() =>
             {
+                noDataImage.IsVisible = false;
                 cameraPanel.Children.Clear();
                 if (obj == 1)
                 {
@@ -61,13 +62,7 @@ namespace BA_MobileGPS.Core.Views
                 }
                 else if (obj == 0)
                 {
-                    var a = new Label();
-                    a.Text = " KHÔNG CÓ CAMERA";
-                    a.FontSize = 20;
-                    a.HorizontalOptions = LayoutOptions.Center;
-                    a.VerticalOptions = LayoutOptions.Center;
-                    a.TextColor = Color.Red;
-                    cameraPanel.Children.Add(a);
+                    noDataImage.IsVisible = true;
                 }
             });
         
