@@ -51,7 +51,7 @@
             </Grid>
             <BoxView StyleClass="SlimLine" />
             <FlexLayout
-                Padding="20,10"
+                Padding="20,10,20,0"
                 AlignItems="Stretch"
                 Direction="Row"
                 JustifyContent="SpaceBetween">
@@ -118,9 +118,34 @@
                     </pancakeview:PancakeView>
                     <Label x:Name="lblDetailTitle" LineBreakMode="WordWrap" />
                 </StackLayout>
+            </FlexLayout>
+
+            <FlexLayout
+                Padding="20,0,20,10"
+                AlignItems="Stretch"
+                Direction="Row"
+                JustifyContent="SpaceBetween">
+                <FlexLayout.Resources>
+                    <Style TargetType="pancakeview:PancakeView">
+                        <Setter Property="HeightRequest" Value="60" />
+                        <Setter Property="WidthRequest" Value="60" />
+                        <Setter Property="CornerRadius" Value="30" />
+                        <Setter Property="BackgroundColor" Value="{DynamicResource WhiteColor}" />
+                        <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                    </Style>
+                    <Style TargetType="controls:IconView">
+                        <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
+                        <Setter Property="Margin" Value="15" />
+                        <Setter Property="HorizontalOptions" Value="Center" />
+                    </Style>
+                    <Style TargetType="Label">
+                        <Setter Property="FontSize" Value="13" />
+                        <Setter Property="WidthRequest" Value="80" />
+                    </Style>
+                </FlexLayout.Resources>
                 <StackLayout Spacing="10">
                     <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigativeCommand}" CommandParameter="Camera" />
+                        <TapGestureRecognizer Command="{Binding NavigativeCommand}" CommandParameter="{Binding Source={x:Reference lblVideoLiveTitle}, Path=Text}" />
                     </StackLayout.GestureRecognizers>
                     <pancakeview:PancakeView>
                         <pancakeview:PancakeView.Shadow>
@@ -129,9 +154,48 @@
                                 Offset="0,0"
                                 Color="Black" />
                         </pancakeview:PancakeView.Shadow>
-                        <controls:IconView Source="ic_camera.png" />
+                        <controls:IconView Source="ic_videolive.png" />
                     </pancakeview:PancakeView>
-                    <Label LineBreakMode="WordWrap" Text="Camera" />
+                    <Label
+                        x:Name="lblVideoLiveTitle"
+                        LineBreakMode="WordWrap"
+                        Text="Video" />
+                </StackLayout>
+                <StackLayout Spacing="10" VerticalOptions="StartAndExpand">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigativeCommand}" CommandParameter="Image" />
+                    </StackLayout.GestureRecognizers>
+                    <pancakeview:PancakeView>
+                        <pancakeview:PancakeView.Shadow>
+                            <pancakeview:DropShadow
+                                BlurRadius="2"
+                                Offset="0,0"
+                                Color="Black" />
+                        </pancakeview:PancakeView.Shadow>
+                        <controls:IconView Source="ic_cameraonline.png" />
+                    </pancakeview:PancakeView>
+                    <Label
+                        x:Name="lblCameraTitle"
+                        LineBreakMode="WordWrap"
+                        Text="Hình Ảnh" />
+                </StackLayout>
+                <StackLayout Spacing="10">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigativeCommand}" CommandParameter="{Binding Source={x:Reference lblFuelTitle}, Path=Text}" />
+                    </StackLayout.GestureRecognizers>
+                    <pancakeview:PancakeView>
+                        <pancakeview:PancakeView.Shadow>
+                            <pancakeview:DropShadow
+                                BlurRadius="2"
+                                Offset="0,0"
+                                Color="Black" />
+                        </pancakeview:PancakeView.Shadow>
+                        <controls:IconView Source="ic_fuel.png" />
+                    </pancakeview:PancakeView>
+                    <Label
+                        x:Name="lblFuelTitle"
+                        LineBreakMode="WordWrap"
+                        Text="Nhiên liệu" />
                 </StackLayout>
             </FlexLayout>
         </StackLayout>
