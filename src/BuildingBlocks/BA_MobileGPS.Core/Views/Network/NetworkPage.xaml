@@ -8,7 +8,7 @@
     xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     prism:ViewModelLocator.AutowireViewModel="True"
-   BackgroundColor="{DynamicResource WhiteColor}">
+    BackgroundColor="{DynamicResource WhiteColor}">
     <popup:PopupPage.Animation>
         <animations:MoveAnimation
             DurationIn="300"
@@ -21,7 +21,7 @@
     </popup:PopupPage.Animation>
     <ContentPage.Content>
         <StackLayout
-           BackgroundColor="{DynamicResource WhiteColor}"
+            BackgroundColor="{DynamicResource WhiteColor}"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="CenterAndExpand">
 
@@ -30,7 +30,8 @@
                 AutoPlay="true"
                 HeightRequest="100"
                 HorizontalOptions="FillAndExpand"
-                Loop="true"
+                RepeatCount="1000"
+                RepeatMode="Infinite"
                 WidthRequest="100" />
 
             <Label
