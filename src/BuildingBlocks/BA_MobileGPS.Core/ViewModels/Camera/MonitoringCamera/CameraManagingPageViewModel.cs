@@ -27,7 +27,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private Timer timer;
         private Timer errorTimer;
         private int counterTimeAutoRequestMoreTime = 20;
-        private readonly int maxLoadingTime = 28;
+        private readonly int maxLoadingTime = 15;
         private readonly string playIconSource = "ic_play_arrow_white.png";
         private readonly string stopIconSource = "ic_stop_white.png";
         private readonly string volumeIconSource = "ic_volumespeaker";
@@ -1199,8 +1199,17 @@ namespace BA_MobileGPS.Core.ViewModels
                             var chanel = (int)item + 1;
                             await SendRequestTime(600, chanel);
                         }
+                        counterTimeAutoRequestMoreTime = 20;
+                      
+                        Device.BeginInvokeOnMainThread(async() =>
+                        {
+                            var deviceResponse = await _streamCameraService.GetDevicesStatus(ConditionType.BKS, currentVehiclePlate);
+                            var deviceResponseData = deviceResponse?.Data?.FirstOrDefault();
+                            CurrentAddress = await _geocodeService.GetAddressByLatLng(deviceResponseData.Latitude.ToString(), deviceResponseData.Longitude.ToString());
+                        });
+                        
                     });
-                    counterTimeAutoRequestMoreTime = 20;
+                   
                 }
             }
             else
