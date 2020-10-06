@@ -1641,7 +1641,7 @@
                                             HorizontalOptions="FillAndExpand"
                                             VerticalOptions="Start" />
                                     </Grid>
-                                    <Grid Grid.Row="7">
+                                    <!--<Grid Grid.Row="7">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
@@ -1675,7 +1675,7 @@
                                                 <TapGestureRecognizer Command="{Binding GotoCameraPageComamnd}" CommandParameter="Camera" />
                                             </controls:IconView.GestureRecognizers>
                                         </controls:IconView>
-                                    </Grid>
+                                    </Grid>-->
                                 </Grid>
                             </sharpnado:MaterialFrame.Content>
                         </sharpnado:MaterialFrame>
