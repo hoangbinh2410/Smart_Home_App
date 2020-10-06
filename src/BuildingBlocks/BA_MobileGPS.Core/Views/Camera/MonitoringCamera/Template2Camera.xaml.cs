@@ -12,25 +12,37 @@ using Prism.Navigation;
 namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Template2Camera : ContentView, IDestructible
+    public partial class Template2Camera : ContentView
     {
         private IEventAggregator eventAggregator { get; } = Prism.PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+
         public Template2Camera()
         {
             InitializeComponent();
             eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Subscribe(SwitchToNormal);
             eventAggregator.GetEvent<SwitchToFullScreenEvent>().Subscribe(FullScreen);
+            eventAggregator.GetEvent<DisposeTemplateView>().Subscribe(ClearView);
+
         }
 
-        public void Destroy()
+        public void ClearView()
         {
-            eventAggregator.GetEvent<SwitchToFullScreenEvent>().Unsubscribe(FullScreen);
-            eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Unsubscribe(SwitchToNormal);
+            try
+            {
+                eventAggregator.GetEvent<SwitchToFullScreenEvent>().Unsubscribe(FullScreen);
+                eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Unsubscribe(SwitchToNormal);
+                eventAggregator.GetEvent<DisposeTemplateView>().Unsubscribe(ClearView);
+            }
+            catch (Exception ex)
+            {
+
+                
+            }
+         
         }
         private void SwitchToNormal()
         {
             parentPanel.RowDefinitions.Clear();
-
             parentPanel.RowDefinitions.Add(new RowDefinition());
             parentPanel.RowDefinitions.Add(new RowDefinition());
         }
@@ -60,6 +72,5 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
             parentPanel.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0) });
             parentPanel.RowDefinitions.Add(new RowDefinition());
         }
-     
     }
 }
