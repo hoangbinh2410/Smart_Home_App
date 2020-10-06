@@ -35,6 +35,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public DelegateCommand PushToDetailPageCommand { get; private set; }
         public ICommand PushtoListVehicleOnlineCommand { get; private set; }
         public DelegateCommand GoDistancePageCommand { get; private set; }
+        public DelegateCommand CloseCarInfoViewCommand { get; private set; }
+
 
         public bool IsCheckShowLandmark { get; set; } = false;
 
@@ -71,7 +73,10 @@ namespace BA_MobileGPS.Core.ViewModels
             CameraIdledCommand = new DelegateCommand<CameraIdledEventArgs>(UpdateMapInfo);
             GoDistancePageCommand = new DelegateCommand(GoDistancePage);
             PushDirectvehicleOnlineCommand = new DelegateCommand(PushDirectvehicleOnline);
+            CloseCarInfoViewCommand = new DelegateCommand(CloseCarInfoView);
         }
+
+        
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -199,7 +204,13 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Property
 
         #region Private Method
-
+        private void CloseCarInfoView()
+        {
+            SafeExecute(() =>
+            {
+                EventAggregator.GetEvent<BackButtonEvent>().Publish(true);
+            });
+        }
         private void PushDirectvehicleOnline()
         {
             TryExecute(async () =>

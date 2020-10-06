@@ -51,7 +51,7 @@
                 </controls:IconView>
             </Grid>
             <renderedViews:HorizontalListView
-                Margin="10"
+                Margin="10,10,10,0"
                 CollectionPadding="0"
                 ColumnCount="3"
                 HeightRequest="200"
@@ -67,7 +67,10 @@
                 <renderedViews:HorizontalListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Spacing="5" VerticalOptions="CenterAndExpand">
+                            <StackLayout
+                                Padding="1"
+                                Spacing="5"
+                                VerticalOptions="CenterAndExpand">
                                 <StackLayout.Resources>
                                     <Style TargetType="pancakeview:PancakeView">
                                         <Setter Property="HeightRequest" Value="50" />
