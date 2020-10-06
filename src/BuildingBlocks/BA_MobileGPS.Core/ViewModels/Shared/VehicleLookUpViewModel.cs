@@ -69,7 +69,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     LookUpType = type;
                     SelectedVehicleGroups = VehicleGroups;
-                    ListVehicleStatus = VehicleStatus;
+                    ListVehicleStatus = VehicleStatus == null ? new List<VehicleOnline>() : VehicleStatus;
                     InitData();
                 }
             }
