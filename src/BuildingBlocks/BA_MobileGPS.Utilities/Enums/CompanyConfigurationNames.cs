@@ -23,5 +23,7 @@
         IsDisplayPopupSendEngineControl,
         TimeVehicleSync,
         TimmerVehicleSync,
+        SynOnlineLevel,
+        EnableLongPoolRequest
     }
 }
