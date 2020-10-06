@@ -50,12 +50,11 @@
                     </controls:IconView.GestureRecognizers>
                 </controls:IconView>
             </Grid>
-            <BoxView StyleClass="SlimLine" />
             <renderedViews:HorizontalListView
                 Margin="10"
                 CollectionPadding="0"
                 ColumnCount="3"
-                HeightRequest="130"
+                HeightRequest="200"
                 HorizontalOptions="FillAndExpand"
                 ItemHeight="95"
                 ItemSpacing="10"
@@ -71,9 +70,9 @@
                             <StackLayout Spacing="5" VerticalOptions="CenterAndExpand">
                                 <StackLayout.Resources>
                                     <Style TargetType="pancakeview:PancakeView">
-                                        <Setter Property="HeightRequest" Value="60" />
-                                        <Setter Property="WidthRequest" Value="60" />
-                                        <Setter Property="CornerRadius" Value="30" />
+                                        <Setter Property="HeightRequest" Value="50" />
+                                        <Setter Property="WidthRequest" Value="50" />
+                                        <Setter Property="CornerRadius" Value="25" />
                                         <Setter Property="BackgroundColor" Value="{DynamicResource WhiteColor}" />
                                         <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
                                     </Style>
@@ -83,7 +82,7 @@
                                         <Setter Property="HorizontalOptions" Value="Center" />
                                     </Style>
                                     <Style TargetType="Label">
-                                        <Setter Property="FontSize" Value="13" />
+                                        <Setter Property="FontSize" Value="12" />
                                         <Setter Property="WidthRequest" Value="80" />
                                     </Style>
                                 </StackLayout.Resources>
