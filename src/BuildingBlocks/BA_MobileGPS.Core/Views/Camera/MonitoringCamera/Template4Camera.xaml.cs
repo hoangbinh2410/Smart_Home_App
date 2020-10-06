@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Template4Camera : ContentView, IDestructible
+    public partial class Template4Camera : ContentView
     {
         private IEventAggregator eventAggregator { get; } = Prism.PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
         public Template4Camera()
@@ -17,12 +17,22 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
             InitializeComponent();
             eventAggregator.GetEvent<SwitchToFullScreenEvent>().Subscribe(FullScreen);
             eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Subscribe(SwitchToNormal);
+            eventAggregator.GetEvent<DisposeTemplateView>().Subscribe(ClearView);
         }    
 
-        public void Destroy()
+        public void ClearView()
         {
-            eventAggregator.GetEvent<SwitchToFullScreenEvent>().Unsubscribe(FullScreen);
-            eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Unsubscribe(SwitchToNormal);
+            try
+            {
+                eventAggregator.GetEvent<SwitchToFullScreenEvent>().Unsubscribe(FullScreen);
+                eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Unsubscribe(SwitchToNormal);
+                eventAggregator.GetEvent<DisposeTemplateView>().Unsubscribe(ClearView);
+            }
+            catch (Exception ex)
+            {
+               
+            }
+           
         }
 
       
