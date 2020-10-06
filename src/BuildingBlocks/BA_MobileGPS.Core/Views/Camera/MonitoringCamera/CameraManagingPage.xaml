@@ -343,7 +343,7 @@
                         </StackLayout.Triggers>
                         <!--  Gia han thoi gian  -->
                         <buttons:SfCheckBox
-                            CheckedColor="White"
+                            
                             CornerRadius="0"
                             IsChecked="{Binding AutoAddTime}"
                             Text="Tự gia hạn"
