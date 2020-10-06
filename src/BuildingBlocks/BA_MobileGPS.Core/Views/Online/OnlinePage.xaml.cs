@@ -941,6 +941,8 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         public async void HideBoxInfo()
         {
+            vm.CarActive = new VehicleOnline();
+            mCarActive = new VehicleOnline();
             SetNoPaddingWithFooter();
             eventAggregator.GetEvent<ShowTabItemEvent>().Publish(true);
             await _animations.Go(States.HideFilter, true);
