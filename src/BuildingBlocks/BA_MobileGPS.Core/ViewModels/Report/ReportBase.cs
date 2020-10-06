@@ -100,7 +100,7 @@ namespace BA_MobileGPS.Core.ViewModels
         #region Property
 
         // có load dữ liệu sau khi load form không - mặc định là false
-        private readonly bool isShowDataAfterLoadForm = MobileSettingHelper.ConfigIsShowDataAfterLoadFormReport;
+        private readonly bool isShowDataAfterLoadForm = false;
 
         public virtual int ShowHideColumnTableID { get; set; }
 
