@@ -5,7 +5,6 @@ using FFImageLoading.Forms.Platform;
 using FFImageLoading.Svg.Forms;
 using LabelHtml.Forms.Plugin.iOS;
 using LibVLCSharp.Forms.Shared;
-using Lottie.Forms.iOS.Renderers;
 using PanCardView.iOS;
 using Plugin.Toasts;
 using Sharpnado.MaterialFrame.iOS;
@@ -39,7 +38,6 @@ namespace BA_MobileGPS.Core.iOS.Setup
             AppDelegate = _AppDelegate;
             Xamarin.Forms.DependencyService.Register<ToastNotification>();
             ToastNotification.Init();
-            AnimationViewRenderer.Init();
             Rg.Plugins.Popup.Popup.Init();
 
             CachedImageRenderer.Init();
