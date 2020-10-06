@@ -27,7 +27,7 @@ namespace BA_MobileGPS.Core.ViewModels
     public class CameraManagingPageViewModel : ViewModelBase
     {
         private Timer timer;
-        private int counterTimeAutoRequestMoreTime = 20;
+        private int counterRequestMoreTime = 15;
         private readonly int maxLoadingTime = 15;
         private readonly string playIconSource = "ic_play_arrow_white.png";
         private readonly string stopIconSource = "ic_stop_white.png";
@@ -76,7 +76,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsCam3Loaded = true;
                 IsCam4Loaded = true;
             });
-      
+
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
 
@@ -511,7 +511,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 LoggerHelper.WriteError("InitCamera1", ex);
             }
-          
+
         }
 
         private void MediaPlayerNo1_EncounteredError(object sender, EventArgs e)
@@ -519,11 +519,10 @@ namespace BA_MobileGPS.Core.ViewModels
             TryExecute(async () =>
             {
                 if (cam1LoadingTime <= maxLoadingTime)
-                {
-                    MediaPlayerNo1.EncounteredError -= MediaPlayerNo1_EncounteredError;
+                {                  
                     await Task.Delay(200);
                     cam1LoadingTime += 0.2;
-                    InitCamera1(videoUrl1);
+                    Reload(CameraEnum.CAM1);
                 }
                 else
                 {
@@ -547,9 +546,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     IsCam1Loaded = true;
                     TotalTimeCam1 = 180;
                 });
-               
-                ShowVideoView(CameraEnum.CAM1);               
-                MediaPlayerNo1.TimeChanged -= MediaPlayerNo1_TimeChanged;
+
+                ShowVideoView(CameraEnum.CAM1);             
                 cam1LoadingTime = 0;
             }
         }
@@ -572,7 +570,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 LoggerHelper.WriteError("InitCamera2", ex);
             }
-         
+
         }
 
         private void MediaPlayerNo2_EncounteredError(object sender, EventArgs e)
@@ -580,11 +578,10 @@ namespace BA_MobileGPS.Core.ViewModels
             TryExecute(async () =>
             {
                 if (cam2LoadingTime <= maxLoadingTime)
-                {
-                    MediaPlayerNo2.EncounteredError -= MediaPlayerNo2_EncounteredError;
+                {                   
                     await Task.Delay(200);
                     cam2LoadingTime += 0.2;
-                    InitCamera2(videoUrl2);
+                    Reload(CameraEnum.CAM2);
                 }
                 else
                 {
@@ -608,7 +605,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     IsCam2Loaded = true;
                     ShowVideoView(CameraEnum.CAM2);
                     TotalTimeCam2 = 180;
-                    MediaPlayerNo2.TimeChanged -= MediaPlayerNo2_TimeChanged;
                     cam2LoadingTime = 0;
                 }
             }
@@ -635,10 +631,9 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             catch (Exception ex)
             {
-
                 LoggerHelper.WriteError("InitCamera3", ex);
             }
-         
+
         }
 
         private void MediaPlayerNo3_EncounteredError(object sender, EventArgs e)
@@ -647,10 +642,9 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (cam3LoadingTime < maxLoadingTime)
                 {
-                    MediaPlayerNo3.EncounteredError -= MediaPlayerNo3_EncounteredError;
                     await Task.Delay(200);
                     cam3LoadingTime += 0.2;
-                    InitCamera3(videoUrl3);
+                    Reload(CameraEnum.CAM3);
                 }
                 else
                 {
@@ -672,7 +666,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsCam3Loaded = true;
                 ShowVideoView(CameraEnum.CAM3);
                 TotalTimeCam3 = 180;
-                MediaPlayerNo3.TimeChanged -= MediaPlayerNo3_TimeChanged;
                 cam3LoadingTime = 0;
             }
         }
@@ -694,9 +687,8 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             catch (Exception ex)
             {
-
                 LoggerHelper.WriteError("InitCamera4", ex);
-            }          
+            }
         }
 
         private void MediaPlayerNo4_EncounteredError(object sender, EventArgs e)
@@ -704,11 +696,10 @@ namespace BA_MobileGPS.Core.ViewModels
             TryExecute(async () =>
             {
                 if (cam4LoadingTime <= maxLoadingTime)
-                {
-                    MediaPlayerNo4.EncounteredError -= MediaPlayerNo4_EncounteredError;
+                {                    
                     await Task.Delay(200);
                     cam4LoadingTime += 0.2;
-                    InitCamera4(videoUrl4);
+                    Reload(CameraEnum.CAM4);
                 }
                 else
                 {
@@ -730,7 +721,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsCam4Loaded = true;
                 ShowVideoView(CameraEnum.CAM4);
                 TotalTimeCam4 = 180;
-                MediaPlayerNo4.TimeChanged -= MediaPlayerNo4_TimeChanged;
                 cam4LoadingTime = 0;
             }
         }
@@ -798,7 +788,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             VolumeButtonIconSource = MediaPlayerNo4.Mute ? muteIconSource : volumeIconSource;
                             break;
                     }
-                });            
+                });
             }
         }
 
@@ -845,7 +835,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         await NavigationService.NavigateAsync("RequestMoreTimePopup");
                     });
-                }              
+                }
             }
         }
 
@@ -997,28 +987,28 @@ namespace BA_MobileGPS.Core.ViewModels
                 switch (param)
                 {
                     case CameraEnum.CAM1:
-                       // DisposeMediaPlayer(CameraEnum.CAM1);
+                        DisposeMediaPlayer(CameraEnum.CAM1);
                         TotalTimeCam1 = 1;
                         IsCAM1Error = false;
                         InitCamera1(videoUrl1);
                         break;
 
                     case CameraEnum.CAM2:
-                     //   DisposeMediaPlayer(CameraEnum.CAM2);
+                        DisposeMediaPlayer(CameraEnum.CAM2);
                         TotalTimeCam2 = 1;
                         IsCAM2Error = false;
                         InitCamera2(videoUrl2);
                         break;
 
                     case CameraEnum.CAM3:
-                      //  DisposeMediaPlayer(CameraEnum.CAM3);
+                        DisposeMediaPlayer(CameraEnum.CAM3);
                         TotalTimeCam3 = 1;
                         IsCAM3Error = false;
                         InitCamera3(videoUrl3);
                         break;
 
                     case CameraEnum.CAM4:
-                     //   DisposeMediaPlayer(CameraEnum.CAM4);
+                        DisposeMediaPlayer(CameraEnum.CAM4);
                         TotalTimeCam4 = 1;
                         IsCAM4Error = false;
                         InitCamera4(videoUrl4);
@@ -1171,9 +1161,6 @@ namespace BA_MobileGPS.Core.ViewModels
                                   // wait 1s
                                   await Task.Delay(1000);
                               }
-
-
-
                           });
                       }
                   }
@@ -1248,10 +1235,10 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnResume()
         {
             base.OnResume();
-            //foreach (var item in currentCamera)
-            //{
-            //    DisposeMediaPlayer(item);
-            //}
+            foreach (var item in currentCamera)
+            {
+                DisposeMediaPlayer(item);
+            }
             ReLoadCamera();
             DependencyService.Get<IScreenOrientServices>().ForcePortrait();
         }
@@ -1285,7 +1272,6 @@ namespace BA_MobileGPS.Core.ViewModels
             catch (Exception ex)
             {
                 LoggerHelper.WriteError("ReloadCamera", ex);
-
             }
         }
 
@@ -1306,10 +1292,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
+            counterRequestMoreTime--;
+            if (counterRequestMoreTime == 0)
+            {
+                counterRequestMoreTime = 15;
+                UpdateTimeAndLocation();
+            }
             if (AutoAddTime)
             {
-                counterTimeAutoRequestMoreTime--;
-                if (counterTimeAutoRequestMoreTime == 0)
+                if (counterRequestMoreTime == 5)
                 {
                     TryExecute(async () =>
                     {
@@ -1318,13 +1309,11 @@ namespace BA_MobileGPS.Core.ViewModels
                             var chanel = (int)item + 1;
                             await SendRequestTime(600, chanel);
                         }
-                        counterTimeAutoRequestMoreTime = 20;
-                        UpdateTimeAndLocation();
                     });
                 }
             }
             else
-            {             
+            {
                 foreach (var item in currentCamera)
                 {
                     Task.Run(async () =>
@@ -1340,11 +1329,10 @@ namespace BA_MobileGPS.Core.ViewModels
                                 {
                                     TotalTimeCam1 -= 1;
                                 }
-
+                                var a = TotalTimeCam1;
                                 if (TotalTimeCam1 % 10 == 0 && TotalTimeCam1 > maxTimeCameraRemain)
                                 {
                                     await SendRequestTime(600, 1);
-                                    UpdateTimeAndLocation();
                                 }
                                 break;
 
@@ -1361,7 +1349,6 @@ namespace BA_MobileGPS.Core.ViewModels
                                 if (TotalTimeCam2 % 10 == 0 && TotalTimeCam2 > maxTimeCameraRemain)
                                 {
                                     await SendRequestTime(600, 2);
-                                    UpdateTimeAndLocation();
                                 }
                                 break;
 
@@ -1424,7 +1411,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     return false;
 
                 case CameraEnum.CAM2:
-                    if (MediaPlayerNo2 != null && MediaPlayerNo2.Time >0)
+                    if (MediaPlayerNo2 != null && MediaPlayerNo2.Time > 0)
                     {
                         return true;
                     }
@@ -1454,24 +1441,47 @@ namespace BA_MobileGPS.Core.ViewModels
             switch (cam)
             {
                 case CameraEnum.CAM1:
-                    var mediaPlayer1 = MediaPlayerNo1;
-                    MediaPlayerNo1 = null;
-                    mediaPlayer1?.Dispose();
+                    if (MediaPlayerNo1 != null)
+                    {
+                        MediaPlayerNo1.TimeChanged -= MediaPlayerNo1_TimeChanged;
+                        MediaPlayerNo1.EncounteredError -= MediaPlayerNo1_EncounteredError;
+                        var mediaPlayer1 = MediaPlayerNo1;
+                        MediaPlayerNo1 = null;
+                        mediaPlayer1?.Dispose();
+                    }
                     break;
                 case CameraEnum.CAM2:
-                    var mediaPlayer2 = MediaPlayerNo2;
-                    MediaPlayerNo2 = null;
-                    mediaPlayer2?.Dispose();
+                    if (MediaPlayerNo2 != null)
+                    {
+                        MediaPlayerNo2.TimeChanged -= MediaPlayerNo2_TimeChanged;
+                        MediaPlayerNo2.EncounteredError -= MediaPlayerNo2_EncounteredError;
+                        var mediaPlayer2 = MediaPlayerNo2;
+                        MediaPlayerNo2 = null;
+                        mediaPlayer2?.Dispose();
+                    }
+
                     break;
                 case CameraEnum.CAM3:
-                    var mediaPlayer3 = MediaPlayerNo3;
-                    MediaPlayerNo3 = null;
-                    mediaPlayer3?.Dispose();
+                    if (MediaPlayerNo3 != null)
+                    {
+                        MediaPlayerNo3.TimeChanged -= MediaPlayerNo3_TimeChanged;
+                        MediaPlayerNo3.EncounteredError -= MediaPlayerNo3_EncounteredError;
+                        var mediaPlayer3 = MediaPlayerNo3;
+                        MediaPlayerNo3 = null;
+                        mediaPlayer3?.Dispose();
+                    }
+
                     break;
                 case CameraEnum.CAM4:
-                    var mediaPlayer4 = MediaPlayerNo4;
-                    MediaPlayerNo4 = null;
-                    mediaPlayer4?.Dispose();
+                    if (MediaPlayerNo4 != null)
+                    {
+                        MediaPlayerNo4.TimeChanged -= MediaPlayerNo4_TimeChanged;
+                        MediaPlayerNo4.EncounteredError -= MediaPlayerNo4_EncounteredError;
+                        var mediaPlayer4 = MediaPlayerNo4;
+                        MediaPlayerNo4 = null;
+                        mediaPlayer4?.Dispose();
+                    }
+
                     break;
             }
         }
