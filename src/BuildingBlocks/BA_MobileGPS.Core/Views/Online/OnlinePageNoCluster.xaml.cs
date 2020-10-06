@@ -7,7 +7,6 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
-using BA_MobileGPS.Entities.RealmEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism;
@@ -19,7 +18,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.Forms;
@@ -100,12 +98,14 @@ namespace BA_MobileGPS.Core.Views
         #endregion Contructor
 
         #region Lifecycle
+
         private bool viewHasAppeared = false;
 
         public void OnPageAppearingFirstTime()
         {
             googleMap.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
         }
+
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
         }
@@ -169,6 +169,7 @@ namespace BA_MobileGPS.Core.Views
                 UpdateVehicleByVehicleGroup(vehiclegroup);
             }
         }
+
         public void Destroy()
         {
             timer.Stop();
@@ -313,11 +314,7 @@ namespace BA_MobileGPS.Core.Views
                                                             new ViewTransition(boxInfo, AnimationType.Opacity, 0),
                                                           });
 
-
                 await _animations.Go(States.HideFilter, false);
-
-
-
 
                 var pageWidth = Xamarin.Forms.Application.Current?.MainPage?.Width;
 
@@ -336,10 +333,7 @@ namespace BA_MobileGPS.Core.Views
                                                           });
                 }
 
-
                 await _animations.Go(States.HideStatus, false);
-
-
             }
             catch (Exception ex)
             {
@@ -593,7 +587,7 @@ namespace BA_MobileGPS.Core.Views
                                 if (!UserHelper.isCompanyPartner(StaticSettings.User))
                                 {
                                     InitVehicleStatus(list);
-
+                                    vm.ListVehicleStatus = list;
                                     var listPin = ConvertMarkerPin(list);
 
                                     //Vẽ xe lên bản đồ
@@ -1025,8 +1019,6 @@ namespace BA_MobileGPS.Core.Views
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
-
-
 
         #endregion Private Method
     }

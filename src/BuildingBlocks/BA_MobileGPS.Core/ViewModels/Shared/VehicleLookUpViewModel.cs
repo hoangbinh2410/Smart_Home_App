@@ -1,6 +1,4 @@
-﻿//using Acr.UserDialogs;
-
-using BA_MobileGPS.Core.Constant;
+﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -69,7 +67,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     LookUpType = type;
                     SelectedVehicleGroups = VehicleGroups;
-                    ListVehicleStatus = VehicleStatus;
+                    ListVehicleStatus = VehicleStatus == null ? new List<VehicleOnline>() : VehicleStatus;
                     InitData();
                 }
             }
@@ -125,8 +123,7 @@ namespace BA_MobileGPS.Core.ViewModels
             List<Vehicle> result = new List<Vehicle>();
             try
             {
-
-                if (!isRoute && ListVehicleStatus != null && ListVehicleStatus.Count > 0)
+                if (!isRoute && ListVehicleStatus != null)
                 {
                     foreach (var lst in ListVehicleStatus)
                     {
@@ -155,7 +152,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {
