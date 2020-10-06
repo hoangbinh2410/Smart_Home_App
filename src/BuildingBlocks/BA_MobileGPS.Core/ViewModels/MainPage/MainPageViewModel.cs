@@ -685,7 +685,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (result != null && result.Data != null)
                 {
-                    StaticSettings.TimeServer = DateTime.Now;
+                    StaticSettings.TimeServer = result.Data;
                 }
                 else
                 {
