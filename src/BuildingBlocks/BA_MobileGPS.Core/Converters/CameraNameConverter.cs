@@ -15,7 +15,7 @@ namespace BA_MobileGPS.Core
         {
             if (value == null)
             {
-                return "Camera";
+                return string.Empty;
             }
 
            return ((CameraEnum)value).GetDescription();         

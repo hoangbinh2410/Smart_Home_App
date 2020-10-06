@@ -36,6 +36,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IIdentityHubService identityHubService;
         private readonly IVehicleOnlineHubService vehicleOnlineHubService;
         private readonly IAlertHubService alertHubService;
+        private readonly IPingServerService pingServerService;
         private readonly IMapper _mapper;
         private Timer timer;
         private Timer timerSyncData;
@@ -48,6 +49,7 @@ namespace BA_MobileGPS.Core.ViewModels
             INotificationService notificationService,
             IIdentityHubService identityHubService,
             IVehicleOnlineHubService vehicleOnlineHubService,
+            IPingServerService pingServerService,
             IAlertHubService alertHubService, IMapper mapper)
             : base(navigationService)
         {
@@ -60,6 +62,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this.identityHubService = identityHubService;
             this.vehicleOnlineHubService = vehicleOnlineHubService;
             this.alertHubService = alertHubService;
+            this.pingServerService = pingServerService;
             this._mapper = mapper;
 
             StaticSettings.TimeServer = UserInfo.TimeServer.AddSeconds(1);
@@ -155,10 +158,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
 
                 }
-                if (StaticSettings.TimeServer < DateTime.Now)
-                {
-                    StaticSettings.TimeServer = DateTime.Now;
-                }
+                GetTimeServer();
                 //kiểm tra xem có thông báo nào không
                 GetNofitication();
 
@@ -300,14 +300,8 @@ namespace BA_MobileGPS.Core.ViewModels
             identityHubService.onReceivePushLogoutToAllUserInCompany += onReceivePushLogoutToAllUserInCompany;
             identityHubService.onReceivePushLogoutToUser += onReceivePushLogoutToUser;
 
-            // Khởi tạo signalR
-            await vehicleOnlineHubService.Connect();
-
-            vehicleOnlineHubService.onReceiveSendCarSignalR += OnReceiveSendCarSignalR;
-
             // Khởi tạo alertlR
             await alertHubService.Connect();
-
             alertHubService.onReceiveAlertSignalR += OnReceiveAlertSignalR;
         }
         private async Task ConnectSignalROnline()
@@ -679,6 +673,27 @@ namespace BA_MobileGPS.Core.ViewModels
             }, (result) =>
             {
                 GlobalResources.Current.TotalAlert = result;
+            });
+        }
+
+        private void GetTimeServer()
+        {
+            RunOnBackground(async () =>
+            {
+                return await pingServerService.GetTimeServer();
+            }, (result) =>
+            {
+                if (result != null && result.Data != null)
+                {
+                    StaticSettings.TimeServer = DateTime.Now;
+                }
+                else
+                {
+                    if (StaticSettings.TimeServer < DateTime.Now)
+                    {
+                        StaticSettings.TimeServer = DateTime.Now;
+                    }
+                }
             });
         }
 

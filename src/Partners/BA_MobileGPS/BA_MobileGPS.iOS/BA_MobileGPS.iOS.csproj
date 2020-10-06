@@ -107,7 +107,7 @@
       <Version>7.2.0.1422</Version>
     </PackageReference>
     <PackageReference Include="Realm">
-      <Version>5.0.1</Version>
+      <Version>5.1.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Build.Download">
       <Version>0.10.0</Version>
@@ -507,6 +507,15 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_download%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_reload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_reload%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_reload%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_cameraonline.png" />

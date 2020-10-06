@@ -108,7 +108,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     GoRoutePage(currentVehicle);
                 }
-                else if (action == "Image")
+                else if (action == "Hình Ảnh")
                 {
                     GotoCameraPage(currentVehicle);
                 }

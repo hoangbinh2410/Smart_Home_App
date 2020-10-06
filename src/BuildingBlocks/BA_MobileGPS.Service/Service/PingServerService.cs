@@ -38,6 +38,25 @@ namespace BA_MobileGPS.Service
             }
             return result;
         }
+        public async Task<BaseResponse<DateTime>> GetTimeServer()
+        {
+            BaseResponse<DateTime> result = new BaseResponse<DateTime>();
+            try
+            {
+                var url = string.Format(ApiUri.GET_TIMESERVER);
 
+                var data = await requestProvider.GetAsync<BaseResponse<DateTime>>(url);
+
+                if (data != null)
+                {
+                    result = data;
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
+            }
+            return result;
+        }
     }
 }
