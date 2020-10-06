@@ -54,6 +54,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 PK_VehicleID = (int)cardetail.VehicleId;
                 VehiclePlate = cardetail.VehiclePlate;
+                PrivateCode = cardetail.PrivateCode;
                 if (cardetail.CurrentAddress != null)
                 {
                     Address = cardetail.CurrentAddress;
@@ -83,6 +84,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public int PK_VehicleID { get; set; }
 
         public string VehiclePlate { get; set; }
+
+        public string PrivateCode { get; set; }
 
         private Entities.VehicleDetailViewModel inforDetail;
         public Entities.VehicleDetailViewModel InforDetail
@@ -200,8 +203,8 @@ namespace BA_MobileGPS.Core.ViewModels
             list.Add(new MenuItem
             {
                 Title = "Nhiệt độ",
-                Icon = "ic_fuel.png",
-                Url = "NavigationPage/ReportDetailTemperaturePage",
+                Icon = "ic_temperature.png",
+                Url = "NavigationPage/ReportTableTemperature",
                 IsEnable = CheckPermision((int)PermissionKeyNames.ReportTemperatureView),
             });
             MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
@@ -351,7 +354,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var parameters = new NavigationParameters
                 {
-                    { ParameterKey.Vehicle, new Vehicle(){ VehicleId=PK_VehicleID,VehiclePlate=VehiclePlate} }
+                    { ParameterKey.Vehicle, new Vehicle(){ VehicleId=PK_VehicleID,VehiclePlate=VehiclePlate,PrivateCode=PrivateCode} }
                 };
                 await NavigationService.NavigateAsync(obj.Url, parameters, useModalNavigation: true);
             });
