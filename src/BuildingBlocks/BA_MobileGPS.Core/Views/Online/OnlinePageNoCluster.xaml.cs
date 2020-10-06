@@ -459,7 +459,6 @@ namespace BA_MobileGPS.Core.Views
             var listFilter = StateVehicleExtension.GetVehicleCarByStatus(mVehicleList, vehiclestategroup);
             if (listFilter != null)
             {
-                vm.ListVehicleStatus = listFilter;
                 var listPin = ConvertMarkerPin(listFilter);
 
                 //Vẽ xe lên bản đồ
@@ -482,7 +481,7 @@ namespace BA_MobileGPS.Core.Views
         private List<VehicleOnlineMarker> ConvertMarkerPin(List<VehicleOnline> lisVehicle)
         {
             var listmarker = new List<VehicleOnlineMarker>();
-
+            vm.ListVehicleStatus = lisVehicle;
             lisVehicle.ForEach(x =>
             {
                 listmarker.Add(new VehicleOnlineMarker()
@@ -587,7 +586,6 @@ namespace BA_MobileGPS.Core.Views
                                 if (!UserHelper.isCompanyPartner(StaticSettings.User))
                                 {
                                     InitVehicleStatus(list);
-                                    vm.ListVehicleStatus = list;
                                     var listPin = ConvertMarkerPin(list);
 
                                     //Vẽ xe lên bản đồ
