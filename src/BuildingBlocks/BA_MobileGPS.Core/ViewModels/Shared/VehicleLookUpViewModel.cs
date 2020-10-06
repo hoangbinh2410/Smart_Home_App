@@ -126,7 +126,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
 
-                if (!isRoute && ListVehicleStatus != null && ListVehicleStatus.Count > 0)
+                if (!isRoute && ListVehicleStatus != null)
                 {
                     foreach (var lst in ListVehicleStatus)
                     {

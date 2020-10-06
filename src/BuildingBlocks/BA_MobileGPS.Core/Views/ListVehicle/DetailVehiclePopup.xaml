@@ -55,7 +55,7 @@
                 Margin="10"
                 CollectionPadding="0"
                 ColumnCount="3"
-                HeightRequest="130"
+                HeightRequest="170"
                 HorizontalOptions="FillAndExpand"
                 ItemHeight="95"
                 ItemSpacing="10"
