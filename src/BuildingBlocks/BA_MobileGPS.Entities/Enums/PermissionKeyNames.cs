@@ -4441,5 +4441,8 @@
         /// Tin nhắn online tầu cá
         /// </summary>
         ViewMessageOnline = 2001,
+
+        TrackingVideosView = 1346,
+        TrackingOnlineByImagesView = 1345
     }
 }

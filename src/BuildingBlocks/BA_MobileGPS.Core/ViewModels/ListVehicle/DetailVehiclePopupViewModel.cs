@@ -84,13 +84,19 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Title = "Video",
                 Icon = "ic_videolive.png",
-                IsEnable = CheckPermision(699),
+                IsEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView),
             });
             list.Add(new MenuItem
             {
                 Title = "Hình Ảnh",
                 Icon = "ic_cameraonline.png",
-                IsEnable = CheckPermision(698),
+                IsEnable = CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView),
+            });
+            list.Add(new MenuItem
+            {
+                Title = "Nhiên liệu",
+                Icon = "ic_fuel.png",
+                IsEnable = CheckPermision((int)PermissionKeyNames.ReportFuelView),
             });
             MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
