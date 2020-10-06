@@ -207,13 +207,13 @@ namespace BA_MobileGPS.Core
         public static SynOnlineLevelTypes SynOnlineLevel => Get(MobileConfigurationNames.SynOnlineLevel, SynOnlineLevelTypes.Level1);
 
         /// <summary>
-        /// trungtq: có cần đồng bộ dạng request giống Web không? mặc định là có
+        /// trungtq: có cần đồng bộ dạng request giống Web không? mặc định là có (true)
         /// </summary>
         /// <Modified>
         /// Name     Date         Comments
         /// trungtq  3/10/2020   created
         /// </Modified>
-        public static bool EnableLongPoolRequest => Get(MobileConfigurationNames.SynOnlineLevel, true);
+        public static bool EnableLongPoolRequest => Get(MobileConfigurationNames.EnableLongPoolRequest, true);
 
     }
 }

@@ -595,7 +595,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void SyncVehicleOnline()
         {
             // Nếu cho phép đồng bộ thì mới cần như này, không thì chỉ 1 mình SignalR cân hết.
-            if (MobileSettingHelper.EnableLongPoolRequest)
+            if (CompanyConfigurationHelper.EnableLongPoolRequest)
             {
                 if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                 {

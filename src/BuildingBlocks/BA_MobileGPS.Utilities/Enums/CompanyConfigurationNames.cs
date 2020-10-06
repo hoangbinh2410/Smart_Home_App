@@ -24,5 +24,6 @@
         TimeVehicleSync,
         TimmerVehicleSync,
         SynOnlineLevel,
+        EnableLongPoolRequest
     }
 }

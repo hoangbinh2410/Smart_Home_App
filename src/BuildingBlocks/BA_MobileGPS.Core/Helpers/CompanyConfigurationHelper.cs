@@ -79,5 +79,14 @@ namespace BA_MobileGPS.Core
         /// trungtq  3/10/2020   created
         /// </Modified>
         public static SynOnlineLevelTypes SynOnlineLevel => Get(CompanyConfigurationNames.SynOnlineLevel, MobileSettingHelper.SynOnlineLevel);
+
+        /// <summary>
+        /// trungtq: Công ty có cấu hình đồng bộ Request không? nếu không có trong DB thì lấy theo hệ thống
+        /// </summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// trungtq  3/10/2020   created
+        /// </Modified>
+        public static bool EnableLongPoolRequest => Get(CompanyConfigurationNames.EnableLongPoolRequest, MobileSettingHelper.EnableLongPoolRequest);
     }
 }
