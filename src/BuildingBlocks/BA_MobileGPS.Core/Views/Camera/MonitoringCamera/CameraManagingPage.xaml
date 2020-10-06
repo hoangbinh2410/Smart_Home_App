@@ -165,7 +165,7 @@
                     x:Name="inforBoard"
                     Padding="10,3"
                     BackgroundColor="Black"
-                    IsVisible="{Binding IsFullScreenOff}"
+                    IsVisible="True"
                     Spacing="5">
                     <StackLayout Orientation="Horizontal">
                         <ff:CachedImage
@@ -200,6 +200,12 @@
                             Binding="{Binding Source={x:Reference lblCamName}, Path=Text.Length}"
                             TargetType="StackLayout"
                             Value="0">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding IsFullScreenOff}"
+                            TargetType="StackLayout"
+                            Value="false">
                             <Setter Property="IsVisible" Value="False" />
                         </DataTrigger>
                     </StackLayout.Triggers>

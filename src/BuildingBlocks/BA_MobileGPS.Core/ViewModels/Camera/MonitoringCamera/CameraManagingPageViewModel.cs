@@ -8,6 +8,7 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
 using LibVLCSharp.Shared;
 using Prism.Commands;
+using Prism.Mvvm;
 using Prism.Navigation;
 using Sharpnado.Presentation.Forms.Helpers;
 using System;
@@ -61,7 +62,7 @@ namespace BA_MobileGPS.Core.ViewModels
             isFullScreenOff = true;
             ScreenShotTappedCommand = new DelegateCommand(ScreenShotTapped);
             ShareTappedCommand = new DelegateCommand(ShareTapped);
-            autoAddTime = true;
+            AutoAddTime = true;
             ReloadCommand = new DelegateCommand<object>(Reload);
         }
 
@@ -1416,5 +1417,60 @@ namespace BA_MobileGPS.Core.ViewModels
                 timer.Dispose();
             }
         }
+    }
+
+    public class CameraManagement : BindableBase
+    {
+        private long totalTime;
+        public long TotalTime
+        {
+            get { return totalTime; }
+            set { SetProperty(ref totalTime, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool isError;
+        public bool IsError
+        {
+            get { return isError; }
+            set { SetProperty(ref isError, value);
+                RaisePropertyChanged();
+            }
+        }
+        private StreamStart data;
+        public StreamStart Data
+        {
+            get { return data; }
+            set { SetProperty(ref data, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private CameraEnum currentPosition;
+        public CameraEnum CurrentPosition
+        {
+            get { return currentPosition; }
+            set { SetProperty(ref currentPosition, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private double loadingTime;
+        public double LoadingTime
+        {
+            get { return loadingTime; }
+            set { SetProperty(ref loadingTime, value); }
+        }
+
+        private MediaPlayer mediaPlayer;
+        public MediaPlayer MediaPlayer
+        {
+            get { return mediaPlayer; }
+            set { SetProperty(ref mediaPlayer, value);
+                RaisePropertyChanged();
+            }
+        }
+
     }
 }
