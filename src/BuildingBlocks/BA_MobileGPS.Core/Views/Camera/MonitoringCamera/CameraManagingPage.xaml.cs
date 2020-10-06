@@ -37,10 +37,10 @@ namespace BA_MobileGPS.Core.Views
         }
 
         private void SetCameraLayout(int obj)
-        {          
+        {
+            eventAggregator.GetEvent<DisposeTemplateView>().Publish();
             Device.BeginInvokeOnMainThread(() =>
-            {
-                
+            {              
                 noDataImage.IsVisible = false;
                 cameraPanel.Children.Clear();
                 if (obj == 1)
@@ -52,13 +52,13 @@ namespace BA_MobileGPS.Core.Views
                 else if (obj == 2)
                 {
                     var cam = new Template2Camera();
-                   
+                  
                     cameraPanel.Children.Add(cam);
                 }
                 else if(obj == 4)
                 {
                     var cam = new Template4Camera();
-                
+                 
                     cameraPanel.Children.Add(cam);
                 }
                 else if (obj == 0)
@@ -122,6 +122,10 @@ namespace BA_MobileGPS.Core.Views
     }
 
     public class SwitchToNormalScreenEvent : PubSubEvent
+    {
+
+    }
+    public class DisposeTemplateView : PubSubEvent
     {
 
     }
