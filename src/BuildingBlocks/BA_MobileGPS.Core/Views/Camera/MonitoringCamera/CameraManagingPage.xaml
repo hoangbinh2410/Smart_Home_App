@@ -334,10 +334,10 @@
                         <!--  Gia han thoi gian  -->
                         <buttons:SfCheckBox
                             CheckedColor="White"
+                            CornerRadius="0"
                             IsChecked="{Binding AutoAddTime}"
                             Text="Tự gia hạn"
-                            TextColor="White"
-                            UncheckedColor="White" />
+                            TextColor="White" />
                         <Grid
                             HeightRequest="25"
                             IsVisible="{Binding AutoAddTime, Converter={StaticResource ShowHideColumnConverter}}"

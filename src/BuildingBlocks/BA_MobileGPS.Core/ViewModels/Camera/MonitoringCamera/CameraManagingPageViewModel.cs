@@ -548,8 +548,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     TotalTimeCam1 = 180;
                 });
                
-                ShowVideoView(CameraEnum.CAM1);
-                
+                ShowVideoView(CameraEnum.CAM1);               
                 MediaPlayerNo1.TimeChanged -= MediaPlayerNo1_TimeChanged;
                 cam1LoadingTime = 0;
             }
