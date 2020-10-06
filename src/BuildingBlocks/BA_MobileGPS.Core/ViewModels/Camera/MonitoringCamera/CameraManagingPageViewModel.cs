@@ -69,10 +69,14 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             // Đóng busy indicator
-            IsCam1Loaded = true;
-            IsCam2Loaded = true;
-            IsCam3Loaded = true;
-            IsCam4Loaded = true;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                IsCam1Loaded = true;
+                IsCam2Loaded = true;
+                IsCam3Loaded = true;
+                IsCam4Loaded = true;
+            });
+      
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
 
@@ -537,10 +541,15 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (e.Time > 0 && !IsCam1Loaded)
             {
-                PlayButtonIconSource = stopIconSource;
-                IsCam1Loaded = true;
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    PlayButtonIconSource = stopIconSource;
+                    IsCam1Loaded = true;
+                    TotalTimeCam1 = 180;
+                });
+               
                 ShowVideoView(CameraEnum.CAM1);
-                TotalTimeCam1 = 180;
+                
                 MediaPlayerNo1.TimeChanged -= MediaPlayerNo1_TimeChanged;
                 cam1LoadingTime = 0;
             }
@@ -1311,20 +1320,12 @@ namespace BA_MobileGPS.Core.ViewModels
                             await SendRequestTime(600, chanel);
                         }
                         counterTimeAutoRequestMoreTime = 20;
-
-                        Device.BeginInvokeOnMainThread(async () =>
-                        {
-                            var deviceResponse = await _streamCameraService.GetDevicesStatus(ConditionType.BKS, VehicleSelectedPlate);
-                            var deviceResponseData = deviceResponse?.Data?.FirstOrDefault();
-                            CurrentAddress = await _geocodeService.GetAddressByLatLng(deviceResponseData.Latitude.ToString(), deviceResponseData.Longitude.ToString());
-                            CurrentTime = deviceResponseData.DeviceTime;
-                        });
-
+                        UpdateTimeAndLocation();
                     });
                 }
             }
             else
-            {
+            {             
                 foreach (var item in currentCamera)
                 {
                     Task.Run(async () =>
@@ -1344,6 +1345,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 if (TotalTimeCam1 % 10 == 0 && TotalTimeCam1 > maxTimeCameraRemain)
                                 {
                                     await SendRequestTime(600, 1);
+                                    UpdateTimeAndLocation();
                                 }
                                 break;
 
@@ -1360,6 +1362,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 if (TotalTimeCam2 % 10 == 0 && TotalTimeCam2 > maxTimeCameraRemain)
                                 {
                                     await SendRequestTime(600, 2);
+                                    UpdateTimeAndLocation();
                                 }
                                 break;
 
@@ -1398,6 +1401,16 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                 }
             }
+        }
+        private void UpdateTimeAndLocation()
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                var deviceResponse = await _streamCameraService.GetDevicesStatus(ConditionType.BKS, VehicleSelectedPlate);
+                var deviceResponseData = deviceResponse?.Data?.FirstOrDefault();
+                CurrentAddress = await _geocodeService.GetAddressByLatLng(deviceResponseData.Latitude.ToString(), deviceResponseData.Longitude.ToString());
+                CurrentTime = deviceResponseData.DeviceTime;
+            });
         }
 
         private bool CanExcute()
