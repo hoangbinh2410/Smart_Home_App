@@ -61,9 +61,9 @@ namespace BA_MobileGPS.Core
             return val;
         }
 
-        private static IDictionary<string, string> _DicMobileConfigurations = null;
+        public static IDictionary<string, string> _DicMobileConfigurations = null;
 
-        public static IDictionary<string, string> DicMobileConfigurations
+        private static IDictionary<string, string> DicMobileConfigurations
         {
             get
             {
