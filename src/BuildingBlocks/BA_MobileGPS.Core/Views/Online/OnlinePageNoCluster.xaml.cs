@@ -593,7 +593,7 @@ namespace BA_MobileGPS.Core.Views
                                 if (!UserHelper.isCompanyPartner(StaticSettings.User))
                                 {
                                     InitVehicleStatus(list);
-
+                                    vm.ListVehicleStatus = list;
                                     var listPin = ConvertMarkerPin(list);
 
                                     //Vẽ xe lên bản đồ
