@@ -489,6 +489,7 @@ namespace BA_MobileGPS.Core.Views
             var listFilter = StateVehicleExtension.GetVehicleCarByStatus(mVehicleList, vehiclestategroup);
             if (listFilter != null)
             {
+                vm.ListVehicleStatus = listFilter;
                 var listPin = ConvertMarkerPin(listFilter);
 
                 //Vẽ xe lên bản đồ
