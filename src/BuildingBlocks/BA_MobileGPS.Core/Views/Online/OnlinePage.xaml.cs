@@ -678,6 +678,7 @@ namespace BA_MobileGPS.Core.Views
         private void InitVehicleStatus(List<VehicleOnline> vehicleList)
         {
             //txtCountVehicle.Text = vehicleList.Count().ToString();
+            vm.VehicleStatusSelected = VehicleStatusGroup.All;
             mCurrentVehicleList = vehicleList;
             // Lấy trạng thái xe
             List<VehicleStatusViewModel> listStatus = (new VehicleStatusHelper()).DictVehicleStatus.Values.Where(x => x.IsEnable).ToList();

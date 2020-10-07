@@ -307,7 +307,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(async () =>
             {
                 var lstvehicle = new List<VehicleOnline>();
-                if (VehicleStatusSelected != VehicleStatusGroup.All || (ListVehicleStatus != null && ListVehicleStatus.Count > 0))
+                if (VehicleStatusSelected != VehicleStatusGroup.All || (ListVehicleStatus != null && ListVehicleStatus.Count > 0) || (VehicleGroups != null && VehicleGroups.Length > 0))
                 {
                     lstvehicle = ListVehicleStatus;
                 }
