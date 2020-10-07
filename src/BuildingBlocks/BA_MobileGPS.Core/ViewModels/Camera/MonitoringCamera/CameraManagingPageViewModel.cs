@@ -1007,6 +1007,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand ReloadCommand { get; }
         private void Reload(object obj)
         {
+            stopLoad = true;
             var param = (CameraEnum)obj;
             //cam1LoadingTime = 0 when video was played or error
             if (SelectedCamera != null)
@@ -1023,7 +1024,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     case CameraEnum.CAM2:
                         DisposeMediaPlayer(CameraEnum.CAM2);
                         TotalTimeCam2 = 1;
-                        IsCAM2Error = false;
+                        IsCAM2Error = false;                      
                         RequestStartCam(videoUrl2.Channel, CameraEnum.CAM2);
                         break;
 
