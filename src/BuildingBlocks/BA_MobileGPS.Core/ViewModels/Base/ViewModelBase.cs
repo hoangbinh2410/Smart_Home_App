@@ -160,6 +160,16 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public virtual void OnResume()
         {
+            if (IsConnected)
+            {
+                if (PopupNavigation.Instance.PopupStack.Count > 0)
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await PopupNavigation.Instance.PopAllAsync();
+                    });
+                }
+            }
         }
 
         public virtual void Dispose()

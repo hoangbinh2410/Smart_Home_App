@@ -265,6 +265,10 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 OnResumePage(true);
             }
+            else
+            {
+                StaticSettings.TimeSleep = DateTime.Now;
+            }
         }
 
         private void SetTimeServer()
@@ -505,11 +509,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         //Join vào nhóm signalR để nhận dữ liệu online
                         JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
                     }
-                    else
-                    {
-                        StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
-                    }
-
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         if (isRelogin)

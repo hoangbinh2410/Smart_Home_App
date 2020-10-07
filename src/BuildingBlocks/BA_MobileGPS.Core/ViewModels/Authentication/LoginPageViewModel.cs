@@ -186,14 +186,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (result != null && result.Count > 0)
                 {
-                    MobileSettingHelper._DicMobileConfigurations = new Dictionary<string, string>();
-                    result.ForEach(item =>
-                    {
-                        if (!MobileSettingHelper._DicMobileConfigurations.ContainsKey(item.Name))
-                        {
-                            MobileSettingHelper._DicMobileConfigurations.Add(item.Name, item.Value);
-                        }
-                    });
+                    MobileSettingHelper.SetData(result);
                 }
             });
         }
