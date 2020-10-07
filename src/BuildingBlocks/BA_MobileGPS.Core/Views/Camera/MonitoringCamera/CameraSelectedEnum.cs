@@ -8,12 +8,12 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
     public enum CameraEnum
     {
         [Description("Kênh 1")]
-        FirstCamera,
+        CAM1,
         [Description("Kênh 2")]
-        SecondCamera,
+        CAM2,
         [Description("Kênh 3")]
-        ThirdCamera,
+        CAM3,
         [Description("Kênh 4")]
-        FourthCamera
+        CAM4
     }
 }

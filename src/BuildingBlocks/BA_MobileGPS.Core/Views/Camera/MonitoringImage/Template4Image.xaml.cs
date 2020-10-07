@@ -1,14 +1,12 @@
-﻿using Prism.Events;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Prism.Ioc;
 using System;
-using Prism.Navigation;
-using Syncfusion.ListView.XForms;
-using Syncfusion.ListView.XForms.Control.Helpers;
-using System.Reflection;
 using System.Linq;
-using BA_MobileGPS.Core.ViewModels;
+using BA_MobileGPS.Utilities;
+using System.Reflection;
+
+using BA_MobileGPS.Core.Controls;
+
 
 namespace BA_MobileGPS.Core.Views.Camera.MonitoringImage
 {
@@ -18,9 +16,44 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringImage
         public Template4Image()
         {
             InitializeComponent();
-
-            // Initialize the View Model Object
         }
 
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            try
+            {
+                Color unFavorites = (Color)Application.Current.Resources["WhiteColor"];
+                Color favorites = (Color)Application.Current.Resources["YellowColor"];
+                var temp = (StackLayout)sender;
+
+                var colorFavorites = temp.Children.Where(x => x is IconView).FirstOrDefault() as IconView;
+                if (colorFavorites != null)
+                {
+                    if (colorFavorites.Foreground == unFavorites)
+                    {
+                        colorFavorites.Foreground = favorites;
+                    }
+                    else
+                    {
+                        colorFavorites.Foreground = unFavorites;
+                    }
+                }
+
+                var vehiclePlate = temp.Children.Where(x => x is Label).FirstOrDefault() as Label;
+                if (!string.IsNullOrEmpty(vehiclePlate.Text))
+                {
+                    FavoritesVehicleImageHelper.UpdateFavoritesVehicleImage(vehiclePlate.Text);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
+
+        private void chkFa_StateChanged(object sender, Syncfusion.XForms.Buttons.StateChangedEventArgs e)
+        {
+
+        }
     }
 }

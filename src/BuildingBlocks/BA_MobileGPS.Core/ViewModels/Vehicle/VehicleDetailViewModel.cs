@@ -10,11 +10,14 @@ using Prism.Commands;
 using Prism.Navigation;
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -22,6 +25,8 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         private readonly IDetailVehicleService detailVehicleService;
         private readonly IGeocodeService geocodeService;
+        public ICommand GotoCameraPageComamnd { get; }
+        public ICommand SelectedMenuCommand { get; }
         public VehicleDetailViewModel(INavigationService navigationService, IGeocodeService geocodeService,
             IDetailVehicleService detailVehicleService) : base(navigationService)
         {
@@ -37,6 +42,8 @@ namespace BA_MobileGPS.Core.ViewModels
             RefeshCommand = new DelegateCommand(GetVehicleDetail);
             EventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(OnReceiveSendCarSignalR);
             EventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
+            GotoCameraPageComamnd = new DelegateCommand<object>(GotoCameraPage);
+            SelectedMenuCommand = new Command<MenuItem>(SelectedMenu);
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -47,6 +54,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 PK_VehicleID = (int)cardetail.VehicleId;
                 VehiclePlate = cardetail.VehiclePlate;
+                PrivateCode = cardetail.PrivateCode;
                 if (cardetail.CurrentAddress != null)
                 {
                     Address = cardetail.CurrentAddress;
@@ -57,6 +65,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 GetVehicleDetail();
             }
+            InitMenuItems();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -75,6 +84,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public int PK_VehicleID { get; set; }
 
         public string VehiclePlate { get; set; }
+
+        public string PrivateCode { get; set; }
 
         private Entities.VehicleDetailViewModel inforDetail;
         public Entities.VehicleDetailViewModel InforDetail
@@ -142,7 +153,20 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
+        private ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
 
+        public ObservableCollection<MenuItem> MenuItems
+        {
+            get
+            {
+                return menuItems;
+            }
+            set
+            {
+                SetProperty(ref menuItems, value);
+                RaisePropertyChanged();
+            }
+        }
         #endregion property
 
         #region command
@@ -151,6 +175,40 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion command
 
         #region execute command
+
+        private void InitMenuItems()
+        {
+            var list = new List<MenuItem>();
+            list.Add(new MenuItem
+            {
+                Title = "Video",
+                Icon = "ic_videolive.png",
+                Url = "NavigationPage/CameraManagingPage",
+                IsEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView),
+            });
+            list.Add(new MenuItem
+            {
+                Title = "Hình Ảnh",
+                Icon = "ic_cameraonline.png",
+                Url = "NavigationPage/ImageManagingPage",
+                IsEnable = CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView),
+            });
+            list.Add(new MenuItem
+            {
+                Title = "Nhiên liệu",
+                Icon = "ic_fuel.png",
+                Url = "NavigationPage/PourFuelReportPage",
+                IsEnable = CheckPermision((int)PermissionKeyNames.ReportFuelView),
+            });
+            list.Add(new MenuItem
+            {
+                Title = "Nhiệt độ",
+                Icon = "ic_temperature.png",
+                Url = "NavigationPage/ReportTableTemperature",
+                IsEnable = CheckPermision((int)PermissionKeyNames.ReportTemperatureView),
+            });
+            MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
+        }
 
         /// <summary>
         /// Load tất cả dữ liệu về thông tin chi tiết 1 xe
@@ -275,5 +333,35 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #endregion execute command
+
+        #region Camera
+
+
+        private async void GotoCameraPage(object obj)
+        {
+            var param = obj.ToString();
+            await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+                        {
+                            { "pagetoNavigation",  param}
+                        });
+
+        }
+
+        private void SelectedMenu(MenuItem obj)
+        {
+            if (obj == null) return;
+            SafeExecute(async () =>
+            {
+                var parameters = new NavigationParameters
+                {
+                    { ParameterKey.Vehicle, new Vehicle(){ VehicleId=PK_VehicleID,VehiclePlate=VehiclePlate,PrivateCode=PrivateCode} }
+                };
+                await NavigationService.NavigateAsync(obj.Url, parameters, useModalNavigation: true);
+            });
+
+
+        }
+
+        #endregion
     }
 }

@@ -61,7 +61,10 @@ namespace BA_MobileGPS.Entities
         public bool IsPlug { get; set; }
         public bool IsRecording { get; set; }
         public bool IsStreaming { get; set; }
+        public int StreamingPackage { get; set; }
+        public int StreamingStatus { get; set; }
         public int StreamingTimeout { get; set; }
+        public int StreamingTotal { get; set; }
     }
 
     public class Coreboard
@@ -119,7 +122,7 @@ namespace BA_MobileGPS.Entities
 
     }
 
-    public class CaptureImageData
+    public class CaptureImageData : BaseModel
     {
         [JsonProperty("v")]
         public string VehiclePlate { get; set; } // VehicleName
@@ -156,5 +159,8 @@ namespace BA_MobileGPS.Entities
 
         [JsonProperty("z")]
         public string CurrentAddress { get; set; } // Address
+
+        private bool isFavorites;
+        public bool IsFavorites { get => isFavorites; set => SetProperty(ref isFavorites, value); }
     }
 }

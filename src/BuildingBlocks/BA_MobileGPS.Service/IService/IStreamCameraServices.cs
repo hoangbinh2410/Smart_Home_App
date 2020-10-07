@@ -1,5 +1,4 @@
 ﻿using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service.Service;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,5 +26,12 @@ namespace BA_MobileGPS.Service.IService
         Task<List<CaptureImageData>> GetCaptureImageTime(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime);
 
         Task<List<CaptureImageData>> GetListCaptureImage(StreamImageRequest request);
+     
+    }
+    public enum ConditionType
+    {
+        MXN = 1,
+        BKS = 2,
+        IMEI = 3
     }
 }

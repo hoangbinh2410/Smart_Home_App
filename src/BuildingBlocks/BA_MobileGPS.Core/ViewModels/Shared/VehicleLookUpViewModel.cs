@@ -1,6 +1,4 @@
-﻿//using Acr.UserDialogs;
-
-using BA_MobileGPS.Core.Constant;
+﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -42,20 +40,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #endregion Property
 
-        private readonly IVehicleOnlineService vehicleOnlineService;
-
         private CancellationTokenSource cts;
 
         private VehicleLookUpType LookUpType = VehicleLookUpType.VehicleList;
 
         public ICommand SearchVehicleCommand { get; private set; }
 
-        public VehicleLookUpViewModel(INavigationService navigationService,
-            IVehicleOnlineService vehicleOnlineService)
+        public VehicleLookUpViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            this.vehicleOnlineService = vehicleOnlineService;
-
             SearchVehicleCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehicle);
         }
 
@@ -69,7 +62,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     LookUpType = type;
                     SelectedVehicleGroups = VehicleGroups;
-                    ListVehicleStatus = VehicleStatus;
+                    ListVehicleStatus = VehicleStatus == null ? new List<VehicleOnline>() : VehicleStatus;
                     InitData();
                 }
             }
@@ -125,8 +118,7 @@ namespace BA_MobileGPS.Core.ViewModels
             List<Vehicle> result = new List<Vehicle>();
             try
             {
-
-                if (!isRoute && ListVehicleStatus != null && ListVehicleStatus.Count > 0)
+                if (!isRoute && ListVehicleStatus != null)
                 {
                     foreach (var lst in ListVehicleStatus)
                     {
@@ -155,7 +147,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {

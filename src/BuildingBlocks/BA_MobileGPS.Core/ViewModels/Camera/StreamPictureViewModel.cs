@@ -1,6 +1,5 @@
 ﻿using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
-using BA_MobileGPS.Service.Service;
 using Prism.Commands;
 using Prism.Navigation;
 using Syncfusion.ListView.XForms;
@@ -12,7 +11,8 @@ using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-   
+    
+
     public class StreamPictureViewModel : ViewModelBase
     {
         private readonly IStreamCameraService streamCameraService;

@@ -9,80 +9,33 @@ using System.Collections.Generic;
 namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Template4Camera : ContentView, IDestructible
+    public partial class Template4Camera : ContentView
     {
         private IEventAggregator eventAggregator { get; } = Prism.PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
         public Template4Camera()
         {
             InitializeComponent();
-            eventAggregator.GetEvent<HideVideoViewEvent>().Subscribe(HideVideoView);
-            eventAggregator.GetEvent<ShowVideoViewEvent>().Subscribe(ShowVideoView);
             eventAggregator.GetEvent<SwitchToFullScreenEvent>().Subscribe(FullScreen);
             eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Subscribe(SwitchToNormal);
-        }       
+            eventAggregator.GetEvent<DisposeTemplateView>().Subscribe(ClearView);
+        }    
 
-        private void ShowVideoView(List<CameraEnum> obj)
+        public void ClearView()
         {
-            foreach (var item in obj)
+            try
             {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    switch (item)
-                    {
-                        case CameraEnum.FirstCamera:
-                            frCam1.IsEnabled = true;
-                            topLeftCam.IsVisible = true;
-                            break;
-                        case CameraEnum.SecondCamera:
-                            frCam1.IsEnabled = true;
-                            bottomLeftCam.IsVisible = true;
-                            break;
-                        case CameraEnum.ThirdCamera:
-                            frCam1.IsEnabled = true;
-                            topRightCam.IsVisible = true;
-                            break;
-                        case CameraEnum.FourthCamera:
-                            frCam1.IsEnabled = true;
-                            bottomRightCam.IsVisible = true;
-                            break;
-                    }
-                });             
+                eventAggregator.GetEvent<SwitchToFullScreenEvent>().Unsubscribe(FullScreen);
+                eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Unsubscribe(SwitchToNormal);
+                eventAggregator.GetEvent<DisposeTemplateView>().Unsubscribe(ClearView);
             }
-        }
-
-        private void HideVideoView(List<CameraEnum> obj)
-        {
-            foreach (var item in obj)
+            catch (Exception ex)
             {
-                switch (item)
-                {
-                    case CameraEnum.FirstCamera:
-                        frCam1.IsEnabled = false;
-                        topLeftCam.IsVisible = false;
-                        break;
-                    case CameraEnum.SecondCamera:
-                        frCam2.IsEnabled = false;
-                        bottomLeftCam.IsVisible = false;
-                        break;
-                    case CameraEnum.ThirdCamera:
-                        frCam3.IsEnabled = false;
-                        topRightCam.IsVisible = false;
-                        break;
-                    case CameraEnum.FourthCamera:
-                        frCam4.IsEnabled = false;
-                        bottomRightCam.IsVisible = false;
-                        break;
-                }
+               
             }
+           
         }
 
-        public void Destroy()
-        {
-            eventAggregator.GetEvent<HideVideoViewEvent>().Unsubscribe(HideVideoView);
-            eventAggregator.GetEvent<ShowVideoViewEvent>().Unsubscribe(ShowVideoView);
-            eventAggregator.GetEvent<SwitchToFullScreenEvent>().Unsubscribe(FullScreen);
-            eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Unsubscribe(SwitchToNormal);
-        }
+      
 
         private void FullScreen(CameraEnum obj)
         {
@@ -90,16 +43,16 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
             parentPanel.RowDefinitions.Clear();
             switch (obj)
             {
-                case CameraEnum.FirstCamera:                    
+                case CameraEnum.CAM1:                    
                     FullScreenCam1();
                     break;
-                case CameraEnum.SecondCamera:
+                case CameraEnum.CAM2:
                     FullScreenCam2();
                     break;
-                case CameraEnum.ThirdCamera:
+                case CameraEnum.CAM3:
                     FullScreenCam3();
                     break;
-                case CameraEnum.FourthCamera:
+                case CameraEnum.CAM4:
                     FullScreenCam4();
                     break;
             }
@@ -157,22 +110,5 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
         }
     }
 
-    public class ShowVideoViewEvent : PubSubEvent<List<CameraEnum>>
-    {
-
-    }
-    public class HideVideoViewEvent : PubSubEvent<List<CameraEnum>>
-    {
-
-    }
-
-    public class SwitchToFullScreenEvent : PubSubEvent<CameraEnum>
-    {
-
-    }
-
-    public class SwitchToNormalScreenEvent : PubSubEvent
-    {
-
-    }
+ 
 }

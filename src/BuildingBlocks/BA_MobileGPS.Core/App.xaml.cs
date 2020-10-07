@@ -49,7 +49,7 @@ namespace BA_MobileGPS.Core
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             BA_MobileGPSSetup.RegisterServices(containerRegistry);
-            BA_MobileGPSSetup.RegisterPages(containerRegistry);                  
+            BA_MobileGPSSetup.RegisterPages(containerRegistry);
         }
 
         protected override void OnStart()

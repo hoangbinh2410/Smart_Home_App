@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BA_MobileGPS.Core.iOS.CustomRenderer;
+﻿using BA_MobileGPS.Core.iOS.CustomRenderer;
 using BA_MobileGPS.Core.Views;
 using Foundation;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-[assembly: ExportRenderer(typeof(DetailCamera), typeof(DetailCameraRenderer))]
+[assembly: ExportRenderer(typeof(CameraManagingPage), typeof(CameraManagingPageRenderer))]
 namespace BA_MobileGPS.Core.iOS.CustomRenderer
 {
-    public class DetailCameraRenderer : PageRenderer
+    public class CameraManagingPageRenderer : PageRenderer
     {
         public override void ViewWillDisappear(bool animated)
         {

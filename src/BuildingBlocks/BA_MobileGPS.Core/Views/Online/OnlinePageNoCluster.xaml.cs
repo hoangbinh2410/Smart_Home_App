@@ -7,7 +7,6 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
-using BA_MobileGPS.Entities.RealmEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism;
@@ -19,7 +18,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.Forms;
@@ -100,12 +98,14 @@ namespace BA_MobileGPS.Core.Views
         #endregion Contructor
 
         #region Lifecycle
+
         private bool viewHasAppeared = false;
 
         public void OnPageAppearingFirstTime()
         {
             googleMap.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
         }
+
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
         }
@@ -169,6 +169,7 @@ namespace BA_MobileGPS.Core.Views
                 UpdateVehicleByVehicleGroup(vehiclegroup);
             }
         }
+
         public void Destroy()
         {
             timer.Stop();
@@ -313,11 +314,7 @@ namespace BA_MobileGPS.Core.Views
                                                             new ViewTransition(boxInfo, AnimationType.Opacity, 0),
                                                           });
 
-
                 await _animations.Go(States.HideFilter, false);
-
-
-
 
                 var pageWidth = Xamarin.Forms.Application.Current?.MainPage?.Width;
 
@@ -336,10 +333,7 @@ namespace BA_MobileGPS.Core.Views
                                                           });
                 }
 
-
                 await _animations.Go(States.HideStatus, false);
-
-
             }
             catch (Exception ex)
             {
@@ -450,6 +444,7 @@ namespace BA_MobileGPS.Core.Views
             }
             else
             {
+                vm.ListVehicleStatus = new List<VehicleOnline>();
                 googleMap.Pins.Clear();
 
                 googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom));
@@ -465,7 +460,6 @@ namespace BA_MobileGPS.Core.Views
             var listFilter = StateVehicleExtension.GetVehicleCarByStatus(mVehicleList, vehiclestategroup);
             if (listFilter != null)
             {
-                vm.ListVehicleStatus = listFilter;
                 var listPin = ConvertMarkerPin(listFilter);
 
                 //Vẽ xe lên bản đồ
@@ -483,12 +477,16 @@ namespace BA_MobileGPS.Core.Views
                     googleMap.AnimateCamera(CameraUpdateFactory.NewBounds(bounds, 40));
                 }
             }
+            else
+            {
+                vm.ListVehicleStatus = new List<VehicleOnline>();
+            }
         }
 
         private List<VehicleOnlineMarker> ConvertMarkerPin(List<VehicleOnline> lisVehicle)
         {
             var listmarker = new List<VehicleOnlineMarker>();
-
+            vm.ListVehicleStatus = lisVehicle;
             lisVehicle.ForEach(x =>
             {
                 listmarker.Add(new VehicleOnlineMarker()
@@ -593,7 +591,6 @@ namespace BA_MobileGPS.Core.Views
                                 if (!UserHelper.isCompanyPartner(StaticSettings.User))
                                 {
                                     InitVehicleStatus(list);
-
                                     var listPin = ConvertMarkerPin(list);
 
                                     //Vẽ xe lên bản đồ
@@ -655,6 +652,7 @@ namespace BA_MobileGPS.Core.Views
         private void InitVehicleStatus(List<VehicleOnline> vehicleList)
         {
             //txtCountVehicle.Text = vehicleList.Count().ToString();
+            vm.VehicleStatusSelected = VehicleStatusGroup.All;
             mCurrentVehicleList = vehicleList;
             // Lấy trạng thái xe
             List<VehicleStatusViewModel> listStatus = (new VehicleStatusHelper()).DictVehicleStatus.Values.Where(x => x.IsEnable).ToList();
@@ -882,6 +880,8 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         public async void HideBoxInfo()
         {
+            vm.CarActive = new VehicleOnline();
+            mCarActive = new VehicleOnline();
             SetNoPaddingWithFooter();
             eventAggregator.GetEvent<ShowTabItemEvent>().Publish(true);
             await _animations.Go(States.HideFilter, true);
@@ -1025,8 +1025,6 @@ namespace BA_MobileGPS.Core.Views
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
-
-
 
         #endregion Private Method
     }

@@ -3,16 +3,21 @@
     x:Class="BA_MobileGPS.Core.Views.ImageManagingPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
-    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
-    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.HasBackButton="False">
-
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:HasDataBackgroundColorConverter x:Key="HasDataBackgroundColorConverter" />
+            <converter:HasDataIconColorConverter x:Key="HasDataIconColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <NavigationPage.TitleView>
         <Grid VerticalOptions="End">
             <icons:IconView
@@ -28,7 +33,7 @@
             <Label
                 HorizontalOptions="Center"
                 StyleClass="GroupTitleLabel,BoldText"
-                Text="Camera"
+                Text="{i18n:TranslateResource CameraImage_Label_TitlelPage}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
         </Grid>
@@ -87,7 +92,7 @@
             <pancake:PancakeView
                 Grid.Column="1"
                 Padding="0"
-                BackgroundColor="White"
+                BackgroundColor="{Binding VehicleGroups, Converter={StaticResource HasDataBackgroundColorConverter}}"
                 CornerRadius="20"
                 HeightRequest="40"
                 VerticalOptions="Center"
@@ -102,7 +107,7 @@
                     <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
                 <icons:IconView
-                    Foreground="{DynamicResource PrimaryColor}"
+                    Foreground="{Binding VehicleGroups, Converter={StaticResource HasDataIconColorConverter}}"
                     HeightRequest="25"
                     HorizontalOptions="Center"
                     Source="ic_doublevehicle.png"
@@ -123,6 +128,9 @@
                         Offset="0,0"
                         Color="Black" />
                 </pancake:PancakeView.Shadow>
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="SelectView_Tapped" />
+                </pancake:PancakeView.GestureRecognizers>
                 <icons:IconView
                     Foreground="{DynamicResource PrimaryColor}"
                     HeightRequest="15"
@@ -145,7 +153,9 @@
                         Offset="0,0"
                         Color="Black" />
                 </pancake:PancakeView.Shadow>
-
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RefeshCommand}" />
+                </pancake:PancakeView.GestureRecognizers>
                 <icons:IconView
                     Foreground="{DynamicResource PrimaryColor}"
                     HeightRequest="25"
@@ -167,13 +177,13 @@
                 TextColor="{DynamicResource TextPrimaryColor}"
                 VerticalOptions="Start" />
             <syncfusionList:SfListView
-                x:Name="listView"
+                x:Name="listLastView"
                 Grid.Row="1"
                 HeightRequest="{Binding ListHeight}"
                 ItemSpacing="3,0,3,0"
                 ItemsSource="{Binding ListLastView, Mode=TwoWay}"
                 SelectionBackgroundColor="Transparent"
-                TapCommand="{Binding Path=BindingContext.TapItemsCommand, Source={x:Reference listView}}"
+                TapCommand="{Binding Path=BindingContext.TapItemsCommand, Source={x:Reference listLastView}}"
                 VerticalOptions="Start">
                 <syncfusionList:SfListView.LayoutManager>
                     <syncfusionList:GridLayout SpanCount="{Binding SpanCount}" />
@@ -184,7 +194,7 @@
                             Grid.Row="1"
                             Padding="0"
                             BackgroundColor="{DynamicResource PrimaryColor}"
-                            CornerRadius="20"
+                            CornerRadius="15"
                             HeightRequest="30"
                             VerticalOptions="Center">
                             <Label

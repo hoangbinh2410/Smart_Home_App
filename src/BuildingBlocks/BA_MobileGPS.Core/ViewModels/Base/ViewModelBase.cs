@@ -306,11 +306,20 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
+                var lstvehicle = new List<VehicleOnline>();
+                if (VehicleStatusSelected != VehicleStatusGroup.All || (ListVehicleStatus != null && ListVehicleStatus.Count > 0) || (VehicleGroups != null && VehicleGroups.Length > 0))
+                {
+                    lstvehicle = ListVehicleStatus;
+                }
+                else
+                {
+                    lstvehicle = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                }
                 await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", useModalNavigation: true, parameters: new NavigationParameters
                         {
                             { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleOnline },
                             {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
-                            {  ParameterKey.VehicleStatusSelected, ListVehicleStatus}
+                            {  ParameterKey.VehicleStatusSelected, lstvehicle}
                         });
             });
         }

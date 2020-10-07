@@ -10,12 +10,6 @@ using System.Threading.Tasks;
 
 namespace BA_MobileGPS.Service.Service
 {
-    public enum ConditionType
-    {
-        MXN = 1,
-        BKS = 2,
-        IMEI = 3
-    }
     public class StreamCameraService : IStreamCameraService
     {
         private readonly IRequestProvider requestProvider;
