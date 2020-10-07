@@ -27,6 +27,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IGeocodeService geocodeService;
         public ICommand GotoCameraPageComamnd { get; }
         public ICommand SelectedMenuCommand { get; }
+
         public VehicleDetailViewModel(INavigationService navigationService, IGeocodeService geocodeService,
             IDetailVehicleService detailVehicleService) : base(navigationService)
         {
@@ -38,6 +39,7 @@ namespace BA_MobileGPS.Core.ViewModels
             MessageInforChargeMoney = string.Empty;
 
             _engineState = MobileResource.Common_Label_TurnOff;
+            IsShowCoordinates = CompanyConfigurationHelper.IsShowCoordinates;
 
             RefeshCommand = new DelegateCommand(GetVehicleDetail);
             EventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(OnReceiveSendCarSignalR);
@@ -63,6 +65,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Getaddress(cardetail.Lat.ToString(), cardetail.Lng.ToString());
                 }
+                Coordinates = cardetail.Lat + " | " + cardetail.Lng;
                 GetVehicleDetail();
             }
             InitMenuItems();
@@ -103,6 +106,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private string temperature;
         public string Temperature { get => temperature; set => SetProperty(ref temperature, value); }
+
+        public bool isShowCoordinates;
+        public bool IsShowCoordinates { get => isShowCoordinates; set => SetProperty(ref isShowCoordinates, value); }
+
+        private string coordinates;
+        public string Coordinates { get => coordinates; set => SetProperty(ref coordinates, value); }
 
         #region thông tin phí
 
@@ -290,6 +299,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 VelocityGPS = carInfo.Velocity;
                 TotalKm = (float)carInfo.TotalKm;
                 StopTime = carInfo.StopTime;
+                Coordinates = carInfo.Lat + " | " + carInfo.Lng;
                 //Động cơ
                 EngineState = StateVehicleExtension.EngineState(carInfo);
 
