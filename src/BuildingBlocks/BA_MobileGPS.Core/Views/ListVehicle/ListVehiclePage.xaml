@@ -213,10 +213,10 @@
                         </pancake:PancakeView>
                     </Grid>
 
-                    <Grid Grid.Row="2">
+                    <Grid>
                         <syncfusionList:SfListView
                             Grid.Row="0"
-                            AutoFitMode="Height"
+                            AutoFitMode="DynamicHeight"
                             IsScrollBarVisible="True"
                             IsScrollingEnabled="True"
                             ItemTemplate="{StaticResource ListVehicleTemplateSelector}"

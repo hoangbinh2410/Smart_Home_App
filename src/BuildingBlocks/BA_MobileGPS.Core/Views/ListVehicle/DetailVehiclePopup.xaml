@@ -51,15 +51,13 @@
                 </controls:IconView>
             </Grid>
             <renderedViews:HorizontalListView
+                x:Name="lsvMenu"
                 Margin="10,10,10,0"
                 CollectionPadding="0"
-                ColumnCount="3"
-                HeightRequest="200"
                 HorizontalOptions="FillAndExpand"
-                ItemHeight="95"
+                ItemHeight="80"
                 ItemSpacing="10"
                 ItemWidth="90"
-                ItemsSource="{Binding MenuItems, Mode=OneWay}"
                 ListLayout="Grid"
                 SnapStyle="Center"
                 TapCommand="{Binding NavigativeCommand}"
@@ -68,7 +66,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout
-                                Padding="1"
+                                Padding="2"
                                 Spacing="5"
                                 VerticalOptions="CenterAndExpand">
                                 <StackLayout.Resources>
