@@ -69,6 +69,8 @@ namespace BA_MobileGPS.Core
 
         public static int TimmerVehicleSync => Get(CompanyConfigurationNames.TimmerVehicleSync, MobileSettingHelper.TimmerVehicleSync);
 
+        public static bool IsShowCoordinates => Get(CompanyConfigurationNames.IsShowCoordinates, false);
+
         /// <summary>
         /// trungtq: Mức đồng bộ cho phần đồng bộ online
         /// Level1: Đồng bộ 1 phần như của Namth đang làm (hiện tại vẫn bị)

@@ -20,6 +20,7 @@
         AlertMinBlockSMS,
         CountDateOfPayment,
         IsShowConfigLanmark,
+        IsShowCoordinates,
         IsDisplayPopupSendEngineControl,
         TimeVehicleSync,
         TimmerVehicleSync,
