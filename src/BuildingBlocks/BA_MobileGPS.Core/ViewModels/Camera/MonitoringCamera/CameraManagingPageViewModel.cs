@@ -1137,26 +1137,22 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 case CameraEnum.CAM1:
                                     videoUrl1 = camResponseData;
-                                    InitCamera1(camResponseData.Link);
-                                    currentCamera.Add(CameraEnum.CAM1);
+                                    InitCamera1(camResponseData.Link);                                   
                                     break;
 
                                 case CameraEnum.CAM2:
                                     videoUrl2 = camResponseData;
-                                    InitCamera2(camResponseData.Link);
-                                    currentCamera.Add(CameraEnum.CAM2);
+                                    InitCamera2(camResponseData.Link);                                 
                                     break;
 
                                 case CameraEnum.CAM3:
                                     videoUrl3 = camResponseData;
-                                    InitCamera3(camResponseData.Link);
-                                    currentCamera.Add(CameraEnum.CAM3);
+                                    InitCamera3(camResponseData.Link);                                   
                                     break;
 
                                 case CameraEnum.CAM4:
                                     videoUrl4 = camResponseData;
-                                    InitCamera4(camResponseData.Link);
-                                    currentCamera.Add(CameraEnum.CAM4);
+                                    InitCamera4(camResponseData.Link);                                  
                                     break;
 
                                 default:
@@ -1225,7 +1221,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ShowVideoView(CameraEnum camera)
         {
-
+            currentCamera.Add(camera);
             if (timer == null)
             {
                 timer = new System.Timers.Timer();
