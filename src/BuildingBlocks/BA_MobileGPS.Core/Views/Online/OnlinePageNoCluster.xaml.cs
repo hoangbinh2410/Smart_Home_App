@@ -379,7 +379,7 @@ namespace BA_MobileGPS.Core.Views
                             var lstpin = googleMap.Pins.Where(x => x.Label == vehicle.VehiclePlate).ToList();
                             if (lstpin != null && lstpin.Count > 1)
                             {
-                                googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(lstpin[0].Position.Latitude, lstpin[0].Position.Longitude), vm.ZoomLevel));
+                                googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(lstpin[0].Position.Latitude, lstpin[0].Position.Longitude), MobileSettingHelper.Mapzoom));
                             }
                         });
                     }
@@ -444,6 +444,7 @@ namespace BA_MobileGPS.Core.Views
             }
             else
             {
+                vm.ListVehicleStatus = new List<VehicleOnline>();
                 googleMap.Pins.Clear();
 
                 googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom));
@@ -475,6 +476,10 @@ namespace BA_MobileGPS.Core.Views
 
                     googleMap.AnimateCamera(CameraUpdateFactory.NewBounds(bounds, 40));
                 }
+            }
+            else
+            {
+                vm.ListVehicleStatus = new List<VehicleOnline>();
             }
         }
 
@@ -647,6 +652,7 @@ namespace BA_MobileGPS.Core.Views
         private void InitVehicleStatus(List<VehicleOnline> vehicleList)
         {
             //txtCountVehicle.Text = vehicleList.Count().ToString();
+            vm.VehicleStatusSelected = VehicleStatusGroup.All;
             mCurrentVehicleList = vehicleList;
             // Lấy trạng thái xe
             List<VehicleStatusViewModel> listStatus = (new VehicleStatusHelper()).DictVehicleStatus.Values.Where(x => x.IsEnable).ToList();
