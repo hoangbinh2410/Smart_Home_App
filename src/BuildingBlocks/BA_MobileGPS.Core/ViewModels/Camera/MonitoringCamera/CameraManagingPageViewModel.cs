@@ -1024,7 +1024,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     case CameraEnum.CAM2:
                         DisposeMediaPlayer(CameraEnum.CAM2);
                         TotalTimeCam2 = 1;
-                        IsCAM2Error = false;                      
+                        IsCAM2Error = false;
                         RequestStartCam(videoUrl2.Channel, CameraEnum.CAM2);
                         break;
 
@@ -1239,6 +1239,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 timer.Elapsed += Timer_Elapsed;
                 timer.Start();
             }
+            else if (!timer.Enabled)
+            {
+                timer.Start();
+            }
         }
 
         private void RequestMoreTimeStream(int minutes)
@@ -1266,10 +1270,19 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        public override void OnSleep()
+        {
+            DisposeAllMediaPlayer();
+            if (timer.Enabled)
+            {
+                timer.Enabled = false;
+            }
+            base.OnSleep();
+        }
+
         public override void OnResume()
         {
             base.OnResume();
-            DisposeAllMediaPlayer();
             ReLoadCamera();
             DependencyService.Get<IScreenOrientServices>().ForcePortrait();
         }
@@ -1429,16 +1442,16 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     var deviceResponse = await _streamCameraService.GetDevicesStatus(ConditionType.BKS, VehicleSelectedPlate);
                     var deviceResponseData = deviceResponse?.Data?.FirstOrDefault();
-                    if (deviceResponseData !=null)
+                    if (deviceResponseData != null)
                     {
                         CurrentAddress = await _geocodeService.GetAddressByLatLng(deviceResponseData.Latitude.ToString(), deviceResponseData.Longitude.ToString());
                         CurrentTime = deviceResponseData.DeviceTime;
-                    }                   
+                    }
                 }
                 catch (Exception ex)
                 {
 
-                    
+
                 }
 
             });
