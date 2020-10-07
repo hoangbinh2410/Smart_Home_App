@@ -1071,21 +1071,25 @@ namespace BA_MobileGPS.Core.ViewModels
                                               case 1:
                                                   videoUrl1 = camResponseData.Link;
                                                   InitCamera1(videoUrl1);
+                                                  currentCamera.Add(CameraEnum.CAM1);
                                                   break;
 
                                               case 2:
-                                                  videoUrl2 = camResponseData.Link;
+                                                  videoUrl2 = camResponseData.Link;                                                 
                                                   InitCamera2(videoUrl2);
+                                                  currentCamera.Add(CameraEnum.CAM2);
                                                   break;
 
                                               case 3:
-                                                  videoUrl3 = camResponseData.Link;
+                                                  videoUrl3 = camResponseData.Link;                                                
                                                   InitCamera3(videoUrl3);
+                                                  currentCamera.Add(CameraEnum.CAM3);
                                                   break;
 
                                               case 4:
                                                   videoUrl4 = camResponseData.Link;
                                                   InitCamera4(videoUrl4);
+                                                  currentCamera.Add(CameraEnum.CAM4);
                                                   break;
 
                                               default:
@@ -1197,7 +1201,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ShowVideoView(CameraEnum camera)
         {
-            currentCamera.Add(camera);
+           
             if (timer == null)
             {
                 timer = new Timer();
