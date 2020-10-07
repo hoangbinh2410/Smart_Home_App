@@ -9,6 +9,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -175,29 +176,6 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        /// <summary>Kiểm tra xem server sống hay chết</summary>
-        /// <Modified>
-        /// Name     Date         Comments
-        /// linhlv  2/26/2020   created
-        /// </Modified>
-        private void PingServerStatus()
-        {
-            RunOnBackground(async () =>
-            {
-                return await pingServerService.PingServerStatus();
-            }, (items) =>
-            {
-                if (items != null && items.Data == true)
-                {
-                    GetNoticePopup();
-                }
-                else
-                {
-                    PushPageFileBase();
-                }
-            });
-        }
-
         private Task GetMobileSetting()
         {
             return RunOnBackground(async () =>
@@ -208,13 +186,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (result != null && result.Count > 0)
                 {
-                    result.ForEach(item =>
-                    {
-                        if (!MobileSettingHelper.DicMobileConfigurations.ContainsKey(item.Name))
-                        {
-                            MobileSettingHelper.DicMobileConfigurations.Add(item.Name, item.Value);
-                        }
-                    });
+                    MobileSettingHelper.SetData(result);
                 }
             });
         }

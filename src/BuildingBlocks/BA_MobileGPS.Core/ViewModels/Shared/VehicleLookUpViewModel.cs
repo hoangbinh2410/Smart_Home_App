@@ -40,20 +40,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #endregion Property
 
-        private readonly IVehicleOnlineService vehicleOnlineService;
-
         private CancellationTokenSource cts;
 
         private VehicleLookUpType LookUpType = VehicleLookUpType.VehicleList;
 
         public ICommand SearchVehicleCommand { get; private set; }
 
-        public VehicleLookUpViewModel(INavigationService navigationService,
-            IVehicleOnlineService vehicleOnlineService)
+        public VehicleLookUpViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            this.vehicleOnlineService = vehicleOnlineService;
-
             SearchVehicleCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehicle);
         }
 

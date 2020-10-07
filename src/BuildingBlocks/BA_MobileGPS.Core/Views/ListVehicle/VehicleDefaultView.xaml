@@ -14,8 +14,8 @@
             <converters:NMConverter x:Key="NMConverter" />
         </ResourceDictionary>
     </sharpnado:MaterialFrame.Resources>
-    <StackLayout>
-        <Grid Padding="8" ColumnSpacing="10">
+    <StackLayout Spacing="0">
+        <Grid ColumnSpacing="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width=".3*" />
                 <ColumnDefinition Width="*" />
@@ -34,11 +34,15 @@
             </StackLayout>
             <StackLayout
                 Grid.Column="1"
+                Padding="8"
                 HorizontalOptions="FillAndExpand"
                 Spacing="10"
-                VerticalOptions="EndAndExpand">
-                <Grid ColumnDefinitions="*,100">
-                    <StackLayout Grid.Column="0" HorizontalOptions="StartAndExpand">
+                VerticalOptions="CenterAndExpand">
+                <Grid
+                    ColumnDefinitions="*,100"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+                    <StackLayout Grid.Column="0">
                         <StackLayout Orientation="Horizontal" Spacing="10">
                             <controls:IconView Source="ic_turnon_time_on_day.png" />
                             <Label
@@ -54,10 +58,7 @@
                                 VerticalOptions="Center" />
                         </StackLayout>
                     </StackLayout>
-                    <StackLayout
-                        Grid.Column="1"
-                        Padding="0,0,10,0"
-                        HorizontalOptions="StartAndExpand">
+                    <StackLayout Grid.Column="1">
                         <StackLayout Orientation="Horizontal" Spacing="10">
                             <controls:IconView Source="ic_engine_car.png" />
                             <Label
@@ -74,14 +75,15 @@
                         </StackLayout>
                     </StackLayout>
                 </Grid>
-                <StackLayout Orientation="Horizontal" Spacing="10">
-                    <controls:IconView Source="ic_parking.png" />
-                    <Label
-                        FontSize="12"
-                        Text="{Binding StopTime, Converter={StaticResource MinutesToStringShortConverter}}"
-                        VerticalOptions="Center" />
-                </StackLayout>
-                <StackLayout Spacing="10">
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <controls:IconView Source="ic_parking.png" />
+                        <Label
+                            FontSize="12"
+                            Text="{Binding StopTime, Converter={StaticResource MinutesToStringShortConverter}}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+
                     <StackLayout
                         IsVisible="{Binding CurrentAddress, Converter={StaticResource StringToBoolConverter}}"
                         Orientation="Horizontal"
@@ -89,27 +91,29 @@
                         <controls:IconView Source="ic_coordinates.png" />
                         <Label
                             FontSize="12"
+                            HorizontalTextAlignment="Start"
+                            LineBreakMode="TailTruncation"
                             Text="{Binding CurrentAddress}"
                             VerticalOptions="Center" />
                     </StackLayout>
                     <StackLayout
-                        Padding="0,0,0,-2"
                         IsVisible="{Binding MessageBAP, Converter={StaticResource StringToBoolConverter}}"
                         Orientation="Horizontal"
                         Spacing="10">
                         <controls:IconView Source="ic_fee.png" />
                         <Label
                             FontSize="12"
+                            HeightRequest="30"
                             HorizontalOptions="Start"
                             HorizontalTextAlignment="Start"
-                            LineBreakMode="TailTruncation"
-                            LineHeight="1.1"
+                            LineBreakMode="WordWrap"
                             MaxLines="2"
                             Text="{Binding MessageBAP}"
                             TextColor="Red"
                             VerticalOptions="Center" />
                     </StackLayout>
                 </StackLayout>
+
             </StackLayout>
         </Grid>
         <BoxView Margin="10,0" StyleClass="SlimLine" />

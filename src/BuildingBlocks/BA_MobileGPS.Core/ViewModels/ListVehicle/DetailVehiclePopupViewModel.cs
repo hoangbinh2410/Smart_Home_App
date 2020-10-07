@@ -21,7 +21,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            InitMenuItems();
         }
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -43,64 +42,6 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref vehicleName, value); }
         }
 
-        private ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
-
-        public ObservableCollection<MenuItem> MenuItems
-        {
-            get
-            {
-                return menuItems;
-            }
-            set
-            {
-                SetProperty(ref menuItems, value);
-                RaisePropertyChanged();
-            }
-        }
-
-        private void InitMenuItems()
-        {
-            var list = new List<MenuItem>();
-
-            list.Add(new MenuItem
-            {
-                Title = MobileResource.Online_Label_TitlePage,
-                Icon = "ic_mornitoring.png",
-                IsEnable = true,
-            });
-            list.Add(new MenuItem
-            {
-                Title = MobileResource.Route_Label_Title,
-                Icon = "ic_route.png",
-                IsEnable = CheckPermision((int)PermissionKeyNames.ViewModuleRoute)
-            });
-            list.Add(new MenuItem
-            {
-                Title = MobileResource.DetailVehicle_Label_TilePage,
-                Icon = "ic_guarantee.png",
-                IsEnable = true,
-            });
-            list.Add(new MenuItem
-            {
-                Title = "Video",
-                Icon = "ic_videolive.png",
-                IsEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView),
-            });
-            list.Add(new MenuItem
-            {
-                Title = "Hình Ảnh",
-                Icon = "ic_cameraonline.png",
-                IsEnable = CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView),
-            });
-            list.Add(new MenuItem
-            {
-                Title = "Nhiên liệu",
-                Icon = "ic_fuel.png",
-                IsEnable = CheckPermision((int)PermissionKeyNames.ReportFuelView),
-            });
-            MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
-        }
-
         public ICommand CloseCommand { get; }
 
         private void Close()
@@ -110,18 +51,22 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand NavigativeCommand { get; }
 
-        private async void Navigative(object obj)
+        private void Navigative(object obj)
         {
             if (!(obj is MenuItem seletedMenu))
             {
                 return;
             }
+            SafeExecute(async () =>
+            {
 
-            var param = seletedMenu.Title.ToString();
-            await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+                var param = seletedMenu.Title.ToString();
+                await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
                         {
                             { "pagetoNavigation",  param}
                         });
+            });
+
         }
     }
 }

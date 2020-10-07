@@ -38,7 +38,7 @@
         <Grid
             Grid.Row="0"
             Padding="10,0"
-            ColumnDefinitions="Auto,*">
+            ColumnDefinitions="Auto,*,Auto">
             <StackLayout Orientation="Horizontal">
                 <controls:IconView
                     Foreground="{DynamicResource PrimaryColor}"
@@ -57,6 +57,29 @@
                 Grid.Column="1"
                 HorizontalOptions="End"
                 Text="{Binding CarActive.VehicleTime, Converter={StaticResource DateTimeConverter}}" />
+
+            <sharpnado:MaterialFrame
+                Grid.Column="2"
+                Padding="0"
+                CornerRadius="10"
+                HeightRequest="20"
+                HorizontalOptions="FillAndExpand"
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                WidthRequest="20">
+                <sharpnado:MaterialFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CloseCarInfoViewCommand}" />
+                </sharpnado:MaterialFrame.GestureRecognizers>
+                <sharpnado:MaterialFrame.Content>
+                    <controls:IconView
+                        Foreground="{DynamicResource WhiteColor}"
+                        HeightRequest="20"
+                        HorizontalOptions="End"
+                        Source="ic_close.png"
+                        VerticalOptions="Start"
+                        WidthRequest="20" />
+                </sharpnado:MaterialFrame.Content>
+            </sharpnado:MaterialFrame>
+
 
         </Grid>
         <BoxView

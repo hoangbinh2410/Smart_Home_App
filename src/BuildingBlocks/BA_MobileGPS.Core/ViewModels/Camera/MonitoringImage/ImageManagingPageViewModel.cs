@@ -405,10 +405,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 request.xnCode = xnCode;
                 request.VehiclePlates = CarSearch;
 
-                var response = await _streamCameraService.GetListCaptureImage(request);
                 PageIndex = 0;
                 IsMaxLoadMore = true;
 
+                var response = await _streamCameraService.GetListCaptureImage(request);
+                
                 if (response != null && response.Count > 0)
                 {
                     ListGroup = new ObservableCollection<CaptureImageData>(response);

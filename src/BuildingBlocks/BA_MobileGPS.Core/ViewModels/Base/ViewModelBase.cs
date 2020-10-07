@@ -160,6 +160,16 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public virtual void OnResume()
         {
+            if (IsConnected)
+            {
+                if (PopupNavigation.Instance.PopupStack.Count > 0)
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await PopupNavigation.Instance.PopAllAsync();
+                    });
+                }
+            }
         }
 
         public virtual void Dispose()
@@ -307,7 +317,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(async () =>
             {
                 var lstvehicle = new List<VehicleOnline>();
-                if (VehicleStatusSelected != VehicleStatusGroup.All)
+                if (VehicleStatusSelected != VehicleStatusGroup.All || (ListVehicleStatus != null && ListVehicleStatus.Count > 0) || (VehicleGroups != null && VehicleGroups.Length > 0))
                 {
                     lstvehicle = ListVehicleStatus;
                 }

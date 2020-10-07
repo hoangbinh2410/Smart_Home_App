@@ -470,6 +470,7 @@ namespace BA_MobileGPS.Core.Views
             }
             else
             {
+                vm.ListVehicleStatus = new List<VehicleOnline>();
                 googleMap.ClusteredPins.Clear();
 
                 googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom));
@@ -485,7 +486,6 @@ namespace BA_MobileGPS.Core.Views
             var listFilter = StateVehicleExtension.GetVehicleCarByStatus(mVehicleList, vehiclestategroup);
             if (listFilter != null)
             {
-                vm.ListVehicleStatus = listFilter;
                 var listPin = ConvertMarkerPin(listFilter);
 
                 //Vẽ xe lên bản đồ
@@ -503,12 +503,16 @@ namespace BA_MobileGPS.Core.Views
                     googleMap.AnimateCamera(CameraUpdateFactory.NewBounds(bounds, 40));
                 }
             }
+            else
+            {
+                vm.ListVehicleStatus = new List<VehicleOnline>();
+            }
         }
 
         private List<VehicleOnlineMarker> ConvertMarkerPin(List<VehicleOnline> lisVehicle)
         {
             var listmarker = new List<VehicleOnlineMarker>();
-
+            vm.ListVehicleStatus = lisVehicle;
             lisVehicle.ForEach(x =>
             {
                 listmarker.Add(new VehicleOnlineMarker()
@@ -613,7 +617,6 @@ namespace BA_MobileGPS.Core.Views
                                 if (!UserHelper.isCompanyPartner(StaticSettings.User))
                                 {
                                     InitVehicleStatus(list);
-                                    vm.ListVehicleStatus = list;
                                     var listPin = ConvertMarkerPin(list);
 
                                     //Vẽ xe lên bản đồ
@@ -675,6 +678,7 @@ namespace BA_MobileGPS.Core.Views
         private void InitVehicleStatus(List<VehicleOnline> vehicleList)
         {
             //txtCountVehicle.Text = vehicleList.Count().ToString();
+            vm.VehicleStatusSelected = VehicleStatusGroup.All;
             mCurrentVehicleList = vehicleList;
             // Lấy trạng thái xe
             List<VehicleStatusViewModel> listStatus = (new VehicleStatusHelper()).DictVehicleStatus.Values.Where(x => x.IsEnable).ToList();
@@ -943,6 +947,8 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         public async void HideBoxInfo()
         {
+            vm.CarActive = new VehicleOnline();
+            mCarActive = new VehicleOnline();
             SetNoPaddingWithFooter();
             eventAggregator.GetEvent<ShowTabItemEvent>().Publish(true);
             await _animations.Go(States.HideFilter, true);

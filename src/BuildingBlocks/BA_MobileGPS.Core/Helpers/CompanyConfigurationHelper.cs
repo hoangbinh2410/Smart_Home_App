@@ -68,5 +68,27 @@ namespace BA_MobileGPS.Core
         public static int TimeVehicleSync => Get(CompanyConfigurationNames.TimeVehicleSync, MobileSettingHelper.TimeVehicleSync);
 
         public static int TimmerVehicleSync => Get(CompanyConfigurationNames.TimmerVehicleSync, MobileSettingHelper.TimmerVehicleSync);
+
+        public static bool IsShowCoordinates => Get(CompanyConfigurationNames.IsShowCoordinates, false);
+
+        /// <summary>
+        /// trungtq: Mức đồng bộ cho phần đồng bộ online
+        /// Level1: Đồng bộ 1 phần như của Namth đang làm (hiện tại vẫn bị)
+        /// Level2: Đồng bộ tất, giống như web đang làm, hơi tốn máu nhưng an toàn
+        /// </summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// trungtq  3/10/2020   created
+        /// </Modified>
+        public static SynOnlineLevelTypes SynOnlineLevel => Get(CompanyConfigurationNames.SynOnlineLevel, MobileSettingHelper.SynOnlineLevel);
+
+        /// <summary>
+        /// trungtq: Công ty có cấu hình đồng bộ Request không? nếu không có trong DB thì lấy theo hệ thống
+        /// </summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// trungtq  3/10/2020   created
+        /// </Modified>
+        public static bool EnableLongPoolRequest => Get(CompanyConfigurationNames.EnableLongPoolRequest, MobileSettingHelper.EnableLongPoolRequest);
     }
 }

@@ -11,13 +11,14 @@ namespace BA_MobileGPS.Core.Resources
     /// </Modified>
     public partial class MobileResource
     {
-        public static string DetailVehicle_Label_TilePage => Get(MobileResourceNames.DetailVehicle_Label_TilePage, "Thông tin phương tiện", "Vehicle information");
+        public static string DetailVehicle_Label_TilePage => Get(MobileResourceNames.DetailVehicle_Label_TilePage, "Chi tiết", "Vehicle information");
         public static string DetailVehicleVMS_Label_TilePage => Get(MobileResourceNames.DetailVehicleVMS_Label_TilePage, "Thông tin tàu cá", "Fishing Boat Information");
         public static string DetailVehicle_Label_InforFee => Get(MobileResourceNames.DetailVehicle_Label_InforFee, "Thông tin phí", "Information Fee");
         public static string DetailVehicle_MessageFee => Get(MobileResourceNames.DetailVehicle_MessageFee, "Xe sắp đến hạn thu phí ngày {0}", "The car is about to mature on a daily basis {0}");
         public static string DetailVehicle_Label_TileInforVehicle => Get(MobileResourceNames.DetailVehicle_Label_TileInforVehicle, "Thông tin chung", "Common information");
         public static string DetailVehicle_Label_VehiclePlate => Get(MobileResourceNames.DetailVehicle_Label_VehiclePlate, "Biển kiểm soát", "Vehicle Plate");
         public static string DetailVehicle_Label_Address => Get(MobileResourceNames.DetailVehicle_Label_Address, "Địa chỉ", "Address");
+        public static string DetailVehicle_Label_Coordinates => Get(MobileResourceNames.DetailVehicle_Label_Coordinates, "Tọa độ", "Coordinates");
         public static string DetailVehicle_Label_Time => Get(MobileResourceNames.DetailVehicle_Label_Time, "Thời gian", "Time");
         public static string DetailVehicle_Label_Speed => Get(MobileResourceNames.DetailVehicle_Label_Speed, "Vận tốc", "Speed");
         public static string DetailVehicle_Label_Engineer => Get(MobileResourceNames.DetailVehicle_Label_Engineer, "Động cơ", "Engine speed");

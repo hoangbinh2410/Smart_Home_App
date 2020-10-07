@@ -20,8 +20,11 @@
         AlertMinBlockSMS,
         CountDateOfPayment,
         IsShowConfigLanmark,
+        IsShowCoordinates,
         IsDisplayPopupSendEngineControl,
         TimeVehicleSync,
         TimmerVehicleSync,
+        SynOnlineLevel,
+        EnableLongPoolRequest
     }
 }
