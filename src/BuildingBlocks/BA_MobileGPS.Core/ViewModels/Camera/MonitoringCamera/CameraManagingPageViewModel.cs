@@ -1020,10 +1020,10 @@ namespace BA_MobileGPS.Core.ViewModels
                             DisposeMediaPlayer(CameraEnum.CAM1);
                             TotalTimeCam1 = 1;
                             IsCAM1Error = false;
-                            if (videoUrl1 != null && 0 < videoUrl1.Channel)
+                            if (videoUrl1 != null)
                             {
                                 RequestStartCam(videoUrl1.Channel, CameraEnum.CAM1);
-                            }                         
+                            }
                             break;
 
                         case CameraEnum.CAM2:
@@ -1033,7 +1033,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             if (videoUrl2 != null)
                             {
                                 RequestStartCam(videoUrl2.Channel, CameraEnum.CAM2);
-                            }                          
+                            }
                             break;
 
                         case CameraEnum.CAM3:
@@ -1044,23 +1044,21 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 RequestStartCam(videoUrl3.Channel, CameraEnum.CAM3);
                             }
-                           
                             break;
 
                         case CameraEnum.CAM4:
                             DisposeMediaPlayer(CameraEnum.CAM4);
                             TotalTimeCam4 = 1;
                             IsCAM4Error = false;
-                            if (videoUrl4 !=null)
+                            if (videoUrl4 != null)
                             {
                                 RequestStartCam(videoUrl4.Channel, CameraEnum.CAM4);
                             }
-                           
                             break;
                     }
 
                 }
-            }                  
+            }
         }
 
 
@@ -1654,7 +1652,9 @@ namespace BA_MobileGPS.Core.ViewModels
         public bool IsLoaded
         {
             get { return isLoaded; }
-            set { SetProperty(ref isLoaded, value);
+            set
+            {
+                SetProperty(ref isLoaded, value);
                 RaisePropertyChanged();
             }
         }
