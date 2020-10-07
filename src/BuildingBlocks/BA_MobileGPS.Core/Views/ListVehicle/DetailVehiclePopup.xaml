@@ -54,9 +54,9 @@
                 Margin="10,10,10,0"
                 CollectionPadding="0"
                 ColumnCount="3"
-                HeightRequest="200"
+                HeightRequest="180"
                 HorizontalOptions="FillAndExpand"
-                ItemHeight="95"
+                ItemHeight="80"
                 ItemSpacing="10"
                 ItemWidth="90"
                 ItemsSource="{Binding MenuItems, Mode=OneWay}"
@@ -68,7 +68,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout
-                                Padding="1"
+                                Padding="2"
                                 Spacing="5"
                                 VerticalOptions="CenterAndExpand">
                                 <StackLayout.Resources>
