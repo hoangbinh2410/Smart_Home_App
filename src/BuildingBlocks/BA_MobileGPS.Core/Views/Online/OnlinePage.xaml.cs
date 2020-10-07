@@ -470,6 +470,7 @@ namespace BA_MobileGPS.Core.Views
             }
             else
             {
+                vm.ListVehicleStatus = new List<VehicleOnline>();
                 googleMap.ClusteredPins.Clear();
 
                 googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom));
@@ -501,6 +502,10 @@ namespace BA_MobileGPS.Core.Views
 
                     googleMap.AnimateCamera(CameraUpdateFactory.NewBounds(bounds, 40));
                 }
+            }
+            else
+            {
+                vm.ListVehicleStatus = new List<VehicleOnline>();
             }
         }
 
