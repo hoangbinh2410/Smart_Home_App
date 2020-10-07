@@ -28,12 +28,12 @@ namespace BA_MobileGPS.Core
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns></returns>
-        public static string Get(MobileConfigurationNames key)
+        protected static string Get(MobileConfigurationNames key)
         {
             return Get(key, string.Empty);
         }
 
-        public static T Get<T>(MobileConfigurationNames key, T defaultValue) where T : IConvertible
+        protected static T Get<T>(MobileConfigurationNames key, T defaultValue) where T : IConvertible
         {
             var val = defaultValue;
             try
@@ -63,6 +63,16 @@ namespace BA_MobileGPS.Core
 
         private static IDictionary<string, string> _DicMobileConfigurations = null;
 
+        private static List<MobileConfiguration> _Configurations = null;
+
+        /// <summary>
+        /// Set dữ liệu cấu hình
+        /// </summary>
+        public static void SetData(List<MobileConfiguration> datas)
+        {
+            _Configurations = datas;
+        }
+
         public static IDictionary<string, string> DicMobileConfigurations
         {
             get
@@ -76,13 +86,17 @@ namespace BA_MobileGPS.Core
                         {
                             _DicMobileConfigurations = new Dictionary<string, string>();
 
-                            // Đọc dữ liệu từ API
-                            var service = Prism.PrismApplicationBase.Current.Container.Resolve<IResourceService>();
-                            var data = await service.GetAllMobileConfigs(App.AppType);
-
-                            if (data != null && data.Count > 0)
+                            // Nếu chưa set dữ liệu cấu hình  => Đọc Từ API, nếu có rồi thì thôi, tránh đọc lại API 2 lần
+                            if (_Configurations == null)
                             {
-                                data.ForEach(item =>
+                                // Đọc dữ liệu từ API
+                                var service = Prism.PrismApplicationBase.Current.Container.Resolve<IResourceService>();
+                                _Configurations = await service.GetAllMobileConfigs(App.AppType);
+                            }
+
+                            if (_Configurations != null && _Configurations.Count > 0)
+                            {
+                                _Configurations.ForEach(item =>
                                 {
                                     if (!_DicMobileConfigurations.ContainsKey(item.Name))
                                     {
@@ -100,7 +114,6 @@ namespace BA_MobileGPS.Core
                 return _DicMobileConfigurations;
             }
         }
-
 
         public static string HotlineGps => Get(MobileConfigurationNames.HotlineGps, "");
 
