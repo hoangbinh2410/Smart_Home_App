@@ -110,18 +110,22 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand NavigativeCommand { get; }
 
-        private async void Navigative(object obj)
+        private void Navigative(object obj)
         {
             if (!(obj is MenuItem seletedMenu))
             {
                 return;
             }
+            SafeExecute(async () =>
+            {
 
-            var param = seletedMenu.Title.ToString();
-            await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+                var param = seletedMenu.Title.ToString();
+                await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
                         {
                             { "pagetoNavigation",  param}
                         });
+            });
+
         }
     }
 }
