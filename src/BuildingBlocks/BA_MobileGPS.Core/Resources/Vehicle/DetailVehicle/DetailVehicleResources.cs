@@ -18,6 +18,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string DetailVehicle_Label_TileInforVehicle => Get(MobileResourceNames.DetailVehicle_Label_TileInforVehicle, "Thông tin chung", "Common information");
         public static string DetailVehicle_Label_VehiclePlate => Get(MobileResourceNames.DetailVehicle_Label_VehiclePlate, "Biển kiểm soát", "Vehicle Plate");
         public static string DetailVehicle_Label_Address => Get(MobileResourceNames.DetailVehicle_Label_Address, "Địa chỉ", "Address");
+        public static string DetailVehicle_Label_Coordinates => Get(MobileResourceNames.DetailVehicle_Label_Coordinates, "Tọa độ", "Coordinates");
         public static string DetailVehicle_Label_Time => Get(MobileResourceNames.DetailVehicle_Label_Time, "Thời gian", "Time");
         public static string DetailVehicle_Label_Speed => Get(MobileResourceNames.DetailVehicle_Label_Speed, "Vận tốc", "Speed");
         public static string DetailVehicle_Label_Engineer => Get(MobileResourceNames.DetailVehicle_Label_Engineer, "Động cơ", "Engine speed");
