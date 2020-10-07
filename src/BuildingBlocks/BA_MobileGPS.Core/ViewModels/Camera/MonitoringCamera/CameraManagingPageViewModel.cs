@@ -1008,41 +1008,56 @@ namespace BA_MobileGPS.Core.ViewModels
         private void Reload(object obj)
         {
             stopLoad = true;
-            var param = (CameraEnum)obj;
-            //cam1LoadingTime = 0 when video was played or error
-            if (SelectedCamera != null)
+            if (obj != null)
             {
-                switch (param)
+                var param = (CameraEnum)obj;
+                //cam1LoadingTime = 0 when video was played or error
+                if (SelectedCamera != null)
                 {
-                    case CameraEnum.CAM1:
-                        DisposeMediaPlayer(CameraEnum.CAM1);
-                        TotalTimeCam1 = 1;
-                        IsCAM1Error = false;
-                        RequestStartCam(videoUrl1.Channel, CameraEnum.CAM1);
-                        break;
+                    switch (param)
+                    {
+                        case CameraEnum.CAM1:
+                            DisposeMediaPlayer(CameraEnum.CAM1);
+                            TotalTimeCam1 = 1;
+                            IsCAM1Error = false;
+                            if (videoUrl1 != null)
+                            {
+                                RequestStartCam(videoUrl1.Channel, CameraEnum.CAM1);
+                            }
+                            break;
 
-                    case CameraEnum.CAM2:
-                        DisposeMediaPlayer(CameraEnum.CAM2);
-                        TotalTimeCam2 = 1;
-                        IsCAM2Error = false;
-                        RequestStartCam(videoUrl2.Channel, CameraEnum.CAM2);
-                        break;
+                        case CameraEnum.CAM2:
+                            DisposeMediaPlayer(CameraEnum.CAM2);
+                            TotalTimeCam2 = 1;
+                            IsCAM2Error = false;
+                            if (videoUrl2 != null)
+                            {
+                                RequestStartCam(videoUrl2.Channel, CameraEnum.CAM2);
+                            }
+                            break;
 
-                    case CameraEnum.CAM3:
-                        DisposeMediaPlayer(CameraEnum.CAM3);
-                        TotalTimeCam3 = 1;
-                        IsCAM3Error = false;
-                        RequestStartCam(videoUrl3.Channel, CameraEnum.CAM3);
-                        break;
+                        case CameraEnum.CAM3:
+                            DisposeMediaPlayer(CameraEnum.CAM3);
+                            TotalTimeCam3 = 1;
+                            IsCAM3Error = false;
+                            if (videoUrl3 != null)
+                            {
+                                RequestStartCam(videoUrl3.Channel, CameraEnum.CAM3);
+                            }
+                            break;
 
-                    case CameraEnum.CAM4:
-                        DisposeMediaPlayer(CameraEnum.CAM4);
-                        TotalTimeCam4 = 1;
-                        IsCAM4Error = false;
-                        RequestStartCam(videoUrl4.Channel, CameraEnum.CAM4);
-                        break;
+                        case CameraEnum.CAM4:
+                            DisposeMediaPlayer(CameraEnum.CAM4);
+                            TotalTimeCam4 = 1;
+                            IsCAM4Error = false;
+                            if (videoUrl4 != null)
+                            {
+                                RequestStartCam(videoUrl4.Channel, CameraEnum.CAM4);
+                            }
+                            break;
+                    }
+
                 }
-
             }
         }
 
@@ -1629,6 +1644,17 @@ namespace BA_MobileGPS.Core.ViewModels
             set
             {
                 SetProperty(ref mediaPlayer, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool isLoaded;
+        public bool IsLoaded
+        {
+            get { return isLoaded; }
+            set
+            {
+                SetProperty(ref isLoaded, value);
                 RaisePropertyChanged();
             }
         }

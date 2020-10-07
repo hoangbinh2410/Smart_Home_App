@@ -19,7 +19,10 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <NavigationPage.TitleView>
-        <Grid VerticalOptions="End">
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            VerticalOptions="FillAndExpand">
             <icons:IconView
                 Foreground="{DynamicResource WhiteColor}"
                 HeightRequest="25"
