@@ -1633,5 +1633,14 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        private bool isLoaded;
+        public bool IsLoaded
+        {
+            get { return isLoaded; }
+            set { SetProperty(ref isLoaded, value);
+                RaisePropertyChanged();
+            }
+        }
+
     }
 }
