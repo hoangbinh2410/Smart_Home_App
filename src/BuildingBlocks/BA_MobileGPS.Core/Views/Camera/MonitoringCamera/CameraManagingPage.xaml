@@ -337,7 +337,8 @@
                             CornerRadius="0"
                             IsChecked="{Binding AutoAddTime}"
                             Text="Tự gia hạn"
-                            TextColor="White" />
+                            TextColor="White"
+                            UncheckedColor="{DynamicResource GrayColor}" />
                         <Grid
                             HeightRequest="25"
                             IsVisible="{Binding AutoAddTime, Converter={StaticResource ShowHideColumnConverter}}"
