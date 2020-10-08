@@ -1701,8 +1701,11 @@
                                                 HorizontalOptions="FillAndExpand"
                                                 VerticalOptions="Start" />
                                         </Grid>
-                                        <!--Camera-->
-                                        <Grid Grid.Row="7" IsVisible="{Binding IsCameraEnable}">
+                                        <!--  Camera  -->
+                                        <Grid
+                                            Grid.Row="7"
+                                            IsVisible="{Binding IsCameraEnable}"
+                                            RowSpacing="0">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition Width="*" />
