@@ -9,6 +9,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -48,14 +49,27 @@ namespace BA_MobileGPS.Core.ViewModels
             this.pingServerService = pingServerService;
 
             EventAggregator.GetEvent<SelectLanguageTypeEvent>().Subscribe(UpdateLanguage);
-            language = new LanguageRespone()
-            {
-                CodeName = CultureCountry.Vietnamese,
-                Icon = "flag_vn.png",
-                Description = "Tiếng Việt",
-                PK_LanguageID = 1
-            };
             InitValidations();
+            if (App.CurrentLanguage == CultureCountry.English)
+            {
+                language = new LanguageRespone()
+                {
+                    CodeName = CultureCountry.English,
+                    Icon = "flag_us.png",
+                    Description = "English",
+                    PK_LanguageID = 2
+                };
+            }
+            else
+            {
+                language = new LanguageRespone()
+                {
+                    CodeName = CultureCountry.Vietnamese,
+                    Icon = "flag_vn.png",
+                    Description = "Tiếng Việt",
+                    PK_LanguageID = 1
+                };
+            }
         }
 
         #endregion Constructor
@@ -64,27 +78,40 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void Initialize(INavigationParameters parameters)
         {
-            GetInfomation();
+            if (parameters != null)
+            {
+                if (parameters.TryGetValue(ParameterKey.Logout, out bool isLogout))
+                {
+                    if (isLogout)
+                    {
+                        GetInfomation(true);
+                    }
+                }
+                else
+                {
+                    GetInfomation();
+                }
+            }
+            else
+            {
+                GetInfomation();
+            }
         }
 
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
 
-            _ = MobileResource.Get("Login_UserNameProperty_NullOrEmpty");
+            //_ = MobileResource.Get("Login_UserNameProperty_NullOrEmpty");
         }
 
-        private void GetInfomation()
+        private void GetInfomation(bool isLogout = false)
         {
             GetMobileSetting();
-            //GetVersionDBLogin();
-            GetMobileVersion();
-
-            if (!string.IsNullOrEmpty(Settings.CurrentLanguage))
+            if (!isLogout)
             {
-                GetLanguageType();
+                GetMobileVersion();
             }
-
             if (Settings.Rememberme)
             {
                 UserName.Value = Settings.UserName;
@@ -149,29 +176,6 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        /// <summary>Kiểm tra xem server sống hay chết</summary>
-        /// <Modified>
-        /// Name     Date         Comments
-        /// linhlv  2/26/2020   created
-        /// </Modified>
-        private void PingServerStatus()
-        {
-            RunOnBackground(async () =>
-            {
-                return await pingServerService.PingServerStatus();
-            }, (items) =>
-            {
-                if (items != null && items.Data == true)
-                {
-                    GetNoticePopup();
-                }
-                else
-                {
-                    PushPageFileBase();
-                }
-            });
-        }
-
         private Task GetMobileSetting()
         {
             return RunOnBackground(async () =>
@@ -182,13 +186,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (result != null && result.Count > 0)
                 {
-                    result.ForEach(item =>
-                    {
-                        if (!MobileSettingHelper.DicMobileConfigurations.ContainsKey(item.Name))
-                        {
-                            MobileSettingHelper.DicMobileConfigurations.Add(item.Name, item.Value);
-                        }
-                    });
+                    MobileSettingHelper.SetData(result);
                 }
             });
         }
@@ -598,11 +596,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    Stopwatch sw1 = new Stopwatch();
-                    sw1.Start();
                     await NavigationService.NavigateAsync("/MainPage");
-                    sw1.Stop();
-                    Debug.WriteLine(string.Format("NavigateMainPage : {0}", sw1.ElapsedMilliseconds));
                 }
 
             }

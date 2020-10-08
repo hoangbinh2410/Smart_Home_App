@@ -25,10 +25,10 @@ namespace BA_MobileGPS.Core
             var stateStr = state?.ToString().ToUpperInvariant();
 
             if (string.IsNullOrEmpty(stateStr) || viewTransitions == null)
-                throw new NullReferenceException("Value of 'state', 'viewTransitions' cannot be null");
+                return;
 
             if (_stateTransitions.ContainsKey(stateStr))
-                throw new ArgumentException($"State {state} already added");
+                return;
 
             _stateTransitions.Add(stateStr, viewTransitions);
         }
@@ -38,10 +38,10 @@ namespace BA_MobileGPS.Core
             var newStateStr = newState?.ToString().ToUpperInvariant();
 
             if (string.IsNullOrEmpty(newStateStr))
-                throw new NullReferenceException("Value of newState cannot be null");
+                await Task.CompletedTask;
 
             if (!_stateTransitions.ContainsKey(newStateStr))
-                throw new KeyNotFoundException($"There is no state {newState}");
+                await Task.CompletedTask;
 
             // Get all ViewTransitions
             var viewTransitions = _stateTransitions[newStateStr];
@@ -76,7 +76,7 @@ namespace BA_MobileGPS.Core
         public async Task GetTransition(bool withAnimation)
         {
             if (!_targetElementReference.TryGetTarget(out VisualElement targetElement))
-                throw new ObjectDisposedException("Target VisualElement was disposed");
+                await Task.CompletedTask;
 
             if (_delay > 0)
                 await Task.Delay(_delay);
@@ -141,9 +141,6 @@ namespace BA_MobileGPS.Core
                     else
                         targetElement.Rotation = _endValue;
                     break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
         }
     }

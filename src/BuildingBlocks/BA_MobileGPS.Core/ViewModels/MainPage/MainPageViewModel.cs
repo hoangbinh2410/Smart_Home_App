@@ -36,6 +36,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IIdentityHubService identityHubService;
         private readonly IVehicleOnlineHubService vehicleOnlineHubService;
         private readonly IAlertHubService alertHubService;
+        private readonly IPingServerService pingServerService;
         private readonly IMapper _mapper;
         private Timer timer;
         private Timer timerSyncData;
@@ -48,6 +49,7 @@ namespace BA_MobileGPS.Core.ViewModels
             INotificationService notificationService,
             IIdentityHubService identityHubService,
             IVehicleOnlineHubService vehicleOnlineHubService,
+            IPingServerService pingServerService,
             IAlertHubService alertHubService, IMapper mapper)
             : base(navigationService)
         {
@@ -60,6 +62,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this.identityHubService = identityHubService;
             this.vehicleOnlineHubService = vehicleOnlineHubService;
             this.alertHubService = alertHubService;
+            this.pingServerService = pingServerService;
             this._mapper = mapper;
 
             StaticSettings.TimeServer = UserInfo.TimeServer.AddSeconds(1);
@@ -75,26 +78,28 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Contructor
 
         #region Lifecycle
+
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
+
             TryExecute(async () =>
             {
                 await ConnectSignalR();
-                InitVehilceOnline();
             });
 
         }
+
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
 
             TryExecute(async () =>
             {
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
                 await ConnectSignalROnline();
+
                 InitVehilceOnline();
+
                 // Lấy danh sách cảnh báo
                 GetCountAlert();
 
@@ -105,8 +110,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 GetNoticePopup();
 
                 GetCountVehicleDebtMoney();
-                sw.Stop();
-                Debug.WriteLine(string.Format("MainPageViewModelInitialize : {0}", sw.ElapsedMilliseconds));
             });
         }
 
@@ -129,6 +132,11 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
             {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
+                });
+
                 //Join vào nhóm signalR để nhận dữ liệu online
                 JoinGroupSignalRCar(StaticSettings.ListVehilceOnline.Select(x => x.VehicleId.ToString()).ToList());
             }
@@ -138,39 +146,39 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private async void OnResumePage(bool args)
+        private void OnResumePage(bool args)
         {
-            if (IsConnected)
+            SafeExecute(async () =>
             {
-                await ConnectSignalROnline();
-                await ConnectSignalR();
-                if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+                if (IsConnected)
                 {
-                    if (DateTime.Now.Subtract(StaticSettings.TimeSleep).TotalMinutes >= MobileSettingHelper.TimeSleep)
+                    await ConnectSignalROnline();
+                    await ConnectSignalR();
+                    if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                     {
-                        GetListVehicleOnlineResume(true);
+                        if (DateTime.Now.Subtract(StaticSettings.TimeSleep).TotalMinutes >= MobileSettingHelper.TimeSleep)
+                        {
+                            GetListVehicleOnlineResume(true);
+                        }
+                        else
+                        {
+                            GetListVehicleOnlineResume();
+                        }
+
                     }
-                    else
+                    GetTimeServer();
+                    //kiểm tra xem có thông báo nào không
+                    //GetNofitication();
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(() =>
                     {
-                        GetListVehicleOnlineResume();
-                    }
-
+                        DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                    });
                 }
-                if (StaticSettings.TimeServer < DateTime.Now)
-                {
-                    StaticSettings.TimeServer = DateTime.Now;
-                }
-                //kiểm tra xem có thông báo nào không
-                GetNofitication();
+            });
 
-            }
-            else
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
-                });
-            }
         }
 
         private void OnSleepPage(bool obj)
@@ -260,6 +268,10 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 OnResumePage(true);
             }
+            else
+            {
+                StaticSettings.TimeSleep = DateTime.Now;
+            }
         }
 
         private void SetTimeServer()
@@ -301,16 +313,11 @@ namespace BA_MobileGPS.Core.ViewModels
             identityHubService.onReceivePushLogoutToAllUserInCompany += onReceivePushLogoutToAllUserInCompany;
             identityHubService.onReceivePushLogoutToUser += onReceivePushLogoutToUser;
 
-            // Khởi tạo signalR
-            await vehicleOnlineHubService.Connect();
-
-            vehicleOnlineHubService.onReceiveSendCarSignalR += OnReceiveSendCarSignalR;
-
             // Khởi tạo alertlR
             await alertHubService.Connect();
-
             alertHubService.onReceiveAlertSignalR += OnReceiveAlertSignalR;
         }
+
         private async Task ConnectSignalROnline()
         {
             // Khởi tạo signalR
@@ -504,24 +511,19 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         //Join vào nhóm signalR để nhận dữ liệu online
                         JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
-                    }
-                    else
-                    {
-                        StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
-                    }
 
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        if (isRelogin)
+                        Device.BeginInvokeOnMainThread(() =>
                         {
-                            EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
-                        }
-                        else
-                        {
-                            EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(true);
-                        }
-                    });
-
+                            if (isRelogin)
+                            {
+                                EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
+                            }
+                            else
+                            {
+                                EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(true);
+                            }
+                        });
+                    }
                 }
                 else
                 {
@@ -594,55 +596,73 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SyncVehicleOnline()
         {
-            if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+            // Nếu cho phép đồng bộ thì mới cần như này, không thì chỉ 1 mình SignalR cân hết.
+            if (CompanyConfigurationHelper.EnableLongPoolRequest)
             {
-                //Lấy xe thời gian hiện tại trừ thời gian của xe =< 2 và nhỏ hơn 5
-                // Lấy những xe có th
-                var listVehicleMoving = StateVehicleExtension.GetVehicleSyncData(StaticSettings.ListVehilceOnline);
-                if (listVehicleMoving != null && listVehicleMoving.Count > 0)
+                if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                 {
-                    var vehicelIDs = string.Join(",", listVehicleMoving);
-                    var userID = UserInfo.UserId;
-                    var companyID = UserInfo.CompanyId;
-                    if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                    // Danh sách cần syn về api để lấy dữ liệu thay đổi
+                    List<long> synVehicles = null;
+
+                    // Namth: Lấy xe thời gian hiện tại trừ thời gian của xe =< 2 và nhỏ hơn 5
+                    if (CompanyConfigurationHelper.SynOnlineLevel == SynOnlineLevelTypes.Level1)
                     {
-                        userID = Settings.CurrentCompany.UserId;
-                        companyID = Settings.CurrentCompany.FK_CompanyID;
+                        synVehicles = StateVehicleExtension.GetVehicleSyncData(StaticSettings.ListVehilceOnline);
                     }
-                    var request = new VehicleOnlineRequest()
+
+                    // trungtq: Lấy tất theo phiên cho lành (trường hợp xấu nhất, ăn theo cấu hình.
+                    else if (CompanyConfigurationHelper.SynOnlineLevel == SynOnlineLevelTypes.Level2)
                     {
-                        CompanyID = companyID,
-                        LastSync = StaticSettings.LastSyncTime,
-                        UserId = userID,
-                        VehicelIDs = vehicelIDs,
-                        XnCode = UserInfo.XNCode
-                    };
-                    RunOnBackground(async () =>
+                        synVehicles = StaticSettings.ListVehilceOnline.Select(item => item.VehicleId).ToList();
+                    }
+
+                    if (synVehicles != null && synVehicles.Count > 0)
                     {
-                        return await vehicleOnlineService.GetListVehicleOnlineSync(request);
-                    }, (result) =>
-                    {
-                        if (result != null && result.Count > 0)
+                        var vehicelIDs = string.Join(",", synVehicles);
+                        var userID = UserInfo.UserId;
+                        var companyID = UserInfo.CompanyId;
+                        if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
                         {
-                            StaticSettings.LastSyncTime = DateTime.Now;
-                            Parallel.For(0, result.Count, action =>
-                            {
-                                SendDataCar(result[action]);
-                            });
+                            userID = Settings.CurrentCompany.UserId;
+                            companyID = Settings.CurrentCompany.FK_CompanyID;
                         }
-                        else
+                        var request = new VehicleOnlineRequest()
                         {
-                            var lst = StateVehicleExtension.GetVehicleLostGPSAndLostGSM();
-                            if (lst != null && lst.Count > 0)
+                            CompanyID = companyID,
+                            LastSync = StaticSettings.LastSyncTime,
+                            UserId = userID,
+                            VehicelIDs = vehicelIDs,
+                            XnCode = UserInfo.XNCode
+                        };
+                        RunOnBackground(async () =>
+                        {
+                            return await vehicleOnlineService.GetListVehicleOnlineSync(request);
+                        }, (result) =>
+                        {
+                            if (result != null && result.Count > 0)
                             {
-                                Parallel.For(0, lst.Count, action =>
+                                // trungtq: Lấy theo giờ Server cho chuẩn
+                                StaticSettings.LastSyncTime = StaticSettings.TimeServer;
+
+                                Parallel.For(0, result.Count, action =>
                                 {
-                                    var vehicle = _mapper.MapProperties<VehicleOnlineMessage>(lst[action]);
-                                    SendDataCar(vehicle);
+                                    SendDataCar(result[action]);
                                 });
                             }
-                        }
-                    });
+                            else
+                            {
+                                var lst = StateVehicleExtension.GetVehicleLostGPSAndLostGSM();
+                                if (lst != null && lst.Count > 0)
+                                {
+                                    Parallel.For(0, lst.Count, action =>
+                                    {
+                                        var vehicle = _mapper.MapProperties<VehicleOnlineMessage>(lst[action]);
+                                        SendDataCar(vehicle);
+                                    });
+                                }
+                            }
+                        });
+                    }
                 }
             }
         }
@@ -680,6 +700,27 @@ namespace BA_MobileGPS.Core.ViewModels
             }, (result) =>
             {
                 GlobalResources.Current.TotalAlert = result;
+            });
+        }
+
+        private void GetTimeServer()
+        {
+            RunOnBackground(async () =>
+            {
+                return await pingServerService.GetTimeServer();
+            }, (result) =>
+            {
+                if (result != null && result.Data != null)
+                {
+                    StaticSettings.TimeServer = result.Data;
+                }
+                else
+                {
+                    if (StaticSettings.TimeServer < DateTime.Now)
+                    {
+                        StaticSettings.TimeServer = DateTime.Now;
+                    }
+                }
             });
         }
 

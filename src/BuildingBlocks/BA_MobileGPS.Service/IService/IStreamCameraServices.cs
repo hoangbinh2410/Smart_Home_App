@@ -19,8 +19,19 @@ namespace BA_MobileGPS.Service.IService
         /// 3: Tìm theo IMEI</param>
         /// <param name="conditionValue">Thông tin tìm kiếm</param>
         /// <returns></returns>
-        Task<StreamDevicesResponse> GetDevicesStatus(int conditionType, string conditionValue);
+        Task<StreamDevicesResponse> GetDevicesStatus(ConditionType type, string value);
 
-       
+        Task<List<CaptureImageData>> GetCaptureImageLimit(int xncode, string vehiclePlate, int limit);
+
+        Task<List<CaptureImageData>> GetCaptureImageTime(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime);
+
+        Task<List<CaptureImageData>> GetListCaptureImage(StreamImageRequest request);
+     
+    }
+    public enum ConditionType
+    {
+        MXN = 1,
+        BKS = 2,
+        IMEI = 3
     }
 }

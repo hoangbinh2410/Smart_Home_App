@@ -77,22 +77,17 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetListMenu()
         {
-            if (!IsConnected)
-                return;
-            TryExecute(() =>
+            RunOnBackground(async () =>
             {
-                RunOnBackground(async () =>
+                return await homeService.GetHomeMenuAsync((int)App.AppType, Settings.CurrentLanguage);
+            }, (result) =>
+            {
+                if (result != null && result.Count > 0)
                 {
-                    return await homeService.GetHomeMenuAsync((int)App.AppType, Settings.CurrentLanguage);
-                }, (result) =>
-                {
-                    if (result != null && result.Count > 0)
-                    {
-                        MenuReponse = mapper.MapListProperties<HomeMenuItemViewModel>(result.ToList());
+                    MenuReponse = mapper.MapListProperties<HomeMenuItemViewModel>(result.ToList());
 
-                        GenMenu();
-                    }
-                });
+                    GenMenu();
+                }
             });
         }
 
@@ -156,6 +151,7 @@ namespace BA_MobileGPS.Core.ViewModels
             var favourites = result.Where(s => s.IsFavorited).ToList();
             GenerateFavouriteMenu(favourites);
             var notFavorites = result.Where(s => !s.IsFavorited).ToList();
+
             GenerateListFeatures(notFavorites);
             HasFavorite = FavouriteMenuItems.Count != 0;
             StaticSettings.ListMenu = mapper.MapListProperties<HomeMenuItem>(result.ToList());
@@ -217,7 +213,21 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                     });
                     break;
+                case "CameraManagingPage":
+                    SafeExecute(async () =>
+                    {
+                        var photoPermission = await PermissionHelper.CheckPhotoPermissions();
+                        var storagePermission = await PermissionHelper.CheckStoragePermissions();
+                        if (photoPermission && storagePermission)
+                        {
+                            using (new HUDService(MobileResource.Common_Message_Processing))
+                            {
+                                var a = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey, useModalNavigation: true);
+                            }
+                        }
+                    });
 
+                    break;
                 default:
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -274,6 +284,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #endregion Property Binding
+
     }
 
     public class ItemSupport

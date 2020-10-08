@@ -23,8 +23,9 @@
     <ContentView.Resources>
         <ResourceDictionary>
             <converter:HasDataBackgroundColorConverter x:Key="HasDataBackgroundColorConverter" />
-
             <converter:HasDataIconColorConverter x:Key="HasDataIconColorConverter" />
+            <converter:SelectedStatusBackgroundColorConverter x:Key="SelectedStatusBackgroundColorConverter" />
+            <converter:SelectedStatusIconColorConverter x:Key="SelectedStatusIconColorConverter" />
             <Style TargetType="controls:IconView">
                 <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
                 <Setter Property="HeightRequest" Value="17" />
@@ -188,7 +189,7 @@
                         <pancake:PancakeView
                             Grid.Column="4"
                             Padding="0"
-                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BackgroundColor="{Binding VehicleStatusSelected, Converter={StaticResource SelectedStatusBackgroundColorConverter}}"
                             CornerRadius="20"
                             HasShadow="False"
                             HeightRequest="40"
@@ -204,7 +205,7 @@
                                 <TapGestureRecognizer Tapped="FilterCarType_Tapped" />
                             </pancake:PancakeView.GestureRecognizers>
                             <controls:IconView
-                                Foreground="{DynamicResource PrimaryColor}"
+                                Foreground="{Binding VehicleStatusSelected, Converter={StaticResource SelectedStatusIconColorConverter}}"
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
                                 Source="ic_filter.png"
@@ -213,10 +214,10 @@
                         </pancake:PancakeView>
                     </Grid>
 
-                    <Grid Grid.Row="2">
+                    <Grid>
                         <syncfusionList:SfListView
                             Grid.Row="0"
-                            AutoFitMode="Height"
+                            AutoFitMode="DynamicHeight"
                             IsScrollBarVisible="True"
                             IsScrollingEnabled="True"
                             ItemTemplate="{StaticResource ListVehicleTemplateSelector}"

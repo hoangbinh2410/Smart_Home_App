@@ -6,6 +6,8 @@ namespace BA_MobileGPS.Core
     {
         void DownloadFile(string url, string folder);
 
+        string DownloadFileGetPath(string url, string folder);
+
         event EventHandler<DownloadEventArgs> OnFileDownloaded;
     }
 

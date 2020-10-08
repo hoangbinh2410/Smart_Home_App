@@ -108,9 +108,18 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     GoRoutePage(currentVehicle);
                 }
-                else if (action == "Camera")
+                else if (action == "Hình Ảnh")
                 {
-                    GotoStreamPage(currentVehicle);
+                    GotoCameraPage(currentVehicle);
+                }
+                else if (action == "Nhiên liệu")
+                {
+                    GotoFuelPage(currentVehicle);
+                }
+                else if (action == "Video")
+                {
+
+                    GotoVideoPage(currentVehicle);
                 }
             }
         }
@@ -249,7 +258,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 ListVehicle = ListVehicleOrigin.ToObservableCollection();
             }
-
+            ListVehicleByStatus = ListVehicle.ToList();
             // Chạy lại hàm tính toán trạng thái xe
             InitVehicleStatus();
         }
@@ -258,6 +267,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
+                SearchedText = null;
                 if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                 {
                     //Nếu là công ty thường thì mặc định load xe của công ty lên bản đồ
@@ -304,7 +314,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public void InitVehicleStatus()
         {
             var vehicleList = _mapper.MapListProperties<VehicleOnline>(ListVehicle.ToList());
-
+            VehicleStatusSelected = VehicleStatusGroup.All;
             CountVehicle = vehicleList.Count();
 
             // Lấy trạng thái xe
@@ -472,6 +482,7 @@ namespace BA_MobileGPS.Core.ViewModels
             // Lọc theo trạng thái xe
             if (selected != null)
             {
+                VehicleStatusSelected = (VehicleStatusGroup)selected.ID;
                 List<VehicleOnline> listVehicle = _mapper.MapListProperties<VehicleOnline>(ListVehicleByGroup);
                 var listFilter = StateVehicleExtension.GetVehicleCarByStatus(listVehicle, (VehicleStatusGroup)selected.ID);
 
@@ -578,17 +589,50 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        public void GotoStreamPage(VehicleOnlineViewModel selected)
+        public void GotoCameraPage(VehicleOnlineViewModel selected)
         {
             SafeExecute(async () =>
             {
-                var param = _mapper.MapProperties<VehicleOnline>(selected);
+                var param = _mapper.MapProperties<Vehicle>(selected);
                 var parameters = new NavigationParameters
                 {
-                    { "Camera", param }
+                    { ParameterKey.Vehicle, param }
                 };
 
-                await NavigationService.NavigateAsync("NavigationPage/StreamPicture", parameters, true);
+                await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true);
+            });
+        }
+
+        public void GotoFuelPage(VehicleOnlineViewModel selected)
+        {
+            SafeExecute(async () =>
+            {
+                var param = _mapper.MapProperties<Vehicle>(selected);
+                var parameters = new NavigationParameters
+                {
+                    { ParameterKey.Vehicle, param }
+                };
+
+                await NavigationService.NavigateAsync("NavigationPage/ChartFuelReportPage", parameters, true);
+            });
+        }
+
+        public void GotoVideoPage(VehicleOnlineViewModel selected)
+        {
+            SafeExecute(async () =>
+            {
+                var photoPermission = await PermissionHelper.CheckPhotoPermissions();
+                var storagePermission = await PermissionHelper.CheckStoragePermissions();
+                if (photoPermission && storagePermission)
+                {
+                    var param = _mapper.MapProperties<Vehicle>(selected);
+                    var parameters = new NavigationParameters
+                      {
+                          { ParameterKey.Vehicle, param }
+                     };
+
+                    await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true);
+                }
             });
         }
 

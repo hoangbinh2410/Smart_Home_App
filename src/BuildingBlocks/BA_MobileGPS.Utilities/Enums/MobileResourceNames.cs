@@ -438,6 +438,7 @@
         DetailVehicle_Label_TileInforVehicle,
         DetailVehicle_Label_VehiclePlate,
         DetailVehicle_Label_Address,
+        DetailVehicle_Label_Coordinates,
         DetailVehicle_Label_Time,
         DetailVehicle_Label_Speed,
         DetailVehicle_Label_Engineer,
@@ -844,6 +845,8 @@
 
         #region Camera
         Camera_Label_TitlePage,
+        CameraImage_Label_TitlelPage,
+        CameraImage_Label_TitleDetailPage,
         Common_Message_ErrorTimeFromToTimeEnd,
         #endregion
 

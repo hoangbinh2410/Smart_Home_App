@@ -72,4 +72,7 @@
     <converters:ConcreteConverter x:Key="ConcreteConverter" />
 
     <converters:MemoryStickConverter x:Key="MemoryStickConverter" />
+
+    <converters:HasPermisstionConverter x:Key="HasPermisstionConverter" />
+
 </ResourceDictionary>

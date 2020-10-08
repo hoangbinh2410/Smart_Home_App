@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:renderedViews="clr-namespace:Sharpnado.Presentation.Forms.RenderedViews;assembly=Sharpnado.Presentation.Forms"
     BackgroundColor="#90FFFFFF"
     BackgroundInputTransparent="False"
     CloseWhenBackgroundIsClicked="True">
@@ -17,7 +18,7 @@
             PositionIn="Bottom"
             PositionOut="Bottom" />
     </pages:PopupPage.Animation>
-    <pages:PopupPage.Resources />
+
 
     <pancakeview:PancakeView
         BackgroundColor="{DynamicResource WhiteColor}"
@@ -49,91 +50,59 @@
                     </controls:IconView.GestureRecognizers>
                 </controls:IconView>
             </Grid>
-            <BoxView StyleClass="SlimLine" />
-            <FlexLayout
-                Padding="20,10"
-                AlignItems="Stretch"
-                Direction="Row"
-                JustifyContent="SpaceBetween">
-                <FlexLayout.Resources>
-                    <Style TargetType="pancakeview:PancakeView">
-                        <Setter Property="HeightRequest" Value="60" />
-                        <Setter Property="WidthRequest" Value="60" />
-                        <Setter Property="CornerRadius" Value="30" />
-                        <Setter Property="BackgroundColor" Value="{DynamicResource WhiteColor}" />
-                        <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
-                    </Style>
-                    <Style TargetType="controls:IconView">
-                        <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
-                        <Setter Property="Margin" Value="15" />
-                        <Setter Property="HorizontalOptions" Value="Center" />
-                    </Style>
-                    <Style TargetType="Label">
-                        <Setter Property="FontSize" Value="13" />
-                        <Setter Property="WidthRequest" Value="80" />
-                    </Style>
-                </FlexLayout.Resources>
-                <StackLayout Spacing="10">
-                    <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigativeCommand}" CommandParameter="{Binding Source={x:Reference lblOnlineTitle}, Path=Text}" />
-                    </StackLayout.GestureRecognizers>
-                    <pancakeview:PancakeView>
-                        <pancakeview:PancakeView.Shadow>
-                            <pancakeview:DropShadow
-                                BlurRadius="2"
-                                Offset="0,0"
-                                Color="Black" />
-                        </pancakeview:PancakeView.Shadow>
-                        <controls:IconView Source="ic_mornitoring.png" />
-                    </pancakeview:PancakeView>
-                    <Label x:Name="lblOnlineTitle" LineBreakMode="WordWrap" />
-                </StackLayout>
-                <StackLayout Spacing="10" VerticalOptions="StartAndExpand">
-                    <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigativeCommand}" CommandParameter="{Binding Source={x:Reference lblRouteTitle}, Path=Text}" />
-                    </StackLayout.GestureRecognizers>
-                    <pancakeview:PancakeView>
-                        <pancakeview:PancakeView.Shadow>
-                            <pancakeview:DropShadow
-                                BlurRadius="2"
-                                Offset="0,0"
-                                Color="Black" />
-                        </pancakeview:PancakeView.Shadow>
-                        <controls:IconView Source="ic_route.png" />
-                    </pancakeview:PancakeView>
-                    <Label x:Name="lblRouteTitle" LineBreakMode="WordWrap" />
-                </StackLayout>
-                <StackLayout Spacing="10">
-                    <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigativeCommand}" CommandParameter="{Binding Source={x:Reference lblDetailTitle}, Path=Text}" />
-                    </StackLayout.GestureRecognizers>
-                    <pancakeview:PancakeView>
-                        <pancakeview:PancakeView.Shadow>
-                            <pancakeview:DropShadow
-                                BlurRadius="2"
-                                Offset="0,0"
-                                Color="Black" />
-                        </pancakeview:PancakeView.Shadow>
-                        <controls:IconView Source="ic_guarantee.png" />
-                    </pancakeview:PancakeView>
-                    <Label x:Name="lblDetailTitle" LineBreakMode="WordWrap" />
-                </StackLayout>
-                <!--<StackLayout Spacing="10">
-                    <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigativeCommand}" CommandParameter="Camera" />
-                    </StackLayout.GestureRecognizers>
-                    <pancakeview:PancakeView>
-                        <pancakeview:PancakeView.Shadow>
-                            <pancakeview:DropShadow
-                                BlurRadius="2"
-                                Offset="0,0"
-                                Color="Black" />
-                        </pancakeview:PancakeView.Shadow>
-                        <controls:IconView Source="ic_camera.png" />
-                    </pancakeview:PancakeView>
-                    <Label LineBreakMode="WordWrap" Text="Camera" />
-                </StackLayout>-->
-            </FlexLayout>
+            <renderedViews:HorizontalListView
+                x:Name="lsvMenu"
+                Margin="10,10,10,0"
+                CollectionPadding="0"
+                HorizontalOptions="FillAndExpand"
+                ItemHeight="80"
+                ItemSpacing="10"
+                ItemWidth="90"
+                ListLayout="Grid"
+                SnapStyle="Center"
+                TapCommand="{Binding NavigativeCommand}"
+                VerticalOptions="FillAndExpand">
+                <renderedViews:HorizontalListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout
+                                Padding="2"
+                                Spacing="5"
+                                VerticalOptions="CenterAndExpand">
+                                <StackLayout.Resources>
+                                    <Style TargetType="pancakeview:PancakeView">
+                                        <Setter Property="HeightRequest" Value="50" />
+                                        <Setter Property="WidthRequest" Value="50" />
+                                        <Setter Property="CornerRadius" Value="25" />
+                                        <Setter Property="BackgroundColor" Value="{DynamicResource WhiteColor}" />
+                                        <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                                    </Style>
+                                    <Style TargetType="controls:IconView">
+                                        <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
+                                        <Setter Property="Margin" Value="15" />
+                                        <Setter Property="HorizontalOptions" Value="Center" />
+                                    </Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="FontSize" Value="12" />
+                                        <Setter Property="WidthRequest" Value="80" />
+                                    </Style>
+                                </StackLayout.Resources>
+                                <pancakeview:PancakeView>
+                                    <pancakeview:PancakeView.Shadow>
+                                        <pancakeview:DropShadow
+                                            BlurRadius="2"
+                                            Offset="0,0"
+                                            Color="Black" />
+                                    </pancakeview:PancakeView.Shadow>
+                                    <controls:IconView Source="{Binding Icon}" />
+                                </pancakeview:PancakeView>
+                                <Label LineBreakMode="WordWrap" Text="{Binding Title}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+
+                </renderedViews:HorizontalListView.ItemTemplate>
+            </renderedViews:HorizontalListView>
         </StackLayout>
     </pancakeview:PancakeView>
 </pages:PopupPage>

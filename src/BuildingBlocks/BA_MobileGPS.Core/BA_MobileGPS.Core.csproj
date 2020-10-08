@@ -10,9 +10,9 @@
 	  <None Remove="Views\Login\**" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="CardsView" Version="2.6.3" />
+		<PackageReference Include="CardsView" Version="2.6.4" />
 		<PackageReference Include="LibVLCSharp.Forms" Version="3.4.7" />
-		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.5" />
+		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.6" />
 		<PackageReference Include="LibVLCSharp.Forms" Version="3.4.8" />
 		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.2.0.59" />
 		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.2.0.59" />
@@ -31,12 +31,12 @@
 		<PackageReference Include="Xam.Plugin.HtmlLabel" Version="4.1.3" />
 		<PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
 		<PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
-		<PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />
+		<PackageReference Include="Xamarin.Forms" Version="4.8.0.1534" />
 		<PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
 		<PackageReference Include="Com.OneSignal" Version="3.10.1" />
-		<PackageReference Include="Microsoft.AppCenter" Version="3.4.2" />
-		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.4.2" />
-		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.4.2" />
+		<PackageReference Include="Microsoft.AppCenter" Version="3.4.3" />
+		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.4.3" />
+		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.4.3" />
 		<PackageReference Include="Plugin.Permissions" Version="6.0.1" />
 		<PackageReference Include="Prism.Unity.Extensions" Version="7.2.0.1054" />
 		<PackageReference Include="Prism.Unity.Forms" Version="7.2.0.1422" />
@@ -51,7 +51,7 @@
 		<PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.11.982" />
 		<PackageReference Include="Xamarin.Forms.PancakeView" Version="2.1.0.714" />
 		<PackageReference Include="MonkeyCache.FileStore" Version="1.3.0" />
-		<PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="3.1.3" />
+		<PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="4.0.4" />
 		<PackageReference Include="XamFileStorage.Netstandard" Version="1.1.3" />
 	</ItemGroup>
 	<ItemGroup>
@@ -60,6 +60,15 @@
 	  <ProjectReference Include="..\BA_MobileGPS.Utilities\BA_MobileGPS.Utilities.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Update="Views\Camera\MonitoringImage\ImageManagingPage.xaml.cs">
+	    <DependentUpon>ImageManagingPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Camera\MonitoringImage\Template1Image.xaml.cs">
+	    <DependentUpon>Template1Image.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Camera\MonitoringImage\Template4Image.xaml.cs">
+	    <DependentUpon>Template4Image.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\ListVehicle\DetailVehiclePopup.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
@@ -144,7 +153,22 @@
 	  <EmbeddedResource Update="Views\Authentication\ForgotPasswordPopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\CameraManagingPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\CameraStream.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Template1Camera.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Template2Camera.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Template4Camera.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\RequestMoreTimePopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Common\ComboboxPage.xaml">

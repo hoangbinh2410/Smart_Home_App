@@ -194,10 +194,13 @@
                         CornerRadius="10"
                         HasShadow="False">
                         <StackLayout Spacing="0">
-                            <Label
-                                x:Name="lblFeatures"
-                                Padding="10"
-                                StyleClass="GroupTitleLabel,BoldText" />
+                            <StackLayout Orientation="Horizontal">
+                                <Label
+                                    x:Name="lblFeatures"
+                                    Padding="10"
+                                    StyleClass="GroupTitleLabel,BoldText" />
+                            </StackLayout>
+
                             <BoxView class="SlimLine" />
                             <Grid
                                 x:Name="parentFeatures"

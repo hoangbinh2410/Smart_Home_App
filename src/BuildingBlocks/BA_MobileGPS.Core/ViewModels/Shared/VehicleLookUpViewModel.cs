@@ -1,6 +1,4 @@
-﻿//using Acr.UserDialogs;
-
-using BA_MobileGPS.Core.Constant;
+﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -42,20 +40,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #endregion Property
 
-        private readonly IVehicleOnlineService vehicleOnlineService;
-
         private CancellationTokenSource cts;
 
         private VehicleLookUpType LookUpType = VehicleLookUpType.VehicleList;
 
         public ICommand SearchVehicleCommand { get; private set; }
 
-        public VehicleLookUpViewModel(INavigationService navigationService,
-            IVehicleOnlineService vehicleOnlineService)
+        public VehicleLookUpViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            this.vehicleOnlineService = vehicleOnlineService;
-
             SearchVehicleCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehicle);
         }
 
@@ -63,10 +56,13 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (parameters != null)
             {
-                if (parameters.TryGetValue(ParameterKey.VehicleLookUpType, out VehicleLookUpType type) && parameters.TryGetValue(ParameterKey.VehicleGroupsSelected, out int[] VehicleGroups))
+                if (parameters.TryGetValue(ParameterKey.VehicleLookUpType, out VehicleLookUpType type)
+                    && parameters.TryGetValue(ParameterKey.VehicleGroupsSelected, out int[] VehicleGroups)
+                    && parameters.TryGetValue(ParameterKey.VehicleStatusSelected, out List<VehicleOnline> VehicleStatus))
                 {
                     LookUpType = type;
                     SelectedVehicleGroups = VehicleGroups;
+                    ListVehicleStatus = VehicleStatus == null ? new List<VehicleOnline>() : VehicleStatus;
                     InitData();
                 }
             }
@@ -80,7 +76,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 if (LookUpType == VehicleLookUpType.VehicleRoute)
                 {
-                    return GetListVehicle(SelectedVehicleGroups);
+                    return GetListVehicle(SelectedVehicleGroups, true);
                 }
                 else
                 {
@@ -117,28 +113,38 @@ namespace BA_MobileGPS.Core.ViewModels
             }));
         }
 
-        public List<Vehicle> GetListVehicle(int[] groupids)
+        public List<Vehicle> GetListVehicle(int[] groupids, bool isRoute = false)
         {
             List<Vehicle> result = new List<Vehicle>();
             try
             {
-                var listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
-                if (groupids != null && groupids.Length > 0)
+                if (!isRoute && ListVehicleStatus != null)
                 {
-                    foreach (var item in groupids)
+                    foreach (var lst in ListVehicleStatus)
                     {
-                        ListResultOnline = listOnline.FindAll(v => v.GroupIDs.Contains(item.ToString()));
-                        foreach (var lst in ListResultOnline)
-                        {
-                            result.Add(AddListVehicle(lst));
-                        }
+                        result.Add(AddListVehicle(lst));
                     }
                 }
                 else
                 {
-                    foreach (var lst in listOnline)
+                    var listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                    if (groupids != null && groupids.Length > 0)
                     {
-                        result.Add(AddListVehicle(lst));
+                        foreach (var item in groupids)
+                        {
+                            ListResultOnline = listOnline.FindAll(v => v.GroupIDs.Contains(item.ToString()));
+                            foreach (var lst in ListResultOnline)
+                            {
+                                result.Add(AddListVehicle(lst));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (var lst in listOnline)
+                        {
+                            result.Add(AddListVehicle(lst));
+                        }
                     }
                 }
             }

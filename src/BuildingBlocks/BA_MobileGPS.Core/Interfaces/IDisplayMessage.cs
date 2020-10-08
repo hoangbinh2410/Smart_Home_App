@@ -9,5 +9,7 @@
         void ShowMessageError(string message, double time = 5000);
 
         void ShowMessageSuccess(string message, double time = 5000);
+
+        void ShowToast(string message, double time = 5000);
     }
 }

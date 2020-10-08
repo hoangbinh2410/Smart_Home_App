@@ -1,6 +1,12 @@
-﻿using Prism.Commands;
+﻿using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Entities;
+using Prism.Commands;
 using Prism.Navigation;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
+using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -12,6 +18,10 @@ namespace BA_MobileGPS.Core.ViewModels
             NavigativeCommand = new DelegateCommand<object>(Navigative);
         }
 
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+        }
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -41,13 +51,22 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand NavigativeCommand { get; }
 
-        private async void Navigative(object obj)
+        private void Navigative(object obj)
         {
-            var param = obj.ToString();
-            await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+            if (!(obj is MenuItem seletedMenu))
+            {
+                return;
+            }
+            SafeExecute(async () =>
+            {
+
+                var param = seletedMenu.Title.ToString();
+                await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
                         {
                             { "pagetoNavigation",  param}
                         });
+            });
+
         }
     }
 }

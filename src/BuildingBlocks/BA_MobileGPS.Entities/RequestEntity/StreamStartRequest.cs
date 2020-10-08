@@ -6,11 +6,12 @@ namespace BA_MobileGPS.Entities
 {
     public abstract class StreamRequestBase
     {
-        public int CustomerID { get; set; }
+        public string xnCode { get; set; }
 
-        public string VehicleName { get; set; }
+        public string VehiclePlate { get; set; }
 
         public int Channel { get; set; }
+        public string IMEI { get; set; }
     }
     public class StreamStartRequest : StreamRequestBase
     {
@@ -26,5 +27,12 @@ namespace BA_MobileGPS.Entities
     {    
         //Thời gian gia hạn quá trình Streaming, mặc định 180s. Đơn vị: second Giá trị: 1 – 600
         public int Duration { get; set; }
+    }
+
+    public class StreamImageRequest
+    {
+        public int xnCode { get; set; }
+
+        public string VehiclePlates { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 
 using Prism.Ioc;
-
+using Syncfusion.XlsIO.Implementation.PivotTables;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,12 +28,12 @@ namespace BA_MobileGPS.Core
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns></returns>
-        public static string Get(MobileConfigurationNames key)
+        protected static string Get(MobileConfigurationNames key)
         {
             return Get(key, string.Empty);
         }
 
-        public static T Get<T>(MobileConfigurationNames key, T defaultValue) where T : IConvertible
+        protected static T Get<T>(MobileConfigurationNames key, T defaultValue) where T : IConvertible
         {
             var val = defaultValue;
             try
@@ -61,12 +61,23 @@ namespace BA_MobileGPS.Core
             return val;
         }
 
-        private static IDictionary<string, string> _DicMobileConfigurations = null;
+        public static IDictionary<string, string> _DicMobileConfigurations = null;
+
+        private static List<MobileConfiguration> _Configurations = null;
+
+        /// <summary>
+        /// Set dữ liệu cấu hình
+        /// </summary>
+        public static void SetData(List<MobileConfiguration> datas)
+        {
+            _Configurations = datas;
+        }
 
         public static IDictionary<string, string> DicMobileConfigurations
         {
             get
             {
+
                 if (_DicMobileConfigurations == null)
                 {
                     try
@@ -75,13 +86,17 @@ namespace BA_MobileGPS.Core
                         {
                             _DicMobileConfigurations = new Dictionary<string, string>();
 
-                            // Đọc dữ liệu từ API
-                            var service = Prism.PrismApplicationBase.Current.Container.Resolve<IResourceService>();
-                            var data = await service.GetAllMobileConfigs(App.AppType);
-
-                            if (data != null && data.Count > 0)
+                            // Nếu chưa set dữ liệu cấu hình  => Đọc Từ API, nếu có rồi thì thôi, tránh đọc lại API 2 lần
+                            if (_Configurations == null)
                             {
-                                data.ForEach(item =>
+                                // Đọc dữ liệu từ API
+                                var service = Prism.PrismApplicationBase.Current.Container.Resolve<IResourceService>();
+                                _Configurations = await service.GetAllMobileConfigs(App.AppType);
+                            }
+
+                            if (_Configurations != null && _Configurations.Count > 0)
+                            {
+                                _Configurations.ForEach(item =>
                                 {
                                     if (!_DicMobileConfigurations.ContainsKey(item.Name))
                                     {
@@ -175,19 +190,43 @@ namespace BA_MobileGPS.Core
         public static int DefaultTimeLossConnect => Get(MobileConfigurationNames.DefaultTimeLossConnect, App.AppType == AppType.VMS ? 240 : 150);
 
         public static int TimeVehicleOffline => Get(MobileConfigurationNames.TimeVehicleOffline, 2);
+
         public static string LinkYoutube => Get(MobileConfigurationNames.LinkYoutube, "https://www.youtube.com/channel/UC0vfDfFTKXXV_d7m86b1MhQ");
+
         public static string LinkBAGPS => Get(MobileConfigurationNames.LinkBAGPS, "https://bagps.vn/");
 
 
         public static int TimeVehicleSync => Get(MobileConfigurationNames.TimeVehicleSync, 2);
 
         public static int TimmerVehicleSync => Get(MobileConfigurationNames.TimmerVehicleSync, 60000);
+
         public static int TimeSleep => Get(MobileConfigurationNames.TimeSleep, 5);
+
         public static int Mapzoom => Get(MobileConfigurationNames.Mapzoom, 14);
 
-        public static int ClusterMapzoom => Get(MobileConfigurationNames.Mapzoom, 16);
+        public static int ClusterMapzoom => Get(MobileConfigurationNames.ClusterMapzoom, 16);
 
 
+        /// <summary>
+        /// trungtq: Mức đồng bộ cho phần đồng bộ online
+        /// Level0: không cần đồng bộ, chỉ cần mỗi Signalr là cân hết :)
+        /// Level1: Đồng bộ 1 phần như của Namth đang làm (hiện tại vẫn bị)
+        /// Level3: Đồng bộ tất, giống như web đang làm, hơi tốn máu nhưng an toàn
+        /// </summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// trungtq  3/10/2020   created
+        /// </Modified>
+        public static SynOnlineLevelTypes SynOnlineLevel => Get(MobileConfigurationNames.SynOnlineLevel, SynOnlineLevelTypes.Level1);
+
+        /// <summary>
+        /// trungtq: có cần đồng bộ dạng request giống Web không? mặc định là có (true)
+        /// </summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// trungtq  3/10/2020   created
+        /// </Modified>
+        public static bool EnableLongPoolRequest => Get(MobileConfigurationNames.EnableLongPoolRequest, true);
 
     }
 }
