@@ -380,7 +380,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     PageIndex = 0;
                     ListGroup = new ObservableCollection<CaptureImageData>();
-                    ShowImageLoad();
+                    ShowImageLoadMore();
                 }
                 else
                 {
