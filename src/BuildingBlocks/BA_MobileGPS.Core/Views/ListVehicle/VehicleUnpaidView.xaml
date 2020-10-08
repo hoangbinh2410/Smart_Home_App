@@ -38,14 +38,14 @@
                     <controls:IconView Source="ic_fee.png" />
                     <Label
                         FontSize="12"
+                        HeightRequest="30"
                         HorizontalOptions="Start"
                         HorizontalTextAlignment="Start"
-                        LineBreakMode="TailTruncation"
-                        LineHeight="1.1"
+                        LineBreakMode="WordWrap"
                         MaxLines="2"
                         Text="{Binding MessageBAP}"
                         TextColor="Red"
-                        VerticalOptions="Center" />
+                        VerticalOptions="Start" />
                 </StackLayout>
                 <StackLayout
                     Grid.Row="1"

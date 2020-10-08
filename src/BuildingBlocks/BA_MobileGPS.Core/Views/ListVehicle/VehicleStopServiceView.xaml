@@ -38,17 +38,17 @@
                 Spacing="10"
                 VerticalOptions="CenterAndExpand">
                 <StackLayout Orientation="Horizontal">
-                    <controls:IconView Source="ic_stop_light.png" />
+                    <controls:IconView Source="ic_stop_light.png" VerticalOptions="Start" />
                     <Label
                         FontSize="12"
+                        HeightRequest="30"
                         HorizontalOptions="Start"
                         HorizontalTextAlignment="Start"
-                        LineBreakMode="TailTruncation"
-                        LineHeight="1.1"
+                        LineBreakMode="WordWrap"
                         MaxLines="2"
                         Text="{Binding MessageBAP}"
                         TextColor="Red"
-                        VerticalOptions="Center" />
+                        VerticalOptions="Start" />
                 </StackLayout>
                 <StackLayout
                     Grid.Row="1"
