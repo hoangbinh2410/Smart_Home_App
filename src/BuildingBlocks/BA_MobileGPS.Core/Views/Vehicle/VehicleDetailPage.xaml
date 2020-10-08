@@ -31,7 +31,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <ScrollView
-                Grid.Row="0"
+                Grid.RowSpan="2"
                 Orientation="Vertical"
                 VerticalOptions="StartAndExpand"
                 VerticalScrollBarVisibility="Never">
@@ -1701,41 +1701,6 @@
                                                 HorizontalOptions="FillAndExpand"
                                                 VerticalOptions="Start" />
                                         </Grid>
-                                        <!--<Grid Grid.Row="7">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <StackLayout
-                                            Grid.Column="0"
-                                            Padding="0,10,0,10"
-                                            HorizontalOptions="FillAndExpand"
-                                            Orientation="Horizontal">
-                                            <controls:IconView
-                                                Foreground="{StaticResource PrimaryColor}"
-                                                HeightRequest="20"
-                                                HorizontalOptions="Center"
-                                                Source="ic_company.png"
-                                                WidthRequest="20" />
-                                            <Label
-                                                Text="Camera giám sát"
-                                                VerticalOptions="Center"
-                                                VerticalTextAlignment="Center" />
-
-                                        </StackLayout>
-                                        <controls:IconView
-                                            Grid.Column="1"
-                                            Margin="0,0,20,0"
-                                            Foreground="{StaticResource PrimaryColor}"
-                                            HeightRequest="25"
-                                            HorizontalOptions="End"
-                                            Source="ic_camera.png"
-                                            WidthRequest="25">
-                                            <controls:IconView.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding GotoCameraPageComamnd}" CommandParameter="Camera" />
-                                            </controls:IconView.GestureRecognizers>
-                                        </controls:IconView>
-                                    </Grid>-->
                                     </Grid>
                                 </sharpnado:MaterialFrame.Content>
                             </sharpnado:MaterialFrame>
@@ -1743,7 +1708,7 @@
                     </Grid>
                 </StackLayout>
             </ScrollView>
-            <pancakeview:PancakeView Grid.Row="1">
+            <!--<pancakeview:PancakeView Grid.Row="1">
                 <pancakeview:PancakeView.Shadow>
                     <pancakeview:DropShadow
                         BlurRadius="2"
@@ -1772,7 +1737,7 @@
 
                     </controls:HorizontalList.ItemTemplate>
                 </controls:HorizontalList>
-            </pancakeview:PancakeView>
+            </pancakeview:PancakeView>-->
 
         </Grid>
 
