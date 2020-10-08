@@ -1601,6 +1601,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
     public class CameraManagement : BindableBase
     {
+        private LibVLC libVLC { get; }
+        private int maxLoadingTime { get; }
+        public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC)
+        {
+            maxLoadingTime = maxTimeLoadingMedia;
+            this.libVLC = libVLC;
+        }
         private long totalTime;
         public long TotalTime
         {
@@ -1667,6 +1674,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         public Stopwatch loadingTimeCounter { get; set; }
+        public bool StopLoadData { get; set; }
 
         public virtual void DisposeMediaPlayer()
         {
@@ -1696,6 +1704,75 @@ namespace BA_MobileGPS.Core.ViewModels
                 return true;
             }
             return false;
+        }
+
+        private void InitCamera(string url)
+        {
+            try
+            {
+                if (IsLoaded)
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        IsLoaded = false;
+                    });
+                }
+                var mediaNo1 = new Media(libVLC, new Uri(url));
+                MediaPlayer = new MediaPlayer(mediaNo1) { AspectRatio = "4:3", Scale = 0, Mute = true };
+                MediaPlayer.TimeChanged += MediaPlayerNo2_TimeChanged;
+                MediaPlayer.EncounteredError += MediaPlayer_EncounteredError;
+                MediaPlayer.Play();
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError("InitCamera", ex);
+            }
+
+        }
+
+        private void MediaPlayer_EncounteredError(object sender, EventArgs e)
+        {
+            if (loadingTimeCounter.ElapsedMilliseconds <= maxLoadingTime)
+            {
+                MediaPlayer.TimeChanged -= MediaPlayerNo2_TimeChanged;
+                MediaPlayer.EncounteredError -= MediaPlayer_EncounteredError;
+                InitCamera(data.Link);
+            }
+            else
+            {
+                SetError();
+            }
+        }
+
+        private void MediaPlayerNo2_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
+        {
+            try
+            {
+                if (e.Time > 0 && !IsLoaded)
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {                       
+                        IsLoaded = true;
+                        TotalTime = 180;
+                    });
+                    loadingTimeCounter.Reset();
+                    MediaPlayer.TimeChanged -= MediaPlayerNo2_TimeChanged;
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError("MediaPlayerNo2_TimeChanged", ex);
+            }
+        }
+
+        private void SetError()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                loadingTimeCounter.Reset();
+                IsLoaded = true;
+                IsError = true;
+            });
         }
 
     }
