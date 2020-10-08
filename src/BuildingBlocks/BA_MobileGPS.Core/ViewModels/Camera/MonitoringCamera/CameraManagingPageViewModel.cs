@@ -1719,7 +1719,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 var mediaNo1 = new Media(libVLC, new Uri(url));
                 MediaPlayer = new MediaPlayer(mediaNo1) { AspectRatio = "4:3", Scale = 0, Mute = true };
-                MediaPlayer.TimeChanged += MediaPlayerNo2_TimeChanged;
+                MediaPlayer.TimeChanged += MediaPlayer_TimeChanged;
                 MediaPlayer.EncounteredError += MediaPlayer_EncounteredError;
                 MediaPlayer.Play();
             }
@@ -1734,7 +1734,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (loadingTimeCounter.ElapsedMilliseconds <= maxLoadingTime)
             {
-                MediaPlayer.TimeChanged -= MediaPlayerNo2_TimeChanged;
+                MediaPlayer.TimeChanged -= MediaPlayer_TimeChanged;
                 MediaPlayer.EncounteredError -= MediaPlayer_EncounteredError;
                 InitCamera(data.Link);
             }
@@ -1744,7 +1744,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private void MediaPlayerNo2_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
+        private void MediaPlayer_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
         {
             try
             {
@@ -1756,7 +1756,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         TotalTime = 180;
                     });
                     loadingTimeCounter.Reset();
-                    MediaPlayer.TimeChanged -= MediaPlayerNo2_TimeChanged;
+                    MediaPlayer.TimeChanged -= MediaPlayer_TimeChanged;
                 }
             }
             catch (Exception ex)
