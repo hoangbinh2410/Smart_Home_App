@@ -65,7 +65,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Getaddress(cardetail.Lat.ToString(), cardetail.Lng.ToString());
                 }
-                Coordinates = cardetail.Lat + " | " + cardetail.Lng;
+                Coordinates = cardetail.Lat.ToString().Replace(",", ".") + ", " + cardetail.Lng.ToString().Replace(",", ".");
                 GetVehicleDetail();
                 IsCameraEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView);
             }           
@@ -308,7 +308,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 VelocityGPS = carInfo.Velocity;
                 TotalKm = (float)carInfo.TotalKm;
                 StopTime = carInfo.StopTime;
-                Coordinates = carInfo.Lat + " | " + carInfo.Lng;
+                Coordinates = carInfo.Lat.ToString().Replace(",", ".") + ", " + carInfo.Lng.ToString().Replace(",", ".");
                 //Động cơ
                 EngineState = StateVehicleExtension.EngineState(carInfo);
 
