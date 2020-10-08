@@ -164,7 +164,7 @@ namespace BA_MobileGPS.Core.Views
 
         private readonly BA_MobileGPS.Core.Animation _animations = new BA_MobileGPS.Core.Animation();
 
-        private async void InitAnimation()
+        private void InitAnimation()
         {
             try
             {
@@ -183,7 +183,7 @@ namespace BA_MobileGPS.Core.Views
                                                           });
 
 
-                await _animations.Go(States.HideFilter, false);
+                //await _animations.Go(States.HideFilter, false);
 
             }
             catch (Exception ex)
