@@ -11,6 +11,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using Sharpnado.Presentation.Forms.Helpers;
+using Shiny;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -71,33 +72,42 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            // Đóng busy indicator
-            Device.BeginInvokeOnMainThread(() =>
+            TryExecute(async () =>
             {
-                IsCam1Loaded = true;
-                IsCam2Loaded = true;
-                IsCam3Loaded = true;
-                IsCam4Loaded = true;
-            });
+                var photoPermission = await PermissionHelper.CheckPhotoPermissions();
+                var storagePermission = await PermissionHelper.CheckStoragePermissions();
+                if (photoPermission && storagePermission)
+                {
+                    // Đóng busy indicator
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        IsCam1Loaded = true;
+                        IsCam2Loaded = true;
+                        IsCam3Loaded = true;
+                        IsCam4Loaded = true;
+                    });
 
-            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
-            {
-                stopLoad = false;
-                DisposeAllMediaPlayer();
-                VehicleSelectedPlate = vehiclePlate.VehiclePlate;
-                ReLoadCamera();
+                    if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
+                    {
+                        stopLoad = false;
+                        DisposeAllMediaPlayer();
+                        VehicleSelectedPlate = vehiclePlate.VehiclePlate;
+                        ReLoadCamera();
+                    }
+                    else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
+                    {
+                        VehicleGroups = vehiclegroup;
+                    }
+                    else if (parameters.ContainsKey(ParameterKey.RequestTime) && parameters.GetValue<int>(ParameterKey.RequestTime) is int time)
+                    {
+                        RequestMoreTimeStream(time);
+                    }
 
-            }
-            else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
-            {
-                VehicleGroups = vehiclegroup;
-            }
-            else if (parameters.ContainsKey(ParameterKey.RequestTime) && parameters.GetValue<int>(ParameterKey.RequestTime) is int time)
-            {
-                RequestMoreTimeStream(time);
-            }
-
-            base.OnNavigatedTo(parameters);
+                    base.OnNavigatedTo(parameters);
+                }
+                else
+                   await NavigationService.GoBackAsync(useModalNavigation: true);
+            });        
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -1619,22 +1629,15 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private CameraEnum currentPosition;
-        public CameraEnum CurrentPosition
+        private CameraEnum? position;
+        public CameraEnum? Position
         {
-            get { return currentPosition; }
+            get { return position; }
             set
             {
-                SetProperty(ref currentPosition, value);
+                SetProperty(ref position, value);
                 RaisePropertyChanged();
             }
-        }
-
-        private double loadingTime;
-        public double LoadingTime
-        {
-            get { return loadingTime; }
-            set { SetProperty(ref loadingTime, value); }
         }
 
         private MediaPlayer mediaPlayer;
@@ -1657,6 +1660,38 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref isLoaded, value);
                 RaisePropertyChanged();
             }
+        }
+
+        public Stopwatch loadingTimeCounter { get; set; }
+
+        public virtual void DisposeMediaPlayer()
+        {
+            var media = MediaPlayer;
+            MediaPlayer = null;
+            media?.Dispose();
+        }
+
+        public virtual void Clear(bool clearMedia)
+        {
+            IsLoaded = false;
+            Position = null;
+            Data = null;
+            IsError = false;
+            TotalTime = 1;
+            loadingTimeCounter?.Reset();
+            if (clearMedia)
+            {
+                DisposeMediaPlayer();
+            }
+        }
+
+        public virtual bool CanExcute()
+        {
+            if (MediaPlayer != null && MediaPlayer.Time > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
     }
