@@ -258,7 +258,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 ListVehicle = ListVehicleOrigin.ToObservableCollection();
             }
-
+            ListVehicleByStatus= ListVehicle.ToList();
             // Chạy lại hàm tính toán trạng thái xe
             InitVehicleStatus();
         }

@@ -83,7 +83,15 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #region property
-        public bool IsCameraEnable { get; set; }
+        private bool fieldName;
+        public bool IsCameraEnable
+        {
+            get { return fieldName; }
+            set { SetProperty(ref fieldName, value);
+                RaisePropertyChanged();
+            }
+        }
+       
         // thông tin chung của xe không thay đổi
         public int PK_VehicleID { get; set; }
 
