@@ -68,7 +68,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Coordinates = cardetail.Lat + " | " + cardetail.Lng;
                 GetVehicleDetail();
             }
-            InitMenuItems();
+            //InitMenuItems();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -162,20 +162,20 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
-        private ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
+        //private ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
 
-        public ObservableCollection<MenuItem> MenuItems
-        {
-            get
-            {
-                return menuItems;
-            }
-            set
-            {
-                SetProperty(ref menuItems, value);
-                RaisePropertyChanged();
-            }
-        }
+        //public ObservableCollection<MenuItem> MenuItems
+        //{
+        //    get
+        //    {
+        //        return menuItems;
+        //    }
+        //    set
+        //    {
+        //        SetProperty(ref menuItems, value);
+        //        RaisePropertyChanged();
+        //    }
+        //}
         #endregion property
 
         #region command
@@ -216,7 +216,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Url = "NavigationPage/ReportTableTemperature",
                 IsEnable = CheckPermision((int)PermissionKeyNames.ReportTemperatureView),
             });
-            MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
+            //MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
 
         /// <summary>
