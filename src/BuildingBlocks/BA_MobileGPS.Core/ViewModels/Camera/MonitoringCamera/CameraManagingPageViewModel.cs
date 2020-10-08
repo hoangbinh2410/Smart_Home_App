@@ -11,6 +11,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using Sharpnado.Presentation.Forms.Helpers;
+using Shiny;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -71,33 +72,47 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            // Đóng busy indicator
-            Device.BeginInvokeOnMainThread(() =>
+            TryExecute(async () =>
             {
-                IsCam1Loaded = true;
-                IsCam2Loaded = true;
-                IsCam3Loaded = true;
-                IsCam4Loaded = true;
+                var photoPermission = await PermissionHelper.CheckPhotoPermissions();
+                var storagePermission = await PermissionHelper.CheckStoragePermissions();
+                if (photoPermission && storagePermission)
+                {
+                    // Đóng busy indicator
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        IsCam1Loaded = true;
+                        IsCam2Loaded = true;
+                        IsCam3Loaded = true;
+                        IsCam4Loaded = true;
+                    });
+
+                    if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
+                    {
+
+
+                        stopLoad = false;
+                        DisposeAllMediaPlayer();
+                        VehicleSelectedPlate = vehiclePlate.VehiclePlate;
+                        ReLoadCamera();
+
+                    }
+                    else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
+                    {
+                        VehicleGroups = vehiclegroup;
+                    }
+                    else if (parameters.ContainsKey(ParameterKey.RequestTime) && parameters.GetValue<int>(ParameterKey.RequestTime) is int time)
+                    {
+                        RequestMoreTimeStream(time);
+                    }
+
+                    base.OnNavigatedTo(parameters);
+                }
+                else
+                   await NavigationService.GoBackAsync(useModalNavigation: true);
             });
-
-            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
-            {
-                stopLoad = false;
-                DisposeAllMediaPlayer();
-                VehicleSelectedPlate = vehiclePlate.VehiclePlate;
-                ReLoadCamera();
-
-            }
-            else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
-            {
-                VehicleGroups = vehiclegroup;
-            }
-            else if (parameters.ContainsKey(ParameterKey.RequestTime) && parameters.GetValue<int>(ParameterKey.RequestTime) is int time)
-            {
-                RequestMoreTimeStream(time);
-            }
-
-            base.OnNavigatedTo(parameters);
+   
+         
         }
 
         public override void Initialize(INavigationParameters parameters)
