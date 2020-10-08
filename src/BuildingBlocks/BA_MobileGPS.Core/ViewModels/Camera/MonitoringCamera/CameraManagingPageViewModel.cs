@@ -51,6 +51,8 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IGeocodeService _geocodeService;
         private readonly IStreamCameraService _streamCameraService;
         private bool stopLoad = true;
+
+        private bool iosRequestPermission { get; set; }
         public CameraManagingPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService, IGeocodeService geocodeService) : base(navigationService)
         {
             _geocodeService = geocodeService;
@@ -72,42 +74,32 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            TryExecute(async () =>
+            // Đóng busy indicator
+            Device.BeginInvokeOnMainThread(() =>
             {
-                var photoPermission = await PermissionHelper.CheckPhotoPermissions();
-                var storagePermission = await PermissionHelper.CheckStoragePermissions();
-                if (photoPermission && storagePermission)
-                {
-                    // Đóng busy indicator
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        IsCam1Loaded = true;
-                        IsCam2Loaded = true;
-                        IsCam3Loaded = true;
-                        IsCam4Loaded = true;
-                    });
+                IsCam1Loaded = true;
+                IsCam2Loaded = true;
+                IsCam3Loaded = true;
+                IsCam4Loaded = true;
+            });
 
-                    if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
-                    {
-                        stopLoad = false;
-                        DisposeAllMediaPlayer();
-                        VehicleSelectedPlate = vehiclePlate.VehiclePlate;
-                        ReLoadCamera();
-                    }
-                    else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
-                    {
-                        VehicleGroups = vehiclegroup;
-                    }
-                    else if (parameters.ContainsKey(ParameterKey.RequestTime) && parameters.GetValue<int>(ParameterKey.RequestTime) is int time)
-                    {
-                        RequestMoreTimeStream(time);
-                    }
+            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
+            {
+                stopLoad = false;
+                DisposeAllMediaPlayer();
+                VehicleSelectedPlate = vehiclePlate.VehiclePlate;
+                ReLoadCamera();
+            }
+            else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
+            {
+                VehicleGroups = vehiclegroup;
+            }
+            else if (parameters.ContainsKey(ParameterKey.RequestTime) && parameters.GetValue<int>(ParameterKey.RequestTime) is int time)
+            {
+                RequestMoreTimeStream(time);
+            }
 
-                    base.OnNavigatedTo(parameters);
-                }
-                else
-                   await NavigationService.GoBackAsync(useModalNavigation: true);
-            });        
+            base.OnNavigatedTo(parameters);
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -569,7 +561,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     ShowVideoView(CameraEnum.CAM1);
                     cam1LoadingTime.Reset();
-                    MediaPlayerNo1.TimeChanged -= MediaPlayerNo1_TimeChanged;
+                    MediaPlayerNo1.TimeChanged -= MediaPlayerNo1_TimeChanged;                
                 }
             }
             catch (Exception ex)
@@ -919,23 +911,35 @@ namespace BA_MobileGPS.Core.ViewModels
                 switch (SelectedCamera)
                 {
                     case CameraEnum.CAM1:
-                        MediaPlayerNo1.AspectRatio = "16:9";
-                        EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.CAM1);
+                        if (MediaPlayerNo1 != null)
+                        {
+                            MediaPlayerNo1.AspectRatio = "16:9";
+                            EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.CAM1);
+                        }
                         break;
 
                     case CameraEnum.CAM2:
-                        MediaPlayerNo2.AspectRatio = "16:9";
-                        EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.CAM2);
+                        if (MediaPlayerNo2 != null)
+                        {
+                            MediaPlayerNo2.AspectRatio = "16:9";
+                            EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.CAM2);
+                        }
                         break;
 
                     case CameraEnum.CAM3:
-                        MediaPlayerNo3.AspectRatio = "16:9";
-                        EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.CAM3);
+                        if (MediaPlayerNo3 != null)
+                        {
+                            MediaPlayerNo3.AspectRatio = "16:9";
+                            EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.CAM3);
+                        }
                         break;
 
                     case CameraEnum.CAM4:
-                        MediaPlayerNo4.AspectRatio = "16:9";
-                        EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.CAM4);
+                        if (MediaPlayerNo4 != null)
+                        {
+                            MediaPlayerNo4.AspectRatio = "16:9";
+                            EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish(CameraEnum.CAM4);
+                        }
                         break;
                 }
             });
@@ -952,10 +956,15 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
+                if (Device.RuntimePlatform == Device.iOS)
+                {
+                    iosRequestPermission = true;
+                }
                 var photoPermission = await PermissionHelper.CheckPhotoPermissions();
                 var storagePermission = await PermissionHelper.CheckStoragePermissions();
                 if (photoPermission && storagePermission)
                 {
+                    iosRequestPermission = false;
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         SetLanscape();
@@ -1297,8 +1306,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnSleep()
         {
-            DisposeAllMediaPlayer();
-            if (timer.Enabled)
+            if (!iosRequestPermission)
+            {
+                DisposeAllMediaPlayer();
+            }
+           
+            if (timer != null && timer.Enabled)
             {
                 timer.Enabled = false;
             }
