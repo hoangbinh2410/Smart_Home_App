@@ -1629,22 +1629,15 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private CameraEnum currentPosition;
-        public CameraEnum CurrentPosition
+        private CameraEnum? position;
+        public CameraEnum? Position
         {
-            get { return currentPosition; }
+            get { return position; }
             set
             {
-                SetProperty(ref currentPosition, value);
+                SetProperty(ref position, value);
                 RaisePropertyChanged();
             }
-        }
-
-        private double loadingTime;
-        public double LoadingTime
-        {
-            get { return loadingTime; }
-            set { SetProperty(ref loadingTime, value); }
         }
 
         private MediaPlayer mediaPlayer;
@@ -1667,6 +1660,38 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref isLoaded, value);
                 RaisePropertyChanged();
             }
+        }
+
+        public Stopwatch loadingTimeCounter { get; set; }
+
+        public virtual void DisposeMediaPlayer()
+        {
+            var media = MediaPlayer;
+            MediaPlayer = null;
+            media?.Dispose();
+        }
+
+        public virtual void Clear(bool clearMedia)
+        {
+            IsLoaded = false;
+            Position = null;
+            Data = null;
+            IsError = false;
+            TotalTime = 1;
+            loadingTimeCounter?.Reset();
+            if (clearMedia)
+            {
+                DisposeMediaPlayer();
+            }
+        }
+
+        public virtual bool CanExcute()
+        {
+            if (MediaPlayer != null && MediaPlayer.Time > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
     }
