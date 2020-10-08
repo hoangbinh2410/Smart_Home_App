@@ -949,10 +949,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ScreenShotTapped()
         {
-             TakeSnapShot();
+            TakeSnapShot();
         }
 
-        private  string TakeSnapShot()
+        private string TakeSnapShot()
         {
             try
             {
@@ -1001,7 +1001,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand ShareTappedCommand { get; }
 
-        private async  void ShareTapped()
+        private async void ShareTapped()
         {
             try
             {
@@ -1015,62 +1015,57 @@ namespace BA_MobileGPS.Core.ViewModels
             catch (Exception ex)
             {
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }        
+            }
         }
 
         public ICommand ReloadCommand { get; }
         private void Reload(object obj)
         {
-            stopLoad = true;
             if (obj != null)
             {
                 var param = (CameraEnum)obj;
-                //cam1LoadingTime = 0 when video was played or error
-                if (SelectedCamera != null)
+                stopLoad = true;
+                switch (param)
                 {
-                    switch (param)
-                    {
-                        case CameraEnum.CAM1:
-                            DisposeMediaPlayer(CameraEnum.CAM1);
-                            TotalTimeCam1 = 1;
-                            IsCAM1Error = false;
-                            if (videoUrl1 != null)
-                            {
-                                RequestStartCam(videoUrl1.Channel, CameraEnum.CAM1);
-                            }
-                            break;
+                    case CameraEnum.CAM1:
+                        DisposeMediaPlayer(CameraEnum.CAM1);
+                        TotalTimeCam1 = 1;
+                        IsCAM1Error = false;
+                        if (videoUrl1 != null)
+                        {
+                            RequestStartCam(videoUrl1.Channel, CameraEnum.CAM1);
+                        }
+                        break;
 
-                        case CameraEnum.CAM2:
-                            DisposeMediaPlayer(CameraEnum.CAM2);
-                            TotalTimeCam2 = 1;
-                            IsCAM2Error = false;
-                            if (videoUrl2 != null)
-                            {
-                                RequestStartCam(videoUrl2.Channel, CameraEnum.CAM2);
-                            }
-                            break;
+                    case CameraEnum.CAM2:
+                        DisposeMediaPlayer(CameraEnum.CAM2);
+                        TotalTimeCam2 = 1;
+                        IsCAM2Error = false;
+                        if (videoUrl2 != null)
+                        {
+                            RequestStartCam(videoUrl2.Channel, CameraEnum.CAM2);
+                        }
+                        break;
 
-                        case CameraEnum.CAM3:
-                            DisposeMediaPlayer(CameraEnum.CAM3);
-                            TotalTimeCam3 = 1;
-                            IsCAM3Error = false;
-                            if (videoUrl3 != null)
-                            {
-                                RequestStartCam(videoUrl3.Channel, CameraEnum.CAM3);
-                            }
-                            break;
+                    case CameraEnum.CAM3:
+                        DisposeMediaPlayer(CameraEnum.CAM3);
+                        TotalTimeCam3 = 1;
+                        IsCAM3Error = false;
+                        if (videoUrl3 != null)
+                        {
+                            RequestStartCam(videoUrl3.Channel, CameraEnum.CAM3);
+                        }
+                        break;
 
-                        case CameraEnum.CAM4:
-                            DisposeMediaPlayer(CameraEnum.CAM4);
-                            TotalTimeCam4 = 1;
-                            IsCAM4Error = false;
-                            if (videoUrl4 != null)
-                            {
-                                RequestStartCam(videoUrl4.Channel, CameraEnum.CAM4);
-                            }
-                            break;
-                    }
-
+                    case CameraEnum.CAM4:
+                        DisposeMediaPlayer(CameraEnum.CAM4);
+                        TotalTimeCam4 = 1;
+                        IsCAM4Error = false;
+                        if (videoUrl4 != null)
+                        {
+                            RequestStartCam(videoUrl4.Channel, CameraEnum.CAM4);
+                        }
+                        break;
                 }
             }
         }
@@ -1106,7 +1101,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                     stopLoad = false;
                                     IsCam1Loaded = true;
                                     IsCAM1Error = true;
-
+                                    cam1LoadingTime.Reset();
                                 }
                             });
 
@@ -1125,6 +1120,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                     stopLoad = false;
                                     IsCam2Loaded = true;
                                     IsCAM2Error = true;
+                                    cam2LoadingTime.Reset();
                                 }
                             });
                             break;
@@ -1142,6 +1138,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                     stopLoad = false;
                                     IsCam3Loaded = true;
                                     IsCAM3Error = true;
+                                    cam3LoadingTime.Reset();
                                 }
                             });
                             break;
@@ -1159,16 +1156,18 @@ namespace BA_MobileGPS.Core.ViewModels
                                     stopLoad = false;
                                     IsCam4Loaded = true;
                                     IsCAM4Error = true;
+                                    cam4LoadingTime.Reset();
                                 }
                             });
                             break;
                     }
                     var camResponse = await _streamCameraService.StartStream(request);
                     var checkResult = await _streamCameraService.GetDevicesStatus(ConditionType.BKS, VehicleSelectedPlate);
-                    var checkStatus = checkResult?.Data?.FirstOrDefault()?.CameraChannels.FirstOrDefault(x => x.Channel == chanel);
+                    var deviceInfor = checkResult?.Data?.FirstOrDefault();
+                    var checkStatus = deviceInfor?.CameraChannels?.FirstOrDefault(x => x.Channel == chanel);
                     if (checkStatus != null && checkStatus.IsStreaming)
                     {
-                        camResponseData = camResponse.Data.FirstOrDefault();
+                        camResponseData = camResponse?.Data?.FirstOrDefault();
                         stopLoad = false;
                         if (camResponseData != null)
                         {
@@ -1199,7 +1198,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                         }
                     }
-
                 }
             });
         }
@@ -1341,8 +1339,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 stopLoad = true;
                 GetCameraInfor(VehicleSelectedPlate);
-
-                SelectedCamera = currentCamera.FirstOrDefault();
+                if (currentCamera.Count > 0)
+                {
+                    SelectedCamera = currentCamera.FirstOrDefault();
+                }
             }
             catch (Exception ex)
             {
@@ -1465,7 +1465,6 @@ namespace BA_MobileGPS.Core.ViewModels
         }
         private void UpdateTimeAndLocation()
         {
-
             Device.BeginInvokeOnMainThread(async () =>
             {
                 try
