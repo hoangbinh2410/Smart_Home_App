@@ -1003,8 +1003,19 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private async  void ShareTapped()
         {
-            var filePath = TakeSnapShot();
-            await Xamarin.Essentials.Share.RequestAsync(new Xamarin.Essentials.ShareFileRequest(new Xamarin.Essentials.ShareFile(filePath)));
+            try
+            {
+                var filePath = TakeSnapShot();
+                if (!string.IsNullOrEmpty(filePath))
+                {
+                    await Xamarin.Essentials.Share.RequestAsync(new Xamarin.Essentials.ShareFileRequest(new Xamarin.Essentials.ShareFile(filePath)));
+                }
+                else LoggerHelper.WriteLog(MethodBase.GetCurrentMethod().Name, "filePath error while snapshot");
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }        
         }
 
         public ICommand ReloadCommand { get; }
