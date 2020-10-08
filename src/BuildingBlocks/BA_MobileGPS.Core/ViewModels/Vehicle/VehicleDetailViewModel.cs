@@ -67,7 +67,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 Coordinates = cardetail.Lat.ToString().Replace(",", ".") + ", " + cardetail.Lng.ToString().Replace(",", ".");
                 GetVehicleDetail();
-            }
+                IsCameraEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView);
+            }           
             //InitMenuItems();
         }
 
@@ -82,7 +83,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #region property
-
+        public bool IsCameraEnable { get; set; }
         // thông tin chung của xe không thay đổi
         public int PK_VehicleID { get; set; }
 
@@ -345,8 +346,6 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion execute command
 
         #region Camera
-
-
         private async void GotoCameraPage(object obj)
         {
             var param = obj.ToString();

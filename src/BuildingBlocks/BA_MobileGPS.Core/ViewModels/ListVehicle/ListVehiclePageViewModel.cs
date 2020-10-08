@@ -118,6 +118,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else if (action == "Video")
                 {
+
                     GotoVideoPage(currentVehicle);
                 }
             }
@@ -610,7 +611,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.Vehicle, param }
                 };
 
-                await NavigationService.NavigateAsync("NavigationPage/PourFuelReportPage", parameters, true);
+                await NavigationService.NavigateAsync("NavigationPage/ChartFuelReportPage", parameters, true);
             });
         }
 
@@ -618,13 +619,18 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                var param = _mapper.MapProperties<Vehicle>(selected);
-                var parameters = new NavigationParameters
+                var photoPermission = await PermissionHelper.CheckPhotoPermissions();
+                var storagePermission = await PermissionHelper.CheckStoragePermissions();
+                if (photoPermission && storagePermission)
                 {
-                    { ParameterKey.Vehicle, param }
-                };
+                    var param = _mapper.MapProperties<Vehicle>(selected);
+                    var parameters = new NavigationParameters
+                      {
+                          { ParameterKey.Vehicle, param }
+                     };
 
-                await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true);
+                    await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true);
+                }
             });
         }
 

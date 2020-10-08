@@ -213,7 +213,21 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                     });
                     break;
+                case "CameraManagingPage":
+                    SafeExecute(async () =>
+                    {
+                        var photoPermission = await PermissionHelper.CheckPhotoPermissions();
+                        var storagePermission = await PermissionHelper.CheckStoragePermissions();
+                        if (photoPermission && storagePermission)
+                        {
+                            using (new HUDService(MobileResource.Common_Message_Processing))
+                            {
+                                var a = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey, useModalNavigation: true);
+                            }
+                        }
+                    });
 
+                    break;
                 default:
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -228,7 +242,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     break;
             }
         }
-        
+
         #endregion Private method
 
         #region Property Binding
@@ -270,7 +284,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #endregion Property Binding
-   
+
     }
 
     public class ItemSupport
