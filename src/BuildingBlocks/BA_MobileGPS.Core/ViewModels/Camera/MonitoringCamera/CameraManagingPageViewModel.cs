@@ -89,13 +89,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
                     {
-
-
                         stopLoad = false;
                         DisposeAllMediaPlayer();
                         VehicleSelectedPlate = vehiclePlate.VehiclePlate;
                         ReLoadCamera();
-
                     }
                     else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
                     {
@@ -110,9 +107,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                    await NavigationService.GoBackAsync(useModalNavigation: true);
-            });
-   
-         
+            });        
         }
 
         public override void Initialize(INavigationParameters parameters)
