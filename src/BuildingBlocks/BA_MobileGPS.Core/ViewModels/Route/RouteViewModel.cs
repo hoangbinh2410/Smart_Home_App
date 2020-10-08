@@ -440,8 +440,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                 }
 
-                ProcessUserConfigGetHistoryRoute(result);
-
+                if(result != null)
+                {
+                    ProcessUserConfigGetHistoryRoute(result);
+                }
                 return null;
             }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {

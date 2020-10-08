@@ -306,8 +306,6 @@ namespace BA_MobileGPS.Core.Views
         {
             try
             {
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
                 if (_animations == null)
                 {
                     return;
@@ -340,12 +338,11 @@ namespace BA_MobileGPS.Core.Views
                                                             new ViewTransition(boxStatusVehicle, AnimationType.TranslationX, pageWidth.GetValueOrDefault()),
                                                             new ViewTransition(boxStatusVehicle, AnimationType.Opacity, 0),
                                                           });
+
+                    await _animations.Go(States.HideStatus, false);
                 }
 
-                await _animations.Go(States.HideStatus, false);
 
-                sw.Stop();
-                Debug.WriteLine(string.Format("OnlinePageInitAnimation : {0}", sw.ElapsedMilliseconds));
             }
             catch (Exception ex)
             {

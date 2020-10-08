@@ -157,16 +157,14 @@ namespace BA_MobileGPS.Core.Views
         private enum States
         {
             ShowFilter,
-            HideFilter,
-            ShowStatus,
-            HideStatus
+            HideFilter
         }
 
         private readonly IEventAggregator eventAggregator;
 
         private readonly BA_MobileGPS.Core.Animation _animations = new BA_MobileGPS.Core.Animation();
 
-        private async void InitAnimation()
+        private void InitAnimation()
         {
             try
             {
@@ -175,8 +173,7 @@ namespace BA_MobileGPS.Core.Views
                     return;
                 }
 
-                _animations.Add(States.ShowFilter, new[] {
-                                                            new ViewTransition(TabHost, AnimationType.TranslationY, 0, 100, delay: 100), // Active and visible
+                _animations.Add(States.ShowFilter, new[] {new ViewTransition(TabHost, AnimationType.TranslationY, 0, 100, delay: 100), // Active and visible
                                                 new ViewTransition(TabHost, AnimationType.Opacity, 1, 0), // Active and visible
                                                           });
 
@@ -186,7 +183,7 @@ namespace BA_MobileGPS.Core.Views
                                                           });
 
 
-                await _animations.Go(States.HideStatus, false);
+                //await _animations.Go(States.HideFilter, false);
 
             }
             catch (Exception ex)
