@@ -18,8 +18,6 @@ namespace BA_MobileGPS.Core.Views
     {
         private enum States
         {
-            ShowFilter,
-            HideFilter,
             ShowStatus,
             HideStatus
         }

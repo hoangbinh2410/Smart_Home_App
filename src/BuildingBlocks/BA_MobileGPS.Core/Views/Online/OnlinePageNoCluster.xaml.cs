@@ -331,9 +331,11 @@ namespace BA_MobileGPS.Core.Views
                                                             new ViewTransition(boxStatusVehicle, AnimationType.TranslationX, pageWidth.GetValueOrDefault()),
                                                             new ViewTransition(boxStatusVehicle, AnimationType.Opacity, 0),
                                                           });
+
+                    await _animations.Go(States.HideStatus, false);
                 }
 
-                await _animations.Go(States.HideStatus, false);
+
             }
             catch (Exception ex)
             {
