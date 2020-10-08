@@ -611,7 +611,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.Vehicle, param }
                 };
 
-                await NavigationService.NavigateAsync("NavigationPage/PourFuelReportPage", parameters, true);
+                await NavigationService.NavigateAsync("NavigationPage/ChartFuelReportPage", parameters, true);
             });
         }
 
