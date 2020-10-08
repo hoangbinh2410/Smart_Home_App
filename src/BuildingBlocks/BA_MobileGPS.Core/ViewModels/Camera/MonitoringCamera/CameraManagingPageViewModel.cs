@@ -52,7 +52,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IStreamCameraService _streamCameraService;
         private bool stopLoad = true;
 
-        private bool iosRequestPermission { get; set; }
+
         public CameraManagingPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService, IGeocodeService geocodeService) : base(navigationService)
         {
             _geocodeService = geocodeService;
@@ -561,7 +561,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     ShowVideoView(CameraEnum.CAM1);
                     cam1LoadingTime.Reset();
-                    MediaPlayerNo1.TimeChanged -= MediaPlayerNo1_TimeChanged;                
+                    MediaPlayerNo1.TimeChanged -= MediaPlayerNo1_TimeChanged;
                 }
             }
             catch (Exception ex)
@@ -947,66 +947,50 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand ScreenShotTappedCommand { get; }
 
-        private async void ScreenShotTapped()
+        private void ScreenShotTapped()
         {
-            await TakeSnapShot();
+             TakeSnapShot();
         }
 
-        private async Task<string> TakeSnapShot()
+        private  string TakeSnapShot()
         {
             try
             {
-                if (Device.RuntimePlatform == Device.iOS)
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    iosRequestPermission = true;
-                }
-                var photoPermission = await PermissionHelper.CheckPhotoPermissions();
-                var storagePermission = await PermissionHelper.CheckStoragePermissions();
-                if (photoPermission && storagePermission)
+                    SetLanscape();
+                });
+
+                var folderPath = DependencyService.Get<ICameraSnapShotServices>().GetFolderPath();
+                var current = DateTime.Now.ToString("yyyyMMddHHmmss");
+                var fileName = Enum.GetName(typeof(CameraEnum), SelectedCamera) + current + ".jpg";
+                var filePath = Path.Combine(folderPath, fileName);
+                switch (SelectedCamera)
                 {
-                    iosRequestPermission = false;
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        SetLanscape();
-                    });
+                    case CameraEnum.CAM1:
+                        MediaPlayerNo1.TakeSnapshot(0, filePath, 0, 0);
+                        break;
 
-                    var folderPath = DependencyService.Get<ICameraSnapShotServices>().GetFolderPath();
-                    var current = DateTime.Now.ToString("yyyyMMddHHmmss");
-                    var fileName = Enum.GetName(typeof(CameraEnum), SelectedCamera) + current + ".jpg";
-                    var filePath = Path.Combine(folderPath, fileName);
-                    switch (SelectedCamera)
-                    {
-                        case CameraEnum.CAM1:
-                            MediaPlayerNo1.TakeSnapshot(0, filePath, 0, 0);
-                            break;
+                    case CameraEnum.CAM2:
+                        MediaPlayerNo2.TakeSnapshot(0, filePath, 0, 0);
+                        break;
 
-                        case CameraEnum.CAM2:
-                            MediaPlayerNo2.TakeSnapshot(0, filePath, 0, 0);
-                            break;
+                    case CameraEnum.CAM3:
+                        MediaPlayerNo3.TakeSnapshot(0, filePath, 0, 0);
+                        break;
 
-                        case CameraEnum.CAM3:
-                            MediaPlayerNo3.TakeSnapshot(0, filePath, 0, 0);
-                            break;
-
-                        case CameraEnum.CAM4:
-                            MediaPlayerNo4.TakeSnapshot(0, filePath, 0, 0);
-                            break;
-                    }
-                    if (File.Exists(filePath))
-                    {
-                        DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(filePath);
-                        return filePath;
-                    }
-                    return string.Empty;
+                    case CameraEnum.CAM4:
+                        MediaPlayerNo4.TakeSnapshot(0, filePath, 0, 0);
+                        break;
                 }
-                else
+                if (File.Exists(filePath))
                 {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        SetLanscape();
-                    });
-                    return string.Empty;
+                    DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(filePath);
+                    return filePath;
                 }
+                return string.Empty;
+
+
             }
             catch (Exception ex)
             {
@@ -1017,9 +1001,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand ShareTappedCommand { get; }
 
-        private async void ShareTapped()
+        private async  void ShareTapped()
         {
-            var filePath = await TakeSnapShot();
+            var filePath = TakeSnapShot();
             await Xamarin.Essentials.Share.RequestAsync(new Xamarin.Essentials.ShareFileRequest(new Xamarin.Essentials.ShareFile(filePath)));
         }
 
@@ -1306,11 +1290,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnSleep()
         {
-            if (!iosRequestPermission)
-            {
-                DisposeAllMediaPlayer();
-            }
-           
+            DisposeAllMediaPlayer();
+
             if (timer != null && timer.Enabled)
             {
                 timer.Enabled = false;
