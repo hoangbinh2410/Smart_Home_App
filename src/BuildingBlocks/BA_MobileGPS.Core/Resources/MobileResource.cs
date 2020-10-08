@@ -55,8 +55,6 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Get(MobileResourceNames key, string defaultValue, string defaultValueEng)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
             var val = App.CurrentLanguage == CultureCountry.Vietnamese ? defaultValue : defaultValueEng;
             try
             {
@@ -79,10 +77,6 @@ namespace BA_MobileGPS.Core.Resources
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, string.Format("{0} with Key = {1} has an Exception: {2}", MethodBase.GetCurrentMethod().Name, key.ToString(), ex));
             }
-            sw.Stop();
-            Debug.WriteLine(string.Format("MobileResourceGet {0} : {1}", key.ToString(), sw.ElapsedMilliseconds));
-
-
             return val;
         }
 
