@@ -89,7 +89,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
 
         }
-        
+
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
@@ -146,36 +146,39 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private async void OnResumePage(bool args)
+        private void OnResumePage(bool args)
         {
-            if (IsConnected)
+            SafeExecute(async () =>
             {
-                await ConnectSignalROnline();
-                await ConnectSignalR();
-                if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+                if (IsConnected)
                 {
-                    if (DateTime.Now.Subtract(StaticSettings.TimeSleep).TotalMinutes >= MobileSettingHelper.TimeSleep)
+                    await ConnectSignalROnline();
+                    await ConnectSignalR();
+                    if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                     {
-                        GetListVehicleOnlineResume(true);
-                    }
-                    else
-                    {
-                        GetListVehicleOnlineResume();
-                    }
+                        if (DateTime.Now.Subtract(StaticSettings.TimeSleep).TotalMinutes >= MobileSettingHelper.TimeSleep)
+                        {
+                            GetListVehicleOnlineResume(true);
+                        }
+                        else
+                        {
+                            GetListVehicleOnlineResume();
+                        }
 
+                    }
+                    GetTimeServer();
+                    //kiểm tra xem có thông báo nào không
+                    //GetNofitication();
                 }
-                GetTimeServer();
-                //kiểm tra xem có thông báo nào không
-                GetNofitication();
-
-            }
-            else
-            {
-                Device.BeginInvokeOnMainThread(() =>
+                else
                 {
-                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
-                });
-            }
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                    });
+                }
+            });
+
         }
 
         private void OnSleepPage(bool obj)
@@ -508,19 +511,19 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         //Join vào nhóm signalR để nhận dữ liệu online
                         JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
-                    }
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        if (isRelogin)
-                        {
-                            EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
-                        }
-                        else
-                        {
-                            EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(true);
-                        }
-                    });
 
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            if (isRelogin)
+                            {
+                                EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
+                            }
+                            else
+                            {
+                                EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(true);
+                            }
+                        });
+                    }
                 }
                 else
                 {
