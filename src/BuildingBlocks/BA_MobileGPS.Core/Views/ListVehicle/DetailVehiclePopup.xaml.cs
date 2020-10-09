@@ -12,9 +12,13 @@ namespace BA_MobileGPS.Core.Views
         public DetailVehiclePopup()
         {
             InitializeComponent();
+            
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
             InitMenuItems();
         }
-
 
         private void InitMenuItems()
         {

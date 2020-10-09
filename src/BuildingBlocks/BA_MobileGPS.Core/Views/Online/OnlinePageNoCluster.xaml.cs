@@ -334,8 +334,6 @@ namespace BA_MobileGPS.Core.Views
 
                     await _animations.Go(States.HideStatus, false);
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -388,7 +386,7 @@ namespace BA_MobileGPS.Core.Views
                 }
                 catch (Exception ex)
                 {
-                    Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                    LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
                 }
             }
         }
@@ -567,7 +565,7 @@ namespace BA_MobileGPS.Core.Views
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -618,7 +616,7 @@ namespace BA_MobileGPS.Core.Views
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -687,7 +685,7 @@ namespace BA_MobileGPS.Core.Views
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
             finally
             {
@@ -792,15 +790,11 @@ namespace BA_MobileGPS.Core.Views
                             }
                         }
                     }
-                    else if (task.IsFaulted)
-                    {
-                        Logger.WriteError(MethodBase.GetCurrentMethod().Name, "Error");
-                    }
                 }));
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -873,7 +867,7 @@ namespace BA_MobileGPS.Core.Views
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -882,11 +876,18 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         public async void HideBoxInfo()
         {
-            vm.CarActive = new VehicleOnline();
-            mCarActive = new VehicleOnline();
-            SetNoPaddingWithFooter();
-            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(true);
-            await _animations.Go(States.HideFilter, true);
+            try
+            {
+                vm.CarActive = new VehicleOnline();
+                mCarActive = new VehicleOnline();
+                SetNoPaddingWithFooter();
+                eventAggregator.GetEvent<ShowTabItemEvent>().Publish(true);
+                await _animations.Go(States.HideFilter, true);
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError("HideBoxStatus", ex);
+            }
         }
 
         /// <summary>
@@ -894,9 +895,16 @@ namespace BA_MobileGPS.Core.Views
         /// </summary>
         private async void ShowBoxInfo()
         {
-            SetPaddingWithFooter();
-            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(false);
-            await _animations.Go(States.ShowFilter, true);
+            try
+            {
+                SetPaddingWithFooter();
+                eventAggregator.GetEvent<ShowTabItemEvent>().Publish(false);
+                await _animations.Go(States.ShowFilter, true);
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError("HideBoxStatus", ex);
+            }
         }
 
         /* Set padding map khi có thông tin xe ở footer - tracking */
@@ -918,14 +926,28 @@ namespace BA_MobileGPS.Core.Views
 
         private async void HideBoxStatus()
         {
-            await _animations.Go(States.HideStatus, true);
-            infoStatusIsShown = false;
+            try
+            {
+                await _animations.Go(States.HideStatus, true);
+                infoStatusIsShown = false;
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError("HideBoxStatus", ex);
+            }
         }
 
         private async void ShowBoxStatus()
         {
-            await _animations.Go(States.ShowStatus, true);
-            infoStatusIsShown = true;
+            try
+            {
+                await _animations.Go(States.ShowStatus, true);
+                infoStatusIsShown = true;
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError("HideBoxStatus", ex);
+            }
         }
 
         private void TapStatusVehicel(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs args)
@@ -1024,7 +1046,7 @@ namespace BA_MobileGPS.Core.Views
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 

@@ -69,34 +69,29 @@
                                 Padding="2"
                                 Spacing="5"
                                 VerticalOptions="CenterAndExpand">
-                                <StackLayout.Resources>
-                                    <Style TargetType="pancakeview:PancakeView">
-                                        <Setter Property="HeightRequest" Value="50" />
-                                        <Setter Property="WidthRequest" Value="50" />
-                                        <Setter Property="CornerRadius" Value="25" />
-                                        <Setter Property="BackgroundColor" Value="{DynamicResource WhiteColor}" />
-                                        <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
-                                    </Style>
-                                    <Style TargetType="controls:IconView">
-                                        <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
-                                        <Setter Property="Margin" Value="15" />
-                                        <Setter Property="HorizontalOptions" Value="Center" />
-                                    </Style>
-                                    <Style TargetType="Label">
-                                        <Setter Property="FontSize" Value="12" />
-                                        <Setter Property="WidthRequest" Value="80" />
-                                    </Style>
-                                </StackLayout.Resources>
-                                <pancakeview:PancakeView>
+                                <pancakeview:PancakeView
+                                    BackgroundColor="{DynamicResource WhiteColor}"
+                                    CornerRadius="25"
+                                    HeightRequest="50"
+                                    HorizontalOptions="CenterAndExpand"
+                                    WidthRequest="50">
                                     <pancakeview:PancakeView.Shadow>
                                         <pancakeview:DropShadow
                                             BlurRadius="2"
                                             Offset="0,0"
                                             Color="Black" />
                                     </pancakeview:PancakeView.Shadow>
-                                    <controls:IconView Source="{Binding Icon}" />
+                                    <controls:IconView
+                                        Margin="15"
+                                        Foreground="{DynamicResource PrimaryColor}"
+                                        HorizontalOptions="Center"
+                                        Source="{Binding Icon}" />
                                 </pancakeview:PancakeView>
-                                <Label LineBreakMode="WordWrap" Text="{Binding Title}" />
+                                <Label
+                                    FontSize="12"
+                                    LineBreakMode="WordWrap"
+                                    Text="{Binding Title}"
+                                    WidthRequest="80" />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
