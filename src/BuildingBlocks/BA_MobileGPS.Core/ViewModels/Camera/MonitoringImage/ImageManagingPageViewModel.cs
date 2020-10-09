@@ -380,7 +380,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     PageIndex = 0;
                     ListGroup = new ObservableCollection<CaptureImageData>();
-                    ShowImageLoadMore();
+                    ShowImageLoad();
+                    LoadMoreItemsCommand.Execute(new Syncfusion.ListView.XForms.SfListView());
                 }
                 else
                 {
