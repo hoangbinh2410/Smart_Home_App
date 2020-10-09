@@ -503,7 +503,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void TapListVehicle(Syncfusion.ListView.XForms.ItemTappedEventArgs args)
         {
-            TryExecute(async () =>
+            SafeExecute(async () =>
             {
                 if (args.ItemData is VehicleOnlineViewModel selected)
                 {
