@@ -344,29 +344,68 @@
                             IsVisible="{Binding AutoAddTime, Converter={StaticResource ShowHideColumnConverter}}"
                             WidthRequest="45">
                             <Label
-                                IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM1}}"
+                                IsVisible="True"
                                 StyleClass="BoldText"
-                                Text="{Binding TotalTimeCam1, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
+                                Text="{Binding TotalTime, Converter={StaticResource NumberToTimeConverter}}"
                                 TextColor="White"
-                                VerticalOptions="Center" />
-                            <Label
-                                IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM2}}"
+                                VerticalOptions="Center">
+                                <!--<Label.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding SelectedCamera}"
+                                        TargetType="Label"
+                                        Value="{x:Static local:CameraEnum.CAM1}">
+                                        <Setter Property="IsVisible" Value="True" />
+                                    </DataTrigger>
+                                </Label.Triggers>-->
+                            </Label>
+                            <!--<Label
+                                IsVisible="True"
                                 StyleClass="BoldText"
-                                Text="{Binding TotalTimeCam2, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
+                                Text="{Binding Cam2.ToTalTime, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
                                 TextColor="White"
-                                VerticalOptions="Center" />
-                            <Label
-                                IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM3}}"
+                                VerticalOptions="Center">
+                            -->
+                            <!--<Label.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding SelectedCamera}"
+                                        TargetType="Label"
+                                        Value="{x:Static local:CameraEnum.CAM2}">
+                                        <Setter Property="IsVisible" Value="True" />
+                                    </DataTrigger>
+                                </Label.Triggers>-->
+                            <!--
+                            </Label>
+                            -->
+                            <!--<Label
+                                IsVisible="True"
                                 StyleClass="BoldText"
-                                Text="{Binding TotalTimeCam3, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
+                                Text="{Binding Cam3.ToTalTime, Converter={StaticResource NumberToTimeConverter}}"
                                 TextColor="White"
-                                VerticalOptions="Center" />
-                            <Label
-                                IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM4}}"
+                                VerticalOptions="Center">
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding SelectedCamera}"
+                                        TargetType="Label"
+                                        Value="{x:Static local:CameraEnum.CAM3}">
+                                        <Setter Property="IsVisible" Value="True" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>-->
+                            <!--<Label
+                                IsVisible="False"
                                 StyleClass="BoldText"
-                                Text="{Binding TotalTimeCam4, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
+                                Text="{Binding Cam4.ToTalTime, Converter={StaticResource NumberToTimeConverter}}"
                                 TextColor="White"
-                                VerticalOptions="Center" />
+                                VerticalOptions="Center">
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding SelectedCamera}"
+                                        TargetType="Label"
+                                        Value="{x:Static local:CameraEnum.CAM4}">
+                                        <Setter Property="IsVisible" Value="True" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>-->
                         </Grid>
                         <icons:IconView
                             Foreground="{DynamicResource WhiteColor}"

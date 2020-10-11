@@ -13,6 +13,7 @@
     mc:Ignorable="d">
     <ContentView.Resources>
         <converter:CameraTextBorderConverter x:Key="CameraTextBorderConverter" />
+        <converter:CameraChanelNameConverter x:Key="CameraChanelNameConverter" />
         <converter:ShowHideColumnConverter x:Key="ShowHideColumnConverter" />
         <Style x:Key="cameraTextFrame" TargetType="Frame">
             <Setter Property="BackgroundColor" Value="Transparent" />
@@ -35,7 +36,6 @@
     </ContentView.Resources>
     <Grid
         x:Name="parentPanel"
-        BackgroundColor="Black"
         ColumnSpacing="1"
         RowDefinitions="*,*"
         RowSpacing="1">
@@ -79,7 +79,7 @@
                 </Frame.Triggers>
                 <Label
                     StyleClass="BoldText"
-                    Text="Kênh 1"
+                    Text="{Binding Cam1.Data.Channel, Converter={StaticResource CameraChanelNameConverter}}"
                     TextColor="{Binding Source={x:Reference frCam1}, Path=BorderColor, Mode=OneWay}"
                     VerticalOptions="Center" />
             </Frame>
@@ -132,6 +132,7 @@
                         Binding="{Binding Cam1.IsError}"
                         TargetType="Grid"
                         Value="True">
+
                         <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                 </Grid.Triggers>
@@ -178,7 +179,7 @@
                 </Frame.Triggers>
                 <Label
                     StyleClass="BoldText"
-                    Text="Kênh 2"
+                    Text="{Binding Cam2.Data.Channel, Converter={StaticResource CameraChanelNameConverter}}"
                     TextColor="{Binding Source={x:Reference frCam2}, Path=BorderColor, Mode=OneWay}"
                     VerticalOptions="Center" />
             </Frame>

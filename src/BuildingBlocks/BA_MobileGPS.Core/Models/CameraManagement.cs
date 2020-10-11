@@ -23,6 +23,7 @@ namespace BA_MobileGPS.Core.Models
         private Timer countLoadingTimer;
         private int counter { get; set; } // timer counter
         private bool internalError { get; set; }
+        private long oldTime { get; set; } // get time to compare while error was happen
         public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC, CameraEnum position)
         {
             maxLoadingTime = maxTimeLoadingMedia;
@@ -30,7 +31,7 @@ namespace BA_MobileGPS.Core.Models
             InitMediaPlayer();
             totalTime = 1;
             this.position = position;
-            countLoadingTimer = new Timer(1000);
+            countLoadingTimer = new Timer(2000);
             countLoadingTimer.Elapsed += CountLoadingTimer_Elapsed;
             counter = maxLoadingTime;
             internalError = false;
@@ -38,15 +39,15 @@ namespace BA_MobileGPS.Core.Models
 
         private void CountLoadingTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            counter--;
-            if (counter == 0)
+            counter -= 2;
+            if (internalError)
             {
-                countLoadingTimer.Stop();
-                if (internalError)
+                SetMedia(data.Link);
+                if (counter <= 0)
                 {
+                    countLoadingTimer.Stop();
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        countLoadingTimer.Stop();
                         IsLoaded = true;
                         IsError = true;
                     });
@@ -54,7 +55,20 @@ namespace BA_MobileGPS.Core.Models
             }
             else
             {
-                SetMedia(data.Link);
+                if (isLoaded)
+                {
+                    //check error
+                    if (MediaPlayer.Time != oldTime)
+                    {
+                        oldTime = MediaPlayer.Time;
+                    }
+                    else // error
+                    {
+                        IsError = true;
+                        TotalTime = 0;
+                        countLoadingTimer.Stop();
+                    }
+                }
             }
         }
 
@@ -99,16 +113,19 @@ namespace BA_MobileGPS.Core.Models
         {
             if (e.Time > 1 && !IsLoaded)
             {
-                IsLoaded = true;
-                TotalTime = 180;
-                countLoadingTimer.Stop();
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    IsLoaded = true;
+                    TotalTime = 180;
+                    IsError = false;
+                });
                 internalError = false;
-                IsError = false;
+                //countLoadingTimer.Stop();
             }
         }
 
-        private long totalTime;
-        public long TotalTime
+        private int totalTime;
+        public int TotalTime
         {
             get { return totalTime; }
             set

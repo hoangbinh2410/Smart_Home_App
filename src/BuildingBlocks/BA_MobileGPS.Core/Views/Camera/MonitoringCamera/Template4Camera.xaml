@@ -45,7 +45,7 @@
                 <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.CAM1}" />
             </Grid.GestureRecognizers>
             <vlc:VideoView
-                x:Name="topLeftCam"
+                x:Name="cam1"
                 InputTransparent="True"
                 MediaPlayer="{Binding Cam1.MediaPlayer}" />
             <Label
@@ -60,7 +60,7 @@
             <Frame
                 x:Name="frCam1"
                 BackgroundColor="Transparent"
-                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.CAM1}}"
+                BorderColor="{DynamicResource WhiteColor}"
                 InputTransparent="True"
                 Style="{StaticResource cameraTextFrame}">
                 <Frame.Triggers>
@@ -70,10 +70,16 @@
                         Value="True">
                         <Setter Property="BorderColor" Value="Red" />
                     </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding SelectedCamera}"
+                        TargetType="Frame"
+                        Value="{x:Static local:CameraEnum.CAM1}">
+                        <Setter Property="BorderColor" Value="#0C852E" />
+                    </DataTrigger>
                 </Frame.Triggers>
                 <Label
                     StyleClass="BoldText"
-                    Text="Kênh 1"
+                    Text="{Binding Cam1.Data.Channel, Converter={StaticResource CameraChanelNameConverter}}"
                     TextColor="{Binding Source={x:Reference frCam1}, Path=BorderColor, Mode=OneWay}"
                     VerticalOptions="Center" />
             </Frame>
@@ -126,6 +132,7 @@
                         Binding="{Binding Cam1.IsError}"
                         TargetType="Grid"
                         Value="True">
+                        <Setter Property="BackgroundColor" Value="Black" />
                         <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                 </Grid.Triggers>
@@ -141,14 +148,14 @@
                 <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.CAM2}" />
             </Grid.GestureRecognizers>
             <vlc:VideoView
-                x:Name="bottomLeftCam"
+                x:Name="cam2"
                 InputTransparent="True"
                 MediaPlayer="{Binding Cam2.MediaPlayer}" />
             <Label
-                x:Name="lblCam2Err"
+                x:Name="lblErrCam2"
                 Margin="0,10,5,0"
                 HorizontalOptions="End"
-                IsVisible="{Binding IsCAM2Error}"
+                IsVisible="{Binding Cam2.IsError}"
                 StyleClass="BoldText"
                 Text="LỖI KẾT NỐI"
                 TextColor="Red"
@@ -156,25 +163,30 @@
             <Frame
                 x:Name="frCam2"
                 BackgroundColor="Transparent"
-                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.CAM2}}"
+                BorderColor="{DynamicResource WhiteColor}"
                 InputTransparent="True"
                 Style="{StaticResource cameraTextFrame}">
                 <Frame.Triggers>
                     <DataTrigger
-                        Binding="{Binding IsCAM2Error}"
+                        Binding="{Binding Cam2.IsError}"
                         TargetType="Frame"
                         Value="True">
                         <Setter Property="BorderColor" Value="Red" />
                     </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding SelectedCamera}"
+                        TargetType="Frame"
+                        Value="{x:Static local:CameraEnum.CAM2}">
+                        <Setter Property="BorderColor" Value="#0C852E" />
+                    </DataTrigger>
                 </Frame.Triggers>
                 <Label
                     StyleClass="BoldText"
-                    Text="Kênh 2"
+                    Text="{Binding Cam2.Data.Channel, Converter={StaticResource CameraChanelNameConverter}}"
                     TextColor="{Binding Source={x:Reference frCam2}, Path=BorderColor, Mode=OneWay}"
                     VerticalOptions="Center" />
             </Frame>
-
-            <indicator:SfBusyIndicator IsBusy="{Binding IsCam2Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
+            <indicator:SfBusyIndicator IsBusy="{Binding Cam2.IsLoaded, Converter={StaticResource ShowHideColumnConverter}}" />
             <Grid
                 x:Name="gridCloseCam2"
                 BackgroundColor="#33FFFFFF"
@@ -192,13 +204,13 @@
                     </icons:IconView.GestureRecognizers>
                     <icons:IconView.Triggers>
                         <DataTrigger
-                            Binding="{Binding TotalTimeCam2, Mode=OneWay}"
+                            Binding="{Binding Cam2.TotalTime, Mode=OneWay}"
                             TargetType="icons:IconView"
                             Value="0">
                             <Setter Property="IsVisible" Value="True" />
                         </DataTrigger>
                         <DataTrigger
-                            Binding="{Binding IsCAM2Error}"
+                            Binding="{Binding Cam2.IsError}"
                             TargetType="icons:IconView"
                             Value="True">
                             <Setter Property="IsVisible" Value="True" />
@@ -213,16 +225,17 @@
                         <Setter Property="BackgroundColor" Value="Transparent" />
                     </DataTrigger>
                     <DataTrigger
-                        Binding="{Binding TotalTimeCam2}"
+                        Binding="{Binding Cam2.TotalTime}"
                         TargetType="Grid"
                         Value="0">
                         <Setter Property="BackgroundColor" Value="Black" />
                         <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                     <DataTrigger
-                        Binding="{Binding IsCAM2Error}"
+                        Binding="{Binding Cam2.IsError}"
                         TargetType="Grid"
                         Value="True">
+                        <Setter Property="BackgroundColor" Value="Black" />
                         <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                 </Grid.Triggers>
@@ -235,14 +248,14 @@
                 <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.CAM3}" />
             </Grid.GestureRecognizers>
             <vlc:VideoView
-                x:Name="topRightCam"
+                x:Name="cam3"
                 InputTransparent="True"
-                MediaPlayer="{Binding Cam3.MediaPlayer}" />
+                MediaPlayer="{Binding Cam1.MediaPlayer}" />
             <Label
                 x:Name="lblErrCam3"
                 Margin="0,10,5,0"
                 HorizontalOptions="End"
-                IsVisible="{Binding IsCAM3Error}"
+                IsVisible="{Binding Cam3.IsError}"
                 StyleClass="BoldText"
                 Text="LỖI KẾT NỐI"
                 TextColor="Red"
@@ -250,24 +263,30 @@
             <Frame
                 x:Name="frCam3"
                 BackgroundColor="Transparent"
-                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.CAM3}}"
+                BorderColor="{DynamicResource WhiteColor}"
                 InputTransparent="True"
                 Style="{StaticResource cameraTextFrame}">
                 <Frame.Triggers>
                     <DataTrigger
-                        Binding="{Binding IsCAM3Error}"
+                        Binding="{Binding Cam3.IsError}"
                         TargetType="Frame"
                         Value="True">
                         <Setter Property="BorderColor" Value="Red" />
                     </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding SelectedCamera}"
+                        TargetType="Frame"
+                        Value="{x:Static local:CameraEnum.CAM3}">
+                        <Setter Property="BorderColor" Value="#0C852E" />
+                    </DataTrigger>
                 </Frame.Triggers>
                 <Label
                     StyleClass="BoldText"
-                    Text="Kênh 3"
+                    Text="{Binding Cam3.Data.Channel, Converter={StaticResource CameraChanelNameConverter}}"
                     TextColor="{Binding Source={x:Reference frCam3}, Path=BorderColor, Mode=OneWay}"
                     VerticalOptions="Center" />
             </Frame>
-            <indicator:SfBusyIndicator IsBusy="{Binding IsCam3Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
+            <indicator:SfBusyIndicator IsBusy="{Binding Cam3.IsLoaded, Converter={StaticResource ShowHideColumnConverter}}" />
             <Grid
                 x:Name="gridCloseCam3"
                 BackgroundColor="#33FFFFFF"
@@ -285,13 +304,13 @@
                     </icons:IconView.GestureRecognizers>
                     <icons:IconView.Triggers>
                         <DataTrigger
-                            Binding="{Binding TotalTimeCam3, Mode=OneWay}"
+                            Binding="{Binding Cam3.TotalTime, Mode=OneWay}"
                             TargetType="icons:IconView"
                             Value="0">
                             <Setter Property="IsVisible" Value="True" />
                         </DataTrigger>
                         <DataTrigger
-                            Binding="{Binding IsCAM3Error}"
+                            Binding="{Binding Cam3.IsError}"
                             TargetType="icons:IconView"
                             Value="True">
                             <Setter Property="IsVisible" Value="True" />
@@ -306,16 +325,17 @@
                         <Setter Property="BackgroundColor" Value="Transparent" />
                     </DataTrigger>
                     <DataTrigger
-                        Binding="{Binding TotalTimeCam3}"
+                        Binding="{Binding Cam3.TotalTime}"
                         TargetType="Grid"
                         Value="0">
                         <Setter Property="BackgroundColor" Value="Black" />
                         <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                     <DataTrigger
-                        Binding="{Binding IsCAM3Error}"
+                        Binding="{Binding Cam3.IsError}"
                         TargetType="Grid"
                         Value="True">
+                        <Setter Property="BackgroundColor" Value="Black" />
                         <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                 </Grid.Triggers>
@@ -331,14 +351,14 @@
                 <TapGestureRecognizer Command="{Binding CameraFrameTappedCommand}" CommandParameter="{x:Static local:CameraEnum.CAM4}" />
             </Grid.GestureRecognizers>
             <vlc:VideoView
-                x:Name="bottomRightCam"
+                x:Name="cam4"
                 InputTransparent="True"
                 MediaPlayer="{Binding Cam4.MediaPlayer}" />
             <Label
                 x:Name="lblErrCam4"
                 Margin="0,10,5,0"
                 HorizontalOptions="End"
-                IsVisible="{Binding IsCAM4Error}"
+                IsVisible="{Binding Cam4.IsError}"
                 StyleClass="BoldText"
                 Text="LỖI KẾT NỐI"
                 TextColor="Red"
@@ -346,24 +366,30 @@
             <Frame
                 x:Name="frCam4"
                 BackgroundColor="Transparent"
-                BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.CAM4}}"
+                BorderColor="{DynamicResource WhiteColor}"
                 InputTransparent="True"
                 Style="{StaticResource cameraTextFrame}">
                 <Frame.Triggers>
                     <DataTrigger
-                        Binding="{Binding IsCAM4Error}"
+                        Binding="{Binding Cam4.IsError}"
                         TargetType="Frame"
                         Value="True">
                         <Setter Property="BorderColor" Value="Red" />
                     </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding SelectedCamera}"
+                        TargetType="Frame"
+                        Value="{x:Static local:CameraEnum.CAM4}">
+                        <Setter Property="BorderColor" Value="#0C852E" />
+                    </DataTrigger>
                 </Frame.Triggers>
                 <Label
                     StyleClass="BoldText"
-                    Text="Kênh 4"
+                    Text="{Binding Cam4.Data.Channel, Converter={StaticResource CameraChanelNameConverter}}"
                     TextColor="{Binding Source={x:Reference frCam4}, Path=BorderColor, Mode=OneWay}"
                     VerticalOptions="Center" />
             </Frame>
-            <indicator:SfBusyIndicator IsBusy="{Binding IsCam4Loaded, Converter={StaticResource ShowHideColumnConverter}}" />
+            <indicator:SfBusyIndicator IsBusy="{Binding Cam4.IsLoaded, Converter={StaticResource ShowHideColumnConverter}}" />
             <Grid
                 x:Name="gridCloseCam4"
                 BackgroundColor="#33FFFFFF"
@@ -381,13 +407,13 @@
                     </icons:IconView.GestureRecognizers>
                     <icons:IconView.Triggers>
                         <DataTrigger
-                            Binding="{Binding TotalTimeCam4, Mode=OneWay}"
+                            Binding="{Binding Cam4.TotalTime, Mode=OneWay}"
                             TargetType="icons:IconView"
                             Value="0">
                             <Setter Property="IsVisible" Value="True" />
                         </DataTrigger>
                         <DataTrigger
-                            Binding="{Binding IsCAM4Error}"
+                            Binding="{Binding Cam4.IsError}"
                             TargetType="icons:IconView"
                             Value="True">
                             <Setter Property="IsVisible" Value="True" />
@@ -402,16 +428,17 @@
                         <Setter Property="BackgroundColor" Value="Transparent" />
                     </DataTrigger>
                     <DataTrigger
-                        Binding="{Binding TotalTimeCam4}"
+                        Binding="{Binding Cam4.TotalTime}"
                         TargetType="Grid"
                         Value="0">
                         <Setter Property="BackgroundColor" Value="Black" />
                         <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                     <DataTrigger
-                        Binding="{Binding IsCAM4Error}"
+                        Binding="{Binding Cam4.IsError}"
                         TargetType="Grid"
                         Value="True">
+                        <Setter Property="BackgroundColor" Value="Black" />
                         <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                 </Grid.Triggers>

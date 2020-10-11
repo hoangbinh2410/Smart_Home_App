@@ -31,7 +31,6 @@
             <Setter Property="ViewBoxWidth" Value="35" />
             <Setter Property="Duration" Value="0.8" />
         </Style>
-
     </ContentView.Resources>
     <Grid BackgroundColor="Black">
         <Grid.GestureRecognizers>
@@ -53,7 +52,7 @@
         <Frame
             x:Name="frCam1"
             BackgroundColor="Transparent"
-            BorderColor="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource CameraTextBorderConverter}, ConverterParameter={x:Static local:CameraEnum.CAM1}}"
+            BorderColor="{DynamicResource WhiteColor}"
             InputTransparent="True"
             Style="{StaticResource cameraTextFrame}">
             <Frame.Triggers>
@@ -63,10 +62,16 @@
                     Value="True">
                     <Setter Property="BorderColor" Value="Red" />
                 </DataTrigger>
+                <DataTrigger
+                    Binding="{Binding SelectedCamera}"
+                    TargetType="Frame"
+                    Value="{x:Static local:CameraEnum.CAM1}">
+                    <Setter Property="BorderColor" Value="#0C852E" />
+                </DataTrigger>
             </Frame.Triggers>
             <Label
                 StyleClass="BoldText"
-                Text="Kênh 1"
+                Text="{Binding Cam1.Data.Channel, Converter={StaticResource CameraChanelNameConverter}}"
                 TextColor="{Binding Source={x:Reference frCam1}, Path=BorderColor, Mode=OneWay}"
                 VerticalOptions="Center" />
         </Frame>

@@ -135,6 +135,17 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        private int totalTime;
+        public int TotalTime
+        {
+            get { return totalTime; }
+            set
+            {
+                SetProperty(ref totalTime, value);
+                RaisePropertyChanged();
+            }
+        }
+
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
@@ -144,11 +155,16 @@ namespace BA_MobileGPS.Core.ViewModels
             cam2 = new CameraManagement(maxLoadingTime, libVLC, CameraEnum.CAM2);
             cam3 = new CameraManagement(maxLoadingTime, libVLC, CameraEnum.CAM3);
             cam4 = new CameraManagement(maxLoadingTime, libVLC, CameraEnum.CAM4);
+            InitTimer();
+        }
+        private void InitTimer()
+        {
             timer = new Timer()
             {
                 Interval = 1000
             };
             timer.Elapsed += Timer_Elapsed;
+            timer.Start();
         }
 
         private LibVLC libVLC;
@@ -156,10 +172,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public LibVLC LibVLC
         {
             get { return libVLC; }
-            set
-            {
-                SetProperty(ref libVLC, value);
-            }
+            set => SetProperty(ref libVLC, value);
         }
 
         private string vehicleSelectedPlate;
@@ -268,16 +281,16 @@ namespace BA_MobileGPS.Core.ViewModels
             switch (camera)
             {
                 case CameraEnum.CAM1:
-                    return cam1;
+                    return Cam1;
 
                 case CameraEnum.CAM2:
-                    return cam2;
+                    return Cam2;
 
                 case CameraEnum.CAM3:
-                    return cam3;
+                    return Cam3;
 
                 case CameraEnum.CAM4:
-                    return cam4;
+                    return Cam4;
 
                 default:
                     return null;
@@ -323,7 +336,12 @@ namespace BA_MobileGPS.Core.ViewModels
             var selectedCam = GetSelectedCamera();
             if (selectedCam != null && selectedCam.CanExcute())
             {
-                selectedCam.MediaPlayer.Mute = !selectedCam.MediaPlayer.Mute;
+                if (selectedCam.MediaPlayer.Mute)
+                {
+                    selectedCam.MediaPlayer.Mute = false;
+                }
+                else selectedCam.MediaPlayer.Mute = true;
+
                 VolumeButtonIconSource = selectedCam.MediaPlayer.Mute ? muteIconSource : volumeIconSource;
             }
         }
@@ -345,6 +363,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             SelectedCamera = camObj;
                             PlayButtonIconSource = selected.MediaPlayer.IsPlaying ? stopIconSource : playIconSource;
                             VolumeButtonIconSource = selected.MediaPlayer.Mute ? muteIconSource : volumeIconSource;
+                            TotalTime = selected.TotalTime;
                         }
                     });
                 }
@@ -448,7 +467,10 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         public ICommand ReloadCommand { get; }
-
+        /// <summary>
+        /// reload khi bi loi
+        /// </summary>
+        /// <param name="obj"> vi tri camera can reload</param>
         private void Reload(object obj)
         {
             if (obj != null)
@@ -465,7 +487,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
-
+        /// <summary>
+        /// gui request start cho camera
+        /// </summary>
+        /// <param name="chanel"> kenh </param>
+        /// <param name="position"> vi tri hien thi tren man hinh </param>
         private void RequestStartCam(int chanel, CameraEnum position)
         {
             var cameraAsign = GetCamera(position);
@@ -492,7 +518,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
         }
-
+        /// <summary>
+        /// Lay thong tin camera tren xe duoc chon
+        /// </summary>
+        /// <param name="bks"> bien so xe</param>
         private void GetCameraInfor(string bks)
         {
             StreamDevicesResponse deviceResponse = null;
@@ -525,7 +554,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
-
+        /// <summary>
+        /// layout 1-2-4 theo so luong camera tren xe
+        /// </summary>
+        /// <param name="quantity"></param>
         private void SetLayoutDependCameraQuantity(int quantity)
         {
             if (quantity <= 2)
@@ -537,13 +569,17 @@ namespace BA_MobileGPS.Core.ViewModels
                 EventAggregator.GetEvent<SetCameraLayoutEvent>().Publish(4);
             }
         }
-
+        /// <summary>
+        /// Gan lai gia tri thoi gian chay cho camera theo yeu cau tu nguoi dung
+        /// </summary>
+        /// <param name="minutes"></param>
         private void RequestMoreTimeStream(int minutes)
         {
             var cameraRequested = GetSelectedCamera();
             if (cameraRequested != null)
             {
                 cameraRequested.TotalTime += minutes * 60;
+                TotalTime = cameraRequested.TotalTime;
             }
         }
 
@@ -557,7 +593,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             if (timer != null && timer.Enabled)
             {
-                timer.Enabled = false;
+                timer.Stop();
             }
             base.OnSleep();
         }
@@ -568,7 +604,10 @@ namespace BA_MobileGPS.Core.ViewModels
             ReLoadAllCamera(false);
             DependencyService.Get<IScreenOrientServices>().ForcePortrait();
         }
-
+        /// <summary>
+        ///  reload khi thay doi xe or phone status change to sleep
+        /// </summary>
+        /// <param name="clearData"> clear current media in media player</param>
         private void ReLoadAllCamera(bool clearData)
         {
             try
@@ -590,7 +629,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 LoggerHelper.WriteError("ReloadCamera", ex);
             }
         }
-
+        /// <summary>
+        /// GUi request gia han
+        /// </summary>
+        /// <param name="timeSecond"> so giay</param>
+        /// <param name="chanel"> kenh gia han</param>
+        /// <returns></returns>
         private async Task SendRequestTime(int timeSecond, int chanel)
         {
             var response = await _streamCameraService.RequestMoreStreamTime(new StreamPingRequest()
@@ -605,55 +649,68 @@ namespace BA_MobileGPS.Core.ViewModels
                 await SendRequestTime(timeSecond, chanel);
             }
         }
-
+        /// <summary>
+        /// Cap nhat khung thong tin chi tiet:
+        ///  - update per 10s
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            counterRequestMoreTime--;
-            if (counterRequestMoreTime == 0)
+            if (!string.IsNullOrEmpty(vehicleSelectedPlate))
             {
-                counterRequestMoreTime = 15;
-                UpdateTimeAndLocation();
-            }
-            if (AutoAddTime)
-            {
-                if (counterRequestMoreTime == 5)
+                counterRequestMoreTime--;
+                if (counterRequestMoreTime == 0)
                 {
-                    foreach (var item in currentCamera)
-                    {
-                        TryExecute(async () =>
-                        {
-                            var cam = GetCamera(item);
-                            if (cam != null && !cam.IsError && cam.IsLoaded)
-                            {
-                                await SendRequestTime(maxTimeCameraRemain, cam.Data.Channel);
-                            }
-                        });
-                    }
+                    counterRequestMoreTime = 15;
+                    UpdateTimeAndLocation();
                 }
-            }
-            else
-            {
                 foreach (var item in currentCamera)
                 {
-                    TryExecute(async () =>
+                    var cam = GetCamera(item);
+                    if (AutoAddTime) // tu dong gia han
                     {
-                        var cam = GetCamera(item);
-                        if (cam != null && !cam.IsError && cam.IsLoaded)
+                        if (counterRequestMoreTime == 5)
                         {
-                            if (cam.TotalTime > 0)
+                            TryExecute(async () =>
                             {
-                                cam.TotalTime -= 1;
-                                if (cam.TotalTime % 10 == 0 && cam.TotalTime > maxTimeCameraRemain)
+                                if (cam != null && !cam.IsError && cam.IsLoaded)
                                 {
                                     await SendRequestTime(maxTimeCameraRemain, cam.Data.Channel);
                                 }
-                            }
+                            });
+
                         }
-                    });
+                    }
+                    else
+                    {
+                        if (TotalTime > 0)
+                        {
+                            TotalTime -= 1;
+                        }
+                        TryExecute(async () =>
+                        {
+                            if (cam != null && !cam.IsError && cam.IsLoaded)
+                            {
+                                if (cam.TotalTime > 0)
+                                {
+                                    cam.TotalTime -= 1;
+
+                                    if (cam.TotalTime % 10 == 0 && cam.TotalTime > maxTimeCameraRemain)
+                                    {
+                                        await SendRequestTime(maxTimeCameraRemain, cam.Data.Channel);
+                                    }
+                                }
+                            }
+                        });
+                    }
+
                 }
             }
         }
-
+        /// <summary>
+        /// lay thong tin chi tiet by request get device information
+        /// </summary>
         private void UpdateTimeAndLocation()
         {
             Device.BeginInvokeOnMainThread(async () =>
