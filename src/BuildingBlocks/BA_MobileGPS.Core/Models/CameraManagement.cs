@@ -20,7 +20,6 @@ namespace BA_MobileGPS.Core.Models
         private int counter { get; set; } // timer counter
         private bool internalError { get; set; }
         private long oldTime { get; set; } // get time to compare while error was happen
-
         public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC, CameraEnum position)
         {
             maxLoadingTime = maxTimeLoadingMedia;
@@ -37,7 +36,7 @@ namespace BA_MobileGPS.Core.Models
         private void CountLoadingTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             counter -= 1;
-            if (internalError)
+            if (internalError && !isLoaded)
             {
                 SetMedia(data.Link);
                 if (counter <= 0)
@@ -47,15 +46,16 @@ namespace BA_MobileGPS.Core.Models
             }
             else
             {
-                if (isLoaded)
+                if (isLoaded && MediaPlayer.IsPlaying)
                 {
+                    countLoadingTimer.Interval = 5000;
                     //check error link broken
                     if (MediaPlayer.Time != oldTime)
                     {
                         oldTime = MediaPlayer.Time;
-                        if (TotalTime > 0)
+                        if (TotalTime > 3)
                         {
-                            TotalTime -= 1;
+                            TotalTime -= 5;
                         }
                         else
                         {
@@ -206,6 +206,7 @@ namespace BA_MobileGPS.Core.Models
             {
                 internalError = false;
                 countLoadingTimer.Stop();
+                countLoadingTimer.Interval = 1000;
                 counter = maxLoadingTime;
                 ThreadPool.QueueUserWorkItem((a) => { MediaPlayer.Stop(); });
                 Device.BeginInvokeOnMainThread(() =>
