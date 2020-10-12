@@ -132,7 +132,7 @@
                         Binding="{Binding Cam1.IsError}"
                         TargetType="Grid"
                         Value="True">
-
+                        <Setter Property="BackgroundColor" Value="Black" />
                         <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                 </Grid.Triggers>
@@ -232,6 +232,7 @@
                         Binding="{Binding Cam2.IsError}"
                         TargetType="Grid"
                         Value="True">
+                        <Setter Property="BackgroundColor" Value="Black" />
                         <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                 </Grid.Triggers>

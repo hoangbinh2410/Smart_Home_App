@@ -28,7 +28,7 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         private Timer timer;
         private int counterRequestMoreTime = 15;
-        private readonly int maxLoadingTime = 15; //second
+        private readonly int maxLoadingTime = 20; //second
         private readonly string playIconSource = "ic_play_arrow_white.png";
         private readonly string stopIconSource = "ic_stop_white.png";
         private readonly string volumeIconSource = "ic_volumespeaker";
@@ -490,6 +490,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
         /// <summary>
         /// command raise while share is tapped
+        /// share : take a snapshot and share on other app like viber, fb,...
         /// </summary>
         public ICommand ShareTappedCommand { get; }
 
@@ -513,7 +514,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand ReloadCommand { get; }
 
         /// <summary>
-        /// reload khi bi loi
+        /// reload khi bi loi hoac het thoi gian
         /// </summary>
         /// <param name="obj"> vi tri camera can reload</param>
         private void Reload(object obj)
@@ -702,7 +703,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         /// <summary>
         /// Cap nhat khung thong tin chi tiet:
-        ///  - update per 10s
+        ///  - update each 10s
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -744,8 +745,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 if (cam.TotalTime > 0)
                                 {
-                                    cam.TotalTime -= 1;
-
                                     if (cam.TotalTime % 10 == 0 && cam.TotalTime > maxTimeCameraRemain)
                                     {
                                         await SendRequestTime(maxTimeCameraRemain, cam.Data.Channel);
