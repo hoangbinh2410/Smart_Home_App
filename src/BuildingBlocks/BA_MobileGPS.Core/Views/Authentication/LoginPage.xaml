@@ -6,7 +6,6 @@
     xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors"
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
-    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:prism="http://prismlibrary.com"
@@ -14,9 +13,6 @@
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
-        <ResourceDictionary>
-            <converter:HasDataConverter x:Key="HasDataConverter" />
-        </ResourceDictionary>
         <Style TargetType="sharpnado:MaterialFrame">
             <Setter Property="LightThemeBackgroundColor" Value="{DynamicResource LoginIconBackgroundColor}" />
             <Setter Property="WidthRequest" Value="42" />

@@ -1,8 +1,10 @@
 ﻿using BA_MobileGPS.Core.Resources;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace BA_MobileGPS.Core.Views
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
         public LoginPage()
@@ -19,14 +21,14 @@ namespace BA_MobileGPS.Core.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (string.IsNullOrEmpty(pass.Text))
-            {
-                pass.Focus();
-            }
-            if (string.IsNullOrEmpty(account.Text))
-            {
-                account.Focus();
-            }
+            //if (string.IsNullOrEmpty(pass.Text))
+            //{
+            //    pass.Focus();
+            //}
+            //if (string.IsNullOrEmpty(account.Text))
+            //{
+            //    account.Focus();
+            //}
         }
     }
 }
