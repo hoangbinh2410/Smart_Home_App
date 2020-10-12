@@ -27,7 +27,7 @@ namespace BA_MobileGPS.Core.ViewModels
     public class CameraManagingPageViewModel : ViewModelBase
     {
         private Timer timer;
-        private int counterRequestMoreTime = 15;
+        private int counterRequestPing = 15;
         private readonly int maxLoadingTime = 20; //second
         private readonly string playIconSource = "ic_play_arrow_white.png";
         private readonly string stopIconSource = "ic_stop_white.png";
@@ -719,10 +719,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         TotalTime -= 1;
                     });                    
                 }
-                counterRequestMoreTime--;
-                if (counterRequestMoreTime == 0)
+                counterRequestPing--;
+                if (counterRequestPing == 0)
                 {
-                    counterRequestMoreTime = 15;
+                    counterRequestPing = 15;
                     UpdateTimeAndLocation();
                 }
                 foreach (var item in currentCamera)
@@ -730,7 +730,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     var cam = GetCamera(item);
                     if (AutoAddTime) // tu dong gia han
                     {
-                        if (counterRequestMoreTime == 5)
+                        if (counterRequestPing == 5)
                         {
                             TryExecute(async () =>
                             {
@@ -751,7 +751,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 if (cam.TotalTime > 0)
                                 {
-                                    if (cam.TotalTime % 10 == 0 && cam.TotalTime > maxTimeCameraRemain)
+                                    if (counterRequestPing==5 && cam.TotalTime > maxTimeCameraRemain)
                                     {
                                         await SendRequestTime(maxTimeCameraRemain, cam.Data.Channel);
                                     }
