@@ -4,9 +4,25 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1534" />
-    <PackageReference Include="Prism.Unity.Forms" Version="7.2.0.1422" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Prism.Unity.Forms" Version="7.2.0.1422" />
+		<PackageReference Include="Xamarin.Forms" Version="4.8.0.1534" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\BuildingBlocks\BA_MobileGPS.Core\BA_MobileGPS.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Styles\Custom.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Styles\DarkColor.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Styles\LightColor.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
+	</ItemGroup>
 
 </Project>
