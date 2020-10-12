@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Utilities;
 using Prism;
 using Prism.AppModel;
@@ -45,8 +46,32 @@ namespace BA_MobileGPS.Core.ViewModels
             DisplayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
             PageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
             CallHotLineCommand = new DelegateCommand(CallHotLine);
-        }
 
+            //Connectivity.ConnectivityChanged -= OnConnectivityChanged;
+            //Connectivity.ConnectivityChanged += OnConnectivityChanged;
+        }
+        ~ViewModelBaseLogin()
+        {
+            //Connectivity.ConnectivityChanged -= OnConnectivityChanged;
+        }
+        public virtual async void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            RaisePropertyChanged(nameof(IsConnected));
+
+            if (e.NetworkAccess != NetworkAccess.Internet)
+            {
+                // await NavigationService.NavigateAsync("NetworkPage");
+                await PopupNavigation.Instance.PushAsync(new NetworkPage());
+            }
+            else
+            {
+                //await NavigationService.GoBackAsync();
+                if (PopupNavigation.Instance.PopupStack.Count > 0)
+                {
+                    await PopupNavigation.Instance.PopAllAsync();
+                }
+            }
+        }
         public virtual void Initialize(INavigationParameters parameters)
         {
         }
@@ -59,6 +84,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public void Destroy()
         {
             OnDestroy();
+            //Connectivity.ConnectivityChanged -= OnConnectivityChanged;
         }
 
         public virtual void OnDestroy()

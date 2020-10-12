@@ -1,4 +1,5 @@
 using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Styles;
 using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities.Constant;
@@ -6,6 +7,7 @@ using Prism;
 using Prism.Events;
 using Prism.Ioc;
 using Prism.Unity;
+using System.Diagnostics;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -71,19 +73,21 @@ namespace BA_MobileGPS.Core
 
         private void SetTheme()
         {
-            var themeServices = Current.Container.Resolve<IThemeServices>();
-            if (Settings.CurrentTheme == Theme.Light.ToString())
-            {
-                themeServices.ChangeTheme(Theme.Light);
-            }
-            else if (Settings.CurrentTheme == Theme.Dark.ToString())
-            {
-                themeServices.ChangeTheme(Theme.Dark);
-            }
-            else
-            {
-                themeServices.ChangeTheme(Theme.Custom);
-            }
+            Resources.MergedDictionaries.Add(new Styles.Converters());
+            Resources.MergedDictionaries.Add(new Fonts());
+            //var themeServices = Current.Container.Resolve<IThemeServices>();
+            //if (Settings.CurrentTheme == Theme.Light.ToString())
+            //{
+            //    themeServices.ChangeTheme(Theme.Light);
+            //}
+            //else if (Settings.CurrentTheme == Theme.Dark.ToString())
+            //{
+            //    themeServices.ChangeTheme(Theme.Dark);
+            //}
+            //else
+            //{
+            //    themeServices.ChangeTheme(Theme.Custom);
+            //}
         }
     }
 }
