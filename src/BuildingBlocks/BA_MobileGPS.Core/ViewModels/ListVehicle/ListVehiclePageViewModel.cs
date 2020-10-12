@@ -258,7 +258,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 ListVehicle = ListVehicleOrigin.ToObservableCollection();
             }
-
+            ListVehicleByStatus = ListVehicle.ToList();
             // Chạy lại hàm tính toán trạng thái xe
             InitVehicleStatus();
         }
@@ -267,6 +267,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
+                SearchedText = null;
                 if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                 {
                     //Nếu là công ty thường thì mặc định load xe của công ty lên bản đồ
@@ -313,7 +314,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public void InitVehicleStatus()
         {
             var vehicleList = _mapper.MapListProperties<VehicleOnline>(ListVehicle.ToList());
-
+            VehicleStatusSelected = VehicleStatusGroup.All;
             CountVehicle = vehicleList.Count();
 
             // Lấy trạng thái xe
@@ -481,6 +482,7 @@ namespace BA_MobileGPS.Core.ViewModels
             // Lọc theo trạng thái xe
             if (selected != null)
             {
+                VehicleStatusSelected = (VehicleStatusGroup)selected.ID;
                 List<VehicleOnline> listVehicle = _mapper.MapListProperties<VehicleOnline>(ListVehicleByGroup);
                 var listFilter = StateVehicleExtension.GetVehicleCarByStatus(listVehicle, (VehicleStatusGroup)selected.ID);
 
@@ -501,7 +503,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void TapListVehicle(Syncfusion.ListView.XForms.ItemTappedEventArgs args)
         {
-            TryExecute(async () =>
+            SafeExecute(async () =>
             {
                 if (args.ItemData is VehicleOnlineViewModel selected)
                 {
