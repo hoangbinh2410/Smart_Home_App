@@ -73,6 +73,7 @@ namespace BA_MobileGPS.Core.ViewModels
             //Check parameter key
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
+                AutoAddTime = true;
                 VehicleSelectedPlate = vehiclePlate.VehiclePlate;
                 ReLoadAllCamera(true);
             }
