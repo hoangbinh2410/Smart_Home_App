@@ -80,6 +80,12 @@ namespace BA_MobileGPS.Core.Resources
             return val;
         }
 
+        public static string GetResourceNotDB(MobileResourceNames key, string defaultValue, string defaultValueEng)
+        {
+            var val = App.CurrentLanguage == CultureCountry.Vietnamese ? defaultValue : defaultValueEng;
+            return val;
+        }
+
         public static IDictionary<string, string> _DicMobileResource = null;
 
         public static IDictionary<string, string> DicMobileResource

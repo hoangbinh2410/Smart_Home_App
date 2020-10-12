@@ -84,7 +84,6 @@ namespace BA_MobileGPS.Core
             {
                 themeServices.ChangeTheme(Theme.Custom);
             }
-
         }
     }
 }
