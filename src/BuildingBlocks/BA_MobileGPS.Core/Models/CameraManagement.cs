@@ -3,12 +3,8 @@ using BA_MobileGPS.Core.Views.Camera.MonitoringCamera;
 using BA_MobileGPS.Entities;
 using LibVLCSharp.Shared;
 using Prism.Mvvm;
-using Syncfusion.XlsIO.Parser.Biff_Records;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Timers;
 using Xamarin.Forms;
@@ -24,6 +20,7 @@ namespace BA_MobileGPS.Core.Models
         private int counter { get; set; } // timer counter
         private bool internalError { get; set; }
         private long oldTime { get; set; } // get time to compare while error was happen
+
         public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC, CameraEnum position)
         {
             maxLoadingTime = maxTimeLoadingMedia;
@@ -31,7 +28,7 @@ namespace BA_MobileGPS.Core.Models
             InitMediaPlayer();
             totalTime = 1;
             this.position = position;
-            countLoadingTimer = new Timer(2000);
+            countLoadingTimer = new Timer(1000);
             countLoadingTimer.Elapsed += CountLoadingTimer_Elapsed;
             counter = maxLoadingTime;
             internalError = false;
@@ -39,7 +36,7 @@ namespace BA_MobileGPS.Core.Models
 
         private void CountLoadingTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            counter -= 2;
+            counter -= 1;
             if (internalError)
             {
                 SetMedia(data.Link);
@@ -57,7 +54,7 @@ namespace BA_MobileGPS.Core.Models
             {
                 if (isLoaded)
                 {
-                    //check error
+                    //check error link broken
                     if (MediaPlayer.Time != oldTime)
                     {
                         oldTime = MediaPlayer.Time;
@@ -80,7 +77,6 @@ namespace BA_MobileGPS.Core.Models
             mediaPlayer.AspectRatio = "16:9";
             mediaPlayer.Scale = 0;
         }
-
 
         public void SetMedia(string url)
         {
@@ -108,7 +104,6 @@ namespace BA_MobileGPS.Core.Models
             internalError = true;
         }
 
-
         private void MediaPlayer_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
         {
             if (e.Time > 1 && !IsLoaded)
@@ -121,10 +116,11 @@ namespace BA_MobileGPS.Core.Models
                 });
                 internalError = false;
                 //countLoadingTimer.Stop();
-            }
+            }          
         }
 
         private int totalTime;
+
         public int TotalTime
         {
             get { return totalTime; }
@@ -136,6 +132,7 @@ namespace BA_MobileGPS.Core.Models
         }
 
         private bool isError;
+
         public bool IsError
         {
             get { return isError; }
@@ -145,7 +142,9 @@ namespace BA_MobileGPS.Core.Models
                 RaisePropertyChanged();
             }
         }
+
         private StreamStart data;
+
         public StreamStart Data
         {
             get { return data; }
@@ -156,6 +155,7 @@ namespace BA_MobileGPS.Core.Models
         }
 
         private CameraEnum? position;
+
         public CameraEnum? Position
         {
             get { return position; }
@@ -166,6 +166,7 @@ namespace BA_MobileGPS.Core.Models
         }
 
         private MediaPlayer mediaPlayer;
+
         public MediaPlayer MediaPlayer
         {
             get { return mediaPlayer; }
@@ -177,6 +178,7 @@ namespace BA_MobileGPS.Core.Models
         }
 
         private bool isLoaded;
+
         public bool IsLoaded
         {
             get { return isLoaded; }
@@ -211,7 +213,7 @@ namespace BA_MobileGPS.Core.Models
 
         public virtual bool CanExcute()
         {
-            if (MediaPlayer.Media != null && MediaPlayer.Time > 0)
+            if (MediaPlayer.Media != null && MediaPlayer.Time > 0 && !internalError)
             {
                 return true;
             }

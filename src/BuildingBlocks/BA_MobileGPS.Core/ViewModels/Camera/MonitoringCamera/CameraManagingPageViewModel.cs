@@ -2,6 +2,7 @@
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Core.Views.Camera.MonitoringCamera;
 using BA_MobileGPS.Entities;
@@ -55,7 +56,7 @@ namespace BA_MobileGPS.Core.ViewModels
             ShareTappedCommand = new DelegateCommand(ShareTapped);
             AutoAddTime = true;
             ReloadCommand = new DelegateCommand<object>(Reload);
-            currentAddress = "Không xác định";
+            currentAddress = MobileResource.Camera_Label_Undefined;
             currentCamera = new List<CameraEnum>();
         }
 
@@ -69,7 +70,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Cam3.IsLoaded = true;
                 Cam4.IsLoaded = true;
             });
-
+            //Check parameter key
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
                 VehicleSelectedPlate = vehiclePlate.VehiclePlate;
@@ -86,7 +87,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
             base.OnNavigatedTo(parameters);
         }
-
+        /// <summary>
+        /// object management camera position cameraenum.Cam1
+        /// </summary>
         private CameraManagement cam1;
 
         public CameraManagement Cam1
@@ -136,6 +139,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private int totalTime;
+
         public int TotalTime
         {
             get { return totalTime; }
@@ -157,6 +161,7 @@ namespace BA_MobileGPS.Core.ViewModels
             cam4 = new CameraManagement(maxLoadingTime, libVLC, CameraEnum.CAM4);
             InitTimer();
         }
+
         private void InitTimer()
         {
             timer = new Timer()
@@ -188,7 +193,9 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private bool isFullScreenOff;
-
+        /// <summary>
+        /// binding screen orient
+        /// </summary>
         public bool IsFullScreenOff
         {
             get { return isFullScreenOff; }
@@ -200,6 +207,9 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private CameraEnum? selectedCamera;
+        /// <summary>
+        /// camera position on view 1-2-3-4
+        /// </summary>
         public CameraEnum? SelectedCamera
         {
             get { return selectedCamera; }
@@ -211,7 +221,9 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private string volumeButtonIconSource;
-
+        /// <summary>
+        /// iconsource volume on common playback control
+        /// </summary>
         public string VolumeButtonIconSource
         {
             get { return volumeButtonIconSource; }
@@ -223,7 +235,9 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private string playButtonIconSource;
-
+        /// <summary>
+        /// iconsource play on common playback control
+        /// </summary>
         public string PlayButtonIconSource
         {
             get { return playButtonIconSource; }
@@ -235,7 +249,9 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private bool autoAddTime;
-
+        /// <summary>
+        /// checkbox binding
+        /// </summary>
         public bool AutoAddTime
         {
             get { return autoAddTime; }
@@ -247,6 +263,9 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private string currentAddress;
+        /// <summary>
+        /// bínding address on detail vehicle
+        /// </summary>
         public string CurrentAddress
         {
             get { return currentAddress; }
@@ -254,7 +273,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    SetProperty(ref currentAddress, "Không xác định");
+                    SetProperty(ref currentAddress, MobileResource.Camera_Label_Undefined);
                 }
                 else
                 {
@@ -265,7 +284,9 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private DateTime? currentTime;
-
+        /// <summary>
+        /// bínding time on detail vehicle
+        /// </summary>
         public DateTime? CurrentTime
         {
             get { return currentTime; }
@@ -275,7 +296,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
-
+        /// <summary>
+        /// get camera management object at position
+        /// </summary>
+        /// <param name="camera">position</param>
+        /// <returns></returns>
         private CameraManagement GetCamera(CameraEnum camera)
         {
             switch (camera)
@@ -296,7 +321,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     return null;
             }
         }
-
+        /// <summary>
+        /// get current camera selected
+        /// </summary>
+        /// <returns></returns>
         private CameraManagement GetSelectedCamera()
         {
             if (selectedCamera != null)
@@ -305,7 +333,9 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             return null;
         }
-
+        /// <summary>
+        /// command raise while play is tapped
+        /// </summary>
         public ICommand PlayTappedCommand { get; }
 
         private void PlayTapped()
@@ -328,7 +358,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
         }
-
+        /// <summary>
+        /// command raise while volume is tapped
+        /// </summary>
         public ICommand VolumeChangedCommand { get; }
 
         private void VolumeChanged()
@@ -345,7 +377,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 VolumeButtonIconSource = selectedCam.MediaPlayer.Mute ? muteIconSource : volumeIconSource;
             }
         }
-
+        /// <summary>
+        /// command raise while a camera region is tapped
+        /// </summary>
         public ICommand CameraFrameTappedCommand { get; }
 
         private void CameraFrameTapped(object obj)
@@ -369,7 +403,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
-
+        /// <summary>
+        /// command raise while add time is tapped
+        /// </summary>
         public ICommand RequestTimeTappedCommand { get; set; }
 
         private void RequestTimeTapped()
@@ -383,7 +419,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
         }
-
+        /// <summary>
+        /// command raise while fullscreen is tapped
+        /// </summary>
         public ICommand FullScreenTappedCommand { get; }
 
         private void FullScreenTapped()
@@ -403,7 +441,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
-
+        /// <summary>
+        /// set screen orient to lanscape
+        /// </summary>
         private void SetLanscape()
         {
             DependencyService.Get<IScreenOrientServices>().ForceLandscape();
@@ -413,7 +453,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish((CameraEnum)selected.Position);
             }
         }
-
+        /// <summary>
+        /// command raise while snapshot is tapped
+        /// </summary>
         public ICommand ScreenShotTappedCommand { get; }
 
         private void ScreenShotTapped()
@@ -446,7 +488,9 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             return string.Empty;
         }
-
+        /// <summary>
+        /// command raise while share is tapped
+        /// </summary>
         public ICommand ShareTappedCommand { get; }
 
         private async void ShareTapped()
@@ -467,6 +511,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         public ICommand ReloadCommand { get; }
+
         /// <summary>
         /// reload khi bi loi
         /// </summary>
@@ -487,6 +532,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
+
         /// <summary>
         /// gui request start cho camera
         /// </summary>
@@ -518,6 +564,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
         }
+
         /// <summary>
         /// Lay thong tin camera tren xe duoc chon
         /// </summary>
@@ -549,11 +596,11 @@ namespace BA_MobileGPS.Core.ViewModels
                         var position = (CameraEnum)index;
                         currentCamera.Add(position);
                         RequestStartCam(cameraActive[index].Channel, position);
-
                     }
                 }
             });
         }
+
         /// <summary>
         /// layout 1-2-4 theo so luong camera tren xe
         /// </summary>
@@ -569,6 +616,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 EventAggregator.GetEvent<SetCameraLayoutEvent>().Publish(4);
             }
         }
+
         /// <summary>
         /// Gan lai gia tri thoi gian chay cho camera theo yeu cau tu nguoi dung
         /// </summary>
@@ -604,6 +652,7 @@ namespace BA_MobileGPS.Core.ViewModels
             ReLoadAllCamera(false);
             DependencyService.Get<IScreenOrientServices>().ForcePortrait();
         }
+
         /// <summary>
         ///  reload khi thay doi xe or phone status change to sleep
         /// </summary>
@@ -629,6 +678,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 LoggerHelper.WriteError("ReloadCamera", ex);
             }
         }
+
         /// <summary>
         /// GUi request gia han
         /// </summary>
@@ -649,6 +699,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 await SendRequestTime(timeSecond, chanel);
             }
         }
+
         /// <summary>
         /// Cap nhat khung thong tin chi tiet:
         ///  - update per 10s
@@ -679,7 +730,6 @@ namespace BA_MobileGPS.Core.ViewModels
                                     await SendRequestTime(maxTimeCameraRemain, cam.Data.Channel);
                                 }
                             });
-
                         }
                     }
                     else
@@ -704,10 +754,10 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                         });
                     }
-
                 }
             }
         }
+
         /// <summary>
         /// lay thong tin chi tiet by request get device information
         /// </summary>
