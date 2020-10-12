@@ -42,12 +42,7 @@ namespace BA_MobileGPS.Core.Models
                 SetMedia(data.Link);
                 if (counter <= 0)
                 {
-                    countLoadingTimer.Stop();
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        IsLoaded = true;
-                        IsError = true;
-                    });
+                    SetError();
                 }
             }
             else
@@ -58,15 +53,31 @@ namespace BA_MobileGPS.Core.Models
                     if (MediaPlayer.Time != oldTime)
                     {
                         oldTime = MediaPlayer.Time;
+                        if (TotalTime > 0)
+                        {
+                            TotalTime -= 1;
+                        }
+                        else
+                        {
+                            SetError();
+                        }
                     }
                     else // error
                     {
-                        IsError = true;
-                        TotalTime = 0;
-                        countLoadingTimer.Stop();
+                        SetError();
                     }
                 }
             }
+        }
+        private void SetError()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                IsError = true;
+                IsLoaded = true;
+                TotalTime = 0;
+            });           
+            countLoadingTimer.Stop();
         }
 
         private void InitMediaPlayer()
@@ -116,7 +127,7 @@ namespace BA_MobileGPS.Core.Models
                 });
                 internalError = false;
                 //countLoadingTimer.Stop();
-            }          
+            }
         }
 
         private int totalTime;

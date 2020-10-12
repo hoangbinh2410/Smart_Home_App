@@ -93,12 +93,6 @@
                 </icons:IconView.GestureRecognizers>
                 <icons:IconView.Triggers>
                     <DataTrigger
-                        Binding="{Binding Cam1.TotalTime, Mode=OneWay}"
-                        TargetType="icons:IconView"
-                        Value="0">
-                        <Setter Property="IsVisible" Value="True" />
-                    </DataTrigger>
-                    <DataTrigger
                         Binding="{Binding Cam1.IsError}"
                         TargetType="icons:IconView"
                         Value="True">
@@ -112,13 +106,6 @@
                     TargetType="Grid"
                     Value="#0C852E">
                     <Setter Property="BackgroundColor" Value="Transparent" />
-                </DataTrigger>
-                <DataTrigger
-                    Binding="{Binding Cam1.TotalTime}"
-                    TargetType="Grid"
-                    Value="0">
-                    <Setter Property="BackgroundColor" Value="Black" />
-                    <Setter Property="InputTransparent" Value="False" />
                 </DataTrigger>
                 <DataTrigger
                     Binding="{Binding Cam1.IsError}"

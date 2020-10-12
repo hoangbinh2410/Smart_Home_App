@@ -46,6 +46,7 @@
             </Grid.GestureRecognizers>
             <vlc:VideoView
                 x:Name="cam1"
+                Margin="20,10"
                 InputTransparent="True"
                 MediaPlayer="{Binding Cam1.MediaPlayer}" />
             <Label
@@ -101,12 +102,6 @@
                     </icons:IconView.GestureRecognizers>
                     <icons:IconView.Triggers>
                         <DataTrigger
-                            Binding="{Binding Cam1.TotalTime, Mode=OneWay}"
-                            TargetType="icons:IconView"
-                            Value="0">
-                            <Setter Property="IsVisible" Value="True" />
-                        </DataTrigger>
-                        <DataTrigger
                             Binding="{Binding Cam1.IsError}"
                             TargetType="icons:IconView"
                             Value="True">
@@ -120,13 +115,6 @@
                         TargetType="Grid"
                         Value="#0C852E">
                         <Setter Property="BackgroundColor" Value="Transparent" />
-                    </DataTrigger>
-                    <DataTrigger
-                        Binding="{Binding Cam1.TotalTime}"
-                        TargetType="Grid"
-                        Value="0">
-                        <Setter Property="BackgroundColor" Value="Black" />
-                        <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                     <DataTrigger
                         Binding="{Binding Cam1.IsError}"
@@ -146,6 +134,7 @@
             </Grid.GestureRecognizers>
             <vlc:VideoView
                 x:Name="cam2"
+                Margin="20,10"
                 InputTransparent="True"
                 MediaPlayer="{Binding Cam2.MediaPlayer}" />
             <Label
@@ -201,12 +190,6 @@
                     </icons:IconView.GestureRecognizers>
                     <icons:IconView.Triggers>
                         <DataTrigger
-                            Binding="{Binding Cam2.TotalTime, Mode=OneWay}"
-                            TargetType="icons:IconView"
-                            Value="0">
-                            <Setter Property="IsVisible" Value="True" />
-                        </DataTrigger>
-                        <DataTrigger
                             Binding="{Binding Cam2.IsError}"
                             TargetType="icons:IconView"
                             Value="True">
@@ -220,13 +203,6 @@
                         TargetType="Grid"
                         Value="#0C852E">
                         <Setter Property="BackgroundColor" Value="Transparent" />
-                    </DataTrigger>
-                    <DataTrigger
-                        Binding="{Binding Cam2.TotalTime}"
-                        TargetType="Grid"
-                        Value="0">
-                        <Setter Property="BackgroundColor" Value="Black" />
-                        <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                     <DataTrigger
                         Binding="{Binding Cam2.IsError}"

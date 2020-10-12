@@ -711,6 +711,13 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (!string.IsNullOrEmpty(vehicleSelectedPlate))
             {
+                if (TotalTime > 0)
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        TotalTime -= 1;
+                    });                    
+                }
                 counterRequestMoreTime--;
                 if (counterRequestMoreTime == 0)
                 {
@@ -729,16 +736,14 @@ namespace BA_MobileGPS.Core.ViewModels
                                 if (cam != null && !cam.IsError && cam.IsLoaded)
                                 {
                                     await SendRequestTime(maxTimeCameraRemain, cam.Data.Channel);
+                                    cam.TotalTime = 600;
                                 }
                             });
                         }
                     }
                     else
                     {
-                        if (TotalTime > 0)
-                        {
-                            TotalTime -= 1;
-                        }
+
                         TryExecute(async () =>
                         {
                             if (cam != null && !cam.IsError && cam.IsLoaded)

@@ -42,6 +42,8 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
         }
         private void SwitchToNormal()
         {
+            cam1.Margin = new Thickness(20, 10);
+            cam2.Margin = new Thickness(20, 10);
             parentPanel.RowDefinitions.Clear();
             parentPanel.RowDefinitions.Add(new RowDefinition());
             parentPanel.RowDefinitions.Add(new RowDefinition());
@@ -52,7 +54,7 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
             parentPanel.RowDefinitions.Clear();
             switch (obj)
             {
-                case CameraEnum.CAM1:
+                case CameraEnum.CAM1:                   
                     FullScreenCam1();
                     break;
                 case CameraEnum.CAM2:
@@ -64,11 +66,13 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringCamera
         }
         private void FullScreenCam1()
         {
+            cam1.Margin = 0;
             parentPanel.RowDefinitions.Add(new RowDefinition());
             parentPanel.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0) });
         }
         private void FullScreenCam2()
         {
+            cam2.Margin = 0;
             parentPanel.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0) });
             parentPanel.RowDefinitions.Add(new RowDefinition());
         }

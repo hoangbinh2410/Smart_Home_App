@@ -101,12 +101,6 @@
                     </icons:IconView.GestureRecognizers>
                     <icons:IconView.Triggers>
                         <DataTrigger
-                            Binding="{Binding Cam1.TotalTime, Mode=OneWay}"
-                            TargetType="icons:IconView"
-                            Value="0">
-                            <Setter Property="IsVisible" Value="True" />
-                        </DataTrigger>
-                        <DataTrigger
                             Binding="{Binding Cam1.IsError}"
                             TargetType="icons:IconView"
                             Value="True">
@@ -120,13 +114,6 @@
                         TargetType="Grid"
                         Value="#0C852E">
                         <Setter Property="BackgroundColor" Value="Transparent" />
-                    </DataTrigger>
-                    <DataTrigger
-                        Binding="{Binding Cam1.TotalTime}"
-                        TargetType="Grid"
-                        Value="0">
-                        <Setter Property="BackgroundColor" Value="Black" />
-                        <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                     <DataTrigger
                         Binding="{Binding Cam1.IsError}"
@@ -204,12 +191,6 @@
                     </icons:IconView.GestureRecognizers>
                     <icons:IconView.Triggers>
                         <DataTrigger
-                            Binding="{Binding Cam2.TotalTime, Mode=OneWay}"
-                            TargetType="icons:IconView"
-                            Value="0">
-                            <Setter Property="IsVisible" Value="True" />
-                        </DataTrigger>
-                        <DataTrigger
                             Binding="{Binding Cam2.IsError}"
                             TargetType="icons:IconView"
                             Value="True">
@@ -223,13 +204,6 @@
                         TargetType="Grid"
                         Value="#0C852E">
                         <Setter Property="BackgroundColor" Value="Transparent" />
-                    </DataTrigger>
-                    <DataTrigger
-                        Binding="{Binding Cam2.TotalTime}"
-                        TargetType="Grid"
-                        Value="0">
-                        <Setter Property="BackgroundColor" Value="Black" />
-                        <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                     <DataTrigger
                         Binding="{Binding Cam2.IsError}"
@@ -304,12 +278,6 @@
                     </icons:IconView.GestureRecognizers>
                     <icons:IconView.Triggers>
                         <DataTrigger
-                            Binding="{Binding Cam3.TotalTime, Mode=OneWay}"
-                            TargetType="icons:IconView"
-                            Value="0">
-                            <Setter Property="IsVisible" Value="True" />
-                        </DataTrigger>
-                        <DataTrigger
                             Binding="{Binding Cam3.IsError}"
                             TargetType="icons:IconView"
                             Value="True">
@@ -323,13 +291,6 @@
                         TargetType="Grid"
                         Value="#0C852E">
                         <Setter Property="BackgroundColor" Value="Transparent" />
-                    </DataTrigger>
-                    <DataTrigger
-                        Binding="{Binding Cam3.TotalTime}"
-                        TargetType="Grid"
-                        Value="0">
-                        <Setter Property="BackgroundColor" Value="Black" />
-                        <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                     <DataTrigger
                         Binding="{Binding Cam3.IsError}"
@@ -407,12 +368,6 @@
                     </icons:IconView.GestureRecognizers>
                     <icons:IconView.Triggers>
                         <DataTrigger
-                            Binding="{Binding Cam4.TotalTime, Mode=OneWay}"
-                            TargetType="icons:IconView"
-                            Value="0">
-                            <Setter Property="IsVisible" Value="True" />
-                        </DataTrigger>
-                        <DataTrigger
                             Binding="{Binding Cam4.IsError}"
                             TargetType="icons:IconView"
                             Value="True">
@@ -426,13 +381,6 @@
                         TargetType="Grid"
                         Value="#0C852E">
                         <Setter Property="BackgroundColor" Value="Transparent" />
-                    </DataTrigger>
-                    <DataTrigger
-                        Binding="{Binding Cam4.TotalTime}"
-                        TargetType="Grid"
-                        Value="0">
-                        <Setter Property="BackgroundColor" Value="Black" />
-                        <Setter Property="InputTransparent" Value="False" />
                     </DataTrigger>
                     <DataTrigger
                         Binding="{Binding Cam4.IsError}"

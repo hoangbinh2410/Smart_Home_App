@@ -346,66 +346,9 @@
                             <Label
                                 IsVisible="True"
                                 StyleClass="BoldText"
-                                Text="{Binding TotalTime, Converter={StaticResource NumberToTimeConverter}}"
+                                Text="{Binding TotalTime, Converter={StaticResource NumberToTimeConverter}, Mode=TwoWay}"
                                 TextColor="White"
-                                VerticalOptions="Center">
-                                <!--<Label.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding SelectedCamera}"
-                                        TargetType="Label"
-                                        Value="{x:Static local:CameraEnum.CAM1}">
-                                        <Setter Property="IsVisible" Value="True" />
-                                    </DataTrigger>
-                                </Label.Triggers>-->
-                            </Label>
-                            <!--<Label
-                                IsVisible="True"
-                                StyleClass="BoldText"
-                                Text="{Binding Cam2.ToTalTime, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
-                                TextColor="White"
-                                VerticalOptions="Center">
-                            -->
-                            <!--<Label.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding SelectedCamera}"
-                                        TargetType="Label"
-                                        Value="{x:Static local:CameraEnum.CAM2}">
-                                        <Setter Property="IsVisible" Value="True" />
-                                    </DataTrigger>
-                                </Label.Triggers>-->
-                            <!--
-                            </Label>
-                            -->
-                            <!--<Label
-                                IsVisible="True"
-                                StyleClass="BoldText"
-                                Text="{Binding Cam3.ToTalTime, Converter={StaticResource NumberToTimeConverter}}"
-                                TextColor="White"
-                                VerticalOptions="Center">
-                                <Label.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding SelectedCamera}"
-                                        TargetType="Label"
-                                        Value="{x:Static local:CameraEnum.CAM3}">
-                                        <Setter Property="IsVisible" Value="True" />
-                                    </DataTrigger>
-                                </Label.Triggers>
-                            </Label>-->
-                            <!--<Label
-                                IsVisible="False"
-                                StyleClass="BoldText"
-                                Text="{Binding Cam4.ToTalTime, Converter={StaticResource NumberToTimeConverter}}"
-                                TextColor="White"
-                                VerticalOptions="Center">
-                                <Label.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding SelectedCamera}"
-                                        TargetType="Label"
-                                        Value="{x:Static local:CameraEnum.CAM4}">
-                                        <Setter Property="IsVisible" Value="True" />
-                                    </DataTrigger>
-                                </Label.Triggers>
-                            </Label>-->
+                                VerticalOptions="Center" />
                         </Grid>
                         <icons:IconView
                             Foreground="{DynamicResource WhiteColor}"
