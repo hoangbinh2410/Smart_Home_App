@@ -20,6 +20,7 @@ namespace BA_MobileGPS.Core.Models
         private int counter { get; set; } // timer counter
         private bool internalError { get; set; }
         private long oldTime { get; set; } // get time to compare while error was happen
+
         public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC, CameraEnum position)
         {
             maxLoadingTime = maxTimeLoadingMedia;
@@ -31,6 +32,91 @@ namespace BA_MobileGPS.Core.Models
             countLoadingTimer.Elapsed += CountLoadingTimer_Elapsed;
             counter = maxLoadingTime;
             internalError = false;
+        }
+
+        private int totalTime;
+
+        /// <summary>
+        /// Bật màn hình reload cam khi bằng 0, giá trị dung lượng thời gian hiện tại của cam
+        /// </summary>
+        public int TotalTime
+        {
+            get { return totalTime; }
+            set
+            {
+                SetProperty(ref totalTime, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool isError;
+
+        /// <summary>
+        /// Bật màn hình lỗi khi true
+        /// </summary>
+        public bool IsError
+        {
+            get { return isError; }
+            set
+            {
+                SetProperty(ref isError, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private StreamStart data;
+
+        /// <summary>
+        /// Save current data
+        /// </summary>
+        public StreamStart Data
+        {
+            get { return data; }
+            set
+            {
+                SetProperty(ref data, value);
+            }
+        }
+
+        private CameraEnum? position;
+
+        /// <summary>
+        /// position on view 1-2-3-4
+        /// </summary>
+        public CameraEnum? Position
+        {
+            get { return position; }
+            set
+            {
+                SetProperty(ref position, value);
+            }
+        }
+
+        private MediaPlayer mediaPlayer;
+
+        /// <summary>
+        /// Main class manage status od video
+        /// </summary>
+        public MediaPlayer MediaPlayer
+        {
+            get { return mediaPlayer; }
+            set
+            {
+                SetProperty(ref mediaPlayer, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool isLoaded;
+
+        public bool IsLoaded
+        {
+            get { return isLoaded; }
+            set
+            {
+                SetProperty(ref isLoaded, value);
+                RaisePropertyChanged();
+            }
         }
 
         private void CountLoadingTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -69,6 +155,7 @@ namespace BA_MobileGPS.Core.Models
                 }
             }
         }
+
         private void SetError()
         {
             Device.BeginInvokeOnMainThread(() =>
@@ -76,7 +163,7 @@ namespace BA_MobileGPS.Core.Models
                 IsError = true;
                 IsLoaded = true;
                 TotalTime = 0;
-            });           
+            });
             countLoadingTimer.Stop();
         }
 
@@ -127,76 +214,6 @@ namespace BA_MobileGPS.Core.Models
                 });
                 internalError = false;
                 //countLoadingTimer.Stop();
-            }
-        }
-
-        private int totalTime;
-
-        public int TotalTime
-        {
-            get { return totalTime; }
-            set
-            {
-                SetProperty(ref totalTime, value);
-                RaisePropertyChanged();
-            }
-        }
-
-        private bool isError;
-
-        public bool IsError
-        {
-            get { return isError; }
-            set
-            {
-                SetProperty(ref isError, value);
-                RaisePropertyChanged();
-            }
-        }
-
-        private StreamStart data;
-
-        public StreamStart Data
-        {
-            get { return data; }
-            set
-            {
-                SetProperty(ref data, value);
-            }
-        }
-
-        private CameraEnum? position;
-
-        public CameraEnum? Position
-        {
-            get { return position; }
-            set
-            {
-                SetProperty(ref position, value);
-            }
-        }
-
-        private MediaPlayer mediaPlayer;
-
-        public MediaPlayer MediaPlayer
-        {
-            get { return mediaPlayer; }
-            set
-            {
-                SetProperty(ref mediaPlayer, value);
-                RaisePropertyChanged();
-            }
-        }
-
-        private bool isLoaded;
-
-        public bool IsLoaded
-        {
-            get { return isLoaded; }
-            set
-            {
-                SetProperty(ref isLoaded, value);
-                RaisePropertyChanged();
             }
         }
 

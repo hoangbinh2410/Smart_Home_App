@@ -61,15 +61,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            // Đóng busy indicator
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                Cam1.IsLoaded = true;
-                Cam2.IsLoaded = true;
-                Cam3.IsLoaded = true;
-                Cam4.IsLoaded = true;
-            });
+        {          
             //Check parameter key
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
@@ -704,7 +696,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         /// <summary>
         /// Cap nhat khung thong tin chi tiet:
-        ///  - update each 10s
+        ///  - update each 15s
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -717,47 +709,30 @@ namespace BA_MobileGPS.Core.ViewModels
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         TotalTime -= 1;
-                    });                    
+                    });
                 }
                 counterRequestPing--;
                 if (counterRequestPing == 0)
                 {
                     counterRequestPing = 15;
                     UpdateTimeAndLocation();
-                }
-                foreach (var item in currentCamera)
-                {
-                    var cam = GetCamera(item);
-                    if (AutoAddTime) // tu dong gia han
+                    foreach (var item in currentCamera)
                     {
-                        if (counterRequestPing == 5)
-                        {
+                        var cam = GetCamera(item);
+                        if (AutoAddTime || cam.TotalTime > maxTimeCameraRemain)
+                        {                            
                             TryExecute(async () =>
                             {
                                 if (cam != null && !cam.IsError && cam.IsLoaded)
                                 {
                                     await SendRequestTime(maxTimeCameraRemain, cam.Data.Channel);
+                                }
+                                if (AutoAddTime && cam.TotalTime < 600)
+                                {
                                     cam.TotalTime = 600;
                                 }
                             });
                         }
-                    }
-                    else
-                    {
-
-                        TryExecute(async () =>
-                        {
-                            if (cam != null && !cam.IsError && cam.IsLoaded)
-                            {
-                                if (cam.TotalTime > 0)
-                                {
-                                    if (counterRequestPing==5 && cam.TotalTime > maxTimeCameraRemain)
-                                    {
-                                        await SendRequestTime(maxTimeCameraRemain, cam.Data.Channel);
-                                    }
-                                }
-                            }
-                        });
                     }
                 }
             }
