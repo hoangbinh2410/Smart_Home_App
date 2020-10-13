@@ -6,6 +6,7 @@
     xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors"
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:prism="http://prismlibrary.com"
@@ -103,7 +104,11 @@
                                 x:Name="account"
                                 HeightRequest="{OnPlatform Android=40,
                                                            iOS=30}"
-                                Text="{Binding UserName.Value}" />
+                                Text="{Binding UserName.Value}">
+                                <Entry.Effects>
+                                    <effects:ClearEntryEffect />
+                                </Entry.Effects>
+                            </Entry>
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
                     <input:SfTextInputLayout
@@ -152,7 +157,11 @@
                                 HeightRequest="{OnPlatform Android=40,
                                                            iOS=30}"
                                 IsPassword="True"
-                                Text="{Binding Password.Value}" />
+                                Text="{Binding Password.Value}">
+                                <Entry.Effects>
+                                    <effects:ClearEntryEffect />
+                                </Entry.Effects>
+                            </Entry>
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
                     <StackLayout
