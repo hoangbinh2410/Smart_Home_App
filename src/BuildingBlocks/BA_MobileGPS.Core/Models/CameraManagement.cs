@@ -1,5 +1,4 @@
 ﻿using BA_MobileGPS.Core.Helpers;
-using BA_MobileGPS.Core.Views.Camera.MonitoringCamera;
 using BA_MobileGPS.Entities;
 using LibVLCSharp.Shared;
 using Prism.Mvvm;
@@ -12,7 +11,7 @@ using Timer = System.Timers.Timer;
 
 namespace BA_MobileGPS.Core.Models
 {
-    public class CameraManagement : BindableBase
+    public class CameraManagement : BindableBase, IDisposable
     {
         private LibVLC libVLC { get; }
         private int maxLoadingTime { get; }
@@ -21,13 +20,12 @@ namespace BA_MobileGPS.Core.Models
         private bool internalError { get; set; }
         private long oldTime { get; set; } // get time to compare while error was happen
 
-        public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC, CameraEnum position)
+        public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC)
         {
             maxLoadingTime = maxTimeLoadingMedia;
             this.libVLC = libVLC;
             InitMediaPlayer();
             totalTime = 1;
-            this.position = position;
             countLoadingTimer = new Timer(1000);
             countLoadingTimer.Elapsed += CountLoadingTimer_Elapsed;
             counter = maxLoadingTime;
@@ -35,10 +33,6 @@ namespace BA_MobileGPS.Core.Models
         }
 
         private int totalTime;
-
-        /// <summary>
-        /// Bật màn hình reload cam khi bằng 0, giá trị dung lượng thời gian hiện tại của cam
-        /// </summary>
         public int TotalTime
         {
             get { return totalTime; }
@@ -77,18 +71,12 @@ namespace BA_MobileGPS.Core.Models
                 SetProperty(ref data, value);
             }
         }
-
-        private CameraEnum? position;
-
-        /// <summary>
-        /// position on view 1-2-3-4
-        /// </summary>
-        public CameraEnum? Position
+         private bool isSelected;
+        public bool IsSelected
         {
-            get { return position; }
-            set
-            {
-                SetProperty(ref position, value);
+            get { return isSelected; }
+            set { SetProperty(ref isSelected, value);
+                RaisePropertyChanged();
             }
         }
 
@@ -106,6 +94,14 @@ namespace BA_MobileGPS.Core.Models
                 RaisePropertyChanged();
             }
         }
+        private double height;
+        public double Height
+        {
+            get { return height; }
+            set { SetProperty(ref height, value);
+                RaisePropertyChanged();
+            }
+        }
 
         private bool isLoaded;
 
@@ -118,6 +114,8 @@ namespace BA_MobileGPS.Core.Models
                 RaisePropertyChanged();
             }
         }
+
+        public bool AutoRequestPing { get; set; }
 
         private void CountLoadingTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -136,22 +134,22 @@ namespace BA_MobileGPS.Core.Models
                 {
                     countLoadingTimer.Interval = 5000;
                     //check error link broken
-                    if (MediaPlayer.Time != oldTime)
-                    {
-                        oldTime = MediaPlayer.Time;
-                        if (TotalTime > 3)
-                        {
-                            TotalTime -= 5;
-                        }
-                        else
-                        {
-                            SetError();
-                        }
-                    }
-                    else // error
-                    {
-                        SetError();
-                    }
+                    //if (MediaPlayer.Time != oldTime)
+                    //{
+                    //    oldTime = MediaPlayer.Time;
+                    //    if (TotalTime > 3)
+                    //    {
+                    //        TotalTime -= 5;
+                    //    }
+                    //    else
+                    //    {
+                    //        SetError();
+                    //    }
+                    //}
+                    //else // error
+                    //{
+                    //    SetError();
+                    //}
                 }
             }
         }
@@ -242,14 +240,17 @@ namespace BA_MobileGPS.Core.Models
 
         public virtual bool CanExcute()
         {
-            if (MediaPlayer.Media != null && MediaPlayer.Time > 0 && !internalError)
+            if (MediaPlayer != null && 
+                MediaPlayer.Media != null && 
+                MediaPlayer.Time > 0 && 
+                !internalError)
             {
                 return true;
             }
             return false;
         }
 
-        ~CameraManagement()
+        public void Dispose()
         {
             countLoadingTimer.Stop();
             countLoadingTimer.Elapsed -= CountLoadingTimer_Elapsed;
@@ -259,6 +260,11 @@ namespace BA_MobileGPS.Core.Models
             var media = MediaPlayer;
             MediaPlayer = null;
             media?.Dispose();
+        }
+
+        ~CameraManagement()
+        {
+            Dispose();
         }
     }
 }

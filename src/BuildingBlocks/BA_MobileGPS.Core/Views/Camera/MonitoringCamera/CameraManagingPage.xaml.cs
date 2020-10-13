@@ -1,5 +1,4 @@
 ﻿using BA_MobileGPS.Core.Resources;
-using BA_MobileGPS.Core.Views.Camera.MonitoringCamera;
 using Prism.Mvvm;
 using Syncfusion.ListView.XForms.Control.Helpers;
 using System.Linq;
@@ -14,118 +13,151 @@ using System;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using System.Collections.Generic;
+using Syncfusion.ListView.XForms;
+using BA_MobileGPS.Core.Models;
+using Syncfusion.XlsIO.Parser.Biff_Records;
+using Syncfusion.Data.Extensions;
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class CameraManagingPage : ContentPage, IDestructible
+    public partial class CameraManagingPage : ContentPage
     {
+        private int currentRows { get; set; }
+        private int currentColumns { get; set; }
+        private double portraitHeight { get; set; }
         private IEventAggregator eventAggregator { get; } = Prism.PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
         public CameraManagingPage()
         {
             try
-            {                
+            {
                 InitializeComponent();
-                eventAggregator.GetEvent<SwitchToFullScreenEvent>().Subscribe(SwitchToFullScreen);
                 eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Subscribe(SwitchToNormal);
-                eventAggregator.GetEvent<SetCameraLayoutEvent>().Subscribe(SetCameraLayout);
+                eventAggregator.GetEvent<SwitchToFullScreenEvent>().Subscribe(SwitchToFullScreen);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                throw;
-            }                       
+
+            }
+
         }
 
-        private void SetCameraLayout(int obj)
+        private void SwitchToFullScreen()
         {
-            eventAggregator.GetEvent<DisposeTemplateView>().Publish();
-            Device.BeginInvokeOnMainThread(() =>
-            {              
-                noDataImage.IsVisible = false;
-                cameraPanel.Children.Clear();
-                if (obj == 1)
+            foreach (var obj in list.ItemsSource)
+            {
+                var item = (CameraManagement)obj;
+                if (item.IsSelected)
                 {
-                    var cam = new Template1Camera();
-                  
-                    cameraPanel.Children.Add(cam);
+                    item.Height = list.Height;
                 }
-                else if (obj == 2)
+                else
                 {
-                    var cam = new Template2Camera();
-                  
-                    cameraPanel.Children.Add(cam);
+                    item.Height = 0;
                 }
-                else if(obj == 4)
-                {
-                    var cam = new Template4Camera();
-                 
-                    cameraPanel.Children.Add(cam);
-                }
-                else if (obj == 0)
-                {
-                    noDataImage.IsVisible = true;
-                }
-            });
-        
+            }
+            layout.Span = 1;
         }
 
         private void SwitchToNormal()
         {
-            Device.BeginInvokeOnMainThread(() =>
+            foreach (var obj in list.ItemsSource)
             {
-                Grid.SetRow(playbackControl, 3);
-                if (Device.RuntimePlatform == Device.iOS)
-                {
-                    var safe = On<iOS>().SafeAreaInsets();
-                    Padding = new Thickness(0, 0, 0, safe.Bottom);
-                }
-            });
-          
-        }
-
-        private void SwitchToFullScreen(CameraEnum obj)
-        {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                Grid.SetRow(playbackControl, 2);
-                Padding = new Thickness(0, 0, 0, 0);
-            });        
-        }
-
-        protected override void OnAppearing()
-        {
-            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;      
-            base.OnAppearing();
-            if (Device.RuntimePlatform == Device.iOS)
-            {
-                var safe = On<iOS>().SafeAreaInsets();
-                Padding = new Thickness(0, 0, 0, safe.Bottom);
+                var item = (CameraManagement)obj;
+                item.Height = portraitHeight;
             }
+            layout.Span = currentColumns;
         }
 
-        public void Destroy()
+
+        private void list_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            eventAggregator.GetEvent<SwitchToFullScreenEvent>().Unsubscribe(SwitchToFullScreen);
-            eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Unsubscribe(SwitchToNormal);
-            eventAggregator.GetEvent<SetCameraLayoutEvent>().Unsubscribe(SetCameraLayout);
+            try
+            {
+                if (e.PropertyName == "ItemsSource")
+                {
+                    var listViewTempalte = (CollectionView)sender;
+
+                    var itemSource = listViewTempalte.ItemsSource.Cast<CameraManagement>().ToList();
+                    if (itemSource != null && itemSource.Count > 0)
+                    {
+                        var countSqrt = Math.Sqrt(itemSource.Count); // so dong
+                        var rowNum = Convert.ToInt32(countSqrt);
+                        if (rowNum < countSqrt)
+                        {
+                            rowNum +=1; 
+                        }
+                        var columnNum = rowNum; // so cot
+
+                        while (columnNum > 1)
+                        {
+                            var maxCamInlayout = columnNum * countSqrt;
+                            if (itemSource.Count >= maxCamInlayout)
+                            {
+                                break;
+                            }
+                            columnNum--;
+                        }
+
+                        layout.Span = columnNum;
+
+                        currentColumns = columnNum;
+                        currentRows = rowNum;
+                        portraitHeight = list.Height / rowNum;
+
+                        foreach (var item in itemSource)
+                        {
+                            item.Height = portraitHeight;
+                            if (item.Data == null)
+                            {
+                                item.Data = new Entities.StreamStart() { Link = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" };
+                            }
+                            item.SetMedia(item.Data.Link);
+                        }
+                    }                   
+                 
+                }
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+
+        }
+
+        private void list_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                var previous = e.PreviousSelection?.Cast<CameraManagement>().FirstOrDefault();
+                var current = e.CurrentSelection?.Cast<CameraManagement>().FirstOrDefault();
+                Device.BeginInvokeOnMainThread(() => {
+                    if (previous != null)
+                    {
+                        previous.IsSelected = false;
+                    }
+                    if (current != null)
+                    {
+                        current.IsSelected = true;
+                    }
+                });
+              
+            }
+            catch (Exception ex)
+            {
+
+                
+            }                     
         }
     }
 
-    public class SetCameraLayoutEvent : PubSubEvent<int>
-    {
-
-    }
-
-    public class SwitchToFullScreenEvent : PubSubEvent<CameraEnum>
+    public class SwitchToFullScreenEvent : PubSubEvent
     {
 
     }
 
     public class SwitchToNormalScreenEvent : PubSubEvent
-    {
-
-    }
-    public class DisposeTemplateView : PubSubEvent
     {
 
     }
