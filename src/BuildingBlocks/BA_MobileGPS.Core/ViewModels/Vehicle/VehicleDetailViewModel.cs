@@ -68,7 +68,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Coordinates = cardetail.Lat.ToString().Replace(",", ".") + ", " + cardetail.Lng.ToString().Replace(",", ".");
                 GetVehicleDetail();
                 IsCameraEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView);
-            }           
+            }
             //InitMenuItems();
         }
 
@@ -87,11 +87,13 @@ namespace BA_MobileGPS.Core.ViewModels
         public bool IsCameraEnable
         {
             get { return fieldName; }
-            set { SetProperty(ref fieldName, value);
+            set
+            {
+                SetProperty(ref fieldName, value);
                 RaisePropertyChanged();
             }
         }
-       
+
         // thông tin chung của xe không thay đổi
         public int PK_VehicleID { get; set; }
 
@@ -171,20 +173,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
-        //private ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
 
-        //public ObservableCollection<MenuItem> MenuItems
-        //{
-        //    get
-        //    {
-        //        return menuItems;
-        //    }
-        //    set
-        //    {
-        //        SetProperty(ref menuItems, value);
-        //        RaisePropertyChanged();
-        //    }
-        //}
         #endregion property
 
         #region command
@@ -193,40 +182,6 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion command
 
         #region execute command
-
-        private void InitMenuItems()
-        {
-            var list = new List<MenuItem>();
-            list.Add(new MenuItem
-            {
-                Title = "Video",
-                Icon = "ic_videolive.png",
-                Url = "NavigationPage/CameraManagingPage",
-                IsEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView),
-            });
-            list.Add(new MenuItem
-            {
-                Title = "Hình Ảnh",
-                Icon = "ic_cameraonline.png",
-                Url = "NavigationPage/ImageManagingPage",
-                IsEnable = CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView),
-            });
-            list.Add(new MenuItem
-            {
-                Title = "Nhiên liệu",
-                Icon = "ic_fuel.png",
-                Url = "NavigationPage/PourFuelReportPage",
-                IsEnable = CheckPermision((int)PermissionKeyNames.ReportFuelView),
-            });
-            list.Add(new MenuItem
-            {
-                Title = "Nhiệt độ",
-                Icon = "ic_temperature.png",
-                Url = "NavigationPage/ReportTableTemperature",
-                IsEnable = CheckPermision((int)PermissionKeyNames.ReportTemperatureView),
-            });
-            //MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
-        }
 
         /// <summary>
         /// Load tất cả dữ liệu về thông tin chi tiết 1 xe
@@ -276,7 +231,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         GPSTime = response.GPSTime,
                         IsEnableAcc = response.AccStatus.GetValueOrDefault()
                     });
-
+                    Address = response.Address;
                     // hiện thị lên là xe đang nợ cần đóng tiền thu phí
                     if (response.IsExpried)
                     {
@@ -299,18 +254,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
             if (carInfo != null)
             {
-                if (StateVehicleExtension.IsMovingAndEngineON(carInfo))
-                {
-                    Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString());
-                }
-                ////////////////
-                VehicleTime = carInfo.VehicleTime;
-                VelocityGPS = carInfo.Velocity;
-                TotalKm = (float)carInfo.TotalKm;
-                StopTime = carInfo.StopTime;
+                GetVehicleDetail();
+              
                 Coordinates = carInfo.Lat.ToString().Replace(",", ".") + ", " + carInfo.Lng.ToString().Replace(",", ".");
-                //Động cơ
-                EngineState = StateVehicleExtension.EngineState(carInfo);
 
             }
         }
