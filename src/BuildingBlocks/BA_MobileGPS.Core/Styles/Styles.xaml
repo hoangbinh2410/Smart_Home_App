@@ -216,7 +216,7 @@
     <OnPlatform
         x:Key="HeightTitleBarGrid"
         x:TypeArguments="x:Double"
-        Android="60"
+        Android="50"
         iOS="70" />
     <!--  TitleBar  -->
     <Style Class="TitleBarGrid" TargetType="Grid">

@@ -13,7 +13,16 @@ namespace BA_MobileGPS.Core.Views
             Text = text;
             if (Device.RuntimePlatform == Device.iOS)
             {
-                WidthRequest = (text.Trim().Length * 10);
+                var lenght = text.Trim().Length;
+                if (lenght >= 10)
+                {
+                    WidthRequest = (text.Trim().Length * 9);
+                }
+                else
+                {
+                    WidthRequest = (text.Trim().Length * 10);
+                }
+
             }
             else
             {
