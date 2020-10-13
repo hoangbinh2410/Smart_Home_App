@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace BA_MobileGPS.Entities
 {
@@ -18,5 +19,15 @@ namespace BA_MobileGPS.Entities
 
         [JsonProperty("Imei")]
         public string Imei { set; get; }
+
+
+        [JsonIgnore]
+        public string IconImage { set; get; }
+
+        [JsonIgnore]
+        public int Velocity { set; get; }
+
+        [JsonIgnore]
+        public DateTime VehicleTime { set; get; }
     }
 }
