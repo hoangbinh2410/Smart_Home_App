@@ -67,13 +67,14 @@
             Padding="5,0"
             ColumnDefinitions="1*,Auto,Auto"
             ColumnSpacing="10"
-            HeightRequest="45"
+            HeightRequest="40"
             VerticalOptions="StartAndExpand">
             <pancake:PancakeView
                 Padding="0"
                 BackgroundColor="{DynamicResource WhiteColor}"
                 CornerRadius="22"
-                HasShadow="True">
+                HasShadow="True"
+                HeightRequest="40">
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
@@ -83,8 +84,8 @@
                     Orientation="Horizontal">
                     <pancake:PancakeView
                         BackgroundColor="{DynamicResource PrimaryColor}"
-                        CornerRadius="22"
-                        WidthRequest="45">
+                        CornerRadius="20"
+                        WidthRequest="40">
                         <controls:IconView
                             Margin="13"
                             Foreground="{DynamicResource WhiteColor}"
@@ -93,6 +94,7 @@
                     <Entry
                         x:Name="entrySearch"
                         FontSize="14"
+                        HeightRequest="40"
                         HorizontalOptions="FillAndExpand"
                         InputTransparent="True"
                         PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
@@ -109,8 +111,9 @@
                 Grid.Column="1"
                 Padding="0"
                 BackgroundColor="{Binding VehicleGroups, Converter={StaticResource HasDataBackgroundColorConverter}}"
-                CornerRadius="22"
-                WidthRequest="45">
+                CornerRadius="20"
+                HeightRequest="40"
+                WidthRequest="40">
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
@@ -123,8 +126,9 @@
             <pancake:PancakeView
                 Grid.Column="2"
                 BackgroundColor="{Binding VehicleStatusSelected, Converter={StaticResource SelectedStatusBackgroundColorConverter}}"
-                CornerRadius="22"
-                WidthRequest="45">
+                CornerRadius="20"
+                HeightRequest="40"
+                WidthRequest="40">
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer Tapped="FilterStatusCar" />
                 </pancake:PancakeView.GestureRecognizers>
@@ -145,43 +149,43 @@
                 x:Name="btnDirectvehicleOnline"
                 Padding="0"
                 BackgroundColor="{DynamicResource WhiteColor}"
-                CornerRadius="25"
-                HeightRequest="50"
-                WidthRequest="50">
+                CornerRadius="20"
+                HeightRequest="40"
+                WidthRequest="40">
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PushDirectvehicleOnlineCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Foreground="{DynamicResource PrimaryColor}"
-                    HeightRequest="25"
+                    HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="direction.png"
                     VerticalOptions="Center"
-                    WidthRequest="25" />
+                    WidthRequest="20" />
             </pancake:PancakeView>
             <pancake:PancakeView
                 Padding="0"
                 BackgroundColor="{DynamicResource WhiteColor}"
-                CornerRadius="25"
-                HeightRequest="50"
-                WidthRequest="50">
+                CornerRadius="20"
+                HeightRequest="40"
+                WidthRequest="40">
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer Tapped="GetMylocation" />
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
                     Foreground="{DynamicResource PrimaryColor}"
-                    HeightRequest="25"
+                    HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_vector.png"
                     VerticalOptions="Center"
-                    WidthRequest="25" />
+                    WidthRequest="20" />
             </pancake:PancakeView>
             <pancake:PancakeView
                 Padding="0"
                 BackgroundColor="{Binding BackgroundMapType}"
-                CornerRadius="25"
-                HeightRequest="50"
-                WidthRequest="50">
+                CornerRadius="20"
+                HeightRequest="40"
+                WidthRequest="40">
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ChangeMapTypeCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
@@ -193,13 +197,13 @@
                     VerticalOptions="Center"
                     WidthRequest="20" />
             </pancake:PancakeView>
-            <!--<pancake:PancakeView
+            <pancake:PancakeView
                 Padding="0"
                 BackgroundColor="{DynamicResource PrimaryColor}"
-                CornerRadius="25"
-                HeightRequest="50"
+                CornerRadius="20"
+                HeightRequest="40"
                 IsVisible="{Binding IsShowConfigLanmark}"
-                WidthRequest="50">
+                WidthRequest="40">
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
@@ -210,7 +214,7 @@
                     Source="ic_settings.png"
                     VerticalOptions="Center"
                     WidthRequest="20" />
-            </pancake:PancakeView>-->
+            </pancake:PancakeView>
         </StackLayout>
         <!--  Thông tin xe  -->
         <views:OnlineCarInfoView
