@@ -141,7 +141,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private CancellationTokenSource ctsAddress = new CancellationTokenSource();
 
         private Polyline RouteLine;
-        private Polyline CurrentLine;
 
         private RouteHistoryResponse RouteHistory;
 
@@ -487,8 +486,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             CurrentRoute = ListRoute[0];
 
-                            CurrentLine.Positions.Add(new Position(CurrentRoute.Latitude, CurrentRoute.Longitude));
-
                             if (CurrentRoute.State != null && CurrentRoute.State.State == StateType.Stop)
                             {
                                 DrawStopPoint(CurrentRoute);
@@ -743,7 +740,7 @@ namespace BA_MobileGPS.Core.ViewModels
             RouteLine = new Polyline
             {
                 IsClickable = false,
-                StrokeColor = (Color)App.Current.Resources["TextSecondaryColor"],
+                StrokeColor = Color.FromHex("#4285f4"),
                 StrokeWidth = 3f,
                 ZIndex = 1
             };
@@ -755,19 +752,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 RouteLine.Positions.Add(new Position(ListRoute[i].Latitude, ListRoute[i].Longitude));
             }
 
-            CurrentLine = new Polyline
-            {
-                IsClickable = false,
-                StrokeColor = (Color)App.Current.Resources["PrimaryColor"],
-                StrokeWidth = 3f,
-                ZIndex = 2
-            };
-
-            CurrentLine.Positions.Add(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude));
-            CurrentLine.Positions.Add(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude));
-
             Polylines.Add(RouteLine);
-            Polylines.Add(CurrentLine);
 
             PlayStop();
         }
@@ -926,8 +911,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             return false;
                         }
 
-                        CurrentLine.Positions.Add(new Position(CurrentRoute.Latitude, CurrentRoute.Longitude));
-
                         if (CurrentRoute.Direction != null)
                         {
                             DrawDirection(CurrentRoute);
@@ -1043,29 +1026,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
             ctsAddress = new CancellationTokenSource();
 
-            Polylines.Remove(CurrentLine);
-
-            CurrentLine = new Polyline
-            {
-                IsClickable = false,
-                StrokeColor = (Color)App.Current.Resources["PrimaryColor"],
-                StrokeWidth = 3f,
-                ZIndex = 2
-            };
 
             foreach (var pin in Pins.ToList().FindAll(p => (p != PinCar && p != PinPlate) && (!"pin_car".Equals(p.Label) && !"pin_plate".Equals(p.Label)) && ("direction".Equals(p.Tag) || "state_stop".Equals(p.Tag))))
             {
                 Pins.Remove(pin);
             }
-
-            CurrentLine.Positions.Add(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude));
-            CurrentLine.Positions.Add(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude));
-
             for (int i = 0; i <= PlayCurrent; i++)
             {
-                CurrentLine.Positions.Add(new Position(ListRoute[i].Latitude, ListRoute[i].Longitude));
-
-                if (ListRoute[i].State != null && ListRoute[i].State.State == StateType.Stop)
+               if (ListRoute[i].State != null && ListRoute[i].State.State == StateType.Stop)
                 {
                     DrawStopPoint(ListRoute[i]);
                 }
@@ -1075,8 +1043,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     DrawDirection(ListRoute[i]);
                 }
             }
-
-            Polylines.Add(CurrentLine);
         }
 
         private void DragStarted()

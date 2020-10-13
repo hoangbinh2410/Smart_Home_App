@@ -48,7 +48,11 @@
                     VerticalOptions="Center"
                     WidthRequest="20" />
                 <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                    <Label FontAttributes="Bold" Text="{Binding CarActive.PrivateCode}" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontFamily="{StaticResource myFontLatoBold}"
+                        FontSize="16"
+                        Text="{Binding CarActive.PrivateCode}" />
 
                 </StackLayout>
             </StackLayout>
