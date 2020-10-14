@@ -56,6 +56,7 @@ namespace VIVIEW_MobileGPS
             containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
             containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());
             containerRegistry.Register<ResourceDictionary, VIVIEW_MobileGPS.Styles.Custom>(Theme.Custom.ToString());
+
         }
     }
 }
