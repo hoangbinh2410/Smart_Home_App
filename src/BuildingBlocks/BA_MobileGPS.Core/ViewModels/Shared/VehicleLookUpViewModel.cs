@@ -86,7 +86,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
-                    SetFocus("SearchText");
                     try
                     {
                         ListVehicleOrigin.Clear();
