@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BA_MobileGPS.Entities;
+using Realms.Exceptions;
+using Syncfusion.SfDataGrid.XForms;
+using System;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -16,6 +19,16 @@ namespace BA_MobileGPS.Core.Views
 
             showhideColumn.TranslateTo(0, (int)Application.Current.MainPage.Height, 250);
             IsShowFilter = !IsShowFilter;
+
+            FixColumTablet();
+        }
+
+        private void FixColumTablet()
+        {
+            if (TargetIdiom.Tablet == Device.Idiom)
+            {
+                dataGrid.GridColumnSizer.DataGrid.Columns["CurrentAddress"].Width = 230;
+            }
         }
 
         private void HideableToolbarItem_Clicked(object sender, EventArgs e)
