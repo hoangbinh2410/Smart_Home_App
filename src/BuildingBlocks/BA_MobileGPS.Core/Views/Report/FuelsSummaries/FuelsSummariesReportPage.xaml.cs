@@ -26,10 +26,15 @@ namespace BA_MobileGPS.Core.Views
 
         private void FixColumTablet()
         {
-            if (TargetIdiom.Tablet != Device.Idiom)
+            if (TargetIdiom.Tablet == Device.Idiom)
             {
-                dataGrid.GridColumnSizer.DataGrid.Columns["Date"].Width = 80;
-                dataGrid.GridColumnSizer.DataGrid.Columns["StartTime"].Width = 80;
+                dataGrid.GridColumnSizer.DataGrid.Columns["OrderNumber"].Width = 60;
+                dataGrid.GridColumnSizer.DataGrid.Columns["Date"].Width = 160;
+                dataGrid.GridColumnSizer.DataGrid.Columns["StartTime"].Width = 160;
+                dataGrid.GridColumnSizer.DataGrid.Columns["FirstLits"].Width = 160;
+                dataGrid.GridColumnSizer.DataGrid.Columns["SuckTotal"].Width = 160;
+                dataGrid.GridColumnSizer.DataGrid.Columns["LastLits"].Width = 160;
+                dataGrid.GridColumnSizer.DataGrid.Columns["LiterConsumable"].Width = 160;
             }
         }
 
