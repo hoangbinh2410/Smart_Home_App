@@ -114,19 +114,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 GetNoticePopup();
                 return false;
             });
-           
+
         }
 
         private void GetInfomation(bool isLogout = false)
         {
             if (!isLogout)
             {
-                Device.StartTimer(TimeSpan.FromMilliseconds(800), () =>
-                {
-                    GetMobileVersion();
-                    return false;
-                });
-                
+                Device.StartTimer(TimeSpan.FromMilliseconds(Device.RuntimePlatform == Device.iOS ? 300 : 700), () =>
+                    {
+                        GetMobileVersion();
+                        return false;
+                    });
+
             }
         }
 
