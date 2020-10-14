@@ -165,7 +165,7 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Realm" Version="5.0.1" />
+    <PackageReference Include="Realm" Version="5.1.1" />
     <PackageReference Include="System.Reflection.Emit" Version="4.7.0">
       <ExcludeAssets>all</ExcludeAssets>
       <IncludeAssets>none</IncludeAssets>
