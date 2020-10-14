@@ -86,6 +86,16 @@ namespace BA_MobileGPS.Core.ViewModels
             TryExecute(async () =>
             {
                 await ConnectSignalR();
+                Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
+                {                  
+                    GetCountVehicleDebtMoney();
+                    InsertOrUpdateAppDevice();
+                    GetNoticePopup();
+                    PushPageFileBase();
+                    // Lấy danh sách cảnh báo
+                    GetCountAlert();
+                    return false;
+                });
             });
 
         }
@@ -100,16 +110,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 InitVehilceOnline();
 
-                // Lấy danh sách cảnh báo
-                GetCountAlert();
-
-                PushPageFileBase();
-
-                InsertOrUpdateAppDevice();
-
-                GetNoticePopup();
-
-                GetCountVehicleDebtMoney();
             });
         }
 
