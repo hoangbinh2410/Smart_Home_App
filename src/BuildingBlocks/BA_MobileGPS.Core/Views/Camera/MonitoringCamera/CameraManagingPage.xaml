@@ -12,6 +12,7 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
+    x:Name="root"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.HasBackButton="False"
     NavigationPage.HasNavigationBar="{Binding IsFullScreenOff}">
@@ -21,24 +22,7 @@
         <converter:CameraChanelNameConverter x:Key="CameraChanelNameConverter" />
         <converter:ShowHideColumnConverter x:Key="ShowHideColumnConverter" />
         <converter:NumberToTimeConverter x:Key="NumberToTimeConverter" />
-        <!--<Style x:Key="gridMask" TargetType="Grid">
-            <Setter Property="VisualStateManager.VisualStateGroups">
-                <VisualStateGroupList>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="#33FFFFFF" />
-                            </VisualState.Setters>
-                        </VisualState>
-                        <VisualState x:Name="Selected">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="Transparent" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </Setter>
-        </Style>-->
+
         <Style x:Key="cameraTextFrame" TargetType="Frame">
             <Setter Property="BackgroundColor" Value="Transparent" />
             <Setter Property="CornerRadius" Value="2" />
@@ -169,94 +153,101 @@
         </Grid>
         <!--  Camera  -->
         <Grid x:Name="cameraPanel" Grid.Row="2">
-            <CollectionView
-                x:Name="list"
-                ItemsSource="{Binding ItemsSource, Mode=OneWay}"
-                PropertyChanged="list_PropertyChanged"
-                SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
-                SelectionChanged="list_SelectionChanged"
-                SelectionMode="Single">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout
-                        x:Name="layout"
-                        HorizontalItemSpacing="1"
-                        Orientation="Vertical"
-                        VerticalItemSpacing="1" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
+            <StackLayout
+                x:Name="parent"
+                BindableLayout.ItemsSource="{Binding ItemsSource, Mode=OneWay}"
+                Orientation="Horizontal"
+                Spacing="1"
+                VerticalOptions="FillAndExpand">
+                <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <Grid BackgroundColor="Black" HeightRequest="{Binding Height}">
-                            <vlc:VideoView
-                                x:Name="cam"
-                                InputTransparent="True"
-                                MediaPlayer="{Binding MediaPlayer}" />
-                            <Frame
-                                x:Name="frCam"
-                                BackgroundColor="Transparent"
-                                BorderColor="{DynamicResource WhiteColor}"
-                                InputTransparent="True"
-                                Style="{StaticResource cameraTextFrame}">
-                                <Frame.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding IsError}"
-                                        TargetType="Frame"
-                                        Value="True">
-                                        <Setter Property="BorderColor" Value="Red" />
-                                    </DataTrigger>
-                                    <DataTrigger
-                                        Binding="{Binding IsSelected}"
-                                        TargetType="Frame"
-                                        Value="True">
-                                        <Setter Property="BorderColor" Value="#0C852E" />
-                                    </DataTrigger>
-                                </Frame.Triggers>
-                                <Label
-                                    Text="{Binding Data.Channel, Converter={StaticResource CameraChanelNameConverter}}"
-                                    TextColor="{Binding Source={x:Reference frCam}, Path=BorderColor, Mode=OneWay}"
-                                    VerticalOptions="Center" />
-                            </Frame>
-                            <indicator:SfBusyIndicator IsBusy="{Binding IsLoaded, Converter={StaticResource ShowHideColumnConverter}}" />
-                            <Grid
-                                x:Name="errGrid"
-                                BackgroundColor="#33FFFFFF"
-                                InputTransparent="True">
-                                <Grid.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding IsSelected}"
-                                        TargetType="Grid"
-                                        Value="True">
-                                        <Setter Property="BackgroundColor" Value="Transparent" />
-                                    </DataTrigger>
-                                    <DataTrigger
-                                        Binding="{Binding IsError}"
-                                        TargetType="Grid"
-                                        Value="True">
-                                        <Setter Property="BackgroundColor" Value="Black" />
-                                        <Setter Property="InputTransparent" Value="False" />
-                                    </DataTrigger>
-                                </Grid.Triggers>
-                                <icons:IconView
-                                    Foreground="{DynamicResource WhiteColor}"
-                                    HeightRequest="25"
-                                    HorizontalOptions="Center"
-                                    IsVisible="False"
-                                    Source="ic_reload"
-                                    VerticalOptions="Center"
-                                    WidthRequest="25">
-                                    <icons:IconView.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding Source={x:Reference errGrid}, Path=BackgroundColor}"
-                                            TargetType="icons:IconView"
-                                            Value="Black">
-                                            <Setter Property="IsVisible" Value="True" />
-                                        </DataTrigger>
-                                    </icons:IconView.Triggers>
-                                </icons:IconView>
-                            </Grid>
-                        </Grid>
+                        <StackLayout
+                            BindableLayout.ItemsSource="{Binding ChildSource}"
+                            Spacing="1"
+                            WidthRequest="{Binding Width, Mode=OneWay}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid BackgroundColor="Black" HeightRequest="{Binding Height}">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="TapGestureRecognizer_Tapped" />
+                                        </Grid.GestureRecognizers>
+                                        <vlc:VideoView
+                                            x:Name="cam"
+                                            InputTransparent="True"
+                                            MediaPlayer="{Binding MediaPlayer}" />
+                                        <Frame
+                                            x:Name="frCam"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="{DynamicResource WhiteColor}"
+                                            InputTransparent="True"
+                                            Style="{StaticResource cameraTextFrame}">
+                                            <Frame.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding IsError}"
+                                                    TargetType="Frame"
+                                                    Value="True">
+                                                    <Setter Property="BorderColor" Value="Red" />
+                                                </DataTrigger>
+                                                <DataTrigger
+                                                    Binding="{Binding IsSelected}"
+                                                    TargetType="Frame"
+                                                    Value="True">
+                                                    <Setter Property="BorderColor" Value="#0C852E" />
+                                                </DataTrigger>
+                                            </Frame.Triggers>
+                                            <Label
+                                                Text="{Binding Data.Channel, Converter={StaticResource CameraChanelNameConverter}}"
+                                                TextColor="{Binding Source={x:Reference frCam}, Path=BorderColor, Mode=OneWay}"
+                                                VerticalOptions="Center" />
+                                        </Frame>
+                                        <indicator:SfBusyIndicator IsBusy="{Binding IsLoaded, Converter={StaticResource ShowHideColumnConverter}}" />
+                                        <Grid
+                                            x:Name="errGrid"
+                                            BackgroundColor="#33FFFFFF"
+                                            InputTransparent="True">
+                                            <Grid.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding IsSelected}"
+                                                    TargetType="Grid"
+                                                    Value="True">
+                                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                                </DataTrigger>
+                                                <DataTrigger
+                                                    Binding="{Binding IsError}"
+                                                    TargetType="Grid"
+                                                    Value="True">
+                                                    <Setter Property="BackgroundColor" Value="Black" />
+                                                    <Setter Property="InputTransparent" Value="False" />
+                                                </DataTrigger>
+                                            </Grid.Triggers>
+                                            <icons:IconView
+                                                Foreground="{DynamicResource WhiteColor}"
+                                                HeightRequest="25"
+                                                HorizontalOptions="Center"
+                                                IsVisible="False"
+                                                Source="ic_reload"
+                                                VerticalOptions="Center"
+                                                WidthRequest="25">
+                                                <icons:IconView.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding Source={x:Reference errGrid}, Path=BackgroundColor}"
+                                                        TargetType="icons:IconView"
+                                                        Value="Black">
+                                                        <Setter Property="IsVisible" Value="True" />
+                                                    </DataTrigger>
+                                                </icons:IconView.Triggers>
+                                                <icons:IconView.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ReLoadCommand}" CommandParameter="{Binding .}" />
+                                                </icons:IconView.GestureRecognizers>
+                                            </icons:IconView>
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
                     </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
         </Grid>
         <!--<StackLayout
             x:Name="noDataImage"
@@ -297,7 +288,7 @@
                         <Label
                             x:Name="lblCamName"
                             StyleClass="BoldText"
-                            Text="{Binding Data.Channel, Converter={StaticResource CameraChanelNameConverter}}"
+                            Text="{Binding SelectedItem.Data.Channel, Converter={StaticResource CameraChanelNameConverter}}"
                             TextColor="{DynamicResource WhiteColor}" />
                         <ff:CachedImage
                             Margin="20,0,0,0"

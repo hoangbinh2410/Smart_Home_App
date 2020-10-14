@@ -1,11 +1,13 @@
 ﻿using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Entities;
 using LibVLCSharp.Shared;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Reflection;
 using System.Threading;
 using System.Timers;
+using System.Windows.Input;
 using Xamarin.Forms;
 using Timer = System.Timers.Timer;
 
@@ -30,6 +32,9 @@ namespace BA_MobileGPS.Core.Models
             countLoadingTimer.Elapsed += CountLoadingTimer_Elapsed;
             counter = maxLoadingTime;
             internalError = false;
+            ReloadCommand = new DelegateCommand(Reload);
+
+
         }
 
         private int totalTime;
@@ -69,6 +74,7 @@ namespace BA_MobileGPS.Core.Models
             set
             {
                 SetProperty(ref data, value);
+                RaisePropertyChanged();
             }
         }
          private bool isSelected;
@@ -134,22 +140,22 @@ namespace BA_MobileGPS.Core.Models
                 {
                     countLoadingTimer.Interval = 5000;
                     //check error link broken
-                    //if (MediaPlayer.Time != oldTime)
-                    //{
-                    //    oldTime = MediaPlayer.Time;
-                    //    if (TotalTime > 3)
-                    //    {
-                    //        TotalTime -= 5;
-                    //    }
-                    //    else
-                    //    {
-                    //        SetError();
-                    //    }
-                    //}
-                    //else // error
-                    //{
-                    //    SetError();
-                    //}
+                    if (MediaPlayer.Time != oldTime)
+                    {
+                        oldTime = MediaPlayer.Time;
+                        if (TotalTime > 3)
+                        {
+                            TotalTime -= 5;
+                        }
+                        else
+                        {
+                            SetError();
+                        }
+                    }
+                    else // error
+                    {
+                        SetError();
+                    }
                 }
             }
         }
@@ -223,7 +229,7 @@ namespace BA_MobileGPS.Core.Models
                 countLoadingTimer.Stop();
                 countLoadingTimer.Interval = 1000;
                 counter = maxLoadingTime;
-                ThreadPool.QueueUserWorkItem((a) => { MediaPlayer.Stop(); });
+                //ThreadPool.QueueUserWorkItem((a) => { MediaPlayer.Stop(); });
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     IsLoaded = false;
@@ -236,6 +242,13 @@ namespace BA_MobileGPS.Core.Models
             {
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
+        }
+        public ICommand ReloadCommand { get; }
+
+        private void Reload()
+        {
+            Clear();
+            SetMedia(Data.Link);
         }
 
         public virtual bool CanExcute()
@@ -264,7 +277,7 @@ namespace BA_MobileGPS.Core.Models
 
         ~CameraManagement()
         {
-            Dispose();
+            //Dispose();
         }
     }
 }
