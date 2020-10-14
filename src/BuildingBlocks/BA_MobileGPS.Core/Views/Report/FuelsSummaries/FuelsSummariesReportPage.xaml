@@ -462,7 +462,6 @@
 
                                 <!--  Ngày  -->
                                 <syncDataGrid:GridTemplateColumn
-                                    Width="80"
                                     ColumnSizer="Auto"
                                     IsHidden="{Binding ShowFK_Date, Converter={StaticResource ShowHideColumnConverter}}"
                                     MappingName="Date"
@@ -494,7 +493,6 @@
 
                                 <!--  Bắt đâu / Kết thúc  -->
                                 <syncDataGrid:GridTemplateColumn
-                                    Width="65"
                                     ColumnSizer="Auto"
                                     IsHidden="{Binding ShowStartEndTime, Converter={StaticResource ShowHideColumnConverter}}"
                                     MappingName="StartTime"

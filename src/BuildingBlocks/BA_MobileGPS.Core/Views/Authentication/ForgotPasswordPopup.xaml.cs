@@ -23,7 +23,7 @@ namespace BA_MobileGPS.Core.Views.Authentication
         {
             base.OnAppearing();
             var color = ((Color)Application.Current.Resources["PrimaryColor"]).ToHex().Replace("FF",string.Empty);
-            content.Text = string.Format(MobileResource.Login_ForgotPassword_PopupContent, color);
+            content.Text = string.Format(MobileResource.Login_ForgotPassword_PopupContent, color, MobileSettingHelper.HotlineGps);
         }
     }
 }

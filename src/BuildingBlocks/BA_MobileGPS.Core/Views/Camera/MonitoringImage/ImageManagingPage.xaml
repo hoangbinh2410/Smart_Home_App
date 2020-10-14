@@ -202,7 +202,7 @@
                             VerticalOptions="Center">
                             <Label
                                 HorizontalOptions="Center"
-                                Text="{Binding Name}"
+                                Text="{Binding .}"
                                 TextColor="{DynamicResource WhiteColor}"
                                 VerticalOptions="Center" />
                         </pancake:PancakeView>
