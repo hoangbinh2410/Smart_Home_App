@@ -1,40 +1,30 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Prism;
-using Prism.Ioc;
+using VIVIEW_MobileGPS;
+using BA_MobileGPS.Core.Droid;
+using BA_MobileGPS.Droid.Setup;
+using Xamarin.Forms;
 
 namespace MOTO_MobileGPS.Droid
 {
-    [Activity(Label = "MOTO_MobileGPS", Icon = "@mipmap/ic_launcher", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    [Activity(Label = "MOTO GPS", Icon = "@mipmap/ic_launcher", Theme = "@style/MainTheme", MainLauncher = false,
+        LaunchMode = LaunchMode.SingleTask, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
+    public class MainActivity : BaseActivity
     {
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override void OnCreate(Bundle bundle)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
-            base.OnCreate(savedInstanceState);
+            base.OnCreate(bundle);
+            Forms.SetFlags(new string[] { "CarouselView_Experimental", "IndicatorView_Experimental", "FastRenderers_Experimental", "AppTheme_Experimental" });
 
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            LoadApplication(new App(new AndroidInitializer()));
-        }
+            Forms.Init(this, bundle);
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
-        {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            ToolSetup.Initialize(this, bundle);
 
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
-
-    public class AndroidInitializer : IPlatformInitializer
-    {
-        public void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-            // Register any platform specific implementations
+            LoadApplication(new MOTOApp(new AndroidInitializer()));
         }
     }
 }
-

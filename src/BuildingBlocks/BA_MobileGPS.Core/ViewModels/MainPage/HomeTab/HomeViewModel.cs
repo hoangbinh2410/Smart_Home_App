@@ -39,9 +39,13 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-
-            // Lấy danh sách menu
-            GetListMenu();
+            Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
+            {
+                // Lấy danh sách menu
+                GetListMenu();
+                return false;
+            });
+           
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

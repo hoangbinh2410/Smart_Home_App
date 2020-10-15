@@ -195,7 +195,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.ReportFuelsSummariesTotalSelected, request }
                 };
-                await NavigationService.NavigateAsync("FuelsSummariesReportPage", p, useModalNavigation: false);
+                await NavigationService.NavigateAsync("NavigationPage/FuelsSummariesReportPage", p, useModalNavigation: true);
             }
             catch (Exception ex)
             {

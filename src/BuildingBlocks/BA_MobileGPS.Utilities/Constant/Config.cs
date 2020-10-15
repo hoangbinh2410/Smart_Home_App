@@ -37,7 +37,7 @@
         /// Name     Date         Comments
         /// Namth  16/1/2018   created
         /// </Modified>
-        public const string SyncfusionKey = "MjgxMTk0QDMxMzgyZTMyMmUzMGZPcFA1MkhqekNSQ1RTaThNellHblhEckRGV3A3b1VVR1dBN2NBUjRNVm89";
+        public const string SyncfusionKey = "MzMzNzM0QDMxMzgyZTMzMmUzMFdwMmE0UHptTkgvQ2JydWtpNUEvdVNCWXBndzJoWVorMlNFNHhtbXc5cU09";
 
         /// <summary>
         /// Key cho OneSignal
