@@ -28,6 +28,19 @@ namespace BA_MobileGPS.Core.Views
             {
                 dataGrid.RowHeight = 55;
             }
+
+            FixColumTablet();
+        }
+
+        private void FixColumTablet()
+        {
+            if (TargetIdiom.Tablet == Device.Idiom)
+            {
+                dataGrid.GridColumnSizer.DataGrid.Columns["OrderNumber"].Width = 60;
+                dataGrid.GridColumnSizer.DataGrid.Columns["StartTime"].Width = 160;
+                dataGrid.GridColumnSizer.DataGrid.Columns["EndTime"].Width = 160;
+                dataGrid.GridColumnSizer.DataGrid.Columns["TotalTimes"].Width = 200;
+            }
         }
 
         private void HideableToolbarItem_Clicked(object sender, EventArgs e)

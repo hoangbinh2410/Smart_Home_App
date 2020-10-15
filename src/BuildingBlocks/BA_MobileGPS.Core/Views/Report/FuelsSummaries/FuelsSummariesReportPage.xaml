@@ -116,6 +116,7 @@
                                 <Label
                                     Grid.Row="0"
                                     Grid.Column="1"
+                                    HorizontalOptions="Start"
                                     HorizontalTextAlignment="Start"
                                     Text="{i18n:TranslateResource FuelsSummariesReport_Label_PopupStart}" />
                                 <StackLayout
@@ -135,6 +136,7 @@
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="1"
+                                    HorizontalOptions="Start"
                                     HorizontalTextAlignment="Start"
                                     Text="{i18n:TranslateResource FuelsSummariesReport_Label_PopupEnd}" />
                                 <StackLayout
@@ -154,6 +156,7 @@
                                 <Label
                                     Grid.Row="2"
                                     Grid.Column="1"
+                                    HorizontalOptions="Start"
                                     HorizontalTextAlignment="Start"
                                     Text="{i18n:TranslateResource FuelsSummariesReport_Label_PopupLastLits}" />
                                 <StackLayout
@@ -173,6 +176,7 @@
                                 <Label
                                     Grid.Row="3"
                                     Grid.Column="1"
+                                    HorizontalOptions="Start"
                                     HorizontalTextAlignment="Start"
                                     Text="{i18n:TranslateResource FuelsSummariesReport_Label_PopupLitsConsumable}" />
                             </Grid>
@@ -462,6 +466,7 @@
 
                                 <!--  Ngày  -->
                                 <syncDataGrid:GridTemplateColumn
+                                    Width="80"
                                     ColumnSizer="Auto"
                                     IsHidden="{Binding ShowFK_Date, Converter={StaticResource ShowHideColumnConverter}}"
                                     MappingName="Date"
@@ -493,6 +498,7 @@
 
                                 <!--  Bắt đâu / Kết thúc  -->
                                 <syncDataGrid:GridTemplateColumn
+                                    Width="80"
                                     ColumnSizer="Auto"
                                     IsHidden="{Binding ShowStartEndTime, Converter={StaticResource ShowHideColumnConverter}}"
                                     MappingName="StartTime"

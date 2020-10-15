@@ -27,7 +27,11 @@ namespace BA_MobileGPS.Core.Views
         {
             if (TargetIdiom.Tablet == Device.Idiom)
             {
-                dataGrid.GridColumnSizer.DataGrid.Columns["CurrentAddress"].Width = 230;
+                dataGrid.GridColumnSizer.DataGrid.Columns["OrderNumber"].Width = 60;
+                dataGrid.GridColumnSizer.DataGrid.Columns["StartTime"].Width = 200;
+                dataGrid.GridColumnSizer.DataGrid.Columns["ChangingFuel"].Width = 200;
+                dataGrid.GridColumnSizer.DataGrid.Columns["FuelStatus"].Width = 150;
+                dataGrid.GridColumnSizer.DataGrid.Columns["CurrentAddress"].Width = 250;
             }
         }
 
