@@ -15,6 +15,8 @@ using Xamarin.Forms.Extensions;
 using BA_MobileGPS.Core.ViewModels;
 using PanCardView.Extensions;
 using BA_MobileGPS.Core.Helpers;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -133,6 +135,11 @@ namespace BA_MobileGPS.Core.Views
         {
             try
             {
+                if (Device.RuntimePlatform == Device.iOS)
+                {
+                    var safe = On<iOS>().SafeAreaInsets();
+                    Padding = new Thickness(0, 0, 0, safe.Bottom);
+                }
                 if (parent != null)
                 {
                     var source = BindableLayout.GetItemsSource(parent);
@@ -164,6 +171,10 @@ namespace BA_MobileGPS.Core.Views
         {
             try
             {
+                if (Device.RuntimePlatform == Device.iOS)
+                {
+                    Padding = new Thickness(0, 0, 0, 0);
+                }
                 var source = BindableLayout.GetItemsSource(parent).Cast<ChildStackSource>();
 
                 foreach (var child in source)
@@ -203,11 +214,13 @@ namespace BA_MobileGPS.Core.Views
         {
             if (e.PropertyName == "ItemsSource")
             {
+                noDataImage.IsVisible = true;
                 try
                 {
                     var source = BindableLayout.GetItemsSource(parent)?.Cast<ChildStackSource>();
                     if (source != null && source.Count() > 0)
                     {
+                        noDataImage.IsVisible = false;
                         var maxCount = 1;
                         foreach (var item in source)
                         {

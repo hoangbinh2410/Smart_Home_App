@@ -7,6 +7,7 @@
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:indicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
@@ -250,24 +251,21 @@
                 </BindableLayout.ItemTemplate>
             </StackLayout>
         </Grid>
-        <!--<StackLayout
+        <StackLayout
             x:Name="noDataImage"
             Grid.Row="2"
             BackgroundColor="Transparent"
             HorizontalOptions="Center"
             Spacing="10"
             VerticalOptions="Center">
-
-        -->
-        <!--  Image for display svg image  -->
-        <!--
+            <!--  Image for display svg image  -->
             <ffsvg:SvgCachedImage
                 BackgroundColor="Transparent"
                 HeightRequest="200"
                 Source="NoPhotos.svg"
                 VerticalOptions="Center"
                 WidthRequest="200" />
-        </StackLayout>-->
+        </StackLayout>
 
         <Grid
             x:Name="playbackControl"
