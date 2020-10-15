@@ -29,5 +29,8 @@ namespace BA_MobileGPS.Entities
 
         [JsonIgnore]
         public DateTime VehicleTime { set; get; }
+
+        [JsonIgnore]
+        public int SortOrder { set; get; }
     }
 }
