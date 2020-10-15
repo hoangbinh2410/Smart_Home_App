@@ -79,7 +79,7 @@
     <ContentPage.Content>
         <sfPopup:SfPopupLayout x:Name="popupLayout" IsOpen="{Binding DisplayPopup}">
             <sfPopup:SfPopupLayout.PopupView>
-                <sfPopup:PopupView HeaderTitle="BA GPS" ShowFooter="False">
+                <sfPopup:PopupView HeaderTitle="{i18n:TranslateResource Common_Label_BAGPS}" ShowFooter="False">
                     <sfPopup:PopupView.ContentTemplate>
                         <DataTemplate>
                             <Grid Padding="0,0,10,0">
@@ -110,6 +110,7 @@
                                 <Label
                                     Grid.Row="0"
                                     Grid.Column="1"
+                                    HorizontalOptions="Start"
                                     HorizontalTextAlignment="Start"
                                     Text="{i18n:TranslateResource FuelsSummariesReportTotal_Label_PopupStart}" />
                                 <StackLayout
@@ -129,6 +130,7 @@
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="1"
+                                    HorizontalOptions="Start"
                                     HorizontalTextAlignment="Start"
                                     Text="{i18n:TranslateResource FuelsSummariesReportTotal_Label_PopupEnd}" />
                                 <StackLayout
@@ -148,6 +150,7 @@
                                 <Label
                                     Grid.Row="2"
                                     Grid.Column="1"
+                                    HorizontalOptions="Start"
                                     HorizontalTextAlignment="Start"
                                     Text="{i18n:TranslateResource FuelsSummariesReportTotal_Label_PopupLastLits}" />
                                 <StackLayout
@@ -167,6 +170,7 @@
                                 <Label
                                     Grid.Row="3"
                                     Grid.Column="1"
+                                    HorizontalOptions="Start"
                                     HorizontalTextAlignment="Start"
                                     Text="{i18n:TranslateResource FuelsSummariesReportTotal_Label_PopupLitsConsumable}" />
                             </Grid>

@@ -9,9 +9,11 @@ using System.Linq;
 using System.Reflection;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace BA_MobileGPS.Core.Views
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FavoritesConfigurationsPage : ContentPage
     {
         private FavoritesConfigurationsPageViewModel viewModel = null;

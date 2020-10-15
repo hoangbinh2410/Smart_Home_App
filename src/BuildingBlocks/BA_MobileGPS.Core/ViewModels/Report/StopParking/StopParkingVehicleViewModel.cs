@@ -145,33 +145,36 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 SelectStopParkingVehicleItem = ListDataSearch.Where(x => x.OrderNumber == OrderNumber).FirstOrDefault();
                 SelectStopParkingVehicleItem.VehiclePlate = VehicleSelect.VehiclePlate;
-                if (string.IsNullOrEmpty(SelectStopParkingVehicleItem.StartAddress) && string.IsNullOrEmpty(SelectStopParkingVehicleItem.EndAddress))
+                if (string.IsNullOrEmpty(SelectStopParkingVehicleItem.Address))
                 {
-                    var startLat = SelectStopParkingVehicleItem.StartLatitude;
-                    var startLong = SelectStopParkingVehicleItem.StartLongitude;
-                    var endLat = SelectStopParkingVehicleItem.EndLatitude;
-                    var endLong = SelectStopParkingVehicleItem.EndLongitude;
                     if (string.IsNullOrEmpty(SelectStopParkingVehicleItem.StartAddress) && string.IsNullOrEmpty(SelectStopParkingVehicleItem.EndAddress))
                     {
-                        var input = string.Format("{0} {1};{2} {3}", startLat, startLong, endLat, endLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        if (response.Count >= 2)
+                        var startLat = SelectStopParkingVehicleItem.StartLatitude;
+                        var startLong = SelectStopParkingVehicleItem.StartLongitude;
+                        var endLat = SelectStopParkingVehicleItem.EndLatitude;
+                        var endLong = SelectStopParkingVehicleItem.EndLongitude;
+                        if (string.IsNullOrEmpty(SelectStopParkingVehicleItem.StartAddress) && string.IsNullOrEmpty(SelectStopParkingVehicleItem.EndAddress))
                         {
-                            SelectStopParkingVehicleItem.StartAddress = response[0];
-                            SelectStopParkingVehicleItem.EndAddress = response[1];
+                            var input = string.Format("{0} {1};{2} {3}", startLat, startLong, endLat, endLong);
+                            var response = await BaseServiceReport.GetAddressReport(input);
+                            if (response.Count >= 2)
+                            {
+                                SelectStopParkingVehicleItem.StartAddress = response[0];
+                                SelectStopParkingVehicleItem.EndAddress = response[1];
+                            }
                         }
-                    }
-                    else if (string.IsNullOrEmpty(SelectStopParkingVehicleItem.StartAddress))
-                    {
-                        var input = string.Format("{0} {1}}", startLat, startLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        SelectStopParkingVehicleItem.StartAddress = response[0];
-                    }
-                    else if (string.IsNullOrEmpty(SelectStopParkingVehicleItem.EndAddress))
-                    {
-                        var input = string.Format("{0} {1}}", endLat, endLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        SelectStopParkingVehicleItem.EndAddress = response[0];
+                        else if (string.IsNullOrEmpty(SelectStopParkingVehicleItem.StartAddress))
+                        {
+                            var input = string.Format("{0} {1}}", startLat, startLong);
+                            var response = await BaseServiceReport.GetAddressReport(input);
+                            SelectStopParkingVehicleItem.StartAddress = response[0];
+                        }
+                        else if (string.IsNullOrEmpty(SelectStopParkingVehicleItem.EndAddress))
+                        {
+                            var input = string.Format("{0} {1}}", endLat, endLong);
+                            var response = await BaseServiceReport.GetAddressReport(input);
+                            SelectStopParkingVehicleItem.EndAddress = response[0];
+                        }
                     }
                 }
                 var p = new NavigationParameters
