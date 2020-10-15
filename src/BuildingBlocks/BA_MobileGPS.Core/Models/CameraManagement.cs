@@ -33,8 +33,6 @@ namespace BA_MobileGPS.Core.Models
             counter = maxLoadingTime;
             internalError = false;
             ReloadCommand = new DelegateCommand(Reload);
-
-
         }
 
         private int totalTime;
@@ -126,38 +124,76 @@ namespace BA_MobileGPS.Core.Models
         private void CountLoadingTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             counter -= 1;
-            if (internalError && !isLoaded)
+            if (!isLoaded)
             {
-                SetMedia(data.Link);
-                if (counter <= 0)
+                if (internalError)
                 {
-                    SetError();
+                    if (counter <= 0)
+                    {
+                        SetError();
+                    }
+                    else
+                    SetMedia(data.Link);                  
                 }
             }
             else
             {
-                if (isLoaded && MediaPlayer.IsPlaying)
+                if (internalError)
                 {
-                    countLoadingTimer.Interval = 5000;
-                    //check error link broken
+                    SetError();
+                }
+                else if (MediaPlayer.IsPlaying)
+                {
                     if (MediaPlayer.Time != oldTime)
                     {
                         oldTime = MediaPlayer.Time;
-                        if (TotalTime > 3)
+                        if (TotalTime > 0)
                         {
-                            TotalTime -= 5;
+                            TotalTime -= 1;
                         }
                         else
                         {
                             SetError();
                         }
                     }
-                    else // error
-                    {
-                        SetError();
-                    }
                 }
+                else // error
+                {
+                    SetError();
+                }
+
             }
+            //if (internalError && !isLoaded)
+            //{
+            //    SetMedia(data.Link);
+            //    if (counter <= 0)
+            //    {
+            //        SetError();
+            //    }
+            //}
+            //else
+            //{
+            //    if (isLoaded && MediaPlayer.IsPlaying)
+            //    {
+            //        //check error link broken
+            //        if (MediaPlayer.Time != oldTime)
+            //        {
+            //            oldTime = MediaPlayer.Time;
+            //            if (TotalTime > 0)
+            //            {
+            //                TotalTime -= 1;
+            //            }
+            //            else
+            //            {
+            //                SetError();
+            //            }
+            //        }
+            //        else // error
+            //        {
+            //            SetError();
+            //        }
+            //    }
+            //}
         }
 
         private void SetError()
@@ -176,8 +212,20 @@ namespace BA_MobileGPS.Core.Models
             mediaPlayer = new MediaPlayer(libVLC);
             mediaPlayer.TimeChanged += MediaPlayer_TimeChanged;
             mediaPlayer.EncounteredError += MediaPlayer_EncounteredError;
+            mediaPlayer.EndReached += MediaPlayer_EndReached;
+            mediaPlayer.Buffering += MediaPlayer_Buffering;
             mediaPlayer.AspectRatio = "16:9";
             mediaPlayer.Scale = 0;
+        }
+
+        private void MediaPlayer_Buffering(object sender, MediaPlayerBufferingEventArgs e)
+        {
+           
+        }
+
+        private void MediaPlayer_EndReached(object sender, EventArgs e)
+        {
+            
         }
 
         public void SetMedia(string url)
@@ -233,7 +281,6 @@ namespace BA_MobileGPS.Core.Models
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     IsLoaded = false;
-                    Data = null;
                     IsError = false;
                     TotalTime = 1;
                 });
@@ -265,19 +312,35 @@ namespace BA_MobileGPS.Core.Models
 
         public void Dispose()
         {
-            countLoadingTimer.Stop();
-            countLoadingTimer.Elapsed -= CountLoadingTimer_Elapsed;
-            countLoadingTimer.Dispose();
-            mediaPlayer.TimeChanged -= MediaPlayer_TimeChanged;
-            mediaPlayer.EncounteredError -= MediaPlayer_EncounteredError;
-            var media = MediaPlayer;
-            MediaPlayer = null;
-            media?.Dispose();
+            try
+            {
+                if (countLoadingTimer != null)
+                {
+                    countLoadingTimer.Stop();
+                    countLoadingTimer.Elapsed -= CountLoadingTimer_Elapsed;
+                    countLoadingTimer.Dispose();
+                }
+                if (MediaPlayer != null)
+                {
+                    mediaPlayer.TimeChanged -= MediaPlayer_TimeChanged;
+                    mediaPlayer.EncounteredError -= MediaPlayer_EncounteredError;
+                    mediaPlayer.EndReached -= MediaPlayer_EndReached;
+                    mediaPlayer.Buffering -= MediaPlayer_Buffering;
+                    var media = MediaPlayer;
+                    MediaPlayer = null;
+                    media?.Dispose();
+                }             
+            }
+            catch (Exception ex)
+            {
+
+            }
+           
         }
 
         ~CameraManagement()
         {
-            //Dispose();
+            Dispose();
         }
     }
 }

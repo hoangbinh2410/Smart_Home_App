@@ -56,6 +56,7 @@ namespace BA_MobileGPS.Core.ViewModels
             AutoAddTime = true;
             currentAddress = MobileResource.Camera_Label_Undefined;
             ReLoadCommand = new DelegateCommand<object>(Reload);
+            itemsSource = new List<ChildStackSource>();
         }
 
 
@@ -79,8 +80,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             catch (Exception ex)
             {
-
-               
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
             
         }
@@ -108,7 +108,9 @@ namespace BA_MobileGPS.Core.ViewModels
         public List<ChildStackSource> ItemsSource
         {
             get { return itemsSource; }
-            set { SetProperty(ref itemsSource, value); }
+            set { SetProperty(ref itemsSource, value);
+                RaisePropertyChanged();
+            }
         }
 
         private int totalTime;
@@ -319,11 +321,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsFullScreenOff = !IsFullScreenOff;
                 if (IsFullScreenOff)
                 {
-                    EventAggregator.GetEvent<SwitchToNormalScreenEvent>().Publish();
+                    DependencyService.Get<IScreenOrientServices>().ForcePortrait();
                 }
                 else
                 {
-                    EventAggregator.GetEvent<SwitchToFullScreenEvent>().Publish();
+                    DependencyService.Get<IScreenOrientServices>().ForceLandscape();
                 }
             }
         }
@@ -429,28 +431,68 @@ namespace BA_MobileGPS.Core.ViewModels
                         foreach (var item in cameraActive)
                         {
                             var res = await RequestStartCam(item.Channel);
+                            res.SetMedia(res.Data.Link);
                             listCam.Add(res);
                         }
-                        //SetItemsSource(listCam);
-                        listCam.Add(new CameraManagement(maxLoadingTime,libVLC));
-                        listCam.Add(new CameraManagement(maxLoadingTime, libVLC));
-                        listCam.Add(new CameraManagement(maxLoadingTime, libVLC));
-
-                        EventAggregator.GetEvent<GenerateViewEvent>().Publish(listCam);
+                        //for (int i = 0; i < 2; i++)
+                        //{
+                        //    var a = new CameraManagement(maxLoadingTime, libVLC);
+                        //    a.Data = new StreamStart();
+                        //    a.Data.Link = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+                        //    a.SetMedia(a.Data.Link);
+                        //    listCam.Add(a);
+                        //}
+                        SetItemsSource(listCam);
                     }
                 }
             });
         }
 
-       
+        private void SetItemsSource(List<CameraManagement> source)
+        {
+            if (source != null && source.Count > 0)
+            {
+                var result = new List<ChildStackSource>();
+                var countSqrt = Math.Sqrt(source.Count);
+                var rowNum = Convert.ToInt32(countSqrt); // so dong
+                if (rowNum < countSqrt)
+                {
+                    rowNum += 1;
+                }
+                var columnNum = rowNum; // so cot
+
+                while (columnNum > 1)
+                {
+                    var maxCamInlayout = columnNum * countSqrt;
+                    if (source.Count >= maxCamInlayout)
+                    {
+                        break;
+                    }
+                    columnNum--;
+                }
+                var deviceWidth = Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Width;
+                var stackChildWidth = deviceWidth / columnNum;
+
+                for (int i = 0; i < columnNum; i++)
+                {
+                    var temp = new ChildStackSource();
+                    temp.ChildSource = source.Skip(i * rowNum).Take(rowNum).ToList();
+                    temp.Width = stackChildWidth;
+                    result.Add(temp);
+                }
+                
+                ItemsSource = result;
+            }
+
+        }
+
         private void RequestMoreTimeStream(int minutes)
         {
-            //var selected = itemsSource.FirstOrDefault(x => x.IsSelected);
-            //if (selected != null)
-            //{
-            //    selected.TotalTime += minutes * 60;
-            //    TotalTime = selected.TotalTime;
-            //}
+            if (selectedItem != null)
+            {
+                selectedItem.TotalTime += minutes * 60;
+                TotalTime = selectedItem.TotalTime;
+            }
         }
 
         public override void OnSleep()
@@ -490,7 +532,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ClearAllMediaPlayer()
         {
-            EventAggregator.GetEvent<GenerateViewEvent>().Publish(null);
+            foreach (var child in itemsSource)
+            {
+                foreach (var item in child.ChildSource)
+                {
+                    item.Dispose();
+                }
+            }
+            ItemsSource = new List<ChildStackSource>();
         }
 
         private void SendRequestTime(int timeSecond, int chanel)
@@ -543,7 +592,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 }
                             }
                         }
-                       
+
                     }
                 }
             }

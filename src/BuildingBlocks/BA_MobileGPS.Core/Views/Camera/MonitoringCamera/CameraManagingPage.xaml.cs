@@ -14,6 +14,7 @@ using Syncfusion.DataSource.Extensions;
 using Xamarin.Forms.Extensions;
 using BA_MobileGPS.Core.ViewModels;
 using PanCardView.Extensions;
+using BA_MobileGPS.Core.Helpers;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -24,122 +25,13 @@ namespace BA_MobileGPS.Core.Views
         private IEventAggregator eventAggregator { get; } = Prism.PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
         public CameraManagingPage()
         {
-            try
-            {
-                InitializeComponent();
-                eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Subscribe(SwitchToNormal);
-                eventAggregator.GetEvent<SwitchToFullScreenEvent>().Subscribe(SwitchToFullScreen);
-                eventAggregator.GetEvent<GenerateViewEvent>().Subscribe(GenerateView);
-            }
-            catch (Exception ex)
-            {
-
-
-            }
-
+            InitializeComponent();
         }
         private bool isLoaded = false;
         protected override void OnAppearing()
         {
             base.OnAppearing();
             isLoaded = true;
-        }
-
-        private void GenerateView(List<CameraManagement> obj)
-        {
-            if (obj == null)
-            {
-                try
-                {
-                    var source = BindableLayout.GetItemsSource(parent);
-                    if (source != null && source.Count() > 0)
-                    {
-                        var castSource = source.Cast<ChildStackSource>();
-                        foreach (var child in castSource)
-                        {
-                            foreach (var item in child.ChildSource)
-                            {
-                                item.Clear();
-                                item.Dispose();
-                            }
-                        }
-                        BindableLayout.SetItemsSource(parent, null);
-                        selectedItem = null;
-                        normaltHeight = 0;
-                    }
-                }
-                catch (Exception ex)
-                {
-
-                  
-                }
-                //Clear:
-             
-            }
-            else
-            {
-                var itemSource = obj;
-                var parentSource = new List<ChildStackSource>();
-                if (itemSource != null && itemSource.Count > 0)
-                {
-                    var countSqrt = Math.Sqrt(itemSource.Count);
-                    var rowNum = Convert.ToInt32(countSqrt); // so dong
-                    if (rowNum < countSqrt)
-                    {
-                        rowNum += 1;
-                    }
-                    var columnNum = rowNum; // so cot
-
-                    while (columnNum > 1)
-                    {
-                        var maxCamInlayout = columnNum * countSqrt;
-                        if (itemSource.Count >= maxCamInlayout)
-                        {
-                            break;
-                        }
-                        columnNum--;
-                    }
-
-                    normaltHeight = parent.Height / rowNum;
-
-                    foreach (var item in itemSource)
-                    {
-                        item.Height = normaltHeight;
-
-                        if (item != null)
-                        {
-                            if (item.Data == null)
-                            {
-                                item.Data = new Entities.StreamStart() { Link = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" };
-                            }
-                            item.SetMedia(item.Data.Link);
-                        }
-                    }
-                    // have rowNum Item per column, each colum is a childSource
-                    for (int i = 0; i < columnNum; i++)
-                    {
-                        var temp = new ChildStackSource();
-                        temp.ChildSource = itemSource.Skip(i * rowNum).Take(rowNum).ToList();
-                        parentSource.Add(temp);
-                    }
-                    foreach (var item in parentSource)
-                    {
-                        item.Width = parent.Width / parentSource.Count;
-                    }
-                     ((CameraManagingPageViewModel)this.BindingContext).ItemsSource = parentSource;
-                    BindableLayout.SetItemsSource(parent, ((CameraManagingPageViewModel)this.BindingContext).ItemsSource);
-                }
-            }
-        }
-
-        private void SwitchToFullScreen()
-        {
-            DependencyService.Get<IScreenOrientServices>().ForceLandscape();
-        }
-
-        private void SwitchToNormal()
-        {
-            DependencyService.Get<IScreenOrientServices>().ForcePortrait();
         }
 
         private void list_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -170,21 +62,36 @@ namespace BA_MobileGPS.Core.Views
 
         public void Dispose()
         {
-            eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Unsubscribe(SwitchToNormal);
-            eventAggregator.GetEvent<SwitchToFullScreenEvent>().Unsubscribe(SwitchToFullScreen);
-            eventAggregator.GetEvent<GenerateViewEvent>().Unsubscribe(GenerateView);
+
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            if (selectedItem != null && selectedItem.IsSelected)
+            try
             {
-                selectedItem.IsSelected = false;
+                var temp = ((TappedEventArgs)e).Parameter;
+                var newItemSlect = (CameraManagement)temp;
+                if (newItemSlect.Data.Channel != selectedItem?.Data?.Channel)
+                {
+                    if (newItemSlect.CanExcute())
+                    {
+                        if (selectedItem != null && selectedItem.IsSelected)
+                        {
+                            selectedItem.IsSelected = false;
+                        }
+                        selectedItem = newItemSlect;
+                        selectedItem.IsSelected = true;
+                        ((CameraManagingPageViewModel)this.BindingContext).SelectedItem = selectedItem;
+                    }
+
+                }
             }
-            var temp = ((TappedEventArgs)e).Parameter;
-            selectedItem = (CameraManagement)temp;
-            selectedItem.IsSelected = true;
-            ((CameraManagingPageViewModel)this.BindingContext).SelectedItem = selectedItem;
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+           
+        
         }
 
 
@@ -215,31 +122,35 @@ namespace BA_MobileGPS.Core.Views
                 {
                     OrientChangedToLanscape();
                 }
-
             }
         }
         private void OrientChangedToVetical()
         {
             try
             {
-                if (isLoaded)
+                if (isLoaded && parent != null)
                 {
-                    var source = BindableLayout.GetItemsSource(parent).Cast<ChildStackSource>();
-                    foreach (var child in source)
+                    var source = BindableLayout.GetItemsSource(parent);
+                    if (source != null)
                     {
-                        child.Width = parent.Width / source.Count();
-                        foreach (var item in child.ChildSource)
+                        foreach (var child in source)
                         {
-                            item.Height = normaltHeight;
+                            if (child is ChildStackSource childStack)
+                            {
+                                childStack.Width = parent.Width / source.Count();
+                                foreach (var item in childStack.ChildSource)
+                                {
+                                    item.Height = normaltHeight;
+                                }
+                            }
                         }
-                    }
-                }             
-                Grid.SetRow(playbackControl, 3);
+                    }                    
+                    Grid.SetRow(playbackControl, 3);
+                }              
             }
             catch (Exception ex)
             {
-
-
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
 
         }
@@ -279,26 +190,44 @@ namespace BA_MobileGPS.Core.Views
             }
             catch (Exception ex)
             {
-
-
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-
         }
-    }
 
-    public class SwitchToFullScreenEvent : PubSubEvent
-    {
+        private void parent_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "ItemsSource")
+            {
+                try
+                {
+                    var source = BindableLayout.GetItemsSource(parent)?.Cast<ChildStackSource>();
+                    if (source != null && source.Count() > 0)
+                    {
+                        var maxCount = 1;
+                        foreach (var item in source)
+                        {
+                            if (item.ChildSource.Count > maxCount)
+                            {
+                                maxCount = item.ChildSource.Count;
+                            }
+                        }
 
-    }
-
-    public class SwitchToNormalScreenEvent : PubSubEvent
-    {
-
-    }
-
-    public class GenerateViewEvent : PubSubEvent<List<CameraManagement>>
-    {
-
+                        foreach (var item in source)
+                        {
+                            foreach (var cam in item.ChildSource)
+                            {
+                                normaltHeight = parent.Height / maxCount;
+                                cam.Height = normaltHeight;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                }
+            }
+        }
     }
 
     public class ChildStackSource : BindableBase

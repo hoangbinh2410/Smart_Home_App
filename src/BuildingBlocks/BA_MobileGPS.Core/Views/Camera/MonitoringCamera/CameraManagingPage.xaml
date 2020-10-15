@@ -155,8 +155,9 @@
         <Grid x:Name="cameraPanel" Grid.Row="2">
             <StackLayout
                 x:Name="parent"
-                BindableLayout.ItemsSource="{Binding ItemsSource, Mode=OneWay}"
+                BindableLayout.ItemsSource="{Binding ItemsSource}"
                 Orientation="Horizontal"
+                PropertyChanged="parent_PropertyChanged"
                 Spacing="1"
                 VerticalOptions="FillAndExpand">
                 <BindableLayout.ItemTemplate>
