@@ -33,8 +33,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private static List<Vehicle> ListVehicleOrigin = new List<Vehicle>();
 
-        private List<VehicleOnline> ListResultOnline = new List<VehicleOnline>();
-
         private List<Vehicle> listVehicle = new List<Vehicle>();
         public List<Vehicle> ListVehicle { get => listVehicle; set => SetProperty(ref listVehicle, value); }
 
@@ -93,7 +91,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         if (task.Result != null && task.Result.Count > 0)
                         {
-                            var result = task.Result.OrderBy(x => x.PrivateCode).ToList();
+                            var result = task.Result.OrderByDescending(x => x.SortOrder).ToList();
                             ListVehicleOrigin = result;
                             ListVehicle = result;
                         }
@@ -131,11 +129,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         foreach (var item in groupids)
                         {
-                            ListResultOnline = listOnline.FindAll(v => v.GroupIDs.Contains(item.ToString()));
-                            foreach (var lst in ListResultOnline)
+                            var lisOnline = listOnline.FindAll(v => v.GroupIDs.Contains(item.ToString()));
+                            if(lisOnline!=null && lisOnline.Count > 0)
                             {
-                                result.Add(AddListVehicle(lst));
-                            }
+                                foreach (var lst in lisOnline)
+                                {
+                                    result.Add(AddListVehicle(lst));
+                                }
+                            }  
                         }
                     }
                     else
@@ -165,7 +166,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 Imei = listOnline.Imei,
                 IconImage = listOnline.IconImage,
                 VehicleTime = listOnline.VehicleTime,
-                Velocity = listOnline.Velocity
+                Velocity = listOnline.Velocity,
+                SortOrder = listOnline.SortOrder
             });
         }
 
@@ -192,7 +194,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
-                    var result = task.Result.OrderBy(x => x.PrivateCode).ToList();
+                    var result = task.Result.OrderByDescending(x => x.SortOrder).ToList();
                     ListVehicle = result;
 
                     HasVehicle = ListVehicle.Count > 0;
