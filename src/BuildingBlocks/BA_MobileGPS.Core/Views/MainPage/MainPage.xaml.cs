@@ -23,86 +23,95 @@ namespace BA_MobileGPS.Core.Views
         private bool checkpermissiononline = false;
         public MainPage()
         {
-            InitializeComponent();
-            var home = new Home(); //Home                     
-            ViewModelLocator.SetAutowirePartialView(home, MainContentPage);
-            Switcher.Children.Add(home);// Trang home
-            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_home.png", Label = MobileResource.Menu_TabItem_Home });
-            if (CheckPermision((int)PermissionKeyNames.VehicleView))
+            try
             {
-                var listVehicleTab = new ContentView(); //Home
-                if (App.AppType == AppType.VMS || App.AppType == AppType.Moto)
+                InitializeComponent();
+                var home = new Home(); //Home                     
+                ViewModelLocator.SetAutowirePartialView(home, MainContentPage);
+                Switcher.Children.Add(home);// Trang home
+                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_home.png", Label = MobileResource.Menu_TabItem_Home });
+                if (CheckPermision((int)PermissionKeyNames.VehicleView))
                 {
-                    listVehicleTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("ListVehicleTab"); //Phương tiện
-                }
-                else
-                {
-                    listVehicleTab = new ListVehiclePage();
-                }
-                ViewModelLocator.SetAutowirePartialView(listVehicleTab, MainContentPage);
-                Switcher.Children.Add(listVehicleTab);
-                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_vehicle.png", Label = MobileResource.Menu_TabItem_Vehicle });
-            }
-            tabitem.SelectedTabIndexChanged += Tabitem_SelectedTabIndexChanged;
-            if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
-            {
-                checkpermissiononline = true;
-                var online = new ContentView(); //Home
-                if (App.AppType == AppType.VMS || App.AppType == AppType.Moto)
-                {
-                    //cấu hình cty này dùng Cluster thì mới mở forms Cluster
-                    if (MobileUserSettingHelper.EnableShowCluster)
+                    var listVehicleTab = new ContentView(); //Home
+                    if (App.AppType == AppType.VMS || App.AppType == AppType.Moto)
                     {
-                        online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online                       
+                        listVehicleTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("ListVehicleTab"); //Phương tiện
                     }
                     else
                     {
-                        online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTabNoCluster"); //Online
+                        listVehicleTab = new ListVehiclePage();
                     }
+                    ViewModelLocator.SetAutowirePartialView(listVehicleTab, MainContentPage);
+                    Switcher.Children.Add(listVehicleTab);
+                    tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_vehicle.png", Label = MobileResource.Menu_TabItem_Vehicle });
                 }
-                else
+                tabitem.SelectedTabIndexChanged += Tabitem_SelectedTabIndexChanged;
+                if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
                 {
-                    //cấu hình cty này dùng Cluster thì mới mở forms Cluster
-                    if (MobileUserSettingHelper.EnableShowCluster)
+                    checkpermissiononline = true;
+                    var online = new ContentView(); //Home
+                    if (App.AppType == AppType.VMS || App.AppType == AppType.Moto)
                     {
-                        online = new OnlinePage();
-
+                        //cấu hình cty này dùng Cluster thì mới mở forms Cluster
+                        if (MobileUserSettingHelper.EnableShowCluster)
+                        {
+                            online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online                       
+                        }
+                        else
+                        {
+                            online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTabNoCluster"); //Online
+                        }
                     }
                     else
                     {
-                        online = new OnlinePageNoCluster();
+                        //cấu hình cty này dùng Cluster thì mới mở forms Cluster
+                        if (MobileUserSettingHelper.EnableShowCluster)
+                        {
+                            online = new OnlinePage();
 
+                        }
+                        else
+                        {
+                            online = new OnlinePageNoCluster();
+
+                        }
                     }
+                    ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
+                    Switcher.Children.Add(online);
+                    tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_mornitoring.png", Label = MobileResource.Menu_TabItem_Monitoring });
+                    Switcher.SelectedIndex = Switcher.Children.Count - 1;
                 }
-                ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
-                Switcher.Children.Add(online);
-                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_mornitoring.png", Label = MobileResource.Menu_TabItem_Monitoring });
-                Switcher.SelectedIndex = Switcher.Children.Count - 1;
-            }
-            if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
-            {
-                var routeTab = new ContentView();
-                if (App.AppType == AppType.VMS || App.AppType == AppType.Moto)
+                if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
                 {
-                    routeTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("RouteTab"); //RouteTab
-                }
-                else
-                {
-                    routeTab = new RoutePage();
-                }
+                    var routeTab = new ContentView();
+                    if (App.AppType == AppType.VMS || App.AppType == AppType.Moto)
+                    {
+                        routeTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("RouteTab"); //RouteTab
+                    }
+                    else
+                    {
+                        routeTab = new RoutePage();
+                    }
 
-                ViewModelLocator.SetAutowirePartialView(routeTab, MainContentPage);
-                Switcher.Children.Add(routeTab);
-                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_route.png", Label = App.AppType == AppType.VMS ? MobileResource.Menu_TabItem_Voyage : MobileResource.Menu_TabItem_Route });
+                    ViewModelLocator.SetAutowirePartialView(routeTab, MainContentPage);
+                    Switcher.Children.Add(routeTab);
+                    tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_route.png", Label = App.AppType == AppType.VMS ? MobileResource.Menu_TabItem_Voyage : MobileResource.Menu_TabItem_Route });
+                }
+                var accountTab = new Account(); //Account
+                ViewModelLocator.SetAutowirePartialView(accountTab, MainContentPage);
+                Switcher.Children.Add(accountTab);
+                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_account.png", Label = MobileResource.Menu_TabItem_Account });
+                InitAnimation();
+                eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+                this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
+                previousIndex = Switcher.SelectedIndex;
             }
-            var accountTab = new Account(); //Account
-            ViewModelLocator.SetAutowirePartialView(accountTab, MainContentPage);
-            Switcher.Children.Add(accountTab);
-            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_account.png", Label = MobileResource.Menu_TabItem_Account });
-            InitAnimation();
-            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
-            this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
-            previousIndex = Switcher.SelectedIndex;
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+           
         }
 
         private int previousIndex { get; set; }

@@ -14,6 +14,60 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\Common\MOTOPinInfowindowView.xaml.cs">
+	    <DependentUpon>MOTOPinInfowindowView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Common\MOTOPinInfowindowActiveView.xaml.cs">
+	    <DependentUpon>MOTOPinInfowindowActiveView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ListVehicle\DetailVehiclePopup.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ListVehicle\ListVehicleHelpPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ListVehicle\ListVehiclePage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ListVehicle\VehicleDefaultView.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ListVehicle\VehicleExpiredView.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ListVehicle\VehicleLostSignalView.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ListVehicle\VehicleStopServiceView.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ListVehicle\VehicleUnpaidView.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Online\BoundaryNameInfoWindow.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Online\BoundaryPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Online\OnlineCarInfoView.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Online\OnlinePage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Online\OnlinePageNoCluster.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Route\RouteListPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Route\RoutePage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <EmbeddedResource Update="Styles\Custom.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
@@ -21,6 +75,15 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Styles\LightColor.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Common\MOTOPinInfowindowView.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Common\MOTOPinInfowindowActiveView.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Online\BoundaryPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>

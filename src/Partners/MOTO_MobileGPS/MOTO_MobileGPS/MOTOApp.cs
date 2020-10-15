@@ -1,6 +1,5 @@
 ﻿using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Themes;
-using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Utilities.Constant;
 using BA_MobileGPS.Utilities.Enums;
 using Microsoft.AppCenter;
@@ -10,6 +9,10 @@ using Prism;
 using Prism.Ioc;
 using MOTO_MobileGPS.Styles;
 using Xamarin.Forms;
+using Prism.Mvvm;
+using MOTO_MobileGPS.ViewModels;
+using MOTO_MobileGPS.Views;
+using System.Diagnostics;
 
 namespace MOTO_MobileGPS
 {
@@ -17,18 +20,20 @@ namespace MOTO_MobileGPS
     {
         public MOTOApp(IPlatformInitializer initializer) : base(initializer)
         {
+            Debug.WriteLine("=======================MOTOApp============================");
         }
 
         public override string OneSignalKey => base.OneSignalKey;
 
         protected async override void OnInitialized()
         {
+            Debug.WriteLine("=======================Start OnInitialized============================");
             base.OnInitialized();
 
             ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerMoto;
             ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerMoto;
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerMoto;
-            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerMoto;
+            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerLinhLV;
 
             Application.Current.Resources.MergedDictionaries.Add(new LightColor());
             Application.Current.Resources.MergedDictionaries.Add(new BA_MobileGPS.Core.Styles.Styles());
@@ -46,19 +51,37 @@ namespace MOTO_MobileGPS
             {
                 _ = await NavigationService.NavigateAsync("LoginPage");
             }
+
+            Debug.WriteLine("=======================End OnInitialized============================");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            Debug.WriteLine("=======================Start RegisterTypes============================");
             base.RegisterTypes(containerRegistry);
 
             AppType = BA_MobileGPS.Entities.AppType.Moto;
 
             containerRegistry.RegisterForNavigation<BA_MobileGPS.Core.Views.HelperPage, HeplerViewModel>("HelperPage");
 
+            //ViewModelLocationProvider.Register<Home, HomeViewModel>();
+            ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
+            ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
+            ViewModelLocationProvider.Register<OnlinePageNoCluster, OnlinePageViewModel>();
+            ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
+            //ViewModelLocationProvider.Register<Account, AccountViewModel>();
+
+            //containerRegistry.Register<ContentView, Home>("HomeTab");
+            containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
+            containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
+            containerRegistry.Register<ContentView, OnlinePageNoCluster>("OnlineTabNoCluster");
+            containerRegistry.Register<ContentView, RoutePage>("RouteTab");
+            // containerRegistry.Register<ContentView, Account>("AccountTab");
+
             //containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
             //containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());
             //containerRegistry.Register<ResourceDictionary, MOTO_MobileGPS.Styles.Custom>(Theme.Custom.ToString());
+            Debug.WriteLine("=======================End RegisterTypes============================");
         }
     }
 }
