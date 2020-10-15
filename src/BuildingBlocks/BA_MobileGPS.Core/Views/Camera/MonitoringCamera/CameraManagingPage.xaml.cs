@@ -22,16 +22,22 @@ namespace BA_MobileGPS.Core.Views
     {
         private double normaltHeight { get; set; }
         private CameraManagement selectedItem { get; set; }
-        private IEventAggregator eventAggregator { get; } = Prism.PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
         public CameraManagingPage()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
         }
-        private bool isLoaded = false;
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            isLoaded = true;
         }
 
         private void list_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -55,8 +61,7 @@ namespace BA_MobileGPS.Core.Views
             }
             catch (Exception ex)
             {
-
-
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -128,7 +133,7 @@ namespace BA_MobileGPS.Core.Views
         {
             try
             {
-                if (isLoaded && parent != null)
+                if (parent != null)
                 {
                     var source = BindableLayout.GetItemsSource(parent);
                     if (source != null)

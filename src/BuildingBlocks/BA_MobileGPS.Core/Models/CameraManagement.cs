@@ -75,11 +75,13 @@ namespace BA_MobileGPS.Core.Models
                 RaisePropertyChanged();
             }
         }
-         private bool isSelected;
+        private bool isSelected;
         public bool IsSelected
         {
             get { return isSelected; }
-            set { SetProperty(ref isSelected, value);
+            set
+            {
+                SetProperty(ref isSelected, value);
                 RaisePropertyChanged();
             }
         }
@@ -102,7 +104,9 @@ namespace BA_MobileGPS.Core.Models
         public double Height
         {
             get { return height; }
-            set { SetProperty(ref height, value);
+            set
+            {
+                SetProperty(ref height, value);
                 RaisePropertyChanged();
             }
         }
@@ -132,68 +136,20 @@ namespace BA_MobileGPS.Core.Models
                     {
                         SetError();
                     }
-                    else
-                    SetMedia(data.Link);                  
+                    else SetMedia(data.Link);
                 }
             }
             else
             {
-                if (internalError)
+                if (TotalTime > 0)
+                {
+                    TotalTime -= 1;
+                }
+                if (internalError || TotalTime == 0)
                 {
                     SetError();
                 }
-                else if (MediaPlayer.IsPlaying)
-                {
-                    if (MediaPlayer.Time != oldTime)
-                    {
-                        oldTime = MediaPlayer.Time;
-                        if (TotalTime > 0)
-                        {
-                            TotalTime -= 1;
-                        }
-                        else
-                        {
-                            SetError();
-                        }
-                    }
-                }
-                else // error
-                {
-                    SetError();
-                }
-
             }
-            //if (internalError && !isLoaded)
-            //{
-            //    SetMedia(data.Link);
-            //    if (counter <= 0)
-            //    {
-            //        SetError();
-            //    }
-            //}
-            //else
-            //{
-            //    if (isLoaded && MediaPlayer.IsPlaying)
-            //    {
-            //        //check error link broken
-            //        if (MediaPlayer.Time != oldTime)
-            //        {
-            //            oldTime = MediaPlayer.Time;
-            //            if (TotalTime > 0)
-            //            {
-            //                TotalTime -= 1;
-            //            }
-            //            else
-            //            {
-            //                SetError();
-            //            }
-            //        }
-            //        else // error
-            //        {
-            //            SetError();
-            //        }
-            //    }
-            //}
         }
 
         private void SetError()
@@ -213,19 +169,17 @@ namespace BA_MobileGPS.Core.Models
             mediaPlayer.TimeChanged += MediaPlayer_TimeChanged;
             mediaPlayer.EncounteredError += MediaPlayer_EncounteredError;
             mediaPlayer.EndReached += MediaPlayer_EndReached;
-            mediaPlayer.Buffering += MediaPlayer_Buffering;
             mediaPlayer.AspectRatio = "16:9";
             mediaPlayer.Scale = 0;
         }
 
-        private void MediaPlayer_Buffering(object sender, MediaPlayerBufferingEventArgs e)
-        {
-           
-        }
-
         private void MediaPlayer_EndReached(object sender, EventArgs e)
         {
-            
+            internalError = true;
+        }
+        private void MediaPlayer_EncounteredError(object sender, EventArgs e)
+        {
+            internalError = true;
         }
 
         public void SetMedia(string url)
@@ -249,10 +203,7 @@ namespace BA_MobileGPS.Core.Models
             });
         }
 
-        private void MediaPlayer_EncounteredError(object sender, EventArgs e)
-        {
-            internalError = true;
-        }
+
 
         private void MediaPlayer_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
         {
@@ -265,7 +216,6 @@ namespace BA_MobileGPS.Core.Models
                     IsError = false;
                 });
                 internalError = false;
-                //countLoadingTimer.Stop();
             }
         }
 
@@ -300,9 +250,9 @@ namespace BA_MobileGPS.Core.Models
 
         public virtual bool CanExcute()
         {
-            if (MediaPlayer != null && 
-                MediaPlayer.Media != null && 
-                MediaPlayer.Time > 0 && 
+            if (MediaPlayer != null &&
+                MediaPlayer.Media != null &&
+                MediaPlayer.Time > 0 &&
                 !internalError)
             {
                 return true;
@@ -325,17 +275,15 @@ namespace BA_MobileGPS.Core.Models
                     mediaPlayer.TimeChanged -= MediaPlayer_TimeChanged;
                     mediaPlayer.EncounteredError -= MediaPlayer_EncounteredError;
                     mediaPlayer.EndReached -= MediaPlayer_EndReached;
-                    mediaPlayer.Buffering -= MediaPlayer_Buffering;
                     var media = MediaPlayer;
                     MediaPlayer = null;
                     media?.Dispose();
-                }             
+                }
             }
             catch (Exception ex)
             {
-
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-           
         }
 
         ~CameraManagement()

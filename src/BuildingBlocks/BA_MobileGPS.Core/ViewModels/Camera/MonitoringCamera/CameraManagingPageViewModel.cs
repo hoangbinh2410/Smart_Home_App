@@ -205,6 +205,12 @@ namespace BA_MobileGPS.Core.ViewModels
             set
             {
                 SetProperty(ref autoAddTime, value);
+                if (selectedItem != null)
+                {
+                    selectedItem.AutoRequestPing = value;
+                    TotalTime = selectedItem.TotalTime;
+                }
+               
                 RaisePropertyChanged();
             }
         }
@@ -580,15 +586,15 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         foreach (var cam in child.ChildSource)
                         {
-                            if (AutoAddTime || cam.TotalTime > maxTimeCameraRemain)
+                            if (cam.AutoRequestPing || cam.TotalTime > maxTimeCameraRemain)
                             {
                                 if (cam != null && !cam.IsError && cam.IsLoaded)
                                 {
                                     SendRequestTime(maxTimeCameraRemain, cam.Data.Channel);
                                 }
-                                if (AutoAddTime && cam.TotalTime < 600)
+                                if (cam.AutoRequestPing && cam.TotalTime < maxTimeCameraRemain)
                                 {
-                                    cam.TotalTime = 600;
+                                    cam.TotalTime = maxTimeCameraRemain;
                                 }
                             }
                         }
