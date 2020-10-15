@@ -12,5 +12,6 @@ namespace BA_MobileGPS.Core.Resources
         public static string CameraImage_Label_TitlelPage => Get(MobileResourceNames.CameraImage_Label_TitlelPage, "Giám sát hình ảnh", "Monitoring Image");
 
         public static string CameraImage_Label_TitleDetailPage => Get(MobileResourceNames.CameraImage_Label_TitleDetailPage, "Xem hình ảnh", "View Image");
+        public static string Camera_Label_Undefined => Get(MobileResourceNames.Undefined, "Không xác định", "Undefined"); 
     }
 }

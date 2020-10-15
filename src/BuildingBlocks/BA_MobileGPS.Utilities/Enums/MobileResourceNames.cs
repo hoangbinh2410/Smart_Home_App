@@ -848,6 +848,7 @@
         CameraImage_Label_TitlelPage,
         CameraImage_Label_TitleDetailPage,
         Common_Message_ErrorTimeFromToTimeEnd,
+        Undefined,
         #endregion
 
         #region Helper

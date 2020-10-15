@@ -1,15 +1,13 @@
-﻿using BA_MobileGPS.Core.Views.Camera.MonitoringCamera;
-using BA_MobileGPS.Utilities.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core
 {
-    class CameraNameConverter : IValueConverter
+
+    public class CameraChanelNameConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -17,13 +15,13 @@ namespace BA_MobileGPS.Core
             {
                 return string.Empty;
             }
-
-           return ((CameraEnum)value).GetDescription();         
+            var res = value.ToString();
+            return string.Format("Kênh {0}", res);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return value.ToString();
         }
     }
 }
