@@ -219,10 +219,57 @@
             HeightRequest="0.5"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start" />
-        <Grid
+
+        <controls:HorizontalList
             Grid.Row="6"
             Padding="10,0"
-            ColumnDefinitions="*,*">
+            HeightRequest="80"
+            HorizontalOptions="CenterAndExpand"
+            IsVisible="{Binding Source={x:Reference boxCommand}, Path=IsVisible, Converter={StaticResource InvertBooleanConverter}}"
+            ItemsSource="{Binding MenuItems}"
+            ListOrientation="Horizontal"
+            SelectedCommand="{Binding SelectedMenuCommand}"
+            Spacing="15">
+            <controls:HorizontalList.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout
+                        Padding="2"
+                        Spacing="5"
+                        VerticalOptions="CenterAndExpand">
+                        <pancake:PancakeView
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            CornerRadius="25"
+                            HeightRequest="50"
+                            HorizontalOptions="CenterAndExpand"
+                            WidthRequest="50">
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow
+                                    BlurRadius="2"
+                                    Offset="0,0"
+                                    Color="Black" />
+                            </pancake:PancakeView.Shadow>
+                            <controls:IconView
+                                Margin="15"
+                                Foreground="{DynamicResource PrimaryColor}"
+                                HorizontalOptions="Center"
+                                Source="{Binding Icon}" />
+                        </pancake:PancakeView>
+                        <Label
+                            FontSize="12"
+                            LineBreakMode="WordWrap"
+                            Text="{Binding Title}"
+                            WidthRequest="80" />
+                    </StackLayout>
+                </DataTemplate>
+
+            </controls:HorizontalList.ItemTemplate>
+        </controls:HorizontalList>
+        <Grid
+            x:Name="boxCommand"
+            Grid.Row="6"
+            Padding="10,0"
+            ColumnDefinitions="*,*"
+            IsVisible="{Binding MenuItems, Converter={StaticResource IsEmptyDataConverter}}">
             <sharpnado:MaterialFrame
                 Grid.Column="0"
                 Padding="0,11"
@@ -233,12 +280,23 @@
                     <TapGestureRecognizer Command="{Binding PushToRouterPageCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
                 <sharpnado:MaterialFrame.Content>
-                    <Label
-                        x:Name="lblRoute"
-                        FontFamily="{StaticResource myFontFamily}"
-                        FontSize="{StaticResource MyFontSize}"
-                        LineBreakMode="TailTruncation"
-                        TextColor="{DynamicResource WhiteColor}" />
+                    <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                        <controls:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="25"
+                            HorizontalOptions="Center"
+                            Source="ic_route.png"
+                            VerticalOptions="Center"
+                            WidthRequest="25" />
+                        <Label
+                            x:Name="lblRoute"
+                            FontFamily="{StaticResource myFontFamily}"
+                            FontSize="{StaticResource MyFontSize}"
+                            LineBreakMode="TailTruncation"
+                            TextColor="{DynamicResource WhiteColor}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+
                 </sharpnado:MaterialFrame.Content>
             </sharpnado:MaterialFrame>
             <sharpnado:MaterialFrame
@@ -251,12 +309,23 @@
                     <TapGestureRecognizer Command="{Binding PushToDetailPageCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
                 <sharpnado:MaterialFrame.Content>
-                    <Label
-                        x:Name="lblButtonDetail"
-                        FontFamily="{StaticResource myFontFamily}"
-                        FontSize="{StaticResource MyFontSize}"
-                        LineBreakMode="TailTruncation"
-                        TextColor="{DynamicResource WhiteColor}" />
+                    <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                        <controls:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="25"
+                            HorizontalOptions="Center"
+                            Source="ic_guarantee.png"
+                            VerticalOptions="Center"
+                            WidthRequest="25" />
+                        <Label
+                            x:Name="lblButtonDetail"
+                            FontFamily="{StaticResource myFontFamily}"
+                            FontSize="{StaticResource MyFontSize}"
+                            LineBreakMode="TailTruncation"
+                            TextColor="{DynamicResource WhiteColor}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+
                 </sharpnado:MaterialFrame.Content>
             </sharpnado:MaterialFrame>
         </Grid>
