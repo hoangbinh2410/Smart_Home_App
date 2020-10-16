@@ -436,26 +436,28 @@ namespace BA_MobileGPS.Core.ViewModels
                         CurrentTime = deviceResponseData.DeviceTime;
                         var cameraActive = deviceResponseData.CameraChannels?.Where(x => x.IsPlug).ToList();
                         var listCam = new List<CameraManagement>();
-                        foreach (var item in cameraActive)
-                        {
-                            var res = await RequestStartCam(item.Channel);
-                            res.SetMedia(res.Data.Link);
-                            listCam.Add(res);
-                        }
-                        //var rnd = new Random();
-                        //var num = rnd.Next(0, 10);
-                        //for (int i = 0; i < num; i++)
+                        //foreach (var item in cameraActive)
                         //{
-                        //    var a = new CameraManagement(maxLoadingTime, libVLC);
-                        //    a.Data = new StreamStart()
-                        //    {
-                        //        Channel = i + 3,
-                        //        Link = "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-                        //    };
-                        //    a.SetMedia(a.Data.Link);
-                        //    listCam.Add(a);
+                        //    var res = await RequestStartCam(item.Channel);
+                        //    res.SetMedia(res.Data.Link);
+                        //    listCam.Add(res);
                         //}
-                        SetItemsSource(listCam);
+                        //SetItemsSource(listCam);
+                        var rnd = new Random();
+                        var num = rnd.Next(2, 7);
+                        var duplicateList = new List<CameraManagement>();
+                        for (int i = 1; i < num; i++)
+                        {
+                            foreach (var item in cameraActive)
+                            {
+                                var res = await RequestStartCam(item.Channel);
+                                res.Data.Channel += i*3;
+                                res.SetMedia(res.Data.Link);
+                                duplicateList.Add(res);
+                            }
+                        }
+                        SetItemsSource(duplicateList);
+                       
                     }
                 }
             });
