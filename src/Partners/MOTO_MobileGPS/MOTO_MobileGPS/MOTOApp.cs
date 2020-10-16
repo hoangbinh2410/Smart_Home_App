@@ -73,17 +73,17 @@ namespace MOTO_MobileGPS
             containerRegistry.RegisterForNavigation<BA_MobileGPS.Core.Views.HelperPage, HeplerViewModel>("HelperPage");
 
             //ViewModelLocationProvider.Register<Home, HomeViewModel>();
-            ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
+            //ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
             ViewModelLocationProvider.Register<OnlinePageNoCluster, OnlinePageViewModel>();
-            ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
+            //ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
             //ViewModelLocationProvider.Register<Account, AccountViewModel>();
 
             //containerRegistry.Register<ContentView, Home>("HomeTab");
-            containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
+            //containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
             containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
             containerRegistry.Register<ContentView, OnlinePageNoCluster>("OnlineTabNoCluster");
-            containerRegistry.Register<ContentView, RoutePage>("RouteTab");
+            //containerRegistry.Register<ContentView, RoutePage>("RouteTab");
             // containerRegistry.Register<ContentView, Account>("AccountTab");
 
             //containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
