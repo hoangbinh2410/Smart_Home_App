@@ -229,7 +229,7 @@
         <views:OnlineCarInfoView
             x:Name="boxInfo"
             Grid.Row="1"
-            Padding="0,10"
+            Padding="0,10,0,0"
             AbsoluteLayout.LayoutBounds="0,1,1,350"
             AbsoluteLayout.LayoutFlags="YProportional, WidthProportional"
             BackgroundColor="{DynamicResource WhiteColor}"
