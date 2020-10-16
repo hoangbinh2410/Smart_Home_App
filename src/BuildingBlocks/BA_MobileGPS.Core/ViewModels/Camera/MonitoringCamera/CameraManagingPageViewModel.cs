@@ -444,14 +444,14 @@ namespace BA_MobileGPS.Core.ViewModels
                         //}
                         //SetItemsSource(listCam);
                         var rnd = new Random();
-                        var num = rnd.Next(2, 7);
+                        var num = rnd.Next(2, 6);
                         var duplicateList = new List<CameraManagement>();
-                        for (int i = 1; i < num; i++)
+                        for (int i = 0; i < num; i++)
                         {
                             foreach (var item in cameraActive)
                             {
                                 var res = await RequestStartCam(item.Channel);
-                                res.Data.Channel += i*3;
+                                res.Data.Channel += i*cameraActive.Count;
                                 res.SetMedia(res.Data.Link);
                                 duplicateList.Add(res);
                             }
@@ -639,6 +639,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnDestroy()
         {
+            ClearAllMediaPlayer();
             DependencyService.Get<IScreenOrientServices>().ForcePortrait();
             LibVLC?.Dispose();
             LibVLC = null;
