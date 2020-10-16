@@ -58,32 +58,7 @@ namespace BA_MobileGPS.Core.ViewModels
             ReLoadCommand = new DelegateCommand<object>(Reload);
             itemsSource = new List<ChildStackSource>();
         }
-
-
-        public ICommand ReLoadCommand { get; }
-        private void Reload(object obj)
-        {
-            try
-            {
-                if (obj != null && obj is CameraManagement item)
-                {
-                    if (item.Data != null)
-                    {
-                        item.Clear();
-                        RunOnBackground(async () =>
-                        {
-                            await RequestStartCam(item.Data.Channel, false);
-                        });
-                        item.SetMedia(item.Data.Link);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            
-        }
+     
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             //Check parameter key
@@ -334,7 +309,30 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
+        public ICommand ReLoadCommand { get; }
+        private void Reload(object obj)
+        {
+            try
+            {
+                if (obj != null && obj is CameraManagement item)
+                {
+                    if (item.Data != null)
+                    {
+                        item.Clear();
+                        RunOnBackground(async () =>
+                        {
+                            await RequestStartCam(item.Data.Channel, false);
+                        });
+                        item.SetMedia(item.Data.Link);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
 
+        }
 
         public ICommand ScreenShotTappedCommand { get; }
 
@@ -485,14 +483,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     columnNum--;
                 }
-                var deviceWidth = Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Width;
-                var stackChildWidth = deviceWidth / columnNum;
 
-                for (int i = 0; i < columnNum; i++)
+                for (int i = 0; i < rowNum; i++)
                 {
                     var temp = new ChildStackSource();
-                    temp.ChildSource = source.Skip(i * rowNum).Take(rowNum).ToList();
-                    temp.Width = stackChildWidth;
+                    temp.ChildSource = source.Skip(i * columnNum).Take(columnNum).ToList();                
                     result.Add(temp);
                 }
                 

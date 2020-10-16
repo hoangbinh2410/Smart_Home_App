@@ -22,7 +22,8 @@ namespace BA_MobileGPS.Core.Views
 {
     public partial class CameraManagingPage : ContentPage, IDisposable
     {
-        private double normaltHeight { get; set; }
+        private double normaltWidth { get; set; }
+        private double normalHeight { get; set; }
         private CameraManagement selectedItem { get; set; }
         public CameraManagingPage()
         {
@@ -38,34 +39,9 @@ namespace BA_MobileGPS.Core.Views
         }
 
         protected override void OnAppearing()
-        {          
+        {
             base.OnAppearing();
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
-        }
-
-        private void list_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                var previous = e.PreviousSelection?.Cast<CameraManagement>().FirstOrDefault();
-                var current = e.CurrentSelection?.Cast<CameraManagement>().FirstOrDefault();
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    if (previous != null)
-                    {
-                        previous.IsSelected = false;
-                    }
-                    if (current != null)
-                    {
-                        current.IsSelected = true;
-                    }
-                });
-
-            }
-            catch (Exception ex)
-            {
-                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
         }
 
         public void Dispose()
@@ -79,7 +55,7 @@ namespace BA_MobileGPS.Core.Views
             {
                 var temp = ((TappedEventArgs)e).Parameter;
                 var newItemSlect = (CameraManagement)temp;
-                if (newItemSlect != null && 
+                if (newItemSlect != null &&
                     newItemSlect.Data.Channel != selectedItem?.Data?.Channel)
                 {
                     SetSelectedItem(newItemSlect);
@@ -99,6 +75,7 @@ namespace BA_MobileGPS.Core.Views
                 {
                     selectedItem.IsSelected = false;
                 }
+
                 selectedItem = newItemSlect;
                 selectedItem.IsSelected = true;
                 ((CameraManagingPageViewModel)this.BindingContext).SelectedItem = selectedItem;
@@ -153,15 +130,17 @@ namespace BA_MobileGPS.Core.Views
                         {
                             if (child is ChildStackSource childStack)
                             {
-                                childStack.Width = parent.Width / source.Count();
+                                childStack.Height = parent.Height / source.Count();
                                 foreach (var item in childStack.ChildSource)
                                 {
-                                    item.Height = normaltHeight;
+                                    item.Width = normaltWidth;
+                                    item.Height = normaltWidth;
                                 }
                             }
                         }
                     }
                     Grid.SetRow(playbackControl, 3);
+                    ((CameraManagingPageViewModel)this.BindingContext).IsFullScreenOff = true;
                 }
             }
             catch (Exception ex)
@@ -183,30 +162,31 @@ namespace BA_MobileGPS.Core.Views
 
                 foreach (var child in source)
                 {
-                    child.Width = 0;
+                    child.Height = 0;                    
                 }
 
                 foreach (var child in source)
                 {
-
                     foreach (var item in child.ChildSource)
                     {
                         if (!item.IsSelected)
                         {
+                            item.Width = 0;
                             item.Height = 0;
                         }
                         else
                         {
-                            item.Height = root.Height;
-                            if (child.Width != root.Width)
+                            item.Width = root.Width;
+                            if (child.Height != root.Height)
                             {
-                                child.Width = root.Width;
+                                child.Height = root.Height;
                             }
 
                         }
                     }
                 }
                 Grid.SetRow(playbackControl, 2);
+                ((CameraManagingPageViewModel)this.BindingContext).IsFullScreenOff = false;
             }
             catch (Exception ex)
             {
@@ -224,28 +204,32 @@ namespace BA_MobileGPS.Core.Views
                     var source = BindableLayout.GetItemsSource(parent)?.Cast<ChildStackSource>();
                     if (source != null && source.Count() > 0)
                     {
+                        noDataImage.IsVisible = false;
                         var firstItem = source.FirstOrDefault()?.ChildSource?.FirstOrDefault();
                         if (firstItem != null)
                         {
                             SetSelectedItem(firstItem, true); ;
                         }
-                        noDataImage.IsVisible = false;
-                        var maxCount = 1;
+                        var columnNum = 0;
                         foreach (var item in source)
                         {
-                            if (item.ChildSource.Count > maxCount)
+                            if (item.ChildSource.Count > columnNum)
                             {
-                                maxCount = item.ChildSource.Count;
+                                columnNum = item.ChildSource.Count;
                             }
-                        }
-
+                        }                        
+                        var rowNum = source.Count();
+                        normalHeight = parent.Height / rowNum;
+                        normaltWidth = parent.Width / columnNum;
+                        
                         foreach (var item in source)
                         {
                             foreach (var cam in item.ChildSource)
                             {
-                                normaltHeight = parent.Height / maxCount;
-                                cam.Height = normaltHeight;
+                                cam.Height = normalHeight;
+                                cam.Width = normaltWidth;
                             }
+                            item.Height = normalHeight;
                         }
                     }
                 }
@@ -260,13 +244,13 @@ namespace BA_MobileGPS.Core.Views
     public class ChildStackSource : BindableBase
     {
         public List<CameraManagement> ChildSource { get; set; }
-        private double width;
-        public double Width
+        private double height;
+        public double Height
         {
-            get { return width; }
+            get { return height; }
             set
             {
-                SetProperty(ref width, value);
+                SetProperty(ref height, value);
                 RaisePropertyChanged();
             }
         }

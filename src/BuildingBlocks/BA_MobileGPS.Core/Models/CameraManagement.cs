@@ -109,7 +109,16 @@ namespace BA_MobileGPS.Core.Models
                 RaisePropertyChanged();
             }
         }
-
+        private double width;
+        public double Width
+        {
+            get { return width; }
+            set
+            {
+                SetProperty(ref width, value);
+                RaisePropertyChanged();
+            }
+        }
         private bool isLoaded;
 
         public bool IsLoaded
@@ -160,8 +169,10 @@ namespace BA_MobileGPS.Core.Models
                 TotalTime = 0;
             });
             countLoadingTimer.Stop();
-            //ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
+            ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
             mediaPlayer.Media.Dispose();
+            mediaPlayer.Media = null;
+            IsSelected = false;
         }
 
         private void InitMediaPlayer()
@@ -228,9 +239,10 @@ namespace BA_MobileGPS.Core.Models
                 internalError = false;
                 countLoadingTimer.Stop();
                 countLoadingTimer.Interval = 1000;
-                counter = maxLoadingTime;               
+                counter = maxLoadingTime;                      
                 Device.BeginInvokeOnMainThread(() =>
                 {
+                    IsSelected = false;
                     IsLoaded = false;
                     IsError = false;
                     TotalTime = 1;
@@ -247,7 +259,7 @@ namespace BA_MobileGPS.Core.Models
             if (MediaPlayer != null &&
                 MediaPlayer.Media != null &&
                 MediaPlayer.Time > 0 &&
-                !internalError)
+                !internalError && !isError)
             {
                 return true;
             }
@@ -269,13 +281,8 @@ namespace BA_MobileGPS.Core.Models
                     mediaPlayer.TimeChanged -= MediaPlayer_TimeChanged;
                     mediaPlayer.EncounteredError -= MediaPlayer_EncounteredError;
                     mediaPlayer.EndReached -= MediaPlayer_EndReached;
-                    //ThreadPool.QueueUserWorkItem((a) => {
-                    //    if (MediaPlayer != null)
-                    //    {
-                    //        MediaPlayer.Stop();
-                    //    }                       
-                    //});
                     mediaPlayer.Media?.Dispose();
+                    mediaPlayer.Media = null;
                     var media = MediaPlayer;
                     MediaPlayer = null;
                     media?.Dispose();
