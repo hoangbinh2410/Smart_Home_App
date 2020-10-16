@@ -237,7 +237,7 @@
             BackgroundColor="{DynamicResource WhiteColor}"
             CornerRadius="20,20,0,0"
             HasShadow="False"
-            HeightRequest="168"
+            HeightRequest="200"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="End" />
         <!--  Trạng thái xe  -->

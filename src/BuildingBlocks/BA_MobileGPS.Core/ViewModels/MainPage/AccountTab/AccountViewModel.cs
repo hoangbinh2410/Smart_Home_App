@@ -252,7 +252,11 @@ namespace BA_MobileGPS.Core.ViewModels
         Rating,
         Setting,
         UpgradeVersion,
-        Logout
+        Logout,
+        Route,
+        VehicleDetail,
+        Images,
+        Video
     }
 
     public class MenuItem

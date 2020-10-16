@@ -15,6 +15,7 @@ using System.Linq;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -36,6 +37,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand PushtoListVehicleOnlineCommand { get; private set; }
         public DelegateCommand GoDistancePageCommand { get; private set; }
         public DelegateCommand CloseCarInfoViewCommand { get; private set; }
+
+        public ICommand SelectedMenuCommand { get; }
 
 
         public bool IsCheckShowLandmark { get; set; } = false;
@@ -74,10 +77,15 @@ namespace BA_MobileGPS.Core.ViewModels
             GoDistancePageCommand = new DelegateCommand(GoDistancePage);
             PushDirectvehicleOnlineCommand = new DelegateCommand(PushDirectvehicleOnline);
             CloseCarInfoViewCommand = new DelegateCommand(CloseCarInfoView);
+            SelectedMenuCommand = new Command<MenuItem>(SelectedMenu);
         }
 
-        
 
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+            InitMenuItems();
+        }
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -201,9 +209,71 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ObservableCollection<Polyline> Polylines { get; set; } = new ObservableCollection<Polyline>();
 
+        private ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
+
+        public ObservableCollection<MenuItem> MenuItems
+        {
+            get
+            {
+                return menuItems;
+            }
+            set
+            {
+                SetProperty(ref menuItems, value);
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion Property
 
         #region Private Method
+
+        private void InitMenuItems()
+        {
+            var list = new List<MenuItem>();
+
+            list.Add(new MenuItem
+            {
+                Title = MobileResource.Route_Label_Title,
+                Icon = "ic_route.png",
+                IsEnable = CheckPermision((int)PermissionKeyNames.ViewModuleRoute),
+                MenuType = MenuType.Route
+            });
+            list.Add(new MenuItem
+            {
+                Title = MobileResource.DetailVehicle_Label_TilePage,
+                Icon = "ic_guarantee.png",
+                IsEnable = true,
+                MenuType = MenuType.VehicleDetail
+            });
+            list.Add(new MenuItem
+            {
+                Title = "Video",
+                Icon = "ic_videolive.png",
+                IsEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView),
+                MenuType = MenuType.Video
+            });
+            list.Add(new MenuItem
+            {
+                Title = "Hình Ảnh",
+                Icon = "ic_cameraonline.png",
+                IsEnable = CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView),
+                MenuType = MenuType.Images
+            });
+
+            var lstv = list.Where(x => x.IsEnable == true).ToList();
+            if(lstv!=null && lstv.Count <= 2)
+            {
+                MenuItems = new ObservableCollection<MenuItem>();
+            }
+            else
+            {
+                MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
+            }
+            
+        }
+
+
         private void CloseCarInfoView()
         {
             SafeExecute(() =>
@@ -534,10 +604,70 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        //private void OpenDiscoreryBox()
-        //{
-        //    PopupNavigation.Instance.PushAsync(new OnlineCarInfo());
-        //}
+        public void GotoCameraPage()
+        {
+            SafeExecute(async () =>
+            {
+                var param = new Vehicle()
+                {
+                    VehiclePlate = CarActive.VehiclePlate,
+                    VehicleId = CarActive.VehicleId,
+                    Imei = CarActive.Imei,
+                    PrivateCode = CarActive.PrivateCode
+                };
+                var parameters = new NavigationParameters
+                {
+                    { ParameterKey.Vehicle, param }
+                };
+
+                await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true);
+            });
+        }
+
+        public void GotoVideoPage()
+        {
+            SafeExecute(async () =>
+            {
+                var photoPermission = await PermissionHelper.CheckPhotoPermissions();
+                var storagePermission = await PermissionHelper.CheckStoragePermissions();
+                if (photoPermission && storagePermission)
+                {
+                    var param = new Vehicle()
+                    {
+                        VehiclePlate = CarActive.VehiclePlate,
+                        VehicleId = CarActive.VehicleId,
+                        Imei = CarActive.Imei,
+                        PrivateCode = CarActive.PrivateCode
+                    };
+                    var parameters = new NavigationParameters
+                      {
+                          { ParameterKey.Vehicle, param }
+                     };
+
+                    await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true);
+                }
+            });
+        }
+
+        private void SelectedMenu(MenuItem obj)
+        {
+            if (obj == null) return;
+            switch (obj.MenuType)
+            {
+                case MenuType.Route:
+                    PushtoRouterPage();
+                    break;
+                case MenuType.VehicleDetail:
+                    PushtoDetailPage();
+                    break;
+                case MenuType.Images:
+                    GotoCameraPage();
+                    break;
+                case MenuType.Video:
+                    GotoVideoPage();
+                    break;
+            }
+        }
 
         #endregion Private Method
     }
