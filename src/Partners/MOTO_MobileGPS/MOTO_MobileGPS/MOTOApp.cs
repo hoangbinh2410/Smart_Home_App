@@ -13,6 +13,7 @@ using Prism.Mvvm;
 using MOTO_MobileGPS.ViewModels;
 using MOTO_MobileGPS.Views;
 using System.Diagnostics;
+using BA_MobileGPS.Service;
 
 namespace MOTO_MobileGPS
 {
@@ -62,6 +63,13 @@ namespace MOTO_MobileGPS
 
             AppType = BA_MobileGPS.Entities.AppType.Moto;
 
+
+            containerRegistry.Register<IMotoConfigService, MotoConfigService>();
+            containerRegistry.Register<IMotoPropertiesService, MotoPropertiesService>();
+            containerRegistry.Register<IMotoDetailService, MotoDetailService>();
+            containerRegistry.Register<IMotoSimMoneyService, MotoSimMoneyService>();
+
+
             containerRegistry.RegisterForNavigation<BA_MobileGPS.Core.Views.HelperPage, HeplerViewModel>("HelperPage");
 
             //ViewModelLocationProvider.Register<Home, HomeViewModel>();
@@ -81,6 +89,23 @@ namespace MOTO_MobileGPS
             //containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
             //containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());
             //containerRegistry.Register<ResourceDictionary, MOTO_MobileGPS.Styles.Custom>(Theme.Custom.ToString());
+
+
+            //containerRegistry.RegisterForNavigation<OnlinePage, OnlinePageViewModel>("OnlinePage");
+            //containerRegistry.RegisterForNavigation<OnlinePageNoCluster, OnlinePageViewModel>("OnlinePageNoCluster");
+            //containerRegistry.RegisterForNavigation<OnlineOneCar, OnlineOneCarViewModel>("OnlineOneCar");
+            //containerRegistry.RegisterForNavigation<BoundaryPage, BoundaryViewModel>("BoundaryPage");
+            //containerRegistry.RegisterForNavigation<ListVehicleHelpPage, ListVehicleHelpViewModel>("ListVehicleHelpPage");
+            //containerRegistry.RegisterForNavigation<ListVehiclePage, ListVehiclePageViewModel>("ListVehiclePage");
+            //containerRegistry.RegisterForNavigation<VehicleDetailPage, VehicleDetailPageViewModel>("VehicleDetailPage");
+            //containerRegistry.RegisterForNavigation<VehicleDebtMoneyPage, VehicleDebtMoneyPageViewModel>("VehicleDebtMoneyPage");
+            containerRegistry.RegisterForNavigation<SettingsPageMoto, SettingsMotoViewModel>("SettingsPageMoto");
+            containerRegistry.RegisterForNavigation<PhoneNumberSMSPage, PhoneNumberSMSViewModel>("PhoneNumberSMSPage");
+            //containerRegistry.RegisterForNavigation<RoutePage, RouteViewModel>("RoutePage");
+            //containerRegistry.RegisterForNavigation<RouteListPage, RouteListViewModel>("RouteListPage");
+
+
+
             Debug.WriteLine("=======================End RegisterTypes============================");
         }
     }
