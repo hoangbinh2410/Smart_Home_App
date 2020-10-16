@@ -21,14 +21,13 @@ namespace MOTO_MobileGPS
     {
         public MOTOApp(IPlatformInitializer initializer) : base(initializer)
         {
-            Debug.WriteLine("=======================MOTOApp============================");
+
         }
 
         public override string OneSignalKey => base.OneSignalKey;
 
         protected async override void OnInitialized()
         {
-            Debug.WriteLine("=======================Start OnInitialized============================");
             base.OnInitialized();
 
             ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerMoto;
@@ -52,13 +51,10 @@ namespace MOTO_MobileGPS
             {
                 _ = await NavigationService.NavigateAsync("LoginPage");
             }
-
-            Debug.WriteLine("=======================End OnInitialized============================");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            Debug.WriteLine("=======================Start RegisterTypes============================");
             base.RegisterTypes(containerRegistry);
 
             AppType = BA_MobileGPS.Entities.AppType.Moto;
@@ -103,10 +99,6 @@ namespace MOTO_MobileGPS
             containerRegistry.RegisterForNavigation<PhoneNumberSMSPage, PhoneNumberSMSViewModel>("PhoneNumberSMSPage");
             //containerRegistry.RegisterForNavigation<RoutePage, RouteViewModel>("RoutePage");
             //containerRegistry.RegisterForNavigation<RouteListPage, RouteListViewModel>("RouteListPage");
-
-
-
-            Debug.WriteLine("=======================End RegisterTypes============================");
         }
     }
 }
