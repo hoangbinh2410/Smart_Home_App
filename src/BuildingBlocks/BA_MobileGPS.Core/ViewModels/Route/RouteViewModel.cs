@@ -439,7 +439,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                 }
 
-                if(result != null)
+                if (result != null)
                 {
                     ProcessUserConfigGetHistoryRoute(result);
                 }
@@ -486,10 +486,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             CurrentRoute = ListRoute[0];
 
-                            if (CurrentRoute.State != null && CurrentRoute.State.State == StateType.Stop)
-                            {
-                                DrawStopPoint(CurrentRoute);
-                            }
+                            //if (CurrentRoute.State != null && CurrentRoute.State.State == StateType.Stop)
+                            //{
+                            //    DrawStopPoint(CurrentRoute);
+                            //}
 
                             //if (Device.RuntimePlatform == Device.iOS)
                             //    MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude), ZoomLevel)));
@@ -586,7 +586,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     RouteHistory.TimePoints.AddedTimes.Add(RouteHistory.TimePoints.AddedTimes[0]);
                 }
 
-                var stopPoints = RouteHistory.StatePoints.FindAll(s => s.State == StateType.Stop);
+                //var stopPoints = RouteHistory.StatePoints.FindAll(s => s.State == StateType.Stop);
 
                 var startTime = RouteHistory.TimePoints.StartTime;
 
@@ -750,6 +750,15 @@ namespace BA_MobileGPS.Core.ViewModels
             for (int i = 0; i < ListRoute.Count; i++)
             {
                 RouteLine.Positions.Add(new Position(ListRoute[i].Latitude, ListRoute[i].Longitude));
+                if (ListRoute[i].State != null && ListRoute[i].State.State == StateType.Stop)
+                {
+                    DrawStopPoint(ListRoute[i]);
+                }
+
+                if (ListRoute[i].Direction != null)
+                {
+                    DrawDirection(ListRoute[i]);
+                }
             }
 
             Polylines.Add(RouteLine);
@@ -902,33 +911,33 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 CurrentRoute = ListRoute[PlayCurrent];
 
-                Device.StartTimer(TimeSpan.FromMilliseconds(BASE_TIME / PlaySpeed), () =>
-                {
-                    try
-                    {
-                        if (ctsRouting.IsCancellationRequested)
-                        {
-                            return false;
-                        }
+                //Device.StartTimer(TimeSpan.FromMilliseconds(BASE_TIME / PlaySpeed), () =>
+                //{
+                //    try
+                //    {
+                //        if (ctsRouting.IsCancellationRequested)
+                //        {
+                //            return false;
+                //        }
 
-                        if (CurrentRoute.Direction != null)
-                        {
-                            DrawDirection(CurrentRoute);
-                        }
+                //        if (CurrentRoute.Direction != null)
+                //        {
+                //            DrawDirection(CurrentRoute);
+                //        }
 
-                        if (CurrentRoute.State != null && CurrentRoute.State.State == StateType.Stop)
-                        {
-                            DrawStopPoint(CurrentRoute);
-                        }
+                //        if (CurrentRoute.State != null && CurrentRoute.State.State == StateType.Stop)
+                //        {
+                //            DrawStopPoint(CurrentRoute);
+                //        }
 
-                        return false;
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-                        return false;
-                    }
-                });
+                //        return false;
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                //        return false;
+                //    }
+                //});
 
                 Rotate((rotated) =>
                 {
@@ -1033,7 +1042,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             for (int i = 0; i <= PlayCurrent; i++)
             {
-               if (ListRoute[i].State != null && ListRoute[i].State.State == StateType.Stop)
+                if (ListRoute[i].State != null && ListRoute[i].State.State == StateType.Stop)
                 {
                     DrawStopPoint(ListRoute[i]);
                 }
@@ -1077,7 +1086,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 CurrentRoute = ListRoute[PlayCurrent];
 
-                DrawToCurrent();
+                //DrawToCurrent();
 
                 if (PlayCurrent > 0)
                 {
