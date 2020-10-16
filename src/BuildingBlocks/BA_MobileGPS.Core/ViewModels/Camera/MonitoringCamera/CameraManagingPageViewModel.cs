@@ -72,7 +72,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         item.Clear();
                         RunOnBackground(async () =>
                         {
-                            await RequestStartCam(item.Data.Channel);
+                            await RequestStartCam(item.Data.Channel, false);
                         });
                         item.SetMedia(item.Data.Link);
                     }
@@ -390,7 +390,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
 
 
-        private async Task<CameraManagement> RequestStartCam(int chanel)
+        private async Task<CameraManagement> RequestStartCam(int chanel,bool initMedia = true)
         {
             CameraManagement result = null;
             var request = new StreamStartRequest()
@@ -405,12 +405,15 @@ namespace BA_MobileGPS.Core.ViewModels
             var startResponse = camResponse?.Data?.FirstOrDefault();
             if (startResponse != null)
             {
-                result = new CameraManagement(maxLoadingTime, libVLC);
-                if (result.Data!= null)
+                if (initMedia)
                 {
-                    result.Data = null;
-                }
-                result.Data = startResponse;                
+                    result = new CameraManagement(maxLoadingTime, libVLC);
+                    if (result.Data != null)
+                    {
+                        result.Data = null;
+                    }
+                    result.Data = startResponse;
+                }                   
             }
             return result;
         }
