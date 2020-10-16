@@ -34,12 +34,13 @@ namespace BA_MobileGPS.Core.Views
             {
 
             }
-            
+
         }
 
         protected override void OnAppearing()
-        {
+        {          
             base.OnAppearing();
+            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
         }
 
         private void list_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -78,27 +79,30 @@ namespace BA_MobileGPS.Core.Views
             {
                 var temp = ((TappedEventArgs)e).Parameter;
                 var newItemSlect = (CameraManagement)temp;
-                if (newItemSlect.Data.Channel != selectedItem?.Data?.Channel)
+                if (newItemSlect != null && 
+                    newItemSlect.Data.Channel != selectedItem?.Data?.Channel)
                 {
-                    if (newItemSlect.CanExcute())
-                    {
-                        if (selectedItem != null && selectedItem.IsSelected)
-                        {
-                            selectedItem.IsSelected = false;
-                        }
-                        selectedItem = newItemSlect;
-                        selectedItem.IsSelected = true;
-                        ((CameraManagingPageViewModel)this.BindingContext).SelectedItem = selectedItem;
-                    }
-
+                    SetSelectedItem(newItemSlect);
                 }
             }
             catch (Exception ex)
             {
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-           
-        
+        }
+
+        private void SetSelectedItem(CameraManagement newItemSlect, bool excute = false)
+        {
+            if (newItemSlect.CanExcute() || excute)
+            {
+                if (selectedItem != null && selectedItem.IsSelected)
+                {
+                    selectedItem.IsSelected = false;
+                }
+                selectedItem = newItemSlect;
+                selectedItem.IsSelected = true;
+                ((CameraManagingPageViewModel)this.BindingContext).SelectedItem = selectedItem;
+            }
         }
 
 
@@ -156,9 +160,9 @@ namespace BA_MobileGPS.Core.Views
                                 }
                             }
                         }
-                    }                    
+                    }
                     Grid.SetRow(playbackControl, 3);
-                }              
+                }
             }
             catch (Exception ex)
             {
@@ -220,6 +224,11 @@ namespace BA_MobileGPS.Core.Views
                     var source = BindableLayout.GetItemsSource(parent)?.Cast<ChildStackSource>();
                     if (source != null && source.Count() > 0)
                     {
+                        var firstItem = source.FirstOrDefault()?.ChildSource?.FirstOrDefault();
+                        if (firstItem != null)
+                        {
+                            SetSelectedItem(firstItem, true); ;
+                        }
                         noDataImage.IsVisible = false;
                         var maxCount = 1;
                         foreach (var item in source)

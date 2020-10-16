@@ -20,7 +20,6 @@ namespace BA_MobileGPS.Core.Models
         private Timer countLoadingTimer;
         private int counter { get; set; } // timer counter
         private bool internalError { get; set; }
-        private long oldTime { get; set; } // get time to compare while error was happen
 
         public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC)
         {
@@ -33,6 +32,7 @@ namespace BA_MobileGPS.Core.Models
             counter = maxLoadingTime;
             internalError = false;
             ReloadCommand = new DelegateCommand(Reload);
+            AutoRequestPing = true;
         }
 
         private int totalTime;
@@ -161,6 +161,8 @@ namespace BA_MobileGPS.Core.Models
                 TotalTime = 0;
             });
             countLoadingTimer.Stop();
+            //ThreadPool.QueueUserWorkItem((a) => { MediaPlayer.Stop(); });
+            mediaPlayer.Media = null;
         }
 
         private void InitMediaPlayer()
@@ -223,11 +225,11 @@ namespace BA_MobileGPS.Core.Models
         {
             try
             {
+                AutoRequestPing = true;
                 internalError = false;
                 countLoadingTimer.Stop();
                 countLoadingTimer.Interval = 1000;
-                counter = maxLoadingTime;
-                //ThreadPool.QueueUserWorkItem((a) => { MediaPlayer.Stop(); });
+                counter = maxLoadingTime;               
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     IsLoaded = false;
@@ -272,6 +274,8 @@ namespace BA_MobileGPS.Core.Models
                 }
                 if (MediaPlayer != null)
                 {
+                    //ThreadPool.QueueUserWorkItem((a) => { MediaPlayer.Stop(); });
+                    mediaPlayer.Media = null;
                     mediaPlayer.TimeChanged -= MediaPlayer_TimeChanged;
                     mediaPlayer.EncounteredError -= MediaPlayer_EncounteredError;
                     mediaPlayer.EndReached -= MediaPlayer_EndReached;
