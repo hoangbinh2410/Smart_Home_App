@@ -530,10 +530,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 //nếu nhớ mật khẩu thì lưu lại thông tin username và password
                 if (Rememberme)
                 {
-                    Settings.UserName = UserName.Value;
-                    Settings.Password = Password.Value;
                     Settings.Rememberme = true;
                 }
+
+                Settings.UserName = UserName.Value;
+                Settings.Password = Password.Value;
+
                 StaticSettings.Token = user.AccessToken;
                 StaticSettings.User = user;
                 OneSignal.Current.SendTag("UserID", user.UserId.ToString().ToUpper());
