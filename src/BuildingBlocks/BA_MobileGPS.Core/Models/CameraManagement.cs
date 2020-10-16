@@ -20,7 +20,6 @@ namespace BA_MobileGPS.Core.Models
         private Timer countLoadingTimer;
         private int counter { get; set; } // timer counter
         private bool internalError { get; set; }
-        private long oldTime { get; set; } // get time to compare while error was happen
 
         public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC)
         {
@@ -32,7 +31,7 @@ namespace BA_MobileGPS.Core.Models
             countLoadingTimer.Elapsed += CountLoadingTimer_Elapsed;
             counter = maxLoadingTime;
             internalError = false;
-            ReloadCommand = new DelegateCommand(Reload);
+            AutoRequestPing = true;
         }
 
         private int totalTime;
@@ -161,6 +160,8 @@ namespace BA_MobileGPS.Core.Models
                 TotalTime = 0;
             });
             countLoadingTimer.Stop();
+            //ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
+            mediaPlayer.Media.Dispose();
         }
 
         private void InitMediaPlayer()
@@ -223,11 +224,11 @@ namespace BA_MobileGPS.Core.Models
         {
             try
             {
+                AutoRequestPing = true;
                 internalError = false;
                 countLoadingTimer.Stop();
                 countLoadingTimer.Interval = 1000;
-                counter = maxLoadingTime;
-                //ThreadPool.QueueUserWorkItem((a) => { MediaPlayer.Stop(); });
+                counter = maxLoadingTime;               
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     IsLoaded = false;
@@ -239,14 +240,7 @@ namespace BA_MobileGPS.Core.Models
             {
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-        }
-        public ICommand ReloadCommand { get; }
-
-        private void Reload()
-        {
-            Clear();
-            SetMedia(Data.Link);
-        }
+        }   
 
         public virtual bool CanExcute()
         {
@@ -271,10 +265,12 @@ namespace BA_MobileGPS.Core.Models
                     countLoadingTimer.Dispose();
                 }
                 if (MediaPlayer != null)
-                {
+                {                                  
                     mediaPlayer.TimeChanged -= MediaPlayer_TimeChanged;
                     mediaPlayer.EncounteredError -= MediaPlayer_EncounteredError;
                     mediaPlayer.EndReached -= MediaPlayer_EndReached;
+                    //ThreadPool.QueueUserWorkItem((a) => { MediaPlayer.Stop(); });
+                    mediaPlayer.Media.Dispose();
                     var media = MediaPlayer;
                     MediaPlayer = null;
                     media?.Dispose();

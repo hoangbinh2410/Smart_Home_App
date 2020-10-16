@@ -123,7 +123,7 @@
                     <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
-                    Foreground="{Binding VehicleStatusSelected, Converter={StaticResource SelectedStatusIconColorConverter}}"
+                    Foreground="{Binding VehicleGroups, Converter={StaticResource HasDataIconColorConverter}}"
                     HeightRequest="25"
                     HorizontalOptions="Center"
                     Source="ic_doublevehicle.png"

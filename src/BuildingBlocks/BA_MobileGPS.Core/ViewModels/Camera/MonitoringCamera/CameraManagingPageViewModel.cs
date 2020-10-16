@@ -72,7 +72,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         item.Clear();
                         RunOnBackground(async () =>
                         {
-                            await RequestStartCam(item.Data.Channel);
+                            await RequestStartCam(item.Data.Channel, false);
                         });
                         item.SetMedia(item.Data.Link);
                     }
@@ -89,7 +89,6 @@ namespace BA_MobileGPS.Core.ViewModels
             //Check parameter key
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
-                AutoAddTime = true;
                 VehicleSelectedPlate = vehiclePlate.VehiclePlate;
                 ReLoadAllCamera();
             }
@@ -391,7 +390,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
 
 
-        private async Task<CameraManagement> RequestStartCam(int chanel)
+        private async Task<CameraManagement> RequestStartCam(int chanel,bool initMedia = true)
         {
             CameraManagement result = null;
             var request = new StreamStartRequest()
@@ -406,12 +405,15 @@ namespace BA_MobileGPS.Core.ViewModels
             var startResponse = camResponse?.Data?.FirstOrDefault();
             if (startResponse != null)
             {
-                result = new CameraManagement(maxLoadingTime, libVLC);
-                if (result.Data!= null)
+                if (initMedia)
                 {
-                    result.Data = null;
-                }
-                result.Data = startResponse;                
+                    result = new CameraManagement(maxLoadingTime, libVLC);
+                    if (result.Data != null)
+                    {
+                        result.Data = null;
+                    }
+                    result.Data = startResponse;
+                }                   
             }
             return result;
         }
@@ -440,11 +442,16 @@ namespace BA_MobileGPS.Core.ViewModels
                             res.SetMedia(res.Data.Link);
                             listCam.Add(res);
                         }
-                        //for (int i = 0; i < 2; i++)
+                        //var rnd = new Random();
+                        //var num = rnd.Next(0, 10);
+                        //for (int i = 0; i < num; i++)
                         //{
                         //    var a = new CameraManagement(maxLoadingTime, libVLC);
-                        //    a.Data = new StreamStart();
-                        //    a.Data.Link = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+                        //    a.Data = new StreamStart()
+                        //    {
+                        //        Channel = i + 3,
+                        //        Link = "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
+                        //    };
                         //    a.SetMedia(a.Data.Link);
                         //    listCam.Add(a);
                         //}
