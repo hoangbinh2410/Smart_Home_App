@@ -269,8 +269,13 @@ namespace BA_MobileGPS.Core.Models
                     mediaPlayer.TimeChanged -= MediaPlayer_TimeChanged;
                     mediaPlayer.EncounteredError -= MediaPlayer_EncounteredError;
                     mediaPlayer.EndReached -= MediaPlayer_EndReached;
-                    //ThreadPool.QueueUserWorkItem((a) => { MediaPlayer.Stop(); });
-                    mediaPlayer.Media.Dispose();
+                    //ThreadPool.QueueUserWorkItem((a) => {
+                    //    if (MediaPlayer != null)
+                    //    {
+                    //        MediaPlayer.Stop();
+                    //    }                       
+                    //});
+                    mediaPlayer.Media?.Dispose();
                     var media = MediaPlayer;
                     MediaPlayer = null;
                     media?.Dispose();
