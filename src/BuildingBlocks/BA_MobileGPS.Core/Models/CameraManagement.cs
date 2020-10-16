@@ -31,7 +31,6 @@ namespace BA_MobileGPS.Core.Models
             countLoadingTimer.Elapsed += CountLoadingTimer_Elapsed;
             counter = maxLoadingTime;
             internalError = false;
-            ReloadCommand = new DelegateCommand(Reload);
             AutoRequestPing = true;
         }
 
@@ -161,8 +160,8 @@ namespace BA_MobileGPS.Core.Models
                 TotalTime = 0;
             });
             countLoadingTimer.Stop();
-            //ThreadPool.QueueUserWorkItem((a) => { MediaPlayer.Stop(); });
-            mediaPlayer.Media = null;
+            //ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
+            mediaPlayer.Media.Dispose();
         }
 
         private void InitMediaPlayer()
@@ -241,14 +240,7 @@ namespace BA_MobileGPS.Core.Models
             {
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-        }
-        public ICommand ReloadCommand { get; }
-
-        private void Reload()
-        {
-            Clear();
-            SetMedia(Data.Link);
-        }
+        }   
 
         public virtual bool CanExcute()
         {
@@ -273,12 +265,12 @@ namespace BA_MobileGPS.Core.Models
                     countLoadingTimer.Dispose();
                 }
                 if (MediaPlayer != null)
-                {
-                    //ThreadPool.QueueUserWorkItem((a) => { MediaPlayer.Stop(); });
-                    mediaPlayer.Media = null;
+                {                                  
                     mediaPlayer.TimeChanged -= MediaPlayer_TimeChanged;
                     mediaPlayer.EncounteredError -= MediaPlayer_EncounteredError;
                     mediaPlayer.EndReached -= MediaPlayer_EndReached;
+                    //ThreadPool.QueueUserWorkItem((a) => { MediaPlayer.Stop(); });
+                    mediaPlayer.Media.Dispose();
                     var media = MediaPlayer;
                     MediaPlayer = null;
                     media?.Dispose();
