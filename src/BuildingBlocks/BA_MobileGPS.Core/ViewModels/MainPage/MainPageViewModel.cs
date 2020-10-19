@@ -87,7 +87,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 await ConnectSignalR();
                 Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
-                {                  
+                {
                     GetCountVehicleDebtMoney();
                     InsertOrUpdateAppDevice();
                     GetNoticePopup();
@@ -322,7 +322,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             // Khởi tạo signalR
             await vehicleOnlineHubService.Connect();
-
+            vehicleOnlineHubService.onReceiveSendCarSignalR -= OnReceiveSendCarSignalR;
             vehicleOnlineHubService.onReceiveSendCarSignalR += OnReceiveSendCarSignalR;
         }
 
@@ -621,6 +621,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     if (synVehicles != null && synVehicles.Count > 0)
                     {
+                        TryExecute(async () =>
+                        {
+                            if (!vehicleOnlineHubService.IsConnectedOrConnecting())
+                            {
+                                await ConnectSignalROnline();
+                            }
+                        });
+
                         var vehicelIDs = string.Join(",", synVehicles);
                         var userID = UserInfo.UserId;
                         var companyID = UserInfo.CompanyId;
