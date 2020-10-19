@@ -7,8 +7,6 @@ namespace BA_MobileGPS.Service
     public interface IVehicleRouteService
     {
         Task<RouteHistoryResponse> GetHistoryRoute(RouteHistoryRequest request);
-
-        Task<RouteHistoryResponse> GetHistoryRouteTest(RouteHistoryRequest request);
         
         Task<ValidateUserConfigGetHistoryRouteResponse> ValidateUserConfigGetHistoryRoute(ValidateUserConfigGetHistoryRouteRequest request);
     }

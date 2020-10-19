@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
+using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.Views;
@@ -513,14 +514,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        PageDialog.DisplayAlertAsync("", ex.Message, MobileResource.Common_Button_OK);
-                        Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                        PageDialog.DisplayAlertAsync("", "Không tải được dữ liệu", MobileResource.Common_Button_OK);
+                        LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
                     }
                 }
                 else if (task.IsFaulted)
                 {
-                    PageDialog.DisplayAlertAsync("", task.Exception?.GetRootException().Message, MobileResource.Common_Button_OK);
-                    Logger.WriteError(MethodBase.GetCurrentMethod().Name, task.Exception?.GetRootException().Message);
+                    PageDialog.DisplayAlertAsync("", "Không tải được dữ liệu", MobileResource.Common_Button_OK);
+                    LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, task.Exception);
                 }
 
                 DependencyService.Get<IHUDProvider>().Dismiss();
@@ -930,7 +931,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 //    }
                 //    catch (Exception ex)
                 //    {
-                //        Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                //        LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
                 //        return false;
                 //    }
                 //});
@@ -951,7 +952,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -981,7 +982,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -1016,7 +1017,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
