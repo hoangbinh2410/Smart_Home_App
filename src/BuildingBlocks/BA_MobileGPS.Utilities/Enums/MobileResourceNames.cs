@@ -848,7 +848,9 @@
         CameraImage_Label_TitlelPage,
         CameraImage_Label_TitleDetailPage,
         Common_Message_ErrorTimeFromToTimeEnd,
-        Undefined,
+        Camera_Label_Undefined,
+        Camera_Label_Error,
+        Camera_Title_Camera_Streaming,
         #endregion
 
         #region Helper
