@@ -867,17 +867,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     SuperInteligent();
 
                     IsPlaying = true;
-
-                    if (GetControl<Map>("map") is Map map)
-                        map.UiSettings.ZoomGesturesEnabled = false;
                 }
                 else
                 {
                     if (ctsRouting != null)
                         ctsRouting.Cancel();
-
-                    if (GetControl<Map>("map") is Map map)
-                        map.UiSettings.ZoomGesturesEnabled = true;
 
                     IsPlaying = false;
                 }
@@ -888,9 +882,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     ctsRouting.Cancel();
 
                 IsPlaying = false;
-
-                if (GetControl<Map>("map") is Map map)
-                    map.UiSettings.ZoomGesturesEnabled = true;
 
                 PageDialog.DisplayAlertAsync("", ex.Message, MobileResource.Common_Button_OK);
             }
@@ -903,9 +894,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (ctsRouting != null)
                     ctsRouting.Cancel();
-
-                if (GetControl<Map>("map") is Map map)
-                    map.UiSettings.ZoomGesturesEnabled = true;
 
                 IsPlaying = false;
             }
@@ -954,10 +942,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (PlayCurrent + 1 > PlayMax || ctsRouting.IsCancellationRequested)
                         {
                             IsPlaying = false;
-
-                            if (GetControl<Map>("map") is Map map)
-                                map.UiSettings.ZoomGesturesEnabled = true;
-
                             return;
                         }
 
