@@ -238,6 +238,7 @@
                     <DataTemplate>
                         <StackLayout
                             Margin="0,2,0,0"
+                            HorizontalOptions="CenterAndExpand"
                             Spacing="2"
                             VerticalOptions="CenterAndExpand">
                             <pancake:PancakeView
