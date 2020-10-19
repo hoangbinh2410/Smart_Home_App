@@ -8,6 +8,7 @@
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:indicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
@@ -57,7 +58,7 @@
             <Label
                 HorizontalOptions="Center"
                 StyleClass="GroupTitleLabel,BoldText"
-                Text="Xem trực tuyến"
+                Text="{i18n:TranslateResource Camera_Title_Camera_Streaming}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
         </Grid>
@@ -157,7 +158,6 @@
             <StackLayout
                 x:Name="parent"
                 BindableLayout.ItemsSource="{Binding ItemsSource}"
-                Orientation="Horizontal"
                 PropertyChanged="parent_PropertyChanged"
                 Spacing="1"
                 VerticalOptions="FillAndExpand">
@@ -165,11 +165,15 @@
                     <DataTemplate>
                         <StackLayout
                             BindableLayout.ItemsSource="{Binding ChildSource}"
-                            Spacing="1"
-                            WidthRequest="{Binding Width, Mode=OneWay}">
+                            HeightRequest="{Binding Height}"
+                            Orientation="Horizontal"
+                            Spacing="1">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid BackgroundColor="Black" HeightRequest="{Binding Height}">
+                                    <Grid
+                                        BackgroundColor="Black"
+                                        HeightRequest="{Binding Height}"
+                                        WidthRequest="{Binding Width}">
                                         <Grid.GestureRecognizers>
                                             <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="TapGestureRecognizer_Tapped" />
                                         </Grid.GestureRecognizers>
@@ -185,20 +189,14 @@
                                             Style="{StaticResource cameraTextFrame}">
                                             <Frame.Triggers>
                                                 <DataTrigger
-                                                    Binding="{Binding IsError}"
-                                                    TargetType="Frame"
-                                                    Value="True">
-                                                    <Setter Property="BorderColor" Value="Red" />
-                                                </DataTrigger>
-                                                <DataTrigger
                                                     Binding="{Binding IsSelected}"
                                                     TargetType="Frame"
-                                                    Value="True">
+                                                    Value="true">
                                                     <Setter Property="BorderColor" Value="#0C852E" />
                                                 </DataTrigger>
                                             </Frame.Triggers>
                                             <Label
-                                                Text="{Binding Data.Channel, Converter={StaticResource CameraChanelNameConverter}}"
+                                                Text="{Binding Data.Channel, Converter={StaticResource CameraChanelNameConverter}, Mode=OneWay}"
                                                 TextColor="{Binding Source={x:Reference frCam}, Path=BorderColor, Mode=OneWay}"
                                                 VerticalOptions="Center" />
                                         </Frame>
@@ -211,7 +209,7 @@
                                                 <DataTrigger
                                                     Binding="{Binding IsSelected}"
                                                     TargetType="Grid"
-                                                    Value="True">
+                                                    Value="true">
                                                     <Setter Property="BackgroundColor" Value="Transparent" />
                                                 </DataTrigger>
                                                 <DataTrigger
@@ -222,26 +220,33 @@
                                                     <Setter Property="InputTransparent" Value="False" />
                                                 </DataTrigger>
                                             </Grid.Triggers>
-                                            <icons:IconView
-                                                Foreground="{DynamicResource WhiteColor}"
-                                                HeightRequest="25"
+                                            <StackLayout
                                                 HorizontalOptions="Center"
                                                 IsVisible="False"
-                                                Source="ic_reload"
-                                                VerticalOptions="Center"
-                                                WidthRequest="25">
-                                                <icons:IconView.Triggers>
+                                                VerticalOptions="Center">
+                                                <icons:IconView
+                                                    Foreground="{DynamicResource WhiteColor}"
+                                                    HeightRequest="25"
+                                                    Source="ic_reload"
+                                                    WidthRequest="25" />
+                                                <!--<Label
+                                                    x:Name="lblErr"
+                                                    HorizontalOptions="Center"
+                                                    MaxLines="1"
+                                                    Text="{i18n:TranslateResource Camera_Label_Error}"
+                                                    TextColor="{DynamicResource WhiteColor}" />-->
+                                                <StackLayout.Triggers>
                                                     <DataTrigger
                                                         Binding="{Binding Source={x:Reference errGrid}, Path=BackgroundColor}"
-                                                        TargetType="icons:IconView"
+                                                        TargetType="StackLayout"
                                                         Value="Black">
                                                         <Setter Property="IsVisible" Value="True" />
                                                     </DataTrigger>
-                                                </icons:IconView.Triggers>
-                                                <icons:IconView.GestureRecognizers>
+                                                </StackLayout.Triggers>
+                                                <StackLayout.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ReLoadCommand}" CommandParameter="{Binding .}" />
-                                                </icons:IconView.GestureRecognizers>
-                                            </icons:IconView>
+                                                </StackLayout.GestureRecognizers>
+                                            </StackLayout>
                                         </Grid>
                                     </Grid>
                                 </DataTemplate>
