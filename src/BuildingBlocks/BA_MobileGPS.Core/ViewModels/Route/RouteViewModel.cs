@@ -181,7 +181,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private Color findCarColor = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
         public Color FindCarColor { get => findCarColor; set => SetProperty(ref findCarColor, value); }
 
-        private DateTime dateStart = DateTime.Today.Date;
+        private DateTime dateStart = DateTime.Now.Subtract(TimeSpan.FromHours(24));
         public DateTime DateStart { get => dateStart; set => SetProperty(ref dateStart, value); }
 
         private DateTime dateEnd = DateTime.Now;
@@ -244,7 +244,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 };
 
                 // Gán lại thời gian
-                DateStart = DateTime.Today.Date;
+                DateStart = DateTime.Now.Subtract(TimeSpan.FromHours(24));
                 DateEnd = DateTime.Now;
 
                 GetVehicleRoute();
@@ -267,6 +267,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 DateEnd = DateTime.Now;
                 DateStart = DateEnd.Subtract(TimeSpan.FromHours(length));
                 GetVehicleRoute();
+            }
+            else
+            {
+                DateStart = DateTime.Today.Date;
+                DateEnd = DateTime.Now;
             }
         }
 

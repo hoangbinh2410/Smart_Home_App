@@ -69,8 +69,8 @@ namespace BA_MobileGPS.Core.Views
             {
                 TimeSelectorContainerHeight = Device.RuntimePlatform == Device.iOS ? TimeSelectorContainer.HeightRequest + 4 : TimeSelectorContainer.HeightRequest;
 
-                AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight, TimeSelectorContainerHeight * 2, length: 150);
-                IsExpanded = true;
+                AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight * 2, TimeSelectorContainerHeight, length: 150);
+                IsExpanded = false;
 
                 IconInfo_Clicked(this, EventArgs.Empty);
 
