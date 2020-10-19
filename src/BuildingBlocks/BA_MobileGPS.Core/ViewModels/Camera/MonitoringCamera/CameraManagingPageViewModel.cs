@@ -515,6 +515,8 @@ namespace BA_MobileGPS.Core.ViewModels
             var startResponse = camResponse?.Data?.FirstOrDefault();
             if (startResponse != null)
             {
+                // Gửi 1 request ping để chắc chắn lúc đầu là 10p
+                SendRequestTime(maxTimeCameraRemain, startResponse.Channel);
                 if (initMedia)
                 {
                     result = new CameraManagement(maxLoadingTime, libVLC);
@@ -550,27 +552,27 @@ namespace BA_MobileGPS.Core.ViewModels
                         CurrentTime = deviceResponseData.DeviceTime;
                         var cameraActive = deviceResponseData.CameraChannels?.Where(x => x.IsPlug).ToList();
                         var listCam = new List<CameraManagement>();
-                        foreach (var item in cameraActive)
-                        {
-                            var res = await RequestStartCam(item.Channel);
-                            res.SetMedia(res.Data.Link);
-                            listCam.Add(res);
-                        }
-                        SetItemsSource(listCam);
-                        //var rnd = new Random();
-                        //var num = rnd.Next(2, 6);
-                        //var duplicateList = new List<CameraManagement>();
-                        //for (int i = 0; i < num; i++)
+                        //foreach (var item in cameraActive)
                         //{
-                        //    foreach (var item in cameraActive)
-                        //    {
-                        //        var res = await RequestStartCam(item.Channel);
-                        //        res.Data.Channel += i*cameraActive.Count;
-                        //        res.SetMedia(res.Data.Link);
-                        //        duplicateList.Add(res);
-                        //    }
+                        //    var res = await RequestStartCam(item.Channel);
+                        //    res.SetMedia(res.Data.Link);
+                        //    listCam.Add(res);
                         //}
-                        //SetItemsSource(duplicateList);
+                        //SetItemsSource(listCam);
+                        var rnd = new Random();
+                        var num = rnd.Next(2, 4);
+                        var duplicateList = new List<CameraManagement>();
+                        for (int i = 0; i < num; i++)
+                        {
+                            foreach (var item in cameraActive)
+                            {
+                                var res = await RequestStartCam(item.Channel);
+                                res.Data.Channel += i * cameraActive.Count;
+                                res.SetMedia(res.Data.Link);
+                                duplicateList.Add(res);
+                            }
+                        }
+                        SetItemsSource(duplicateList);
                     }
                 }
             });
@@ -690,6 +692,10 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (!string.IsNullOrEmpty(vehicleSelectedPlate))
             {
+                if (selectedItem != null && TotalTime != selectedItem.TotalTime)
+                {
+                    TotalTime = selectedItem.TotalTime;                  
+                }
                 if (TotalTime > 0)
                 {
                     Device.BeginInvokeOnMainThread(() =>
@@ -697,6 +703,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         TotalTime -= 1;
                     });
                 }
+
                 counterRequestPing--;
                 if (counterRequestPing == 0)
                 {

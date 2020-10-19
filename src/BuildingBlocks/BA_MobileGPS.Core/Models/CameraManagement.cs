@@ -223,7 +223,7 @@ namespace BA_MobileGPS.Core.Models
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     IsLoaded = true;
-                    TotalTime = 180;
+                    TotalTime = 600;
                     IsError = false;
                 });
                 internalError = false;
@@ -233,15 +233,13 @@ namespace BA_MobileGPS.Core.Models
         public virtual void Clear()
         {
             try
-            {
-                AutoRequestPing = true;
+            {                
                 internalError = false;
                 countLoadingTimer.Stop();
                 countLoadingTimer.Interval = 1000;
                 counter = maxLoadingTime;                      
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    IsSelected = false;
                     IsLoaded = false;
                     IsError = false;
                     TotalTime = 1;

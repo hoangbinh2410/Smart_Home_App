@@ -229,12 +229,12 @@
                                                     HeightRequest="25"
                                                     Source="ic_reload"
                                                     WidthRequest="25" />
-                                                <Label
+                                                <!--<Label
                                                     x:Name="lblErr"
                                                     HorizontalOptions="Center"
                                                     MaxLines="1"
                                                     Text="{i18n:TranslateResource Camera_Label_Error}"
-                                                    TextColor="{DynamicResource WhiteColor}" />
+                                                    TextColor="{DynamicResource WhiteColor}" />-->
                                                 <StackLayout.Triggers>
                                                     <DataTrigger
                                                         Binding="{Binding Source={x:Reference errGrid}, Path=BackgroundColor}"
