@@ -18,11 +18,14 @@ namespace BA_MobileGPS.Core.Views
                 {
                     WidthRequest = (text.Trim().Length * 8);
                 }
+                else if (lenght <= 5)
+                {
+                    WidthRequest = (text.Trim().Length * 15);
+                }
                 else
                 {
                     WidthRequest = (text.Trim().Length * 9);
                 }
-
             }
             else
             {
