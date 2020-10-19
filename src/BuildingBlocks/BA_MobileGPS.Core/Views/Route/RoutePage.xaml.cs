@@ -38,7 +38,7 @@ namespace BA_MobileGPS.Core.Views
 
             map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
 
-            map.UiSettings.ZoomControlsEnabled = false;
+            map.UiSettings.ZoomControlsEnabled = true;
             map.UiSettings.RotateGesturesEnabled = false;
 
             map.PinClicked += Map_PinClicked;
@@ -194,7 +194,13 @@ namespace BA_MobileGPS.Core.Views
         private void Map_PinClicked(object sender, PinClickedEventArgs e)
         {
             if (!"state_stop".Equals(e.Pin.Tag) && !"direction".Equals(e.Pin.Tag))
+            {
                 e.Handled = true;
+            }
+            else
+            {
+                vm.StopWatchVehicle();
+            }
         }
 
         private void IconInfo_Clicked(object sender, EventArgs e)

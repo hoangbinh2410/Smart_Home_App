@@ -178,8 +178,11 @@ namespace BA_MobileGPS.Core.ViewModels
         private Color backgroundMapType = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
         public Color BackgroundMapType { get => backgroundMapType; set => SetProperty(ref backgroundMapType, value); }
 
-        private Color findCarColor = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
-        public Color FindCarColor { get => findCarColor; set => SetProperty(ref findCarColor, value); }
+        private Color colorTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
+        public Color ColorTrackingCar { get => colorTrackingCar; set => SetProperty(ref colorTrackingCar, value); }
+
+        private Color backgroundTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+        public Color BackgroundTrackingCar { get => backgroundTrackingCar; set => SetProperty(ref backgroundTrackingCar, value); }
 
         private DateTime dateStart = DateTime.Now.Subtract(TimeSpan.FromHours(24));
         public DateTime DateStart { get => dateStart; set => SetProperty(ref dateStart, value); }
@@ -328,7 +331,8 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (IsWatching)
             {
-                FindCarColor = (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor2"];
+                BackgroundTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
+                ColorTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
                 IsWatching = false;
 
                 if (IsPlaying)
@@ -339,7 +343,8 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else
             {
-                FindCarColor = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+                BackgroundTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+                ColorTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
                 IsWatching = true;
 
                 if (PinCar != null)
@@ -355,6 +360,22 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (GetControl<Map>("map") is Map map)
                         map.UiSettings.ZoomGesturesEnabled = false;
                 }
+            }
+        }
+
+        public void StopWatchVehicle()
+        {
+            if (IsWatching)
+            {
+                BackgroundTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
+                ColorTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+                IsWatching = false;
+
+                //if (IsPlaying)
+                //{
+                //    if (GetControl<Map>("map") is Map map)
+                //        map.UiSettings.ZoomGesturesEnabled = true;
+                //}
             }
         }
 
@@ -1170,10 +1191,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
             BackgroundMapType = MapType == MapType.Street
                 ? (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"]
-                : (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
-
-            FindCarColor = IsWatching
-                ? (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor2"]
                 : (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
         }
 

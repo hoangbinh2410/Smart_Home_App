@@ -326,7 +326,7 @@
                     AbsoluteLayout.LayoutFlags="PositionProportional">
                     <pancake:PancakeView
                         Padding="0"
-                        BackgroundColor="{DynamicResource WhiteColor}"
+                        BackgroundColor="{Binding BackgroundTrackingCar}"
                         CornerRadius="22"
                         HeightRequest="45"
                         Shadow="{x:StaticResource shadow}"
@@ -335,10 +335,10 @@
                             <TapGestureRecognizer Command="{Binding WatchVehicleCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
-                            Foreground="{DynamicResource PrimaryColor}"
+                            Foreground="{Binding ColorTrackingCar}"
                             HeightRequest="25"
                             HorizontalOptions="Center"
-                            Source="ic_vector.png"
+                            Source="ic_trackingcar.png"
                             VerticalOptions="Center"
                             WidthRequest="25" />
                     </pancake:PancakeView>
