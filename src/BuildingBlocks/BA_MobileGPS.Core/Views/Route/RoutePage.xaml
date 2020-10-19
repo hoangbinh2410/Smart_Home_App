@@ -157,7 +157,7 @@
                         Grid.Column="3"
                         Margin="-1,0,0,0"
                         Padding="5,6"
-                        BackgroundColor="{DynamicResource PrimaryColor}"
+                        BackgroundColor="{DynamicResource WhiteColor}"
                         BorderColor="White"
                         CornerRadius="0"
                         HasShadow="False"
@@ -175,13 +175,13 @@
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             Text="24H"
-                            TextColor="White" />
+                            TextColor="{DynamicResource PrimaryColor}" />
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Grid.Column="4"
                         Margin="-1,0,0,0"
                         Padding="5,6"
-                        BackgroundColor="{DynamicResource WhiteColor}"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
                         BorderColor="White"
                         CornerRadius="0,15,0,15"
                         HasShadow="False"
@@ -199,7 +199,7 @@
                             x:Name="lblMore"
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
-                            TextColor="{DynamicResource PrimaryColor}" />
+                            TextColor="White" />
                     </pancake:PancakeView>
                 </Grid>
             </Grid>
@@ -326,7 +326,7 @@
                     AbsoluteLayout.LayoutFlags="PositionProportional">
                     <pancake:PancakeView
                         Padding="0"
-                        BackgroundColor="{DynamicResource WhiteColor}"
+                        BackgroundColor="{Binding BackgroundTrackingCar}"
                         CornerRadius="22"
                         HeightRequest="45"
                         Shadow="{x:StaticResource shadow}"
@@ -335,10 +335,10 @@
                             <TapGestureRecognizer Command="{Binding WatchVehicleCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <controls:IconView
-                            Foreground="{DynamicResource PrimaryColor}"
+                            Foreground="{Binding ColorTrackingCar}"
                             HeightRequest="25"
                             HorizontalOptions="Center"
-                            Source="ic_vector.png"
+                            Source="ic_trackingcar.png"
                             VerticalOptions="Center"
                             WidthRequest="25" />
                     </pancake:PancakeView>
