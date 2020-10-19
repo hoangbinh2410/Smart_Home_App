@@ -334,12 +334,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 BackgroundTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
                 ColorTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
                 IsWatching = false;
-
-                if (IsPlaying)
-                {
-                    if (GetControl<Map>("map") is Map map)
-                        map.UiSettings.ZoomGesturesEnabled = true;
-                }
             }
             else
             {
@@ -354,12 +348,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     else
                         MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(PinCar.Position));
                 }
-
-                if (IsPlaying)
-                {
-                    if (GetControl<Map>("map") is Map map)
-                        map.UiSettings.ZoomGesturesEnabled = false;
-                }
             }
         }
 
@@ -370,12 +358,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 BackgroundTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
                 ColorTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
                 IsWatching = false;
-
-                //if (IsPlaying)
-                //{
-                //    if (GetControl<Map>("map") is Map map)
-                //        map.UiSettings.ZoomGesturesEnabled = true;
-                //}
             }
         }
 
