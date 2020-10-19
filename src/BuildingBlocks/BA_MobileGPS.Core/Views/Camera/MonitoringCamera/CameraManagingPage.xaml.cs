@@ -1,52 +1,35 @@
-﻿using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Models;
+using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels;
+using PanCardView.Extensions;
 using Prism.Mvvm;
+using Syncfusion.DataSource.Extensions;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Xamarin.Forms;
-using Prism.Ioc;
-using Prism.Events;
-using System;
-using System.Collections.Generic;
-using BA_MobileGPS.Core.Models;
-using BA_MobileGPS.Core.Interfaces;
-using System.Collections.ObjectModel;
-using Syncfusion.DataSource.Extensions;
-using Xamarin.Forms.Extensions;
-using BA_MobileGPS.Core.ViewModels;
-using PanCardView.Extensions;
-using BA_MobileGPS.Core.Helpers;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class CameraManagingPage : ContentPage, IDisposable
+    public partial class CameraManagingPage : ContentPage
     {
         private double normaltWidth { get; set; }
         private double normalHeight { get; set; }
         private CameraManagement selectedItem { get; set; }
+
         public CameraManagingPage()
         {
-            try
-            {
-                InitializeComponent();
-            }
-            catch (Exception ex)
-            {
-
-            }
-
+            InitializeComponent();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
-        }
-
-        public void Dispose()
-        {
-
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
@@ -82,9 +65,9 @@ namespace BA_MobileGPS.Core.Views
             }
         }
 
-
         private double _width;
         private double _height;
+
         protected override void OnSizeAllocated(double width, double height)
         {
             var oldWidth = _width;
@@ -112,6 +95,7 @@ namespace BA_MobileGPS.Core.Views
                 }
             }
         }
+
         private void OrientChangedToVetical()
         {
             try
@@ -147,7 +131,6 @@ namespace BA_MobileGPS.Core.Views
             {
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-
         }
 
         private void OrientChangedToLanscape()
@@ -162,7 +145,7 @@ namespace BA_MobileGPS.Core.Views
 
                 foreach (var child in source)
                 {
-                    child.Height = 0;                    
+                    child.Height = 0;
                 }
 
                 foreach (var child in source)
@@ -181,7 +164,6 @@ namespace BA_MobileGPS.Core.Views
                             {
                                 child.Height = root.Height;
                             }
-
                         }
                     }
                 }
@@ -217,11 +199,11 @@ namespace BA_MobileGPS.Core.Views
                             {
                                 columnNum = item.ChildSource.Count;
                             }
-                        }                        
+                        }
                         var rowNum = source.Count();
                         normalHeight = parent.Height / rowNum;
                         normaltWidth = parent.Width / columnNum;
-                        
+
                         foreach (var item in source)
                         {
                             foreach (var cam in item.ChildSource)
@@ -245,6 +227,7 @@ namespace BA_MobileGPS.Core.Views
     {
         public List<CameraManagement> ChildSource { get; set; }
         private double height;
+
         public double Height
         {
             get { return height; }

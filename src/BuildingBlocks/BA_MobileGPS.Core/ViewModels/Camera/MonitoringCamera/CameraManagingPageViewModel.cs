@@ -13,7 +13,6 @@ using Prism.Navigation;
 using Syncfusion.Data.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -27,16 +26,17 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class CameraManagingPageViewModel : ViewModelBase
     {
-        private Timer timer;
-        private int counterRequestPing = 15;
-        private readonly int maxLoadingTime = 20; //second
+      
         private readonly string playIconSource = "ic_play_arrow_white.png";
         private readonly string stopIconSource = "ic_stop_white.png";
         private readonly string volumeIconSource = "ic_volumespeaker";
         private readonly string muteIconSource = "ic_mute";
+        private Timer timer;
+        private int counterRequestPing = 15;       
         private string currentXnCode { get; set; }
         private string currentIMEI { get; set; }
         private const int maxTimeCameraRemain = 600; //second
+        private readonly int maxLoadingTime = 20; //second
         private readonly IGeocodeService _geocodeService;
         private readonly IStreamCameraService _streamCameraService;
 
@@ -58,7 +58,9 @@ namespace BA_MobileGPS.Core.ViewModels
             ReLoadCommand = new DelegateCommand<object>(Reload);
             itemsSource = new List<ChildStackSource>();
         }
-     
+
+        #region Life Cycle
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             //Check parameter key
@@ -78,11 +80,79 @@ namespace BA_MobileGPS.Core.ViewModels
 
             base.OnNavigatedTo(parameters);
         }
+    
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+            LibVLCSharp.Shared.Core.Initialize();
+            LibVLC = new LibVLC("--no-osd", "--rtsp-tcp");
+            InitTimer();
+        }
+
+        public override void OnSleep()
+        {
+            ClearAllMediaPlayer();
+
+            if (timer != null && timer.Enabled)
+            {
+                timer.Stop();
+            }
+            base.OnSleep();
+        }
+
+        public override void OnResume()
+        {
+            base.OnResume();
+            ReLoadAllCamera();
+            if (timer != null && !timer.Enabled)
+            {
+                timer.Start();
+            }
+            DependencyService.Get<IScreenOrientServices>().ForcePortrait();
+        }
+        public override void OnDestroy()
+        {
+            ClearAllMediaPlayer();
+            DependencyService.Get<IScreenOrientServices>().ForcePortrait();
+            LibVLC?.Dispose();
+            LibVLC = null;
+
+            if (timer != null)
+            {
+                timer.Elapsed -= Timer_Elapsed;
+                timer.Stop();
+                timer.Dispose();
+            }
+        }      
+
+        private void InitTimer()
+        {
+            timer = new Timer()
+            {
+                Interval = 1000
+            };
+            timer.Elapsed += Timer_Elapsed;
+            timer.Start();
+        }
+        #endregion
+
+        #region Property Binding
+        private LibVLC libVLC;
+
+        public LibVLC LibVLC
+        {
+            get { return libVLC; }
+            set => SetProperty(ref libVLC, value);
+        }
+
         private List<ChildStackSource> itemsSource;
         public List<ChildStackSource> ItemsSource
         {
             get { return itemsSource; }
-            set { SetProperty(ref itemsSource, value);
+            set
+            {
+                SetProperty(ref itemsSource, value);
                 RaisePropertyChanged();
             }
         }
@@ -98,33 +168,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
-
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-            LibVLCSharp.Shared.Core.Initialize();
-            LibVLC = new LibVLC("--no-osd", "--rtsp-tcp");
-            InitTimer();
-        }
-
-        private void InitTimer()
-        {
-            timer = new Timer()
-            {
-                Interval = 1000
-            };
-            timer.Elapsed += Timer_Elapsed;
-            timer.Start();
-        }
-
-        private LibVLC libVLC;
-
-        public LibVLC LibVLC
-        {
-            get { return libVLC; }
-            set => SetProperty(ref libVLC, value);
-        }
-
         private string vehicleSelectedPlate;
 
         public string VehicleSelectedPlate
@@ -240,6 +283,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref selectedItem, value);
             }
         }
+
+        #endregion
+
+        #region ICommand & excute
 
         public ICommand PlayTappedCommand { get; }
 
@@ -385,8 +432,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
+        #endregion
 
-
+        #region Private method
 
         private async Task<CameraManagement> RequestStartCam(int chanel,bool initMedia = true)
         {
@@ -434,28 +482,28 @@ namespace BA_MobileGPS.Core.ViewModels
                         CurrentTime = deviceResponseData.DeviceTime;
                         var cameraActive = deviceResponseData.CameraChannels?.Where(x => x.IsPlug).ToList();
                         var listCam = new List<CameraManagement>();
-                        //foreach (var item in cameraActive)
-                        //{
-                        //    var res = await RequestStartCam(item.Channel);
-                        //    res.SetMedia(res.Data.Link);
-                        //    listCam.Add(res);
-                        //}
-                        //SetItemsSource(listCam);
-                        var rnd = new Random();
-                        var num = rnd.Next(2, 6);
-                        var duplicateList = new List<CameraManagement>();
-                        for (int i = 0; i < num; i++)
+                        foreach (var item in cameraActive)
                         {
-                            foreach (var item in cameraActive)
-                            {
-                                var res = await RequestStartCam(item.Channel);
-                                res.Data.Channel += i*cameraActive.Count;
-                                res.SetMedia(res.Data.Link);
-                                duplicateList.Add(res);
-                            }
+                            var res = await RequestStartCam(item.Channel);
+                            res.SetMedia(res.Data.Link);
+                            listCam.Add(res);
                         }
-                        SetItemsSource(duplicateList);
-                       
+                        SetItemsSource(listCam);
+                        //var rnd = new Random();
+                        //var num = rnd.Next(2, 6);
+                        //var duplicateList = new List<CameraManagement>();
+                        //for (int i = 0; i < num; i++)
+                        //{
+                        //    foreach (var item in cameraActive)
+                        //    {
+                        //        var res = await RequestStartCam(item.Channel);
+                        //        res.Data.Channel += i*cameraActive.Count;
+                        //        res.SetMedia(res.Data.Link);
+                        //        duplicateList.Add(res);
+                        //    }
+                        //}
+                        //SetItemsSource(duplicateList);
+
                     }
                 }
             });
@@ -504,29 +552,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 TotalTime = selectedItem.TotalTime;
             }
         }
-
-        public override void OnSleep()
-        {
-            ClearAllMediaPlayer();
-
-            if (timer != null && timer.Enabled)
-            {
-                timer.Stop();
-            }
-            base.OnSleep();
-        }
-
-        public override void OnResume()
-        {
-            base.OnResume();
-            ReLoadAllCamera();
-            if (timer != null && !timer.Enabled)
-            {
-                timer.Start();
-            }
-            DependencyService.Get<IScreenOrientServices>().ForcePortrait();
-        }
-
+     
         private void ReLoadAllCamera()
         {
             try
@@ -631,20 +657,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
+        #endregion
 
-        public override void OnDestroy()
-        {
-            ClearAllMediaPlayer();
-            DependencyService.Get<IScreenOrientServices>().ForcePortrait();
-            LibVLC?.Dispose();
-            LibVLC = null;
-
-            if (timer != null)
-            {
-                timer.Elapsed -= Timer_Elapsed;
-                timer.Stop();
-                timer.Dispose();
-            }
-        }
     }
 }
