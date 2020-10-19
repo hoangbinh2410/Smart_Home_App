@@ -152,35 +152,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 SelectActivitySummariesItem = ListDataSearch.Where(x => x.OrderNumber == OrderNumber).FirstOrDefault();
                 SelectActivitySummariesItem.VehiclePlate = VehicleSelect.VehiclePlate;
-                if (string.IsNullOrEmpty(SelectActivitySummariesItem.StartAddress) && string.IsNullOrEmpty(SelectActivitySummariesItem.EndAddress))
-                {
-                    var startLat = SelectActivitySummariesItem.StartLatitude;
-                    var startLong = SelectActivitySummariesItem.StartLongitude;
-                    var endLat = SelectActivitySummariesItem.EndLatitude;
-                    var endLong = SelectActivitySummariesItem.EndLongitude;
-                    if (string.IsNullOrEmpty(SelectActivitySummariesItem.StartAddress) && string.IsNullOrEmpty(SelectActivitySummariesItem.EndAddress))
-                    {
-                        var input = string.Format("{0} {1};{2} {3}", startLat, startLong, endLat, endLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        if (response.Count >= 2)
-                        {
-                            SelectActivitySummariesItem.StartAddress = response[0];
-                            SelectActivitySummariesItem.EndAddress = response[1];
-                        }
-                    }
-                    else if (string.IsNullOrEmpty(SelectActivitySummariesItem.StartAddress))
-                    {
-                        var input = string.Format("{0} {1}}", startLat, startLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        SelectActivitySummariesItem.StartAddress = response[0];
-                    }
-                    else if (string.IsNullOrEmpty(SelectActivitySummariesItem.EndAddress))
-                    {
-                        var input = string.Format("{0} {1}}", endLat, endLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        SelectActivitySummariesItem.EndAddress = response[0];
-                    }
-                }
+                
                 var p = new NavigationParameters
                 {
                     { ParameterKey.ReportActivitySummariesSelected, SelectActivitySummariesItem }

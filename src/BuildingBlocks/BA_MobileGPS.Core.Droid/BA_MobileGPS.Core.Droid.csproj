@@ -160,7 +160,7 @@
       <Version>2.4.11.982</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.8.0.1534</Version>
+      <Version>4.8.0.1560</Version>
     </PackageReference>
     <PackageReference Include="Com.OneSignal">
       <Version>3.10.1</Version>
@@ -202,20 +202,20 @@
       <Version>7.2.0.1054</Version>
     </PackageReference>
     <PackageReference Include="MonkeyCache.FileStore" Version="1.3.0" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.2.0.59" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.2.0.59" />
-    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="18.2.0.59" />
-    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="18.2.0.59" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.2.0.59" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.2.0.59" />
-    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.2.0.59" />
-    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="18.2.0.59" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.2.0.59" />
-    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="18.2.0.59" />
-    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="18.2.0.59" />
-    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="18.2.0.59" />
-    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="18.2.0.59" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.3.0.40" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.3.0.40" />
+    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="18.3.0.40" />
+    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="18.3.0.40" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.3.0.40" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.3.0.40" />
+    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.3.0.40" />
+    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="18.3.0.40" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.3.0.40" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="18.3.0.40" />
+    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="18.3.0.40" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="18.3.0.40" />
+    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="18.3.0.40" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.3.0.40" />
     <PackageReference Include="Toasts.Forms.Plugin">
       <Version>3.3.2</Version>
     </PackageReference>
@@ -277,10 +277,10 @@
       <Version>2.1.0.714</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.GooglePlayServices.Auth">
-      <Version>71.1600.4</Version>
+      <Version>117.0.0</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.GooglePlayServices.Maps">
-      <Version>71.1610.4</Version>
+      <Version>117.0.0</Version>
     </PackageReference>
     <PackageReference Include="XamFileStorage.Netstandard">
       <Version>1.1.3</Version>
@@ -3159,6 +3159,18 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_videolive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_trackingcar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_trackingcar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_trackingcar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_trackingcar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

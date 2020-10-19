@@ -311,12 +311,12 @@ namespace BA_MobileGPS.Core.Views
                 }
 
                 _animations.Add(States.ShowFilter, new[] {
-                                                            new ViewTransition(boxInfo, AnimationType.TranslationY, 0, 300, delay: 300), // Active and visible
+                                                            new ViewTransition(boxInfo, AnimationType.TranslationY, 0, 350, delay: 350), // Active and visible
                                                             new ViewTransition(boxInfo, AnimationType.Opacity, 1, 0), // Active and visible
                                                           });
 
                 _animations.Add(States.HideFilter, new[] {
-                                                            new ViewTransition(boxInfo, AnimationType.TranslationY, 300),
+                                                            new ViewTransition(boxInfo, AnimationType.TranslationY, 350),
                                                             new ViewTransition(boxInfo, AnimationType.Opacity, 0),
                                                           });
 
@@ -551,6 +551,8 @@ namespace BA_MobileGPS.Core.Views
                 if (StateVehicleExtension.IsStopAndEngineOff(carInfo)
                         || GeoHelper.IsBetweenLatlng(item.Position.Latitude, item.Position.Longitude, carInfo.Lat, carInfo.Lng) || carInfo.Velocity == 0)
                 {
+                    itemLable.Position = new Position(carInfo.Lat, carInfo.Lng);
+                    item.Position = new Position(carInfo.Lat, carInfo.Lng);
                     return;
                 }
 

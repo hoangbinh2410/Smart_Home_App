@@ -16,7 +16,7 @@ namespace BA_MobileGPS.Core.Themes
             Application.Current.Resources.MergedDictionaries.Clear();
             Application.Current.Resources.MergedDictionaries.Add(new Styles.Converters());
             Application.Current.Resources.MergedDictionaries.Add(new Fonts());
-            Application.Current.Resources.MergedDictionaries.Add(new Text());
+            //Application.Current.Resources.MergedDictionaries.Add(new Text());
 
             switch (themes)
             {
