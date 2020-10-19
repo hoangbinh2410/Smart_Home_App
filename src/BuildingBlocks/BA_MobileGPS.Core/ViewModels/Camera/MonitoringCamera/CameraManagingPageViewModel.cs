@@ -26,19 +26,21 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class CameraManagingPageViewModel : ViewModelBase
     {
-      
+        #region internal property
         private readonly string playIconSource = "ic_play_arrow_white.png";
         private readonly string stopIconSource = "ic_stop_white.png";
         private readonly string volumeIconSource = "ic_volumespeaker";
         private readonly string muteIconSource = "ic_mute";
         private Timer timer;
-        private int counterRequestPing = 15;       
+        private int counterRequestPing = 15;
         private string currentXnCode { get; set; }
         private string currentIMEI { get; set; }
         private const int maxTimeCameraRemain = 600; //second
         private readonly int maxLoadingTime = 20; //second
         private readonly IGeocodeService _geocodeService;
         private readonly IStreamCameraService _streamCameraService;
+
+        #endregion internal property
 
         public CameraManagingPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService, IGeocodeService geocodeService) : base(navigationService)
         {
@@ -80,7 +82,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
             base.OnNavigatedTo(parameters);
         }
-    
 
         public override void Initialize(INavigationParameters parameters)
         {
@@ -111,6 +112,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             DependencyService.Get<IScreenOrientServices>().ForcePortrait();
         }
+
         public override void OnDestroy()
         {
             ClearAllMediaPlayer();
@@ -124,7 +126,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 timer.Stop();
                 timer.Dispose();
             }
-        }      
+        }
 
         private void InitTimer()
         {
@@ -135,9 +137,11 @@ namespace BA_MobileGPS.Core.ViewModels
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
         }
-        #endregion
+
+        #endregion Life Cycle
 
         #region Property Binding
+
         private LibVLC libVLC;
 
         public LibVLC LibVLC
@@ -147,6 +151,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private List<ChildStackSource> itemsSource;
+
         public List<ChildStackSource> ItemsSource
         {
             get { return itemsSource; }
@@ -159,6 +164,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private int totalTime;
 
+        /// <summary>
+        /// Thời gian hiển thị ở khung chi tiết
+        /// </summary>
         public int TotalTime
         {
             get { return totalTime; }
@@ -168,8 +176,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
+
         private string vehicleSelectedPlate;
 
+        /// <summary>
+        /// Biển số xe đang chọn
+        /// </summary>
         public string VehicleSelectedPlate
         {
             get { return vehicleSelectedPlate; }
@@ -181,6 +193,10 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private bool isFullScreenOff;
+
+        /// <summary>
+        /// Hướng màn hình
+        /// </summary>
         public bool IsFullScreenOff
         {
             get { return isFullScreenOff; }
@@ -193,6 +209,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private string volumeButtonIconSource;
 
+        /// <summary>
+        /// Trạng thái âm thanh của video được chọn
+        /// </summary>
         public string VolumeButtonIconSource
         {
             get { return volumeButtonIconSource; }
@@ -203,7 +222,11 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        /// <summary>
+        /// Trạng thái của video được chọn
+        /// </summary>
         private string playButtonIconSource;
+
         public string PlayButtonIconSource
         {
             get { return playButtonIconSource; }
@@ -216,6 +239,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool autoAddTime;
 
+        /// <summary>
+        /// Checkbox tự động gia hạn của video được chọn
+        /// </summary>
         public bool AutoAddTime
         {
             get { return autoAddTime; }
@@ -227,13 +253,16 @@ namespace BA_MobileGPS.Core.ViewModels
                     selectedItem.AutoRequestPing = value;
                     TotalTime = selectedItem.TotalTime;
                 }
-               
+
                 RaisePropertyChanged();
             }
         }
 
         private string currentAddress;
 
+        /// <summary>
+        /// Vị trí hiện tại ở khung chi tiết
+        /// </summary>
         public string CurrentAddress
         {
             get { return currentAddress; }
@@ -253,6 +282,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private DateTime? currentTime;
 
+        /// <summary>
+        /// Thời gian cập nhật ở khung chi tiết
+        /// </summary>
         public DateTime? CurrentTime
         {
             get { return currentTime; }
@@ -265,6 +297,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private CameraManagement selectedItem;
 
+        /// <summary>
+        ///  Camera đang được chọn
+        /// </summary>
         public CameraManagement SelectedItem
         {
             get { return selectedItem; }
@@ -284,10 +319,13 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        #endregion
+        #endregion Property Binding
 
         #region ICommand & excute
 
+        /// <summary>
+        ///  Raise khi nút play được chạm
+        /// </summary>
         public ICommand PlayTappedCommand { get; }
 
         private void PlayTapped()
@@ -310,6 +348,9 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        /// <summary>
+        ///  Raise khi nút volume được chạm
+        /// </summary>
         public ICommand VolumeChangedCommand { get; }
 
         private void VolumeChanged()
@@ -326,6 +367,9 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        /// <summary>
+        /// Mở khung gia hạn thời gian
+        /// </summary>
         public ICommand RequestTimeTappedCommand { get; set; }
 
         private void RequestTimeTapped()
@@ -339,6 +383,9 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        /// <summary>
+        /// Chuyển chế độ full màn hình
+        /// </summary>
         public ICommand FullScreenTappedCommand { get; }
 
         private void FullScreenTapped()
@@ -356,7 +403,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
+
+        /// <summary>
+        /// Reload video
+        /// </summary>
         public ICommand ReLoadCommand { get; }
+
         private void Reload(object obj)
         {
             try
@@ -378,9 +430,11 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-
         }
 
+        /// <summary>
+        /// Chụp ảnh màn hình
+        /// </summary>
         public ICommand ScreenShotTappedCommand { get; }
 
         private void ScreenShotTapped()
@@ -414,6 +468,9 @@ namespace BA_MobileGPS.Core.ViewModels
             return string.Empty;
         }
 
+        /// <summary>
+        /// Chụp và chia sẻ ảnh
+        /// </summary>
         public ICommand ShareTappedCommand { get; }
 
         private async void ShareTapped()
@@ -432,11 +489,18 @@ namespace BA_MobileGPS.Core.ViewModels
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
-        #endregion
+
+        #endregion ICommand & excute
 
         #region Private method
 
-        private async Task<CameraManagement> RequestStartCam(int chanel,bool initMedia = true)
+        /// <summary>
+        /// Gửi request start cho thiết bị
+        /// </summary>
+        /// <param name="chanel">kênh</param>
+        /// <param name="initMedia">có khởi tạo lần đàu không?</param>
+        /// <returns></returns>
+        private async Task<CameraManagement> RequestStartCam(int chanel, bool initMedia = true)
         {
             CameraManagement result = null;
             var request = new StreamStartRequest()
@@ -459,11 +523,15 @@ namespace BA_MobileGPS.Core.ViewModels
                         result.Data = null;
                     }
                     result.Data = startResponse;
-                }                   
+                }
             }
             return result;
         }
 
+        /// <summary>
+        /// Lấy thông tin camera trên xe
+        /// </summary>
+        /// <param name="bks">Biển số xe</param>
         private void GetCameraInfor(string bks)
         {
             StreamDevicesResponse deviceResponse = null;
@@ -503,12 +571,15 @@ namespace BA_MobileGPS.Core.ViewModels
                         //    }
                         //}
                         //SetItemsSource(duplicateList);
-
                     }
                 }
             });
         }
 
+        /// <summary>
+        /// add
+        /// </summary>
+        /// <param name="source"></param>
         private void SetItemsSource(List<CameraManagement> source)
         {
             if (source != null && source.Count > 0)
@@ -535,15 +606,18 @@ namespace BA_MobileGPS.Core.ViewModels
                 for (int i = 0; i < rowNum; i++)
                 {
                     var temp = new ChildStackSource();
-                    temp.ChildSource = source.Skip(i * columnNum).Take(columnNum).ToList();                
+                    temp.ChildSource = source.Skip(i * columnNum).Take(columnNum).ToList();
                     result.Add(temp);
                 }
-                
+
                 ItemsSource = result;
             }
-
         }
 
+        /// <summary>
+        /// Nhận dữ liệu khi popup gia hạn thời gian đóng
+        /// </summary>
+        /// <param name="minutes">phút</param>
         private void RequestMoreTimeStream(int minutes)
         {
             if (selectedItem != null)
@@ -552,7 +626,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 TotalTime = selectedItem.TotalTime;
             }
         }
-     
+
+        /// <summary>
+        /// Load lại giao diện khi thay đổi xe hoặc giao diện trước đó dispose do máy chạy ngầm
+        /// </summary>
         private void ReLoadAllCamera()
         {
             try
@@ -566,6 +643,9 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        /// <summary>
+        /// Clear giao diện khi load lại xe hoặc máy chạy ngầm
+        /// </summary>
         private void ClearAllMediaPlayer()
         {
             foreach (var child in itemsSource)
@@ -578,6 +658,11 @@ namespace BA_MobileGPS.Core.ViewModels
             ItemsSource = new List<ChildStackSource>();
         }
 
+        /// <summary>
+        /// Gửi request ping  cho việc gia hạn
+        /// </summary>
+        /// <param name="timeSecond">giây</param>
+        /// <param name="chanel">kênh</param>
         private void SendRequestTime(int timeSecond, int chanel)
         {
             RunOnBackground(async () =>
@@ -596,6 +681,11 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
+        /// <summary>
+        /// timer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             if (!string.IsNullOrEmpty(vehicleSelectedPlate))
@@ -628,12 +718,14 @@ namespace BA_MobileGPS.Core.ViewModels
                                 }
                             }
                         }
-
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// Update lại thời gian và vị trí ở khung chi tiết
+        /// </summary>
         private void UpdateTimeAndLocation()
         {
             Device.BeginInvokeOnMainThread(async () =>
@@ -657,7 +749,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
-        #endregion
 
+        #endregion Private method
     }
 }

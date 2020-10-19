@@ -70,28 +70,31 @@ namespace BA_MobileGPS.Core.Views
 
         protected override void OnSizeAllocated(double width, double height)
         {
-            var oldWidth = _width;
-            const double sizenotallocated = -1;
-
-            base.OnSizeAllocated(width, height);
-            if (Equals(_width, width) && Equals(_height, height)) return;
-
-            _width = width;
-            _height = height;
-
-            // ignore if the previous height was size unallocated
-            if (Equals(oldWidth, sizenotallocated)) return;
-
-            // Has the device been rotated ?
-            if (!Equals(width, oldWidth))
+            using (new HUDService())
             {
-                if (width < height)
+                var oldWidth = _width;
+                const double sizenotallocated = -1;
+
+                base.OnSizeAllocated(width, height);
+                if (Equals(_width, width) && Equals(_height, height)) return;
+
+                _width = width;
+                _height = height;
+
+                // ignore if the previous height was size unallocated
+                if (Equals(oldWidth, sizenotallocated)) return;
+
+                // Has the device been rotated ?
+                if (!Equals(width, oldWidth))
                 {
-                    OrientChangedToVetical();
-                }
-                else
-                {
-                    OrientChangedToLanscape();
+                    if (width < height)
+                    {
+                        OrientChangedToVetical();
+                    }
+                    else
+                    {
+                        OrientChangedToLanscape();
+                    }
                 }
             }
         }
@@ -107,19 +110,16 @@ namespace BA_MobileGPS.Core.Views
                 }
                 if (parent != null)
                 {
-                    var source = BindableLayout.GetItemsSource(parent);
+                    var source = BindableLayout.GetItemsSource(parent)?.Cast<ChildStackSource>();
                     if (source != null)
                     {
                         foreach (var child in source)
                         {
-                            if (child is ChildStackSource childStack)
+                            child.Height = parent.Height / source.Count();
+                            foreach (var item in child.ChildSource)
                             {
-                                childStack.Height = parent.Height / source.Count();
-                                foreach (var item in childStack.ChildSource)
-                                {
-                                    item.Width = normaltWidth;
-                                    item.Height = normaltWidth;
-                                }
+                                item.Width = normaltWidth;
+                                item.Height = normaltWidth;
                             }
                         }
                     }

@@ -48,7 +48,7 @@ namespace BA_MobileGPS.Core.Models
         private bool isError;
 
         /// <summary>
-        /// Bật màn hình lỗi khi true
+        /// Bật màn hình lỗi 
         /// </summary>
         public bool IsError
         {
@@ -171,8 +171,7 @@ namespace BA_MobileGPS.Core.Models
             countLoadingTimer.Stop();
             ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
             mediaPlayer.Media.Dispose();
-            mediaPlayer.Media = null;
-            IsSelected = false;
+            mediaPlayer.Media = null;           
         }
 
         private void InitMediaPlayer()
