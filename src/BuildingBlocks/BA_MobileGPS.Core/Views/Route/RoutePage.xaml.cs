@@ -12,6 +12,7 @@ using Prism.Navigation;
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -37,8 +38,8 @@ namespace BA_MobileGPS.Core.Views
             vm = (RouteViewModel)BindingContext;
 
             map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
-
-            map.UiSettings.ZoomControlsEnabled = true;
+            map.UiSettings.ZoomGesturesEnabled = true;
+            map.UiSettings.ZoomControlsEnabled = false;
             map.UiSettings.RotateGesturesEnabled = false;
 
             map.PinClicked += Map_PinClicked;

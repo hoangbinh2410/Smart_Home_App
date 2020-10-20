@@ -494,16 +494,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         Device.BeginInvokeOnMainThread(() =>
                         {
                             CurrentRoute = ListRoute[0];
-
-                            //if (CurrentRoute.State != null && CurrentRoute.State.State == StateType.Stop)
-                            //{
-                            //    DrawStopPoint(CurrentRoute);
-                            //}
-
-                            //if (Device.RuntimePlatform == Device.iOS)
-                            //    MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude), ZoomLevel)));
-                            //else
-                            //    MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude)));
                             MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude), ZoomLevel)));
                         });
 
@@ -793,7 +783,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Position = new Position(vehicle.Latitude, vehicle.Longitude),
                 Icon = BitmapDescriptorFactory.FromResource("ic_stop.png"),
                 Tag = "state_stop",
-                ZIndex = 4,
+                ZIndex = 1,
                 IsDraggable = false
             };
 
