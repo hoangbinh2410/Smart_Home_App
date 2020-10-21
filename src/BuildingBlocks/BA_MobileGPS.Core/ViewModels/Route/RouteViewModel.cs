@@ -166,8 +166,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public MoveCameraRequest MoveCameraRequest { get; } = new MoveCameraRequest();
 
-        public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
-
         public double ZoomLevel { get; set; } = 14d;
 
         private MapType mapType;
@@ -344,10 +342,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 if (PinCar != null)
                 {
-                    if (Device.RuntimePlatform == Device.iOS)
-                        MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(PinCar.Position, ZoomLevel)));
-                    else
-                        MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(PinCar.Position));
+                    MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(PinCar.Position));
                 }
             }
         }
@@ -897,35 +892,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 PlayCurrent++;
 
                 CurrentRoute = ListRoute[PlayCurrent];
-
-                //Device.StartTimer(TimeSpan.FromMilliseconds(BASE_TIME / PlaySpeed), () =>
-                //{
-                //    try
-                //    {
-                //        if (ctsRouting.IsCancellationRequested)
-                //        {
-                //            return false;
-                //        }
-
-                //        if (CurrentRoute.Direction != null)
-                //        {
-                //            DrawDirection(CurrentRoute);
-                //        }
-
-                //        if (CurrentRoute.State != null && CurrentRoute.State.State == StateType.Stop)
-                //        {
-                //            DrawStopPoint(CurrentRoute);
-                //        }
-
-                //        return false;
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-                //        return false;
-                //    }
-                //});
-
                 Rotate((rotated) =>
                 {
                     MarkerAnimation(rotated, () =>
@@ -988,14 +954,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 while (animateIndex <= MARKER_MOVE_STEP && !ctsRouting.IsCancellationRequested)
                 {
-                    PinCar.Position = new Position(PinCar.Position.Latitude + dLat, PinCar.Position.Longitude + dLng);
-                    PinPlate.Position = PinCar.Position;
+                    var newPositon = new Position(PinCar.Position.Latitude + dLat, PinCar.Position.Longitude + dLng);
+                    PinCar.Position = newPositon;
+                    PinPlate.Position = newPositon;
 
                     if (IsWatching && !ctsRouting.IsCancellationRequested)
                     {
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                        AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(PinCar.Position), TimeSpan.FromMilliseconds(moveTime));
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                        _ = MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(newPositon));
                     }
 
                     await Task.Delay(TimeSpan.FromMilliseconds(moveTime));
@@ -1008,32 +973,6 @@ namespace BA_MobileGPS.Core.ViewModels
             catch (Exception ex)
             {
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-        }
-
-        private void DrawToCurrent()
-        {
-            if (ctsAddress != null)
-                ctsAddress.Cancel();
-
-            ctsAddress = new CancellationTokenSource();
-
-
-            foreach (var pin in Pins.ToList().FindAll(p => (p != PinCar && p != PinPlate) && (!"pin_car".Equals(p.Label) && !"pin_plate".Equals(p.Label)) && ("direction".Equals(p.Tag) || "state_stop".Equals(p.Tag))))
-            {
-                Pins.Remove(pin);
-            }
-            for (int i = 0; i <= PlayCurrent; i++)
-            {
-                if (ListRoute[i].State != null && ListRoute[i].State.State == StateType.Stop)
-                {
-                    DrawStopPoint(ListRoute[i]);
-                }
-
-                if (ListRoute[i].Direction != null)
-                {
-                    DrawDirection(ListRoute[i]);
-                }
             }
         }
 
