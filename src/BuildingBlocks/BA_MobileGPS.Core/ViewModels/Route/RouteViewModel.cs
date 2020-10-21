@@ -191,6 +191,8 @@ namespace BA_MobileGPS.Core.ViewModels
         private DateTime dateEnd = DateTime.Now;
         public DateTime DateEnd { get => dateEnd; set => SetProperty(ref dateEnd, value); }
 
+        public string PlayStopImage => IsPlaying ? "ic_stop_white" : "ic_play";
+
         public bool isWatching = true;
         public bool IsWatching { get => isWatching; set => SetProperty(ref isWatching, value); }
 
