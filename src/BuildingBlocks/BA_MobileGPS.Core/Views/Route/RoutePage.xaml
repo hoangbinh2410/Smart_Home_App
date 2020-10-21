@@ -433,6 +433,9 @@
                                     Text="{Binding CurrentRoute.Time, StringFormat='{}{0:dd-MM-yyyy}'}"
                                     TextColor="Gray" />
                                 <Label
+                                    FontAttributes="Bold"
+                                    FontFamily="{StaticResource myFontLatoBold}"
+                                    FontSize="16"
                                     HorizontalOptions="Center"
                                     Text="{Binding CurrentRoute.Time, StringFormat='{}{0:HH:mm:ss}'}"
                                     TextColor="Black" />
@@ -448,6 +451,9 @@
                                     Text="Km/h"
                                     TextColor="Gray" />
                                 <Label
+                                    FontAttributes="Bold"
+                                    FontFamily="{StaticResource myFontLatoBold}"
+                                    FontSize="16"
                                     HorizontalOptions="Center"
                                     Text="{Binding CurrentRoute.Velocity}"
                                     TextColor="{DynamicResource PrimaryColor}" />

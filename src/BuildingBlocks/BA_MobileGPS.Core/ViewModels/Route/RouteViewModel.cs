@@ -935,14 +935,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     RotateMarker((rotated) =>
                     {
                         isMarkerRotating = false;
-                        MarkerAnimation(rotated, () =>
+                        MarkerAnimation(rotated,async () =>
                         {
                             if (PlayCurrent + 1 > PlayMax || ctsRouting.IsCancellationRequested)
                             {
                                 IsPlaying = false;
                                 return;
                             }
-
+                            await Task.Delay(TimeSpan.FromMilliseconds(100));
                             SuperInteligent();
                         });
                     });
