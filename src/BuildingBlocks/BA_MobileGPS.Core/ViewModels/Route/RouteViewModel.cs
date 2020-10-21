@@ -166,7 +166,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public MoveCameraRequest MoveCameraRequest { get; } = new MoveCameraRequest();
 
-        public double ZoomLevel { get; set; } = 14d;
+        public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
+
+        public double ZoomLevel { get; set; } = 16d;
 
         private MapType mapType;
         public MapType MapType { get => mapType; set => SetProperty(ref mapType, value); }
@@ -342,7 +344,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 if (PinCar != null)
                 {
-                    MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(PinCar.Position));
+                    if (Device.RuntimePlatform == Device.iOS)
+                        MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(PinCar.Position, ZoomLevel)));
+                    else
+                        MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(PinCar.Position));
                 }
             }
         }
@@ -944,36 +949,41 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private async void MarkerAnimation(bool isRotated, Action callback = null)
         {
-            try
+
+            var mARKER_MOVE_STEP = MARKER_MOVE_STEP;
+            var mARKER_MOVE_TIME_STEP = MARKER_MOVE_STEP;
+            bool isAnimateCamera = false;
+            bool isBetween = GeoHelper.IsBetweenLatlng(PinCar.Position.Latitude, PinCar.Position.Longitude, CurrentRoute.Latitude, CurrentRoute.Longitude, 0.0010f);
+            if (!isBetween)
             {
-                double moveTime = isRotated ? MARKER_MOVE_RATE * MARKER_MOVE_TIME_STEP : MARKER_MOVE_TIME_STEP;
-
-                double dLat = (CurrentRoute.Latitude - PinCar.Position.Latitude) / MARKER_MOVE_STEP;
-                double dLng = (CurrentRoute.Longitude - PinCar.Position.Longitude) / MARKER_MOVE_STEP;
-                double animateIndex = 1;
-
-                while (animateIndex <= MARKER_MOVE_STEP && !ctsRouting.IsCancellationRequested)
+                mARKER_MOVE_STEP = 128 / PlaySpeed;
+                mARKER_MOVE_TIME_STEP = BASE_TIME / MARKER_MOVE_STEP;
+                if (IsWatching && !ctsRouting.IsCancellationRequested)
                 {
-                    var newPositon = new Position(PinCar.Position.Latitude + dLat, PinCar.Position.Longitude + dLng);
-                    PinCar.Position = newPositon;
-                    PinPlate.Position = newPositon;
-
-                    if (IsWatching && !ctsRouting.IsCancellationRequested)
-                    {
-                        _ = MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(newPositon));
-                    }
-
-                    await Task.Delay(TimeSpan.FromMilliseconds(moveTime));
-
-                    animateIndex++;
+                    isAnimateCamera = true;
+                    _ = MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(new Position(CurrentRoute.Latitude, CurrentRoute.Longitude)));
                 }
+            }
+            double moveTime = mARKER_MOVE_TIME_STEP;
 
-                callback?.Invoke();
-            }
-            catch (Exception ex)
+            double dLat = (CurrentRoute.Latitude - PinCar.Position.Latitude) / mARKER_MOVE_STEP;
+            double dLng = (CurrentRoute.Longitude - PinCar.Position.Longitude) / mARKER_MOVE_STEP;
+            double animateIndex = 1;
+
+            while (animateIndex <= mARKER_MOVE_STEP && !ctsRouting.IsCancellationRequested)
             {
-                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                var newPositon = new Position(PinCar.Position.Latitude + dLat, PinCar.Position.Longitude + dLng);
+                PinCar.Position = newPositon;
+                PinPlate.Position = newPositon;
+                if (IsWatching && !ctsRouting.IsCancellationRequested && !isAnimateCamera)
+                {
+                    _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(newPositon), TimeSpan.FromMilliseconds(moveTime));
+                }
+                await Task.Delay(TimeSpan.FromMilliseconds(moveTime));
+                animateIndex++;
             }
+
+            callback?.Invoke();
         }
 
         private void DragStarted()

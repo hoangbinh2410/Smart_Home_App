@@ -225,6 +225,7 @@
                         <googlemapsBehaviors:BindingPolylinesBehavior Value="{Binding Polylines}" />
                         <googlemapsBehaviors:BindingPolygonsBehavior Value="{Binding Boundaries}" />
                         <googlemapsBehaviors:MoveCameraBehavior Request="{Binding MoveCameraRequest}" />
+                        <googlemapsBehaviors:AnimateCameraBehavior Request="{Binding AnimateCameraRequest}" />
                     </cluster:Map.Behaviors>
                 </cluster:Map>
                 <Grid
