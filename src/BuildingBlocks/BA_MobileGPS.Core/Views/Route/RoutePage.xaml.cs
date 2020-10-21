@@ -12,7 +12,6 @@ using Prism.Navigation;
 using System;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

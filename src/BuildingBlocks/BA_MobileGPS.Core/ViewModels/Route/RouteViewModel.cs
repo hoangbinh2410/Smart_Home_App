@@ -195,9 +195,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public bool IsWatching { get => isWatching; set => SetProperty(ref isWatching, value); }
 
         public bool isPlaying;
-        public bool IsPlaying { get => isPlaying; set => SetProperty(ref isPlaying, value, relatedProperty: nameof(PlayStopImage)); }
-
-        public string PlayStopImage => IsPlaying ? "ic_stop_white" : "ic_play";
+        public bool IsPlaying { get => isPlaying; set => SetProperty(ref isPlaying, value); }
 
         public int playSpeed = 4;
         public int PlaySpeed { get => playSpeed; set => SetProperty(ref playSpeed, value); }
@@ -226,6 +224,8 @@ namespace BA_MobileGPS.Core.ViewModels
         private double MARKER_MOVE_TIME_STEP => BASE_TIME / PlaySpeed / MARKER_MOVE_STEP;
 
         private bool lastPlayStatus;
+        private bool isMarkerRotating = false;
+        private bool isMarkerMoving = false;
 
         #endregion Property
 
@@ -913,7 +913,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void StopRoute()
         {
-
             if (IsPlaying)
             {
                 if (ctsRouting != null)
@@ -935,27 +934,23 @@ namespace BA_MobileGPS.Core.ViewModels
                     RotateMarker((rotated) =>
                     {
                         isMarkerRotating = false;
-                        MarkerAnimation(rotated,async () =>
-                        {
-                            if (PlayCurrent + 1 > PlayMax || ctsRouting.IsCancellationRequested)
-                            {
-                                IsPlaying = false;
-                                return;
-                            }
-                            await Task.Delay(TimeSpan.FromMilliseconds(100));
-                            SuperInteligent();
-                        });
+                        MarkerAnimation(rotated, () =>
+                         {
+                             if (PlayCurrent + 1 > PlayMax || ctsRouting.IsCancellationRequested)
+                             {
+                                 IsPlaying = false;
+                                 return;
+                             }
+                             SuperInteligent();
+                         });
                     });
                 });
-
             }
             catch (Exception ex)
             {
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
-        private bool isMarkerRotating = false;
-        private bool isMarkerMoving = false;
 
         private async void RotateMarker(Action<bool> callback = null)
         {
@@ -1020,7 +1015,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 isMarkerMoving = false;
                 callback?.Invoke();
             }
-
         }
 
         private void DragStarted()
@@ -1070,7 +1064,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 PinPlate.Position = PinCar.Position;
 
                 MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(PinCar.Position));
-
             }
             catch (Exception ex)
             {
