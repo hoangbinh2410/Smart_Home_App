@@ -168,7 +168,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
 
-        public double ZoomLevel { get; set; } = 16d;
+        public double ZoomLevel { get; set; } = 14d;
 
         private MapType mapType;
         public MapType MapType { get => mapType; set => SetProperty(ref mapType, value); }
@@ -222,7 +222,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private double MARKER_ROTATE_TIME_STEP => MARKER_ROTATE_RATE * BASE_TIME / PlaySpeed / MARKER_ROTATE_STEP;
 
         private double MARKER_MOVE_RATE => 1 - MARKER_ROTATE_RATE;
-        private double MARKER_MOVE_STEP => 64 / PlaySpeed;
+        private double MARKER_MOVE_STEP => 128 / PlaySpeed;
         private double MARKER_MOVE_TIME_STEP => BASE_TIME / PlaySpeed / MARKER_MOVE_STEP;
 
         private bool lastPlayStatus;
@@ -930,20 +930,24 @@ namespace BA_MobileGPS.Core.ViewModels
                 PlayCurrent++;
 
                 CurrentRoute = ListRoute[PlayCurrent];
-                RotateMarker((rotated) =>
-                      {
-                          isMarkerRotating = false;
-                          MarkerAnimation(rotated, () =>
-                               {
-                                   if (PlayCurrent + 1 > PlayMax || ctsRouting.IsCancellationRequested)
-                                   {
-                                       IsPlaying = false;
-                                       return;
-                                   }
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    RotateMarker((rotated) =>
+                    {
+                        isMarkerRotating = false;
+                        MarkerAnimation(rotated, () =>
+                        {
+                            if (PlayCurrent + 1 > PlayMax || ctsRouting.IsCancellationRequested)
+                            {
+                                IsPlaying = false;
+                                return;
+                            }
 
-                                   SuperInteligent();
-                               });
-                      });
+                            SuperInteligent();
+                        });
+                    });
+                });
+
             }
             catch (Exception ex)
             {
