@@ -952,17 +952,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
             var mARKER_MOVE_STEP = MARKER_MOVE_STEP;
             var mARKER_MOVE_TIME_STEP = MARKER_MOVE_STEP;
-            bool isAnimateCamera = false;
-            bool isBetween = GeoHelper.IsBetweenLatlng(PinCar.Position.Latitude, PinCar.Position.Longitude, CurrentRoute.Latitude, CurrentRoute.Longitude, 0.0010f);
+            bool isBetween = GeoHelper.IsBetweenLatlng(PinCar.Position.Latitude, PinCar.Position.Longitude, CurrentRoute.Latitude, CurrentRoute.Longitude, 0.0020f);
             if (!isBetween)
             {
                 mARKER_MOVE_STEP = 128 / PlaySpeed;
                 mARKER_MOVE_TIME_STEP = BASE_TIME / MARKER_MOVE_STEP;
-                if (IsWatching && !ctsRouting.IsCancellationRequested)
-                {
-                    isAnimateCamera = true;
-                    _ = MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(new Position(CurrentRoute.Latitude, CurrentRoute.Longitude)));
-                }
             }
             double moveTime = mARKER_MOVE_TIME_STEP;
 
@@ -975,7 +969,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var newPositon = new Position(PinCar.Position.Latitude + dLat, PinCar.Position.Longitude + dLng);
                 PinCar.Position = newPositon;
                 PinPlate.Position = newPositon;
-                if (IsWatching && !ctsRouting.IsCancellationRequested && !isAnimateCamera)
+                if (IsWatching && !ctsRouting.IsCancellationRequested)
                 {
                     _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(newPositon), TimeSpan.FromMilliseconds(moveTime));
                 }
@@ -1031,11 +1025,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 PinCar.Position = new Position(CurrentRoute.Latitude, CurrentRoute.Longitude);
                 PinPlate.Position = PinCar.Position;
+                MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(PinCar.Position));
 
-                if (Device.RuntimePlatform == Device.iOS)
-                    MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(PinCar.Position, ZoomLevel)));
-                else
-                    MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(PinCar.Position));
             }
             catch (Exception ex)
             {
