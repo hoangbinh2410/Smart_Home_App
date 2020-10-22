@@ -35,6 +35,8 @@ namespace VMS_MobileGPS
             ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerVMS;
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerVMS;
             ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerVMS;
+            Application.Current.Resources.MergedDictionaries.Add(new LightColor());
+            Application.Current.Resources.MergedDictionaries.Add(new BA_MobileGPS.Core.Styles.Styles());
 
             AppCenter.Start("ios=9a0650ec-057e-4e5a-b8de-4c3fd1fae415;" +
                 "android=28d78b27-4b62-42e5-8db5-8e2d50de6a3a",
@@ -91,9 +93,9 @@ namespace VMS_MobileGPS
             containerRegistry.Register<ContentView, RoutePage>("RouteTab");
             containerRegistry.RegisterForNavigation<DetailVehiclePopup,DetailVehiclePopupViewModel>("DetailVehiclePopup");
 
-            containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
-            containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());
-            containerRegistry.Register<ResourceDictionary, VMS_MobileGPS.Styles.Custom>(Theme.Custom.ToString());
+            //containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
+            //containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());
+            //containerRegistry.Register<ResourceDictionary, VMS_MobileGPS.Styles.Custom>(Theme.Custom.ToString());
 
         }
     }
