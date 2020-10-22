@@ -849,7 +849,8 @@
         CameraImage_Label_TitleDetailPage,
         Common_Message_ErrorTimeFromToTimeEnd,
         Camera_Label_Undefined,
-        Camera_Label_Error,
+        Camera_Label_Connection_Error,
+        Camera_Label_Timeout_Error,
         Camera_Title_Camera_Streaming,
         #endregion
 
