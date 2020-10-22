@@ -1,4 +1,5 @@
-﻿using Android.Content;
+﻿using Android.App;
+using Android.Content;
 using Android.Gms.Maps.Model;
 using Android.Graphics;
 using Android.Graphics.Drawables;
@@ -31,13 +32,14 @@ namespace BA_MobileGPS.Core.Droid
  */
         private static int MIN_CLUSTER_SIZE = 4;
 
-        public ClusterRenderer(Context context,
+        public ClusterRenderer(Activity context,
             Map map,
             Android.Gms.Maps.GoogleMap nativeMap,
             ClusterManager manager)
             : base(context, nativeMap, manager)
         {
             this.map = map;
+            MinClusterSize = map.ClusterOptions.MinimumClusterSize;
             disabledBucketsCache = new Dictionary<string, NativeBitmapDescriptor>();
             enabledBucketsCache = new Dictionary<string, NativeBitmapDescriptor>();
             mIconGenerator = new IconClusterGenerator(context);
@@ -92,7 +94,6 @@ namespace BA_MobileGPS.Core.Droid
 
         private NativeBitmapDescriptor GetIcon(ICluster cluster, BitmapDescriptor descriptor)
         {
-            var bitmapDescriptorFactory = DefaultBitmapDescriptorFactory.Instance;
             var icon = GetFromIconCache(cluster);
             if (icon == null)
             {

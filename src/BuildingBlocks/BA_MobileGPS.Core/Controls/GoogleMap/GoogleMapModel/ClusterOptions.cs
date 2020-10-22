@@ -56,6 +56,11 @@ namespace BA_MobileGPS.Core
         /// <value>The renderer callback.</value>
         public Func<string, BitmapDescriptor> RendererCallback { get; set; }
 
+        /// <summary>
+        /// Gets or sets the minimum cluster size.
+        /// </summary>
+        public int MinimumClusterSize { get; set; } = 5;
+
         public ClusterOptions()
         {
             Algorithm = ClusterAlgorithm.NonHierarchicalDistanceBased;
@@ -166,6 +171,16 @@ namespace BA_MobileGPS.Core
         {
             RendererImage = null;
             RendererCallback = callback;
+        }
+
+        /// <summary>
+        /// Sets the minimum cluster size. Clusters with less will be broken-up into single-item clusters
+        /// Default value is 5.
+        /// </summary>
+        /// <param name="size"></param>
+        public void SetMinimumClusterSize(int size)
+        {
+            MinimumClusterSize = size;
         }
     }
 }

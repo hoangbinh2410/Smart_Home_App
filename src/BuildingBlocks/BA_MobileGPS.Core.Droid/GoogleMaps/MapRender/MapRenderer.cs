@@ -38,7 +38,7 @@ namespace BA_MobileGPS.Core.Droid
         private readonly UiSettingsLogic _uiSettingsLogic = new UiSettingsLogic();
         private readonly BaseLogic<Android.Gms.Maps.GoogleMap>[] _logics;
 
-        public MapRenderer(Context context) : base(context)
+        public MapRenderer(Activity context) : base(context)
         {
             _cameraLogic = new CameraLogic(UpdateVisibleRegion);
             _clusterLogic = new ClusterLogic(context, Config.BitmapDescriptorFactory);
