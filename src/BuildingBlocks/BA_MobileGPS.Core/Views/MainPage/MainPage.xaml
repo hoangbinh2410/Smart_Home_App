@@ -9,6 +9,7 @@
     xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms"
+    xmlns:tabview="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
     x:Name="MainContentPage"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
@@ -38,7 +39,7 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <sharpnado:MaterialFrame Padding="0" LightThemeBackgroundColor="{DynamicResource GrayColor}">
+        <!--<sharpnado:MaterialFrame Padding="0" LightThemeBackgroundColor="{DynamicResource GrayColor}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -76,6 +77,7 @@
                     </sharpnado:MaterialFrame>
                 </sh:Shadows>
             </Grid>
-        </sharpnado:MaterialFrame>
+        </sharpnado:MaterialFrame>-->
+        <tabview:SfTabView Items="{Binding TabViewItemsSource}" />
     </ContentPage.Content>
 </ContentPage>
