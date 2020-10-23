@@ -169,11 +169,11 @@ namespace BA_MobileGPS.Core
 
         public void Rotate(double latitude,
     double longitude,
-    Action callback)
+    Action callback, int duration = 50)
         {
             //gán lại vòng quay
             var mRotateIndex = 0;
-
+            double MAX_ROTATE_STEP = duration / 50;
             // * tính góc quay giữa 2 điểm location
             var angle = GeoHelper.ComputeHeading(this.Position.Latitude, this.Position.Longitude, latitude, longitude);
             if (angle == 0)
@@ -191,14 +191,14 @@ namespace BA_MobileGPS.Core
             {
                 //góc quay tiếp theo
                 var fractionAngle = GeoHelper.ComputeRotation(
-                                      mRotateIndex / 10,
+                                      mRotateIndex / MAX_ROTATE_STEP,
                                       startRotaion,
                                       deltaAngle);
                 mRotateIndex = mRotateIndex + 1;
 
                 this.Rotation = (float)fractionAngle;
 
-                if (mRotateIndex > 10)
+                if (mRotateIndex > MAX_ROTATE_STEP)
                 {
                     callback();
                     return false;
@@ -208,7 +208,7 @@ namespace BA_MobileGPS.Core
             });
         }
 
-        public void MarkerAnimation(double latitude, double longitude, Action callback)
+        public void MarkerAnimation(double latitude, double longitude, Action callback, int duration = 4000)
         {
             if (this.IsRunning)
             {
@@ -219,7 +219,7 @@ namespace BA_MobileGPS.Core
                 IsRunning = true;
                 //gán lại vòng quay
                 double mMoveIndex = 0;
-                double MAX_MOVE_STEP = 40;
+                double MAX_MOVE_STEP = duration / 100;
                 var startPosition = this.Position;
 
                 var finalPosition = new Position(latitude, longitude);
@@ -231,7 +231,7 @@ namespace BA_MobileGPS.Core
                 {
                     // Calculate progress using interpolator
                     elapsed = elapsed + 100;
-                    t = elapsed / 4000;
+                    t = elapsed / duration;
                     v = GeoHelper.GetInterpolation(t);
 
                     var postionnew = GeoHelper.Interpolate(v,
