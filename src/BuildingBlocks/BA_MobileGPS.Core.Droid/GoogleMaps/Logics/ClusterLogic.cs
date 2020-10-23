@@ -1,4 +1,5 @@
-﻿using Android.Content;
+﻿using Android.App;
+using Android.Content;
 using Android.Gms.Maps.Model;
 using Android.Widget;
 
@@ -25,7 +26,7 @@ namespace BA_MobileGPS.Core.Droid
         private ClusterManager clusterManager;
         private ClusterLogicHandler clusterHandler;
 
-        private readonly Context context;
+        private readonly Activity context;
         private readonly IBitmapDescriptorFactory bitmapDescriptorFactory;
 
         private Android.Gms.Maps.Model.CameraPosition previousCameraPostion;
@@ -35,7 +36,7 @@ namespace BA_MobileGPS.Core.Droid
 
         public Map ClusteredMap => Map;
 
-        public ClusterLogic(Context context, IBitmapDescriptorFactory bitmapDescriptorFactory)
+        public ClusterLogic(Activity context, IBitmapDescriptorFactory bitmapDescriptorFactory)
         {
             this.bitmapDescriptorFactory = bitmapDescriptorFactory;
             this.context = context;
@@ -188,7 +189,9 @@ namespace BA_MobileGPS.Core.Droid
         public Pin LookupPin(ClusteredMarker marker)
         {
             var markerId = marker.Id;
-            return markerId != null ? itemsDictionary[markerId] : null;
+            return markerId != null ?
+                 (itemsDictionary.ContainsKey(markerId) ? itemsDictionary[markerId] : null)
+                 : null;
         }
 
         public void HandleClusterRequest()

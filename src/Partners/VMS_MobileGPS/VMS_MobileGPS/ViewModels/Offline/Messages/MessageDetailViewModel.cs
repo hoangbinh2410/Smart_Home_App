@@ -148,85 +148,78 @@ namespace VMS_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-                try
+                if (AppManager.BluetoothService.State == Service.BleConnectionState.NO_CONNECTION)
                 {
-                    if (AppManager.BluetoothService.State == Service.BleConnectionState.NO_CONNECTION)
+                    if (await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn chưa kết nối thiết bị. Bạn có muốn kết nối hay không?", "Có", "Không"))
                     {
-                        if (await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn chưa kết nối thiết bị. Bạn có muốn kết nối hay không?", "Có", "Không"))
-                        {
-                            await NavigationService.NavigateAsync(PageNames.BluetoothPage.ToString());
-                        }
-
-                        return;
-                    }
-                    if (GlobalResourcesVMS.Current.TotalByteSms <= 0)
-                    {
-                        var action = await PageDialog.DisplayAlertAsync("Thông báo", "Gói cước của bạn chưa được thiết lập hoặc đã hết dung lượng. Vui lòng liên hệ với kinh doanh hoặc tổng đài 19006464 để được hỗ trợ", "Liên hệ tổng đài", "Bỏ qua");
-                        if (action)
-                        {
-                            PhoneDialer.Open("19006464");
-                        }
-                        return;
+                        await NavigationService.NavigateAsync(PageNames.BluetoothPage.ToString());
                     }
 
-                    if (string.IsNullOrWhiteSpace(Message.Content) || !ValidateReceiver())
-                        return;
-
-                    Message.Receiver = Receiver;
-                    Message.CreatedDate = DateTime.Now.ToUniversalTime();
-
-                    if (ReceiverVisible)
+                    return;
+                }
+                if (GlobalResourcesVMS.Current.TotalByteSms <= 0)
+                {
+                    var action = await PageDialog.DisplayAlertAsync("Thông báo", "Gói cước của bạn chưa được thiết lập hoặc đã hết dung lượng. Vui lòng liên hệ với kinh doanh hoặc tổng đài 19006464 để được hỗ trợ", "Liên hệ tổng đài", "Bỏ qua");
+                    if (action)
                     {
-                        if (messageService.GetListMessage(Receiver) is List<MessageSOS> messages && messages.Count > 0)
-                        {
-                            Messages.AddRange(messages);
-                        }
+                        PhoneDialer.Open("19006464");
                     }
+                    return;
+                }
 
-                    var result = messageService.SaveMessage(Message, out MessageSOS messageInserted);
-                    if (result && messageInserted != null)
+                if (string.IsNullOrWhiteSpace(Message.Content) || !ValidateReceiver())
+                    return;
+
+                Message.Receiver = Receiver;
+                Message.CreatedDate = DateTime.Now.ToUniversalTime();
+
+                if (ReceiverVisible)
+                {
+                    if (messageService.GetListMessage(Receiver) is List<MessageSOS> messages && messages.Count > 0)
                     {
-                        Messages.Add(messageInserted);
-
-                        var messageSend = StringHelper.ConvertToVn(Message.Content);
-
-                        string str = string.Format("SEND_SMS:{0},{1}({2})", Receiver, messageInserted.Id, messageSend);
-
-                        Debug.WriteLine(str);
-                        LoggerHelper.WriteLog(GlobalResourcesVMS.Current.DeviceManager.DevicePlate, str);
-                        var ret = await AppManager.BluetoothService.Send(str);
-
-                        if (!ret.Data)
-                        {
-                            await PageDialog.DisplayAlertAsync("Thông báo", ret.Message, "OK");
-                            return;
-                        }
-
-                        RaisePropertyChanged(nameof(ReceiverVisible));
-
-                        if (!ReceiverVisible)
-                            Title = Receiver;
-
-                        if (GetControl<ScrollView>("ScrollView") is ScrollView scrollView)
-                        {
-                            TryExecute(() =>
-                            {
-                                scrollView.ScrollToAsync(((StackLayout)scrollView.Content).Children.Last(), ScrollToPosition.End, false);
-                            });
-                        }
-
-                        Message = new MessageSOS();
-                        Message.MaxWords = GlobalResourcesVMS.Current.TotalByteSms;
-                    }
-                    else
-                    {
-                        LoggerHelper.WriteLog(GlobalResourcesVMS.Current.DeviceManager.DevicePlate, "Gửi tin nhắn không thành công bạn vui lòng kiểm tra lại");
-                        await PageDialog.DisplayAlertAsync("Thông báo", "Gửi tin nhắn không thành công bạn vui lòng kiểm tra lại", "Đồng ý");
+                        Messages.AddRange(messages);
                     }
                 }
-                catch (Exception ex)
+
+                var result = messageService.SaveMessage(Message, out MessageSOS messageInserted);
+                if (result && messageInserted != null)
                 {
-                    Logger.WriteError(ex.Message);
+                    Messages.Add(messageInserted);
+
+                    var messageSend = StringHelper.ConvertToVn(Message.Content);
+
+                    string str = string.Format("SEND_SMS:{0},{1}({2})", Receiver, messageInserted.Id, messageSend);
+
+                    Debug.WriteLine(str);
+                    LoggerHelper.WriteLog(GlobalResourcesVMS.Current.DeviceManager.DevicePlate, str);
+                    var ret = await AppManager.BluetoothService.Send(str);
+
+                    if (!ret.Data)
+                    {
+                        await PageDialog.DisplayAlertAsync("Thông báo", ret.Message, "OK");
+                        return;
+                    }
+
+                    RaisePropertyChanged(nameof(ReceiverVisible));
+
+                    if (!ReceiverVisible)
+                        Title = Receiver;
+
+                    if (GetControl<ScrollView>("ScrollView") is ScrollView scrollView)
+                    {
+                        TryExecute(() =>
+                        {
+                            scrollView.ScrollToAsync(((StackLayout)scrollView.Content).Children.Last(), ScrollToPosition.End, false);
+                        });
+                    }
+
+                    Message = new MessageSOS();
+                    Message.MaxWords = GlobalResourcesVMS.Current.TotalByteSms;
+                }
+                else
+                {
+                    LoggerHelper.WriteLog(GlobalResourcesVMS.Current.DeviceManager.DevicePlate, "Gửi tin nhắn không thành công bạn vui lòng kiểm tra lại");
+                    await PageDialog.DisplayAlertAsync("Thông báo", "Gửi tin nhắn không thành công bạn vui lòng kiểm tra lại", "Đồng ý");
                 }
             });
         }

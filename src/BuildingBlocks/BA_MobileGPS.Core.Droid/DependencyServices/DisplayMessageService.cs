@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
+﻿using Android.App;
 using Android.Widget;
 using BA_MobileGPS.Core.Droid.DependencyServices;
 using Com.JeevanDeshmukh.GlideToastLib;
@@ -11,6 +6,7 @@ using Plugin.CurrentActivity;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(DisplayMessageService))]
+
 namespace BA_MobileGPS.Core.Droid.DependencyServices
 {
     public class DisplayMessageService : IDisplayMessage

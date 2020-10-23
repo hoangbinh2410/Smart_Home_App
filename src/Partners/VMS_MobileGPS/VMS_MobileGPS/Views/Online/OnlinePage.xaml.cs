@@ -46,7 +46,6 @@ namespace VMS_MobileGPS.Views
 
         private readonly IEventAggregator eventAggregator;
         private readonly IDisplayMessage displayMessage;
-        private readonly IHelperAdvanceService helperAdvanceService;
         private readonly IPageDialogService pageDialog;
         private readonly IVehicleOnlineService vehicleOnlineService;
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
@@ -62,7 +61,6 @@ namespace VMS_MobileGPS.Views
 
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             displayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
-            helperAdvanceService = PrismApplicationBase.Current.Container.Resolve<IHelperAdvanceService>();
             pageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
             vehicleOnlineService = PrismApplicationBase.Current.Container.Resolve<IVehicleOnlineService>();
             boundaryRepository = PrismApplicationBase.Current.Container.Resolve<IRealmBaseService<BoundaryRealm, LandmarkResponse>>();
