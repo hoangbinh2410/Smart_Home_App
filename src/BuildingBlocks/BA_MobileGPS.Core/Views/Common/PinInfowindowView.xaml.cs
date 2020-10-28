@@ -17,7 +17,7 @@ namespace BA_MobileGPS.Core.Views
                 var lenght = text.Trim().Length;
                 if (lenght >= 10)
                 {
-                    WidthRequest = (text.Trim().Length * 8);
+                    WidthRequest = (text.Trim().Length * 8.5);
                 }
                 else if (lenght <= 5)
                 {
