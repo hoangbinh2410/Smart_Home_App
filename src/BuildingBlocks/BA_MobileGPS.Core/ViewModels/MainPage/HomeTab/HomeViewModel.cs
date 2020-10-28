@@ -35,14 +35,18 @@ namespace BA_MobileGPS.Core.ViewModels
             listfeatures = new ObservableCollection<ItemSupport>();
             favouriteMenuItems = new ObservableCollection<ItemSupport>();
              Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
-            {
+             {
                 // Lấy danh sách menu
                 GetListMenu();
                 return false;
             });
         }
 
-      
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+        }
+
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
