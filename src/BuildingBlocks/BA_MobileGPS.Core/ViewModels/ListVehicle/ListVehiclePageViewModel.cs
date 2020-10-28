@@ -124,11 +124,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-        }
-
         public override void OnDestroy()
         {
             EventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);

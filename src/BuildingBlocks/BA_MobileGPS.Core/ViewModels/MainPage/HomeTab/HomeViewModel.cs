@@ -34,13 +34,6 @@ namespace BA_MobileGPS.Core.ViewModels
             TapMenuCommand = new DelegateCommand<object>(OnTappedMenu);
             listfeatures = new ObservableCollection<ItemSupport>();
             favouriteMenuItems = new ObservableCollection<ItemSupport>();
-        }
-
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-
-            // Lấy danh sách menu
             GetListMenu();
         }
 

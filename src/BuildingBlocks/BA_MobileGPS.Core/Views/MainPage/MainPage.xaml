@@ -1,83 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<TabbedPage
     x:Class="BA_MobileGPS.Core.Views.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
-    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:prism="http://prismlibrary.com"
-    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
-    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    xmlns:tabs="clr-namespace:Sharpnado.Presentation.Forms.CustomViews.Tabs;assembly=Sharpnado.Presentation.Forms"
-    xmlns:tabview="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
-    x:Name="MainContentPage"
-    prism:ViewModelLocator.AutowireViewModel="True">
-    <ContentPage.Resources>
-        <converter:TabItemColorConverter x:Key="TabItemColorConverter" />
-        <converter:TabItemTextColorConverter x:Key="TabItemTextColorConverter" />
-        <ControlTemplate x:Key="TabItemTemplate">
-            <StackLayout
-                HorizontalOptions="Center"
-                Spacing="3"
-                VerticalOptions="Center">
-                <controls:IconView
-                    Foreground="{TemplateBinding IsSelected,
-                                                 Converter={x:StaticResource TabItemColorConverter}}"
-                    HeightRequest="22"
-                    Source="{TemplateBinding IconImageSource}" />
-                <Label
-                    FontSize="{StaticResource MyFontSizeSmall}"
-                    LineBreakMode="TailTruncation"
-                    Text="{TemplateBinding Label}"
-                    TextColor="{TemplateBinding IsSelected,
-                                                Converter={x:StaticResource TabItemTextColorConverter}}" />
-            </StackLayout>
-        </ControlTemplate>
-        <Style TargetType="tabs:BottomTabItem">
-            <Setter Property="ControlTemplate" Value="{StaticResource TabItemTemplate}" />
-            <Setter Property="BackgroundColor" Value="Transparent" />
-        </Style>
-    </ContentPage.Resources>
-    <ContentPage.Content>
-        <!--<sharpnado:MaterialFrame Padding="0" LightThemeBackgroundColor="{DynamicResource GrayColor}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <tabs:ViewSwitcher
-                    x:Name="Switcher"
-                    Grid.Row="0"
-                    Margin="0,0,0,-10"
-                    Animate="True"
-                    SelectedIndex="{Binding SelectedIndex}" />
-                <sh:Shadows
-                    x:Name="TabHost"
-                    Grid.Row="1"
-                    CornerRadius="0">
-                    <sh:Shadows.Shades>
-                        <sh:ImmutableShades>
-                            <sh:Shade
-                                BlurRadius="0"
-                                Opacity="0.3"
-                                Offset="0,-1"
-                                Color="{DynamicResource TextSecondaryColor}" />
-                        </sh:ImmutableShades>
-                    </sh:Shadows.Shades>
-                    <sharpnado:MaterialFrame
-                        Padding="0"
-                        CornerRadius="0"
-                        LightThemeBackgroundColor="{DynamicResource WhiteColor}">
-                        <tabs:TabHostView
-                            x:Name="tabitem"
-                            Padding="0"
-                            HeightRequest="60"
-                            SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}"
-                            TabType="Fixed" />
-                    </sharpnado:MaterialFrame>
-                </sh:Shadows>
-            </Grid>
-        </sharpnado:MaterialFrame>-->
-        <tabview:SfTabView Items="{Binding TabViewItemsSource}" />
-    </ContentPage.Content>
-</ContentPage>
+    x:Name="root"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.HasNavigationBar="False" />

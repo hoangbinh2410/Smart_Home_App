@@ -40,6 +40,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IMapper _mapper;
         private Timer timer;
         private Timer timerSyncData;
+        public View currentChildView { get; set; }
 
         public MainPageViewModel(INavigationService navigationService, IVehicleOnlineService vehicleOnlineService,
             IAlertService alertService,
