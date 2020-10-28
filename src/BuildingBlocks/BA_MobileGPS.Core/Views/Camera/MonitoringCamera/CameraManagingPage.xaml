@@ -3,6 +3,7 @@
     x:Class="BA_MobileGPS.Core.Views.CameraManagingPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:abstractions="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
@@ -229,12 +230,16 @@
                                                     HeightRequest="25"
                                                     Source="ic_reload"
                                                     WidthRequest="25" />
-                                                <!--<Label
+                                                <abstractions:HtmlLabel
                                                     x:Name="lblErr"
+                                                    FontSize="13"
                                                     HorizontalOptions="Center"
-                                                    MaxLines="1"
-                                                    Text="{i18n:TranslateResource Camera_Label_Error}"
-                                                    TextColor="{DynamicResource WhiteColor}" />-->
+                                                    HorizontalTextAlignment="Center"
+                                                    LineBreakMode="TailTruncation"
+                                                    LineHeight="1.1"
+                                                    MaxLines="2"
+                                                    Text="{Binding ErrorMessenger}"
+                                                    TextColor="{DynamicResource WhiteColor}" />
                                                 <StackLayout.Triggers>
                                                     <DataTrigger
                                                         Binding="{Binding Source={x:Reference errGrid}, Path=BackgroundColor}"
