@@ -47,7 +47,7 @@ namespace BA_MobileGPS.Core.ViewModels
             Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
             {
                 AppVersion = appVersionService.GetAppVersion();
-                isShowPhoneNumber = MobileUserSettingHelper.IsShowPhoneNumber;
+                IsShowPhoneNumber = MobileUserSettingHelper.IsShowPhoneNumber;
                 InitMenuItems();
                 return false;
             });
