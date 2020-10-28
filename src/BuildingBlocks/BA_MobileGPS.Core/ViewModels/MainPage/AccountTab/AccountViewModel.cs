@@ -26,6 +26,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private string appVersion;
         public string AppVersion { get => appVersion; set => SetProperty(ref appVersion, value); }
 
+        private bool isShowPhoneNumber;
+        public bool IsShowPhoneNumber { get => isShowPhoneNumber; set => SetProperty(ref isShowPhoneNumber, value); }
+
         private ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
         public ObservableCollection<MenuItem> MenuItems { get => menuItems; set => SetProperty(ref menuItems, value); }
 
@@ -44,7 +47,7 @@ namespace BA_MobileGPS.Core.ViewModels
             Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
             {
                 AppVersion = appVersionService.GetAppVersion();
-
+                isShowPhoneNumber = MobileUserSettingHelper.IsShowPhoneNumber;
                 InitMenuItems();
                 return false;
             });

@@ -22,6 +22,7 @@
         MBLatitude,
         MBLongitude,
         MBMapType,
-        MBMapZoom
+        MBMapZoom,
+        IsShowPhoneNumber
     }
 }

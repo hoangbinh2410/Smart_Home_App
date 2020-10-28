@@ -65,6 +65,7 @@
                     TextColor="{DynamicResource WhiteColor}" />
                 <Label
                     Margin="5,0,0,0"
+                    IsVisible="{Binding IsShowPhoneNumber}"
                     Text="{Binding UserInfo.PhoneNumber}"
                     TextColor="{DynamicResource WhiteColor}" />
                 <StackLayout
