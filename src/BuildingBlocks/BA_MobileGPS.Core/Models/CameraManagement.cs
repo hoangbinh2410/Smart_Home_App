@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using LibVLCSharp.Shared;
 using Prism.Commands;
@@ -131,6 +132,15 @@ namespace BA_MobileGPS.Core.Models
             }
         }
 
+        private string errorMessenger;
+        public string ErrorMessenger
+        {
+            get { return errorMessenger; }
+            set { SetProperty(ref errorMessenger, value);
+                RaisePropertyChanged();
+            }
+        }
+
         public bool AutoRequestPing { get; set; }
 
         private void CountLoadingTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -142,36 +152,43 @@ namespace BA_MobileGPS.Core.Models
                 {
                     if (counter <= 0)
                     {
-                        SetError();
+                        var err = MobileResource.Camera_Label_Connection_Error;
+                        SetError(err);                        
                     }
                     else SetMedia(data.Link);
                 }
             }
             else
             {
-                if (TotalTime > 0)
+                if (TotalTime == 0)
+                {
+                    var err = MobileResource.Camera_Label_Timeout_Error;
+                    SetError(err);
+                }
+                else
                 {
                     TotalTime -= 1;
-                }
-                if (internalError || TotalTime == 0)
-                {
-                    SetError();
-                }
+                    if (internalError)
+                    {
+                        var err = MobileResource.Camera_Label_Connection_Error;
+                        SetError(err);
+                    }
+                }               
             }
         }
 
-        private void SetError()
+        private void SetError(string errMessenger)
         {
             Device.BeginInvokeOnMainThread(() =>
             {
                 IsError = true;
                 IsLoaded = true;
-                TotalTime = 0;
+                ErrorMessenger = errMessenger;
             });
             countLoadingTimer.Stop();
             ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
             mediaPlayer.Media.Dispose();
-            mediaPlayer.Media = null;           
+            mediaPlayer.Media = null;
         }
 
         private void InitMediaPlayer()
@@ -233,11 +250,12 @@ namespace BA_MobileGPS.Core.Models
         public virtual void Clear()
         {
             try
-            {                
+            {
                 internalError = false;
+                ErrorMessenger = string.Empty;
                 countLoadingTimer.Stop();
                 countLoadingTimer.Interval = 1000;
-                counter = maxLoadingTime;                      
+                counter = maxLoadingTime;
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     IsLoaded = false;
@@ -249,7 +267,7 @@ namespace BA_MobileGPS.Core.Models
             {
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-        }   
+        }
 
         public virtual bool CanExcute()
         {
@@ -274,7 +292,7 @@ namespace BA_MobileGPS.Core.Models
                     countLoadingTimer.Dispose();
                 }
                 if (MediaPlayer != null)
-                {                                  
+                {
                     mediaPlayer.TimeChanged -= MediaPlayer_TimeChanged;
                     mediaPlayer.EncounteredError -= MediaPlayer_EncounteredError;
                     mediaPlayer.EndReached -= MediaPlayer_EndReached;
