@@ -193,5 +193,7 @@ namespace BA_MobileGPS.Core
         public static int MapType => Get(MobileUserConfigurationNames.MBMapType, 1);
 
         public static double Mapzoom => Get(MobileUserConfigurationNames.MBMapZoom, MobileSettingHelper.Mapzoom);
+
+        public static bool IsShowPhoneNumber => Get(MobileUserConfigurationNames.IsShowPhoneNumber, false);
     }
 }

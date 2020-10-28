@@ -44,7 +44,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private Religion selectedReligion;
         public Religion SelectedReligion { get => selectedReligion; set => SetProperty(ref selectedReligion, value, onChanged: OnReligionChanged); }
-
+        private bool isShowPhoneNumber;
+        public bool IsShowPhoneNumber { get => isShowPhoneNumber; set => SetProperty(ref isShowPhoneNumber, value); }
         public ICommand AvatarTappedCommand { get; private set; }
         public ICommand UpdateUserInfoCommand { get; private set; }
 
@@ -54,6 +55,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this.userService = userService;
             AvatarTappedCommand = new DelegateCommand(AvatarTapped);
             UpdateUserInfoCommand = new DelegateCommand(UpdateUserInfo);
+            isShowPhoneNumber = MobileUserSettingHelper.IsShowPhoneNumber;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

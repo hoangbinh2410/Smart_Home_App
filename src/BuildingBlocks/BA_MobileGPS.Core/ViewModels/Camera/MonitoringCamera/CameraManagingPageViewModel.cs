@@ -552,27 +552,13 @@ namespace BA_MobileGPS.Core.ViewModels
                         CurrentTime = deviceResponseData.DeviceTime;
                         var cameraActive = deviceResponseData.CameraChannels?.Where(x => x.IsPlug).ToList();
                         var listCam = new List<CameraManagement>();
-                        //foreach (var item in cameraActive)
-                        //{
-                        //    var res = await RequestStartCam(item.Channel);
-                        //    res.SetMedia(res.Data.Link);
-                        //    listCam.Add(res);
-                        //}
-                        //SetItemsSource(listCam);
-                        var rnd = new Random();
-                        var num = rnd.Next(2, 4);
-                        var duplicateList = new List<CameraManagement>();
-                        for (int i = 0; i < num; i++)
+                        foreach (var item in cameraActive)
                         {
-                            foreach (var item in cameraActive)
-                            {
-                                var res = await RequestStartCam(item.Channel);
-                                res.Data.Channel += i * cameraActive.Count;
-                                res.SetMedia(res.Data.Link);
-                                duplicateList.Add(res);
-                            }
+                            var res = await RequestStartCam(item.Channel);
+                            res.SetMedia(res.Data.Link);
+                            listCam.Add(res);
                         }
-                        SetItemsSource(duplicateList);
+                        SetItemsSource(listCam);
                     }
                 }
             });
