@@ -132,9 +132,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool isShowLastViewVehicle = true;
         public bool IsShowLastViewVehicle { get => isShowLastViewVehicle; set => SetProperty(ref isShowLastViewVehicle, value); }
 
-        private ObservableCollection<LastViewVehicleImageModel> listLastView;
+        private ObservableCollection<string> listLastView;
 
-        public ObservableCollection<LastViewVehicleImageModel> ListLastView { get => listLastView; set => SetProperty(ref listLastView, value); }
+        public ObservableCollection<string> ListLastView { get => listLastView; set => SetProperty(ref listLastView, value); }
 
         private List<string> mVehicleString { get; set; }
 
@@ -297,7 +297,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 // truyền key xử lý ở đây
-                CarSearch = ((LastViewVehicleImageModel)listview.ItemData).Name;
+                CarSearch = (string)listview.ItemData;
 
                 ShowImageSearch();
             }
@@ -380,7 +380,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     PageIndex = 0;
                     ListGroup = new ObservableCollection<CaptureImageData>();
-                    ShowImageLoadMore();
+                    ShowImageLoad();
+                    LoadMoreItemsCommand.Execute(new Syncfusion.ListView.XForms.SfListView());
                 }
                 else
                 {
@@ -557,13 +558,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 ListHeight = view[1]; // gán chiều cao cho listview
 
-                ListLastView = new ObservableCollection<LastViewVehicleImageModel>();
+                ListLastView = new ObservableCollection<string>();
                 for (int i = 0; i < lst.Count; i++)
                 {
-                    ListLastView.Add(new LastViewVehicleImageModel
-                    {
-                        Name = lst[i].VehiclePlate
-                    });
+                    ListLastView.Add(lst[i].VehiclePlate);
                 }
             }
             else
@@ -595,10 +593,5 @@ namespace BA_MobileGPS.Core.ViewModels
             return respone;
         }
 
-    }
-
-    public class LastViewVehicleImageModel
-    {
-        public string Name { get; set; }
     }
 }

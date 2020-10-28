@@ -263,35 +263,38 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 SelectPourFuelVehicleItem = ListDataSearch.Where(x => x.OrderNumber == OrderNumber).FirstOrDefault();
                 SelectPourFuelVehicleItem.VehiclePlate = VehicleSelect.VehiclePlate;
-                if (string.IsNullOrEmpty(SelectPourFuelVehicleItem.StartAddress) && string.IsNullOrEmpty(SelectPourFuelVehicleItem.EndAddress))
+                if(string.IsNullOrEmpty(SelectPourFuelVehicleItem.CurrentAddress))
                 {
-                    var startLat = SelectPourFuelVehicleItem.StartLatitude;
-                    var startLong = SelectPourFuelVehicleItem.StartLongitude;
-                    var endLat = SelectPourFuelVehicleItem.EndLatitude;
-                    var endLong = SelectPourFuelVehicleItem.EndLongitude;
                     if (string.IsNullOrEmpty(SelectPourFuelVehicleItem.StartAddress) && string.IsNullOrEmpty(SelectPourFuelVehicleItem.EndAddress))
                     {
-                        var input = string.Format("{0} {1};{2} {3}", startLat, startLong, endLat, endLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        if (response.Count >= 2)
+                        var startLat = SelectPourFuelVehicleItem.StartLatitude;
+                        var startLong = SelectPourFuelVehicleItem.StartLongitude;
+                        var endLat = SelectPourFuelVehicleItem.EndLatitude;
+                        var endLong = SelectPourFuelVehicleItem.EndLongitude;
+                        if (string.IsNullOrEmpty(SelectPourFuelVehicleItem.StartAddress) && string.IsNullOrEmpty(SelectPourFuelVehicleItem.EndAddress))
                         {
+                            var input = string.Format("{0} {1};{2} {3}", startLat, startLong, endLat, endLong);
+                            var response = await BaseServiceReport.GetAddressReport(input);
+                            if (response.Count >= 2)
+                            {
+                                SelectPourFuelVehicleItem.StartAddress = response[0];
+                                SelectPourFuelVehicleItem.EndAddress = response[1];
+                            }
+                        }
+                        else if (string.IsNullOrEmpty(SelectPourFuelVehicleItem.StartAddress))
+                        {
+                            var input = string.Format("{0} {1}}", startLat, startLong);
+                            var response = await BaseServiceReport.GetAddressReport(input);
                             SelectPourFuelVehicleItem.StartAddress = response[0];
-                            SelectPourFuelVehicleItem.EndAddress = response[1];
+                        }
+                        else if (string.IsNullOrEmpty(SelectPourFuelVehicleItem.EndAddress))
+                        {
+                            var input = string.Format("{0} {1}}", endLat, endLong);
+                            var response = await BaseServiceReport.GetAddressReport(input);
+                            SelectPourFuelVehicleItem.EndAddress = response[0];
                         }
                     }
-                    else if (string.IsNullOrEmpty(SelectPourFuelVehicleItem.StartAddress))
-                    {
-                        var input = string.Format("{0} {1}}", startLat, startLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        SelectPourFuelVehicleItem.StartAddress = response[0];
-                    }
-                    else if (string.IsNullOrEmpty(SelectPourFuelVehicleItem.EndAddress))
-                    {
-                        var input = string.Format("{0} {1}}", endLat, endLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        SelectPourFuelVehicleItem.EndAddress = response[0];
-                    }
-                }
+                }    
                 var p = new NavigationParameters
                 {
                     { ParameterKey.ReportPourFuelSelected, SelectPourFuelVehicleItem }

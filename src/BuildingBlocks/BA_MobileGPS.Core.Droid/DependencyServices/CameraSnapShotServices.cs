@@ -67,7 +67,6 @@ namespace BA_MobileGPS.Core.Droid.DependencyServices
             catch (Exception ex)
             {
                 return false;
-                throw;
             }
       
             return true;

@@ -253,7 +253,8 @@
                     HeightRequest="250"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding HasFindBle}"
-                    Loop="true"
+                    RepeatCount="500"
+                    RepeatMode="Infinite"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="250" />
             </Grid>

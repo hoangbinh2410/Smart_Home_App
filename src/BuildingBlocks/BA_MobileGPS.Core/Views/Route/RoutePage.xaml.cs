@@ -37,7 +37,7 @@ namespace BA_MobileGPS.Core.Views
             vm = (RouteViewModel)BindingContext;
 
             map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
-
+            map.UiSettings.ZoomGesturesEnabled = true;
             map.UiSettings.ZoomControlsEnabled = false;
             map.UiSettings.RotateGesturesEnabled = false;
 
@@ -69,8 +69,8 @@ namespace BA_MobileGPS.Core.Views
             {
                 TimeSelectorContainerHeight = Device.RuntimePlatform == Device.iOS ? TimeSelectorContainer.HeightRequest + 4 : TimeSelectorContainer.HeightRequest;
 
-                AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight, TimeSelectorContainerHeight * 2, length: 150);
-                IsExpanded = true;
+                AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight * 2, TimeSelectorContainerHeight, length: 150);
+                IsExpanded = false;
 
                 IconInfo_Clicked(this, EventArgs.Empty);
 
@@ -194,7 +194,13 @@ namespace BA_MobileGPS.Core.Views
         private void Map_PinClicked(object sender, PinClickedEventArgs e)
         {
             if (!"state_stop".Equals(e.Pin.Tag) && !"direction".Equals(e.Pin.Tag))
+            {
                 e.Handled = true;
+            }
+            else
+            {
+                vm.StopWatchVehicle();
+            }
         }
 
         private void IconInfo_Clicked(object sender, EventArgs e)

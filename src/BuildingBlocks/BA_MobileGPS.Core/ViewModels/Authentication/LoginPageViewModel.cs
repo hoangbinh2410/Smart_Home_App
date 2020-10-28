@@ -22,54 +22,28 @@ using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class LoginPageViewModel : ViewModelBase
+    public class LoginPageViewModel : ViewModelBaseLogin
     {
         #region Constructor
 
         private readonly IAuthenticationService authenticationService;
         private readonly IDBVersionService dBVersionService;
         private readonly IResourceService resourceService;
-        private readonly ILanguageService languageTypeService;
         private readonly IAppVersionService appVersionService;
         private readonly INotificationService notificationService;
-        private readonly IPingServerService pingServerService;
 
-        public LoginPageViewModel(INavigationService navigationService, IAuthenticationService authenticationService,
-            IAppVersionService appVersionService, IDBVersionService dBVersionService,
-            IResourceService resourceService, ILanguageService languageTypeService,
-            INotificationService notificationService, IPingServerService pingServerService)
+        public LoginPageViewModel(INavigationService navigationService,
+            IAuthenticationService authenticationService, IDBVersionService dBVersionService,
+            IResourceService resourceService, IAppVersionService appVersionService, INotificationService notificationService)
             : base(navigationService)
         {
             this.authenticationService = authenticationService;
-            this.appVersionService = appVersionService;
             this.resourceService = resourceService;
-            this.languageTypeService = languageTypeService;
             this.dBVersionService = dBVersionService;
+            this.appVersionService = appVersionService;
             this.notificationService = notificationService;
-            this.pingServerService = pingServerService;
-
             EventAggregator.GetEvent<SelectLanguageTypeEvent>().Subscribe(UpdateLanguage);
             InitValidations();
-            if (App.CurrentLanguage == CultureCountry.English)
-            {
-                language = new LanguageRespone()
-                {
-                    CodeName = CultureCountry.English,
-                    Icon = "flag_us.png",
-                    Description = "English",
-                    PK_LanguageID = 2
-                };
-            }
-            else
-            {
-                language = new LanguageRespone()
-                {
-                    CodeName = CultureCountry.Vietnamese,
-                    Icon = "flag_vn.png",
-                    Description = "Tiếng Việt",
-                    PK_LanguageID = 1
-                };
-            }
         }
 
         #endregion Constructor
@@ -101,16 +75,25 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
-
-            //_ = MobileResource.Get("Login_UserNameProperty_NullOrEmpty");
-        }
-
-        private void GetInfomation(bool isLogout = false)
-        {
-            GetMobileSetting();
-            if (!isLogout)
+            if (App.CurrentLanguage == CultureCountry.English)
             {
-                GetMobileVersion();
+                language = new LanguageRespone()
+                {
+                    CodeName = CultureCountry.English,
+                    Icon = "flag_us.png",
+                    Description = "English",
+                    PK_LanguageID = 2
+                };
+            }
+            else
+            {
+                language = new LanguageRespone()
+                {
+                    CodeName = CultureCountry.Vietnamese,
+                    Icon = "flag_vn.png",
+                    Description = "Tiếng Việt",
+                    PK_LanguageID = 1
+                };
             }
             if (Settings.Rememberme)
             {
@@ -124,7 +107,27 @@ namespace BA_MobileGPS.Core.ViewModels
                 Password.Value = string.Empty;
                 Rememberme = false;
             }
-            GetNoticePopup();
+            Device.StartTimer(TimeSpan.FromMilliseconds(800), () =>
+            {
+                // Do something
+                GetMobileSetting();
+                GetNoticePopup();
+                return false;
+            });
+
+        }
+
+        private void GetInfomation(bool isLogout = false)
+        {
+            if (!isLogout)
+            {
+                Device.StartTimer(TimeSpan.FromMilliseconds(Device.RuntimePlatform == Device.iOS ? 300 : 700), () =>
+                    {
+                        GetMobileVersion();
+                        return false;
+                    });
+
+            }
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -176,73 +179,35 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private Task GetMobileSetting()
+        private void GetMobileSetting()
         {
-            return RunOnBackground(async () =>
-            {
-                return await resourceService.GetAllMobileConfigs(App.AppType);
-            },
-            (result) =>
-            {
-                if (result != null && result.Count > 0)
-                {
-                    MobileSettingHelper.SetData(result);
-                }
-            });
-        }
-
-        private void GetVersionDBLogin()
-        {
-            TryExecute(() =>
-            {
-                // get db local
-                var dbLocal = dBVersionService.All();
-                //nếu db local có dữ liệu thì mới gọi xuống server check cập nhật . không có thì phải vào trang insall cập nhật
-                if (dbLocal == null || dbLocal.Count() <= 0)
-                {
-                    Settings.IsChangeDataLocalDB = true;
-                    return;
-                }
-
-                RunOnBackground(async () =>
-                {
-                    return await dBVersionService.GetVersionDataBase((int)App.AppType);
-                },
-                (result) =>
-                {
-                    if (result != null && result.Count > 0)
-                    {
-                        foreach (var item in result)
-                        {
-                            if (Enum.TryParse<LocalDBNames>(item.TableName.ToUpper(), out var tableName))
-                            {
-                                var lastUpdateDBLocal = dbLocal.FirstOrDefault(x => x.TableName == item.TableName);
-                                // khác version và có thời gian update lớn hơn thời gian lưu trong db thì mới cập nhật
-                                if (lastUpdateDBLocal != null && lastUpdateDBLocal.UpdatedDate <= item.UpdatedDate && item.VersionDB != lastUpdateDBLocal.VersionDB)
-                                {
-                                    Settings.IsChangeDataLocalDB = true;
-                                }
-                            }
-                        }
-                    }
-                });
-            });
+            RunOnBackground(async () =>
+           {
+               return await resourceService.GetAllMobileConfigs(App.AppType);
+           },
+           (result) =>
+           {
+               if (result != null && result.Count > 0)
+               {
+                   MobileSettingHelper.SetData(result);
+               }
+           });
         }
 
         private void GetMobileVersion()
         {
-            if (string.IsNullOrEmpty(Settings.TempVersionName)) // nếu lần đầu cài app
-            {
-                Settings.TempVersionName = AppVersion;
-                Settings.AppVersionDB = AppVersion;
-            }
-
             RunOnBackground(async () =>
             {
                 return await dBVersionService.GetMobileVersion(Device.RuntimePlatform.ToString(), (int)App.AppType);
             },
             (versionDB) =>
             {
+                var appVersion = appVersionService.GetAppVersion();
+                if (string.IsNullOrEmpty(Settings.TempVersionName)) // nếu lần đầu cài app
+                {
+                    Settings.TempVersionName = appVersion;
+                    Settings.AppVersionDB = appVersion;
+                }
                 if (versionDB != null && !string.IsNullOrEmpty(versionDB.VersionName) && !string.IsNullOrEmpty(versionDB.LinkDownload))
                 {
                     // Nếu giá trị bị null hoặc giá trị đường link thay đổi => cập nhật lại
@@ -251,7 +216,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         Settings.AppLinkDownload = versionDB.LinkDownload;
                     }
 
-                    if (!versionDB.VersionName.Equals(AppVersion, StringComparison.InvariantCultureIgnoreCase))
+                    if (!versionDB.VersionName.Equals(appVersion, StringComparison.InvariantCultureIgnoreCase))
                     {
                         Settings.AppVersionDB = versionDB.VersionName;
                         string title = "Cập nhập phiên bản mới";
@@ -380,8 +345,6 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Event subcribe
 
         #region Property
-
-        public string AppVersion => appVersionService.GetAppVersion();
 
         public ValidatableObject<string> UserName { get; set; }
 
@@ -555,19 +518,6 @@ namespace BA_MobileGPS.Core.ViewModels
             Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = MobileResource.Login_PasswordProperty_NullOrEmpty });
         }
 
-        private void GetLanguageType()
-        {
-            Task.Run(() =>
-           {
-               var lstlanguage = languageTypeService.Find(x => x.CodeName == Settings.CurrentLanguage)?.FirstOrDefault();
-
-               if (lstlanguage != null)
-               {
-                   Language = lstlanguage;
-               }
-           });
-        }
-
         private async void OnLoginSuccess(LoginResponse user)
         {
             try
@@ -580,10 +530,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 //nếu nhớ mật khẩu thì lưu lại thông tin username và password
                 if (Rememberme)
                 {
-                    Settings.UserName = UserName.Value;
-                    Settings.Password = Password.Value;
                     Settings.Rememberme = true;
                 }
+
+                Settings.UserName = UserName.Value;
+                Settings.Password = Password.Value;
+
                 StaticSettings.Token = user.AccessToken;
                 StaticSettings.User = user;
                 OneSignal.Current.SendTag("UserID", user.UserId.ToString().ToUpper());
@@ -647,33 +599,6 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        /// <summary>Lấy thông tin từ firebase</summary>
-        /// <Modified>
-        /// Name     Date         Comments
-        /// linhlv  2/26/2020   created
-        /// </Modified>
-        private void PushPageFileBase()
-        {
-            //nếu người dùng click vào mở thông báo firebase thì vào trang thông báo luôn
-            if (!string.IsNullOrEmpty(Settings.ReceivedNotificationType))
-            {
-                if (Settings.ReceivedNotificationType == (((int)FormOfNoticeTypeEnum.NoticeWhenLogin).ToString()))
-                {
-                    Settings.ReceivedNotificationType = string.Empty;
-                    if (!string.IsNullOrEmpty(Settings.ReceivedNotificationValue))
-                    {
-                        Device.BeginInvokeOnMainThread(async () =>
-                        {
-                            await NavigationService.NavigateAsync("NotificationPopupWhenLogin", parameters: new NavigationParameters
-                             {
-                                 { ParameterKey.NotificationForm, Settings.ReceivedNotificationValue }
-                            });
-                        });
-                    }
-                }
-            }
-        }
-
         /// <summary>Kiểm tra mạng lấy lại thông tin khi có mạng</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="ConnectivityChangedEventArgs"/> instance containing the event data.</param>
@@ -681,14 +606,14 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Name     Date         Comments
         /// linhlv  2/27/2020   created
         /// </Modified>
-        public override void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
-        {
-            base.OnConnectivityChanged(sender, e);
-            if (e.NetworkAccess == NetworkAccess.Internet)
-            {
-                GetInfomation();
-            }
-        }
+        //public override void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        //{
+        //    base.OnConnectivityChanged(sender, e);
+        //    if (e.NetworkAccess == NetworkAccess.Internet)
+        //    {
+        //        GetInfomation();
+        //    }
+        //}
 
         #endregion PrivateMethod
     }

@@ -145,12 +145,12 @@
     <PackageReference Include="VideoLAN.LibVLC.iOS">
       <Version>3.3.10</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1534" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1560" />
     <PackageReference Include="Prism.Unity.Forms">
       <Version>7.2.0.1422</Version>
     </PackageReference>
     <PackageReference Include="Realm">
-      <Version>5.0.1</Version>
+      <Version>5.1.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Build.Download">
       <Version>0.10.0</Version>

@@ -1,3 +1,4 @@
+using Android.App;
 using Android.Content;
 using Android.Gms.Maps.Model;
 using Android.Widget;
@@ -25,7 +26,7 @@ namespace BA_MobileGPS.Core.Droid.Logics
         private readonly Context context;
         private readonly IBitmapDescriptorFactory bitmapDescriptorFactory;
 
-        public PinLogic(Context context,
+        public PinLogic(Activity context,
             IBitmapDescriptorFactory bitmapDescriptorFactory)
         {
             this.bitmapDescriptorFactory = bitmapDescriptorFactory;

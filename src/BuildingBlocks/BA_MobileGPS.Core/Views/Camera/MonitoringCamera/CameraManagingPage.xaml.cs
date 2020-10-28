@@ -1,132 +1,241 @@
-﻿using BA_MobileGPS.Core.Resources;
-using BA_MobileGPS.Core.Views.Camera.MonitoringCamera;
+﻿using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Models;
+using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels;
+using PanCardView.Extensions;
 using Prism.Mvvm;
-using Syncfusion.ListView.XForms.Control.Helpers;
+using Syncfusion.DataSource.Extensions;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Xamarin.Forms;
-using Xamarin.Forms.Markup;
-
-using Prism.Ioc;
-using Prism.Events;
-using Prism.Navigation;
-using System;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
-using System.Collections.Generic;
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class CameraManagingPage : ContentPage, IDestructible
+    public partial class CameraManagingPage : ContentPage
     {
-        private IEventAggregator eventAggregator { get; } = Prism.PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+        private double normaltWidth { get; set; }
+        private double normalHeight { get; set; }
+        private CameraManagement selectedItem { get; set; }
+
         public CameraManagingPage()
         {
+            InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
+        }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
             try
-            {                
-                InitializeComponent();
-                eventAggregator.GetEvent<SwitchToFullScreenEvent>().Subscribe(SwitchToFullScreen);
-                eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Subscribe(SwitchToNormal);
-                eventAggregator.GetEvent<SetCameraLayoutEvent>().Subscribe(SetCameraLayout);
+            {
+                var temp = ((TappedEventArgs)e).Parameter;
+                var newItemSlect = (CameraManagement)temp;
+                if (newItemSlect != null &&
+                    newItemSlect.Data.Channel != selectedItem?.Data?.Channel)
+                {
+                    SetSelectedItem(newItemSlect);
+                }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-
-                throw;
-            }                       
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
         }
 
-        private void SetCameraLayout(int obj)
+        private void SetSelectedItem(CameraManagement newItemSlect, bool excute = false)
         {
-            eventAggregator.GetEvent<DisposeTemplateView>().Publish();
-            Device.BeginInvokeOnMainThread(() =>
-            {              
-                noDataImage.IsVisible = false;
-                cameraPanel.Children.Clear();
-                if (obj == 1)
+            if (newItemSlect.CanExcute() || excute)
+            {
+                if (selectedItem != null && selectedItem.IsSelected)
                 {
-                    var cam = new Template1Camera();
-                  
-                    cameraPanel.Children.Add(cam);
+                    selectedItem.IsSelected = false;
                 }
-                else if (obj == 2)
-                {
-                    var cam = new Template2Camera();
-                  
-                    cameraPanel.Children.Add(cam);
-                }
-                else if(obj == 4)
-                {
-                    var cam = new Template4Camera();
-                 
-                    cameraPanel.Children.Add(cam);
-                }
-                else if (obj == 0)
-                {
-                    noDataImage.IsVisible = true;
-                }
-            });
-        
+
+                selectedItem = newItemSlect;
+                selectedItem.IsSelected = true;
+                ((CameraManagingPageViewModel)this.BindingContext).SelectedItem = selectedItem;
+            }
         }
 
-        private void SwitchToNormal()
+        private double _width;
+        private double _height;
+
+        protected override void OnSizeAllocated(double width, double height)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            using (new HUDService())
             {
-                Grid.SetRow(playbackControl, 3);
+                var oldWidth = _width;
+                const double sizenotallocated = -1;
+
+                base.OnSizeAllocated(width, height);
+                if (Equals(_width, width) && Equals(_height, height)) return;
+
+                _width = width;
+                _height = height;
+
+                // ignore if the previous height was size unallocated
+                if (Equals(oldWidth, sizenotallocated)) return;
+
+                // Has the device been rotated ?
+                if (!Equals(width, oldWidth))
+                {
+                    if (width < height)
+                    {
+                        OrientChangedToVetical();
+                    }
+                    else
+                    {
+                        OrientChangedToLanscape();
+                    }
+                }
+            }
+        }
+
+        private void OrientChangedToVetical()
+        {
+            try
+            {
                 if (Device.RuntimePlatform == Device.iOS)
                 {
                     var safe = On<iOS>().SafeAreaInsets();
                     Padding = new Thickness(0, 0, 0, safe.Bottom);
                 }
-            });
-          
-        }
-
-        private void SwitchToFullScreen(CameraEnum obj)
-        {
-            Device.BeginInvokeOnMainThread(() =>
+                if (parent != null)
+                {
+                    var source = BindableLayout.GetItemsSource(parent)?.Cast<ChildStackSource>();
+                    if (source != null)
+                    {
+                        foreach (var child in source)
+                        {
+                            child.Height = parent.Height / source.Count();
+                            foreach (var item in child.ChildSource)
+                            {
+                                item.Width = normaltWidth;
+                                item.Height = normaltWidth;
+                            }
+                        }
+                    }
+                    Grid.SetRow(playbackControl, 3);
+                    ((CameraManagingPageViewModel)this.BindingContext).IsFullScreenOff = true;
+                }
+            }
+            catch (Exception ex)
             {
-                Grid.SetRow(playbackControl, 2);
-                Padding = new Thickness(0, 0, 0, 0);
-            });        
-        }
-
-        protected override void OnAppearing()
-        {
-            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;      
-            base.OnAppearing();
-            if (Device.RuntimePlatform == Device.iOS)
-            {
-                var safe = On<iOS>().SafeAreaInsets();
-                Padding = new Thickness(0, 0, 0, safe.Bottom);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
-        public void Destroy()
+        private void OrientChangedToLanscape()
         {
-            eventAggregator.GetEvent<SwitchToFullScreenEvent>().Unsubscribe(SwitchToFullScreen);
-            eventAggregator.GetEvent<SwitchToNormalScreenEvent>().Unsubscribe(SwitchToNormal);
-            eventAggregator.GetEvent<SetCameraLayoutEvent>().Unsubscribe(SetCameraLayout);
+            try
+            {
+                if (Device.RuntimePlatform == Device.iOS)
+                {
+                    Padding = new Thickness(0, 0, 0, 0);
+                }
+                var source = BindableLayout.GetItemsSource(parent).Cast<ChildStackSource>();
+
+                foreach (var child in source)
+                {
+                    child.Height = 0;
+                }
+
+                foreach (var child in source)
+                {
+                    foreach (var item in child.ChildSource)
+                    {
+                        if (!item.IsSelected)
+                        {
+                            item.Width = 0;
+                            item.Height = 0;
+                        }
+                        else
+                        {
+                            item.Width = root.Width;
+                            if (child.Height != root.Height)
+                            {
+                                child.Height = root.Height;
+                            }
+                        }
+                    }
+                }
+                Grid.SetRow(playbackControl, 2);
+                ((CameraManagingPageViewModel)this.BindingContext).IsFullScreenOff = false;
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
+
+        private void parent_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "ItemsSource")
+            {
+                noDataImage.IsVisible = true;
+                try
+                {
+                    var source = BindableLayout.GetItemsSource(parent)?.Cast<ChildStackSource>();
+                    if (source != null && source.Count() > 0)
+                    {
+                        noDataImage.IsVisible = false;
+                        var firstItem = source.FirstOrDefault()?.ChildSource?.FirstOrDefault();
+                        if (firstItem != null)
+                        {
+                            SetSelectedItem(firstItem, true); ;
+                        }
+                        var columnNum = 0;
+                        foreach (var item in source)
+                        {
+                            if (item.ChildSource.Count > columnNum)
+                            {
+                                columnNum = item.ChildSource.Count;
+                            }
+                        }
+                        var rowNum = source.Count();
+                        normalHeight = parent.Height / rowNum;
+                        normaltWidth = parent.Width / columnNum;
+
+                        foreach (var item in source)
+                        {
+                            foreach (var cam in item.ChildSource)
+                            {
+                                cam.Height = normalHeight;
+                                cam.Width = normaltWidth;
+                            }
+                            item.Height = normalHeight;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                }
+            }
         }
     }
 
-    public class SetCameraLayoutEvent : PubSubEvent<int>
+    public class ChildStackSource : BindableBase
     {
+        public List<CameraManagement> ChildSource { get; set; }
+        private double height;
 
-    }
-
-    public class SwitchToFullScreenEvent : PubSubEvent<CameraEnum>
-    {
-
-    }
-
-    public class SwitchToNormalScreenEvent : PubSubEvent
-    {
-
-    }
-    public class DisposeTemplateView : PubSubEvent
-    {
-
+        public double Height
+        {
+            get { return height; }
+            set
+            {
+                SetProperty(ref height, value);
+                RaisePropertyChanged();
+            }
+        }
     }
 }

@@ -22,25 +22,37 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class AccountViewModel : ViewModelBase
     {
+        private readonly IAppVersionService appVersionService;
         private string appVersion;
         public string AppVersion { get => appVersion; set => SetProperty(ref appVersion, value); }
+
+        private bool isShowPhoneNumber;
+        public bool IsShowPhoneNumber { get => isShowPhoneNumber; set => SetProperty(ref isShowPhoneNumber, value); }
 
         private ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
         public ObservableCollection<MenuItem> MenuItems { get => menuItems; set => SetProperty(ref menuItems, value); }
 
         public ICommand NavigateCommand { get; private set; }
 
-        public AccountViewModel(INavigationService navigationService, IAppVersionService appVersionService,
-             IAuthenticationService authenticationService)
+        public AccountViewModel(INavigationService navigationService, IAppVersionService appVersionService)
             : base(navigationService)
         {
+            this.appVersionService = appVersionService;
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(Navigate);
-
-            AppVersion = appVersionService.GetAppVersion();
-
-            InitMenuItems();
         }
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
 
+            Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
+            {
+                AppVersion = appVersionService.GetAppVersion();
+                IsShowPhoneNumber = MobileUserSettingHelper.IsShowPhoneNumber;
+                InitMenuItems();
+                return false;
+            });
+
+        }
         private void InitMenuItems()
         {
             var list = new List<MenuItem>();
@@ -243,7 +255,11 @@ namespace BA_MobileGPS.Core.ViewModels
         Rating,
         Setting,
         UpgradeVersion,
-        Logout
+        Logout,
+        Route,
+        VehicleDetail,
+        Images,
+        Video
     }
 
     public class MenuItem

@@ -87,6 +87,16 @@ namespace BA_MobileGPS.Core.ViewModels
             TryExecute(async () =>
             {
                 await ConnectSignalR();
+                Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
+                {
+                    GetCountVehicleDebtMoney();
+                    InsertOrUpdateAppDevice();
+                    GetNoticePopup();
+                    PushPageFileBase();
+                    // Lấy danh sách cảnh báo
+                    GetCountAlert();
+                    return false;
+                });
             });
 
         }
@@ -101,16 +111,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 InitVehilceOnline();
 
-                // Lấy danh sách cảnh báo
-                GetCountAlert();
-
-                PushPageFileBase();
-
-                InsertOrUpdateAppDevice();
-
-                GetNoticePopup();
-
-                GetCountVehicleDebtMoney();
             });
         }
 
@@ -323,7 +323,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             // Khởi tạo signalR
             await vehicleOnlineHubService.Connect();
-
+            vehicleOnlineHubService.onReceiveSendCarSignalR -= OnReceiveSendCarSignalR;
             vehicleOnlineHubService.onReceiveSendCarSignalR += OnReceiveSendCarSignalR;
         }
 
@@ -417,22 +417,25 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SendDataCar(VehicleOnlineMessage carInfo)
         {
-            var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == carInfo.VehicleId);
-            if (vehicle != null && !StateVehicleExtension.IsVehicleDebtMoney(vehicle.MessageId, vehicle.DataExt) && vehicle.VehicleTime < carInfo.VehicleTime)
+            if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
             {
-                vehicle.Update(carInfo);
-                vehicle.IconImage = IconCodeHelper.GetMarkerResource(vehicle);
-                vehicle.StatusEngineer = StateVehicleExtension.EngineState(vehicle);
-                if (!StateVehicleExtension.IsLostGPS(vehicle.GPSTime, vehicle.VehicleTime) && !StateVehicleExtension.IsLostGSM(vehicle.VehicleTime))
+                var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == carInfo.VehicleId);
+                if (vehicle != null && !StateVehicleExtension.IsVehicleDebtMoney(vehicle.MessageId, vehicle.DataExt) && vehicle.VehicleTime < carInfo.VehicleTime)
                 {
-                    vehicle.SortOrder = 1;
-                }
-                else
-                {
-                    vehicle.SortOrder = 0;
-                }
+                    vehicle.Update(carInfo);
+                    vehicle.IconImage = IconCodeHelper.GetMarkerResource(vehicle);
+                    vehicle.StatusEngineer = StateVehicleExtension.EngineState(vehicle);
+                    if (!StateVehicleExtension.IsLostGPS(vehicle.GPSTime, vehicle.VehicleTime) && !StateVehicleExtension.IsLostGSM(vehicle.VehicleTime))
+                    {
+                        vehicle.SortOrder = 1;
+                    }
+                    else
+                    {
+                        vehicle.SortOrder = 0;
+                    }
 
-                EventAggregator.GetEvent<ReceiveSendCarEvent>().Publish(vehicle);
+                    EventAggregator.GetEvent<ReceiveSendCarEvent>().Publish(vehicle);
+                }
             }
         }
 
@@ -619,6 +622,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     if (synVehicles != null && synVehicles.Count > 0)
                     {
+                        TryExecute(async () =>
+                        {
+                            if (!vehicleOnlineHubService.IsConnectedOrConnecting())
+                            {
+                                await ConnectSignalROnline();
+                            }
+                        });
+
                         var vehicelIDs = string.Join(",", synVehicles);
                         var userID = UserInfo.UserId;
                         var companyID = UserInfo.CompanyId;
