@@ -7,6 +7,7 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
+using Prism.Navigation.TabbedPages;
 using Syncfusion.Data.Extensions;
 using System;
 using System.Collections.Generic;
@@ -185,7 +186,7 @@ namespace BA_MobileGPS.Core.ViewModels
             AllListfeatures = list.ToObservableCollection();
         }
 
-        public void OnTappedMenu(object obj)
+        public async void OnTappedMenu(object obj)
         {
             if (!(obj is HomeMenuItemViewModel seletedMenu) || seletedMenu.MenuKey == null)
             {
@@ -195,15 +196,24 @@ namespace BA_MobileGPS.Core.ViewModels
             switch (temp.MenuKey)
             {
                 case "ListVehiclePage":
-                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.ListVehiclePage, ""));
+                    await NavigationService.SelectTabAsync(TabbedPageChildrenEnum.ListVehicleTab.ToString());
                     break;
 
                 case "OnlinePage":
-                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.OnlinePage, ""));
+                    //cấu hình cty này dùng Cluster thì mới mở forms Cluster
+                    if (MobileUserSettingHelper.EnableShowCluster)
+                    {
+                        await NavigationService.SelectTabAsync(TabbedPageChildrenEnum.OnlineTab.ToString());
+                    }
+                    else
+                    {
+                        await NavigationService.SelectTabAsync(TabbedPageChildrenEnum.OnlineTabNoCluster.ToString());
+                    }
+
                     break;
 
                 case "RoutePage":
-                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, ""));
+                    await NavigationService.SelectTabAsync(TabbedPageChildrenEnum.RouteTab.ToString());
                     break;
 
                 case "MessagesOnlinePage":
