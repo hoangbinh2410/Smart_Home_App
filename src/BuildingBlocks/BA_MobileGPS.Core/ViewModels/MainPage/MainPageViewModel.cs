@@ -15,7 +15,6 @@ using Prism.Common;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -90,32 +89,33 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 await ConnectSignalROnline();
                 InitVehilceOnline();
-                await ConnectSignalR();
                 Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
                 {
-                  
-                    GetCountVehicleDebtMoney();
-                    InsertOrUpdateAppDevice();
-                    GetNoticePopup();
-                    PushPageFileBase();
-                    // Lấy danh sách cảnh báo
-                    GetCountAlert();
+                    TryExecute(async () =>
+                    {
+                        await ConnectSignalR();
+                        GetCountVehicleDebtMoney();
+                        InsertOrUpdateAppDevice();
+                        GetNoticePopup();
+                        PushPageFileBase();
+                        // Lấy danh sách cảnh báo
+                        GetCountAlert();
+                    });
+
                     return false;
                 });
-
             });
-
         }
-        bool isLoaded { get; set; }
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            if (isLoaded)
+            if (IsLoaded)
             {
                 PageUtilities.OnNavigatedTo(currentChildView, parameters);
             }
-            else isLoaded = true;
-          
+            else IsLoaded = true;
         }
+
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
             PageUtilities.OnNavigatedFrom(currentChildView, parameters);
@@ -124,7 +124,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnDestroy()
         {
             base.OnDestroy();
-            if (isLoaded)
+            if (IsLoaded)
             {
                 EventAggregator.GetEvent<DestroyEvent>().Publish(); timer.Stop();
                 timer.Dispose();
@@ -136,8 +136,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(SelectedCompanyChanged);
                 EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
                 DisconnectSignalR();
-                isLoaded = false;
-            }                      
+                IsLoaded = false;
+            }
         }
 
         private void InitVehilceOnline()
@@ -176,7 +176,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             GetListVehicleOnlineResume();
                         }
-
                     }
                     GetTimeServer();
                     //kiểm tra xem có thông báo nào không
@@ -190,12 +189,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                 }
             });
-
         }
 
         private void OnSleepPage(bool obj)
         {
-            
             StaticSettings.TimeSleep = DateTime.Now;
             DisconnectSignalR();
         }
@@ -203,6 +200,8 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
+
+        private bool IsLoaded { get; set; }
 
         private int selectedIndex;
 

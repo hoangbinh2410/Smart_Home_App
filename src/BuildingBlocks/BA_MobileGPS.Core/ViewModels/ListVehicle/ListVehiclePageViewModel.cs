@@ -70,11 +70,14 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(OnReceiveSendCarSignalR);
             EventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
             EventAggregator.GetEvent<SelectedCompanyEvent>().Subscribe(OnCompanyChanged);
-
         }
 
         #region Lifecycle
-
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+            InitVehicleList();
+        }
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -119,7 +122,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else if (action == "Video")
                 {
-
                     GotoVideoPage(currentVehicle);
                 }
             }
@@ -207,8 +209,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public string searchedText;
         public string SearchedText { get => searchedText; set => SetProperty(ref searchedText, value); }
-
-
 
         #endregion Property
 

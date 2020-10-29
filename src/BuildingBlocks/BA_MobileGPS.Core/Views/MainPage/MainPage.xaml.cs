@@ -1,6 +1,4 @@
-﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Events;
-using BA_MobileGPS.Core.Helpers;
+﻿using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
@@ -9,12 +7,9 @@ using Prism;
 using Prism.Common;
 using Prism.Events;
 using Prism.Ioc;
-using Prism.Mvvm;
 using Prism.Navigation;
-using Sharpnado.Presentation.Forms.CustomViews.Tabs;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Timers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -25,12 +20,12 @@ using TabbedPage = Xamarin.Forms.TabbedPage;
 
 namespace BA_MobileGPS.Core.Views
 {
-
     public partial class MainPage : TabbedPage
     {
         private readonly IEventAggregator eventAggregator;
-        private IList<TabbedPageChildrenEnum> pages { get; set; } = new List<TabbedPageChildrenEnum>();
-        private bool isLoaded { get; set; }
+        private IList<TabbedPageChildrenEnum> ListPage { get; set; } = new List<TabbedPageChildrenEnum>();
+        private bool IsLoadedPage { get; set; }
+
         public MainPage()
         {
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
@@ -39,20 +34,20 @@ namespace BA_MobileGPS.Core.Views
             {
                 On<Xamarin.Forms.PlatformConfiguration.Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
                 On<Xamarin.Forms.PlatformConfiguration.Android>().SetIsSwipePagingEnabled(false);
-            }         
+            }
 
-            pages.Add(TabbedPageChildrenEnum.HomeTab);
+            ListPage.Add(TabbedPageChildrenEnum.HomeTab);
             var home = new ContentPage()
             {
                 IconImageSource = "ic_home.png",
                 Title = MobileResource.Menu_TabItem_Home
             };
             Children.Add(home);
-           var firstSelectedPage = home;
+            var firstSelectedPage = home;
 
             if (CheckPermision((int)PermissionKeyNames.VehicleView))
             {
-                pages.Add(TabbedPageChildrenEnum.ListVehicleTab);
+                ListPage.Add(TabbedPageChildrenEnum.ListVehicleTab);
                 var listVehicleTab = new ContentPage()
                 {
                     IconImageSource = "ic_vehicle.png",
@@ -71,11 +66,11 @@ namespace BA_MobileGPS.Core.Views
                 //cấu hình cty này dùng Cluster thì mới mở forms Cluster
                 if (MobileUserSettingHelper.EnableShowCluster)
                 {
-                    pages.Add(TabbedPageChildrenEnum.OnlineTab);
+                    ListPage.Add(TabbedPageChildrenEnum.OnlineTab);
                 }
                 else
                 {
-                    pages.Add(TabbedPageChildrenEnum.OnlineTabNoCluster);
+                    ListPage.Add(TabbedPageChildrenEnum.OnlineTabNoCluster);
                 }
                 Children.Add(online);
                 firstSelectedPage = online;
@@ -83,7 +78,7 @@ namespace BA_MobileGPS.Core.Views
 
             if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
             {
-                pages.Add(TabbedPageChildrenEnum.RouteTab);
+                ListPage.Add(TabbedPageChildrenEnum.RouteTab);
                 var routeTab = new ContentPage()
                 {
                     IconImageSource = "ic_route.png",
@@ -92,56 +87,35 @@ namespace BA_MobileGPS.Core.Views
                 Children.Add(routeTab);
             }
 
-            pages.Add(TabbedPageChildrenEnum.AccountTab);
+            ListPage.Add(TabbedPageChildrenEnum.AccountTab);
             var accountTab = new ContentPage()
             {
                 IconImageSource = "ic_account.png",
                 Title = MobileResource.Menu_TabItem_Account
             };
             Children.Add(accountTab);
-
             CurrentPage = firstSelectedPage;
-
         }
 
         protected override void OnCurrentPageChanged()
         {
+            base.OnCurrentPageChanged();
             var currenView = ((MainPageViewModel)BindingContext).currentChildView;
-            try
+            if (IsLoadedPage)
             {
-                if (isLoaded)
+                Device.BeginInvokeOnMainThread(() =>
                 {
                     using (new HUDService())
                     {
-
-
                         var newPage = (ContentPage)CurrentPage;
                         var parameters = new NavigationParameters();
                         if (newPage?.Content == null) // => Load view
                         {
                             var currentIndex = GetIndex(CurrentPage);
-                            var pageEnum = pages[currentIndex];
+                            var pageEnum = ListPage[currentIndex];
                             var viewResolve = PrismApplicationBase.Current.Container.Resolve<ContentView>(pageEnum.ToString());
                             newPage.Content = viewResolve;
                         }
-
-                        //Change icon at lostselected tabItem
-                        //if ((Children[previousIndex]).IconImageSource != null || 
-                        //    !string.IsNullOrEmpty(((BottomTabItem)tabitem.Tabs[previousIndex]).IconImageSource.ToString()))
-                        //{
-                        //    var newPath = ((BottomTabItem)tabitem.Tabs[previousIndex]).IconImageSource.ToString().Replace("solid", string.Empty);
-                        //    newPath = newPath.Replace("File:", string.Empty).Trim();
-                        //    ((BottomTabItem)tabitem.Tabs[previousIndex]).IconImageSource = newPath;
-                        //}
-                        ////Change icon selected tabItem
-                        //if (((BottomTabItem)tabitem.Tabs[index]).IconImageSource != null ||
-                        //    !string.IsNullOrEmpty(((BottomTabItem)tabitem.Tabs[index]).IconImageSource.ToString()))
-                        //{
-                        //    var path = ((BottomTabItem)tabitem.Tabs[index]).IconImageSource.ToString().Replace(".png", "solid.png");
-                        //    path = path.Replace("File:", string.Empty).Trim();
-                        //    ((BottomTabItem)tabitem.Tabs[index]).IconImageSource = path;
-                        //}
-
 
                         //Raise Nanvigation while tab change
                         if (currenView != null)
@@ -150,22 +124,16 @@ namespace BA_MobileGPS.Core.Views
                         }
 
                         PageUtilities.OnNavigatedTo(newPage.Content, parameters);
-                        ((MainPageViewModel)BindingContext).currentChildView = newPage.Content; 
+                        ((MainPageViewModel)BindingContext).currentChildView = newPage.Content;
                     }
-                }
-                else
-                {
-                    isLoaded = true;
-                }
+                });
+
             }
-            catch (Exception ex)
+            else
             {
-
-
+                IsLoadedPage = true;
             }
-            base.OnCurrentPageChanged();
         }
-
 
         protected override void OnAppearing()
         {
@@ -176,15 +144,14 @@ namespace BA_MobileGPS.Core.Views
                 Padding = new Thickness(0, 0, 0, safe.Bottom);
             }
         }
-          
+
         public virtual bool CheckPermision(int PermissionKey)
         {
             return StaticSettings.User.Permissions.IndexOf(PermissionKey) != -1;
         }
-        
 
-        bool bExit = false;
-        bool isHideTabOnline = false;
+        private bool bExit = false;
+        private bool isHideTabOnline = false;
 
         protected override bool OnBackButtonPressed()
         {
@@ -197,7 +164,6 @@ namespace BA_MobileGPS.Core.Views
             {
                 if (!bExit)
                 {
-
                     ShowAlertWhen2Back();
                     return bExit;
                 }
