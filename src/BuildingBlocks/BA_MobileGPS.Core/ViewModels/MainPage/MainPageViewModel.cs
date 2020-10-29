@@ -82,7 +82,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Lifecycle
 
-        public override void OnPageAppearingFirstTime()
+        private  void OnPageAppearing()
         {
             base.OnPageAppearingFirstTime();
 
@@ -110,10 +110,13 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             if (isLoaded)
-            {
+            {              
                 PageUtilities.OnNavigatedTo(currentChildView, parameters);
             }
-            else isLoaded = true;
+            else {
+                isLoaded = true;
+                OnPageAppearing();
+            } 
           
         }
         public override void OnNavigatedFrom(INavigationParameters parameters)
