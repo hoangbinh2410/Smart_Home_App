@@ -126,7 +126,9 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnDestroy();
             if (IsLoaded)
             {
-                EventAggregator.GetEvent<DestroyEvent>().Publish(); timer.Stop();
+                base.OnDestroy();
+                EventAggregator.GetEvent<DestroyEvent>().Publish(); 
+                timer.Stop();
                 timer.Dispose();
                 timerSyncData.Stop();
                 timerSyncData.Dispose();

@@ -1,7 +1,9 @@
 ﻿using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Utilities;
-
+using Prism;
+using Prism.Ioc;
+using Prism.Events;
 using Prism.Navigation;
 
 using System;
@@ -10,11 +12,12 @@ using System.Timers;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using BA_MobileGPS.Core.ViewModels.Base;
 
 namespace BA_MobileGPS.Core.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ListVehiclePage : ContentView, IDestructible
+    public partial class ListVehiclePage : ContentView
     {
         private enum States
         {
@@ -29,6 +32,8 @@ namespace BA_MobileGPS.Core.Views
         private readonly BA_MobileGPS.Core.Animation animations = new BA_MobileGPS.Core.Animation();
 
         private ListVehiclePageViewModel vm;
+
+        private readonly IEventAggregator eventAggregator;
 
         public ListVehiclePage()
         {
@@ -68,6 +73,8 @@ namespace BA_MobileGPS.Core.Views
             }
             entrySearchVehicle.Placeholder = MobileResource.Online_Label_SeachVehicle2;
             lblNotFound.Text = MobileResource.ListVehicle_Label_NotFound;
+            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+            eventAggregator.GetEvent<DestroyEvent>().Subscribe(Destroy);
         }
 
         private async void FilterCarType_Tapped(object sender, EventArgs e)
@@ -166,10 +173,11 @@ namespace BA_MobileGPS.Core.Views
             }
         }
 
-        public void Destroy()
+        private void Destroy()
         {
             timer.Stop();
             timer.Dispose();
+            eventAggregator.GetEvent<DestroyEvent>().Unsubscribe(Destroy);
         }
     }
 }

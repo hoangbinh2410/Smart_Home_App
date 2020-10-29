@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
+using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RealmEntity;
 using BA_MobileGPS.Service;
@@ -18,7 +19,7 @@ using Xamarin.Forms.Xaml;
 namespace BA_MobileGPS.Core.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RoutePage : ContentView, INavigationAware, IDestructible
+    public partial class RoutePage : ContentView, INavigationAware
     {
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
         private readonly IEventAggregator eventAggregator;
@@ -44,9 +45,12 @@ namespace BA_MobileGPS.Core.Views
 
                 eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
                 eventAggregator.GetEvent<ThemeChangedEvent>().Subscribe(ThemeChanged);
+              
                 lblMore.Text = MobileResource.Route_Label_More.Trim().ToUpper();
                 entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
                 lblTitle.Text = MobileResource.Route_Label_Title;
+
+                eventAggregator.GetEvent<DestroyEvent>().Subscribe(Destroy);
             }
             catch (Exception ex)
             {
@@ -293,9 +297,10 @@ namespace BA_MobileGPS.Core.Views
             }
         }
 
-        public void Destroy()
+        private void Destroy()
         {
             eventAggregator.GetEvent<ThemeChangedEvent>().Unsubscribe(ThemeChanged);
+            eventAggregator.GetEvent<DestroyEvent>().Unsubscribe(Destroy);
         }
     }
 }
