@@ -1,9 +1,11 @@
 ﻿using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.Utilities;
+using Prism.Behaviors;
 using Prism.Commands;
 using Prism.Navigation;
 using Syncfusion.Data.Extensions;
@@ -16,7 +18,7 @@ using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class HomeViewModel : ViewModelBase
+    public class HomeViewModel : TabbedPageChildVMBase
     {
         private readonly IHomeService homeService;
         private readonly IMapper mapper;
@@ -34,18 +36,21 @@ namespace BA_MobileGPS.Core.ViewModels
             TapMenuCommand = new DelegateCommand<object>(OnTappedMenu);
             listfeatures = new ObservableCollection<ItemSupport>();
             favouriteMenuItems = new ObservableCollection<ItemSupport>();
-        }
-
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-            Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
-            {
+             Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
+             {
                 // Lấy danh sách menu
                 GetListMenu();
                 return false;
             });
+        }
+
+        public override void OnPageAppearingFirstTime()
+        {
            
+        }
+        public override void OnDestroy()
+        {
+            //base.OnDestroy();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

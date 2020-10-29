@@ -4,6 +4,7 @@ using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
@@ -26,7 +27,7 @@ using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class RouteViewModel : ViewModelBase
+    public class RoutePageViewModel : TabbedPageChildVMBase
     {
         #region Contructor
 
@@ -52,7 +53,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand FastEndCommand { get; }
         public ICommand ChangeSpeedCommand { get; }
 
-        public RouteViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService, IDisplayMessage displayMessage, IGeocodeService geocodeService)
+        public RoutePageViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService, IDisplayMessage displayMessage, IGeocodeService geocodeService)
            : base(navigationService)
         {
             this.vehicleRouteService = vehicleRouteService;
@@ -127,12 +128,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnDestroy()
         {
+            //base.OnDestroy();
             if (ctsRouting != null)
                 ctsRouting.Cancel();
 
             EventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
             EventAggregator.GetEvent<ThemeChangedEvent>().Unsubscribe(ThemeChanged);
-            EventAggregator.GetEvent<TabSelectedChangedEvent>().Subscribe(TabSelectedChanged);
+            EventAggregator.GetEvent<TabSelectedChangedEvent>().Unsubscribe(TabSelectedChanged);
         }
 
         #endregion Lifecycle

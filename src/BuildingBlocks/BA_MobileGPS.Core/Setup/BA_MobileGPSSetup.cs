@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
@@ -173,12 +174,15 @@ namespace BA_MobileGPS.Core
             ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
             ViewModelLocationProvider.Register<OnlinePageNoCluster, OnlinePageViewModel>();
-            ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
+            ViewModelLocationProvider.Register<RoutePage, RoutePageViewModel>();
             ViewModelLocationProvider.Register<Account, AccountViewModel>();
-            containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
-            containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
-            containerRegistry.Register<ContentView, OnlinePageNoCluster>("OnlineTabNoCluster");
-            containerRegistry.Register<ContentView, RoutePage>("RouteTab");
+
+            containerRegistry.Register<ContentView, Home>(TabbedPageChildrenEnum.HomeTab.ToString());
+            containerRegistry.Register<ContentView, ListVehiclePage>(TabbedPageChildrenEnum.ListVehicleTab.ToString());
+            containerRegistry.Register<ContentView, OnlinePage>(TabbedPageChildrenEnum.OnlineTab.ToString());
+            containerRegistry.Register<ContentView, OnlinePageNoCluster>(TabbedPageChildrenEnum.OnlineTabNoCluster.ToString());
+            containerRegistry.Register<ContentView, RoutePage>(TabbedPageChildrenEnum.RouteTab.ToString());
+            containerRegistry.Register<ContentView, Account>(TabbedPageChildrenEnum.AccountTab.ToString());
 
             containerRegistry.Register<ResourceDictionary, Dark>(Theme.Dark.ToString());
             containerRegistry.Register<ResourceDictionary, Light>(Theme.Light.ToString());

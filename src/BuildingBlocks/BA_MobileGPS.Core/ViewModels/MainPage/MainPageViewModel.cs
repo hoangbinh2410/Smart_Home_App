@@ -4,12 +4,14 @@ using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities;
 using Newtonsoft.Json;
 using Plugin.Toasts;
+using Prism.Common;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -40,6 +42,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IMapper _mapper;
         private Timer timer;
         private Timer timerSyncData;
+        public View currentChildView { get; set; }
 
         public MainPageViewModel(INavigationService navigationService, IVehicleOnlineService vehicleOnlineService,
             IAlertService alertService,
@@ -85,9 +88,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
             TryExecute(async () =>
             {
+                await ConnectSignalROnline();
+                InitVehilceOnline();
                 await ConnectSignalR();
                 Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
                 {
+                  
                     GetCountVehicleDebtMoney();
                     InsertOrUpdateAppDevice();
                     GetNoticePopup();
@@ -96,36 +102,42 @@ namespace BA_MobileGPS.Core.ViewModels
                     GetCountAlert();
                     return false;
                 });
+
             });
 
         }
-
-        public override void Initialize(INavigationParameters parameters)
+        bool isLoaded { get; set; }
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            base.Initialize(parameters);
-
-            TryExecute(async () =>
+            if (isLoaded)
             {
-                await ConnectSignalROnline();
-
-                InitVehilceOnline();
-
-            });
+                PageUtilities.OnNavigatedTo(currentChildView, parameters);
+            }
+            else isLoaded = true;
+          
+        }
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            PageUtilities.OnNavigatedFrom(currentChildView, parameters);
         }
 
         public override void OnDestroy()
         {
             base.OnDestroy();
-            timer.Stop();
-            timer.Dispose();
-            timerSyncData.Stop();
-            timerSyncData.Dispose();
-            EventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
-            EventAggregator.GetEvent<OnResumeEvent>().Unsubscribe(OnResumePage);
-            EventAggregator.GetEvent<OnSleepEvent>().Unsubscribe(OnSleepPage);
-            EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(SelectedCompanyChanged);
-            EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
-            DisconnectSignalR();
+            if (isLoaded)
+            {
+                EventAggregator.GetEvent<DestroyEvent>().Publish(); timer.Stop();
+                timer.Dispose();
+                timerSyncData.Stop();
+                timerSyncData.Dispose();
+                EventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
+                EventAggregator.GetEvent<OnResumeEvent>().Unsubscribe(OnResumePage);
+                EventAggregator.GetEvent<OnSleepEvent>().Unsubscribe(OnSleepPage);
+                EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(SelectedCompanyChanged);
+                EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
+                DisconnectSignalR();
+                isLoaded = false;
+            }                      
         }
 
         private void InitVehilceOnline()
@@ -183,6 +195,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void OnSleepPage(bool obj)
         {
+            
             StaticSettings.TimeSleep = DateTime.Now;
             DisconnectSignalR();
         }

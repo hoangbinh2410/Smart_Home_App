@@ -3,6 +3,7 @@ using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -19,7 +20,7 @@ using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class OnlinePageViewModel : ViewModelBase
+    public class OnlinePageViewModel : TabbedPageChildVMBase
     {
         #region Contructor
 
