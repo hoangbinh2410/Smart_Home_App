@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -20,7 +21,7 @@ using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class AccountViewModel : ViewModelBase
+    public class AccountViewModel : TabbedPageChildVMBase
     {
         private readonly IAppVersionService appVersionService;
         private string appVersion;
@@ -40,19 +41,18 @@ namespace BA_MobileGPS.Core.ViewModels
             this.appVersionService = appVersionService;
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(Navigate);
         }
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
 
+        public override void OnPageAppearingFirstTime()
+        {
             Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
             {
                 AppVersion = appVersionService.GetAppVersion();
                 IsShowPhoneNumber = MobileUserSettingHelper.IsShowPhoneNumber;
                 InitMenuItems();
                 return false;
-            });
-
+            });           
         }
+
         private void InitMenuItems()
         {
             var list = new List<MenuItem>();

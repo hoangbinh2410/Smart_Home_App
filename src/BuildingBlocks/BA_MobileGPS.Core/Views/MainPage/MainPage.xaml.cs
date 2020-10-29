@@ -30,7 +30,7 @@ namespace BA_MobileGPS.Core.Views
     {
         private readonly IEventAggregator eventAggregator;
         private IList<TabbedPageChildrenEnum> pages { get; set; } = new List<TabbedPageChildrenEnum>();
-        private bool isFirstLoad { get; set; }
+        private bool isLoaded { get; set; }
         public MainPage()
         {
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
@@ -109,48 +109,53 @@ namespace BA_MobileGPS.Core.Views
             var currenView = ((MainPageViewModel)BindingContext).currentChildView;
             try
             {
-                if (isFirstLoad)
+                if (isLoaded)
                 {
-                    isFirstLoad = true;
+                    using (new HUDService())
+                    {
+
+
+                        var newPage = (ContentPage)CurrentPage;
+                        var parameters = new NavigationParameters();
+                        if (newPage?.Content == null) // => Load view
+                        {
+                            var currentIndex = GetIndex(CurrentPage);
+                            var pageEnum = pages[currentIndex];
+                            var viewResolve = PrismApplicationBase.Current.Container.Resolve<ContentView>(pageEnum.ToString());
+                            newPage.Content = viewResolve;
+                        }
+
+                        //Change icon at lostselected tabItem
+                        //if ((Children[previousIndex]).IconImageSource != null || 
+                        //    !string.IsNullOrEmpty(((BottomTabItem)tabitem.Tabs[previousIndex]).IconImageSource.ToString()))
+                        //{
+                        //    var newPath = ((BottomTabItem)tabitem.Tabs[previousIndex]).IconImageSource.ToString().Replace("solid", string.Empty);
+                        //    newPath = newPath.Replace("File:", string.Empty).Trim();
+                        //    ((BottomTabItem)tabitem.Tabs[previousIndex]).IconImageSource = newPath;
+                        //}
+                        ////Change icon selected tabItem
+                        //if (((BottomTabItem)tabitem.Tabs[index]).IconImageSource != null ||
+                        //    !string.IsNullOrEmpty(((BottomTabItem)tabitem.Tabs[index]).IconImageSource.ToString()))
+                        //{
+                        //    var path = ((BottomTabItem)tabitem.Tabs[index]).IconImageSource.ToString().Replace(".png", "solid.png");
+                        //    path = path.Replace("File:", string.Empty).Trim();
+                        //    ((BottomTabItem)tabitem.Tabs[index]).IconImageSource = path;
+                        //}
+
+
+                        //Raise Nanvigation while tab change
+                        if (currenView != null)
+                        {
+                            PageUtilities.OnNavigatedFrom(currenView, parameters);
+                        }
+
+                        PageUtilities.OnNavigatedTo(newPage.Content, parameters);
+                        ((MainPageViewModel)BindingContext).currentChildView = newPage.Content; 
+                    }
                 }
                 else
                 {
-                    var newPage = (ContentPage)CurrentPage;
-                    var parameters = new NavigationParameters();
-                    if (newPage?.Content == null) // => Load view
-                    {
-                        var currentIndex = GetIndex(CurrentPage);
-                        var pageEnum = pages[currentIndex];
-                        var viewResolve = PrismApplicationBase.Current.Container.Resolve<ContentView>(pageEnum.ToString());
-                        newPage.Content = viewResolve;
-                    }
-
-                    //Change icon at lostselected tabItem
-                    //if ((Children[previousIndex]).IconImageSource != null || 
-                    //    !string.IsNullOrEmpty(((BottomTabItem)tabitem.Tabs[previousIndex]).IconImageSource.ToString()))
-                    //{
-                    //    var newPath = ((BottomTabItem)tabitem.Tabs[previousIndex]).IconImageSource.ToString().Replace("solid", string.Empty);
-                    //    newPath = newPath.Replace("File:", string.Empty).Trim();
-                    //    ((BottomTabItem)tabitem.Tabs[previousIndex]).IconImageSource = newPath;
-                    //}
-                    ////Change icon selected tabItem
-                    //if (((BottomTabItem)tabitem.Tabs[index]).IconImageSource != null ||
-                    //    !string.IsNullOrEmpty(((BottomTabItem)tabitem.Tabs[index]).IconImageSource.ToString()))
-                    //{
-                    //    var path = ((BottomTabItem)tabitem.Tabs[index]).IconImageSource.ToString().Replace(".png", "solid.png");
-                    //    path = path.Replace("File:", string.Empty).Trim();
-                    //    ((BottomTabItem)tabitem.Tabs[index]).IconImageSource = path;
-                    //}
-
-
-                    //Raise Nanvigation while tab change
-                    if (currenView != null)
-                    {
-                        PageUtilities.OnNavigatedFrom(currenView, parameters);
-                    }
-
-                    PageUtilities.OnNavigatedTo(newPage.Content, parameters);
-                    ((MainPageViewModel)BindingContext).currentChildView = newPage.Content;
+                    isLoaded = true;
                 }
             }
             catch (Exception ex)

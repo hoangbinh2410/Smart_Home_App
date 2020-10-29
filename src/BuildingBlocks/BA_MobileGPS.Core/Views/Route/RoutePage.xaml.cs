@@ -25,29 +25,35 @@ namespace BA_MobileGPS.Core.Views
 
         private bool infoWindowIsShown;
         private bool viewHasAppeared;
-        private RouteViewModel vm;
+        private RoutePageViewModel vm;
 
         public RoutePage()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
 
-            boundaryRepository = PrismApplicationBase.Current.Container.Resolve<IRealmBaseService<BoundaryRealm, LandmarkResponse>>();
+                boundaryRepository = PrismApplicationBase.Current.Container.Resolve<IRealmBaseService<BoundaryRealm, LandmarkResponse>>();
 
-            // Initialize the View Model Object
-            vm = (RouteViewModel)BindingContext;
+                map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
+                map.UiSettings.ZoomGesturesEnabled = true;
+                map.UiSettings.ZoomControlsEnabled = false;
+                map.UiSettings.RotateGesturesEnabled = false;
 
-            map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
-            map.UiSettings.ZoomGesturesEnabled = true;
-            map.UiSettings.ZoomControlsEnabled = false;
-            map.UiSettings.RotateGesturesEnabled = false;
+                map.PinClicked += Map_PinClicked;
 
-            map.PinClicked += Map_PinClicked;
+                eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+                eventAggregator.GetEvent<ThemeChangedEvent>().Subscribe(ThemeChanged);
+                lblMore.Text = MobileResource.Route_Label_More.Trim().ToUpper();
+                entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
+                lblTitle.Text = MobileResource.Route_Label_Title;
+            }
+            catch (Exception ex)
+            {
 
-            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
-            eventAggregator.GetEvent<ThemeChangedEvent>().Subscribe(ThemeChanged);
-            lblMore.Text = MobileResource.Route_Label_More.Trim().ToUpper();
-            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
-            lblTitle.Text = MobileResource.Route_Label_Title;
+                
+            }
+            
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)
@@ -56,6 +62,8 @@ namespace BA_MobileGPS.Core.Views
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
+            // Initialize the View Model Object
+            vm = (RoutePageViewModel)BindingContext;
             OnPageAppearingFirstTime();
             GoogleMapAddBoundary();
             GoogleMapAddName();
