@@ -170,19 +170,13 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ListVehicleHelpPage, ListVehicleHelpViewModel>("ListVehicleHelpPage");
             containerRegistry.RegisterForNavigation<DetailVehiclePopup, DetailVehiclePopupViewModel>("DetailVehiclePopup");
 
-            ViewModelLocationProvider.Register<Home, HomeViewModel>();
-            ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
-            ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
-            ViewModelLocationProvider.Register<OnlinePageNoCluster, OnlinePageViewModel>();
-            ViewModelLocationProvider.Register<RoutePage, RoutePageViewModel>();
-            ViewModelLocationProvider.Register<Account, AccountViewModel>();
+            containerRegistry.RegisterForNavigation<Home, HomeViewModel>("Home");
+            containerRegistry.RegisterForNavigation<ListVehiclePage, ListVehiclePageViewModel>("ListVehiclePage");
+            containerRegistry.RegisterForNavigation<OnlinePage, OnlinePageViewModel>("OnlinePage");
+            containerRegistry.RegisterForNavigation<OnlinePageNoCluster, OnlinePageViewModel>("OnlinePageNoCluster");
+            containerRegistry.RegisterForNavigation<RoutePage, RoutePageViewModel>("RoutePage");
+            containerRegistry.RegisterForNavigation<Account, AccountViewModel>("Account");
 
-            containerRegistry.Register<ContentView, Home>(TabbedPageChildrenEnum.HomeTab.ToString());
-            containerRegistry.Register<ContentView, ListVehiclePage>(TabbedPageChildrenEnum.ListVehicleTab.ToString());
-            containerRegistry.Register<ContentView, OnlinePage>(TabbedPageChildrenEnum.OnlineTab.ToString());
-            containerRegistry.Register<ContentView, OnlinePageNoCluster>(TabbedPageChildrenEnum.OnlineTabNoCluster.ToString());
-            containerRegistry.Register<ContentView, RoutePage>(TabbedPageChildrenEnum.RouteTab.ToString());
-            containerRegistry.Register<ContentView, Account>(TabbedPageChildrenEnum.AccountTab.ToString());
 
             containerRegistry.Register<ResourceDictionary, Dark>(Theme.Dark.ToString());
             containerRegistry.Register<ResourceDictionary, Light>(Theme.Light.ToString());

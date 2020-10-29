@@ -37,8 +37,7 @@ namespace BA_MobileGPS.Core.ViewModels
             listfeatures = new ObservableCollection<ItemSupport>();
             favouriteMenuItems = new ObservableCollection<ItemSupport>();
         }
-
-        public override void OnPageAppearingFirstTime()
+        public override void Initialize(INavigationParameters parameters)
         {
             Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
             {

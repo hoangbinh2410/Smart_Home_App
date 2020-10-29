@@ -23,8 +23,6 @@ namespace BA_MobileGPS.Core.Views
     public partial class MainPage : TabbedPage
     {
         private readonly IEventAggregator eventAggregator;
-        private IList<TabbedPageChildrenEnum> ListPage { get; set; } = new List<TabbedPageChildrenEnum>();
-        private bool IsLoadedPage { get; set; }
 
         public MainPage()
         {
@@ -36,19 +34,16 @@ namespace BA_MobileGPS.Core.Views
                 On<Xamarin.Forms.PlatformConfiguration.Android>().SetIsSwipePagingEnabled(false);
             }
 
-            ListPage.Add(TabbedPageChildrenEnum.HomeTab);
-            var home = new ContentPage()
+            var home = new Home()
             {
                 IconImageSource = "ic_home.png",
                 Title = MobileResource.Menu_TabItem_Home
             };
             Children.Add(home);
-            var firstSelectedPage = home;
 
             if (CheckPermision((int)PermissionKeyNames.VehicleView))
             {
-                ListPage.Add(TabbedPageChildrenEnum.ListVehicleTab);
-                var listVehicleTab = new ContentPage()
+                var listVehicleTab = new ListVehiclePage()
                 {
                     IconImageSource = "ic_vehicle.png",
                     Title = MobileResource.Menu_TabItem_Vehicle
@@ -58,28 +53,30 @@ namespace BA_MobileGPS.Core.Views
 
             if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
             {
-                var online = new ContentPage()
-                {
-                    IconImageSource = "ic_mornitoring.png",
-                    Title = MobileResource.Menu_TabItem_Monitoring
-                };
+                var online = new ContentPage();
                 //cấu hình cty này dùng Cluster thì mới mở forms Cluster
                 if (MobileUserSettingHelper.EnableShowCluster)
                 {
-                    ListPage.Add(TabbedPageChildrenEnum.OnlineTab);
+                    online = new OnlinePage()
+                    {
+                        IconImageSource = "ic_mornitoring.png",
+                        Title = MobileResource.Menu_TabItem_Monitoring
+                    };
                 }
                 else
                 {
-                    ListPage.Add(TabbedPageChildrenEnum.OnlineTabNoCluster);
+                    online = new OnlinePageNoCluster()
+                    {
+                        IconImageSource = "ic_mornitoring.png",
+                        Title = MobileResource.Menu_TabItem_Monitoring
+                    };
                 }
                 Children.Add(online);
-                firstSelectedPage = online;
             }
 
             if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
             {
-                ListPage.Add(TabbedPageChildrenEnum.RouteTab);
-                var routeTab = new ContentPage()
+                var routeTab = new RoutePage()
                 {
                     IconImageSource = "ic_route.png",
                     Title = App.AppType == AppType.VMS ? MobileResource.Menu_TabItem_Voyage : MobileResource.Menu_TabItem_Route
@@ -87,48 +84,26 @@ namespace BA_MobileGPS.Core.Views
                 Children.Add(routeTab);
             }
 
-            ListPage.Add(TabbedPageChildrenEnum.AccountTab);
-            var accountTab = new ContentPage()
+            var accountTab = new Account()
             {
                 IconImageSource = "ic_account.png",
                 Title = MobileResource.Menu_TabItem_Account
             };
             Children.Add(accountTab);
-            CurrentPage = firstSelectedPage;
         }
 
         protected override void OnCurrentPageChanged()
         {
             base.OnCurrentPageChanged();
-            var currenView = ((MainPageViewModel)BindingContext).currentChildView;
-            if (IsLoadedPage)
+            var currenView = ((MainPageViewModel)BindingContext);
+            var parameters = new NavigationParameters();
+            var newPage = (ContentPage)CurrentPage;
+            if (currenView != null)
             {
-                using (new HUDService())
-                {
-                    var newPage = (ContentPage)CurrentPage;
-                    var parameters = new NavigationParameters();
-                    if (newPage?.Content == null) // => Load view
-                    {
-                        var currentIndex = GetIndex(CurrentPage);
-                        var pageEnum = ListPage[currentIndex];
-                        var viewResolve = PrismApplicationBase.Current.Container.Resolve<ContentView>(pageEnum.ToString());
-                        newPage.Content = viewResolve;
-                    }
-
-                    //Raise Nanvigation while tab change
-                    if (currenView != null)
-                    {
-                        PageUtilities.OnNavigatedFrom(currenView, parameters);
-                    }
-
-                    PageUtilities.OnNavigatedTo(newPage.Content, parameters);
-                    ((MainPageViewModel)BindingContext).currentChildView = newPage.Content;
-                }
+                PageUtilities.OnNavigatedFrom(currenView, parameters);
             }
-            else
-            {
-                IsLoadedPage = true;
-            }
+
+            PageUtilities.OnNavigatedTo(newPage, parameters);
         }
 
         protected override void OnAppearing()

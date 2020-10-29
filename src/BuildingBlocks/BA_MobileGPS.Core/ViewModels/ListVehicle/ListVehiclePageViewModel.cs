@@ -73,11 +73,6 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #region Lifecycle
-        public override void OnPageAppearingFirstTime()
-        {
-            base.OnPageAppearingFirstTime();
-            InitVehicleList();
-        }
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);

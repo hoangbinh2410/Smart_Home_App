@@ -41,8 +41,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this.appVersionService = appVersionService;
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(Navigate);
         }
-
-        public override void OnPageAppearingFirstTime()
+        public override void Initialize(INavigationParameters parameters)
         {
             Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
             {
@@ -50,7 +49,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsShowPhoneNumber = MobileUserSettingHelper.IsShowPhoneNumber;
                 InitMenuItems();
                 return false;
-            });           
+            });
         }
 
         private void InitMenuItems()
