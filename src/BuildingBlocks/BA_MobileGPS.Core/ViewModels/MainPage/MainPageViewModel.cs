@@ -81,7 +81,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Lifecycle
 
-        private  void OnPageAppearing()
+        private void OnPageAppearing()
         {
             base.OnPageAppearingFirstTime();
 
@@ -113,7 +113,11 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 PageUtilities.OnNavigatedTo(currentChildView, parameters);
             }
-            else IsLoaded = true;
+            else
+            {
+                IsLoaded = true;
+                OnPageAppearing();
+            }
         }
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
@@ -127,7 +131,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (IsLoaded)
             {
                 base.OnDestroy();
-                EventAggregator.GetEvent<DestroyEvent>().Publish(); 
+                EventAggregator.GetEvent<DestroyEvent>().Publish();
                 timer.Stop();
                 timer.Dispose();
                 timerSyncData.Stop();

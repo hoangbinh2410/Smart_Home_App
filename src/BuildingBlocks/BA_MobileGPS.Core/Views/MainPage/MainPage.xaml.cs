@@ -103,31 +103,27 @@ namespace BA_MobileGPS.Core.Views
             var currenView = ((MainPageViewModel)BindingContext).currentChildView;
             if (IsLoadedPage)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                using (new HUDService())
                 {
-                    using (new HUDService())
+                    var newPage = (ContentPage)CurrentPage;
+                    var parameters = new NavigationParameters();
+                    if (newPage?.Content == null) // => Load view
                     {
-                        var newPage = (ContentPage)CurrentPage;
-                        var parameters = new NavigationParameters();
-                        if (newPage?.Content == null) // => Load view
-                        {
-                            var currentIndex = GetIndex(CurrentPage);
-                            var pageEnum = ListPage[currentIndex];
-                            var viewResolve = PrismApplicationBase.Current.Container.Resolve<ContentView>(pageEnum.ToString());
-                            newPage.Content = viewResolve;
-                        }
-
-                        //Raise Nanvigation while tab change
-                        if (currenView != null)
-                        {
-                            PageUtilities.OnNavigatedFrom(currenView, parameters);
-                        }
-
-                        PageUtilities.OnNavigatedTo(newPage.Content, parameters);
-                        ((MainPageViewModel)BindingContext).currentChildView = newPage.Content;
+                        var currentIndex = GetIndex(CurrentPage);
+                        var pageEnum = ListPage[currentIndex];
+                        var viewResolve = PrismApplicationBase.Current.Container.Resolve<ContentView>(pageEnum.ToString());
+                        newPage.Content = viewResolve;
                     }
-                });
 
+                    //Raise Nanvigation while tab change
+                    if (currenView != null)
+                    {
+                        PageUtilities.OnNavigatedFrom(currenView, parameters);
+                    }
+
+                    PageUtilities.OnNavigatedTo(newPage.Content, parameters);
+                    ((MainPageViewModel)BindingContext).currentChildView = newPage.Content;
+                }
             }
             else
             {
