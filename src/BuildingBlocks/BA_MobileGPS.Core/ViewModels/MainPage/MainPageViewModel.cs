@@ -81,7 +81,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Lifecycle
 
-        public override void OnPageAppearingFirstTime()
+        private  void OnPageAppearing()
         {
             base.OnPageAppearingFirstTime();
 

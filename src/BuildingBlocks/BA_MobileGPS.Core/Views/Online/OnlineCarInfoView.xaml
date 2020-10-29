@@ -12,7 +12,7 @@
     HasShadow="False">
     <pancake:PancakeView.Resources>
         <cluster:NMConverter x:Key="NMConverter" />
-        <ResourceDictionary>
+        <!--<ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <syncTheme:SyncfusionThemeDictionary>
                     <syncTheme:SyncfusionThemeDictionary.MergedDictionaries>
@@ -23,7 +23,7 @@
                     </syncTheme:SyncfusionThemeDictionary.MergedDictionaries>
                 </syncTheme:SyncfusionThemeDictionary>
             </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        </ResourceDictionary>-->
     </pancake:PancakeView.Resources>
     <StackLayout
         Margin="0"
