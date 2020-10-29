@@ -50,7 +50,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
         public override void OnDestroy()
         {
-            //base.OnDestroy();
+            
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

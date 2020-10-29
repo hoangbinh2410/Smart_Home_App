@@ -123,10 +123,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnDestroy()
         {
-            base.OnDestroy();
+            
             if (isLoaded)
             {
-                EventAggregator.GetEvent<DestroyEvent>().Publish(); timer.Stop();
+                base.OnDestroy();
+                EventAggregator.GetEvent<DestroyEvent>().Publish(); 
+                timer.Stop();
                 timer.Dispose();
                 timerSyncData.Stop();
                 timerSyncData.Dispose();
