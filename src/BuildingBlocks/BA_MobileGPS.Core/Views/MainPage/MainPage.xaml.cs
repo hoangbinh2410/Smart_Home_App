@@ -86,16 +86,21 @@ namespace BA_MobileGPS.Core.Views
 
         protected override void OnCurrentPageChanged()
         {
-            base.OnCurrentPageChanged();
-            var currenView = ((MainPageViewModel)BindingContext);
-            var parameters = new NavigationParameters();
-            var newPage = (ContentPage)CurrentPage;
-            if (currenView != null)
-            {
-                PageUtilities.OnNavigatedFrom(currenView, parameters);
-            }
 
-            PageUtilities.OnNavigatedTo(newPage, parameters);
+                base.OnCurrentPageChanged();
+                var context = ((MainPageViewModel)BindingContext);
+                var parameters = new NavigationParameters();
+                var newPage = (ContentPage)CurrentPage;
+                var previousPage = context.currentChildPage;
+                if (previousPage != null)
+                {
+                    PageUtilities.OnNavigatedFrom(previousPage, parameters);
+                }
+
+                PageUtilities.OnNavigatedTo(newPage, parameters);
+                context.currentChildPage = newPage;
+
+           
         }
 
         protected override void OnAppearing()
