@@ -1,8 +1,4 @@
-﻿using BA_MobileGPS.Core.ViewModels.Base;
-using Prism;
-using Prism.Events;
-using Prism.Ioc;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,24 +8,19 @@ namespace BA_MobileGPS.Core.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RoutePage : ContentPage
     {
-        private readonly IEventAggregator eventAggregator;
         private bool _loadedPage = false;
         private bool _stopTimer = false;
 
         public RoutePage()
         {
             InitializeComponent();
-
-            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
-
-            eventAggregator.GetEvent<DestroyEvent>().Subscribe(Destroy);
         }
 
         protected override void OnAppearing()
         {
             if (_loadedPage) return;
 
-            Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
+            Device.StartTimer(TimeSpan.FromMilliseconds(100), () =>
             {
                 SetContent();
                 return false;
@@ -52,11 +43,6 @@ namespace BA_MobileGPS.Core.Views
             }
 
             _stopTimer = false;
-        }
-
-        private void Destroy()
-        {
-            eventAggregator.GetEvent<DestroyEvent>().Unsubscribe(Destroy);
         }
     }
 }

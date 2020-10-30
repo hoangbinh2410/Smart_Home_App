@@ -1,14 +1,7 @@
 ﻿using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
-using BA_MobileGPS.Entities;
-using BA_MobileGPS.Entities.RealmEntity;
-using BA_MobileGPS.Service;
-using BA_MobileGPS.Utilities;
-using Prism;
-using Prism.Ioc;
 using System;
 using System.Linq;
-using System.Reflection;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,11 +10,10 @@ namespace BA_MobileGPS.Core.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RouteView : ContentView
     {
-        private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
         private bool infoWindowIsShown;
-        private bool viewHasAppeared;
         private double TimeSelectorContainerHeight;
         private RoutePageViewModel vm;
+        private bool IsExpanded;
 
         public RouteView()
         {
@@ -33,121 +25,19 @@ namespace BA_MobileGPS.Core.Views
             map.UiSettings.ZoomGesturesEnabled = true;
             map.UiSettings.ZoomControlsEnabled = false;
             map.UiSettings.RotateGesturesEnabled = false;
-            boundaryRepository = PrismApplicationBase.Current.Container.Resolve<IRealmBaseService<BoundaryRealm, LandmarkResponse>>();
             map.PinClicked += Map_PinClicked;
-        }
 
-        private void GoogleMapAddBoundary()
-        {
-            vm.Boundaries.Clear();
-            //vm.Polylines.Clear();
+            TimeSelectorContainerHeight = Device.RuntimePlatform == Device.iOS ? TimeSelectorContainer.HeightRequest + 4 : TimeSelectorContainer.HeightRequest;
 
-            foreach (var line in vm.Polylines.ToList().FindAll(l => "Boundary".Equals(l.Tag)))
-            {
-                vm.Polylines.Remove(line);
-            }
+            AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight * 2, TimeSelectorContainerHeight, length: 150);
+            IsExpanded = false;
 
-            var listBoudary = boundaryRepository.Find(b => b.IsShowBoudary);
-
-            foreach (var item in listBoudary)
-            {
-                AddBoundary(item);
-            }
-        }
-
-        private void AddBoundary(LandmarkResponse boundary)
-        {
-            try
-            {
-                var result = boundary.Polygon.Split(',');
-
-                var color = Color.FromHex(ConvertIntToHex(boundary.Color));
-
-                if (boundary.IsClosed)
-                {
-                    var polygon = new Polygon
-                    {
-                        IsClickable = true,
-                        StrokeWidth = 1f,
-                        StrokeColor = color.MultiplyAlpha(.5),
-                        FillColor = color.MultiplyAlpha(.3),
-                        Tag = "Boundary"
-                    };
-
-                    for (int i = 0; i < result.Length; i += 2)
-                    {
-                        polygon.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
-                    }
-
-                    vm.Boundaries.Add(polygon);
-                }
-                else
-                {
-                    var polyline = new Polyline
-                    {
-                        IsClickable = false,
-                        StrokeColor = color,
-                        StrokeWidth = 2f,
-                        Tag = "Boundary"
-                    };
-
-                    for (int i = 0; i < result.Length; i += 2)
-                    {
-                        polyline.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
-                    }
-
-                    vm.Polylines.Add(polyline);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-            }
+            IconInfo_Clicked(this, EventArgs.Empty);
         }
 
         public static string ConvertIntToHex(int value)
         {
             return value.ToString("X").PadLeft(6, '0');
-        }
-
-        private void GoogleMapAddName()
-        {
-            try
-            {
-                var listName = boundaryRepository.Find(b => b.IsShowName);
-
-                foreach (var pin in map.Pins.Where(p => p.Tag.ToString().Contains("Boundary")).ToList())
-                {
-                    map.Pins.Remove(pin);
-                }
-
-                foreach (var item in listName)
-                {
-                    AddName(item);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-            }
-        }
-
-        private void AddName(LandmarkResponse name)
-        {
-            try
-            {
-                map.Pins.Add(new Pin
-                {
-                    Label = name.Name,
-                    Position = new Position(name.Latitude, name.Longitude),
-                    Icon = BitmapDescriptorFactory.FromView(new BoundaryNameInfoWindow(name.Name) { WidthRequest = name.Name.Length < 20 ? 6 * name.Name.Length : 110, HeightRequest = 18 * ((name.Name.Length / 20) + 1) }),
-                    Tag = "Boundary" + name.Name
-                });
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-            }
         }
 
         private void Map_PinClicked(object sender, PinClickedEventArgs e)
@@ -158,6 +48,7 @@ namespace BA_MobileGPS.Core.Views
             }
             else
             {
+                vm = (RoutePageViewModel)BindingContext;
                 vm.StopWatchVehicle();
             }
         }
@@ -179,8 +70,6 @@ namespace BA_MobileGPS.Core.Views
 
             infoWindowIsShown = !infoWindowIsShown;
         }
-
-        private bool IsExpanded;
 
         private void TimeSelector_Tapped(object sender, EventArgs e)
         {
