@@ -4,16 +4,17 @@ using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities;
 using Newtonsoft.Json;
 using Plugin.Toasts;
+using Prism.Common;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -40,6 +41,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IMapper _mapper;
         private Timer timer;
         private Timer timerSyncData;
+        public View currentChildView { get; set; }
 
         public MainPageViewModel(INavigationService navigationService, IVehicleOnlineService vehicleOnlineService,
             IAlertService alertService,
@@ -79,53 +81,69 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Lifecycle
 
-        public override void OnPageAppearingFirstTime()
+        private void OnPageAppearing()
         {
             base.OnPageAppearingFirstTime();
 
             TryExecute(async () =>
             {
-                await ConnectSignalR();
+                await ConnectSignalROnline();
+                InitVehilceOnline();
                 Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
                 {
-                    GetCountVehicleDebtMoney();
-                    InsertOrUpdateAppDevice();
-                    GetNoticePopup();
-                    PushPageFileBase();
-                    // Lấy danh sách cảnh báo
-                    GetCountAlert();
+                    TryExecute(async () =>
+                    {
+                        await ConnectSignalR();
+                        GetCountVehicleDebtMoney();
+                        InsertOrUpdateAppDevice();
+                        GetNoticePopup();
+                        PushPageFileBase();
+                        // Lấy danh sách cảnh báo
+                        GetCountAlert();
+                    });
+
                     return false;
                 });
             });
-
         }
 
-        public override void Initialize(INavigationParameters parameters)
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            base.Initialize(parameters);
-
-            TryExecute(async () =>
+            if (IsLoaded)
             {
-                await ConnectSignalROnline();
+                PageUtilities.OnNavigatedTo(currentChildView, parameters);
+            }
+            else
+            {
+                IsLoaded = true;
+                OnPageAppearing();
+            }
+        }
 
-                InitVehilceOnline();
-
-            });
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            PageUtilities.OnNavigatedFrom(currentChildView, parameters);
         }
 
         public override void OnDestroy()
         {
             base.OnDestroy();
-            timer.Stop();
-            timer.Dispose();
-            timerSyncData.Stop();
-            timerSyncData.Dispose();
-            EventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
-            EventAggregator.GetEvent<OnResumeEvent>().Unsubscribe(OnResumePage);
-            EventAggregator.GetEvent<OnSleepEvent>().Unsubscribe(OnSleepPage);
-            EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(SelectedCompanyChanged);
-            EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
-            DisconnectSignalR();
+            if (IsLoaded)
+            {
+                base.OnDestroy();
+                EventAggregator.GetEvent<DestroyEvent>().Publish();
+                timer.Stop();
+                timer.Dispose();
+                timerSyncData.Stop();
+                timerSyncData.Dispose();
+                EventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
+                EventAggregator.GetEvent<OnResumeEvent>().Unsubscribe(OnResumePage);
+                EventAggregator.GetEvent<OnSleepEvent>().Unsubscribe(OnSleepPage);
+                EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(SelectedCompanyChanged);
+                EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
+                DisconnectSignalR();
+                IsLoaded = false;
+            }
         }
 
         private void InitVehilceOnline()
@@ -164,7 +182,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             GetListVehicleOnlineResume();
                         }
-
                     }
                     GetTimeServer();
                     //kiểm tra xem có thông báo nào không
@@ -178,7 +195,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                 }
             });
-
         }
 
         private void OnSleepPage(bool obj)
@@ -190,6 +206,8 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
+
+        private bool IsLoaded { get; set; }
 
         private int selectedIndex;
 

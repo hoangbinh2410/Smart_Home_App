@@ -1,153 +1,113 @@
-﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Events;
-using BA_MobileGPS.Core.Helpers;
+﻿using BA_MobileGPS.Core.Events;
+using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using Prism;
+using Prism.Common;
 using Prism.Events;
 using Prism.Ioc;
-using Prism.Mvvm;
-using Sharpnado.Presentation.Forms.CustomViews.Tabs;
+using Prism.Navigation;
 using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.Timers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
-using Xamarin.Forms.Xaml;
+using TabbedPage = Xamarin.Forms.TabbedPage;
 
 namespace BA_MobileGPS.Core.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : ContentPage
+    public partial class MainPage : TabbedPage
     {
-        private bool checkpermissiononline = false;
+        private readonly IEventAggregator eventAggregator;
+
         public MainPage()
         {
+            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitializeComponent();
-            var home = new Home(); //Home                     
-            ViewModelLocator.SetAutowirePartialView(home, MainContentPage);
-            Switcher.Children.Add(home);// Trang home
-            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_home.png", Label = MobileResource.Menu_TabItem_Home });
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                On<Xamarin.Forms.PlatformConfiguration.Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
+                On<Xamarin.Forms.PlatformConfiguration.Android>().SetIsSwipePagingEnabled(false);
+            }
+
+            var home = new Home()
+            {
+                IconImageSource = "ic_home.png",
+                Title = MobileResource.Menu_TabItem_Home
+            };
+            Children.Add(home);
+
             if (CheckPermision((int)PermissionKeyNames.VehicleView))
             {
-                var listVehicleTab = new ContentView(); //Home
-                if (App.AppType == AppType.VMS || App.AppType == AppType.Moto)
+                var listVehicleTab = new ListVehiclePage()
                 {
-                    listVehicleTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("ListVehicleTab"); //Phương tiện
-                }
-                else
-                {
-                    listVehicleTab = new ListVehiclePage();
-                }
-                ViewModelLocator.SetAutowirePartialView(listVehicleTab, MainContentPage);
-                Switcher.Children.Add(listVehicleTab);
-                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_vehicle.png", Label = MobileResource.Menu_TabItem_Vehicle });
+                    IconImageSource = "ic_vehicle.png",
+                    Title = MobileResource.Menu_TabItem_Vehicle
+                };
+                Children.Add(listVehicleTab);
             }
-            tabitem.SelectedTabIndexChanged += Tabitem_SelectedTabIndexChanged;
+
             if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
             {
-                checkpermissiononline = true;
-                var online = new ContentView(); //Home
-                if (App.AppType == AppType.VMS || App.AppType == AppType.Moto)
+                var online = new ContentPage();
+                //cấu hình cty này dùng Cluster thì mới mở forms Cluster
+                if (MobileUserSettingHelper.EnableShowCluster)
                 {
-                    //cấu hình cty này dùng Cluster thì mới mở forms Cluster
-                    if (MobileUserSettingHelper.EnableShowCluster)
+                    online = new OnlinePage()
                     {
-                        online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTab"); //Online                       
-                    }
-                    else
-                    {
-                        online = PrismApplicationBase.Current.Container.Resolve<ContentView>("OnlineTabNoCluster"); //Online
-                    }
+                        IconImageSource = "ic_mornitoring.png",
+                        Title = MobileResource.Menu_TabItem_Monitoring
+                    };
                 }
                 else
                 {
-                    //cấu hình cty này dùng Cluster thì mới mở forms Cluster
-                    if (MobileUserSettingHelper.EnableShowCluster)
+                    online = new OnlinePageNoCluster()
                     {
-                        online = new OnlinePage();
-
-                    }
-                    else
-                    {
-                        online = new OnlinePageNoCluster();
-
-                    }
+                        IconImageSource = "ic_mornitoring.png",
+                        Title = MobileResource.Menu_TabItem_Monitoring
+                    };
                 }
-                ViewModelLocator.SetAutowirePartialView(online, MainContentPage);
-                Switcher.Children.Add(online);
-                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_mornitoring.png", Label = MobileResource.Menu_TabItem_Monitoring });
-                Switcher.SelectedIndex = Switcher.Children.Count - 1;
+                Children.Add(online);
             }
+
             if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
             {
-                var routeTab = new ContentView();
-                if (App.AppType == AppType.VMS || App.AppType == AppType.Moto)
+                var routeTab = new RoutePage()
                 {
-                    routeTab = PrismApplicationBase.Current.Container.Resolve<ContentView>("RouteTab"); //RouteTab
-                }
-                else
-                {
-                    routeTab = new RoutePage();
-                }
-
-                ViewModelLocator.SetAutowirePartialView(routeTab, MainContentPage);
-                Switcher.Children.Add(routeTab);
-                tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_route.png", Label = App.AppType == AppType.VMS ? MobileResource.Menu_TabItem_Voyage : MobileResource.Menu_TabItem_Route });
+                    IconImageSource = "ic_route.png",
+                    Title = App.AppType == AppType.VMS ? MobileResource.Menu_TabItem_Voyage : MobileResource.Menu_TabItem_Route
+                };
+                Children.Add(routeTab);
             }
-            var accountTab = new Account(); //Account
-            ViewModelLocator.SetAutowirePartialView(accountTab, MainContentPage);
-            Switcher.Children.Add(accountTab);
-            tabitem.Tabs.Add(new BottomTabItem() { IconImageSource = "ic_account.png", Label = MobileResource.Menu_TabItem_Account });
-            InitAnimation();
-            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
-            this.eventAggregator.GetEvent<ShowTabItemEvent>().Subscribe(ShowTabItem);
-            previousIndex = Switcher.SelectedIndex;
-        }
 
-        private int previousIndex { get; set; }
-
-        private void Tabitem_SelectedTabIndexChanged(object sender, SelectedPositionChangedEventArgs e)
-        {
-            if (previousIndex != (int)e.SelectedPosition)
+            var accountTab = new Account()
             {
-                var index = (int)e.SelectedPosition;
-                //Change icon at lostselected tabItem
-                if (((BottomTabItem)tabitem.Tabs[previousIndex]).IconImageSource != null || !string.IsNullOrEmpty(((BottomTabItem)tabitem.Tabs[previousIndex]).IconImageSource.ToString()))
-                {
-                    var newPath = ((BottomTabItem)tabitem.Tabs[previousIndex]).IconImageSource.ToString().Replace("solid", string.Empty);
-                    newPath = newPath.Replace("File:", string.Empty).Trim();
-                    ((BottomTabItem)tabitem.Tabs[previousIndex]).IconImageSource = newPath;
-                }
-                //Change icon selected tabItem
-                if (((BottomTabItem)tabitem.Tabs[index]).IconImageSource != null || !string.IsNullOrEmpty(((BottomTabItem)tabitem.Tabs[index]).IconImageSource.ToString()))
-                {
-                    var path = ((BottomTabItem)tabitem.Tabs[index]).IconImageSource.ToString().Replace(".png", "solid.png");
-                    path = path.Replace("File:", string.Empty).Trim();
-                    ((BottomTabItem)tabitem.Tabs[index]).IconImageSource = path;
-                }
-                if (this.eventAggregator != null)
-                {
-                    this.eventAggregator.GetEvent<TabSelectedChangedEvent>().Publish(index);
-                }
-
-                previousIndex = index;
-
-            }
-
+                IconImageSource = "ic_account.png",
+                Title = MobileResource.Menu_TabItem_Account
+            };
+            Children.Add(accountTab);
         }
 
+        protected override void OnCurrentPageChanged()
+        {
+            base.OnCurrentPageChanged();
+            var currenView = ((MainPageViewModel)BindingContext);
+            var parameters = new NavigationParameters();
+            var newPage = (ContentPage)CurrentPage;
+            if (currenView != null)
+            {
+                PageUtilities.OnNavigatedFrom(currenView, parameters);
+            }
+
+            PageUtilities.OnNavigatedTo(newPage, parameters);
+        }
 
         protected override void OnAppearing()
         {
-            if (!checkpermissiononline)
-            {
-                //Switcher.SelectedIndex = 1;
-                Switcher.SelectedIndex = 0;
-            }
-
             base.OnAppearing();
             if (Device.RuntimePlatform == Device.iOS)
             {
@@ -156,82 +116,13 @@ namespace BA_MobileGPS.Core.Views
             }
         }
 
-        private enum States
-        {
-            ShowFilter,
-            HideFilter
-        }
-
-        private readonly IEventAggregator eventAggregator;
-
-        private readonly BA_MobileGPS.Core.Animation _animations = new BA_MobileGPS.Core.Animation();
-
-        private void InitAnimation()
-        {
-            try
-            {
-                if (_animations == null)
-                {
-                    return;
-                }
-
-                _animations.Add(States.ShowFilter, new[] {new ViewTransition(TabHost, AnimationType.TranslationY, 0, 100, delay: 100), // Active and visible
-                                                new ViewTransition(TabHost, AnimationType.Opacity, 1, 0), // Active and visible
-                                                          });
-
-                _animations.Add(States.HideFilter, new[] {
-                                                            new ViewTransition(TabHost, AnimationType.TranslationY, 100),
-                                                            new ViewTransition(TabHost, AnimationType.Opacity, 0),
-                                                          });
-
-
-                //await _animations.Go(States.HideFilter, false);
-
-            }
-            catch (Exception ex)
-            {
-                LoggerHelper.WriteError("InitAnimation", ex);
-            }
-        }
-
-        private void ShowTabItem(bool check)
-        {
-            if (check)
-            {
-                ShowTab();
-            }
-            else
-            {
-                HideTab();
-            }
-        }
-
-        /// <summary>
-        /// ẩn tab
-        /// </summary>
-        public async void HideTab()
-        {
-            isHideTabOnline = true;
-            await _animations.Go(States.HideFilter, true);
-        }
-
-        /// <summary>
-        /// Hiển thị tab
-        /// </summary>
-        private async void ShowTab()
-        {
-            isHideTabOnline = false;
-            await _animations.Go(States.ShowFilter, true);
-        }
-
         public virtual bool CheckPermision(int PermissionKey)
         {
             return StaticSettings.User.Permissions.IndexOf(PermissionKey) != -1;
         }
 
-
-        bool bExit = false;
-        bool isHideTabOnline = false;
+        private bool bExit = false;
+        private bool isHideTabOnline = false;
 
         protected override bool OnBackButtonPressed()
         {
@@ -244,7 +135,6 @@ namespace BA_MobileGPS.Core.Views
             {
                 if (!bExit)
                 {
-
                     ShowAlertWhen2Back();
                     return bExit;
                 }

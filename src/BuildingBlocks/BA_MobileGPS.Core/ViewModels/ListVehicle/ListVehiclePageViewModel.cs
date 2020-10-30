@@ -5,6 +5,7 @@ using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
 using BA_MobileGPS.Service;
@@ -38,7 +39,7 @@ namespace BA_MobileGPS.Core.ViewModels
         DefaultDES
     }
 
-    public class ListVehiclePageViewModel : ViewModelBase
+    public class ListVehiclePageViewModel : TabbedPageChildVMBase
     {
         private CancellationTokenSource cts;
 
@@ -69,11 +70,9 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(OnReceiveSendCarSignalR);
             EventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
             EventAggregator.GetEvent<SelectedCompanyEvent>().Subscribe(OnCompanyChanged);
-
         }
 
         #region Lifecycle
-
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -118,15 +117,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else if (action == "Video")
                 {
-
                     GotoVideoPage(currentVehicle);
                 }
             }
-        }
-
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
         }
 
         public override void OnDestroy()
@@ -211,8 +204,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public string searchedText;
         public string SearchedText { get => searchedText; set => SetProperty(ref searchedText, value); }
-
-
 
         #endregion Property
 

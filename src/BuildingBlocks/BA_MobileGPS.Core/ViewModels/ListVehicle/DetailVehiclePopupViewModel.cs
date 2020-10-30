@@ -12,11 +12,6 @@ namespace BA_MobileGPS.Core.ViewModels
             NavigativeCommand = new DelegateCommand<object>(Navigative);
         }
 
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-        }
-
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);

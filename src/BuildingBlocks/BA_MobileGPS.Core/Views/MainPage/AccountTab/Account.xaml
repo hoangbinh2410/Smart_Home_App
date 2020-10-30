@@ -1,136 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentView
+<ContentPage
     x:Class="BA_MobileGPS.Core.Views.Account"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
-    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-    xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms">
-    <ContentView.Resources>
-        <Style TargetType="Label">
-            <Setter Property="Grid.Column" Value="1" />
-            <Setter Property="VerticalOptions" Value="CenterAndExpand" />
-            <Setter Property="HorizontalOptions" Value="StartAndExpand" />
-            <Setter Property="VerticalTextAlignment" Value="Center" />
-            <Setter Property="TextColor" Value="{DynamicResource TextPrimaryColor}" />
-        </Style>
-    </ContentView.Resources>
-    <Grid BackgroundColor="{DynamicResource WhiteColor}" RowDefinitions="150,*,Auto">
-        <Grid Padding="0">
-            <ff:CachedImage
-                Aspect="AspectFill"
-                Source="bg_Account.png"
-                VerticalOptions="FillAndExpand" />
-        </Grid>
-        <Grid
-            Margin="30,0,30,20"
-            ColumnDefinitions="90,*"
-            ColumnSpacing="10"
-            VerticalOptions="EndAndExpand">
-            <pancake:PancakeView
-                Padding="0"
-                BackgroundColor="Transparent"
-                CornerRadius="45"
-                HeightRequest="90"
-                VerticalOptions="Center"
-                WidthRequest="90">
-                <pancake:PancakeView.Border>
-                    <pancake:Border Thickness="1" Color="White" />
-                </pancake:PancakeView.Border>
-                <pancake:PancakeView
-                    Padding="0"
-                    CornerRadius="40"
-                    HeightRequest="80"
-                    HorizontalOptions="Center"
-                    IsClippedToBounds="True"
-                    VerticalOptions="Center"
-                    WidthRequest="80">
-                    <ff:CachedImage Aspect="AspectFill" Source="{Binding UserInfo.AvatarUrl, Converter={StaticResource AddRootImageConverter}}" />
-                </pancake:PancakeView>
-            </pancake:PancakeView>
-            <StackLayout
-                Grid.Column="1"
-                Spacing="7"
-                VerticalOptions="Center">
-                <Label
-                    FontAttributes="Bold"
-                    FontFamily="{StaticResource myFontLatoBold}"
-                    HorizontalOptions="StartAndExpand"
-                    HorizontalTextAlignment="Start"
-                    LineBreakMode="TailTruncation"
-                    MaxLines="2"
-                    Text="{Binding UserInfo.FullName, Converter={StaticResource UpperCaseConverter}}"
-                    TextColor="{DynamicResource WhiteColor}" />
-                <Label
-                    Margin="5,0,0,0"
-                    IsVisible="{Binding IsShowPhoneNumber}"
-                    Text="{Binding UserInfo.PhoneNumber}"
-                    TextColor="{DynamicResource WhiteColor}" />
-                <StackLayout
-                    Padding="0"
-                    HorizontalOptions="Start"
-                    Orientation="Horizontal"
-                    Spacing="2">
-                    <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding PushToProfileCommand}" NumberOfTapsRequired="1" />
-                    </StackLayout.GestureRecognizers>
-                    <Label x:Name="lblMyInformation" TextColor="{DynamicResource WhiteColor}" />
-                    <controls:IconView
-                        Margin="0,2,0,0"
-                        Foreground="{DynamicResource WhiteColor}"
-                        HeightRequest="10"
-                        Source="ic_next.png"
-                        WidthRequest="10" />
-                </StackLayout>
-            </StackLayout>
-        </Grid>
-        <syncfusion:SfListView
-            Grid.Row="1"
-            Padding="10,0"
-            ItemSpacing="8"
-            ItemsSource="{Binding MenuItems, Mode=OneWay}"
-            SelectionBackgroundColor="Transparent"
-            TapCommand="{Binding NavigateCommand}">
-            <syncfusion:SfListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid
-                        ColumnDefinitions="30,*,15"
-                        ColumnSpacing="20"
-                        RowDefinitions="*,1"
-                        RowSpacing="5">
-                        <controls:IconView
-                            Foreground="{Binding IconColor}"
-                            HeightRequest="30"
-                            Source="{Binding Icon}"
-                            WidthRequest="30" />
-                        <Label Grid.Column="1" Text="{Binding Title}" />
-                        <ff:CachedImage Grid.Column="2" Source="ic_next.png" />
-                        <BoxView
-                            Grid.Row="1"
-                            Grid.ColumnSpan="3"
-                            Opacity="0.2"
-                            StyleClass="AccountLine"
-                            VerticalOptions="CenterAndExpand" />
-                    </Grid>
-                </DataTemplate>
-            </syncfusion:SfListView.ItemTemplate>
-        </syncfusion:SfListView>
-        <StackLayout
-            Grid.Row="2"
-            Margin="20,0,20,10"
-            HorizontalOptions="StartAndExpand"
-            Orientation="Horizontal"
-            VerticalOptions="StartAndExpand">
-            <Label
-                HorizontalOptions="Center"
-                Text="Version : "
-                VerticalOptions="Center" />
-            <Label
-                HorizontalOptions="Center"
-                Text="{Binding AppVersion}"
-                VerticalOptions="Center" />
-        </StackLayout>
-    </Grid>
-</ContentView>
+    xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <busyindicator:SfBusyIndicator
+        Title="Loading..."
+        AnimationType="Cupertino"
+        HorizontalOptions="Center"
+        TextColor="Black"
+        TextSize="12"
+        VerticalOptions="Center"
+        ViewBoxHeight="50"
+        ViewBoxWidth="50"
+        Duration="3" />
+</ContentPage>

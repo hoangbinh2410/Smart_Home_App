@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
@@ -169,16 +170,13 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ListVehicleHelpPage, ListVehicleHelpViewModel>("ListVehicleHelpPage");
             containerRegistry.RegisterForNavigation<DetailVehiclePopup, DetailVehiclePopupViewModel>("DetailVehiclePopup");
 
-            ViewModelLocationProvider.Register<Home, HomeViewModel>();
-            ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
-            ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
-            ViewModelLocationProvider.Register<OnlinePageNoCluster, OnlinePageViewModel>();
-            ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
-            ViewModelLocationProvider.Register<Account, AccountViewModel>();
-            containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
-            containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
-            containerRegistry.Register<ContentView, OnlinePageNoCluster>("OnlineTabNoCluster");
-            containerRegistry.Register<ContentView, RoutePage>("RouteTab");
+            containerRegistry.RegisterForNavigation<Home, HomeViewModel>("Home");
+            containerRegistry.RegisterForNavigation<ListVehiclePage, ListVehiclePageViewModel>("ListVehiclePage");
+            containerRegistry.RegisterForNavigation<OnlinePage, OnlinePageViewModel>("OnlinePage");
+            containerRegistry.RegisterForNavigation<OnlinePageNoCluster, OnlinePageViewModel>("OnlinePageNoCluster");
+            containerRegistry.RegisterForNavigation<RoutePage, RoutePageViewModel>("RoutePage");
+            containerRegistry.RegisterForNavigation<Account, AccountViewModel>("Account");
+
 
             containerRegistry.Register<ResourceDictionary, Dark>(Theme.Dark.ToString());
             containerRegistry.Register<ResourceDictionary, Light>(Theme.Light.ToString());

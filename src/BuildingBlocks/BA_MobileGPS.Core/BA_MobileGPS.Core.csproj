@@ -186,6 +186,9 @@
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\ListVehicle\ListVehicleView.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\ListVehicle\VehicleDefaultView.xaml">
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -276,6 +279,9 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\ReLogin\ReLoginPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Route\RouteView.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Settings\AlertConfigSettingPage.xaml">

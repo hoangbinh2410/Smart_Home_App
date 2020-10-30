@@ -5,6 +5,7 @@ using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
+using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
 using BA_MobileGPS.Service;
@@ -26,7 +27,7 @@ using Xamarin.Forms.Xaml;
 namespace BA_MobileGPS.Core.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class OnlinePageNoCluster : ContentView, IDestructible, INavigationAware
+    public partial class OnlinePageNoCluster : ContentPage, INavigationAware
     {
         #region Contructor
 
@@ -75,6 +76,7 @@ namespace BA_MobileGPS.Core.Views
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
             this.eventAggregator.GetEvent<BackButtonEvent>().Subscribe(AndroidBackButton);
+            eventAggregator.GetEvent<DestroyEvent>().Subscribe(Destroy);
 
             IsInitMarker = false;
 
@@ -170,7 +172,7 @@ namespace BA_MobileGPS.Core.Views
             }
         }
 
-        public void Destroy()
+        private void Destroy()
         {
             timer.Stop();
             timer.Dispose();
@@ -178,6 +180,7 @@ namespace BA_MobileGPS.Core.Views
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
             this.eventAggregator.GetEvent<BackButtonEvent>().Unsubscribe(AndroidBackButton);
+            eventAggregator.GetEvent<DestroyEvent>().Unsubscribe(Destroy);
         }
 
         #endregion Lifecycle

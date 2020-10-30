@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="BA_MobileGPS.Core.Views.HomeView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors"
+    xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:local="clr-namespace:BA_MobileGPS.Entities;assembly=BA_MobileGPS.Entities"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:renderedViews="clr-namespace:Sharpnado.Presentation.Forms.RenderedViews;assembly=Sharpnado.Presentation.Forms"
+    x:Name="root">
+    <ContentView.Resources>
+        <DataTemplate x:Key="IconTemplate">
+            <ViewCell>
+                <StackLayout Margin="0" Spacing="10">
+                    <pancake:PancakeView
+                        Padding="0"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        CornerRadius="10"
+                        HasShadow="True"
+                        HorizontalOptions="CenterAndExpand">
+                        <pancake:PancakeView.Shadow>
+                            <pancake:DropShadow
+                                BlurRadius="3"
+                                Opacity="0.1"
+                                Offset="0,2"
+                                Color="{DynamicResource ShadowColor}" />
+                        </pancake:PancakeView.Shadow>
+                        <ff:CachedImage
+                            Margin="15"
+                            HeightRequest="30"
+                            HorizontalOptions="Center"
+                            Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
+                            VerticalOptions="Center"
+                            WidthRequest="30" />
+                    </pancake:PancakeView>
+                    <Label
+                        Margin="15,0,15,0"
+                        HorizontalOptions="Center"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="2"
+                        StyleClass="IconText"
+                        Text="{Binding NameByCulture}"
+                        VerticalOptions="Center" />
+                </StackLayout>
+            </ViewCell>
+        </DataTemplate>
+        <Style TargetType="renderedViews:HorizontalListView">
+            <Setter Property="ItemTemplate" Value="{StaticResource IconTemplate}" />
+        </Style>
+    </ContentView.Resources>
+    <Grid RowDefinitions="*,2.8*">
+        <Grid Padding="0">
+            <ff:CachedImage
+                Aspect="AspectFill"
+                Source="bg_HomeTop.png"
+                VerticalOptions="FillAndExpand" />
+        </Grid>
+        <Grid
+            Grid.RowSpan="2"
+            Padding="5,0"
+            RowDefinitions="80,Auto">
+            <Grid Padding="15,0">
+                <ff:CachedImage
+                    HeightRequest="25"
+                    HorizontalOptions="Start"
+                    Source="ic_logo.png"
+                    VerticalOptions="EndAndExpand" />
+                <StackLayout
+                    HorizontalOptions="End"
+                    Orientation="Horizontal"
+                    Spacing="10"
+                    VerticalOptions="EndAndExpand">
+                    <controls:IconView Source="ic_phone.png" StyleClass="TopIconView">
+                        <controls:IconView.Behaviors>
+                            <animation:ViewTappedBehavior AnimationType="Scale" />
+                        </controls:IconView.Behaviors>
+                        <controls:IconView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CallHotLineCommand}" />
+                        </controls:IconView.GestureRecognizers>
+                    </controls:IconView>
+                    <controls:IconView
+                        IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
+                        Source="ic_company.png"
+                        StyleClass="TopIconView">
+                        <controls:IconView.Behaviors>
+                            <animation:ViewTappedBehavior AnimationType="Scale" />
+                        </controls:IconView.Behaviors>
+                        <controls:IconView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
+                        </controls:IconView.GestureRecognizers>
+                    </controls:IconView>
+                    <controls:IconView Source="ic_mail.png" StyleClass="TopIconView">
+                        <controls:IconView.Behaviors>
+                            <animation:ViewTappedBehavior AnimationType="Scale" />
+                        </controls:IconView.Behaviors>
+                        <controls:IconView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PushToNoticePageCommand}" />
+                        </controls:IconView.GestureRecognizers>
+                    </controls:IconView>
+                    <badge:SfBadgeView
+                        BackgroundColor="Transparent"
+                        BadgeText="{Binding TotalAlertDisplay, Source={x:Static local:GlobalResources.Current}}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <badge:SfBadgeView.Content>
+                            <controls:IconView
+                                Margin="0,0,0,-1"
+                                Source="ic_bellstand.png"
+                                StyleClass="TopIconView">
+                                <controls:IconView.Behaviors>
+                                    <animation:ViewTappedBehavior AnimationType="Scale" />
+                                </controls:IconView.Behaviors>
+                                <controls:IconView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushToAleartPageCommand}" />
+                                </controls:IconView.GestureRecognizers>
+                            </controls:IconView>
+                        </badge:SfBadgeView.Content>
+                        <badge:SfBadgeView.BadgeSettings>
+                            <badge:BadgeSetting
+                                BadgePosition="TopRight"
+                                BadgeType="Error"
+                                CornerRadius="10"
+                                FontSize="9"
+                                TextPadding="3"
+                                Offset="-10,5" />
+                        </badge:SfBadgeView.BadgeSettings>
+                    </badge:SfBadgeView>
+                </StackLayout>
+            </Grid>
+            <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="0">
+                    <pancake:PancakeView
+                        Margin="10,5"
+                        CornerRadius="10"
+                        HasShadow="True"
+                        Style="{StaticResource FavouriteBackgroundColor}">
+                        <pancake:PancakeView.Shadow>
+                            <pancake:DropShadow BlurRadius="2" Color="{DynamicResource ShadowColor}" />
+                        </pancake:PancakeView.Shadow>
+                        <StackLayout Spacing="0">
+                            <Grid Margin="10">
+                                <Label x:Name="lblHighlight" StyleClass="GroupTitleLabel,BoldText" />
+                                <controls:IconView
+                                    Margin="0,0,10,0"
+                                    Foreground="Red"
+                                    HeightRequest="18"
+                                    HorizontalOptions="End"
+                                    Source="ic_heart.png"
+                                    WidthRequest="18">
+                                    <controls:IconView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding NavigateToFavoriteCommand}" NumberOfTapsRequired="1" />
+                                    </controls:IconView.GestureRecognizers>
+                                </controls:IconView>
+                            </Grid>
+                            <BoxView class="SlimLine" />
+                            <CarouselView
+                                HeightRequest="130"
+                                HorizontalScrollBarVisibility="Never"
+                                IndicatorView="indicatorFavourite"
+                                IsVisible="{Binding HasFavorite, Mode=OneWay}"
+                                ItemsSource="{Binding FavouriteMenuItems, Mode=OneWay}">
+                                <CarouselView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <renderedViews:HorizontalListView
+                                                Margin="0,10,0,0"
+                                                CollectionPadding="0"
+                                                ColumnCount="3"
+                                                HorizontalOptions="FillAndExpand"
+                                                ItemHeight="110"
+                                                ItemSpacing="10"
+                                                ItemWidth="90"
+                                                ItemsSource="{Binding FeaturesItem, Mode=OneWay}"
+                                                ListLayout="Grid"
+                                                SnapStyle="Center"
+                                                TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}"
+                                                VerticalOptions="FillAndExpand" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </CarouselView.ItemTemplate>
+                            </CarouselView>
+                            <IndicatorView x:Name="indicatorFavourite" Margin="0,5" />
+                        </StackLayout>
+                    </pancake:PancakeView>
+                    <pancake:PancakeView
+                        Grid.Row="1"
+                        Margin="10,5"
+                        Padding="0"
+                        BackgroundColor="{DynamicResource GrayColor}"
+                        CornerRadius="10"
+                        HasShadow="False">
+                        <StackLayout Spacing="0">
+                            <StackLayout Orientation="Horizontal">
+                                <Label
+                                    x:Name="lblFeatures"
+                                    Padding="10"
+                                    StyleClass="GroupTitleLabel,BoldText" />
+                            </StackLayout>
+
+                            <BoxView class="SlimLine" />
+                            <Grid
+                                x:Name="parentFeatures"
+                                Margin="0,10"
+                                HeightRequest="240"
+                                IsVisible="{Binding AllListfeatures, Mode=TwoWay, Converter={StaticResource HasDataConverter}}">
+                                <CarouselView
+                                    x:Name="list1"
+                                    HorizontalOptions="FillAndExpand"
+                                    HorizontalScrollBarVisibility="Never"
+                                    IndicatorView="indicatorView"
+                                    ItemsSource="{Binding AllListfeatures, Mode=OneWay}"
+                                    VerticalOptions="CenterAndExpand">
+                                    <CarouselView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <renderedViews:HorizontalListView
+                                                    CollectionPadding="0"
+                                                    ColumnCount="3"
+                                                    HeightRequest="150"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    ItemHeight="110"
+                                                    ItemSpacing="10"
+                                                    ItemWidth="90"
+                                                    ItemsSource="{Binding FeaturesItem, Mode=OneWay}"
+                                                    ListLayout="Grid"
+                                                    SnapStyle="Center"
+                                                    TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}"
+                                                    VerticalOptions="FillAndExpand" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CarouselView.ItemTemplate>
+                                </CarouselView>
+                                <IndicatorView x:Name="indicatorView" Margin="0,0" />
+                            </Grid>
+                            <StackLayout
+                                BackgroundColor="Transparent"
+                                HorizontalOptions="Center"
+                                IsVisible="{Binding AllListfeatures, Mode=TwoWay, Converter={StaticResource IsEmptyDataConverter}}"
+                                Spacing="10"
+                                VerticalOptions="Center">
+                                <!--  Image for display svg image  -->
+                                <ffsvg:SvgCachedImage
+                                    BackgroundColor="Transparent"
+                                    HeightRequest="250"
+                                    Source="NoItem.svg"
+                                    VerticalOptions="Start"
+                                    WidthRequest="250" />
+                            </StackLayout>
+                        </StackLayout>
+                    </pancake:PancakeView>
+                    <pancake:PancakeView
+                        Grid.Row="2"
+                        Margin="{OnPlatform Android='15,0,15,0',
+                                            iOS='15,0,15,-180'}"
+                        CornerRadius="15,15,0,0"
+                        HasShadow="False">
+                        <ff:CachedImage
+                            Aspect="AspectFill"
+                            HeightRequest="{OnPlatform Android=200,
+                                                       iOS=350}"
+                            StyleClass="HomePageBotImage" />
+                    </pancake:PancakeView>
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </Grid>
+</ContentView>

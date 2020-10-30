@@ -1,11 +1,13 @@
 ﻿using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
+using Prism.Navigation.TabbedPages;
 using Syncfusion.Data.Extensions;
 using System;
 using System.Collections.Generic;
@@ -16,7 +18,7 @@ using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class HomeViewModel : ViewModelBase
+    public class HomeViewModel : TabbedPageChildVMBase
     {
         private readonly IHomeService homeService;
         private readonly IMapper mapper;
@@ -35,19 +37,15 @@ namespace BA_MobileGPS.Core.ViewModels
             listfeatures = new ObservableCollection<ItemSupport>();
             favouriteMenuItems = new ObservableCollection<ItemSupport>();
         }
-
         public override void Initialize(INavigationParameters parameters)
         {
-            base.Initialize(parameters);
             Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
             {
                 // Lấy danh sách menu
                 GetListMenu();
                 return false;
             });
-           
         }
-
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -187,7 +185,7 @@ namespace BA_MobileGPS.Core.ViewModels
             AllListfeatures = list.ToObservableCollection();
         }
 
-        public void OnTappedMenu(object obj)
+        public async void OnTappedMenu(object obj)
         {
             if (!(obj is HomeMenuItemViewModel seletedMenu) || seletedMenu.MenuKey == null)
             {
@@ -197,15 +195,24 @@ namespace BA_MobileGPS.Core.ViewModels
             switch (temp.MenuKey)
             {
                 case "ListVehiclePage":
-                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.ListVehiclePage, ""));
+                    await NavigationService.SelectTabAsync(TabbedPageChildrenEnum.ListVehicleTab.ToString());
                     break;
 
                 case "OnlinePage":
-                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.OnlinePage, ""));
+                    //cấu hình cty này dùng Cluster thì mới mở forms Cluster
+                    if (MobileUserSettingHelper.EnableShowCluster)
+                    {
+                        await NavigationService.SelectTabAsync(TabbedPageChildrenEnum.OnlineTab.ToString());
+                    }
+                    else
+                    {
+                        await NavigationService.SelectTabAsync(TabbedPageChildrenEnum.OnlineTabNoCluster.ToString());
+                    }
+
                     break;
 
                 case "RoutePage":
-                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, ""));
+                    await NavigationService.SelectTabAsync(TabbedPageChildrenEnum.RouteTab.ToString());
                     break;
 
                 case "MessagesOnlinePage":
@@ -217,6 +224,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                     });
                     break;
+
                 case "CameraManagingPage":
                     SafeExecute(async () =>
                     {
@@ -232,6 +240,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
 
                     break;
+
                 default:
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -288,7 +297,6 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #endregion Property Binding
-
     }
 
     public class ItemSupport
