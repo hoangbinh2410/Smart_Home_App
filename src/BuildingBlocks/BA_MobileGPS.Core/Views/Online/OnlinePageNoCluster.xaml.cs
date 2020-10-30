@@ -831,7 +831,11 @@ namespace BA_MobileGPS.Core.Views
         {
             if (!infoStatusIsShown)
             {
-                HideBoxInfoCarActive(mCarActive);
+                HideBoxInfo();
+                if (mCarActive.VehicleId > 0)
+                {
+                    UpdateBackgroundPinLable(mCarActive);
+                }
                 Action<double> callback = input => boxStatusVehicle.TranslationX = input;
                 boxStatusVehicle.Animate("animboxStatusVehicle", callback, pageWidth, 0, 16, 300, Easing.CubicInOut);
                 infoStatusIsShown = true;
@@ -847,8 +851,8 @@ namespace BA_MobileGPS.Core.Views
                     Action<double> callback = input => boxStatusVehicle.TranslationX = input;
                     boxStatusVehicle.Animate("animboxStatusVehicle", callback, 0, pageWidth, 16, 300, Easing.CubicInOut);
                     infoStatusIsShown = false;
-                    UpdateBackgroundPinLable(mCarActive, true);
-                    ShowBoxInfo();
+                    //UpdateBackgroundPinLable(mCarActive, true);
+                    //ShowBoxInfo();
                 }
             }
             catch (Exception ex)
