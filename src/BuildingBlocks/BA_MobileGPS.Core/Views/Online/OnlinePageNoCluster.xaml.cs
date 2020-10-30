@@ -778,13 +778,15 @@ namespace BA_MobileGPS.Core.Views
                 mCarActive = new VehicleOnline();
                 if (PopupNavigation.Instance.PopupStack.Count > 0)
                 {
+                    var b = PopupNavigation.Instance.PopupStack.FirstOrDefault();
+                    b.BindingContext = null;
                     await PopupNavigation.Instance.PopAllAsync();
                 }
                 SetNoPaddingWithFooter();
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError("HideBoxStatus", ex);
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -797,14 +799,15 @@ namespace BA_MobileGPS.Core.Views
             {
                 var popupPage = new OnlineCarInfoView();
                 popupPage.BindingContext = BindingContext;
-                PopupNavigation.Instance.PushAsync(popupPage).ContinueWith((a) =>
+                if (PopupNavigation.Instance.PopupStack.Count == 0)
                 {
-                    SetPaddingWithFooter(350);
-                });
+                    PopupNavigation.Instance.PushAsync(popupPage);
+                    SetPaddingWithFooter(130);
+                }
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError("ShowBoxInfo", ex);
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -812,9 +815,8 @@ namespace BA_MobileGPS.Core.Views
 
         public void SetPaddingWithFooter(double height)
         {
-            double paddingMap = height;
-            googleMap.Padding = new Thickness(0, 0, 0, (int)paddingMap);
-            BoxControls.Margin = new Thickness(20, 0, 20, (int)paddingMap + 35);
+            googleMap.Padding = new Thickness(0, 0, 0, height);
+            BoxControls.Margin = new Thickness(20, 0, 20, height + 30);
         }
 
         /* Set padding map khi có thông tin xe ở footer - tracking */
@@ -878,6 +880,7 @@ namespace BA_MobileGPS.Core.Views
             }
             else
             {
+                HideBoxInfo();
                 CacularVehicleStatus();
                 ShowBoxStatus();
             }

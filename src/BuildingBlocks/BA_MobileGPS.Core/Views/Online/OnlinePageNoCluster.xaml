@@ -45,7 +45,7 @@
                 <mapbindings:CameraIdledToCommandBehavior Command="{Binding CameraIdledCommand}" />
             </cluster:Map.Behaviors>
             <cluster:Map.Triggers>
-                <DataTrigger
+                <!--<DataTrigger
                     Binding="{Binding Source={x:Reference BoxControls}, Path=Margin}"
                     TargetType="cluster:Map"
                     Value="15,30,15,130">
@@ -56,7 +56,7 @@
                     TargetType="cluster:Map"
                     Value="15,30">
                     <Setter Property="Margin" Value="0" />
-                </DataTrigger>
+                </DataTrigger>-->
             </cluster:Map.Triggers>
         </cluster:Map>
         <!--  Khung search bar phía trên  -->
