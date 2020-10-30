@@ -41,7 +41,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IMapper _mapper;
         private Timer timer;
         private Timer timerSyncData;
-        public View currentChildView { get; set; }
+        public Page currentChildPage { get; set; }
 
         public MainPageViewModel(INavigationService navigationService, IVehicleOnlineService vehicleOnlineService,
             IAlertService alertService,
@@ -110,7 +110,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (IsLoaded)
             {
-                PageUtilities.OnNavigatedTo(currentChildView, parameters);
+                PageUtilities.OnNavigatedTo(currentChildPage, parameters);
             }
             else
             {
@@ -121,7 +121,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
-            PageUtilities.OnNavigatedFrom(currentChildView, parameters);
+            PageUtilities.OnNavigatedFrom(currentChildPage, parameters);
         }
 
         public override void OnDestroy()
