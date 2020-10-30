@@ -1,31 +1,24 @@
-﻿using System;
-using Xamarin.Forms.Platform.Android;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android.AppCompat;
-using Android.Content;
-using Android.Support.Design.Widget;
+﻿using Android.Content;
+using Android.Support.Design.BottomNavigation;
 using Android.Support.Design.Internal;
-using Android.Graphics;
-using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
-using Android.Views;
-
-using Android.Widget;
-using Android.Graphics.Drawables;
-using BA_MobileGPS.Core.Controls;
+using Android.Support.Design.Widget;
 using BA_MobileGPS.Core.Droid.CustomRender;
-using Android.OS;
+using System;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
+using Xamarin.Forms.Platform.Android.AppCompat;
 
-[assembly: ExportRenderer(typeof(ExtendedTabbedPage), typeof(ExtendedTabbedPageRenderer))]
+[assembly: ExportRenderer(typeof(Xamarin.Forms.TabbedPage), typeof(ExtendedTabbedPageRenderer))]
+
 namespace BA_MobileGPS.Core.Droid.CustomRender
 {
     public class ExtendedTabbedPageRenderer : TabbedPageRenderer
     {
-        Xamarin.Forms.TabbedPage tabbedPage;
-        BottomNavigationView bottomNavigationView;
-        IMenuItem lastItemSelected;
+        private Xamarin.Forms.TabbedPage tabbedPage;
+        private BottomNavigationView bottomNavigationView;
+
         public ExtendedTabbedPageRenderer(Context context) : base(context)
         {
-
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.TabbedPage> e)
@@ -34,74 +27,12 @@ namespace BA_MobileGPS.Core.Droid.CustomRender
 
             if (e.NewElement != null)
             {
-                tabbedPage = e.NewElement as ExtendedTabbedPage;
+                tabbedPage = e.NewElement as TabbedPage;
                 bottomNavigationView = (GetChildAt(0) as Android.Widget.RelativeLayout).GetChildAt(1) as BottomNavigationView;
-                bottomNavigationView.NavigationItemSelected += BottomNavigationView_NavigationItemSelected;
 
                 //Call to remove animation
                 SetShiftMode(bottomNavigationView, false);
-
             }
-
-            if (e.OldElement != null)
-            {
-                bottomNavigationView.NavigationItemSelected -= BottomNavigationView_NavigationItemSelected;
-            }
-
-
-        }
-
-
-
-        //Remove tint color
-        protected override void OnLayout(bool changed, int l, int t, int r, int b)
-        {
-            base.OnLayout(changed, l, t, r, b);
-
-            if (bottomNavigationView != null)
-            {
-                bottomNavigationView.ItemIconTintList = null;
-            }
-        }
-
-        void BottomNavigationView_NavigationItemSelected(object sender, BottomNavigationView.NavigationItemSelectedEventArgs e)
-        {
-            try
-            {
-                var normalColor = tabbedPage.UnselectedTabColor.ToAndroid();
-                var selectedColor = tabbedPage.SelectedTabColor.ToAndroid();
-
-                if (lastItemSelected != null)
-                {
-                    if (Build.VERSION.SdkInt >= BuildVersionCodes.Q)
-                    {
-                        lastItemSelected.Icon.SetColorFilter(new BlendModeColorFilter(normalColor, BlendMode.SrcIn));
-                    }
-                    else
-                    {
-                        lastItemSelected.Icon.SetColorFilter(normalColor, PorterDuff.Mode.SrcIn);
-                    }
-                }
-
-                if (Build.VERSION.SdkInt >= BuildVersionCodes.Q)
-                {
-                    e.Item.Icon.SetColorFilter(new BlendModeColorFilter(selectedColor, BlendMode.SrcIn));
-                }
-                else
-                {
-                    e.Item.Icon.SetColorFilter(selectedColor, PorterDuff.Mode.SrcIn);
-                }
-                lastItemSelected = e.Item;
-
-                this.OnNavigationItemSelected(e.Item);
-            }
-            catch (Exception ex)
-            {
-
-               
-            }
-          
-
         }
 
         //Remove animation
@@ -121,7 +52,7 @@ namespace BA_MobileGPS.Core.Droid.CustomRender
                     if (item == null)
                         continue;
                     item.SetShifting(enableItemShiftMode);
-
+                    item.SetLabelVisibilityMode(LabelVisibilityMode.LabelVisibilityLabeled);
                     item.SetChecked(item.ItemData.IsChecked);
                 }
                 menuView.UpdateMenuView();

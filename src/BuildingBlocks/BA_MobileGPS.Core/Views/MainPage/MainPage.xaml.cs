@@ -11,10 +11,11 @@ using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+using TabbedPage = Xamarin.Forms.TabbedPage;
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class MainPage : ExtendedTabbedPage
+    public partial class MainPage : TabbedPage
     {
         public MainPage()
         {
