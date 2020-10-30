@@ -8,15 +8,4 @@
         RoutePage = 3,
         ProfilePage
     }
-
-    public enum TabbedPageChildrenEnum
-    {
-        HomeTab,
-        ListVehicleTab,
-        OnlineTab,
-        OnlineTabNoCluster,
-        RouteTab,
-        AccountTab
-    }
-
 }
