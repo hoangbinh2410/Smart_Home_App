@@ -225,19 +225,6 @@
                     WidthRequest="20" />
             </pancake:PancakeView>
         </StackLayout>
-        <!--  Thông tin xe  -->
-        <views:OnlineCarInfoView
-            x:Name="boxInfo"
-            Grid.Row="1"
-            Padding="0,10,0,0"
-            AbsoluteLayout.LayoutBounds="0,1,1,350"
-            AbsoluteLayout.LayoutFlags="YProportional, WidthProportional"
-            BackgroundColor="{DynamicResource WhiteColor}"
-            CornerRadius="20,20,0,0"
-            HasShadow="False"
-            HeightRequest="200"
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="End" />
         <!--  Trạng thái xe  -->
         <Grid
             x:Name="boxStatusVehicle"
