@@ -869,41 +869,43 @@ namespace BA_MobileGPS.Core.Views
         /// <summary>
         /// ẩn box  thông tin  xe
         /// </summary>
-        public  void HideBoxInfo()
+        public void HideBoxInfo()
         {
             try
             {
-                PopupNavigation.Instance.PopAsync().ContinueWith((a) => {
+                if (PopupNavigation.Instance.PopupStack.Count > 0)
+                {
+                    var b = PopupNavigation.Instance.PopupStack.FirstOrDefault();
+                    b.BindingContext = null;
+                    PopupNavigation.Instance.PopAsync();                 
+                }
+                SetNoPaddingWithFooter();
 
-                    SetNoPaddingWithFooter();
-                }); 
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError("HideBoxStatus", ex);
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
         /// <summary>
         /// Hiển thị box thông tin xe
         /// </summary>
-        private  void ShowBoxInfo()
+        private void ShowBoxInfo()
         {
             try
             {
                 var popupPage = new OnlineCarInfoView();
                 popupPage.BindingContext = BindingContext;
-                PopupNavigation.Instance.PushAsync(popupPage).ContinueWith((a) => {
-                    var ba = popupPage.HeightRequest;
-                    var ba1 = popupPage.Content.HeightRequest;
-                    SetPaddingWithFooter(180);
-                }); 
-                
-                var b = popupPage.HeightRequest;
+                if (PopupNavigation.Instance.PopupStack.Count == 0)
+                {
+                    PopupNavigation.Instance.PushAsync(popupPage);
+                    SetPaddingWithFooter(130);
+                }
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError("HideBoxStatus", ex);
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -911,9 +913,8 @@ namespace BA_MobileGPS.Core.Views
 
         public void SetPaddingWithFooter(int height)
         {
-            double paddingMap = height;
-            googleMap.Padding = new Thickness(0, 0, 0, (int)paddingMap);
-            BoxControls.Margin = new Thickness(20, 0, 20, (int)paddingMap + 35);
+            googleMap.Padding = new Thickness(0, 0, 0, height);
+            BoxControls.Margin = new Thickness(20, 0, 20, height + 30);
         }
 
         /* Set padding map khi có thông tin xe ở footer - tracking */
@@ -969,13 +970,14 @@ namespace BA_MobileGPS.Core.Views
         }
 
         private async void FilterStatusCar(object sender, EventArgs e)
-        {
+        {           
             if (infoStatusIsShown)
             {
                 await _animations.Go(States.HideStatus, true);
             }
             else
             {
+                HideBoxInfo();
                 CacularVehicleStatus();
                 await _animations.Go(States.ShowStatus, true);
             }
