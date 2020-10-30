@@ -7,5 +7,5 @@
     x:Name="root"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.HasNavigationBar="False"
-    SelectedTabColor="Blue"
-    UnselectedTabColor="Gray" />
+    SelectedTabColor="{DynamicResource MainTabSelectedColor}"
+    UnselectedTabColor="{DynamicResource MainTabUnSelectedTextColor}" />
