@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Controls;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using Prism.Common;
@@ -10,11 +11,10 @@ using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
-using TabbedPage = Xamarin.Forms.TabbedPage;
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class MainPage : TabbedPage
+    public partial class MainPage : ExtendedTabbedPage
     {
         public MainPage()
         {

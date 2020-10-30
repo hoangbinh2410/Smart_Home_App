@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseActivity.cs" />
+    <Compile Include="CustomRender\ExtendedTabbedPageRenderer.cs" />
     <Compile Include="CustomRender\IconViewRenderer.cs" />
     <Compile Include="CustomRender\NullableDatePickerRenderer.cs" />
     <Compile Include="DependencyServices\AndroidDownloader.cs" />
