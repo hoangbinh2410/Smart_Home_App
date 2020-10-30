@@ -1,8 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Helpers;
-using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Core.Views;
@@ -15,7 +13,6 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -90,9 +87,6 @@ namespace BA_MobileGPS.Core.ViewModels
             FastStartCommand = new Command(FastStart);
             FastEndCommand = new Command(FastEnd);
             ChangeSpeedCommand = new DelegateCommand(ChangeSpeed);
-            EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
-            EventAggregator.GetEvent<ThemeChangedEvent>().Subscribe(ThemeChanged);
-            EventAggregator.GetEvent<TabSelectedChangedEvent>().Subscribe(TabSelectedChanged);
         }
 
         #endregion Contructor
@@ -131,10 +125,14 @@ namespace BA_MobileGPS.Core.ViewModels
             //base.OnDestroy();
             if (ctsRouting != null)
                 ctsRouting.Cancel();
-
-            EventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
-            EventAggregator.GetEvent<ThemeChangedEvent>().Unsubscribe(ThemeChanged);
-            EventAggregator.GetEvent<TabSelectedChangedEvent>().Unsubscribe(TabSelectedChanged);
+        }
+        public override void OnIsActiveChanged(object sender, EventArgs e)
+        {
+            base.OnIsActiveChanged(sender, e);
+            if (!IsActive)
+            {
+                StopRoute();
+            }
         }
 
         #endregion Lifecycle
@@ -229,42 +227,10 @@ namespace BA_MobileGPS.Core.ViewModels
         private double MARKER_MOVE_TIME_STEP => BASE_TIME / PlaySpeed / MARKER_MOVE_STEP;
 
         private bool lastPlayStatus;
+
         #endregion Property
 
         #region PrivateMethod
-
-        private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
-        {
-            if (obj != null
-              && obj.Item2 != null
-              && obj.Item1 == ItemTabPageEnums.RoutePage
-              && obj.Item2.GetType() == typeof(VehicleOnline))
-            {
-                var vehicleOnline = (VehicleOnline)obj.Item2;
-                Vehicle = new Vehicle()
-                {
-                    GroupIDs = vehicleOnline.GroupIDs,
-                    PrivateCode = vehicleOnline.PrivateCode,
-                    VehicleId = vehicleOnline.VehicleId,
-                    VehiclePlate = vehicleOnline.VehiclePlate
-                };
-
-                // Gán lại thời gian
-                DateStart = DateTime.Now.Subtract(TimeSpan.FromHours(24));
-                DateEnd = DateTime.Now;
-
-                GetVehicleRoute();
-            }
-            else
-            {
-                StopRoute();
-            }
-        }
-
-        private void TabSelectedChanged(int obj)
-        {
-            StopRoute();
-        }
 
         private void TimeSelected(string args)
         {
@@ -949,6 +915,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
+
         private async void RotateMarker(Action<bool> callback = null)
         {
             try
@@ -1113,16 +1080,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private void ThemeChanged()
-        {
-            ColorMapType = MapType == MapType.Street
-                ? (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"]
-                : (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
-
-            BackgroundMapType = MapType == MapType.Street
-                ? (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"]
-                : (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
-        }
         #endregion PrivateMethod
     }
 }

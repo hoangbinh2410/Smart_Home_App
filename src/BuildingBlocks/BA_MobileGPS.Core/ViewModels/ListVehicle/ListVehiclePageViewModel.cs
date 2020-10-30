@@ -559,7 +559,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var param = _mapper.MapProperties<VehicleOnline>(selected);
                 var parameters = new NavigationParameters
                 {
-                    { ParameterKey.Vehicle, param }
+                    { ParameterKey.VehicleOnline, param }
                 };
 
                 await NavigationService.SelectTabAsync("RoutePage", parameters);

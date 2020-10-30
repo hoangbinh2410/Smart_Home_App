@@ -70,7 +70,6 @@ namespace BA_MobileGPS.Core.ViewModels
             StaticSettings.TimeServer = UserInfo.TimeServer.AddSeconds(1);
             SetTimeServer();
             StartTimmerSynData();
-            EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
             EventAggregator.GetEvent<OnResumeEvent>().Subscribe(OnResumePage);
             EventAggregator.GetEvent<OnSleepEvent>().Subscribe(OnSleepPage);
             EventAggregator.GetEvent<SelectedCompanyEvent>().Subscribe(SelectedCompanyChanged);
@@ -136,7 +135,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 timer.Dispose();
                 timerSyncData.Stop();
                 timerSyncData.Dispose();
-                EventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
                 EventAggregator.GetEvent<OnResumeEvent>().Unsubscribe(OnResumePage);
                 EventAggregator.GetEvent<OnSleepEvent>().Unsubscribe(OnSleepPage);
                 EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(SelectedCompanyChanged);
@@ -209,74 +207,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool IsLoaded { get; set; }
 
-        private int selectedIndex;
-
-        public int SelectedIndex
-        {
-            get => selectedIndex;
-            set
-            {
-                SetProperty(ref selectedIndex, value);
-                RaisePropertyChanged();
-            }
-        }
-
         #endregion Property
 
         #region PrivateMethod
-
-        private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
-        {
-            switch (obj.Item1)
-            {
-                case ItemTabPageEnums.HomePage:
-                    SelectedIndex = (int)obj.Item1;
-                    break;
-
-                case ItemTabPageEnums.ListVehiclePage:
-                    SelectedIndex = (int)obj.Item1;
-                    break;
-
-                case ItemTabPageEnums.OnlinePage:
-                    int indexonline = (int)ItemTabPageEnums.OnlinePage;
-                    if (!CheckPermision((int)PermissionKeyNames.VehicleView))
-                    {
-                        indexonline -= 1;
-                    }
-                    SelectedIndex = indexonline;
-                    break;
-
-                case ItemTabPageEnums.RoutePage:
-                    int indexroute = (int)ItemTabPageEnums.RoutePage;
-                    if (!CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
-                    {
-                        indexroute -= 1;
-                    }
-                    else if (!CheckPermision((int)PermissionKeyNames.VehicleView))
-                    {
-                        indexroute -= 1;
-                    }
-                    SelectedIndex = indexroute;
-                    break;
-
-                case ItemTabPageEnums.ProfilePage:
-                    int indexprofile = (int)ItemTabPageEnums.ProfilePage;
-                    if (!CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
-                    {
-                        indexprofile -= 1;
-                    }
-                    else if (!CheckPermision((int)PermissionKeyNames.VehicleView))
-                    {
-                        indexprofile -= 1;
-                    }
-                    else if (!CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
-                    {
-                        indexprofile -= 1;
-                    }
-                    SelectedIndex = indexprofile;
-                    break;
-            }
-        }
 
         public override void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {

@@ -9,6 +9,7 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
+using Prism.Navigation.TabbedPages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -505,15 +506,22 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void PushtoRouterPage()
         {
-            SafeExecute(() =>
+            SafeExecute(async () =>
             {
                 if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
                 {
-                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, carActive));
+                    await NavigationService.GoBackAsync();
+
+                    var parameters = new NavigationParameters
+                {
+                    { ParameterKey.VehicleOnline, carActive }
+                };
+
+                    await NavigationService.SelectTabAsync("RoutePage", parameters);
                 }
                 else
                 {
-                    PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Common_Message_NotPermission, MobileResource.Common_Button_Close);
+                    await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Common_Message_NotPermission, MobileResource.Common_Button_Close);
                 }
             });
         }
