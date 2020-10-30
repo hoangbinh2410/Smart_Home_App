@@ -58,11 +58,11 @@
     <ContentView.Content>
         <Grid RowDefinitions="Auto,*" RowSpacing="0">
             <viewcore:TitleBarView Grid.Row="0" />
-            <AbsoluteLayout
+            <Grid
                 Grid.Row="1"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
-                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout>
                     <Grid
                         Margin="5,10,5,0"
                         ColumnDefinitions="*,Auto,Auto,Auto,Auto"
@@ -249,7 +249,7 @@
                     </Grid>
                 </StackLayout>
 
-                <Grid x:Name="boxStatusVehicle" AbsoluteLayout.LayoutFlags="PositionProportional, HeightProportional">
+                <Grid x:Name="boxStatusVehicle" HorizontalOptions="End">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.5*" />
                         <ColumnDefinition Width="0.5*" />
@@ -327,7 +327,7 @@
                         </Grid>
                     </Frame>
                 </Grid>
-            </AbsoluteLayout>
+            </Grid>
         </Grid>
     </ContentView.Content>
 </ContentView>
