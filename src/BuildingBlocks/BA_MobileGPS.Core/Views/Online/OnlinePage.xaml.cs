@@ -15,6 +15,7 @@ using Prism.Events;
 using Prism.Ioc;
 using Prism.Navigation;
 using Prism.Services;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -313,17 +314,7 @@ namespace BA_MobileGPS.Core.Views
                     return;
                 }
 
-                _animations.Add(States.ShowFilter, new[] {
-                                                            new ViewTransition(boxInfo, AnimationType.TranslationY, 0, 350, delay: 350), // Active and visible
-                                                            new ViewTransition(boxInfo, AnimationType.Opacity, 1, 0), // Active and visible
-                                                          });
 
-                _animations.Add(States.HideFilter, new[] {
-                                                            new ViewTransition(boxInfo, AnimationType.TranslationY, 350),
-                                                            new ViewTransition(boxInfo, AnimationType.Opacity, 0),
-                                                          });
-
-                await _animations.Go(States.HideFilter, false);
 
                 var pageWidth = Xamarin.Forms.Application.Current?.MainPage?.Width;
 
@@ -963,13 +954,17 @@ namespace BA_MobileGPS.Core.Views
         /// <summary>
         /// Hiển thị box thông tin xe
         /// </summary>
-        private async void ShowBoxInfo()
+        private  void ShowBoxInfo()
         {
             try
             {
-                SetPaddingWithFooter();
-                eventAggregator.GetEvent<ShowTabItemEvent>().Publish(false);
-                await _animations.Go(States.ShowFilter, true);
+                var popupPage = new OnlineCarInfoView();
+                popupPage.BindingContext = BindingContext;
+                PopupNavigation.Instance.PushAsync(popupPage).ContinueWith((a)=> {
+                    var ba = popupPage.HeightRequest;
+                    var ba1 = popupPage.Content.HeightRequest;
+                    SetPaddingWithFooter();
+                });
             }
             catch (Exception ex)
             {
@@ -981,9 +976,9 @@ namespace BA_MobileGPS.Core.Views
 
         public void SetPaddingWithFooter()
         {
-            double paddingMap = boxInfo.HeightRequest;
-            googleMap.Padding = new Thickness(0, 0, 0, (int)paddingMap);
-            BoxControls.Margin = new Thickness(20, 0, 20, (int)paddingMap + 35);
+           // double paddingMap = boxInfo.HeightRequest;
+          //  googleMap.Padding = new Thickness(0, 0, 0, (int)paddingMap);
+           // BoxControls.Margin = new Thickness(20, 0, 20, (int)paddingMap + 35);
         }
 
         /* Set padding map khi có thông tin xe ở footer - tracking */

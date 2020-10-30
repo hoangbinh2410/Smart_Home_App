@@ -228,7 +228,7 @@
             </pancake:PancakeView>
         </StackLayout>
         <!--  Thông tin xe  -->
-        <views:OnlineCarInfoView
+        <!--<views:OnlineCarInfoView
             x:Name="boxInfo"
             Grid.Row="1"
             Padding="0,10,0,0"
@@ -239,7 +239,7 @@
             HasShadow="False"
             HeightRequest="200"
             HorizontalOptions="FillAndExpand"
-            VerticalOptions="End" />
+            VerticalOptions="End" />-->
         <!--  Trạng thái xe  -->
         <Grid
             x:Name="boxStatusVehicle"
@@ -278,10 +278,7 @@
                         AutoFitMode="Height"
                         ItemSpacing="0"
                         ItemTapped="TapStatusVehicel"
-                        ItemsSource="{Binding ListVehilceStatus, Mode=OneWay}"
-                        SelectedItem="{Binding SelectedVehicleStatus}"
-                        SelectionBackgroundColor="{DynamicResource TextPlaceHolderColor}"
-                        TapCommand="{Binding SelectStatusVehicelCommand}">
+                        SelectionBackgroundColor="{DynamicResource TextPlaceHolderColor}">
                         <syncfusion:SfListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid ColumnSpacing="0" RowSpacing="0">

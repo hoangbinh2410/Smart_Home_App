@@ -192,6 +192,7 @@ namespace BA_MobileGPS.Core
 
             containerRegistry.RegisterForNavigation<ReLoginPage, ReLoginPageViewModel>();
             containerRegistry.RegisterForNavigation<RequestMoreTimePopup, RequestMoreTimePopupViewModel>();
+          
         }
     }
 }
