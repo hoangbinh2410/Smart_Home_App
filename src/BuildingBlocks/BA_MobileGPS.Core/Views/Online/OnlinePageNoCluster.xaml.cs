@@ -143,6 +143,14 @@ namespace BA_MobileGPS.Core.Views
 
                 UpdateVehicleByVehicleGroup(vehiclegroup);
             }
+            else if (parameters.ContainsKey(ParameterKey.OnlineClosePopupDetail) && parameters.GetValue<bool>(ParameterKey.OnlineClosePopupDetail) is bool isClosed)
+            {
+                if (isClosed)
+                {
+                    HideBoxInfoCarActive(mCarActive);                   
+                }
+
+            }
         }
 
         private void Destroy()
@@ -797,10 +805,10 @@ namespace BA_MobileGPS.Core.Views
         {
             try
             {
-                var popupPage = new OnlineCarInfoView();
-                popupPage.BindingContext = BindingContext;
                 if (PopupNavigation.Instance.PopupStack.Count == 0)
                 {
+                    var popupPage = new OnlineCarInfoView();
+                    popupPage.BindingContext = BindingContext;
                     PopupNavigation.Instance.PushAsync(popupPage);
                     SetPaddingWithFooter(130);
                 }
@@ -847,8 +855,8 @@ namespace BA_MobileGPS.Core.Views
                     Action<double> callback = input => boxStatusVehicle.TranslationX = input;
                     boxStatusVehicle.Animate("animboxStatusVehicle", callback, 0, pageWidth, 16, 300, Easing.CubicInOut);
                     infoStatusIsShown = false;
-                    UpdateBackgroundPinLable(mCarActive, true);
-                    ShowBoxInfo();
+                    //UpdateBackgroundPinLable(mCarActive, true);
+                    //ShowBoxInfo();
                 }
             }
             catch (Exception ex)
