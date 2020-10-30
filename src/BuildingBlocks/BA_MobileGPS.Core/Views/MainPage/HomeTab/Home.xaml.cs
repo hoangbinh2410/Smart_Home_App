@@ -20,7 +20,7 @@ namespace BA_MobileGPS.Core.Views
         {
             if (_loadedPage) return;
 
-            Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
+            Device.StartTimer(TimeSpan.FromMilliseconds(100), () =>
             {
                 SetContent();
                 return false;
@@ -36,7 +36,6 @@ namespace BA_MobileGPS.Core.Views
         {
             if (!_stopTimer)
             {
-                ViewModelLocator.SetAutowireViewModel(this, true);
                 Content = new HomeView();
 
                 _loadedPage = true;

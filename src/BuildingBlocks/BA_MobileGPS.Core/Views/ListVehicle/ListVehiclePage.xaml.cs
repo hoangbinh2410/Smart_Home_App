@@ -36,7 +36,6 @@ namespace BA_MobileGPS.Core.Views
         {
             if (!_stopTimer)
             {
-                ViewModelLocator.SetAutowireViewModel(this, true);
                 var view = new ListVehicleView();
                 Content = view;
 

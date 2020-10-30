@@ -3,8 +3,20 @@
     x:Class="BA_MobileGPS.Core.Views.ListVehiclePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     x:Name="this"
     prism:ViewModelLocator.AutowireViewModel="True"
     BackgroundColor="{DynamicResource WhiteColor}"
-    NavigationPage.BackButtonTitle="" />
+    NavigationPage.BackButtonTitle="">
+    <busyindicator:SfBusyIndicator
+        Title="Loading..."
+        AnimationType="Cupertino"
+        HorizontalOptions="Center"
+        TextColor="Black"
+        TextSize="12"
+        VerticalOptions="Center"
+        ViewBoxHeight="50"
+        ViewBoxWidth="50"
+        Duration="3" />
+</ContentPage>
