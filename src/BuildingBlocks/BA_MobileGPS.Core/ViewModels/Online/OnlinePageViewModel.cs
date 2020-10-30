@@ -263,7 +263,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
 
             var lstv = list.Where(x => x.IsEnable == true).ToList();
-            if(lstv!=null && lstv.Count <= 2)
+            if (lstv != null && lstv.Count <= 2)
             {
                 MenuItems = new ObservableCollection<MenuItem>();
             }
@@ -271,15 +271,15 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
             }
-            
+
         }
 
 
         private void CloseCarInfoView()
         {
-            SafeExecute(() =>
+            SafeExecute(async () =>
             {
-                EventAggregator.GetEvent<BackButtonEvent>().Publish(true);
+                await NavigationService.GoBackAsync();
             });
         }
         private void PushDirectvehicleOnline()

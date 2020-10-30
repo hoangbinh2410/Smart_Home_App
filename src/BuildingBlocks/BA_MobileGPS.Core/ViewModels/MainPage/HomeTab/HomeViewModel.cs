@@ -195,24 +195,24 @@ namespace BA_MobileGPS.Core.ViewModels
             switch (temp.MenuKey)
             {
                 case "ListVehiclePage":
-                    await NavigationService.SelectTabAsync(TabbedPageChildrenEnum.ListVehicleTab.ToString());
+                    await NavigationService.SelectTabAsync("ListVehiclePage");
                     break;
 
                 case "OnlinePage":
                     //cấu hình cty này dùng Cluster thì mới mở forms Cluster
                     if (MobileUserSettingHelper.EnableShowCluster)
                     {
-                        await NavigationService.SelectTabAsync(TabbedPageChildrenEnum.OnlineTab.ToString());
+                        await NavigationService.SelectTabAsync("OnlinePage");
                     }
                     else
                     {
-                        await NavigationService.SelectTabAsync(TabbedPageChildrenEnum.OnlineTabNoCluster.ToString());
+                        await NavigationService.SelectTabAsync("OnlinePageNoCluster");
                     }
 
                     break;
 
                 case "RoutePage":
-                    await NavigationService.SelectTabAsync(TabbedPageChildrenEnum.RouteTab.ToString());
+                    await NavigationService.SelectTabAsync("RoutePage");
                     break;
 
                 case "MessagesOnlinePage":

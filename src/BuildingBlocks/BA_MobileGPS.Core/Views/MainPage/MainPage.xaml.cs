@@ -1,15 +1,9 @@
-﻿using BA_MobileGPS.Core.Events;
-using BA_MobileGPS.Core.Models;
-using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
-using Prism;
 using Prism.Common;
-using Prism.Events;
-using Prism.Ioc;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
 using System.Timers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -22,16 +16,14 @@ namespace BA_MobileGPS.Core.Views
 {
     public partial class MainPage : TabbedPage
     {
-        private readonly IEventAggregator eventAggregator;
-
         public MainPage()
         {
-            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             InitializeComponent();
             if (Device.RuntimePlatform == Device.Android)
             {
                 On<Xamarin.Forms.PlatformConfiguration.Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
                 On<Xamarin.Forms.PlatformConfiguration.Android>().SetIsSwipePagingEnabled(false);
+                On<Xamarin.Forms.PlatformConfiguration.Android>().SetIsSmoothScrollEnabled(false);
             }
 
             var home = new Home()
@@ -122,22 +114,13 @@ namespace BA_MobileGPS.Core.Views
         }
 
         private bool bExit = false;
-        private bool isHideTabOnline = false;
 
         protected override bool OnBackButtonPressed()
         {
-            if (isHideTabOnline)
+            if (!bExit)
             {
-                this.eventAggregator.GetEvent<BackButtonEvent>().Publish(true);
-                return true;
-            }
-            else
-            {
-                if (!bExit)
-                {
-                    ShowAlertWhen2Back();
-                    return bExit;
-                }
+                ShowAlertWhen2Back();
+                return bExit;
             }
             StaticSettings.ClearStaticSettings();
             return false;
@@ -168,7 +151,6 @@ namespace BA_MobileGPS.Core.Views
             bExit = !bExit;
             PostDelayed(new Timer(), () =>
             {
-                isHideTabOnline = false;
                 bExit = false;
             }, 2000);
         }
