@@ -55,6 +55,6 @@
         public const string CurrentRemainTime = "CurrentRemainTime";
         public const string Logout = "Logout";
         public const string VehicleStatusSelected = "VehicleStatusSelected";
-        
+        public const string OnlineClosePopupDetail = "OnlineClosePopupDetail";
     }
 }

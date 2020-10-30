@@ -1,9 +1,7 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
-using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
@@ -13,7 +11,7 @@ using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
-
+using Prism.Navigation.TabbedPages;
 using Syncfusion.Data.Extensions;
 
 using System;
@@ -73,6 +71,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #region Lifecycle
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -555,19 +554,36 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public void GoRoutePage(VehicleOnlineViewModel selected)
         {
-            SafeExecute(() =>
+            SafeExecute(async () =>
             {
                 var param = _mapper.MapProperties<VehicleOnline>(selected);
-                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, param));
+                var parameters = new NavigationParameters
+                {
+                    { ParameterKey.VehicleOnline, param }
+                };
+
+                await NavigationService.SelectTabAsync("RoutePage", parameters);
             });
         }
 
         public void GoOnlinePage(VehicleOnlineViewModel selected)
         {
-            SafeExecute(() =>
+            SafeExecute(async () =>
             {
-                var param = _mapper.MapProperties<VehicleOnline>(selected);
-                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.OnlinePage, param));
+                var param = _mapper.MapProperties<Vehicle>(selected);
+                var parameters = new NavigationParameters
+                {
+                    { ParameterKey.Vehicle, param }
+                };
+                if (MobileUserSettingHelper.EnableShowCluster)
+                {
+                    await NavigationService.SelectTabAsync("OnlinePage", parameters);
+                }
+                else
+                {
+                    await NavigationService.SelectTabAsync("OnlinePageNoCluster", parameters);
+                }
+                
             });
         }
 

@@ -9,6 +9,7 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
+using Prism.Navigation.TabbedPages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -263,7 +264,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
 
             var lstv = list.Where(x => x.IsEnable == true).ToList();
-            if(lstv!=null && lstv.Count <= 2)
+            if (lstv != null && lstv.Count <= 2)
             {
                 MenuItems = new ObservableCollection<MenuItem>();
             }
@@ -271,15 +272,18 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
             }
-            
+
         }
 
 
         private void CloseCarInfoView()
         {
-            SafeExecute(() =>
+            SafeExecute(async () =>
             {
-                EventAggregator.GetEvent<BackButtonEvent>().Publish(true);
+                var param = new NavigationParameters();
+                param.Add(ParameterKey.OnlineClosePopupDetail, true);
+                
+                await NavigationService.GoBackAsync(param);
             });
         }
         private void PushDirectvehicleOnline()
@@ -502,15 +506,22 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void PushtoRouterPage()
         {
-            SafeExecute(() =>
+            SafeExecute(async () =>
             {
                 if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
                 {
-                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, carActive));
+                    await NavigationService.GoBackAsync();
+
+                    var parameters = new NavigationParameters
+                {
+                    { ParameterKey.VehicleOnline, carActive }
+                };
+
+                    await NavigationService.SelectTabAsync("RoutePage", parameters);
                 }
                 else
                 {
-                    PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Common_Message_NotPermission, MobileResource.Common_Button_Close);
+                    await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Common_Message_NotPermission, MobileResource.Common_Button_Close);
                 }
             });
         }

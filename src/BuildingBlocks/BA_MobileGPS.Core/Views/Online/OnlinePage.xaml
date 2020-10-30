@@ -12,7 +12,6 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     xmlns:viewcore="clr-namespace:BA_MobileGPS.Core.Views.PartialView"
-    xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <pancake:DropShadow
@@ -227,24 +226,8 @@
                     WidthRequest="20" />
             </pancake:PancakeView>
         </StackLayout>
-        <!--  Thông tin xe  -->
-        <views:OnlineCarInfoView
-            x:Name="boxInfo"
-            Grid.Row="1"
-            Padding="0,10,0,0"
-            AbsoluteLayout.LayoutBounds="0,1,1,350"
-            AbsoluteLayout.LayoutFlags="YProportional, WidthProportional"
-            BackgroundColor="{DynamicResource WhiteColor}"
-            CornerRadius="20,20,0,0"
-            HasShadow="False"
-            HeightRequest="200"
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="End" />
         <!--  Trạng thái xe  -->
-        <Grid
-            x:Name="boxStatusVehicle"
-            Grid.Row="1"
-            AbsoluteLayout.LayoutFlags="PositionProportional, HeightProportional">
+        <Grid x:Name="boxStatusVehicle" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*" />
                 <ColumnDefinition Width="0.5*" />
@@ -278,10 +261,7 @@
                         AutoFitMode="Height"
                         ItemSpacing="0"
                         ItemTapped="TapStatusVehicel"
-                        ItemsSource="{Binding ListVehilceStatus, Mode=OneWay}"
-                        SelectedItem="{Binding SelectedVehicleStatus}"
-                        SelectionBackgroundColor="{DynamicResource TextPlaceHolderColor}"
-                        TapCommand="{Binding SelectStatusVehicelCommand}">
+                        SelectionBackgroundColor="{DynamicResource TextPlaceHolderColor}">
                         <syncfusion:SfListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid ColumnSpacing="0" RowSpacing="0">

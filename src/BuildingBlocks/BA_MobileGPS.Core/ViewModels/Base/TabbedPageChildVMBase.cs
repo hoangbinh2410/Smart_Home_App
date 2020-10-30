@@ -1,18 +1,32 @@
-﻿using Prism.Events;
+﻿using Prism;
+using Prism.Events;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BA_MobileGPS.Core.ViewModels.Base
 {
-    public class TabbedPageChildVMBase : ViewModelBase
+    public class TabbedPageChildVMBase : ViewModelBase, IActiveAware
     {
+        public event EventHandler IsActiveChanged;
+
         public TabbedPageChildVMBase(INavigationService navigationService) : base(navigationService)
         {
             EventAggregator.GetEvent<DestroyEvent>().Subscribe(RaiseDestroyEvent);
+            IsActiveChanged -= OnIsActiveChanged;
+            IsActiveChanged += OnIsActiveChanged;
         }
+
+        ~TabbedPageChildVMBase()
+        {
+            IsActiveChanged -= OnIsActiveChanged;
+        }
+
+        public virtual void OnIsActiveChanged(object sender, EventArgs e)
+        {
+        }
+
         private bool _isActive;
+
         public bool IsActive
         {
             get { return _isActive; }
@@ -25,34 +39,27 @@ namespace BA_MobileGPS.Core.ViewModels.Base
             this.OnDestroy();
         }
 
-
         public new virtual void OnDestroy()
         {
-
+            IsActiveChanged -= OnIsActiveChanged;
         }
 
-
-        protected virtual void RaiseIsActiveChanged()
+        private void RaiseIsActiveChanged()
         {
-
+            IsActiveChanged?.Invoke(this, EventArgs.Empty);
         }
-
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
-            IsActive = false;
-           
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            IsActive = true;
             base.OnNavigatedTo(parameters);
         }
     }
 
     public class DestroyEvent : PubSubEvent
     {
-
     }
 }

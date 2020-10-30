@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseActivity.cs" />
+    <Compile Include="CustomRender\ExtendedTabbedPageRenderer.cs" />
     <Compile Include="CustomRender\IconViewRenderer.cs" />
     <Compile Include="CustomRender\NullableDatePickerRenderer.cs" />
     <Compile Include="DependencyServices\AndroidDownloader.cs" />
@@ -3171,6 +3172,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_trackingcar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\dimens.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

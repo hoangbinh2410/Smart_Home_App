@@ -6,4 +6,6 @@
     xmlns:prism="http://prismlibrary.com"
     x:Name="root"
     prism:ViewModelLocator.AutowireViewModel="True"
-    NavigationPage.HasNavigationBar="False" />
+    NavigationPage.HasNavigationBar="False"
+    SelectedTabColor="Blue"
+    UnselectedTabColor="Gray" />
