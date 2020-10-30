@@ -158,6 +158,14 @@ namespace BA_MobileGPS.Core.Views
 
                 UpdateVehicleByVehicleGroup(vehiclegroup);
             }
+            else if (parameters.ContainsKey(ParameterKey.OnlineClosePopupDetail) && parameters.GetValue<bool>(ParameterKey.OnlineClosePopupDetail) is bool isClosed)
+            {
+                if (isClosed)
+                {
+                    HideBoxInfoCarActive(mCarActive);
+                }
+
+            }
         }
 
         public void OnNavigatingTo(INavigationParameters parameters)
@@ -842,13 +850,15 @@ namespace BA_MobileGPS.Core.Views
                 mCarActive = new VehicleOnline();
                 if (PopupNavigation.Instance.PopupStack.Count > 0)
                 {
+                    var b = PopupNavigation.Instance.PopupStack.FirstOrDefault();
+                    b.BindingContext = null;
                     await PopupNavigation.Instance.PopAllAsync();
                 }
                 SetNoPaddingWithFooter();
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError("HideBoxStatus", ex);
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -858,17 +868,18 @@ namespace BA_MobileGPS.Core.Views
         private void ShowBoxInfo()
         {
             try
-            {
-                var popupPage = new OnlineCarInfoView();
-                popupPage.BindingContext = BindingContext;
-                PopupNavigation.Instance.PushAsync(popupPage).ContinueWith((a) =>
+            {             
+                if (PopupNavigation.Instance.PopupStack.Count == 0)
                 {
-                    SetPaddingWithFooter(350);
-                });
+                    var popupPage = new OnlineCarInfoView();
+                    popupPage.BindingContext = BindingContext;
+                    PopupNavigation.Instance.PushAsync(popupPage);
+                    SetPaddingWithFooter(130);
+                }
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError("ShowBoxInfo", ex);
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -878,7 +889,7 @@ namespace BA_MobileGPS.Core.Views
         {
             double paddingMap = height;
             googleMap.Padding = new Thickness(0, 0, 0, (int)paddingMap);
-            BoxControls.Margin = new Thickness(20, 0, 20, (int)paddingMap + 35);
+            BoxControls.Margin = new Thickness(20, 0, 20, (int)paddingMap + 30);
         }
 
         /* Set padding map khi có thông tin xe ở footer - tracking */
@@ -893,6 +904,7 @@ namespace BA_MobileGPS.Core.Views
         {
             if (!infoStatusIsShown)
             {
+                HideBoxInfoCarActive(mCarActive);
                 Action<double> callback = input => boxStatusVehicle.TranslationX = input;
                 boxStatusVehicle.Animate("animboxStatusVehicle", callback, pageWidth, 0, 16, 300, Easing.CubicInOut);
                 infoStatusIsShown = true;

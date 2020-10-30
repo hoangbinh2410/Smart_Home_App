@@ -279,7 +279,10 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.GoBackAsync();
+                var param = new NavigationParameters();
+                param.Add(ParameterKey.OnlineClosePopupDetail, true);
+                
+                await NavigationService.GoBackAsync(param);
             });
         }
         private void PushDirectvehicleOnline()
