@@ -20,10 +20,25 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
         {
             
         }
-        public override void ViewWillAppear(bool animated)
+
+        public override void ViewWillLayoutSubviews()
         {
-            base.ViewWillAppear(animated);
-            
+            base.ViewWillLayoutSubviews();
+
+            foreach (var item in TabBar.Items)
+            {
+                var a = item.Image;
+            }
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            base.ViewDidLayoutSubviews();
+
+            if (Element is TabbedPage)
+                if (TabBar?.Items != null)
+                    foreach (var item in TabBar.Items)
+                        item.ImageInsets = new UIEdgeInsets(16, 16, 16, 16);
         }
 
 
