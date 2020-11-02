@@ -3,10 +3,12 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using Prism;
-using Prism.Ioc;
 using Prism.Common;
+using Prism.Ioc;
 using Prism.Navigation;
 using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -14,11 +16,10 @@ using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using TabbedPage = Xamarin.Forms.TabbedPage;
-using System.Diagnostics;
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class MainPage : TabbedPage
+    public partial class MainPage : TabbedPageEx
     {
         public MainPage()
         {
@@ -47,12 +48,10 @@ namespace BA_MobileGPS.Core.Views
                     listVehicleTab.Title = MobileResource.Menu_TabItem_Vehicle;
                     Children.Add(listVehicleTab);
                 }
-
             }
 
             if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
             {
-                var a = new Stopwatch();
                 ContentPage online;
                 //cấu hình cty này dùng Cluster thì mới mở forms Cluster
                 if (MobileUserSettingHelper.EnableShowCluster)
@@ -69,7 +68,6 @@ namespace BA_MobileGPS.Core.Views
                     online.Title = MobileResource.Menu_TabItem_Monitoring;
                     Children.Add(online);
                 }
-
             }
 
             if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
@@ -82,7 +80,6 @@ namespace BA_MobileGPS.Core.Views
                     routeTab.Title = App.AppType == AppType.VMS ? MobileResource.Menu_TabItem_Voyage : MobileResource.Menu_TabItem_Route;
                     Children.Add(routeTab);
                 }
-              
             }
 
             var accountTab = new Account()
@@ -95,7 +92,6 @@ namespace BA_MobileGPS.Core.Views
 
         protected override void OnCurrentPageChanged()
         {
-
             base.OnCurrentPageChanged();
             var context = ((MainPageViewModel)BindingContext);
             var parameters = new NavigationParameters();
@@ -108,8 +104,6 @@ namespace BA_MobileGPS.Core.Views
 
             PageUtilities.OnNavigatedTo(newPage, parameters);
             context.currentChildPage = newPage;
-
-
         }
 
         protected override void OnAppearing()
@@ -120,6 +114,19 @@ namespace BA_MobileGPS.Core.Views
                 var safe = On<iOS>().SafeAreaInsets();
                 Padding = new Thickness(0, 0, 0, safe.Bottom);
             }
+            Task.Run(async() =>
+            {
+               await Task.Delay(8000);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    IsHidden = true;
+                });
+               await Task.Delay(8000);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    IsHidden = false;
+                });
+            });
         }
 
         public virtual bool CheckPermision(int PermissionKey)
