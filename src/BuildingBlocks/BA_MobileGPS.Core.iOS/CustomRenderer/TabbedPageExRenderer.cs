@@ -48,9 +48,14 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
 
             if (Element == null)
                 return;
+            if (!Element.Bounds.IsEmpty)
+            {
+                View.Frame = new System.Drawing.RectangleF((float)Element.X, (float)Element.Y, (float)Element.Width, (float)Element.Height);
+            }
 
             var frame = View.Frame;
-            PageController.ContainerArea = new Rectangle(0, 0, frame.Width, frame.Height);
+            var tabBarFrame = TabBar.Frame;
+            PageController.ContainerArea = new Rectangle(0, 0, frame.Width, frame.Height - tabBarFrame.Height);
         }
         private void Tabbed_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
