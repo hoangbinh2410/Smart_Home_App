@@ -178,6 +178,11 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<Account, AccountViewModel>("Account");
 
 
+            containerRegistry.Register<ContentPage, ListVehiclePage>("ListVehiclePage");
+            containerRegistry.Register<ContentPage, OnlinePage>("OnlinePage");
+            containerRegistry.Register<ContentPage, OnlinePageNoCluster>("OnlinePageNoCluster");
+            containerRegistry.Register<ContentPage, RoutePage>("RoutePage");
+
             containerRegistry.Register<ResourceDictionary, Dark>(Theme.Dark.ToString());
             containerRegistry.Register<ResourceDictionary, Light>(Theme.Light.ToString());
             containerRegistry.Register<ResourceDictionary, Custom>(Theme.Custom.ToString());
