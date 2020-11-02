@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BA_MobileGPS.Core.Controls;
 using BA_MobileGPS.Core.iOS.CustomRenderer;
+using CoreGraphics;
 using Foundation;
 using UIKit;
 using Xamarin.Forms;
@@ -14,21 +15,43 @@ using Xamarin.Forms.Platform.iOS;
 [assembly: ExportRenderer(typeof(TabbedPageEx), typeof(TabbedPageExRenderer))]
 namespace BA_MobileGPS.Core.iOS.CustomRenderer
 {
-    
+
     public class TabbedPageExRenderer : TabbedRenderer
     {
         private bool disposed;
-        private const int TabBarHeight = 49;
+        private nfloat centerX;
+        private nfloat centerY;
+        IPageController PageController => Element as IPageController;
+
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
             base.OnElementChanged(e);
 
+            if (e.NewElement as TabbedPageEx != null)
+            {
+                var tabbedPage = e.NewElement as TabbedPageEx;
+                if (tabbedPage != null)
+                {
+                    centerX = TabBar.Center.X;
+                    centerY = TabBar.Center.Y;
+                }
+            }
             if (e.OldElement == null)
             {
                 this.Tabbed.PropertyChanged += Tabbed_PropertyChanged;
             }
         }
 
+        public override void ViewDidLayoutSubviews()
+        {
+            base.ViewDidLayoutSubviews();
+
+            if (Element == null)
+                return;
+
+            var frame = View.Frame;
+            PageController.ContainerArea = new Rectangle(0, 0, frame.Width, frame.Height);
+        }
         private void Tabbed_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == TabbedPageEx.IsHiddenProperty.PropertyName)
@@ -43,67 +66,61 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
             this.disposed = true;
         }
 
-        private async void OnTabBarHidden(bool isHidden)
+        private void OnTabBarHidden(bool isHidden)
         {
             if (this.disposed || this.Element == null || this.TabBar == null)
             {
                 return;
             }
 
-            await this.SetTabBarVisibility(isHidden);
-        }
-
-        private async Task SetTabBarVisibility(bool hide)
-        {
-            this.TabBar.Opaque = false;
-            if (hide)
+            if (isHidden)
             {
-                this.TabBar.Alpha = 0;
+                SlideUp();
             }
-
-            this.UpdateFrame(hide);
-
-            // Show / Hide TabBar
-            this.TabBar.Hidden = hide;
-            this.RestoreFonts();
-
-            // Animate appearing 
-            if (!hide)
+            else
             {
-                await UIView.AnimateAsync(0.2f, () => this.TabBar.Alpha = 1);
-            }
-            this.TabBar.Opaque = true;
-
-            this.ResizeViewControllers();
-            this.RestoreFonts();
-        }
-
-        private void UpdateFrame(bool isHidden)
-        {
-            var tabFrame = this.TabBar.Frame;
-            tabFrame.Height = isHidden ? 0 : TabBarHeight;
-            this.TabBar.Frame = tabFrame;
-        }
-
-        private void RestoreFonts()
-        {
-            // Workaround to restore custom fonts:
-
-            foreach (var item in this.TabBar.Items)
-            {
-                var text = item.Title;
-                item.Title = "";
-                item.Title = text;
+                SlideDown();
             }
         }
 
-        private void ResizeViewControllers()
+        public void SlideUp()
         {
-            foreach (var child in this.ChildViewControllers)
+            if (TabBar.Hidden)
+                return;
+
+            var animationOptions = UIViewAnimationOptions.BeginFromCurrentState |
+                                   UIViewAnimationOptions.CurveEaseInOut;
+
+            Action noOpOnCompletion = () => { };
+
+            Action slideUpAction = () =>
             {
-                child.View.SetNeedsLayout();
-                child.View.SetNeedsDisplay();
-            }
+                TabBar.LayoutIfNeeded();
+                TabBar.Center = new CGPoint(centerX, centerY);
+                TabBar.LayoutIfNeeded();
+            };
+
+            UIView.Animate(0.5, 0.0, animationOptions, slideUpAction, noOpOnCompletion);
+        }
+
+        public void SlideDown()
+        {
+            if (TabBar.Hidden)
+                return;
+
+            var animationOptions = UIViewAnimationOptions.BeginFromCurrentState |
+                                   UIViewAnimationOptions.CurveEaseInOut;
+
+            Action noOpOnCompletion = () => { };
+
+            Action slideDownAction = () =>
+            {
+                var newFrame = TabBar.Frame;
+                newFrame.Offset(0, TabBar.Frame.Size.Height);
+                TabBar.Frame = newFrame;
+            };
+
+            UIView.Animate(0.5, 0.0, animationOptions, slideDownAction, noOpOnCompletion);
         }
     }
 }
