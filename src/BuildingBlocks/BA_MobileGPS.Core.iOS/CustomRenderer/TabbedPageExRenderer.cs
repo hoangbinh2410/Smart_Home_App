@@ -22,6 +22,18 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
         private nfloat centerX;
         private nfloat centerY;
         IPageController PageController => Element as IPageController;
+        public bool IsTabBarVisible
+        {
+            get
+            {
+                return !TabBar.Hidden;
+            }
+
+            set
+            {
+                TabBar.Hidden = !value;
+            }
+        }
 
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
@@ -48,14 +60,18 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
 
             if (Element == null)
                 return;
-            if (!Element.Bounds.IsEmpty)
-            {
-                View.Frame = new System.Drawing.RectangleF((float)Element.X, (float)Element.Y, (float)Element.Width, (float)Element.Height);
-            }
-
             var frame = View.Frame;
-            var tabBarFrame = TabBar.Frame;
-            PageController.ContainerArea = new Rectangle(0, 0, frame.Width, frame.Height - tabBarFrame.Height);
+            if (IsTabBarVisible)
+            {
+                var tabBarFrame = TabBar.Frame;
+                PageController.ContainerArea =
+                    new Rectangle(0, 0, frame.Width, frame.Height - tabBarFrame.Height);
+            }
+            else
+            {
+                PageController.ContainerArea =
+                    new Rectangle(0, 0, frame.Width, frame.Height);
+            }
         }
         private void Tabbed_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
