@@ -54,25 +54,6 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
             }
         }
 
-        public override void ViewDidLayoutSubviews()
-        {
-            base.ViewDidLayoutSubviews();
-
-            if (Element == null)
-                return;
-            var frame = View.Frame;
-            if (IsTabBarVisible)
-            {
-                var tabBarFrame = TabBar.Frame;
-                PageController.ContainerArea =
-                    new Rectangle(0, 0, frame.Width, frame.Height - tabBarFrame.Height);
-            }
-            else
-            {
-                PageController.ContainerArea =
-                    new Rectangle(0, 0, frame.Width, frame.Height);
-            }
-        }
         private void Tabbed_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == TabbedPageEx.IsHiddenProperty.PropertyName)
@@ -108,7 +89,10 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
         {
             if (TabBar.Hidden)
                 return;
-
+            var frame = View.Frame;
+            var tabBarFrame = TabBar.Frame;
+            PageController.ContainerArea =
+                new Rectangle(0, 0, frame.Width, frame.Height - tabBarFrame.Height);
             var animationOptions = UIViewAnimationOptions.BeginFromCurrentState |
                                    UIViewAnimationOptions.CurveEaseInOut;
 
@@ -128,7 +112,9 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
         {
             if (TabBar.Hidden)
                 return;
-
+            var frame = View.Frame;
+            PageController.ContainerArea =
+                   new Rectangle(0, 0, frame.Width, frame.Height);
             var animationOptions = UIViewAnimationOptions.BeginFromCurrentState |
                                    UIViewAnimationOptions.CurveEaseInOut;
 

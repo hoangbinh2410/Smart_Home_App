@@ -30,7 +30,10 @@ namespace BA_MobileGPS.Core.Views
                 On<Xamarin.Forms.PlatformConfiguration.Android>().SetIsSwipePagingEnabled(false);
                 On<Xamarin.Forms.PlatformConfiguration.Android>().SetIsSmoothScrollEnabled(false);
             }
-
+            else
+            {
+                On<iOS>().SetUseSafeArea(true);
+            }
             var home = new Home()
             {
                 IconImageSource = "ic_home.png",
@@ -109,11 +112,11 @@ namespace BA_MobileGPS.Core.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (Device.RuntimePlatform == Device.iOS)
-            {
-                var safe = On<iOS>().SafeAreaInsets();
-                Padding = new Thickness(0, 0, 0, safe.Bottom);
-            }
+            //if (Device.RuntimePlatform == Device.iOS)
+            //{
+            //    var safe = On<iOS>().SafeAreaInsets();
+            //    Padding = new Thickness(0, 0, 0, safe.Bottom);
+            //}
             Task.Run(async() =>
             {
                await Task.Delay(8000);
