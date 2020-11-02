@@ -9,22 +9,22 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using CoreGraphics;
+using System.Threading.Tasks;
 
 [assembly: ExportRenderer(typeof(TabbedPage), typeof(ExtendedTabbedPageRenderer))]
 namespace BA_MobileGPS.Core.iOS.CustomRenderer
 {
     public class ExtendedTabbedPageRenderer : TabbedRenderer
     {
+        public ExtendedTabbedPageRenderer()
+        {
+            
+        }
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-
-            foreach (var item in TabBar.Items)
-            {
-                item.Image = ScalingImageToSize(item.Image, new CGSize(25, 25)); // set the size here as you want 
-            }
+            
         }
-
 
 
         public UIImage ScalingImageToSize(UIImage sourceImage, CGSize newSize)

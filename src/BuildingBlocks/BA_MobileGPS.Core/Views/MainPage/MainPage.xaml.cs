@@ -2,6 +2,8 @@
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
+using Prism;
+using Prism.Ioc;
 using Prism.Common;
 using Prism.Navigation;
 using System;
@@ -12,6 +14,7 @@ using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using TabbedPage = Xamarin.Forms.TabbedPage;
+using System.Diagnostics;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -46,25 +49,24 @@ namespace BA_MobileGPS.Core.Views
 
             if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
             {
-                var online = new ContentPage();
+                var a = new Stopwatch();
+                ContentPage online;
                 //cấu hình cty này dùng Cluster thì mới mở forms Cluster
                 if (MobileUserSettingHelper.EnableShowCluster)
                 {
-                    online = new OnlinePage()
-                    {
-                        IconImageSource = "ic_mornitoring.png",
-                        Title = MobileResource.Menu_TabItem_Monitoring
-                    };
+                    online = PrismApplicationBase.Current.Container.Resolve<ContentPage>("OnlinePage"); //Online
                 }
                 else
                 {
-                    online = new OnlinePageNoCluster()
-                    {
-                        IconImageSource = "ic_mornitoring.png",
-                        Title = MobileResource.Menu_TabItem_Monitoring
-                    };
+                    online = PrismApplicationBase.Current.Container.Resolve<ContentPage>("OnlinePageNoCluster"); //Online
                 }
-                Children.Add(online);
+                if (online != null)
+                {
+                    online.IconImageSource = "ic_mornitoring.png";
+                    online.Title = MobileResource.Menu_TabItem_Monitoring;
+                    Children.Add(online);
+                }
+                
             }
 
             if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
@@ -88,20 +90,20 @@ namespace BA_MobileGPS.Core.Views
         protected override void OnCurrentPageChanged()
         {
 
-                base.OnCurrentPageChanged();
-                var context = ((MainPageViewModel)BindingContext);
-                var parameters = new NavigationParameters();
-                var newPage = (ContentPage)CurrentPage;
-                var previousPage = context.currentChildPage;
-                if (previousPage != null)
-                {
-                    PageUtilities.OnNavigatedFrom(previousPage, parameters);
-                }
+            base.OnCurrentPageChanged();
+            var context = ((MainPageViewModel)BindingContext);
+            var parameters = new NavigationParameters();
+            var newPage = (ContentPage)CurrentPage;
+            var previousPage = context.currentChildPage;
+            if (previousPage != null)
+            {
+                PageUtilities.OnNavigatedFrom(previousPage, parameters);
+            }
 
-                PageUtilities.OnNavigatedTo(newPage, parameters);
-                context.currentChildPage = newPage;
+            PageUtilities.OnNavigatedTo(newPage, parameters);
+            context.currentChildPage = newPage;
 
-           
+
         }
 
         protected override void OnAppearing()
