@@ -21,7 +21,6 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
         private bool disposed;
         private nfloat centerX;
         private nfloat centerY;
-        IPageController PageController => Element as IPageController;
 
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
@@ -48,9 +47,6 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
 
             if (Element == null)
                 return;
-
-            var frame = View.Frame;
-            PageController.ContainerArea = new Rectangle(0, 0, frame.Width, frame.Height);
         }
         private void Tabbed_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
