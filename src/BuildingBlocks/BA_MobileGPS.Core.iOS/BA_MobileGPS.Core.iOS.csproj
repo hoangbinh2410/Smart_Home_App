@@ -42,7 +42,6 @@
     <Compile Include="CustomRenderer\CustomEditorRenderer.cs" />
     <Compile Include="CustomRenderer\CameraManagingPageRenderer.cs" />
     <Compile Include="CustomRenderer\EntryMinusRenderer.cs" />
-    <Compile Include="CustomRenderer\ExtendedTabbedPageRenderer.cs" />
     <Compile Include="CustomRenderer\FrameShadowRenderer.cs" />
     <Compile Include="CustomRenderer\IconViewRenderer.cs" />
     <Compile Include="CustomRenderer\NullableDatePickerRenderer.cs" />
