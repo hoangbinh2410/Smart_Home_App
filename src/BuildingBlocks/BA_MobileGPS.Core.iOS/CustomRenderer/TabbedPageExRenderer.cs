@@ -71,11 +71,11 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
 
             if (isHidden)
             {
-                SlideUp();
+                SlideDown();
             }
             else
             {
-                SlideDown();
+                SlideUp();
             }
         }
 
