@@ -39,12 +39,15 @@ namespace BA_MobileGPS.Core.Views
 
             if (CheckPermision((int)PermissionKeyNames.VehicleView))
             {
-                var listVehicleTab = new ListVehiclePage()
+                var listVehicleTab = PrismApplicationBase.Current.Container.Resolve<ContentPage>("ListVehiclePage"); //Online
+
+                if (listVehicleTab != null)
                 {
-                    IconImageSource = "ic_vehicle.png",
-                    Title = MobileResource.Menu_TabItem_Vehicle
-                };
-                Children.Add(listVehicleTab);
+                    listVehicleTab.IconImageSource = "ic_vehicle.png";
+                    listVehicleTab.Title = MobileResource.Menu_TabItem_Vehicle;
+                    Children.Add(listVehicleTab);
+                }
+
             }
 
             if (CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
@@ -66,17 +69,20 @@ namespace BA_MobileGPS.Core.Views
                     online.Title = MobileResource.Menu_TabItem_Monitoring;
                     Children.Add(online);
                 }
-                
+
             }
 
             if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
             {
-                var routeTab = new RoutePage()
+                var routeTab = PrismApplicationBase.Current.Container.Resolve<ContentPage>("RoutePage"); //Online
+
+                if (routeTab != null)
                 {
-                    IconImageSource = "ic_route.png",
-                    Title = App.AppType == AppType.VMS ? MobileResource.Menu_TabItem_Voyage : MobileResource.Menu_TabItem_Route
-                };
-                Children.Add(routeTab);
+                    routeTab.IconImageSource = "ic_route.png";
+                    routeTab.Title = App.AppType == AppType.VMS ? MobileResource.Menu_TabItem_Voyage : MobileResource.Menu_TabItem_Route;
+                    Children.Add(routeTab);
+                }
+              
             }
 
             var accountTab = new Account()
