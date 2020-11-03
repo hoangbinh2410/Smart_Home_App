@@ -8,7 +8,6 @@ using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities;
 using Newtonsoft.Json;
 using Plugin.Toasts;
-using Prism.Common;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -75,7 +74,7 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Contructor
 
         #region Lifecycle
-     
+
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
@@ -99,8 +98,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             });
         }
-
-     
 
         public override void OnDestroy()
         {
@@ -518,7 +515,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         //Join vào nhóm signalR để nhận dữ liệu online
                         JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
                     });
-
                 }
                 else
                 {

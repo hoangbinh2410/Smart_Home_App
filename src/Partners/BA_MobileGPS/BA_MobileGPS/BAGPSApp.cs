@@ -46,11 +46,7 @@ namespace BA_MobileGPS
             }
             else
             {
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
                 _ = await NavigationService.NavigateAsync("LoginPage");
-                sw.Stop();
-                Debug.WriteLine(string.Format("NavigateLoginPage : {0}", sw.ElapsedMilliseconds));
             }
         }
 
@@ -58,9 +54,6 @@ namespace BA_MobileGPS
         {
             base.RegisterTypes(containerRegistry);
             AppType = BA_MobileGPS.Entities.AppType.BinhAnh;
-            //containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
-            //containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());
-            //containerRegistry.Register<ResourceDictionary, BA_MobileGPS.Styles.Custom>(Theme.Custom.ToString());
         }
     }
 }
