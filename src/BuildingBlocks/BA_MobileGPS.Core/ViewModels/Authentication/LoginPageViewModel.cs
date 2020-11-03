@@ -548,7 +548,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    await NavigationService.NavigateAsync("/MainPage?selectedTab=OnlinePageNoCluster");
+                    await NavigationService.NavigateAsync("/MainPage");
                 }
 
             }
