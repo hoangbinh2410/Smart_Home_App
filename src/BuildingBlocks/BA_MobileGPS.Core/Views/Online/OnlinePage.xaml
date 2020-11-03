@@ -47,20 +47,6 @@
                 <mapbindings:BindingVisibleRegionBehavior Value="{Binding VisibleRegion}" />
                 <mapbindings:CameraIdledToCommandBehavior Command="{Binding CameraIdledCommand}" />
             </cluster:Map.Behaviors>
-            <cluster:Map.Triggers>
-                <DataTrigger
-                    Binding="{Binding Source={x:Reference BoxControls}, Path=Margin}"
-                    TargetType="cluster:Map"
-                    Value="15,30,15,130">
-                    <Setter Property="Margin" Value="0,0,0,110" />
-                </DataTrigger>
-                <DataTrigger
-                    Binding="{Binding Source={x:Reference BoxControls}, Path=Margin}"
-                    TargetType="cluster:Map"
-                    Value="15,30">
-                    <Setter Property="Margin" Value="0" />
-                </DataTrigger>
-            </cluster:Map.Triggers>
         </cluster:Map>
         <!--  Khung search bar phía trên  -->
         <Grid

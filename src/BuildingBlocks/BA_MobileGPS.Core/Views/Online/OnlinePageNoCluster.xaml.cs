@@ -3,7 +3,6 @@ using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
-using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
 using BA_MobileGPS.Service;
@@ -13,7 +12,6 @@ using Prism.Events;
 using Prism.Ioc;
 using Prism.Navigation;
 using Prism.Services;
-using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,7 +83,6 @@ namespace BA_MobileGPS.Core.Views
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
-            HideBoxInfoCarActive(mCarActive);
         }
 
         public void OnNavigatedTo(INavigationParameters parameters)
@@ -152,7 +149,6 @@ namespace BA_MobileGPS.Core.Views
                 {
                     HideBoxInfoCarActive(mCarActive);
                 }
-
             }
         }
 

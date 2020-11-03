@@ -1,10 +1,7 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
-using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
-using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.Utilities;
@@ -86,7 +83,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             TryExecute(async () =>
             {
-                //await ConnectSignalROnline();
+                await ConnectSignalROnline();
                 InitVehilceOnline();
                 Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
                 {
@@ -94,9 +91,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         //await ConnectSignalR();
                         //GetCountVehicleDebtMoney();
-                        //InsertOrUpdateAppDevice();
-                       // GetNoticePopup();
-                        //PushPageFileBase();
+                        InsertOrUpdateAppDevice();
+                        // GetNoticePopup();
+                        PushPageFileBase();
                         // Lấy danh sách cảnh báo
                         //GetCountAlert();
                     });
@@ -121,7 +118,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
-            PageUtilities.OnNavigatedFrom(currentChildPage, parameters);
+            //PageUtilities.OnNavigatedFrom(currentChildPage, parameters);
         }
 
         public override void OnDestroy()

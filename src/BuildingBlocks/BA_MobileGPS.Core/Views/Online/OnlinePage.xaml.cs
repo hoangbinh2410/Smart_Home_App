@@ -3,7 +3,6 @@ using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
-using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
 using BA_MobileGPS.Service;
@@ -98,7 +97,6 @@ namespace BA_MobileGPS.Core.Views
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
-            HideBoxInfoCarActive(mCarActive);
         }
 
         public void OnNavigatedTo(INavigationParameters parameters)
