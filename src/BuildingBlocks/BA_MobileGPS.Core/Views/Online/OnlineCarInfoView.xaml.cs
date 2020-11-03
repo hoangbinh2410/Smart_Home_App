@@ -1,12 +1,11 @@
 ﻿using BA_MobileGPS.Core.Resources;
-using Rg.Plugins.Popup.Pages;
 using Xamarin.Forms.PancakeView;
 using Xamarin.Forms.Xaml;
 
 namespace BA_MobileGPS.Core.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class OnlineCarInfoView : PopupPage
+    public partial class OnlineCarInfoView : PancakeView
     {
         public OnlineCarInfoView()
         {
@@ -18,6 +17,5 @@ namespace BA_MobileGPS.Core.Views
             lblRoute.Text = MobileResource.Route_Label_Title.Trim().ToUpper();
             lblButtonDetail.Text = MobileResource.Online_Button_Detail.Trim().ToUpper();
         }
-        
     }
 }

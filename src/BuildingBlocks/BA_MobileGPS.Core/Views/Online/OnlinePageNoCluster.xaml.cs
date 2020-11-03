@@ -44,6 +44,7 @@ namespace BA_MobileGPS.Core.Views
             pageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
             pageWidth = (int)Application.Current.MainPage.Width;
             boxStatusVehicle.TranslationX = pageWidth;
+            boxInfo.TranslationY = 300;
             // Initialize the View Model Object
             vm = (OnlinePageViewModel)BindingContext;
 
@@ -62,6 +63,7 @@ namespace BA_MobileGPS.Core.Views
 
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
+            this.eventAggregator.GetEvent<BackButtonEvent>().Subscribe(AndroidBackButton);
             eventAggregator.GetEvent<DestroyEvent>().Subscribe(Destroy);
 
             IsInitMarker = false;
@@ -83,6 +85,7 @@ namespace BA_MobileGPS.Core.Views
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
+            HideBoxInfoCarActive(mCarActive);
         }
 
         public void OnNavigatedTo(INavigationParameters parameters)
@@ -147,7 +150,7 @@ namespace BA_MobileGPS.Core.Views
             {
                 if (isClosed)
                 {
-                    HideBoxInfoCarActive(mCarActive);                   
+                    HideBoxInfoCarActive(mCarActive);
                 }
 
             }
@@ -159,6 +162,7 @@ namespace BA_MobileGPS.Core.Views
             timer.Dispose();
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
+            this.eventAggregator.GetEvent<BackButtonEvent>().Unsubscribe(AndroidBackButton);
             eventAggregator.GetEvent<DestroyEvent>().Unsubscribe(Destroy);
         }
 
@@ -197,6 +201,7 @@ namespace BA_MobileGPS.Core.Views
         private List<VehicleOnline> mCurrentVehicleList;
 
         private bool infoStatusIsShown = false;
+        private bool boxInfoIsShown = false;
         private bool IsInitMarker = false;
 
         #endregion Property
@@ -263,6 +268,19 @@ namespace BA_MobileGPS.Core.Views
                         UpdateVehicle(carInfo, lstpin[0], lstpin[1]);
                     }
                 });
+            }
+        }
+
+        private void AndroidBackButton(bool obj)
+        {
+            vm.CarSearch = string.Empty;
+            if (mCarActive != null && mCarActive.VehicleId > 0)
+            {
+                HideBoxInfoCarActive(mCarActive);
+            }
+            else
+            {
+                HideBoxStatus();
             }
         }
 
@@ -778,19 +796,20 @@ namespace BA_MobileGPS.Core.Views
         /// <summary>
         /// ẩn box  thông tin  xe
         /// </summary>
-        public async void HideBoxInfo()
+        public void HideBoxInfo()
         {
             try
             {
                 vm.CarActive = new VehicleOnline();
                 mCarActive = new VehicleOnline();
-                if (PopupNavigation.Instance.PopupStack.Count > 0)
-                {
-                    var b = PopupNavigation.Instance.PopupStack.FirstOrDefault();
-                    b.BindingContext = null;
-                    await PopupNavigation.Instance.PopAllAsync();
-                }
                 SetNoPaddingWithFooter();
+                eventAggregator.GetEvent<ShowHideTabEvent>().Publish(true);
+                if (boxInfoIsShown)
+                {
+                    Action<double> callback = input => boxInfo.TranslationY = input;
+                    boxInfo.Animate("animBoxInfo", callback, 0, 300, 16, 300, Easing.CubicInOut);
+                    boxInfoIsShown = false;
+                }
             }
             catch (Exception ex)
             {
@@ -805,12 +824,13 @@ namespace BA_MobileGPS.Core.Views
         {
             try
             {
-                if (PopupNavigation.Instance.PopupStack.Count == 0)
+                SetPaddingWithFooter();
+                eventAggregator.GetEvent<ShowHideTabEvent>().Publish(false);
+                if (!boxInfoIsShown)
                 {
-                    var popupPage = new OnlineCarInfoView();
-                    popupPage.BindingContext = BindingContext;
-                    PopupNavigation.Instance.PushAsync(popupPage);
-                    SetPaddingWithFooter(130);
+                    Action<double> callback = input => boxInfo.TranslationY = input;
+                    boxInfo.Animate("animBoxInfo", callback, 300, 0, 16, 300, Easing.CubicInOut);
+                    boxInfoIsShown = true;
                 }
             }
             catch (Exception ex)
@@ -821,10 +841,11 @@ namespace BA_MobileGPS.Core.Views
 
         /* Set padding map khi có thông tin xe ở footer - tracking */
 
-        public void SetPaddingWithFooter(double height)
+        public void SetPaddingWithFooter()
         {
-            googleMap.Padding = new Thickness(0, 0, 0, height);
-            BoxControls.Margin = new Thickness(20, 0, 20, height + 30);
+            double paddingMap = boxInfo.HeightRequest;
+            googleMap.Padding = new Thickness(0, 0, 0, (int)paddingMap);
+            BoxControls.Margin = new Thickness(20, 0, 20, (int)paddingMap + 35);
         }
 
         /* Set padding map khi có thông tin xe ở footer - tracking */
@@ -839,7 +860,6 @@ namespace BA_MobileGPS.Core.Views
         {
             if (!infoStatusIsShown)
             {
-                HideBoxInfoCarActive(mCarActive);
                 Action<double> callback = input => boxStatusVehicle.TranslationX = input;
                 boxStatusVehicle.Animate("animboxStatusVehicle", callback, pageWidth, 0, 16, 300, Easing.CubicInOut);
                 infoStatusIsShown = true;
@@ -855,8 +875,6 @@ namespace BA_MobileGPS.Core.Views
                     Action<double> callback = input => boxStatusVehicle.TranslationX = input;
                     boxStatusVehicle.Animate("animboxStatusVehicle", callback, 0, pageWidth, 16, 300, Easing.CubicInOut);
                     infoStatusIsShown = false;
-                    //UpdateBackgroundPinLable(mCarActive, true);
-                    //ShowBoxInfo();
                 }
             }
             catch (Exception ex)
@@ -890,7 +908,7 @@ namespace BA_MobileGPS.Core.Views
                 HideBoxStatus();
             }
             else
-            {               
+            {
                 CacularVehicleStatus();
                 ShowBoxStatus();
             }

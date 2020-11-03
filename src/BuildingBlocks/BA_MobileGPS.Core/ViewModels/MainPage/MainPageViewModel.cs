@@ -86,19 +86,19 @@ namespace BA_MobileGPS.Core.ViewModels
 
             TryExecute(async () =>
             {
-                await ConnectSignalROnline();
+                //await ConnectSignalROnline();
                 InitVehilceOnline();
                 Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
                 {
                     TryExecute(async () =>
                     {
-                        await ConnectSignalR();
-                        GetCountVehicleDebtMoney();
-                        InsertOrUpdateAppDevice();
-                        GetNoticePopup();
-                        PushPageFileBase();
+                        //await ConnectSignalR();
+                        //GetCountVehicleDebtMoney();
+                        //InsertOrUpdateAppDevice();
+                       // GetNoticePopup();
+                        //PushPageFileBase();
                         // Lấy danh sách cảnh báo
-                        GetCountAlert();
+                        //GetCountAlert();
                     });
 
                     return false;
