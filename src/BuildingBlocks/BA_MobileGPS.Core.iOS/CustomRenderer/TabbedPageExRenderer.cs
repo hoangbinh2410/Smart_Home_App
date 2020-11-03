@@ -21,6 +21,7 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
         private bool disposed;
         private nfloat centerX;
         private nfloat centerY;
+        private const float CustomTabBarHeight = 60.0f;
         IPageController PageController => Element as IPageController;
         public bool IsTabBarVisible
         {
@@ -66,6 +67,16 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
         {
             base.Dispose(disposing);
             this.disposed = true;
+        }
+
+        public override void ViewWillLayoutSubviews()
+        {
+            var tabBarFrame = TabBar.Frame;
+            var diff = CustomTabBarHeight - tabBarFrame.Height;
+
+            TabBar.Frame = new CoreGraphics.CGRect(tabBarFrame.X, tabBarFrame.Y - diff, tabBarFrame.Width, tabBarFrame.Height + diff);
+
+            base.ViewWillLayoutSubviews();
         }
 
         private void OnTabBarHidden(bool isHidden)
