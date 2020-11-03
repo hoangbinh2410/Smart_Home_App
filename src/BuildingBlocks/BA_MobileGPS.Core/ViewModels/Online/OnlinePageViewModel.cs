@@ -1,7 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
-using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
@@ -42,7 +40,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand SelectedMenuCommand { get; }
 
-
         public bool IsCheckShowLandmark { get; set; } = false;
 
         public OnlinePageViewModel(INavigationService navigationService,
@@ -82,12 +79,12 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectedMenuCommand = new Command<MenuItem>(SelectedMenu);
         }
 
-
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
             InitMenuItems();
         }
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -127,6 +124,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 GroundOverlays.Clear();
                 Polylines.Clear();
                 IsCheckShowLandmark = false;
+            }
+        }
+
+        public override void OnIsActiveChanged(object sender, EventArgs e)
+        {
+            base.OnIsActiveChanged(sender, e);
+            if (!IsActive)
+            {
+                EventAggregator.GetEvent<ShowHideTabEvent>().Publish(true);
             }
         }
 
@@ -272,20 +278,16 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
             }
-
         }
-
 
         private void CloseCarInfoView()
         {
-            SafeExecute(async () =>
+            SafeExecute(() =>
             {
-                var param = new NavigationParameters();
-                param.Add(ParameterKey.OnlineClosePopupDetail, true);
-                
-                await NavigationService.GoBackAsync(param);
+                EventAggregator.GetEvent<BackButtonEvent>().Publish(true);
             });
         }
+
         private void PushDirectvehicleOnline()
         {
             TryExecute(async () =>
@@ -669,12 +671,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 case MenuType.Route:
                     PushtoRouterPage();
                     break;
+
                 case MenuType.VehicleDetail:
                     PushtoDetailPage();
                     break;
+
                 case MenuType.Images:
                     GotoCameraPage();
                     break;
+
                 case MenuType.Video:
                     GotoVideoPage();
                     break;
