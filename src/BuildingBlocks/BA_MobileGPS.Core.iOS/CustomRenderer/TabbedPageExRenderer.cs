@@ -102,8 +102,11 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
                 return;
             var frame = View.Frame;
             var tabBarFrame = TabBar.Frame;
+            tabBarFrame.Height = 74f;
+            this.TabBar.Frame = tabBarFrame;
+            this.TabBar.ContentMode = UIViewContentMode.Bottom;
             PageController.ContainerArea =
-                new Rectangle(0, 0, frame.Width, frame.Height - tabBarFrame.Height);
+                new Rectangle(0, tabBarFrame.Y+ tabBarFrame.Height, frame.Width, frame.Height - tabBarFrame.Height);
             var animationOptions = UIViewAnimationOptions.BeginFromCurrentState |
                                    UIViewAnimationOptions.CurveEaseInOut;
 
