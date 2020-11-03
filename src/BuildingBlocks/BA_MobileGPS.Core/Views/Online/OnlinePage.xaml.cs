@@ -45,6 +45,7 @@ namespace BA_MobileGPS.Core.Views
             pageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
             pageWidth = (int)Application.Current.MainPage.Width;
             boxStatusVehicle.TranslationX = pageWidth;
+            boxInfo.TranslationY = 250;
             // Initialize the View Model Object
             vm = (OnlinePageViewModel)BindingContext;
 
@@ -842,18 +843,14 @@ namespace BA_MobileGPS.Core.Views
         /// <summary>
         /// ẩn box  thông tin  xe
         /// </summary>
-        public async void HideBoxInfo()
+        public void HideBoxInfo()
         {
             try
             {
                 vm.CarActive = new VehicleOnline();
                 mCarActive = new VehicleOnline();
-                if (PopupNavigation.Instance.PopupStack.Count > 0)
-                {
-                    var b = PopupNavigation.Instance.PopupStack.FirstOrDefault();
-                    b.BindingContext = null;
-                    await PopupNavigation.Instance.PopAllAsync();
-                }
+                Action<double> callback = input => boxInfo.TranslationY = input;
+                boxStatusVehicle.Animate("animboxInfo", callback, 0, 350, 16, 300, Easing.CubicInOut);
                 SetNoPaddingWithFooter();
             }
             catch (Exception ex)
@@ -868,14 +865,10 @@ namespace BA_MobileGPS.Core.Views
         private void ShowBoxInfo()
         {
             try
-            {             
-                if (PopupNavigation.Instance.PopupStack.Count == 0)
-                {
-                    var popupPage = new OnlineCarInfoView();
-                    popupPage.BindingContext = BindingContext;
-                    PopupNavigation.Instance.PushAsync(popupPage);
-                    SetPaddingWithFooter(130);
-                }
+            {
+                Action<double> callback = input => boxInfo.TranslationY = input;
+                boxStatusVehicle.Animate("animboxInfo", callback, 350, 0, 16, 300, Easing.CubicInOut);
+                SetPaddingWithFooter(130);
             }
             catch (Exception ex)
             {

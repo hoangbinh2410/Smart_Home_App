@@ -4,6 +4,7 @@ using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using Prism;
 using Prism.Common;
+using Prism.Events;
 using Prism.Ioc;
 using Prism.Navigation;
 using System;
@@ -19,11 +20,13 @@ using TabbedPage = Xamarin.Forms.TabbedPage;
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class MainPage : TabbedPageEx
+    public partial class MainPage : TabbedPageEx,IDestructible
     {
+        private readonly IEventAggregator eventAggregator;
         public MainPage()
         {
             InitializeComponent();
+
             if (Device.RuntimePlatform == Device.Android)
             {
                 On<Xamarin.Forms.PlatformConfiguration.Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
@@ -88,7 +91,12 @@ namespace BA_MobileGPS.Core.Views
                 Title = MobileResource.Menu_TabItem_Account
             };
             Children.Add(accountTab);
+
+            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+            eventAggregator.GetEvent<TabBarIsHiddenChangedEvent>().Subscribe(TabBarIsHiddenChanged);
         }
+
+       
 
         protected override void OnCurrentPageChanged()
         {
@@ -104,6 +112,14 @@ namespace BA_MobileGPS.Core.Views
 
             PageUtilities.OnNavigatedTo(newPage, parameters);
             context.currentChildPage = newPage;
+            if (IsHidden)
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    IsHidden = false;
+                });
+            }
+ 
         }
 
         protected override void OnAppearing()
@@ -113,20 +129,7 @@ namespace BA_MobileGPS.Core.Views
             {
                 var safe = On<iOS>().SafeAreaInsets();
                 Padding = new Thickness(0, 0, 0, safe.Bottom);
-            }
-            Task.Run(async() =>
-            {
-               await Task.Delay(8000);
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    IsHidden = true;
-                });
-               await Task.Delay(8000);
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    IsHidden = false;
-                });
-            });
+            }          
         }
 
         public virtual bool CheckPermision(int PermissionKey)
@@ -175,5 +178,26 @@ namespace BA_MobileGPS.Core.Views
                 bExit = false;
             }, 2000);
         }
+
+        private void TabBarIsHiddenChanged(bool isHidden)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                IsHidden = isHidden;
+            });           
+        }
+
+
+        public void Destroy()
+        {
+           
+        }
     }
+
+    public class TabBarIsHiddenChangedEvent : PubSubEvent<bool>
+    {
+
+    }
+
+
 }

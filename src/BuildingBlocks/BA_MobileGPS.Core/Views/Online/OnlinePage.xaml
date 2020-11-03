@@ -12,6 +12,7 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     xmlns:viewcore="clr-namespace:BA_MobileGPS.Core.Views.PartialView"
+    xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <pancake:DropShadow
@@ -226,6 +227,16 @@
                     WidthRequest="20" />
             </pancake:PancakeView>
         </StackLayout>
+        <views:OnlineCarInfoView
+            x:Name="boxInfo"
+            Grid.Row="1"
+            Padding="0,10,0,0"
+            BackgroundColor="{DynamicResource WhiteColor}"
+            CornerRadius="20,20,0,0"
+            HasShadow="False"
+            HeightRequest="200"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="End" />
         <!--  Trạng thái xe  -->
         <Grid x:Name="boxStatusVehicle" Grid.Row="1">
             <Grid.ColumnDefinitions>
