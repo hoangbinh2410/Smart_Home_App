@@ -8,7 +8,6 @@ using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities;
 using Newtonsoft.Json;
 using Plugin.Toasts;
-using Prism.Common;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -38,7 +37,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IMapper _mapper;
         private Timer timer;
         private Timer timerSyncData;
-        public Page currentChildPage { get; set; }
 
         public MainPageViewModel(INavigationService navigationService, IVehicleOnlineService vehicleOnlineService,
             IAlertService alertService,
@@ -77,11 +75,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Lifecycle
 
-        private void OnPageAppearing()
+        public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
-
-            TryExecute(async () =>
+            TryExecute(() =>
             {
                 InitVehilceOnline();
                 Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
@@ -102,31 +99,12 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            if (IsLoaded)
-            {
-                PageUtilities.OnNavigatedTo(currentChildPage, parameters);
-            }
-            else
-            {
-                IsLoaded = true;
-                OnPageAppearing();
-            }
-        }
-
-        public override void OnNavigatedFrom(INavigationParameters parameters)
-        {
-            //PageUtilities.OnNavigatedFrom(currentChildPage, parameters);
-        }
-
         public override void OnDestroy()
         {
             base.OnDestroy();
             if (IsLoaded)
             {
                 base.OnDestroy();
-                EventAggregator.GetEvent<DestroyEvent>().Publish();
                 timer.Stop();
                 timer.Dispose();
                 timerSyncData.Stop();
@@ -537,7 +515,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         //Join vào nhóm signalR để nhận dữ liệu online
                         JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
                     });
-
                 }
                 else
                 {

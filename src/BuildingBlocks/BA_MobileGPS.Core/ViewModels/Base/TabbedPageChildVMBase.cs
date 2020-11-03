@@ -10,15 +10,11 @@ namespace BA_MobileGPS.Core.ViewModels.Base
 
         public TabbedPageChildVMBase(INavigationService navigationService) : base(navigationService)
         {
-            EventAggregator.GetEvent<DestroyEvent>().Subscribe(RaiseDestroyEvent);
             IsActiveChanged -= OnIsActiveChanged;
             IsActiveChanged += OnIsActiveChanged;
         }
 
-        ~TabbedPageChildVMBase()
-        {
-            IsActiveChanged -= OnIsActiveChanged;
-        }
+      
 
         public virtual void OnIsActiveChanged(object sender, EventArgs e)
         {
@@ -32,29 +28,17 @@ namespace BA_MobileGPS.Core.ViewModels.Base
             set { SetProperty(ref _isActive, value, RaiseIsActiveChanged); }
         }
 
-        private void RaiseDestroyEvent()
-        {
-            EventAggregator.GetEvent<DestroyEvent>().Unsubscribe(RaiseDestroyEvent);
-            this.OnDestroy();
-        }
-
-        public new virtual void OnDestroy()
+        public override void OnDestroy()
         {
             IsActiveChanged -= OnIsActiveChanged;
-        }
+            base.OnDestroy();
+        }       
 
         private void RaiseIsActiveChanged()
         {
             IsActiveChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        public override void OnNavigatedFrom(INavigationParameters parameters)
-        {
-        }
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
-        }
+      
     }
 }

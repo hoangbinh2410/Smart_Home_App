@@ -20,7 +20,9 @@ namespace BA_MobileGPS.Core.Views
     public partial class MainPage : TabbedPageEx
     {
         private readonly IEventAggregator eventAggregator;
-
+        private Xamarin.Forms.Page currentChildPage;
+        private bool isLoaded { get; set; } // Bỏ first auto-select của tabbed page
+        
         public MainPage()
         {
             InitializeComponent();
@@ -36,13 +38,16 @@ namespace BA_MobileGPS.Core.Views
             {
                 On<iOS>().SetUseSafeArea(true);
             }
+
+            ContentPage selected;
+
             var home = new Home()
             {
                 IconImageSource = "ic_home.png",
                 Title = MobileResource.Menu_TabItem_Home
             };
             Children.Add(home);
-
+            selected = home;
             if (CheckPermision((int)PermissionKeyNames.VehicleView))
             {
                 var listVehicleTab = PrismApplicationBase.Current.Container.Resolve<ContentPage>("ListVehiclePage"); //Online
@@ -72,6 +77,7 @@ namespace BA_MobileGPS.Core.Views
                     online.IconImageSource = "ic_mornitoring.png";
                     online.Title = MobileResource.Menu_TabItem_Monitoring;
                     Children.Add(online);
+                    selected = online;
                 }
             }
 
@@ -93,6 +99,9 @@ namespace BA_MobileGPS.Core.Views
                 Title = MobileResource.Menu_TabItem_Account
             };
             Children.Add(accountTab);
+            isLoaded = true;
+            CurrentPage = selected;
+
         }
 
         private void ShowHideTab(bool obj)
@@ -100,27 +109,49 @@ namespace BA_MobileGPS.Core.Views
             if (obj)
             {
                 this.IsHidden = false;
+                isHideTabOnline = false;
             }
             else
             {
                 this.IsHidden = true;
+                isHideTabOnline = true;
             }
         }
+       
 
         protected override void OnCurrentPageChanged()
         {
-            base.OnCurrentPageChanged();
-            var context = ((MainPageViewModel)BindingContext);
-            var parameters = new NavigationParameters();
-            var newPage = (ContentPage)CurrentPage;
-            var previousPage = context.currentChildPage;
-            if (previousPage != null)
+            if (isLoaded)
             {
-                PageUtilities.OnNavigatedFrom(previousPage, parameters);
-            }
+                base.OnCurrentPageChanged();
 
-            PageUtilities.OnNavigatedTo(newPage, parameters);
-            context.currentChildPage = newPage;
+                var parameters = new NavigationParameters();
+                var newPage = (ContentPage)CurrentPage;
+
+                if (currentChildPage != null)
+                {
+                    PageUtilities.OnNavigatedFrom(currentChildPage, parameters);
+                    // Remove previous selected icon
+                    if (currentChildPage.IconImageSource != null || !string.IsNullOrEmpty(currentChildPage.IconImageSource.ToString()))
+                    {
+                        var newPath = currentChildPage.IconImageSource.ToString().Replace("solid", string.Empty);
+                        newPath = newPath.Replace("File:", string.Empty).Trim();
+                        currentChildPage.IconImageSource = newPath;
+                    }
+                }
+
+                PageUtilities.OnNavigatedTo(newPage, parameters);
+
+                //Change current icon selected 
+                if (newPage.IconImageSource != null || !string.IsNullOrEmpty(newPage.IconImageSource.ToString()))
+                {
+                    var path = newPage.IconImageSource.ToString().Replace(".png", "solid.png");
+                    path = path.Replace("File:", string.Empty).Trim();
+                    newPage.IconImageSource = path;
+                }
+
+                currentChildPage = newPage;
+            }          
         }
 
         protected override void OnAppearing()
@@ -189,5 +220,6 @@ namespace BA_MobileGPS.Core.Views
                 bExit = false;
             }, 2000);
         }
+
     }
 }
