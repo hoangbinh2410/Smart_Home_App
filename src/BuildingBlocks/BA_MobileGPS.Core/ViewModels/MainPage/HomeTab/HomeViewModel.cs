@@ -67,7 +67,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("BaseNavigationPage/FavoritesConfigurationsPage", null, useModalNavigation: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/FavoritesConfigurationsPage", null, useModalNavigation: true,true);
             });
         });
 
@@ -220,7 +220,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         using (new HUDService(MobileResource.Common_Message_Processing))
                         {
-                            _ = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey, useModalNavigation: true);
+                            _ = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey,null, useModalNavigation: true,true);
                         }
                     });
                     break;
@@ -234,7 +234,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
-                                var a = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey, useModalNavigation: true);
+                                var a = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey,null, useModalNavigation: true,true);
                             }
                         }
                     });
@@ -248,7 +248,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {//await NavigationService.NavigateAsync("NotificationPopup", useModalNavigation: true);
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
-                                var a = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey, useModalNavigation: true);
+                                var a = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey,null, useModalNavigation: true,true);
                             }
                         });
                     });

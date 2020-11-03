@@ -117,7 +117,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 PageDialog.DisplayAlertAsync(MobileResource.AlertConfig_Label_Alter, MobileResource.AlertConfig_Label_SendSuccess,
                                       MobileResource.Common_Button_Close);
 
-                                NavigationService.GoBackAsync(useModalNavigation: true);
+                                NavigationService.GoBackAsync(null,useModalNavigation: true,true);
                             }
                             else
                             {

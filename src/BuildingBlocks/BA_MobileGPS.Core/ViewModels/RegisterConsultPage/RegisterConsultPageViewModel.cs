@@ -288,7 +288,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { "ComboboxType", ComboboxType.First },
                     { "Title", MobileResource.RegisterConsult_Label_TransportType }
                 };
-                await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true,true);
             }
             catch (Exception ex)
             {
@@ -337,7 +337,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { "ComboboxType", ComboboxType.Second },
                     { "Title", MobileResource.RegisterConsult_Label_Provinces }
                 };
-                await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true,true);
             }
             catch (Exception ex)
             {
@@ -363,7 +363,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 return;
             }
             IsBusy = true;
-            await NavigationService.NavigateAsync("BaseNavigationPage/PhoneCountryCodePage", useModalNavigation: true);
+            await NavigationService.NavigateAsync("BaseNavigationPage/PhoneCountryCodePage",null, useModalNavigation: true, true);
             IsBusy = false;
         }
 
@@ -415,7 +415,7 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         private async void UpdatePopupMessage()
         {
-            await NavigationService.GoBackAsync(useModalNavigation: true);
+            await NavigationService.GoBackAsync(null,useModalNavigation: true, true);
         }
 
         /// <summary>

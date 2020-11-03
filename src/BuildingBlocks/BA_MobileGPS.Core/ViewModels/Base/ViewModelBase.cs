@@ -298,7 +298,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     SafeExecute(async () =>
                     {
-                        await NavigationService.GoBackAsync(useModalNavigation: true);
+                        await NavigationService.GoBackAsync(null,useModalNavigation: true,false);
                     });
                 });
             }
@@ -308,7 +308,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("BaseNavigationPage/CompanyLookUp", useModalNavigation: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/CompanyLookUp",null, useModalNavigation: true,true);
             });
         }
 
@@ -328,7 +328,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         lstvehicle = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
                     }
                 }
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", useModalNavigation: true, parameters: new NavigationParameters
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", useModalNavigation: true,animated: true, parameters: new NavigationParameters
                         {
                             { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleOnline },
                             {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
@@ -341,7 +341,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", useModalNavigation: true, parameters: new NavigationParameters
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", animated: true,useModalNavigation: true, parameters: new NavigationParameters
                         {
                             { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleRoute },
                             {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
@@ -359,7 +359,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         { ParameterKey.VehicleGroupsSelected, VehicleGroups }
                     };
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleGroupLookUp", navigationPara, useModalNavigation: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleGroupLookUp", navigationPara, animated: true,useModalNavigation: true);
             });
         }
 
@@ -367,7 +367,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("NavigationPage/AlertOnlinePage", useModalNavigation: true);
+                await NavigationService.NavigateAsync("NavigationPage/AlertOnlinePage",null, animated: true,useModalNavigation: true);
             });
         }
 
@@ -389,7 +389,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     SafeExecute(async () =>
                     {
-                        await NavigationService.NavigateAsync("NavigationPage/NotificationPage", useModalNavigation: true);
+                        await NavigationService.NavigateAsync("NavigationPage/NotificationPage", null,useModalNavigation: true, true);
                     });
                 });
             }
@@ -456,7 +456,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public void GoBack(bool isModal)
         {
-            TryExecute(async () => await NavigationService.GoBackAsync(useModalNavigation: isModal));
+            TryExecute(async () => await NavigationService.GoBackAsync(null,useModalNavigation: isModal, isModal));
         }
 
         public async void Logout()

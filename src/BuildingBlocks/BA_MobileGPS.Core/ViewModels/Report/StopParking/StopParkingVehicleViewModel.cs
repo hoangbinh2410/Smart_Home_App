@@ -181,7 +181,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.ReportStopParkingVehicleSelected, SelectStopParkingVehicleItem }
                 };
-                await NavigationService.NavigateAsync("StopParkingVehicleDetailReportPage", p, useModalNavigation: false);
+                await NavigationService.NavigateAsync("StopParkingVehicleDetailReportPage", p, useModalNavigation: false,false);
             }
             catch (Exception ex)
             {

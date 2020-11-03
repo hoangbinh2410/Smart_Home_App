@@ -181,7 +181,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     switch (item.MenuType)
                     {
                         case MenuType.ChangePassword:
-                            await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation);
+                            await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation, item.UseModalNavigation);
                             break;
 
                         case MenuType.CustomerSupport:
@@ -204,7 +204,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             break;
 
                         default:
-                            await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation);
+                            await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation, item.UseModalNavigation);
                             break;
                     }
                 }
@@ -228,7 +228,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     IsBusy = true;
                     try
                     {
-                        await NavigationService.NavigateAsync("BaseNavigationPage/UserInfoPage", null, useModalNavigation: true);
+                        await NavigationService.NavigateAsync("BaseNavigationPage/UserInfoPage", null, useModalNavigation: true,true);
                     }
                     catch (Exception ex)
                     {

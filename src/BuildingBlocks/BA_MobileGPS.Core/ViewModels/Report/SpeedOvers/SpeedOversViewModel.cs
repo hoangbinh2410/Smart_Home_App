@@ -156,7 +156,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.ReportSpeedOversSelected, SelectSpeedOversVehicleItem }
                 };
-                await NavigationService.NavigateAsync("SpeedOversDetailReportPage", p, useModalNavigation: false);
+                await NavigationService.NavigateAsync("SpeedOversDetailReportPage", p, useModalNavigation: false, false);
             }
             catch (Exception ex)
             {

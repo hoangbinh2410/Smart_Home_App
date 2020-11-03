@@ -265,10 +265,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (ctsRouting != null)
                     ctsRouting.Cancel();
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/RouteListPage", useModalNavigation: true, parameters: new NavigationParameters
+                await NavigationService.NavigateAsync("BaseNavigationPage/RouteListPage", parameters: new NavigationParameters
                 {
                     { ParameterKey.VehicleRoute, ListRoute }
-                });
+                }, true, true);
             });
         }
 
@@ -292,7 +292,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("BaseNavigationPage/BoundaryPage", useModalNavigation: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/BoundaryPage", null,useModalNavigation: true, true);
             });
         }
 
@@ -337,10 +337,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (ctsRouting != null)
                     ctsRouting.Cancel();
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", useModalNavigation: true, parameters: new NavigationParameters
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp",  parameters: new NavigationParameters
                 {
                     { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleRoute }
-                });
+                }, true, true);
             });
         }
 

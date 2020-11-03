@@ -238,7 +238,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { "ComboboxType", ComboboxType.First },
                     { "Title", MobileResource.ReportSignalLoss_TitleStatus }
                 };
-                await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true, true);
             }
             catch (Exception ex)
             {
@@ -262,7 +262,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.ReportSignalLossSelected, SelectDetailsItem }
                 };
-                await NavigationService.NavigateAsync("SignalLossReportDetailPage", p, useModalNavigation: false);
+                await NavigationService.NavigateAsync("SignalLossReportDetailPage", p, useModalNavigation: false,false);
             }
             catch (Exception ex)
             {
