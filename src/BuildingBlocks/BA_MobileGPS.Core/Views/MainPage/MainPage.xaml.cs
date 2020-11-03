@@ -17,10 +17,11 @@ using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class MainPage : TabbedPageEx,IDestructible
+    public partial class MainPage : TabbedPageEx
     {
         private readonly IEventAggregator eventAggregator;
-
+        private Xamarin.Forms.Page currentChildPage;
+        
         public MainPage()
         {
             InitializeComponent();
@@ -93,9 +94,6 @@ namespace BA_MobileGPS.Core.Views
                 Title = MobileResource.Menu_TabItem_Account
             };
             Children.Add(accountTab);
-
-            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
-            eventAggregator.GetEvent<TabBarIsHiddenChangedEvent>().Subscribe(TabBarIsHiddenChanged);
         }
 
         private void ShowHideTab(bool obj)
@@ -103,34 +101,30 @@ namespace BA_MobileGPS.Core.Views
             if (obj)
             {
                 this.IsHidden = false;
+                isHideTabOnline = false;
             }
             else
             {
                 this.IsHidden = true;
+                isHideTabOnline = true;
             }
         }
+       
 
         protected override void OnCurrentPageChanged()
         {
             base.OnCurrentPageChanged();
-            var context = ((MainPageViewModel)BindingContext);
+
             var parameters = new NavigationParameters();
             var newPage = (ContentPage)CurrentPage;
-            var previousPage = context.currentChildPage;
-            if (previousPage != null)
+
+            if (currentChildPage != null)
             {
-                PageUtilities.OnNavigatedFrom(previousPage, parameters);
+                PageUtilities.OnNavigatedFrom(currentChildPage, parameters);
             }
 
             PageUtilities.OnNavigatedTo(newPage, parameters);
-            context.currentChildPage = newPage;
-            if (IsHidden)
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    IsHidden = false;
-                });
-            }
+            currentChildPage = newPage;
  
         }
 
@@ -201,25 +195,5 @@ namespace BA_MobileGPS.Core.Views
             }, 2000);
         }
 
-        private void TabBarIsHiddenChanged(bool isHidden)
-        {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                IsHidden = isHidden;
-            });           
-        }
-
-
-        public void Destroy()
-        {
-           
-        }
     }
-
-    public class TabBarIsHiddenChangedEvent : PubSubEvent<bool>
-    {
-
-    }
-
-
 }

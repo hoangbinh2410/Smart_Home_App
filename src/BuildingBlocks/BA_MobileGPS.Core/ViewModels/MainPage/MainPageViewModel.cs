@@ -38,7 +38,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IMapper _mapper;
         private Timer timer;
         private Timer timerSyncData;
-        public Page currentChildPage { get; set; }
 
         public MainPageViewModel(INavigationService navigationService, IVehicleOnlineService vehicleOnlineService,
             IAlertService alertService,
@@ -76,12 +75,11 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Contructor
 
         #region Lifecycle
-
-        private void OnPageAppearing()
+     
+        public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
-
-            TryExecute(async () =>
+            TryExecute(() =>
             {
                 InitVehilceOnline();
                 Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
@@ -102,23 +100,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            if (IsLoaded)
-            {
-                PageUtilities.OnNavigatedTo(currentChildPage, parameters);
-            }
-            else
-            {
-                IsLoaded = true;
-                OnPageAppearing();
-            }
-        }
-
-        public override void OnNavigatedFrom(INavigationParameters parameters)
-        {
-            //PageUtilities.OnNavigatedFrom(currentChildPage, parameters);
-        }
+     
 
         public override void OnDestroy()
         {
@@ -126,7 +108,6 @@ namespace BA_MobileGPS.Core.ViewModels
             if (IsLoaded)
             {
                 base.OnDestroy();
-                EventAggregator.GetEvent<DestroyEvent>().Publish();
                 timer.Stop();
                 timer.Dispose();
                 timerSyncData.Stop();
