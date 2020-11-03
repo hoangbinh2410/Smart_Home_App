@@ -7,23 +7,9 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms"
-    Padding="5,5,5,0"
-    HasShadow="False">
+    Padding="5,5,5,0">
     <pancake:PancakeView.Resources>
         <cluster:NMConverter x:Key="NMConverter" />
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <syncTheme:SyncfusionThemeDictionary>
-                    <syncTheme:SyncfusionThemeDictionary.MergedDictionaries>
-                        <ResourceDictionary>
-                            <x:String x:Key="SfTextInputLayoutTheme">CustomTheme</x:String>
-                            <Color x:Key="SfTextInputLayoutLineColor">Transparent</Color>
-                        </ResourceDictionary>
-                    </syncTheme:SyncfusionThemeDictionary.MergedDictionaries>
-                </syncTheme:SyncfusionThemeDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
     </pancake:PancakeView.Resources>
     <StackLayout
         Margin="0"

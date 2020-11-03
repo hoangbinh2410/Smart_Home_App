@@ -20,7 +20,6 @@
                         Padding="0"
                         BackgroundColor="{DynamicResource WhiteColor}"
                         CornerRadius="10"
-                        HasShadow="True"
                         HorizontalOptions="CenterAndExpand">
                         <pancake:PancakeView.Shadow>
                             <pancake:DropShadow
@@ -136,7 +135,6 @@
                     <pancake:PancakeView
                         Margin="10,5"
                         CornerRadius="10"
-                        HasShadow="True"
                         Style="{StaticResource FavouriteBackgroundColor}">
                         <pancake:PancakeView.Shadow>
                             <pancake:DropShadow BlurRadius="2" Color="{DynamicResource ShadowColor}" />
@@ -191,8 +189,7 @@
                         Margin="10,5"
                         Padding="0"
                         BackgroundColor="{DynamicResource GrayColor}"
-                        CornerRadius="10"
-                        HasShadow="False">
+                        CornerRadius="10">
                         <StackLayout Spacing="0">
                             <StackLayout Orientation="Horizontal">
                                 <Label
@@ -256,8 +253,7 @@
                         Grid.Row="2"
                         Margin="{OnPlatform Android='15,0,15,0',
                                             iOS='15,0,15,-180'}"
-                        CornerRadius="15,15,0,0"
-                        HasShadow="False">
+                        CornerRadius="15,15,0,0">
                         <ff:CachedImage
                             Aspect="AspectFill"
                             HeightRequest="{OnPlatform Android=200,

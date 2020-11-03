@@ -17,6 +17,5 @@ namespace BA_MobileGPS.Core.Views
             lblRoute.Text = MobileResource.Route_Label_Title.Trim().ToUpper();
             lblButtonDetail.Text = MobileResource.Online_Button_Detail.Trim().ToUpper();
         }
-
     }
 }

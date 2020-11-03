@@ -23,7 +23,6 @@
     <pancakeview:PancakeView
         BackgroundColor="{DynamicResource WhiteColor}"
         CornerRadius="10,10,0,0"
-        HasShadow="True"
         VerticalOptions="EndAndExpand">
         <pancakeview:PancakeView.Shadow>
             <pancakeview:DropShadow

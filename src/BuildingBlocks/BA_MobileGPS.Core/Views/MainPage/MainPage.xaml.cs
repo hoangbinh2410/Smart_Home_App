@@ -8,32 +8,34 @@ using Prism.Events;
 using Prism.Ioc;
 using Prism.Navigation;
 using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
-using TabbedPage = Xamarin.Forms.TabbedPage;
 
 namespace BA_MobileGPS.Core.Views
 {
     public partial class MainPage : TabbedPageEx,IDestructible
     {
         private readonly IEventAggregator eventAggregator;
+
         public MainPage()
         {
             InitializeComponent();
-
+            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+            this.eventAggregator.GetEvent<ShowHideTabEvent>().Subscribe(ShowHideTab);
             if (Device.RuntimePlatform == Device.Android)
             {
                 On<Xamarin.Forms.PlatformConfiguration.Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
                 On<Xamarin.Forms.PlatformConfiguration.Android>().SetIsSwipePagingEnabled(false);
                 On<Xamarin.Forms.PlatformConfiguration.Android>().SetIsSmoothScrollEnabled(false);
             }
-
+            else
+            {
+                On<iOS>().SetUseSafeArea(true);
+            }
             var home = new Home()
             {
                 IconImageSource = "ic_home.png",
@@ -96,7 +98,17 @@ namespace BA_MobileGPS.Core.Views
             eventAggregator.GetEvent<TabBarIsHiddenChangedEvent>().Subscribe(TabBarIsHiddenChanged);
         }
 
-       
+        private void ShowHideTab(bool obj)
+        {
+            if (obj)
+            {
+                this.IsHidden = false;
+            }
+            else
+            {
+                this.IsHidden = true;
+            }
+        }
 
         protected override void OnCurrentPageChanged()
         {
@@ -125,11 +137,11 @@ namespace BA_MobileGPS.Core.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (Device.RuntimePlatform == Device.iOS)
-            {
-                var safe = On<iOS>().SafeAreaInsets();
-                Padding = new Thickness(0, 0, 0, safe.Bottom);
-            }          
+            //if (Device.RuntimePlatform == Device.iOS)
+            //{
+            //    var safe = On<iOS>().SafeAreaInsets();
+            //    Padding = new Thickness(0, 0, 0, safe.Bottom);
+            //}
         }
 
         public virtual bool CheckPermision(int PermissionKey)
@@ -138,13 +150,22 @@ namespace BA_MobileGPS.Core.Views
         }
 
         private bool bExit = false;
+        private bool isHideTabOnline = false;
 
         protected override bool OnBackButtonPressed()
         {
-            if (!bExit)
+            if (isHideTabOnline)
             {
-                ShowAlertWhen2Back();
-                return bExit;
+                this.eventAggregator.GetEvent<BackButtonEvent>().Publish(true);
+                return true;
+            }
+            else
+            {
+                if (!bExit)
+                {
+                    ShowAlertWhen2Back();
+                    return bExit;
+                }
             }
             StaticSettings.ClearStaticSettings();
             return false;
@@ -175,6 +196,7 @@ namespace BA_MobileGPS.Core.Views
             bExit = !bExit;
             PostDelayed(new Timer(), () =>
             {
+                isHideTabOnline = false;
                 bExit = false;
             }, 2000);
         }
