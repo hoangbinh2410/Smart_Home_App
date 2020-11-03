@@ -24,7 +24,7 @@ using Xamarin.Forms.Xaml;
 namespace BA_MobileGPS.Core.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class OnlinePage : ContentPage, INavigationAware
+    public partial class OnlinePage : ContentPage, INavigationAware,IDestructible
     {
         #region Contructor
 
@@ -75,7 +75,6 @@ namespace BA_MobileGPS.Core.Views
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<BackButtonEvent>().Subscribe(AndroidBackButton);
-            eventAggregator.GetEvent<DestroyEvent>().Subscribe(Destroy);
 
             IsInitMarker = false;
 
@@ -158,28 +157,14 @@ namespace BA_MobileGPS.Core.Views
 
                 UpdateVehicleByVehicleGroup(vehiclegroup);
             }
-            else if (parameters.ContainsKey(ParameterKey.OnlineClosePopupDetail) && parameters.GetValue<bool>(ParameterKey.OnlineClosePopupDetail) is bool isClosed)
-            {
-                if (isClosed)
-                {
-                    HideBoxInfoCarActive(mCarActive);
-                }
-            }
+          
         }
 
         public void OnNavigatingTo(INavigationParameters parameters)
         {
         }
 
-        private void Destroy()
-        {
-            timer.Stop();
-            timer.Dispose();
-            this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
-            this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
-            this.eventAggregator.GetEvent<BackButtonEvent>().Unsubscribe(AndroidBackButton);
-            this.eventAggregator.GetEvent<DestroyEvent>().Unsubscribe(Destroy);
-        }
+
 
         #endregion Lifecycle
 
@@ -1039,6 +1024,15 @@ namespace BA_MobileGPS.Core.Views
             {
                 LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
+        }
+
+        public void Destroy()
+        {
+            timer.Stop();
+            timer.Dispose();
+            this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
+            this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
+            this.eventAggregator.GetEvent<BackButtonEvent>().Unsubscribe(AndroidBackButton);
         }
 
         #endregion Private Method

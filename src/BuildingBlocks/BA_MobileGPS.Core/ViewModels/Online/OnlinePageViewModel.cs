@@ -85,6 +85,7 @@ namespace BA_MobileGPS.Core.ViewModels
             InitMenuItems();
         }
 
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);

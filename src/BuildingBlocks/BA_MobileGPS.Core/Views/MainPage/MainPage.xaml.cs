@@ -20,7 +20,8 @@ namespace BA_MobileGPS.Core.Views
     public partial class MainPage : TabbedPageEx
     {
         private readonly IEventAggregator eventAggregator;
-
+        private Xamarin.Forms.Page currentChildPage;
+        
         public MainPage()
         {
             InitializeComponent();
@@ -100,27 +101,31 @@ namespace BA_MobileGPS.Core.Views
             if (obj)
             {
                 this.IsHidden = false;
+                isHideTabOnline = false;
             }
             else
             {
                 this.IsHidden = true;
+                isHideTabOnline = true;
             }
         }
+       
 
         protected override void OnCurrentPageChanged()
         {
             base.OnCurrentPageChanged();
-            var context = ((MainPageViewModel)BindingContext);
+
             var parameters = new NavigationParameters();
             var newPage = (ContentPage)CurrentPage;
-            var previousPage = context.currentChildPage;
-            if (previousPage != null)
+
+            if (currentChildPage != null)
             {
-                PageUtilities.OnNavigatedFrom(previousPage, parameters);
+                PageUtilities.OnNavigatedFrom(currentChildPage, parameters);
             }
 
             PageUtilities.OnNavigatedTo(newPage, parameters);
-            context.currentChildPage = newPage;
+            currentChildPage = newPage;
+ 
         }
 
         protected override void OnAppearing()
@@ -189,5 +194,6 @@ namespace BA_MobileGPS.Core.Views
                 bExit = false;
             }, 2000);
         }
+
     }
 }
