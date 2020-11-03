@@ -83,7 +83,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
             TryExecute(async () =>
             {
-                await ConnectSignalROnline();
                 InitVehilceOnline();
                 Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
                 {
@@ -145,13 +144,13 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                Device.BeginInvokeOnMainThread(async () =>
                 {
                     EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
+                    await ConnectSignalROnline();
+                    //Join vào nhóm signalR để nhận dữ liệu online
+                    JoinGroupSignalRCar(StaticSettings.ListVehilceOnline.Select(x => x.VehicleId.ToString()).ToList());
                 });
-
-                //Join vào nhóm signalR để nhận dữ liệu online
-                JoinGroupSignalRCar(StaticSettings.ListVehilceOnline.Select(x => x.VehicleId.ToString()).ToList());
             }
             else
             {
@@ -530,13 +529,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     StaticSettings.ListVehilceOnline = result;
 
-                    Device.BeginInvokeOnMainThread(() =>
+                    Device.BeginInvokeOnMainThread(async () =>
                     {
                         EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
+
+                        await ConnectSignalROnline();
+                        //Join vào nhóm signalR để nhận dữ liệu online
+                        JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
                     });
 
-                    //Join vào nhóm signalR để nhận dữ liệu online
-                    JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
                 }
                 else
                 {

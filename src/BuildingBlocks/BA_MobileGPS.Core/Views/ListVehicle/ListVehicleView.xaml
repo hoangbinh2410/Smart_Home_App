@@ -72,8 +72,7 @@
                         <pancake:PancakeView
                             Padding="0"
                             BackgroundColor="{DynamicResource WhiteColor}"
-                            CornerRadius="20"
-                            HasShadow="True">
+                            CornerRadius="20">
                             <pancake:PancakeView.Shadow>
                                 <pancake:DropShadow
                                     BlurRadius="3"
@@ -161,7 +160,6 @@
                             Padding="0"
                             BackgroundColor="{Binding VehicleGroups, Converter={StaticResource HasDataBackgroundColorConverter}}"
                             CornerRadius="20"
-                            HasShadow="False"
                             HeightRequest="40"
                             VerticalOptions="End"
                             WidthRequest="40">
@@ -187,7 +185,6 @@
                             Padding="0"
                             BackgroundColor="{Binding VehicleStatusSelected, Converter={StaticResource SelectedStatusBackgroundColorConverter}}"
                             CornerRadius="20"
-                            HasShadow="False"
                             HeightRequest="40"
                             VerticalOptions="End"
                             WidthRequest="40">

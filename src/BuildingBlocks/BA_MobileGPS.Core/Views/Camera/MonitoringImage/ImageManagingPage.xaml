@@ -52,7 +52,6 @@
                 Padding="0"
                 BackgroundColor="{DynamicResource WhiteColor}"
                 CornerRadius="20"
-                HasShadow="True"
                 HeightRequest="40"
                 VerticalOptions="Center">
                 <pancake:PancakeView.GestureRecognizers>

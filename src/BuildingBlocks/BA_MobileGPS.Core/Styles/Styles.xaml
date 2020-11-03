@@ -107,7 +107,6 @@
 
     <Style ApplyToDerivedTypes="True" TargetType="pancake:PancakeView">
         <Setter Property="Padding" Value="0" />
-        <Setter Property="HasShadow" Value="False" />
     </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="controls:FontAwesomeIcon">
