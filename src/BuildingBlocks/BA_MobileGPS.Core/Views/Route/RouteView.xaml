@@ -83,7 +83,6 @@
                         Padding="5,6"
                         BackgroundColor="{DynamicResource PrimaryColor}"
                         CornerRadius="15,0,15,0"
-                        HasShadow="False"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Border>
                             <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
@@ -105,9 +104,7 @@
                         Margin="-1,0,0,0"
                         Padding="5,6"
                         BackgroundColor="{DynamicResource PrimaryColor}"
-                        BorderColor="White"
                         CornerRadius="0"
-                        HasShadow="False"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Border>
                             <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
@@ -129,9 +126,7 @@
                         Margin="-1,0,0,0"
                         Padding="5,6"
                         BackgroundColor="{DynamicResource PrimaryColor}"
-                        BorderColor="White"
                         CornerRadius="0"
-                        HasShadow="False"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Border>
                             <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
@@ -153,9 +148,7 @@
                         Margin="-1,0,0,0"
                         Padding="5,6"
                         BackgroundColor="{DynamicResource WhiteColor}"
-                        BorderColor="White"
                         CornerRadius="0"
-                        HasShadow="False"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Border>
                             <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
@@ -177,9 +170,7 @@
                         Margin="-1,0,0,0"
                         Padding="5,6"
                         BackgroundColor="{DynamicResource PrimaryColor}"
-                        BorderColor="White"
                         CornerRadius="0,15,0,15"
-                        HasShadow="False"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Border>
                             <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
@@ -510,9 +501,7 @@
                         x:Name="lbSpeedCar"
                         Padding="0"
                         BackgroundColor="{DynamicResource PrimaryColor}"
-                        BorderColor="White"
                         CornerRadius="15"
-                        HasShadow="False"
                         HeightRequest="30"
                         HorizontalOptions="End"
                         VerticalOptions="Center"

@@ -132,7 +132,7 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnIsActiveChanged(sender, e);
             if (!IsActive)
             {
-                EventAggregator.GetEvent<ShowHideTabEvent>().Publish(true);
+                //EventAggregator.GetEvent<ShowHideTabEvent>().Publish(true);
             }
         }
 
@@ -512,13 +512,11 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
                 {
-                    await NavigationService.GoBackAsync();
-
                     var parameters = new NavigationParameters
-                {
-                    { ParameterKey.VehicleOnline, carActive }
-                };
-
+                    {
+                        { ParameterKey.VehicleOnline, carActive }
+                    };
+                   EventAggregator.GetEvent<BackButtonEvent>().Publish(true);
                     await NavigationService.SelectTabAsync("RoutePage", parameters);
                 }
                 else

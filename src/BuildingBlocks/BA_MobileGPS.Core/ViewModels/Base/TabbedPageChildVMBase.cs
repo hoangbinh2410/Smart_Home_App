@@ -1,5 +1,4 @@
 ﻿using Prism;
-using Prism.Events;
 using Prism.Navigation;
 using System;
 
@@ -57,9 +56,5 @@ namespace BA_MobileGPS.Core.ViewModels.Base
         {
             base.OnNavigatedTo(parameters);
         }
-    }
-
-    public class DestroyEvent : PubSubEvent
-    {
     }
 }
