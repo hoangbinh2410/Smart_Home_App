@@ -113,7 +113,7 @@ namespace BA_MobileGPS.Core.Views
 
         protected override void OnCurrentPageChanged()
         {
-            base.OnCurrentPageChanged();
+            base.OnCurrentPageChanged();         
 
             var parameters = new NavigationParameters();
             var newPage = (ContentPage)CurrentPage;
@@ -121,11 +121,27 @@ namespace BA_MobileGPS.Core.Views
             if (currentChildPage != null)
             {
                 PageUtilities.OnNavigatedFrom(currentChildPage, parameters);
+                // Remove selected icon
+                if (currentChildPage.IconImageSource != null || !string.IsNullOrEmpty(currentChildPage.IconImageSource.ToString()))
+                {
+                    var newPath = currentChildPage.IconImageSource.ToString().Replace("solid", string.Empty);
+                    newPath = newPath.Replace("File:", string.Empty).Trim();
+                    currentChildPage.IconImageSource = newPath;
+                }
             }
 
             PageUtilities.OnNavigatedTo(newPage, parameters);
+         
+            //Change icon selected tabItem
+            if (newPage.IconImageSource != null || !string.IsNullOrEmpty(newPage.IconImageSource.ToString()))
+            {
+                var path = newPage.IconImageSource.ToString().Replace(".png", "solid.png");
+                path = path.Replace("File:", string.Empty).Trim();
+                newPage.IconImageSource = path;
+            }
+
+
             currentChildPage = newPage;
- 
         }
 
         protected override void OnAppearing()
