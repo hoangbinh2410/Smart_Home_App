@@ -131,9 +131,7 @@ namespace BA_MobileGPS.Entities
                 {
                     this.TotalKm = message.TotalKm;
                 }
-
             }
-
         }
     }
 }

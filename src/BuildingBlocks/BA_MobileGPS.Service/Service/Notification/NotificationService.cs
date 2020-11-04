@@ -58,7 +58,6 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-
         public async Task<BaseResponse<NotificationBody>> GetNotificationBody(int id, string culture)
         {
             BaseResponse<NotificationBody> result = new BaseResponse<NotificationBody>();

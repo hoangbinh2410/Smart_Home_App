@@ -3,7 +3,6 @@ using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -17,7 +16,6 @@ namespace BA_MobileGPS.Service
         {
             this._IRequestProvider = IRequestProvider;
         }
-
 
         public async Task<MotoConfigRespone> SendConfigMoto(MotoConfigRequest request)
         {
