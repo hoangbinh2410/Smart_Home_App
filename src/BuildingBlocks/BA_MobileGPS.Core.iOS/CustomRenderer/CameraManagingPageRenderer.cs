@@ -4,7 +4,9 @@ using Foundation;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
+
 [assembly: ExportRenderer(typeof(CameraManagingPage), typeof(CameraManagingPageRenderer))]
+
 namespace BA_MobileGPS.Core.iOS.CustomRenderer
 {
     public class CameraManagingPageRenderer : PageRenderer
@@ -14,6 +16,7 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
             base.ViewWillDisappear(animated);
             UIDevice.CurrentDevice.SetValueForKey(NSNumber.FromNInt((int)(UIInterfaceOrientation.Portrait)), new NSString("orientation"));
         }
+
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);

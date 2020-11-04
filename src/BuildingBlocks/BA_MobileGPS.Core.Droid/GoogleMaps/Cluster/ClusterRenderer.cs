@@ -1,12 +1,9 @@
 ﻿using Android.App;
-using Android.Content;
 using Android.Gms.Maps.Model;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Graphics.Drawables.Shapes;
 using Android.Util;
-
-using BA_MobileGPS.Core.Droid.Factories;
 
 using Com.Google.Maps.Android.Clustering;
 using Com.Google.Maps.Android.Clustering.View;

@@ -24,7 +24,6 @@ using Syncfusion.XForms.iOS.Buttons;
 using Syncfusion.XForms.iOS.ComboBox;
 using Syncfusion.XForms.iOS.PopupLayout;
 using Syncfusion.XForms.iOS.TabView;
-using Xamarin;
 using Xamarin.Forms.Platform.iOS;
 
 namespace BA_MobileGPS.Core.iOS.Setup

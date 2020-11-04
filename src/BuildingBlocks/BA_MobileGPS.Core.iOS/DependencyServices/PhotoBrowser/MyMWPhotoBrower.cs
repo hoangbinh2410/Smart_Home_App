@@ -1,10 +1,6 @@
-﻿using System;
+﻿using Ricardo.LibMWPhotoBrowser.iOS;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Foundation;
-using Ricardo.LibMWPhotoBrowser.iOS;
 using UIKit;
 using Xamarin.Forms.Platform.iOS;
 
@@ -44,12 +40,9 @@ namespace BA_MobileGPS.Core.iOS.DependencyService
                 DisplayActionButton = _photoBrowser.ActionButtonPressed != null,
 
                 ZoomPhotosToFill = _photoBrowser.iOS_ZoomPhotosToFill
-
             };
 
-
             browser.SetCurrentPhoto((nuint)_photoBrowser.StartIndex);
-
 
             var window = UIApplication.SharedApplication.KeyWindow;
             var vc = window.RootViewController;
@@ -65,7 +58,6 @@ namespace BA_MobileGPS.Core.iOS.DependencyService
 
         public override nuint NumberOfPhotosInPhotoBrowser(MWPhotoBrowser photoBrowser) => (nuint)_photos.Count;
 
-
         public override void OnActionButtonPressed(MWPhotoBrowser photoBrowser, nuint index)
         {
             _photoBrowser.ActionButtonPressed?.Invoke((int)index);
@@ -75,7 +67,6 @@ namespace BA_MobileGPS.Core.iOS.DependencyService
         {
             _photoBrowser.DidDisplayPhoto?.Invoke((int)index);
         }
-
 
         public void Close()
         {

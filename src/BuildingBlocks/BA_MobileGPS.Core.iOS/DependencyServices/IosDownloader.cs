@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BA_MobileGPS.Core.iOS.DependencyServices;
+using System;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using BA_MobileGPS.Core.iOS.DependencyServices;
-using Foundation;
-using UIKit;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(IosDownloader))]
+
 namespace BA_MobileGPS.Core.iOS.DependencyServices
 {
     public class IosDownloader : IDownloader

@@ -1,5 +1,4 @@
 ﻿using Android.App;
-using Android.Content;
 using Android.Gms.Maps.Model;
 using Android.Widget;
 

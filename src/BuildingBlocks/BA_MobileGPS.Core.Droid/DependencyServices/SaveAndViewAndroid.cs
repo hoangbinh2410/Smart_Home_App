@@ -1,10 +1,7 @@
 ﻿using Android.Content;
 using Android.OS;
-using Android.Support.V4.Content;
 using BA_MobileGPS.Core.Droid.DependencyServices;
 using Java.IO;
-
-using Plugin.CurrentActivity;
 
 using System;
 using System.IO;
