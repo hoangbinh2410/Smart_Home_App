@@ -1,11 +1,8 @@
 ﻿using Prism.Events;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BA_MobileGPS.Core.Events
 {
-     public class ThemeChangedEvent : PubSubEvent
+    public class ThemeChangedEvent : PubSubEvent
     {
     }
 }

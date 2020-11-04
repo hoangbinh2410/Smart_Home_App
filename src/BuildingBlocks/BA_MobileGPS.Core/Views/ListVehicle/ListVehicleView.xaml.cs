@@ -14,11 +14,12 @@ namespace BA_MobileGPS.Core.Views
         private ListVehiclePageViewModel vm;
         private bool infoStatusIsShown = false;
         private int pageWidth = 0;
+
         public ListVehicleView()
         {
             InitializeComponent();
             // Initialize the View Model Object
-            
+
             entrySearchVehicle.Placeholder = MobileResource.Online_Label_SeachVehicle2;
             lblNotFound.Text = MobileResource.ListVehicle_Label_NotFound;
             pageWidth = (int)Application.Current.MainPage.Width;

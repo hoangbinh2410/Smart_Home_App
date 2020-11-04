@@ -94,7 +94,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Settings.NoticeIdWhenLogin = pk_NoticeContentID;
 
-                await NavigationService.GoBackAsync(null,useModalNavigation: true,true);
+                await NavigationService.GoBackAsync(null, useModalNavigation: true, true);
             });
         }
     }

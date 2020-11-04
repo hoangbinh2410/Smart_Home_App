@@ -178,7 +178,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         CurrentChartDisplay = result[0];
                         ListFuelSumary = result;
-                        if(CurrentChartDisplay.NumberOfLiters == 0 && CurrentChartDisplay.VelocityGPS==0)
+                        if (CurrentChartDisplay.NumberOfLiters == 0 && CurrentChartDisplay.VelocityGPS == 0)
                         {
                             IsShowInfo = false;
                         }

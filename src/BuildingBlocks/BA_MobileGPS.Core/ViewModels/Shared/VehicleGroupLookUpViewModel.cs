@@ -48,11 +48,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
             SearchVehicleGroupCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehicleGroup);
         }
+
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
             InitData();
         }
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -63,7 +65,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     SelectedVehicleGroups = VehicleGroups;
                 }
-            }  
+            }
         }
 
         private void InitData()
@@ -238,7 +240,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         await NavigationService.GoBackAsync(parameters: new NavigationParameters
                         {
                             { ParameterKey.VehicleGroups,  listGroupSelected.Select(g => g.FK_VehicleGroupID).ToArray()}
-                        },true,true);
+                        }, true, true);
                     }
                     catch (System.Exception ex)
                     {

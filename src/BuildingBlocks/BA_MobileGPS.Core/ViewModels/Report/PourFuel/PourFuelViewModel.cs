@@ -263,7 +263,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 SelectPourFuelVehicleItem = ListDataSearch.Where(x => x.OrderNumber == OrderNumber).FirstOrDefault();
                 SelectPourFuelVehicleItem.VehiclePlate = VehicleSelect.VehiclePlate;
-                if(string.IsNullOrEmpty(SelectPourFuelVehicleItem.CurrentAddress))
+                if (string.IsNullOrEmpty(SelectPourFuelVehicleItem.CurrentAddress))
                 {
                     if (string.IsNullOrEmpty(SelectPourFuelVehicleItem.StartAddress) && string.IsNullOrEmpty(SelectPourFuelVehicleItem.EndAddress))
                     {
@@ -294,7 +294,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             SelectPourFuelVehicleItem.EndAddress = response[0];
                         }
                     }
-                }    
+                }
                 var p = new NavigationParameters
                 {
                     { ParameterKey.ReportPourFuelSelected, SelectPourFuelVehicleItem }

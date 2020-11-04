@@ -28,7 +28,6 @@
     <Color x:Key="WarningColor">#FF9900</Color>
     <Color x:Key="PinkColor">#FFD8D8</Color>
 
-
     <FileImageSource x:Key="HomePageTopImageSource" File="bg_HomeTop.png" />
     <FileImageSource x:Key="HomePageBotImageSource" File="bg_HomeBot.png" />
 
@@ -48,5 +47,4 @@
     <Color x:Key="LoginGradientEndColor">#0D2D6C</Color>
     <!--  Camera  -->
     <Color x:Key="UnselectedColor">#DBFF00</Color>
-
 </ResourceDictionary>

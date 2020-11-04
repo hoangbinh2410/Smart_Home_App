@@ -2,13 +2,11 @@
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using LibVLCSharp.Shared;
-using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Reflection;
 using System.Threading;
 using System.Timers;
-using System.Windows.Input;
 using Xamarin.Forms;
 using Timer = System.Timers.Timer;
 
@@ -36,6 +34,7 @@ namespace BA_MobileGPS.Core.Models
         }
 
         private int totalTime;
+
         public int TotalTime
         {
             get { return totalTime; }
@@ -49,7 +48,7 @@ namespace BA_MobileGPS.Core.Models
         private bool isError;
 
         /// <summary>
-        /// Bật màn hình lỗi 
+        /// Bật màn hình lỗi
         /// </summary>
         public bool IsError
         {
@@ -75,7 +74,9 @@ namespace BA_MobileGPS.Core.Models
                 RaisePropertyChanged();
             }
         }
+
         private bool isSelected;
+
         public bool IsSelected
         {
             get { return isSelected; }
@@ -100,7 +101,9 @@ namespace BA_MobileGPS.Core.Models
                 RaisePropertyChanged();
             }
         }
+
         private double height;
+
         public double Height
         {
             get { return height; }
@@ -110,7 +113,9 @@ namespace BA_MobileGPS.Core.Models
                 RaisePropertyChanged();
             }
         }
+
         private double width;
+
         public double Width
         {
             get { return width; }
@@ -120,6 +125,7 @@ namespace BA_MobileGPS.Core.Models
                 RaisePropertyChanged();
             }
         }
+
         private bool isLoaded;
 
         public bool IsLoaded
@@ -133,10 +139,13 @@ namespace BA_MobileGPS.Core.Models
         }
 
         private string errorMessenger;
+
         public string ErrorMessenger
         {
             get { return errorMessenger; }
-            set { SetProperty(ref errorMessenger, value);
+            set
+            {
+                SetProperty(ref errorMessenger, value);
                 RaisePropertyChanged();
             }
         }
@@ -153,7 +162,7 @@ namespace BA_MobileGPS.Core.Models
                     if (counter <= 0)
                     {
                         var err = MobileResource.Camera_Label_Connection_Error;
-                        SetError(err);                        
+                        SetError(err);
                     }
                     else SetMedia(data.Link);
                 }
@@ -173,7 +182,7 @@ namespace BA_MobileGPS.Core.Models
                         var err = MobileResource.Camera_Label_Connection_Error;
                         SetError(err);
                     }
-                }               
+                }
             }
         }
 
@@ -205,6 +214,7 @@ namespace BA_MobileGPS.Core.Models
         {
             internalError = true;
         }
+
         private void MediaPlayer_EncounteredError(object sender, EventArgs e)
         {
             internalError = true;
@@ -230,8 +240,6 @@ namespace BA_MobileGPS.Core.Models
                 }
             });
         }
-
-
 
         private void MediaPlayer_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
         {

@@ -675,7 +675,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (string.IsNullOrEmpty(Settings.ReceivedNotificationType))
                         {
                             // gọi sang trang danh sách nợ phí
-                            _ = await NavigationService.NavigateAsync("NavigationPage/VehicleDebtMoneyPage", null, useModalNavigation: true,true);
+                            _ = await NavigationService.NavigateAsync("NavigationPage/VehicleDebtMoneyPage", null, useModalNavigation: true, true);
                         }
                     }
                 });
@@ -800,7 +800,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             await NavigationService.NavigateAsync("BaseNavigationPage/NotificationDetailPage", parameters: new NavigationParameters
                              {
                                  { ParameterKey.NotificationKey, int.Parse(Settings.ReceivedNotificationValue) }
-                            }, useModalNavigation: true,true);
+                            }, useModalNavigation: true, true);
                         });
                     }
                 }

@@ -26,7 +26,6 @@
     <Color x:Key="WarningColor">#FF9900</Color>
     <Color x:Key="PinkColor">#FFD8D8</Color>
 
-
     <FileImageSource x:Key="HomePageTopImageSource" File="bg_HomeTop.png" />
     <FileImageSource x:Key="HomePageBotImageSource" File="bg_HomeBot.png" />
 
@@ -34,7 +33,6 @@
     <Color x:Key="MainTabUnSelectedColor">#0D2D6C</Color>
     <Color x:Key="MainTabSelectedTextColor">#0D2D6C</Color>
     <Color x:Key="MainTabUnSelectedTextColor">#57606F</Color>
-
 
     <Color x:Key="PopupYesBtnTextColor">White</Color>
     <Color x:Key="PopupYesBtnBackgroundColor">#00709A</Color>
@@ -46,5 +44,4 @@
     <Color x:Key="LoginGradientEndColor">White</Color>
     <!--  Camera  -->
     <Color x:Key="UnselectedColor">#DBFF00</Color>
-
 </ResourceDictionary>

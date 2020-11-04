@@ -206,7 +206,6 @@
                         </DataTemplate>
                     </syncfusionList:SfListView.ItemTemplate>
                 </syncfusionList:SfListView>
-
             </Grid>
             <Button
                 Margin="10"

@@ -19,7 +19,6 @@
             PositionOut="Bottom" />
     </pages:PopupPage.Animation>
 
-
     <pancakeview:PancakeView
         BackgroundColor="{DynamicResource WhiteColor}"
         CornerRadius="10,10,0,0"
@@ -94,7 +93,6 @@
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
-
                 </renderedViews:HorizontalListView.ItemTemplate>
             </renderedViews:HorizontalListView>
         </StackLayout>

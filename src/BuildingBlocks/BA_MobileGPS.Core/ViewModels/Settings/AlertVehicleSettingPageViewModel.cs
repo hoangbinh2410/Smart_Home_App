@@ -332,7 +332,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("AlertTimeSettingPage", new NavigationParameters
                 {
                     { ParameterKey.AlertVehicleConfig, alertConfigRequest }
-                }, useModalNavigation: false,false);
+                }, useModalNavigation: false, false);
             });
         }
     }

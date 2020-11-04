@@ -26,7 +26,6 @@ namespace BA_MobileGPS.Core.Helpers
             var translation = MobileResource.Get(Text);
             sw.Stop();
             Debug.WriteLine(string.Format("TranslateResourceExtension {0} : {1}", Text, sw.ElapsedMilliseconds));
-           
 
             if (translation == null)
             {

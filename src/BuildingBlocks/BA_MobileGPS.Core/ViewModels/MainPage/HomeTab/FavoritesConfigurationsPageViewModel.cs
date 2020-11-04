@@ -1,12 +1,10 @@
 ﻿using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
-using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Service.Utilities;
-
+using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
-
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;

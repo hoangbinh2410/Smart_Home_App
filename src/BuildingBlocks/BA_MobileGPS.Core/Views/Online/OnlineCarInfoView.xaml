@@ -37,7 +37,6 @@
                             FontFamily="{StaticResource myFontLatoBold}"
                             FontSize="16"
                             Text="{Binding CarActive.PrivateCode}" />
-
                     </StackLayout>
                 </StackLayout>
 
@@ -67,8 +66,6 @@
                             WidthRequest="20" />
                     </sharpnado:MaterialFrame.Content>
                 </sharpnado:MaterialFrame>
-
-
             </Grid>
             <BoxView
                 Grid.Row="1"
@@ -254,7 +251,6 @@
                                 WidthRequest="80" />
                         </StackLayout>
                     </DataTemplate>
-
                 </controls:HorizontalList.ItemTemplate>
             </controls:HorizontalList>
             <Grid
@@ -294,7 +290,6 @@
                                 TextColor="{DynamicResource WhiteColor}"
                                 VerticalOptions="Center" />
                         </StackLayout>
-
                     </sharpnado:MaterialFrame.Content>
                 </sharpnado:MaterialFrame>
                 <sharpnado:MaterialFrame
@@ -328,11 +323,9 @@
                                 TextColor="{DynamicResource WhiteColor}"
                                 VerticalOptions="Center" />
                         </StackLayout>
-
                     </sharpnado:MaterialFrame.Content>
                 </sharpnado:MaterialFrame>
             </Grid>
         </StackLayout>
-
     </StackLayout>
 </pancake:PancakeView>

@@ -332,7 +332,6 @@
                                                 HorizontalOptions="FillAndExpand"
                                                 VerticalOptions="Start" />
                                         </Grid>
-
                                     </Grid>
                                 </sharpnado:MaterialFrame.Content>
                             </sharpnado:MaterialFrame>
@@ -1772,12 +1771,9 @@
                                 <Label LineBreakMode="WordWrap" Text="{Binding Title}" />
                             </StackLayout>
                         </DataTemplate>
-
                     </controls:HorizontalList.ItemTemplate>
                 </controls:HorizontalList>
             </pancakeview:PancakeView>-->
-
         </Grid>
-
     </ContentPage.Content>
 </ContentPage>
