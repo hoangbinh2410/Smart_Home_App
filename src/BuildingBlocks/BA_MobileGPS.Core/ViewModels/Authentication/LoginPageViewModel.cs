@@ -165,7 +165,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         break;
 
                     case LoginPopupItemType.RegisterSupport:
-                        _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
+                        _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true,false);
                         break;
 
                     case LoginPopupItemType.BAGPSExperience:
@@ -173,7 +173,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         break;
 
                     default:
-                        _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true);
+                        _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true,false);
                         break;
                 }
             });
@@ -380,7 +380,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand PushtoLanguageCommand => new DelegateCommand(() =>
         {
-            SafeExecute(async () => await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true));
+            SafeExecute(async () => await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true,true));
         });
 
         public ICommand ForgotPasswordCommand => new DelegateCommand(() =>
@@ -544,7 +544,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 //nếu cần đổi mật khẩu thì mở trang đổi mật khẩu
                 if (user.IsNeedChangePassword)
                 {
-                    await NavigationService.NavigateAsync("BaseNavigationPage/ChangePasswordPage", useModalNavigation: true);
+                    await NavigationService.NavigateAsync("BaseNavigationPage/ChangePasswordPage", null,useModalNavigation: true,true);
                 }
                 else
                 {

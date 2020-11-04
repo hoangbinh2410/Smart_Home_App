@@ -28,7 +28,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 var time = Convert.ToInt32(obj);
-                NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+                NavigationService.GoBackAsync(useModalNavigation: true, animated: false,parameters: new NavigationParameters
                         {
                             { ParameterKey.RequestTime,  time}
                         });

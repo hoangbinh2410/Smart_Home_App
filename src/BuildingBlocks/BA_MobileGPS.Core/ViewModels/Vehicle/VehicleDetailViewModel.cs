@@ -255,7 +255,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (carInfo != null)
             {
                 GetVehicleDetail();
-              
+
                 Coordinates = carInfo.Lat.ToString().Replace(",", ".") + ", " + carInfo.Lng.ToString().Replace(",", ".");
 
             }
@@ -303,10 +303,10 @@ namespace BA_MobileGPS.Core.ViewModels
         private async void GotoCameraPage(object obj)
         {
             var param = obj.ToString();
-            await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+            await NavigationService.GoBackAsync(parameters: new NavigationParameters
                         {
                             { "pagetoNavigation",  param}
-                        });
+                        }, true, true);
 
         }
 
@@ -319,7 +319,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.Vehicle, new Vehicle(){ VehicleId=PK_VehicleID,VehiclePlate=VehiclePlate,PrivateCode=PrivateCode} }
                 };
-                await NavigationService.NavigateAsync(obj.Url, parameters, useModalNavigation: true);
+                await NavigationService.NavigateAsync(obj.Url, parameters, useModalNavigation: true, true);
             });
 
 

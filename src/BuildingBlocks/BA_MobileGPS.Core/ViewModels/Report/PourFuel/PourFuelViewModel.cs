@@ -141,7 +141,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { "ComboboxType", ComboboxType.First },
                     { "Title", MobileResource.ReportMachine_TitleStatusMachine }
                 };
-                await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true, true);
             }
             catch (Exception ex)
             {
@@ -299,7 +299,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.ReportPourFuelSelected, SelectPourFuelVehicleItem }
                 };
-                await NavigationService.NavigateAsync("PourFuelDetailReportPage", p, useModalNavigation: false);
+                await NavigationService.NavigateAsync("PourFuelDetailReportPage", p, useModalNavigation: false, false);
             }
             catch (Exception ex)
             {

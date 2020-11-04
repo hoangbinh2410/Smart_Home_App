@@ -157,7 +157,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.ReportActivitySummariesSelected, SelectActivitySummariesItem }
                 };
-                await NavigationService.NavigateAsync("ActivitySummariesDetailReportPage", p, useModalNavigation: false);
+                await NavigationService.NavigateAsync("ActivitySummariesDetailReportPage", p, useModalNavigation: false,false);
             }
             catch (Exception ex)
             {

@@ -373,7 +373,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("ListVehicleHelpPage", useModalNavigation: true);
+                await NavigationService.NavigateAsync("ListVehicleHelpPage", null,useModalNavigation: true,true);
             });
         }
 
@@ -548,7 +548,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.CarDetail, param }
                 };
 
-                var a = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, useModalNavigation: true);
+                var a = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, useModalNavigation: true,true);
             });
         }
 
@@ -606,7 +606,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.Vehicle, param }
                 };
 
-                await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true);
+                await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true,true);
             });
         }
 
@@ -620,7 +620,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.Vehicle, param }
                 };
 
-                await NavigationService.NavigateAsync("NavigationPage/ChartFuelReportPage", parameters, true);
+                await NavigationService.NavigateAsync("NavigationPage/ChartFuelReportPage", parameters, true,true);
             });
         }
 
@@ -638,7 +638,7 @@ namespace BA_MobileGPS.Core.ViewModels
                           { ParameterKey.Vehicle, param }
                      };
 
-                    await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true);
+                    await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true,true);
                 }
             });
         }

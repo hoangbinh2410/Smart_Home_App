@@ -76,7 +76,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     PickerType = PickerType
                 };
                 _eventAggregator.GetEvent<SelectDateTimeEvent>().Publish(input);
-                await NavigationService.GoBackAsync(useModalNavigation: true);
+                await NavigationService.GoBackAsync(null,useModalNavigation: true, true);
             }
             catch (Exception ex)
             {
