@@ -34,13 +34,7 @@ namespace MOTO_MobileGPS.Views
     {
         #region Contructor
 
-        private enum States
-        {
-            ShowFilter,
-            HideFilter,
-            ShowStatus,
-            HideStatus
-        }
+      
 
         private readonly IEventAggregator eventAggregator;
         private readonly IGeocodeService geocodeService;
@@ -50,7 +44,8 @@ namespace MOTO_MobileGPS.Views
         private readonly IMotoPropertiesService motoPropertiesService;
 
         private readonly BA_MobileGPS.Core.Animation _animations = new BA_MobileGPS.Core.Animation();
-
+        private bool boxInfoIsShown = false;
+        private int pageWidth = 0;
         public OnlinePage()
         {
             InitializeComponent();
@@ -64,6 +59,9 @@ namespace MOTO_MobileGPS.Views
 
             // Initialize the View Model Object
             vm = (OnlinePageViewModel)BindingContext;
+            pageWidth = (int)Application.Current.MainPage.Width;
+            boxStatusVehicle.TranslationX = pageWidth;
+            boxInfo.TranslationY = 300;
 
             googleMap.IsUseCluster = true;
             googleMap.IsTrafficEnabled = false;
@@ -86,7 +84,7 @@ namespace MOTO_MobileGPS.Views
             googleMap.MapClicked += Map_MapClicked;
             googleMap.CameraIdled += GoogleMap_CameraIdled;
 
-            InitAnimation();
+
 
             mCarActive = new VehicleOnline();
             mCurrentVehicleList = new List<VehicleOnline>();
@@ -94,7 +92,6 @@ namespace MOTO_MobileGPS.Views
 
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
-            this.eventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
             this.eventAggregator.GetEvent<BackButtonEvent>().Subscribe(AndroidBackButton);
 
             IsInitMarker = false;
@@ -194,7 +191,6 @@ namespace MOTO_MobileGPS.Views
 
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
-            this.eventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
             this.eventAggregator.GetEvent<BackButtonEvent>().Unsubscribe(AndroidBackButton);
         }
 
@@ -346,53 +342,7 @@ namespace MOTO_MobileGPS.Views
             }
         }
 
-        private async void InitAnimation()
-        {
-            try
-            {
-                if (_animations == null)
-                {
-                    return;
-                }
-
-                _animations.Add(States.ShowFilter, new[] {
-                                                            new ViewTransition(boxInfo, AnimationType.TranslationY, 0, 300, delay: 300), // Active and visible
-                                                            new ViewTransition(boxInfo, AnimationType.Opacity, 1, 0), // Active and visible
-                                                          });
-
-                _animations.Add(States.HideFilter, new[] {
-                                                            new ViewTransition(boxInfo, AnimationType.TranslationY, 300),
-                                                            new ViewTransition(boxInfo, AnimationType.Opacity, 0),
-                                                          });
-
-                await _animations.Go(States.HideFilter, false);
-
-                var pageWidth = Xamarin.Forms.Application.Current?.MainPage?.Width;
-
-                if (pageWidth > 0)
-                {
-                    AbsoluteLayout.SetLayoutBounds(boxStatusVehicle, new Rectangle(1, 0, pageWidth.GetValueOrDefault(), 1));
-
-                    _animations.Add(States.ShowStatus, new[] {
-                                                            new ViewTransition(boxStatusVehicle, AnimationType.TranslationX, 0,  pageWidth.GetValueOrDefault(), delay: 200), // Active and visible
-                                                            new ViewTransition(boxStatusVehicle, AnimationType.Opacity, 1, 0), // Active and visible
-                                                          });
-
-                    _animations.Add(States.HideStatus, new[] {
-                                                            new ViewTransition(boxStatusVehicle, AnimationType.TranslationX, pageWidth.GetValueOrDefault()),
-                                                            new ViewTransition(boxStatusVehicle, AnimationType.Opacity, 0),
-                                                          });
-
-                    await _animations.Go(States.HideStatus, false);
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-                LoggerHelper.WriteError("InitAnimation", ex);
-            }
-        }
+   
 
         /// <summary>
         /// Nhận dữ liệu xe online
@@ -1051,23 +1001,47 @@ namespace MOTO_MobileGPS.Views
         /// <summary>
         /// ẩn box  thông tin  xe
         /// </summary>
-        public async void HideBoxInfo()
+        public void HideBoxInfo()
         {
-            vm.CarActive = new VehicleOnline();
-            mCarActive = new VehicleOnline();
-            SetNoPaddingWithFooter();
-            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(true);
-            await _animations.Go(States.HideFilter, true);
+            try
+            {
+                vm.CarActive = new VehicleOnline();
+                mCarActive = new VehicleOnline();
+                SetNoPaddingWithFooter();
+                eventAggregator.GetEvent<ShowHideTabEvent>().Publish(true);
+                if (boxInfoIsShown)
+                {
+                    Action<double> callback = input => boxInfo.TranslationY = input;
+                    boxInfo.Animate("animBoxInfo", callback, 0, 300, 16, 300, Easing.CubicInOut);
+                    boxInfoIsShown = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            }
         }
 
         /// <summary>
         /// Hiển thị box thông tin xe
         /// </summary>
-        private async void ShowBoxInfo()
+        private  void ShowBoxInfo()
         {
-            SetPaddingWithFooter();
-            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(false);
-            await _animations.Go(States.ShowFilter, true);
+            try
+            {
+                SetPaddingWithFooter();
+                eventAggregator.GetEvent<ShowHideTabEvent>().Publish(false);
+                if (!boxInfoIsShown)
+                {
+                    Action<double> callback = input => boxInfo.TranslationY = input;
+                    boxInfo.Animate("animBoxInfo", callback, 300, 0, 16, 300, Easing.CubicInOut);
+                    boxInfoIsShown = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            }
         }
 
         /* Set padding map khi có thông tin xe ở footer - tracking */
@@ -1087,10 +1061,31 @@ namespace MOTO_MobileGPS.Views
             BoxControls.Margin = new Thickness(20);
         }
 
-        private async void HideBoxStatus()
+        private  void HideBoxStatus()
         {
-            await _animations.Go(States.HideStatus, true);
-            infoStatusIsShown = false;
+            try
+            {
+                if (infoStatusIsShown)
+                {
+                    Action<double> callback = input => boxStatusVehicle.TranslationX = input;
+                    boxStatusVehicle.Animate("animboxStatusVehicle", callback, 0, pageWidth, 16, 300, Easing.CubicInOut);
+                    infoStatusIsShown = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError("HideBoxStatus", ex);
+            }
+        }
+
+        private void ShowBoxStatus()
+        {
+            if (!infoStatusIsShown)
+            {
+                Action<double> callback = input => boxStatusVehicle.TranslationX = input;
+                boxStatusVehicle.Animate("animboxStatusVehicle", callback, pageWidth, 0, 16, 300, Easing.CubicInOut);
+                infoStatusIsShown = true;
+            }
         }
 
         private void TapStatusVehicel(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs args)
@@ -1111,19 +1106,17 @@ namespace MOTO_MobileGPS.Views
             }
         }
 
-        private async void FilterStatusCar(object sender, EventArgs e)
+        private  void FilterStatusCar(object sender, EventArgs e)
         {
             if (infoStatusIsShown)
             {
-                await _animations.Go(States.HideStatus, true);
+                HideBoxStatus();
             }
             else
             {
                 CacularVehicleStatus();
-                await _animations.Go(States.ShowStatus, true);
+                ShowBoxStatus();
             }
-
-            infoStatusIsShown = !infoStatusIsShown;
         }
 
         private bool IsInMapScreen(Position latlng)
@@ -1149,14 +1142,7 @@ namespace MOTO_MobileGPS.Views
                 case SwipeDirection.Right:
                     HideBoxStatus();
                     break;
-
-                case SwipeDirection.Left:
-                    break;
-
-                case SwipeDirection.Up:
-                    break;
-
-                case SwipeDirection.Down:
+                default:
                     break;
             }
         }

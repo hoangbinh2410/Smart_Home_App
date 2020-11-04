@@ -79,7 +79,7 @@ namespace MOTO_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.GoBackAsync(useModalNavigation: false);
+                await NavigationService.GoBackAsync(null,useModalNavigation: false,false);
             });
         }
 

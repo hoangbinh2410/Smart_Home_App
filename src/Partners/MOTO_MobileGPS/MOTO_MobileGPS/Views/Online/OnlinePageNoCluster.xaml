@@ -20,7 +20,6 @@
             BlurRadius="3"
             Color="Black" />
         <Style TargetType="pancake:PancakeView">
-            <Setter Property="HasShadow" Value="True" />
             <Setter Property="Shadow" Value="{StaticResource shadow}" />
         </Style>
         <cluster:HasDataBackgroundColorConverter x:Key="HasDataBackgroundColorConverter" />
@@ -71,8 +70,7 @@
             <pancake:PancakeView
                 Padding="0"
                 BackgroundColor="{DynamicResource WhiteColor}"
-                CornerRadius="22"
-                HasShadow="True">
+                CornerRadius="22">
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
@@ -220,7 +218,6 @@
             AbsoluteLayout.LayoutFlags="YProportional, WidthProportional"
             BackgroundColor="{DynamicResource WhiteColor}"
             CornerRadius="20,20,0,0"
-            HasShadow="False"
             HeightRequest="168"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="End" />

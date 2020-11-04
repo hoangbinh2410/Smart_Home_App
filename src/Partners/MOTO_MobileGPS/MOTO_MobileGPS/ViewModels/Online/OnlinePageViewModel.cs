@@ -1,16 +1,17 @@
 ﻿using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Events;
+
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
-using BA_MobileGPS.Core.ViewModels;
+using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using MOTO_MobileGPS.Constant;
 using Prism.Commands;
 using Prism.Navigation;
+using Prism.Navigation.TabbedPages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,7 +22,7 @@ using Xamarin.Forms;
 
 namespace MOTO_MobileGPS.ViewModels
 {
-    public class OnlinePageViewModel : ViewModelBase
+    public class OnlinePageViewModel : TabbedPageChildVMBase
     {
         #region Contructor
 
@@ -449,15 +450,20 @@ namespace MOTO_MobileGPS.ViewModels
 
         private void PushtoRouterPage()
         {
-            SafeExecute(() =>
+            SafeExecute(async () =>
             {
                 if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
                 {
-                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, carActive));
+                    var parameters = new NavigationParameters
+                    {
+                        { ParameterKey.VehicleOnline, carActive }
+                    };
+                    EventAggregator.GetEvent<BackButtonEvent>().Publish(true);
+                    await NavigationService.SelectTabAsync("RoutePage", parameters);
                 }
                 else
                 {
-                    PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Common_Message_NotPermission, MobileResource.Common_Button_Close);
+                    await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Common_Message_NotPermission, MobileResource.Common_Button_Close);
                 }
             });
         }
@@ -466,7 +472,7 @@ namespace MOTO_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("BaseNavigationPage/BoundaryPage", useModalNavigation: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/BoundaryPage",null, useModalNavigation: true,true);
             });
         }
 
@@ -535,7 +541,7 @@ namespace MOTO_MobileGPS.ViewModels
                      { MotoParameterKey.MotoDetail, MotoDetail }
                 };
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true,true);
             });
         }
 
@@ -546,7 +552,7 @@ namespace MOTO_MobileGPS.ViewModels
                 await NavigationService.NavigateAsync("SettingsPageMoto", new NavigationParameters
                 {
                     { MotoParameterKey.MotoDetail, MotoStaticSettings.MotoProperties }
-                }, false);
+                }, false,false);
             });
         }
 
@@ -559,7 +565,7 @@ namespace MOTO_MobileGPS.ViewModels
                     { ParameterKey.VehicleOnline, CarActive }
                 };
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/DistancePage", parameters, true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/DistancePage", parameters, true,true);
             });
         }
 

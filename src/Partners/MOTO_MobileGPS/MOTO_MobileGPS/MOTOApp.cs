@@ -33,7 +33,7 @@ namespace MOTO_MobileGPS
             ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerMoto;
             ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerMoto;
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerMoto;
-            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerLinhLV;
+            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerMoto;
 
             Application.Current.Resources.MergedDictionaries.Add(new LightColor());
             Application.Current.Resources.MergedDictionaries.Add(new BA_MobileGPS.Core.Styles.Styles());
@@ -68,37 +68,23 @@ namespace MOTO_MobileGPS
 
             containerRegistry.RegisterForNavigation<BA_MobileGPS.Core.Views.HelperPage, HeplerViewModel>("HelperPage");
 
-            //ViewModelLocationProvider.Register<Home, HomeViewModel>();
-            //ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
+
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
             ViewModelLocationProvider.Register<OnlinePageNoCluster, OnlinePageViewModel>();
-            //ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
-            //ViewModelLocationProvider.Register<Account, AccountViewModel>();
 
-            //containerRegistry.Register<ContentView, Home>("HomeTab");
-            //containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
             containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
             containerRegistry.Register<ContentView, OnlinePageNoCluster>("OnlineTabNoCluster");
-            //containerRegistry.Register<ContentView, RoutePage>("RouteTab");
-            // containerRegistry.Register<ContentView, Account>("AccountTab");
-
-            //containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
-            //containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());
-            //containerRegistry.Register<ResourceDictionary, MOTO_MobileGPS.Styles.Custom>(Theme.Custom.ToString());
 
 
-            //containerRegistry.RegisterForNavigation<OnlinePage, OnlinePageViewModel>("OnlinePage");
-            //containerRegistry.RegisterForNavigation<OnlinePageNoCluster, OnlinePageViewModel>("OnlinePageNoCluster");
-            //containerRegistry.RegisterForNavigation<OnlineOneCar, OnlineOneCarViewModel>("OnlineOneCar");
-            //containerRegistry.RegisterForNavigation<BoundaryPage, BoundaryViewModel>("BoundaryPage");
-            //containerRegistry.RegisterForNavigation<ListVehicleHelpPage, ListVehicleHelpViewModel>("ListVehicleHelpPage");
-            //containerRegistry.RegisterForNavigation<ListVehiclePage, ListVehiclePageViewModel>("ListVehiclePage");
-            //containerRegistry.RegisterForNavigation<VehicleDetailPage, VehicleDetailPageViewModel>("VehicleDetailPage");
-            //containerRegistry.RegisterForNavigation<VehicleDebtMoneyPage, VehicleDebtMoneyPageViewModel>("VehicleDebtMoneyPage");
+            containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
+            containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());
+            containerRegistry.Register<ResourceDictionary, Styles.Custom>(Theme.Custom.ToString());
+
+
+
             containerRegistry.RegisterForNavigation<SettingsPageMoto, SettingsMotoViewModel>("SettingsPageMoto");
             containerRegistry.RegisterForNavigation<PhoneNumberSMSPage, PhoneNumberSMSViewModel>("PhoneNumberSMSPage");
-            //containerRegistry.RegisterForNavigation<RoutePage, RouteViewModel>("RoutePage");
-            //containerRegistry.RegisterForNavigation<RouteListPage, RouteListViewModel>("RouteListPage");
+
         }
     }
 }

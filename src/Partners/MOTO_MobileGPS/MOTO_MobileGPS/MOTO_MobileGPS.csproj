@@ -5,6 +5,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="18.3.0.40" />
 		<PackageReference Include="Xamarin.Forms" Version="4.8.0.1560" />
 	</ItemGroup>
 
@@ -19,30 +20,6 @@
 	  <Compile Update="Views\Common\MOTOPinInfowindowActiveView.xaml.cs">
 	    <DependentUpon>MOTOPinInfowindowActiveView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\ListVehicle\DetailVehiclePopup.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ListVehicle\ListVehicleHelpPage.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ListVehicle\ListVehiclePage.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ListVehicle\VehicleDefaultView.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ListVehicle\VehicleExpiredView.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ListVehicle\VehicleLostSignalView.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ListVehicle\VehicleStopServiceView.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ListVehicle\VehicleUnpaidView.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
 	  <Compile Update="Views\Online\BoundaryNameInfoWindow.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
@@ -56,12 +33,6 @@
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Online\OnlinePageNoCluster.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Route\RouteListPage.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Route\RoutePage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Settings\PhoneNumberSMSPage.xaml.cs">

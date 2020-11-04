@@ -335,7 +335,7 @@ namespace MOTO_MobileGPS.ViewModels
                 await NavigationService.NavigateAsync("PhoneNumberSMSPage", new NavigationParameters
                 {
                     { MotoParameterKey.KeyPhoneNumberSMSPage, p }
-                }, useModalNavigation: false);
+                }, useModalNavigation: false,false);
             });
         }
     }
