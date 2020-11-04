@@ -54,7 +54,7 @@ namespace BA_MobileGPS.Core.iOS.Setup
             {
                 ImageFactory = new CachingImageFactory()
             });
-            iOSShinyHost.Init(new ShinyAppStartup());
+            //iOSShinyHost.Init(new ShinyAppStartup());
 
             iOSMaterialFrameRenderer.Init();
 
