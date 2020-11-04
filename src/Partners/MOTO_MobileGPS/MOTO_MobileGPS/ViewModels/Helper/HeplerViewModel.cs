@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace VIVIEW_MobileGPS.ViewModels
+namespace MOTO_MobileGPS.ViewModels
 {
     public class HeplerViewModel : ViewModelBase
     {
