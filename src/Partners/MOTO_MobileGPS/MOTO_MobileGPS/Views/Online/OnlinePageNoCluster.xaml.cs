@@ -30,7 +30,7 @@ using Xamarin.Forms.Xaml;
 namespace MOTO_MobileGPS.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class OnlinePageNoCluster : ContentView, IDestructible, INavigationAware
+    public partial class OnlinePageNoCluster : ContentPage, IDestructible, INavigationAware
     {
         #region Contructor
 

@@ -10,10 +10,10 @@ namespace MOTO_MobileGPS.Views
         public OnlineCarInfoView()
         {
             InitializeComponent();
-            lblVelocity.Text = MobileResource.Online_Label_Velocity.Trim().ToUpper();
-            lblEngine.Text = MobileResource.Online_Label_Engine.Trim().ToUpper();
-            lblAirCondition.Text = MobileResource.Online_Label_AirConditioning.Trim().ToUpper();
-            lblCarDoor.Text = MobileResource.Online_Label_Cardoor.Trim().ToUpper();
+            lblVelocity.Text = MobileResource.Online_Label_SeachVehicle3.Trim().ToUpper();
+            lblEngine.Text = MobileResource.Online_Label_Location.Trim().ToUpper();
+            lblAirCondition.Text = MobileResource.Online_Label_StatusCarEngineOn.Trim().ToUpper();
+            lblCarDoor.Text = MobileResource.Online_Label_StatusCarEngineOff.Trim().ToUpper();
             lblRoute.Text = MobileResource.Route_Label_Title.Trim().ToUpper();
             lblButtonDetail.Text = MobileResource.Online_Button_Detail.Trim().ToUpper();
         }

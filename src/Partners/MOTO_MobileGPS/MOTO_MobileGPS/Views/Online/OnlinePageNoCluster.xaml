@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentView
+<ContentPage
     x:Class="MOTO_MobileGPS.Views.OnlinePageNoCluster"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -14,7 +14,7 @@
     xmlns:viewcore="clr-namespace:BA_MobileGPS.Core.Views.PartialView;assembly=BA_MobileGPS.Core"
     xmlns:views="clr-namespace:MOTO_MobileGPS.Views"
     prism:ViewModelLocator.AutowireViewModel="True">
-    <ContentView.Resources>
+    <ContentPage.Resources>
         <pancake:DropShadow
             x:Key="shadow"
             BlurRadius="3"
@@ -26,7 +26,7 @@
         <cluster:HasDataIconColorConverter x:Key="HasDataIconColorConverter" />
         <cluster:SelectedStatusBackgroundColorConverter x:Key="SelectedStatusBackgroundColorConverter" />
         <cluster:SelectedStatusIconColorConverter x:Key="SelectedStatusIconColorConverter" />
-    </ContentView.Resources>
+    </ContentPage.Resources>
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -213,12 +213,10 @@
         <views:OnlineCarInfoView
             x:Name="boxInfo"
             Grid.Row="1"
-            Padding="0,10"
-            AbsoluteLayout.LayoutBounds="0,1,1,350"
-            AbsoluteLayout.LayoutFlags="YProportional, WidthProportional"
+            Padding="0,10,0,0"
             BackgroundColor="{DynamicResource WhiteColor}"
             CornerRadius="20,20,0,0"
-            HeightRequest="168"
+            HeightRequest="200"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="End" />
         <!--  Trạng thái xe  -->
@@ -309,4 +307,4 @@
             </Frame>
         </Grid>
     </Grid>
-</ContentView>
+</ContentPage>

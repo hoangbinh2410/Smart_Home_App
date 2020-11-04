@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:cluster="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms"
@@ -118,7 +119,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width=".5*" />
             </Grid.ColumnDefinitions>
-            <!--  Vận tốc  -->
+            <!--  Tim xe  -->
             <StackLayout
                 Grid.Column="0"
                 Padding="5"
@@ -131,18 +132,14 @@
                     HorizontalTextAlignment="Center"
                     LineBreakMode="TailTruncation"
                     TextColor="{DynamicResource TextSecondaryColor}" />
-                <Label
-                    x:Name="txtVelocity"
-                    HorizontalTextAlignment="Center"
-                    LineBreakMode="TailTruncation"
-                    Text="{Binding CarActive.Velocity, Converter={StaticResource VelocityConverter}}"
-                    TextColor="{DynamicResource TextPrimaryColor}" />
+
+                <ff:CachedImage HeightRequest="25" Source="ic_motor_search.png" />
             </StackLayout>
             <BoxView
                 Grid.Column="1"
                 WidthRequest="0.5"
                 Color="{DynamicResource GrayColor}" />
-            <!--  Động cơ  -->
+            <!--  Vi tri  -->
             <StackLayout
                 Grid.Column="2"
                 Padding="5"
@@ -155,17 +152,13 @@
                     HorizontalTextAlignment="Center"
                     LineBreakMode="TailTruncation"
                     TextColor="{DynamicResource TextSecondaryColor}" />
-                <Label
-                    HorizontalTextAlignment="Center"
-                    LineBreakMode="TailTruncation"
-                    Text="{Binding EngineState}"
-                    TextColor="{DynamicResource TextPrimaryColor}" />
+                <ff:CachedImage HeightRequest="25" Source="ic_motor_location.png" />
             </StackLayout>
             <BoxView
                 Grid.Column="3"
                 WidthRequest="0.5"
                 Color="{DynamicResource GrayColor}" />
-            <!--  ĐIỀU HÒA  -->
+            <!--  Bat may  -->
             <StackLayout
                 Grid.Column="4"
                 Padding="5"
@@ -178,17 +171,13 @@
                     HorizontalTextAlignment="Center"
                     LineBreakMode="TailTruncation"
                     TextColor="{DynamicResource TextSecondaryColor}" />
-                <Label
-                    HorizontalTextAlignment="Center"
-                    LineBreakMode="TailTruncation"
-                    Text="{Binding CarActive.State, Converter={StaticResource AirConditionerConverter}}"
-                    TextColor="{DynamicResource TextPrimaryColor}" />
+                <ff:CachedImage HeightRequest="25" Source="ic_motor_turnon.png" />
             </StackLayout>
             <BoxView
                 Grid.Column="5"
                 WidthRequest="0.5"
                 Color="{DynamicResource GrayColor}" />
-            <!--  CỬA XE  -->
+            <!--  Tat may  -->
             <StackLayout
                 Grid.Column="6"
                 Padding="5"
@@ -201,11 +190,7 @@
                     HorizontalTextAlignment="Center"
                     LineBreakMode="TailTruncation"
                     TextColor="{DynamicResource TextSecondaryColor}" />
-                <Label
-                    HorizontalTextAlignment="Center"
-                    LineBreakMode="TailTruncation"
-                    Text="{Binding CarActive.State, Converter={StaticResource DoorOpenConverter}}"
-                    TextColor="{DynamicResource TextPrimaryColor}" />
+                <ff:CachedImage HeightRequest="25" Source="ic_motor_turnoff.png" />
             </StackLayout>
         </Grid>
         <BoxView
@@ -215,43 +200,112 @@
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start" />
         <Grid
+            x:Name="boxCommand"
             Grid.Row="6"
-            Padding="10,0"
-            ColumnDefinitions="*,*">
+            Padding="5,5,5,0"
+            ColumnDefinitions="*,*,*"
+            IsVisible="{Binding MenuItems, Converter={StaticResource IsEmptyDataConverter}}"
+            VerticalOptions="FillAndExpand">
             <sharpnado:MaterialFrame
                 Grid.Column="0"
-                Padding="0,11"
-                CornerRadius="18"
+                Padding="0,5"
+                CornerRadius="10"
                 HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="{DynamicResource PrimaryColor}">
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                VerticalOptions="Center">
                 <sharpnado:MaterialFrame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PushToRouterPageCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
                 <sharpnado:MaterialFrame.Content>
-                    <Label
-                        x:Name="lblRoute"
-                        FontFamily="{StaticResource myFontFamily}"
-                        FontSize="{StaticResource MyFontSize}"
-                        LineBreakMode="TailTruncation"
-                        TextColor="{DynamicResource WhiteColor}" />
+                    <StackLayout
+                        HorizontalOptions="Center"
+                        Orientation="Vertical"
+                        Spacing="0"
+                        VerticalOptions="Center">
+                        <controls:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            Source="ic_route.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
+                        <Label
+                            x:Name="lblRoute"
+                            FontFamily="{StaticResource myFontFamily}"
+                            FontSize="{StaticResource MyFontSize}"
+                            LineBreakMode="TailTruncation"
+                            TextColor="{DynamicResource WhiteColor}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+
                 </sharpnado:MaterialFrame.Content>
             </sharpnado:MaterialFrame>
             <sharpnado:MaterialFrame
                 Grid.Column="1"
-                Padding="0,11"
-                CornerRadius="18"
+                Padding="0,5"
+                CornerRadius="10"
                 HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="{DynamicResource PrimaryColor}">
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                VerticalOptions="Center">
                 <sharpnado:MaterialFrame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PushToDetailPageCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
                 <sharpnado:MaterialFrame.Content>
-                    <Label
-                        x:Name="lblButtonDetail"
-                        FontFamily="{StaticResource myFontFamily}"
-                        FontSize="{StaticResource MyFontSize}"
-                        LineBreakMode="TailTruncation"
-                        TextColor="{DynamicResource WhiteColor}" />
+                    <StackLayout
+                        HorizontalOptions="Center"
+                        Orientation="Vertical"
+                        Spacing="0"
+                        VerticalOptions="Center">
+                        <controls:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            Source="ic_guarantee.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
+                        <Label
+                            x:Name="lblButtonDetail"
+                            FontFamily="{StaticResource myFontFamily}"
+                            FontSize="{StaticResource MyFontSize}"
+                            LineBreakMode="TailTruncation"
+                            TextColor="{DynamicResource WhiteColor}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+
+                </sharpnado:MaterialFrame.Content>
+            </sharpnado:MaterialFrame>
+            <sharpnado:MaterialFrame
+                Grid.Column="2"
+                Padding="0,5"
+                CornerRadius="10"
+                HorizontalOptions="FillAndExpand"
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                VerticalOptions="Center">
+                <sharpnado:MaterialFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PushToDetailPageCommand}" />
+                </sharpnado:MaterialFrame.GestureRecognizers>
+                <sharpnado:MaterialFrame.Content>
+                    <StackLayout
+                        HorizontalOptions="Center"
+                        Orientation="Vertical"
+                        Spacing="0"
+                        VerticalOptions="Center">
+                        <controls:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            Source="ic_guarantee.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
+                        <Label
+                            x:Name="lblSetting"
+                            FontFamily="{StaticResource myFontFamily}"
+                            FontSize="{StaticResource MyFontSize}"
+                            LineBreakMode="TailTruncation"
+                            TextColor="{DynamicResource WhiteColor}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+
                 </sharpnado:MaterialFrame.Content>
             </sharpnado:MaterialFrame>
         </Grid>

@@ -72,8 +72,8 @@ namespace MOTO_MobileGPS
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
             ViewModelLocationProvider.Register<OnlinePageNoCluster, OnlinePageViewModel>();
 
-            containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
-            containerRegistry.Register<ContentView, OnlinePageNoCluster>("OnlineTabNoCluster");
+            containerRegistry.Register<ContentPage, OnlinePage>("OnlinePage");
+            containerRegistry.Register<ContentPage, OnlinePageNoCluster>("OnlinePageNoCluster");
 
 
             containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
