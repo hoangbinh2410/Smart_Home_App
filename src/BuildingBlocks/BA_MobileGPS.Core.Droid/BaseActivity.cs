@@ -17,7 +17,7 @@ namespace BA_MobileGPS.Core.Droid
         {
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
-            AndroidShinyHost.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            //AndroidShinyHost.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }

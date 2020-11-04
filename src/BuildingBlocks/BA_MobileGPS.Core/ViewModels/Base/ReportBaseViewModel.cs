@@ -23,7 +23,6 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         protected readonly IReportBaseService<TRequest, TResponse> ReportBaseService;
 
-        [Unity.Dependency]
         public IShowHideColumnService ShowHideColumnService { get; set; }
 
         protected virtual bool AutoLoadData => false;

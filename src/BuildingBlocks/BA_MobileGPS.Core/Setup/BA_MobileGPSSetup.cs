@@ -31,10 +31,10 @@ namespace BA_MobileGPS.Core
 
         public static void RegisterServices(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register<INavigationService, PopupPageNavigationService>();
+            //containerRegistry.Register<INavigationService, PopupPageNavigationService>();
 
             // This updates INavigationService and registers PopupNavigation.Instance
-            containerRegistry.RegisterPopupNavigationService();
+            //containerRegistry.RegisterPopupNavigationService();
             containerRegistry.Register<IMapper, MapperUtility>();
             containerRegistry.RegisterSingleton(typeof(IRealmBaseService<,>), typeof(RealmBaseService<,>));
 

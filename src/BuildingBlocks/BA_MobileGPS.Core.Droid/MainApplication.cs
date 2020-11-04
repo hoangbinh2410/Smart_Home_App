@@ -16,7 +16,7 @@ namespace BA_MobileGPS.Core.Droid
 [Application(Debuggable = false)]
 #endif
     [MetaData("com.google.android.maps.v2.API_KEY", Value = Config.GoogleMapKeyAndroid)]
-    public class MainApplication : ShinyAndroidApplication<ShinyAppStartup>
+    public class MainApplication : Android.App.Application, Android.App.Application.IActivityLifecycleCallbacks
     {
         public MainApplication(IntPtr handle, JniHandleOwnership transer)
             : base(handle, transer)
