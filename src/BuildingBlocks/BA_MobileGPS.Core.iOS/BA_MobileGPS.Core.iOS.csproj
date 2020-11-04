@@ -93,7 +93,6 @@
     <Compile Include="GoogleMaps\MapRender\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setup\ToolSetup.cs" />
-    <Compile Include="Utilities\MaterialShowcaseCalculations.cs" />
     <Compile Include="Utilities\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
