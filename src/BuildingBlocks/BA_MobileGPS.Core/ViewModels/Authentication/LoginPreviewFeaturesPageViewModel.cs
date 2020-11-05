@@ -95,7 +95,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private async void ClosePopup()
         {
             //await PopupNavigation.Instance.PopAsync();
-            await NavigationService.GoBackAsync();
+           var a = await NavigationService.GoBackAsync();
         }
 
         public ICommand NavigateCommand { get; }
