@@ -32,7 +32,7 @@
 	  <Compile Update="Views\Online\OnlinePage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\Online\OnlinePageNoCluster.xaml.cs">
+	  <Compile Update="Views\Settings\OnlinePageNoCluster.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Settings\PhoneNumberSMSPage.xaml.cs">
