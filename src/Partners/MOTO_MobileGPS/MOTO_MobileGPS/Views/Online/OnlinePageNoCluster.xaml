@@ -306,5 +306,86 @@
                 </Grid>
             </Frame>
         </Grid>
+        <!--  Ô nhỏ góc trái  -->
+        <Frame
+            x:Name="frVehicleInfo"
+            Grid.Row="1"
+            Margin="10,60,0,0"
+            Padding="0"
+            BackgroundColor="Transparent"
+            BorderColor="{StaticResource GrayColor}"
+            CornerRadius="5"
+            HasShadow="False"
+            HorizontalOptions="Start"
+            IsClippedToBounds="True"
+            VerticalOptions="Start">
+            <Grid BackgroundColor="White" Opacity=".9">
+                <Grid Padding="8" BackgroundColor="Transparent">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="2"
+                        Text="{Binding CarActive.PrivateCode}"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        Text="{Binding CarActive.TotalKm, StringFormat='{}{0:###,###,##0.##} Km'}"
+                        TextColor="Black"
+                        VerticalOptions="Center" />
+                    <BoxView
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        HeightRequest="1"
+                        HorizontalOptions="FillAndExpand"
+                        Color="LightGray" />
+                    <StackLayout
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="0">
+                        <Label
+                            x:Name="lblVelocity"
+                            HorizontalOptions="Center"
+                            TextColor="Gray"
+                            VerticalOptions="Center" />
+                        <Label
+                            HorizontalOptions="Center"
+                            Text="{Binding CarActive.Velocity, StringFormat='{}{0:###,###,##0.##} km/h'}"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="0">
+                        <Label
+                            x:Name="lblMotorStatus"
+                            HorizontalOptions="Center"
+                            TextColor="Gray" />
+                        <Label
+                            HorizontalOptions="Center"
+                            Text="{Binding EngineState}"
+                            TextColor="Black" />
+                    </StackLayout>
+                </Grid>
+            </Grid>
+        </Frame>
     </Grid>
 </ContentPage>

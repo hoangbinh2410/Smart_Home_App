@@ -42,7 +42,11 @@ namespace MOTO_MobileGPS.ViewModels
         public ICommand PushtoListVehicleOnlineCommand { get; private set; }
         public DelegateCommand GoDistancePageCommand { get; private set; }
         public DelegateCommand CloseCarInfoViewCommand { get; private set; }
+        public ICommand SearchVihecleCommand { get; private set; }
 
+        public ICommand SendTurnOnCommand { get; private set; }
+
+        public ICommand SendTurnOffCommand { get; private set; }
 
         public bool IsCheckShowLandmark { get; set; } = false;
 
@@ -81,6 +85,9 @@ namespace MOTO_MobileGPS.ViewModels
             GoDistancePageCommand = new DelegateCommand(GoDistancePage);
             PushDirectvehicleOnlineCommand = new DelegateCommand(PushDirectvehicleOnline);
             CloseCarInfoViewCommand = new DelegateCommand(CloseCarInfoView);
+            SearchVihecleCommand = new DelegateCommand(SearchVihecle);
+            SendTurnOnCommand = new DelegateCommand(SendTurnOn);
+            SendTurnOffCommand = new DelegateCommand(SendTurnOff);
         }
 
         
@@ -217,6 +224,18 @@ namespace MOTO_MobileGPS.ViewModels
             {
                 motoDetail = value;
                 RaisePropertyChanged(() => MotoDetail);
+            }
+        }
+
+        private MotoPropertiesViewModel motoProperties;
+
+        public MotoPropertiesViewModel MotoProperties
+        {
+            get => motoProperties;
+            set
+            {
+                motoProperties = value;
+                RaisePropertyChanged(() => motoProperties);
             }
         }
 
@@ -448,6 +467,114 @@ namespace MOTO_MobileGPS.ViewModels
             });
         }
 
+        /// <summary>Tắt máy</summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// linhlv  3/10/2020   created
+        /// </Modified>
+        private async void SendTurnOff()
+        {
+            if (ValidatePhone())
+            {
+                if (ValidateAllowTurnOnOffEngineViaSMS())
+                {
+                    var result = await Application.Current.MainPage.DisplayAlert(MobileResource.Moto_Label_Confirm, MobileResource.Moto_Message_TurnOff_Engine, MobileResource.Common_Button_OK, MobileResource.Common_Message_Skip);
+                    if (result)
+                    {
+                        SendActionHelper.SendSMS(MotoStaticSettings.MotoProperties.DevicePhoneNumber, MotoParameterKey.ValueTurnOffEngine);
+                    }
+                }
+            }
+        }
+
+        /// <summary>Kiểm tra xem đã gạt chức năng cấu hình bật tắt từ xa chưa</summary>
+        /// <returns></returns>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// linhlv  4/7/2020   created
+        /// </Modified>
+        private bool ValidateAllowTurnOnOffEngineViaSMS()
+        {
+            if (MotoStaticSettings.MotoProperties != null && !MotoStaticSettings.MotoProperties.AllowTurnOnOffEngineViaSMS)
+            {
+                SafeExecute(async () =>
+                {
+                    var result = await Application.Current.MainPage.DisplayAlert(MobileResource.Moto_Label_Alter, MobileResource.Moto_Message_AllowTurnOnOffEngineViaSMS, MobileResource.Common_Button_OK, MobileResource.Common_Message_Skip);
+                    if (result) // chuyển trang
+                    {
+                        await NavigationService.NavigateAsync("SettingsPageMoto", new NavigationParameters
+                        {
+                            { MotoParameterKey.MotoDetail, MotoStaticSettings.MotoProperties }
+                        }, false,false);
+                    }
+                });
+                return false;
+            }
+            return true;
+        }
+
+
+        /// <summary>Kiểm tra có số điện thoại không</summary>
+        /// <returns></returns>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// linhlv  3/18/2020   created
+        /// </Modified>
+        private bool ValidatePhone()
+        {
+            if (string.IsNullOrEmpty(MotoStaticSettings.MotoProperties.DevicePhoneNumber))
+            {
+                SafeExecute(async () =>
+                {
+                    var result = await Application.Current.MainPage.DisplayAlert(MobileResource.Moto_Label_Alter, MobileResource.Moto_Message_Alter, MobileResource.Moto_Label_Call_Operator, MobileResource.Common_Message_Skip);
+                    if (result)
+                    {
+                        SendActionHelper.SendMakePhoneCall(MobileSettingHelper.HotlineGps);
+                    }
+                });
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>Tìm xe</summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// linhlv  3/10/2020   created
+        /// </Modified>
+        private async void SearchVihecle()
+        {
+            if (ValidatePhone())
+            {
+                var result = await Application.Current.MainPage.DisplayAlert(MobileResource.Moto_Label_Confirm, MobileResource.Moto_Message_Call_Operator, MobileResource.Common_Button_OK, MobileResource.Common_Message_Skip);
+                if (result)
+                {
+                    SendActionHelper.SendMakePhoneCall(MotoStaticSettings.MotoProperties.DevicePhoneNumber);
+                }
+            }
+        }
+
+        /// <summary>Bật máy</summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// linhlv  3/10/2020   created
+        /// </Modified>
+        private async void SendTurnOn()
+        {
+            if (ValidatePhone())
+            {
+                if (ValidateAllowTurnOnOffEngineViaSMS())
+                {
+                    var result = await Application.Current.MainPage.DisplayAlert(MobileResource.Moto_Label_Confirm, MobileResource.Moto_Message_TurnOn_Engine, MobileResource.Common_Button_OK, MobileResource.Common_Message_Skip);
+                    if (result)
+                    {
+                        SendActionHelper.SendSMS(MotoStaticSettings.MotoProperties.DevicePhoneNumber, MotoParameterKey.ValueTurnOnEngine);
+                    }
+                }
+            }
+        }
+
+
         private void PushtoRouterPage()
         {
             SafeExecute(async () =>
@@ -549,10 +676,10 @@ namespace MOTO_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("SettingsPageMoto", new NavigationParameters
+              var res =  await NavigationService.NavigateAsync("BaseNavigationPage/SettingsPageMoto", new NavigationParameters
                 {
                     { MotoParameterKey.MotoDetail, MotoStaticSettings.MotoProperties }
-                }, false,false);
+                }, true,true);
             });
         }
 

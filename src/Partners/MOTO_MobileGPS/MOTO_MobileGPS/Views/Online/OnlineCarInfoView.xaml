@@ -5,25 +5,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:cluster="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converters="clr-namespace:MOTO_MobileGPS.Converter"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:localstatic="clr-namespace:MOTO_MobileGPS.Constant;assembly=MOTO_MobileGPS"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms"
     Padding="5">
     <pancake:PancakeView.Resources>
         <cluster:NMConverter x:Key="NMConverter" />
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <syncTheme:SyncfusionThemeDictionary>
-                    <syncTheme:SyncfusionThemeDictionary.MergedDictionaries>
-                        <ResourceDictionary>
-                            <x:String x:Key="SfTextInputLayoutTheme">CustomTheme</x:String>
-                            <Color x:Key="SfTextInputLayoutLineColor">Transparent</Color>
-                        </ResourceDictionary>
-                    </syncTheme:SyncfusionThemeDictionary.MergedDictionaries>
-                </syncTheme:SyncfusionThemeDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <converters:StatusColorBoxConverter x:Key="StatusColorBoxConverter" />
+        <converters:StatusOnlineConverter x:Key="StatusOnlineConverter" />
     </pancake:PancakeView.Resources>
     <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <Grid.RowDefinitions>
@@ -49,6 +40,19 @@
                     WidthRequest="20" />
                 <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                     <Label FontAttributes="Bold" Text="{Binding CarActive.PrivateCode}" />
+                    <BoxView
+                        Grid.Column="1"
+                        BackgroundColor="{Binding MotoDetail.IsOnline, Source={x:Static localstatic:GlobalResourcesMoto.Current}, Converter={StaticResource StatusColorBoxConverter}}"
+                        CornerRadius="5"
+                        HeightRequest="10"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        WidthRequest="10" />
+                    <Label
+                        Grid.Column="2"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Start"
+                        Text="{Binding MotoDetail.IsOnline, Source={x:Static localstatic:GlobalResourcesMoto.Current}, Converter={StaticResource StatusOnlineConverter}}" />
 
                 </StackLayout>
             </StackLayout>
@@ -132,8 +136,10 @@
                     HorizontalTextAlignment="Center"
                     LineBreakMode="TailTruncation"
                     TextColor="{DynamicResource TextSecondaryColor}" />
-
-                <ff:CachedImage HeightRequest="25" Source="ic_motor_search.png" />
+                <ff:CachedImage HeightRequest="23" Source="ic_motor_search.png" />
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SearchVihecleCommand}" />
+                </StackLayout.GestureRecognizers>
             </StackLayout>
             <BoxView
                 Grid.Column="1"
@@ -153,6 +159,9 @@
                     LineBreakMode="TailTruncation"
                     TextColor="{DynamicResource TextSecondaryColor}" />
                 <ff:CachedImage HeightRequest="25" Source="ic_motor_location.png" />
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGetLocationVehicle_Tapped" />
+                </StackLayout.GestureRecognizers>
             </StackLayout>
             <BoxView
                 Grid.Column="3"
@@ -171,7 +180,10 @@
                     HorizontalTextAlignment="Center"
                     LineBreakMode="TailTruncation"
                     TextColor="{DynamicResource TextSecondaryColor}" />
-                <ff:CachedImage HeightRequest="25" Source="ic_motor_turnon.png" />
+                <ff:CachedImage HeightRequest="23" Source="ic_motor_turnon.png" />
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SendTurnOnCommand}" />
+                </StackLayout.GestureRecognizers>
             </StackLayout>
             <BoxView
                 Grid.Column="5"
@@ -190,7 +202,10 @@
                     HorizontalTextAlignment="Center"
                     LineBreakMode="TailTruncation"
                     TextColor="{DynamicResource TextSecondaryColor}" />
-                <ff:CachedImage HeightRequest="25" Source="ic_motor_turnoff.png" />
+                <ff:CachedImage HeightRequest="23" Source="ic_motor_turnoff.png" />
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SendTurnOffCommand}" />
+                </StackLayout.GestureRecognizers>
             </StackLayout>
         </Grid>
         <BoxView
@@ -282,7 +297,7 @@
                 LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                 VerticalOptions="Center">
                 <sharpnado:MaterialFrame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding PushToDetailPageCommand}" />
+                    <TapGestureRecognizer Command="{Binding PushToSettingsPageCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
                 <sharpnado:MaterialFrame.Content>
                     <StackLayout
@@ -305,7 +320,6 @@
                             TextColor="{DynamicResource WhiteColor}"
                             VerticalOptions="Center" />
                     </StackLayout>
-
                 </sharpnado:MaterialFrame.Content>
             </sharpnado:MaterialFrame>
         </Grid>

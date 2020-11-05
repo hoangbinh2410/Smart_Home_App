@@ -30,7 +30,6 @@
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <StackLayout Spacing="0">
                     <sharpnado:MaterialFrame
-                        Grid.Row="0"
                         Padding="10"
                         BackgroundColor="{DynamicResource GrayColor2}"
                         CornerRadius="0"
@@ -53,40 +52,24 @@
                         Spacing="0"
                         VerticalOptions="FillAndExpand">
                         <Grid
-                            Grid.Row="0"
                             Padding="10"
+                            RowDefinitions="Auto,Auto,Auto"
                             RowSpacing="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
                             <!--  Biển số  -->
-                            <Grid Grid.Row="0" RowSpacing="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackLayout
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    Padding="0"
-                                    HorizontalOptions="FillAndExpand"
-                                    Orientation="Horizontal">
-                                    <controls:IconView
-                                        Foreground="{DynamicResource PrimaryColor}"
-                                        HeightRequest="25"
-                                        HorizontalOptions="Center"
-                                        Source="license_plate.png"
-                                        VerticalOptions="Center"
-                                        WidthRequest="25" />
-                                </StackLayout>
+                            <Grid ColumnDefinitions="30,*,Auto">
+                                <controls:IconView
+                                    Foreground="{DynamicResource PrimaryColor}"
+                                    HeightRequest="25"
+                                    HorizontalOptions="Center"
+                                    Source="ic_license_plate.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="25" />
                                 <Label
                                     Grid.Column="1"
+                                    HorizontalOptions="Start"
+                                    HorizontalTextAlignment="Start"
                                     Text="{i18n:TranslateResource DetailVehicle_Label_VehiclePlate}"
-                                    VerticalOptions="Center"
-                                    VerticalTextAlignment="Center" />
+                                    VerticalOptions="Center" />
                                 <Label
                                     Grid.Column="2"
                                     HorizontalOptions="End"
@@ -94,29 +77,20 @@
                                     VerticalOptions="Center" />
                             </Grid>
                             <!--  Số điện thoại  -->
-                            <Grid Grid.Row="1" RowSpacing="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackLayout
-                                    Padding="0,5,0,5"
-                                    HorizontalOptions="FillAndExpand"
-                                    Orientation="Horizontal">
-                                    <controls:FontAwesomeIcon
-                                        FontAttributes="Bold"
-                                        HorizontalOptions="Center"
-                                        Text="{x:Static fontawesome:FontAwesomeIcons.Phone}"
-                                        TextColor="{DynamicResource PrimaryColor}"
-                                        VerticalOptions="Center" />
-                                </StackLayout>
+                            <Grid Grid.Row="1" ColumnDefinitions="30,*,Auto">
+                                <controls:IconView
+                                    Foreground="{DynamicResource PrimaryColor}"
+                                    HeightRequest="25"
+                                    HorizontalOptions="Center"
+                                    Source="ic_phone.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="25" />
                                 <Label
                                     Grid.Column="1"
+                                    HorizontalOptions="Start"
+                                    HorizontalTextAlignment="Start"
                                     Text="{i18n:TranslateResource DetailVehicle_Label_DriverPhone}"
-                                    VerticalOptions="Center"
-                                    VerticalTextAlignment="Center" />
-
+                                    VerticalOptions="Center" />
                                 <Label
                                     Grid.Row="0"
                                     Grid.Column="2"
@@ -125,29 +99,20 @@
                                     VerticalOptions="Center" />
                             </Grid>
                             <!--  Trạng thái online của thiết bị  -->
-                            <Grid Grid.Row="2" RowSpacing="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackLayout
-                                    Padding="0,5,0,5"
-                                    HorizontalOptions="FillAndExpand"
-                                    Orientation="Horizontal">
-                                    <controls:IconView
-                                        Foreground="{DynamicResource PrimaryColor}"
-                                        HeightRequest="25"
-                                        HorizontalOptions="Center"
-                                        Source="ic_online.png"
-                                        VerticalOptions="Center"
-                                        WidthRequest="25" />
-                                </StackLayout>
+                            <Grid Grid.Row="2" ColumnDefinitions="30,*,Auto">
+
+                                <controls:IconView
+                                    Foreground="{DynamicResource PrimaryColor}"
+                                    HeightRequest="25"
+                                    HorizontalOptions="Center"
+                                    Source="ic_online.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="25" />
                                 <Label
                                     Grid.Column="1"
+                                    HorizontalOptions="Start"
                                     Text="{i18n:TranslateResource Moto_Label_Status_Device}"
-                                    VerticalOptions="Center"
-                                    VerticalTextAlignment="Center" />
+                                    VerticalOptions="Center" />
                                 <StackLayout
                                     Grid.Column="2"
                                     HorizontalOptions="FillAndExpand"
@@ -181,7 +146,7 @@
                         <sharpnado:MaterialFrame.Content>
                             <Label
                                 FontSize="{StaticResource FontSize14}"
-                                HorizontalOptions="StartAndExpand"
+                                HorizontalOptions="Start"
                                 Text="{i18n:TranslateResource Moto_Label_Configure_SMS_Alerts}"
                                 TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center"
@@ -194,43 +159,27 @@
                         Spacing="10"
                         VerticalOptions="FillAndExpand">
                         <Grid
-                            Grid.Row="0"
                             Padding="10"
+                            RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
                             RowSpacing="15">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+
                             <!--  Cho phép bật tắt động cơ từ xa qua SMS  -->
-                            <Grid Grid.Row="0" RowSpacing="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackLayout
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    Padding="0,5,0,5"
-                                    HorizontalOptions="FillAndExpand"
-                                    Orientation="Horizontal">
-                                    <controls:IconView
-                                        Foreground="{DynamicResource PrimaryColor}"
-                                        HeightRequest="25"
-                                        HorizontalOptions="Center"
-                                        Source="turn_on_off.png"
-                                        VerticalOptions="Center"
-                                        WidthRequest="25" />
-                                </StackLayout>
+                            <Grid Grid.Row="0" ColumnDefinitions="30,*,Auto">
+                                <controls:IconView
+                                    Margin="0,5"
+                                    Foreground="{DynamicResource PrimaryColor}"
+                                    HeightRequest="25"
+                                    HorizontalOptions="Center"
+                                    Source="ic_turn_on_off.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="25" />
+
                                 <Label
                                     Grid.Column="1"
+                                    HorizontalOptions="Start"
+                                    HorizontalTextAlignment="Start"
                                     Text="{i18n:TranslateResource Moto_Label_Allows_Remote_Engine}"
-                                    VerticalOptions="Center"
-                                    VerticalTextAlignment="Center" />
+                                    VerticalOptions="Center" />
                                 <Switch
                                     Grid.Column="2"
                                     HorizontalOptions="End"
@@ -243,29 +192,27 @@
                                 </Switch>
                             </Grid>
                             <!--  Cho phép gọi điện cảnh báo xe di chuyển trái phép  -->
-                            <Grid Grid.Row="1" RowSpacing="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackLayout
-                                    Padding="0,5,0,5"
-                                    HorizontalOptions="FillAndExpand"
-                                    Orientation="Horizontal">
-                                    <controls:IconView
-                                        Foreground="{DynamicResource PrimaryColor}"
-                                        HeightRequest="25"
-                                        HorizontalOptions="Center"
-                                        Source="cell_wanring.png"
-                                        VerticalOptions="Center"
-                                        WidthRequest="25" />
-                                </StackLayout>
-                                <Label
-                                    Grid.Column="1"
-                                    Text="{i18n:TranslateResource Moto_Label_Allows_Phone_Calls}"
+                            <Grid Grid.Row="1" ColumnDefinitions="30,*,Auto">
+                                <controls:IconView
+                                    Margin="0,5"
+                                    Foreground="{DynamicResource PrimaryColor}"
+                                    HeightRequest="25"
+                                    HorizontalOptions="Center"
+                                    Source="ic_warning_phone2.png"
                                     VerticalOptions="Center"
-                                    VerticalTextAlignment="Center" />
+                                    WidthRequest="25" />
+                                <StackLayout
+                                    Grid.Column="1"
+                                    Padding="0"
+                                    VerticalOptions="Center">
+                                    <Label
+                                        Grid.Column="1"
+                                        HorizontalTextAlignment="Start"
+                                        MaxLines="2"
+                                        Text="{i18n:TranslateResource Moto_Label_Allows_Phone_Calls}"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+
                                 <Switch
                                     Grid.Column="2"
                                     HorizontalOptions="End"
@@ -280,30 +227,22 @@
                             <!--  Bật báo động  -->
                             <Grid
                                 Grid.Row="2"
-                                IsVisible="{Binding IsTurnOnSMSWarning}"
-                                RowSpacing="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <StackLayout
-                                    Padding="0,5,0,5"
-                                    HorizontalOptions="FillAndExpand"
-                                    Orientation="Horizontal">
-                                    <controls:IconView
-                                        Foreground="{DynamicResource PrimaryColor}"
-                                        HeightRequest="25"
-                                        HorizontalOptions="Center"
-                                        Source="control_on.png"
-                                        VerticalOptions="Center"
-                                        WidthRequest="25" />
-                                </StackLayout>
+                                ColumnDefinitions="30,*,Auto"
+                                IsVisible="{Binding IsTurnOnSMSWarning}">
+                                <controls:IconView
+                                    Margin="0,5"
+                                    Foreground="{DynamicResource PrimaryColor}"
+                                    HeightRequest="25"
+                                    HorizontalOptions="Center"
+                                    Source="control_on.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="25" />
                                 <Label
                                     Grid.Column="1"
+                                    HorizontalOptions="Start"
+                                    HorizontalTextAlignment="Start"
                                     Text="{i18n:TranslateResource Moto_Label_Turn_On_Alarm}"
-                                    VerticalOptions="Center"
-                                    VerticalTextAlignment="Center" />
+                                    VerticalOptions="Center" />
                                 <Label
                                     Grid.Column="2"
                                     FontSize="10"
@@ -317,27 +256,19 @@
                             <!--  Tắt báo động  -->
                             <Grid
                                 Grid.Row="3"
-                                IsVisible="{Binding IsTurnOnSMSWarning}"
-                                RowSpacing="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <StackLayout
-                                    Padding="0,5,0,5"
-                                    HorizontalOptions="FillAndExpand"
-                                    Orientation="Horizontal">
-                                    <controls:IconView
-                                        Foreground="{DynamicResource PrimaryColor}"
-                                        HeightRequest="25"
-                                        HorizontalOptions="Center"
-                                        Source="control_on.png"
-                                        VerticalOptions="Center"
-                                        WidthRequest="25" />
-                                </StackLayout>
+                                ColumnDefinitions="30,*,Auto"
+                                IsVisible="{Binding IsTurnOnSMSWarning}">
+                                <controls:IconView
+                                    Margin="0,5"
+                                    Foreground="{DynamicResource PrimaryColor}"
+                                    HeightRequest="25"
+                                    HorizontalOptions="Center"
+                                    Source="control_off.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="25" />
                                 <Label
                                     Grid.Column="1"
+                                    HorizontalOptions="Start"
                                     Text="{i18n:TranslateResource Moto_Label_Turn_Off_Alarm}"
                                     VerticalOptions="Center"
                                     VerticalTextAlignment="Center" />
@@ -355,26 +286,18 @@
                             <Grid
                                 Grid.Row="4"
                                 Margin="{Binding MarginSliderWarningNumber}"
-                                RowSpacing="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackLayout
-                                    Padding="0,5,0,5"
-                                    HorizontalOptions="FillAndExpand"
-                                    Orientation="Horizontal">
-                                    <controls:IconView
-                                        Foreground="{DynamicResource PrimaryColor}"
-                                        HeightRequest="25"
-                                        HorizontalOptions="Center"
-                                        Source="batteries.png"
-                                        VerticalOptions="Center"
-                                        WidthRequest="25" />
-                                </StackLayout>
+                                ColumnDefinitions="30,*,Auto">
+                                <controls:IconView
+                                    Margin="0,5"
+                                    Foreground="{DynamicResource PrimaryColor}"
+                                    HeightRequest="25"
+                                    HorizontalOptions="Center"
+                                    Source="ic_battery.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="25" />
                                 <Label
                                     Grid.Column="1"
+                                    HorizontalOptions="Start"
                                     Text="{i18n:TranslateResource Moto_Label_Low_Voltage_Warning}"
                                     VerticalOptions="Center"
                                     VerticalTextAlignment="Center" />
@@ -386,7 +309,7 @@
                                     Text="{Binding Source={x:Reference sliderWarningNumber}, Path=Value, StringFormat='{0:n0}'}"
                                     VerticalOptions="CenterAndExpand" />
                             </Grid>
-                            <Grid Grid.Row="5" RowSpacing="0">
+                            <Grid Grid.Row="5">
                                 <syncfusion:SfRangeSlider
                                     x:Name="sliderWarningNumber"
                                     Margin="0,-60,0,-50"
@@ -406,7 +329,6 @@
                                         <b:EventToCommandBehavior Command="{Binding DragCompletedCommand}" EventName="ThumbTouchDown" />
                                     </syncfusion:SfRangeSlider.Behaviors>
                                 </syncfusion:SfRangeSlider>
-
                             </Grid>
                         </Grid>
                     </StackLayout>
@@ -434,49 +356,41 @@
                         HorizontalOptions="FillAndExpand"
                         Spacing="10"
                         VerticalOptions="FillAndExpand">
-                        <Grid
-                            Grid.Row="0"
-                            Padding="10"
-                            RowSpacing="15">
+                        <Grid Padding="10" RowSpacing="15">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <!--  Thiết lập số điện thoại nhận cảnh báo  -->
-                            <Grid Grid.Row="0" RowSpacing="0">
+                            <Grid ColumnDefinitions="30,*,*,30">
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding PushToPhoneNumberSMSCommand}" />
                                 </Grid.GestureRecognizers>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackLayout
-                                    Padding="0"
-                                    HorizontalOptions="FillAndExpand"
-                                    Orientation="Horizontal">
-                                    <controls:IconView
-                                        Foreground="{DynamicResource PrimaryColor}"
-                                        HeightRequest="25"
-                                        HorizontalOptions="Center"
-                                        Source="call_wanring.png"
-                                        VerticalOptions="Center"
-                                        WidthRequest="25" />
-                                    <Label
-                                        Text="{i18n:TranslateResource Moto_Label_Set_Phone_Number}"
-                                        VerticalOptions="Center"
-                                        VerticalTextAlignment="Center" />
-                                </StackLayout>
+                                <controls:IconView
+                                    Foreground="{DynamicResource PrimaryColor}"
+                                    HeightRequest="25"
+                                    HorizontalOptions="Center"
+                                    Source="ic_warning_phone.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="25" />
                                 <Label
                                     Grid.Column="1"
+                                    HorizontalOptions="Start"
+                                    HorizontalTextAlignment="Start"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="2"
+                                    Text="{i18n:TranslateResource Moto_Label_Set_Phone_Number}"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Column="2"
                                     Padding="10"
                                     HorizontalOptions="End"
                                     LineBreakMode="TailTruncation"
+                                    MaxLines="1"
                                     Text="{Binding PhoneNumber}"
                                     VerticalOptions="Center"
                                     VerticalTextAlignment="End" />
                                 <ffimageloading:CachedImage
-                                    Grid.Column="2"
+                                    Grid.Column="3"
                                     HeightRequest="25"
                                     HorizontalOptions="End"
                                     Source="ic_navigate_next.png"

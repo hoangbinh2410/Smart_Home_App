@@ -60,6 +60,7 @@ namespace MOTO_MobileGPS.Views
             pageWidth = (int)Application.Current.MainPage.Width;
             boxStatusVehicle.TranslationX = pageWidth;
             boxInfo.TranslationY = 300;
+            frVehicleInfo.TranslationX = -pageWidth;
 
             googleMap.IsUseCluster = false;
             googleMap.IsTrafficEnabled = false;
@@ -76,13 +77,15 @@ namespace MOTO_MobileGPS.Views
 
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
-          
+            this.eventAggregator.GetEvent<GetLocationVehicleEvent>().Subscribe(GetLocationVehicle);
             this.eventAggregator.GetEvent<BackButtonEvent>().Subscribe(AndroidBackButton);
 
             IsInitMarker = false;
 
             StartTimmerCaculatorStatus();
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
+            lblMotorStatus.Text = MobileResource.Moto_Label_Status;
+            lblVelocity.Text = MobileResource.Moto_Label_Speed;
         }
 
         private void AndroidBackButton(bool obj)
@@ -183,6 +186,7 @@ namespace MOTO_MobileGPS.Views
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<BackButtonEvent>().Unsubscribe(AndroidBackButton);
+            this.eventAggregator.GetEvent<GetLocationVehicleEvent>().Unsubscribe(GetLocationVehicle);
         }
 
         #endregion Lifecycle
@@ -947,6 +951,8 @@ namespace MOTO_MobileGPS.Views
                     Action<double> callback = input => boxInfo.TranslationY = input;
                     boxInfo.Animate("animBoxInfo", callback, 0, 300, 16, 300, Easing.CubicInOut);
                     boxInfoIsShown = false;
+                    Action<double> frcallback = input2 => frVehicleInfo.TranslationX = input2;
+                    frVehicleInfo.Animate("animehicleInfo", frcallback, 0, -pageWidth, 16, 300, Easing.CubicInOut);
                 }
             }
             catch (Exception ex)
@@ -958,7 +964,7 @@ namespace MOTO_MobileGPS.Views
         /// <summary>
         /// Hiển thị box thông tin xe
         /// </summary>
-        private async void ShowBoxInfo()
+        private  void ShowBoxInfo()
         {
             try
             {
@@ -969,6 +975,8 @@ namespace MOTO_MobileGPS.Views
                     Action<double> callback = input => boxInfo.TranslationY = input;
                     boxInfo.Animate("animBoxInfo", callback, 300, 0, 16, 300, Easing.CubicInOut);
                     boxInfoIsShown = true;
+                    Action<double> frcallback = input2 => frVehicleInfo.TranslationX = input2;
+                    frVehicleInfo.Animate("animehicleInfo", frcallback, -pageWidth, 0, 16, 300, Easing.CubicInOut);
                 }
             }
             catch (Exception ex)
@@ -1039,7 +1047,7 @@ namespace MOTO_MobileGPS.Views
             }
         }
 
-        private async void FilterStatusCar(object sender, EventArgs e)
+        private  void FilterStatusCar(object sender, EventArgs e)
         {
             if (infoStatusIsShown)
             {
@@ -1117,6 +1125,55 @@ namespace MOTO_MobileGPS.Views
             {
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
+        }
+        private void GetLocationVehicle()
+        {
+            if (!vm.MotoDetail.IsOnline)
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    var p = MotoConfigHelper.JoinPhoneNumberEx(MotoStaticSettings.MotoProperties.PhoneNumber1) + MotoConfigHelper.JoinPhoneNumberEx(MotoStaticSettings.MotoProperties.PhoneNumber2) + MotoConfigHelper.JoinPhoneNumberEx(MotoStaticSettings.MotoProperties.PhoneNumber3);
+                    if (p.Length > 0)
+                    {
+                        var result = await DisplayAlert(MobileResource.Moto_Label_Confirm, MobileResource.Moto_Message_Send_Location, MobileResource.Common_Button_OK, MobileResource.Common_Message_Skip);
+                        if (result)
+                        {
+                            SendActionHelper.SendSMS(MotoStaticSettings.MotoProperties.DevicePhoneNumber, MotoParameterKey.ValueSendLocation);
+                        }
+                    }
+                    else
+                    {
+                        await DisplayAlert(MobileResource.Moto_Label_Alter, MobileResource.Moto_Message_Config_PhoneNumber, MobileResource.Moto_Label_Confirm);
+                    }
+                });
+            }
+            else
+            {
+                if (mCarActive != null)
+                {
+                    if (IsBusy)
+                    {
+                        return;
+                    }
+                    IsBusy = true;
+                    try
+                    {
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(mCarActive.Lat, mCarActive.Lng), 17));
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                    }
+                    finally
+                    {
+                        IsBusy = false;
+                    }
+                }
+            }
+
         }
 
         #endregion Private Method
