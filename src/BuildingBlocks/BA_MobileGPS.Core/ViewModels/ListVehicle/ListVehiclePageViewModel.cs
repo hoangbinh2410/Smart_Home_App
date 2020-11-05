@@ -73,11 +73,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Lifecycle
 
-        public override void OnPageAppearingFirstTime()
-        {
-            base.OnPageAppearingFirstTime();
-            ListVehicle = _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline).ToObservableCollection();
-        }
+      
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
