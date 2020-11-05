@@ -190,7 +190,10 @@
     <BundleResource Include="Resources\bg_HomeTop.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\bg_Login.png" />
+    <AndroidResource Include="Resources\bg_Login.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\car_blue%402x.png" />
@@ -527,7 +530,10 @@
     <BundleResource Include="Resources\ic_car_play%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\logo_Login.png" />
+    <AndroidResource Include="Resources\logo_Login.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\bg_Account.png" />
