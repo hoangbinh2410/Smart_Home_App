@@ -47,6 +47,7 @@
                     VerticalOptions="Center" />
             </StackLayout>
             <ff:CachedImage
+                x:Name="logo"
                 Grid.Row="0"
                 HeightRequest="50"
                 HorizontalOptions="Center"
