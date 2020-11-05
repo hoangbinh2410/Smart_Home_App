@@ -36,7 +36,7 @@ namespace BA_MobileGPS.Core.Views
         {
             var themeServices = PrismApplicationBase.Current.Container.Resolve<IThemeServices>();
             var eventRaise = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
-            
+
             if (e.CurrentItem.Text == MobileResource.Settings_CheckBox_Light)
             {
                 themeServices.ChangeTheme(Theme.Light);

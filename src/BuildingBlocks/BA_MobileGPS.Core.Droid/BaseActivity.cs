@@ -7,7 +7,6 @@ using Plugin.Permissions;
 using Prism;
 using Prism.Ioc;
 using Rg.Plugins.Popup.Services;
-using Shiny;
 
 namespace BA_MobileGPS.Core.Droid
 {

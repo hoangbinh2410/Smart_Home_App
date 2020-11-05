@@ -24,7 +24,7 @@ using Xamarin.Forms.Xaml;
 namespace BA_MobileGPS.Core.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class OnlinePageNoCluster : ContentPage, INavigationAware,IDestructible
+    public partial class OnlinePageNoCluster : ContentPage, INavigationAware, IDestructible
     {
         #region Contructor
 
@@ -142,10 +142,7 @@ namespace BA_MobileGPS.Core.Views
 
                 UpdateVehicleByVehicleGroup(vehiclegroup);
             }
-         
         }
-
-
 
         #endregion Lifecycle
 

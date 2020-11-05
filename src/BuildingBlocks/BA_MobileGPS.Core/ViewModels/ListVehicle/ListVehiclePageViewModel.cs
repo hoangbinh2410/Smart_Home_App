@@ -376,7 +376,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("ListVehicleHelpPage", null,useModalNavigation: true,true);
+                await NavigationService.NavigateAsync("ListVehicleHelpPage", null, useModalNavigation: true, true);
             });
         }
 
@@ -552,7 +552,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.CarDetail, param }
                 };
 
-                var a = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, useModalNavigation: true,true);
+                var a = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, useModalNavigation: true, true);
             });
         }
 
@@ -587,7 +587,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     await NavigationService.SelectTabAsync("OnlinePageNoCluster", parameters);
                 }
-                
             });
         }
 
@@ -610,7 +609,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.Vehicle, param }
                 };
 
-                await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true,true);
+                await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true, true);
             });
         }
 
@@ -624,7 +623,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.Vehicle, param }
                 };
 
-                await NavigationService.NavigateAsync("NavigationPage/ChartFuelReportPage", parameters, true,true);
+                await NavigationService.NavigateAsync("NavigationPage/ChartFuelReportPage", parameters, true, true);
             });
         }
 
@@ -642,7 +641,7 @@ namespace BA_MobileGPS.Core.ViewModels
                           { ParameterKey.Vehicle, param }
                      };
 
-                    await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true,true);
+                    await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
                 }
             });
         }

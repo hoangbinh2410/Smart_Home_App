@@ -1,6 +1,5 @@
 ﻿using BA_MobileGPS.Core.Controls;
 using BA_MobileGPS.Core.Resources;
-using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using Prism;
 using Prism.Common;
@@ -22,7 +21,7 @@ namespace BA_MobileGPS.Core.Views
         private readonly IEventAggregator eventAggregator;
         private Xamarin.Forms.Page currentChildPage;
         private bool isLoaded { get; set; } // Bỏ first auto-select của tabbed page
-        
+
         public MainPage()
         {
             InitializeComponent();
@@ -101,7 +100,6 @@ namespace BA_MobileGPS.Core.Views
             Children.Add(accountTab);
             isLoaded = true;
             CurrentPage = selected;
-
         }
 
         private void ShowHideTab(bool obj)
@@ -117,7 +115,6 @@ namespace BA_MobileGPS.Core.Views
                 isHideTabOnline = true;
             }
         }
-       
 
         protected override void OnCurrentPageChanged()
         {
@@ -142,7 +139,7 @@ namespace BA_MobileGPS.Core.Views
 
                 PageUtilities.OnNavigatedTo(newPage, parameters);
 
-                //Change current icon selected 
+                //Change current icon selected
                 if (newPage.IconImageSource != null || !string.IsNullOrEmpty(newPage.IconImageSource.ToString()))
                 {
                     var path = newPage.IconImageSource.ToString().Replace(".png", "solid.png");
@@ -151,7 +148,7 @@ namespace BA_MobileGPS.Core.Views
                 }
 
                 currentChildPage = newPage;
-            }          
+            }
         }
 
         protected override void OnAppearing()
@@ -220,6 +217,5 @@ namespace BA_MobileGPS.Core.Views
                 bExit = false;
             }, 2000);
         }
-
     }
 }

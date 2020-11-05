@@ -5,11 +5,9 @@ using Foundation;
 using Prism;
 using Prism.Common;
 using Prism.Ioc;
-using System.Linq;
 using UIKit;
 
 using UserNotifications;
-using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.iOS
 {
@@ -38,7 +36,7 @@ namespace BA_MobileGPS.Core.iOS
                 return true;
 
             return base.OpenUrl(app, url, options);
-        }       
+        }
 
         protected class IOSInitializer : IPlatformInitializer
         {
@@ -58,6 +56,7 @@ namespace BA_MobileGPS.Core.iOS
                 containerRegistry.RegisterInstance<IScreenOrientServices>(new ScreenOrientServices());
             }
         }
+
         public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, UIWindow forWindow)
         {
             var mainPage = Xamarin.Forms.Application.Current.MainPage;

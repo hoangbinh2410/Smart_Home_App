@@ -1,22 +1,19 @@
-﻿using BA_MobileGPS.Service.IService;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Entities;
+using BA_MobileGPS.Service;
+using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
-using System;
-using BA_MobileGPS.Service;
-
-using System.Windows.Input;
-
-using System.Collections.ObjectModel;
-using BA_MobileGPS.Utilities;
-using System.Reflection;
-using BA_MobileGPS.Entities;
-using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
-using BA_MobileGPS.Core.Constant;
-using System.Collections.Generic;
-using System.Linq;
-using Syncfusion.XlsIO.Parser.Biff_Records;
 using Syncfusion.Data.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reflection;
+using System.Windows.Input;
 using Xamarin.Forms.Extensions;
+using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -37,7 +34,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand LoadMoreItemsCommand { get; set; }
 
         public ICommand RefeshCommand { get; set; }
-
 
         public ImageManagingPageViewModel(INavigationService navigationService,
             IStreamCameraService streamCameraService,
@@ -79,7 +75,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else if (parameters.ContainsKey(ParameterKey.Company) && parameters.GetValue<Company>(ParameterKey.Company) is Company company)
             {
-
             }
             else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
             {
@@ -90,7 +85,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 ShowImage();
             }
         }
-
 
         private int spanCount;
         public int SpanCount { get => spanCount; set => SetProperty(ref spanCount, value); }
@@ -288,7 +282,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-
         }
 
         private void TapItems(object obj)
@@ -410,7 +403,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsMaxLoadMore = true;
 
                 var response = await _streamCameraService.GetListCaptureImage(request);
-                
+
                 if (response != null && response.Count > 0)
                 {
                     ListGroup = new ObservableCollection<CaptureImageData>(response);
@@ -433,7 +426,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             TryExecute(async () =>
             {
-
                 if (mVehicleString != null && mVehicleString.Count > 0)
                 {
                     var request = new StreamImageRequest();
@@ -592,6 +584,5 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             return respone;
         }
-
     }
 }

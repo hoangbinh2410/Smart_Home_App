@@ -35,7 +35,6 @@ namespace BA_MobileGPS.Service
                     await _connection.StartAsync();
 
                     _connection.On("SendCarSignalRByGroup", (string message) => onReceiveSendCarSignalR(this, message));
-
                 }
             }
             catch (Exception ex)

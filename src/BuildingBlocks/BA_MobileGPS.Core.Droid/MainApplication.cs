@@ -5,12 +5,12 @@ using Android.Runtime;
 using BA_MobileGPS.Utilities.Constant;
 
 using Plugin.CurrentActivity;
-using Shiny;
 using System;
 
 namespace BA_MobileGPS.Core.Droid
 {
 #if DEBUG
+
     [Application(Debuggable = true)]
 #else
 [Application(Debuggable = false)]

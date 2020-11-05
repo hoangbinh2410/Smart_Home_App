@@ -806,11 +806,9 @@
                                     Format="{}{TotalConstantNorms}"
                                     MappingName="ConstantNorms"
                                     SummaryType="Custom" />
-
                             </syncDataGrid:GridTableSummaryRow.SummaryColumns>
                         </syncDataGrid:GridTableSummaryRow>
                     </syncDataGrid:SfDataGrid.TableSummaryRows>
-
                 </syncDataGrid:SfDataGrid>
                 <StackLayout
                     Grid.Row="1"

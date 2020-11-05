@@ -10,7 +10,7 @@
 	  <None Remove="Views\Login\**" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="CardsView" Version="2.6.6" />
+		<PackageReference Include="CardsView" Version="2.6.7" />
 		<PackageReference Include="LibVLCSharp.Forms" Version="3.4.7" />
 		<PackageReference Include="Prism.DryIoc.Forms" Version="8.0.0.1909" />
 		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.6" />

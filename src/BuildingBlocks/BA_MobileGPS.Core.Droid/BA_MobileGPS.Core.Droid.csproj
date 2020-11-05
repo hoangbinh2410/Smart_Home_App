@@ -125,7 +125,7 @@
       <Version>1.4.2</Version>
     </PackageReference>
     <PackageReference Include="CardsView">
-      <Version>2.6.6</Version>
+      <Version>2.6.7</Version>
     </PackageReference>
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
       <Version>4.0.6</Version>

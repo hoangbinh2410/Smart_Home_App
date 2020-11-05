@@ -50,7 +50,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(async () =>
             {
                 var param = seletedMenu.Title.ToString();
-                await NavigationService.GoBackAsync(useModalNavigation: true,animated: true, parameters: new NavigationParameters
+                await NavigationService.GoBackAsync(useModalNavigation: true, animated: true, parameters: new NavigationParameters
                         {
                             { "pagetoNavigation",  param}
                         });

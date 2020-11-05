@@ -68,7 +68,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     Value = oldValue
                 });
 
-                _ = await NavigationService.GoBackAsync(null,useModalNavigation: true,true);
+                _ = await NavigationService.GoBackAsync(null, useModalNavigation: true, true);
             });
         }
 
@@ -83,7 +83,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         Value = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, int.Parse(SelectedTime[0].ToString()), int.Parse(SelectedTime[1].ToString()), 0)
                     });
 
-                    _ = await NavigationService.GoBackAsync(null,useModalNavigation: true,true);
+                    _ = await NavigationService.GoBackAsync(null, useModalNavigation: true, true);
                 }
             });
         }

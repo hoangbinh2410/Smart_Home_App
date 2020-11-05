@@ -1,12 +1,10 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using BA_MobileGPS.Core.Controls;
+using BA_MobileGPS.Utilities;
 using System;
 using System.Linq;
-using BA_MobileGPS.Utilities;
 using System.Reflection;
-
-using BA_MobileGPS.Core.Controls;
-
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace BA_MobileGPS.Core.Views.Camera.MonitoringImage
 {
@@ -53,7 +51,6 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringImage
 
         private void chkFa_StateChanged(object sender, Syncfusion.XForms.Buttons.StateChangedEventArgs e)
         {
-
         }
     }
 }

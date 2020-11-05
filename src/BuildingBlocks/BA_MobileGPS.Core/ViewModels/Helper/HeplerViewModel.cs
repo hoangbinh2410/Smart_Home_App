@@ -1,5 +1,4 @@
-﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 
 using Prism.Commands;

@@ -241,7 +241,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         _ = await NavigationService.GoBackAsync(parameters: new NavigationParameters
                         {
                             { ParameterKey.Company, seleted }
-                        },true, true);
+                        }, true, true);
                     });
                 });
             }

@@ -1,11 +1,7 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using Rg.Plugins.Popup.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -28,21 +24,18 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 var time = Convert.ToInt32(obj);
-                NavigationService.GoBackAsync(useModalNavigation: true, animated: false,parameters: new NavigationParameters
+                NavigationService.GoBackAsync(useModalNavigation: true, animated: false, parameters: new NavigationParameters
                         {
                             { ParameterKey.RequestTime,  time}
                         });
             }
             catch (Exception ex)
             {
-
                 throw;
             }
-            
-          
         }
 
-        public ICommand SetTimeValueCommand { get;}
+        public ICommand SetTimeValueCommand { get; }
         public ICommand ClosePopupCommand { get; }
     }
 }

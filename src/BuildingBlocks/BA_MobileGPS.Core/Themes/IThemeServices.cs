@@ -9,6 +9,7 @@ namespace BA_MobileGPS.Core.Themes
     {
         bool ChangeTheme(Theme themes);
     }
+
     public class ThemeServices : IThemeServices
     {
         public bool ChangeTheme(Theme themes)
@@ -46,6 +47,7 @@ namespace BA_MobileGPS.Core.Themes
             }
         }
     }
+
     public enum Theme
     {
         Dark,

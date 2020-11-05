@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BA_MobileGPS.Core.Droid.DependencyServices;
+using System;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using BA_MobileGPS.Core.Droid.DependencyServices;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(AndroidDownloader))]
+
 namespace BA_MobileGPS.Core.Droid.DependencyServices
 {
     public class AndroidDownloader : IDownloader

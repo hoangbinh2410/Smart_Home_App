@@ -152,12 +152,12 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 SelectActivitySummariesItem = ListDataSearch.Where(x => x.OrderNumber == OrderNumber).FirstOrDefault();
                 SelectActivitySummariesItem.VehiclePlate = VehicleSelect.VehiclePlate;
-                
+
                 var p = new NavigationParameters
                 {
                     { ParameterKey.ReportActivitySummariesSelected, SelectActivitySummariesItem }
                 };
-                await NavigationService.NavigateAsync("ActivitySummariesDetailReportPage", p, useModalNavigation: false,false);
+                await NavigationService.NavigateAsync("ActivitySummariesDetailReportPage", p, useModalNavigation: false, false);
             }
             catch (Exception ex)
             {

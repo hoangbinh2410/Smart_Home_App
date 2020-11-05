@@ -1,7 +1,6 @@
 ﻿using BA_MobileGPS.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BA_MobileGPS.Service.IService
@@ -9,13 +8,16 @@ namespace BA_MobileGPS.Service.IService
     public interface IStreamCameraService
     {
         Task<StreamStartResponse> StartStream(StreamStartRequest request);
+
         Task<StreamStopResponse> StopStream(StreamStopRequest request);
+
         Task<StreamPingResponse> RequestMoreStreamTime(StreamPingRequest request);
+
         /// <summary>
         /// </summary>
-        /// <param name="conditionType">Kiểu tìm kiếm 
-        /// 1: Tìm theo MXN 
-        /// 2: Tìm theo BKS 
+        /// <param name="conditionType">Kiểu tìm kiếm
+        /// 1: Tìm theo MXN
+        /// 2: Tìm theo BKS
         /// 3: Tìm theo IMEI</param>
         /// <param name="conditionValue">Thông tin tìm kiếm</param>
         /// <returns></returns>
@@ -26,8 +28,8 @@ namespace BA_MobileGPS.Service.IService
         Task<List<CaptureImageData>> GetCaptureImageTime(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime);
 
         Task<List<CaptureImageData>> GetListCaptureImage(StreamImageRequest request);
-     
     }
+
     public enum ConditionType
     {
         MXN = 1,

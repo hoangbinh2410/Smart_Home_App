@@ -1,5 +1,4 @@
 ﻿using BA_MobileGPS.Core.Interfaces;
-using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
@@ -11,9 +10,6 @@ using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 
 using Prism.Ioc;
-using Prism.Mvvm;
-using Prism.Navigation;
-using Prism.Plugin.Popups;
 
 using Xamarin.Forms;
 
@@ -177,7 +173,6 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<RoutePage, RoutePageViewModel>("RoutePage");
             containerRegistry.RegisterForNavigation<Account, AccountViewModel>("Account");
 
-
             containerRegistry.Register<ContentPage, ListVehiclePage>("ListVehiclePage");
             containerRegistry.Register<ContentPage, OnlinePage>("OnlinePage");
             containerRegistry.Register<ContentPage, OnlinePageNoCluster>("OnlinePageNoCluster");
@@ -188,7 +183,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.Register<ResourceDictionary, Custom>(Theme.Custom.ToString());
             containerRegistry.RegisterForNavigation<SettingThemePage, SettingThemePageViewModel>("SettingThemePage");
 
-            containerRegistry.RegisterForNavigation<RegisterConsultPage, RegisterConsultPageViewModel>("RegisterConsultPage");        
+            containerRegistry.RegisterForNavigation<RegisterConsultPage, RegisterConsultPageViewModel>("RegisterConsultPage");
 
             containerRegistry.RegisterForNavigation<CameraManagingPage, CameraManagingPageViewModel>("CameraManagingPage");
 
@@ -197,7 +192,6 @@ namespace BA_MobileGPS.Core
 
             containerRegistry.RegisterForNavigation<ReLoginPage, ReLoginPageViewModel>();
             containerRegistry.RegisterForNavigation<RequestMoreTimePopup, RequestMoreTimePopupViewModel>();
-          
         }
     }
 }

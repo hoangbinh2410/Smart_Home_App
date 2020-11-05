@@ -1,9 +1,6 @@
 ﻿// Original code from https://github.com/javiholcman/Wapps.Forms.Map/
 // Cacheing implemented by Gadzair
 
-using Android.Graphics;
-using Android.Views;
-
 using System.Threading.Tasks;
 
 namespace BA_MobileGPS.Core.Droid

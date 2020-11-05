@@ -1,7 +1,4 @@
-﻿using BA_MobileGPS.Entities;
-using Realms.Exceptions;
-using Syncfusion.SfDataGrid.XForms;
-using System;
+﻿using System;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

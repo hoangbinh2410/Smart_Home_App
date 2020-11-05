@@ -312,8 +312,6 @@
                                 </Entry.Effects>
                             </Entry>
                         </Frame>
-
-
                     </Grid>
                     <StackLayout
                         Grid.Row="1"
@@ -1014,7 +1012,6 @@
                             FontSize="13"
                             IsChecked="{Binding ShowTemperature}"
                             Text="{i18n:TranslateResource StopParkingReport_Table_Temperature}" />
-
 
                         <!--  Địa điểm  -->
                         <checkbox:SfCheckBox

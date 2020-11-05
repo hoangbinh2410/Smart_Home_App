@@ -107,7 +107,6 @@
                                             VerticalOptions="Center"
                                             WidthRequest="15" />
                                     </Grid>
-
                                 </input:SfTextInputLayout.TrailingView>
                             </input:SfTextInputLayout>
                         </StackLayout>
@@ -135,7 +134,6 @@
                                             VerticalOptions="Center"
                                             WidthRequest="15" />
                                     </Grid>
-
                                 </input:SfTextInputLayout.TrailingView>
                             </input:SfTextInputLayout>
                         </StackLayout>

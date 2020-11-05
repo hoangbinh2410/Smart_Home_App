@@ -93,7 +93,6 @@
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
-
                 </renderedViews:HorizontalListView.ItemTemplate>
             </renderedViews:HorizontalListView>
         </StackLayout>

@@ -17,7 +17,7 @@
             </Grid.RowDefinitions>
 
             <StackLayout Grid.Row="1" Orientation="Vertical">
-                <ListView 
+                <ListView
                     x:Name="listview"
                     behaviors:ItemTappedCommandListView.ItemTappedCommand="{Binding SelectedValueCommand}"
                     BackgroundColor="Transparent"

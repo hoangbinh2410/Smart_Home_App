@@ -197,7 +197,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("AlertVehicleSettingPage", new NavigationParameters
                 {
                     { ParameterKey.AlertCompanyConfig, alertConfigRequest }
-                }, useModalNavigation: false,false);
+                }, useModalNavigation: false, false);
             });
         }
     }

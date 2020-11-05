@@ -285,6 +285,5 @@ namespace BA_MobileGPS.Core
             get => AppSettings.GetValueOrDefault(ShowViewVehicleImageKey, ShowViewVehicleImageDefault);
             set => AppSettings.AddOrUpdateValue(ShowViewVehicleImageKey, value);
         }
-        
     }
 }

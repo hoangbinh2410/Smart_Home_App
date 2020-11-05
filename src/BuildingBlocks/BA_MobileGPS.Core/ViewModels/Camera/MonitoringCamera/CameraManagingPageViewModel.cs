@@ -27,6 +27,7 @@ namespace BA_MobileGPS.Core.ViewModels
     public class CameraManagingPageViewModel : ViewModelBase
     {
         #region internal property
+
         private readonly string playIconSource = "ic_play_arrow_white.png";
         private readonly string stopIconSource = "ic_stop_white.png";
         private readonly string volumeIconSource = "ic_volumespeaker";
@@ -680,7 +681,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (selectedItem != null && TotalTime != selectedItem.TotalTime)
                 {
-                    TotalTime = selectedItem.TotalTime;                  
+                    TotalTime = selectedItem.TotalTime;
                 }
                 if (TotalTime > 0)
                 {

@@ -426,7 +426,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 }
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", useModalNavigation: true,animated:true, parameters: new NavigationParameters
+                await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", useModalNavigation: true, animated: true, parameters: new NavigationParameters
                 {
                     { "dataCombobox", listAllAlertType },
                     { "ComboboxType", ComboboxType.First },

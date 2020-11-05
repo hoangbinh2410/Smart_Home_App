@@ -565,11 +565,9 @@
                                         </DataTemplate>
                                     </syncDataGrid:GridSummaryColumn.Template>
                                 </syncDataGrid:GridSummaryColumn>
-
                             </syncDataGrid:GridTableSummaryRow.SummaryColumns>
                         </syncDataGrid:GridTableSummaryRow>
                     </syncDataGrid:SfDataGrid.TableSummaryRows>
-
                 </syncDataGrid:SfDataGrid>
 
                 <StackLayout

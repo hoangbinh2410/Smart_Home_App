@@ -1,6 +1,4 @@
-﻿using BA_MobileGPS.Core.Events;
-using BA_MobileGPS.Core.Models;
-using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
@@ -37,6 +35,7 @@ namespace BA_MobileGPS.Core.ViewModels
             listfeatures = new ObservableCollection<ItemSupport>();
             favouriteMenuItems = new ObservableCollection<ItemSupport>();
         }
+
         public override void Initialize(INavigationParameters parameters)
         {
             Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
@@ -46,6 +45,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 return false;
             });
         }
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -67,7 +67,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("BaseNavigationPage/FavoritesConfigurationsPage", null, useModalNavigation: true,true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/FavoritesConfigurationsPage", null, useModalNavigation: true, true);
             });
         });
 
@@ -220,7 +220,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         using (new HUDService(MobileResource.Common_Message_Processing))
                         {
-                            _ = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey,null, useModalNavigation: true,true);
+                            _ = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey, null, useModalNavigation: true, true);
                         }
                     });
                     break;
@@ -234,7 +234,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
-                                var a = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey,null, useModalNavigation: true,true);
+                                var a = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey, null, useModalNavigation: true, true);
                             }
                         }
                     });
@@ -248,7 +248,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {//await NavigationService.NavigateAsync("NotificationPopup", useModalNavigation: true);
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
-                                var a = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey,null, useModalNavigation: true,true);
+                                var a = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey, null, useModalNavigation: true, true);
                             }
                         });
                     });

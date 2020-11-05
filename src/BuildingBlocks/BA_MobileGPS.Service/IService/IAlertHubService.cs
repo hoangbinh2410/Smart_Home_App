@@ -11,7 +11,6 @@ namespace BA_MobileGPS.Service
 
         bool IsConnectedOrConnecting();
 
-
         event EventHandler<string> onReceiveAlertSignalR;
 
         event Action ConnectionReconnecting;

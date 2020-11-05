@@ -12,6 +12,7 @@ namespace BA_MobileGPS.Entities
 
         public string Message { get; set; }
     }
+
     public class ResponseStreamBase<T>
     {
         public T Data { get; set; }
@@ -22,6 +23,7 @@ namespace BA_MobileGPS.Entities
 
         public string UserMessage { get; set; }
     }
+
     public class ResponseBaseV2<T>
     {
         public T Data { get; set; }

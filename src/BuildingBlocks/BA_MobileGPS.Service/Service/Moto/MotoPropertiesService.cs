@@ -3,7 +3,6 @@ using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -18,7 +17,7 @@ namespace BA_MobileGPS.Service
             this._IRequestProvider = IRequestProvider;
         }
 
-        public async Task<BaseResponse<MotoPropertiesRespone>> GetMotoProperties(int xnCode,string vehiclePlate)
+        public async Task<BaseResponse<MotoPropertiesRespone>> GetMotoProperties(int xnCode, string vehiclePlate)
         {
             BaseResponse<MotoPropertiesRespone> respone = new BaseResponse<MotoPropertiesRespone>();
             try

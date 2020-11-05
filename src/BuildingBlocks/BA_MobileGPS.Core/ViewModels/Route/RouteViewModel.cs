@@ -126,6 +126,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (ctsRouting != null)
                 ctsRouting.Cancel();
         }
+
         public override void OnIsActiveChanged(object sender, EventArgs e)
         {
             base.OnIsActiveChanged(sender, e);
@@ -292,7 +293,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("BaseNavigationPage/BoundaryPage", null,useModalNavigation: true, true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/BoundaryPage", null, useModalNavigation: true, true);
             });
         }
 
@@ -337,7 +338,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (ctsRouting != null)
                     ctsRouting.Cancel();
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp",  parameters: new NavigationParameters
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", parameters: new NavigationParameters
                 {
                     { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleRoute }
                 }, true, true);

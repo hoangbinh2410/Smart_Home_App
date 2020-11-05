@@ -190,7 +190,6 @@
         #region Menu
         Menu_Label_Favorite,
 
-
         Menu_TabItem_Home,
         Menu_TabItem_Vehicle,
         Menu_TabItem_Monitoring,

@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-
 namespace BA_MobileGPS.Entities
 {
     public static class SerializeLibrary
     {
-
         //Chuyển đổi kiểu Int16 ---------------------------------------------------------------------------------------------------
 
         public static byte[] ConvertInt16ToArray(int value)
@@ -84,7 +82,6 @@ namespace BA_MobileGPS.Entities
             }
             catch
             {
-
             }
 
             len = index + 2;
@@ -173,7 +170,6 @@ namespace BA_MobileGPS.Entities
             return BitConverter.GetBytes(value);
         }
 
-
         public static float GetFloatFromArray(byte[] inputData, int index)
         {
             float result = 0;
@@ -190,7 +186,6 @@ namespace BA_MobileGPS.Entities
             return result;
         }
 
-
         // Chuyển đổi thời gian ------------------------------------------------------------------------------------------------------------
         private static readonly long MinTimeTick = DateTime.Parse("01/01/1970 00:00:00").Ticks;
 
@@ -204,16 +199,14 @@ namespace BA_MobileGPS.Entities
                 return BitConverter.GetBytes(dt);
             }
 
-
             long ticks = time.Ticks - MinTimeTick;
             ticks /= 10000000; //Convert windows ticks to seconds
             dt = long.Parse(ticks.ToString());
             return BitConverter.GetBytes(dt);
-
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="timeValue"></param>
         /// <returns></returns>
@@ -235,7 +228,6 @@ namespace BA_MobileGPS.Entities
             if (data.Count == 0) return new byte[] { 0, 0 };
             var lengthBytes = ConvertInt16ToArray((short)count);
 
-
             var Result = new List<byte>();
             Result.AddRange(lengthBytes);
             Result.AddRange(data);
@@ -247,7 +239,6 @@ namespace BA_MobileGPS.Entities
         {
             if (data.Count == 0) return new byte[] { 0, 0, 0, 0 };
             var lengthBytes = ConvertInt32ToArray(count);
-
 
             var Result = new List<byte>();
             Result.AddRange(lengthBytes);
@@ -284,6 +275,5 @@ namespace BA_MobileGPS.Entities
         {
             return BitConverter.ToDouble(inputData, index);
         }
-
     }
 }

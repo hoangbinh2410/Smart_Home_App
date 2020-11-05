@@ -1,20 +1,19 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
+using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism.Navigation;
-using BA_MobileGPS.Service.IService;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
-
-using Xamarin.Forms;
-using System.Linq;
-using BA_MobileGPS.Core.Resources;
-using BA_MobileGPS.Core.Interfaces;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -118,7 +117,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         UserId = userId.ToString(),
                         VehiclePlate = VehiclePlate
                     });
-                }    
+                }
             }
             else
             {
@@ -130,7 +129,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
         }
-
 
         private void ShowDetailImage()
         {
@@ -282,7 +280,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-
         }
 
         /// <summary>
@@ -320,14 +317,14 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (e.FileSaved)
                 {
-                    // Lưu ảnh vào gallery 
+                    // Lưu ảnh vào gallery
                     if (File.Exists(FilePath))
                     {
                         DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(FilePath);
                         // xóa ảnh tại path cũ
                         //File.Delete(FilePath);
                     }
-                    
+
                     await PageDialog.DisplayAlertAsync("Camera", "Lưu hình ảnh thành công", "OK");
                 }
                 else

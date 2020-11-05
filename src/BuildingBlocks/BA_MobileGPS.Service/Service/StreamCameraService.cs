@@ -5,7 +5,6 @@ using BA_MobileGPS.Utilities.Constant;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BA_MobileGPS.Service.Service
@@ -13,6 +12,7 @@ namespace BA_MobileGPS.Service.Service
     public class StreamCameraService : IStreamCameraService
     {
         private readonly IRequestProvider requestProvider;
+
         public StreamCameraService(IRequestProvider requestProvider)
         {
             this.requestProvider = requestProvider;
@@ -33,7 +33,6 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-
         public async Task<StreamPingResponse> RequestMoreStreamTime(StreamPingRequest request)
         {
             var result = new StreamPingResponse();
@@ -45,7 +44,6 @@ namespace BA_MobileGPS.Service.Service
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-
             }
             return result;
         }
@@ -61,7 +59,6 @@ namespace BA_MobileGPS.Service.Service
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-
             }
             return result;
         }
@@ -77,7 +74,6 @@ namespace BA_MobileGPS.Service.Service
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-
             }
             return result;
         }
@@ -135,7 +131,6 @@ namespace BA_MobileGPS.Service.Service
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-
             }
             return result;
         }

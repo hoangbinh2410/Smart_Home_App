@@ -181,7 +181,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 SelectFuelsSummariesItem = ListDataSearch.Where(x => x.OrderNumber == OrderNumber).FirstOrDefault();
                 SelectFuelsSummariesItem.VehiclePlate = VehicleSelect.VehiclePlate;
-            
+
                 var p = new NavigationParameters
                 {
                     { ParameterKey.ReportFuelsSummariesSelected, SelectFuelsSummariesItem }

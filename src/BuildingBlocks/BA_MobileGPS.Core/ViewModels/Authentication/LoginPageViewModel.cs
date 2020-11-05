@@ -9,13 +9,9 @@ using Prism.Commands;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -114,7 +110,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 GetNoticePopup();
                 return false;
             });
-
         }
 
         private void GetInfomation(bool isLogout = false)
@@ -126,7 +121,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         GetMobileVersion();
                         return false;
                     });
-
             }
         }
 
@@ -165,7 +159,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         break;
 
                     case LoginPopupItemType.RegisterSupport:
-                        _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true,false);
+                        _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true, false);
                         break;
 
                     case LoginPopupItemType.BAGPSExperience:
@@ -173,7 +167,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         break;
 
                     default:
-                        _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true,false);
+                        _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true, false);
                         break;
                 }
             });
@@ -258,7 +252,6 @@ namespace BA_MobileGPS.Core.ViewModels
                                     {
                                         // lưu biến vào đây
                                         return;
-
                                     }
                                 });
                             }
@@ -380,7 +373,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand PushtoLanguageCommand => new DelegateCommand(() =>
         {
-            SafeExecute(async () => await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true,true));
+            SafeExecute(async () => await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true, true));
         });
 
         public ICommand ForgotPasswordCommand => new DelegateCommand(() =>
@@ -394,7 +387,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 await NavigationService.NavigateAsync("LoginPreviewFeaturesPage");
             });
-
         });
 
         public ICommand OpenWebGPSCommand => new DelegateCommand(() =>
@@ -544,13 +536,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 //nếu cần đổi mật khẩu thì mở trang đổi mật khẩu
                 if (user.IsNeedChangePassword)
                 {
-                    await NavigationService.NavigateAsync("BaseNavigationPage/ChangePasswordPage", null,useModalNavigation: true,true);
+                    await NavigationService.NavigateAsync("BaseNavigationPage/ChangePasswordPage", null, useModalNavigation: true, true);
                 }
                 else
                 {
                     await NavigationService.NavigateAsync("/MainPage");
                 }
-
             }
             catch (Exception ex)
             {

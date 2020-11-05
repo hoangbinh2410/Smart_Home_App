@@ -32,7 +32,6 @@
                 HorizontalOptions="Center"
                 Style="{StaticResource MainBackgroundColor}"
                 VerticalOptions="CenterAndExpand" />
-
         </Grid>
     </RgPopup:PopupPage.Content>
 </RgPopup:PopupPage>
