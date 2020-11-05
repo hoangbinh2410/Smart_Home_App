@@ -86,5 +86,10 @@ namespace BA_MobileGPS.Core.Views
         {
             return StaticSettings.User.Permissions.IndexOf(PermissionKey) != -1;
         }
+
+        private void PopupPage_BackgroundClicked(object sender, System.EventArgs e)
+        {
+            ((DetailVehiclePopupViewModel)BindingContext).Close();
+        }
     }
 }

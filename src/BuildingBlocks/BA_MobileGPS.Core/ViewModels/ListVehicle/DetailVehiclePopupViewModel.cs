@@ -34,7 +34,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand CloseCommand { get; }
 
-        private void Close()
+        public void Close()
         {
             NavigationService.GoBackAsync();
         }
