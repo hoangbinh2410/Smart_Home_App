@@ -911,7 +911,10 @@ namespace MOTO_MobileGPS.Views
                 vm.CarActive = new VehicleOnline();
                 mCarActive = new VehicleOnline();
                 SetNoPaddingWithFooter();
-                eventAggregator.GetEvent<ShowHideTabEvent>().Publish(true);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    eventAggregator.GetEvent<ShowHideTabEvent>().Publish(false);
+                });
                 if (boxInfoIsShown)
                 {
                     Action<double> callback = input => boxInfo.TranslationY = input;
