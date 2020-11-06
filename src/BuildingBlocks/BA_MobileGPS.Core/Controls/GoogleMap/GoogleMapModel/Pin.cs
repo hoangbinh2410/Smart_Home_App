@@ -234,7 +234,7 @@ namespace BA_MobileGPS.Core
                     t = elapsed / duration;
                     v = GeoHelper.GetInterpolation(t);
 
-                    var postionnew = GeoHelper.Interpolate(v,
+                    var postionnew = GeoHelper.LinearInterpolator(v,
                         new Position(startPosition.Latitude, startPosition.Longitude),
                         new Position(latitude, longitude));
 
