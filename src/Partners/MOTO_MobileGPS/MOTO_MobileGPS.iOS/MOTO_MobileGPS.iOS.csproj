@@ -655,5 +655,50 @@
   <ItemGroup>
     <BundleResource Include="Resources\ic_mornitoringsolid%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\acquy%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\acquy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\acquy%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\time_gps.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\time_gps%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\time_gps%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\time_connection%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\time_connection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\time_connection%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\source_mode%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\source_mode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\source_mode%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\time_disconnect%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\time_disconnect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\time_disconnect%402x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

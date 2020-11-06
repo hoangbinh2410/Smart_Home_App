@@ -84,6 +84,7 @@ namespace MOTO_MobileGPS
 
             containerRegistry.RegisterForNavigation<SettingsPageMoto, SettingsMotoViewModel>("SettingsPageMoto");
             containerRegistry.RegisterForNavigation<PhoneNumberSMSPage, PhoneNumberSMSViewModel>("PhoneNumberSMSPage");
+            containerRegistry.RegisterForNavigation<VehicleDetailPage, VehicleDetailPageViewModel>("VehicleDetailPage");
 
         }
     }

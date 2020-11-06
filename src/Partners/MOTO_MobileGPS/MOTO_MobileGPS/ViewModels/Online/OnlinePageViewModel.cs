@@ -663,6 +663,7 @@ namespace MOTO_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
+                MotoDetail.Address = currentAddress;
                 var parameters = new NavigationParameters
                 {
                      { MotoParameterKey.MotoDetail, MotoDetail }

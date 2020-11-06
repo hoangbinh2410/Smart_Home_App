@@ -65,6 +65,9 @@
 	  <EmbeddedResource Update="Views\Settings\SettingsPageMoto.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Vehicle\VehicleDetailPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 </Project>
