@@ -47,6 +47,7 @@
                     VerticalOptions="Center" />
             </StackLayout>
             <ff:CachedImage
+                x:Name="logo"
                 Grid.Row="0"
                 HeightRequest="50"
                 HorizontalOptions="Center"
@@ -71,7 +72,8 @@
                             <sh:Shadows
                                 CornerRadius="21"
                                 HeightRequest="42"
-                                Scale="1.01"
+                                Scale="{OnPlatform Android=1.02,
+                                                   iOS=1.01}"
                                 WidthRequest="42">
                                 <sh:Shadows.Shades>
                                     <sh:ImmutableShades>
@@ -124,7 +126,8 @@
                             <sh:Shadows
                                 CornerRadius="21"
                                 HeightRequest="42"
-                                Scale="1.01"
+                                Scale="{OnPlatform Android=1.02,
+                                                   iOS=1.01}"
                                 WidthRequest="42">
                                 <sh:Shadows.Shades>
                                     <sh:ImmutableShades>

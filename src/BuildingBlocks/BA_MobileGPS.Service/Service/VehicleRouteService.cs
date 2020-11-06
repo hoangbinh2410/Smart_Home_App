@@ -34,7 +34,7 @@ namespace BA_MobileGPS.Service
                     var msg = JsonConvert.DeserializeObject<MsgRequest>(Message.ConvertStreamToArray(data));
                     var decoded = Message.DecodeMessage(msg.Param);
 
-                    if (result.FromByteArray32(decoded))
+                    if (result.FromByteArray(decoded))
                     {
                         return result;
                     }

@@ -12,6 +12,7 @@ using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Navigation.TabbedPages;
+using Rg.Plugins.Popup.Services;
 using Syncfusion.Data.Extensions;
 
 using System;
@@ -71,6 +72,8 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #region Lifecycle
+
+      
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -505,10 +508,11 @@ namespace BA_MobileGPS.Core.ViewModels
                         return;
                     }
                     currentVehicle = selected;
+                    
                     await NavigationService.NavigateAsync("DetailVehiclePopup", parameters: new NavigationParameters
                         {
                             { "vehicleItem",  selected.PrivateCode}
-                        });
+                        },true,true);
                 }
             });
         }

@@ -5,11 +5,39 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="18.3.0.40" />
 		<PackageReference Include="Xamarin.Forms" Version="4.8.0.1560" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\BuildingBlocks\BA_MobileGPS.Core\BA_MobileGPS.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\Common\MOTOPinInfowindowView.xaml.cs">
+	    <DependentUpon>MOTOPinInfowindowView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Common\MOTOPinInfowindowActiveView.xaml.cs">
+	    <DependentUpon>MOTOPinInfowindowActiveView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Online\BoundaryNameInfoWindow.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Online\BoundaryPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Online\OnlineCarInfoView.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Online\OnlinePage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Settings\OnlinePageNoCluster.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Settings\PhoneNumberSMSPage.xaml.cs">
+	    <DependentUpon>PhoneNumberSMSPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -21,6 +49,24 @@
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Styles\LightColor.xaml">
 	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Common\MOTOPinInfowindowView.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Common\MOTOPinInfowindowActiveView.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Online\BoundaryPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Settings\PhoneNumberSMSPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Settings\SettingsPageMoto.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Vehicle\VehicleDetailPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>
 
