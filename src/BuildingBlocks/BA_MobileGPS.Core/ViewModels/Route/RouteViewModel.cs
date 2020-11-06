@@ -453,10 +453,10 @@ namespace BA_MobileGPS.Core.ViewModels
                             ListRoute.Add(ListRoute[0].DeepCopy());
                         }
 
-                        if (ListRoute.Count >= 5)
-                        {
-                            InitDirection();
-                        }
+                        //if (ListRoute.Count >= 5)
+                        //{
+                        //    InitDirection();
+                        //}
 
                         DrawRoute();
 
@@ -554,8 +554,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     RouteHistory.TimePoints.AddedTimes.Add(RouteHistory.TimePoints.AddedTimes[0]);
                 }
 
-                //var stopPoints = RouteHistory.StatePoints.FindAll(s => s.State == StateType.Stop);
-
                 var startTime = RouteHistory.TimePoints.StartTime;
 
                 void AddRoute(int index)
@@ -569,21 +567,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         Velocity = RouteHistory.VelocityPoints[index],
                         Time = startTime
                     };
-
-                    if (index == 0)
-                    {
-                        route.Heading1 = route.Heading2 = (float)GeoHelper.ComputeHeading(listLatLng[index].Latitude, listLatLng[index].Longitude, listLatLng[index + 1].Latitude, listLatLng[index + 1].Longitude);
-                    }
-                    else if (index <= listLatLng.Count - 1)
-                    {
-                        route.Heading2 = (float)GeoHelper.ComputeHeading(listLatLng[index - 1].Latitude, listLatLng[index - 1].Longitude, listLatLng[index].Latitude, listLatLng[index].Longitude);
-                    }
-
-                    if (ListRoute.Count > 0)
-                    {
-                        route.Heading1 = ListRoute[ListRoute.Count - 1].Heading2;
-                        route.DeltaAngle = GeoHelper.GetRotaion(route.Heading1, route.Heading2);
-                    }
 
                     ListRoute.Add(route);
                 }
@@ -604,7 +587,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (GeoHelper.IsOriginLocation(listLatLng[i].Latitude, listLatLng[i].Longitude))
                         continue;
 
-                    if (CalculateDistance(listLatLng[i - 1].Latitude, listLatLng[i - 1].Longitude, listLatLng[i].Latitude, listLatLng[i].Longitude) < 0.015
+                    if (GeoHelper.ComputeAngleBetween(listLatLng[i - 1].Latitude, listLatLng[i - 1].Longitude, listLatLng[i].Latitude, listLatLng[i].Longitude) < 0.015
                          && !RouteHistory.StatePoints.Any(stp => stp.StartIndex == i && i == stp.EndIndex))
                         continue;
 
@@ -617,42 +600,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private void InitDirection()
-        {
-            try
-            {
-                void AddDirection(int index)
-                {
-                    ListRoute[index].Direction = (float)GeoHelper.ComputeHeading(ListRoute[index].Latitude, ListRoute[index].Longitude, ListRoute[index + 1].Latitude, ListRoute[index + 1].Longitude);
-                }
-
-                for (int i = 1; i <= ListRoute.Count - 2; i++)
-                {
-                    if (!ListRoute.Exists(d => d.Direction != null && CalculateDistance(ListRoute[i].Latitude, ListRoute[i].Longitude, d.Latitude, d.Longitude) < 2))
-                    {
-                        AddDirection(i);
-                    }
-                    else
-                    {
-                        if (Math.Abs(ListRoute[i + 1].Heading2 - ListRoute[i].Heading2) >= 45
-                            && !ListRoute.Exists(d => d.Direction != null && CalculateDistance(ListRoute[i].Latitude, ListRoute[i].Longitude, d.Latitude, d.Longitude) < 0.5))
-                        {
-                            AddDirection(i);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                PageDialog.DisplayAlertAsync("Init Direction Error", ex.Message, MobileResource.Common_Button_OK);
-            }
-        }
-
-        private double CalculateDistance(double lat1, double lng1, double lat2, double lng2)
-        {
-            return Plugin.Geolocator.Abstractions.GeolocatorUtils.CalculateDistance(lat1, lng1, lat2, lng2, Plugin.Geolocator.Abstractions.GeolocatorUtils.DistanceUnits.Kilometers);
-        }
-
         private void DrawRoute()
         {
             PinCar = new Pin()
@@ -661,7 +608,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 Label = "pin_car",
                 Anchor = new Point(.5, .5),
                 Position = new Position(ListRoute[0].Latitude, ListRoute[0].Longitude),
-                Rotation = (float)ListRoute[0].Heading2,
                 Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
                 ZIndex = 2,
                 Tag = Vehicle.VehiclePlate,
@@ -722,11 +668,18 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     DrawStopPoint(ListRoute[i]);
                 }
-
-                if (ListRoute[i].Direction != null)
+                if (ListRoute.Count >= 2)
                 {
-                    DrawDirection(ListRoute[i]);
+                    // Tính hướng tối thiểu
+                    var directionMin = GeoHelper.ComputeHeading(ListRoute[i].Latitude, ListRoute[i].Longitude, ListRoute[i + 1].Latitude, ListRoute[i + 1].Longitude);
+                    var distance = GeoHelper.ComputeDistanceBetween(ListRoute[i].Latitude, ListRoute[i].Longitude, ListRoute[i + 1].Latitude, ListRoute[i + 1].Longitude);
+                    if (distance > 1200 || directionMin > 30)
+                    {
+                        DrawDirection(ListRoute[i]);
+                    }
+
                 }
+
             }
 
             Polylines.Add(RouteLine);
@@ -767,7 +720,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 Label = vehicle.Time.FormatDateTimeWithSecond(),
                 Anchor = new Point(.5, .5),
                 Position = new Position(vehicle.Latitude, vehicle.Longitude),
-                Rotation = vehicle.Direction ?? 0,
                 Icon = BitmapDescriptorFactory.FromResource("ic_arrow_tracking.png"),
                 Tag = "direction",
                 ZIndex = 1,
@@ -897,19 +849,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 PlayCurrent++;
 
                 CurrentRoute = ListRoute[PlayCurrent];
-                RotateMarker((rotated) =>
-                {
-                    MarkerAnimation(rotated, () =>
-                    {
-                        if (PlayCurrent + 1 > PlayMax || ctsRouting.IsCancellationRequested)
-                        {
-                            IsPlaying = false;
-                            return;
-                        }
+                RotateMarker(CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
+                 {
+                     MarkerAnimation(CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
+                     {
+                         if (PlayCurrent + 1 > PlayMax || ctsRouting.IsCancellationRequested)
+                         {
+                             IsPlaying = false;
+                             return;
+                         }
 
-                        SuperInteligent();
-                    });
-                });
+                         SuperInteligent();
+                     });
+                 });
             }
             catch (Exception ex)
             {
@@ -917,70 +869,74 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private async void RotateMarker(Action<bool> callback = null)
+        public void RotateMarker(double latitude,
+           double longitude,
+           Action callback, int duration = 100)
         {
-            try
+            //gán lại vòng quay
+            var mRotateIndex = 0;
+            double MAX_ROTATE_STEP = duration / 50;
+            // * tính góc quay giữa 2 điểm location
+            var angle = GeoHelper.ComputeHeading(PinCar.Position.Latitude, PinCar.Position.Longitude, latitude, longitude);
+            if (angle == 0)
             {
-                if (-10 <= CurrentRoute.DeltaAngle && CurrentRoute.DeltaAngle <= 10)
+                callback();
+                return;
+            }
+            var startRotaion = PinCar.Rotation;
+            //tính lại độ lệch góc
+            var deltaAngle = GeoHelper.GetRotaion(startRotaion, angle);
+
+            Device.StartTimer(TimeSpan.FromMilliseconds(50), () =>
+            {
+                //góc quay tiếp theo
+                var fractionAngle = GeoHelper.ComputeRotation(
+                                      mRotateIndex / MAX_ROTATE_STEP,
+                                      startRotaion,
+                                      deltaAngle);
+                mRotateIndex = mRotateIndex + 1;
+
+                PinCar.Rotation = (float)fractionAngle;
+
+                if (mRotateIndex > MAX_ROTATE_STEP)
                 {
-                    PinCar.Rotation = (float)CurrentRoute.Heading2;
-                    callback?.Invoke(false);
-                    return;
+                    callback();
+                    return false;
                 }
 
-                int rotateIndex = 1;
-
-                while (rotateIndex <= MARKER_ROTATE_STEP && !ctsRouting.IsCancellationRequested)
-                {
-                    PinCar.Rotation = (float)GeoHelper.ComputeRotation(rotateIndex / MARKER_ROTATE_STEP, CurrentRoute.Heading1, CurrentRoute.DeltaAngle);
-
-                    await Task.Delay(TimeSpan.FromMilliseconds(MARKER_ROTATE_TIME_STEP));
-
-                    rotateIndex++;
-                }
-
-                callback?.Invoke(true);
-            }
-            catch (Exception ex)
-            {
-                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
+                return true;
+            });
         }
 
-        private async void MarkerAnimation(bool isRotated, Action callback = null)
+        public async void MarkerAnimation(double latitude, double longitude, Action callback, int duration = 500)
         {
-            try
+            double moveTime = MARKER_MOVE_RATE * MARKER_MOVE_TIME_STEP;
+            var startPosition = new Position(PinCar.Position.Latitude, PinCar.Position.Longitude);
+            var finalPosition = new Position(latitude, longitude);
+            double elapsed = 0;
+            double time = 0;
+            double v;
+            while (!ctsRouting.IsCancellationRequested && time < 1)
             {
-                double moveTime = isRotated ? MARKER_MOVE_RATE * MARKER_MOVE_TIME_STEP : MARKER_MOVE_TIME_STEP;
+                elapsed = elapsed + 10;
+                time = elapsed / duration;
+                v = GeoHelper.GetInterpolation(time);
 
-                double dLat = (CurrentRoute.Latitude - PinCar.Position.Latitude) / MARKER_MOVE_STEP;
-                double dLng = (CurrentRoute.Longitude - PinCar.Position.Longitude) / MARKER_MOVE_STEP;
-                double animateIndex = 1;
-
-                while (animateIndex <= MARKER_MOVE_STEP && !ctsRouting.IsCancellationRequested)
+                var postionnew = GeoHelper.Interpolate(v,
+                    startPosition,
+                    finalPosition);
+                PinCar.Position = new Position(postionnew.Latitude, postionnew.Longitude);
+                PinPlate.Position = new Position(postionnew.Latitude, postionnew.Longitude);
+                if (IsWatching && !ctsRouting.IsCancellationRequested)
                 {
-                    var newPositon = new Position(PinCar.Position.Latitude + dLat, PinCar.Position.Longitude + dLng);
-                    PinCar.Position = newPositon;
-                    PinPlate.Position = newPositon;
-
-                    if (IsWatching && !ctsRouting.IsCancellationRequested)
-                    {
-                        _ = MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(newPositon));
-                    }
-
-                    await Task.Delay(TimeSpan.FromMilliseconds(moveTime));
-
-                    animateIndex++;
+                    _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(postionnew), TimeSpan.FromMilliseconds(moveTime));
                 }
-
-                callback?.Invoke();
+                await Task.Delay(TimeSpan.FromMilliseconds(moveTime));
             }
-            catch (Exception ex)
-            {
-                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
+            PinPlate.Position = finalPosition;
+            PinCar.Position = finalPosition;
+            callback();
         }
-
         private void DragStarted()
         {
             lastPlayStatus = IsPlaying;

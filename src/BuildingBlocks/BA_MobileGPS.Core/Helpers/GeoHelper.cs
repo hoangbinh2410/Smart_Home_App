@@ -17,6 +17,7 @@ namespace BA_MobileGPS.Core
     /// </Modified>
     public static class GeoHelper
     {
+        static double EARTH_RADIUS = 6378100.0;
         public static double DistanceCalculatorCoordinate(double lng, double lat, double lngPre, double latPre)
         {
             double P1X = lng * (Math.PI / 180);
@@ -166,6 +167,12 @@ namespace BA_MobileGPS.Core
             double dLng = fromLng - toLng;
             return 2 * Math.Asin(Math.Sqrt(Math.Pow(Math.Sin(dLat / 2), 2) +
                     Math.Cos(fromLat) * Math.Cos(toLat) * Math.Pow(Math.Sin(dLng / 2), 2)));
+        }
+
+        public static double ComputeDistanceBetween(double fromLat, double fromLng, double toLat, double toLng)
+        {
+            // Haversine's formula
+            return ComputeAngleBetween(fromLat, fromLng, toLat, toLng) * EARTH_RADIUS;
         }
 
         public static Position Interpolate(double fraction, Position from, Position to)
