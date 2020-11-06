@@ -73,7 +73,7 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnPageAppearingFirstTime();
             if (App.CurrentLanguage == CultureCountry.English)
             {
-                language = new LanguageRespone()
+                Language = new LanguageRespone()
                 {
                     CodeName = CultureCountry.English,
                     Icon = "flag_us.png",
@@ -83,7 +83,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else
             {
-                language = new LanguageRespone()
+                Language = new LanguageRespone()
                 {
                     CodeName = CultureCountry.Vietnamese,
                     Icon = "flag_vn.png",
