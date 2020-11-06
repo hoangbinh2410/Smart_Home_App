@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Prism.Plugin.Popups">
+      <HintPath>..\Library\Shared\Prism.Plugin.Popups.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -158,9 +161,6 @@
     </PackageReference>
     <PackageReference Include="Plugin.Permissions">
       <Version>6.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="Prism.Plugin.Popups">
-      <Version>7.2.0.1046</Version>
     </PackageReference>
     <PackageReference Include="Ricardo.MBProgressHUD.iOS">
       <Version>1.1.0</Version>

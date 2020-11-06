@@ -10,7 +10,7 @@ using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 
 using Prism.Ioc;
-
+using Prism.Plugin.Popups;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core
@@ -30,7 +30,7 @@ namespace BA_MobileGPS.Core
             //containerRegistry.Register<INavigationService, PopupPageNavigationService>();
 
             // This updates INavigationService and registers PopupNavigation.Instance
-            //containerRegistry.RegisterPopupNavigationService();
+            containerRegistry.RegisterPopupNavigationService();
             containerRegistry.Register<IMapper, MapperUtility>();
             containerRegistry.RegisterSingleton(typeof(IRealmBaseService<,>), typeof(RealmBaseService<,>));
 

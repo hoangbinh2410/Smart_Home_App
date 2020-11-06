@@ -46,6 +46,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
+    <Reference Include="Prism.Plugin.Popups">
+      <HintPath>..\Library\Shared\Prism.Plugin.Popups.dll</HintPath>
+    </Reference>
     <Reference Include="Stormlion.FrescoImageViewer">
       <HintPath>..\Library\Android\Stormlion.FrescoImageViewer.dll</HintPath>
     </Reference>
@@ -189,9 +192,6 @@
     </PackageReference>
     <PackageReference Include="Plugin.Permissions">
       <Version>6.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="Prism.Plugin.Popups">
-      <Version>7.2.0.1046</Version>
     </PackageReference>
     <PackageReference Include="Sharpnado.Presentation.Forms">
       <Version>1.7.1</Version>
