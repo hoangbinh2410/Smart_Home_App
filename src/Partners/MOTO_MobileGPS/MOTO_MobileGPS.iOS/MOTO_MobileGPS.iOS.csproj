@@ -147,7 +147,7 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1560" />
     <PackageReference Include="Realm">
-      <Version>5.1.1</Version>
+      <Version>5.1.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Build.Download">
       <Version>0.10.0</Version>
