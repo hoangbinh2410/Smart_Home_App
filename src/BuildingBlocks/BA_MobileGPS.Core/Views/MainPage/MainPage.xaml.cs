@@ -63,7 +63,7 @@ namespace BA_MobileGPS.Core.Views
             {
                 ContentPage online;
                 //cấu hình cty này dùng Cluster thì mới mở forms Cluster
-                if (MobileUserSettingHelper.EnableShowCluster)
+                if (!MobileUserSettingHelper.EnableShowCluster)
                 {
                     online = PrismApplicationBase.Current.Container.Resolve<ContentPage>("OnlinePage"); //Online
                 }

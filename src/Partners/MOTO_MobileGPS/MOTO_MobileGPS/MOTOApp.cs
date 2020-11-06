@@ -69,8 +69,8 @@ namespace MOTO_MobileGPS
             containerRegistry.RegisterForNavigation<BA_MobileGPS.Core.Views.HelperPage, HeplerViewModel>("HelperPage");
 
 
-            ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
-            ViewModelLocationProvider.Register<OnlinePageNoCluster, OnlinePageViewModel>();
+            containerRegistry.RegisterForNavigation<OnlinePage, OnlinePageViewModel>("OnlinePage");
+            containerRegistry.RegisterForNavigation<OnlinePageNoCluster, OnlinePageViewModel>("OnlinePageNoCluster");
 
             containerRegistry.Register<ContentPage, OnlinePage>("OnlinePage");
             containerRegistry.Register<ContentPage, OnlinePageNoCluster>("OnlinePageNoCluster");
