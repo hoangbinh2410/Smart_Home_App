@@ -985,7 +985,7 @@ namespace MOTO_MobileGPS.Views
                     boxInfo.Animate("animBoxInfo", callback, 0, 300, 16, 300, Easing.CubicInOut);                   
                     boxInfoIsShown = false;
                     Action<double> frcallback = input => frVehicleInfo.TranslationX = input;
-                    frVehicleInfo.Animate("animehicleInfo", callback, 0, -pageWidth, 16, 300, Easing.CubicInOut);
+                    frVehicleInfo.Animate("animehicleInfo", frcallback, 0, -pageWidth, 16, 300, Easing.CubicInOut);
                     
                   
                 }
@@ -1012,7 +1012,7 @@ namespace MOTO_MobileGPS.Views
                     boxInfo.Animate("animBoxInfo", callback, 300, 0, 16, 300, Easing.CubicInOut);
                     boxInfoIsShown = true;
                     Action<double> frcallback = input => frVehicleInfo.TranslationX = input;
-                    frVehicleInfo.Animate("animehicleInfo", callback, -pageWidth, 0, 16, 300, Easing.CubicInOut);
+                    frVehicleInfo.Animate("animehicleInfo", frcallback, -pageWidth, 0, 16, 300, Easing.CubicInOut);
                 }
             }
             catch (Exception ex)
