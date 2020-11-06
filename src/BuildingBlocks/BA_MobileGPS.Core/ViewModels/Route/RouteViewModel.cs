@@ -731,7 +731,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 float distance = (float)GeoHelper.ComputeDistanceBetween(
                         diretionList[indexDraw].Position.Latitude, diretionList[indexDraw].Position.Longitude,
                         diretionList[indexDraw + 1].Position.Latitude, diretionList[indexDraw + 1].Position.Longitude);
-                if (directionMin > 30 || distance > 1200)
+                if (directionMin > 30 || distance > 120000)
                 {
                     var pin = diretionList[indexDraw].DrawPointDiretion();
                     Pins.Add(pin);

@@ -143,8 +143,11 @@ namespace BA_MobileGPS.Core
 
         public static double ComputeAngleBetween(double fromLat, double fromLng, double toLat, double toLng)
         {
-            return DistanceRadians(ToRadians(fromLat), ToRadians(fromLng),
-                 ToRadians(toLat), ToRadians(toLng));
+            // Haversine's formula
+            double dLat = fromLat - toLat;
+            double dLng = fromLng - toLng;
+            return 2 * Math.Asin(Math.Sqrt(Math.Pow(Math.Sin(dLat / 2), 2) +
+                    Math.Cos(fromLat) * Math.Cos(toLat) * Math.Pow(Math.Sin(dLng / 2), 2)));
         }
 
         public static double ComputeDistanceBetween(double fromLat, double fromLng, double toLat, double toLng)
