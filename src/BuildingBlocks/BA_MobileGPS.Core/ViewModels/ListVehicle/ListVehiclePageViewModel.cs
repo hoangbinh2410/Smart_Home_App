@@ -579,7 +579,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.Vehicle, param }
                 };
-                if (!MobileUserSettingHelper.EnableShowCluster)
+                if (MobileUserSettingHelper.EnableShowCluster)
                 {
                   var b =  await NavigationService.SelectTabAsync("OnlinePage", parameters);
                 }
