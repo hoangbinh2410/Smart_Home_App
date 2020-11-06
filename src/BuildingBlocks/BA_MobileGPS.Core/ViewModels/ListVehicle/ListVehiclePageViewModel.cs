@@ -73,7 +73,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Lifecycle
 
-      
+
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -508,11 +508,11 @@ namespace BA_MobileGPS.Core.ViewModels
                         return;
                     }
                     currentVehicle = selected;
-                    
+
                     await NavigationService.NavigateAsync("DetailVehiclePopup", parameters: new NavigationParameters
                         {
                             { "vehicleItem",  selected.PrivateCode}
-                        },true,true);
+                        }, true, true);
                 }
             });
         }
@@ -579,15 +579,29 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.Vehicle, param }
                 };
-                if (!MobileUserSettingHelper.EnableShowCluster)
+                if (App.AppType == AppType.Moto)
                 {
-                  var b =  await NavigationService.SelectTabAsync("OnlinePage", parameters);
+                    if (MobileUserSettingHelper.EnableShowCluster)
+                    {
+                        await NavigationService.SelectTabAsync("OnlinePageMoto", parameters);
+                    }
+                    else
+                    {
+                        await NavigationService.SelectTabAsync("OnlinePageNoClusterMoto", parameters);
+                    }
                 }
                 else
                 {
-
-                 var a =   await NavigationService.SelectTabAsync("OnlinePageNoCluster", parameters);
+                    if (MobileUserSettingHelper.EnableShowCluster)
+                    {
+                        await NavigationService.SelectTabAsync("OnlinePage", parameters);
+                    }
+                    else
+                    {
+                        await NavigationService.SelectTabAsync("OnlinePageNoCluster", parameters);
+                    }
                 }
+
             });
         }
 
