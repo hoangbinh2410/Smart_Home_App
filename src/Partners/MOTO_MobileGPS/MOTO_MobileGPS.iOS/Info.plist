@@ -21,9 +21,9 @@
 	<key>MinimumOSVersion</key>
 	<string>9.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>VIVIEW GPS 2</string>
+	<string>BA MOTO</string>
 	<key>CFBundleIdentifier</key>
-	<string>vn.viviewgps.gpsmobile</string>
+	<string>vn.bagps.motomobile</string>
 	<key>CFBundleName</key>
 	<string>VIVIEW GPS</string>
 	<key>CFBundleLocalizations</key>
