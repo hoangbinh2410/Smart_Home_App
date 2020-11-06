@@ -935,13 +935,18 @@ namespace MOTO_MobileGPS.Views
             try
             {
                 SetPaddingWithFooter();
-                eventAggregator.GetEvent<ShowHideTabEvent>().Publish(false);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    eventAggregator.GetEvent<ShowHideTabEvent>().Publish(false);
+                });
                 if (!boxInfoIsShown)
                 {
+                    boxInfoIsShown = true;
+
                     Action<double> callback = input => boxInfo.TranslationY = input;
                     boxInfo.Animate("animBoxInfo", callback, 300, 0, 16, 300, Easing.CubicInOut);
-                    boxInfoIsShown = true;
-                    Action<double> frcallback = input2 => frVehicleInfo.TranslationX = input2;
+                   
+                    Action<double> frcallback = input2 => frVehicleInfo.TranslationX = input2; 
                     frVehicleInfo.Animate("animehicleInfo", frcallback, -pageWidth, 0, 16, 300, Easing.CubicInOut);
                 }
             }

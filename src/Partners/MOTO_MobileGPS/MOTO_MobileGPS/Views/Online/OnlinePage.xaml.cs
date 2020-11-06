@@ -1004,7 +1004,11 @@ namespace MOTO_MobileGPS.Views
             try
             {
                 SetPaddingWithFooter();
-                eventAggregator.GetEvent<ShowHideTabEvent>().Publish(false);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    eventAggregator.GetEvent<ShowHideTabEvent>().Publish(false);
+                });
+               
                 if (!boxInfoIsShown)
                 {
                 
