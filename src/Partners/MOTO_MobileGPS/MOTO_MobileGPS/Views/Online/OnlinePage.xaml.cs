@@ -43,7 +43,6 @@ namespace MOTO_MobileGPS.Views
         private readonly IMotoDetailService motoDetailService;
         private readonly IMotoPropertiesService motoPropertiesService;
 
-        private readonly BA_MobileGPS.Core.Animation _animations = new BA_MobileGPS.Core.Animation();
         private bool boxInfoIsShown = false;
         private int pageWidth = 0;
         public OnlinePage()
@@ -273,41 +272,7 @@ namespace MOTO_MobileGPS.Views
             }
         }
 
-        private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
-        {
-            if (obj != null
-                && obj.Item2 != null
-                && obj.Item1 == ItemTabPageEnums.OnlinePage
-                && obj.Item2.GetType() == typeof(VehicleOnline))
-            {
-                var vehiclePlate = (VehicleOnline)obj.Item2;
-                if (googleMap.ClusteredPins != null && googleMap.ClusteredPins.Count > 0)
-                {
-                    var clusterpin = googleMap.ClusteredPins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
-                    if (clusterpin != null)
-                    {
-                        var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehiclePlate == vehiclePlate.VehiclePlate);
-                        if (vehicleselect != null)
-                        {
-                            vm.CarSearch = vehicleselect.PrivateCode;
-                            UpdateSelectVehicle(vehicleselect);
-                        }
-                        else
-                        {
-                            pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
-                        }
-                    }
-                    else
-                    {
-                        displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
-                    }
-                }
-            }
-            else
-            {
-                HideBoxInfoCarActive(mCarActive);
-            }
-        }
+   
 
         private void StartTimmerCaculatorStatus()
         {
