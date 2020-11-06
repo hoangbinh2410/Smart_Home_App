@@ -173,13 +173,16 @@
                                     Source="ic_turn_on_off.png"
                                     VerticalOptions="Center"
                                     WidthRequest="25" />
-
-                                <Label
+                                <StackLayout
                                     Grid.Column="1"
-                                    HorizontalOptions="Start"
-                                    HorizontalTextAlignment="Start"
-                                    Text="{i18n:TranslateResource Moto_Label_Allows_Remote_Engine}"
-                                    VerticalOptions="Center" />
+                                    Padding="0"
+                                    VerticalOptions="Center">
+                                    <Label
+                                        HorizontalOptions="Start"
+                                        HorizontalTextAlignment="Start"
+                                        Text="{i18n:TranslateResource Moto_Label_Allows_Remote_Engine}"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
                                 <Switch
                                     Grid.Column="2"
                                     HorizontalOptions="End"
@@ -372,14 +375,19 @@
                                     Source="ic_warning_phone.png"
                                     VerticalOptions="Center"
                                     WidthRequest="25" />
-                                <Label
+                                <StackLayout
                                     Grid.Column="1"
-                                    HorizontalOptions="Start"
-                                    HorizontalTextAlignment="Start"
-                                    LineBreakMode="TailTruncation"
-                                    MaxLines="2"
-                                    Text="{i18n:TranslateResource Moto_Label_Set_Phone_Number}"
-                                    VerticalOptions="Center" />
+                                    Padding="0"
+                                    VerticalOptions="Center">
+                                    <Label
+                                        HorizontalOptions="Start"
+                                        HorizontalTextAlignment="Start"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="2"
+                                        Text="{i18n:TranslateResource Moto_Label_Set_Phone_Number}"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+
                                 <Label
                                     Grid.Column="2"
                                     Padding="10"
@@ -391,11 +399,11 @@
                                     VerticalTextAlignment="End" />
                                 <ffimageloading:CachedImage
                                     Grid.Column="3"
-                                    HeightRequest="25"
+                                    HeightRequest="20"
                                     HorizontalOptions="End"
-                                    Source="ic_navigate_next.png"
+                                    Source="ic_next.png"
                                     VerticalOptions="Center"
-                                    WidthRequest="25" />
+                                    WidthRequest="20" />
                             </Grid>
                         </Grid>
                     </StackLayout>
