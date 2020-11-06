@@ -781,10 +781,7 @@ namespace BA_MobileGPS.Core.Views
                 vm.CarActive = new VehicleOnline();
                 mCarActive = new VehicleOnline();
                 SetNoPaddingWithFooter();
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    eventAggregator.GetEvent<ShowHideTabEvent>().Publish(false);
-                });
+                eventAggregator.GetEvent<ShowHideTabEvent>().Publish(true);
                 if (boxInfoIsShown)
                 {
                     Action<double> callback = input => boxInfo.TranslationY = input;
@@ -806,7 +803,10 @@ namespace BA_MobileGPS.Core.Views
             try
             {
                 SetPaddingWithFooter();
-                eventAggregator.GetEvent<ShowHideTabEvent>().Publish(false);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    eventAggregator.GetEvent<ShowHideTabEvent>().Publish(false);
+                });
                 if (!boxInfoIsShown)
                 {
                     Action<double> callback = input => boxInfo.TranslationY = input;
