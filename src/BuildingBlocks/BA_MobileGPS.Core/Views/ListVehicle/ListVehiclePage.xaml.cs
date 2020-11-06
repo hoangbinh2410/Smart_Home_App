@@ -18,7 +18,7 @@ namespace BA_MobileGPS.Core.Views
         protected override void OnAppearing()
         {
             if (_loadedPage) return;
-            ViewModelLocator.SetAutowireViewModel(this, true);
+           
             Device.StartTimer(TimeSpan.FromMilliseconds(100), () =>
             {
                 SetContent();
