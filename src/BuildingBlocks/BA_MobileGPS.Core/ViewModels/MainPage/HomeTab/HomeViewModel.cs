@@ -199,16 +199,28 @@ namespace BA_MobileGPS.Core.ViewModels
                     break;
 
                 case "OnlinePage":
-                    //cấu hình cty này dùng Cluster thì mới mở forms Cluster
-                    if (MobileUserSettingHelper.EnableShowCluster)
+                    if (App.AppType == AppType.Moto)
                     {
-                        await NavigationService.SelectTabAsync("OnlinePage");
+                        if (MobileUserSettingHelper.EnableShowCluster)
+                        {
+                            await NavigationService.SelectTabAsync("OnlinePageMoto");
+                        }
+                        else
+                        {
+                            await NavigationService.SelectTabAsync("OnlinePageNoClusterMoto");
+                        }
                     }
                     else
                     {
-                        await NavigationService.SelectTabAsync("OnlinePageNoCluster");
+                        if (MobileUserSettingHelper.EnableShowCluster)
+                        {
+                            await NavigationService.SelectTabAsync("OnlinePage");
+                        }
+                        else
+                        {
+                            await NavigationService.SelectTabAsync("OnlinePageNoCluster");
+                        }
                     }
-
                     break;
 
                 case "RoutePage":
