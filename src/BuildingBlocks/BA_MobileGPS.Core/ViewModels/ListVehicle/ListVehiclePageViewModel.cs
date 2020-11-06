@@ -579,13 +579,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.Vehicle, param }
                 };
-                if (MobileUserSettingHelper.EnableShowCluster)
+                if (!MobileUserSettingHelper.EnableShowCluster)
                 {
-                    await NavigationService.SelectTabAsync("OnlinePage", parameters);
+                  var b =  await NavigationService.SelectTabAsync("OnlinePage", parameters);
                 }
                 else
                 {
-                    await NavigationService.SelectTabAsync("OnlinePageNoCluster", parameters);
+
+                 var a =   await NavigationService.SelectTabAsync("OnlinePageNoCluster", parameters);
                 }
             });
         }
