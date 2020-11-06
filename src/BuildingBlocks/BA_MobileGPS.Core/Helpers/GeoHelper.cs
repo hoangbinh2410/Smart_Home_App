@@ -141,13 +141,19 @@ namespace BA_MobileGPS.Core
             return Wrap(ToDegrees(heading), -180f, 180f);
         }
 
-        public static double ComputeAngleBetween(double fromLat, double fromLng, double toLat, double toLng)
+        public static double ComputeAngleBetweenInterpolate(double fromLat, double fromLng, double toLat, double toLng)
         {
             // Haversine's formula
             double dLat = fromLat - toLat;
             double dLng = fromLng - toLng;
             return 2 * Math.Asin(Math.Sqrt(Math.Pow(Math.Sin(dLat / 2), 2) +
                     Math.Cos(fromLat) * Math.Cos(toLat) * Math.Pow(Math.Sin(dLng / 2), 2)));
+        }
+
+        public static double ComputeAngleBetween(double fromLat, double fromLng, double toLat, double toLng)
+        {
+            return DistanceRadians(ToRadians(fromLat), ToRadians(fromLng),
+                 ToRadians(toLat), ToRadians(toLng));
         }
 
         public static double ComputeDistanceBetween(double fromLat, double fromLng, double toLat, double toLng)
@@ -167,7 +173,7 @@ namespace BA_MobileGPS.Core
             double cosToLat = Math.Cos(toLat);
 
             // Computes Spherical interpolation coefficients.
-            double angle = ComputeAngleBetween(fromLat, fromLng, toLat, toLng);
+            double angle = ComputeAngleBetweenInterpolate(fromLat, fromLng, toLat, toLng);
             double sinAngle = Math.Sin(angle);
             if (sinAngle < 1E-6)
             {
@@ -185,6 +191,13 @@ namespace BA_MobileGPS.Core
             double lat = Math.Atan2(z, Math.Sqrt(x * x + y * y));
             double lng = Math.Atan2(y, x);
             return new Position(ToDegrees(lat), ToDegrees(lng));
+        }
+
+        public static Position LinearInterpolator(double fraction, Position from, Position to)
+        {
+            double lat = (to.Latitude - from.Latitude) * fraction + from.Latitude;
+            double lng = (to.Longitude - from.Longitude) * fraction + from.Longitude;
+            return new Position(lat, lng);
         }
 
         public static double GetInterpolation(double input)
