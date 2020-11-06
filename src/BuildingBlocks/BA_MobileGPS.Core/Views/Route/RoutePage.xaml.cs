@@ -35,8 +35,7 @@ namespace BA_MobileGPS.Core.Views
         private void SetContent()
         {
             if (!_stopTimer)
-            {
-                ViewModelLocator.SetAutowireViewModel(this, true);
+            {               
                 Content = new RouteView();
 
                 _loadedPage = true;
