@@ -2171,15 +2171,6 @@
     <BundleResource Include="Resources\ic_videolive%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_trackingcar%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_trackingcar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_trackingcar%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\ic_home%403x.png" />
   </ItemGroup>
   <ItemGroup>
