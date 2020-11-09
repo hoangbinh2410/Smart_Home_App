@@ -1,13 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BA_MobileGPS.Entities
 {
     public class StreamDevicesResponse : ResponseStreamBase<List<StreamDevices>>
     {
-
     }
 
     public class StreamDevices
@@ -85,7 +83,6 @@ namespace BA_MobileGPS.Entities
 
     public class StreamStartResponse : ResponseStreamBase<List<StreamStart>>
     {
-
     }
 
     public class StreamStart
@@ -97,12 +94,10 @@ namespace BA_MobileGPS.Entities
 
     public class StreamStopResponse : ResponseStreamBase<bool>
     {
-
     }
 
     public class StreamPingResponse : ResponseStreamBase<bool>
     {
-
     }
 
     public class CaptureImageGroup
@@ -114,12 +109,10 @@ namespace BA_MobileGPS.Entities
 
     public class CaptureImageResponse : ResponseStreamBase<List<CaptureImageData>>
     {
-
     }
 
     public class CaptureImageModel : ResponseStreamBase<List<CaptureImageGroup>>
     {
-
     }
 
     public class CaptureImageData : BaseModel
@@ -131,28 +124,28 @@ namespace BA_MobileGPS.Entities
         public DateTime Time { get; set; } // CapturedTime
 
         [JsonProperty("u")]
-        public string Url { get; set; } // Url 
+        public string Url { get; set; } // Url
 
         [JsonProperty("a")]
-        public float Lat { get; set; } // Latitude 
+        public float Lat { get; set; } // Latitude
 
         [JsonProperty("o")]
-        public float Lng { get; set; } // Longitude 
+        public float Lng { get; set; } // Longitude
 
         [JsonProperty("s")]
-        public byte Speed { get; set; } // Speed 
+        public byte Speed { get; set; } // Speed
 
         [JsonProperty("k")]
-        public byte Channel { get; set; } // Channel 
+        public byte Channel { get; set; } // Channel
 
         [JsonProperty("w")]
         public short Width { get; set; } // Width
 
         [JsonProperty("h")]
-        public short Height { get; set; } // Height 
+        public short Height { get; set; } // Height
 
         [JsonProperty("y")]
-        public short Type { get; set; } // Type 
+        public short Type { get; set; } // Type
 
         [JsonProperty("e")]
         public string ExtraInfo { get; set; } // ExtraInfo

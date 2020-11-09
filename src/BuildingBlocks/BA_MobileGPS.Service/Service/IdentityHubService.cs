@@ -4,10 +4,7 @@ using BA_MobileGPS.Utilities.Constant;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BA_MobileGPS.Service
@@ -119,7 +116,6 @@ namespace BA_MobileGPS.Service
             }
         }
 
-
         public event Action ConnectionReconnecting;
 
         public event Action ConnectionReconnected;
@@ -127,6 +123,7 @@ namespace BA_MobileGPS.Service
         public event Action ConnectionClosed;
 
         public event EventHandler<string> onReceivePushLogoutToAllUserInCompany;
+
         public event EventHandler<string> onReceivePushLogoutToUser;
     }
 }

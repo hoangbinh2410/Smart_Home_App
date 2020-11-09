@@ -14,8 +14,6 @@ namespace BA_MobileGPS.Core.ViewModels.Base
             IsActiveChanged += OnIsActiveChanged;
         }
 
-      
-
         public virtual void OnIsActiveChanged(object sender, EventArgs e)
         {
         }
@@ -32,13 +30,11 @@ namespace BA_MobileGPS.Core.ViewModels.Base
         {
             IsActiveChanged -= OnIsActiveChanged;
             base.OnDestroy();
-        }       
+        }
 
         private void RaiseIsActiveChanged()
         {
             IsActiveChanged?.Invoke(this, EventArgs.Empty);
         }
-
-      
     }
 }

@@ -24,7 +24,7 @@ using Xamarin.Forms.Xaml;
 namespace BA_MobileGPS.Core.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class OnlinePage : ContentPage, INavigationAware,IDestructible
+    public partial class OnlinePage : ContentPage, INavigationAware, IDestructible
     {
         #region Contructor
 
@@ -157,14 +157,11 @@ namespace BA_MobileGPS.Core.Views
 
                 UpdateVehicleByVehicleGroup(vehiclegroup);
             }
-          
         }
 
         public void OnNavigatingTo(INavigationParameters parameters)
         {
         }
-
-
 
         #endregion Lifecycle
 
@@ -870,7 +867,10 @@ namespace BA_MobileGPS.Core.Views
             try
             {
                 SetPaddingWithFooter();
-                eventAggregator.GetEvent<ShowHideTabEvent>().Publish(false);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    eventAggregator.GetEvent<ShowHideTabEvent>().Publish(false);
+                });
                 if (!boxInfoIsShown)
                 {
                     Action<double> callback = input => boxInfo.TranslationY = input;

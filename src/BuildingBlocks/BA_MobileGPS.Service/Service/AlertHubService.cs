@@ -35,7 +35,6 @@ namespace BA_MobileGPS.Service
                     await _connection.StartAsync();
 
                     _connection.On("PushAlertToUsers", (string message) => onReceiveAlertSignalR(this, message));
-
                 }
             }
             catch (Exception ex)

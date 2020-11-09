@@ -181,12 +181,12 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 SelectFuelsSummariesItem = ListDataSearch.Where(x => x.OrderNumber == OrderNumber).FirstOrDefault();
                 SelectFuelsSummariesItem.VehiclePlate = VehicleSelect.VehiclePlate;
-            
+
                 var p = new NavigationParameters
                 {
                     { ParameterKey.ReportFuelsSummariesSelected, SelectFuelsSummariesItem }
                 };
-                await NavigationService.NavigateAsync("FuelsSummariesDetailReportPage", p, useModalNavigation: false);
+                await NavigationService.NavigateAsync("FuelsSummariesDetailReportPage", p, useModalNavigation: false, true);
             }
             catch (Exception ex)
             {

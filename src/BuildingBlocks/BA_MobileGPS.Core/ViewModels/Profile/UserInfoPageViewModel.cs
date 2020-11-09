@@ -248,7 +248,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 { "ImagePath", CurrentUser.AvatarPathLocal }
             };
 
-            await NavigationService.NavigateAsync("BaseNavigationPage/ImageEditorPage", @params, true);
+            await NavigationService.NavigateAsync("BaseNavigationPage/ImageEditorPage", @params, true, true);
         }
 
         private void OnGenderChanged()
@@ -543,7 +543,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             StaticSettings.User.UserName = CurrentUser.UserName?.Trim();
                             StaticSettings.User.FullName = CurrentUser.FullName?.Trim();
                             StaticSettings.User.PhoneNumber = CurrentUser.PhoneNumber?.Trim();
-                            await NavigationService.GoBackAsync(useModalNavigation: true);
+                            await NavigationService.GoBackAsync(null, useModalNavigation: true, true);
                         }
                     }
                 }

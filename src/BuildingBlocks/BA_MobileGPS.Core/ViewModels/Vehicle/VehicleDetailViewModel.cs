@@ -1,6 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Extensions;
-using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
@@ -10,14 +9,10 @@ using Prism.Commands;
 using Prism.Navigation;
 
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
-using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -83,7 +78,9 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #region property
+
         private bool fieldName;
+
         public bool IsCameraEnable
         {
             get { return fieldName; }
@@ -102,6 +99,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public string PrivateCode { get; set; }
 
         private Entities.VehicleDetailViewModel inforDetail;
+
         public Entities.VehicleDetailViewModel InforDetail
         {
             get { return inforDetail; }
@@ -164,6 +162,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public int StopTime { get => stopTime; set => SetProperty(ref stopTime, value); }
 
         private bool isFuelVisible;
+
         public bool IsFuelVisible
         {
             get { return isFuelVisible; }
@@ -177,6 +176,7 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion property
 
         #region command
+
         public ICommand RefeshCommand { get; private set; }
 
         #endregion command
@@ -255,9 +255,8 @@ namespace BA_MobileGPS.Core.ViewModels
             if (carInfo != null)
             {
                 GetVehicleDetail();
-              
-                Coordinates = carInfo.Lat.ToString().Replace(",", ".") + ", " + carInfo.Lng.ToString().Replace(",", ".");
 
+                Coordinates = carInfo.Lat.ToString().Replace(",", ".") + ", " + carInfo.Lng.ToString().Replace(",", ".");
             }
         }
 
@@ -300,14 +299,14 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion execute command
 
         #region Camera
+
         private async void GotoCameraPage(object obj)
         {
             var param = obj.ToString();
-            await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+            await NavigationService.GoBackAsync(parameters: new NavigationParameters
                         {
                             { "pagetoNavigation",  param}
-                        });
-
+                        }, true, true);
         }
 
         private void SelectedMenu(MenuItem obj)
@@ -319,12 +318,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.Vehicle, new Vehicle(){ VehicleId=PK_VehicleID,VehiclePlate=VehiclePlate,PrivateCode=PrivateCode} }
                 };
-                await NavigationService.NavigateAsync(obj.Url, parameters, useModalNavigation: true);
+                await NavigationService.NavigateAsync(obj.Url, parameters, useModalNavigation: true, true);
             });
-
-
         }
 
-        #endregion
+        #endregion Camera
     }
 }

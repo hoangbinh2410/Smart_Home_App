@@ -1,4 +1,4 @@
-using BA_MobileGPS.Core.iOS.Extensions;
+﻿using BA_MobileGPS.Core.iOS.Extensions;
 using BA_MobileGPS.Core.iOS.Factories;
 using BA_MobileGPS.Core.Logics;
 

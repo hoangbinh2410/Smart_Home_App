@@ -1,5 +1,4 @@
-﻿using Prism.AppModel;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace BA_MobileGPS.Core.Views

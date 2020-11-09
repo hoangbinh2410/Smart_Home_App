@@ -238,6 +238,7 @@ namespace BA_MobileGPS.Entities
         /// </summary>
         [JsonProperty("22")]
         public bool? Concrete { set; get; }
+
         /// <summary>
         /// Thông tin địa chỉ
         /// </summary>
@@ -299,7 +300,7 @@ namespace BA_MobileGPS.Entities
         public DateTime JoinSystemDate { set; get; }
 
         /// <summary>
-        /// Số sim điện thoại đăng kí 
+        /// Số sim điện thoại đăng kí
         /// </summary>
         [JsonProperty("34")]
         public string SIMPhoneNumber { set; get; }
@@ -314,11 +315,10 @@ namespace BA_MobileGPS.Entities
             {
                 if (VelocityGPS > 3)
                 {
-                   return false;
+                    return false;
                 }
                 else
                 {
-                 
                     return StopTime != null ? true : false;
                 }
             }
@@ -359,7 +359,7 @@ namespace BA_MobileGPS.Entities
         public int DrivingViolationCount { set; get; }
 
         [JsonProperty("4")]
-        public string MemoryStatusLabel { set; get; } 
+        public string MemoryStatusLabel { set; get; }
 
         [JsonProperty("5")]
         public int MinutesOfDrivingTimeContinuous { set; get; }

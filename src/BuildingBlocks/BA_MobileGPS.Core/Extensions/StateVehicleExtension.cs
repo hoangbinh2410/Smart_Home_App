@@ -262,7 +262,6 @@ namespace BA_MobileGPS.Core.Extensions
             return false;
         }
 
-
         public static bool IsVehicleUpdate(DateTime gpstime, DateTime vehicleTime)
         {
             //nếu thời gian hiện tại - thời gian của xe mà lớn hơn 2 thì update xe đó
@@ -273,7 +272,6 @@ namespace BA_MobileGPS.Core.Extensions
             }
             return false;
         }
-
 
         public static List<long> GetVehicleSyncData(List<VehicleOnline> mVehicleList)
         {
@@ -306,6 +304,7 @@ namespace BA_MobileGPS.Core.Extensions
             }
             return result;
         }
+
         /* Trạng thái gps */
 
         public static bool IsLostGPSIcon(DateTime gpstime, DateTime vehicleTime)

@@ -417,7 +417,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { "ComboboxType", ComboboxType.First },
                     { "Title", MobileResource.Camera_TitleStatus }
                 };
-                _ = await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", parameters, useModalNavigation: true);
+                _ = await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", parameters, useModalNavigation: true, true);
             });
         }
 
@@ -431,7 +431,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { "ComboboxType", ComboboxType.Second },
                     { "Title", MobileResource.Camera_TitleStatus }
                 };
-                _ = await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", parameters, useModalNavigation: true);
+                _ = await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", parameters, useModalNavigation: true, true);
             });
         }
 

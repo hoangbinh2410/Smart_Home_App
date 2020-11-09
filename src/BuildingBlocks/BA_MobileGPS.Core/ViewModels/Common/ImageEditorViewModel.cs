@@ -58,7 +58,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 { ParameterKey.ImageLocation, location }
             };
 
-            await NavigationService.GoBackAsync(@params, useModalNavigation: true);
+            await NavigationService.GoBackAsync(@params, useModalNavigation: true, true);
         }
     }
 }

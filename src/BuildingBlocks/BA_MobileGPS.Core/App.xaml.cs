@@ -1,13 +1,10 @@
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Styles;
-using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities.Constant;
 using Prism;
 using Prism.Events;
 using Prism.Ioc;
-using Prism.Unity;
-using System.Diagnostics;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -35,7 +32,7 @@ namespace BA_MobileGPS.Core
 
         public virtual string OneSignalKey => Config.OneSignalKey;
 
-        protected override IContainerExtension CreateContainerExtension() => PrismContainerExtension.Current;
+        //protected override IContainerExtension CreateContainerExtension() => PrismContainerExtension.Current;
 
         protected override void OnInitialized()
         {

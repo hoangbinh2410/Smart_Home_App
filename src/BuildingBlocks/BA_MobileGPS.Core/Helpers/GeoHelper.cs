@@ -17,6 +17,8 @@ namespace BA_MobileGPS.Core
     /// </Modified>
     public static class GeoHelper
     {
+        private const int EarthRadius = 6371009;
+
         public static double DistanceCalculatorCoordinate(double lng, double lat, double lngPre, double latPre)
         {
             double P1X = lng * (Math.PI / 180);
@@ -136,36 +138,28 @@ namespace BA_MobileGPS.Core
             double heading = Math.Atan2(Math.Sin(dLng) * Math.Cos(toLatR),
                 Math.Cos(fromLatR) * Math.Sin(toLatR) - Math.Sin(fromLatR) * Math.Cos(toLatR) * Math.Cos(dLng));
 
-            return Wrap(ToDegrees(heading), -180, 180);
+            return Wrap(ToDegrees(heading), -180f, 180f);
         }
 
-        public static double ToRadians(double angdeg)
-        {
-            return angdeg / 180.0 * Math.PI;
-        }
-
-        public static double ToDegrees(double angrad)
-        {
-            return angrad * 180.0 / Math.PI;
-        }
-
-        public static double Wrap(double n, double min, double max)
-        {
-            return (n >= min && n < max) ? n : (Mod(n - min, max - min) + min);
-        }
-
-        public static double Mod(double x, double m)
-        {
-            return ((x % m) + m) % m;
-        }
-
-        public static double ComputeAngleBetween(double fromLat, double fromLng, double toLat, double toLng)
+        public static double ComputeAngleBetweenInterpolate(double fromLat, double fromLng, double toLat, double toLng)
         {
             // Haversine's formula
             double dLat = fromLat - toLat;
             double dLng = fromLng - toLng;
             return 2 * Math.Asin(Math.Sqrt(Math.Pow(Math.Sin(dLat / 2), 2) +
                     Math.Cos(fromLat) * Math.Cos(toLat) * Math.Pow(Math.Sin(dLng / 2), 2)));
+        }
+
+        public static double ComputeAngleBetween(double fromLat, double fromLng, double toLat, double toLng)
+        {
+            return DistanceRadians(ToRadians(fromLat), ToRadians(fromLng),
+                 ToRadians(toLat), ToRadians(toLng));
+        }
+
+        public static double ComputeDistanceBetween(double fromLat, double fromLng, double toLat, double toLng)
+        {
+            // Haversine's formula
+            return ComputeAngleBetween(fromLat, fromLng, toLat, toLng) * EarthRadius;
         }
 
         public static Position Interpolate(double fraction, Position from, Position to)
@@ -179,7 +173,7 @@ namespace BA_MobileGPS.Core
             double cosToLat = Math.Cos(toLat);
 
             // Computes Spherical interpolation coefficients.
-            double angle = ComputeAngleBetween(fromLat, fromLng, toLat, toLng);
+            double angle = ComputeAngleBetweenInterpolate(fromLat, fromLng, toLat, toLng);
             double sinAngle = Math.Sin(angle);
             if (sinAngle < 1E-6)
             {
@@ -197,6 +191,13 @@ namespace BA_MobileGPS.Core
             double lat = Math.Atan2(z, Math.Sqrt(x * x + y * y));
             double lng = Math.Atan2(y, x);
             return new Position(ToDegrees(lat), ToDegrees(lng));
+        }
+
+        public static Position LinearInterpolator(double fraction, Position from, Position to)
+        {
+            double lat = (to.Latitude - from.Latitude) * fraction + from.Latitude;
+            double lng = (to.Longitude - from.Longitude) * fraction + from.Longitude;
+            return new Position(lat, lng);
         }
 
         public static double GetInterpolation(double input)
@@ -469,5 +470,87 @@ namespace BA_MobileGPS.Core
 
             return new Bounds(new Position(minY, minX), new Position(maxY, maxX));
         }
+
+        #region private
+
+        private static double ToRadians(double value)
+        {
+            return value / 180f * Math.PI;
+        }
+
+        private static double ToDegrees(double value)
+        {
+            return value * 180f / Math.PI;
+        }
+
+        private static double Wrap(double value, double min, double max)
+        {
+            return value >= min && value < max ? value : Mod(value - min, max - min) + min;
+        }
+
+        private static double Mod(double operand, double modulus)
+        {
+            return (operand % modulus + modulus) % modulus;
+        }
+
+        private static double ComputeAngleBetween(Position from, Position to)
+        {
+            return DistanceRadians(ToRadians(from.Latitude), ToRadians(from.Longitude),
+                ToRadians(to.Latitude), ToRadians(to.Longitude));
+        }
+
+        private static double DistanceRadians(double lat1, double lng1, double lat2, double lng2)
+        {
+            return ArcHav(HavDistance(lat1, lat2, lng1 - lng2));
+        }
+
+        private static double ArcHav(double x)
+        {
+            return 2 * Math.Asin(Math.Sqrt(x));
+        }
+
+        private static double HavDistance(double lat1, double lat2, double dLng)
+        {
+            return Hav(lat1 - lat2) + Hav(dLng) * Math.Cos(lat1) * Math.Cos(lat2);
+        }
+
+        private static double Hav(double x)
+        {
+            var sinHalf = Math.Sin(x * 0.5f);
+            return sinHalf * sinHalf;
+        }
+
+        private static double ComputeSignedArea(List<Position> path, double radius)
+        {
+            var size = path.Count;
+            if (size < 3)
+            {
+                return 0;
+            }
+
+            double total = 0f;
+            var prev = path[size - 1];
+            var prevTanLat = Math.Tan((Math.PI / 2 - ToRadians(prev.Latitude)) / 2);
+            var prevLng = ToRadians(prev.Longitude);
+            foreach (var point in path)
+            {
+                var tanLat = Math.Tan((Math.PI / 2 - ToRadians(point.Latitude)) / 2);
+                var lng = ToRadians(point.Longitude);
+                total += PolarTriangleArea(tanLat, lng, prevTanLat, prevLng);
+                prevTanLat = tanLat;
+                prevLng = lng;
+            }
+
+            return total * (radius * radius);
+        }
+
+        private static double PolarTriangleArea(double tan1, double lng1, double tan2, double lng2)
+        {
+            var deltaLng = lng1 - lng2;
+            var t = tan1 * tan2;
+            return 2 * Math.Atan2(t * Math.Sin(deltaLng), 1 + t * Math.Cos(deltaLng));
+        }
+
+        #endregion private
     }
 }

@@ -1,13 +1,9 @@
 ﻿using Android.Animation;
 using Android.Content;
-using Android.Support.Design.BottomNavigation;
-using Android.Support.Design.Internal;
 using Android.Support.Design.Widget;
-using Android.Support.V4.View;
 using Android.Views;
 using BA_MobileGPS.Core.Controls;
 using BA_MobileGPS.Core.Droid.CustomRender;
-using System;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -19,7 +15,7 @@ namespace BA_MobileGPS.Core.Droid.CustomRender
 {
     public class ExtendedTabbedPageRenderer : TabbedPageRenderer, BottomNavigationView.IOnNavigationItemSelectedListener
     {
-        BottomNavigationView bottomNavigationView;
+        private BottomNavigationView bottomNavigationView;
         private bool slidingUp;
         private bool slidingDown;
 
@@ -48,7 +44,9 @@ namespace BA_MobileGPS.Core.Droid.CustomRender
                 slidingUp = value;
             }
         }
+
         private int TabBarHeight;
+
         public BottomNavigationView BottomNavigationView
         {
             get
@@ -61,6 +59,7 @@ namespace BA_MobileGPS.Core.Droid.CustomRender
                 bottomNavigationView = value;
             }
         }
+
         public ExtendedTabbedPageRenderer(Context context) : base(context)
         {
         }
@@ -75,9 +74,8 @@ namespace BA_MobileGPS.Core.Droid.CustomRender
                     bottomNavigationView = (GetChildAt(0) as Android.Widget.RelativeLayout).GetChildAt(1) as BottomNavigationView;
                 }
             }
-
-
         }
+
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
@@ -104,7 +102,6 @@ namespace BA_MobileGPS.Core.Droid.CustomRender
                         }
                     }
                 }
-
             }
         }
 
@@ -124,6 +121,7 @@ namespace BA_MobileGPS.Core.Droid.CustomRender
                 SlideUp();
             }
         }
+
         public void SlideUp()
         {
             var currentY = BottomNavigationView.TranslationY;
@@ -163,14 +161,16 @@ namespace BA_MobileGPS.Core.Droid.CustomRender
                 .Start();
         }
     }
-    class BottomTabAnimationListener : Java.Lang.Object, Animator.IAnimatorListener
+
+    internal class BottomTabAnimationListener : Java.Lang.Object, Animator.IAnimatorListener
     {
-        ExtendedTabbedPageRenderer renderer;
+        private ExtendedTabbedPageRenderer renderer;
 
         public BottomTabAnimationListener(ExtendedTabbedPageRenderer renderer)
         {
             this.renderer = renderer;
         }
+
         public void OnAnimationCancel(Animator animation)
         {
             UpdateFlags();

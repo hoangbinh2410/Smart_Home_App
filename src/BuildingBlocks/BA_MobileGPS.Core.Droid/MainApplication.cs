@@ -5,18 +5,18 @@ using Android.Runtime;
 using BA_MobileGPS.Utilities.Constant;
 
 using Plugin.CurrentActivity;
-using Shiny;
 using System;
 
 namespace BA_MobileGPS.Core.Droid
 {
 #if DEBUG
+
     [Application(Debuggable = true)]
 #else
 [Application(Debuggable = false)]
 #endif
     [MetaData("com.google.android.maps.v2.API_KEY", Value = Config.GoogleMapKeyAndroid)]
-    public class MainApplication : ShinyAndroidApplication<ShinyAppStartup>
+    public class MainApplication : Android.App.Application, Android.App.Application.IActivityLifecycleCallbacks
     {
         public MainApplication(IntPtr handle, JniHandleOwnership transer)
             : base(handle, transer)

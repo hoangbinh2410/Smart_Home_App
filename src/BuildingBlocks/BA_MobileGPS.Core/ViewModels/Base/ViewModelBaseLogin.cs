@@ -27,8 +27,6 @@ namespace BA_MobileGPS.Core.ViewModels
         protected IPageDialogService PageDialog { get; private set; }
         public ICommand CallHotLineCommand { get; }
 
-        public PageMode ViewMode { get; set; } = PageMode.View;
-
         public bool IsConnected => Connectivity.NetworkAccess == NetworkAccess.Internet;
 
         private bool isBusy = false;
@@ -50,10 +48,12 @@ namespace BA_MobileGPS.Core.ViewModels
             //Connectivity.ConnectivityChanged -= OnConnectivityChanged;
             //Connectivity.ConnectivityChanged += OnConnectivityChanged;
         }
+
         ~ViewModelBaseLogin()
         {
             //Connectivity.ConnectivityChanged -= OnConnectivityChanged;
         }
+
         public virtual async void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
             RaisePropertyChanged(nameof(IsConnected));
@@ -72,6 +72,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
+
         public virtual void Initialize(INavigationParameters parameters)
         {
         }
@@ -260,7 +261,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     SafeExecute(async () =>
                     {
-                        await NavigationService.GoBackAsync(useModalNavigation: true);
+                        await NavigationService.GoBackAsync(null, useModalNavigation: true, true);
                     });
                 });
             }

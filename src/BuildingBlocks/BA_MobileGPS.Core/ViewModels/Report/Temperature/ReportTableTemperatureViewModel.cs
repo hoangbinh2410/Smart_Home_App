@@ -181,7 +181,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.ReportTemperatureSelected, SelectTemperatureItem }
                 };
-                await NavigationService.NavigateAsync("ReportDetailTemperaturePage", p, useModalNavigation: false);
+                await NavigationService.NavigateAsync("ReportDetailTemperaturePage", p, useModalNavigation: false, false);
             }
             catch (Exception ex)
             {

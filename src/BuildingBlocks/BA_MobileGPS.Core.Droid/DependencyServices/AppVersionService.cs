@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.Content.PM;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+﻿using Android.Content.PM;
 using BA_MobileGPS.Core.Droid.DependencyServices;
 
 [assembly: Xamarin.Forms.Dependency(typeof(AppVersionService))]
+
 namespace BA_MobileGPS.Core.Droid.DependencyServices
 {
     public class AppVersionService : IAppVersionService

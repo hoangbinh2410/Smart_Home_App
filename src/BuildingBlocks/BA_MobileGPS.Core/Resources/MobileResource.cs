@@ -10,8 +10,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
-using Unity;
-
 namespace BA_MobileGPS.Core.Resources
 {
     public partial class MobileResource
@@ -30,7 +28,6 @@ namespace BA_MobileGPS.Core.Resources
                     instance = new MobileResource();
                     sw.Stop();
                     Debug.WriteLine(string.Format("InstanceMobileResource: {0}", sw.ElapsedMilliseconds));
-
                 }
                 return instance;
             }

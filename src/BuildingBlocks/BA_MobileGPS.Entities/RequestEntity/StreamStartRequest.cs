@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BA_MobileGPS.Entities
+﻿namespace BA_MobileGPS.Entities
 {
     public abstract class StreamRequestBase
     {
@@ -13,18 +9,17 @@ namespace BA_MobileGPS.Entities
         public int Channel { get; set; }
         public string IMEI { get; set; }
     }
+
     public class StreamStartRequest : StreamRequestBase
     {
-     
     }
 
     public class StreamStopRequest : StreamRequestBase
     {
-       
     }
 
     public class StreamPingRequest : StreamRequestBase
-    {    
+    {
         //Thời gian gia hạn quá trình Streaming, mặc định 180s. Đơn vị: second Giá trị: 1 – 600
         public int Duration { get; set; }
     }

@@ -12,6 +12,7 @@ using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Navigation.TabbedPages;
+using Rg.Plugins.Popup.Services;
 using Syncfusion.Data.Extensions;
 
 using System;
@@ -71,6 +72,8 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #region Lifecycle
+
+
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -373,7 +376,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("ListVehicleHelpPage", useModalNavigation: true);
+                await NavigationService.NavigateAsync("ListVehicleHelpPage", null, useModalNavigation: true, true);
             });
         }
 
@@ -505,10 +508,11 @@ namespace BA_MobileGPS.Core.ViewModels
                         return;
                     }
                     currentVehicle = selected;
+
                     await NavigationService.NavigateAsync("DetailVehiclePopup", parameters: new NavigationParameters
                         {
                             { "vehicleItem",  selected.PrivateCode}
-                        });
+                        }, true, true);
                 }
             });
         }
@@ -548,7 +552,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.CarDetail, param }
                 };
 
-                var a = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, useModalNavigation: true);
+                var a = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, useModalNavigation: true, true);
             });
         }
 
@@ -575,15 +579,29 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.Vehicle, param }
                 };
-                if (MobileUserSettingHelper.EnableShowCluster)
+                if (App.AppType == AppType.Moto)
                 {
-                    await NavigationService.SelectTabAsync("OnlinePage", parameters);
+                    if (MobileUserSettingHelper.EnableShowCluster)
+                    {
+                        await NavigationService.SelectTabAsync("OnlinePageMoto", parameters);
+                    }
+                    else
+                    {
+                        await NavigationService.SelectTabAsync("OnlinePageNoClusterMoto", parameters);
+                    }
                 }
                 else
                 {
-                    await NavigationService.SelectTabAsync("OnlinePageNoCluster", parameters);
+                    if (MobileUserSettingHelper.EnableShowCluster)
+                    {
+                        await NavigationService.SelectTabAsync("OnlinePage", parameters);
+                    }
+                    else
+                    {
+                        await NavigationService.SelectTabAsync("OnlinePageNoCluster", parameters);
+                    }
                 }
-                
+
             });
         }
 
@@ -606,7 +624,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.Vehicle, param }
                 };
 
-                await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true);
+                await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true, true);
             });
         }
 
@@ -620,7 +638,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.Vehicle, param }
                 };
 
-                await NavigationService.NavigateAsync("NavigationPage/ChartFuelReportPage", parameters, true);
+                await NavigationService.NavigateAsync("NavigationPage/ChartFuelReportPage", parameters, true, true);
             });
         }
 
@@ -638,7 +656,7 @@ namespace BA_MobileGPS.Core.ViewModels
                           { ParameterKey.Vehicle, param }
                      };
 
-                    await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true);
+                    await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
                 }
             });
         }

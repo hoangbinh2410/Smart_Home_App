@@ -75,7 +75,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     return;
                 else
                 {
-                    await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+                    await NavigationService.GoBackAsync(useModalNavigation: true, animated: true, parameters: new NavigationParameters
                         {
                             { "popupitem",  item}
                         });
@@ -95,7 +95,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private async void ClosePopup()
         {
             //await PopupNavigation.Instance.PopAsync();
-            await NavigationService.GoBackAsync();
+           var a = await NavigationService.GoBackAsync();
         }
 
         public ICommand NavigateCommand { get; }

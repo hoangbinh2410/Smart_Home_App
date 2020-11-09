@@ -1,6 +1,4 @@
 ﻿using BA_MobileGPS.Core;
-using BA_MobileGPS.Core.Interfaces;
-using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Styles;
 using BA_MobileGPS.Utilities.Constant;
 using BA_MobileGPS.Utilities.Enums;
@@ -9,9 +7,6 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Prism;
 using Prism.Ioc;
-using Syncfusion.XForms.Themes;
-using System.Diagnostics;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS
@@ -31,7 +26,7 @@ namespace BA_MobileGPS
             ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerThat;
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerThat;
             ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerThat;
-           
+
             Application.Current.Resources.MergedDictionaries.Add(new LightColor());
             Application.Current.Resources.MergedDictionaries.Add(new BA_MobileGPS.Core.Styles.Styles());
 

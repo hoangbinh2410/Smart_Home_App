@@ -238,10 +238,10 @@ namespace BA_MobileGPS.Core.ViewModels
                             EventAggregator.GetEvent<SelectedCompanyEvent>().Publish(seleted.FK_CompanyID);
                         }
 
-                        _ = await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+                        _ = await NavigationService.GoBackAsync(parameters: new NavigationParameters
                         {
                             { ParameterKey.Company, seleted }
-                        });
+                        }, true, true);
                     });
                 });
             }

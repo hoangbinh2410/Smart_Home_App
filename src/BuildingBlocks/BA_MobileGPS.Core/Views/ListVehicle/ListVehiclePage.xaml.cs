@@ -1,5 +1,4 @@
-﻿using Prism.Mvvm;
-using System;
+﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,7 +18,7 @@ namespace BA_MobileGPS.Core.Views
         protected override void OnAppearing()
         {
             if (_loadedPage) return;
-
+           
             Device.StartTimer(TimeSpan.FromMilliseconds(100), () =>
             {
                 SetContent();
@@ -36,6 +35,7 @@ namespace BA_MobileGPS.Core.Views
         {
             if (!_stopTimer)
             {
+               
                 var view = new ListVehicleView();
                 Content = view;
 

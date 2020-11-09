@@ -1,7 +1,6 @@
 ﻿using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 
 using Prism.Commands;
@@ -41,6 +40,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this.appVersionService = appVersionService;
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(Navigate);
         }
+
         public override void Initialize(INavigationParameters parameters)
         {
             Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
@@ -181,7 +181,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     switch (item.MenuType)
                     {
                         case MenuType.ChangePassword:
-                            await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation);
+                            await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation, item.UseModalNavigation);
                             break;
 
                         case MenuType.CustomerSupport:
@@ -199,12 +199,13 @@ namespace BA_MobileGPS.Core.ViewModels
                         case MenuType.Rating:
                             await Launcher.OpenAsync(new Uri(item.Url));
                             break;
+
                         case MenuType.UpgradeVersion:
                             await Launcher.OpenAsync(new Uri(item.Url));
                             break;
 
                         default:
-                            await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation);
+                            await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation, item.UseModalNavigation);
                             break;
                     }
                 }
@@ -228,7 +229,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     IsBusy = true;
                     try
                     {
-                        await NavigationService.NavigateAsync("BaseNavigationPage/UserInfoPage", null, useModalNavigation: true);
+                        await NavigationService.NavigateAsync("BaseNavigationPage/UserInfoPage", null, useModalNavigation: true, true);
                     }
                     catch (Exception ex)
                     {

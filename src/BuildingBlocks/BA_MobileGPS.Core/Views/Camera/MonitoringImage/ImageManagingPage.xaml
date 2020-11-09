@@ -212,7 +212,5 @@
         <!--  Image  -->
 
         <Grid x:Name="ImagePanel" Grid.Row="2" />
-
     </Grid>
-
 </ContentPage>

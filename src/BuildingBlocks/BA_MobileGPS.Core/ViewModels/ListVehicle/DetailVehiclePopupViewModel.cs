@@ -34,7 +34,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand CloseCommand { get; }
 
-        private void Close()
+        public void Close()
         {
             NavigationService.GoBackAsync();
         }
@@ -50,7 +50,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(async () =>
             {
                 var param = seletedMenu.Title.ToString();
-                await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+                await NavigationService.GoBackAsync(useModalNavigation: true, animated: true, parameters: new NavigationParameters
                         {
                             { "pagetoNavigation",  param}
                         });

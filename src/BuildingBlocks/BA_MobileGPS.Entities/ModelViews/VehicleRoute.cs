@@ -15,14 +15,6 @@ namespace BA_MobileGPS.Entities
         private string address;
         public string Address { get => address; set => SetProperty(ref address, value); }
 
-        public double Heading1 { get; set; }
-
-        public double Heading2 { get; set; }
-
-        public double DeltaAngle { get; set; }
-
-        public float? Direction { get; set; }
-
         private StatePoint state;
         public StatePoint State { get => state; set => SetProperty(ref state, value); }
 

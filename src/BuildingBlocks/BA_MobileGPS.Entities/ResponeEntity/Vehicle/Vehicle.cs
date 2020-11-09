@@ -20,7 +20,6 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("Imei")]
         public string Imei { set; get; }
 
-
         [JsonIgnore]
         public string IconImage { set; get; }
 

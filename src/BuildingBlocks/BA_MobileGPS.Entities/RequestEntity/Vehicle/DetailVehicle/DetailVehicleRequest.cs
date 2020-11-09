@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BA_MobileGPS.Entities
+﻿namespace BA_MobileGPS.Entities
 {
     public class DetailVehicleRequest
     {
@@ -8,6 +6,7 @@ namespace BA_MobileGPS.Entities
         //public int vehicleID { get; set; }
         //public Guid UserId { get; set; }
         public int XnCode { get; set; }
+
         public string VehiclePlate { get; set; }
         public int CompanyId { get; set; }
     }

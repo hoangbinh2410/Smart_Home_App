@@ -1,6 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 
 using Prism.Commands;
@@ -8,7 +7,6 @@ using Prism.Navigation;
 
 using Syncfusion.Data.Extensions;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -18,6 +16,7 @@ using System.Windows.Input;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
+using Exception = System.Exception;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -130,13 +129,13 @@ namespace BA_MobileGPS.Core.ViewModels
                         foreach (var item in groupids)
                         {
                             var lisOnline = listOnline.FindAll(v => v.GroupIDs.Contains(item.ToString()));
-                            if(lisOnline!=null && lisOnline.Count > 0)
+                            if (lisOnline != null && lisOnline.Count > 0)
                             {
                                 foreach (var lst in lisOnline)
                                 {
                                     result.Add(AddListVehicle(lst));
                                 }
-                            }  
+                            }
                         }
                     }
                     else
@@ -229,7 +228,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 navigationPara.Add(ParameterKey.Vehicle, selected);
                             }
 
-                            await NavigationService.GoBackAsync(navigationPara, useModalNavigation: true);
+                            await NavigationService.GoBackAsync(navigationPara, useModalNavigation: true, true);
                         }
                     }
                     catch (Exception ex)

@@ -9,7 +9,6 @@ using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -49,11 +48,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
             SearchVehicleGroupCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehicleGroup);
         }
+
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
             InitData();
         }
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -64,7 +65,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     SelectedVehicleGroups = VehicleGroups;
                 }
-            }  
+            }
         }
 
         private void InitData()
@@ -145,7 +146,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         HasVehicleGroup = ListVehicleGroup.Count > 0;
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex)
                     {
                         Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
                     }
@@ -212,7 +213,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex)
                     {
                         Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
                     }
@@ -236,12 +237,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         var listGroupSelected = ListVehicleGroupOrigin.FindAll(g => g.IsSelected == true);
 
-                        await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+                        await NavigationService.GoBackAsync(parameters: new NavigationParameters
                         {
                             { ParameterKey.VehicleGroups,  listGroupSelected.Select(g => g.FK_VehicleGroupID).ToArray()}
-                        });
+                        }, true, true);
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex)
                     {
                         Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
                     }

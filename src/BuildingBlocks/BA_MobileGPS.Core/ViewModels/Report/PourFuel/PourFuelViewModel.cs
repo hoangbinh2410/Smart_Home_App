@@ -141,7 +141,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { "ComboboxType", ComboboxType.First },
                     { "Title", MobileResource.ReportMachine_TitleStatusMachine }
                 };
-                await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true, true);
             }
             catch (Exception ex)
             {
@@ -263,7 +263,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 SelectPourFuelVehicleItem = ListDataSearch.Where(x => x.OrderNumber == OrderNumber).FirstOrDefault();
                 SelectPourFuelVehicleItem.VehiclePlate = VehicleSelect.VehiclePlate;
-                if(string.IsNullOrEmpty(SelectPourFuelVehicleItem.CurrentAddress))
+                if (string.IsNullOrEmpty(SelectPourFuelVehicleItem.CurrentAddress))
                 {
                     if (string.IsNullOrEmpty(SelectPourFuelVehicleItem.StartAddress) && string.IsNullOrEmpty(SelectPourFuelVehicleItem.EndAddress))
                     {
@@ -294,12 +294,12 @@ namespace BA_MobileGPS.Core.ViewModels
                             SelectPourFuelVehicleItem.EndAddress = response[0];
                         }
                     }
-                }    
+                }
                 var p = new NavigationParameters
                 {
                     { ParameterKey.ReportPourFuelSelected, SelectPourFuelVehicleItem }
                 };
-                await NavigationService.NavigateAsync("PourFuelDetailReportPage", p, useModalNavigation: false);
+                await NavigationService.NavigateAsync("PourFuelDetailReportPage", p, useModalNavigation: false, false);
             }
             catch (Exception ex)
             {

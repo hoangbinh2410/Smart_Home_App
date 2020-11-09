@@ -23,12 +23,13 @@ namespace BA_MobileGPS.Core.Views
             InitializeComponent();
             main.Title = MobileResource.Favorites_Label_TilePage;
         }
+
         protected override void OnAppearing()
-        {          
+        {
             base.OnAppearing();
             searchBarAndroid.Placeholder = MobileResource.Common_Message_SearchText;
             searchBarIOS.Placeholder = MobileResource.Common_Message_SearchText;
-            btnAlert.Text = MobileResource.Common_Button_Save;            
+            btnAlert.Text = MobileResource.Common_Button_Save;
         }
 
         private void ListView_ItemDragging(object sender, ItemDraggingEventArgs e)

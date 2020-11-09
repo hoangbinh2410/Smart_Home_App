@@ -85,7 +85,6 @@ namespace BA_MobileGPS.Core.ViewModels
             InitMenuItems();
         }
 
-
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -517,7 +516,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         { ParameterKey.VehicleOnline, carActive }
                     };
-                   EventAggregator.GetEvent<BackButtonEvent>().Publish(true);
+                    EventAggregator.GetEvent<BackButtonEvent>().Publish(true);
                     await NavigationService.SelectTabAsync("RoutePage", parameters);
                 }
                 else
@@ -531,7 +530,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("BaseNavigationPage/BoundaryPage", useModalNavigation: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/BoundaryPage", null, useModalNavigation: true, true);
             });
         }
 
@@ -600,7 +599,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.CarDetail, CarActive }
                 };
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true, true);
             });
         }
 
@@ -613,7 +612,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.VehicleOnline, CarActive }
                 };
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/DistancePage", parameters, true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/DistancePage", parameters, true, true);
             });
         }
 
@@ -633,7 +632,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.Vehicle, param }
                 };
 
-                await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true);
+                await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true, true);
             });
         }
 
@@ -657,7 +656,7 @@ namespace BA_MobileGPS.Core.ViewModels
                           { ParameterKey.Vehicle, param }
                      };
 
-                    await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true);
+                    await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
                 }
             });
         }

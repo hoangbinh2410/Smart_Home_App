@@ -1,28 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BA_MobileGPS.Core.Controls;
+﻿using BA_MobileGPS.Core.Controls;
 using BA_MobileGPS.Core.iOS.CustomRenderer;
 using CoreGraphics;
-using Foundation;
+using System;
+using System.ComponentModel;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(TabbedPageEx), typeof(TabbedPageExRenderer))]
+
 namespace BA_MobileGPS.Core.iOS.CustomRenderer
 {
-
     public class TabbedPageExRenderer : TabbedRenderer
     {
         private bool disposed;
         private nfloat centerX;
         private nfloat centerY;
         private const float CustomTabBarHeight = 60.0f;
-        IPageController PageController => Element as IPageController;
+        private IPageController PageController => Element as IPageController;
+
         public bool IsTabBarVisible
         {
             get
@@ -106,7 +102,7 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
             this.TabBar.Frame = tabBarFrame;
             this.TabBar.ContentMode = UIViewContentMode.Bottom;
             PageController.ContainerArea =
-                new Rectangle(0, tabBarFrame.Y+ tabBarFrame.Height, frame.Width, frame.Height - tabBarFrame.Height);
+                new Rectangle(0, tabBarFrame.Y + tabBarFrame.Height, frame.Width, frame.Height - tabBarFrame.Height);
             var animationOptions = UIViewAnimationOptions.BeginFromCurrentState |
                                    UIViewAnimationOptions.CurveEaseInOut;
 
