@@ -268,7 +268,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.VehiclePlate, VehiclePlate }
                 };
 
-                await NavigationService.NavigateAsync("CameraDetail", parameters, useModalNavigation: false, false);
+                await NavigationService.NavigateAsync("CameraDetail", parameters, useModalNavigation: false, true);
             });
         }
     }

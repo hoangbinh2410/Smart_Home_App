@@ -44,7 +44,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { "Request", request }
                 };
 
-                NavigationService.NavigateAsync("DetailCamera", parameters, useModalNavigation: false, false);
+                NavigationService.NavigateAsync("DetailCamera", parameters, useModalNavigation: false, true);
             }
         }
 

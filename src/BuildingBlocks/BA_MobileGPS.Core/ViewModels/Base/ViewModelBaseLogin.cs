@@ -22,7 +22,6 @@ namespace BA_MobileGPS.Core.ViewModels
     public abstract class ViewModelBaseLogin : ExtendedBindableObject, INavigationAware, IInitialize, IInitializeAsync, IDestructible, IApplicationLifecycleAware, IDisposable
     {
         protected INavigationService NavigationService { get; private set; }
-        protected IEventAggregator EventAggregator { get; private set; }
         protected IDisplayMessage DisplayMessage { get; private set; }
         protected IPageDialogService PageDialog { get; private set; }
         public ICommand CallHotLineCommand { get; }
@@ -39,38 +38,20 @@ namespace BA_MobileGPS.Core.ViewModels
                 NavigationService = PrismApplicationBase.Current.Container.Resolve<INavigationService>();
             }
             else NavigationService = navigationService;
-
-            EventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             DisplayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
             PageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
             CallHotLineCommand = new DelegateCommand(CallHotLine);
-
-            //Connectivity.ConnectivityChanged -= OnConnectivityChanged;
-            //Connectivity.ConnectivityChanged += OnConnectivityChanged;
+            Connectivity.ConnectivityChanged -= OnConnectivityChanged;
+            Connectivity.ConnectivityChanged += OnConnectivityChanged;
         }
 
         ~ViewModelBaseLogin()
         {
-            //Connectivity.ConnectivityChanged -= OnConnectivityChanged;
+            Connectivity.ConnectivityChanged -= OnConnectivityChanged;
         }
-
-        public virtual async void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        public virtual void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
             RaisePropertyChanged(nameof(IsConnected));
-
-            if (e.NetworkAccess != NetworkAccess.Internet)
-            {
-                // await NavigationService.NavigateAsync("NetworkPage");
-                await PopupNavigation.Instance.PushAsync(new NetworkPage());
-            }
-            else
-            {
-                //await NavigationService.GoBackAsync();
-                if (PopupNavigation.Instance.PopupStack.Count > 0)
-                {
-                    await PopupNavigation.Instance.PopAllAsync();
-                }
-            }
         }
 
         public virtual void Initialize(INavigationParameters parameters)
@@ -85,7 +66,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public void Destroy()
         {
             OnDestroy();
-            //Connectivity.ConnectivityChanged -= OnConnectivityChanged;
         }
 
         public virtual void OnDestroy()

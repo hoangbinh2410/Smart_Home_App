@@ -20,6 +20,15 @@
             <converters:StatusOnlineConverter x:Key="StatusOnlineConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            x:Name="btnClose"
+            Command="{Binding ClosePageCommand}"
+            Icon="ic_close.png"
+            Order="Primary"
+            Priority="0"
+            Text="Đóng" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView
             BackgroundColor="White"
