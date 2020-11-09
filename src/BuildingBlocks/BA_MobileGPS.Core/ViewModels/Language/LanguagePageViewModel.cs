@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -17,16 +18,11 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class LanguagePageViewModel : ViewModelBase
     {
-        private readonly IEventAggregator _eventAggregator;
-        private readonly ILanguageService _languageTypeService;
 
         public LanguagePageViewModel(INavigationService navigationService,
             IEventAggregator eventAggregator, ILanguageService languageTypeService)
             : base(navigationService)
         {
-            this._eventAggregator = eventAggregator;
-            this._languageTypeService = languageTypeService;
-
             Title = MobileResource.Login_Lable_SelectLanguage;
         }
 
@@ -177,8 +173,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         try
                         {
-                            _eventAggregator.GetEvent<SelectLanguageTypeEvent>().Publish(item);
-                            await NavigationService.GoBackAsync(null, useModalNavigation: true, true);
+                            var parameters = new NavigationParameters
+                            {
+                                { ParameterKey.ChangeLanguge, item }
+                            };
+                            await NavigationService.GoBackAsync(parameters, useModalNavigation: true, true);
                         }
                         catch (Exception ex)
                         {
