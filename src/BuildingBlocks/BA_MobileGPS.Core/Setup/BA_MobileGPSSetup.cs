@@ -33,10 +33,8 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterPopupNavigationService();
             containerRegistry.Register<IMapper, MapperUtility>();
             containerRegistry.RegisterSingleton(typeof(IRealmBaseService<,>), typeof(RealmBaseService<,>));
-
             containerRegistry.Register<IRealmConnection, RealmConnection>();
             containerRegistry.Register<IBaseRepository, BaseRepository>();
-
             containerRegistry.RegisterSingleton<IRequestProvider, RequestProvider>();
             containerRegistry.Register<IPlacesAutocomplete, PlacesAutocomplete>();
             containerRegistry.Register<IPlacesGeocode, PlacesGeocode>();
@@ -77,7 +75,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.Register<IUserLandmarkGroupService, UserLandmarkGroupService>();
             containerRegistry.Register<IPingServerService, PingServerService>();
             containerRegistry.Register<IStreamCameraService, StreamCameraService>();
-
+            containerRegistry.Register<IMobileSettingService, MobileSettingService>();
             containerRegistry.Register<IPopupServices, PopupServices>();
             containerRegistry.Register<IThemeServices, ThemeServices>();
         }

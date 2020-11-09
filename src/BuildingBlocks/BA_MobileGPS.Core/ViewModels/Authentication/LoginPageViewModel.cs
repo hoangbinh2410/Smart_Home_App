@@ -23,17 +23,14 @@ namespace BA_MobileGPS.Core.ViewModels
         #region Constructor
 
         private readonly IAuthenticationService authenticationService;
-        private readonly IDBVersionService dBVersionService;
-        private readonly IResourceService resourceService;
+        private readonly IMobileSettingService mobileSettingService;
 
         public LoginPageViewModel(INavigationService navigationService,
-            IAuthenticationService authenticationService, IDBVersionService dBVersionService,
-            IResourceService resourceService)
+            IAuthenticationService authenticationService, IMobileSettingService mobileSettingService)
             : base(navigationService)
         {
             this.authenticationService = authenticationService;
-            this.resourceService = resourceService;
-            this.dBVersionService = dBVersionService;
+            this.mobileSettingService = mobileSettingService;
             InitValidations();
         }
 
@@ -130,7 +127,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             RunOnBackground(async () =>
            {
-               return await resourceService.GetAllMobileConfigs(App.AppType);
+               return await mobileSettingService.GetAllMobileConfigs(App.AppType);
            },
            (result) =>
            {
@@ -145,7 +142,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             RunOnBackground(async () =>
             {
-                return await dBVersionService.GetMobileVersion(Device.RuntimePlatform.ToString(), (int)App.AppType);
+                return await mobileSettingService.GetMobileVersion(Device.RuntimePlatform.ToString(), (int)App.AppType);
             },
             (versionDB) =>
             {

@@ -8,8 +8,6 @@ namespace BA_MobileGPS.Service
 {
     public interface IDBVersionService : IRealmBaseService<DBLocalVersionRealm, DatabaseVersionsResponse>
     {
-        Task<MobileVersionModel> GetMobileVersion(string operatingSystem, int appID);
-
         Task<List<DatabaseVersionsResponse>> GetVersionDataBase(int appID);
     }
 }
