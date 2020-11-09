@@ -9,16 +9,9 @@
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="{i18n:TranslateResource Moto_Label_Set_Phone_Number}"
+    NavigationPage.BackButtonTitle=""
     mc:Ignorable="d">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem
-            x:Name="btnClose"
-            Command="{Binding ClosePageCommand}"
-            Icon="ic_close.png"
-            Order="Primary"
-            Priority="0"
-            Text="Đóng" />
-    </ContentPage.ToolbarItems>
+
 
     <ContentPage.Content>
         <StackLayout Padding="15" Spacing="5">
