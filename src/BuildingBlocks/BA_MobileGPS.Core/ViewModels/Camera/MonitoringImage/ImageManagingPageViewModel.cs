@@ -173,7 +173,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         { ParameterKey.ImageCamera, item },
                         { ParameterKey.VehiclePlate, item.VehiclePlate }
                     };
-                    await NavigationService.NavigateAsync("ImageDetailPage", parameters, useModalNavigation: false, false);
+                    await NavigationService.NavigateAsync("ImageDetailPage", parameters, useModalNavigation: false, true);
                 }
             }
             catch (Exception ex)
@@ -204,7 +204,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         { ParameterKey.VehicleRoute, vehicle }
                     };
 
-                    await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, useModalNavigation: true, false);
+                    await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, useModalNavigation: true, true);
                 }
                 else
                 {
@@ -212,7 +212,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         { ParameterKey.VehiclePlate, obj }
                     };
-                    await NavigationService.NavigateAsync("ImageDetailPage", parameters, useModalNavigation: false, false);
+                    await NavigationService.NavigateAsync("ImageDetailPage", parameters, useModalNavigation: false, true);
                 }
             });
         }

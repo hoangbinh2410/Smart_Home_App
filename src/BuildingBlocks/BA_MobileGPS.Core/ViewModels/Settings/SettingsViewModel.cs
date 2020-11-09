@@ -117,7 +117,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("MyLocationSettingPage", null, useModalNavigation: false, false);
+                await NavigationService.NavigateAsync("MyLocationSettingPage", null, useModalNavigation: false, true);
             });
         }
 
@@ -125,7 +125,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("AlertConfigSettingPage", null, useModalNavigation: false, false);
+                await NavigationService.NavigateAsync("AlertConfigSettingPage", null, useModalNavigation: false, true);
             });
         }
 
@@ -133,7 +133,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("SettingThemePage", null, useModalNavigation: false, false);
+                await NavigationService.NavigateAsync("SettingThemePage", null, useModalNavigation: false, true);
             });
         }
     }
