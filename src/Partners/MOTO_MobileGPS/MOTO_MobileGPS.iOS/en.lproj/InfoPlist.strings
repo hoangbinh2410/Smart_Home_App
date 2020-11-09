@@ -1,5 +1,5 @@
-﻿"CFBundleDisplayName" = "VIVIEW GPS";
-"CFBundleName" = "VIVIEW GPS";
+﻿"CFBundleDisplayName" = "BA MOTO";
+"CFBundleName" = "BA MOTO";
 
 "NSLocationAlwaysUsageDescription" = "This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
 "NSLocationWhenInUseUsageDescription" = "This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
