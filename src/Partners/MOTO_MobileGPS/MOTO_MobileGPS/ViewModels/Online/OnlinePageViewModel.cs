@@ -677,7 +677,7 @@ namespace MOTO_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-              var res =  await NavigationService.NavigateAsync("BaseNavigationPage/SettingsPageMoto", new NavigationParameters
+              var res =  await NavigationService.NavigateAsync("NavigationPage/SettingsPageMoto", new NavigationParameters
                 {
                     { MotoParameterKey.MotoDetail, MotoStaticSettings.MotoProperties }
                 }, true,true);

@@ -262,7 +262,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.ReportSignalLossSelected, SelectDetailsItem }
                 };
-                await NavigationService.NavigateAsync("SignalLossReportDetailPage", p, useModalNavigation: false, false);
+                await NavigationService.NavigateAsync("SignalLossReportDetailPage", p, useModalNavigation: false, true);
             }
             catch (Exception ex)
             {
