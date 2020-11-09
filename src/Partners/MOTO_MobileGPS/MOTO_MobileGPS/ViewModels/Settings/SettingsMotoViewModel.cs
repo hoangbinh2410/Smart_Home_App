@@ -332,7 +332,7 @@ namespace MOTO_MobileGPS.ViewModels
                     PhoneNumberStr = PhoneNumber,
                     VehiclePlate = MotoStaticSettings.MotoProperties.VehiclePlate
                 };
-                await NavigationService.NavigateAsync("BaseNavigationPage/PhoneNumberSMSPage", new NavigationParameters
+                await NavigationService.NavigateAsync("NavigationPage/PhoneNumberSMSPage", new NavigationParameters
                 {
                     { MotoParameterKey.KeyPhoneNumberSMSPage, p }
                 }, useModalNavigation: true,true);
