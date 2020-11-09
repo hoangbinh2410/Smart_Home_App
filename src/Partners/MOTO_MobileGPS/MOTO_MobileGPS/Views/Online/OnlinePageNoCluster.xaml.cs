@@ -913,7 +913,7 @@ namespace MOTO_MobileGPS.Views
                 SetNoPaddingWithFooter();
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    eventAggregator.GetEvent<ShowHideTabEvent>().Publish(false);
+                    eventAggregator.GetEvent<ShowHideTabEvent>().Publish(true);
                 });
                 if (boxInfoIsShown)
                 {
