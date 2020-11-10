@@ -9,7 +9,6 @@ using PanCardView.iOS;
 using Plugin.Toasts;
 using Sharpnado.MaterialFrame.iOS;
 using Sharpnado.Presentation.Forms.iOS;
-using Shiny;
 using Syncfusion.ListView.XForms.iOS;
 using Syncfusion.SfBusyIndicator.XForms.iOS;
 using Syncfusion.SfCalendar.XForms.iOS;
@@ -48,15 +47,11 @@ namespace BA_MobileGPS.Core.iOS.Setup
 
             CardsViewRenderer.Preserve();
 
-            //IQKeyboardManager.SharedManager.Enable = true;
-
             // Override default ImageFactory by your implementation.
             FormsGoogleMaps.Init(Config.GoogleMapKeyiOS, new PlatformConfig
             {
                 ImageFactory = new CachingImageFactory()
             });
-            //iOSShinyHost.Init(new ShinyAppStartup());
-
             iOSMaterialFrameRenderer.Init();
 
             // Syncfusion
