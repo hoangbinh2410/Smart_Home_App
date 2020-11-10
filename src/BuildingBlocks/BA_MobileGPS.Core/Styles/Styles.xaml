@@ -216,7 +216,7 @@
         x:Key="HeightTitleBarGrid"
         x:TypeArguments="x:Double"
         Android="50"
-        iOS="70" />
+        iOS="65" />
     <!--  TitleBar  -->
     <Style Class="TitleBarGrid" TargetType="Grid">
         <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}" />
