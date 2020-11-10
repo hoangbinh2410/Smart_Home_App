@@ -38,6 +38,22 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Init
 
+        public override void Initialize(INavigationParameters parameters)
+        {
+            if (parameters.TryGetValue(ParameterKey.Logout, out bool isLogout))
+            {
+                if (!isLogout)
+                {
+                    GetMobileVersion();
+                }
+            }
+            else
+            {
+                GetMobileSetting();
+                GetMobileVersion();
+            }
+        }
+
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
@@ -55,8 +71,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 Rememberme = false;
             }
             AddLanguage();
-            GetMobileSetting();
-            GetMobileVersion();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -64,14 +78,7 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnNavigatedTo(parameters);
             if (parameters != null)
             {
-                if (parameters.TryGetValue(ParameterKey.Logout, out bool isLogout))
-                {
-                    if (!isLogout)
-                    {
-                        GetMobileVersion();
-                    }
-                }
-                else if (parameters.TryGetValue("popupitem", out LoginPopupItem obj))
+                if (parameters.TryGetValue("popupitem", out LoginPopupItem obj))
                 {
                     NavigateLoginPreview(obj);
                 }
@@ -81,9 +88,212 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         UpdateLanguage(languageRespone);
                     }
-
                 }
             }
+        }
+
+        #endregion Init
+
+        #region Property
+
+        public ValidatableObject<string> UserName { get; set; }
+
+        public ValidatableObject<string> Password { get; set; }
+
+        private LanguageRespone language;
+
+        public LanguageRespone Language
+        {
+            get => language;
+            set
+            {
+                SetProperty(ref language, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool rememberme;
+
+        public bool Rememberme
+        {
+            get => rememberme;
+            set
+            {
+                Settings.Rememberme = value;
+                SetProperty(ref rememberme, value);
+            }
+        }
+
+        #endregion Property
+
+        #region ICommand
+
+        public ICommand PushtoLanguageCommand => new DelegateCommand(() =>
+        {
+            SafeExecute(async () => await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true, true));
+        });
+
+        public ICommand ForgotPasswordCommand => new DelegateCommand(() =>
+        {
+            PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
+        });
+
+        public ICommand OpenLoginFragmentCommand => new DelegateCommand(() =>
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("LoginPreviewFeaturesPage");
+            });
+        });
+
+        public ICommand OpenWebGPSCommand => new DelegateCommand(() =>
+        {
+            SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkBAGPS)));
+        });
+
+        [Obsolete]
+        public ICommand SendEmailCommand => new DelegateCommand(() =>
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(MobileSettingHelper.EmailSupport))
+                {
+                    string shareurl = String.Empty;
+                    if (Device.RuntimePlatform == Device.iOS)
+                    {
+                        var email = Regex.Replace(MobileSettingHelper.EmailSupport, @"[^\u0000-\u00FF]", string.Empty);
+                        shareurl = "mailto:" + email;
+                    }
+                    else
+                    {
+                        shareurl = "mailto:" + MobileSettingHelper.EmailSupport;
+                    }
+                    Device.OpenUri(new Uri(shareurl));
+                }
+            }
+            catch
+            {
+                Device.OpenUri(new Uri("https://accounts.google.com/"));
+            }
+        });
+
+        public ICommand LoginCommand => new DelegateCommand(() =>
+        {
+            Login();
+        });
+
+        #endregion ICommand
+
+        #region PrivateMethod
+
+        private void AddLanguage()
+        {
+            if (App.CurrentLanguage == CultureCountry.English)
+            {
+                Language = new LanguageRespone()
+                {
+                    CodeName = CultureCountry.English,
+                    Icon = "flag_us.png",
+                    Description = "English",
+                    PK_LanguageID = 2
+                };
+            }
+            else
+            {
+                Language = new LanguageRespone()
+                {
+                    CodeName = CultureCountry.Vietnamese,
+                    Icon = "flag_vn.png",
+                    Description = "Tiếng Việt",
+                    PK_LanguageID = 1
+                };
+            }
+        }
+
+        private bool Validate()
+        {
+            return UserName.Validate() && Password.Validate();
+        }
+
+        private void InitValidations()
+        {
+            UserName = new ValidatableObject<string>();
+            Password = new ValidatableObject<string>();
+
+            UserName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = MobileResource.Login_UserNameProperty_NullOrEmpty });
+            Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = MobileResource.Login_PasswordProperty_NullOrEmpty });
+        }
+
+        private void Login()
+        {
+            SafeExecute(async () =>
+            {
+                if (IsConnected)
+                {
+                    bool isValid = Validate();
+                    if (isValid)
+                    {
+                        using (new HUDService(MobileResource.Common_Message_Processing))
+                        {
+                            var request = new LoginRequest
+                            {
+                                UserName = UserName.Value.Trim(),
+                                Password = Password.Value.Trim(),
+                                AppType = App.AppType
+                            };
+                            // Lấy thông tin token
+                            var user = await authenticationService.LoginStreamAsync(request);
+                            if (user != null)
+                            {
+                                switch (user.Status)
+                                {
+                                    case LoginStatus.Success://Đăng nhập thành công
+                                        if (!string.IsNullOrEmpty(user.AccessToken))
+                                        {
+                                            OnLoginSuccess(user);
+                                        }
+                                        else
+                                        {
+                                            DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountPasswordIncorrect);
+                                            StaticSettings.User = null;
+                                        }
+                                        break;
+
+                                    case LoginStatus.LoginFailed://Đăng nhập không thành công
+
+                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountPasswordIncorrect);
+
+                                        StaticSettings.User = null;
+
+                                        break;
+
+                                    case LoginStatus.UpdateRequired:
+                                        StaticSettings.User = null;
+
+                                        break;
+
+                                    case LoginStatus.Locked://Tài khoản đang bị khóa
+
+                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountLocked);
+
+                                        StaticSettings.User = null;
+
+                                        break;
+
+                                    case LoginStatus.WrongAppType:
+
+                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountAllowedSystem);
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                }
+            });
         }
 
         private void NavigateLoginPreview(LoginPopupItem item)
@@ -123,12 +333,43 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
+        public void UpdateLanguage(LanguageRespone param)
+        {
+            if (param == null)
+                return;
+
+            try
+            {
+                Language = param;
+
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    if (Settings.CurrentLanguage != Language.CodeName)
+                    {
+                        Settings.CurrentLanguage = Language.CodeName;
+
+                        App.CurrentLanguage = Language.CodeName;
+
+                        //Update lại ngôn ngữ trên giao diện
+                        MobileResource._DicMobileResource = null;
+
+                        await NavigationService.NavigateAsync("/ChangeLanguage");
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_ErrorTryAgain);
+            }
+        }
+
         private void GetMobileSetting()
         {
             RunOnBackground(async () =>
-           {
-               return await mobileSettingService.GetAllMobileConfigs(App.AppType);
-           },
+            {
+                return await mobileSettingService.GetAllMobileConfigs(App.AppType);
+            },
            (result) =>
            {
                if (result != null && result.Count > 0)
@@ -243,238 +484,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 }
             });
-        }
-
-        #endregion Init
-
-        #region Event subcribe
-
-        public void UpdateLanguage(LanguageRespone param)
-        {
-            if (param == null)
-                return;
-
-            try
-            {
-                Language = param;
-
-                Device.BeginInvokeOnMainThread(async () =>
-                {
-                    if (Settings.CurrentLanguage != Language.CodeName)
-                    {
-                        Settings.CurrentLanguage = Language.CodeName;
-
-                        App.CurrentLanguage = Language.CodeName;
-
-                        //Update lại ngôn ngữ trên giao diện
-                        MobileResource._DicMobileResource = null;
-
-                        await NavigationService.NavigateAsync("/ChangeLanguage");
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_ErrorTryAgain);
-            }
-        }
-
-        #endregion Event subcribe
-
-        #region Property
-
-        public ValidatableObject<string> UserName { get; set; }
-
-        public ValidatableObject<string> Password { get; set; }
-
-        private LanguageRespone language;
-
-        public LanguageRespone Language
-        {
-            get => language;
-            set
-            {
-                SetProperty(ref language, value);
-                RaisePropertyChanged();
-            }
-        }
-
-        private bool rememberme;
-
-        public bool Rememberme
-        {
-            get => rememberme;
-            set
-            {
-                Settings.Rememberme = value;
-                SetProperty(ref rememberme, value);
-            }
-        }
-
-        #endregion Property
-
-        #region ICommand
-
-        public ICommand PushtoLanguageCommand => new DelegateCommand(() =>
-        {
-            SafeExecute(async () => await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true, true));
-        });
-
-        public ICommand ForgotPasswordCommand => new DelegateCommand(() =>
-        {
-            PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
-        });
-
-        public ICommand OpenLoginFragmentCommand => new DelegateCommand(() =>
-        {
-            SafeExecute(async () =>
-            {
-                await NavigationService.NavigateAsync("LoginPreviewFeaturesPage");
-            });
-        });
-
-        public ICommand OpenWebGPSCommand => new DelegateCommand(() =>
-        {
-            SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkBAGPS)));
-        });
-
-        [Obsolete]
-        public ICommand SendEmailCommand => new DelegateCommand(() =>
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(MobileSettingHelper.EmailSupport))
-                {
-                    string shareurl = String.Empty;
-                    if (Device.RuntimePlatform == Device.iOS)
-                    {
-                        var email = Regex.Replace(MobileSettingHelper.EmailSupport, @"[^\u0000-\u00FF]", string.Empty);
-                        shareurl = "mailto:" + email;
-                    }
-                    else
-                    {
-                        shareurl = "mailto:" + MobileSettingHelper.EmailSupport;
-                    }
-                    Device.OpenUri(new Uri(shareurl));
-                }
-            }
-            catch
-            {
-                Device.OpenUri(new Uri("https://accounts.google.com/"));
-            }
-        });
-
-        public ICommand LoginCommand => new DelegateCommand(() =>
-        {
-            SafeExecute(async () =>
-            {
-                if (IsConnected)
-                {
-                    bool isValid = Validate();
-                    if (isValid)
-                    {
-                        using (new HUDService(MobileResource.Common_Message_Processing))
-                        {
-                            var request = new LoginRequest
-                            {
-                                UserName = UserName.Value.Trim(),
-                                Password = Password.Value.Trim(),
-                                AppType = App.AppType
-                            };
-                            // Lấy thông tin token
-                            var user = await authenticationService.LoginStreamAsync(request);
-                            if (user != null)
-                            {
-                                switch (user.Status)
-                                {
-                                    case LoginStatus.Success://Đăng nhập thành công
-                                        if (!string.IsNullOrEmpty(user.AccessToken))
-                                        {
-                                            OnLoginSuccess(user);
-                                        }
-                                        else
-                                        {
-                                            DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountPasswordIncorrect);
-                                            StaticSettings.User = null;
-                                        }
-                                        break;
-
-                                    case LoginStatus.LoginFailed://Đăng nhập không thành công
-
-                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountPasswordIncorrect);
-
-                                        StaticSettings.User = null;
-
-                                        break;
-
-                                    case LoginStatus.UpdateRequired:
-                                        StaticSettings.User = null;
-
-                                        break;
-
-                                    case LoginStatus.Locked://Tài khoản đang bị khóa
-
-                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountLocked);
-
-                                        StaticSettings.User = null;
-
-                                        break;
-
-                                    case LoginStatus.WrongAppType:
-
-                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountAllowedSystem);
-                                        break;
-                                }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
-                }
-            });
-        });
-
-        #endregion ICommand
-
-        #region PrivateMethod
-        private void AddLanguage()
-        {
-            if (App.CurrentLanguage == CultureCountry.English)
-            {
-                Language = new LanguageRespone()
-                {
-                    CodeName = CultureCountry.English,
-                    Icon = "flag_us.png",
-                    Description = "English",
-                    PK_LanguageID = 2
-                };
-            }
-            else
-            {
-                Language = new LanguageRespone()
-                {
-                    CodeName = CultureCountry.Vietnamese,
-                    Icon = "flag_vn.png",
-                    Description = "Tiếng Việt",
-                    PK_LanguageID = 1
-                };
-            }
-        }
-        private bool Validate()
-        {
-            return UserName.Validate() && Password.Validate();
-        }
-
-        private void InitValidations()
-        {
-            UserName = new ValidatableObject<string>();
-            Password = new ValidatableObject<string>();
-
-            UserName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = MobileResource.Login_UserNameProperty_NullOrEmpty });
-            Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = MobileResource.Login_PasswordProperty_NullOrEmpty });
         }
 
         private async void OnLoginSuccess(LoginResponse user)

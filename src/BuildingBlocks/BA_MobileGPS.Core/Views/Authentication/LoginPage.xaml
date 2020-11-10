@@ -76,6 +76,7 @@
                                     </sh:ImmutableShades>
                                 </sh:Shadows.Shades>
                                 <sharpnado:MaterialFrame
+                                    Padding="0"
                                     CornerRadius="21"
                                     HeightRequest="42"
                                     LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
@@ -131,6 +132,7 @@
                                     </sh:ImmutableShades>
                                 </sh:Shadows.Shades>
                                 <sharpnado:MaterialFrame
+                                    Padding="0"
                                     CornerRadius="21"
                                     HeightRequest="42"
                                     LightThemeBackgroundColor="{DynamicResource PrimaryColor}"

@@ -5,6 +5,7 @@ using BA_MobileGPS.Utilities.Constant;
 using Prism;
 using Prism.Events;
 using Prism.Ioc;
+using System.Diagnostics;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -13,12 +14,6 @@ namespace BA_MobileGPS.Core
 {
     public partial class App
     {
-        /*
-         * The Xamarin Forms XAML Previewer in Visual Studio uses System.Activator.CreateInstance.
-         * This imposes a limitation in which the App class must have a default constructor.
-         * App(IPlatformInitializer initializer = null) cannot be handled by the Activator.
-         */
-
         public App(IPlatformInitializer initializer = null) : base(initializer)
         {
             _eventAggregator = Current.Container.Resolve<IEventAggregator>();
@@ -32,12 +27,10 @@ namespace BA_MobileGPS.Core
 
         public virtual string OneSignalKey => Config.OneSignalKey;
 
-        //protected override IContainerExtension CreateContainerExtension() => PrismContainerExtension.Current;
-
         protected override void OnInitialized()
         {
             InitializeComponent();
-
+           
             BA_MobileGPSSetup.Initialize();
 
             OneSignalHelper.RegisterOneSignal(OneSignalKey);
@@ -72,19 +65,6 @@ namespace BA_MobileGPS.Core
         {
             Resources.MergedDictionaries.Add(new Styles.Converters());
             Resources.MergedDictionaries.Add(new Fonts());
-            //var themeServices = Current.Container.Resolve<IThemeServices>();
-            //if (Settings.CurrentTheme == Theme.Light.ToString())
-            //{
-            //    themeServices.ChangeTheme(Theme.Light);
-            //}
-            //else if (Settings.CurrentTheme == Theme.Dark.ToString())
-            //{
-            //    themeServices.ChangeTheme(Theme.Dark);
-            //}
-            //else
-            //{
-            //    themeServices.ChangeTheme(Theme.Custom);
-            //}
         }
     }
 }

@@ -2,6 +2,7 @@
 using Com.OneSignal.Abstractions;
 using Prism.Events;
 using Prism.Ioc;
+using System.Diagnostics;
 
 namespace BA_MobileGPS.Core.Helpers
 {
