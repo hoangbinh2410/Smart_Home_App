@@ -23,17 +23,20 @@ namespace BA_MobileGPS
         protected async override void OnInitialized()
         {
             base.OnInitialized();
+            Stopwatch sw1 = new Stopwatch();
+            sw1.Start();
             ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerThat;
             ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerThat;
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerThat;
             ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerThat;
-
             Application.Current.Resources.MergedDictionaries.Add(new LightColor());
-            Application.Current.Resources.MergedDictionaries.Add(new BA_MobileGPS.Core.Styles.Styles());
+            Application.Current.Resources.MergedDictionaries.Add(new BA_MobileGPS.Core.Styles.Styles());        
+            AppCenter.Start("ios=b9feff6c-5277-4e97-97e9-8a8e5c939eef;" +
+                   "android=db0089bc-c6e2-4df4-bead-0368ccef3cd6",
+                   typeof(Analytics), typeof(Crashes));
 
-            //AppCenter.Start("ios=b9feff6c-5277-4e97-97e9-8a8e5c939eef;" +
-            //       "android=db0089bc-c6e2-4df4-bead-0368ccef3cd6",
-            //       typeof(Analytics), typeof(Crashes));
+            sw1.Stop();
+            Debug.WriteLine(string.Format("OnInitializedApp : {0}", sw1.ElapsedMilliseconds));
 
             Stopwatch sw = new Stopwatch();
             sw.Start();
