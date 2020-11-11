@@ -134,5 +134,43 @@ namespace BA_MobileGPS.Service.Service
             }
             return result;
         }
+
+        public async Task<List<CameraRestreamInfo>> GetListVideoByDate(CameraRestreamRequest request)
+        {
+            var result = new List<CameraRestreamInfo>();
+            try
+            {
+                string url = $"{ApiUri.POST_RESTREAM_INFOR}";
+                var response = await requestProvider.PostAsync<CameraRestreamRequest, CameraRestreamInfoResponse>(url, request);
+                if (response != null && response.Data.Count > 0)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<List<CameraRestreamUpload>> GetListVideoOnServer(CameraRestreamRequest request)
+        {
+            var result = new List<CameraRestreamUpload>();
+            try
+            {
+                string url = $"{ApiUri.POST_RESTREAM_UPLOAD}";
+                var response = await requestProvider.PostAsync<CameraRestreamRequest, CameraRestreamUploadResponse>(url, request);
+                if (response != null && response.Data.Count > 0)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Service;
+using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -13,12 +15,18 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class CameraRestreamOverviewViewModel : ViewModelBase
     {
-        public CameraRestreamOverviewViewModel(INavigationService navigationService) : base(navigationService)
+        private readonly IStreamCameraService streamCameraService;
+
+        public ICommand GotoCameraRestreamCommand { get; }
+        public ICommand SelectDateCommand { get; }
+
+        public CameraRestreamOverviewViewModel(INavigationService navigationService, IStreamCameraService streamCameraService) : base(navigationService)
         {
             selectedDate = DateTime.UtcNow;
             GotoCameraRestreamCommand = new DelegateCommand(GotoCameraRestream);
             SelectDateCommand = new DelegateCommand(SelectDate);
             EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
+            this.streamCameraService = streamCameraService;
         }
 
         private void UpdateDateTime(PickerDateTimeResponse param)
@@ -35,10 +43,13 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
-            {
-                VehicleGroups = vehiclegroup;
-            }
+          
+        }
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+
         }
 
         private void SelectDate()
@@ -68,13 +79,22 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get { return selectedDate; }
             set { 
-                SetProperty(ref selectedDate, value);
+                SetProperty(ref selectedDate, value, SelectDateChange);
                 RaisePropertyChanged();
             }
         }
 
-        public ICommand GotoCameraRestreamCommand { get; }
-        public ICommand SelectDateCommand { get; }
+       private async void SelectDateChange()
+        {
+            var req = new CameraRestreamRequest()
+            {
+                customerId = 1010,
+                Date = Convert.ToDateTime("2020-11-05"),
+                VehicleNames = "CAM.PNC1"
+            };
+            var allVideo = await streamCameraService.GetListVideoByDate(req);
+            var uploadVideo = await streamCameraService.GetListVideoOnServer(req);
+        }
 
         public override void OnDestroy()
         {
