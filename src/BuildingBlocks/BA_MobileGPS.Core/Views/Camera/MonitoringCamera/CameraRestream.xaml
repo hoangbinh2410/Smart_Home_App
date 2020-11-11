@@ -98,12 +98,12 @@
                             Color="Black" />
                     </pancake:PancakeView.Shadow>
                     <pancake:PancakeView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
+                        <TapGestureRecognizer Command="{Binding PushToDateTimePageCommand}" />
                     </pancake:PancakeView.GestureRecognizers>
                     <icons:IconView
                         Margin="8"
                         Foreground="{DynamicResource PrimaryColor}"
-                        Source="ic_doublevehicle.png"
+                        Source="ic_calendar.png"
                         VerticalOptions="Center" />
                 </pancake:PancakeView>
                 <pancake:PancakeView
@@ -126,7 +126,7 @@
                     <icons:IconView
                         Margin="8"
                         Foreground="{DynamicResource PrimaryColor}"
-                        Source="ic_doublevehicle.png"
+                        Source="ic_group.png"
                         VerticalOptions="Center" />
                 </pancake:PancakeView>
                 <pancake:PancakeView
@@ -149,13 +149,13 @@
                     <icons:IconView
                         Margin="8"
                         Foreground="{DynamicResource PrimaryColor}"
-                        Source="ic_doublevehicle.png"
+                        Source="ic_calendar.png"
                         VerticalOptions="Center" />
                 </pancake:PancakeView>
                 <pancake:PancakeView
                     Grid.Column="4"
                     Padding="0"
-                    BackgroundColor="{DynamicResource WhiteColor}"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
                     CornerRadius="22"
                     HeightRequest="45"
                     VerticalOptions="Center"
@@ -171,8 +171,8 @@
                     </pancake:PancakeView.GestureRecognizers>
                     <icons:IconView
                         Margin="8"
-                        Foreground="{DynamicResource PrimaryColor}"
-                        Source="ic_doublevehicle.png"
+                        Foreground="{DynamicResource WhiteColor}"
+                        Source="ic_reload.png"
                         VerticalOptions="Center" />
                 </pancake:PancakeView>
             </Grid>
