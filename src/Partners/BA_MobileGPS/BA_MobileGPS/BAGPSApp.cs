@@ -41,7 +41,12 @@ namespace BA_MobileGPS
             }
             else
             {
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
                 _ = await NavigationService.NavigateAsync("LoginPage");
+                sw.Stop();
+                Debug.WriteLine(string.Format("NavigateLoginPage : {0}", sw.ElapsedMilliseconds));
+                Debug.WriteLine(string.Format("NavigateLoginPage1 : {0}", sw.ElapsedMilliseconds));
             }
         }
 

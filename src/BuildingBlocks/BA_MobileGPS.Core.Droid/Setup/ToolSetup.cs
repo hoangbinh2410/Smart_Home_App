@@ -9,6 +9,7 @@ using LibVLCSharp.Forms.Shared;
 using PanCardView.Droid;
 using Plugin.Toasts;
 using Sharpnado.Presentation.Forms.Droid;
+using Syncfusion.XForms.Android.PopupLayout;
 
 namespace BA_MobileGPS.Droid.Setup
 {
@@ -16,6 +17,8 @@ namespace BA_MobileGPS.Droid.Setup
     {
         public static void Initialize(Activity activity, Bundle bundle)
         {
+            SfPopupLayoutRenderer.Init();
+
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(activity, bundle);
 
             Xamarin.Forms.DependencyService.Register<ToastNotification>();
