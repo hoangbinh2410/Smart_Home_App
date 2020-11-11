@@ -33,6 +33,10 @@ namespace BA_MobileGPS.Service.IService
 
         Task<List<CameraRestreamUpload>> GetListVideoOnServer(CameraRestreamRequest request);
 
+        Task<StreamStartResponse> StartRestream(StartRestreamRequest request);
+
+        Task<StreamStopResponse> StopRestream(StopRestreamRequest request);
+
     }
 
     public enum ConditionType

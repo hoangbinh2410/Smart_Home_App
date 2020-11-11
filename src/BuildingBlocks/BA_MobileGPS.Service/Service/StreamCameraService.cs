@@ -172,5 +172,35 @@ namespace BA_MobileGPS.Service.Service
             }
             return result;
         }
+
+        public async Task<StreamStartResponse> StartRestream(StartRestreamRequest request)
+        {
+            var result = new StreamStartResponse();
+            try
+            {
+                string url = $"{ApiUri.POST_RESTREAM_START}";
+                result = await requestProvider.PostAsync<StartRestreamRequest, StreamStartResponse>(url, request);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<StreamStopResponse> StopRestream(StopRestreamRequest request)
+        {
+            var result = new StreamStopResponse();
+            try
+            {
+                string url = $"{ApiUri.POST_RESTREAM_STOP}";
+                result = await requestProvider.PostAsync<StopRestreamRequest, StreamStopResponse>(url, request);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
     }
 }
