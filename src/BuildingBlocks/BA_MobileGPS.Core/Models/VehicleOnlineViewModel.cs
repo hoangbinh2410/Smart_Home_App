@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BA_MobileGPS.Core.Extensions;
+using System;
 
 namespace BA_MobileGPS.Entities
 {
@@ -70,9 +71,22 @@ namespace BA_MobileGPS.Entities
         public int LostGSMTime => (int)StaticSettings.TimeServer.Subtract(VehicleTime).TotalSeconds;
 
         public int stopTime;
-        public int StopTime { get => stopTime; set => SetProperty(ref stopTime, value); }
+        public int StopTime { get => stopTime; set => SetProperty(ref stopTime, value, nameof(StopTimeView)); }
 
-        public bool isShowStopTime;
+        public int StopTimeView
+        {
+            get
+            {
+                if (StateVehicleExtension.IsStoping(Velocity) && StopTime > 0)
+                {
+                    return StopTime;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
 
         public bool IsShowDetail
         {

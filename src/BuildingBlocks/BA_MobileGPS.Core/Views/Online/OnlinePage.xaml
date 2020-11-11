@@ -38,7 +38,6 @@
             Grid.Row="1"
             MapType="{Binding MapType}">
             <cluster:Map.Behaviors>
-                <mapbindings:MoveToRegionBehavior Request="{Binding MoveToRegionRequest}" />
                 <mapbindings:AnimateCameraBehavior Request="{Binding AnimateCameraRequest}" />
                 <mapbindings:BindingPolygonsBehavior Value="{Binding Polygons}" />
                 <mapbindings:BindingPolylinesBehavior Value="{Binding Polylines}" />
