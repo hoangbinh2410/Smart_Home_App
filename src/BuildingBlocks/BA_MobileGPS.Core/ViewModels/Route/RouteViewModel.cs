@@ -585,7 +585,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (GeoHelper.IsOriginLocation(listLatLng[i].Latitude, listLatLng[i].Longitude))
                         continue;
 
-                    if (!RouteHistory.StatePoints.Any(stp => stp.StartIndex == i && i == stp.EndIndex))
+                    if (CalculateDistance(listLatLng[i - 1].Latitude, listLatLng[i - 1].Longitude, listLatLng[i].Latitude, listLatLng[i].Longitude) < 0.015
+                         && !RouteHistory.StatePoints.Any(stp => stp.StartIndex == i && i == stp.EndIndex))
                         continue;
 
                     AddRoute(i);
@@ -596,7 +597,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 PageDialog.DisplayAlertAsync("Init Route Error", ex.Message, MobileResource.Common_Button_OK);
             }
         }
-
+        private double CalculateDistance(double lat1, double lng1, double lat2, double lng2)
+        {
+            return GeoHelper.DistanceCalculatorCoordinate(lat1, lng1, lat2, lng2);
+        }
         private void DrawRoute()
         {
             PinCar = new Pin()
