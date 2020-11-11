@@ -851,6 +851,17 @@
         Camera_Label_Connection_Error,
         Camera_Label_Timeout_Error,
         Camera_Title_Camera_Streaming,
+        Camera_Title_Retreaming,
+        Camera_Label_Time_Has_Video,
+        Camera_Label_Time_Has_VideoSaved,
+        Camera_Label_Vehicle_Numbers,
+        Camera_Label_Vehicle_Have_Video_Numbers,
+        Camera_Label_Video_Numbers,
+        Camera_Label_Video_Event_Numbers,
+        Camera_Label_Start_Watch,
+        Camera_ChildTab_Device,
+        Camera_ChildTab_BACloud,
+        Camera_ChildTab_MyVideo,
         #endregion
 
         #region Helper

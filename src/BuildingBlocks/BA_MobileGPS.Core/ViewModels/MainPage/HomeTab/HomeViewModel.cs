@@ -174,6 +174,21 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GenerateListFeatures(List<HomeMenuItemViewModel> input)
         {
+            // Thêm item xem lại stream:
+
+
+            input.Add(new HomeMenuItemViewModel()
+            {
+                PK_MenuItemID = 111111111,
+                MenuKey = "CameraRestreamOverview",
+                IsVisible = true,
+                IconMobile = "https://www.pngfind.com/pngs/m/185-1854531_download-old-video-camera-icon-clipart-photographic-logo.png",
+                NameByCulture = "Xem lại video"
+            });
+
+
+
+
             var list = new List<ItemSupport>();
             // 6 Item per indicator view in Sflistview
             for (int i = 0; i < input.Count / 6.0; i++)
