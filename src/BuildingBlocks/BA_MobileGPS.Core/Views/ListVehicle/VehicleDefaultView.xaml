@@ -80,7 +80,7 @@
                         <controls:IconView Source="ic_parking.png" />
                         <Label
                             FontSize="12"
-                            Text="{Binding StopTime, Converter={StaticResource MinutesToStringShortConverter}}"
+                            Text="{Binding StopTimeView, Converter={StaticResource MinutesToStringShortConverter}}"
                             VerticalOptions="Center" />
                     </StackLayout>
 

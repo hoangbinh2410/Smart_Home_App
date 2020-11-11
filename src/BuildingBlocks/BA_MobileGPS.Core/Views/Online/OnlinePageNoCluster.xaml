@@ -38,7 +38,6 @@
             Grid.Row="1"
             MapType="{Binding MapType}">
             <cluster:Map.Behaviors>
-                <mapbindings:MoveToRegionBehavior Request="{Binding MoveToRegionRequest}" />
                 <mapbindings:AnimateCameraBehavior Request="{Binding AnimateCameraRequest}" />
                 <mapbindings:BindingVisibleRegionBehavior Value="{Binding VisibleRegion}" />
                 <mapbindings:CameraIdledToCommandBehavior Command="{Binding CameraIdledCommand}" />
@@ -253,10 +252,7 @@
                         AutoFitMode="Height"
                         ItemSpacing="0"
                         ItemTapped="TapStatusVehicel"
-                        ItemsSource="{Binding ListVehilceStatus, Mode=OneWay}"
-                        SelectedItem="{Binding SelectedVehicleStatus}"
-                        SelectionBackgroundColor="{DynamicResource TextPlaceHolderColor}"
-                        TapCommand="{Binding SelectStatusVehicelCommand}">
+                        SelectionBackgroundColor="{DynamicResource TextPlaceHolderColor}">
                         <syncfusion:SfListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid ColumnSpacing="0" RowSpacing="0">

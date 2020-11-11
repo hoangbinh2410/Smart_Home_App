@@ -85,13 +85,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     TryExecute(async () =>
                     {
-                        //await ConnectSignalR();
-                        //GetCountVehicleDebtMoney();
+                        await ConnectSignalR();
+                        GetCountVehicleDebtMoney();
                         InsertOrUpdateAppDevice();
-                        // GetNoticePopup();
+                        GetNoticePopup();
                         PushPageFileBase();
                         // Lấy danh sách cảnh báo
-                        //GetCountAlert();
+                        GetCountAlert();
                     });
 
                     return false;
