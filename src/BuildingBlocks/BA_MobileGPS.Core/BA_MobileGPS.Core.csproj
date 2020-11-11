@@ -64,6 +64,18 @@
 	  </Reference>
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Update="Views\Camera\MonitoringCamera\Tab\BACloudTab.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="Views\Camera\MonitoringCamera\Tab\DeviceTab.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="Views\Camera\MonitoringCamera\Tab\MyVideoTab.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
 	  <Compile Update="Views\Camera\MonitoringImage\ImageManagingPage.xaml.cs">
 	    <DependentUpon>ImageManagingPage.xaml</DependentUpon>
 	  </Compile>
@@ -157,7 +169,11 @@
 	  <EmbeddedResource Update="Views\Authentication\ForgotPasswordPopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\CameraRestream.xaml">
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\BACloudTab.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\CameraRestream.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\CameraRestreamOverview.xaml">
@@ -170,6 +186,14 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\RequestMoreTimePopup.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\DeviceTab.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\MyVideoTab.xaml">
+	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Common\ComboboxPage.xaml">
