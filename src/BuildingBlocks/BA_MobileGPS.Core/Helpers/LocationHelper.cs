@@ -35,6 +35,7 @@ namespace BA_MobileGPS.Core
 
                     if (location != null)
                     {
+                        position = location;
                         Settings.Latitude = (float)position.Latitude;
                         Settings.Longitude = (float)position.Longitude;
                     }
