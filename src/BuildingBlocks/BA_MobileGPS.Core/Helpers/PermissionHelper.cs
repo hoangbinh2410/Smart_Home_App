@@ -175,7 +175,6 @@ namespace BA_MobileGPS.Core
 
                 result = true;
             }
-
             if (result || permissionStatus != PermissionStatus.Granted)
             {
                 var newStatus = await CrossPermissions.Current.RequestPermissionAsync<Plugin.Permissions.LocationPermission>();
@@ -187,8 +186,12 @@ namespace BA_MobileGPS.Core
                 }
                 else
                 {
-
+                    result = true;
                 }
+            }
+            else
+            {
+                result = true;
             }
             return result;
         }
