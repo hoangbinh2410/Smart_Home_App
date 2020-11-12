@@ -96,6 +96,14 @@ namespace BA_MobileGPS.Core.ViewModels
             var uploadVideo = await streamCameraService.GetListVideoOnServer(req);
         }
 
+        private string chartItemsSource;
+        public string ChartItemsSource
+        {
+            get { return chartItemsSource; }
+            set { SetProperty(ref chartItemsSource, value); }
+        }
+
+
         public override void OnDestroy()
         {
             EventAggregator.GetEvent<SelectDateTimeEvent>().Unsubscribe(UpdateDateTime);

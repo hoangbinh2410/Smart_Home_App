@@ -5,10 +5,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:xforms="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
+    xmlns:xforms1="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <converter:HasDataBackgroundColorConverter x:Key="HasDataBackgroundColorConverter" />
@@ -153,7 +156,52 @@
                 Margin="-5,0"
                 BackgroundColor="{DynamicResource PrimaryColor}" />
             <!--  Khu vực biểu đồ  -->
-            <ListView Grid.Row="3" BackgroundColor="Gray" />
+            <xforms1:SfListView
+                Grid.Row="3"
+                BackgroundColor="Gray"
+                ItemsSource="{Binding ChartItemsSource}">
+                <xforms1:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <pancake:PancakeView Padding="0" HeightRequest="250">
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow BlurRadius="3" Color="Black" />
+                            </pancake:PancakeView.Shadow>
+                            <StackLayout Spacing="0">
+                                <Grid
+                                    Padding="2"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="FillAndExpand">
+                                    <ff:CachedImage Aspect="Fill" Source="{Binding VideoImageSource, Mode=OneWay}" />
+                                    <icons:IconView
+                                        Foreground="{DynamicResource WhiteColor}"
+                                        HeightRequest="30"
+                                        HorizontalOptions="Center"
+                                        Source="ic_play"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Margin="0,0,10,15"
+                                        HorizontalOptions="End"
+                                        Text="{Binding VideoTime}"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="End" />
+                                </Grid>
+                                <StackLayout
+                                    Padding="10,5"
+                                    Spacing="0"
+                                    VerticalOptions="End">
+                                    <Label
+                                        HorizontalOptions="Start"
+                                        StyleClass="BoldText"
+                                        Text="{Binding VideoName}" />
+                                    <Label HorizontalOptions="Start" Text="{Binding VideoStartTime}" />
+                                </StackLayout>
+
+                            </StackLayout>
+                        </pancake:PancakeView>
+
+                    </DataTemplate>
+                </xforms1:SfListView.ItemTemplate>
+            </xforms1:SfListView>
             <BoxView
                 Grid.Row="4"
                 Margin="-5,0"
