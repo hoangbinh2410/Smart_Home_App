@@ -890,7 +890,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (Device.RuntimePlatform == Device.iOS)
                         {
-                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(postionnew), TimeSpan.FromMilliseconds(1 / PlaySpeed));
+                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(postionnew), TimeSpan.FromMilliseconds(1000 / PlaySpeed));
                         }
                         else
                         {
