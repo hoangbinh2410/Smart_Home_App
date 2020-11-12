@@ -69,7 +69,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 ColorMapType = (Color)App.Current.Resources["PrimaryColor"];
                 BackgroundMapType = (Color)App.Current.Resources["WhiteColor"];
             }
-
+            view = new StackLayout();
             TimeSelectedCommand = new Command<string>(TimeSelected);
             DateSelectedCommand = new Command<DateChangedEventArgs>(DateSelected);
             SearchVehicleCommand = new Command(SearchVehicle);
@@ -139,7 +139,7 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
-
+        private View view;
         private CancellationTokenSource ctsRouting = new CancellationTokenSource();
         private CancellationTokenSource ctsAddress = new CancellationTokenSource();
 
@@ -209,17 +209,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public bool playControlEnabled;
         public bool PlayControlEnabled { get => !playControlEnabled; set => SetProperty(ref playControlEnabled, value); }
-
-        private readonly double SPEED_MAX = 8;
-        private readonly double BASE_TIME = 250;
-
-        private readonly double MARKER_ROTATE_RATE = 0.1;
-        private double MARKER_ROTATE_STEP => 5;
-        private double MARKER_ROTATE_TIME_STEP => MARKER_ROTATE_RATE * BASE_TIME / PlaySpeed / MARKER_ROTATE_STEP;
-
-        private double MARKER_MOVE_RATE => 1 - MARKER_ROTATE_RATE;
-        private double MARKER_MOVE_STEP => 64 / PlaySpeed;
-        private double MARKER_MOVE_TIME_STEP => BASE_TIME / PlaySpeed / MARKER_MOVE_STEP;
+        private double SPEED_MAX = 8;
+        private int BaseTimeMoving = 500;
+        private int BaseTimeRotating = 250;
 
         private bool lastPlayStatus;
 
@@ -841,7 +833,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
         public bool IsRunning = false;
-        public async void RotateMarker(Pin item, double latitude,
+        public void RotateMarker(Pin item, double latitude,
            double longitude,
            Action callback)
         {
@@ -852,56 +844,64 @@ namespace BA_MobileGPS.Core.ViewModels
                 callback();
                 return;
             }
-            //gán lại vòng quay
-            var mRotateIndex = 0;
             var startRotaion = item.Rotation;
             //tính lại độ lệch góc
             var deltaAngle = GeoHelper.GetRotaion(startRotaion, angle);
-            while (mRotateIndex <= MARKER_ROTATE_STEP && !ctsRouting.IsCancellationRequested)
+            void callbackanimate(double input)
             {
-                //góc quay tiếp theo
                 var fractionAngle = GeoHelper.ComputeRotation(
-                                      mRotateIndex / MARKER_ROTATE_STEP,
+                                     input,
                                       startRotaion,
                                       deltaAngle);
-                mRotateIndex = mRotateIndex + 1;
 
                 item.Rotation = (float)fractionAngle;
-                await Task.Delay(TimeSpan.FromMilliseconds(MARKER_ROTATE_TIME_STEP));
             }
-            callback?.Invoke();
+            view.Animate(
+                "rotateCarRoute",
+                animation: new Animation(callbackanimate),
+                length: (uint)(BaseTimeRotating / PlaySpeed),
+
+                finished: (val, b) =>
+                {
+                    callback();
+                }
+                );
         }
 
-        public async void MarkerAnimation(Pin item, Pin itemLable, double latitude, double longitude, Action callback)
+        public void MarkerAnimation(Pin item, Pin itemLable, double latitude, double longitude, Action callback)
         {
-            try
+            if (this.IsRunning)
             {
-                double moveTime = MARKER_MOVE_RATE * MARKER_MOVE_TIME_STEP;
-
-                double dLat = (latitude - item.Position.Latitude) / MARKER_MOVE_STEP;
-                double dLng = (longitude - item.Position.Longitude) / MARKER_MOVE_STEP;
-                double animateIndex = 1;
-
-                while (animateIndex <= MARKER_MOVE_STEP && !ctsRouting.IsCancellationRequested)
+                callback();
+            }
+            else
+            {
+                IsRunning = true;
+                var startPosition = new Position(item.Position.Latitude, item.Position.Longitude);
+                var finalPosition = new Position(latitude, longitude);
+                void callbackanimate(double input)
                 {
-                    var position = new Position(item.Position.Latitude + dLat, item.Position.Longitude + dLng);
-                    item.Position = position;
-                    itemLable.Position = position;
-
+                    var postionnew = GeoHelper.LinearInterpolator(input,
+                        startPosition,
+                        finalPosition);
+                    itemLable.Position = postionnew;
+                    item.Position = postionnew;
                     if (IsWatching && !ctsRouting.IsCancellationRequested)
                     {
-                        _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(item.Position), TimeSpan.FromMilliseconds(moveTime));
+                        _ = MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(postionnew));
                     }
-
-                    await Task.Delay(TimeSpan.FromMilliseconds(moveTime));
-
-                    animateIndex++;
                 }
-                callback?.Invoke();
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                view.Animate(
+                "moveCarRoute",
+                animation: new Animation(callbackanimate),
+                length: (uint)(BaseTimeMoving / PlaySpeed),
+                finished: (val, b) =>
+                {
+                    IsRunning = false;
+                    callback();
+                }
+                );
+
             }
         }
 
