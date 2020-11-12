@@ -173,7 +173,7 @@ namespace BA_MobileGPS.Core
             double cosToLat = Math.Cos(toLat);
 
             // Computes Spherical interpolation coefficients.
-            double angle = ComputeAngleBetweenInterpolate(fromLat, fromLng, toLat, toLng);
+            double angle = ComputeAngleBetween(fromLat, fromLng, toLat, toLng);
             double sinAngle = Math.Sin(angle);
             if (sinAngle < 1E-6)
             {

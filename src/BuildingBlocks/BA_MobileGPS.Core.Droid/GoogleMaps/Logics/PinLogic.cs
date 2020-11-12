@@ -71,7 +71,6 @@ namespace BA_MobileGPS.Core.Droid.Logics
                 .SetPosition(new LatLng(outerItem.Position.Latitude, outerItem.Position.Longitude))
                 .SetTitle(outerItem.Label)
                 .SetSnippet(outerItem.Address)
-                .SetSnippet(outerItem.Address)
                 .Draggable(outerItem.IsDraggable)
                 .SetRotation(outerItem.Rotation)
                 .Anchor((float)outerItem.Anchor.X, (float)outerItem.Anchor.Y)
@@ -87,6 +86,7 @@ namespace BA_MobileGPS.Core.Droid.Logics
             }
 
             var marker = NativeMap.AddMarker(opts);
+            marker.Tag = outerItem.Tag.ToString();
             // If the pin has an IconView set this method will convert it into an icon for the marker
             if (outerItem?.Icon?.Type == BitmapDescriptorType.View)
             {

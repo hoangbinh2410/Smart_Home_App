@@ -22,10 +22,12 @@ namespace BA_MobileGPS.Core.Views
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
             lblTitle.Text = MobileResource.Route_Label_Title;
             map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
+            map.IsUseCluster = false;
+            map.IsTrafficEnabled = false;
             map.UiSettings.ZoomGesturesEnabled = true;
             map.UiSettings.ZoomControlsEnabled = false;
             map.UiSettings.RotateGesturesEnabled = false;
-            map.PinClicked += Map_PinClicked;
+            //map.PinClicked += Map_PinClicked;
 
             TimeSelectorContainerHeight = Device.RuntimePlatform == Device.iOS ? TimeSelectorContainer.HeightRequest + 4 : TimeSelectorContainer.HeightRequest;
 
@@ -40,18 +42,18 @@ namespace BA_MobileGPS.Core.Views
             return value.ToString("X").PadLeft(6, '0');
         }
 
-        private void Map_PinClicked(object sender, PinClickedEventArgs e)
-        {
-            if (!"state_stop".Equals(e.Pin.Tag) && !"direction".Equals(e.Pin.Tag))
-            {
-                e.Handled = true;
-            }
-            else
-            {
-                vm = (RoutePageViewModel)BindingContext;
-                vm.StopWatchVehicle();
-            }
-        }
+        //private void Map_PinClicked(object sender, PinClickedEventArgs e)
+        //{
+        //    if (!"state_stop_route".Equals(e.Pin.Tag) && !"direction_route".Equals(e.Pin.Tag))
+        //    {
+        //        e.Handled = true;
+        //    }
+        //    else
+        //    {
+        //        vm = (RoutePageViewModel)BindingContext;
+        //        vm.StopWatchVehicle();
+        //    }
+        //}
 
         private void IconInfo_Clicked(object sender, EventArgs e)
         {

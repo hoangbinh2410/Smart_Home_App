@@ -205,7 +205,6 @@
                     AbsoluteLayout.LayoutFlags="All"
                     MapType="{Binding MapType}">
                     <cluster:Map.Behaviors>
-                        <googlemapsBehaviors:UpdateCameraPositionBehavior CameraUpdate="{Binding CameraUpdate}" />
                         <googlemapsBehaviors:BindingPinsBehavior Value="{Binding Pins}" />
                         <googlemapsBehaviors:PinClickedToCommandBehavior Command="{Binding PinClickedCommand}" />
                         <googlemapsBehaviors:BindingPolylinesBehavior Value="{Binding Polylines}" />
