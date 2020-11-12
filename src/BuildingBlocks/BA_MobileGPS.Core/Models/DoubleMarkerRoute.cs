@@ -50,18 +50,15 @@ namespace BA_MobileGPS.Core
                 ZIndex = 2,
                 Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
                 Tag = Label + "Route",
-                Rotation = Direction,
-                IsDraggable = false
+                Rotation = Direction
             };
             Plate = new Pin()
             {
-                Anchor = new Point(0.5, 1),
                 Position = Position,
                 Label = Label,
                 Icon = BitmapDescriptorFactory.FromView(new PinInfowindowActiveView(Label)),
                 ZIndex = 3,
-                Tag = Label + "PlateRoute",
-                IsDraggable = false
+                Tag = Label + "PlateRoute"
             };
             return this;
         }
