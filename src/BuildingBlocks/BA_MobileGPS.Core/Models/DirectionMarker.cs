@@ -36,7 +36,7 @@ namespace BA_MobileGPS.Core.Models
                 Position = Position,
                 Rotation = Direction,
                 Icon = BitmapDescriptorFactory.FromResource("ic_arrow_tracking.png"),
-                Tag = "direction",
+                Tag = "direction_route",
                 ZIndex = 1,
                 IsDraggable = false
             };

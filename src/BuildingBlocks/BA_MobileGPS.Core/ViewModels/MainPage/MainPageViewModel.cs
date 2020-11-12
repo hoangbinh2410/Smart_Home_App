@@ -228,7 +228,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void TimerSyncData(object sender, ElapsedEventArgs e)
         {
-            SyncVehicleOnline();
+            //SyncVehicleOnline();
         }
 
         private async Task ConnectSignalR()
@@ -246,9 +246,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private async Task ConnectSignalROnline()
         {
             // Khởi tạo signalR
-            await vehicleOnlineHubService.Connect();
-            vehicleOnlineHubService.onReceiveSendCarSignalR -= OnReceiveSendCarSignalR;
-            vehicleOnlineHubService.onReceiveSendCarSignalR += OnReceiveSendCarSignalR;
+            //await vehicleOnlineHubService.Connect();
+            //vehicleOnlineHubService.onReceiveSendCarSignalR -= OnReceiveSendCarSignalR;
+            //vehicleOnlineHubService.onReceiveSendCarSignalR += OnReceiveSendCarSignalR;
         }
 
         private async void DisconnectSignalR()
@@ -277,7 +277,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 //Thoát khỏi nhóm nhận thông tin xe
-                vehicleOnlineHubService.JoinGroupReceivedVehicleID(string.Join(",", lstGroup));
+                //vehicleOnlineHubService.JoinGroupReceivedVehicleID(string.Join(",", lstGroup));
             }
             catch (Exception ex)
             {
@@ -290,7 +290,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 //Thoát khỏi nhóm nhận thông tin xe
-                vehicleOnlineHubService.LeaveGroupReceivedVehicleID(string.Join(",", lstGroup));
+                //vehicleOnlineHubService.LeaveGroupReceivedVehicleID(string.Join(",", lstGroup));
             }
             catch (Exception ex)
             {
