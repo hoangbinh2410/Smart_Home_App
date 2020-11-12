@@ -888,7 +888,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     item.Position = postionnew;
                     if (IsWatching && !ctsRouting.IsCancellationRequested)
                     {
-                        _ = MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(postionnew));
+                        if (Device.RuntimePlatform == Device.iOS)
+                        {
+                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(postionnew), TimeSpan.FromMilliseconds(1 / PlaySpeed));
+                        }
+                        else
+                        {
+                            _ = MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(postionnew));
+                        }
                     }
                 }
                 view.Animate(
