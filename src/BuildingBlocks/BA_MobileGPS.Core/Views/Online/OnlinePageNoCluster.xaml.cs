@@ -440,15 +440,13 @@ namespace BA_MobileGPS.Core.Views
                     //di chuyển xe
                     item.Rotate(carInfo.Lat, carInfo.Lng, () =>
                     {
-                        item.MarkerAnimation(carInfo.Lat, carInfo.Lng, () =>
-                        {
-                            if (carActive)
-                            {
-                                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
-                            }
-                        });
-                        //di chuyển biển số xe
-                        itemLable.MarkerAnimation(carInfo.Lat, carInfo.Lng, () => { });
+                        item.MarkerAnimation(itemLable, carInfo.Lat, carInfo.Lng, () =>
+                         {
+                             if (carActive)
+                             {
+                                 Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
+                             }
+                         });
                     });
                 }
                 else

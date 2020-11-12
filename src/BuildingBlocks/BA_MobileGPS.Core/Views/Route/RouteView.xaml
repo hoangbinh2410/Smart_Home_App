@@ -420,7 +420,7 @@
                                 <Label
                                     FontAttributes="Bold"
                                     FontFamily="{StaticResource myFontLatoBold}"
-                                    FontSize="16"
+                                    FontSize="14"
                                     HorizontalOptions="Center"
                                     Text="{Binding CurrentRoute.Time, StringFormat='{}{0:HH:mm:ss}'}"
                                     TextColor="Black" />
@@ -438,7 +438,7 @@
                                 <Label
                                     FontAttributes="Bold"
                                     FontFamily="{StaticResource myFontLatoBold}"
-                                    FontSize="16"
+                                    FontSize="14"
                                     HorizontalOptions="Center"
                                     Text="{Binding CurrentRoute.Velocity}"
                                     TextColor="{DynamicResource PrimaryColor}" />

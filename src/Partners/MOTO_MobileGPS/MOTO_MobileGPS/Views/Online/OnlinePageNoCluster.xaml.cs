@@ -41,7 +41,7 @@ namespace MOTO_MobileGPS.Views
         private readonly IMotoDetailService motoDetailService;
         private readonly IMotoPropertiesService motoPropertiesService;
 
-   
+
         private bool boxInfoIsShown = false;
         private int pageWidth = 0;
         public OnlinePageNoCluster()
@@ -262,7 +262,7 @@ namespace MOTO_MobileGPS.Views
             }
         }
 
-      
+
 
         private void StartTimmerCaculatorStatus()
         {
@@ -300,7 +300,7 @@ namespace MOTO_MobileGPS.Views
 
                 GlobalResourcesMoto.Current.MotoDetail.IsOnline = !isOffline;
             }
-        }   
+        }
 
         /// <summary>
         /// Nhận dữ liệu xe online
@@ -501,15 +501,13 @@ namespace MOTO_MobileGPS.Views
                     //di chuyển xe
                     item.Rotate(carInfo.Lat, carInfo.Lng, () =>
                     {
-                        item.MarkerAnimation(carInfo.Lat, carInfo.Lng, () =>
-                        {
-                            if (carActive)
-                            {
-                                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
-                            }
-                        });
-                        //di chuyển biển số xe
-                        itemLable.MarkerAnimation(carInfo.Lat, carInfo.Lng, () => { });
+                        item.MarkerAnimation(itemLable, carInfo.Lat, carInfo.Lng, () =>
+                         {
+                             if (carActive)
+                             {
+                                 Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
+                             }
+                         });
                     });
                 }
                 else
@@ -933,7 +931,7 @@ namespace MOTO_MobileGPS.Views
         /// <summary>
         /// Hiển thị box thông tin xe
         /// </summary>
-        private  void ShowBoxInfo()
+        private void ShowBoxInfo()
         {
             try
             {
@@ -948,8 +946,8 @@ namespace MOTO_MobileGPS.Views
 
                     Action<double> callback = input => boxInfo.TranslationY = input;
                     boxInfo.Animate("animBoxInfo", callback, 300, 0, 16, 300, Easing.CubicInOut);
-                   
-                    Action<double> frcallback = input2 => frVehicleInfo.TranslationX = input2; 
+
+                    Action<double> frcallback = input2 => frVehicleInfo.TranslationX = input2;
                     frVehicleInfo.Animate("animehicleInfo", frcallback, -pageWidth, 0, 16, 300, Easing.CubicInOut);
                 }
             }
@@ -993,7 +991,7 @@ namespace MOTO_MobileGPS.Views
             }
         }
 
-        private  void ShowBoxStatus()
+        private void ShowBoxStatus()
         {
             if (!infoStatusIsShown)
             {
@@ -1021,7 +1019,7 @@ namespace MOTO_MobileGPS.Views
             }
         }
 
-        private  void FilterStatusCar(object sender, EventArgs e)
+        private void FilterStatusCar(object sender, EventArgs e)
         {
             if (infoStatusIsShown)
             {
