@@ -49,7 +49,7 @@ namespace BA_MobileGPS.Core
                 Anchor = new Point(0.5, 0.5),
                 ZIndex = 2,
                 Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
-                Tag = Label,
+                Tag = Label + "Route",
                 Rotation = Direction,
                 IsDraggable = false
             };
@@ -60,7 +60,7 @@ namespace BA_MobileGPS.Core
                 Label = Label,
                 Icon = BitmapDescriptorFactory.FromView(new PinInfowindowActiveView(Label)),
                 ZIndex = 3,
-                Tag = Label + "Plate",
+                Tag = Label + "PlateRoute",
                 IsDraggable = false
             };
             return this;

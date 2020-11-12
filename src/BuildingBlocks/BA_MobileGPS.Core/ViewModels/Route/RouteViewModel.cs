@@ -816,19 +816,24 @@ namespace BA_MobileGPS.Core.ViewModels
                 PlayCurrent++;
 
                 CurrentRoute = ListRoute[PlayCurrent];
-                RotateMarker(item, CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
-                 {
-                     MarkerAnimation(item, itemLable, CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
-                     {
-                         if (PlayCurrent + 1 > PlayMax || ctsRouting.IsCancellationRequested)
-                         {
-                             IsPlaying = false;
-                             return;
-                         }
 
-                         SuperInteligent(item, itemLable);
-                     });
-                 });
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    RotateMarker(item, CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
+                    {
+                        MarkerAnimation(item, itemLable, CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
+                        {
+                            if (PlayCurrent + 1 > PlayMax || ctsRouting.IsCancellationRequested)
+                            {
+                                IsPlaying = false;
+                                return;
+                            }
+
+                            SuperInteligent(item, itemLable);
+                        });
+                    });
+                });
+
             }
             catch (Exception ex)
             {
@@ -871,7 +876,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                double moveTime = MARKER_MOVE_TIME_STEP;
+                double moveTime = MARKER_MOVE_RATE * MARKER_MOVE_TIME_STEP;
 
                 double dLat = (latitude - item.Position.Latitude) / MARKER_MOVE_STEP;
                 double dLng = (longitude - item.Position.Longitude) / MARKER_MOVE_STEP;
