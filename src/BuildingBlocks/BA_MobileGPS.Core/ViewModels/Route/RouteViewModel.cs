@@ -836,13 +836,10 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
         public bool IsRunning = false;
-        public void RotateMarker(Pin item, double latitude,
+        public async void RotateMarker(Pin item, double latitude,
            double longitude,
-           Action callback, int duration = 100)
+           Action callback)
         {
-            //gán lại vòng quay
-            var mRotateIndex = 0;
-            double MAX_ROTATE_STEP = duration / 50;
             // * tính góc quay giữa 2 điểm location
             var angle = GeoHelper.ComputeHeading(item.Position.Latitude, item.Position.Longitude, latitude, longitude);
             if (angle == 0)
@@ -850,32 +847,27 @@ namespace BA_MobileGPS.Core.ViewModels
                 callback();
                 return;
             }
+            //gán lại vòng quay
+            var mRotateIndex = 0;
             var startRotaion = item.Rotation;
             //tính lại độ lệch góc
             var deltaAngle = GeoHelper.GetRotaion(startRotaion, angle);
-
-            Device.StartTimer(TimeSpan.FromMilliseconds(50), () =>
+            while (mRotateIndex <= MARKER_ROTATE_STEP && !ctsRouting.IsCancellationRequested)
             {
                 //góc quay tiếp theo
                 var fractionAngle = GeoHelper.ComputeRotation(
-                                      mRotateIndex / MAX_ROTATE_STEP,
+                                      mRotateIndex / MARKER_ROTATE_STEP,
                                       startRotaion,
                                       deltaAngle);
                 mRotateIndex = mRotateIndex + 1;
 
                 item.Rotation = (float)fractionAngle;
-
-                if (mRotateIndex > MAX_ROTATE_STEP)
-                {
-                    callback();
-                    return false;
-                }
-
-                return true;
-            });
+                await Task.Delay(TimeSpan.FromMilliseconds(MARKER_ROTATE_TIME_STEP));
+            }
+            callback?.Invoke();
         }
 
-        public async void MarkerAnimation(Pin item, Pin itemLable, double latitude, double longitude, Action callback, int duration = 500)
+        public async void MarkerAnimation(Pin item, Pin itemLable, double latitude, double longitude, Action callback)
         {
             try
             {
@@ -887,8 +879,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 while (animateIndex <= MARKER_MOVE_STEP && !ctsRouting.IsCancellationRequested)
                 {
-                    item.Position = new Position(item.Position.Latitude + dLat, item.Position.Longitude + dLng);
-                    itemLable.Position = item.Position;
+                    var position = new Position(item.Position.Latitude + dLat, item.Position.Longitude + dLng);
+                    item.Position = position;
+                    itemLable.Position = position;
 
                     if (IsWatching && !ctsRouting.IsCancellationRequested)
                     {
@@ -899,7 +892,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     animateIndex++;
                 }
-
                 callback?.Invoke();
             }
             catch (Exception ex)

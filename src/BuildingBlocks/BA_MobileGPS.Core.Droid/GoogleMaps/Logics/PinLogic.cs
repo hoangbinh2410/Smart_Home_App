@@ -1,5 +1,4 @@
 using Android.App;
-using Android.Content;
 using Android.Gms.Maps.Model;
 using Android.Widget;
 
@@ -23,7 +22,7 @@ namespace BA_MobileGPS.Core.Droid.Logics
         private Pin _draggingPin;
         private volatile bool _withoutUpdateNative = false;
 
-        private readonly Context context;
+        private readonly Activity context;
         private readonly IBitmapDescriptorFactory bitmapDescriptorFactory;
 
         public PinLogic(Activity context,

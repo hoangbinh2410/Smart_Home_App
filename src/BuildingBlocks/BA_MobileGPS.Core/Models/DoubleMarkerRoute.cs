@@ -46,7 +46,7 @@ namespace BA_MobileGPS.Core
             {
                 Position = Position,
                 Label = Label,
-                Anchor = new Point(.5, .5),
+                Anchor = new Point(0.5, 0.5),
                 ZIndex = 2,
                 Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
                 Tag = Label,
@@ -55,11 +55,11 @@ namespace BA_MobileGPS.Core
             };
             Plate = new Pin()
             {
-                Anchor = new Point(.5, .75),
+                Anchor = new Point(0.5, 1),
                 Position = Position,
                 Label = Label,
-                Icon = BitmapDescriptorFactory.FromView(new PinInfowindowView(Label)),
-                ZIndex = 2,
+                Icon = BitmapDescriptorFactory.FromView(new PinInfowindowActiveView(Label)),
+                ZIndex = 3,
                 Tag = Label + "Plate",
                 IsDraggable = false
             };
