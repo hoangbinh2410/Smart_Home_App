@@ -214,6 +214,8 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly double BASE_TIME = 250;
 
         private readonly double MARKER_ROTATE_RATE = 0.1;
+        private double MARKER_ROTATE_STEP => 5;
+        private double MARKER_ROTATE_TIME_STEP => MARKER_ROTATE_RATE * BASE_TIME / PlaySpeed / MARKER_ROTATE_STEP;
 
         private double MARKER_MOVE_RATE => 1 - MARKER_ROTATE_RATE;
         private double MARKER_MOVE_STEP => 64 / PlaySpeed;
@@ -875,46 +877,34 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public async void MarkerAnimation(Pin item, Pin itemLable, double latitude, double longitude, Action callback, int duration = 500)
         {
-            if (this.IsRunning)
+            try
             {
-                callback();
-                return;
-            }
-            else
-            {
-                this.IsRunning = true;
-                double moveTime = MARKER_MOVE_RATE * MARKER_MOVE_TIME_STEP;
-                var startPosition = new Position(item.Position.Latitude, item.Position.Longitude);
-                var finalPosition = new Position(latitude, longitude);
-                double elapsed = 0;
-                double time = 0;
-                double v;
-                while (!ctsRouting.IsCancellationRequested && time < 1)
-                {
-                    elapsed = elapsed + 10;
-                    time = elapsed / duration;
-                    v = GeoHelper.GetInterpolation(time);
+                double moveTime = MARKER_MOVE_TIME_STEP;
 
-                    var postionnew = GeoHelper.LinearInterpolator(v,
-                        startPosition,
-                        finalPosition);
-                    item.Position = new Position(postionnew.Latitude, postionnew.Longitude);
-                    itemLable.Position = new Position(postionnew.Latitude, postionnew.Longitude);
+                double dLat = (latitude - item.Position.Latitude) / MARKER_MOVE_STEP;
+                double dLng = (longitude - item.Position.Longitude) / MARKER_MOVE_STEP;
+                double animateIndex = 1;
+
+                while (animateIndex <= MARKER_MOVE_STEP && !ctsRouting.IsCancellationRequested)
+                {
+                    item.Position = new Position(item.Position.Latitude + dLat, item.Position.Longitude + dLng);
+                    itemLable.Position = item.Position;
+
                     if (IsWatching && !ctsRouting.IsCancellationRequested)
                     {
-                        _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(postionnew), TimeSpan.FromMilliseconds(moveTime));
+                        _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(item.Position), TimeSpan.FromMilliseconds(moveTime));
                     }
-                    if (PlaySpeed < SPEED_MAX)
-                    {
-                        await Task.Delay(TimeSpan.FromMilliseconds(moveTime));
-                    }
-                    else
-                    {
-                        await Task.Delay(TimeSpan.FromMilliseconds(0.1));
-                    }
+
+                    await Task.Delay(TimeSpan.FromMilliseconds(moveTime));
+
+                    animateIndex++;
                 }
-                this.IsRunning = false;
-                callback();
+
+                callback?.Invoke();
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
