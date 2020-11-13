@@ -71,7 +71,11 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                
             };
-            NavigationService.NavigateAsync("NavigationPage/CameraRestream", param,true,true);
+            SafeExecute(async () =>
+           {
+             var res = await  NavigationService.NavigateAsync("NavigationPage/CameraRestream", param, true, true);
+           });
+           
         }
 
         private DateTime selectedDate;

@@ -8,5 +8,7 @@ namespace BA_MobileGPS.Core.Views
         {
             InitializeComponent();
         }
+
+
     }
 }

@@ -9,24 +9,25 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
-    xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    x:Name="root"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Content>
-        <Grid Padding="5,5,5,0" RowDefinitions="Auto,*">
+        <Grid RowDefinitions="Auto,*" RowSpacing="0">
             <!--  Khu vực tìm kiếm  -->
             <Grid
-                Margin="0,5"
+                Padding="5"
                 ColumnDefinitions="*,Auto,Auto,Auto,Auto"
-                ColumnSpacing="8">
+                ColumnSpacing="7"
+                IsVisible="{Binding IsFullScreenOff}">
                 <pancake:PancakeView
                     Padding="0"
                     BackgroundColor="{DynamicResource WhiteColor}"
-                    CornerRadius="22"
-                    HeightRequest="45"
+                    CornerRadius="20"
+                    HeightRequest="40"
                     VerticalOptions="Center">
                     <pancake:PancakeView.Shadow>
                         <pancake:DropShadow
-                            BlurRadius="3"
+                            BlurRadius="2"
                             Offset="0,0"
                             Color="Black" />
                     </pancake:PancakeView.Shadow>
@@ -39,10 +40,10 @@
                         Orientation="Horizontal">
                         <pancake:PancakeView
                             BackgroundColor="{DynamicResource PrimaryColor}"
-                            CornerRadius="22"
-                            WidthRequest="45">
+                            CornerRadius="20"
+                            WidthRequest="40">
                             <icons:IconView
-                                Margin="13"
+                                Margin="12"
                                 Foreground="{DynamicResource WhiteColor}"
                                 Source="ic_search.png" />
                         </pancake:PancakeView>
@@ -65,10 +66,10 @@
                     Grid.Column="1"
                     Padding="0"
                     BackgroundColor="{DynamicResource WhiteColor}"
-                    CornerRadius="22"
-                    HeightRequest="45"
+                    CornerRadius="20"
+                    HeightRequest="40"
                     VerticalOptions="Center"
-                    WidthRequest="45">
+                    WidthRequest="40">
                     <pancake:PancakeView.Shadow>
                         <pancake:DropShadow
                             BlurRadius="3"
@@ -76,7 +77,7 @@
                             Color="Black" />
                     </pancake:PancakeView.Shadow>
                     <pancake:PancakeView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding PushToDateTimePageCommand}" />
+                        <TapGestureRecognizer Command="{Binding PushToChannelSelectPageCommand}" />
                     </pancake:PancakeView.GestureRecognizers>
                     <icons:IconView
                         Margin="8"
@@ -88,10 +89,10 @@
                     Grid.Column="3"
                     Padding="0"
                     BackgroundColor="{DynamicResource WhiteColor}"
-                    CornerRadius="22"
-                    HeightRequest="45"
+                    CornerRadius="20"
+                    HeightRequest="40"
                     VerticalOptions="Center"
-                    WidthRequest="45">
+                    WidthRequest="40">
                     <pancake:PancakeView.Shadow>
                         <pancake:DropShadow
                             BlurRadius="3"
@@ -111,13 +112,13 @@
                     Grid.Column="4"
                     Padding="0"
                     BackgroundColor="{DynamicResource PrimaryColor}"
-                    CornerRadius="22"
-                    HeightRequest="45"
+                    CornerRadius="20"
+                    HeightRequest="40"
                     VerticalOptions="Center"
-                    WidthRequest="45">
+                    WidthRequest="40">
                     <pancake:PancakeView.Shadow>
                         <pancake:DropShadow
-                            BlurRadius="3"
+                            BlurRadius="2"
                             Offset="0,0"
                             Color="Black" />
                     </pancake:PancakeView.Shadow>
@@ -132,31 +133,160 @@
                 </pancake:PancakeView>
             </Grid>
             <!--  Khu vực video và danh sách  -->
-            <Grid Grid.Row="1" RowDefinitions="Auto,Auto,*">
-                <Grid HeightRequest="250" IsVisible="{Binding MediaPlayerVisible}">
+            <Grid
+                x:Name="mainLayout"
+                Grid.Row="1"
+                RowDefinitions="Auto,Auto,*"
+                RowSpacing="0">
+                <Grid.Triggers>
+                    <DataTrigger
+                        Binding="{Binding IsFullScreenOff}"
+                        TargetType="Grid"
+                        Value="true">
+                        <Setter Property="RowDefinitions" Value="*,Auto,Auto" />
+                    </DataTrigger>
+                </Grid.Triggers>
+                <Grid
+                    BackgroundColor="#3D3D3D"
+                    HeightRequest="280"
+                    IsVisible="{Binding MediaPlayerVisible}"
+                    RowDefinitions="*,Auto"
+                    RowSpacing="0">
+                    <!--  Video  -->
                     <vlc:MediaPlayerElement
                         HorizontalOptions="Fill"
                         LibVLC="{Binding Media.LibVLC}"
                         MediaPlayer="{Binding Media.MediaPlayer}"
-                        VerticalOptions="Fill" />
-                    <icons:IconView
-                        Margin="0,0,6,6"
-                        Foreground="{DynamicResource WhiteColor}"
-                        HeightRequest="20"
-                        HorizontalOptions="End"
-                        Source="ic_close"
-                        VerticalOptions="Start"
-                        WidthRequest="20">
-                        <icons:IconView.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding CloseVideoCommand}" />
-                        </icons:IconView.GestureRecognizers>
-                    </icons:IconView>
+                        VerticalOptions="Fill">
+                        <vlc:MediaPlayerElement.PlaybackControls>
+                            <vlc:PlaybackControls>
+                                <vlc:PlaybackControls.ControlTemplate>
+                                    <ControlTemplate>
+                                        <StackLayout IsVisible="{TemplateBinding MediaPlayer, Converter={StaticResource ObjectToBoolConverter}}" Spacing="0">
+                                            <ProgressBar
+                                                HeightRequest="2"
+                                                IsVisible="{TemplateBinding BufferingProgress,
+                                                                            Converter={StaticResource BufferingProgressToBoolConverter}}"
+                                                Progress="{TemplateBinding BufferingProgress}"
+                                                Style="{TemplateBinding BufferingProgressBarStyle}" />
+                                            <StackLayout
+                                                x:Name="ControlsPanel"
+                                                Spacing="0"
+                                                Style="{TemplateBinding ControlsPanelStyle}">
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label x:Name="ElapsedTimeLabel" Style="{TemplateBinding ElapsedTimeLabelStyle}" />
+                                                    <Label
+                                                        x:Name="RemainingTimeLabel"
+                                                        HorizontalOptions="EndAndExpand"
+                                                        Style="{TemplateBinding RemainingTimeLabelStyle}" />
+                                                </StackLayout>
+                                                <Slider
+                                                    x:Name="SeekBar"
+                                                    IsVisible="{TemplateBinding IsSeekBarVisible}"
+                                                    Style="{TemplateBinding SeekBarStyle}" />
+                                                <StackLayout Orientation="Horizontal">
+                                                    <StackLayout
+                                                        Margin="20,0,0,0"
+                                                        Orientation="Horizontal"
+                                                        Spacing="0">
+                                                        <icons:IconView
+                                                            Foreground="{DynamicResource WhiteColor}"
+                                                            HeightRequest="30"
+                                                            Source="ic_fast_start_black"
+                                                            VerticalOptions="Center"
+                                                            WidthRequest="30">
+                                                            <icons:IconView.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.PreviousChapterCommand}" />
+                                                            </icons:IconView.GestureRecognizers>
+                                                        </icons:IconView>
+                                                        <Button
+                                                            x:Name="PlayPauseButton"
+                                                            FontSize="20"
+                                                            HeightRequest="30"
+                                                            Style="{TemplateBinding PlayPauseButtonStyle}"
+                                                            WidthRequest="30" />
+                                                        <icons:IconView
+                                                            Foreground="{DynamicResource WhiteColor}"
+                                                            HeightRequest="30"
+                                                            Source="ic_fast_end_black"
+                                                            WidthRequest="30">
+                                                            <icons:IconView.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.NextChapterChapterCommand}" />
+                                                            </icons:IconView.GestureRecognizers>
+                                                        </icons:IconView>
+                                                    </StackLayout>
+                                                    <StackLayout
+                                                        Margin="0,0,20,0"
+                                                        HorizontalOptions="EndAndExpand"
+                                                        Orientation="Horizontal"
+                                                        Spacing="10"
+                                                        VerticalOptions="Center">
+                                                        <icons:IconView
+                                                            Foreground="{DynamicResource WhiteColor}"
+                                                            HeightRequest="15"
+                                                            Source="ic_download.png"
+                                                            WidthRequest="15">
+                                                            <icons:IconView.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding DownloadTappedCommand}" />
+                                                            </icons:IconView.GestureRecognizers>
+                                                        </icons:IconView>
+                                                        <icons:IconView
+                                                            Foreground="{DynamicResource WhiteColor}"
+                                                            HeightRequest="15"
+                                                            Source="ic_share.png"
+                                                            WidthRequest="15">
+                                                            <icons:IconView.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding ShareTappedCommand}" />
+                                                            </icons:IconView.GestureRecognizers>
+                                                        </icons:IconView>
+                                                        <icons:IconView
+                                                            Foreground="{DynamicResource WhiteColor}"
+                                                            HeightRequest="20"
+                                                            Source="ic_fullscreen.png"
+                                                            WidthRequest="20">
+                                                            <icons:IconView.Triggers>
+                                                                <DataTrigger
+                                                                    Binding="{Binding IsFullScreenOff}"
+                                                                    TargetType="icons:IconView"
+                                                                    Value="false">
+                                                                    <Setter Property="Source" Value="ic_normalscreen" />
+                                                                </DataTrigger>
+                                                            </icons:IconView.Triggers>
+                                                            <icons:IconView.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.FullScreenTappedCommand}" />
+                                                            </icons:IconView.GestureRecognizers>
+                                                        </icons:IconView>
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </StackLayout>
 
+                                        </StackLayout>
+                                    </ControlTemplate>
+                                </vlc:PlaybackControls.ControlTemplate>
+                            </vlc:PlaybackControls>
+                        </vlc:MediaPlayerElement.PlaybackControls>
+                    </vlc:MediaPlayerElement>
+                    <!--  Chi tiết video được chọn  -->
+                    <StackLayout
+                        Grid.Row="1"
+                        Padding="10,0,0,5"
+                        IsVisible="{Binding IsFullScreenOff}"
+                        Spacing="3">
+                        <Label
+                            HorizontalOptions="Start"
+                            StyleClass="BoldText"
+                            Text="{Binding VideoSlected.VideoName}"
+                            TextColor="{DynamicResource WhiteColor}" />
+                        <Label
+                            HorizontalOptions="Start"
+                            Text="{Binding VideoSlected.VideoStartTime}"
+                            TextColor="{DynamicResource WhiteColor}" />
+                    </StackLayout>
                 </Grid>
-
+                <!--  Tự động phát  -->
                 <StackLayout
                     Grid.Row="1"
-                    Padding="10,2"
+                    Padding="18,5"
                     IsVisible="{Binding MediaPlayerVisible}"
                     Orientation="Horizontal">
                     <Label
@@ -164,60 +294,76 @@
                         Text="Danh sách video"
                         VerticalOptions="Center" />
                     <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
-                        <Label Text="Phát tự dộng" VerticalOptions="Center" />
+                        <Label Text="Phát tự động" VerticalOptions="Center" />
                         <Switch IsToggled="{Binding AutoSwitch}" />
                     </StackLayout>
                 </StackLayout>
-                <xforms:SfListView
+                <!--  Danh sách video  -->
+                <ScrollView
+                    x:Name="listLayout"
                     Grid.Row="2"
-                    AutoFitMode="DynamicHeight"
-                    ItemSpacing="5"
-                    ItemsSource="{Binding VideoItemsSource, Mode=OneWay}"
-                    SelectionBackgroundColor="Transparent"
-                    SelectionMode="Single"
-                    TapCommand="{Binding VideoItemTapCommand}">
-                    <xforms:SfListView.ItemTemplate>
-                        <DataTemplate>
-                            <pancake:PancakeView Padding="0" HeightRequest="250">
-                                <pancake:PancakeView.Shadow>
-                                    <pancake:DropShadow BlurRadius="3" Color="Black" />
-                                </pancake:PancakeView.Shadow>
-                                <StackLayout Spacing="0">
-                                    <Grid
-                                        Padding="2"
-                                        HorizontalOptions="Center"
-                                        VerticalOptions="FillAndExpand">
-                                        <ff:CachedImage Aspect="Fill" Source="{Binding VideoImageSource, Mode=OneWay}" />
-                                        <icons:IconView
-                                            Foreground="{DynamicResource WhiteColor}"
-                                            HeightRequest="30"
+                    HorizontalScrollBarVisibility="Never"
+                    IsVisible="True">
+                    <ScrollView.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsFullScreenOff}"
+                            TargetType="Grid"
+                            Value="true">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                    </ScrollView.Triggers>
+                    <StackLayout
+                        Padding="15,0"
+                        BindableLayout.ItemsSource="{Binding VideoItemsSource, Mode=OneWay}"
+                        Spacing="8">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <pancake:PancakeView Padding="0" HeightRequest="270">
+                                    <pancake:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.VideoItemTapCommand}" CommandParameter="{Binding .}" />
+                                    </pancake:PancakeView.GestureRecognizers>
+                                    <pancake:PancakeView.Shadow>
+                                        <pancake:DropShadow
+                                            BlurRadius="1"
+                                            Offset="3,0"
+                                            Color="Black" />
+                                    </pancake:PancakeView.Shadow>
+                                    <StackLayout Spacing="0">
+                                        <Grid
+                                            Padding="2"
                                             HorizontalOptions="Center"
-                                            Source="ic_play"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Margin="0,0,10,15"
-                                            HorizontalOptions="End"
-                                            Text="{Binding VideoTime}"
-                                            TextColor="{DynamicResource WhiteColor}"
-                                            VerticalOptions="End" />
-                                    </Grid>
-                                    <StackLayout
-                                        Padding="10,5"
-                                        Spacing="0"
-                                        VerticalOptions="End">
-                                        <Label
-                                            HorizontalOptions="Start"
-                                            StyleClass="BoldText"
-                                            Text="{Binding VideoName}" />
-                                        <Label HorizontalOptions="Start" Text="{Binding VideoStartTime}" />
+                                            VerticalOptions="FillAndExpand">
+                                            <ff:CachedImage Aspect="Fill" Source="{Binding VideoImageSource, Mode=OneWay}" />
+                                            <icons:IconView
+                                                Foreground="{DynamicResource WhiteColor}"
+                                                HeightRequest="30"
+                                                HorizontalOptions="Center"
+                                                Source="ic_play"
+                                                VerticalOptions="Center" />
+                                            <Label
+                                                Margin="0,0,10,15"
+                                                HorizontalOptions="End"
+                                                Text="{Binding VideoTime}"
+                                                TextColor="{DynamicResource WhiteColor}"
+                                                VerticalOptions="End" />
+                                        </Grid>
+                                        <StackLayout
+                                            Padding="10,5"
+                                            Spacing="0"
+                                            VerticalOptions="End">
+                                            <Label
+                                                HorizontalOptions="Start"
+                                                StyleClass="BoldText"
+                                                Text="{Binding VideoName}" />
+                                            <Label HorizontalOptions="Start" Text="{Binding VideoStartTime}" />
+                                        </StackLayout>
+
                                     </StackLayout>
-
-                                </StackLayout>
-                            </pancake:PancakeView>
-
-                        </DataTemplate>
-                    </xforms:SfListView.ItemTemplate>
-                </xforms:SfListView>
+                                </pancake:PancakeView>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </ScrollView>
             </Grid>
         </Grid>
     </ContentPage.Content>
