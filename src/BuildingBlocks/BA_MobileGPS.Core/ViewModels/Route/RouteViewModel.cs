@@ -195,7 +195,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public string PlayStopImage => IsPlaying ? "ic_stop_white" : "ic_play";
 
-        public int playSpeed = 4;
+        public int playSpeed = 2;
         public int PlaySpeed { get => playSpeed; set => SetProperty(ref playSpeed, value); }
 
         public int playMin = 0;
@@ -210,7 +210,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public bool playControlEnabled;
         public bool PlayControlEnabled { get => !playControlEnabled; set => SetProperty(ref playControlEnabled, value); }
         private double SPEED_MAX = 8;
-        private int BaseTimeMoving = 500;
+        private int BaseTimeMoving = 800;
         private int BaseTimeRotating = 250;
 
         private bool lastPlayStatus;
