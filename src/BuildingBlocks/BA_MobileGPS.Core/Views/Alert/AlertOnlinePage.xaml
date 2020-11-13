@@ -275,7 +275,7 @@
                                             HorizontalOptions="Start"
                                             HorizontalTextAlignment="Start"
                                             LineBreakMode="TailTruncation"
-                                            MaxLines="3"
+                                            MaxLines="4"
                                             Text="{Binding Content}" />
                                     </StackLayout>
                                 </Grid>
