@@ -60,7 +60,15 @@ namespace BA_MobileGPS.Core.Views
 
             if (IsExpanded)
             {
-                AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight * 2.5, TimeSelectorContainerHeight, length: 150);
+                TimeSelectorContainer.Animate("invis",
+                  AnimateHeightCallback,
+                  TimeSelectorContainerHeight * 2,
+                  TimeSelectorContainerHeight, 200,
+                 finished: (val, b) =>
+                 {
+                     TimeOtherSelector.VerticalOptions = LayoutOptions.Start;
+                 },
+                  easing: Easing.Linear);
                 IsExpanded = false;
             }
         }
@@ -71,19 +79,22 @@ namespace BA_MobileGPS.Core.Views
 
             if (!IsExpanded)
             {
-                AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight, TimeSelectorContainerHeight * 2.5, length: 150);
+                TimeSelectorContainer.Animate("invis",
+                    AnimateHeightCallback,
+                    TimeSelectorContainerHeight,
+                    TimeSelectorContainerHeight * 2, 200,
+                   finished: (val, b) =>
+                   {
+                       TimeOtherSelector.VerticalOptions = LayoutOptions.End;
+                   },
+                    easing: Easing.Linear);
                 IsExpanded = true;
             }
         }
 
-        private void Callback(double input)
+        private void AnimateHeightCallback(double input)
         {
             TimeSelectorContainer.HeightRequest = input; // update the height of the layout with this callback
-        }
-
-        private void AnimateHeight(View view, Action<double> callback, double start, double end, uint rate = 16, uint length = 250, Easing easing = null)
-        {
-            view.Animate("invis", callback, start, end, rate, length, easing ?? Easing.Linear);
         }
 
         private void SetSelectedButton(ContentView button)

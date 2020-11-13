@@ -23,13 +23,15 @@
 
         <Grid
             x:Name="TimeSelectorContainer"
+            Padding="8,0,8,0"
             BackgroundColor="{DynamicResource PrimaryColor}"
-            HeightRequest="40"
+            HeightRequest="45"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start">
             <Grid
-                Padding="8,0,8,8"
+                x:Name="TimeOtherSelector"
                 BackgroundColor="{DynamicResource PrimaryColor}"
+                HeightRequest="40"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="End">
                 <Grid.ColumnDefinitions>
@@ -65,9 +67,9 @@
             </Grid>
             <Grid
                 x:Name="TimeSelector"
-                Padding="8,0,8,8"
                 BackgroundColor="{DynamicResource PrimaryColor}"
                 ColumnSpacing="0"
+                HeightRequest="45"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="Start">
                 <pancake:PancakeView
@@ -335,7 +337,7 @@
                 BorderColor="{DynamicResource GrayColor}"
                 CornerRadius="5"
                 HasShadow="False"
-                HeightRequest="120"
+                HeightRequest="100"
                 HorizontalOptions="Start"
                 IsClippedToBounds="True"
                 Opacity="1"
@@ -343,7 +345,10 @@
                 WidthRequest="170">
                 <Grid>
                     <ContentView BackgroundColor="{DynamicResource WhiteColor}" Opacity=".9" />
-                    <StackLayout Padding="8" BackgroundColor="Transparent">
+                    <StackLayout
+                        Padding="8"
+                        BackgroundColor="Transparent"
+                        Spacing="0">
 
                         <StackLayout
                             HorizontalOptions="FillAndExpand"
