@@ -189,7 +189,7 @@
                 <syncfusionList:SfListView
                     x:Name="listView"
                     AllowSwiping="True"
-                    ItemSize="90"
+                    ItemSize="110"
                     ItemSpacing="5"
                     ItemsSource="{Binding ListAlert, Mode=TwoWay}"
                     LoadMoreCommand="{Binding LoadMoreItemsCommand}"
@@ -275,7 +275,7 @@
                                             HorizontalOptions="Start"
                                             HorizontalTextAlignment="Start"
                                             LineBreakMode="TailTruncation"
-                                            MaxLines="2"
+                                            MaxLines="4"
                                             Text="{Binding Content}" />
                                     </StackLayout>
                                 </Grid>
