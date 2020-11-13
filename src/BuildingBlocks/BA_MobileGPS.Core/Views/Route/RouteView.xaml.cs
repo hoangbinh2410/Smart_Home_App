@@ -10,7 +10,7 @@ namespace BA_MobileGPS.Core.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RouteView : ContentView
     {
-        private bool infoWindowIsShown;
+        private bool infoWindowIsShown = true;
         private double TimeSelectorContainerHeight;
         private bool IsExpanded;
 
@@ -26,9 +26,8 @@ namespace BA_MobileGPS.Core.Views
             map.UiSettings.ZoomGesturesEnabled = true;
             map.UiSettings.ZoomControlsEnabled = false;
             map.UiSettings.RotateGesturesEnabled = false;
-            frVehicleInfo.TranslationX = -300;
+            frVehicleInfo.TranslationX = 0;
             TimeSelectorContainerHeight = Device.RuntimePlatform == Device.iOS ? TimeSelectorContainer.HeightRequest + 4 : TimeSelectorContainer.HeightRequest;
-            IconInfo_Clicked(this, EventArgs.Empty);
             IsExpanded = false;
         }
 
