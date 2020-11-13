@@ -28,8 +28,7 @@ namespace BA_MobileGPS.Core.Views
             map.UiSettings.RotateGesturesEnabled = false;
             frVehicleInfo.TranslationX = -300;
             TimeSelectorContainerHeight = Device.RuntimePlatform == Device.iOS ? TimeSelectorContainer.HeightRequest + 4 : TimeSelectorContainer.HeightRequest;
-
-            //AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight * 3, TimeSelectorContainerHeight, length: 150);
+            IconInfo_Clicked(this, EventArgs.Empty);
             IsExpanded = false;
         }
 
