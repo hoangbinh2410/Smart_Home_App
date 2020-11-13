@@ -886,15 +886,11 @@ namespace BA_MobileGPS.Core.ViewModels
                         finalPosition);
                     itemLable.Position = postionnew;
                     item.Position = postionnew;
-                    if (IsWatching && !ctsRouting.IsCancellationRequested)
+                    if (Device.RuntimePlatform == Device.iOS)
                     {
-                        if (Device.RuntimePlatform == Device.iOS)
+                        if (IsWatching && !ctsRouting.IsCancellationRequested)
                         {
                             _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(postionnew), TimeSpan.FromMilliseconds(1000 / PlaySpeed));
-                        }
-                        else
-                        {
-                            _ = MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(postionnew));
                         }
                     }
                 }
@@ -904,6 +900,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 length: (uint)(BaseTimeMoving / PlaySpeed),
                 finished: (val, b) =>
                 {
+                    if (Device.RuntimePlatform == Device.Android)
+                    {
+                        if (IsWatching && !ctsRouting.IsCancellationRequested)
+                        {
+                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(item.Position), TimeSpan.FromMilliseconds(300));
+                        }
+                    }
                     IsRunning = false;
                     callback();
                 }
