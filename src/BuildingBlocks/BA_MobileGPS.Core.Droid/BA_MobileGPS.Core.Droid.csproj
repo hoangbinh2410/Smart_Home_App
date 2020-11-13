@@ -109,7 +109,7 @@
     <Compile Include="GoogleMaps\Logics\PolygonLogic.cs" />
     <Compile Include="GoogleMaps\Logics\PolylineLogic.cs" />
     <Compile Include="GoogleMaps\Logics\UiSettingsLogic.cs" />
-    <Compile Include="GoogleMaps\MapRender\CachingNativeBitmapDescriptorFactory.cs" />
+    <Compile Include="GoogleMaps\Factories\CachingNativeBitmapDescriptorFactory.cs" />
     <Compile Include="GoogleMaps\MapRender\FormsGoogleMaps.cs" />
     <Compile Include="GoogleMaps\MapRender\MapRenderer.cs" />
     <Compile Include="GoogleMaps\MapRender\PlatformConfig.cs" />

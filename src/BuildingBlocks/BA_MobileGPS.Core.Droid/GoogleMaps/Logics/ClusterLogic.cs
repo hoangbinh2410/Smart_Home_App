@@ -14,7 +14,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 
 using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
 
 namespace BA_MobileGPS.Core.Droid
 {
@@ -121,9 +120,17 @@ namespace BA_MobileGPS.Core.Droid
 
             if (outerItem.Icon != null && outerItem?.Icon?.Type != BitmapDescriptorType.View)
             {
-                var factory = bitmapDescriptorFactory ?? DefaultBitmapDescriptorFactory.Instance;
-                var nativeDescriptor = factory.ToNative(outerItem.Icon);
-                marker.Icon = nativeDescriptor;
+                try
+                {
+                    var factory = bitmapDescriptorFactory ?? DefaultBitmapDescriptorFactory.Instance;
+                    var nativeDescriptor = factory.ToNative(outerItem.Icon);
+                    marker.Icon = nativeDescriptor;
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
             }
 
             if (outerItem?.Icon?.Type == BitmapDescriptorType.View)
@@ -168,13 +175,11 @@ namespace BA_MobileGPS.Core.Droid
         protected override void AddItems(IList newItems)
         {
             base.AddItems(newItems);
-            //clusterManager.Cluster();
         }
 
         protected override void RemoveItems(IList oldItems)
         {
             base.RemoveItems(oldItems);
-            //clusterManager.Cluster();
         }
 
         protected override void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -285,11 +290,11 @@ namespace BA_MobileGPS.Core.Droid
                     {
                         var nativeView = await Utils.ConvertFormsToNative(iconView,
                             new Rectangle(0, 0, Utils.DpToPx((float)iconView.WidthRequest),
-                            Utils.DpToPx((float)iconView.HeightRequest)),
-                            Platform.CreateRendererWithContext(iconView, context));
+                            Utils.DpToPx((float)iconView.HeightRequest)));
 
                         var otherView = new FrameLayout(nativeView.Context);
-                        nativeView.LayoutParameters = new FrameLayout.LayoutParams(Utils.DpToPx((float)iconView.WidthRequest), Utils.DpToPx((float)iconView.HeightRequest));
+                        nativeView.LayoutParameters = new FrameLayout.LayoutParams(Utils.DpToPx((float)iconView.WidthRequest),
+                            Utils.DpToPx((float)iconView.HeightRequest));
                         otherView.AddView(nativeView);
                         nativeItem.Icon = await Utils.ConvertViewToBitmapDescriptor(otherView);
                         cache.Add(outerItem.Tag.ToString(), nativeItem.Icon);

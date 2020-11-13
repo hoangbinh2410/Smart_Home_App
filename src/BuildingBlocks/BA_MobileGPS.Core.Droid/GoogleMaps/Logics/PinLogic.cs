@@ -318,8 +318,7 @@ namespace BA_MobileGPS.Core.Droid.Logics
                     {
                         var nativeView = await Utils.ConvertFormsToNative(iconView,
                             new Xamarin.Forms.Rectangle(0, 0, Utils.DpToPx((float)iconView.WidthRequest),
-                            Utils.DpToPx((float)iconView.HeightRequest)),
-                            Platform.CreateRendererWithContext(iconView, context));
+                            Utils.DpToPx((float)iconView.HeightRequest)));
 
                         var otherView = new FrameLayout(context);
                         nativeView.LayoutParameters = new FrameLayout.LayoutParams(Utils.DpToPx((float)iconView.WidthRequest), Utils.DpToPx((float)iconView.HeightRequest));
