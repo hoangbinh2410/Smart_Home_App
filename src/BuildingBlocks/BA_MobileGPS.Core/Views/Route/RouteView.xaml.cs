@@ -12,7 +12,6 @@ namespace BA_MobileGPS.Core.Views
     {
         private bool infoWindowIsShown;
         private double TimeSelectorContainerHeight;
-        private RoutePageViewModel vm;
         private bool IsExpanded;
 
         public RouteView()
@@ -27,14 +26,11 @@ namespace BA_MobileGPS.Core.Views
             map.UiSettings.ZoomGesturesEnabled = true;
             map.UiSettings.ZoomControlsEnabled = false;
             map.UiSettings.RotateGesturesEnabled = false;
-            //map.PinClicked += Map_PinClicked;
-
+            frVehicleInfo.TranslationX = -300;
             TimeSelectorContainerHeight = Device.RuntimePlatform == Device.iOS ? TimeSelectorContainer.HeightRequest + 4 : TimeSelectorContainer.HeightRequest;
 
-            AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight * 2, TimeSelectorContainerHeight, length: 150);
+            //AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight * 3, TimeSelectorContainerHeight, length: 150);
             IsExpanded = false;
-
-            IconInfo_Clicked(this, EventArgs.Empty);
         }
 
         public static string ConvertIntToHex(int value)
@@ -42,32 +38,19 @@ namespace BA_MobileGPS.Core.Views
             return value.ToString("X").PadLeft(6, '0');
         }
 
-        //private void Map_PinClicked(object sender, PinClickedEventArgs e)
-        //{
-        //    if (!"state_stop_route".Equals(e.Pin.Tag) && !"direction_route".Equals(e.Pin.Tag))
-        //    {
-        //        e.Handled = true;
-        //    }
-        //    else
-        //    {
-        //        vm = (RoutePageViewModel)BindingContext;
-        //        vm.StopWatchVehicle();
-        //    }
-        //}
-
         private void IconInfo_Clicked(object sender, EventArgs e)
         {
             if (infoWindowIsShown)
             {
                 IconInfo.Foreground = (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor2"];
-                frVehicleInfo.FadeTo(0, 200);
-                frVehicleInfo.TranslateTo(-frVehicleInfo.Width - 5, 0, 250);
+                Action<double> frcallback = input2 => frVehicleInfo.TranslationX = input2;
+                frVehicleInfo.Animate("animehicleInfo", frcallback, 0, -300, 16, 300, Easing.CubicInOut);
             }
             else
             {
                 IconInfo.Foreground = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
-                frVehicleInfo.TranslateTo(0, 0, 250);
-                frVehicleInfo.FadeTo(1, 200);
+                Action<double> frcallback = input2 => frVehicleInfo.TranslationX = input2;
+                frVehicleInfo.Animate("animehicleInfo", frcallback, -300, 0, 16, 300, Easing.CubicInOut);
             }
 
             infoWindowIsShown = !infoWindowIsShown;
@@ -79,7 +62,7 @@ namespace BA_MobileGPS.Core.Views
 
             if (IsExpanded)
             {
-                AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight * 2, TimeSelectorContainerHeight, length: 150);
+                AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight * 2.5, TimeSelectorContainerHeight, length: 150);
                 IsExpanded = false;
             }
         }
@@ -90,7 +73,7 @@ namespace BA_MobileGPS.Core.Views
 
             if (!IsExpanded)
             {
-                AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight, TimeSelectorContainerHeight * 2, length: 150);
+                AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight, TimeSelectorContainerHeight * 2.5, length: 150);
                 IsExpanded = true;
             }
         }
