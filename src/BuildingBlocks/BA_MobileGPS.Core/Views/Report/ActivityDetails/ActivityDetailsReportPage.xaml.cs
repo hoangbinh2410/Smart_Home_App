@@ -17,24 +17,17 @@ namespace BA_MobileGPS.Core.Views
 
         public ActivityDetailsReportPage()
         {
-            try
+            InitializeComponent();
+
+            dataGrid.CellRenderers.Remove("TableSummary");
+            dataGrid.CellRenderers.Add("TableSummary", new GridTableActivityDetailsCellRenderer());
+
+            showhideColumn.TranslateTo(0, (int)Application.Current.MainPage.Height, 250);
+            IsShowFilter = !IsShowFilter;
+
+            if (Device.RuntimePlatform == Device.Android)
             {
-                InitializeComponent();
-
-                dataGrid.CellRenderers.Remove("TableSummary");
-                dataGrid.CellRenderers.Add("TableSummary", new GridTableActivityDetailsCellRenderer());
-
-                showhideColumn.TranslateTo(0, (int)Application.Current.MainPage.Height, 250);
-                IsShowFilter = !IsShowFilter;
-
-                if (Device.RuntimePlatform == Device.Android)
-                {
-                    dataGrid.RowHeight = 55;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
+                dataGrid.RowHeight = 55;
             }
         }
 

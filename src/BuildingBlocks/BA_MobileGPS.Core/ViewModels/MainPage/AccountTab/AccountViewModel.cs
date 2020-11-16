@@ -22,7 +22,6 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class AccountViewModel : TabbedPageChildVMBase
     {
-        private readonly IAppVersionService appVersionService;
         private string appVersion;
         public string AppVersion { get => appVersion; set => SetProperty(ref appVersion, value); }
 
@@ -34,22 +33,21 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand NavigateCommand { get; private set; }
 
-        public AccountViewModel(INavigationService navigationService, IAppVersionService appVersionService)
+        public AccountViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            this.appVersionService = appVersionService;
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(Navigate);
         }
-
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+            AppVersion = VersionTracking.CurrentVersion;
+            IsShowPhoneNumber = MobileUserSettingHelper.IsShowPhoneNumber;
+            InitMenuItems();
+        }
         public override void Initialize(INavigationParameters parameters)
         {
-            Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
-            {
-                AppVersion = appVersionService.GetAppVersion();
-                IsShowPhoneNumber = MobileUserSettingHelper.IsShowPhoneNumber;
-                InitMenuItems();
-                return false;
-            });
+
         }
 
         private void InitMenuItems()

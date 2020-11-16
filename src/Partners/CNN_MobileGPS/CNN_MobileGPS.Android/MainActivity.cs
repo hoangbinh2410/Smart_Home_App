@@ -20,7 +20,7 @@ namespace CNN_MobileGPS.Droid
             Forms.SetFlags(new string[] { "CarouselView_Experimental", "IndicatorView_Experimental", "FastRenderers_Experimental", "AppTheme_Experimental" });
 
             Forms.Init(this, bundle);
-
+            Syncfusion.XForms.Android.Core.Core.Init(this);
             ToolSetup.Initialize(this, bundle);
 
             LoadApplication(new CNNApp(new AndroidInitializer()));

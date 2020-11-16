@@ -9,6 +9,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -452,7 +453,10 @@ namespace BA_MobileGPS.Core.ViewModels
                                 {
                                     if (Settings.Rememberme)
                                     {
-                                        LoginCommand.Execute(null);
+                                        Device.BeginInvokeOnMainThread(() =>
+                                        {
+                                            Login();
+                                        });
                                     }
                                 }
                             }
@@ -468,7 +472,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             if (Settings.Rememberme)
                             {
-                                LoginCommand.Execute(null);
+                                Device.BeginInvokeOnMainThread(() =>
+                                {
+                                    Login();
+                                });
                             }
                         }
                     }
@@ -479,7 +486,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (Settings.Rememberme)
                         {
-                            LoginCommand.Execute(null);
+                            Device.BeginInvokeOnMainThread(() =>
+                            {
+                                Login();
+                            });
                         }
                     }
                 }

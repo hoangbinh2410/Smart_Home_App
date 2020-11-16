@@ -57,7 +57,7 @@ namespace BA_MobileGPS.Core.Droid.DependencyServices
                     stream.Close();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
