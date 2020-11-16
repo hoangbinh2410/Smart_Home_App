@@ -10,9 +10,8 @@ namespace BA_MobileGPS.Core.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RouteView : ContentView
     {
-        private bool infoWindowIsShown;
+        private bool infoWindowIsShown = true;
         private double TimeSelectorContainerHeight;
-        private RoutePageViewModel vm;
         private bool IsExpanded;
 
         public RouteView()
@@ -22,17 +21,15 @@ namespace BA_MobileGPS.Core.Views
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
             lblTitle.Text = MobileResource.Route_Label_Title;
             map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
+            map.IsUseCluster = false;
+            map.IsTrafficEnabled = false;
             map.UiSettings.ZoomGesturesEnabled = true;
             map.UiSettings.ZoomControlsEnabled = false;
             map.UiSettings.RotateGesturesEnabled = false;
-            map.PinClicked += Map_PinClicked;
-
+            frVehicleInfo.TranslationX = 0;
+            IconInfo.Foreground = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
             TimeSelectorContainerHeight = Device.RuntimePlatform == Device.iOS ? TimeSelectorContainer.HeightRequest + 4 : TimeSelectorContainer.HeightRequest;
-
-            AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight * 2, TimeSelectorContainerHeight, length: 150);
             IsExpanded = false;
-
-            IconInfo_Clicked(this, EventArgs.Empty);
         }
 
         public static string ConvertIntToHex(int value)
@@ -40,32 +37,19 @@ namespace BA_MobileGPS.Core.Views
             return value.ToString("X").PadLeft(6, '0');
         }
 
-        private void Map_PinClicked(object sender, PinClickedEventArgs e)
-        {
-            if (!"state_stop".Equals(e.Pin.Tag) && !"direction".Equals(e.Pin.Tag))
-            {
-                e.Handled = true;
-            }
-            else
-            {
-                vm = (RoutePageViewModel)BindingContext;
-                vm.StopWatchVehicle();
-            }
-        }
-
         private void IconInfo_Clicked(object sender, EventArgs e)
         {
             if (infoWindowIsShown)
             {
                 IconInfo.Foreground = (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor2"];
-                frVehicleInfo.FadeTo(0, 200);
-                frVehicleInfo.TranslateTo(-frVehicleInfo.Width - 5, 0, 250);
+                Action<double> frcallback = input2 => frVehicleInfo.TranslationX = input2;
+                frVehicleInfo.Animate("animehicleInfo", frcallback, 0, -300, 16, 300, Easing.CubicInOut);
             }
             else
             {
                 IconInfo.Foreground = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
-                frVehicleInfo.TranslateTo(0, 0, 250);
-                frVehicleInfo.FadeTo(1, 200);
+                Action<double> frcallback = input2 => frVehicleInfo.TranslationX = input2;
+                frVehicleInfo.Animate("animehicleInfo", frcallback, -300, 0, 16, 300, Easing.CubicInOut);
             }
 
             infoWindowIsShown = !infoWindowIsShown;
@@ -77,7 +61,15 @@ namespace BA_MobileGPS.Core.Views
 
             if (IsExpanded)
             {
-                AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight * 2, TimeSelectorContainerHeight, length: 150);
+                TimeSelectorContainer.Animate("invis",
+                  AnimateHeightCallback,
+                  TimeSelectorContainerHeight * 2,
+                  TimeSelectorContainerHeight, 200,
+                 finished: (val, b) =>
+                 {
+                     TimeOtherSelector.VerticalOptions = LayoutOptions.Start;
+                 },
+                  easing: Easing.Linear);
                 IsExpanded = false;
             }
         }
@@ -88,19 +80,22 @@ namespace BA_MobileGPS.Core.Views
 
             if (!IsExpanded)
             {
-                AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight, TimeSelectorContainerHeight * 2, length: 150);
+                TimeSelectorContainer.Animate("invis",
+                    AnimateHeightCallback,
+                    TimeSelectorContainerHeight,
+                    TimeSelectorContainerHeight * 2, 200,
+                   finished: (val, b) =>
+                   {
+                       TimeOtherSelector.VerticalOptions = LayoutOptions.End;
+                   },
+                    easing: Easing.Linear);
                 IsExpanded = true;
             }
         }
 
-        private void Callback(double input)
+        private void AnimateHeightCallback(double input)
         {
             TimeSelectorContainer.HeightRequest = input; // update the height of the layout with this callback
-        }
-
-        private void AnimateHeight(View view, Action<double> callback, double start, double end, uint rate = 16, uint length = 250, Easing easing = null)
-        {
-            view.Animate("invis", callback, start, end, rate, length, easing ?? Easing.Linear);
         }
 
         private void SetSelectedButton(ContentView button)

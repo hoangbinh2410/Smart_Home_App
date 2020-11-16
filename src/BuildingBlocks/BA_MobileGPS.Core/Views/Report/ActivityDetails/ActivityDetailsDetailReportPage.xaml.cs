@@ -8,14 +8,7 @@ namespace BA_MobileGPS.Core.Views
     {
         public ActivityDetailsDetailReportPage()
         {
-            try
-            {
-                InitializeComponent();
-            }
-            catch (System.Exception ex)
-            {
-                throw;
-            }
+            InitializeComponent();
         }
     }
 }

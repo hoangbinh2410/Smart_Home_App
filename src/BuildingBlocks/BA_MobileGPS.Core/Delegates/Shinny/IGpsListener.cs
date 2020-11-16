@@ -1,20 +1,20 @@
-﻿using Shiny.Locations;
-using System;
+﻿//using Shiny.Locations;
+//using System;
 
-namespace BA_MobileGPS.Core.Delegates.Shinny
-{
-    public interface IGpsListener
-    {
-        event EventHandler<GpsReadingEventArgs> OnReadingReceived;
-    }
+//namespace BA_MobileGPS.Core.Delegates.Shinny
+//{
+//    public interface IGpsListener
+//    {
+//        event EventHandler<GpsReadingEventArgs> OnReadingReceived;
+//    }
 
-    public class GpsReadingEventArgs : EventArgs
-    {
-        public IGpsReading Reading { get; }
+//    public class GpsReadingEventArgs : EventArgs
+//    {
+//        public IGpsReading Reading { get; }
 
-        public GpsReadingEventArgs(IGpsReading reading)
-        {
-            Reading = reading;
-        }
-    }
-}
+//        public GpsReadingEventArgs(IGpsReading reading)
+//        {
+//            Reading = reading;
+//        }
+//    }
+//}

@@ -38,7 +38,6 @@
             Grid.Row="1"
             MapType="{Binding MapType}">
             <cluster:Map.Behaviors>
-                <mapbindings:MoveToRegionBehavior Request="{Binding MoveToRegionRequest}" />
                 <mapbindings:AnimateCameraBehavior Request="{Binding AnimateCameraRequest}" />
                 <mapbindings:BindingPolygonsBehavior Value="{Binding Polygons}" />
                 <mapbindings:BindingPolylinesBehavior Value="{Binding Polylines}" />
@@ -218,7 +217,7 @@
             Padding="0,10,0,0"
             BackgroundColor="{DynamicResource WhiteColor}"
             CornerRadius="20,20,0,0"
-            HeightRequest="200"
+            HeightRequest="170"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="End" />
         <!--  Trạng thái xe  -->

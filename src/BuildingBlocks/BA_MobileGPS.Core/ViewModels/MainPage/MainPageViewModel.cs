@@ -63,8 +63,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this._mapper = mapper;
 
             StaticSettings.TimeServer = UserInfo.TimeServer.AddSeconds(1);
-            SetTimeServer();
-            StartTimmerSynData();
+            SetTimeServer();          
             EventAggregator.GetEvent<OnResumeEvent>().Subscribe(OnResumePage);
             EventAggregator.GetEvent<OnSleepEvent>().Subscribe(OnSleepPage);
             EventAggregator.GetEvent<SelectedCompanyEvent>().Subscribe(SelectedCompanyChanged);
@@ -85,13 +84,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     TryExecute(async () =>
                     {
-                        //await ConnectSignalR();
-                        //GetCountVehicleDebtMoney();
+                        await ConnectSignalR();
+                        GetCountVehicleDebtMoney();
                         InsertOrUpdateAppDevice();
-                        // GetNoticePopup();
+                        GetNoticePopup();
                         PushPageFileBase();
                         // Lấy danh sách cảnh báo
-                        //GetCountAlert();
+                        GetCountAlert();
                     });
 
                     return false;
@@ -506,6 +505,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
 
                     StaticSettings.ListVehilceOnline = result;
+
+                    StartTimmerSynData();
 
                     Device.BeginInvokeOnMainThread(async () =>
                     {

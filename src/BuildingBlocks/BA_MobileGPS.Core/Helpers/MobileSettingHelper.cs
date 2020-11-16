@@ -86,7 +86,7 @@ namespace BA_MobileGPS.Core
                             if (_Configurations == null)
                             {
                                 // Đọc dữ liệu từ API
-                                var service = Prism.PrismApplicationBase.Current.Container.Resolve<IResourceService>();
+                                var service = Prism.PrismApplicationBase.Current.Container.Resolve<IMobileSettingService>();
                                 _Configurations = await service.GetAllMobileConfigs(App.AppType);
                             }
 

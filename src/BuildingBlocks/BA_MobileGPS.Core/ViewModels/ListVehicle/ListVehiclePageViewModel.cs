@@ -12,7 +12,6 @@ using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Navigation.TabbedPages;
-using Rg.Plugins.Popup.Services;
 using Syncfusion.Data.Extensions;
 
 using System;
@@ -49,15 +48,13 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SelectStatusVehicleCommand { get; private set; }
 
         private readonly IMapper _mapper;
-        private readonly IVehicleOnlineService vehicleOnlineService;
         private readonly IGeocodeService geocodeService;
         private readonly IPopupServices popupServices;
 
-        public ListVehiclePageViewModel(INavigationService navigationService, IMapper mapper, IVehicleOnlineService vehicleOnlineService, IGeocodeService geocodeService, IPopupServices popupServices)
+        public ListVehiclePageViewModel(INavigationService navigationService, IMapper mapper, IGeocodeService geocodeService, IPopupServices popupServices)
             : base(navigationService)
         {
             this._mapper = mapper;
-            this.vehicleOnlineService = vehicleOnlineService;
             this.geocodeService = geocodeService;
             this.popupServices = popupServices;
             ShowHelpCommand = new DelegateCommand(ShowHelp);
@@ -72,8 +69,6 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #region Lifecycle
-
-
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -601,7 +596,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         await NavigationService.SelectTabAsync("OnlinePageNoCluster", parameters);
                     }
                 }
-
             });
         }
 

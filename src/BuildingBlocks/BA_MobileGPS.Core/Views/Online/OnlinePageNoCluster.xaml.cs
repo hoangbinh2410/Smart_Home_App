@@ -14,6 +14,7 @@ using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -45,7 +46,6 @@ namespace BA_MobileGPS.Core.Views
             boxInfo.TranslationY = 300;
             // Initialize the View Model Object
             vm = (OnlinePageViewModel)BindingContext;
-
             googleMap.IsUseCluster = false;
             googleMap.IsTrafficEnabled = false;
             googleMap.UiSettings.MapToolbarEnabled = false;
@@ -54,18 +54,10 @@ namespace BA_MobileGPS.Core.Views
             googleMap.UiSettings.RotateGesturesEnabled = false;
             googleMap.PinClicked += MapOnPinClicked;
             googleMap.MapClicked += Map_MapClicked;
-
             mCarActive = new VehicleOnline();
             mCurrentVehicleList = new List<VehicleOnline>();
             btnDirectvehicleOnline.IsVisible = false;
-
-            this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
-            this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
-            this.eventAggregator.GetEvent<BackButtonEvent>().Subscribe(AndroidBackButton);
-
             IsInitMarker = false;
-
-            StartTimmerCaculatorStatus();
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
         }
 
@@ -77,6 +69,9 @@ namespace BA_MobileGPS.Core.Views
 
         public void OnPageAppearingFirstTime()
         {
+            this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
+            this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
+            this.eventAggregator.GetEvent<BackButtonEvent>().Subscribe(AndroidBackButton);
             googleMap.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
         }
 
@@ -435,20 +430,18 @@ namespace BA_MobileGPS.Core.Views
                 }
 
                 //nếu xe nằm trong màn hình thì mới animation xoay và di chuyển
-                if (IsInMapScreen(new Position(carInfo.Lat, carInfo.Lng)))
+                if (IsInMapScreen(new Position(carInfo.Lat, carInfo.Lng)) && vm.IsActive)
                 {
                     //di chuyển xe
                     item.Rotate(carInfo.Lat, carInfo.Lng, () =>
                     {
-                        item.MarkerAnimation(carInfo.Lat, carInfo.Lng, () =>
-                        {
-                            if (carActive)
-                            {
-                                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
-                            }
-                        });
-                        //di chuyển biển số xe
-                        itemLable.MarkerAnimation(carInfo.Lat, carInfo.Lng, () => { });
+                        item.MarkerAnimation(itemLable, carInfo.Lat, carInfo.Lng, () =>
+                         {
+                             if (carActive)
+                             {
+                                 Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
+                             }
+                         });
                     });
                 }
                 else
@@ -480,37 +473,35 @@ namespace BA_MobileGPS.Core.Views
                 {
                     if (!IsInitMarker)
                     {
-                        using (new HUDService(MobileResource.Common_Message_Processing))
+                        vm.VehicleGroups = null;
+                        HideBoxInfoCarActive(new VehicleOnline() { VehicleId = 1 });
+                        var list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                        if (list != null && list.Count > 0)
                         {
-                            vm.VehicleGroups = null;
-                            HideBoxInfoCarActive(new VehicleOnline() { VehicleId = 1 });
-                            var list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
-                            if (list != null && list.Count > 0)
+                            //Nếu là công ty thường thì mặc định load xe của công ty lên bản đồ
+                            if (!UserHelper.isCompanyPartner(StaticSettings.User))
                             {
-                                //Nếu là công ty thường thì mặc định load xe của công ty lên bản đồ
-                                if (!UserHelper.isCompanyPartner(StaticSettings.User))
-                                {
-                                    InitVehicleStatus(list);
-                                    var listPin = ConvertMarkerPin(list);
+                                InitVehicleStatus(list);
+                                var listPin = ConvertMarkerPin(list);
 
-                                    //Vẽ xe lên bản đồ
-                                    InitPinVehicle(listPin);
+                                //Vẽ xe lên bản đồ
+                                InitPinVehicle(listPin);
+                            }
+                            else
+                            {
+                                //nếu trước đó đã chọn 1 công ty nào đó rồi thì load danh sách xe của công ty đó
+                                if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                                {
+                                    UpdateVehicleByCompany(Settings.CurrentCompany);
                                 }
                                 else
                                 {
-                                    //nếu trước đó đã chọn 1 công ty nào đó rồi thì load danh sách xe của công ty đó
-                                    if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
-                                    {
-                                        UpdateVehicleByCompany(Settings.CurrentCompany);
-                                    }
-                                    else
-                                    {
-                                        displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
-                                    }
+                                    displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
                                 }
                             }
-                            InitialCameraUpdate();
                         }
+                        InitialCameraUpdate();
+                        StartTimmerCaculatorStatus();
                     }
                 }
             }

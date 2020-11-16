@@ -4,7 +4,6 @@ using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels.Base;
-using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -31,7 +30,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private readonly IGeocodeService geocodeService;
         private readonly IVehicleRouteService vehicleRouteService;
-        private readonly IDisplayMessage displayMessage;
 
         public ICommand TimeSelectedCommand { get; }
         public ICommand DateSelectedCommand { get; }
@@ -51,11 +49,10 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand FastEndCommand { get; }
         public ICommand ChangeSpeedCommand { get; }
 
-        public RoutePageViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService, IDisplayMessage displayMessage, IGeocodeService geocodeService)
+        public RoutePageViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService, IGeocodeService geocodeService)
            : base(navigationService)
         {
             this.vehicleRouteService = vehicleRouteService;
-            this.displayMessage = displayMessage;
             this.geocodeService = geocodeService;
 
             if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
@@ -70,7 +67,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 ColorMapType = (Color)App.Current.Resources["PrimaryColor"];
                 BackgroundMapType = (Color)App.Current.Resources["WhiteColor"];
             }
-
+            view = new StackLayout();
             TimeSelectedCommand = new Command<string>(TimeSelected);
             DateSelectedCommand = new Command<DateChangedEventArgs>(DateSelected);
             SearchVehicleCommand = new Command(SearchVehicle);
@@ -140,15 +137,11 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
-
+        private View view;
         private CancellationTokenSource ctsRouting = new CancellationTokenSource();
         private CancellationTokenSource ctsAddress = new CancellationTokenSource();
 
-        private Polyline RouteLine;
-
         private RouteHistoryResponse RouteHistory;
-
-        private Pin PinCar, PinPlate;
 
         public List<VehicleRoute> ListRoute { get; set; } = new List<VehicleRoute>();
 
@@ -164,8 +157,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public ObservableCollection<Pin> Pins { get; set; } = new ObservableCollection<Pin>();
 
         public ObservableCollection<Polyline> Polylines { get; set; } = new ObservableCollection<Polyline>();
-
-        public ObservableCollection<Polygon> Boundaries { get; set; } = new ObservableCollection<Polygon>();
 
         public MoveCameraRequest MoveCameraRequest { get; } = new MoveCameraRequest();
 
@@ -202,7 +193,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public string PlayStopImage => IsPlaying ? "ic_stop_white" : "ic_play";
 
-        public int playSpeed = 4;
+        public int playSpeed = 2;
         public int PlaySpeed { get => playSpeed; set => SetProperty(ref playSpeed, value); }
 
         public int playMin = 0;
@@ -216,17 +207,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public bool playControlEnabled;
         public bool PlayControlEnabled { get => !playControlEnabled; set => SetProperty(ref playControlEnabled, value); }
-
-        private readonly double SPEED_MAX = 8;
-        private readonly double BASE_TIME = 250;
-
-        private readonly double MARKER_ROTATE_RATE = 0.1;
-        private double MARKER_ROTATE_STEP => 5;
-        private double MARKER_ROTATE_TIME_STEP => MARKER_ROTATE_RATE * BASE_TIME / PlaySpeed / MARKER_ROTATE_STEP;
-
-        private double MARKER_MOVE_RATE => 1 - MARKER_ROTATE_RATE;
-        private double MARKER_MOVE_STEP => 64 / PlaySpeed;
-        private double MARKER_MOVE_TIME_STEP => BASE_TIME / PlaySpeed / MARKER_MOVE_STEP;
+        private double SPEED_MAX = 8;
+        private int BaseTimeMoving = 800;
+        private int BaseTimeRotating = 250;
 
         private bool lastPlayStatus;
 
@@ -258,7 +241,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (ListRoute.Count <= 0)
             {
-                displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotExist, 3000);
+                DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotExist, 3000);
                 return;
             }
 
@@ -312,12 +295,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 ColorTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
                 IsWatching = true;
 
-                if (PinCar != null)
+                if (CurrentRoute != null)
                 {
                     if (Device.RuntimePlatform == Device.iOS)
-                        MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(PinCar.Position, ZoomLevel)));
+                        MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(CurrentRoute.Latitude, CurrentRoute.Longitude), ZoomLevel)));
                     else
-                        MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(PinCar.Position));
+                        MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(new Position(CurrentRoute.Latitude, CurrentRoute.Longitude)));
                 }
             }
         }
@@ -350,7 +333,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Vehicle.VehiclePlate))
             {
-                displayMessage.ShowMessageWarning(MobileResource.Route_Label_VehicleEmpty, 3000);
+                DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_VehicleEmpty, 3000);
                 return false;
             }
 
@@ -369,21 +352,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 ctsAddress.Cancel();
 
             ListRoute.Clear();
-
-            //Polylines.Clear();
-
-            foreach (var line in Polylines.ToList().FindAll(l => !"Boundary".Equals(l.Tag)))
-            {
-                Polylines.Remove(line);
-            }
-
-            //Pins.Clear();
-
-            foreach (var pin in Pins.Where(p => !p.Tag.ToString().Contains("Boundary")).ToList())
-            {
-                Pins.Remove(pin);
-            }
-
+            Polylines.Clear();
+            Pins.Clear();
             CurrentRoute = null;
             IsPlaying = false;
             PlayCurrent = 0;
@@ -432,7 +402,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (task.Result == null)
                         {
                             DependencyService.Get<IHUDProvider>().Dismiss();
-                            displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
+                            DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
                             return;
                         }
 
@@ -445,7 +415,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (ListRoute.Count == 0)
                         {
                             DependencyService.Get<IHUDProvider>().Dismiss();
-                            displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
+                            DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
                             return;
                         }
 
@@ -456,13 +426,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         DrawRoute();
 
-                        Device.BeginInvokeOnMainThread(() =>
-                        {
-                            CurrentRoute = ListRoute[0];
-                            MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude), ZoomLevel)));
-                        });
-
                         PlayMax = ListRoute.Count - 1;
+
                         PlayControlEnabled = true;
 
                         RouteHistory = null;
@@ -550,8 +515,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     RouteHistory.TimePoints.AddedTimes.Add(RouteHistory.TimePoints.AddedTimes[0]);
                 }
 
-                //var stopPoints = RouteHistory.StatePoints.FindAll(s => s.State == StateType.Stop);
-
                 var startTime = RouteHistory.TimePoints.StartTime;
 
                 void AddRoute(int index)
@@ -600,83 +563,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private double CalculateDistance(double lat1, double lng1, double lat2, double lng2)
         {
-            return Plugin.Geolocator.Abstractions.GeolocatorUtils.CalculateDistance(lat1, lng1, lat2, lng2, Plugin.Geolocator.Abstractions.GeolocatorUtils.DistanceUnits.Kilometers);
+            return GeoHelper.DistanceCalculatorCoordinate(lat1, lng1, lat2, lng2);
         }
 
         private void DrawRoute()
         {
-            PinCar = new Pin()
-            {
-                Type = PinType.Place,
-                Label = "pin_car",
-                Anchor = new Point(.5, .5),
-                Position = new Position(ListRoute[0].Latitude, ListRoute[0].Longitude),
-                Rotation = (float)GeoHelper.BearingBetweenLocations(ListRoute[0].Latitude, ListRoute[0].Longitude, ListRoute[1].Latitude, ListRoute[1].Longitude),
-                Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
-                ZIndex = 2,
-                Tag = Vehicle.VehiclePlate,
-                IsDraggable = false
-            };
-            Pins.Add(PinCar);
-
-            PinPlate = new Pin()
-            {
-                Type = PinType.Place,
-                Label = "pin_plate",
-                Anchor = new Point(.5, .75),
-                Position = new Position(ListRoute[0].Latitude, ListRoute[0].Longitude),
-                Icon = BitmapDescriptorFactory.FromView(new PinInfowindowView(Vehicle.PrivateCode)),
-                ZIndex = 2,
-                Tag = Vehicle.VehiclePlate + "Plate",
-                IsDraggable = false
-            };
-
-            Pins.Add(PinPlate);
-
-            Pins.Add(new Pin()
-            {
-                Type = PinType.Place,
-                Label = "",
-                Position = new Position(ListRoute[0].Latitude, ListRoute[0].Longitude),
-                Icon = BitmapDescriptorFactory.FromResource("ic_start.png"),
-                ZIndex = 0,
-                Tag = "pin_start",
-                IsDraggable = false
-            });
-
-            Pins.Add(new Pin()
-            {
-                Type = PinType.Place,
-                Label = "",
-                Position = new Position(ListRoute[ListRoute.Count - 1].Latitude, ListRoute[ListRoute.Count - 1].Longitude),
-                Icon = BitmapDescriptorFactory.FromResource("ic_end.png"),
-                ZIndex = 0,
-                Tag = "pin_end",
-                IsDraggable = false
-            });
-
-            RouteLine = new Polyline
-            {
-                IsClickable = false,
-                StrokeColor = Color.FromHex("#4285f4"),
-                StrokeWidth = 3f,
-                ZIndex = 1
-            };
-
-            RouteLine.Positions.Add(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude));
-
-            for (int i = 0; i < ListRoute.Count; i++)
-            {
-                RouteLine.Positions.Add(new Position(ListRoute[i].Latitude, ListRoute[i].Longitude));
-                if (ListRoute[i].State != null && ListRoute[i].State.State == StateType.Stop)
-                {
-                    DrawStopPoint(ListRoute[i]);
-                }
-            }
+            DrawMarkerCar();
+            DrawMarkerStartEnd();
             DrawDiretionMarker();
-
-            Polylines.Add(RouteLine);
-
+            DrawLine();
             StartRoute();
         }
 
@@ -697,12 +592,68 @@ namespace BA_MobileGPS.Core.ViewModels
                 Anchor = new Point(.5, .5),
                 Position = new Position(vehicle.Latitude, vehicle.Longitude),
                 Icon = BitmapDescriptorFactory.FromResource("ic_stop.png"),
-                Tag = "state_stop",
+                Tag = "state_stop_route",
                 ZIndex = 1,
                 IsDraggable = false
             };
 
             Pins.Add(pin);
+        }
+
+        private void DrawMarkerCar()
+        {
+            var MarkerCar = new DoubleMarkerRoute().InitDoubleMarkerRoute(
+                        ListRoute[0].Latitude, ListRoute[0].Longitude, ListRoute[1].Latitude, ListRoute[1].Longitude, Vehicle.PrivateCode);
+            MarkerCar.DrawMarker();
+            Pins.Add(MarkerCar.Car);
+            Pins.Add(MarkerCar.Plate);
+        }
+
+        private void DrawMarkerStartEnd()
+        {
+            Pins.Add(new Pin()
+            {
+                Type = PinType.Place,
+                Label = "Bắt đầu",
+                Position = new Position(ListRoute[0].Latitude, ListRoute[0].Longitude),
+                Icon = BitmapDescriptorFactory.FromResource("ic_start.png"),
+                ZIndex = 0,
+                Tag = "pin_start_route",
+                IsDraggable = false
+            });
+
+            Pins.Add(new Pin()
+            {
+                Type = PinType.Place,
+                Label = "Kết thúc",
+                Position = new Position(ListRoute[ListRoute.Count - 1].Latitude, ListRoute[ListRoute.Count - 1].Longitude),
+                Icon = BitmapDescriptorFactory.FromResource("ic_end.png"),
+                ZIndex = 0,
+                Tag = "pin_end_route",
+                IsDraggable = false
+            });
+        }
+
+        private void DrawLine()
+        {
+            var line = new Polyline
+            {
+                IsClickable = false,
+                StrokeColor = Color.FromHex("#4285f4"),
+                StrokeWidth = 3f,
+                ZIndex = 1
+            };
+            line.Positions.Add(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude));
+
+            for (int i = 0; i < ListRoute.Count; i++)
+            {
+                line.Positions.Add(new Position(ListRoute[i].Latitude, ListRoute[i].Longitude));
+                if (ListRoute[i].State != null && ListRoute[i].State.State == StateType.Stop)
+                {
+                    DrawStopPoint(ListRoute[i]);
+                }
+            }
+            Polylines.Add(line);
         }
 
         /* Vẽ hướng cho lộ trình */
@@ -742,14 +693,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void PinClicked(PinClickedEventArgs args)
         {
-            if (!"state_stop".Equals(args.Pin.Tag) && !"direction".Equals(args.Pin.Tag))
+            if (!"state_stop_route".Equals(args.Pin.Tag) && !"direction_route".Equals(args.Pin.Tag))
             {
                 args.Handled = true;
                 return;
             }
 
-            args.Handled = true;
-
+            args.Handled = false;
+            StopWatchVehicle();
             if (ctsAddress != null)
                 ctsAddress.Cancel();
 
@@ -781,17 +732,16 @@ namespace BA_MobileGPS.Core.ViewModels
                 ctsRouting = new CancellationTokenSource();
 
                 CurrentRoute = ListRoute[0];
+                var doubeMarker = Pins.Where(x => x.Label == Vehicle.PrivateCode).ToList();
+                if (doubeMarker != null && doubeMarker.Count > 1)
+                {
+                    MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(doubeMarker[0].Position, ZoomLevel)));
 
-                PinCar.Rotation = (float)GeoHelper.ComputeHeading(CurrentRoute.Latitude, CurrentRoute.Longitude, ListRoute[PlayCurrent + 1].Latitude, ListRoute[PlayCurrent + 1].Longitude);
+                    SuperInteligent(doubeMarker[0], doubeMarker[1]);
 
-                PinCar.Position = new Position(CurrentRoute.Latitude, CurrentRoute.Longitude);
-                PinPlate.Position = PinCar.Position;
+                    IsPlaying = true;
+                }
 
-                MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(PinCar.Position, ZoomLevel)));
-
-                SuperInteligent();
-
-                IsPlaying = true;
             }
             catch (Exception ex)
             {
@@ -819,10 +769,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     ctsRouting = new CancellationTokenSource();
 
                     MoveToCurrent();
-
-                    SuperInteligent();
-
-                    IsPlaying = true;
                 }
                 else
                 {
@@ -853,100 +799,118 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private void SuperInteligent()
+        private void SuperInteligent(Pin item, Pin itemLable)
         {
             try
             {
                 PlayCurrent++;
 
                 CurrentRoute = ListRoute[PlayCurrent];
-                RotateMarker(CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
-                {
-                    MarkerAnimation(CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
-                    {
-                        if (PlayCurrent + 1 > PlayMax || ctsRouting.IsCancellationRequested)
-                        {
-                            IsPlaying = false;
-                            return;
-                        }
 
-                        SuperInteligent();
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    RotateMarker(item, CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
+                    {
+                        MarkerAnimation(item, itemLable, CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
+                        {
+                            if (PlayCurrent + 1 > PlayMax || ctsRouting.IsCancellationRequested)
+                            {
+                                IsPlaying = false;
+                                return;
+                            }
+
+                            SuperInteligent(item, itemLable);
+                        });
                     });
                 });
+
             }
             catch (Exception ex)
             {
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
-
-        public void RotateMarker(double latitude,
+        public bool IsRunning = false;
+        public void RotateMarker(Pin item, double latitude,
            double longitude,
-           Action callback, int duration = 100)
+           Action callback)
         {
-            //gán lại vòng quay
-            var mRotateIndex = 0;
-            double MAX_ROTATE_STEP = duration / 50;
             // * tính góc quay giữa 2 điểm location
-            var angle = GeoHelper.ComputeHeading(PinCar.Position.Latitude, PinCar.Position.Longitude, latitude, longitude);
+            var angle = GeoHelper.ComputeHeading(item.Position.Latitude, item.Position.Longitude, latitude, longitude);
             if (angle == 0)
             {
                 callback();
                 return;
             }
-            var startRotaion = PinCar.Rotation;
+            var startRotaion = item.Rotation;
             //tính lại độ lệch góc
             var deltaAngle = GeoHelper.GetRotaion(startRotaion, angle);
-
-            Device.StartTimer(TimeSpan.FromMilliseconds(50), () =>
+            void callbackanimate(double input)
             {
-                //góc quay tiếp theo
                 var fractionAngle = GeoHelper.ComputeRotation(
-                                      mRotateIndex / MAX_ROTATE_STEP,
+                                     input,
                                       startRotaion,
                                       deltaAngle);
-                mRotateIndex = mRotateIndex + 1;
 
-                PinCar.Rotation = (float)fractionAngle;
+                item.Rotation = (float)fractionAngle;
+            }
+            view.Animate(
+                "rotateCarRoute",
+                animation: new Animation(callbackanimate),
+                length: (uint)(BaseTimeRotating / PlaySpeed),
 
-                if (mRotateIndex > MAX_ROTATE_STEP)
+                finished: (val, b) =>
                 {
                     callback();
-                    return false;
                 }
-
-                return true;
-            });
+                );
         }
 
-        public async void MarkerAnimation(double latitude, double longitude, Action callback, int duration = 500)
+        public void MarkerAnimation(Pin item, Pin itemLable, double latitude, double longitude, Action callback)
         {
-            double moveTime = MARKER_MOVE_RATE * MARKER_MOVE_TIME_STEP;
-            var startPosition = new Position(PinCar.Position.Latitude, PinCar.Position.Longitude);
-            var finalPosition = new Position(latitude, longitude);
-            double elapsed = 0;
-            double time = 0;
-            double v;
-            while (!ctsRouting.IsCancellationRequested && time < 1)
+            if (this.IsRunning)
             {
-                elapsed = elapsed + 10;
-                time = elapsed / duration;
-                v = GeoHelper.GetInterpolation(time);
-
-                var postionnew = GeoHelper.Interpolate(v,
-                    startPosition,
-                    finalPosition);
-                PinCar.Position = new Position(postionnew.Latitude, postionnew.Longitude);
-                PinPlate.Position = new Position(postionnew.Latitude, postionnew.Longitude);
-                if (IsWatching && !ctsRouting.IsCancellationRequested)
-                {
-                    _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(postionnew), TimeSpan.FromMilliseconds(moveTime));
-                }
-                await Task.Delay(TimeSpan.FromMilliseconds(moveTime));
+                callback();
             }
-            PinPlate.Position = finalPosition;
-            PinCar.Position = finalPosition;
-            callback();
+            else
+            {
+                IsRunning = true;
+                var startPosition = new Position(item.Position.Latitude, item.Position.Longitude);
+                var finalPosition = new Position(latitude, longitude);
+                void callbackanimate(double input)
+                {
+                    var postionnew = GeoHelper.LinearInterpolator(input,
+                        startPosition,
+                        finalPosition);
+                    itemLable.Position = postionnew;
+                    item.Position = postionnew;
+                    if (Device.RuntimePlatform == Device.iOS)
+                    {
+                        if (IsWatching && !ctsRouting.IsCancellationRequested)
+                        {
+                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(postionnew), TimeSpan.FromMilliseconds(1000 / PlaySpeed));
+                        }
+                    }
+                }
+                view.Animate(
+                "moveCarRoute",
+                animation: new Animation(callbackanimate),
+                length: (uint)(BaseTimeMoving / PlaySpeed),
+                finished: (val, b) =>
+                {
+                    if (Device.RuntimePlatform == Device.Android)
+                    {
+                        if (IsWatching && !ctsRouting.IsCancellationRequested)
+                        {
+                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(item.Position), TimeSpan.FromMilliseconds(300));
+                        }
+                    }
+                    IsRunning = false;
+                    callback();
+                }
+                );
+
+            }
         }
 
         private void DragStarted()
@@ -961,8 +925,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                MoveToCurrent();
-
                 if (lastPlayStatus)
                 {
                     PlayStop();
@@ -980,22 +942,26 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 CurrentRoute = ListRoute[PlayCurrent];
-
-                //DrawToCurrent();
-
-                if (PlayCurrent > 0)
+                var doubeMarker = Pins.Where(x => x.Label == Vehicle.PrivateCode).ToList();
+                if (doubeMarker != null && doubeMarker.Count > 1)
                 {
-                    PinCar.Rotation = (float)GeoHelper.ComputeHeading(ListRoute[PlayCurrent - 1].Latitude, ListRoute[PlayCurrent - 1].Longitude, CurrentRoute.Latitude, CurrentRoute.Longitude);
-                }
-                else
-                {
-                    PinCar.Rotation = (float)GeoHelper.ComputeHeading(CurrentRoute.Latitude, CurrentRoute.Longitude, ListRoute[PlayCurrent + 1].Latitude, ListRoute[PlayCurrent + 1].Longitude);
-                }
+                    if (PlayCurrent > 0)
+                    {
+                        doubeMarker[0].Rotation = (float)GeoHelper.ComputeHeading(ListRoute[PlayCurrent - 1].Latitude, ListRoute[PlayCurrent - 1].Longitude, CurrentRoute.Latitude, CurrentRoute.Longitude);
+                    }
+                    else
+                    {
+                        doubeMarker[0].Rotation = (float)GeoHelper.ComputeHeading(CurrentRoute.Latitude, CurrentRoute.Longitude, ListRoute[PlayCurrent + 1].Latitude, ListRoute[PlayCurrent + 1].Longitude);
+                    }
+                    doubeMarker[0].Position = new Position(CurrentRoute.Latitude, CurrentRoute.Longitude);
+                    doubeMarker[1].Position = doubeMarker[0].Position;
 
-                PinCar.Position = new Position(CurrentRoute.Latitude, CurrentRoute.Longitude);
-                PinPlate.Position = PinCar.Position;
+                    MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(doubeMarker[0].Position));
 
-                MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(PinCar.Position));
+                    SuperInteligent(doubeMarker[0], doubeMarker[1]);
+
+                    IsPlaying = true;
+                }
             }
             catch (Exception ex)
             {

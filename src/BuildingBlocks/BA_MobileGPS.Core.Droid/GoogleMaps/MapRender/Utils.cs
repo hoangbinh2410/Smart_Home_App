@@ -5,9 +5,6 @@ using Android.Graphics;
 using Android.Views;
 
 using Plugin.CurrentActivity;
-
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -27,38 +24,31 @@ namespace BA_MobileGPS.Core.Droid
             return (int)(dp * metrics.Density);
         }
 
-        public static Task<Android.Views.View> ConvertFormsToNative(Xamarin.Forms.View view, Rectangle size, IVisualElementRenderer vRenderer)
+        public static Task<Android.Views.View> ConvertFormsToNative(Xamarin.Forms.View view, Rectangle size)
         {
             return Task.Run(() =>
             {
-                var renderer = Platform.CreateRendererWithContext(view, CrossCurrentActivity.Current.Activity);
-                var nativeView = renderer.View;
-                renderer.Tracker.UpdateLayout();
+                var vRenderer = Platform.CreateRendererWithContext(view, CrossCurrentActivity.Current.Activity);
+                var viewGroup = vRenderer.View;
+                vRenderer.Tracker.UpdateLayout();
                 var layoutParams = new ViewGroup.LayoutParams((int)size.Width, (int)size.Height);
-                nativeView.LayoutParameters = layoutParams;
+                viewGroup.LayoutParameters = layoutParams;
                 view.Layout(size);
-                nativeView.Layout(0, 0, (int)view.WidthRequest, (int)view.HeightRequest);
-                //await FixImageSourceOfImageViews(viewGroup as ViewGroup); // Not sure why this was being done in original
-                return nativeView;
+                viewGroup.Layout(0, 0, (int)view.WidthRequest, (int)view.HeightRequest);
+
+                return viewGroup;
             });
         }
 
         public static Bitmap ConvertViewToBitmap(Android.Views.View v)
         {
-            v.SetLayerType(LayerType.Hardware, null);
-            v.DrawingCacheEnabled = true;
-
             v.Measure(Android.Views.View.MeasureSpec.MakeMeasureSpec(0, MeasureSpecMode.Unspecified), Android.Views.View.MeasureSpec.MakeMeasureSpec(0, MeasureSpecMode.Unspecified));
             v.Layout(0, 0, v.MeasuredWidth, v.MeasuredHeight);
-
-            v.BuildDrawingCache(true);
-            Bitmap b = Bitmap.CreateBitmap(v.GetDrawingCache(true));
-            v.DrawingCacheEnabled = false; // clear drawing cache
-            return b;
+            Bitmap bitmap = Bitmap.CreateBitmap(v.MeasuredWidth, v.MeasuredHeight, Bitmap.Config.Argb8888);
+            Canvas canvas = new Canvas(bitmap);
+            v.Draw(canvas);
+            return bitmap;
         }
-
-        private static LinkedList<string> lruTracker = new LinkedList<string>();
-        private static ConcurrentDictionary<string, Android.Gms.Maps.Model.BitmapDescriptor> cache = new ConcurrentDictionary<string, Android.Gms.Maps.Model.BitmapDescriptor>();
 
         public static Task<Android.Gms.Maps.Model.BitmapDescriptor> ConvertViewToBitmapDescriptor(Android.Views.View v)
         {

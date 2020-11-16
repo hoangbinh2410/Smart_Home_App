@@ -46,23 +46,19 @@ namespace BA_MobileGPS.Core.Views
             boxInfo.TranslationY = 300;
             // Initialize the View Model Object
             vm = (OnlinePageViewModel)BindingContext;
-
             googleMap.IsUseCluster = true;
             googleMap.IsTrafficEnabled = false;
 
             googleMap.ClusterOptions.EnableBuckets = true;
             googleMap.ClusterOptions.Algorithm = ClusterAlgorithm.GridBased;
-
             googleMap.UiSettings.MapToolbarEnabled = false;
             googleMap.UiSettings.ZoomControlsEnabled = false;
             googleMap.UiSettings.MyLocationButtonEnabled = false;
             googleMap.UiSettings.RotateGesturesEnabled = false;
-
             if (Device.RuntimePlatform == Device.Android)
             {
                 googleMap.ClusterOptions.RendererImage = BitmapDescriptorFactory.FromResource("ic_cluster.png");
             }
-
             googleMap.ClusterClicked += Map_ClusterClicked;
             googleMap.PinClicked += MapOnPinClicked;
             googleMap.MapClicked += Map_MapClicked;
@@ -71,15 +67,7 @@ namespace BA_MobileGPS.Core.Views
             mCarActive = new VehicleOnline();
             mCurrentVehicleList = new List<VehicleOnline>();
             btnDirectvehicleOnline.IsVisible = false;
-
-            this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
-            this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
-            this.eventAggregator.GetEvent<BackButtonEvent>().Subscribe(AndroidBackButton);
-
             IsInitMarker = false;
-
-            StartTimmerCaculatorStatus();
-
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
         }
 
@@ -91,6 +79,9 @@ namespace BA_MobileGPS.Core.Views
 
         public void OnPageAppearingFirstTime()
         {
+            this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
+            this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
+            this.eventAggregator.GetEvent<BackButtonEvent>().Subscribe(AndroidBackButton);
             googleMap.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
         }
 
@@ -454,20 +445,18 @@ namespace BA_MobileGPS.Core.Views
                 }
 
                 //nếu xe nằm trong màn hình thì mới animation xoay và di chuyển
-                if (IsInMapScreen(new Position(carInfo.Lat, carInfo.Lng)))
+                if (IsInMapScreen(new Position(carInfo.Lat, carInfo.Lng)) && vm.IsActive)
                 {
                     //di chuyển xe
                     item.Rotate(carInfo.Lat, carInfo.Lng, () =>
                     {
-                        item.MarkerAnimation(carInfo.Lat, carInfo.Lng, () =>
-                        {
-                            if (carActive)
-                            {
-                                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
-                            }
-                        });
-                        //di chuyển biển số xe
-                        itemLable.MarkerAnimation(carInfo.Lat, carInfo.Lng, () => { });
+                        item.MarkerAnimation(itemLable, carInfo.Lat, carInfo.Lng, () =>
+                         {
+                             if (carActive)
+                             {
+                                 Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
+                             }
+                         });
                     });
                 }
                 else
@@ -529,6 +518,7 @@ namespace BA_MobileGPS.Core.Views
                                 }
                             }
                             InitialCameraUpdate();
+                            StartTimmerCaculatorStatus();
                         }
                     }
                 }

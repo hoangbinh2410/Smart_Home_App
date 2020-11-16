@@ -1,41 +1,51 @@
-﻿using Plugin.Messaging;
+﻿using BA_MobileGPS.Core.Helpers;
+using System;
+using System.Reflection;
+using Xamarin.Essentials;
 
 namespace BA_MobileGPS.Core
 {
     public static class SendActionHelper
     {
-        public static void SendSMS(string phonenumberStr, string messaging)
+        public async static void SendSMS(string phonenumberStr, string messaging)
         {
-            var smsMessenger = CrossMessaging.Current.SmsMessenger;
-            if (smsMessenger.CanSendSms)
+            try
             {
-                smsMessenger.SendSms(phonenumberStr, messaging);
+                var message = new SmsMessage(messaging, new[] { phonenumberStr });
+                await Sms.ComposeAsync(message);
+            }
+            catch (FeatureNotSupportedException ex)
+            {
+                // Sms is not supported on this device.
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            catch (Exception ex)
+            {
+                // Other error has occurred.
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
         public static void SendMakePhoneCall(string phonenumber)
         {
-            var phoneDialer = CrossMessaging.Current.PhoneDialer;
-            if (phoneDialer.CanMakePhoneCall)
+            try
             {
-                phoneDialer.MakePhoneCall(phonenumber);
+                PhoneDialer.Open(phonenumber);
             }
-        }
-
-        public static void SendEmail(string emailAddress, string subject, string body)
-        {
-            var emailMessenger = CrossMessaging.Current.EmailMessenger;
-            if (emailMessenger.CanSendEmail)
+            catch (ArgumentNullException anEx)
             {
-                emailMessenger.SendEmail(emailAddress, subject, body);
-
-                var email = new EmailMessageBuilder()
-                  .To(emailAddress)
-                  .Subject(subject)
-                  .Body(body)
-                  .Build();
-
-                emailMessenger.SendEmail(email);
+                // Number was null or white space
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, anEx);
+            }
+            catch (FeatureNotSupportedException ex)
+            {
+                // Phone Dialer is not supported on this device.
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            catch (Exception ex)
+            {
+                // Other error has occurred.
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
     }

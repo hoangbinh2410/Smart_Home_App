@@ -32,6 +32,11 @@ namespace BA_MobileGPS.Core
 
         public static readonly BindableProperty TransparencyProperty = BindableProperty.Create(nameof(Transparency), typeof(float), typeof(Pin), 0f);
 
+        public Pin()
+        {
+            view = new StackLayout();
+        }
+        private View view;
         public string Label
         {
             get { return (string)GetValue(LabelProperty); }
@@ -169,11 +174,8 @@ namespace BA_MobileGPS.Core
 
         public void Rotate(double latitude,
     double longitude,
-    Action callback, int duration = 50)
+    Action callback)
         {
-            //gán lại vòng quay
-            var mRotateIndex = 0;
-            double MAX_ROTATE_STEP = duration / 50;
             // * tính góc quay giữa 2 điểm location
             var angle = GeoHelper.ComputeHeading(this.Position.Latitude, this.Position.Longitude, latitude, longitude);
             if (angle == 0)
@@ -181,34 +183,30 @@ namespace BA_MobileGPS.Core
                 callback();
                 return;
             }
-
-            //tính lại độ lệch góc
-            var deltaAngle = GeoHelper.GetRotaion(this.Rotation, angle);
-
             var startRotaion = this.Rotation;
-
-            Device.StartTimer(TimeSpan.FromMilliseconds(50), () =>
+            //tính lại độ lệch góc
+            var deltaAngle = GeoHelper.GetRotaion(startRotaion, angle);
+            void callbackanimate(double input)
             {
-                //góc quay tiếp theo
                 var fractionAngle = GeoHelper.ComputeRotation(
-                                      mRotateIndex / MAX_ROTATE_STEP,
+                                     input,
                                       startRotaion,
                                       deltaAngle);
-                mRotateIndex = mRotateIndex + 1;
 
                 this.Rotation = (float)fractionAngle;
-
-                if (mRotateIndex > MAX_ROTATE_STEP)
+            }
+            view.Animate(
+                "rotateCar",
+                animation: new Animation(callbackanimate),
+                length: 250,
+                finished: (val, b) =>
                 {
                     callback();
-                    return false;
                 }
-
-                return true;
-            });
+                );
         }
 
-        public void MarkerAnimation(double latitude, double longitude, Action callback, int duration = 4000)
+        public void MarkerAnimation(Pin itemplate, double latitude, double longitude, Action callback)
         {
             if (this.IsRunning)
             {
@@ -216,39 +214,26 @@ namespace BA_MobileGPS.Core
             }
             else
             {
-                IsRunning = true;
-                //gán lại vòng quay
-                double mMoveIndex = 0;
-                double MAX_MOVE_STEP = duration / 100;
-                var startPosition = this.Position;
-
+                var startPosition = new Position(this.Position.Latitude, this.Position.Longitude);
                 var finalPosition = new Position(latitude, longitude);
-                double elapsed = 0;
-                double t;
-                double v;
-
-                Device.StartTimer(TimeSpan.FromMilliseconds(100), () =>
+                void callbackanimate(double input)
                 {
-                    // Calculate progress using interpolator
-                    elapsed = elapsed + 100;
-                    t = elapsed / duration;
-                    v = GeoHelper.GetInterpolation(t);
-
-                    var postionnew = GeoHelper.LinearInterpolator(v,
-                        new Position(startPosition.Latitude, startPosition.Longitude),
-                        new Position(latitude, longitude));
-
-                    mMoveIndex = mMoveIndex + 1;
-                    this.Position = new Position(postionnew.Latitude, postionnew.Longitude);
-                    if (mMoveIndex > MAX_MOVE_STEP)
-                    {
-                        IsRunning = false;
-                        callback();
-                        return false;
-                    }
-
-                    return true;
-                });
+                    var postionnew = GeoHelper.LinearInterpolator(input,
+                        startPosition,
+                        finalPosition);
+                    itemplate.Position = postionnew;
+                    this.Position = postionnew;
+                }
+                view.Animate(
+                "moveCar",
+                animation: new Animation(callbackanimate),
+                length: 4000,
+                finished: (val, b) =>
+                {
+                    IsRunning = false;
+                    callback();
+                }
+                );
             }
         }
     }

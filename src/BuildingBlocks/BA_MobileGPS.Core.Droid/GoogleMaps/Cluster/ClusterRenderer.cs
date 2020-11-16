@@ -3,7 +3,6 @@ using Android.Gms.Maps.Model;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Graphics.Drawables.Shapes;
-using Android.Util;
 
 using Com.Google.Maps.Android.Clustering;
 using Com.Google.Maps.Android.Clustering.View;
@@ -20,9 +19,9 @@ namespace BA_MobileGPS.Core.Droid
         private readonly Map map;
         private readonly Dictionary<string, NativeBitmapDescriptor> disabledBucketsCache;
         private readonly Dictionary<string, NativeBitmapDescriptor> enabledBucketsCache;
+        private Dictionary<int, NativeBitmapDescriptor> mIcons;
         private IconClusterGenerator mIconGenerator;
         private ShapeDrawable mColoredCircleBackground;
-        private SparseArray<NativeBitmapDescriptor> mIcons = new SparseArray<NativeBitmapDescriptor>();
 
         /**
  * If cluster size is less than this size, display individual markers.
@@ -39,6 +38,7 @@ namespace BA_MobileGPS.Core.Droid
             MinClusterSize = map.ClusterOptions.MinimumClusterSize;
             disabledBucketsCache = new Dictionary<string, NativeBitmapDescriptor>();
             enabledBucketsCache = new Dictionary<string, NativeBitmapDescriptor>();
+            mIcons = new Dictionary<int, NativeBitmapDescriptor>();
             mIconGenerator = new IconClusterGenerator(context);
             mIconGenerator.SetBackground(makeClusterBackground());
         }
@@ -94,16 +94,26 @@ namespace BA_MobileGPS.Core.Droid
             var icon = GetFromIconCache(cluster);
             if (icon == null)
             {
-                int bucket = GetBucket(cluster);
-                icon = mIcons.Get(bucket);
-                if (icon == null)
+                try
                 {
-                    mColoredCircleBackground.Paint.Color = Color.White;
-                    icon = AndroidBitmapDescriptorFactory.FromBitmap(mIconGenerator.MakeIcon(bucket.ToString()));
-                    mIcons.Put(bucket, icon);
+                    int bucket = GetBucket(cluster);
+                    var exists = mIcons.ContainsKey(bucket);
+                    if (exists)
+                    {
+                        icon = mIcons[bucket];
+                    }
+                    else
+                    {
+                        mColoredCircleBackground.Paint.Color = Color.White;
+                        icon = AndroidBitmapDescriptorFactory.FromBitmap(mIconGenerator.MakeIcon(bucket.ToString()));
+                        mIcons.Add(bucket, icon);
+                    }
+                    AddToIconCache(cluster, icon);
                 }
-
-                AddToIconCache(cluster, icon);
+                catch (System.Exception ex)
+                {
+                    throw ex;
+                }
             }
             return icon;
         }

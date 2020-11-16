@@ -39,27 +39,5 @@ namespace BA_MobileGPS.Service
             }
             return result;
         }
-
-        public async Task<List<MobileConfiguration>> GetAllMobileConfigs(AppType appType)
-        {
-            List<MobileConfiguration> result = new List<MobileConfiguration>();
-            try
-            {
-                int appID = (int)appType;
-
-                string uri = string.Format(ApiUri.GET_MOBILECONFIG + "/?appID={0}", appID);
-
-                var data = await RequestProvider.GetAsync<List<MobileConfiguration>>(uri);
-                if (data != null && data.Count > 0)
-                {
-                    result = data;
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
-            }
-            return result;
-        }
     }
 }

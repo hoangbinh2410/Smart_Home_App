@@ -1,5 +1,4 @@
 using Android.App;
-using Android.Content;
 using Android.Gms.Maps.Model;
 using Android.Widget;
 
@@ -23,7 +22,7 @@ namespace BA_MobileGPS.Core.Droid.Logics
         private Pin _draggingPin;
         private volatile bool _withoutUpdateNative = false;
 
-        private readonly Context context;
+        private readonly Activity context;
         private readonly IBitmapDescriptorFactory bitmapDescriptorFactory;
 
         public PinLogic(Activity context,
@@ -71,7 +70,6 @@ namespace BA_MobileGPS.Core.Droid.Logics
                 .SetPosition(new LatLng(outerItem.Position.Latitude, outerItem.Position.Longitude))
                 .SetTitle(outerItem.Label)
                 .SetSnippet(outerItem.Address)
-                .SetSnippet(outerItem.Address)
                 .Draggable(outerItem.IsDraggable)
                 .SetRotation(outerItem.Rotation)
                 .Anchor((float)outerItem.Anchor.X, (float)outerItem.Anchor.Y)
@@ -87,6 +85,7 @@ namespace BA_MobileGPS.Core.Droid.Logics
             }
 
             var marker = NativeMap.AddMarker(opts);
+            marker.Tag = outerItem.Tag.ToString();
             // If the pin has an IconView set this method will convert it into an icon for the marker
             if (outerItem?.Icon?.Type == BitmapDescriptorType.View)
             {
@@ -319,8 +318,7 @@ namespace BA_MobileGPS.Core.Droid.Logics
                     {
                         var nativeView = await Utils.ConvertFormsToNative(iconView,
                             new Xamarin.Forms.Rectangle(0, 0, Utils.DpToPx((float)iconView.WidthRequest),
-                            Utils.DpToPx((float)iconView.HeightRequest)),
-                            Platform.CreateRendererWithContext(iconView, context));
+                            Utils.DpToPx((float)iconView.HeightRequest)));
 
                         var otherView = new FrameLayout(context);
                         nativeView.LayoutParameters = new FrameLayout.LayoutParams(Utils.DpToPx((float)iconView.WidthRequest), Utils.DpToPx((float)iconView.HeightRequest));

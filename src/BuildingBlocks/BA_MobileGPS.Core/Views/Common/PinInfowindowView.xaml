@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Padding="3,0"
     AnchorX="0.5"
-    AnchorY="2"
+    AnchorY="2.3"
     BackgroundColor="{DynamicResource WhiteColor}"
     FontAttributes="Bold"
     FontFamily="{StaticResource myFontLatoBold}"
