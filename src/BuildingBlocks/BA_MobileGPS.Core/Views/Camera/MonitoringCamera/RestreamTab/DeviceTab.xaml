@@ -138,7 +138,15 @@
                 Grid.Row="1"
                 RowDefinitions="Auto,Auto,*"
                 RowSpacing="0">
-                <!--  // Height set at code  -->
+                <Grid.Triggers>
+                    <DataTrigger
+                            Binding="{Binding IsFullScreenOff}"
+                            TargetType="Grid"
+                            Value="false">
+                        <Setter Property="RowDefinitions" Value="Auto,0,*" />
+                    </DataTrigger>
+                </Grid.Triggers>
+                <!--  // Height set ở code  -->
                 <Grid
                     x:Name="mainTopLayout"
                     BackgroundColor="#3D3D3D"
@@ -278,10 +286,12 @@
                 </Grid>
                 <!--  Tự động phát  -->
                 <StackLayout
+                    x:Name="autoPlayLayout"
                     Grid.Row="1"
                     Padding="18,5"
                     IsVisible="{Binding MediaPlayerVisible}"
                     Orientation="Horizontal">
+                   
                     <Label
                         StyleClass="BoldText"
                         Text="Danh sách video"
