@@ -10,7 +10,10 @@ namespace BA_MobileGPS.Core.Models
 {
     public class RestreamVideoManagement : BindableBase, IDisposable
     {
-
+        private int maxLoadingTime { get; }
+        private Timer countLoadingTimer;
+        private int counter { get; set; } // timer counter
+        private bool internalError { get; set; }
         public RestreamVideoManagement(LibVLC libVLC)
         {
             this.LibVLC = libVLC;
