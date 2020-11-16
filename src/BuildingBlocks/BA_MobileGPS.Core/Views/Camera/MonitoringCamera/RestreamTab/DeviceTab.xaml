@@ -9,6 +9,7 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
+    xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     x:Name="root"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Content>
@@ -140,9 +141,9 @@
                 RowSpacing="0">
                 <Grid.Triggers>
                     <DataTrigger
-                            Binding="{Binding IsFullScreenOff}"
-                            TargetType="Grid"
-                            Value="false">
+                        Binding="{Binding IsFullScreenOff}"
+                        TargetType="Grid"
+                        Value="false">
                         <Setter Property="RowDefinitions" Value="Auto,0,*" />
                     </DataTrigger>
                 </Grid.Triggers>
@@ -291,7 +292,7 @@
                     Padding="18,5"
                     IsVisible="{Binding MediaPlayerVisible}"
                     Orientation="Horizontal">
-                   
+
                     <Label
                         StyleClass="BoldText"
                         Text="Danh sách video"
@@ -302,63 +303,62 @@
                     </StackLayout>
                 </StackLayout>
                 <!--  Danh sách video  -->
-                <ScrollView
-                    x:Name="listLayout"
-                    Grid.Row="2"
-                    HorizontalScrollBarVisibility="Never"
-                    IsVisible="True">
-                    <StackLayout
-                        Padding="15,0"
-                        BindableLayout.ItemsSource="{Binding VideoItemsSource, Mode=OneWay}"
-                        Spacing="8">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-                                <pancake:PancakeView Padding="0" HeightRequest="270">
-                                    <pancake:PancakeView.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.VideoItemTapCommand}" CommandParameter="{Binding .}" />
-                                    </pancake:PancakeView.GestureRecognizers>
-                                    <pancake:PancakeView.Shadow>
-                                        <pancake:DropShadow
-                                            BlurRadius="1"
-                                            Offset="3,0"
-                                            Color="Black" />
-                                    </pancake:PancakeView.Shadow>
-                                    <StackLayout Spacing="0">
-                                        <Grid
-                                            Padding="2"
-                                            HorizontalOptions="Center"
-                                            VerticalOptions="FillAndExpand">
-                                            <ff:CachedImage Aspect="Fill" Source="{Binding VideoImageSource, Mode=OneWay}" />
-                                            <icons:IconView
-                                                Foreground="{DynamicResource WhiteColor}"
-                                                HeightRequest="30"
-                                                HorizontalOptions="Center"
-                                                Source="ic_play"
-                                                VerticalOptions="Center" />
-                                            <Label
-                                                Margin="0,0,10,15"
-                                                HorizontalOptions="End"
-                                                Text="{Binding VideoTime}"
-                                                TextColor="{DynamicResource WhiteColor}"
-                                                VerticalOptions="End" />
-                                        </Grid>
-                                        <StackLayout
-                                            Padding="10,5"
-                                            Spacing="0"
-                                            VerticalOptions="End">
-                                            <Label
-                                                HorizontalOptions="Start"
-                                                StyleClass="BoldText"
-                                                Text="{Binding VideoName}" />
-                                            <Label HorizontalOptions="Start" Text="{Binding VideoStartTime}" />
-                                        </StackLayout>
 
+                <xforms:SfListView
+                    Grid.Row="2"
+                    Padding="15,0"
+                    AutoFitMode="DynamicHeight"
+                    IsScrollBarVisible="False"
+                    ItemSpacing="5"
+                    ItemsSource="{Binding VideoItemsSource, Mode=OneWay}"
+                    SelectionMode="Single">
+                    <xforms:SfListView.ItemTemplate>
+                        <DataTemplate>
+                            <pancake:PancakeView Padding="0" HeightRequest="270">
+                                <pancake:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.VideoItemTapCommand}" CommandParameter="{Binding .}" />
+                                </pancake:PancakeView.GestureRecognizers>
+                                <pancake:PancakeView.Shadow>
+                                    <pancake:DropShadow
+                                        BlurRadius="1"
+                                        Offset="3,0"
+                                        Color="Black" />
+                                </pancake:PancakeView.Shadow>
+                                <StackLayout Spacing="0">
+                                    <Grid
+                                        Padding="2"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="FillAndExpand">
+                                        <ff:CachedImage Aspect="Fill" Source="{Binding VideoImageSource, Mode=OneWay}" />
+                                        <icons:IconView
+                                            Foreground="{DynamicResource WhiteColor}"
+                                            HeightRequest="30"
+                                            HorizontalOptions="Center"
+                                            Source="ic_play"
+                                            VerticalOptions="Center" />
+                                        <Label
+                                            Margin="0,0,10,15"
+                                            HorizontalOptions="End"
+                                            Text="{Binding VideoTime}"
+                                            TextColor="{DynamicResource WhiteColor}"
+                                            VerticalOptions="End" />
+                                    </Grid>
+                                    <StackLayout
+                                        Padding="10,5"
+                                        Spacing="0"
+                                        VerticalOptions="End">
+                                        <Label
+                                            HorizontalOptions="Start"
+                                            StyleClass="BoldText"
+                                            Text="{Binding VideoName}" />
+                                        <Label HorizontalOptions="Start" Text="{Binding VideoStartTime}" />
                                     </StackLayout>
-                                </pancake:PancakeView>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </StackLayout>
-                </ScrollView>
+
+                                </StackLayout>
+                            </pancake:PancakeView>
+                        </DataTemplate>
+                    </xforms:SfListView.ItemTemplate>
+                </xforms:SfListView>
             </Grid>
         </Grid>
     </ContentPage.Content>
