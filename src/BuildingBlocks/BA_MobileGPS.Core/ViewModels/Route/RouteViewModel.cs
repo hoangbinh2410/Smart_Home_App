@@ -30,7 +30,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private readonly IGeocodeService geocodeService;
         private readonly IVehicleRouteService vehicleRouteService;
-        private readonly IDisplayMessage displayMessage;
 
         public ICommand TimeSelectedCommand { get; }
         public ICommand DateSelectedCommand { get; }
@@ -50,11 +49,10 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand FastEndCommand { get; }
         public ICommand ChangeSpeedCommand { get; }
 
-        public RoutePageViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService, IDisplayMessage displayMessage, IGeocodeService geocodeService)
+        public RoutePageViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService, IGeocodeService geocodeService)
            : base(navigationService)
         {
             this.vehicleRouteService = vehicleRouteService;
-            this.displayMessage = displayMessage;
             this.geocodeService = geocodeService;
 
             if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
@@ -243,7 +241,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (ListRoute.Count <= 0)
             {
-                displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotExist, 3000);
+                DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotExist, 3000);
                 return;
             }
 
@@ -335,7 +333,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Vehicle.VehiclePlate))
             {
-                displayMessage.ShowMessageWarning(MobileResource.Route_Label_VehicleEmpty, 3000);
+                DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_VehicleEmpty, 3000);
                 return false;
             }
 
@@ -404,7 +402,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (task.Result == null)
                         {
                             DependencyService.Get<IHUDProvider>().Dismiss();
-                            displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
+                            DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
                             return;
                         }
 
@@ -417,7 +415,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (ListRoute.Count == 0)
                         {
                             DependencyService.Get<IHUDProvider>().Dismiss();
-                            displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
+                            DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
                             return;
                         }
 

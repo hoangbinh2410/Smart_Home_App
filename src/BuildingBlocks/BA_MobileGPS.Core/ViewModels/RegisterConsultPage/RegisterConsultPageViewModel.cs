@@ -34,7 +34,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 CallPopupTransportTypeCommand = new DelegateCommand(ExcuteCallPopupTransportType);
                 CallComboboxProvinceCommand = new DelegateCommand(ExcuteCallComboboxProvince);
                 CallComboboxCountryCodeCommand = new DelegateCommand(ExcuteCallComboboxCountryCode);
-                CallHotLineCommand = new DelegateCommand(() => CallHotline());
 
                 // khởi tạo các property
                 _fullName = new ValidatableObject<string>();
@@ -153,7 +152,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public DelegateCommand RegiserConsultCommand { get; private set; }
 
-        public DelegateCommand CallHotLineCommand { get; private set; }
 
         public DelegateCommand CallPopupTransportTypeCommand { get; private set; }
 
@@ -416,21 +414,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private async void UpdatePopupMessage()
         {
             await NavigationService.GoBackAsync(null, useModalNavigation: true, true);
-        }
-
-        /// <summary>
-        /// Hàm thực hiện gọi tới số điện thoại hotline
-        /// </summary>
-        /// <Modified>
-        /// Name     Date         Comments
-        /// hoangdt  10/03/2019   created
-        /// </Modified>
-        private void CallHotline()
-        {
-            if (!string.IsNullOrEmpty(Hotline))
-            {
-                PhoneDialer.Open(MobileSettingHelper.HotlineGps);
-            }
         }
 
         // hàm thực hiện thêm và xử lý với các validation

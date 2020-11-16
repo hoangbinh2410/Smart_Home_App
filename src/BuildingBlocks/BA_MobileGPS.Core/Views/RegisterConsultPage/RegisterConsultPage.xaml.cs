@@ -6,14 +6,7 @@ namespace BA_MobileGPS.Core.Views
     {
         public RegisterConsultPage()
         {
-            try
-            {
-                InitializeComponent();
-            }
-            catch (System.Exception ex)
-            {
-                throw;
-            }
+            InitializeComponent();
         }
     }
 }

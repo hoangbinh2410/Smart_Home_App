@@ -29,7 +29,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             { ParameterKey.RequestTime,  time}
                         });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

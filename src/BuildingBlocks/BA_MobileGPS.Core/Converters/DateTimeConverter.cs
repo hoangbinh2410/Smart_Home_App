@@ -367,7 +367,7 @@ namespace BA_MobileGPS.Core
                         t.Minutes,
                         t.Seconds);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                  
