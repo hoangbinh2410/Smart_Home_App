@@ -296,7 +296,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     SafeExecute(async () =>
                     {
-                        await NavigationService.GoBackAsync(null, useModalNavigation: true, false);
+                       var res = await NavigationService.GoBackAsync(null, useModalNavigation: true, true);
                     });
                 });
             }

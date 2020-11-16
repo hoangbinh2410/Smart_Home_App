@@ -28,6 +28,15 @@ namespace BA_MobileGPS.Service.IService
         Task<List<CaptureImageData>> GetCaptureImageTime(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime);
 
         Task<List<CaptureImageData>> GetListCaptureImage(StreamImageRequest request);
+
+        Task<List<CameraRestreamInfo>> GetListVideoByDate(CameraRestreamRequest request);
+
+        Task<List<CameraRestreamUpload>> GetListVideoOnServer(CameraRestreamRequest request);
+
+        Task<StreamStartResponse> StartRestream(StartRestreamRequest request);
+
+        Task<StreamStopResponse> StopRestream(StopRestreamRequest request);
+
     }
 
     public enum ConditionType

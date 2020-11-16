@@ -58,6 +58,18 @@
 	  </Reference>
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Update="Views\Camera\MonitoringCamera\Tab\BACloudTab.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="Views\Camera\MonitoringCamera\Tab\DeviceTab.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="Views\Camera\MonitoringCamera\Tab\MyVideoTab.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
 	  <Compile Update="Views\Camera\MonitoringImage\ImageManagingPage.xaml.cs">
 	    <DependentUpon>ImageManagingPage.xaml</DependentUpon>
 	  </Compile>
@@ -151,6 +163,19 @@
 	  <EmbeddedResource Update="Views\Authentication\ForgotPasswordPopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\RestreamTab\BACloudTab.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\BACloudTab.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\CameraRestream.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\CameraRestreamOverview.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\CameraManagingPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -158,6 +183,14 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\RequestMoreTimePopup.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\DeviceTab.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\MyVideoTab.xaml">
+	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Common\ComboboxPage.xaml">
@@ -173,6 +206,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\DetailCamera.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\RestreamTab\DeviceTab.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\ListVehicle\ListVehicleHelpPage.xaml">
@@ -236,6 +272,9 @@
 	  <EmbeddedResource Update="Views\MainPage\MainPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\RestreamTab\MyVideoTab.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Navigation\BaseNavigationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
@@ -276,6 +315,12 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\ReLogin\ReLoginPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\ReStreamOverview.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\RestreamOverview.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Route\RouteView.xaml">

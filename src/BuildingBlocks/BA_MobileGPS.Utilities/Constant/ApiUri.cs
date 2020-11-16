@@ -205,6 +205,10 @@
         public const string GET_IMAGESLIMIT = "api/stream/imagelimit";
         public const string GET_IMAGESTIME = "api/stream/imagetime";
         public const string GET_IMAGES = "api/stream/image";
+        public const string POST_RESTREAM_INFOR = "api/stream/restreaminfo";
+        public const string POST_RESTREAM_UPLOAD = "api/stream/restreamupload";
+        public const string POST_RESTREAM_START = "api/stream/restreamstart";
+        public const string POST_RESTREAM_STOP = "api/stream/restreamstop";
 
         #endregion Camera
 

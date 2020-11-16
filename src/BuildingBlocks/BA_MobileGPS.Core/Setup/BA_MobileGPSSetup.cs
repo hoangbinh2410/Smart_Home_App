@@ -190,6 +190,13 @@ namespace BA_MobileGPS.Core
 
             containerRegistry.RegisterForNavigation<ReLoginPage, ReLoginPageViewModel>();
             containerRegistry.RegisterForNavigation<RequestMoreTimePopup, RequestMoreTimePopupViewModel>();
+
+            containerRegistry.RegisterForNavigation<CameraRestreamOverview, CameraRestreamOverviewViewModel>("CameraRestreamOverview");
+            containerRegistry.RegisterForNavigation<CameraRestream, CameraRestreamViewModel>("CameraRestream");
+            containerRegistry.RegisterForNavigation<DeviceTab, DeviceTabViewModel>();
+            containerRegistry.RegisterForNavigation<BACloudTab, BACloudTabViewModel>();
+            containerRegistry.RegisterForNavigation<MyVideoTab, MyVideoTabViewModel>();
+
         }
     }
 }
