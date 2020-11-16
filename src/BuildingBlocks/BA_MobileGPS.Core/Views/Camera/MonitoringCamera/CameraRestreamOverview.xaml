@@ -47,8 +47,8 @@
                 <pancake:PancakeView
                     Padding="0"
                     BackgroundColor="{DynamicResource WhiteColor}"
-                    CornerRadius="22"
-                    HeightRequest="45"
+                    CornerRadius="20"
+                    HeightRequest="40"
                     VerticalOptions="Center">
                     <pancake:PancakeView.Shadow>
                         <pancake:DropShadow
@@ -65,10 +65,10 @@
                         Orientation="Horizontal">
                         <pancake:PancakeView
                             BackgroundColor="{DynamicResource PrimaryColor}"
-                            CornerRadius="22"
-                            WidthRequest="45">
+                            CornerRadius="20"
+                            WidthRequest="40">
                             <icons:IconView
-                                Margin="13"
+                                Margin="10"
                                 Foreground="{DynamicResource WhiteColor}"
                                 Source="ic_search.png" />
                         </pancake:PancakeView>
@@ -91,8 +91,8 @@
                     Grid.Column="2"
                     Padding="0"
                     BackgroundColor="{DynamicResource WhiteColor}"
-                    CornerRadius="22"
-                    HeightRequest="45"
+                    CornerRadius="20"
+                    HeightRequest="40"
                     HorizontalOptions="FillAndExpand"
                     IsClippedToBounds="True"
                     VerticalOptions="Center">
@@ -122,11 +122,11 @@
                         </Entry>
                         <icons:IconView
                             Foreground="{DynamicResource BlackColor}"
-                            HeightRequest="20"
+                            HeightRequest="17"
                             HorizontalOptions="End"
                             Source="ic_date_range_black.png"
                             VerticalOptions="Center"
-                            WidthRequest="20" />
+                            WidthRequest="17" />
                     </StackLayout>
                 </pancake:PancakeView>
             </Grid>

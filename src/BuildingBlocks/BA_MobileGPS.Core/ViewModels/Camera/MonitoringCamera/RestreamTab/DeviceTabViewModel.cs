@@ -197,7 +197,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ScreenOrientChange()
         {
-            MediaPlayerVisible = !isFullScreenOff;
+            
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -343,7 +343,6 @@ namespace BA_MobileGPS.Core.ViewModels
             mediaPlayer.TimeChanged += MediaPlayer_TimeChanged;
             mediaPlayer.EncounteredError += MediaPlayer_EncounteredError;
             mediaPlayer.EndReached += MediaPlayer_EndReached;
-
             mediaPlayer.AspectRatio = "16:9";
             mediaPlayer.Scale = 0;
         }

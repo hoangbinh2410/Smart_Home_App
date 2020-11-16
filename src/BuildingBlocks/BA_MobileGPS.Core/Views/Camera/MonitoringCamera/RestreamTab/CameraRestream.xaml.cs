@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Controls;
 using Prism.Common;
+using Prism.Events;
 using Prism.Navigation;
 using System;
 using Xamarin.Forms;
@@ -15,6 +16,7 @@ namespace BA_MobileGPS.Core.Views
         private double _height;
         private Xamarin.Forms.Page currentChildPage;
         private bool firstLoad { get; set; }
+     
         public CameraRestream()
         {
             InitializeComponent();
@@ -28,6 +30,7 @@ namespace BA_MobileGPS.Core.Views
             {
                 On<iOS>().SetUseSafeArea(true);
             }
+
         }
         protected override void OnAppearing()
         {
@@ -73,12 +76,22 @@ namespace BA_MobileGPS.Core.Views
         {
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
             IsHidden = true;
+            var param = new NavigationParameters()
+            {
+                { "FullScreen", true }
+            };
+            PageUtilities.OnNavigatedTo(CurrentPage, param);
         }
 
         private void OrientChangedToVetical()
         {
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, true);
             IsHidden = false;
+            var param = new NavigationParameters()
+            {
+                { "FullScreen", false }
+            };
+            PageUtilities.OnNavigatedTo(CurrentPage, param);
         }
 
         protected override void OnCurrentPageChanged()
@@ -96,5 +109,5 @@ namespace BA_MobileGPS.Core.Views
         }
     }
 
-   
+
 }

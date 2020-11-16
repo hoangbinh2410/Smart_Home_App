@@ -138,17 +138,10 @@
                 Grid.Row="1"
                 RowDefinitions="Auto,Auto,*"
                 RowSpacing="0">
-                <Grid.Triggers>
-                    <DataTrigger
-                        Binding="{Binding IsFullScreenOff}"
-                        TargetType="Grid"
-                        Value="true">
-                        <Setter Property="RowDefinitions" Value="*,Auto,Auto" />
-                    </DataTrigger>
-                </Grid.Triggers>
+                <!--  // Height set at code  -->
                 <Grid
+                    x:Name="mainTopLayout"
                     BackgroundColor="#3D3D3D"
-                    HeightRequest="280"
                     IsVisible="{Binding MediaPlayerVisible}"
                     RowDefinitions="*,Auto"
                     RowSpacing="0">
@@ -304,14 +297,6 @@
                     Grid.Row="2"
                     HorizontalScrollBarVisibility="Never"
                     IsVisible="True">
-                    <ScrollView.Triggers>
-                        <DataTrigger
-                            Binding="{Binding IsFullScreenOff}"
-                            TargetType="Grid"
-                            Value="true">
-                            <Setter Property="IsVisible" Value="False" />
-                        </DataTrigger>
-                    </ScrollView.Triggers>
                     <StackLayout
                         Padding="15,0"
                         BindableLayout.ItemsSource="{Binding VideoItemsSource, Mode=OneWay}"
