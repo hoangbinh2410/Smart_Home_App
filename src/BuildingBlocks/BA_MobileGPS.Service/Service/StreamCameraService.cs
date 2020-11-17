@@ -173,13 +173,13 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<StreamStartResponse> StartRestream(StartRestreamRequest request)
+        public async Task<RestreamStartResponese> StartRestream(StartRestreamRequest request)
         {
-            var result = new StreamStartResponse();
+            var result = new RestreamStartResponese();
             try
             {
                 string url = $"{ApiUri.POST_RESTREAM_START}";
-                result = await requestProvider.PostAsync<StartRestreamRequest, StreamStartResponse>(url, request);
+                result = await requestProvider.PostAsync<StartRestreamRequest, RestreamStartResponese>(url, request);
             }
             catch (Exception ex)
             {

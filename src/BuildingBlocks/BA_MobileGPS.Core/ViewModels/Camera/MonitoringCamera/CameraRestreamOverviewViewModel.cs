@@ -92,7 +92,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             var req = new CameraRestreamRequest()
             {
-                customerId = 1010,
+                CustomerId = 1010,
                 Date = Convert.ToDateTime("2020-11-05"),
                 VehicleNames = "CAM.PNC1"
             };

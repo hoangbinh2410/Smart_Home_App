@@ -13,8 +13,7 @@ using Timer = System.Timers.Timer;
 namespace BA_MobileGPS.Core.Models
 {
     public class CameraManagement : BindableBase, IDisposable
-    {
-      
+    {    
         private int maxLoadingTime { get; }
         private Timer countLoadingTimer;
         private int counter { get; set; } // timer counter

@@ -84,6 +84,10 @@ namespace BA_MobileGPS.Entities
     public class StreamStartResponse : ResponseStreamBase<List<StreamStart>>
     {
     }
+    public class RestreamStartResponese : ResponseStreamBase<StreamStart>
+    {
+
+    }
 
     public class StreamStart
     {
