@@ -107,11 +107,8 @@ namespace BA_MobileGPS.Core.ViewModels
             TextcolorActiveStartDate = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
             TextcolorActiveEndDate = (Color)Prism.PrismApplicationBase.Current.Resources["TextPrimaryColor"];
             SelectedDate = StartDate;
-            SelectedTime = new ObservableCollection<object>
-                    {
-                       StartDate.Hour < 10 ? ("0" + StartDate.Hour) : StartDate.Hour.ToString(),
-                       StartDate.Minute < 10 ? ("0" + StartDate.Minute) : StartDate.Minute.ToString()
-                    };
+            SetupPickerTime(StartDate);
+
         }
         private void SelectActiveEndDate()
         {
@@ -121,17 +118,12 @@ namespace BA_MobileGPS.Core.ViewModels
             TextcolorActiveStartDate = (Color)Prism.PrismApplicationBase.Current.Resources["TextPrimaryColor"];
             TextcolorActiveEndDate = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
             SelectedDate = EndDate;
-            SelectedTime = new ObservableCollection<object>
-                    {
-                       EndDate.Hour < 10 ? ("0" + EndDate.Hour) : EndDate.Hour.ToString(),
-                       EndDate.Minute < 10 ? ("0" + EndDate.Minute) : EndDate.Minute.ToString()
-                    };
+            SetupPickerTime(EndDate);
         }
         private void OnSelectionDateChanged()
         {
             if (IsActiveStartDate)
             {
-                SelectedTime = new ObservableCollection<object> { "00", "00" };
                 if (SelectedDate.Date == DateTime.Today.Date)
                 {
                     StartDate = DateTime.Today.Date;
@@ -140,26 +132,29 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     StartDate = SelectedDate.Date;
                 }
+                SetupPickerTime(StartDate);
             }
             else
             {
                 if (SelectedDate.Date == DateTime.Today.Date)
                 {
-                    SelectedTime = new ObservableCollection<object>
-                    {
-                        DateTime.Now.Hour < 10 ? ("0" + DateTime.Now.Hour) : DateTime.Now.Hour.ToString(),
-                        DateTime.Now.Minute < 10 ? ("0" + DateTime.Now.Minute) : DateTime.Now.Minute.ToString()
-                    };
                     EndDate = DateTime.Now;
                 }
                 else
                 {
-                    SelectedTime = new ObservableCollection<object> { "00", "00" };
                     EndDate = SelectedDate.Date;
                 }
+                SetupPickerTime(EndDate);
             }
         }
-
+        private void SetupPickerTime(DateTime date)
+        {
+            SelectedTime = new ObservableCollection<object>
+                    {
+                        date.Hour < 10 ? ("0" + date.Hour) : date.Hour.ToString(),
+                       date.Minute < 10 ? ("0" + date.Minute) : date.Minute.ToString()
+                    };
+        }
         public void CloseTimePage()
         {
             SafeExecute(async () =>
