@@ -145,6 +145,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
+                    SelectedTime = new ObservableCollection<object> { "00", "00" };
                     EndDate = SelectedDate.Date;
                 }
             }

@@ -34,7 +34,7 @@
                     Padding="10,5"
                     BackgroundColor="{Binding BgActiveStartDate}"
                     Border="{StaticResource GrayColor2}"
-                    CornerRadius="22"
+                    CornerRadius="15"
                     HorizontalOptions="StartAndExpand"
                     VerticalOptions="Center">
                     <pancake:PancakeView.GestureRecognizers>
@@ -61,7 +61,7 @@
                     Padding="10,5"
                     BackgroundColor="{Binding BgActiveEndDate}"
                     Border="{StaticResource GrayColor2}"
-                    CornerRadius="22"
+                    CornerRadius="15"
                     HorizontalOptions="EndAndExpand"
                     VerticalOptions="Center">
                     <pancake:PancakeView.GestureRecognizers>
