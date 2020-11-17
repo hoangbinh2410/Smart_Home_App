@@ -4,21 +4,31 @@ using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Utilities;
 using LibVLCSharp.Shared;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class DeviceTabViewModel : TabbedPageChildVMBase
     {
-        private LibVLC libVLC;
+       
         private readonly IStreamCameraService streamCameraService;
         private readonly IScreenOrientServices screenOrientServices;
+        private int pageIndex { get; set; } = 0;
+        private int pageCount { get; } = 20;
+
+        private List<AppVideoTimeInfor> basePNCSource { get; set; } = new List<AppVideoTimeInfor>();
+
+
         public ICommand VideoItemTapCommand { get; }
         public ICommand CloseVideoCommand { get; }
         public ICommand PreviousChapterCommand { get; }
@@ -26,15 +36,16 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand DownloadTappedCommand { get; }
         public ICommand ShareTappedCommand { get; }
         public ICommand FullScreenTappedCommand { get; }
+        public ICommand ReLoadCommand { get; }
+        public ICommand LoadMoreItemsCommand { get; set; }
 
-        private readonly int maxLoadingTime = 20;
+        private readonly int maxLoadingTime = 60;
         private int customerId = 2020;
         private string bks = "TESTTBI";
-        private DateTime date = Convert.ToDateTime("2020-11-16");
+        private DateTime date = Convert.ToDateTime("2020-11-17");
 
-        public DeviceTabViewModel(INavigationService navigationService, IStreamCameraService cameraService,IScreenOrientServices screenOrientServices) : base(navigationService)
+        public DeviceTabViewModel(INavigationService navigationService, IStreamCameraService cameraService, IScreenOrientServices screenOrientServices) : base(navigationService)
         {
-
             streamCameraService = cameraService;
             this.screenOrientServices = screenOrientServices;
             VideoItemTapCommand = new DelegateCommand<object>(VideoItemTap);
@@ -44,13 +55,28 @@ namespace BA_MobileGPS.Core.ViewModels
             DownloadTappedCommand = new DelegateCommand(DownloadTapped);
             ShareTappedCommand = new DelegateCommand(ShareTapped);
             FullScreenTappedCommand = new DelegateCommand(FullScreenTapped);
+            ReLoadCommand = new DelegateCommand(ReloadVideo);
+            LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
             mediaPlayerVisible = false;
-            LibVLCSharp.Shared.Core.Initialize();
-            libVLC = new LibVLC("--no-osd", "--rtsp-http");
-            Media = new RestreamVideoManagement(libVLC);
-            isFullScreenOff = true;
+            videoItemsSource = new ObservableCollection<RestreamVideoModel>();       
         }
 
+        public override void OnPageAppearingFirstTime()
+        {
+            LibVLCSharp.Shared.Core.Initialize();
+            LibVLC = new LibVLC("--no-osd", "--rtsp-tcp");
+            Media = new RestreamVideoManagement(maxLoadingTime, libVLC);
+            isFullScreenOff = true;
+            base.OnPageAppearingFirstTime();
+        }
+
+        /// <summary>
+        /// Reload khi video bi loi ket noi
+        /// </summary>
+        private void ReloadVideo()
+        {
+            VideoSelectedChange();
+        }
 
         private bool isFullScreenOff;
 
@@ -75,9 +101,9 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private List<RestreamVideoModel> videoItemsSource;
+        private ObservableCollection<RestreamVideoModel> videoItemsSource;
 
-        public List<RestreamVideoModel> VideoItemsSource
+        public ObservableCollection<RestreamVideoModel> VideoItemsSource
         {
             get { return videoItemsSource; }
             set
@@ -97,6 +123,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref mediaPlayerVisible, value);
                 RaisePropertyChanged();
             }
+        }
+        private LibVLC libVLC;
+        public LibVLC LibVLC
+        {
+            get { return libVLC; }
+            set { SetProperty(ref libVLC, value); }
         }
 
         private RestreamVideoManagement media;
@@ -175,13 +207,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void VideoSelectedChange()
         {
-            var endTimeFix = videoSlected.VideoEndTime.AddMinutes(1);
+            // var endTimeFix = videoSlected.VideoEndTime.AddMinutes(1);
             var req = new StartRestreamRequest()
             {
                 Channel = videoSlected.Data.Channel,
                 CustomerID = customerId,
                 StartTime = videoSlected.VideoStartTime,
-                EndTime = endTimeFix,
+                EndTime = videoSlected.VideoEndTime,
                 VehicleName = bks
             };
             SendRequestRestream(req);
@@ -193,14 +225,14 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnIsActiveChanged(sender, e);
             if (IsActive)
             {
-                Reload();
+                ReloadPage();
             }
             else CloseVideo();
         }
 
         private void ScreenOrientChange()
         {
-            
+
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -209,11 +241,11 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
                 CloseVideo();
-                Reload(vehiclePlate);
+                ReloadPage(vehiclePlate);
             }
         }
 
-        private void Reload(Vehicle vehiclePlate = null)
+        private void ReloadPage(Vehicle vehiclePlate = null)
         {
             if (vehiclePlate == null)
             {
@@ -223,8 +255,28 @@ namespace BA_MobileGPS.Core.ViewModels
                     Date = date,
                     VehicleNames = bks
                 };
-                GetListData(req);
-            }         
+                GetListDataFromPNC(req);
+            
+            }
+        }
+
+        private List<RestreamVideoModel> ConvertSourceFromPNC(IEnumerable<AppVideoTimeInfor> source)
+        {
+            var result = new List<RestreamVideoModel>();
+            foreach (var item in source)
+            {
+                var temp = new RestreamVideoModel()
+                {
+                    VideoName = string.Format("Video_CAM{0}_{1}", item.Channel, item.StartTime.ToString("yyyyMMdd_hhmmss")),
+                    VideoStartTime = item.StartTime,
+                    VideoImageSource = "bg_HomeTop.png",
+                    VideoTime = item.EndTime - item.StartTime,
+                    Data = new StreamStart() { Channel = item.Channel },
+                    VideoEndTime = item.EndTime
+                };
+                result.Add(temp);
+            }
+            return result;
         }
 
         private void CloseVideo()
@@ -239,53 +291,93 @@ namespace BA_MobileGPS.Core.ViewModels
             Media.Dispose();
         }
 
-        private async void SendRequestRestream(StartRestreamRequest req)
+        private void SendRequestRestream(StartRestreamRequest req)
         {
             // Đóng video đang chạy:
             Media.ClearMedia();
-            // Request
-            var res = await streamCameraService.StartRestream(req);
-            if (res?.Data != null)
-            {          
-                media.Data = res.Data;
+            RunOnBackground(async () =>
+            {
+                return await streamCameraService.StartRestream(req);
+            }, (result) =>
+            {
+                if (result?.Data != null)
+                {
+                    media.Data = result.Data;
 
-                // Set lại video
-                media.SetMedia(res.Data.Link);
-            }          
+                    // Set lại video
+                    media.SetMedia(result.Data.Link);
+                }
+
+            });          
         }
-
-        private async void GetListData(CameraRestreamRequest req)
+        private void LoadMoreItems(object obj)
         {
-            var source = new List<RestreamVideoModel>();
+            var listview = obj as Syncfusion.ListView.XForms.SfListView;
+            listview.IsBusy = true;
             try
             {
-                var res = await streamCameraService.GetListVideoByDate(req);
-
-                foreach (var camera in res)
-                {
-                    foreach (var videoInfor in camera.Data)
-                    {
-                        var temp = new RestreamVideoModel()
-                        {
-                            VideoName = string.Format("Video_CAM{0}_{1}", camera.Channel, videoInfor.StartTime.ToString("yyyyMMdd_hhmmss")),
-                            VideoStartTime = videoInfor.StartTime,
-                            VideoImageSource = "bg_HomeTop.png",
-                            VideoTime = videoInfor.EndTime - videoInfor.StartTime,
-                            Data = new StreamStart() { Channel = camera.Channel },
-                            VideoEndTime = videoInfor.EndTime
-                        };
-                        source.Add(temp);
-                    }
-                }
-                VideoItemsSource = source;
+                pageIndex++;
+                LoadMore();
             }
             catch (Exception ex)
             {
-
-               
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-           
+            finally
+            {
+                listview.IsBusy = false;
+                IsBusy = false;
+            }
+        }
+
+        private bool CanLoadMoreItems(object obj)
+        {
+            if (basePNCSource.Count < pageIndex * pageCount)
+                return false;
+            return true;
+        }
+
+        private void LoadMore()
+        {
+            var source = basePNCSource.Skip(pageIndex * pageCount).Take(pageCount);
+            pageIndex++;
+            ConvertSourceFromPNC(source).
+                ForEach((model) =>
+                {
+                    VideoItemsSource.Add(model);
+                });
+
+        }
+
+        private void GetListDataFromPNC(CameraRestreamRequest req)
+        {
+            RunOnBackground(async () =>
+            {
+                return await streamCameraService.GetListVideoByDate(req);
+
+            },(result) =>
+            {
+                if (result != null && result.Count > 0)
+                {
+                    foreach (var camera in result)
+                    {
+                        foreach (var videoInfor in camera.Data)
+                        {
+                            videoInfor.Channel = camera.Channel;
+                            videoInfor.EndTime= videoInfor.EndTime.AddMinutes(2);
+                        }
+                        basePNCSource.AddRange(camera.Data);
+                    }
+                    if (basePNCSource.Count > 0)
+                    {
+                        var source = basePNCSource.Take(pageCount);
+                        pageIndex++;
+                        var sourceConvert = ConvertSourceFromPNC(source);
+                        VideoItemsSource = new ObservableCollection<RestreamVideoModel>(sourceConvert);
+                    }
+                }
+            });
         }
     }
-  
+
 }

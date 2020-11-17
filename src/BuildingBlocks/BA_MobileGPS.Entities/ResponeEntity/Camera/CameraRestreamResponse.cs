@@ -17,7 +17,7 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("c")]
         public byte Channel { get; set; }
         [JsonProperty("t")]
-        public List<VideoTimeInfo> Data { get; set; } 
+        public List<AppVideoTimeInfor> Data { get; set; } 
     }
 
     public class VideoTimeInfo
@@ -26,6 +26,11 @@ namespace BA_MobileGPS.Entities
         public DateTime StartTime { get; set; }
         [JsonProperty("e")]
         public DateTime EndTime { get; set; }
+    }
+
+    public class AppVideoTimeInfor : VideoTimeInfo
+    {
+        public byte Channel { get; set; }
     }
 
 
