@@ -40,5 +40,7 @@
         public const string Logout = "Logout";
         public const string VehicleStatusSelected = "VehicleStatusSelected";
         public const string ChangeLanguge = "ChangeLanguge";
+        public const string SelectRangeDateTime = "SelectRangeDateTime";
+        
     }
 }

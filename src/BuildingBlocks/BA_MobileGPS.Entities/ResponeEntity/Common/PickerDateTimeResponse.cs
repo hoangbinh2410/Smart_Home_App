@@ -10,4 +10,12 @@ namespace BA_MobileGPS.Entities
 
         public string Time { get; set; }
     }
+
+    public class PickerRangeDateTimeResponse
+    {
+        public DateTime StartTime { get; set; }
+
+        public DateTime EndTime { get; set; }
+
+    }
 }
