@@ -32,7 +32,30 @@ namespace BA_MobileGPS.Core
             return default;
         }
     }
+    public class DateTimeViewConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string result = string.Empty;
 
+            if (value is DateTime date1)
+            {
+                return (string)parameter == "ToLocal" ? date1.ToLocalTime().ToString("HH:mm dd/MM/yyyy") : date1.FormatDateTime();
+            }
+
+            if (value is DateTimeOffset date2)
+            {
+                return (string)parameter == "ToLocal" ? date2.DateTime.ToLocalTime().ToString("HH:mm dd/MM/yyyy") : date2.DateTime.FormatDateTime();
+            }
+
+            return result;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return default;
+        }
+    }
     public class DateConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

@@ -26,7 +26,7 @@ namespace BA_MobileGPS.Core.ViewModels
             CancelCommand = new DelegateCommand(CloseTimePage);
             SelectActiveStartDateCommand = new DelegateCommand(SelectActiveStartDate);
             SelectActiveEndDateCommand = new DelegateCommand(SelectActiveEndDate);
-            OnSelectionChangedCommand = new DelegateCommand(OnSelectionChanged);
+            OnSelectionChangedCommand = new DelegateCommand(OnSelectionDateChanged);
             InitTime();
         }
         public override void Initialize(INavigationParameters parameters)
@@ -116,20 +116,38 @@ namespace BA_MobileGPS.Core.ViewModels
             TextcolorActiveStartDate = (Color)Prism.PrismApplicationBase.Current.Resources["TextPrimaryColor"];
             TextcolorActiveEndDate = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
         }
-        private void OnSelectionChanged()
+        private void OnSelectionDateChanged()
         {
-            SelectedTime = new ObservableCollection<object> { "00", "00" };
-            if (SelectedDate.Date == DateTime.Today.Date)
+            if (IsActiveStartDate)
             {
-                StartDate = DateTime.Today.Date;
-                EndDate = DateTime.Now;
+                SelectedTime = new ObservableCollection<object> { "00", "00" };
+                if (SelectedDate.Date == DateTime.Today.Date)
+                {
+                    StartDate = DateTime.Today.Date;
+                }
+                else
+                {
+                    StartDate = SelectedDate.Date;
+                }
             }
             else
             {
-                StartDate = SelectedDate.Date;
-                EndDate = SelectedDate.Date;
+                if (SelectedDate.Date == DateTime.Today.Date)
+                {
+                    SelectedTime = new ObservableCollection<object>
+                    {
+                        //Current hour is selected if hour is less than 13 else it is subtracted by 12 to maintain 12hour format
+                        DateTime.Now.Hour < 10 ? ("0" + DateTime.Now.Hour) : DateTime.Now.Hour.ToString(),
+                        //Current minute is selected
+                        DateTime.Now.Minute < 10 ? ("0" + DateTime.Now.Minute) : DateTime.Now.Minute.ToString()
+                    };
+                    EndDate = DateTime.Now;
+                }
+                else
+                {
+                    EndDate = SelectedDate.Date;
+                }
             }
-
         }
 
         public void CloseTimePage()

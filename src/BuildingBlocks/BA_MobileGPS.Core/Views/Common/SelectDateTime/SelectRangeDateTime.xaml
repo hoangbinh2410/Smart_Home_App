@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:BA_MobileGPS.Controls"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
@@ -18,6 +19,7 @@
         <Style TargetType="pancake:PancakeView">
             <Setter Property="Shadow" Value="{StaticResource shadow}" />
         </Style>
+        <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout
@@ -45,7 +47,7 @@
                         <Label
                             FontSize="16"
                             HorizontalOptions="StartAndExpand"
-                            Text="{Binding StartDate, Converter={StaticResource DateTimeConverter}}"
+                            Text="{Binding StartDate, Converter={StaticResource DateTimeViewConverter}}"
                             TextColor="{Binding TextcolorActiveStartDate}"
                             VerticalOptions="Center" />
                     </StackLayout>
@@ -72,7 +74,7 @@
                         <Label
                             FontSize="16"
                             HorizontalOptions="StartAndExpand"
-                            Text="{Binding EndDate, Converter={StaticResource DateTimeConverter}}"
+                            Text="{Binding EndDate, Converter={StaticResource DateTimeViewConverter}}"
                             TextColor="{Binding TextcolorActiveEndDate}"
                             VerticalOptions="Center" />
                     </StackLayout>
@@ -103,7 +105,9 @@
                 HorizontalOptions="Center"
                 PickerHeight="250"
                 SelectedItem="{Binding SelectedTime, Mode=TwoWay}"
+                SelectedItemFontSize="18"
                 SelectedItemTextColor="{DynamicResource PrimaryColor}"
+                UnSelectedItemFontSize="16"
                 VerticalOptions="CenterAndExpand"
                 WidthRequest="300" />
 
