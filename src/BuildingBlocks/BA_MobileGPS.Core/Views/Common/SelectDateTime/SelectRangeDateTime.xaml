@@ -93,7 +93,7 @@
                 VerticalOptions="Center"
                 ViewMode="MonthView">
                 <syncalendar:SfCalendar.MonthViewSettings>
-                    <syncalendar:MonthViewSettings TodayBorderColor="#ff0000" />
+                    <syncalendar:MonthViewSettings TodayTextColor="{DynamicResource PrimaryColor}" />
                 </syncalendar:SfCalendar.MonthViewSettings>
             </syncalendar:SfCalendar>
             <controls:CustomTimePicker

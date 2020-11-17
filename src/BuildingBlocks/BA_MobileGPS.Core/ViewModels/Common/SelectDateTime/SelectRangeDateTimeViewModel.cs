@@ -106,6 +106,7 @@ namespace BA_MobileGPS.Core.ViewModels
             BgActiveEndDate = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
             TextcolorActiveStartDate = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
             TextcolorActiveEndDate = (Color)Prism.PrismApplicationBase.Current.Resources["TextPrimaryColor"];
+            SelectedDate = StartDate;
             SelectedTime = new ObservableCollection<object>
                     {
                        StartDate.Hour < 10 ? ("0" + StartDate.Hour) : StartDate.Hour.ToString(),
@@ -119,6 +120,7 @@ namespace BA_MobileGPS.Core.ViewModels
             BgActiveStartDate = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
             TextcolorActiveStartDate = (Color)Prism.PrismApplicationBase.Current.Resources["TextPrimaryColor"];
             TextcolorActiveEndDate = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
+            SelectedDate = EndDate;
             SelectedTime = new ObservableCollection<object>
                     {
                        EndDate.Hour < 10 ? ("0" + EndDate.Hour) : EndDate.Hour.ToString(),
