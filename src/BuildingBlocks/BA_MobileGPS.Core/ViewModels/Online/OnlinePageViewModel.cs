@@ -25,21 +25,17 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private readonly IUserService userService;
         private readonly IUserLandmarkGroupService userLandmarkGroupService;
-
         public ICommand NavigateToSettingsCommand { get; private set; }
         public ICommand ChangeMapTypeCommand { get; private set; }
         public ICommand PushToRouterPageCommand { get; private set; }
         public ICommand PushToFABPageCommand { get; private set; }
-
         public ICommand PushDirectvehicleOnlineCommand { get; private set; }
         public DelegateCommand<CameraIdledEventArgs> CameraIdledCommand { get; private set; }
         public DelegateCommand PushToDetailPageCommand { get; private set; }
         public ICommand PushtoListVehicleOnlineCommand { get; private set; }
         public DelegateCommand GoDistancePageCommand { get; private set; }
         public DelegateCommand CloseCarInfoViewCommand { get; private set; }
-
         public ICommand SelectedMenuCommand { get; }
-
         public bool IsCheckShowLandmark { get; set; } = false;
 
         public OnlinePageViewModel(INavigationService navigationService,
