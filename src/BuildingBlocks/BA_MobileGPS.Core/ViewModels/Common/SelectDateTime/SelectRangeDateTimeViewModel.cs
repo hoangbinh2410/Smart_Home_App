@@ -124,26 +124,12 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (IsActiveStartDate)
             {
-                if (SelectedDate.Date == DateTime.Today.Date)
-                {
-                    StartDate = DateTime.Today.Date;
-                }
-                else
-                {
-                    StartDate = SelectedDate.Date;
-                }
+                StartDate = SelectedDate;
                 SetupPickerTime(StartDate);
             }
             else
             {
-                if (SelectedDate.Date == DateTime.Today.Date)
-                {
-                    EndDate = DateTime.Now;
-                }
-                else
-                {
-                    EndDate = SelectedDate.Date;
-                }
+                EndDate = SelectedDate;
                 SetupPickerTime(EndDate);
             }
         }
