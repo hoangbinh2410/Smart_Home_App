@@ -110,9 +110,9 @@ namespace BA_MobileGPS.Core.Models
                 ErrorMessenger = errMessenger;
             });
             countLoadingTimer.Stop();
-            ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
-            mediaPlayer.Media.Dispose();
-            mediaPlayer.Media = null;
+            //ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
+            //mediaPlayer.Media.Dispose();
+            //mediaPlayer.Media = null;
         }
 
         // Hết video?
@@ -189,12 +189,12 @@ namespace BA_MobileGPS.Core.Models
         {
             try
             {
-                if (mediaPlayer.Media != null)
-                {
-                    ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
-                    mediaPlayer.Media.Dispose();
-                    mediaPlayer.Media = null;
-                }
+                //if (mediaPlayer.Media != null)
+                //{
+                //    ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
+                //    mediaPlayer.Media.Dispose();
+                //    mediaPlayer.Media = null;
+                //}
             
                 internalError = false;
                 ErrorMessenger = string.Empty;

@@ -68,8 +68,26 @@ namespace BA_MobileGPS.Core.ViewModels
             Media = new RestreamVideoManagement(maxLoadingTime, libVLC);
             IsFullScreenOff = true;
             base.OnPageAppearingFirstTime();
+            SetChannelSource();
+        }
+        private List<string> listChannel;
+        public List<string> ListChannel
+        {
+            get { return listChannel; }
+            set { SetProperty(ref listChannel, value); }
         }
 
+        private string selectedChannel;
+        public string SelectedChannel
+        {
+            get { return selectedChannel; }
+            set { SetProperty(ref selectedChannel, value, SelectedChannelChanged); }
+        }
+
+        public void SelectedChannelChanged()
+        {
+
+        }
         /// <summary>
         /// Reload khi video bi loi ket noi
         /// </summary>
@@ -372,7 +390,7 @@ namespace BA_MobileGPS.Core.ViewModels
                          foreach (var videoInfor in camera.Data)
                          {
                              videoInfor.Channel = camera.Channel;
-                            //videoInfor.EndTime= videoInfor.EndTime.AddSeconds(10);
+                            videoInfor.EndTime= videoInfor.EndTime.AddSeconds(100);
                         }
                          basePNCSource.AddRange(camera.Data);
                      }
@@ -385,6 +403,11 @@ namespace BA_MobileGPS.Core.ViewModels
                      }
                  }
              });
+        }
+        private void SetChannelSource()
+        {
+            var source = new List<string>() { "Kênh 1", "Kênh 2" };
+            ListChannel = source;
         }
     }
 

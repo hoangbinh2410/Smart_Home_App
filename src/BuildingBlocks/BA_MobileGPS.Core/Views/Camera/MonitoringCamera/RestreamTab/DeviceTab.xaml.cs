@@ -1,4 +1,5 @@
-﻿using Prism.Navigation;
+﻿using BA_MobileGPS.Core.Resources;
+using Prism.Navigation;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
@@ -7,10 +8,11 @@ namespace BA_MobileGPS.Core.Views
     {
         private readonly double portraitHeight = Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Height / 
                                                  Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Density;
-        private readonly double videoHeightRatio = 2.9;
+        private readonly double videoHeightRatio = 3;
         public DeviceTab()
         {
-            InitializeComponent();           
+            InitializeComponent();
+            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
         }
 
         protected override void OnAppearing()
