@@ -87,7 +87,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     SelectedDate.Day, int.Parse(SelectedTime[0].ToString()),
                     int.Parse(SelectedTime[1].ToString()),
                     0);
-                SelectedTime = new ObservableCollection<object> { "00", "00" };
+
             }
             else
             {
@@ -96,13 +96,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     SelectedDate.Day, int.Parse(SelectedTime[0].ToString()),
                     int.Parse(SelectedTime[1].ToString()),
                     0);
-                SelectedTime = new ObservableCollection<object>
-                    {
-                        //Current hour is selected if hour is less than 13 else it is subtracted by 12 to maintain 12hour format
-                       EndDate.Hour < 10 ? ("0" + EndDate.Hour) : EndDate.Hour.ToString(),
-                        //Current minute is selected
-                       EndDate.Minute < 10 ? ("0" + EndDate.Minute) : EndDate.Minute.ToString()
-                    };
             }
         }
 
@@ -113,8 +106,11 @@ namespace BA_MobileGPS.Core.ViewModels
             BgActiveEndDate = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
             TextcolorActiveStartDate = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
             TextcolorActiveEndDate = (Color)Prism.PrismApplicationBase.Current.Resources["TextPrimaryColor"];
-
-
+            SelectedTime = new ObservableCollection<object>
+                    {
+                       StartDate.Hour < 10 ? ("0" + StartDate.Hour) : StartDate.Hour.ToString(),
+                       StartDate.Minute < 10 ? ("0" + StartDate.Minute) : StartDate.Minute.ToString()
+                    };
         }
         private void SelectActiveEndDate()
         {
@@ -123,6 +119,11 @@ namespace BA_MobileGPS.Core.ViewModels
             BgActiveStartDate = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
             TextcolorActiveStartDate = (Color)Prism.PrismApplicationBase.Current.Resources["TextPrimaryColor"];
             TextcolorActiveEndDate = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
+            SelectedTime = new ObservableCollection<object>
+                    {
+                       EndDate.Hour < 10 ? ("0" + EndDate.Hour) : EndDate.Hour.ToString(),
+                       EndDate.Minute < 10 ? ("0" + EndDate.Minute) : EndDate.Minute.ToString()
+                    };
         }
         private void OnSelectionDateChanged()
         {
@@ -144,9 +145,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     SelectedTime = new ObservableCollection<object>
                     {
-                        //Current hour is selected if hour is less than 13 else it is subtracted by 12 to maintain 12hour format
                         DateTime.Now.Hour < 10 ? ("0" + DateTime.Now.Hour) : DateTime.Now.Hour.ToString(),
-                        //Current minute is selected
                         DateTime.Now.Minute < 10 ? ("0" + DateTime.Now.Minute) : DateTime.Now.Minute.ToString()
                     };
                     EndDate = DateTime.Now;
