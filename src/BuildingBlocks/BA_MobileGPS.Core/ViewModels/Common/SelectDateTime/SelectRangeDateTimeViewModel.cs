@@ -87,6 +87,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     SelectedDate.Day, int.Parse(SelectedTime[0].ToString()),
                     int.Parse(SelectedTime[1].ToString()),
                     0);
+                SelectedTime = new ObservableCollection<object> { "00", "00" };
             }
             else
             {
@@ -95,6 +96,13 @@ namespace BA_MobileGPS.Core.ViewModels
                     SelectedDate.Day, int.Parse(SelectedTime[0].ToString()),
                     int.Parse(SelectedTime[1].ToString()),
                     0);
+                SelectedTime = new ObservableCollection<object>
+                    {
+                        //Current hour is selected if hour is less than 13 else it is subtracted by 12 to maintain 12hour format
+                       EndDate.Hour < 10 ? ("0" + EndDate.Hour) : EndDate.Hour.ToString(),
+                        //Current minute is selected
+                       EndDate.Minute < 10 ? ("0" + EndDate.Minute) : EndDate.Minute.ToString()
+                    };
             }
         }
 
