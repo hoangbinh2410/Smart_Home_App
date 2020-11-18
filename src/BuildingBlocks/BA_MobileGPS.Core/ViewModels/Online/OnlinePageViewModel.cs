@@ -49,7 +49,7 @@ namespace BA_MobileGPS.Core.ViewModels
             selectedVehicleGroup = new List<int>();
             CarSearch = string.Empty;
 
-            if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
+            if (Settings.MapType == (int)MapType.Hybrid)
             {
                 mapType = MapType.Hybrid;
                 ColorMapType = (Color)App.Current.Resources["WhiteColor"];
@@ -532,7 +532,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ChangeMapType()
         {
-            SafeExecute(async () =>
+            SafeExecute(() =>
             {
                 if (MapType == MapType.Street)
                 {
@@ -546,20 +546,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     BackgroundMapType = (Color)App.Current.Resources["WhiteColor"];
                     MapType = MapType.Street;
                 }
-                byte maptype = 1;
-                if (MapType == MapType.Hybrid)
-                {
-                    maptype = 4;
-                }
-                var result = await userService.SetAdminUserSettings(new AdminUserConfiguration()
-                {
-                    FK_UserID = UserInfo.UserId,
-                    Latitude = (float)MobileUserSettingHelper.LatCurrent,
-                    Longitude = (float)MobileUserSettingHelper.LngCurrent,
-                    MapType = maptype,
-                    MapZoom = (byte)MobileUserSettingHelper.Mapzoom
-                });
-                MobileUserSettingHelper.Set(MobileUserConfigurationNames.MBMapType, maptype);
+                Settings.MapType = (int)MapType;
             });
         }
 
