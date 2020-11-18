@@ -8,7 +8,7 @@ namespace BA_MobileGPS.Core.Views
     {
         private readonly double portraitHeight = Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Height / 
                                                  Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Density;
-        private readonly double videoHeightRatio = 3;
+        private readonly double videoHeightRatio = 3.2;
         public DeviceTab()
         {
             InitializeComponent();

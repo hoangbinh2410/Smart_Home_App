@@ -162,7 +162,7 @@
 	  <EmbeddedResource Update="Views\Authentication\ForgotPasswordPopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\RestreamTab\BACloudTab.xaml">
+	  <EmbeddedResource Update="Views\Camera\RestreamTab\BACloudTab.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\BACloudTab.xaml">
@@ -210,7 +210,7 @@
 	  <EmbeddedResource Update="Views\DetailCamera.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\RestreamTab\DeviceTab.xaml">
+	  <EmbeddedResource Update="Views\Camera\RestreamTab\DeviceTab.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\ListVehicle\ListVehicleHelpPage.xaml">
@@ -274,7 +274,7 @@
 	  <EmbeddedResource Update="Views\MainPage\MainPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\RestreamTab\MyVideoTab.xaml">
+	  <EmbeddedResource Update="Views\Camera\RestreamTab\MyVideoTab.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Navigation\BaseNavigationPage.xaml">

@@ -181,7 +181,7 @@ namespace BA_MobileGPS.Core.ViewModels
             input.Add(new HomeMenuItemViewModel()
             {
                 PK_MenuItemID = 111111111,
-                MenuKey = "CameraRestreamOverview",
+                MenuKey = "CameraRestream",
                 IsVisible = true,
                 IconMobile = "https://www.pngfind.com/pngs/m/185-1854531_download-old-video-camera-icon-clipart-photographic-logo.png",
                 NameByCulture = "Xem lại video"

@@ -176,14 +176,13 @@
                         <vlc:MediaPlayerElement
                             HorizontalOptions="Fill"
                             LibVLC="{Binding LibVLC}"
-                            MediaPlayer="{Binding Media.MediaPlayer}"
+                            MediaPlayer="{Binding Media}"
                             VerticalOptions="Fill">
                             <vlc:MediaPlayerElement.PlaybackControls>
                                 <vlc:PlaybackControls>
                                     <vlc:PlaybackControls.ControlTemplate>
                                         <ControlTemplate>
                                             <StackLayout IsVisible="{TemplateBinding MediaPlayer, Converter={StaticResource ObjectToBoolConverter}}" Spacing="0">
-
                                                 <StackLayout
                                                     x:Name="ControlsPanel"
                                                     Spacing="0"
@@ -271,11 +270,11 @@
                                 </vlc:PlaybackControls>
                             </vlc:MediaPlayerElement.PlaybackControls>
                         </vlc:MediaPlayerElement>
-                        <indicator:SfBusyIndicator IsBusy="{Binding Media.IsLoaded, Converter={StaticResource ShowHideColumnConverter}}" />
+                        <indicator:SfBusyIndicator IsBusy="{Binding BusyIndicatorActive}" />
                         <Grid
                             x:Name="errGrid"
                             BackgroundColor="Black"
-                            IsVisible="{Binding Media.IsError}">
+                            IsVisible="{Binding IsError}">
                             <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
                                 <icons:IconView
                                     Foreground="{DynamicResource WhiteColor}"
@@ -290,7 +289,7 @@
                                     LineBreakMode="TailTruncation"
                                     LineHeight="1.1"
                                     MaxLines="2"
-                                    Text="{Binding Media.ErrorMessenger}"
+                                    Text="{Binding ErrorMessenger}"
                                     TextColor="{DynamicResource WhiteColor}" />
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ReLoadCommand}" CommandParameter="{Binding .}" />
@@ -315,35 +314,21 @@
                             TextColor="{DynamicResource WhiteColor}" />
                     </StackLayout>
                 </Grid>
-                <!--  Tự động phát  -->
-                <StackLayout
-                    x:Name="autoPlayLayout"
-                    Grid.Row="1"
-                    Padding="18,5"
-                    IsVisible="{Binding MediaPlayerVisible}"
-                    Orientation="Horizontal">
-                    <Label
-                        StyleClass="BoldText"
-                        Text="Danh sách video"
-                        VerticalOptions="Center" />
-                    <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
-                        <Label Text="Phát tự động" VerticalOptions="Center" />
-                        <Switch IsToggled="{Binding AutoSwitch}" />
-                    </StackLayout>
-                </StackLayout>
+
+
                 <!--  Danh sách video  -->
                 <xforms:SfListView
                     x:Name="listview"
                     Grid.Row="2"
                     Padding="5,0"
                     AutoFitMode="DynamicHeight"
+                    FocusBorderColor="{DynamicResource PinkColor}"
                     IsScrollBarVisible="True"
                     ItemSpacing="5"
                     ItemsSource="{Binding VideoItemsSource, Mode=OneWay}"
                     LoadMoreCommand="{Binding LoadMoreItemsCommand}"
                     LoadMoreCommandParameter="{Binding Source={x:Reference listview}}"
                     LoadMoreOption="Auto"
-                    FocusBorderColor="{DynamicResource PinkColor}"                  
                     SelectionMode="Single">
                     <xforms:SfListView.ItemTemplate>
                         <DataTemplate>
