@@ -190,6 +190,12 @@
                     RowSpacing="0">
                     <!--  Video  -->
                     <pancake:PancakeView>
+                        <pancake:PancakeView.Shadow>
+                            <pancake:DropShadow
+                                BlurRadius="2"
+                                Offset="0,0"
+                                Color="Black" />
+                        </pancake:PancakeView.Shadow>
                         <Grid>
                             <vlc:MediaPlayerElement
                                 HorizontalOptions="Fill"
