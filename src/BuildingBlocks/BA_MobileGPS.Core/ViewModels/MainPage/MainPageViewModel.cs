@@ -232,43 +232,43 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private async Task ConnectSignalR()
         {
-            //Hub logout
-            await identityHubService.Connect();
-            identityHubService.onReceivePushLogoutToAllUserInCompany += onReceivePushLogoutToAllUserInCompany;
-            identityHubService.onReceivePushLogoutToUser += onReceivePushLogoutToUser;
+            ////Hub logout
+            //await identityHubService.Connect();
+            //identityHubService.onReceivePushLogoutToAllUserInCompany += onReceivePushLogoutToAllUserInCompany;
+            //identityHubService.onReceivePushLogoutToUser += onReceivePushLogoutToUser;
 
-            // Khởi tạo alertlR
-            await alertHubService.Connect();
-            alertHubService.onReceiveAlertSignalR += OnReceiveAlertSignalR;
+            //// Khởi tạo alertlR
+            //await alertHubService.Connect();
+            //alertHubService.onReceiveAlertSignalR += OnReceiveAlertSignalR;
         }
 
         private async Task ConnectSignalROnline()
         {
             // Khởi tạo signalR
-            await vehicleOnlineHubService.Connect();
-            vehicleOnlineHubService.onReceiveSendCarSignalR -= OnReceiveSendCarSignalR;
-            vehicleOnlineHubService.onReceiveSendCarSignalR += OnReceiveSendCarSignalR;
+            //await vehicleOnlineHubService.Connect();
+            //vehicleOnlineHubService.onReceiveSendCarSignalR -= OnReceiveSendCarSignalR;
+            //vehicleOnlineHubService.onReceiveSendCarSignalR += OnReceiveSendCarSignalR;
         }
 
         private async void DisconnectSignalR()
         {
-            identityHubService.onReceivePushLogoutToAllUserInCompany -= onReceivePushLogoutToAllUserInCompany;
-            identityHubService.onReceivePushLogoutToUser -= onReceivePushLogoutToUser;
-            await identityHubService.Disconnect();
+            //identityHubService.onReceivePushLogoutToAllUserInCompany -= onReceivePushLogoutToAllUserInCompany;
+            //identityHubService.onReceivePushLogoutToUser -= onReceivePushLogoutToUser;
+            //await identityHubService.Disconnect();
 
-            //thoát khỏi nhóm nhận xe
-            if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
-            {
-                LeaveGroupSignalRCar(StaticSettings.ListVehilceOnline.Select(x => x.VehicleId.ToString()).ToList());
-            }
+            ////thoát khỏi nhóm nhận xe
+            //if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+            //{
+            //    LeaveGroupSignalRCar(StaticSettings.ListVehilceOnline.Select(x => x.VehicleId.ToString()).ToList());
+            //}
 
-            vehicleOnlineHubService.onReceiveSendCarSignalR -= OnReceiveSendCarSignalR;
+            //vehicleOnlineHubService.onReceiveSendCarSignalR -= OnReceiveSendCarSignalR;
 
-            await vehicleOnlineHubService.Disconnect();
+            //await vehicleOnlineHubService.Disconnect();
 
-            alertHubService.onReceiveAlertSignalR -= OnReceiveAlertSignalR;
+            //alertHubService.onReceiveAlertSignalR -= OnReceiveAlertSignalR;
 
-            await alertHubService.Disconnect();
+            //await alertHubService.Disconnect();
         }
 
         private void JoinGroupSignalRCar(List<string> lstGroup)
@@ -276,7 +276,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 //Thoát khỏi nhóm nhận thông tin xe
-                vehicleOnlineHubService.JoinGroupReceivedVehicleID(string.Join(",", lstGroup));
+                //vehicleOnlineHubService.JoinGroupReceivedVehicleID(string.Join(",", lstGroup));
             }
             catch (Exception ex)
             {
@@ -289,7 +289,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 //Thoát khỏi nhóm nhận thông tin xe
-                vehicleOnlineHubService.LeaveGroupReceivedVehicleID(string.Join(",", lstGroup));
+                //vehicleOnlineHubService.LeaveGroupReceivedVehicleID(string.Join(",", lstGroup));
             }
             catch (Exception ex)
             {
