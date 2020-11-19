@@ -5,15 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using BA_MobileGPS.Core.Interfaces;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class CameraRestreamViewModel : ViewModelBase
     {
-
-        public CameraRestreamViewModel(INavigationService navigationService) : base(navigationService)
+        private readonly IScreenOrientServices _screenOrientServices;
+        public CameraRestreamViewModel(INavigationService navigationService,IScreenOrientServices screenOrientServices) : base(navigationService)
         {
-
+            _screenOrientServices = screenOrientServices;
         }
 
         public override void OnPageAppearingFirstTime()
@@ -26,6 +27,11 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnNavigatedTo(parameters);
         }
 
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            _screenOrientServices.ForcePortrait();
+        }
 
 
     }

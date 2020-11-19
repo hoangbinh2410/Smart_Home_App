@@ -212,20 +212,17 @@
                                                         x:Name="ControlsPanel"
                                                         Spacing="0"
                                                         Style="{TemplateBinding ControlsPanelStyle}">
-
                                                         <StackLayout Orientation="Horizontal">
                                                             <StackLayout
                                                                 Margin="20,0,0,0"
                                                                 Orientation="Horizontal"
                                                                 Spacing="0">
-
                                                                 <Button
                                                                     x:Name="PlayPauseButton"
                                                                     FontSize="20"
                                                                     HeightRequest="30"
                                                                     Style="{TemplateBinding PlayPauseButtonStyle}"
                                                                     WidthRequest="30" />
-
                                                             </StackLayout>
                                                             <StackLayout
                                                                 Margin="0,0,20,0"
@@ -236,13 +233,13 @@
                                                                 <icons:IconView
                                                                     Foreground="{DynamicResource WhiteColor}"
                                                                     HeightRequest="25"
+                                                                    Rotation="180"
                                                                     Source="ic_download.png"
                                                                     WidthRequest="25">
                                                                     <icons:IconView.GestureRecognizers>
                                                                         <TapGestureRecognizer Command="{Binding DownloadTappedCommand}" />
                                                                     </icons:IconView.GestureRecognizers>
                                                                 </icons:IconView>
-
                                                                 <icons:IconView
                                                                     Foreground="{DynamicResource WhiteColor}"
                                                                     HeightRequest="25"
@@ -317,7 +314,6 @@
                     </StackLayout>
                 </Grid>
 
-
                 <!--  Danh sách video  -->
                 <xforms:SfListView
                     x:Name="listview"
@@ -338,7 +334,6 @@
                         <DataTemplate>
                             <Grid>
                                 <pancake:PancakeView Padding="0" HeightRequest="250">
-
                                     <pancake:PancakeView.Shadow>
                                         <pancake:DropShadow
                                             BlurRadius="1"
