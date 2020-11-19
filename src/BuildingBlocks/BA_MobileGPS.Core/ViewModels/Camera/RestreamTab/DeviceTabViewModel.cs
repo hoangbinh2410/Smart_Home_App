@@ -32,6 +32,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly DateTime fromTimeDefault = Convert.ToDateTime("2020-11-16 12:00:00 AM");
         private readonly DateTime toTimeDefault = Convert.ToDateTime("2020-11-16 11:00:00 PM");
         private List<RestreamVideoModel> basePNCSource { get; set; } = new List<RestreamVideoModel>();
+        private bool VMBusy { get; set; }
 
         public ICommand VideoItemTapCommand { get; }
         public ICommand CloseVideoCommand { get; }
@@ -72,8 +73,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnPageAppearingFirstTime()
         {
-            dateStart = fromTimeDefault;
-            dateEnd = toTimeDefault;
+            DateStart = fromTimeDefault;
+            DateEnd = toTimeDefault;
             LibVLCSharp.Shared.Core.Initialize();
             LibVLC = new LibVLC("--no-rtsp-tcp");
             Media = new MediaPlayer(libVLC);
@@ -117,7 +118,10 @@ namespace BA_MobileGPS.Core.ViewModels
         }
         private void DateStartChange()
         {
-            GetListImageDataFromPNC(dateStart, dateEnd);
+            if (!VMBusy)
+            {
+                GetListImageDataFromPNC(dateStart, dateEnd);
+            }           
         }
 
         private DateTime dateEnd;
@@ -129,7 +133,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void DateEndChange()
         {
-            GetListImageDataFromPNC(dateStart, dateEnd);
+            if (!VMBusy)
+            {
+                GetListImageDataFromPNC(dateStart, dateEnd);
+            }            
         }
 
         private bool isError;
@@ -159,6 +166,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 IsError = true;
                 ErrorMessenger = "Hết video";
+
             });
         }
 
@@ -191,7 +199,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public void SelectedChannelChanged()
         {
-            GetListImageDataFromPNC(dateStart, dateEnd, channel: selectedChannel.Value);
+            if (!VMBusy)
+            {
+                GetListImageDataFromPNC(dateStart, dateEnd, channel: selectedChannel.Value);
+            }
+            
         }
 
         /// <summary>
@@ -310,9 +322,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void VideoItemTap(object obj)
         {
-            if (obj != null)
+            if (obj != null && obj is Syncfusion.ListView.XForms.ItemTappedEventArgs eventS)
             {
-                var item = (RestreamVideoModel)obj;
+                var item = (RestreamVideoModel)eventS.ItemData;
 
                 MediaPlayerVisible = true;
                 VideoSlected = item;
@@ -435,6 +447,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (result?.Data != null)
                 {
                     SetMediaUrl(result.Data.Link);
+                }
+                else
+                {
+                    // dang duoc xem
+                    if (result?.StatusCode == 1)
+                    {
+                        VideoSelectedChange();
+                    }
                 }
                 //Debug.WriteLine(" CHO 5S......................");
                 //await Task.Delay(5000);
@@ -566,9 +586,12 @@ namespace BA_MobileGPS.Core.ViewModels
         }
         private void RestoreSearch()
         {
+            VMBusy = true;
             DateStart = fromTimeDefault;
             DateEnd = toTimeDefault;
             SelectedChannel = null;
+            VMBusy = false;
+            ReloadPage();
         }
     }
 
