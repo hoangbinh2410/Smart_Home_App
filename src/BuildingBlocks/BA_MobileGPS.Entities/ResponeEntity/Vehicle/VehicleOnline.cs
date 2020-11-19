@@ -134,6 +134,10 @@ namespace BA_MobileGPS.Entities
                 {
                     this.TotalKm = message.TotalKm;
                 }
+                if (!string.IsNullOrEmpty(message.Temperature))
+                {
+                    this.Temperature = message.Temperature;
+                }
             }
         }
     }

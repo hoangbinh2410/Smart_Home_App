@@ -339,6 +339,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     vehicle.TotalKm = carInfo.TotalKm;
                 }
+                vehicle.Temperature = carInfo.Temperature;
                 vehicle.StatusEngineer = carInfo.StatusEngineer;
                 vehicle.IconImage = IconCodeHelper.GetMarkerResource(carInfo);
 
