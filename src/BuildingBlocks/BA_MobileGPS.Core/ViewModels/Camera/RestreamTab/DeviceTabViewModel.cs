@@ -14,6 +14,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -24,11 +25,12 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         private readonly IStreamCameraService streamCameraService;
         private readonly IScreenOrientServices screenOrientServices;
-        private readonly int configMinute = 1;
+        private readonly int configMinute = 3;
         // private readonly int 
         private int pageIndex { get; set; } = 0;
         private int pageCount { get; } = 20;
-
+        private readonly DateTime fromTimeDefault = Convert.ToDateTime("2020-11-16 12:00:00 AM");
+        private readonly DateTime toTimeDefault = Convert.ToDateTime("2020-11-16 11:00:00 PM");
         private List<RestreamVideoModel> basePNCSource { get; set; } = new List<RestreamVideoModel>();
 
         public ICommand VideoItemTapCommand { get; }
@@ -39,14 +41,14 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand ShareTappedCommand { get; }
         public ICommand FullScreenTappedCommand { get; }
         public ICommand ReLoadCommand { get; }
-        public ICommand LoadMoreItemsCommand { get; set; }
+        public ICommand LoadMoreItemsCommand { get;  }
+        public ICommand RestoreSearchCommand { get;  }
 
         //private readonly int maxLoadingTime = 60;
         private int customerId = 1010;
         private string bks = "QATEST1";
         // private DateTime date = Convert.ToDateTime("2020-11-17");
-        //private DateTime fromTime = Convert.ToDateTime("2020-11-16 12:00:00 AM");
-        //private DateTime toTime = Convert.ToDateTime("2020-11-16 11:00:00 PM");
+       
 
         public DeviceTabViewModel(INavigationService navigationService,
             IStreamCameraService cameraService,
@@ -63,12 +65,15 @@ namespace BA_MobileGPS.Core.ViewModels
             FullScreenTappedCommand = new DelegateCommand(FullScreenTapped);
             ReLoadCommand = new DelegateCommand(ReloadVideo);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
+            RestoreSearchCommand = new DelegateCommand(RestoreSearch);
             mediaPlayerVisible = false;
             videoItemsSource = new ObservableCollection<RestreamVideoModel>();
         }
 
         public override void OnPageAppearingFirstTime()
         {
+            dateStart = fromTimeDefault;
+            dateEnd = toTimeDefault;
             LibVLCSharp.Shared.Core.Initialize();
             LibVLC = new LibVLC("--no-rtsp-tcp");
             Media = new MediaPlayer(libVLC);
@@ -104,7 +109,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private DateTime dateStart = Convert.ToDateTime("2020-11-16 12:00:00 AM");
+        private DateTime dateStart;
         public DateTime DateStart
         {
             get => dateStart;
@@ -115,7 +120,7 @@ namespace BA_MobileGPS.Core.ViewModels
             GetListImageDataFromPNC(dateStart, dateEnd);
         }
 
-        private DateTime dateEnd = Convert.ToDateTime("2020-11-16 11:59:00 PM");
+        private DateTime dateEnd;
         public DateTime DateEnd
         {
             get => dateEnd;
@@ -140,12 +145,12 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private void Media_EncounteredError(object sender, EventArgs e)
-        {
-
-            Debug.WriteLine("____Có lỗi khi gán url......");
-
-
-
+        {          
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                IsError = true;
+                ErrorMessenger = "Có lỗi khi gán url..";
+            });
         }
 
         private void Media_EndReached(object sender, EventArgs e)
@@ -316,11 +321,24 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void VideoSelectedChange()
         {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                IsError = false;
-                BusyIndicatorActive = true;
-            });
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    IsError = false;
+                    BusyIndicatorActive = true;
+                    try
+                    {
+                        ThreadPool.QueueUserWorkItem((r) => { Media.Stop(); });
+                        Media.Media.Dispose();
+                        Media.Media = null;                     
+                    }
+                    catch (Exception ex)
+                    {
+
+                        
+                    }                  
+                });
+           
+          
            
             var req = new StopRestreamRequest()
             {
@@ -545,6 +563,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                 }
             });
+        }
+        private void RestoreSearch()
+        {
+            DateStart = fromTimeDefault;
+            DateEnd = toTimeDefault;
+            SelectedChannel = null;
         }
     }
 
