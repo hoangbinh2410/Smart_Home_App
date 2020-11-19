@@ -2,6 +2,7 @@
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -195,6 +196,28 @@ namespace BA_MobileGPS.Service.Service
             {
                 string url = $"{ApiUri.POST_RESTREAM_STOP}";
                 result = await requestProvider.PostAsync<StopRestreamRequest, StreamStopResponse>(url, request);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<List<CaptureImageData>> RestreamCaptureImageInfo(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime, int? channel = null, int? limit = null)
+        {
+            var result = new List<CaptureImageData>();
+            try
+            { 
+
+                var from = JsonConvert.SerializeObject(fromTime).Replace("\"", "");
+                var to = JsonConvert.SerializeObject(toTime).Replace("\"", "");
+                string url = string.Format(ApiUri.GET_RESTREAM_IMAGES + "?xncode={0}&vehiclePlate={1}&fromTime={2}&toTime={3}&limit={4}&channel={5}", xncode, vehiclePlate, from, to,limit,channel);
+                var response = await requestProvider.GetAsync<ResponseStreamBase<List<CaptureImageData>>>(url);
+                if (response != null && response.Data.Count > 0)
+                {
+                    result = response.Data;
+                }
             }
             catch (Exception ex)
             {
