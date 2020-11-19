@@ -209,6 +209,7 @@
         public const string POST_RESTREAM_UPLOAD = "api/stream/restreamupload";
         public const string POST_RESTREAM_START = "api/stream/restreamstart";
         public const string POST_RESTREAM_STOP = "api/stream/restreamstop";
+        public const string GET_RESTREAM_IMAGES = "api/stream/restreamimage";
 
         #endregion Camera
 

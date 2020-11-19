@@ -26,7 +26,11 @@ namespace BA_MobileGPS.Service.IService
         Task<List<CaptureImageData>> GetCaptureImageLimit(int xncode, string vehiclePlate, int limit);
 
         Task<List<CaptureImageData>> GetCaptureImageTime(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime);
-
+        /// <summary>
+        /// tra ve 4 anh gan nhat
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task<List<CaptureImageData>> GetListCaptureImage(StreamImageRequest request);
 
         Task<List<CameraRestreamInfo>> GetListVideoByDate(CameraRestreamRequest request);
@@ -37,6 +41,7 @@ namespace BA_MobileGPS.Service.IService
 
         Task<StreamStopResponse> StopRestream(StopRestreamRequest request);
 
+        Task<List<CaptureImageData>> RestreamCaptureImageInfo(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime, int? channel = null, int? limit = null);
     }
 
     public enum ConditionType

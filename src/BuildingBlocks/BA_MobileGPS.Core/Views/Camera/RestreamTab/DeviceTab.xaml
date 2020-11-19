@@ -18,6 +18,15 @@
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <converter:ShowHideColumnConverter x:Key="ShowHideColumnConverter" />
+        <Style TargetType="indicator:SfBusyIndicator">
+            <Setter Property="AnimationType" Value="Cupertino" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="EnableAnimation" Value="True" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="ViewBoxHeight" Value="35" />
+            <Setter Property="ViewBoxWidth" Value="35" />
+            <Setter Property="Duration" Value="0.8" />
+        </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*" RowSpacing="0">
@@ -85,18 +94,31 @@
                                 Offset="0,0"
                                 Color="Black" />
                         </pancake:PancakeView.Shadow>
-                        <Picker
-                            Title="Chọn kênh"
-                            FontSize="{DynamicResource MyFontSize}"
-                            HorizontalTextAlignment="Center"
-                            ItemsSource="{Binding ListChannel}"
-                            SelectedItem="{Binding SelectedChannel}"
-                            TitleColor="{DynamicResource PrimaryColor}"
-                            WidthRequest="120">
-                            <Picker.Effects>
-                                <effects:BorderlessEffect />
-                            </Picker.Effects>
-                        </Picker>
+                        <Grid>
+                            <Picker
+                                Title="Chọn kênh"
+                                Margin="10,0,0,0"
+                                FontSize="{DynamicResource MyFontSize}"
+                                HorizontalTextAlignment="Start"
+                                ItemDisplayBinding="{Binding Name}"
+                                ItemsSource="{Binding ListChannel}"
+                                SelectedItem="{Binding SelectedChannel}"
+                                TitleColor="{DynamicResource PrimaryColor}"
+                                WidthRequest="120">
+                                <Picker.Effects>
+                                    <effects:BorderlessEffect />
+                                </Picker.Effects>
+                            </Picker>
+                            <icons:IconView
+                                Margin="0,0,10,0"
+                                Foreground="Gray"
+                                HeightRequest="20"
+                                HorizontalOptions="End"
+                                Source="ic_sortdown"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </Grid>
+
                     </pancake:PancakeView>
                 </StackLayout>
                 <Grid Grid.Row="1" ColumnDefinitions="*,*,Auto">
@@ -136,7 +158,7 @@
                                 Color="Black" />
                         </pancake:PancakeView.Shadow>
                         <pancake:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
+                            <TapGestureRecognizer Command="{Binding RestoreSearchCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <icons:IconView
                             Margin="6"
@@ -145,10 +167,6 @@
                             VerticalOptions="Center" />
                     </pancake:PancakeView>
                 </Grid>
-
-
-
-
             </Grid>
             <!--  Khu vực video và danh sách  -->
             <Grid
@@ -172,131 +190,115 @@
                     RowDefinitions="*,Auto"
                     RowSpacing="0">
                     <!--  Video  -->
-                    <Grid>
-                        <vlc:MediaPlayerElement
-                            HorizontalOptions="Fill"
-                            LibVLC="{Binding LibVLC}"
-                            MediaPlayer="{Binding Media}"
-                            VerticalOptions="Fill">
-                            <vlc:MediaPlayerElement.PlaybackControls>
-                                <vlc:PlaybackControls>
-                                    <vlc:PlaybackControls.ControlTemplate>
-                                        <ControlTemplate>
-                                            <StackLayout IsVisible="{TemplateBinding MediaPlayer, Converter={StaticResource ObjectToBoolConverter}}" Spacing="0">
-                                                <StackLayout
-                                                    x:Name="ControlsPanel"
-                                                    Spacing="0"
-                                                    Style="{TemplateBinding ControlsPanelStyle}">
+                    <pancake:PancakeView>
+                        <pancake:PancakeView.Shadow>
+                            <pancake:DropShadow
+                                BlurRadius="2"
+                                Offset="0,0"
+                                Color="Black" />
+                        </pancake:PancakeView.Shadow>
+                        <Grid>
+                            <vlc:MediaPlayerElement
+                                HorizontalOptions="Fill"
+                                LibVLC="{Binding LibVLC}"
+                                MediaPlayer="{Binding Media}"
+                                VerticalOptions="Fill">
+                                <vlc:MediaPlayerElement.PlaybackControls>
+                                    <vlc:PlaybackControls>
+                                        <vlc:PlaybackControls.ControlTemplate>
+                                            <ControlTemplate>
+                                                <StackLayout IsVisible="{TemplateBinding MediaPlayer, Converter={StaticResource ObjectToBoolConverter}}" Spacing="0">
+                                                    <StackLayout
+                                                        x:Name="ControlsPanel"
+                                                        Spacing="0"
+                                                        Style="{TemplateBinding ControlsPanelStyle}">
 
-                                                    <StackLayout Orientation="Horizontal">
-                                                        <StackLayout
-                                                            Margin="20,0,0,0"
-                                                            Orientation="Horizontal"
-                                                            Spacing="0">
-                                                            <icons:IconView
-                                                                Foreground="{DynamicResource WhiteColor}"
-                                                                HeightRequest="30"
-                                                                Source="ic_fast_start_black"
-                                                                VerticalOptions="Center"
-                                                                WidthRequest="30">
-                                                                <icons:IconView.GestureRecognizers>
-                                                                    <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.PreviousChapterCommand}" />
-                                                                </icons:IconView.GestureRecognizers>
-                                                            </icons:IconView>
-                                                            <Button
-                                                                x:Name="PlayPauseButton"
-                                                                FontSize="20"
-                                                                HeightRequest="30"
-                                                                Style="{TemplateBinding PlayPauseButtonStyle}"
-                                                                WidthRequest="30" />
-                                                            <icons:IconView
-                                                                Foreground="{DynamicResource WhiteColor}"
-                                                                HeightRequest="30"
-                                                                Source="ic_fast_end_black"
-                                                                WidthRequest="30">
-                                                                <icons:IconView.GestureRecognizers>
-                                                                    <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.NextChapterChapterCommand}" />
-                                                                </icons:IconView.GestureRecognizers>
-                                                            </icons:IconView>
-                                                        </StackLayout>
-                                                        <StackLayout
-                                                            Margin="0,0,20,0"
-                                                            HorizontalOptions="EndAndExpand"
-                                                            Orientation="Horizontal"
-                                                            Spacing="13"
-                                                            VerticalOptions="Center">
-                                                            <icons:IconView
-                                                                Foreground="{DynamicResource WhiteColor}"
-                                                                HeightRequest="25"
-                                                                Source="ic_download.png"
-                                                                WidthRequest="25">
-                                                                <icons:IconView.GestureRecognizers>
-                                                                    <TapGestureRecognizer Command="{Binding DownloadTappedCommand}" />
-                                                                </icons:IconView.GestureRecognizers>
-                                                            </icons:IconView>
-                                                            <icons:IconView
-                                                                Foreground="{DynamicResource WhiteColor}"
-                                                                HeightRequest="25"
-                                                                Source="ic_share.png"
-                                                                WidthRequest="25">
-                                                                <icons:IconView.GestureRecognizers>
-                                                                    <TapGestureRecognizer Command="{Binding ShareTappedCommand}" />
-                                                                </icons:IconView.GestureRecognizers>
-                                                            </icons:IconView>
-                                                            <icons:IconView
-                                                                Foreground="{DynamicResource WhiteColor}"
-                                                                HeightRequest="25"
-                                                                Source="ic_fullscreen.png"
-                                                                WidthRequest="25">
-                                                                <icons:IconView.Triggers>
-                                                                    <DataTrigger
-                                                                        Binding="{Binding IsFullScreenOff}"
-                                                                        TargetType="icons:IconView"
-                                                                        Value="false">
-                                                                        <Setter Property="Source" Value="ic_normalscreen" />
-                                                                    </DataTrigger>
-                                                                </icons:IconView.Triggers>
-                                                                <icons:IconView.GestureRecognizers>
-                                                                    <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.FullScreenTappedCommand}" />
-                                                                </icons:IconView.GestureRecognizers>
-                                                            </icons:IconView>
+                                                        <StackLayout Orientation="Horizontal">
+                                                            <StackLayout
+                                                                Margin="20,0,0,0"
+                                                                Orientation="Horizontal"
+                                                                Spacing="0">
+
+                                                                <Button
+                                                                    x:Name="PlayPauseButton"
+                                                                    FontSize="20"
+                                                                    HeightRequest="30"
+                                                                    Style="{TemplateBinding PlayPauseButtonStyle}"
+                                                                    WidthRequest="30" />
+
+                                                            </StackLayout>
+                                                            <StackLayout
+                                                                Margin="0,0,20,0"
+                                                                HorizontalOptions="EndAndExpand"
+                                                                Orientation="Horizontal"
+                                                                Spacing="13"
+                                                                VerticalOptions="Center">
+                                                                <icons:IconView
+                                                                    Foreground="{DynamicResource WhiteColor}"
+                                                                    HeightRequest="25"
+                                                                    Source="ic_download.png"
+                                                                    WidthRequest="25">
+                                                                    <icons:IconView.GestureRecognizers>
+                                                                        <TapGestureRecognizer Command="{Binding DownloadTappedCommand}" />
+                                                                    </icons:IconView.GestureRecognizers>
+                                                                </icons:IconView>
+
+                                                                <icons:IconView
+                                                                    Foreground="{DynamicResource WhiteColor}"
+                                                                    HeightRequest="25"
+                                                                    Source="ic_fullscreen.png"
+                                                                    WidthRequest="25">
+                                                                    <icons:IconView.Triggers>
+                                                                        <DataTrigger
+                                                                            Binding="{Binding IsFullScreenOff}"
+                                                                            TargetType="icons:IconView"
+                                                                            Value="false">
+                                                                            <Setter Property="Source" Value="ic_normalscreen" />
+                                                                        </DataTrigger>
+                                                                    </icons:IconView.Triggers>
+                                                                    <icons:IconView.GestureRecognizers>
+                                                                        <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.FullScreenTappedCommand}" />
+                                                                    </icons:IconView.GestureRecognizers>
+                                                                </icons:IconView>
+                                                            </StackLayout>
                                                         </StackLayout>
                                                     </StackLayout>
-                                                </StackLayout>
 
-                                            </StackLayout>
-                                        </ControlTemplate>
-                                    </vlc:PlaybackControls.ControlTemplate>
-                                </vlc:PlaybackControls>
-                            </vlc:MediaPlayerElement.PlaybackControls>
-                        </vlc:MediaPlayerElement>
-                        <indicator:SfBusyIndicator IsBusy="{Binding BusyIndicatorActive}" />
-                        <Grid
-                            x:Name="errGrid"
-                            BackgroundColor="Black"
-                            IsVisible="{Binding IsError}">
-                            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                                <icons:IconView
-                                    Foreground="{DynamicResource WhiteColor}"
-                                    HeightRequest="25"
-                                    Source="ic_reload"
-                                    WidthRequest="25" />
-                                <abstractions:HtmlLabel
-                                    x:Name="lblErr"
-                                    FontSize="13"
-                                    HorizontalOptions="Center"
-                                    HorizontalTextAlignment="Center"
-                                    LineBreakMode="TailTruncation"
-                                    LineHeight="1.1"
-                                    MaxLines="2"
-                                    Text="{Binding ErrorMessenger}"
-                                    TextColor="{DynamicResource WhiteColor}" />
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ReLoadCommand}" CommandParameter="{Binding .}" />
-                                </StackLayout.GestureRecognizers>
-                            </StackLayout>
+                                                </StackLayout>
+                                            </ControlTemplate>
+                                        </vlc:PlaybackControls.ControlTemplate>
+                                    </vlc:PlaybackControls>
+                                </vlc:MediaPlayerElement.PlaybackControls>
+                            </vlc:MediaPlayerElement>
+
+                            <indicator:SfBusyIndicator IsBusy="{Binding BusyIndicatorActive}" />
+                            <Grid
+                                x:Name="errGrid"
+                                BackgroundColor="Black"
+                                IsVisible="{Binding IsError}">
+                                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                    <icons:IconView
+                                        Foreground="{DynamicResource WhiteColor}"
+                                        HeightRequest="25"
+                                        Source="ic_reload"
+                                        WidthRequest="25" />
+                                    <abstractions:HtmlLabel
+                                        x:Name="lblErr"
+                                        FontSize="13"
+                                        HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
+                                        LineBreakMode="TailTruncation"
+                                        LineHeight="1.1"
+                                        MaxLines="2"
+                                        Text="{Binding ErrorMessenger}"
+                                        TextColor="{DynamicResource WhiteColor}" />
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ReLoadCommand}" CommandParameter="{Binding .}" />
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </pancake:PancakeView>
                     <!--  Chi tiết video được chọn  -->
                     <StackLayout
                         Grid.Row="1"
@@ -322,17 +324,20 @@
                     Grid.Row="2"
                     Padding="5,0"
                     AutoFitMode="DynamicHeight"
-                    FocusBorderColor="{DynamicResource PinkColor}"
                     IsScrollBarVisible="True"
                     ItemSpacing="5"
                     ItemsSource="{Binding VideoItemsSource, Mode=OneWay}"
                     LoadMoreCommand="{Binding LoadMoreItemsCommand}"
                     LoadMoreCommandParameter="{Binding Source={x:Reference listview}}"
                     LoadMoreOption="Auto"
+                    SelectionBackgroundColor="{DynamicResource PinkColor}"
                     SelectionMode="Single">
                     <xforms:SfListView.ItemTemplate>
                         <DataTemplate>
-                            <pancake:PancakeView Padding="0" HeightRequest="270">
+                            <pancake:PancakeView
+                                Padding="0"
+                                BackgroundColor="Transparent"
+                                HeightRequest="250">
                                 <pancake:PancakeView.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.VideoItemTapCommand}" CommandParameter="{Binding .}" />
                                 </pancake:PancakeView.GestureRecognizers>
@@ -363,6 +368,7 @@
                                     </Grid>
                                     <StackLayout
                                         Padding="10,5"
+                                        BackgroundColor="Transparent"
                                         Spacing="0"
                                         VerticalOptions="End">
                                         <Label
@@ -371,7 +377,6 @@
                                             Text="{Binding VideoName}" />
                                         <Label HorizontalOptions="Start" Text="{Binding VideoStartTime}" />
                                     </StackLayout>
-
                                 </StackLayout>
                             </pancake:PancakeView>
                         </DataTemplate>
