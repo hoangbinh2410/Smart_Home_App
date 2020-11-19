@@ -64,7 +64,8 @@ namespace BA_MobileGPS.Core.iOS
         {
             var mainPage = Xamarin.Forms.Application.Current.MainPage;
             var currentPage = PageUtilities.GetCurrentPage(mainPage);
-            if ((currentPage is CameraManagingPage || currentPage is CameraRestream)
+            var canLanscape = listLanscapePage.Contains(currentPage.GetType());
+            if (canLanscape
                 && UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
             {
                 return UIInterfaceOrientationMask.AllButUpsideDown;
@@ -72,6 +73,12 @@ namespace BA_MobileGPS.Core.iOS
             return UIInterfaceOrientationMask.Portrait;
         }
 
-        
+        private List<Type> listLanscapePage = new List<Type>() 
+        { 
+            typeof(CameraManagingPage),
+            typeof(DeviceTab),
+            typeof(BACloudTab),
+            typeof(MyVideoTab)
+        };
     }
 }

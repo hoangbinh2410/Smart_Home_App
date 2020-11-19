@@ -37,9 +37,6 @@ namespace BA_MobileGPS.Core.ViewModels
         // Loi abort 10s
         private bool isAbort { get; set; }
         public ICommand VideoItemTapCommand { get; }
-
-        public ICommand PreviousChapterCommand { get; }
-        public ICommand NextChapterChapterCommand { get; }
         public ICommand DownloadTappedCommand { get; }
         public ICommand FullScreenTappedCommand { get; }
         public ICommand ReLoadCommand { get; }
@@ -59,8 +56,6 @@ namespace BA_MobileGPS.Core.ViewModels
             streamCameraService = cameraService;
             this.screenOrientServices = screenOrientServices;
             VideoItemTapCommand = new DelegateCommand<object>(VideoItemTap);
-            PreviousChapterCommand = new DelegateCommand(PreviousChapter);
-            NextChapterChapterCommand = new DelegateCommand(NextChapterChapter);
             DownloadTappedCommand = new DelegateCommand(DownloadTapped);  
             FullScreenTappedCommand = new DelegateCommand(FullScreenTapped);
             ReLoadCommand = new DelegateCommand(ReloadVideo);
@@ -220,11 +215,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsError = false;
                 isAbort = false;
                 BusyIndicatorActive = true;
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    Media.Play();
-                });
-               
+                SetMediaUrl(videoSlected.Data.Link);
             }
             else
             VideoSelectedChange();
@@ -296,27 +287,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref media, value);
                 RaisePropertyChanged();
             }
-        }
-
-        private void NextChapterChapter()
-        {
-            //var selectIndex = videoItemsSource.IndexOf(videoSlected);
-            //if (selectIndex == videoItemsSource.Count - 1)
-            //{
-            //    VideoSlected = videoItemsSource.First();
-            //}
-            //else VideoSlected = videoItemsSource[selectIndex + 1];
-        }
-
-        private void PreviousChapter()
-        {
-            //var selectIndex = videoItemsSource.IndexOf(videoSlected);
-            //if (selectIndex == 0)
-            //{
-            //    VideoSlected = videoItemsSource.Last();
-            //}
-            //else VideoSlected = videoItemsSource[selectIndex - 1];
-        }
+        }      
 
         private void FullScreenTapped()
         {
@@ -462,7 +433,9 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (result?.Data != null)
                 {
+                    videoSlected.Data = result.Data;
                     SetMediaUrl(result.Data.Link);
+                    //SetMediaUrl("rtsp://115.84.178.139:1935/live/namth");
                 }
                 else
                 {
