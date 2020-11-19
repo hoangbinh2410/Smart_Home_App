@@ -11,6 +11,7 @@
     xmlns:indicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
     xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
     xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     x:Name="root"
@@ -23,121 +24,131 @@
             <!--  Khu vực tìm kiếm  -->
             <Grid
                 Padding="5"
-                ColumnDefinitions="*,Auto,Auto,Auto,Auto"
-                ColumnSpacing="7"
-                IsVisible="{Binding IsFullScreenOff}">
-                <pancake:PancakeView
-                    Padding="0"
-                    BackgroundColor="{DynamicResource WhiteColor}"
-                    CornerRadius="20"
-                    HeightRequest="40"
-                    VerticalOptions="Center">
-                    <pancake:PancakeView.Shadow>
-                        <pancake:DropShadow
-                            BlurRadius="2"
-                            Offset="0,0"
-                            Color="Black" />
-                    </pancake:PancakeView.Shadow>
-                    <pancake:PancakeView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
-                    </pancake:PancakeView.GestureRecognizers>
-                    <StackLayout
+                IsVisible="{Binding IsFullScreenOff}"
+                RowDefinitions="*,*"
+                RowSpacing="5">
+                <StackLayout Orientation="Horizontal">
+                    <pancake:PancakeView
                         Padding="0"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        CornerRadius="19"
+                        HeightRequest="38"
                         HorizontalOptions="FillAndExpand"
-                        Orientation="Horizontal">
-                        <pancake:PancakeView
-                            BackgroundColor="{DynamicResource PrimaryColor}"
-                            CornerRadius="20"
-                            WidthRequest="40">
-                            <icons:IconView
-                                Margin="12"
-                                Foreground="{DynamicResource WhiteColor}"
-                                Source="ic_search.png" />
-                        </pancake:PancakeView>
-                        <Entry
-                            x:Name="entrySearch"
-                            FontSize="14"
+                        VerticalOptions="Center">
+                        <pancake:PancakeView.Shadow>
+                            <pancake:DropShadow
+                                BlurRadius="2"
+                                Offset="0,0"
+                                Color="Black" />
+                        </pancake:PancakeView.Shadow>
+                        <pancake:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                        </pancake:PancakeView.GestureRecognizers>
+                        <StackLayout
+                            Padding="0"
                             HorizontalOptions="FillAndExpand"
-                            InputTransparent="True"
-                            PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                            Text="{Binding VehicleSelectedPlate}"
-                            TextColor="{DynamicResource TextPrimaryColor}"
-                            VerticalOptions="Center">
-                            <Entry.Effects>
+                            Orientation="Horizontal">
+                            <pancake:PancakeView
+                                BackgroundColor="{DynamicResource PrimaryColor}"
+                                CornerRadius="19"
+                                WidthRequest="38">
+                                <icons:IconView
+                                    Margin="12"
+                                    Foreground="{DynamicResource WhiteColor}"
+                                    Source="ic_search.png" />
+                            </pancake:PancakeView>
+                            <Entry
+                                x:Name="entrySearch"
+                                FontSize="14"
+                                HorizontalOptions="FillAndExpand"
+                                InputTransparent="True"
+                                PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
+                                Text="{Binding VehicleSelectedPlate}"
+                                TextColor="{DynamicResource TextPrimaryColor}"
+                                VerticalOptions="Center">
+                                <Entry.Effects>
+                                    <effects:BorderlessEffect />
+                                </Entry.Effects>
+                            </Entry>
+                        </StackLayout>
+                    </pancake:PancakeView>
+                    <pancake:PancakeView
+                        Padding="0"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        CornerRadius="19"
+                        HeightRequest="38"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center">
+                        <pancake:PancakeView.Shadow>
+                            <pancake:DropShadow
+                                BlurRadius="2"
+                                Offset="0,0"
+                                Color="Black" />
+                        </pancake:PancakeView.Shadow>
+                        <Picker
+                            Title="Chọn kênh"
+                            FontSize="{DynamicResource MyFontSize}"
+                            HorizontalTextAlignment="Center"
+                            ItemsSource="{Binding ListChannel}"
+                            SelectedItem="{Binding SelectedChannel}"
+                            TitleColor="{DynamicResource PrimaryColor}"
+                            WidthRequest="120">
+                            <Picker.Effects>
                                 <effects:BorderlessEffect />
-                            </Entry.Effects>
-                        </Entry>
-                    </StackLayout>
-                </pancake:PancakeView>
-                <pancake:PancakeView
-                    Grid.Column="1"
-                    Padding="0"
-                    BackgroundColor="{DynamicResource WhiteColor}"
-                    CornerRadius="20"
-                    HeightRequest="40"
-                    VerticalOptions="Center"
-                    WidthRequest="40">
-                    <pancake:PancakeView.Shadow>
-                        <pancake:DropShadow
-                            BlurRadius="3"
-                            Offset="0,0"
-                            Color="Black" />
-                    </pancake:PancakeView.Shadow>
-                    <pancake:PancakeView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding PushToChannelSelectPageCommand}" />
-                    </pancake:PancakeView.GestureRecognizers>
-                    <icons:IconView
-                        Margin="8"
-                        Foreground="{DynamicResource PrimaryColor}"
-                        Source="ic_channel.png"
+                            </Picker.Effects>
+                        </Picker>
+                    </pancake:PancakeView>
+                </StackLayout>
+                <Grid Grid.Row="1" ColumnDefinitions="*,*,Auto">
+                    <views:DateTimePickerView
+                        x:Name="dtStart"
+                        CornerRadius="20"
+                        DateSelectedCommand="{Binding DateSelectedCommand}"
+                        DateTime="{Binding DateStart}"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand"
+                        IconColor="{DynamicResource PrimaryColor}"
+                        PickerMode="Popup"
                         VerticalOptions="Center" />
-                </pancake:PancakeView>
-                <pancake:PancakeView
-                    Grid.Column="3"
-                    Padding="0"
-                    BackgroundColor="{DynamicResource WhiteColor}"
-                    CornerRadius="20"
-                    HeightRequest="40"
-                    VerticalOptions="Center"
-                    WidthRequest="40">
-                    <pancake:PancakeView.Shadow>
-                        <pancake:DropShadow
-                            BlurRadius="3"
-                            Offset="0,0"
-                            Color="Black" />
-                    </pancake:PancakeView.Shadow>
-                    <pancake:PancakeView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
-                    </pancake:PancakeView.GestureRecognizers>
-                    <icons:IconView
-                        Margin="8"
-                        Foreground="{DynamicResource PrimaryColor}"
-                        Source="ic_calendar.png"
+                    <views:DateTimePickerView
+                        x:Name="dtEnd"
+                        Grid.Column="1"
+                        CornerRadius="20"
+                        DateSelectedCommand="{Binding DateSelectedCommand}"
+                        DateTime="{Binding DateEnd}"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand"
+                        IconColor="{DynamicResource PrimaryColor}"
+                        PickerMode="Popup"
                         VerticalOptions="Center" />
-                </pancake:PancakeView>
-                <pancake:PancakeView
-                    Grid.Column="4"
-                    Padding="0"
-                    BackgroundColor="{DynamicResource PrimaryColor}"
-                    CornerRadius="20"
-                    HeightRequest="40"
-                    VerticalOptions="Center"
-                    WidthRequest="40">
-                    <pancake:PancakeView.Shadow>
-                        <pancake:DropShadow
-                            BlurRadius="2"
-                            Offset="0,0"
-                            Color="Black" />
-                    </pancake:PancakeView.Shadow>
-                    <pancake:PancakeView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
-                    </pancake:PancakeView.GestureRecognizers>
-                    <icons:IconView
-                        Margin="8"
-                        Foreground="{DynamicResource WhiteColor}"
-                        Source="ic_reload.png"
-                        VerticalOptions="Center" />
-                </pancake:PancakeView>
+                    <pancake:PancakeView
+                        Grid.Column="2"
+                        Padding="0"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
+                        CornerRadius="20"
+                        HeightRequest="40"
+                        VerticalOptions="Center"
+                        WidthRequest="40">
+                        <pancake:PancakeView.Shadow>
+                            <pancake:DropShadow
+                                BlurRadius="2"
+                                Offset="0,0"
+                                Color="Black" />
+                        </pancake:PancakeView.Shadow>
+                        <pancake:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
+                        </pancake:PancakeView.GestureRecognizers>
+                        <icons:IconView
+                            Margin="6"
+                            Foreground="{DynamicResource WhiteColor}"
+                            Source="ic_reload.png"
+                            VerticalOptions="Center" />
+                    </pancake:PancakeView>
+                </Grid>
+
+
+
+
             </Grid>
             <!--  Khu vực video và danh sách  -->
             <Grid
@@ -165,34 +176,18 @@
                         <vlc:MediaPlayerElement
                             HorizontalOptions="Fill"
                             LibVLC="{Binding LibVLC}"
-                            MediaPlayer="{Binding Media.MediaPlayer}"
+                            MediaPlayer="{Binding Media}"
                             VerticalOptions="Fill">
                             <vlc:MediaPlayerElement.PlaybackControls>
                                 <vlc:PlaybackControls>
                                     <vlc:PlaybackControls.ControlTemplate>
                                         <ControlTemplate>
                                             <StackLayout IsVisible="{TemplateBinding MediaPlayer, Converter={StaticResource ObjectToBoolConverter}}" Spacing="0">
-                                                <!--<ProgressBar
-                                                    HeightRequest="2"
-                                                    IsVisible="{TemplateBinding BufferingProgress,
-                                                                                Converter={StaticResource BufferingProgressToBoolConverter}}"
-                                                    Progress="{TemplateBinding BufferingProgress}"
-                                                    Style="{TemplateBinding BufferingProgressBarStyle}" />-->
                                                 <StackLayout
                                                     x:Name="ControlsPanel"
                                                     Spacing="0"
                                                     Style="{TemplateBinding ControlsPanelStyle}">
-                                                    <!--<StackLayout Orientation="Horizontal">
-                                                        <Label x:Name="ElapsedTimeLabel" Style="{TemplateBinding ElapsedTimeLabelStyle}" />
-                                                        <Label
-                                                            x:Name="RemainingTimeLabel"
-                                                            HorizontalOptions="EndAndExpand"
-                                                            Style="{TemplateBinding RemainingTimeLabelStyle}" />
-                                                    </StackLayout>-->
-                                                    <!--<Slider
-                                                        x:Name="SeekBar"
-                                                        IsVisible="{TemplateBinding IsSeekBarVisible}"
-                                                        Style="{TemplateBinding SeekBarStyle}" />-->
+
                                                     <StackLayout Orientation="Horizontal">
                                                         <StackLayout
                                                             Margin="20,0,0,0"
@@ -228,31 +223,31 @@
                                                             Margin="0,0,20,0"
                                                             HorizontalOptions="EndAndExpand"
                                                             Orientation="Horizontal"
-                                                            Spacing="10"
+                                                            Spacing="13"
                                                             VerticalOptions="Center">
                                                             <icons:IconView
                                                                 Foreground="{DynamicResource WhiteColor}"
-                                                                HeightRequest="15"
+                                                                HeightRequest="25"
                                                                 Source="ic_download.png"
-                                                                WidthRequest="15">
+                                                                WidthRequest="25">
                                                                 <icons:IconView.GestureRecognizers>
                                                                     <TapGestureRecognizer Command="{Binding DownloadTappedCommand}" />
                                                                 </icons:IconView.GestureRecognizers>
                                                             </icons:IconView>
                                                             <icons:IconView
                                                                 Foreground="{DynamicResource WhiteColor}"
-                                                                HeightRequest="15"
+                                                                HeightRequest="25"
                                                                 Source="ic_share.png"
-                                                                WidthRequest="15">
+                                                                WidthRequest="25">
                                                                 <icons:IconView.GestureRecognizers>
                                                                     <TapGestureRecognizer Command="{Binding ShareTappedCommand}" />
                                                                 </icons:IconView.GestureRecognizers>
                                                             </icons:IconView>
                                                             <icons:IconView
                                                                 Foreground="{DynamicResource WhiteColor}"
-                                                                HeightRequest="20"
+                                                                HeightRequest="25"
                                                                 Source="ic_fullscreen.png"
-                                                                WidthRequest="20">
+                                                                WidthRequest="25">
                                                                 <icons:IconView.Triggers>
                                                                     <DataTrigger
                                                                         Binding="{Binding IsFullScreenOff}"
@@ -275,11 +270,11 @@
                                 </vlc:PlaybackControls>
                             </vlc:MediaPlayerElement.PlaybackControls>
                         </vlc:MediaPlayerElement>
-                        <indicator:SfBusyIndicator IsBusy="{Binding Media.IsLoaded, Converter={StaticResource ShowHideColumnConverter}}" />
+                        <indicator:SfBusyIndicator IsBusy="{Binding BusyIndicatorActive}" />
                         <Grid
                             x:Name="errGrid"
                             BackgroundColor="Black"
-                            IsVisible="{Binding Media.IsError}">
+                            IsVisible="{Binding IsError}">
                             <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
                                 <icons:IconView
                                     Foreground="{DynamicResource WhiteColor}"
@@ -294,7 +289,7 @@
                                     LineBreakMode="TailTruncation"
                                     LineHeight="1.1"
                                     MaxLines="2"
-                                    Text="{Binding Media.ErrorMessenger}"
+                                    Text="{Binding ErrorMessenger}"
                                     TextColor="{DynamicResource WhiteColor}" />
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ReLoadCommand}" CommandParameter="{Binding .}" />
@@ -319,29 +314,16 @@
                             TextColor="{DynamicResource WhiteColor}" />
                     </StackLayout>
                 </Grid>
-                <!--  Tự động phát  -->
-                <StackLayout
-                    x:Name="autoPlayLayout"
-                    Grid.Row="1"
-                    Padding="18,5"
-                    IsVisible="{Binding MediaPlayerVisible}"
-                    Orientation="Horizontal">
-                    <Label
-                        StyleClass="BoldText"
-                        Text="Danh sách video"
-                        VerticalOptions="Center" />
-                    <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
-                        <Label Text="Phát tự động" VerticalOptions="Center" />
-                        <Switch IsToggled="{Binding AutoSwitch}" />
-                    </StackLayout>
-                </StackLayout>
+
+
                 <!--  Danh sách video  -->
                 <xforms:SfListView
                     x:Name="listview"
                     Grid.Row="2"
-                    Padding="15,0"
+                    Padding="5,0"
                     AutoFitMode="DynamicHeight"
-                    IsScrollBarVisible="False"
+                    FocusBorderColor="{DynamicResource PinkColor}"
+                    IsScrollBarVisible="True"
                     ItemSpacing="5"
                     ItemsSource="{Binding VideoItemsSource, Mode=OneWay}"
                     LoadMoreCommand="{Binding LoadMoreItemsCommand}"
