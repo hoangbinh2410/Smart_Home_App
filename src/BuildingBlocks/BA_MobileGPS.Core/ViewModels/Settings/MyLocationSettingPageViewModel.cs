@@ -26,7 +26,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             this.userService = userService;
 
-            if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
+            if (Settings.MapType == (int)MapType.Hybrid)
             {
                 mapType = MapType.Hybrid;
             }
@@ -87,6 +87,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                     if (result)
                     {
+                        Settings.MapType = (int)MapType;
                         DisplayMessage.ShowMessageInfo("Đã lưu thành công");
                     }
                     else

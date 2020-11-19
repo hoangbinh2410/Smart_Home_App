@@ -95,6 +95,9 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("27")]
         public string Imei { set; get; }
 
+        [JsonProperty("28")]
+        public string Temperature { set; get; }
+
         [JsonIgnore]
         public int STT { set; get; }
 
