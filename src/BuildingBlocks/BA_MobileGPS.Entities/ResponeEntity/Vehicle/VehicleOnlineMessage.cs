@@ -66,6 +66,9 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("19")]
         public double TotalKm { get; set; }
 
+        [JsonProperty("20")]
+        public string Temperature { set; get; }
+
         [JsonIgnore]
         public bool IsEnableAcc { set; get; }
     }

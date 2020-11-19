@@ -73,6 +73,9 @@ namespace BA_MobileGPS.Entities
         public int stopTime;
         public int StopTime { get => stopTime; set => SetProperty(ref stopTime, value, nameof(StopTimeView)); }
 
+        public string temperature;
+        public string Temperature { get => temperature; set => SetProperty(ref temperature, value); }
+
         public int StopTimeView
         {
             get
