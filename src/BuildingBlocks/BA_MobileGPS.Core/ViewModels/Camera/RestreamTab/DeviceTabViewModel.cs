@@ -34,12 +34,13 @@ namespace BA_MobileGPS.Core.ViewModels
         private List<RestreamVideoModel> basePNCSource { get; set; } = new List<RestreamVideoModel>();
         private bool VMBusy { get; set; }
 
+        // Loi abort 10s
+        private bool isAbort { get; set; }
         public ICommand VideoItemTapCommand { get; }
-        public ICommand CloseVideoCommand { get; }
+
         public ICommand PreviousChapterCommand { get; }
         public ICommand NextChapterChapterCommand { get; }
         public ICommand DownloadTappedCommand { get; }
-        public ICommand ShareTappedCommand { get; }
         public ICommand FullScreenTappedCommand { get; }
         public ICommand ReLoadCommand { get; }
         public ICommand LoadMoreItemsCommand { get;  }
@@ -58,11 +59,9 @@ namespace BA_MobileGPS.Core.ViewModels
             streamCameraService = cameraService;
             this.screenOrientServices = screenOrientServices;
             VideoItemTapCommand = new DelegateCommand<object>(VideoItemTap);
-            CloseVideoCommand = new DelegateCommand(CloseVideo);
             PreviousChapterCommand = new DelegateCommand(PreviousChapter);
             NextChapterChapterCommand = new DelegateCommand(NextChapterChapter);
-            DownloadTappedCommand = new DelegateCommand(DownloadTapped);
-            ShareTappedCommand = new DelegateCommand(ShareTapped);
+            DownloadTappedCommand = new DelegateCommand(DownloadTapped);  
             FullScreenTappedCommand = new DelegateCommand(FullScreenTapped);
             ReLoadCommand = new DelegateCommand(ReloadVideo);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
@@ -73,6 +72,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnPageAppearingFirstTime()
         {
+            VMBusy = true;
             DateStart = fromTimeDefault;
             DateEnd = toTimeDefault;
             LibVLCSharp.Shared.Core.Initialize();
@@ -85,7 +85,9 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnPageAppearingFirstTime();
             SetChannelSource();
             IsError = false;
+            VMBusy = false;
             ReloadPage();
+           
         }
 
         private bool busyIndicatorActive;
@@ -165,7 +167,8 @@ namespace BA_MobileGPS.Core.ViewModels
             Device.BeginInvokeOnMainThread(() =>
             {
                 IsError = true;
-                ErrorMessenger = "Hết video";
+                isAbort = true;
+                ErrorMessenger = "Aborting 10s";
 
             });
         }
@@ -211,6 +214,19 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </summary>
         private void ReloadVideo()
         {
+            if (isAbort)
+            {
+               
+                IsError = false;
+                isAbort = false;
+                BusyIndicatorActive = true;
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    Media.Play();
+                });
+               
+            }
+            else
             VideoSelectedChange();
         }
 
@@ -527,7 +543,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetListImageDataFromPNC(DateTime fromTime, DateTime toTime, int? limit = null, int? channel = null)
         {
-            VideoItemsSource.Clear();
+            basePNCSource.Clear();
+            VideoItemsSource = new ObservableCollection<RestreamVideoModel>();
             var xncode = customerId;
             var vehiclePlate = bks;
             RunOnBackground(async () =>
