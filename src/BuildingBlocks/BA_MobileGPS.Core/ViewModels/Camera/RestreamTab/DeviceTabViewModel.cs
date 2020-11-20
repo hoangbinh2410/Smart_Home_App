@@ -317,6 +317,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             SafeExecute(() =>
             {
+                VideoSlected = item;
                 MediaPlayerVisible = true;
                 IsLoadingCamera = false;
                 resetDeviceCounter = 0;
@@ -389,7 +390,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             var req = new StopRestreamRequest()
             {
-                Channel = videoSlected.Data.Channel,
+                Channel = VideoSlected.Data.Channel,
                 CustomerID = customerId,
                 VehicleName = bks
             };
@@ -401,10 +402,10 @@ namespace BA_MobileGPS.Core.ViewModels
                  await Task.Delay(6000);
                  var start = new StartRestreamRequest()
                  {
-                     Channel = videoSlected.Data.Channel,
+                     Channel = VideoSlected.Data.Channel,
                      CustomerID = customerId,
-                     StartTime = videoSlected.VideoStartTime,
-                     EndTime = videoSlected.VideoEndTime,
+                     StartTime = VideoSlected.VideoStartTime,
+                     EndTime = VideoSlected.VideoEndTime,
                      VehicleName = bks
                  };
 
@@ -428,7 +429,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (isSteaming)
                         {
                             IsLoadingCamera = false;
-                            videoSlected.Data = result.Data;
+                            VideoSlected.Data = result.Data;
                             MediaPlayer.Play();
                         }
                     });
