@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.ViewModels.Base;
@@ -11,7 +12,6 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -25,29 +25,16 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         private readonly IStreamCameraService streamCameraService;
         private readonly IScreenOrientServices screenOrientServices;
-        private readonly int configMinute = 3;
-        // private readonly int 
-        private int pageIndex { get; set; } = 0;
-        private int pageCount { get; } = 20;
-        private readonly DateTime fromTimeDefault = Convert.ToDateTime("2020-11-16 12:00:00 AM");
-        private readonly DateTime toTimeDefault = Convert.ToDateTime("2020-11-16 11:00:00 PM");
-        private List<RestreamVideoModel> basePNCSource { get; set; } = new List<RestreamVideoModel>();
-        private bool VMBusy { get; set; }
-
-        // Loi abort 10s
-        private bool isAbort { get; set; }
-        public ICommand VideoItemTapCommand { get; }
         public ICommand DownloadTappedCommand { get; }
         public ICommand FullScreenTappedCommand { get; }
         public ICommand ReLoadCommand { get; }
-        public ICommand LoadMoreItemsCommand { get;  }
-        public ICommand RestoreSearchCommand { get;  }
+        public ICommand LoadMoreItemsCommand { get; }
+        public ICommand RestoreSearchCommand { get; }
 
         //private readonly int maxLoadingTime = 60;
         private int customerId = 1010;
         private string bks = "QATEST1";
         // private DateTime date = Convert.ToDateTime("2020-11-17");
-       
 
         public DeviceTabViewModel(INavigationService navigationService,
             IStreamCameraService cameraService,
@@ -55,8 +42,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             streamCameraService = cameraService;
             this.screenOrientServices = screenOrientServices;
-            VideoItemTapCommand = new DelegateCommand<object>(VideoItemTap);
-            DownloadTappedCommand = new DelegateCommand(DownloadTapped);  
+            DownloadTappedCommand = new DelegateCommand(DownloadTapped);
             FullScreenTappedCommand = new DelegateCommand(FullScreenTapped);
             ReLoadCommand = new DelegateCommand(ReloadVideo);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
@@ -72,17 +58,16 @@ namespace BA_MobileGPS.Core.ViewModels
             DateEnd = toTimeDefault;
             LibVLCSharp.Shared.Core.Initialize();
             LibVLC = new LibVLC("--no-rtsp-tcp");
-            Media = new MediaPlayer(libVLC);
-            Media.TimeChanged += Media_TimeChanged;
-            Media.EndReached += Media_EndReached;
-            Media.EncounteredError += Media_EncounteredError;
+            MediaPlayer = new MediaPlayer(libVLC);
+            MediaPlayer.TimeChanged += Media_TimeChanged;
+            MediaPlayer.EndReached += Media_EndReached;
+            MediaPlayer.EncounteredError += Media_EncounteredError;
             IsFullScreenOff = true;
             base.OnPageAppearingFirstTime();
             SetChannelSource();
             IsError = false;
             VMBusy = false;
             ReloadPage();
-           
         }
 
         private bool busyIndicatorActive;
@@ -96,7 +81,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
+
         private string errorMessenger;
+
         public string ErrorMessenger
         {
             get { return errorMessenger; }
@@ -108,20 +95,23 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private DateTime dateStart;
+
         public DateTime DateStart
         {
             get => dateStart;
             set => SetProperty(ref dateStart, value, DateStartChange);
         }
+
         private void DateStartChange()
         {
             if (!VMBusy)
             {
                 GetListImageDataFromPNC(dateStart, dateEnd);
-            }           
+            }
         }
 
         private DateTime dateEnd;
+
         public DateTime DateEnd
         {
             get => dateEnd;
@@ -133,7 +123,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (!VMBusy)
             {
                 GetListImageDataFromPNC(dateStart, dateEnd);
-            }            
+            }
         }
 
         private bool isError;
@@ -148,15 +138,48 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        // Loi abort 10s
+        private bool isAbort { get; set; }
+        private readonly int configMinute = 3;
+        private int pageIndex { get; set; } = 0;
+        private int pageCount { get; } = 20;
+        private readonly DateTime fromTimeDefault = Convert.ToDateTime("2020-11-16 12:00:00 AM");
+        private readonly DateTime toTimeDefault = Convert.ToDateTime("2020-11-16 11:00:00 PM");
+        private List<RestreamVideoModel> basePNCSource { get; set; } = new List<RestreamVideoModel>();
+        private bool VMBusy { get; set; }
+        private bool IsLoadingCamera = false;
+        // dem so lan request lai khi connect fail, gioi han la 3
+        private int resetDeviceCounter = 0;
+
+        /// <summary>
+        /// Err : Can't connect to server
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        ///
         private void Media_EncounteredError(object sender, EventArgs e)
-        {          
-            Device.BeginInvokeOnMainThread(() =>
+        {
+            resetDeviceCounter++;
+            if (resetDeviceCounter < 4)
             {
-                IsError = true;
-                ErrorMessenger = "Có lỗi khi gán url..";
-            });
+                StartNewVideoInitCycle();
+            }
+            else
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    IsError = true;
+                    ErrorMessenger = "Có lỗi khi kết nối server";
+                });
+            }
         }
 
+        /// <summary>
+        /// Err : Abortting after 10s
+        /// hoặc hết video 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Media_EndReached(object sender, EventArgs e)
         {
             Device.BeginInvokeOnMainThread(() =>
@@ -164,14 +187,16 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsError = true;
                 isAbort = true;
                 ErrorMessenger = "Aborting 10s";
-
             });
+            // hết video??/
+
         }
 
         private void Media_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
         {
-            if (media.Time > 1 && busyIndicatorActive)
+            if (MediaPlayer.Time > 1 && busyIndicatorActive)
             {
+                resetDeviceCounter = 0;
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     BusyIndicatorActive = false;
@@ -201,7 +226,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 GetListImageDataFromPNC(dateStart, dateEnd, channel: selectedChannel.Value);
             }
-            
         }
 
         /// <summary>
@@ -211,14 +235,17 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (isAbort)
             {
-               
                 IsError = false;
                 isAbort = false;
                 BusyIndicatorActive = true;
-                SetMediaUrl(videoSlected.Data.Link);
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await Task.Delay(1000);
+                    MediaPlayer.Play();
+                });
             }
             else
-            VideoSelectedChange();
+                VideoSelectedChange();
         }
 
         private bool isFullScreenOff;
@@ -277,17 +304,17 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref libVLC, value); }
         }
 
-        private MediaPlayer media;
+        private MediaPlayer mediaPlayer;
 
-        public MediaPlayer Media
+        public MediaPlayer MediaPlayer
         {
-            get { return media; }
+            get { return mediaPlayer; }
             set
             {
-                SetProperty(ref media, value);
+                SetProperty(ref mediaPlayer, value);
                 RaisePropertyChanged();
             }
-        }      
+        }
 
         private void FullScreenTapped()
         {
@@ -299,46 +326,36 @@ namespace BA_MobileGPS.Core.ViewModels
             IsFullScreenOff = !isFullScreenOff;
         }
 
-        private void ShareTapped()
-        {
-        }
-
         private void DownloadTapped()
         {
-        }
-
-        private void VideoItemTap(object obj)
-        {
-            if (obj != null && obj is Syncfusion.ListView.XForms.ItemTappedEventArgs eventS)
-            {
-                var item = (RestreamVideoModel)eventS.ItemData;
-
-                MediaPlayerVisible = true;
-                VideoSlected = item;
-            }
+            DisplayMessage.ShowMessageError("Chức năng chưa hoàn thiện...");
         }
 
         private void VideoSelectedChange()
         {
+            if (videoSlected != null)
+            {
+                MediaPlayerVisible = true;
+                IsLoadingCamera = false;
+                resetDeviceCounter = 0;
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     IsError = false;
                     BusyIndicatorActive = true;
-                    try
+                    if (MediaPlayer.Media != null)
                     {
-                        ThreadPool.QueueUserWorkItem((r) => { Media.Stop(); });
-                        Media.Media.Dispose();
-                        Media.Media = null;                     
+                        ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
+                        MediaPlayer.Media.Dispose();
+                        MediaPlayer.Media = null;
                     }
-                    catch (Exception ex)
-                    {
-
-                        
-                    }                  
                 });
-           
-          
-           
+                StartNewVideoInitCycle();
+            }
+            else MediaPlayerVisible = false;
+        }
+
+        private void StartNewVideoInitCycle()
+        {
             var req = new StopRestreamRequest()
             {
                 Channel = videoSlected.Data.Channel,
@@ -353,6 +370,8 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnIsActiveChanged(sender, e);
             if (!IsActive)
             {
+                SelectedChannel = null;
+                VideoSlected = null;
                 CloseVideo();
             }
         }
@@ -368,7 +387,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 CloseVideo();
                 //ReloadPage(vehiclePlate);
-                DisplayMessage.ShowMessageError("Chức năng chưa có nhé...");
+                DisplayMessage.ShowMessageError("Chức năng chưa hoàn thiện...");
             }
         }
 
@@ -377,27 +396,26 @@ namespace BA_MobileGPS.Core.ViewModels
             GetListImageDataFromPNC(dateStart, dateEnd);
         }
 
-
         private void CloseVideo()
         {
             MediaPlayerVisible = false;
-            if (Media.Media != null)
+            if (MediaPlayer.Media != null)
             {
-                Media.Media?.Dispose();
-                Media.Media = null;
+                MediaPlayer.Media?.Dispose();
+                MediaPlayer.Media = null;
             }
         }
 
         public override void OnDestroy()
         {
             base.OnDestroy();
-            if (Media.Media != null)
+            if (MediaPlayer.Media != null)
             {
-                Media.Media?.Dispose();
-                Media.Media = null;
+                MediaPlayer.Media?.Dispose();
+                MediaPlayer.Media = null;
             }
-            var media = Media;
-            Media = null;
+            var media = MediaPlayer;
+            MediaPlayer = null;
             media?.Dispose();
         }
 
@@ -422,60 +440,61 @@ namespace BA_MobileGPS.Core.ViewModels
              });
         }
 
-
         private void StartRestream(StartRestreamRequest req)
         {
             RunOnBackground(async () =>
             {
-                Debug.WriteLine(" GUI LENH START......................");
                 return await streamCameraService.StartRestream(req);
             }, (result) =>
             {
                 if (result?.Data != null)
                 {
-                    videoSlected.Data = result.Data;
-                    SetMediaUrl(result.Data.Link);
-                    //SetMediaUrl("rtsp://115.84.178.139:1935/live/namth");
+                    MediaPlayer.Media = new Media(libVLC, new Uri(result.Data.Link));
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var isSteaming = await CheckDeviceStatus();
+                        if (isSteaming)
+                        {
+                            IsLoadingCamera = false;
+                            videoSlected.Data = result.Data;
+                            MediaPlayer.Play();
+                        }
+                    });
                 }
                 else
                 {
-                    // dang duoc xem
-                    if (result?.StatusCode == 1)
-                    {
-                        VideoSelectedChange();
-                    }
+                    // Video dang duoc xem tu thiet bi khác
                 }
-                //Debug.WriteLine(" CHO 5S......................");
-                //await Task.Delay(5000);
-                //Debug.WriteLine(" KIEM TRA THIET BI......................");
-                //var status = await CheckDeviceStatus();
-            });
-        }
-
-        private void SetMediaUrl(string url)
-        {
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                media.Media = new Media(libVLC, new Uri(url));
-                await Task.Delay(1000);
-                Media.Play();
             });
         }
 
         private async Task<bool> CheckDeviceStatus()
         {
-            var deviceStatus = await streamCameraService.GetDevicesStatus(ConditionType.BKS, bks);
-
-            var device = deviceStatus?.Data?.FirstOrDefault();
-            var streamDevice = device.CameraChannels.FirstOrDefault(x => x.Channel == videoSlected.Data.Channel);
-            if (streamDevice?.CameraStatus != 2 && streamDevice?.CameraStatus != 3)
+            IsLoadingCamera = true;
+            var result = false;
+            var loopIndex = 0;
+            while (IsLoadingCamera && loopIndex <= 5)
             {
-                return false;
+                var deviceStatus = await streamCameraService.GetDevicesStatus(ConditionType.BKS, bks);
+                var device = deviceStatus?.Data?.FirstOrDefault();
+                var streamDevice = device.CameraChannels.FirstOrDefault(x => x.Channel == videoSlected.Data.Channel);
+                if (streamDevice?.CameraStatus != null)
+                {
+                    var isStreaming = CameraStatusExtension.IsRestreaming(streamDevice.CameraStatus);
+                    if (isStreaming)
+                    {
+                        IsLoadingCamera = false;
+                        result = true;
+                    }
+                }
+                loopIndex++;
+                if (IsLoadingCamera && loopIndex <= 5)
+                {
+                    await Task.Delay(1000);
+                }
             }
-            else return true;
+            return result;
         }
-
-
 
         private void LoadMoreItems(object obj)
         {
@@ -538,7 +557,7 @@ namespace BA_MobileGPS.Core.ViewModels
                              Data = new StreamStart() { Channel = image.Channel },
                              EventType = image.Type
                          };
-                         videoModel.VideoName = string.Format("Video_CAM{0}_{1}", image.Channel, 
+                         videoModel.VideoName = string.Format("Video_CAM{0}_{1}", image.Channel,
                              videoModel.VideoStartTime.ToString("yyyyMMdd_hhmmss"));
                          basePNCSource.Add(videoModel);
                      }
@@ -574,6 +593,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
+
         private void RestoreSearch()
         {
             VMBusy = true;
@@ -583,11 +603,5 @@ namespace BA_MobileGPS.Core.ViewModels
             VMBusy = false;
             ReloadPage();
         }
-    }
-
-    public class ChannelModel
-    {
-        public string Name { get; set; }
-        public int Value { get; set; }
     }
 }

@@ -106,8 +106,12 @@
             </pancake:PancakeView>
         </Grid>
         <!--  Khu vực video và danh sách  -->
-        <Grid Grid.Row="1" BackgroundColor="LightGreen">
-            <xforms:SfListView />
+        <Grid Grid.Row="1">
+            <Label
+                FontSize="20"
+                HorizontalOptions="Center"
+                Text="Chức năng chưa hoàn thiện"
+                VerticalOptions="Center" />
         </Grid>
     </Grid>
 </ContentPage>
