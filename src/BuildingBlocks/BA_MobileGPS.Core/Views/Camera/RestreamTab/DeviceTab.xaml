@@ -259,7 +259,7 @@
                                                                     Foreground="{DynamicResource WhiteColor}"
                                                                     HeightRequest="25"
                                                                     Rotation="180"
-                                                                    Source="ic_download.png"
+                                                                    Source="ic_cloud_upload.png"
                                                                     WidthRequest="25">
                                                                     <icons:IconView.GestureRecognizers>
                                                                         <TapGestureRecognizer Command="{Binding DownloadTappedCommand}" />

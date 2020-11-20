@@ -264,7 +264,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private ObservableCollection<RestreamVideoModel> videoItemsSource;
 
-        public ObservableCollection<Photo> VideoItemsSource { get => videoItemsSource; set => SetProperty(ref videoItemsSource, value); }
+        public ObservableCollection<RestreamVideoModel> VideoItemsSource { get => videoItemsSource; set => SetProperty(ref videoItemsSource, value); }
 
         private bool mediaPlayerVisible;
 
