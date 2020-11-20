@@ -104,14 +104,18 @@ namespace BA_MobileGPS.Core.ViewModels
         public DateTime DateStart
         {
             get => dateStart;
-            set => SetProperty(ref dateStart, value, DateStartChange);
+            set => SetProperty(ref dateStart, value, DateChange);
         }
 
-        private void DateStartChange()
+        private void DateChange()
         {
             if (!VMBusy)
             {
-                GetListImageDataFrom(dateStart, dateEnd);
+                if (dateStart.Date != dateEnd.Date)
+                {
+                    DisplayMessage.ShowMessageError("Ngày bắt đầu không trùng ngày kết thúc, vui lòng kiểm tra lại");
+                }
+                else GetListImageDataFrom(dateStart, dateEnd);
             }
         }
 
@@ -120,16 +124,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public DateTime DateEnd
         {
             get => dateEnd;
-            set => SetProperty(ref dateEnd, value, DateEndChange);
-        }
-
-        private void DateEndChange()
-        {
-            if (!VMBusy)
-            {
-                GetListImageDataFrom(dateStart, dateEnd);
-            }
-        }
+            set => SetProperty(ref dateEnd, value, DateChange);
+        }     
 
         private bool isError;
 
@@ -246,8 +242,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 BusyIndicatorActive = true;
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await Task.Delay(1000);
-                    MediaPlayer.Play();
+                    if (videoSlected?.Data != null)
+                    {
+                        MediaPlayer.Media = new Media(libVLC, new Uri(videoSlected?.Data.Link));
+                        await Task.Delay(1000);
+                        MediaPlayer.Play();
+                    }
                 });
             }
             else
@@ -344,8 +344,6 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnIsActiveChanged(sender, e);
             if (!IsActive)
             {
-                SelectedChannel = null;
-                VideoSlected = null;
                 CloseVideo();
             }
         }
