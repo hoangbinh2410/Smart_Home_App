@@ -190,7 +190,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         // dem so lan request lai khi connect fail, gioi han la 3
         private int resetDeviceCounter = 0;
-
+        
         private List<ChannelModel> listChannel;
 
         public List<ChannelModel> ListChannel

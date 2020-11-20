@@ -71,7 +71,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                                Text="{Binding VehicleSelectedPlate}"
+                                Text="{Binding Vehicle.PrivateCode}"
                                 TextColor="{DynamicResource TextPrimaryColor}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
@@ -255,7 +255,7 @@
                                                                 Orientation="Horizontal"
                                                                 Spacing="13"
                                                                 VerticalOptions="Center">
-                                                                <icons:IconView
+                                                                <!--<icons:IconView
                                                                     Foreground="{DynamicResource WhiteColor}"
                                                                     HeightRequest="25"
                                                                     Source="ic_cloud_upload.png"
@@ -263,7 +263,7 @@
                                                                     <icons:IconView.GestureRecognizers>
                                                                         <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.UploadToCloudTappedCommand}" />
                                                                     </icons:IconView.GestureRecognizers>
-                                                                </icons:IconView>
+                                                                </icons:IconView>-->
                                                                 <icons:IconView
                                                                     Foreground="{DynamicResource WhiteColor}"
                                                                     HeightRequest="25"
