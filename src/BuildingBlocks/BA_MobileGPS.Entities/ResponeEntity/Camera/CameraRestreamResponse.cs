@@ -34,23 +34,23 @@ namespace BA_MobileGPS.Entities
     }
 
 
-    public class CameraRestreamUploadResponse : BaseResponse<List<CameraRestreamUpload>>
+    public class CameraRestreamUploadResponse : BaseResponse<List<CameraRestreamUploadInfo>>
     {
 
     }
 
 
-    public class CameraRestreamUpload
+    public class CameraRestreamUploadInfo
     {
         [JsonProperty("v")]
         public string VehicleName { get; set; }
         [JsonProperty("c")]
         public byte Channel { get; set; }
         [JsonProperty("d")]
-        public List<VideoUpload> Data { get; set; } 
+        public List<VideoUploadInfo> Data { get; set; } 
     }
 
-    public class VideoUpload
+    public class VideoUploadInfo
     {
         [JsonProperty("s")]
         public DateTime StartTime { get; set; }

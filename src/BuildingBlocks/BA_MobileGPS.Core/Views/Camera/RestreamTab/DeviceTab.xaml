@@ -27,7 +27,7 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid RowDefinitions="Auto,*" RowSpacing="5">
+        <Grid RowDefinitions="Auto,*" RowSpacing="0">
             <!--  Khu vực tìm kiếm  -->
             <Grid
                 Padding="5"
@@ -71,7 +71,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                                Text="{Binding VehicleSelectedPlate}"
+                                Text="{Binding Vehicle.PrivateCode}"
                                 TextColor="{DynamicResource TextPrimaryColor}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
@@ -255,15 +255,15 @@
                                                                 Orientation="Horizontal"
                                                                 Spacing="13"
                                                                 VerticalOptions="Center">
-                                                                <icons:IconView
+                                                                <!--<icons:IconView
                                                                     Foreground="{DynamicResource WhiteColor}"
                                                                     HeightRequest="25"
                                                                     Source="ic_cloud_upload.png"
                                                                     WidthRequest="25">
                                                                     <icons:IconView.GestureRecognizers>
-                                                                        <TapGestureRecognizer Command="{Binding DownloadTappedCommand}" />
+                                                                        <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.UploadToCloudTappedCommand}" />
                                                                     </icons:IconView.GestureRecognizers>
-                                                                </icons:IconView>
+                                                                </icons:IconView>-->
                                                                 <icons:IconView
                                                                     Foreground="{DynamicResource WhiteColor}"
                                                                     HeightRequest="25"
@@ -309,11 +309,11 @@
                                         Source="ic_reload"
                                         WidthRequest="25" />
                                     <Label
-                                        FontSize="13"
+                                        Margin="30,0"
+                                        FontSize="{DynamicResource MyFontSize}"
                                         HorizontalOptions="Center"
                                         HorizontalTextAlignment="Center"
                                         LineBreakMode="TailTruncation"
-                                        LineHeight="1.1"
                                         MaxLines="2"
                                         Text="{Binding ErrorMessenger}"
                                         TextColor="{DynamicResource WhiteColor}" />
@@ -377,7 +377,7 @@
                     <xforms:SfListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
-                                <pancake:PancakeView Padding="0" HeightRequest="260">
+                                <pancake:PancakeView Padding="0" HeightRequest="270">
                                     <pancake:PancakeView.Shadow>
                                         <pancake:DropShadow
                                             BlurRadius="1"
@@ -397,7 +397,7 @@
                                                 Source="ic_play"
                                                 VerticalOptions="Center" />
                                             <Label
-                                                Margin="0,0,10,15"
+                                                Margin="0,0,10,10"
                                                 HorizontalOptions="End"
                                                 Text="{Binding VideoTime}"
                                                 TextColor="{DynamicResource WhiteColor}"

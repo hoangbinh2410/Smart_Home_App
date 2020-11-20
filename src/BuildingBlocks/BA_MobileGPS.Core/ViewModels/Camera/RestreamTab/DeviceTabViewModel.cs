@@ -27,18 +27,12 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         private readonly IStreamCameraService streamCameraService;
         private readonly IScreenOrientServices screenOrientServices;
-        public ICommand DownloadTappedCommand { get; }
+        public ICommand UploadToCloudTappedCommand { get; }
         public ICommand FullScreenTappedCommand { get; }
         public ICommand ReLoadCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
-        public ICommand RestoreSearchCommand { get; }
+        public ICommand RefreshDataCommand { get; }
         public ICommand VideoItemTapCommand { get; set; }
-
-        //private readonly int maxLoadingTime = 60;
-        private int customerId = 1010;
-
-        private string bks = "QATEST1";
-        // private DateTime date = Convert.ToDateTime("2020-11-17");
 
         public DeviceTabViewModel(INavigationService navigationService,
             IStreamCameraService cameraService,
@@ -46,34 +40,79 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             streamCameraService = cameraService;
             this.screenOrientServices = screenOrientServices;
-            DownloadTappedCommand = new DelegateCommand(DownloadTapped);
+            UploadToCloudTappedCommand = new DelegateCommand(UploadToCloudTapped);
             FullScreenTappedCommand = new DelegateCommand(FullScreenTapped);
             ReLoadCommand = new DelegateCommand(ReloadVideo);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
-            RestoreSearchCommand = new DelegateCommand(RestoreSearch);
+            RefreshDataCommand = new DelegateCommand(RefreshData);
             VideoItemTapCommand = new DelegateCommand<ItemTappedEventArgs>(VideoSelectedChange);
             mediaPlayerVisible = false;
             videoItemsSource = new ObservableCollection<RestreamVideoModel>();
+            VMBusy = true;
+            DateStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+            DateEnd = DateTime.Now;
+            IsFullScreenOff = true;
+            IsError = false;
+            VMBusy = false;
+            Vehicle = new Vehicle()
+            {
+                VehiclePlate = "QATEST1",
+            };
         }
 
-        public override void OnPageAppearingFirstTime()
+        #region Lifecycle
+
+        public override void Initialize(INavigationParameters parameters)
         {
-            VMBusy = true;
-            DateStart = fromTimeDefault;
-            DateEnd = toTimeDefault;
+            base.Initialize(parameters);
             LibVLCSharp.Shared.Core.Initialize();
             LibVLC = new LibVLC("--no-rtsp-tcp");
             MediaPlayer = new MediaPlayer(libVLC);
             MediaPlayer.TimeChanged += Media_TimeChanged;
             MediaPlayer.EndReached += Media_EndReached;
             MediaPlayer.EncounteredError += Media_EncounteredError;
-            IsFullScreenOff = true;
-            base.OnPageAppearingFirstTime();
-            SetChannelSource();
-            IsError = false;
-            VMBusy = false;
-            ReloadPage();
         }
+
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+
+            SetChannelSource();
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
+            {
+                Vehicle = new Vehicle()
+                {
+                    VehiclePlate = "QATEST1",
+                };
+                GetListImageDataFrom();
+                CloseVideo();
+            }
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            if (MediaPlayer.Media != null)
+            {
+                MediaPlayer.Media?.Dispose();
+                MediaPlayer.Media = null;
+            }
+            var media = MediaPlayer;
+            MediaPlayer = null;
+            media?.Dispose();
+        }
+
+        #endregion Lifecycle
+
+        #region Property
+
+        private Vehicle vehicle = new Vehicle();
+        public Vehicle Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
 
         private bool busyIndicatorActive;
 
@@ -115,7 +154,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     DisplayMessage.ShowMessageError("Ngày bắt đầu không trùng ngày kết thúc, vui lòng kiểm tra lại");
                 }
-                else GetListImageDataFrom(dateStart, dateEnd);
+                else GetListImageDataFrom();
             }
         }
 
@@ -125,7 +164,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get => dateEnd;
             set => SetProperty(ref dateEnd, value, DateChange);
-        }     
+        }
 
         private bool isError;
 
@@ -145,14 +184,76 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly int configMinute = 3;
         private int pageIndex { get; set; } = 0;
         private int pageCount { get; } = 20;
-        private readonly DateTime fromTimeDefault = Convert.ToDateTime("2020-11-16 12:00:00 AM");
-        private readonly DateTime toTimeDefault = Convert.ToDateTime("2020-11-16 11:00:00 PM");
         private List<RestreamVideoModel> VideoItemsSourceOrigin = new List<RestreamVideoModel>();
         private bool VMBusy { get; set; }
         private bool IsLoadingCamera = false;
 
         // dem so lan request lai khi connect fail, gioi han la 3
         private int resetDeviceCounter = 0;
+        
+        private List<ChannelModel> listChannel;
+
+        public List<ChannelModel> ListChannel
+        {
+            get { return listChannel; }
+            set { SetProperty(ref listChannel, value); }
+        }
+
+        private ChannelModel selectedChannel;
+
+        public ChannelModel SelectedChannel
+        {
+            get { return selectedChannel; }
+            set { SetProperty(ref selectedChannel, value, SelectedChannelChanged); }
+        }
+
+        private bool isFullScreenOff;
+
+        public bool IsFullScreenOff
+        {
+            get => isFullScreenOff; set => SetProperty(ref isFullScreenOff, value);
+        }
+
+        private RestreamVideoModel videoSlected;
+
+        public RestreamVideoModel VideoSlected
+        {
+            get => videoSlected;
+            set
+            {
+                SetProperty(ref videoSlected, value);
+            }
+        }
+
+        private ObservableCollection<RestreamVideoModel> videoItemsSource;
+
+        public ObservableCollection<RestreamVideoModel> VideoItemsSource { get => videoItemsSource; set => SetProperty(ref videoItemsSource, value); }
+
+        private bool mediaPlayerVisible;
+
+        public bool MediaPlayerVisible
+        {
+            get => mediaPlayerVisible; set => SetProperty(ref mediaPlayerVisible, value);
+        }
+
+        private LibVLC libVLC;
+
+        public LibVLC LibVLC
+        {
+            get { return libVLC; }
+            set { SetProperty(ref libVLC, value); }
+        }
+
+        private MediaPlayer mediaPlayer;
+
+        public MediaPlayer MediaPlayer
+        {
+            get => mediaPlayer; set => SetProperty(ref mediaPlayer, value);
+        }
+
+        #endregion Property
+
+        #region PrivateMethod
 
         /// <summary>
         /// Err : Can't connect to server
@@ -189,7 +290,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 IsError = true;
                 isAbort = true;
-                ErrorMessenger = "Aborting 10s";
+                ErrorMessenger = "Kết nối không ổn định. Hoặc đã hết thời lượng video";
             });
             // hết video??/
         }
@@ -206,27 +307,11 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private List<ChannelModel> listChannel;
-
-        public List<ChannelModel> ListChannel
-        {
-            get { return listChannel; }
-            set { SetProperty(ref listChannel, value); }
-        }
-
-        private ChannelModel selectedChannel;
-
-        public ChannelModel SelectedChannel
-        {
-            get { return selectedChannel; }
-            set { SetProperty(ref selectedChannel, value, SelectedChannelChanged); }
-        }
-
         public void SelectedChannelChanged()
         {
             if (!VMBusy)
             {
-                GetListImageDataFrom(dateStart, dateEnd, channel: selectedChannel.Value);
+                GetListImageDataFrom();
             }
         }
 
@@ -254,46 +339,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 StopAndStartRestream();
         }
 
-        private bool isFullScreenOff;
-
-        public bool IsFullScreenOff
-        {
-            get => isFullScreenOff; set => SetProperty(ref isFullScreenOff, value);
-        }
-
-        private RestreamVideoModel videoSlected;
-
-        public RestreamVideoModel VideoSlected
-        {
-            get => videoSlected; set => SetProperty(ref videoSlected, value);
-        }
-
-        private ObservableCollection<RestreamVideoModel> videoItemsSource;
-
-        public ObservableCollection<RestreamVideoModel> VideoItemsSource { get => videoItemsSource; set => SetProperty(ref videoItemsSource, value); }
-
-        private bool mediaPlayerVisible;
-
-        public bool MediaPlayerVisible
-        {
-            get => mediaPlayerVisible; set => SetProperty(ref mediaPlayerVisible, value);
-        }
-
-        private LibVLC libVLC;
-
-        public LibVLC LibVLC
-        {
-            get { return libVLC; }
-            set { SetProperty(ref libVLC, value); }
-        }
-
-        private MediaPlayer mediaPlayer;
-
-        public MediaPlayer MediaPlayer
-        {
-            get => mediaPlayer; set => SetProperty(ref mediaPlayer, value);
-        }
-
         private void FullScreenTapped()
         {
             if (isFullScreenOff)
@@ -304,9 +349,34 @@ namespace BA_MobileGPS.Core.ViewModels
             IsFullScreenOff = !isFullScreenOff;
         }
 
-        private void DownloadTapped()
+        private void UploadToCloudTapped()
         {
-            DisplayMessage.ShowMessageError("Chức năng chưa hoàn thiện...");
+            // var req = new StartRestreamRequest()
+            // {
+            //     Channel = videoSlected.Data.Channel,
+            //     CustomerID = customerId,
+            //     StartTime = videoSlected.VideoStartTime,
+            //     EndTime = videoSlected.VideoEndTime,
+            //     VehicleName = bks
+            // };
+            // RunOnBackground(async () =>
+            // {
+            //     return await streamCameraService.UploadToCloud(req);
+            // }, (res) =>
+            //{
+            //    Device.BeginInvokeOnMainThread(() =>
+            //    {
+            //        if (res?.Data != null && res.Data)
+            //        {
+            //            DisplayMessage.ShowMessageError("UpLoad thành công");
+            //        }
+            //        else
+            //        {
+            //            DisplayMessage.ShowMessageError("Có sự cố khi upload");
+            //        }
+            //    });
+
+            //});
         }
 
         private void VideoSelectedChange(ItemTappedEventArgs args)
@@ -342,23 +412,11 @@ namespace BA_MobileGPS.Core.ViewModels
             if (!IsActive)
             {
                 CloseVideo();
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    VideoSlected = null;
+                });
             }
-        }
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
-            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
-            {
-                CloseVideo();
-                //ReloadPage(vehiclePlate);
-                DisplayMessage.ShowMessageError("Chức năng chưa hoàn thiện...");
-            }
-        }
-
-        private void ReloadPage(Vehicle vehiclePlate = null)
-        {
-            GetListImageDataFrom(dateStart, dateEnd);
         }
 
         private void CloseVideo()
@@ -371,44 +429,31 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        public override void OnDestroy()
-        {
-            base.OnDestroy();
-            if (MediaPlayer.Media != null)
-            {
-                MediaPlayer.Media?.Dispose();
-                MediaPlayer.Media = null;
-            }
-            var media = MediaPlayer;
-            MediaPlayer = null;
-            media?.Dispose();
-        }
-
         private void StopAndStartRestream()
         {
             var req = new StopRestreamRequest()
             {
                 Channel = VideoSlected.Data.Channel,
-                CustomerID = customerId,
-                VehicleName = bks
+                CustomerID = UserInfo.XNCode,
+                VehicleName = Vehicle.VehiclePlate
             };
             RunOnBackground(async () =>
             {
                 await streamCameraService.StopRestream(req);
             }, async () =>
-             {
-                 await Task.Delay(6000);
-                 var start = new StartRestreamRequest()
-                 {
-                     Channel = VideoSlected.Data.Channel,
-                     CustomerID = customerId,
-                     StartTime = VideoSlected.VideoStartTime,
-                     EndTime = VideoSlected.VideoEndTime,
-                     VehicleName = bks
-                 };
+            {
+                await Task.Delay(6000);
+                var start = new StartRestreamRequest()
+                {
+                    Channel = VideoSlected.Data.Channel,
+                    CustomerID = UserInfo.XNCode,
+                    StartTime = VideoSlected.VideoStartTime,
+                    EndTime = VideoSlected.VideoEndTime,
+                    VehicleName = Vehicle.VehiclePlate
+                };
 
-                 StartRestream(start);
-             });
+                StartRestream(start);
+            });
         }
 
         private void StartRestream(StartRestreamRequest req)
@@ -430,11 +475,20 @@ namespace BA_MobileGPS.Core.ViewModels
                             VideoSlected.Data = result.Data;
                             MediaPlayer.Play();
                         }
+                        else
+                        {
+                            Device.BeginInvokeOnMainThread(() =>
+                            {
+                                IsError = true;
+                                ErrorMessenger = "Có lỗi khi kết nối server";
+                            });
+                        }
                     });
                 }
                 else
                 {
                     // Video dang duoc xem tu thiet bi khác
+                    StopAndStartRestream();
                 }
             });
         }
@@ -444,9 +498,9 @@ namespace BA_MobileGPS.Core.ViewModels
             IsLoadingCamera = true;
             var result = false;
             var loopIndex = 0;
-            while (IsLoadingCamera && loopIndex <= 5)
+            while (IsLoadingCamera && loopIndex <= 7)
             {
-                var deviceStatus = await streamCameraService.GetDevicesStatus(ConditionType.BKS, bks);
+                var deviceStatus = await streamCameraService.GetDevicesStatus(ConditionType.BKS, Vehicle.VehiclePlate);
                 var device = deviceStatus?.Data?.FirstOrDefault();
                 var streamDevice = device.CameraChannels.FirstOrDefault(x => x.Channel == videoSlected.Data.Channel);
                 if (streamDevice?.CameraStatus != null)
@@ -459,7 +513,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 }
                 loopIndex++;
-                if (IsLoadingCamera && loopIndex <= 5)
+                if (IsLoadingCamera && loopIndex <= 7)
                 {
                     await Task.Delay(1000);
                 }
@@ -504,49 +558,50 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private void GetListImageDataFrom(DateTime fromTime, DateTime toTime, int? limit = null, int? channel = null)
+        private void GetListImageDataFrom()
         {
             VideoItemsSourceOrigin.Clear();
-
             VideoItemsSource = new ObservableCollection<RestreamVideoModel>();
-
-            var xncode = customerId;
-            var vehiclePlate = bks;
             pageIndex = 0;
             RunOnBackground(async () =>
             {
-                return await streamCameraService.RestreamCaptureImageInfo(xncode, vehiclePlate, fromTime, toTime, limit, channel);
+                return await streamCameraService.RestreamCaptureImageInfo(UserInfo.XNCode,
+                    Vehicle.VehiclePlate,
+                    DateStart,
+                    DateEnd,
+                    null,
+                    SelectedChannel.Value); ;
             }, (result) =>
-             {
-                 if (result != null && result.Count > 0)
-                 {
-                     foreach (var image in result)
-                     {
-                         var videoModel = new RestreamVideoModel()
-                         {
-                             VideoImageSource = image.Url,
-                             VideoStartTime = image.Time.AddMinutes(-configMinute),
-                             VideoEndTime = image.Time.AddMinutes(configMinute),
-                             VideoTime = TimeSpan.FromMinutes(2 * configMinute),
-                             Data = new StreamStart() { Channel = image.Channel },
-                             EventType = image.Type
-                         };
+            {
+                if (result != null && result.Count > 0)
+                {
+                    foreach (var image in result)
+                    {
+                        var videoModel = new RestreamVideoModel()
+                        {
+                            VideoImageSource = image.Url,
+                            VideoStartTime = image.Time.AddMinutes(-configMinute),
+                            VideoEndTime = image.Time.AddMinutes(configMinute),
+                            VideoTime = TimeSpan.FromMinutes(2 * configMinute),
+                            Data = new StreamStart() { Channel = image.Channel },
+                            EventType = image.Type
+                        };
 
-                         videoModel.VideoName = string.Format("Camera{0}_{1}", image.Channel,
-                             videoModel.VideoStartTime.ToString("yyyyMMdd_hhmmss"));
+                        videoModel.VideoName = string.Format("Camera{0}_{1}", image.Channel,
+                            videoModel.VideoStartTime.ToString("yyyyMMdd_hhmmss"));
 
-                         VideoItemsSourceOrigin.Add(videoModel);
-                     }
-                     VideoItemsSource = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToObservableCollection();
-                 }
-             });
+                        VideoItemsSourceOrigin.Add(videoModel);
+                    }
+                    VideoItemsSource = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToObservableCollection();
+                }
+            });
         }
 
         private void SetChannelSource()
         {
             RunOnBackground(async () =>
             {
-                return await streamCameraService.GetDevicesStatus(ConditionType.BKS, bks);
+                return await streamCameraService.GetDevicesStatus(ConditionType.BKS, Vehicle.VehiclePlate);
             }, (result) =>
             {
                 var device = result?.Data?.FirstOrDefault();
@@ -562,22 +617,17 @@ namespace BA_MobileGPS.Core.ViewModels
                         };
                         source.Add(temp);
                     }
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        ListChannel = source;
-                    });
+                    ListChannel = source;
+                    SelectedChannel = source[0];
                 }
             });
         }
 
-        private void RestoreSearch()
+        private void RefreshData()
         {
-            VMBusy = true;
-            DateStart = fromTimeDefault;
-            DateEnd = toTimeDefault;
-            SelectedChannel = null;
-            VMBusy = false;
-            ReloadPage();
+            GetListImageDataFrom();
         }
+
+        #endregion PrivateMethod
     }
 }

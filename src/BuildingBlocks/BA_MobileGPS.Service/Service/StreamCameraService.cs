@@ -155,12 +155,12 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<List<CameraRestreamUpload>> GetListVideoOnServer(CameraRestreamRequest request)
+        public async Task<List<CameraRestreamUploadInfo>> GetListVideoOnServer(CameraRestreamRequest request)
         {
-            var result = new List<CameraRestreamUpload>();
+            var result = new List<CameraRestreamUploadInfo>();
             try
             {
-                string url = $"{ApiUri.POST_RESTREAM_UPLOAD}";
+                string url = $"{ApiUri.POST_RESTREAM_LISTUPLOAD}";
                 var response = await requestProvider.PostAsync<CameraRestreamRequest, CameraRestreamUploadResponse>(url, request);
                 if (response != null && response.Data.Count > 0)
                 {
@@ -218,6 +218,36 @@ namespace BA_MobileGPS.Service.Service
                 {
                     result = response.Data;
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<RestreamUploadResponse> UploadToCloud(StartRestreamRequest request)
+        {
+            var result = new RestreamUploadResponse();
+            try
+            {
+                string url = $"{ApiUri.POST_RESTREAM_UPLOAD}";
+                result = await requestProvider.PostAsync<StartRestreamRequest, RestreamUploadResponse>(url, request);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<RestreamUploadResponse> CancelUploadToCloud(StopRestreamRequest request)
+        {
+            var result = new RestreamUploadResponse();
+            try
+            {
+                string url = $"{ApiUri.POST_RESTREAM_CANCELUPLOAD}";
+                result = await requestProvider.PostAsync<StopRestreamRequest, RestreamUploadResponse>(url, request);
             }
             catch (Exception ex)
             {
