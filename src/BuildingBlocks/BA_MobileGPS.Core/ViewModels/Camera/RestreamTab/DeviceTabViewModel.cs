@@ -19,6 +19,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -31,9 +32,11 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand ReLoadCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
         public ICommand RestoreSearchCommand { get; }
+        public ICommand VideoItemTapCommand { get; set; }
 
         //private readonly int maxLoadingTime = 60;
         private int customerId = 1010;
+
         private string bks = "QATEST1";
         // private DateTime date = Convert.ToDateTime("2020-11-17");
 
@@ -48,6 +51,7 @@ namespace BA_MobileGPS.Core.ViewModels
             ReLoadCommand = new DelegateCommand(ReloadVideo);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
             RestoreSearchCommand = new DelegateCommand(RestoreSearch);
+            VideoItemTapCommand = new DelegateCommand<ItemTappedEventArgs>(VideoSelectedChange);
             mediaPlayerVisible = false;
             videoItemsSource = new ObservableCollection<RestreamVideoModel>();
         }
@@ -141,6 +145,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         // Loi abort 10s
         private bool isAbort { get; set; }
+
         private readonly int configMinute = 3;
         private int pageIndex { get; set; } = 0;
         private int pageCount { get; } = 20;
@@ -149,6 +154,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private List<RestreamVideoModel> VideoItemsSourceOrigin = new List<RestreamVideoModel>();
         private bool VMBusy { get; set; }
         private bool IsLoadingCamera = false;
+
         // dem so lan request lai khi connect fail, gioi han la 3
         private int resetDeviceCounter = 0;
 
@@ -163,7 +169,7 @@ namespace BA_MobileGPS.Core.ViewModels
             resetDeviceCounter++;
             if (resetDeviceCounter < 4)
             {
-                StartNewVideoInitCycle();
+                StopAndStartRestream();
             }
             else
             {
@@ -177,7 +183,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         /// <summary>
         /// Err : Abortting after 10s
-        /// hoặc hết video 
+        /// hoặc hết video
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -190,7 +196,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 ErrorMessenger = "Aborting 10s";
             });
             // hết video??/
-
         }
 
         private void Media_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
@@ -246,7 +251,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
             else
-                VideoSelectedChange();
+                StopAndStartRestream();
         }
 
         private bool isFullScreenOff;
@@ -260,7 +265,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public RestreamVideoModel VideoSlected
         {
-            get => videoSlected; set => SetProperty(ref videoSlected, value, VideoSelectedChange);
+            get => videoSlected; set => SetProperty(ref videoSlected, value);
         }
 
         private ObservableCollection<RestreamVideoModel> videoItemsSource;
@@ -304,38 +309,34 @@ namespace BA_MobileGPS.Core.ViewModels
             DisplayMessage.ShowMessageError("Chức năng chưa hoàn thiện...");
         }
 
-        private void VideoSelectedChange()
+        private void VideoSelectedChange(ItemTappedEventArgs args)
         {
-            if (videoSlected != null)
+            if (!(args.ItemData is RestreamVideoModel item))
             {
-                MediaPlayerVisible = true;
-                IsLoadingCamera = false;
-                resetDeviceCounter = 0;
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    IsError = false;
-                    BusyIndicatorActive = true;
-                    if (MediaPlayer.Media != null)
-                    {
-                        ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
-                        MediaPlayer.Media.Dispose();
-                        MediaPlayer.Media = null;
-                    }
-                });
-                StartNewVideoInitCycle();
+                return;
             }
-            else MediaPlayerVisible = false;
-        }
-
-        private void StartNewVideoInitCycle()
-        {
-            var req = new StopRestreamRequest()
+            SafeExecute(() =>
             {
-                Channel = videoSlected.Data.Channel,
-                CustomerID = customerId,
-                VehicleName = bks
-            };
-            StopRestream(req);
+                if (VideoSlected != null)
+                {
+                    MediaPlayerVisible = true;
+                    IsLoadingCamera = false;
+                    resetDeviceCounter = 0;
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        IsError = false;
+                        BusyIndicatorActive = true;
+                        if (MediaPlayer.Media != null)
+                        {
+                            ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
+                            MediaPlayer.Media.Dispose();
+                            MediaPlayer.Media = null;
+                        }
+                    });
+                    StopAndStartRestream();
+                }
+                else MediaPlayerVisible = false;
+            });
         }
 
         public override void OnIsActiveChanged(object sender, EventArgs e)
@@ -347,10 +348,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 VideoSlected = null;
                 CloseVideo();
             }
-        }
-
-        private void ScreenOrientChange()
-        {
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -392,8 +389,14 @@ namespace BA_MobileGPS.Core.ViewModels
             media?.Dispose();
         }
 
-        private void StopRestream(StopRestreamRequest req)
+        private void StopAndStartRestream()
         {
+            var req = new StopRestreamRequest()
+            {
+                Channel = videoSlected.Data.Channel,
+                CustomerID = customerId,
+                VehicleName = bks
+            };
             RunOnBackground(async () =>
             {
                 await streamCameraService.StopRestream(req);

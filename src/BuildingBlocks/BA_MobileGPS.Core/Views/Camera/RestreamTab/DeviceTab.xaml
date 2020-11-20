@@ -258,7 +258,6 @@
                                                                 <icons:IconView
                                                                     Foreground="{DynamicResource WhiteColor}"
                                                                     HeightRequest="25"
-                                                                    Rotation="180"
                                                                     Source="ic_cloud_upload.png"
                                                                     WidthRequest="25">
                                                                     <icons:IconView.GestureRecognizers>
