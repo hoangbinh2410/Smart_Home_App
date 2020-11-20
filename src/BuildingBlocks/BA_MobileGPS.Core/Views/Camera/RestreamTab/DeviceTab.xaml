@@ -125,10 +125,9 @@
                     ColumnDefinitions="*,*,40"
                     ColumnSpacing="10">
                     <pancake:PancakeView
-                        Padding="0"
+                        Padding="0,5"
                         BackgroundColor="{DynamicResource WhiteColor}"
                         CornerRadius="19"
-                        HeightRequest="38"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Shadow>
                             <pancake:DropShadow
@@ -148,10 +147,9 @@
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Grid.Column="1"
-                        Padding="0"
+                        Padding="0,5"
                         BackgroundColor="{DynamicResource WhiteColor}"
                         CornerRadius="19"
-                        HeightRequest="38"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Shadow>
                             <pancake:DropShadow
@@ -173,11 +171,11 @@
                         Grid.Column="2"
                         Padding="0"
                         BackgroundColor="{DynamicResource PrimaryColor}"
-                        CornerRadius="19"
-                        HeightRequest="38"
+                        CornerRadius="15"
+                        HeightRequest="30"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
-                        WidthRequest="38">
+                        WidthRequest="30">
                         <pancake:PancakeView.Shadow>
                             <pancake:DropShadow
                                 BlurRadius="2"
@@ -216,12 +214,11 @@
                 <!--  // Height set ở code  -->
                 <Grid
                     x:Name="mainTopLayout"
-                    BackgroundColor="#3D3D3D"
                     IsVisible="{Binding MediaPlayerVisible}"
                     RowDefinitions="*,Auto,1"
                     RowSpacing="0">
                     <!--  Video  -->
-                    <pancake:PancakeView>
+                    <pancake:PancakeView BackgroundColor="{DynamicResource BlackColor}">
                         <Grid>
                             <vlc:MediaPlayerElement
                                 HorizontalOptions="Fill"
@@ -326,6 +323,7 @@
                     <StackLayout
                         Grid.Row="1"
                         Padding="10,0,0,5"
+                        BackgroundColor="#3D3D3D"
                         IsVisible="{Binding IsFullScreenOff}"
                         Spacing="3">
                         <Label
@@ -344,7 +342,7 @@
                 <!--  Tự động phát  -->
                 <StackLayout
                     Grid.Row="1"
-                    Padding="18,5"
+                    Padding="5,0"
                     Orientation="Horizontal">
                     <Label
                         StyleClass="BoldText"
