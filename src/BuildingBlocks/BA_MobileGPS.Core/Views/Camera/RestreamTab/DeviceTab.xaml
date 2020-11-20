@@ -261,7 +261,7 @@
                                                                     Source="ic_cloud_upload.png"
                                                                     WidthRequest="25">
                                                                     <icons:IconView.GestureRecognizers>
-                                                                        <TapGestureRecognizer Command="{Binding DownloadTappedCommand}" />
+                                                                        <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.UploadToCloudTappedCommand}" />
                                                                     </icons:IconView.GestureRecognizers>
                                                                 </icons:IconView>
                                                                 <icons:IconView
@@ -305,11 +305,11 @@
                                         Source="ic_reload"
                                         WidthRequest="25" />
                                     <Label
-                                        FontSize="13"
+                                        Margin="30,0"
+                                        FontSize="{DynamicResource MyFontSize}"
                                         HorizontalOptions="Center"
                                         HorizontalTextAlignment="Center"
                                         LineBreakMode="TailTruncation"
-                                        LineHeight="1.1"
                                         MaxLines="2"
                                         Text="{Binding ErrorMessenger}"
                                         TextColor="{DynamicResource WhiteColor}" />

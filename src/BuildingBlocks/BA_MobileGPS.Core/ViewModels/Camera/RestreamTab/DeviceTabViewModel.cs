@@ -27,7 +27,7 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         private readonly IStreamCameraService streamCameraService;
         private readonly IScreenOrientServices screenOrientServices;
-        public ICommand DownloadTappedCommand { get; }
+        public ICommand UploadToCloudTappedCommand { get; }
         public ICommand FullScreenTappedCommand { get; }
         public ICommand ReLoadCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
@@ -36,8 +36,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         //private readonly int maxLoadingTime = 60;
         private int customerId = 1010;
-
         private string bks = "QATEST1";
+
         // private DateTime date = Convert.ToDateTime("2020-11-17");
 
         public DeviceTabViewModel(INavigationService navigationService,
@@ -46,7 +46,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             streamCameraService = cameraService;
             this.screenOrientServices = screenOrientServices;
-            DownloadTappedCommand = new DelegateCommand(DownloadTapped);
+            UploadToCloudTappedCommand = new DelegateCommand(UploadToCloudTapped);
             FullScreenTappedCommand = new DelegateCommand(FullScreenTapped);
             ReLoadCommand = new DelegateCommand(ReloadVideo);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
@@ -125,7 +125,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get => dateEnd;
             set => SetProperty(ref dateEnd, value, DateChange);
-        }     
+        }
 
         private bool isError;
 
@@ -189,7 +189,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 IsError = true;
                 isAbort = true;
-                ErrorMessenger = "Aborting 10s";
+                ErrorMessenger = "Kết nối không ổn định. Hoặc đã hết thời lượng video";
             });
             // hết video??/
         }
@@ -304,9 +304,34 @@ namespace BA_MobileGPS.Core.ViewModels
             IsFullScreenOff = !isFullScreenOff;
         }
 
-        private void DownloadTapped()
+        private void UploadToCloudTapped()
         {
-            DisplayMessage.ShowMessageError("Chức năng chưa hoàn thiện...");
+            var req = new StartRestreamRequest()
+            {
+                Channel = videoSlected.Data.Channel,
+                CustomerID = customerId,
+                StartTime = videoSlected.VideoStartTime,
+                EndTime = videoSlected.VideoEndTime,
+                VehicleName = bks
+            };
+            RunOnBackground(async () =>
+            {
+                return await streamCameraService.UploadToCloud(req);
+            }, (res) =>
+           {
+               Device.BeginInvokeOnMainThread(() =>
+               {
+                   if (res?.Data != null && res.Data)
+                   {
+                       DisplayMessage.ShowMessageError("UpLoad thành công");
+                   }
+                   else
+                   {
+                       DisplayMessage.ShowMessageError("Có sự cố khi upload");
+                   }
+               });
+
+           });
         }
 
         private void VideoSelectedChange(ItemTappedEventArgs args)
@@ -438,6 +463,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 else
                 {
                     // Video dang duoc xem tu thiet bi khác
+                    StopAndStartRestream();
                 }
             });
         }
