@@ -322,26 +322,22 @@
                         </Grid>
                     </pancake:PancakeView>
 
-                    <pancake:PancakeView
+                    <!--  Chi tiết video được chọn  -->
+                    <StackLayout
                         Grid.Row="1"
                         Padding="10,0,0,5"
-                        IsVisible="{Binding IsFullScreenOff}">
-                        <pancake:PancakeView.Shadow>
-                            <pancake:DropShadow BlurRadius="3" Color="Black" />
-                        </pancake:PancakeView.Shadow>
-                        <!--  Chi tiết video được chọn  -->
-                        <StackLayout Spacing="3">
-                            <Label
-                                HorizontalOptions="Start"
-                                StyleClass="BoldText"
-                                Text="{Binding VideoSlected.VideoName}"
-                                TextColor="{DynamicResource WhiteColor}" />
-                            <Label
-                                HorizontalOptions="Start"
-                                Text="{Binding VideoSlected.VideoStartTime}"
-                                TextColor="{DynamicResource WhiteColor}" />
-                        </StackLayout>
-                    </pancake:PancakeView>
+                        IsVisible="{Binding IsFullScreenOff}"
+                        Spacing="3">
+                        <Label
+                            HorizontalOptions="Start"
+                            StyleClass="BoldText"
+                            Text="{Binding VideoSlected.VideoName}"
+                            TextColor="{DynamicResource WhiteColor}" />
+                        <Label
+                            HorizontalOptions="Start"
+                            Text="{Binding VideoSlected.VideoStartTime}"
+                            TextColor="{DynamicResource WhiteColor}" />
+                    </StackLayout>
 
                 </Grid>
 

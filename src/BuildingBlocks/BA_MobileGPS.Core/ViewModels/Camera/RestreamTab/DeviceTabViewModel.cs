@@ -317,25 +317,21 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             SafeExecute(() =>
             {
-                if (VideoSlected != null)
+                MediaPlayerVisible = true;
+                IsLoadingCamera = false;
+                resetDeviceCounter = 0;
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    MediaPlayerVisible = true;
-                    IsLoadingCamera = false;
-                    resetDeviceCounter = 0;
-                    Device.BeginInvokeOnMainThread(() =>
+                    IsError = false;
+                    BusyIndicatorActive = true;
+                    if (MediaPlayer.Media != null)
                     {
-                        IsError = false;
-                        BusyIndicatorActive = true;
-                        if (MediaPlayer.Media != null)
-                        {
-                            ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
-                            MediaPlayer.Media.Dispose();
-                            MediaPlayer.Media = null;
-                        }
-                    });
-                    StopAndStartRestream();
-                }
-                else MediaPlayerVisible = false;
+                        ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
+                        MediaPlayer.Media.Dispose();
+                        MediaPlayer.Media = null;
+                    }
+                });
+                StopAndStartRestream();
             });
         }
 
