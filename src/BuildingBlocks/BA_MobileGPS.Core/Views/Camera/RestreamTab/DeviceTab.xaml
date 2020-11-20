@@ -27,7 +27,7 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid RowDefinitions="Auto,*" RowSpacing="5">
+        <Grid RowDefinitions="Auto,*" RowSpacing="0">
             <!--  Khu vực tìm kiếm  -->
             <Grid
                 Padding="5"
@@ -376,7 +376,7 @@
                     <xforms:SfListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
-                                <pancake:PancakeView Padding="0" HeightRequest="260">
+                                <pancake:PancakeView Padding="0" HeightRequest="270">
                                     <pancake:PancakeView.Shadow>
                                         <pancake:DropShadow
                                             BlurRadius="1"
@@ -396,7 +396,7 @@
                                                 Source="ic_play"
                                                 VerticalOptions="Center" />
                                             <Label
-                                                Margin="0,0,10,15"
+                                                Margin="0,0,10,10"
                                                 HorizontalOptions="End"
                                                 Text="{Binding VideoTime}"
                                                 TextColor="{DynamicResource WhiteColor}"
