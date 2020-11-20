@@ -252,48 +252,25 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public bool IsFullScreenOff
         {
-            get { return isFullScreenOff; }
-            set
-            {
-                SetProperty(ref isFullScreenOff, value, ScreenOrientChange);
-                RaisePropertyChanged();
-            }
+            get => isFullScreenOff; set => SetProperty(ref isFullScreenOff, value);
         }
 
         private RestreamVideoModel videoSlected;
 
         public RestreamVideoModel VideoSlected
         {
-            get { return videoSlected; }
-            set
-            {
-                SetProperty(ref videoSlected, value, VideoSelectedChange);
-                RaisePropertyChanged();
-            }
+            get => videoSlected; set => SetProperty(ref videoSlected, value);
         }
 
         private ObservableCollection<RestreamVideoModel> videoItemsSource;
 
-        public ObservableCollection<RestreamVideoModel> VideoItemsSource
-        {
-            get { return videoItemsSource; }
-            set
-            {
-                SetProperty(ref videoItemsSource, value);
-                RaisePropertyChanged();
-            }
-        }
+        public ObservableCollection<Photo> VideoItemsSource { get => videoItemsSource; set => SetProperty(ref videoItemsSource, value); }
 
         private bool mediaPlayerVisible;
 
         public bool MediaPlayerVisible
         {
-            get { return mediaPlayerVisible; }
-            set
-            {
-                SetProperty(ref mediaPlayerVisible, value);
-                RaisePropertyChanged();
-            }
+            get => mediaPlayerVisible; set => SetProperty(ref mediaPlayerVisible, value);
         }
 
         private LibVLC libVLC;
@@ -308,12 +285,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public MediaPlayer MediaPlayer
         {
-            get { return mediaPlayer; }
-            set
-            {
-                SetProperty(ref mediaPlayer, value);
-                RaisePropertyChanged();
-            }
+            get => mediaPlayer; set => SetProperty(ref mediaPlayer, value);
         }
 
         private void FullScreenTapped()
