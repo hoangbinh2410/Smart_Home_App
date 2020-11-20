@@ -104,6 +104,11 @@ namespace BA_MobileGPS.Entities
     {
     }
 
+    public class RestreamUploadResponse : ResponseStreamBase<bool>
+    {
+
+    }
+
     public class CaptureImageGroup
     {
         public string VehiclePlate { get; set; }
