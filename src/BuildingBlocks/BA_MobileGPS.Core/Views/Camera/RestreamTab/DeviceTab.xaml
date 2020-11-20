@@ -34,6 +34,7 @@
                 IsVisible="{Binding IsFullScreenOff}"
                 RowDefinitions="*,*"
                 RowSpacing="5">
+
                 <StackLayout Orientation="Horizontal">
                     <pancake:PancakeView
                         Padding="0"
@@ -82,8 +83,8 @@
                     <pancake:PancakeView
                         Padding="0"
                         BackgroundColor="{DynamicResource WhiteColor}"
-                        CornerRadius="19"
-                        HeightRequest="38"
+                        CornerRadius="18"
+                        HeightRequest="35"
                         HorizontalOptions="End"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Shadow>
@@ -125,9 +126,10 @@
                     ColumnDefinitions="*,*,40"
                     ColumnSpacing="10">
                     <pancake:PancakeView
-                        Padding="0,5"
+                        Padding="0"
                         BackgroundColor="{DynamicResource WhiteColor}"
-                        CornerRadius="19"
+                        CornerRadius="18"
+                        HeightRequest="35"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Shadow>
                             <pancake:DropShadow
@@ -147,9 +149,10 @@
                     </pancake:PancakeView>
                     <pancake:PancakeView
                         Grid.Column="1"
-                        Padding="0,5"
+                        Padding="0"
                         BackgroundColor="{DynamicResource WhiteColor}"
-                        CornerRadius="19"
+                        CornerRadius="18"
+                        HeightRequest="35"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Shadow>
                             <pancake:DropShadow
@@ -171,11 +174,11 @@
                         Grid.Column="2"
                         Padding="0"
                         BackgroundColor="{DynamicResource PrimaryColor}"
-                        CornerRadius="15"
-                        HeightRequest="30"
+                        CornerRadius="18"
+                        HeightRequest="34"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
-                        WidthRequest="30">
+                        WidthRequest="34">
                         <pancake:PancakeView.Shadow>
                             <pancake:DropShadow
                                 BlurRadius="2"
@@ -289,11 +292,15 @@
                                 </vlc:MediaPlayerElement.PlaybackControls>
                             </vlc:MediaPlayerElement>
 
-                            <indicator:SfBusyIndicator IsBusy="{Binding BusyIndicatorActive}" />
+                            <indicator:SfBusyIndicator
+                                Title="Loading..."
+                                IsBusy="{Binding BusyIndicatorActive}"
+                                TextColor="{DynamicResource WhiteColor}"
+                                TextSize="10" />
 
                             <Grid
                                 x:Name="errGrid"
-                                BackgroundColor="Black"
+                                BackgroundColor="{DynamicResource BlackColor}"
                                 IsVisible="{Binding IsError}">
                                 <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
                                     <icons:IconView
