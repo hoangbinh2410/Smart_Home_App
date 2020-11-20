@@ -9,6 +9,7 @@ using BA_MobileGPS.Utilities;
 using LibVLCSharp.Shared;
 using Prism.Commands;
 using Prism.Navigation;
+using Syncfusion.Data.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -106,7 +107,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (!VMBusy)
             {
-                GetListImageDataFromPNC(dateStart, dateEnd);
+                GetListImageDataFrom(dateStart, dateEnd);
             }
         }
 
@@ -122,7 +123,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (!VMBusy)
             {
-                GetListImageDataFromPNC(dateStart, dateEnd);
+                GetListImageDataFrom(dateStart, dateEnd);
             }
         }
 
@@ -145,7 +146,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private int pageCount { get; } = 20;
         private readonly DateTime fromTimeDefault = Convert.ToDateTime("2020-11-16 12:00:00 AM");
         private readonly DateTime toTimeDefault = Convert.ToDateTime("2020-11-16 11:00:00 PM");
-        private List<RestreamVideoModel> basePNCSource { get; set; } = new List<RestreamVideoModel>();
+        private List<RestreamVideoModel> VideoItemsSourceOrigin = new List<RestreamVideoModel>();
         private bool VMBusy { get; set; }
         private bool IsLoadingCamera = false;
         // dem so lan request lai khi connect fail, gioi han la 3
@@ -224,7 +225,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (!VMBusy)
             {
-                GetListImageDataFromPNC(dateStart, dateEnd, channel: selectedChannel.Value);
+                GetListImageDataFrom(dateStart, dateEnd, channel: selectedChannel.Value);
             }
         }
 
@@ -259,7 +260,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public RestreamVideoModel VideoSlected
         {
-            get => videoSlected; set => SetProperty(ref videoSlected, value);
+            get => videoSlected; set => SetProperty(ref videoSlected, value, VideoSelectedChange);
         }
 
         private ObservableCollection<RestreamVideoModel> videoItemsSource;
@@ -365,7 +366,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ReloadPage(Vehicle vehiclePlate = null)
         {
-            GetListImageDataFromPNC(dateStart, dateEnd);
+            GetListImageDataFrom(dateStart, dateEnd);
         }
 
         private void CloseVideo()
@@ -490,14 +491,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool CanLoadMoreItems(object obj)
         {
-            if (basePNCSource.Count < pageIndex * pageCount)
+            if (VideoItemsSourceOrigin.Count < pageIndex * pageCount)
                 return false;
             return true;
         }
 
         private void LoadMore()
         {
-            var source = basePNCSource.Skip(pageIndex * pageCount).Take(pageCount);
+            var source = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount);
             pageIndex++;
             foreach (var item in source)
             {
@@ -505,12 +506,15 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private void GetListImageDataFromPNC(DateTime fromTime, DateTime toTime, int? limit = null, int? channel = null)
+        private void GetListImageDataFrom(DateTime fromTime, DateTime toTime, int? limit = null, int? channel = null)
         {
-            basePNCSource.Clear();
+            VideoItemsSourceOrigin.Clear();
+
             VideoItemsSource = new ObservableCollection<RestreamVideoModel>();
+
             var xncode = customerId;
             var vehiclePlate = bks;
+            pageIndex = 0;
             RunOnBackground(async () =>
             {
                 return await streamCameraService.RestreamCaptureImageInfo(xncode, vehiclePlate, fromTime, toTime, limit, channel);
@@ -529,11 +533,13 @@ namespace BA_MobileGPS.Core.ViewModels
                              Data = new StreamStart() { Channel = image.Channel },
                              EventType = image.Type
                          };
-                         videoModel.VideoName = string.Format("Video_CAM{0}_{1}", image.Channel,
+
+                         videoModel.VideoName = string.Format("Camera{0}_{1}", image.Channel,
                              videoModel.VideoStartTime.ToString("yyyyMMdd_hhmmss"));
-                         basePNCSource.Add(videoModel);
+
+                         VideoItemsSourceOrigin.Add(videoModel);
                      }
-                     LoadMore();
+                     VideoItemsSource = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToObservableCollection();
                  }
              });
         }
