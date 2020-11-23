@@ -53,7 +53,7 @@
                             <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <StackLayout
-                            Padding="5,0,5,0"
+                            Padding="10,0"
                             HorizontalOptions="FillAndExpand"
                             Orientation="Horizontal"
                             VerticalOptions="Center">
@@ -74,17 +74,16 @@
                                 </Entry.Effects>
                             </Entry>
                             <icons:IconView
-                                Margin="0,0,10,0"
                                 Foreground="{DynamicResource BlackColor}"
-                                HeightRequest="20"
+                                HeightRequest="15"
                                 HorizontalOptions="End"
                                 Source="ic_sortdown"
                                 VerticalOptions="Center"
-                                WidthRequest="20" />
+                                WidthRequest="15" />
                         </StackLayout>
                     </pancake:PancakeView>
                     <pancake:PancakeView
-                        Padding="0"
+                        Padding="10,0"
                         BackgroundColor="{DynamicResource WhiteColor}"
                         CornerRadius="18"
                         HeightRequest="35"
@@ -99,7 +98,6 @@
                         <Grid>
                             <Picker
                                 Title="Chọn kênh"
-                                Margin="10,0,0,0"
                                 FontSize="{DynamicResource MyFontSize}"
                                 HorizontalTextAlignment="Start"
                                 ItemDisplayBinding="{Binding Name}"
@@ -112,13 +110,12 @@
                                 </Picker.Effects>
                             </Picker>
                             <icons:IconView
-                                Margin="0,0,10,0"
                                 Foreground="{DynamicResource BlackColor}"
-                                HeightRequest="20"
+                                HeightRequest="15"
                                 HorizontalOptions="End"
                                 Source="ic_sortdown"
                                 VerticalOptions="Center"
-                                WidthRequest="20" />
+                                WidthRequest="15" />
                         </Grid>
 
                     </pancake:PancakeView>
