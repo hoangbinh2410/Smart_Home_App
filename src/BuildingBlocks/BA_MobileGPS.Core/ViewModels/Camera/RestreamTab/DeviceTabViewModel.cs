@@ -607,9 +607,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     Value = i,
                     Name = string.Format("Kênh {0}", i)
                 };
-                source.Add(temp);
-                SelectedChannel = source[0];
-            }           
+                source.Add(temp);             
+            }
+            ListChannel = source;
+            SelectedChannel = source[0];
+           
         }
 
         private void RefreshData()
