@@ -47,7 +47,7 @@
                             <controls:IconView Source="ic_turnon_time_on_day.png" />
                             <Label
                                 FontSize="12"
-                                Text="{Binding GPSTime, Converter={StaticResource DateTimeConverter}}"
+                                Text="{Binding VehicleTime, Converter={StaticResource DateTimeConverter}}"
                                 VerticalOptions="Center" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" Spacing="10">

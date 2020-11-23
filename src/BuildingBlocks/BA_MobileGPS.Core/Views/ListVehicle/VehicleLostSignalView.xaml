@@ -43,7 +43,7 @@
                     <controls:IconView Source="ic_turnon_time_on_day.png" />
                     <Label
                         FontSize="12"
-                        Text="{Binding GPSTime, Converter={StaticResource DateTimeConverter}}"
+                        Text="{Binding VehicleTime, Converter={StaticResource DateTimeConverter}}"
                         VerticalOptions="Center" />
                 </StackLayout>
                 <StackLayout
@@ -63,7 +63,7 @@
                     IsVisible="{Binding MessageBAP, Converter={StaticResource HasDataConverter}}"
                     Orientation="Horizontal"
                     Spacing="10">
-                    <controls:IconView Source="ic_fee.png"  VerticalOptions="Start" />
+                    <controls:IconView Source="ic_fee.png" VerticalOptions="Start" />
                     <Label
                         FontSize="12"
                         HeightRequest="30"
