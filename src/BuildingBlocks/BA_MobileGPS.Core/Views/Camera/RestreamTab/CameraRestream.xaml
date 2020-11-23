@@ -32,7 +32,7 @@
     </NavigationPage.TitleView>
     <TabbedPage.Children>
         <views:DeviceTab Title="{i18n:TranslateResource Camera_ChildTab_Device}" IconImageSource="ic_device" />
-        <views:BACloudTab Title="{i18n:TranslateResource Camera_ChildTab_BACloud}" IconImageSource="ic_cloud" />
-        <views:MyVideoTab Title="{i18n:TranslateResource Camera_ChildTab_MyVideo}" IconImageSource="ic_myvideo" />
+        <!--<views:BACloudTab Title="{i18n:TranslateResource Camera_ChildTab_BACloud}" IconImageSource="ic_cloud" />
+        <views:MyVideoTab Title="{i18n:TranslateResource Camera_ChildTab_MyVideo}" IconImageSource="ic_myvideo" />-->
     </TabbedPage.Children>
 </icons:TabbedPageEx>
