@@ -599,28 +599,17 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SetChannelSource()
         {
-            RunOnBackground(async () =>
+            var source = new List<ChannelModel>();
+            for (int i = 1; i < 5; i++)
             {
-                return await streamCameraService.GetDevicesStatus(ConditionType.BKS, Vehicle.VehiclePlate);
-            }, (result) =>
-            {
-                var device = result?.Data?.FirstOrDefault();
-                if (device?.CameraChannels != null && device.CameraChannels.Count > 0)
+                var temp = new ChannelModel()
                 {
-                    var source = new List<ChannelModel>();
-                    foreach (var channel in device.CameraChannels)
-                    {
-                        var temp = new ChannelModel()
-                        {
-                            Value = channel.Channel,
-                            Name = string.Format("Kênh {0}", channel.Channel)
-                        };
-                        source.Add(temp);
-                    }
-                    ListChannel = source;
-                    SelectedChannel = source[0];
-                }
-            });
+                    Value = i,
+                    Name = string.Format("Kênh {0}", i)
+                };
+                source.Add(temp);
+                SelectedChannel = source[0];
+            }           
         }
 
         private void RefreshData()
