@@ -171,7 +171,7 @@
 
         public const string GET_VEHICLEDETAIL = "api/v3/vehicles/getvehicledetail";
 
-        public const string GET_ADDRESSESBYLATLNG = "api/address/batchaddress";
+        public const string GET_ADDRESSESBYLATLNG = "api/geocode/batchaddress";
 
         #endregion Vehicle detail
 

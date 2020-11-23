@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
+using BA_MobileGPS.Service;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -27,6 +28,7 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         private readonly IStreamCameraService streamCameraService;
         private readonly IScreenOrientServices screenOrientServices;
+
         public ICommand UploadToCloudTappedCommand { get; }
         public ICommand FullScreenTappedCommand { get; }
         public ICommand ReLoadCommand { get; }
@@ -40,6 +42,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             streamCameraService = cameraService;
             this.screenOrientServices = screenOrientServices;
+         
             UploadToCloudTappedCommand = new DelegateCommand(UploadToCloudTapped);
             FullScreenTappedCommand = new DelegateCommand(FullScreenTapped);
             ReLoadCommand = new DelegateCommand(ReloadVideo);
@@ -149,7 +152,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private readonly int configMinute = 3;
         private int pageIndex { get; set; } = 0;
-        private int pageCount { get; } = 20;
+        private int pageCount { get; } = 10; // so luong anh cho 1 lan infinite scroll 
         private List<RestreamVideoModel> VideoItemsSourceOrigin = new List<RestreamVideoModel>();
         private bool IsLoadingCamera = false;
 
@@ -538,7 +541,7 @@ namespace BA_MobileGPS.Core.ViewModels
             var source = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount);
             pageIndex++;
             foreach (var item in source)
-            {
+            {              
                 VideoItemsSource.Add(item);
             }
         }
