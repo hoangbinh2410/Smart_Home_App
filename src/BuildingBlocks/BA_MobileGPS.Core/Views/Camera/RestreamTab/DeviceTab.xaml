@@ -411,8 +411,8 @@
                                             <Label
                                                 HorizontalOptions="Start"
                                                 StyleClass="BoldText"
-                                                Text="{Binding VideoName}" />
-                                            <Label HorizontalOptions="Start" Text="{Binding VideoStartTime}" />
+                                                Text="{Binding VideoStartTime}" />
+                                            <Label HorizontalOptions="Start" Text="{Binding VideoAddress}" />
                                         </StackLayout>
                                     </StackLayout>
                                 </pancake:PancakeView>
