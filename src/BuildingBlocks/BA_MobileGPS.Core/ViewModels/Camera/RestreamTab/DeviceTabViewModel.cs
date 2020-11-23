@@ -563,8 +563,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     Vehicle.VehiclePlate,
                     DateStart,
                     DateEnd,
-                    null,
-                    SelectedChannel.Value); ;
+                    SelectedChannel.Value,
+                    null);
             }, (result) =>
             {
                 if (result != null && result.Count > 0)
