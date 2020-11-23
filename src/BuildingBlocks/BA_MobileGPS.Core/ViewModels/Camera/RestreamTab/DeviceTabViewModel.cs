@@ -49,15 +49,12 @@ namespace BA_MobileGPS.Core.ViewModels
             mediaPlayerVisible = false;
             videoItemsSource = new ObservableCollection<RestreamVideoModel>();
             VMBusy = true;
-            DateStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
-            DateEnd = DateTime.Now;
-            IsFullScreenOff = true;
-            IsError = false;
+            dateStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+            dateEnd = DateTime.Now;
+            isFullScreenOff = true;
+            isError = false;
             VMBusy = false;
-            Vehicle = new Vehicle()
-            {
-                VehiclePlate = "QATEST1",
-            };
+            vehicle = new Vehicle();
         }
 
         #region Lifecycle
@@ -85,10 +82,7 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnNavigatedTo(parameters);
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
             {
-                Vehicle = new Vehicle()
-                {
-                    VehiclePlate = "QATEST1",
-                };
+                Vehicle = vehicle;
                 GetListImageDataFrom();
                 CloseVideo();
             }
@@ -190,7 +184,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         // dem so lan request lai khi connect fail, gioi han la 3
         private int resetDeviceCounter = 0;
-        
+
         private List<ChannelModel> listChannel;
 
         public List<ChannelModel> ListChannel
@@ -607,11 +601,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     Value = i,
                     Name = string.Format("Kênh {0}", i)
                 };
-                source.Add(temp);             
+                source.Add(temp);
             }
             ListChannel = source;
             SelectedChannel = source[0];
-           
+
         }
 
         private void RefreshData()
