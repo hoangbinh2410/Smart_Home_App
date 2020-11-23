@@ -148,6 +148,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     DisplayMessage.ShowMessageError("Ngày bắt đầu không trùng ngày kết thúc, vui lòng kiểm tra lại");
                 }
+                else if (dateStart > dateEnd)
+                {
+                    DisplayMessage.ShowMessageInfo("Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc");
+                }
                 else GetListImageDataFrom();
             }
         }
@@ -605,7 +609,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             ListChannel = source;
             SelectedChannel = source[0];
-
         }
 
         private void RefreshData()
