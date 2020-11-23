@@ -186,13 +186,13 @@
                                 Color="Black" />
                         </pancake:PancakeView.Shadow>
                         <pancake:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding RestoreSearchCommand}" />
+                            <TapGestureRecognizer Command="{Binding SearchCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <icons:IconView
                             Margin="6"
                             Foreground="{DynamicResource WhiteColor}"
                             HeightRequest="25"
-                            Source="ic_reload.png"
+                            Source="ic_search.png"
                             VerticalOptions="Center"
                             WidthRequest="25" />
                     </pancake:PancakeView>
