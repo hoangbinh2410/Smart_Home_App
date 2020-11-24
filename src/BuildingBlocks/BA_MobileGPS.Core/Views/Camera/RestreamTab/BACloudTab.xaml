@@ -26,8 +26,17 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid RowDefinitions="Auto,*" RowSpacing="0">
-            <!--  Khu vực tìm kiếm  -->
+        <Grid>
+            <Label
+                FontSize="20"
+                HorizontalOptions="Center"
+                Text=" Đang hoàn thiện"
+                VerticalOptions="Center" />
+        </Grid>
+        <!--<Grid RowDefinitions="Auto,*" RowSpacing="0">
+        -->
+        <!--  Khu vực tìm kiếm  -->
+        <!--
             <Grid
                 Padding="5"
                 IsVisible="{Binding IsFullScreenOff}"
@@ -199,7 +208,9 @@
 
             </Grid>
 
-            <!--  Khu vực video và danh sách  -->
+        -->
+        <!--  Khu vực video và danh sách  -->
+        <!--
             <Grid
                 x:Name="mainLayout"
                 Grid.Row="1"
@@ -213,13 +224,17 @@
                         <Setter Property="RowDefinitions" Value="Auto,0,*" />
                     </DataTrigger>
                 </Grid.Triggers>
-                <!--  // Height set ở code  -->
+        -->
+        <!--  // Height set ở code  -->
+        <!--
                 <Grid
                     x:Name="mainTopLayout"
                     IsVisible="{Binding MediaPlayerVisible}"
                     RowDefinitions="*,Auto,1"
                     RowSpacing="0">
-                    <!--  Video  -->
+        -->
+        <!--  Video  -->
+        <!--
                     <pancake:PancakeView BackgroundColor="{DynamicResource BlackColor}">
                         <Grid>
                             <vlc:MediaPlayerElement
@@ -254,7 +269,8 @@
                                                                 Orientation="Horizontal"
                                                                 Spacing="13"
                                                                 VerticalOptions="Center">
-                                                                <!--<icons:IconView
+        -->
+        <!--<icons:IconView
                                                                     Foreground="{DynamicResource WhiteColor}"
                                                                     HeightRequest="25"
                                                                     Source="ic_cloud_upload.png"
@@ -263,6 +279,7 @@
                                                                         <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.UploadToCloudTappedCommand}" />
                                                                     </icons:IconView.GestureRecognizers>
                                                                 </icons:IconView>-->
+        <!--
                                                                 <icons:IconView
                                                                     Foreground="{DynamicResource WhiteColor}"
                                                                     HeightRequest="25"
@@ -325,7 +342,9 @@
                         </Grid>
                     </pancake:PancakeView>
 
-                    <!--  Chi tiết video được chọn  -->
+        -->
+        <!--  Chi tiết video được chọn  -->
+        <!--
                     <StackLayout
                         Grid.Row="1"
                         Padding="10,0,0,5"
@@ -345,7 +364,9 @@
 
                 </Grid>
 
-                <!--  Tự động phát  -->
+        -->
+        <!--  Tự động phát  -->
+        <!--
                 <StackLayout
                     Grid.Row="1"
                     Padding="5,0"
@@ -356,7 +377,9 @@
                         VerticalOptions="Center" />
                 </StackLayout>
 
-                <!--  Danh sách video  -->
+        -->
+        <!--  Danh sách video  -->
+        <!--
                 <xforms:SfListView
                     x:Name="listview"
                     Grid.Row="2"
@@ -439,6 +462,6 @@
                         VerticalTextAlignment="Center" />
                 </StackLayout>
             </Grid>
-        </Grid>
+        </Grid>-->
     </ContentPage.Content>
 </ContentPage>

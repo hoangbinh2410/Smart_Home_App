@@ -1,10 +1,9 @@
 ﻿using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Service.IService;
+using Prism.Commands;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -14,6 +13,8 @@ namespace BA_MobileGPS.Core.ViewModels
         protected readonly IScreenOrientServices screenOrientServices;
 
         public ICommand FullScreenTappedCommand { get; }
+        public ICommand VideoItemTapCommand { get; set; }
+
         public RestreamChildVMBase(INavigationService navigationService, 
             IStreamCameraService cameraService,
             IScreenOrientServices screenOrientServices) : base(navigationService)
@@ -21,6 +22,8 @@ namespace BA_MobileGPS.Core.ViewModels
             streamCameraService = cameraService;
             this.screenOrientServices = screenOrientServices;
             FullScreenTappedCommand = new DelegateCommand(FullScreenTapped);
+            IsFullScreenOff = true;
+            IsError = false;
         }
 
         #region Property
@@ -34,7 +37,29 @@ namespace BA_MobileGPS.Core.ViewModels
             get => isFullScreenOff; set => SetProperty(ref isFullScreenOff, value);
         }
 
+        private string errorMessenger;
 
+        public string ErrorMessenger
+        {
+            get => errorMessenger;
+            set => SetProperty(ref errorMessenger, value);
+        }
+
+        private bool isError;
+
+        public bool IsError
+        {
+            get => isError;
+            set => SetProperty(ref isError, value);
+        }
+
+        private bool busyIndicatorActive;
+
+        public bool BusyIndicatorActive
+        {
+            get => busyIndicatorActive;
+            set => SetProperty(ref busyIndicatorActive, value);
+        }
 
         #endregion
 

@@ -27,20 +27,18 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         
 
-        public ICommand UploadToCloudTappedCommand { get; }
-      
+        public ICommand UploadToCloudTappedCommand { get; }    
         public ICommand ReLoadCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
         public ICommand SearchCommand { get; }
-        public ICommand VideoItemTapCommand { get; set; }
+       
 
         public DeviceTabViewModel(INavigationService navigationService,
             IStreamCameraService cameraService,
             IScreenOrientServices screenOrientServices) : base(navigationService,cameraService,screenOrientServices)
         {
                     
-            UploadToCloudTappedCommand = new DelegateCommand(UploadToCloudTapped);
-           
+            UploadToCloudTappedCommand = new DelegateCommand(UploadToCloudTapped);          
             ReLoadCommand = new DelegateCommand(ReloadVideo);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
             SearchCommand = new DelegateCommand(SearchData);
@@ -48,9 +46,7 @@ namespace BA_MobileGPS.Core.ViewModels
             mediaPlayerVisible = false;
             videoItemsSource = new ObservableCollection<RestreamVideoModel>();
             dateStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
-            dateEnd = DateTime.Now;
-            isFullScreenOff = true;
-            isError = false;
+            dateEnd = DateTime.Now;           
             vehicle = new Vehicle();
         }
 
@@ -103,22 +99,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private Vehicle vehicle = new Vehicle();
         public Vehicle Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
 
-        private bool busyIndicatorActive;
-
-        public bool BusyIndicatorActive
-        {
-            get => busyIndicatorActive;
-            set => SetProperty(ref busyIndicatorActive, value);
-        }
-
-        private string errorMessenger;
-
-        public string ErrorMessenger
-        {
-            get => errorMessenger;
-            set => SetProperty(ref errorMessenger, value);
-        }
-
         private DateTime dateStart;
 
         public DateTime DateStart
@@ -135,13 +115,7 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref dateEnd, value);
         }
 
-        private bool isError;
-
-        public bool IsError
-        {
-            get => isError;
-            set => SetProperty(ref isError, value);
-        }
+       
 
         // Loi abort 10s
         private bool isAbort { get; set; }
@@ -178,7 +152,6 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return selectedChannel; }
             set { SetProperty(ref selectedChannel, value); }
         }
-
        
 
         private RestreamVideoModel videoSlected;
