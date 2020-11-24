@@ -23,27 +23,21 @@ using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class DeviceTabViewModel : TabbedPageChildVMBase
+    public class DeviceTabViewModel : RestreamChildVMBase
     {
-        private readonly IStreamCameraService streamCameraService;
-        private readonly IScreenOrientServices screenOrientServices;
+        
 
-        public ICommand UploadToCloudTappedCommand { get; }
-        public ICommand FullScreenTappedCommand { get; }
+        public ICommand UploadToCloudTappedCommand { get; }    
         public ICommand ReLoadCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
         public ICommand SearchCommand { get; }
-        public ICommand VideoItemTapCommand { get; set; }
+       
 
         public DeviceTabViewModel(INavigationService navigationService,
             IStreamCameraService cameraService,
-            IScreenOrientServices screenOrientServices) : base(navigationService)
-        {
-            streamCameraService = cameraService;
-            this.screenOrientServices = screenOrientServices;
-
-            UploadToCloudTappedCommand = new DelegateCommand(UploadToCloudTapped);
-            FullScreenTappedCommand = new DelegateCommand(FullScreenTapped);
+            IScreenOrientServices screenOrientServices) : base(navigationService,cameraService,screenOrientServices)
+        {                  
+            UploadToCloudTappedCommand = new DelegateCommand(UploadToCloudTapped);          
             ReLoadCommand = new DelegateCommand(ReloadVideo);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
             SearchCommand = new DelegateCommand(SearchData);
@@ -51,9 +45,7 @@ namespace BA_MobileGPS.Core.ViewModels
             mediaPlayerVisible = false;
             videoItemsSource = new ObservableCollection<RestreamVideoModel>();
             dateStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
-            dateEnd = DateTime.Now;
-            isFullScreenOff = true;
-            isError = false;
+            dateEnd = DateTime.Now;           
             vehicle = new Vehicle();
         }
 
@@ -106,22 +98,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private Vehicle vehicle = new Vehicle();
         public Vehicle Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
 
-        private bool busyIndicatorActive;
-
-        public bool BusyIndicatorActive
-        {
-            get => busyIndicatorActive;
-            set => SetProperty(ref busyIndicatorActive, value);
-        }
-
-        private string errorMessenger;
-
-        public string ErrorMessenger
-        {
-            get => errorMessenger;
-            set => SetProperty(ref errorMessenger, value);
-        }
-
         private DateTime dateStart;
 
         public DateTime DateStart
@@ -138,13 +114,7 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref dateEnd, value);
         }
 
-        private bool isError;
-
-        public bool IsError
-        {
-            get => isError;
-            set => SetProperty(ref isError, value);
-        }
+       
 
         // Loi abort 10s
         private bool isAbort { get; set; }
@@ -153,17 +123,7 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Thời gian trừ trước và sau thời gian của ảnh => gửi request video
         /// </summary>
         private readonly int configMinute = 3;
-
-        /// <summary>
-        /// infinite scroll
-        /// </summary>
-        private int pageIndex { get; set; } = 0;
-
-        /// <summary>
-        /// infinite scroll : sô lượng item mỗi lần load
-        /// </summary>
-        private int pageCount { get; } = 20;
-
+        
         private List<RestreamVideoModel> VideoItemsSourceOrigin = new List<RestreamVideoModel>();
         private bool IsLoadingCamera = false;
 
@@ -191,16 +151,7 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return selectedChannel; }
             set { SetProperty(ref selectedChannel, value); }
         }
-
-        private bool isFullScreenOff;
-
-        /// <summary>
-        /// Hướng màn hình : Dọc = true
-        /// </summary>
-        public bool IsFullScreenOff
-        {
-            get => isFullScreenOff; set => SetProperty(ref isFullScreenOff, value);
-        }
+       
 
         private RestreamVideoModel videoSlected;
 
@@ -291,7 +242,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void Media_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
         {
-            if (MediaPlayer.Time > 1 && busyIndicatorActive)
+            if (MediaPlayer.Time > 1 && BusyIndicatorActive)
             {
                 resetDeviceCounter = 0;
                 Device.BeginInvokeOnMainThread(() =>
@@ -325,18 +276,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 StopAndStartRestream();
         }
 
-        /// <summary>
-        /// Raise khi btn fullscreen fire
-        /// </summary>
-        private void FullScreenTapped()
-        {
-            if (isFullScreenOff)
-            {
-                screenOrientServices.ForceLandscape();
-            }
-            else screenOrientServices.ForcePortrait();
-            IsFullScreenOff = !isFullScreenOff;
-        }
+      
 
         private void UploadToCloudTapped()
         {
