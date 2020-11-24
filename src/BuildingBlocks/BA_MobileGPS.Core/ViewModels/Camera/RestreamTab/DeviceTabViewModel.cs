@@ -20,7 +20,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
-using BA_MobileGPS.Service;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -149,18 +148,22 @@ namespace BA_MobileGPS.Core.ViewModels
 
         // Loi abort 10s
         private bool isAbort { get; set; }
+
         /// <summary>
         /// Thời gian trừ trước và sau thời gian của ảnh => gửi request video
         /// </summary>
         private readonly int configMinute = 3;
+
         /// <summary>
-        /// infinite scroll 
+        /// infinite scroll
         /// </summary>
         private int pageIndex { get; set; } = 0;
+
         /// <summary>
         /// infinite scroll : sô lượng item mỗi lần load
         /// </summary>
         private int pageCount { get; } = 20;
+
         private List<RestreamVideoModel> VideoItemsSourceOrigin = new List<RestreamVideoModel>();
         private bool IsLoadingCamera = false;
 
@@ -168,6 +171,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private int resetDeviceCounter = 0;
 
         private List<ChannelModel> listChannel;
+
         /// <summary>
         /// Danh sách kênh
         /// </summary>
@@ -178,6 +182,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private ChannelModel selectedChannel;
+
         /// <summary>
         /// Kênh được chọn
         /// </summary>
@@ -188,6 +193,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private bool isFullScreenOff;
+
         /// <summary>
         /// Hướng màn hình : Dọc = true
         /// </summary>
@@ -197,6 +203,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private RestreamVideoModel videoSlected;
+
         /// <summary>
         /// Ảnh được focus
         /// </summary>
@@ -210,6 +217,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private ObservableCollection<RestreamVideoModel> videoItemsSource;
+
         /// <summary>
         /// Source ảnh để chọn video
         /// </summary>
@@ -316,6 +324,7 @@ namespace BA_MobileGPS.Core.ViewModels
             else
                 StopAndStartRestream();
         }
+
         /// <summary>
         /// Raise khi btn fullscreen fire
         /// </summary>
@@ -358,6 +367,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             //});
         }
+
         /// <summary>
         /// Raise khi ảnh đang được chọn thay đổi
         /// </summary>
@@ -420,6 +430,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 MediaPlayer.Media = null;
             }
         }
+
         /// <summary>
         /// Bắt đầu vòng init video, đống và gọi restart ở server
         /// </summary>
@@ -490,6 +501,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
+
         /// <summary>
         /// Kiểm tra trạng thái thiết bị sau khi gọi start
         /// Return:
@@ -584,6 +596,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 return false;
             return true;
         }
+
         /// <summary>
         /// infinite scroll
         /// </summary>
@@ -596,6 +609,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 VideoItemsSource.Add(item);
             }
         }
+
         /// <summary>
         /// Lấy danh sách ảnh từ server
         /// </summary>
@@ -634,11 +648,12 @@ namespace BA_MobileGPS.Core.ViewModels
                             videoModel.VideoName = string.Format("Camera{0}_{1}", image.Channel,
                                 videoModel.VideoStartTime.ToString("yyyyMMdd_hhmmss"));
 
-                        VideoItemsSourceOrigin.Add(videoModel);
+                            VideoItemsSourceOrigin.Add(videoModel);
+                        }
+                        VideoItemsSource = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToObservableCollection();
                     }
-                    VideoItemsSource = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToObservableCollection();
-                }
-            });
+                });
+            }
         }
         /// <summary>
         /// Set dữ liệu cho picker channel
