@@ -53,18 +53,13 @@
                             <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <StackLayout
-                            Padding="0"
+                            Padding="10,0"
                             HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal">
-                            <pancake:PancakeView
-                                BackgroundColor="{DynamicResource PrimaryColor}"
-                                CornerRadius="19"
-                                WidthRequest="38">
-                                <icons:IconView
-                                    Margin="12"
-                                    Foreground="{DynamicResource WhiteColor}"
-                                    Source="ic_search.png" />
-                            </pancake:PancakeView>
+                            Orientation="Horizontal"
+                            VerticalOptions="Center">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                            </StackLayout.GestureRecognizers>
                             <Entry
                                 x:Name="entrySearch"
                                 FontSize="14"
@@ -78,10 +73,17 @@
                                     <effects:BorderlessEffect />
                                 </Entry.Effects>
                             </Entry>
+                            <icons:IconView
+                                Foreground="{DynamicResource BlackColor}"
+                                HeightRequest="15"
+                                HorizontalOptions="End"
+                                Source="ic_sortdown"
+                                VerticalOptions="Center"
+                                WidthRequest="15" />
                         </StackLayout>
                     </pancake:PancakeView>
                     <pancake:PancakeView
-                        Padding="0"
+                        Padding="10,0"
                         BackgroundColor="{DynamicResource WhiteColor}"
                         CornerRadius="18"
                         HeightRequest="35"
@@ -96,7 +98,6 @@
                         <Grid>
                             <Picker
                                 Title="Chọn kênh"
-                                Margin="10,0,0,0"
                                 FontSize="{DynamicResource MyFontSize}"
                                 HorizontalTextAlignment="Start"
                                 ItemDisplayBinding="{Binding Name}"
@@ -109,13 +110,12 @@
                                 </Picker.Effects>
                             </Picker>
                             <icons:IconView
-                                Margin="0,0,10,0"
-                                Foreground="Gray"
-                                HeightRequest="20"
+                                Foreground="{DynamicResource BlackColor}"
+                                HeightRequest="15"
                                 HorizontalOptions="End"
                                 Source="ic_sortdown"
                                 VerticalOptions="Center"
-                                WidthRequest="20" />
+                                WidthRequest="15" />
                         </Grid>
 
                     </pancake:PancakeView>
@@ -135,7 +135,7 @@
                             <pancake:DropShadow
                                 BlurRadius="2"
                                 Offset="0,0"
-                                Color="Black" />
+                                Color="{DynamicResource BlackColor}" />
                         </pancake:PancakeView.Shadow>
                         <views:DateTimePickerView
                             x:Name="dtStart"
@@ -158,7 +158,7 @@
                             <pancake:DropShadow
                                 BlurRadius="2"
                                 Offset="0,0"
-                                Color="Black" />
+                                Color="{DynamicResource BlackColor}" />
                         </pancake:PancakeView.Shadow>
                         <views:DateTimePickerView
                             x:Name="dtEnd"
@@ -175,26 +175,26 @@
                         Padding="0"
                         BackgroundColor="{DynamicResource PrimaryColor}"
                         CornerRadius="18"
-                        HeightRequest="34"
+                        HeightRequest="35"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
-                        WidthRequest="34">
+                        WidthRequest="35">
                         <pancake:PancakeView.Shadow>
                             <pancake:DropShadow
                                 BlurRadius="2"
                                 Offset="0,0"
-                                Color="Black" />
+                                Color="{DynamicResource BlackColor}" />
                         </pancake:PancakeView.Shadow>
                         <pancake:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding RestoreSearchCommand}" />
+                            <TapGestureRecognizer Command="{Binding SearchCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <icons:IconView
                             Margin="6"
                             Foreground="{DynamicResource WhiteColor}"
-                            HeightRequest="25"
-                            Source="ic_reload.png"
+                            HeightRequest="20"
+                            Source="ic_search.png"
                             VerticalOptions="Center"
-                            WidthRequest="25" />
+                            WidthRequest="20" />
                     </pancake:PancakeView>
                 </Grid>
 
