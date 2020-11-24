@@ -220,20 +220,23 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void TimeSelected(string args)
         {
-            if (double.TryParse(args, out double length) && length > 0)
+            SafeExecute(() =>
             {
-                DateEnd = DateTime.Now;
-                DateStart = DateEnd.Subtract(TimeSpan.FromHours(length));
-                if (Vehicle != null && Vehicle.VehicleId > 0)
+                if (double.TryParse(args, out double length) && length > 0)
                 {
-                    ValidateUserConfigGetHistoryRoute();
+                    DateEnd = DateTime.Now;
+                    DateStart = DateEnd.Subtract(TimeSpan.FromHours(length));
+                    if (Vehicle != null && Vehicle.VehicleId > 0)
+                    {
+                        ValidateUserConfigGetHistoryRoute();
+                    }
                 }
-            }
-            else
-            {
-                DateStart = DateTime.Today.Date;
-                DateEnd = DateTime.Now;
-            }
+                else
+                {
+                    DateStart = DateTime.Today.Date;
+                    DateEnd = DateTime.Now;
+                }
+            });
         }
 
         private void DateSelected(DateChangedEventArgs args)
@@ -340,7 +343,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_VehicleEmpty, 3000);
                 return false;
             }
-
+            else if (DateStart > DateEnd)
+            {
+                DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_StartDateMustSmallerThanEndDate, 3000);
+                return false;
+            }
             return true;
         }
 
@@ -375,6 +382,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
+                    ClearRoute();
+
                     ProcessUserConfigGetHistoryRoute(result);
                 }
             });
