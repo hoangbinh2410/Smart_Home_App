@@ -54,22 +54,22 @@ namespace BA_MobileGPS.Core.Views
 
             infoWindowIsShown = !infoWindowIsShown;
         }
-
+        public double CalcCurrentValue(double from, double to, double animationRatio)
+        {
+            return (from + (to - from) * animationRatio);
+        }
         private void TimeSelector_Tapped(object sender, EventArgs e)
         {
             SetSelectedButton(sender as ContentView);
 
             if (IsExpanded)
             {
-                TimeSelectorContainer.Animate("invis",
-                  AnimateHeightCallback,
-                  TimeSelectorContainerHeight * 2,
-                  TimeSelectorContainerHeight, 200,
-                 finished: (val, b) =>
-                 {
-                     TimeOtherSelector.VerticalOptions = LayoutOptions.Start;
-                 },
-                  easing: Easing.Linear);
+                TimeSelectorContainer.Animate("invis", new Animation((d) =>
+                {
+                    TimeSelectorContainer.HeightRequest = CalcCurrentValue(TimeSelectorContainerHeight * 2, TimeSelectorContainerHeight, d);
+                }),
+              length: 200,
+              easing: Easing.Linear);
                 IsExpanded = false;
             }
         }
@@ -80,15 +80,13 @@ namespace BA_MobileGPS.Core.Views
 
             if (!IsExpanded)
             {
-                TimeSelectorContainer.Animate("invis",
-                    AnimateHeightCallback,
-                    TimeSelectorContainerHeight,
-                    TimeSelectorContainerHeight * 2, 200,
-                   finished: (val, b) =>
-                   {
-                       TimeOtherSelector.VerticalOptions = LayoutOptions.End;
-                   },
-                    easing: Easing.Linear);
+
+                TimeSelectorContainer.Animate("invis", new Animation((d) =>
+                {
+                    TimeSelectorContainer.HeightRequest = CalcCurrentValue(TimeSelectorContainerHeight, TimeSelectorContainerHeight * 2, d);
+                }),
+               length: 200,
+               easing: Easing.Linear);
                 IsExpanded = true;
             }
         }

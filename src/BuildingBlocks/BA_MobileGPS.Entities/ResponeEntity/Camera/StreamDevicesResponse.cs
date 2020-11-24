@@ -84,6 +84,10 @@ namespace BA_MobileGPS.Entities
     public class StreamStartResponse : ResponseStreamBase<List<StreamStart>>
     {
     }
+    public class RestreamStartResponese : ResponseStreamBase<StreamStart>
+    {
+
+    }
 
     public class StreamStart
     {
@@ -98,6 +102,11 @@ namespace BA_MobileGPS.Entities
 
     public class StreamPingResponse : ResponseStreamBase<bool>
     {
+    }
+
+    public class RestreamUploadResponse : ResponseStreamBase<bool>
+    {
+
     }
 
     public class CaptureImageGroup

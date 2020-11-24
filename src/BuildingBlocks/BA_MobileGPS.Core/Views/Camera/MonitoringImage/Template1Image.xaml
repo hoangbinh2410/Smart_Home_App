@@ -182,7 +182,7 @@
                                         MaxLines="2"
                                         Text="{Binding CurrentAddress}"
                                         VerticalOptions="Center" />
-                                    <icons:IconView
+                                    <!--<icons:IconView
                                         Grid.Row="3"
                                         Grid.Column="0"
                                         Foreground="{DynamicResource PrimaryColor}"
@@ -198,7 +198,7 @@
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
                                         Text="Xe quá tốc độ"
-                                        VerticalOptions="Center" />
+                                        VerticalOptions="Center" />-->
                                     <StackLayout
                                         Grid.RowSpan="4"
                                         Grid.Column="2"

@@ -63,7 +63,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this._mapper = mapper;
 
             StaticSettings.TimeServer = UserInfo.TimeServer.AddSeconds(1);
-            SetTimeServer();          
+            SetTimeServer();
             EventAggregator.GetEvent<OnResumeEvent>().Subscribe(OnResumePage);
             EventAggregator.GetEvent<OnSleepEvent>().Subscribe(OnSleepPage);
             EventAggregator.GetEvent<SelectedCompanyEvent>().Subscribe(SelectedCompanyChanged);

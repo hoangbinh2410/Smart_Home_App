@@ -71,7 +71,16 @@ namespace BA_MobileGPS.Core.Droid.CustomRender
             {
                 if (BottomNavigationView == null)
                 {
-                    bottomNavigationView = (GetChildAt(0) as Android.Widget.RelativeLayout).GetChildAt(1) as BottomNavigationView;
+                    try
+                    {
+                        bottomNavigationView = (GetChildAt(0) as Android.Widget.RelativeLayout).GetChildAt(1) as BottomNavigationView;
+                    }
+                    catch (System.Exception ex)
+                    {
+
+                       
+                    }
+                   
                 }
             }
         }

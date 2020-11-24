@@ -13,8 +13,7 @@ using Timer = System.Timers.Timer;
 namespace BA_MobileGPS.Core.Models
 {
     public class CameraManagement : BindableBase, IDisposable
-    {
-        private LibVLC libVLC { get; }
+    {    
         private int maxLoadingTime { get; }
         private Timer countLoadingTimer;
         private int counter { get; set; } // timer counter
@@ -23,7 +22,7 @@ namespace BA_MobileGPS.Core.Models
         public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC)
         {
             maxLoadingTime = maxTimeLoadingMedia;
-            this.libVLC = libVLC;
+            this.LibVLC = libVLC;
             InitMediaPlayer();
             totalTime = 1;
             countLoadingTimer = new Timer(1000);
@@ -32,6 +31,16 @@ namespace BA_MobileGPS.Core.Models
             internalError = false;
             AutoRequestPing = true;
         }
+
+        private LibVLC libVLC;
+        public LibVLC LibVLC
+        {
+            get { return libVLC; }
+            set { SetProperty(ref libVLC, value);
+                RaisePropertyChanged();
+            }
+        }
+
 
         private int totalTime;
 

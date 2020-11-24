@@ -27,6 +27,7 @@ namespace BA_MobileGPS
             ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerThat;
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerThat;
             ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerThat;
+
             Application.Current.Resources.MergedDictionaries.Add(new LightColor());
             Application.Current.Resources.MergedDictionaries.Add(new BA_MobileGPS.Core.Styles.Styles());
 

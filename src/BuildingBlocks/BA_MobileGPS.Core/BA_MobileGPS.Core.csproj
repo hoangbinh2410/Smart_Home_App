@@ -11,40 +11,39 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="CardsView" Version="2.6.8" />
-		<PackageReference Include="LibVLCSharp.Forms" Version="3.4.7" />
 		<PackageReference Include="Prism.DryIoc.Forms" Version="8.0.0.1909" />
-		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.6" />
+		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.7" />
 		<PackageReference Include="LibVLCSharp.Forms" Version="3.4.9" />
-		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.3.0.48" />
-		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.3.0.48" />
-		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="18.3.0.48" />
-		<PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="18.3.0.48" />
-		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.3.0.48" />
-		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.3.0.48" />
-		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.3.0.48" />
-		<PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="18.3.0.48" />
-		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.3.0.48" />
-		<PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="18.3.0.48" />
-		<PackageReference Include="Syncfusion.Xamarin.SfChart" Version="18.3.0.48" />
-		<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="18.3.0.48" />
-		<PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="18.3.0.48" />
-		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.3.0.48" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.3.0.50" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.3.0.50" />
+		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="18.3.0.50" />
+		<PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="18.3.0.50" />
+		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.3.0.50" />
+		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.3.0.50" />
+		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.3.0.50" />
+		<PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="18.3.0.50" />
+		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.3.0.50" />
+		<PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="18.3.0.50" />
+		<PackageReference Include="Syncfusion.Xamarin.SfChart" Version="18.3.0.50" />
+		<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="18.3.0.50" />
+		<PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="18.3.0.50" />
+		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.3.0.50" />
 		<PackageReference Include="Xam.Plugin.HtmlLabel" Version="5.0.0" />
 		<PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
 		<PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
 		<PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
 		<PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
 		<PackageReference Include="Com.OneSignal" Version="3.10.2" />
-		<PackageReference Include="Microsoft.AppCenter" Version="3.4.3" />
-		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.4.3" />
-		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.4.3" />
+		<PackageReference Include="Microsoft.AppCenter" Version="4.0.0" />
+		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.0.0" />
+		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.0.0" />
 		<PackageReference Include="Plugin.Permissions" Version="6.0.1" />
 		<PackageReference Include="Sharpnado.Presentation.Forms" Version="1.7.1" />		
 		<PackageReference Include="Toasts.Forms.Plugin" Version="3.3.2" />
 		<PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
 		<PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.11.982" />
 		<PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
-		<PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="4.0.6" />
+		<PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="4.0.7" />
 		<PackageReference Include="XamFileStorage.Netstandard" Version="1.1.3" />
 	</ItemGroup>
 	<ItemGroup>
@@ -58,6 +57,18 @@
 	  </Reference>
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Update="Views\Camera\MonitoringCamera\Tab\BACloudTab.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="Views\Camera\MonitoringCamera\Tab\DeviceTab.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="Views\Camera\MonitoringCamera\Tab\MyVideoTab.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
 	  <Compile Update="Views\Camera\MonitoringImage\ImageManagingPage.xaml.cs">
 	    <DependentUpon>ImageManagingPage.xaml</DependentUpon>
 	  </Compile>
@@ -151,6 +162,19 @@
 	  <EmbeddedResource Update="Views\Authentication\ForgotPasswordPopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\RestreamTab\BACloudTab.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\BACloudTab.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\CameraRestream.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\CameraRestreamOverview.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\CameraManagingPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -158,6 +182,14 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\RequestMoreTimePopup.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\DeviceTab.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\MyVideoTab.xaml">
+	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Common\ComboboxPage.xaml">
@@ -169,10 +201,16 @@
 	  <EmbeddedResource Update="Views\Authentication\LoginPreviewFeaturesPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Common\SelectDateTime\SelectRangeDateTime.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Common\UpdateVersion.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\DetailCamera.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\RestreamTab\DeviceTab.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\ListVehicle\ListVehicleHelpPage.xaml">
@@ -236,6 +274,9 @@
 	  <EmbeddedResource Update="Views\MainPage\MainPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\RestreamTab\MyVideoTab.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Navigation\BaseNavigationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
@@ -276,6 +317,12 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\ReLogin\ReLoginPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\ReStreamOverview.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\RestreamOverview.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Route\RouteView.xaml">

@@ -95,6 +95,9 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("27")]
         public string Imei { set; get; }
 
+        [JsonProperty("28")]
+        public string Temperature { set; get; }
+
         [JsonIgnore]
         public int STT { set; get; }
 
@@ -130,6 +133,10 @@ namespace BA_MobileGPS.Entities
                 if (message.TotalKm > 0)
                 {
                     this.TotalKm = message.TotalKm;
+                }
+                if (!string.IsNullOrEmpty(message.Temperature))
+                {
+                    this.Temperature = message.Temperature;
                 }
             }
         }

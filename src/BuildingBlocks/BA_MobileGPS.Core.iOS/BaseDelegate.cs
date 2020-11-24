@@ -5,9 +5,12 @@ using Foundation;
 using Prism;
 using Prism.Common;
 using Prism.Ioc;
+using System;
+using System.Collections.Generic;
 using UIKit;
 
 using UserNotifications;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.iOS
 {
@@ -60,12 +63,22 @@ namespace BA_MobileGPS.Core.iOS
         public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, UIWindow forWindow)
         {
             var mainPage = Xamarin.Forms.Application.Current.MainPage;
-            if (PageUtilities.GetCurrentPage(mainPage) is CameraManagingPage
+            var currentPage = PageUtilities.GetCurrentPage(mainPage);
+            var canLanscape = listLanscapePage.Contains(currentPage.GetType());
+            if (canLanscape
                 && UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
             {
                 return UIInterfaceOrientationMask.AllButUpsideDown;
             }
             return UIInterfaceOrientationMask.Portrait;
         }
+
+        private List<Type> listLanscapePage = new List<Type>() 
+        { 
+            typeof(CameraManagingPage),
+            typeof(DeviceTab),
+            typeof(BACloudTab),
+            typeof(MyVideoTab)
+        };
     }
 }

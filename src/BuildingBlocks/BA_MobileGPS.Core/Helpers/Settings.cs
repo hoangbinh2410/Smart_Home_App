@@ -87,6 +87,9 @@ namespace BA_MobileGPS.Core
         private const string ShowViewVehicleImageKey = "ShowViewVehicleImageKey";
         private static readonly int ShowViewVehicleImageDefault = 10;
 
+        private const string MapTypeKey = "MapTypeKey";
+        private static readonly int MapTypeDefault = 2;
+
         public static float Latitude
         {
             get => Preferences.Get(IdLatitude, LatitudeDefault);
@@ -280,6 +283,13 @@ namespace BA_MobileGPS.Core
         {
             get => Preferences.Get(ShowViewVehicleImageKey, ShowViewVehicleImageDefault);
             set => Preferences.Set(ShowViewVehicleImageKey, value);
+        }
+
+
+        public static int MapType
+        {
+            get => Preferences.Get(MapTypeKey, MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5 ? 2 : 0);
+            set => Preferences.Set(MapTypeKey, value);
         }
     }
 }
