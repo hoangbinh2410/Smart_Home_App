@@ -149,10 +149,18 @@ namespace BA_MobileGPS.Core.ViewModels
 
         // Loi abort 10s
         private bool isAbort { get; set; }
-
+        /// <summary>
+        /// Thời gian trừ trước và sau thời gian của ảnh => gửi request video
+        /// </summary>
         private readonly int configMinute = 3;
+        /// <summary>
+        /// infinite scroll 
+        /// </summary>
         private int pageIndex { get; set; } = 0;
-        private int pageCount { get; } = 10; // so luong anh cho 1 lan infinite scroll 
+        /// <summary>
+        /// infinite scroll : sô lượng item mỗi lần load
+        /// </summary>
+        private int pageCount { get; } = 20;
         private List<RestreamVideoModel> VideoItemsSourceOrigin = new List<RestreamVideoModel>();
         private bool IsLoadingCamera = false;
 
@@ -160,7 +168,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private int resetDeviceCounter = 0;
 
         private List<ChannelModel> listChannel;
-
+        /// <summary>
+        /// Danh sách kênh
+        /// </summary>
         public List<ChannelModel> ListChannel
         {
             get { return listChannel; }
@@ -168,7 +178,9 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private ChannelModel selectedChannel;
-
+        /// <summary>
+        /// Kênh được chọn
+        /// </summary>
         public ChannelModel SelectedChannel
         {
             get { return selectedChannel; }
@@ -176,14 +188,18 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private bool isFullScreenOff;
-
+        /// <summary>
+        /// Hướng màn hình : Dọc = true
+        /// </summary>
         public bool IsFullScreenOff
         {
             get => isFullScreenOff; set => SetProperty(ref isFullScreenOff, value);
         }
 
         private RestreamVideoModel videoSlected;
-
+        /// <summary>
+        /// Ảnh được focus
+        /// </summary>
         public RestreamVideoModel VideoSlected
         {
             get => videoSlected;
@@ -194,7 +210,9 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private ObservableCollection<RestreamVideoModel> videoItemsSource;
-
+        /// <summary>
+        /// Source ảnh để chọn video
+        /// </summary>
         public ObservableCollection<RestreamVideoModel> VideoItemsSource { get => videoItemsSource; set => SetProperty(ref videoItemsSource, value); }
 
         private bool mediaPlayerVisible;
@@ -224,7 +242,7 @@ namespace BA_MobileGPS.Core.ViewModels
         #region PrivateMethod
 
         /// <summary>
-        /// Err : Can't connect to server
+        /// Err : Fail connect server
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -247,7 +265,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         /// <summary>
-        /// Err : Abortting after 10s
+        /// Err : BỊ abort sau 10s không nhận tín hiệu từ server
         /// hoặc hết video
         /// </summary>
         /// <param name="sender"></param>
@@ -276,7 +294,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         /// <summary>
-        /// Reload khi video bi loi ket noi
+        /// Raise khi btn reload fire
         /// </summary>
         private void ReloadVideo()
         {
@@ -298,7 +316,9 @@ namespace BA_MobileGPS.Core.ViewModels
             else
                 StopAndStartRestream();
         }
-
+        /// <summary>
+        /// Raise khi btn fullscreen fire
+        /// </summary>
         private void FullScreenTapped()
         {
             if (isFullScreenOff)
@@ -338,7 +358,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
             //});
         }
-
+        /// <summary>
+        /// Raise khi ảnh đang được chọn thay đổi
+        /// </summary>
+        /// <param name="args"></param>
         private void VideoSelectedChange(ItemTappedEventArgs args)
         {
             if (!(args.ItemData is RestreamVideoModel item))
@@ -366,6 +389,11 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
+        /// <summary>
+        /// Raise khi tap được chọn thay đổi
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public override void OnIsActiveChanged(object sender, EventArgs e)
         {
             base.OnIsActiveChanged(sender, e);
@@ -379,6 +407,10 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        /// <summary>
+        /// Đóng video : Đóng khi current tab thay đổi
+        /// Chức năng trên player : không làm (đã confirm)
+        /// </summary>
         private void CloseVideo()
         {
             MediaPlayerVisible = false;
@@ -388,7 +420,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 MediaPlayer.Media = null;
             }
         }
-
+        /// <summary>
+        /// Bắt đầu vòng init video, đống và gọi restart ở server
+        /// </summary>
         private void StopAndStartRestream()
         {
             var req = new StopRestreamRequest()
@@ -416,6 +450,10 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
+        /// <summary>
+        /// Gọi api start playback
+        /// </summary>
+        /// <param name="req"></param>
         private void StartRestream(StartRestreamRequest req)
         {
             RunOnBackground(async () =>
@@ -452,7 +490,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
-
+        /// <summary>
+        /// Kiểm tra trạng thái thiết bị sau khi gọi start
+        /// Return:
+        ///  True : Thiết bị bắt đàu phát lại
+        ///  False : Thiết bị chưa phát video
+        /// </summary>
+        /// <returns></returns>
         private async Task<bool> CheckDeviceStatus()
         {
             IsLoadingCamera = true;
@@ -529,13 +573,20 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        /// <summary>
+        /// CanExcute của infinite scroll
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         private bool CanLoadMoreItems(object obj)
         {
             if (VideoItemsSourceOrigin.Count < pageIndex * pageCount)
                 return false;
             return true;
         }
-
+        /// <summary>
+        /// infinite scroll
+        /// </summary>
         private void LoadMore()
         {
             var source = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount);
@@ -545,7 +596,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 VideoItemsSource.Add(item);
             }
         }
-
+        /// <summary>
+        /// Lấy danh sách ảnh từ server
+        /// </summary>
         private void GetListImageDataFrom()
         {
             VideoItemsSourceOrigin.Clear();
@@ -581,14 +634,16 @@ namespace BA_MobileGPS.Core.ViewModels
                             videoModel.VideoName = string.Format("Camera{0}_{1}", image.Channel,
                                 videoModel.VideoStartTime.ToString("yyyyMMdd_hhmmss"));
 
-                            VideoItemsSourceOrigin.Add(videoModel);
-                        }
-                        VideoItemsSource = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToObservableCollection();
+                        VideoItemsSourceOrigin.Add(videoModel);
                     }
-                });
-            }
+                    VideoItemsSource = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToObservableCollection();
+                }
+            });
         }
-
+        /// <summary>
+        /// Set dữ liệu cho picker channel
+        /// Hard 4 kênh (Đã confirm)
+        /// </summary>
         private void SetChannelSource()
         {
             var source = new List<ChannelModel>();

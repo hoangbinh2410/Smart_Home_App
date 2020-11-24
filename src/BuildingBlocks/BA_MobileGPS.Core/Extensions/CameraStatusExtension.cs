@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BA_MobileGPS.Utilities.Enums;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -14,7 +15,11 @@ namespace BA_MobileGPS.Core.Extensions
 
         public static bool IsRestreaming(int state)
         {
-            if (state == 2 || state == 3 || state == 6)
+
+            if (state == (int)VideoStatusEnum.Restreaming 
+                || state == (int)VideoStatusEnum.LiveStreamAndRestream 
+                || state == (int)VideoStatusEnum.RestreamAndUpload
+                || state == (int)VideoStatusEnum.LiveStreamAndRestreamAndUpload)
             {
                 return true;
             }
