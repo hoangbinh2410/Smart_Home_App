@@ -454,26 +454,38 @@ namespace BA_MobileGPS.Core.ViewModels
             IsLoadingCamera = true;
             var result = false;
             var loopIndex = 0;
-            while (IsLoadingCamera && loopIndex <= 7)
+            try
             {
-                var deviceStatus = await streamCameraService.GetDevicesStatus(ConditionType.BKS, Vehicle.VehiclePlate);
-                var device = deviceStatus?.Data?.FirstOrDefault();
-                var streamDevice = device.CameraChannels.FirstOrDefault(x => x.Channel == videoSlected.Data.Channel);
-                if (streamDevice?.CameraStatus != null)
+                while (IsLoadingCamera && loopIndex <= 7)
                 {
-                    var isStreaming = CameraStatusExtension.IsRestreaming(streamDevice.CameraStatus);
-                    if (isStreaming)
+                    var deviceStatus = await streamCameraService.GetDevicesStatus(ConditionType.BKS, Vehicle.VehiclePlate);
+                    var device = deviceStatus?.Data?.FirstOrDefault();
+                    if (device != null && device.CameraChannels != null)
                     {
-                        IsLoadingCamera = false;
-                        result = true;
+                        var streamDevice = device.CameraChannels.FirstOrDefault(x => x.Channel == videoSlected.Data.Channel);
+                        if (streamDevice?.CameraStatus != null)
+                        {
+                            var isStreaming = CameraStatusExtension.IsRestreaming(streamDevice.CameraStatus);
+                            if (isStreaming)
+                            {
+                                IsLoadingCamera = false;
+                                result = true;
+                            }
+                        }
+                        loopIndex++;
+                        if (IsLoadingCamera && loopIndex <= 7)
+                        {
+                            await Task.Delay(1000);
+                        }
                     }
-                }
-                loopIndex++;
-                if (IsLoadingCamera && loopIndex <= 7)
-                {
-                    await Task.Delay(1000);
+
                 }
             }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+           
             return result;
         }
 
@@ -582,7 +594,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 VideoTime = TimeSpan.FromMinutes(2 * configMinute),
                                 Data = new StreamStart() { Channel = image.Channel },
                                 EventType = image.Type,
-                                VideoAddress = image.CurrentAddress
+                                VideoAddress = string.IsNullOrEmpty(image.CurrentAddress)? "Địa chỉ không xác định" : image.CurrentAddress
                             };
 
                             videoModel.VideoName = string.Format("Camera{0}_{1}", image.Channel,
