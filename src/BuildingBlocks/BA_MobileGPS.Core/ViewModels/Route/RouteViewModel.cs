@@ -71,7 +71,7 @@ namespace BA_MobileGPS.Core.ViewModels
             TimeSelectedCommand = new Command<string>(TimeSelected);
             DateSelectedCommand = new Command<DateChangedEventArgs>(DateSelected);
             SearchVehicleCommand = new Command(SearchVehicle);
-            GetVehicleRouteCommand = new Command(GetVehicleRoute);
+            GetVehicleRouteCommand = new Command(ValidateUserConfigGetHistoryRoute);
             ViewListCommand = new Command(ViewList);
             ChangeMapTypeCommand = new Command(ChangeMapType);
             NavigateToSettingsCommand = new Command(NavigateToSettings);
@@ -101,7 +101,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Vehicle = vehicle;
 
-                    GetVehicleRoute();
+                    ValidateUserConfigGetHistoryRoute();
                 }
                 else if (parameters.ContainsKey(ParameterKey.VehicleOnline) && parameters.GetValue<VehicleOnline>(ParameterKey.VehicleOnline) is VehicleOnline vehicleOnline)
                 {
@@ -113,7 +113,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         VehiclePlate = vehicleOnline.VehiclePlate
                     };
 
-                    GetVehicleRoute();
+                    ValidateUserConfigGetHistoryRoute();
                 }
             }
         }
@@ -137,6 +137,7 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
+
         private View view;
         private CancellationTokenSource ctsRouting = new CancellationTokenSource();
         private CancellationTokenSource ctsAddress = new CancellationTokenSource();
@@ -219,22 +220,28 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void TimeSelected(string args)
         {
-            if (double.TryParse(args, out double length) && length > 0)
+            SafeExecute(() =>
             {
-                DateEnd = DateTime.Now;
-                DateStart = DateEnd.Subtract(TimeSpan.FromHours(length));
-                GetVehicleRoute();
-            }
-            else
-            {
-                DateStart = DateTime.Today.Date;
-                DateEnd = DateTime.Now;
-            }
+                if (double.TryParse(args, out double length) && length > 0)
+                {
+                    DateEnd = DateTime.Now;
+                    DateStart = DateEnd.Subtract(TimeSpan.FromHours(length));
+                    if (Vehicle != null && Vehicle.VehicleId > 0)
+                    {
+                        ValidateUserConfigGetHistoryRoute();
+                    }
+                }
+                else
+                {
+                    DateStart = DateTime.Today.Date;
+                    DateEnd = DateTime.Now;
+                }
+            });
         }
 
         private void DateSelected(DateChangedEventArgs args)
         {
-            GetVehicleRoute();
+            ValidateUserConfigGetHistoryRoute();
         }
 
         private void ViewList()
@@ -336,37 +343,23 @@ namespace BA_MobileGPS.Core.ViewModels
                 DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_VehicleEmpty, 3000);
                 return false;
             }
-
+            else if (DateStart > DateEnd)
+            {
+                DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_StartDateMustSmallerThanEndDate, 3000);
+                return false;
+            }
             return true;
         }
 
-        private void GetVehicleRoute()
+        private void ValidateUserConfigGetHistoryRoute()
         {
             if (IsBusy || !IsConnected || !ValidateInput())
                 return;
 
-            if (ctsRouting != null)
-                ctsRouting.Cancel();
-
-            if (ctsAddress != null)
-                ctsAddress.Cancel();
-
-            ListRoute.Clear();
-            Polylines.Clear();
-            Pins.Clear();
-            CurrentRoute = null;
-            IsPlaying = false;
-            PlayCurrent = 0;
-            PlayControlEnabled = false;
-            DateKm = 0;
-
-            DependencyService.Get<IHUDProvider>().DisplayProgress("");
-
-            Task.Run(async () =>
+            var currentCompany = Settings.CurrentCompany;
+            RunOnBackground(async () =>
             {
-                var currentCompany = Settings.CurrentCompany;
-
-                var result = await vehicleRouteService.ValidateUserConfigGetHistoryRoute(new ValidateUserConfigGetHistoryRouteRequest
+                return await vehicleRouteService.ValidateUserConfigGetHistoryRoute(new ValidateUserConfigGetHistoryRouteRequest
                 {
                     UserId = currentCompany?.UserId ?? UserInfo.UserId,
                     CompanyId = currentCompany?.FK_CompanyID ?? CurrentComanyID,
@@ -375,77 +368,27 @@ namespace BA_MobileGPS.Core.ViewModels
                     ToDate = DateEnd,
                     AppID = (int)App.AppType
                 });
-
+            }, (result) =>
+            {
                 if (result != null && result.Success && result.State == ValidatedHistoryRouteState.Success)
                 {
-                    return await vehicleRouteService.GetHistoryRoute(new RouteHistoryRequest
-                    {
-                        UserId = currentCompany?.UserId ?? UserInfo.UserId,
-                        CompanyId = currentCompany?.FK_CompanyID ?? CurrentComanyID,
-                        VehiclePlate = Vehicle.VehiclePlate,
-                        FromDate = DateStart,
-                        ToDate = DateEnd,
-                    });
-                }
+                    if (ctsRouting != null)
+                        ctsRouting.Cancel();
+                    IsPlaying = false;
+                    if (ctsAddress != null)
+                        ctsAddress.Cancel();
 
-                if (result != null)
+                    GetHistoryRoute();
+                }
+                else
                 {
+                    ClearRoute();
+
                     ProcessUserConfigGetHistoryRoute(result);
                 }
-                return null;
-            }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
-            {
-                if (task.Status == TaskStatus.RanToCompletion)
-                {
-                    try
-                    {
-                        if (task.Result == null)
-                        {
-                            DependencyService.Get<IHUDProvider>().Dismiss();
-                            DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
-                            return;
-                        }
+            });
 
-                        RouteHistory = task.Result;
-
-                        DateKm = RouteHistory.DateKm / 1000;
-
-                        InitRoute();
-
-                        if (ListRoute.Count == 0)
-                        {
-                            DependencyService.Get<IHUDProvider>().Dismiss();
-                            DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
-                            return;
-                        }
-
-                        if (ListRoute.Count == 1)
-                        {
-                            ListRoute.Add(ListRoute[0].DeepCopy());
-                        }
-
-                        DrawRoute();
-
-                        PlayMax = ListRoute.Count - 1;
-
-                        PlayControlEnabled = true;
-
-                        RouteHistory = null;
-                    }
-                    catch (Exception ex)
-                    {
-                        PageDialog.DisplayAlertAsync("", "Không tải được dữ liệu", MobileResource.Common_Button_OK);
-                        LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-                    }
-                }
-                else if (task.IsFaulted)
-                {
-                    PageDialog.DisplayAlertAsync("", "Không tải được dữ liệu", MobileResource.Common_Button_OK);
-                    LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, task.Exception);
-                }
-
-                DependencyService.Get<IHUDProvider>().Dismiss();
-            }));
+            DependencyService.Get<IHUDProvider>().DisplayProgress("");
         }
 
         private void ProcessUserConfigGetHistoryRoute(ValidateUserConfigGetHistoryRouteResponse result)
@@ -493,6 +436,64 @@ namespace BA_MobileGPS.Core.ViewModels
                         break;
                 }
             });
+        }
+
+        private void GetHistoryRoute()
+        {
+            var currentCompany = Settings.CurrentCompany;
+            RunOnBackground(async () =>
+            {
+                return await vehicleRouteService.GetHistoryRoute(new RouteHistoryRequest
+                {
+                    UserId = currentCompany?.UserId ?? UserInfo.UserId,
+                    CompanyId = currentCompany?.FK_CompanyID ?? CurrentComanyID,
+                    VehiclePlate = Vehicle.VehiclePlate,
+                    FromDate = DateStart,
+                    ToDate = DateEnd,
+                });
+            }, (result) =>
+            {
+                if (result != null)
+                {
+                    try
+                    {
+                        ClearRoute();
+
+                        RouteHistory = result;
+
+                        DateKm = RouteHistory.DateKm / 1000;
+
+                        InitRoute();
+
+                        if (ListRoute.Count == 0)
+                        {
+                            DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
+                            return;
+                        }
+
+                        if (ListRoute.Count == 1)
+                        {
+                            ListRoute.Add(ListRoute[0].DeepCopy());
+                        }
+
+                        DrawRoute();
+
+                        PlayMax = ListRoute.Count - 1;
+
+                        PlayControlEnabled = true;
+
+                        RouteHistory = null;
+                    }
+                    catch (Exception)
+                    {
+                        PageDialog.DisplayAlertAsync("", "Không tải được dữ liệu", MobileResource.Common_Button_OK);
+                    }
+                }
+                else
+                {
+                    PageDialog.DisplayAlertAsync("", "Không tải được dữ liệu", MobileResource.Common_Button_OK);
+                }
+            }, showLoading: true);
         }
 
         private void InitRoute()
@@ -722,6 +723,20 @@ namespace BA_MobileGPS.Core.ViewModels
             args.Handled = false;
         }
 
+        private void ClearRoute()
+        {
+            if (ListRoute != null)
+                ListRoute.Clear();
+            if (Polylines != null)
+                Polylines.Clear();
+            if (Pins != null)
+                Pins.Clear();
+            PlayCurrent = 0;
+            PlayControlEnabled = false;
+            DateKm = 0;
+            CurrentRoute = null;
+        }
+
         private void StartRoute()
         {
             try
@@ -741,7 +756,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     IsPlaying = true;
                 }
-
             }
             catch (Exception ex)
             {
@@ -823,14 +837,15 @@ namespace BA_MobileGPS.Core.ViewModels
                         });
                     });
                 });
-
             }
             catch (Exception ex)
             {
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
+
         public bool IsRunning = false;
+
         public void RotateMarker(Pin item, double latitude,
            double longitude,
            Action callback)
@@ -909,7 +924,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     callback();
                 }
                 );
-
             }
         }
 
