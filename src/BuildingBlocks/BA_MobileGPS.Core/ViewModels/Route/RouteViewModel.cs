@@ -343,7 +343,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_VehicleEmpty, 3000);
                 return false;
             }
-
+            else if (DateStart > DateEnd)
+            {
+                DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_StartDateMustSmallerThanEndDate, 3000);
+                return false;
+            }
             return true;
         }
 
@@ -378,6 +382,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
+                    ClearRoute();
+
                     ProcessUserConfigGetHistoryRoute(result);
                 }
             });
