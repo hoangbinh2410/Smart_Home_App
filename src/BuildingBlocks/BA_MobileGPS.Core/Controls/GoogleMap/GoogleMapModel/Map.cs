@@ -289,7 +289,7 @@ namespace BA_MobileGPS.Core
                 if (_visibleRegion == value)
                     return;
                 if (value == null)
-                    throw new ArgumentNullException(nameof(value));
+                    return;
                 OnPropertyChanging();
                 _visibleRegion = value;
                 OnPropertyChanged();
@@ -304,7 +304,7 @@ namespace BA_MobileGPS.Core
                 if (_region == value)
                     return;
                 if (value == null)
-                    throw new ArgumentNullException(nameof(value));
+                    return;
                 OnPropertyChanging();
                 _region = value;
                 OnPropertyChanged();
@@ -326,7 +326,7 @@ namespace BA_MobileGPS.Core
         public void MoveToRegion(MapSpan mapSpan, bool animate = true)
         {
             if (mapSpan == null)
-                throw new ArgumentNullException(nameof(mapSpan));
+                return;
 
             if (_useMoveToRegisonAsInitialBounds)
             {
