@@ -890,8 +890,8 @@ namespace BA_MobileGPS.Core.Views
         {
             var result = false;
             //nhỏ hơn góc trái ở trên và lớn hơn góc phải ở dưới
-            if ((latlng.Latitude <= googleMap.Region.FarLeft.Latitude && latlng.Longitude >= googleMap.Region.FarLeft.Longitude) &&
-                (latlng.Latitude >= googleMap.Region.NearRight.Latitude && latlng.Longitude <= googleMap.Region.NearRight.Longitude))
+            if ((latlng.Latitude <= googleMap?.Region?.FarLeft.Latitude && latlng.Longitude >= googleMap?.Region?.FarLeft.Longitude) &&
+                (latlng.Latitude >= googleMap?.Region?.NearRight.Latitude && latlng.Longitude <= googleMap?.Region?.NearRight.Longitude))
                 result = true;
 
             return result;
