@@ -1,5 +1,4 @@
 ﻿using BA_MobileGPS.Core.Resources;
-using BA_MobileGPS.Core.ViewModels;
 using System;
 using System.Linq;
 using Xamarin.Forms;
@@ -54,10 +53,12 @@ namespace BA_MobileGPS.Core.Views
 
             infoWindowIsShown = !infoWindowIsShown;
         }
+
         public double CalcCurrentValue(double from, double to, double animationRatio)
         {
             return (from + (to - from) * animationRatio);
         }
+
         private void TimeSelector_Tapped(object sender, EventArgs e)
         {
             SetSelectedButton(sender as ContentView);
@@ -80,7 +81,6 @@ namespace BA_MobileGPS.Core.Views
 
             if (!IsExpanded)
             {
-
                 TimeSelectorContainer.Animate("invis", new Animation((d) =>
                 {
                     TimeSelectorContainer.HeightRequest = CalcCurrentValue(TimeSelectorContainerHeight, TimeSelectorContainerHeight * 2, d);
@@ -89,11 +89,6 @@ namespace BA_MobileGPS.Core.Views
                easing: Easing.Linear);
                 IsExpanded = true;
             }
-        }
-
-        private void AnimateHeightCallback(double input)
-        {
-            TimeSelectorContainer.HeightRequest = input; // update the height of the layout with this callback
         }
 
         private void SetSelectedButton(ContentView button)

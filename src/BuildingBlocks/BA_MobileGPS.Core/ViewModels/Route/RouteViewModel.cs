@@ -220,20 +220,23 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void TimeSelected(string args)
         {
-            if (double.TryParse(args, out double length) && length > 0)
+            SafeExecute(() =>
             {
-                DateEnd = DateTime.Now;
-                DateStart = DateEnd.Subtract(TimeSpan.FromHours(length));
-                if (Vehicle != null && Vehicle.VehicleId > 0)
+                if (double.TryParse(args, out double length) && length > 0)
                 {
-                    ValidateUserConfigGetHistoryRoute();
+                    DateEnd = DateTime.Now;
+                    DateStart = DateEnd.Subtract(TimeSpan.FromHours(length));
+                    if (Vehicle != null && Vehicle.VehicleId > 0)
+                    {
+                        ValidateUserConfigGetHistoryRoute();
+                    }
                 }
-            }
-            else
-            {
-                DateStart = DateTime.Today.Date;
-                DateEnd = DateTime.Now;
-            }
+                else
+                {
+                    DateStart = DateTime.Today.Date;
+                    DateEnd = DateTime.Now;
+                }
+            });
         }
 
         private void DateSelected(DateChangedEventArgs args)
