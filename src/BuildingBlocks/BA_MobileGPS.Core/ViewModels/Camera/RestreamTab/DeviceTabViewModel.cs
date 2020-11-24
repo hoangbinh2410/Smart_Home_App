@@ -36,8 +36,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public DeviceTabViewModel(INavigationService navigationService,
             IStreamCameraService cameraService,
             IScreenOrientServices screenOrientServices) : base(navigationService,cameraService,screenOrientServices)
-        {
-                    
+        {                  
             UploadToCloudTappedCommand = new DelegateCommand(UploadToCloudTapped);          
             ReLoadCommand = new DelegateCommand(ReloadVideo);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
@@ -243,7 +242,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void Media_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
         {
-            if (MediaPlayer.Time > 1 && busyIndicatorActive)
+            if (MediaPlayer.Time > 1 && BusyIndicatorActive)
             {
                 resetDeviceCounter = 0;
                 Device.BeginInvokeOnMainThread(() =>

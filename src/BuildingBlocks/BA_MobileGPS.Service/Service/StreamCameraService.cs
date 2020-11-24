@@ -208,10 +208,10 @@ namespace BA_MobileGPS.Service.Service
         {
             var result = new List<CaptureImageData>();
             try
-            { 
+            {
 
-                var from = JsonConvert.SerializeObject(fromTime).Replace("\"", "");
-                var to = JsonConvert.SerializeObject(toTime).Replace("\"", "");
+                var from = fromTime.ToString("yyyy/MM/dd HH:mm:ss").Replace(" ", "T"); 
+                var to = toTime.ToString("yyyy/MM/dd HH:mm:ss").Replace(" ", "T");
                 string url = string.Format(ApiUri.GET_RESTREAM_IMAGES + "?xncode={0}&vehiclePlate={1}&fromTime={2}&toTime={3}&limit={4}&channel={5}", xncode, vehiclePlate, from, to,limit,channel);
                 var response = await requestProvider.GetAsync<ResponseStreamBase<List<CaptureImageData>>>(url);
                 if (response != null && response.Data.Count > 0)
