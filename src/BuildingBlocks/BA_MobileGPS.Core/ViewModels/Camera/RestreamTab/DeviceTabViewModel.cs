@@ -24,13 +24,12 @@ using BA_MobileGPS.Service;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class DeviceTabViewModel : TabbedPageChildVMBase
+    public class DeviceTabViewModel : RestreamChildVMBase
     {
-        private readonly IStreamCameraService streamCameraService;
-        private readonly IScreenOrientServices screenOrientServices;
+        
 
         public ICommand UploadToCloudTappedCommand { get; }
-        public ICommand FullScreenTappedCommand { get; }
+      
         public ICommand ReLoadCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
         public ICommand RefreshDataCommand { get; }
@@ -38,13 +37,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public DeviceTabViewModel(INavigationService navigationService,
             IStreamCameraService cameraService,
-            IScreenOrientServices screenOrientServices) : base(navigationService)
+            IScreenOrientServices screenOrientServices) : base(navigationService,cameraService,screenOrientServices)
         {
-            streamCameraService = cameraService;
-            this.screenOrientServices = screenOrientServices;
-         
+                    
             UploadToCloudTappedCommand = new DelegateCommand(UploadToCloudTapped);
-            FullScreenTappedCommand = new DelegateCommand(FullScreenTapped);
+           
             ReLoadCommand = new DelegateCommand(ReloadVideo);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
             RefreshDataCommand = new DelegateCommand(RefreshData);
@@ -185,8 +182,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool isAbort { get; set; }
 
         private readonly int configMinute = 3;
-        private int pageIndex { get; set; } = 0;
-        private int pageCount { get; } = 10; // so luong anh cho 1 lan infinite scroll 
+        
         private List<RestreamVideoModel> VideoItemsSourceOrigin = new List<RestreamVideoModel>();
         private bool VMBusy { get; set; }
         private bool IsLoadingCamera = false;
@@ -210,12 +206,7 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref selectedChannel, value, SelectedChannelChanged); }
         }
 
-        private bool isFullScreenOff;
-
-        public bool IsFullScreenOff
-        {
-            get => isFullScreenOff; set => SetProperty(ref isFullScreenOff, value);
-        }
+       
 
         private RestreamVideoModel videoSlected;
 
@@ -342,15 +333,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 StopAndStartRestream();
         }
 
-        private void FullScreenTapped()
-        {
-            if (isFullScreenOff)
-            {
-                screenOrientServices.ForceLandscape();
-            }
-            else screenOrientServices.ForcePortrait();
-            IsFullScreenOff = !isFullScreenOff;
-        }
+      
 
         private void UploadToCloudTapped()
         {
