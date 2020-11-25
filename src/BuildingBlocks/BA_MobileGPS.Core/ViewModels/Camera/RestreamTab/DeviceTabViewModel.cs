@@ -634,7 +634,7 @@ namespace BA_MobileGPS.Core.ViewModels
             //Nếu lớn hơn 00h20p
             if (dateEnd.TimeOfDay > new TimeSpan(0,20,0))
             {
-                dateStart = dateStart.AddMinutes(-20);
+                dateStart = dateEnd.AddMinutes(-20);
             }
             else dateStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
 
