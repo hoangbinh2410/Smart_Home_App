@@ -318,7 +318,7 @@
                                         Text="{Binding ErrorMessenger}"
                                         TextColor="{DynamicResource WhiteColor}" />
                                     <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding ReLoadCommand}" CommandParameter="{Binding .}" />
+                                        <TapGestureRecognizer Command="{Binding ReLoadCommand}" />
                                     </StackLayout.GestureRecognizers>
                                 </StackLayout>
                             </Grid>
