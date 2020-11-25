@@ -512,6 +512,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 DisplayMessage.ShowMessageInfo("Vui lòng chọn kênh");
                 return false;
             }
+            else if ((dateStart - dateEnd) > new TimeSpan(0,20,0))
+            {
+                
+                DisplayMessage.ShowMessageInfo("Thời gian tìm kiếm không được quá 20 phút");
+                return false;
+            }
             else
             {
                 return true;
