@@ -25,27 +25,26 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class DeviceTabViewModel : RestreamChildVMBase
     {
-        
 
-        public ICommand UploadToCloudTappedCommand { get; }    
+
+        public ICommand UploadToCloudTappedCommand { get; }
         public ICommand ReLoadCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
         public ICommand SearchCommand { get; }
-       
+
 
         public DeviceTabViewModel(INavigationService navigationService,
             IStreamCameraService cameraService,
-            IScreenOrientServices screenOrientServices) : base(navigationService,cameraService,screenOrientServices)
-        {                  
-            UploadToCloudTappedCommand = new DelegateCommand(UploadToCloudTapped);          
+            IScreenOrientServices screenOrientServices) : base(navigationService, cameraService, screenOrientServices)
+        {
+            UploadToCloudTappedCommand = new DelegateCommand(UploadToCloudTapped);
             ReLoadCommand = new DelegateCommand(ReloadVideo);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
             SearchCommand = new DelegateCommand(SearchData);
             VideoItemTapCommand = new DelegateCommand<ItemTappedEventArgs>(VideoSelectedChange);
             mediaPlayerVisible = false;
             videoItemsSource = new ObservableCollection<RestreamVideoModel>();
-            dateStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
-            dateEnd = DateTime.Now;           
+            InitDateTimeInSearch();
             vehicle = new Vehicle();
         }
 
@@ -114,16 +113,17 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref dateEnd, value);
         }
 
-       
+
 
         // Loi abort 10s
         private bool isAbort { get; set; }
 
         /// <summary>
         /// Thời gian trừ trước và sau thời gian của ảnh => gửi request video
+        /// 1.5 theo yêu cầu từ QA
         /// </summary>
-        private readonly int configMinute = 3;
-        
+        private readonly double configMinute = 1.5;
+
         private List<RestreamVideoModel> VideoItemsSourceOrigin = new List<RestreamVideoModel>();
         private bool IsLoadingCamera = false;
 
@@ -151,7 +151,7 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return selectedChannel; }
             set { SetProperty(ref selectedChannel, value); }
         }
-       
+
 
         private RestreamVideoModel videoSlected;
 
@@ -277,7 +277,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 StopAndStartRestream();
         }
 
-      
+
 
         private void UploadToCloudTapped()
         {
@@ -486,7 +486,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-           
+
             return result;
         }
 
@@ -494,7 +494,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (dateStart.Date != dateEnd.Date)
             {
-                DisplayMessage.ShowMessageError("Ngày bắt đầu không trùng ngày kết thúc, vui lòng kiểm tra lại");
+                DisplayMessage.ShowMessageInfo("Không tìm kiếm xuyên ngày");
                 return false;
             }
             else if (dateStart > dateEnd)
@@ -504,7 +504,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else if (Vehicle == null || Vehicle.VehicleId == 0)
             {
-                DisplayMessage.ShowMessageInfo("Vui lòng chọn xe");
+                DisplayMessage.ShowMessageInfo(" Vui lòng chọn phương tiện");
                 return false;
             }
             else if (SelectedChannel == null || SelectedChannel.Value == 0)
@@ -595,7 +595,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 VideoTime = TimeSpan.FromMinutes(2 * configMinute),
                                 Data = new StreamStart() { Channel = image.Channel },
                                 EventType = image.Type,
-                                VideoAddress = string.IsNullOrEmpty(image.CurrentAddress)? "Địa chỉ không xác định" : image.CurrentAddress
+                                VideoAddress = string.IsNullOrEmpty(image.CurrentAddress) ? "Địa chỉ không xác định" : image.CurrentAddress
                             };
 
                             videoModel.VideoName = string.Format("Camera{0}_{1}", image.Channel,
@@ -626,6 +626,18 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             ListChannel = source;
             SelectedChannel = source[0];
+        }
+
+        private void InitDateTimeInSearch()
+        {
+            dateEnd =  DateTime.Now;
+            //Nếu lớn hơn 00h20p
+            if (dateEnd.TimeOfDay > new TimeSpan(0,20,0))
+            {
+                dateStart = dateStart.AddMinutes(-20);
+            }
+            else dateStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+
         }
 
         private void SearchData()
