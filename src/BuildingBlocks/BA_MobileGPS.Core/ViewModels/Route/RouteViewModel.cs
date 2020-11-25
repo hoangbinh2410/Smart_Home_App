@@ -336,26 +336,8 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private bool ValidateInput()
-        {
-            if (string.IsNullOrWhiteSpace(Vehicle.VehiclePlate))
-            {
-                DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_VehicleEmpty, 3000);
-                return false;
-            }
-            else if (DateStart > DateEnd)
-            {
-                DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_StartDateMustSmallerThanEndDate, 3000);
-                return false;
-            }
-            return true;
-        }
-
         private void ValidateUserConfigGetHistoryRoute()
         {
-            if (IsBusy || !IsConnected || !ValidateInput())
-                return;
-
             var currentCompany = Settings.CurrentCompany;
             RunOnBackground(async () =>
             {
@@ -387,8 +369,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     ProcessUserConfigGetHistoryRoute(result);
                 }
             });
-
-            DependencyService.Get<IHUDProvider>().DisplayProgress("");
         }
 
         private void ProcessUserConfigGetHistoryRoute(ValidateUserConfigGetHistoryRouteResponse result)
@@ -725,6 +705,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ClearRoute()
         {
+            if (ctsRouting != null)
+                ctsRouting.Cancel();
+            IsPlaying = false;
+            if (ctsAddress != null)
+                ctsAddress.Cancel();
+
             if (ListRoute != null)
                 ListRoute.Clear();
             if (Polylines != null)
