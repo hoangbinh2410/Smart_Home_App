@@ -262,6 +262,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsError = false;
                 isAbort = false;
                 BusyIndicatorActive = true;
+                resetDeviceCounter = 0;
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     if (videoSlected?.Data != null)
