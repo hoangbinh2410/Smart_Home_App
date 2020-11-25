@@ -413,6 +413,11 @@ namespace BA_MobileGPS.Core.Views
 
                 if (carActive)
                 {
+                    //Nếu không cấu hình hiển thị nhiệt độ thì ko hiển thị lên màn hình online
+                    if (!string.IsNullOrEmpty(carInfo.Temperature) && !CompanyConfigurationHelper.IsShowTemperatureOnline)
+                    {
+                        carInfo.Temperature = string.Empty;
+                    }
                     vm.CarActive = carInfo;
                     vm.EngineState = carInfo.StatusEngineer;
                 }
@@ -641,6 +646,11 @@ namespace BA_MobileGPS.Core.Views
                 }
 
                 mCarActive = carInfo;
+                //Nếu không cấu hình hiển thị nhiệt độ thì ko hiển thị lên màn hình online
+                if (!string.IsNullOrEmpty(carInfo.Temperature) && !CompanyConfigurationHelper.IsShowTemperatureOnline)
+                {
+                    carInfo.Temperature = string.Empty;
+                }
                 vm.CarActive = carInfo;
 
                 btnDirectvehicleOnline.IsVisible = true;
