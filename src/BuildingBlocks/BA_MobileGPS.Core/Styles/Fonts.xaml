@@ -67,22 +67,6 @@
         Android="Roboto-Bold.ttf#Roboto-Bold"
         iOS="Roboto-Bold" />
 
-    <OnPlatform x:Key="FontAwesomeBrands" x:TypeArguments="x:String">
-        <On Platform="Android" Value="FontAwesome5Brands.otf#Regular" />
-        <On Platform="iOS" Value="FontAwesome5Brands-Regular" />
-    </OnPlatform>
-
-    <OnPlatform x:Key="FontAwesomeSolid" x:TypeArguments="x:String">
-        <On Platform="Android" Value="FontAwesome5Solid.otf#Regular" />
-        <On Platform="iOS" Value="FontAwesome5Free-Solid" />
-    </OnPlatform>
-
-    <OnPlatform x:Key="FontAwesomeRegular" x:TypeArguments="x:String">
-        <On Platform="Android" Value="FontAwesome5Regular.otf#Regular" />
-        <On Platform="iOS" Value="FontAwesome5Free-Regular" />
-    </OnPlatform>
-
-
     <!--  Font sizes  -->
     <x:Double x:Key="FontSize10">10</x:Double>
     <x:Double x:Key="FontSize11">11</x:Double>

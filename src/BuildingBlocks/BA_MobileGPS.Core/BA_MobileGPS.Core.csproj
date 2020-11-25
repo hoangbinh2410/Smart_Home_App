@@ -9,6 +9,14 @@
 	  <EmbeddedResource Remove="Views\Login\**" />
 	  <None Remove="Views\Login\**" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Font\fa-solid-900.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\Font\fa-solid-900.ttf" />
+	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="CardsView" Version="2.6.8" />
 		<PackageReference Include="Prism.DryIoc.Forms" Version="8.0.0.1909" />
