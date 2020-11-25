@@ -257,14 +257,16 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </summary>
         private void ReloadVideo()
         {
+            Device.BeginInvokeOnMainThread(()=>{
+                IsError = false;
+                BusyIndicatorActive = true;
+            });
             if (isAbort)
             {
-                IsError = false;
                 isAbort = false;
-                BusyIndicatorActive = true;
                 resetDeviceCounter = 0;
                 Device.BeginInvokeOnMainThread(async () =>
-                {
+                {                                                     
                     if (videoSlected?.Data != null)
                     {
                         MediaPlayer.Media = new Media(libVLC, new Uri(videoSlected?.Data.Link));
