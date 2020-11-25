@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
@@ -37,7 +38,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private string currentXnCode { get; set; }
         private string currentIMEI { get; set; }
         private const int maxTimeCameraRemain = 600; //second
-        private readonly int maxLoadingTime = 20; //second
+        private readonly int maxLoadingTime = 60; //second
         private readonly IGeocodeService _geocodeService;
         private readonly IStreamCameraService _streamCameraService;
 
@@ -60,6 +61,7 @@ namespace BA_MobileGPS.Core.ViewModels
             currentAddress = MobileResource.Camera_Label_Undefined;
             ReLoadCommand = new DelegateCommand<object>(Reload);
             itemsSource = new List<ChildStackSource>();
+            EventAggregator.GetEvent<RequestStartLiveStreamEvent>().Subscribe(RequestStartLiveStream);
         }
 
         #region Life Cycle
@@ -118,6 +120,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             ClearAllMediaPlayer();
             DependencyService.Get<IScreenOrientServices>().ForcePortrait();
+            EventAggregator.GetEvent<RequestStartLiveStreamEvent>().Unsubscribe(RequestStartLiveStream);
             LibVLC?.Dispose();
             LibVLC = null;
 
@@ -741,6 +744,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
                 }
+            });
+        }
+
+        private void RequestStartLiveStream(int channel)
+        {
+            RunOnBackground(async () =>
+            {
+                await RequestStartCam(channel, false);
             });
         }
 

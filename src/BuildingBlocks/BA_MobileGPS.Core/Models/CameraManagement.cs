@@ -2,18 +2,21 @@
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using LibVLCSharp.Shared;
+using Prism.Events;
 using Prism.Mvvm;
+using Prism.Ioc;
 using System;
 using System.Reflection;
 using System.Threading;
 using System.Timers;
 using Xamarin.Forms;
 using Timer = System.Timers.Timer;
+using BA_MobileGPS.Core.Events;
 
 namespace BA_MobileGPS.Core.Models
 {
     public class CameraManagement : BindableBase, IDisposable
-    {    
+    {
         private int maxLoadingTime { get; }
         private Timer countLoadingTimer;
         private int counter { get; set; } // timer counter
@@ -36,7 +39,9 @@ namespace BA_MobileGPS.Core.Models
         public LibVLC LibVLC
         {
             get { return libVLC; }
-            set { SetProperty(ref libVLC, value);
+            set
+            {
+                SetProperty(ref libVLC, value);
                 RaisePropertyChanged();
             }
         }
@@ -173,7 +178,18 @@ namespace BA_MobileGPS.Core.Models
                         var err = MobileResource.Camera_Label_Connection_Error;
                         SetError(err);
                     }
-                    else SetMedia(data.Link);
+                    else
+                    {
+                        if (counter % 10 == 0)
+                        {
+                            // Gửi lại request start, cứ 10s bị báo lỗi sẽ request lại 1 lần
+                            var eventAggre = Prism.PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
+                            eventAggre.GetEvent<RequestStartLiveStreamEvent>().Publish(data.Channel);
+                        }
+                        SetMedia(data.Link);
+                    }
+
+
                 }
             }
             else
