@@ -132,9 +132,6 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\internetconnection.json" />
     <AndroidAsset Include="Assets\Roboto-Regular.ttf" />
-    <AndroidAsset Include="Assets\FontAwesome5Brands.otf" />
-    <AndroidAsset Include="Assets\FontAwesome5Regular.otf" />
-    <AndroidAsset Include="Assets\FontAwesome5Solid.otf" />
     <AndroidAsset Include="Assets\Roboto-Bold.ttf" />
     <None Include="google-services.json" />
     <None Include="Resources\AboutResources.txt" />

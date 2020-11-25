@@ -8,6 +8,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
@@ -84,12 +85,19 @@
                                                               iOS=-2.2}"
                                     TranslationY="0.5"
                                     WidthRequest="42">
-                                    <controls:IconView
+                                    <controls:FontAwesomeIcon
+                                        Margin="9"
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="Center"
+                                        Text="{x:Static fontawesome:FontAwesomeIcons.User}"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="CenterAndExpand" />
+                                    <!--<controls:IconView
                                         Margin="9"
                                         Foreground="{DynamicResource WhiteColor}"
                                         HorizontalOptions="Center"
                                         Source="ic_userwhite.png"
-                                        VerticalOptions="CenterAndExpand" />
+                                        VerticalOptions="CenterAndExpand" />-->
                                 </sharpnado:MaterialFrame>
 
                             </sh:Shadows>

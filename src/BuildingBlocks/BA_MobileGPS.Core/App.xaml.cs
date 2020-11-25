@@ -5,10 +5,13 @@ using BA_MobileGPS.Utilities.Constant;
 using Prism;
 using Prism.Events;
 using Prism.Ioc;
-using System.Diagnostics;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+[assembly: ExportFont("fa-regular-400.ttf", Alias = "FontAwesomeRegular")]
+[assembly: ExportFont("fa-solid-900.ttf", Alias = "FontAwesomeSolid")]
+[assembly: ExportFont("fa-brands-400.ttf", Alias = "FontAwesomeBrands")]
 
 namespace BA_MobileGPS.Core
 {
@@ -30,7 +33,7 @@ namespace BA_MobileGPS.Core
         protected override void OnInitialized()
         {
             InitializeComponent();
-           
+
             BA_MobileGPSSetup.Initialize();
 
             OneSignalHelper.RegisterOneSignal(OneSignalKey);
