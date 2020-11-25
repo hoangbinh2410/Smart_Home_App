@@ -235,7 +235,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 IsError = true;
                 isAbort = true;
-                ErrorMessenger = "Kết nối không ổn định. Hoặc đã hết thời lượng video";
+                ErrorMessenger = "Vui lòng load lại hoặc chọn xem video khác";
             });
             // hết video??/
         }
@@ -261,6 +261,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsError = false;
                 BusyIndicatorActive = true;
             });
+
             if (isAbort)
             {
                 isAbort = false;
