@@ -112,9 +112,6 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <BundleResource Include="Resources\fa-brands-400.ttf" />
-    <BundleResource Include="Resources\fa-regular-400.ttf" />
-    <BundleResource Include="Resources\fa-solid-900.ttf" />
     <BundleResource Include="Resources\Roboto-Bold.ttf" />
     <BundleResource Include="Resources\Roboto-Regular.ttf" />
     <BundleResource Include="vi.lproj\InfoPlist.strings" />
