@@ -55,7 +55,7 @@ namespace BA_MobileGPS.Core
 
         public static int Vmin => Get(CompanyConfigurationNames.Vmin, 3);
 
-        public static bool VehicleOnlineAddressEnabled => Get(CompanyConfigurationNames.VehicleOnlineAddressEnabled, false);
+        public static bool VehicleOnlineAddressEnabled => Get(CompanyConfigurationNames.VehicleOnlineAddressEnabled, MobileSettingHelper.VehicleOnlineAddressEnabled);
 
         public static int AlertMinBlockSMS => Get(CompanyConfigurationNames.AlertMinBlockSMS, 10);
 
@@ -71,7 +71,7 @@ namespace BA_MobileGPS.Core
 
         public static bool IsShowCoordinates => Get(CompanyConfigurationNames.IsShowCoordinates, false);
 
-        public static bool IsShowTemperatureOnline => Get(CompanyConfigurationNames.IsShowTemperatureOnline, true);
+        public static bool IsShowTemperatureOnline => Get(CompanyConfigurationNames.IsShowTemperatureOnline, false);
 
         /// <summary>
         /// trungtq: Mức đồng bộ cho phần đồng bộ online

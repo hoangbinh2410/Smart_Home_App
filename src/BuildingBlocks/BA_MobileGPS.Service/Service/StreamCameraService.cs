@@ -2,7 +2,6 @@
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -25,6 +24,21 @@ namespace BA_MobileGPS.Service.Service
             try
             {
                 string url = string.Format(ApiUri.GET_DEVICESTREAMINFOR + "?type={0}&value={1}", (int)type, value);
+                result = await requestProvider.GetAsync<StreamDevicesResponse>(url);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<StreamDevicesResponse> GetListVehicleCamera(int xncode)
+        {
+            var result = new StreamDevicesResponse();
+            try
+            {
+                string url = string.Format(ApiUri.GET_DEVICESTREAMINFOR + "?type={0}&value={1}", (int)ConditionType.MXN, xncode);
                 result = await requestProvider.GetAsync<StreamDevicesResponse>(url);
             }
             catch (Exception ex)
@@ -209,10 +223,9 @@ namespace BA_MobileGPS.Service.Service
             var result = new List<CaptureImageData>();
             try
             {
-
-                var from = fromTime.ToString("yyyy/MM/dd HH:mm:ss").Replace(" ", "T"); 
+                var from = fromTime.ToString("yyyy/MM/dd HH:mm:ss").Replace(" ", "T");
                 var to = toTime.ToString("yyyy/MM/dd HH:mm:ss").Replace(" ", "T");
-                string url = string.Format(ApiUri.GET_RESTREAM_IMAGES + "?xncode={0}&vehiclePlate={1}&fromTime={2}&toTime={3}&limit={4}&channel={5}", xncode, vehiclePlate, from, to,limit,channel);
+                string url = string.Format(ApiUri.GET_RESTREAM_IMAGES + "?xncode={0}&vehiclePlate={1}&fromTime={2}&toTime={3}&limit={4}&channel={5}", xncode, vehiclePlate, from, to, limit, channel);
                 var response = await requestProvider.GetAsync<ResponseStreamBase<List<CaptureImageData>>>(url);
                 if (response != null && response.Data.Count > 0)
                 {

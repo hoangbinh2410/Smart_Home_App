@@ -106,7 +106,7 @@
                         HorizontalOptions="FillAndExpand"
                         InputTransparent="True"
                         PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                        Text="{Binding VehicleSelectedPlate}"
+                        Text="{Binding Vehicle.PrivateCode}"
                         TextColor="{DynamicResource TextPrimaryColor}"
                         VerticalOptions="Center">
                         <Entry.Effects>
@@ -149,7 +149,7 @@
             <Label
                 HorizontalOptions="Start"
                 StyleClass="GroupTitleLabel,BoldText"
-                Text="{Binding VehicleSelectedPlate}"
+                Text="{Binding Vehicle.PrivateCode}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
         </Grid>

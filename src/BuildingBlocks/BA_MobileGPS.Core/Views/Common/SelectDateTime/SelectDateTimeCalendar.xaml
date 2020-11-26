@@ -13,7 +13,7 @@
         <StackLayout
             Margin="20,50,20,20"
             Padding="10"
-           BackgroundColor="{DynamicResource WhiteColor}"
+            BackgroundColor="{DynamicResource WhiteColor}"
             HorizontalOptions="Center"
             VerticalOptions="Center">
             <syncalendar:SfCalendar
@@ -49,7 +49,7 @@
                 Orientation="Horizontal"
                 VerticalOptions="Center">
                 <Button
-                   BackgroundColor="{DynamicResource WhiteColor}"
+                    BackgroundColor="{DynamicResource WhiteColor}"
                     BorderColor="{DynamicResource PrimaryColor}"
                     BorderRadius="0"
                     BorderWidth="1"
