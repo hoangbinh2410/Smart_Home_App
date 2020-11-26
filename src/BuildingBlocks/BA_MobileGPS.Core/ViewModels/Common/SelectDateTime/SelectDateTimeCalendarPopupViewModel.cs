@@ -59,10 +59,9 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectedTime = new ObservableCollection<object>
             {
                 //Current hour is selected if hour is less than 13 else it is subtracted by 12 to maintain 12hour format
-                date.Hour.ToString(),
-
+                date.Hour < 10 ? ("0" + date.Hour) : date.Hour.ToString(),
                 //Current minute is selected
-                date.Minute.ToString()
+                date.Minute < 10 ? ("0" + date.Minute) : date.Minute.ToString()
             };
         }
 
