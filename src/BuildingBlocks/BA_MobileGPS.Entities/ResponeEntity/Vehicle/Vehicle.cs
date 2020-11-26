@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace BA_MobileGPS.Entities
 {
@@ -31,5 +32,10 @@ namespace BA_MobileGPS.Entities
 
         [JsonIgnore]
         public int SortOrder { set; get; }
+    }
+
+    public class CameraLookUpVehicleModel : Vehicle
+    {
+        public List<int> CameraChannels { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand ReLoadCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
         public ICommand SearchCommand { get; }
-
+        public ICommand SelectVehicleCameraCommand { get; }
 
         public DeviceTabViewModel(INavigationService navigationService,
             IStreamCameraService cameraService,
@@ -42,10 +42,12 @@ namespace BA_MobileGPS.Core.ViewModels
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
             SearchCommand = new DelegateCommand(SearchData);
             VideoItemTapCommand = new DelegateCommand<ItemTappedEventArgs>(VideoSelectedChange);
+            SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
             mediaPlayerVisible = false;
             videoItemsSource = new ObservableCollection<RestreamVideoModel>();
             InitDateTimeInSearch();
-            vehicle = new Vehicle();
+            vehicle = new CameraLookUpVehicleModel();
+            listChannel = new List<ChannelModel> { new ChannelModel() { Name = "Tất cả kênh", Value = 0 } };
         }
 
         #region Lifecycle
@@ -65,15 +67,16 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
-            SetChannelSource();
+
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
+            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
             {
-                Vehicle = vehicle;              
+                Vehicle = vehicle;
+                SetChannelSource(vehicle.CameraChannels);
             }
         }
 
@@ -96,8 +99,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public string BusyIndicatorText { get; set; }
 
-        private Vehicle vehicle = new Vehicle();
-        public Vehicle Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
+        private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
+        public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
 
         private DateTime dateStart;
 
@@ -284,6 +287,13 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
 
+        private void SelectVehicleCamera()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraLookup", null, useModalNavigation: true, animated: true);
+            });
+        }
 
         private void UploadToCloudTapped()
         {
@@ -629,18 +639,22 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Set dữ liệu cho picker channel
         /// Hard 4 kênh (Đã confirm)
         /// </summary>
-        private void SetChannelSource()
+        private void SetChannelSource(List<int> lstchannel)
         {
             var source = new List<ChannelModel>();
             source.Add(new ChannelModel() { Name = "Tất cả kênh", Value = 0 });
-            for (int i = 1; i < 5; i++)
+            if (lstchannel != null)
             {
-                var temp = new ChannelModel()
+                foreach (var item in lstchannel)
                 {
-                    Value = i,
-                    Name = string.Format("Kênh {0}", i)
-                };
-                source.Add(temp);
+                    var temp = new ChannelModel()
+                    {
+                        Value = item,
+                        Name = string.Format("Kênh {0}", item)
+                    };
+                    source.Add(temp);
+                }
+
             }
             ListChannel = source;
             SelectedChannel = source.FirstOrDefault();

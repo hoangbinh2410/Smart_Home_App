@@ -67,9 +67,9 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             //Check parameter key
-            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
+            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
             {
-                VehicleSelectedPlate = vehiclePlate.VehiclePlate;
+                Vehicle = vehicle;
                 ReLoadAllCamera();
             }
             else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
@@ -178,20 +178,8 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private string vehicleSelectedPlate;
-
-        /// <summary>
-        /// Biển số xe đang chọn
-        /// </summary>
-        public string VehicleSelectedPlate
-        {
-            get { return vehicleSelectedPlate; }
-            set
-            {
-                SetProperty(ref vehicleSelectedPlate, value);
-                RaisePropertyChanged();
-            }
-        }
+        private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
+        public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
 
         private bool isFullScreenOff;
 
@@ -508,7 +496,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Channel = chanel,
                 IMEI = currentIMEI,
-                VehiclePlate = vehicleSelectedPlate,
+                VehiclePlate = Vehicle.VehiclePlate,
                 xnCode = currentXnCode
             };
 
@@ -624,7 +612,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 ClearAllMediaPlayer();
-                GetCameraInfor(VehicleSelectedPlate);
+                GetCameraInfor(Vehicle.VehiclePlate);
             }
             catch (Exception ex)
             {
@@ -660,7 +648,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     xnCode = currentXnCode,
                     Duration = timeSecond,
-                    VehiclePlate = VehicleSelectedPlate,
+                    VehiclePlate = Vehicle.VehiclePlate,
                     Channel = chanel
                 });
                 if (!response.Data) // false : try request again
@@ -677,7 +665,7 @@ namespace BA_MobileGPS.Core.ViewModels
         /// <param name="e"></param>
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(vehicleSelectedPlate))
+            if (Vehicle != null && !string.IsNullOrEmpty(Vehicle.VehiclePlate))
             {
                 if (selectedItem != null && TotalTime != selectedItem.TotalTime)
                 {
@@ -726,9 +714,9 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 try
                 {
-                    if (!string.IsNullOrEmpty(vehicleSelectedPlate))
+                    if (Vehicle != null && !string.IsNullOrEmpty(Vehicle.VehiclePlate))
                     {
-                        var deviceResponse = await _streamCameraService.GetDevicesStatus(ConditionType.BKS, VehicleSelectedPlate);
+                        var deviceResponse = await _streamCameraService.GetDevicesStatus(ConditionType.BKS, Vehicle.VehiclePlate);
                         var deviceResponseData = deviceResponse?.Data?.FirstOrDefault();
                         if (deviceResponseData != null)
                         {

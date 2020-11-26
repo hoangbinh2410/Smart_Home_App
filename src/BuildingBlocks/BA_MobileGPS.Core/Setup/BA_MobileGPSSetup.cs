@@ -197,6 +197,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<DeviceTab, DeviceTabViewModel>();
             containerRegistry.RegisterForNavigation<BACloudTab, BACloudTabViewModel>();
             containerRegistry.RegisterForNavigation<MyVideoTab, MyVideoTabViewModel>();
+            containerRegistry.RegisterForNavigation<VehicleCameraLookup, VehicleCameraLookupViewModel>("VehicleCameraLookup");
 
         }
     }

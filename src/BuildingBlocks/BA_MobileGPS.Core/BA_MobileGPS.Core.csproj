@@ -340,6 +340,9 @@
 	  <EmbeddedResource Update="Views\SettingThemePage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Shared\VehicleCameraLookup.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Update="Views\Vehicle\VehicleDebtMoneyPage.xaml">

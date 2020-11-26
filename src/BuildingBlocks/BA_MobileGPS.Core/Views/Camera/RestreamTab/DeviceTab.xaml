@@ -50,7 +50,7 @@
                                 Color="Black" />
                         </pancake:PancakeView.Shadow>
                         <pancake:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                            <TapGestureRecognizer Command="{Binding SelectVehicleCameraCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <StackLayout
                             Padding="10,0"
@@ -58,7 +58,7 @@
                             Orientation="Horizontal"
                             VerticalOptions="Center">
                             <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                                <TapGestureRecognizer Command="{Binding SelectVehicleCameraCommand}" />
                             </StackLayout.GestureRecognizers>
                             <Entry
                                 x:Name="entrySearch"
