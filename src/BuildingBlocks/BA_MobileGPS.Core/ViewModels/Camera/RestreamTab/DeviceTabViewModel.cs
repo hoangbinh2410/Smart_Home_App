@@ -620,8 +620,8 @@ namespace BA_MobileGPS.Core.ViewModels
                             VideoItemsSourceOrigin.Add(videoModel);
                         }
                         //Sort lại theo kênh và thời gian ASC
-                        VideoItemsSourceOrigin.Sort((x, y) => x.Data.Channel == y.Data.Channel ?
-                                          DateTime.Compare(x.VideoStartTime, y.VideoStartTime) : x.Data.Channel.CompareTo(y.Data.Channel));
+                        VideoItemsSourceOrigin.Sort((x, y) => DateTime.Compare(x.VideoStartTime, y.VideoStartTime));
+                                         
 
                         VideoItemsSource = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToObservableCollection();
                     }
