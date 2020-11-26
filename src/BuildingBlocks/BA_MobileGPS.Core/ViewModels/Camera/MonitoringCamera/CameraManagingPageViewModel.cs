@@ -61,6 +61,7 @@ namespace BA_MobileGPS.Core.ViewModels
             currentAddress = MobileResource.Camera_Label_Undefined;
             ReLoadCommand = new DelegateCommand<object>(Reload);
             itemsSource = new List<ChildStackSource>();
+            SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
             EventAggregator.GetEvent<RequestStartLiveStreamEvent>().Subscribe(RequestStartLiveStream);
         }
 
@@ -314,6 +315,16 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Property Binding
 
         #region ICommand & excute
+
+        public ICommand SelectVehicleCameraCommand { get; }
+        private void SelectVehicleCamera()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraLookup", null, useModalNavigation: true, animated: true);
+            });
+        }
+
 
         /// <summary>
         ///  Raise khi nút play được chạm
