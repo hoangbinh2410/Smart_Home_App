@@ -51,7 +51,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void Initialize(INavigationParameters parameters)
         {
-            BusyIndicatorText = "Video load trực tiếp từ thiết bị nên thời gian kết nối có thể lâu hơn. Vui lòng chờ trong giây lát";
             base.Initialize(parameters);
             LibVLCSharp.Shared.Core.Initialize();
             LibVLC = new LibVLC("--no-rtsp-tcp");
