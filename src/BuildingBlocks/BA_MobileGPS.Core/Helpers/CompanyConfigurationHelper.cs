@@ -71,7 +71,7 @@ namespace BA_MobileGPS.Core
 
         public static bool IsShowCoordinates => Get(CompanyConfigurationNames.IsShowCoordinates, false);
 
-        public static bool IsShowTemperatureOnline => Get(CompanyConfigurationNames.IsShowTemperatureOnline, true);
+        public static bool IsShowTemperatureOnline => Get(CompanyConfigurationNames.IsShowTemperatureOnline, false);
 
         /// <summary>
         /// trungtq: Mức đồng bộ cho phần đồng bộ online
