@@ -15,5 +15,6 @@ namespace BA_MobileGPS.Core.Models
         public DateTime VideoEndTime { get; set; }
         public int EventType { get; set; }
         public string VideoAddress { get; set; }
+        public DateTime ImageTime { get; set; }
     }
 }

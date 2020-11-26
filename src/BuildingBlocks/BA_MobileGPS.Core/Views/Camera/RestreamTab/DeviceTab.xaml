@@ -293,7 +293,7 @@
                             </vlc:MediaPlayerElement>
 
                             <indicator:SfBusyIndicator
-                                Title="Loading..."
+                                Title="{Binding BusyIndicatorText}"
                                 IsBusy="{Binding BusyIndicatorActive}"
                                 TextColor="{DynamicResource WhiteColor}"
                                 TextSize="10" />
@@ -411,7 +411,11 @@
                                             <Label
                                                 HorizontalOptions="Start"
                                                 StyleClass="BoldText"
-                                                Text="{Binding VideoStartTime}" />
+                                                Text="{Binding Data.Channel, StringFormat='Kênh {0}'}" />
+                                            <Label
+                                                HorizontalOptions="Start"
+                                                StyleClass="BoldText"
+                                                Text="{Binding ImageTime}" />
                                             <Label HorizontalOptions="Start" Text="{Binding VideoAddress}" />
                                         </StackLayout>
                                     </StackLayout>
