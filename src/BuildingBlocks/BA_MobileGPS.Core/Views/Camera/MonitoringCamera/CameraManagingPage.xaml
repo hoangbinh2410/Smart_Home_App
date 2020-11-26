@@ -85,7 +85,7 @@
                         Color="Black" />
                 </pancake:PancakeView.Shadow>
                 <pancake:PancakeView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                    <TapGestureRecognizer Command="{Binding SelectVehicleCameraCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
                 <StackLayout
                     Padding="0"

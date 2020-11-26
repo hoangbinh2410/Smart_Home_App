@@ -2,7 +2,6 @@
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
-using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
@@ -25,8 +24,6 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class DeviceTabViewModel : RestreamChildVMBase
     {
-
-
         public ICommand UploadToCloudTappedCommand { get; }
         public ICommand ReLoadCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
@@ -67,7 +64,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
-
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -118,8 +114,6 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref dateEnd, value);
         }
 
-
-
         // Loi abort 10s
         private bool isAbort { get; set; }
 
@@ -156,7 +150,6 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return selectedChannel; }
             set { SetProperty(ref selectedChannel, value); }
         }
-
 
         private RestreamVideoModel videoSlected;
 
@@ -286,7 +279,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 StopAndStartRestream();
         }
 
-
         private void SelectVehicleCamera()
         {
             SafeExecute(async () =>
@@ -402,31 +394,35 @@ namespace BA_MobileGPS.Core.ViewModels
             RunOnBackground(async () =>
             {
                 await streamCameraService.StopRestream(req);
-            }, async () =>
-            {
-                await Task.Delay(6000);
-                var start = new StartRestreamRequest()
-                {
-                    Channel = VideoSlected.Data.Channel,
-                    CustomerID = UserInfo.XNCode,
-                    StartTime = VideoSlected.VideoStartTime,
-                    EndTime = VideoSlected.VideoEndTime,
-                    VehicleName = Vehicle.VehiclePlate
-                };
+            }, () =>
+           {
+               Device.StartTimer(TimeSpan.FromSeconds(5), () =>
+               {
+                   StartRestream();
 
-                StartRestream(start);
-            });
+                   return false;
+               });
+
+           });
         }
 
         /// <summary>
         /// Gọi api start playback
         /// </summary>
         /// <param name="req"></param>
-        private void StartRestream(StartRestreamRequest req)
+        private void StartRestream()
         {
+            var start = new StartRestreamRequest()
+            {
+                Channel = VideoSlected.Data.Channel,
+                CustomerID = UserInfo.XNCode,
+                StartTime = VideoSlected.VideoStartTime,
+                EndTime = VideoSlected.VideoEndTime,
+                VehicleName = Vehicle.VehiclePlate
+            };
             RunOnBackground(async () =>
             {
-                return await streamCameraService.StartRestream(req);
+                return await streamCameraService.StartRestream(start);
             }, (result) =>
             {
                 if (result?.Data != null)
@@ -495,7 +491,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             await Task.Delay(1000);
                         }
                     }
-
                 }
             }
             catch (Exception ex)
@@ -530,7 +525,6 @@ namespace BA_MobileGPS.Core.ViewModels
             //}
             //else if ((dateStart - dateEnd) > new TimeSpan(0, 20, 0))
             //{
-
             //    DisplayMessage.ShowMessageInfo("Thời gian tìm kiếm không được quá 20 phút");
             //    return false;
             //}
@@ -632,9 +626,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         VideoItemsSource = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToObservableCollection();
                     }
-                });
+                }, showLoading: true);
             }
         }
+
         /// <summary>
         /// Set dữ liệu cho picker channel
         /// Hard 4 kênh (Đã confirm)
@@ -654,11 +649,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     };
                     source.Add(temp);
                 }
-
             }
             ListChannel = source;
             SelectedChannel = source.FirstOrDefault();
-
         }
 
         private void InitDateTimeInSearch()
@@ -670,7 +663,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 dateStart = dateEnd.AddMinutes(-20);
             }
             else dateStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
-
         }
 
         private void SearchData()
