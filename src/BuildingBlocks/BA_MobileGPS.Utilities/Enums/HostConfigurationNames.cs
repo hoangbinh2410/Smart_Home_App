@@ -3,6 +3,7 @@
     public enum HostConfigurationNames
     {
         FilterWord,
-        FeedbackNumber
+        FeedbackNumber,
+        VehicleOnlineAddressEnabled
     }
 }

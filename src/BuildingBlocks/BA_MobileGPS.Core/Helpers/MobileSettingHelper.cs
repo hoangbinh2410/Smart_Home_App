@@ -221,5 +221,8 @@ namespace BA_MobileGPS.Core
         /// trungtq  3/10/2020   created
         /// </Modified>
         public static bool EnableLongPoolRequest => Get(MobileConfigurationNames.EnableLongPoolRequest, true);
+
+        public static bool VehicleOnlineAddressEnabled => Get(MobileConfigurationNames.VehicleOnlineAddressEnabled, true);
+        
     }
 }
