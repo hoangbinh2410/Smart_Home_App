@@ -121,6 +121,7 @@
     <AndroidAsset Include="Assets\internetconnection.json" />
     <AndroidAsset Include="Assets\Roboto-Bold.ttf" />
     <AndroidAsset Include="Assets\Roboto-Regular.ttf" />
+    <AndroidAsset Include="Assets\FontAwesome5Solid.otf" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
@@ -160,10 +161,6 @@
     <ProjectReference Include="..\..\..\BuildingBlocks\BA_MobileGPS.Core\BA_MobileGPS.Core.csproj">
       <Project>{55e2fe34-997f-4771-a5d7-8114b5fb7899}</Project>
       <Name>BA_MobileGPS.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VIVIEW_MobileGPS\VIVIEW_MobileGPS.csproj">
-      <Project>{3824D767-D090-4FD6-B845-0153713C45E1}</Project>
-      <Name>VIVIEW_MobileGPS</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

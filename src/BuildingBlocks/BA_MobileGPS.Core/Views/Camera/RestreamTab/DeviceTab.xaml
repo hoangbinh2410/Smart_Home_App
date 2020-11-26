@@ -293,7 +293,7 @@
                             </vlc:MediaPlayerElement>
 
                             <indicator:SfBusyIndicator
-                                Title="{Binding BusyIndicatorText}"
+                                Title="Loading..."
                                 IsBusy="{Binding BusyIndicatorActive}"
                                 TextColor="{DynamicResource WhiteColor}"
                                 TextSize="10" />
