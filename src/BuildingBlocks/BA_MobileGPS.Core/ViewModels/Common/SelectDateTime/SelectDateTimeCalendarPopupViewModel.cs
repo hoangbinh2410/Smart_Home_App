@@ -20,7 +20,14 @@ namespace BA_MobileGPS.Core.ViewModels
         public DateTime SelectedDate { get => selectedDate; set => SetProperty(ref selectedDate, value); }
 
         private ObservableCollection<object> selectedtime;
-        public ObservableCollection<object> SelectedTime { get => selectedtime; set => SetProperty(ref selectedtime, value); }
+        public ObservableCollection<object> SelectedTime
+        {
+            get => selectedtime; 
+            set
+            {
+                SetProperty(ref selectedtime, value);
+            }
+        }
 
         public ICommand AgreeCommand { get; private set; }
         public ICommand CancelCommand { get; private set; }

@@ -23,6 +23,8 @@ namespace BA_MobileGPS.Service.IService
         /// <returns></returns>
         Task<StreamDevicesResponse> GetDevicesStatus(ConditionType type, string value);
 
+        Task<StreamDevicesResponse> GetListVehicleCamera(int xncode);
+
         Task<List<CaptureImageData>> GetCaptureImageLimit(int xncode, string vehiclePlate, int limit);
 
         Task<List<CaptureImageData>> GetCaptureImageTime(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime);

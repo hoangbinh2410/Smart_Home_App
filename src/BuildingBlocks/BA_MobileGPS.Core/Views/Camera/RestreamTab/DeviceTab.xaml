@@ -50,7 +50,7 @@
                                 Color="Black" />
                         </pancake:PancakeView.Shadow>
                         <pancake:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                            <TapGestureRecognizer Command="{Binding SelectVehicleCameraCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <StackLayout
                             Padding="10,0"
@@ -58,7 +58,7 @@
                             Orientation="Horizontal"
                             VerticalOptions="Center">
                             <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                                <TapGestureRecognizer Command="{Binding SelectVehicleCameraCommand}" />
                             </StackLayout.GestureRecognizers>
                             <Entry
                                 x:Name="entrySearch"
@@ -293,7 +293,7 @@
                             </vlc:MediaPlayerElement>
 
                             <indicator:SfBusyIndicator
-                                Title="Loading..."
+                                Title="{Binding BusyIndicatorText}"
                                 IsBusy="{Binding BusyIndicatorActive}"
                                 TextColor="{DynamicResource WhiteColor}"
                                 TextSize="10" />
@@ -411,7 +411,11 @@
                                             <Label
                                                 HorizontalOptions="Start"
                                                 StyleClass="BoldText"
-                                                Text="{Binding VideoStartTime}" />
+                                                Text="{Binding Data.Channel, StringFormat='Kênh {0}'}" />
+                                            <Label
+                                                HorizontalOptions="Start"
+                                                StyleClass="BoldText"
+                                                Text="{Binding ImageTime}" />
                                             <Label HorizontalOptions="Start" Text="{Binding VideoAddress}" />
                                         </StackLayout>
                                     </StackLayout>

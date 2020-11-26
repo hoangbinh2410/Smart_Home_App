@@ -31,7 +31,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand ReLoadCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
         public ICommand SearchCommand { get; }
-
+        public ICommand SelectVehicleCameraCommand { get; }
 
         public DeviceTabViewModel(INavigationService navigationService,
             IStreamCameraService cameraService,
@@ -42,16 +42,19 @@ namespace BA_MobileGPS.Core.ViewModels
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
             SearchCommand = new DelegateCommand(SearchData);
             VideoItemTapCommand = new DelegateCommand<ItemTappedEventArgs>(VideoSelectedChange);
+            SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
             mediaPlayerVisible = false;
             videoItemsSource = new ObservableCollection<RestreamVideoModel>();
             InitDateTimeInSearch();
-            vehicle = new Vehicle();
+            vehicle = new CameraLookUpVehicleModel();
+            listChannel = new List<ChannelModel> { new ChannelModel() { Name = "Tất cả kênh", Value = 0 } };
         }
 
         #region Lifecycle
 
         public override void Initialize(INavigationParameters parameters)
         {
+            BusyIndicatorText = "Video load trực tiếp từ thiết bị nên thời gian kết nối có thể lâu hơn. Vui lòng chờ trong giây lát";
             base.Initialize(parameters);
             LibVLCSharp.Shared.Core.Initialize();
             LibVLC = new LibVLC("--no-rtsp-tcp");
@@ -65,15 +68,15 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.OnPageAppearingFirstTime();
 
-            SetChannelSource();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
+            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
             {
                 Vehicle = vehicle;
+                SetChannelSource(vehicle.CameraChannels);
             }
         }
 
@@ -94,8 +97,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Property
 
-        private Vehicle vehicle = new Vehicle();
-        public Vehicle Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
+        public string BusyIndicatorText { get; set; }
+
+        private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
+        public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
 
         private DateTime dateStart;
 
@@ -257,7 +262,8 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </summary>
         private void ReloadVideo()
         {
-            Device.BeginInvokeOnMainThread(()=>{
+            Device.BeginInvokeOnMainThread(() =>
+            {
                 IsError = false;
                 BusyIndicatorActive = true;
             });
@@ -267,7 +273,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 isAbort = false;
                 resetDeviceCounter = 0;
                 Device.BeginInvokeOnMainThread(async () =>
-                {                                                     
+                {
                     if (videoSlected?.Data != null)
                     {
                         MediaPlayer.Media = new Media(libVLC, new Uri(videoSlected?.Data.Link));
@@ -281,6 +287,13 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
 
+        private void SelectVehicleCamera()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraLookup", null, useModalNavigation: true, animated: true);
+            });
+        }
 
         private void UploadToCloudTapped()
         {
@@ -510,17 +523,17 @@ namespace BA_MobileGPS.Core.ViewModels
                 DisplayMessage.ShowMessageInfo(" Vui lòng chọn phương tiện");
                 return false;
             }
-            else if (SelectedChannel == null || SelectedChannel.Value == 0)
-            {
-                DisplayMessage.ShowMessageInfo("Vui lòng chọn kênh");
-                return false;
-            }
-            else if ((dateStart - dateEnd) > new TimeSpan(0,20,0))
-            {
-                
-                DisplayMessage.ShowMessageInfo("Thời gian tìm kiếm không được quá 20 phút");
-                return false;
-            }
+            //else if (SelectedChannel == null || SelectedChannel.Value == 0)
+            //{
+            //    DisplayMessage.ShowMessageInfo("Vui lòng chọn kênh");
+            //    return false;
+            //}
+            //else if ((dateStart - dateEnd) > new TimeSpan(0, 20, 0))
+            //{
+
+            //    DisplayMessage.ShowMessageInfo("Thời gian tìm kiếm không được quá 20 phút");
+            //    return false;
+            //}
             else
             {
                 return true;
@@ -604,7 +617,8 @@ namespace BA_MobileGPS.Core.ViewModels
                                 VideoTime = TimeSpan.FromMinutes(2 * configMinute),
                                 Data = new StreamStart() { Channel = image.Channel },
                                 EventType = image.Type,
-                                VideoAddress = string.IsNullOrEmpty(image.CurrentAddress) ? "Địa chỉ không xác định" : image.CurrentAddress
+                                VideoAddress = string.IsNullOrEmpty(image.CurrentAddress) ? "Địa chỉ không xác định" : image.CurrentAddress,
+                                ImageTime = image.Time
                             };
 
                             videoModel.VideoName = string.Format("Camera{0}_{1}", image.Channel,
@@ -612,6 +626,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
                             VideoItemsSourceOrigin.Add(videoModel);
                         }
+                        //Sort lại theo kênh và thời gian ASC
+                        VideoItemsSourceOrigin.Sort((x, y) => x.Data.Channel == y.Data.Channel ?
+                                          DateTime.Compare(x.VideoStartTime, y.VideoStartTime) : x.Data.Channel.CompareTo(y.Data.Channel));
+
                         VideoItemsSource = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToObservableCollection();
                     }
                 });
@@ -621,27 +639,33 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Set dữ liệu cho picker channel
         /// Hard 4 kênh (Đã confirm)
         /// </summary>
-        private void SetChannelSource()
+        private void SetChannelSource(List<int> lstchannel)
         {
             var source = new List<ChannelModel>();
-            for (int i = 1; i < 5; i++)
+            source.Add(new ChannelModel() { Name = "Tất cả kênh", Value = 0 });
+            if (lstchannel != null)
             {
-                var temp = new ChannelModel()
+                foreach (var item in lstchannel)
                 {
-                    Value = i,
-                    Name = string.Format("Kênh {0}", i)
-                };
-                source.Add(temp);
+                    var temp = new ChannelModel()
+                    {
+                        Value = item,
+                        Name = string.Format("Kênh {0}", item)
+                    };
+                    source.Add(temp);
+                }
+
             }
             ListChannel = source;
-            SelectedChannel = source[0];
+            SelectedChannel = source.FirstOrDefault();
+
         }
 
         private void InitDateTimeInSearch()
         {
-            dateEnd =  DateTime.Now;
+            dateEnd = DateTime.Now;
             //Nếu lớn hơn 00h20p
-            if (dateEnd.TimeOfDay > new TimeSpan(0,20,0))
+            if (dateEnd.TimeOfDay > new TimeSpan(0, 20, 0))
             {
                 dateStart = dateEnd.AddMinutes(-20);
             }
