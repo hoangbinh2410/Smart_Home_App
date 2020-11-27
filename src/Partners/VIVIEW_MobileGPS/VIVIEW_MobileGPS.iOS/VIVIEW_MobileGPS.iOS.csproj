@@ -169,6 +169,10 @@
       <Project>{55e2fe34-997f-4771-a5d7-8114b5fb7899}</Project>
       <Name>BA_MobileGPS.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VIVIEW_MobileGPS\VIVIEW_MobileGPS.csproj">
+      <Project>{3824d767-d090-4fd6-b845-0153713c45e1}</Project>
+      <Name>VIVIEW_MobileGPS</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\avatar_default.png" />
