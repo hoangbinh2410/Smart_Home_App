@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pancake:PancakeView
+    x:Class="MOTO_MobileGPS.Views.OnlineCarInfoView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cluster="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converters="clr-namespace:MOTO_MobileGPS.Converter"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:localstatic="clr-namespace:MOTO_MobileGPS.Constant;assembly=MOTO_MobileGPS"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    Padding="5">
+    <pancake:PancakeView.Resources>
+        <cluster:NMConverter x:Key="NMConverter" />
+        <converters:StatusColorBoxConverter x:Key="StatusColorBoxConverter" />
+        <converters:StatusOnlineConverter x:Key="StatusOnlineConverter" />
+    </pancake:PancakeView.Resources>
+    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid
+            Grid.Row="0"
+            Padding="10,0"
+            ColumnDefinitions="Auto,*,Auto">
+            <StackLayout Orientation="Horizontal">
+                <controls:IconView
+                    Foreground="{DynamicResource PrimaryColor}"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
+                    Source="ic_vehiclesolid.png"
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
+                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                    <Label FontAttributes="Bold" Text="{Binding CarActive.PrivateCode}" />
+                    <BoxView
+                        Grid.Column="1"
+                        BackgroundColor="{Binding MotoDetail.IsOnline, Source={x:Static localstatic:GlobalResourcesMoto.Current}, Converter={StaticResource StatusColorBoxConverter}}"
+                        CornerRadius="5"
+                        HeightRequest="10"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        WidthRequest="10" />
+                    <Label
+                        Grid.Column="2"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Start"
+                        Text="{Binding MotoDetail.IsOnline, Source={x:Static localstatic:GlobalResourcesMoto.Current}, Converter={StaticResource StatusOnlineConverter}}" />
+
+                </StackLayout>
+            </StackLayout>
+
+            <Label
+                Grid.Column="1"
+                HorizontalOptions="End"
+                Text="{Binding CarActive.VehicleTime, Converter={StaticResource DateTimeConverter}}" />
+
+            <sharpnado:MaterialFrame
+                Grid.Column="2"
+                Padding="0"
+                CornerRadius="10"
+                HeightRequest="20"
+                HorizontalOptions="FillAndExpand"
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                WidthRequest="20">
+                <sharpnado:MaterialFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CloseCarInfoViewCommand}" />
+                </sharpnado:MaterialFrame.GestureRecognizers>
+                <sharpnado:MaterialFrame.Content>
+                    <controls:IconView
+                        Foreground="{DynamicResource WhiteColor}"
+                        HeightRequest="20"
+                        HorizontalOptions="End"
+                        Source="ic_close.png"
+                        VerticalOptions="Start"
+                        WidthRequest="20" />
+                </sharpnado:MaterialFrame.Content>
+            </sharpnado:MaterialFrame>
+
+
+        </Grid>
+        <BoxView
+            Grid.Row="1"
+            BackgroundColor="{DynamicResource GrayColor}"
+            HeightRequest="0.5"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Start" />
+        <Grid Grid.Row="2" Padding="10,0">
+            <StackLayout Orientation="Horizontal">
+                <controls:IconView
+                    Foreground="{DynamicResource PrimaryColor}"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
+                    Source="ic_coordinates.png"
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
+                <StackLayout Orientation="Horizontal">
+                    <Label LineBreakMode="TailTruncation" Text="{Binding CurrentAddress}" />
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+        <BoxView
+            Grid.Row="3"
+            BackgroundColor="{DynamicResource GrayColor}"
+            HeightRequest="0.5"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Start" />
+        <Grid Grid.Row="4" Padding="0,-10">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".5*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width=".5*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width=".5*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width=".5*" />
+            </Grid.ColumnDefinitions>
+            <!--  Tim xe  -->
+            <StackLayout
+                Grid.Column="0"
+                Padding="5"
+                BackgroundColor="White"
+                HorizontalOptions="FillAndExpand"
+                Spacing="0"
+                VerticalOptions="CenterAndExpand">
+                <Label
+                    x:Name="lblVelocity"
+                    HorizontalTextAlignment="Center"
+                    LineBreakMode="TailTruncation"
+                    TextColor="{DynamicResource TextSecondaryColor}" />
+                <ff:CachedImage HeightRequest="23" Source="ic_motor_search.png" />
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SearchVihecleCommand}" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            <BoxView
+                Grid.Column="1"
+                WidthRequest="0.5"
+                Color="{DynamicResource GrayColor}" />
+            <!--  Vi tri  -->
+            <StackLayout
+                Grid.Column="2"
+                Padding="5"
+                BackgroundColor="White"
+                HorizontalOptions="FillAndExpand"
+                Spacing="0"
+                VerticalOptions="CenterAndExpand">
+                <Label
+                    x:Name="lblEngine"
+                    HorizontalTextAlignment="Center"
+                    LineBreakMode="TailTruncation"
+                    TextColor="{DynamicResource TextSecondaryColor}" />
+                <ff:CachedImage HeightRequest="25" Source="ic_motor_location.png" />
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGetLocationVehicle_Tapped" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            <BoxView
+                Grid.Column="3"
+                WidthRequest="0.5"
+                Color="{DynamicResource GrayColor}" />
+            <!--  Bat may  -->
+            <StackLayout
+                Grid.Column="4"
+                Padding="5"
+                BackgroundColor="White"
+                HorizontalOptions="FillAndExpand"
+                Spacing="0"
+                VerticalOptions="CenterAndExpand">
+                <Label
+                    x:Name="lblAirCondition"
+                    HorizontalTextAlignment="Center"
+                    LineBreakMode="TailTruncation"
+                    TextColor="{DynamicResource TextSecondaryColor}" />
+                <ff:CachedImage HeightRequest="23" Source="ic_motor_turnon.png" />
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SendTurnOnCommand}" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            <BoxView
+                Grid.Column="5"
+                WidthRequest="0.5"
+                Color="{DynamicResource GrayColor}" />
+            <!--  Tat may  -->
+            <StackLayout
+                Grid.Column="6"
+                Padding="5"
+                BackgroundColor="White"
+                HorizontalOptions="FillAndExpand"
+                Spacing="0"
+                VerticalOptions="CenterAndExpand">
+                <Label
+                    x:Name="lblCarDoor"
+                    HorizontalTextAlignment="Center"
+                    LineBreakMode="TailTruncation"
+                    TextColor="{DynamicResource TextSecondaryColor}" />
+                <ff:CachedImage HeightRequest="23" Source="ic_motor_turnoff.png" />
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SendTurnOffCommand}" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </Grid>
+        <BoxView
+            Grid.Row="5"
+            BackgroundColor="{DynamicResource GrayColor}"
+            HeightRequest="0.5"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Start" />
+        <Grid
+            x:Name="boxCommand"
+            Grid.Row="6"
+            Padding="5,5,5,0"
+            ColumnDefinitions="*,*,*"
+            IsVisible="{Binding MenuItems, Converter={StaticResource IsEmptyDataConverter}}"
+            VerticalOptions="FillAndExpand">
+            <sharpnado:MaterialFrame
+                Grid.Column="0"
+                Padding="0,5"
+                CornerRadius="10"
+                HorizontalOptions="FillAndExpand"
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                VerticalOptions="Center">
+                <sharpnado:MaterialFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PushToRouterPageCommand}" />
+                </sharpnado:MaterialFrame.GestureRecognizers>
+                <sharpnado:MaterialFrame.Content>
+                    <StackLayout
+                        HorizontalOptions="Center"
+                        Orientation="Vertical"
+                        Spacing="0"
+                        VerticalOptions="Center">
+                        <controls:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            Source="ic_route.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
+                        <Label
+                            x:Name="lblRoute"
+                            FontFamily="{StaticResource myFontFamily}"
+                            FontSize="{StaticResource MyFontSize}"
+                            LineBreakMode="TailTruncation"
+                            TextColor="{DynamicResource WhiteColor}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+
+                </sharpnado:MaterialFrame.Content>
+            </sharpnado:MaterialFrame>
+            <sharpnado:MaterialFrame
+                Grid.Column="1"
+                Padding="0,5"
+                CornerRadius="10"
+                HorizontalOptions="FillAndExpand"
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                VerticalOptions="Center">
+                <sharpnado:MaterialFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PushToDetailPageCommand}" />
+                </sharpnado:MaterialFrame.GestureRecognizers>
+                <sharpnado:MaterialFrame.Content>
+                    <StackLayout
+                        HorizontalOptions="Center"
+                        Orientation="Vertical"
+                        Spacing="0"
+                        VerticalOptions="Center">
+                        <controls:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            Source="ic_guarantee.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
+                        <Label
+                            x:Name="lblButtonDetail"
+                            FontFamily="{StaticResource myFontFamily}"
+                            FontSize="{StaticResource MyFontSize}"
+                            LineBreakMode="TailTruncation"
+                            TextColor="{DynamicResource WhiteColor}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+
+                </sharpnado:MaterialFrame.Content>
+            </sharpnado:MaterialFrame>
+            <sharpnado:MaterialFrame
+                Grid.Column="2"
+                Padding="0,5"
+                CornerRadius="10"
+                HorizontalOptions="FillAndExpand"
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                VerticalOptions="Center">
+                <sharpnado:MaterialFrame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PushToSettingsPageCommand}" />
+                </sharpnado:MaterialFrame.GestureRecognizers>
+                <sharpnado:MaterialFrame.Content>
+                    <StackLayout
+                        HorizontalOptions="Center"
+                        Orientation="Vertical"
+                        Spacing="0"
+                        VerticalOptions="Center">
+                        <controls:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            Source="ic_settings.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
+                        <Label
+                            x:Name="lblSetting"
+                            FontFamily="{StaticResource myFontFamily}"
+                            FontSize="{StaticResource MyFontSize}"
+                            LineBreakMode="TailTruncation"
+                            TextColor="{DynamicResource WhiteColor}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                </sharpnado:MaterialFrame.Content>
+            </sharpnado:MaterialFrame>
+        </Grid>
+    </Grid>
+</pancake:PancakeView>

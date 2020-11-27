@@ -1,0 +1,667 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MOTO_MobileGPS.Views.VehicleDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converters="clr-namespace:MOTO_MobileGPS.Converter"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    Title="{Binding Title}"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="WhiteSmoke">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:StatusConverter x:Key="StatusConverter" />
+            <converters:VoltageConverter x:Key="VoltageConverter" />
+            <converters:PowerModeConverter x:Key="PowerModeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid RowDefinitions="Auto,Auto" RowSpacing="0">
+                <!--  Phần hiển thị thông tin  -->
+                <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="0">
+                    <sharpnado:MaterialFrame
+                        Padding="10"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        LightThemeBackgroundColor="{StaticResource GrayColor}"
+                        VerticalOptions="FillAndExpand">
+                        <sharpnado:MaterialFrame.Content>
+                            <Label
+                                HorizontalOptions="StartAndExpand"
+                                Text="{i18n:TranslateResource Moto_Label_Infomation}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </sharpnado:MaterialFrame.Content>
+                    </sharpnado:MaterialFrame>
+                    <sharpnado:MaterialFrame
+                        Grid.Row="1"
+                        Padding="10,0,10,0"
+                        BackgroundColor="White"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                        <sharpnado:MaterialFrame.Content>
+                            <Grid Grid.Row="0" RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <!--  Biển số  -->
+                                <Grid
+                                    x:Name="xxVehiclePlate"
+                                    Grid.Row="0"
+                                    RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_license_plate.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+                                        <Label
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_VehiclePlate}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding MotoDetail.VehiclePlate}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Điện thoại  -->
+                                <Grid Grid.Row="1" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_phone_black.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_DriverPhone}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding MotoDetail.DevicePhone}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  IMEI  -->
+                                <Grid Grid.Row="2" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_lisence.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+                                        <Label
+                                            Text="IMEI"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding MotoDetail.IMEI}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Số dư  -->
+                                <Grid Grid.Row="3" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:FontAwesomeIcon
+                                            Margin="0,3,0,0"
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Text="{x:Static fontawesome:FontAwesomeIcons.MoneyCheckAlt}"
+                                            TextColor="{StaticResource PrimaryColor}"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+                                        <Label
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_Vehicle_Sim_Surplus}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding SimMoney}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+                                </Grid>
+                            </Grid>
+                        </sharpnado:MaterialFrame.Content>
+                    </sharpnado:MaterialFrame>
+                </Grid>
+
+                <!--  Phần hiển thị trạng thái xe hiện tại  -->
+                <Grid Grid.Row="1" RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <sharpnado:MaterialFrame
+                        Padding="10"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        LightThemeBackgroundColor="{StaticResource GrayColor}"
+                        VerticalOptions="FillAndExpand">
+                        <sharpnado:MaterialFrame.Content>
+                            <Label
+                                HorizontalOptions="StartAndExpand"
+                                Text="{i18n:TranslateResource DetailVehicle_Label_Vehicle_Status_Current}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </sharpnado:MaterialFrame.Content>
+                    </sharpnado:MaterialFrame>
+                    <sharpnado:MaterialFrame
+                        Grid.Row="1"
+                        Padding="10,0,10,0"
+                        BackgroundColor="White"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                        <sharpnado:MaterialFrame.Content>
+
+                            <Grid Grid.Row="0" RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <!--  Địa chỉ  -->
+                                <Grid Grid.Row="0" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_location_black.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        LineBreakMode="WordWrap"
+                                        MaxLines="2"
+                                        Text="{Binding MotoDetail.Address}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Trạng thái máy  -->
+                                <Grid Grid.Row="1" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_engine.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource Moto_Label_Machine_Status}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding MotoDetail.Status, Converter={StaticResource StatusConverter}}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Vân tốc  -->
+                                <Grid Grid.Row="2" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_velocity.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_Speed}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding MotoDetail.Speed, Converter={StaticResource VelocityConverter}}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Điện áp Acquy xe  -->
+                                <Grid Grid.Row="3" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="acquy.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource Moto_Label_Battery_Voltage}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding MotoDetail.AccuVoltage, Converter={StaticResource VoltageConverter}}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Chế độ nguồn sử dụng  -->
+                                <Grid Grid.Row="4" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="source_mode.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource Moto_Label_Power_Mode_Used}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding MotoDetail.PowerMode, Converter={StaticResource PowerModeConverter}}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Thời gian kết nối vào hệ thống  -->
+                                <Grid Grid.Row="5" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="time_connection.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource Moto_Label_Time_Connected_To_The_System}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding MotoDetail.ConnectTime, Converter={StaticResource DateTimeConverter}}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Thời gian cập nhật vị trí  -->
+                                <Grid Grid.Row="6" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="time_gps.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource Moto_Label_Time_To_Update_Location}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding MotoDetail.UpdatePostionTime, Converter={StaticResource DateTimeConverter}}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Thời gian ngắt kết nối  -->
+                                <Grid Grid.Row="7" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="time_disconnect.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="{i18n:TranslateResource Moto_Label_Disconnection_Time}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding DisconnectTimeStr}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+                            </Grid>
+                        </sharpnado:MaterialFrame.Content>
+                    </sharpnado:MaterialFrame>
+                </Grid>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

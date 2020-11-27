@@ -3,16 +3,12 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Enums;
 using Newtonsoft.Json;
-
-using Plugin.Settings;
-using Plugin.Settings.Abstractions;
+using Xamarin.Essentials;
 
 namespace BA_MobileGPS.Core
 {
     public static class Settings
     {
-        private static ISettings AppSettings => CrossSettings.Current;
-
         private const string IdLatitude = "latitude";
         private static readonly float LatitudeDefault = 20.973993f;
 
@@ -91,16 +87,19 @@ namespace BA_MobileGPS.Core
         private const string ShowViewVehicleImageKey = "ShowViewVehicleImageKey";
         private static readonly int ShowViewVehicleImageDefault = 10;
 
+        private const string MapTypeKey = "MapTypeKey";
+        private static readonly int MapTypeDefault = 2;
+
         public static float Latitude
         {
-            get => AppSettings.GetValueOrDefault(IdLatitude, LatitudeDefault);
-            set => AppSettings.AddOrUpdateValue(IdLatitude, value);
+            get => Preferences.Get(IdLatitude, LatitudeDefault);
+            set => Preferences.Set(IdLatitude, value);
         }
 
         public static float Longitude
         {
-            get => AppSettings.GetValueOrDefault(IdLongitude, LongitudeDefault);
-            set => AppSettings.AddOrUpdateValue(IdLongitude, value);
+            get => Preferences.Get(IdLongitude, LongitudeDefault);
+            set => Preferences.Set(IdLongitude, value);
         }
 
         /// <summary>
@@ -108,8 +107,8 @@ namespace BA_MobileGPS.Core
         /// </summary>
         public static string UserName
         {
-            get => AppSettings.GetValueOrDefault(UserNameKey, UserNameDefault);
-            set => AppSettings.AddOrUpdateValue(UserNameKey, value);
+            get => Preferences.Get(UserNameKey, UserNameDefault);
+            set => Preferences.Set(UserNameKey, value);
         }
 
         /// <summary>
@@ -117,8 +116,8 @@ namespace BA_MobileGPS.Core
         /// </summary>
         public static string Password
         {
-            get => AppSettings.GetValueOrDefault(PasswordKey, PasswordDefault);
-            set => AppSettings.AddOrUpdateValue(PasswordKey, value);
+            get => Preferences.Get(PasswordKey, PasswordDefault);
+            set => Preferences.Set(PasswordKey, value);
         }
 
         /// <summary>
@@ -126,8 +125,8 @@ namespace BA_MobileGPS.Core
         /// </summary>
         public static bool Rememberme
         {
-            get => AppSettings.GetValueOrDefault(RemembermeKey, RemembermeDefault);
-            set => AppSettings.AddOrUpdateValue(RemembermeKey, value);
+            get => Preferences.Get(RemembermeKey, RemembermeDefault);
+            set => Preferences.Set(RemembermeKey, value);
         }
 
         /// <summary>
@@ -135,8 +134,8 @@ namespace BA_MobileGPS.Core
         /// </summary>
         public static string CurrentLanguage
         {
-            get => AppSettings.GetValueOrDefault(CurrentLanguageKey, CurrentLanguageDefault);
-            set => AppSettings.AddOrUpdateValue(CurrentLanguageKey, value);
+            get => Preferences.Get(CurrentLanguageKey, CurrentLanguageDefault);
+            set => Preferences.Set(CurrentLanguageKey, value);
         }
 
         /// <summary>
@@ -147,14 +146,14 @@ namespace BA_MobileGPS.Core
             get
             {
                 Company company = null;
-                string value = AppSettings.GetValueOrDefault(CurrentCompanyKey, CurrentCompanyDefault);
+                string value = Preferences.Get(CurrentCompanyKey, CurrentCompanyDefault);
                 if (!string.IsNullOrWhiteSpace(value))
                 {
                     company = JsonConvert.DeserializeObject<Company>(value);
                 }
                 return company;
             }
-            set => AppSettings.AddOrUpdateValue(CurrentCompanyKey, JsonConvert.SerializeObject(value));
+            set => Preferences.Set(CurrentCompanyKey, JsonConvert.SerializeObject(value));
         }
 
         /// <summary>
@@ -162,14 +161,14 @@ namespace BA_MobileGPS.Core
         /// </summary>
         public static string AppLinkDownload
         {
-            get => AppSettings.GetValueOrDefault(AppLinkDownloadKey, AppLinkDownloadDefault);
-            set => AppSettings.AddOrUpdateValue(AppLinkDownloadKey, value);
+            get => Preferences.Get(AppLinkDownloadKey, AppLinkDownloadDefault);
+            set => Preferences.Set(AppLinkDownloadKey, value);
         }
 
         public static string AppVersionDB
         {
-            get => AppSettings.GetValueOrDefault(AppVersionDBKey, AppVersionDBDefault);
-            set => AppSettings.AddOrUpdateValue(AppVersionDBKey, value);
+            get => Preferences.Get(AppVersionDBKey, AppVersionDBDefault);
+            set => Preferences.Set(AppVersionDBKey, value);
         }
 
         /// <summary>
@@ -177,8 +176,8 @@ namespace BA_MobileGPS.Core
         /// </summary>
         public static bool IsFistInstallApp
         {
-            get => AppSettings.GetValueOrDefault(IsFistInstallAppKey, IsFistInstallAppDefault);
-            set => AppSettings.AddOrUpdateValue(IsFistInstallAppKey, value);
+            get => Preferences.Get(IsFistInstallAppKey, IsFistInstallAppDefault);
+            set => Preferences.Set(IsFistInstallAppKey, value);
         }
 
         /// <summary>
@@ -186,8 +185,8 @@ namespace BA_MobileGPS.Core
         /// </summary>
         public static bool IsChangeDataLocalDB
         {
-            get => AppSettings.GetValueOrDefault(IsChangeDataLocalDBKey, IsChangeDataLocalDBDefault);
-            set => AppSettings.AddOrUpdateValue(IsChangeDataLocalDBKey, value);
+            get => Preferences.Get(IsChangeDataLocalDBKey, IsChangeDataLocalDBDefault);
+            set => Preferences.Set(IsChangeDataLocalDBKey, value);
         }
 
         /// <summary>
@@ -195,50 +194,50 @@ namespace BA_MobileGPS.Core
         /// </summary>
         public static string CurrentFirebaseToken
         {
-            get => AppSettings.GetValueOrDefault(FirebaseToken, FirebaseTokenDefault);
-            set => AppSettings.AddOrUpdateValue(FirebaseToken, value);
+            get => Preferences.Get(FirebaseToken, FirebaseTokenDefault);
+            set => Preferences.Set(FirebaseToken, value);
         }
 
         public static string ReceivedNotificationType
         {
-            get => AppSettings.GetValueOrDefault(ReceivedNotificationTypeKey, ReceivedNotificationTypeDefault);
-            set => AppSettings.AddOrUpdateValue(ReceivedNotificationTypeKey, value);
+            get => Preferences.Get(ReceivedNotificationTypeKey, ReceivedNotificationTypeDefault);
+            set => Preferences.Set(ReceivedNotificationTypeKey, value);
         }
 
         public static string ReceivedNotificationValue
         {
-            get => AppSettings.GetValueOrDefault(ReceivedNotificationValueKey, ReceivedNotificationValueDefault);
-            set => AppSettings.AddOrUpdateValue(ReceivedNotificationValueKey, value);
+            get => Preferences.Get(ReceivedNotificationValueKey, ReceivedNotificationValueDefault);
+            set => Preferences.Set(ReceivedNotificationValueKey, value);
         }
 
         public static string ReceivedNotificationTitle
         {
-            get => AppSettings.GetValueOrDefault(ReceivedNotificationTitleKey, ReceivedNotificationTitleDefault);
-            set => AppSettings.AddOrUpdateValue(ReceivedNotificationTitleKey, value);
+            get => Preferences.Get(ReceivedNotificationTitleKey, ReceivedNotificationTitleDefault);
+            set => Preferences.Set(ReceivedNotificationTitleKey, value);
         }
 
         public static string LastImeiVMS
         {
-            get => AppSettings.GetValueOrDefault(LastImeiVMSKey, LastImeiVMSDefault);
-            set => AppSettings.AddOrUpdateValue(LastImeiVMSKey, value);
+            get => Preferences.Get(LastImeiVMSKey, LastImeiVMSDefault);
+            set => Preferences.Set(LastImeiVMSKey, value);
         }
 
         public static string LastDeviceVMS
         {
-            get => AppSettings.GetValueOrDefault(LastDeviceVMSKey, LastDeviceVMSDefault);
-            set => AppSettings.AddOrUpdateValue(LastDeviceVMSKey, value);
+            get => Preferences.Get(LastDeviceVMSKey, LastDeviceVMSDefault);
+            set => Preferences.Set(LastDeviceVMSKey, value);
         }
 
         public static int NoticeIdWhenLogin
         {
-            get => AppSettings.GetValueOrDefault(NoticeIdWhenLoginKey, NoticeIdWhenLoginDefault);
-            set => AppSettings.AddOrUpdateValue(NoticeIdWhenLoginKey, value);
+            get => Preferences.Get(NoticeIdWhenLoginKey, NoticeIdWhenLoginDefault);
+            set => Preferences.Set(NoticeIdWhenLoginKey, value);
         }
 
         public static int NoticeIdAfterLogin
         {
-            get => AppSettings.GetValueOrDefault(NoticeIdAfterLoginKey, NoticeIdAfterLoginDefault);
-            set => AppSettings.AddOrUpdateValue(NoticeIdAfterLoginKey, value);
+            get => Preferences.Get(NoticeIdAfterLoginKey, NoticeIdAfterLoginDefault);
+            set => Preferences.Set(NoticeIdAfterLoginKey, value);
         }
 
         /// <summary>
@@ -246,45 +245,51 @@ namespace BA_MobileGPS.Core
         /// </summary>
         public static bool IsLoadedMap
         {
-            get => AppSettings.GetValueOrDefault(LoadedMap, IsLoadedMapDefault);
-            set => AppSettings.AddOrUpdateValue(LoadedMap, value);
+            get => Preferences.Get(LoadedMap, IsLoadedMapDefault);
+            set => Preferences.Set(LoadedMap, value);
         }
 
         public static bool IsFirstPopup
         {
-            get => AppSettings.GetValueOrDefault(FistInstallPopup, FistInstallPopupDefault);
-            set => AppSettings.AddOrUpdateValue(FistInstallPopup, value);
+            get => Preferences.Get(FistInstallPopup, FistInstallPopupDefault);
+            set => Preferences.Set(FistInstallPopup, value);
         }
 
         public static string TempVersionName
         {
-            get => AppSettings.GetValueOrDefault(TempVersionNameKey, TempVersionNameKeyDefault);
-            set => AppSettings.AddOrUpdateValue(TempVersionNameKey, value);
+            get => Preferences.Get(TempVersionNameKey, TempVersionNameKeyDefault);
+            set => Preferences.Set(TempVersionNameKey, value);
         }
 
         public static int SortOrder
         {
-            get => AppSettings.GetValueOrDefault(SortOrderKey, SortOrderKeyDefault);
-            set => AppSettings.AddOrUpdateValue(SortOrderKey, value);
+            get => Preferences.Get(SortOrderKey, SortOrderKeyDefault);
+            set => Preferences.Set(SortOrderKey, value);
         }
 
         public static string CurrentTheme
         {
-            get => AppSettings.GetValueOrDefault(CurrentThemeKey, CurrentThemeDefault);
-            set => AppSettings.AddOrUpdateValue(CurrentThemeKey, value);
+            get => Preferences.Get(CurrentThemeKey, CurrentThemeDefault);
+            set => Preferences.Set(CurrentThemeKey, value);
         }
 
         public static string FavoritesVehicleImage
         {
-            get => AppSettings.GetValueOrDefault(FavoritesVehicleImageKey, FavoritesVehicleImageDefault);
-            set => AppSettings.AddOrUpdateValue(FavoritesVehicleImageKey, value);
+            get => Preferences.Get(FavoritesVehicleImageKey, FavoritesVehicleImageDefault);
+            set => Preferences.Set(FavoritesVehicleImageKey, value);
         }
 
         public static int ShowViewVehicleImage
         {
-            get => AppSettings.GetValueOrDefault(ShowViewVehicleImageKey, ShowViewVehicleImageDefault);
-            set => AppSettings.AddOrUpdateValue(ShowViewVehicleImageKey, value);
+            get => Preferences.Get(ShowViewVehicleImageKey, ShowViewVehicleImageDefault);
+            set => Preferences.Set(ShowViewVehicleImageKey, value);
         }
-        
+
+
+        public static int MapType
+        {
+            get => Preferences.Get(MapTypeKey, MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5 ? 2 : 0);
+            set => Preferences.Set(MapTypeKey, value);
+        }
     }
 }

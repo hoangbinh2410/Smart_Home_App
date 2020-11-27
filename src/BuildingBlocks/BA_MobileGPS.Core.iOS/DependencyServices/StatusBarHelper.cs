@@ -35,7 +35,7 @@ namespace BA_MobileGPS.Core.iOS.DependencyServices
             });
         }
 
-        UIViewController GetCurrentViewController()
+        private UIViewController GetCurrentViewController()
         {
             var window = UIApplication.SharedApplication.KeyWindow;
             var vc = window.RootViewController;

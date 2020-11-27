@@ -1,9 +1,9 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
+using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
-using BA_MobileGPS.Core.Views;
+using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -24,13 +24,12 @@ using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class RouteViewModel : ViewModelBase
+    public class RoutePageViewModel : TabbedPageChildVMBase
     {
         #region Contructor
 
         private readonly IGeocodeService geocodeService;
         private readonly IVehicleRouteService vehicleRouteService;
-        private readonly IDisplayMessage displayMessage;
 
         public ICommand TimeSelectedCommand { get; }
         public ICommand DateSelectedCommand { get; }
@@ -50,11 +49,10 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand FastEndCommand { get; }
         public ICommand ChangeSpeedCommand { get; }
 
-        public RouteViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService, IDisplayMessage displayMessage, IGeocodeService geocodeService)
+        public RoutePageViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService, IGeocodeService geocodeService)
            : base(navigationService)
         {
             this.vehicleRouteService = vehicleRouteService;
-            this.displayMessage = displayMessage;
             this.geocodeService = geocodeService;
 
             if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
@@ -69,11 +67,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 ColorMapType = (Color)App.Current.Resources["PrimaryColor"];
                 BackgroundMapType = (Color)App.Current.Resources["WhiteColor"];
             }
-
+            view = new StackLayout();
             TimeSelectedCommand = new Command<string>(TimeSelected);
             DateSelectedCommand = new Command<DateChangedEventArgs>(DateSelected);
             SearchVehicleCommand = new Command(SearchVehicle);
-            GetVehicleRouteCommand = new Command(GetVehicleRoute);
+            GetVehicleRouteCommand = new Command(ValidateUserConfigGetHistoryRoute);
             ViewListCommand = new Command(ViewList);
             ChangeMapTypeCommand = new Command(ChangeMapType);
             NavigateToSettingsCommand = new Command(NavigateToSettings);
@@ -87,9 +85,6 @@ namespace BA_MobileGPS.Core.ViewModels
             FastStartCommand = new Command(FastStart);
             FastEndCommand = new Command(FastEnd);
             ChangeSpeedCommand = new DelegateCommand(ChangeSpeed);
-            EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
-            EventAggregator.GetEvent<ThemeChangedEvent>().Subscribe(ThemeChanged);
-            EventAggregator.GetEvent<TabSelectedChangedEvent>().Subscribe(TabSelectedChanged);
         }
 
         #endregion Contructor
@@ -106,7 +101,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Vehicle = vehicle;
 
-                    GetVehicleRoute();
+                    ValidateUserConfigGetHistoryRoute();
                 }
                 else if (parameters.ContainsKey(ParameterKey.VehicleOnline) && parameters.GetValue<VehicleOnline>(ParameterKey.VehicleOnline) is VehicleOnline vehicleOnline)
                 {
@@ -118,34 +113,36 @@ namespace BA_MobileGPS.Core.ViewModels
                         VehiclePlate = vehicleOnline.VehiclePlate
                     };
 
-                    GetVehicleRoute();
+                    ValidateUserConfigGetHistoryRoute();
                 }
             }
         }
 
         public override void OnDestroy()
         {
+            //base.OnDestroy();
             if (ctsRouting != null)
                 ctsRouting.Cancel();
+        }
 
-            EventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
-            EventAggregator.GetEvent<ThemeChangedEvent>().Unsubscribe(ThemeChanged);
-            EventAggregator.GetEvent<TabSelectedChangedEvent>().Subscribe(TabSelectedChanged);
+        public override void OnIsActiveChanged(object sender, EventArgs e)
+        {
+            base.OnIsActiveChanged(sender, e);
+            if (!IsActive)
+            {
+                StopRoute();
+            }
         }
 
         #endregion Lifecycle
 
         #region Property
 
+        private View view;
         private CancellationTokenSource ctsRouting = new CancellationTokenSource();
         private CancellationTokenSource ctsAddress = new CancellationTokenSource();
 
-        private Polyline RouteLine;
-        private Polyline CurrentLine;
-
         private RouteHistoryResponse RouteHistory;
-
-        private Pin PinCar, PinPlate;
 
         public List<VehicleRoute> ListRoute { get; set; } = new List<VehicleRoute>();
 
@@ -162,8 +159,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ObservableCollection<Polyline> Polylines { get; set; } = new ObservableCollection<Polyline>();
 
-        public ObservableCollection<Polygon> Boundaries { get; set; } = new ObservableCollection<Polygon>();
-
         public MoveCameraRequest MoveCameraRequest { get; } = new MoveCameraRequest();
 
         public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
@@ -179,10 +174,13 @@ namespace BA_MobileGPS.Core.ViewModels
         private Color backgroundMapType = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
         public Color BackgroundMapType { get => backgroundMapType; set => SetProperty(ref backgroundMapType, value); }
 
-        private Color findCarColor = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
-        public Color FindCarColor { get => findCarColor; set => SetProperty(ref findCarColor, value); }
+        private Color colorTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
+        public Color ColorTrackingCar { get => colorTrackingCar; set => SetProperty(ref colorTrackingCar, value); }
 
-        private DateTime dateStart = DateTime.Today.Date;
+        private Color backgroundTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+        public Color BackgroundTrackingCar { get => backgroundTrackingCar; set => SetProperty(ref backgroundTrackingCar, value); }
+
+        private DateTime dateStart = DateTime.Now.Subtract(TimeSpan.FromHours(24));
         public DateTime DateStart { get => dateStart; set => SetProperty(ref dateStart, value); }
 
         private DateTime dateEnd = DateTime.Now;
@@ -196,7 +194,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public string PlayStopImage => IsPlaying ? "ic_stop_white" : "ic_play";
 
-        public int playSpeed = 4;
+        public int playSpeed = 2;
         public int PlaySpeed { get => playSpeed; set => SetProperty(ref playSpeed, value); }
 
         public int playMin = 0;
@@ -210,17 +208,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public bool playControlEnabled;
         public bool PlayControlEnabled { get => !playControlEnabled; set => SetProperty(ref playControlEnabled, value); }
-
-        private readonly double SPEED_MAX = 8;
-        private readonly double BASE_TIME = 250;
-
-        private readonly double MARKER_ROTATE_RATE = 0.1;
-        private double MARKER_ROTATE_STEP => 5;
-        private double MARKER_ROTATE_TIME_STEP => MARKER_ROTATE_RATE * BASE_TIME / PlaySpeed / MARKER_ROTATE_STEP;
-
-        private double MARKER_MOVE_RATE => 1 - MARKER_ROTATE_RATE;
-        private double MARKER_MOVE_STEP => 64 / PlaySpeed;
-        private double MARKER_MOVE_TIME_STEP => BASE_TIME / PlaySpeed / MARKER_MOVE_STEP;
+        private double SPEED_MAX = 8;
+        private int BaseTimeMoving = 800;
+        private int BaseTimeRotating = 250;
 
         private bool lastPlayStatus;
 
@@ -228,59 +218,37 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region PrivateMethod
 
-        private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
-        {
-            if (obj != null
-              && obj.Item2 != null
-              && obj.Item1 == ItemTabPageEnums.RoutePage
-              && obj.Item2.GetType() == typeof(VehicleOnline))
-            {
-                var vehicleOnline = (VehicleOnline)obj.Item2;
-                Vehicle = new Vehicle()
-                {
-                    GroupIDs = vehicleOnline.GroupIDs,
-                    PrivateCode = vehicleOnline.PrivateCode,
-                    VehicleId = vehicleOnline.VehicleId,
-                    VehiclePlate = vehicleOnline.VehiclePlate
-                };
-
-                // Gán lại thời gian
-                DateStart = DateTime.Today.Date;
-                DateEnd = DateTime.Now;
-
-                GetVehicleRoute();
-            }
-            else
-            {
-                StopRoute();
-            }
-        }
-
-        private void TabSelectedChanged(int obj)
-        {
-            StopRoute();
-        }
-
         private void TimeSelected(string args)
         {
-            if (double.TryParse(args, out double length) && length > 0)
+            SafeExecute(() =>
             {
-                DateEnd = DateTime.Now;
-                DateStart = DateEnd.Subtract(TimeSpan.FromHours(length));
-                GetVehicleRoute();
-            }
+                if (double.TryParse(args, out double length) && length > 0)
+                {
+                    DateEnd = DateTime.Now;
+                    DateStart = DateEnd.Subtract(TimeSpan.FromHours(length));
+                    if (Vehicle != null && Vehicle.VehicleId > 0)
+                    {
+                        ValidateUserConfigGetHistoryRoute();
+                    }
+                }
+                else
+                {
+                    DateStart = DateTime.Today.Date;
+                    DateEnd = DateTime.Now;
+                }
+            });
         }
 
         private void DateSelected(DateChangedEventArgs args)
         {
-            GetVehicleRoute();
+            ValidateUserConfigGetHistoryRoute();
         }
 
         private void ViewList()
         {
             if (ListRoute.Count <= 0)
             {
-                displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotExist, 3000);
+                DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotExist, 3000);
                 return;
             }
 
@@ -289,10 +257,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (ctsRouting != null)
                     ctsRouting.Cancel();
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/RouteListPage", useModalNavigation: true, parameters: new NavigationParameters
+                await NavigationService.NavigateAsync("BaseNavigationPage/RouteListPage", parameters: new NavigationParameters
                 {
                     { ParameterKey.VehicleRoute, ListRoute }
-                });
+                }, true, true);
             });
         }
 
@@ -316,7 +284,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("BaseNavigationPage/BoundaryPage", useModalNavigation: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/BoundaryPage", null, useModalNavigation: true, true);
             });
         }
 
@@ -324,33 +292,33 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (IsWatching)
             {
-                FindCarColor = (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor2"];
+                BackgroundTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
+                ColorTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
                 IsWatching = false;
-
-                if (IsPlaying)
-                {
-                    if (GetControl<Map>("map") is Map map)
-                        map.UiSettings.ZoomGesturesEnabled = true;
-                }
             }
             else
             {
-                FindCarColor = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+                BackgroundTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+                ColorTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
                 IsWatching = true;
 
-                if (PinCar != null)
+                if (CurrentRoute != null)
                 {
                     if (Device.RuntimePlatform == Device.iOS)
-                        MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(PinCar.Position, ZoomLevel)));
+                        MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(CurrentRoute.Latitude, CurrentRoute.Longitude), ZoomLevel)));
                     else
-                        MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(PinCar.Position));
+                        MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(new Position(CurrentRoute.Latitude, CurrentRoute.Longitude)));
                 }
+            }
+        }
 
-                if (IsPlaying)
-                {
-                    if (GetControl<Map>("map") is Map map)
-                        map.UiSettings.ZoomGesturesEnabled = false;
-                }
+        public void StopWatchVehicle()
+        {
+            if (IsWatching)
+            {
+                BackgroundTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
+                ColorTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+                IsWatching = false;
             }
         }
 
@@ -361,64 +329,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (ctsRouting != null)
                     ctsRouting.Cancel();
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", useModalNavigation: true, parameters: new NavigationParameters
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", parameters: new NavigationParameters
                 {
                     { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleRoute }
-                });
+                }, true, true);
             });
         }
 
-        private bool ValidateInput()
+        private void ValidateUserConfigGetHistoryRoute()
         {
-            if (string.IsNullOrWhiteSpace(Vehicle.VehiclePlate))
+            var currentCompany = Settings.CurrentCompany;
+            RunOnBackground(async () =>
             {
-                displayMessage.ShowMessageWarning(MobileResource.Route_Label_VehicleEmpty, 3000);
-                return false;
-            }
-
-            return true;
-        }
-
-        private void GetVehicleRoute()
-        {
-            if (IsBusy || !IsConnected || !ValidateInput())
-                return;
-
-            if (ctsRouting != null)
-                ctsRouting.Cancel();
-
-            if (ctsAddress != null)
-                ctsAddress.Cancel();
-
-            ListRoute.Clear();
-
-            //Polylines.Clear();
-
-            foreach (var line in Polylines.ToList().FindAll(l => !"Boundary".Equals(l.Tag)))
-            {
-                Polylines.Remove(line);
-            }
-
-            //Pins.Clear();
-
-            foreach (var pin in Pins.Where(p => !p.Tag.ToString().Contains("Boundary")).ToList())
-            {
-                Pins.Remove(pin);
-            }
-
-            CurrentRoute = null;
-            IsPlaying = false;
-            PlayCurrent = 0;
-            PlayControlEnabled = false;
-            DateKm = 0;
-
-            DependencyService.Get<IHUDProvider>().DisplayProgress("");
-
-            Task.Run(async () =>
-            {
-                var currentCompany = Settings.CurrentCompany;
-
-                var result = await vehicleRouteService.ValidateUserConfigGetHistoryRoute(new ValidateUserConfigGetHistoryRouteRequest
+                return await vehicleRouteService.ValidateUserConfigGetHistoryRoute(new ValidateUserConfigGetHistoryRouteRequest
                 {
                     UserId = currentCompany?.UserId ?? UserInfo.UserId,
                     CompanyId = currentCompany?.FK_CompanyID ?? CurrentComanyID,
@@ -427,99 +350,25 @@ namespace BA_MobileGPS.Core.ViewModels
                     ToDate = DateEnd,
                     AppID = (int)App.AppType
                 });
-
+            }, (result) =>
+            {
                 if (result != null && result.Success && result.State == ValidatedHistoryRouteState.Success)
                 {
-                    return await vehicleRouteService.GetHistoryRoute(new RouteHistoryRequest
-                    {
-                        UserId = currentCompany?.UserId ?? UserInfo.UserId,
-                        CompanyId = currentCompany?.FK_CompanyID ?? CurrentComanyID,
-                        VehiclePlate = Vehicle.VehiclePlate,
-                        FromDate = DateStart,
-                        ToDate = DateEnd,
-                    });
-                }
+                    if (ctsRouting != null)
+                        ctsRouting.Cancel();
+                    IsPlaying = false;
+                    if (ctsAddress != null)
+                        ctsAddress.Cancel();
 
-                if(result != null)
+                    GetHistoryRoute();
+                }
+                else
                 {
+                    ClearRoute();
+
                     ProcessUserConfigGetHistoryRoute(result);
                 }
-                return null;
-            }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
-            {
-                if (task.Status == TaskStatus.RanToCompletion)
-                {
-                    try
-                    {
-                        if (task.Result == null)
-                        {
-                            DependencyService.Get<IHUDProvider>().Dismiss();
-                            displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
-                            return;
-                        }
-
-                        RouteHistory = task.Result;
-
-                        DateKm = RouteHistory.DateKm / 1000;
-
-                        InitRoute();
-
-                        if (ListRoute.Count == 0)
-                        {
-                            DependencyService.Get<IHUDProvider>().Dismiss();
-                            displayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
-                            return;
-                        }
-
-                        if (ListRoute.Count == 1)
-                        {
-                            ListRoute.Add(ListRoute[0].DeepCopy());
-                        }
-
-                        if (ListRoute.Count >= 5)
-                        {
-                            InitDirection();
-                        }
-
-                        DrawRoute();
-
-                        Device.BeginInvokeOnMainThread(() =>
-                        {
-                            CurrentRoute = ListRoute[0];
-
-                            CurrentLine.Positions.Add(new Position(CurrentRoute.Latitude, CurrentRoute.Longitude));
-
-                            if (CurrentRoute.State != null && CurrentRoute.State.State == StateType.Stop)
-                            {
-                                DrawStopPoint(CurrentRoute);
-                            }
-
-                            //if (Device.RuntimePlatform == Device.iOS)
-                            //    MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude), ZoomLevel)));
-                            //else
-                            //    MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude)));
-                            MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude), ZoomLevel)));
-                        });
-
-                        PlayMax = ListRoute.Count - 1;
-                        PlayControlEnabled = true;
-
-                        RouteHistory = null;
-                    }
-                    catch (Exception ex)
-                    {
-                        PageDialog.DisplayAlertAsync("", ex.Message, MobileResource.Common_Button_OK);
-                        Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-                    }
-                }
-                else if (task.IsFaulted)
-                {
-                    PageDialog.DisplayAlertAsync("", task.Exception?.GetRootException().Message, MobileResource.Common_Button_OK);
-                    Logger.WriteError(MethodBase.GetCurrentMethod().Name, task.Exception?.GetRootException().Message);
-                }
-
-                DependencyService.Get<IHUDProvider>().Dismiss();
-            }));
+            });
         }
 
         private void ProcessUserConfigGetHistoryRoute(ValidateUserConfigGetHistoryRouteResponse result)
@@ -569,6 +418,64 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
+        private void GetHistoryRoute()
+        {
+            var currentCompany = Settings.CurrentCompany;
+            RunOnBackground(async () =>
+            {
+                return await vehicleRouteService.GetHistoryRoute(new RouteHistoryRequest
+                {
+                    UserId = currentCompany?.UserId ?? UserInfo.UserId,
+                    CompanyId = currentCompany?.FK_CompanyID ?? CurrentComanyID,
+                    VehiclePlate = Vehicle.VehiclePlate,
+                    FromDate = DateStart,
+                    ToDate = DateEnd,
+                });
+            }, (result) =>
+            {
+                if (result != null)
+                {
+                    try
+                    {
+                        ClearRoute();
+
+                        RouteHistory = result;
+
+                        DateKm = RouteHistory.DateKm / 1000;
+
+                        InitRoute();
+
+                        if (ListRoute.Count == 0)
+                        {
+                            DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
+                            return;
+                        }
+
+                        if (ListRoute.Count == 1)
+                        {
+                            ListRoute.Add(ListRoute[0].DeepCopy());
+                        }
+
+                        DrawRoute();
+
+                        PlayMax = ListRoute.Count - 1;
+
+                        PlayControlEnabled = true;
+
+                        RouteHistory = null;
+                    }
+                    catch (Exception)
+                    {
+                        PageDialog.DisplayAlertAsync("", "Không tải được dữ liệu", MobileResource.Common_Button_OK);
+                    }
+                }
+                else
+                {
+                    PageDialog.DisplayAlertAsync("", "Không tải được dữ liệu", MobileResource.Common_Button_OK);
+                }
+            }, showLoading: true);
+        }
+
         private void InitRoute()
         {
             try
@@ -589,8 +496,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     RouteHistory.TimePoints.AddedTimes.Add(RouteHistory.TimePoints.AddedTimes[0]);
                 }
 
-                var stopPoints = RouteHistory.StatePoints.FindAll(s => s.State == StateType.Stop);
-
                 var startTime = RouteHistory.TimePoints.StartTime;
 
                 void AddRoute(int index)
@@ -604,21 +509,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         Velocity = RouteHistory.VelocityPoints[index],
                         Time = startTime
                     };
-
-                    if (index == 0)
-                    {
-                        route.Heading1 = route.Heading2 = (float)GeoHelper.ComputeHeading(listLatLng[index].Latitude, listLatLng[index].Longitude, listLatLng[index + 1].Latitude, listLatLng[index + 1].Longitude);
-                    }
-                    else if (index <= listLatLng.Count - 1)
-                    {
-                        route.Heading2 = (float)GeoHelper.ComputeHeading(listLatLng[index - 1].Latitude, listLatLng[index - 1].Longitude, listLatLng[index].Latitude, listLatLng[index].Longitude);
-                    }
-
-                    if (ListRoute.Count > 0)
-                    {
-                        route.Heading1 = ListRoute[ListRoute.Count - 1].Heading2;
-                        route.DeltaAngle = GeoHelper.GetRotaion(route.Heading1, route.Heading2);
-                    }
 
                     ListRoute.Add(route);
                 }
@@ -652,124 +542,18 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private void InitDirection()
-        {
-            try
-            {
-                void AddDirection(int index)
-                {
-                    ListRoute[index].Direction = (float)GeoHelper.ComputeHeading(ListRoute[index].Latitude, ListRoute[index].Longitude, ListRoute[index + 1].Latitude, ListRoute[index + 1].Longitude);
-                }
-
-                for (int i = 1; i <= ListRoute.Count - 2; i++)
-                {
-                    if (!ListRoute.Exists(d => d.Direction != null && CalculateDistance(ListRoute[i].Latitude, ListRoute[i].Longitude, d.Latitude, d.Longitude) < 2))
-                    {
-                        AddDirection(i);
-                    }
-                    else
-                    {
-                        if (Math.Abs(ListRoute[i + 1].Heading2 - ListRoute[i].Heading2) >= 45
-                            && !ListRoute.Exists(d => d.Direction != null && CalculateDistance(ListRoute[i].Latitude, ListRoute[i].Longitude, d.Latitude, d.Longitude) < 0.5))
-                        {
-                            AddDirection(i);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                PageDialog.DisplayAlertAsync("Init Direction Error", ex.Message, MobileResource.Common_Button_OK);
-            }
-        }
-
         private double CalculateDistance(double lat1, double lng1, double lat2, double lng2)
         {
-            return Plugin.Geolocator.Abstractions.GeolocatorUtils.CalculateDistance(lat1, lng1, lat2, lng2, Plugin.Geolocator.Abstractions.GeolocatorUtils.DistanceUnits.Kilometers);
+            return GeoHelper.DistanceCalculatorCoordinate(lat1, lng1, lat2, lng2);
         }
 
         private void DrawRoute()
         {
-            PinCar = new Pin()
-            {
-                Type = PinType.Place,
-                Label = "pin_car",
-                Anchor = new Point(.5, .5),
-                Position = new Position(ListRoute[0].Latitude, ListRoute[0].Longitude),
-                Rotation = (float)ListRoute[0].Heading2,
-                Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
-                ZIndex = 2,
-                Tag = Vehicle.VehiclePlate,
-                IsDraggable = false
-            };
-            Pins.Add(PinCar);
-
-            PinPlate = new Pin()
-            {
-                Type = PinType.Place,
-                Label = "pin_plate",
-                Anchor = new Point(.5, .75),
-                Position = new Position(ListRoute[0].Latitude, ListRoute[0].Longitude),
-                Icon = BitmapDescriptorFactory.FromView(new PinInfowindowView(Vehicle.PrivateCode)),
-                ZIndex = 2,
-                Tag = Vehicle.VehiclePlate + "Plate",
-                IsDraggable = false
-            };
-
-            Pins.Add(PinPlate);
-
-            Pins.Add(new Pin()
-            {
-                Type = PinType.Place,
-                Label = "",
-                Position = new Position(ListRoute[0].Latitude, ListRoute[0].Longitude),
-                Icon = BitmapDescriptorFactory.FromResource("ic_start.png"),
-                ZIndex = 0,
-                Tag = "pin_start",
-                IsDraggable = false
-            });
-
-            Pins.Add(new Pin()
-            {
-                Type = PinType.Place,
-                Label = "",
-                Position = new Position(ListRoute[ListRoute.Count - 1].Latitude, ListRoute[ListRoute.Count - 1].Longitude),
-                Icon = BitmapDescriptorFactory.FromResource("ic_end.png"),
-                ZIndex = 0,
-                Tag = "pin_end",
-                IsDraggable = false
-            });
-
-            RouteLine = new Polyline
-            {
-                IsClickable = false,
-                StrokeColor = (Color)App.Current.Resources["TextSecondaryColor"],
-                StrokeWidth = 3f,
-                ZIndex = 1
-            };
-
-            RouteLine.Positions.Add(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude));
-
-            for (int i = 0; i < ListRoute.Count; i++)
-            {
-                RouteLine.Positions.Add(new Position(ListRoute[i].Latitude, ListRoute[i].Longitude));
-            }
-
-            CurrentLine = new Polyline
-            {
-                IsClickable = false,
-                StrokeColor = (Color)App.Current.Resources["PrimaryColor"],
-                StrokeWidth = 3f,
-                ZIndex = 2
-            };
-
-            CurrentLine.Positions.Add(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude));
-            CurrentLine.Positions.Add(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude));
-
-            Polylines.Add(RouteLine);
-            Polylines.Add(CurrentLine);
-
-            PlayStop();
+            DrawMarkerCar();
+            DrawMarkerStartEnd();
+            DrawDiretionMarker();
+            DrawLine();
+            StartRoute();
         }
 
         private string PinLabel(VehicleRoute vehicle)
@@ -789,25 +573,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Anchor = new Point(.5, .5),
                 Position = new Position(vehicle.Latitude, vehicle.Longitude),
                 Icon = BitmapDescriptorFactory.FromResource("ic_stop.png"),
-                Tag = "state_stop",
-                ZIndex = 4,
-                IsDraggable = false
-            };
-
-            Pins.Add(pin);
-        }
-
-        private void DrawDirection(VehicleRoute vehicle)
-        {
-            var pin = new Pin()
-            {
-                Type = PinType.Place,
-                Label = vehicle.Time.FormatDateTimeWithSecond(),
-                Anchor = new Point(.5, .5),
-                Position = new Position(vehicle.Latitude, vehicle.Longitude),
-                Rotation = vehicle.Direction ?? 0,
-                Icon = BitmapDescriptorFactory.FromResource("ic_arrow_tracking.png"),
-                Tag = "direction",
+                Tag = "state_stop_route",
                 ZIndex = 1,
                 IsDraggable = false
             };
@@ -815,16 +581,107 @@ namespace BA_MobileGPS.Core.ViewModels
             Pins.Add(pin);
         }
 
+        private void DrawMarkerCar()
+        {
+            var MarkerCar = new DoubleMarkerRoute().InitDoubleMarkerRoute(
+                        ListRoute[0].Latitude, ListRoute[0].Longitude, ListRoute[1].Latitude, ListRoute[1].Longitude, Vehicle.PrivateCode);
+            MarkerCar.DrawMarker();
+            Pins.Add(MarkerCar.Car);
+            Pins.Add(MarkerCar.Plate);
+        }
+
+        private void DrawMarkerStartEnd()
+        {
+            Pins.Add(new Pin()
+            {
+                Type = PinType.Place,
+                Label = "Bắt đầu",
+                Position = new Position(ListRoute[0].Latitude, ListRoute[0].Longitude),
+                Icon = BitmapDescriptorFactory.FromResource("ic_start.png"),
+                ZIndex = 0,
+                Tag = "pin_start_route",
+                IsDraggable = false
+            });
+
+            Pins.Add(new Pin()
+            {
+                Type = PinType.Place,
+                Label = "Kết thúc",
+                Position = new Position(ListRoute[ListRoute.Count - 1].Latitude, ListRoute[ListRoute.Count - 1].Longitude),
+                Icon = BitmapDescriptorFactory.FromResource("ic_end.png"),
+                ZIndex = 0,
+                Tag = "pin_end_route",
+                IsDraggable = false
+            });
+        }
+
+        private void DrawLine()
+        {
+            var line = new Polyline
+            {
+                IsClickable = false,
+                StrokeColor = Color.FromHex("#4285f4"),
+                StrokeWidth = 3f,
+                ZIndex = 1
+            };
+            line.Positions.Add(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude));
+
+            for (int i = 0; i < ListRoute.Count; i++)
+            {
+                line.Positions.Add(new Position(ListRoute[i].Latitude, ListRoute[i].Longitude));
+                if (ListRoute[i].State != null && ListRoute[i].State.State == StateType.Stop)
+                {
+                    DrawStopPoint(ListRoute[i]);
+                }
+            }
+            Polylines.Add(line);
+        }
+
+        /* Vẽ hướng cho lộ trình */
+
+        private void DrawDiretionMarker()
+        {
+            List<DirectionMarker> diretionList = new List<DirectionMarker>();
+            for (int i = 0; i < ListRoute.Count() - 1; i++)
+            {
+                diretionList.Add(new DirectionMarker().InitDirectionPoint(
+                        ListRoute[i].Latitude,
+                        ListRoute[i].Longitude,
+                        ListRoute[i + 1].Latitude,
+                        ListRoute[i + 1].Longitude,
+                        ListRoute[i].Time.FormatDateTimeWithSecond()));
+            }
+            // Lưu giá trị index được vẽ marker
+            int indexDraw = 0;
+            for (int i = 0; i < diretionList.Count() - 1; i++)
+            {
+                // Tính hướng tối thiểu
+                float phi = Math.Abs(diretionList[i].Direction
+                        - diretionList[i + 1].Direction) % 360;
+                float directionMin = phi > 180 ? 360 - phi : phi;
+                // Tính khoản cách tối thiểu
+                float distance = (float)GeoHelper.ComputeDistanceBetween(
+                        diretionList[indexDraw].Position.Latitude, diretionList[indexDraw].Position.Longitude,
+                        diretionList[indexDraw + 1].Position.Latitude, diretionList[indexDraw + 1].Position.Longitude);
+                if (directionMin > 30 || distance > 1200)
+                {
+                    var pin = diretionList[indexDraw].DrawPointDiretion();
+                    Pins.Add(pin);
+                    indexDraw = i + 1;
+                }
+            }
+        }
+
         private void PinClicked(PinClickedEventArgs args)
         {
-            if (!"state_stop".Equals(args.Pin.Tag) && !"direction".Equals(args.Pin.Tag))
+            if (!"state_stop_route".Equals(args.Pin.Tag) && !"direction_route".Equals(args.Pin.Tag))
             {
                 args.Handled = true;
                 return;
             }
 
-            args.Handled = true;
-
+            args.Handled = false;
+            StopWatchVehicle();
             if (ctsAddress != null)
                 ctsAddress.Cancel();
 
@@ -846,6 +703,57 @@ namespace BA_MobileGPS.Core.ViewModels
             args.Handled = false;
         }
 
+        private void ClearRoute()
+        {
+            if (ctsRouting != null)
+                ctsRouting.Cancel();
+            IsPlaying = false;
+            if (ctsAddress != null)
+                ctsAddress.Cancel();
+
+            if (ListRoute != null)
+                ListRoute.Clear();
+            if (Polylines != null)
+                Polylines.Clear();
+            if (Pins != null)
+                Pins.Clear();
+            PlayCurrent = 0;
+            PlayControlEnabled = false;
+            DateKm = 0;
+            CurrentRoute = null;
+        }
+
+        private void StartRoute()
+        {
+            try
+            {
+                if (ctsRouting != null)
+                    ctsRouting.Cancel();
+
+                ctsRouting = new CancellationTokenSource();
+
+                CurrentRoute = ListRoute[0];
+                var doubeMarker = Pins.Where(x => x.Label == Vehicle.PrivateCode).ToList();
+                if (doubeMarker != null && doubeMarker.Count > 1)
+                {
+                    MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(doubeMarker[0].Position, ZoomLevel)));
+
+                    SuperInteligent(doubeMarker[0], doubeMarker[1]);
+
+                    IsPlaying = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ctsRouting != null)
+                    ctsRouting.Cancel();
+
+                IsPlaying = false;
+
+                PageDialog.DisplayAlertAsync("", ex.Message, MobileResource.Common_Button_OK);
+            }
+        }
+
         private void PlayStop()
         {
             try
@@ -861,21 +769,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     ctsRouting = new CancellationTokenSource();
 
                     MoveToCurrent();
-
-                    SuperInteligent();
-
-                    IsPlaying = true;
-
-                    if (GetControl<Map>("map") is Map map)
-                        map.UiSettings.ZoomGesturesEnabled = false;
                 }
                 else
                 {
-                    if (ctsRouting != null)
-                        ctsRouting.Cancel();
-
-                    if (GetControl<Map>("map") is Map map)
-                        map.UiSettings.ZoomGesturesEnabled = true;
+                    StopRoute();
 
                     IsPlaying = false;
                 }
@@ -887,29 +784,22 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 IsPlaying = false;
 
-                if (GetControl<Map>("map") is Map map)
-                    map.UiSettings.ZoomGesturesEnabled = true;
-
                 PageDialog.DisplayAlertAsync("", ex.Message, MobileResource.Common_Button_OK);
             }
         }
 
         private void StopRoute()
         {
-
             if (IsPlaying)
             {
                 if (ctsRouting != null)
                     ctsRouting.Cancel();
 
-                if (GetControl<Map>("map") is Map map)
-                    map.UiSettings.ZoomGesturesEnabled = true;
-
                 IsPlaying = false;
             }
         }
 
-        private void SuperInteligent()
+        private void SuperInteligent(Pin item, Pin itemLable)
         {
             try
             {
@@ -917,166 +807,110 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 CurrentRoute = ListRoute[PlayCurrent];
 
-                Device.StartTimer(TimeSpan.FromMilliseconds(BASE_TIME / PlaySpeed), () =>
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    try
+                    RotateMarker(item, CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
                     {
-                        if (ctsRouting.IsCancellationRequested)
+                        MarkerAnimation(item, itemLable, CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
                         {
-                            return false;
-                        }
+                            if (PlayCurrent + 1 > PlayMax || ctsRouting.IsCancellationRequested)
+                            {
+                                IsPlaying = false;
+                                return;
+                            }
 
-                        CurrentLine.Positions.Add(new Position(CurrentRoute.Latitude, CurrentRoute.Longitude));
-
-                        if (CurrentRoute.Direction != null)
-                        {
-                            DrawDirection(CurrentRoute);
-                        }
-
-                        if (CurrentRoute.State != null && CurrentRoute.State.State == StateType.Stop)
-                        {
-                            DrawStopPoint(CurrentRoute);
-                        }
-
-                        return false;
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-                        return false;
-                    }
-                });
-
-                Rotate((rotated) =>
-                {
-                    MarkerAnimation(rotated, () =>
-                    {
-                        if (PlayCurrent + 1 > PlayMax || ctsRouting.IsCancellationRequested)
-                        {
-                            IsPlaying = false;
-
-                            if (GetControl<Map>("map") is Map map)
-                                map.UiSettings.ZoomGesturesEnabled = true;
-
-                            return;
-                        }
-
-                        SuperInteligent();
+                            SuperInteligent(item, itemLable);
+                        });
                     });
                 });
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
-        private async void Rotate(Action<bool> callback = null)
+        public bool IsRunning = false;
+
+        public void RotateMarker(Pin item, double latitude,
+           double longitude,
+           Action callback)
         {
-            try
+            // * tính góc quay giữa 2 điểm location
+            var angle = GeoHelper.ComputeHeading(item.Position.Latitude, item.Position.Longitude, latitude, longitude);
+            if (angle == 0)
             {
-                if (-10 <= CurrentRoute.DeltaAngle && CurrentRoute.DeltaAngle <= 10)
-                {
-                    PinCar.Rotation = (float)CurrentRoute.Heading2;
-                    callback?.Invoke(false);
-                    return;
-                }
-
-                int rotateIndex = 1;
-
-                while (rotateIndex <= MARKER_ROTATE_STEP && !ctsRouting.IsCancellationRequested)
-                {
-                    PinCar.Rotation = (float)GeoHelper.ComputeRotation(rotateIndex / MARKER_ROTATE_STEP, CurrentRoute.Heading1, CurrentRoute.DeltaAngle);
-
-                    await Task.Delay(TimeSpan.FromMilliseconds(MARKER_ROTATE_TIME_STEP));
-
-                    rotateIndex++;
-                }
-
-                callback?.Invoke(true);
+                callback();
+                return;
             }
-            catch (Exception ex)
+            var startRotaion = item.Rotation;
+            //tính lại độ lệch góc
+            var deltaAngle = GeoHelper.GetRotaion(startRotaion, angle);
+            void callbackanimate(double input)
             {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                var fractionAngle = GeoHelper.ComputeRotation(
+                                     input,
+                                      startRotaion,
+                                      deltaAngle);
+
+                item.Rotation = (float)fractionAngle;
             }
+            view.Animate(
+                "rotateCarRoute",
+                animation: new Animation(callbackanimate),
+                length: (uint)(BaseTimeRotating / PlaySpeed),
+
+                finished: (val, b) =>
+                {
+                    callback();
+                }
+                );
         }
 
-        private async void MarkerAnimation(bool isRotated, Action callback = null)
+        public void MarkerAnimation(Pin item, Pin itemLable, double latitude, double longitude, Action callback)
         {
-            try
+            if (this.IsRunning)
             {
-                double moveTime = isRotated ? MARKER_MOVE_RATE * MARKER_MOVE_TIME_STEP : MARKER_MOVE_TIME_STEP;
-
-                double dLat = (CurrentRoute.Latitude - PinCar.Position.Latitude) / MARKER_MOVE_STEP;
-                double dLng = (CurrentRoute.Longitude - PinCar.Position.Longitude) / MARKER_MOVE_STEP;
-                double animateIndex = 1;
-
-                while (animateIndex <= MARKER_MOVE_STEP && !ctsRouting.IsCancellationRequested)
+                callback();
+            }
+            else
+            {
+                IsRunning = true;
+                var startPosition = new Position(item.Position.Latitude, item.Position.Longitude);
+                var finalPosition = new Position(latitude, longitude);
+                void callbackanimate(double input)
                 {
-                    PinCar.Position = new Position(PinCar.Position.Latitude + dLat, PinCar.Position.Longitude + dLng);
-                    PinPlate.Position = PinCar.Position;
-
-                    if (IsWatching && !ctsRouting.IsCancellationRequested)
+                    var postionnew = GeoHelper.LinearInterpolator(input,
+                        startPosition,
+                        finalPosition);
+                    itemLable.Position = postionnew;
+                    item.Position = postionnew;
+                    if (Device.RuntimePlatform == Device.iOS)
                     {
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                        AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(PinCar.Position), TimeSpan.FromMilliseconds(moveTime));
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                        if (IsWatching && !ctsRouting.IsCancellationRequested)
+                        {
+                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(postionnew), TimeSpan.FromMilliseconds(1000 / PlaySpeed));
+                        }
                     }
-
-                    await Task.Delay(TimeSpan.FromMilliseconds(moveTime));
-
-                    animateIndex++;
                 }
-
-                callback?.Invoke();
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-        }
-
-        private void DrawToCurrent()
-        {
-            if (ctsAddress != null)
-                ctsAddress.Cancel();
-
-            ctsAddress = new CancellationTokenSource();
-
-            Polylines.Remove(CurrentLine);
-
-            CurrentLine = new Polyline
-            {
-                IsClickable = false,
-                StrokeColor = (Color)App.Current.Resources["PrimaryColor"],
-                StrokeWidth = 3f,
-                ZIndex = 2
-            };
-
-            foreach (var pin in Pins.ToList().FindAll(p => (p != PinCar && p != PinPlate) && (!"pin_car".Equals(p.Label) && !"pin_plate".Equals(p.Label)) && ("direction".Equals(p.Tag) || "state_stop".Equals(p.Tag))))
-            {
-                Pins.Remove(pin);
-            }
-
-            CurrentLine.Positions.Add(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude));
-            CurrentLine.Positions.Add(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude));
-
-            for (int i = 0; i <= PlayCurrent; i++)
-            {
-                CurrentLine.Positions.Add(new Position(ListRoute[i].Latitude, ListRoute[i].Longitude));
-
-                if (ListRoute[i].State != null && ListRoute[i].State.State == StateType.Stop)
+                view.Animate(
+                "moveCarRoute",
+                animation: new Animation(callbackanimate),
+                length: (uint)(BaseTimeMoving / PlaySpeed),
+                finished: (val, b) =>
                 {
-                    DrawStopPoint(ListRoute[i]);
+                    if (Device.RuntimePlatform == Device.Android)
+                    {
+                        if (IsWatching && !ctsRouting.IsCancellationRequested)
+                        {
+                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPosition(item.Position), TimeSpan.FromMilliseconds(300));
+                        }
+                    }
+                    IsRunning = false;
+                    callback();
                 }
-
-                if (ListRoute[i].Direction != null)
-                {
-                    DrawDirection(ListRoute[i]);
-                }
+                );
             }
-
-            Polylines.Add(CurrentLine);
         }
 
         private void DragStarted()
@@ -1091,8 +925,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                MoveToCurrent();
-
                 if (lastPlayStatus)
                 {
                     PlayStop();
@@ -1110,25 +942,26 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 CurrentRoute = ListRoute[PlayCurrent];
-
-                DrawToCurrent();
-
-                if (PlayCurrent > 0)
+                var doubeMarker = Pins.Where(x => x.Label == Vehicle.PrivateCode).ToList();
+                if (doubeMarker != null && doubeMarker.Count > 1)
                 {
-                    PinCar.Rotation = (float)GeoHelper.ComputeHeading(ListRoute[PlayCurrent - 1].Latitude, ListRoute[PlayCurrent - 1].Longitude, CurrentRoute.Latitude, CurrentRoute.Longitude);
-                }
-                else
-                {
-                    PinCar.Rotation = (float)GeoHelper.ComputeHeading(CurrentRoute.Latitude, CurrentRoute.Longitude, ListRoute[PlayCurrent + 1].Latitude, ListRoute[PlayCurrent + 1].Longitude);
-                }
+                    if (PlayCurrent > 0)
+                    {
+                        doubeMarker[0].Rotation = (float)GeoHelper.ComputeHeading(ListRoute[PlayCurrent - 1].Latitude, ListRoute[PlayCurrent - 1].Longitude, CurrentRoute.Latitude, CurrentRoute.Longitude);
+                    }
+                    else
+                    {
+                        doubeMarker[0].Rotation = (float)GeoHelper.ComputeHeading(CurrentRoute.Latitude, CurrentRoute.Longitude, ListRoute[PlayCurrent + 1].Latitude, ListRoute[PlayCurrent + 1].Longitude);
+                    }
+                    doubeMarker[0].Position = new Position(CurrentRoute.Latitude, CurrentRoute.Longitude);
+                    doubeMarker[1].Position = doubeMarker[0].Position;
 
-                PinCar.Position = new Position(CurrentRoute.Latitude, CurrentRoute.Longitude);
-                PinPlate.Position = PinCar.Position;
+                    MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(doubeMarker[0].Position));
 
-                if (Device.RuntimePlatform == Device.iOS)
-                    MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(PinCar.Position, ZoomLevel)));
-                else
-                    MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(PinCar.Position));
+                    SuperInteligent(doubeMarker[0], doubeMarker[1]);
+
+                    IsPlaying = true;
+                }
             }
             catch (Exception ex)
             {
@@ -1180,21 +1013,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 PlaySpeed *= 2;
             }
-        }
-
-        private void ThemeChanged()
-        {
-            ColorMapType = MapType == MapType.Street
-                ? (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"]
-                : (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
-
-            BackgroundMapType = MapType == MapType.Street
-                ? (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"]
-                : (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
-
-            FindCarColor = IsWatching
-                ? (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor2"]
-                : (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
         }
 
         #endregion PrivateMethod

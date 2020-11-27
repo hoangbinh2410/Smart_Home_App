@@ -3,25 +3,46 @@
     x:Class="BA_MobileGPS.Core.Views.CameraManagingPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:abstractions="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
-    xmlns:local="clr-namespace:BA_MobileGPS.Core.Views.Camera.MonitoringCamera"
+    xmlns:indicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
+    x:Name="root"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.HasBackButton="False"
     NavigationPage.HasNavigationBar="{Binding IsFullScreenOff}">
     <ContentPage.Resources>
         <converter:HasDataBackgroundColorConverter x:Key="HasDataBackgroundColorConverter" />
         <converter:HasDataIconColorConverter x:Key="HasDataIconColorConverter" />
+        <converter:CameraChanelNameConverter x:Key="CameraChanelNameConverter" />
         <converter:ShowHideColumnConverter x:Key="ShowHideColumnConverter" />
-        <converter:CameraNameConverter x:Key="CameraNameConverter" />
         <converter:NumberToTimeConverter x:Key="NumberToTimeConverter" />
-        <converter:TimeRemainVisibleConverter x:Key="TimeRemainVisibleConverter" />
+
+        <Style x:Key="cameraTextFrame" TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="CornerRadius" Value="2" />
+            <Setter Property="HorizontalOptions" Value="Start" />
+            <Setter Property="VerticalOptions" Value="Start" />
+            <Setter Property="Padding" Value="6,2" />
+            <Setter Property="Margin" Value="5,5,0,0" />
+        </Style>
+        <Style TargetType="indicator:SfBusyIndicator">
+            <Setter Property="AnimationType" Value="Cupertino" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="EnableAnimation" Value="True" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="ViewBoxHeight" Value="35" />
+            <Setter Property="ViewBoxWidth" Value="35" />
+            <Setter Property="Duration" Value="0.8" />
+        </Style>
     </ContentPage.Resources>
     <NavigationPage.TitleView>
         <Grid VerticalOptions="Center">
@@ -38,15 +59,12 @@
             <Label
                 HorizontalOptions="Center"
                 StyleClass="GroupTitleLabel,BoldText"
-                Text="Xem trực tuyến"
+                Text="{i18n:TranslateResource Camera_Title_Camera_Streaming}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
         </Grid>
     </NavigationPage.TitleView>
-    <Grid
-        BackgroundColor="White"
-        RowDefinitions="Auto,Auto,*,Auto"
-        RowSpacing="0">
+    <Grid RowDefinitions="Auto,Auto,*,Auto" RowSpacing="0">
         <!--  Search area  -->
         <Grid
             Padding="10,0"
@@ -58,7 +76,6 @@
                 Padding="0"
                 BackgroundColor="{DynamicResource WhiteColor}"
                 CornerRadius="22"
-                HasShadow="True"
                 HeightRequest="45"
                 VerticalOptions="Center">
                 <pancake:PancakeView.Shadow>
@@ -68,7 +85,7 @@
                         Color="Black" />
                 </pancake:PancakeView.Shadow>
                 <pancake:PancakeView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                    <TapGestureRecognizer Command="{Binding SelectVehicleCameraCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
                 <StackLayout
                     Padding="0"
@@ -89,7 +106,7 @@
                         HorizontalOptions="FillAndExpand"
                         InputTransparent="True"
                         PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                        Text="{Binding VehicleSelectedPlate}"
+                        Text="{Binding Vehicle.PrivateCode}"
                         TextColor="{DynamicResource TextPrimaryColor}"
                         VerticalOptions="Center">
                         <Entry.Effects>
@@ -132,12 +149,117 @@
             <Label
                 HorizontalOptions="Start"
                 StyleClass="GroupTitleLabel,BoldText"
-                Text="{Binding VehicleSelectedPlate}"
+                Text="{Binding Vehicle.PrivateCode}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
         </Grid>
         <!--  Camera  -->
-        <Grid x:Name="cameraPanel" Grid.Row="2" />
+        <Grid x:Name="cameraPanel" Grid.Row="2">
+            <StackLayout
+                x:Name="parent"
+                BindableLayout.ItemsSource="{Binding ItemsSource}"
+                PropertyChanged="parent_PropertyChanged"
+                Spacing="1"
+                VerticalOptions="FillAndExpand">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout
+                            BindableLayout.ItemsSource="{Binding ChildSource}"
+                            HeightRequest="{Binding Height}"
+                            Orientation="Horizontal"
+                            Spacing="1">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid
+                                        BackgroundColor="Black"
+                                        HeightRequest="{Binding Height}"
+                                        WidthRequest="{Binding Width}">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="TapGestureRecognizer_Tapped" />
+                                        </Grid.GestureRecognizers>
+                                        <vlc:VideoView
+                                            x:Name="cam"
+                                            InputTransparent="True"
+                                            MediaPlayer="{Binding MediaPlayer}" />
+                                        <Frame
+                                            x:Name="frCam"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="{DynamicResource WhiteColor}"
+                                            InputTransparent="True"
+                                            Style="{StaticResource cameraTextFrame}">
+                                            <Frame.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding IsSelected}"
+                                                    TargetType="Frame"
+                                                    Value="true">
+                                                    <Setter Property="BorderColor" Value="#0C852E" />
+                                                </DataTrigger>
+                                            </Frame.Triggers>
+                                            <Label
+                                                Text="{Binding Data.Channel, Converter={StaticResource CameraChanelNameConverter}, Mode=OneWay}"
+                                                TextColor="{Binding Source={x:Reference frCam}, Path=BorderColor, Mode=OneWay}"
+                                                VerticalOptions="Center" />
+                                        </Frame>
+                                        <indicator:SfBusyIndicator IsBusy="{Binding IsLoaded, Converter={StaticResource ShowHideColumnConverter}}" />
+                                        <Grid
+                                            x:Name="errGrid"
+                                            BackgroundColor="#33FFFFFF"
+                                            InputTransparent="True">
+                                            <Grid.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding IsSelected}"
+                                                    TargetType="Grid"
+                                                    Value="true">
+                                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                                </DataTrigger>
+                                                <DataTrigger
+                                                    Binding="{Binding IsError}"
+                                                    TargetType="Grid"
+                                                    Value="True">
+                                                    <Setter Property="BackgroundColor" Value="Black" />
+                                                    <Setter Property="InputTransparent" Value="False" />
+                                                </DataTrigger>
+                                            </Grid.Triggers>
+                                            <StackLayout
+                                                HorizontalOptions="Center"
+                                                IsVisible="False"
+                                                VerticalOptions="Center">
+                                                <icons:IconView
+                                                    Foreground="{DynamicResource WhiteColor}"
+                                                    HeightRequest="25"
+                                                    Source="ic_reload"
+                                                    WidthRequest="25" />
+                                                <abstractions:HtmlLabel
+                                                    x:Name="lblErr"
+                                                    FontSize="13"
+                                                    HorizontalOptions="Center"
+                                                    HorizontalTextAlignment="Center"
+                                                    LineBreakMode="TailTruncation"
+                                                    LineHeight="1.1"
+                                                    MaxLines="2"
+                                                    Text="{Binding ErrorMessenger}"
+                                                    TextColor="{DynamicResource WhiteColor}" />
+                                                <StackLayout.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding Source={x:Reference errGrid}, Path=BackgroundColor}"
+                                                        TargetType="StackLayout"
+                                                        Value="Black">
+                                                        <Setter Property="IsVisible" Value="True" />
+                                                    </DataTrigger>
+                                                </StackLayout.Triggers>
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ReLoadCommand}" CommandParameter="{Binding .}" />
+                                                </StackLayout.GestureRecognizers>
+                                            </StackLayout>
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </Grid>
         <StackLayout
             x:Name="noDataImage"
             Grid.Row="2"
@@ -145,7 +267,6 @@
             HorizontalOptions="Center"
             Spacing="10"
             VerticalOptions="Center">
-
             <!--  Image for display svg image  -->
             <ffsvg:SvgCachedImage
                 BackgroundColor="Transparent"
@@ -175,7 +296,7 @@
                         <Label
                             x:Name="lblCamName"
                             StyleClass="BoldText"
-                            Text="{Binding SelectedCamera, Converter={StaticResource CameraNameConverter}}"
+                            Text="{Binding SelectedItem.Data.Channel, Converter={StaticResource CameraChanelNameConverter}}"
                             TextColor="{DynamicResource WhiteColor}" />
                         <ff:CachedImage
                             Margin="20,0,0,0"
@@ -344,27 +465,9 @@
                             IsVisible="{Binding AutoAddTime, Converter={StaticResource ShowHideColumnConverter}}"
                             WidthRequest="45">
                             <Label
-                                IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM1}}"
+                                IsVisible="True"
                                 StyleClass="BoldText"
-                                Text="{Binding TotalTimeCam1, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
-                                TextColor="White"
-                                VerticalOptions="Center" />
-                            <Label
-                                IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM2}}"
-                                StyleClass="BoldText"
-                                Text="{Binding TotalTimeCam2, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
-                                TextColor="White"
-                                VerticalOptions="Center" />
-                            <Label
-                                IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM3}}"
-                                StyleClass="BoldText"
-                                Text="{Binding TotalTimeCam3, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
-                                TextColor="White"
-                                VerticalOptions="Center" />
-                            <Label
-                                IsVisible="{Binding SelectedCamera, Mode=OneWay, Converter={StaticResource TimeRemainVisibleConverter}, ConverterParameter={x:Static local:CameraEnum.CAM4}}"
-                                StyleClass="BoldText"
-                                Text="{Binding TotalTimeCam4, Converter={StaticResource NumberToTimeConverter}, Mode=OneWay}"
+                                Text="{Binding TotalTime, Converter={StaticResource NumberToTimeConverter}, Mode=TwoWay}"
                                 TextColor="White"
                                 VerticalOptions="Center" />
                         </Grid>

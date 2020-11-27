@@ -32,7 +32,30 @@ namespace BA_MobileGPS.Core
             return default;
         }
     }
+    public class DateTimeViewConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string result = string.Empty;
 
+            if (value is DateTime date1)
+            {
+                return (string)parameter == "ToLocal" ? date1.ToLocalTime().ToString("HH:mm dd/MM/yyyy") : date1.FormatDateTime();
+            }
+
+            if (value is DateTimeOffset date2)
+            {
+                return (string)parameter == "ToLocal" ? date2.DateTime.ToLocalTime().ToString("HH:mm dd/MM/yyyy") : date2.DateTime.FormatDateTime();
+            }
+
+            return result;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return default;
+        }
+    }
     public class DateConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -351,16 +374,28 @@ namespace BA_MobileGPS.Core
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is int result))
+            var res = string.Empty;
+            if (value == null)
             {
-                return "";
+                return res;
             }
             else
             {
-                TimeSpan t = TimeSpan.FromSeconds(result);
-                return  string.Format("{0:D2}:{1:D2}",
-                    t.Minutes,
-                    t.Seconds);               
+                
+                try
+                {
+                    var result = System.Convert.ToInt32(value);
+                    TimeSpan t = TimeSpan.FromSeconds(result);
+                    res= string.Format("{0:D2}:{1:D2}",
+                        t.Minutes,
+                        t.Seconds);
+                }
+                catch (Exception)
+                {
+
+                 
+                }
+                return res;
             }
         }
 

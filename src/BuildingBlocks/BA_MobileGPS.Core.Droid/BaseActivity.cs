@@ -7,7 +7,6 @@ using Plugin.Permissions;
 using Prism;
 using Prism.Ioc;
 using Rg.Plugins.Popup.Services;
-using Shiny;
 
 namespace BA_MobileGPS.Core.Droid
 {
@@ -17,7 +16,7 @@ namespace BA_MobileGPS.Core.Droid
         {
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
-            AndroidShinyHost.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            //AndroidShinyHost.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }

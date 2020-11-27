@@ -1,10 +1,9 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
-using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
 using BA_MobileGPS.Service;
@@ -12,7 +11,7 @@ using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
-
+using Prism.Navigation.TabbedPages;
 using Syncfusion.Data.Extensions;
 
 using System;
@@ -38,7 +37,7 @@ namespace BA_MobileGPS.Core.ViewModels
         DefaultDES
     }
 
-    public class ListVehiclePageViewModel : ViewModelBase
+    public class ListVehiclePageViewModel : TabbedPageChildVMBase
     {
         private CancellationTokenSource cts;
 
@@ -49,15 +48,13 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SelectStatusVehicleCommand { get; private set; }
 
         private readonly IMapper _mapper;
-        private readonly IVehicleOnlineService vehicleOnlineService;
         private readonly IGeocodeService geocodeService;
         private readonly IPopupServices popupServices;
 
-        public ListVehiclePageViewModel(INavigationService navigationService, IMapper mapper, IVehicleOnlineService vehicleOnlineService, IGeocodeService geocodeService, IPopupServices popupServices)
+        public ListVehiclePageViewModel(INavigationService navigationService, IMapper mapper, IGeocodeService geocodeService, IPopupServices popupServices)
             : base(navigationService)
         {
             this._mapper = mapper;
-            this.vehicleOnlineService = vehicleOnlineService;
             this.geocodeService = geocodeService;
             this.popupServices = popupServices;
             ShowHelpCommand = new DelegateCommand(ShowHelp);
@@ -69,7 +66,6 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(OnReceiveSendCarSignalR);
             EventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
             EventAggregator.GetEvent<SelectedCompanyEvent>().Subscribe(OnCompanyChanged);
-
         }
 
         #region Lifecycle
@@ -118,15 +114,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else if (action == "Video")
                 {
-
                     GotoVideoPage(currentVehicle);
                 }
             }
-        }
-
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
         }
 
         public override void OnDestroy()
@@ -211,8 +201,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public string searchedText;
         public string SearchedText { get => searchedText; set => SetProperty(ref searchedText, value); }
-
-
 
         #endregion Property
 
@@ -351,6 +339,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     vehicle.TotalKm = carInfo.TotalKm;
                 }
+                vehicle.Temperature = carInfo.Temperature;
                 vehicle.StatusEngineer = carInfo.StatusEngineer;
                 vehicle.IconImage = IconCodeHelper.GetMarkerResource(carInfo);
 
@@ -383,7 +372,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("ListVehicleHelpPage", useModalNavigation: true);
+                await NavigationService.NavigateAsync("ListVehicleHelpPage", null, useModalNavigation: true, true);
             });
         }
 
@@ -515,10 +504,11 @@ namespace BA_MobileGPS.Core.ViewModels
                         return;
                     }
                     currentVehicle = selected;
+
                     await NavigationService.NavigateAsync("DetailVehiclePopup", parameters: new NavigationParameters
                         {
                             { "vehicleItem",  selected.PrivateCode}
-                        });
+                        }, true, true);
                 }
             });
         }
@@ -558,25 +548,55 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.CarDetail, param }
                 };
 
-                var a = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, useModalNavigation: true);
+                var a = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, useModalNavigation: true, true);
             });
         }
 
         public void GoRoutePage(VehicleOnlineViewModel selected)
         {
-            SafeExecute(() =>
+            SafeExecute(async () =>
             {
                 var param = _mapper.MapProperties<VehicleOnline>(selected);
-                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, param));
+                var parameters = new NavigationParameters
+                {
+                    { ParameterKey.VehicleOnline, param }
+                };
+
+                await NavigationService.SelectTabAsync("RoutePage", parameters);
             });
         }
 
         public void GoOnlinePage(VehicleOnlineViewModel selected)
         {
-            SafeExecute(() =>
+            SafeExecute(async () =>
             {
-                var param = _mapper.MapProperties<VehicleOnline>(selected);
-                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.OnlinePage, param));
+                var param = _mapper.MapProperties<Vehicle>(selected);
+                var parameters = new NavigationParameters
+                {
+                    { ParameterKey.Vehicle, param }
+                };
+                if (App.AppType == AppType.Moto)
+                {
+                    if (MobileUserSettingHelper.EnableShowCluster)
+                    {
+                        await NavigationService.SelectTabAsync("OnlinePageMoto", parameters);
+                    }
+                    else
+                    {
+                        await NavigationService.SelectTabAsync("OnlinePageNoClusterMoto", parameters);
+                    }
+                }
+                else
+                {
+                    if (MobileUserSettingHelper.EnableShowCluster)
+                    {
+                        await NavigationService.SelectTabAsync("OnlinePage", parameters);
+                    }
+                    else
+                    {
+                        await NavigationService.SelectTabAsync("OnlinePageNoCluster", parameters);
+                    }
+                }
             });
         }
 
@@ -599,7 +619,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.Vehicle, param }
                 };
 
-                await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true);
+                await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true, true);
             });
         }
 
@@ -613,7 +633,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.Vehicle, param }
                 };
 
-                await NavigationService.NavigateAsync("NavigationPage/ChartFuelReportPage", parameters, true);
+                await NavigationService.NavigateAsync("NavigationPage/ChartFuelReportPage", parameters, true, true);
             });
         }
 
@@ -631,7 +651,7 @@ namespace BA_MobileGPS.Core.ViewModels
                           { ParameterKey.Vehicle, param }
                      };
 
-                    await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true);
+                    await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
                 }
             });
         }

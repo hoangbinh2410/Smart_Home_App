@@ -47,7 +47,7 @@
                             <controls:IconView Source="ic_turnon_time_on_day.png" />
                             <Label
                                 FontSize="12"
-                                Text="{Binding GPSTime, Converter={StaticResource DateTimeConverter}}"
+                                Text="{Binding VehicleTime, Converter={StaticResource DateTimeConverter}}"
                                 VerticalOptions="Center" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" Spacing="10">
@@ -76,13 +76,32 @@
                     </StackLayout>
                 </Grid>
                 <StackLayout>
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <controls:IconView Source="ic_parking.png" />
-                        <Label
-                            FontSize="12"
-                            Text="{Binding StopTime, Converter={StaticResource MinutesToStringShortConverter}}"
-                            VerticalOptions="Center" />
-                    </StackLayout>
+                    <Grid
+                        ColumnDefinitions="*,100"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                        <StackLayout
+                            Grid.Column="0"
+                            Orientation="Horizontal"
+                            Spacing="10">
+                            <controls:IconView Source="ic_parking.png" />
+                            <Label
+                                FontSize="12"
+                                Text="{Binding StopTimeView, Converter={StaticResource MinutesToStringShortConverter}}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                        <StackLayout
+                            Grid.Column="1"
+                            IsVisible="{Binding Temperature, Converter={StaticResource StringToBoolConverter}}"
+                            Orientation="Horizontal"
+                            Spacing="10">
+                            <controls:IconView Source="ic_temperature.png" />
+                            <Label
+                                FontSize="12"
+                                Text="{Binding Temperature}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </Grid>
 
                     <StackLayout
                         IsVisible="{Binding CurrentAddress, Converter={StaticResource StringToBoolConverter}}"

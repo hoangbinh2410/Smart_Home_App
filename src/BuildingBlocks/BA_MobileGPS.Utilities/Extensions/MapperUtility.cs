@@ -59,14 +59,7 @@ namespace BA_MobileGPS.Utilities.Extensions
 
                     if (destinationProperty != null)
                     {
-                        try
-                        {
-                            destinationProperty.SetValue(destination, sourceProperty.GetValue(source, null), null);
-                        }
-                        catch (Exception ex)
-                        {
-
-                        }
+                        destinationProperty.SetValue(destination, sourceProperty.GetValue(source, null), null);
                     }
                 }
             }

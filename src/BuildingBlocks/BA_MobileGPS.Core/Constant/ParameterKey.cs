@@ -4,7 +4,6 @@
     {
         public const string ImageLocation = "ImageLocation";
         public const string ImageStream = "ImageStream";
-        public const string TabIndex = "TabIndex";
         public const string CarDetail = "CarDetail";
         public const string VehicleOnline = "VehicleOnline";
         public const string VehiclePlate = "VehiclePlate";
@@ -25,36 +24,23 @@
         public const string VehicleLookUpType = "VehicleLookUpType";
         public const string ListImageCamera = "ListImageCamera";
         public const string ImageCamera = "ImageCamera";
-        public const string Position = "Position";
         public const string Landmark = "Landmark";
-
-        public const string User = "User";
         public const string Message = "Message";
-
         public const string FishTrip = "FishTrip";
         public const string Fish = "Fish";
-
         public const string VehicleGroupsSelected = "VehicleGroupsSelected";
-
         public const string HelperKey = "HelperKey";
         public const string NotificationKey = "NotificationKey";
         public const string NotificationForm = "NotificationForm";
-
         public const string PageMode = "PageMode";
-
-        public const string OnlinePage = "OnlinePage";
-        public const string VerifyOTP = "VerifyOTP";
-
         public const string ShipDetail = "ShipDetail";
-        public const string RedirectDebtBlock = "RedirectDebtBlock";
-
         public const string AlertCompanyConfig = "AlertCompanyConfig";
         public const string AlertVehicleConfig = "AlertVehicleConfig";
-
         public const string RequestTime = "RequestTime";
-        public const string CurrentRemainTime = "CurrentRemainTime";
         public const string Logout = "Logout";
         public const string VehicleStatusSelected = "VehicleStatusSelected";
+        public const string ChangeLanguge = "ChangeLanguge";
+        public const string SelectRangeDateTime = "SelectRangeDateTime";
         
     }
 }

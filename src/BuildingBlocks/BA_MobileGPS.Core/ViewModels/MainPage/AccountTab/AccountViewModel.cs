@@ -1,6 +1,6 @@
 ﻿using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 
 using Prism.Commands;
@@ -20,25 +20,34 @@ using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class AccountViewModel : ViewModelBase
+    public class AccountViewModel : TabbedPageChildVMBase
     {
         private string appVersion;
         public string AppVersion { get => appVersion; set => SetProperty(ref appVersion, value); }
+
+        private bool isShowPhoneNumber;
+        public bool IsShowPhoneNumber { get => isShowPhoneNumber; set => SetProperty(ref isShowPhoneNumber, value); }
 
         private ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
         public ObservableCollection<MenuItem> MenuItems { get => menuItems; set => SetProperty(ref menuItems, value); }
 
         public ICommand NavigateCommand { get; private set; }
 
-        public AccountViewModel(INavigationService navigationService, IAppVersionService appVersionService,
-             IAuthenticationService authenticationService)
+        public AccountViewModel(INavigationService navigationService)
             : base(navigationService)
         {
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(Navigate);
-
-            AppVersion = appVersionService.GetAppVersion();
-
+        }
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+            AppVersion = VersionTracking.CurrentVersion;
+            IsShowPhoneNumber = MobileUserSettingHelper.IsShowPhoneNumber;
             InitMenuItems();
+        }
+        public override void Initialize(INavigationParameters parameters)
+        {
+
         }
 
         private void InitMenuItems()
@@ -170,7 +179,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     switch (item.MenuType)
                     {
                         case MenuType.ChangePassword:
-                            await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation);
+                            await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation, item.UseModalNavigation);
                             break;
 
                         case MenuType.CustomerSupport:
@@ -188,12 +197,13 @@ namespace BA_MobileGPS.Core.ViewModels
                         case MenuType.Rating:
                             await Launcher.OpenAsync(new Uri(item.Url));
                             break;
+
                         case MenuType.UpgradeVersion:
                             await Launcher.OpenAsync(new Uri(item.Url));
                             break;
 
                         default:
-                            await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation);
+                            await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: item.UseModalNavigation, item.UseModalNavigation);
                             break;
                     }
                 }
@@ -217,7 +227,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     IsBusy = true;
                     try
                     {
-                        await NavigationService.NavigateAsync("BaseNavigationPage/UserInfoPage", null, useModalNavigation: true);
+                        await NavigationService.NavigateAsync("BaseNavigationPage/UserInfoPage", null, useModalNavigation: true, true);
                     }
                     catch (Exception ex)
                     {
@@ -243,7 +253,11 @@ namespace BA_MobileGPS.Core.ViewModels
         Rating,
         Setting,
         UpgradeVersion,
-        Logout
+        Logout,
+        Route,
+        VehicleDetail,
+        Images,
+        Video
     }
 
     public class MenuItem

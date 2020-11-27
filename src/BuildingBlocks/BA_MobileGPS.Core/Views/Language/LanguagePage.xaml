@@ -31,7 +31,6 @@
                     </DataTemplate>
                 </xforms:SfListView.ItemTemplate>
             </xforms:SfListView>
-
         </Grid>
     </ContentPage.Content>
 </ContentPage>

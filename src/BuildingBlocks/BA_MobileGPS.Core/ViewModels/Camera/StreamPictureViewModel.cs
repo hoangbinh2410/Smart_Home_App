@@ -3,7 +3,6 @@ using BA_MobileGPS.Service.IService;
 using Prism.Commands;
 using Prism.Navigation;
 using Syncfusion.ListView.XForms;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -11,8 +10,6 @@ using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    
-
     public class StreamPictureViewModel : ViewModelBase
     {
         private readonly IStreamCameraService streamCameraService;
@@ -34,7 +31,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 vehicleOnline = cardetail;
                 OKClicked();
-            }           
+            }
         }
 
         private void ImageTap(object obj)
@@ -47,7 +44,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { "Request", request }
                 };
 
-                NavigationService.NavigateAsync("DetailCamera", parameters, useModalNavigation: false);
+                NavigationService.NavigateAsync("DetailCamera", parameters, useModalNavigation: false, true);
             }
         }
 
@@ -61,6 +58,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private string internalMessenger;
+
         public string InternalMessenger
         {
             get { return internalMessenger; }
@@ -70,15 +68,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
+
         private string bKS;
+
         public string BKS
         {
             get { return bKS; }
             set { SetProperty(ref bKS, value); }
         }
+
         public ICommand OKCommand { get; }
         private StreamStartRequest request;
         private string vehiclePate = "CAMTEST2";
+
         private void GetCameraInfor(string bks)
         {
             using (new HUDService())
@@ -110,6 +112,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
         }
+
         public override void OnResume()
         {
             base.OnResume();
@@ -125,8 +128,4 @@ namespace BA_MobileGPS.Core.ViewModels
             else GetCameraInfor(BKS);
         }
     }
-
-
-
-
 }

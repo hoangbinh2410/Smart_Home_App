@@ -1,6 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 
 using Prism.Commands;
@@ -8,7 +7,6 @@ using Prism.Navigation;
 
 using Syncfusion.Data.Extensions;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -18,6 +16,7 @@ using System.Windows.Input;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
+using Exception = System.Exception;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -32,8 +31,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private int[] SelectedVehicleGroups = null;
 
         private static List<Vehicle> ListVehicleOrigin = new List<Vehicle>();
-
-        private List<VehicleOnline> ListResultOnline = new List<VehicleOnline>();
 
         private List<Vehicle> listVehicle = new List<Vehicle>();
         public List<Vehicle> ListVehicle { get => listVehicle; set => SetProperty(ref listVehicle, value); }
@@ -86,7 +83,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
-                    SetFocus("SearchText");
                     try
                     {
                         ListVehicleOrigin.Clear();
@@ -94,7 +90,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         if (task.Result != null && task.Result.Count > 0)
                         {
-                            var result = task.Result.OrderBy(x => x.PrivateCode).ToList();
+                            var result = task.Result.OrderByDescending(x => x.SortOrder).ToList();
                             ListVehicleOrigin = result;
                             ListVehicle = result;
                         }
@@ -132,10 +128,13 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         foreach (var item in groupids)
                         {
-                            ListResultOnline = listOnline.FindAll(v => v.GroupIDs.Contains(item.ToString()));
-                            foreach (var lst in ListResultOnline)
+                            var lisOnline = listOnline.FindAll(v => v.GroupIDs.Contains(item.ToString()));
+                            if (lisOnline != null && lisOnline.Count > 0)
                             {
-                                result.Add(AddListVehicle(lst));
+                                foreach (var lst in lisOnline)
+                                {
+                                    result.Add(AddListVehicle(lst));
+                                }
                             }
                         }
                     }
@@ -163,7 +162,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 VehiclePlate = listOnline.VehiclePlate,
                 PrivateCode = listOnline.PrivateCode,
                 GroupIDs = listOnline.GroupIDs,
-                Imei = listOnline.Imei
+                Imei = listOnline.Imei,
+                IconImage = listOnline.IconImage,
+                VehicleTime = listOnline.VehicleTime,
+                Velocity = listOnline.Velocity,
+                SortOrder = listOnline.SortOrder
             });
         }
 
@@ -190,7 +193,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
-                    var result = task.Result.OrderBy(x => x.PrivateCode).ToList();
+                    var result = task.Result.OrderByDescending(x => x.SortOrder).ToList();
                     ListVehicle = result;
 
                     HasVehicle = ListVehicle.Count > 0;
@@ -225,7 +228,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 navigationPara.Add(ParameterKey.Vehicle, selected);
                             }
 
-                            await NavigationService.GoBackAsync(navigationPara, useModalNavigation: true);
+                            await NavigationService.GoBackAsync(navigationPara, useModalNavigation: true, true);
                         }
                     }
                     catch (Exception ex)

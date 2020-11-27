@@ -20,28 +20,6 @@ namespace BA_MobileGPS.Service
         {
             RequestProvider = requestProvider;
         }
-
-        public async Task<MobileVersionModel> GetMobileVersion(string operatingSystem, int appID)
-        {
-            MobileVersionModel result = new MobileVersionModel();
-            try
-            {
-                string uri = string.Format(ApiUri.GET_MOBILEVERSION + "?os={0}&appID={1}", operatingSystem, appID);
-
-                var data = await RequestProvider.GetAsync<MobileVersionModel>(uri);
-
-                if (data != null)
-                {
-                    result = data;
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
-            }
-            return result;
-        }
-
         public async Task<List<DatabaseVersionsResponse>> GetVersionDataBase(int appID)
         {
             var result = new List<DatabaseVersionsResponse>();

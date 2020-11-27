@@ -114,7 +114,6 @@
                                         TextColor="White"
                                         VerticalOptions="Center" />
                                 </StackLayout>
-
                             </StackLayout>
                             <StackLayout
                                 Grid.Column="1"
@@ -141,11 +140,8 @@
                                         TextColor="White"
                                         VerticalOptions="Center" />
                                 </StackLayout>
-
                             </StackLayout>
-
                         </Grid>
-
                     </DataTemplate>
                 </sfList:SfListView.RightSwipeTemplate>
                 <sfList:SfListView.ItemTemplate>
@@ -216,7 +212,6 @@
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
                                 </StackLayout>
-
                             </StackLayout>
                         </Grid>
                     </DataTemplate>
@@ -244,7 +239,6 @@
                 IsVisible="{Binding ListNotice, Converter={StaticResource IsEmptyDataConverter}}"
                 Spacing="10"
                 VerticalOptions="Center">
-
 
                 <!--  Image for display svg image  -->
                 <ffsvg:SvgCachedImage

@@ -1,25 +1,22 @@
 using BA_MobileGPS.Core.Helpers;
-using BA_MobileGPS.Core.Themes;
+using BA_MobileGPS.Core.Styles;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities.Constant;
 using Prism;
 using Prism.Events;
 using Prism.Ioc;
-using Prism.Unity;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+[assembly: ExportFont("fa-regular-400.ttf", Alias = "FontAwesomeRegular")]
+[assembly: ExportFont("fa-solid-900.ttf", Alias = "FontAwesomeSolid")]
+[assembly: ExportFont("fa-brands-400.ttf", Alias = "FontAwesomeBrands")]
 
 namespace BA_MobileGPS.Core
 {
     public partial class App
     {
-        /*
-         * The Xamarin Forms XAML Previewer in Visual Studio uses System.Activator.CreateInstance.
-         * This imposes a limitation in which the App class must have a default constructor.
-         * App(IPlatformInitializer initializer = null) cannot be handled by the Activator.
-         */
-
         public App(IPlatformInitializer initializer = null) : base(initializer)
         {
             _eventAggregator = Current.Container.Resolve<IEventAggregator>();
@@ -32,8 +29,6 @@ namespace BA_MobileGPS.Core
         public static string CurrentLanguage = Settings.CurrentLanguage;
 
         public virtual string OneSignalKey => Config.OneSignalKey;
-
-        protected override IContainerExtension CreateContainerExtension() => PrismContainerExtension.Current;
 
         protected override void OnInitialized()
         {
@@ -49,7 +44,7 @@ namespace BA_MobileGPS.Core
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             BA_MobileGPSSetup.RegisterServices(containerRegistry);
-            BA_MobileGPSSetup.RegisterPages(containerRegistry);
+            BA_MobileGPSSetup.RegisterPages(containerRegistry);           
         }
 
         protected override void OnStart()
@@ -71,20 +66,8 @@ namespace BA_MobileGPS.Core
 
         private void SetTheme()
         {
-            var themeServices = Current.Container.Resolve<IThemeServices>();
-            if (Settings.CurrentTheme == Theme.Light.ToString())
-            {
-                themeServices.ChangeTheme(Theme.Light);
-            }
-            else if (Settings.CurrentTheme == Theme.Dark.ToString())
-            {
-                themeServices.ChangeTheme(Theme.Dark);
-            }
-            else
-            {
-                themeServices.ChangeTheme(Theme.Custom);
-            }
-
+            Resources.MergedDictionaries.Add(new Styles.Converters());
+            Resources.MergedDictionaries.Add(new Fonts());
         }
     }
 }

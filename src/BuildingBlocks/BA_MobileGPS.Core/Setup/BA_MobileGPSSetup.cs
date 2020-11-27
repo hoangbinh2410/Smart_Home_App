@@ -8,12 +8,9 @@ using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Service.Service;
 using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities.Constant;
-
+using DryIoc;
 using Prism.Ioc;
-using Prism.Mvvm;
-using Prism.Navigation;
 using Prism.Plugin.Popups;
-
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core
@@ -30,59 +27,57 @@ namespace BA_MobileGPS.Core
 
         public static void RegisterServices(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register<INavigationService, PopupPageNavigationService>();
+            //containerRegistry.Register<INavigationService, PopupPageNavigationService>();
 
             // This updates INavigationService and registers PopupNavigation.Instance
             containerRegistry.RegisterPopupNavigationService();
-            containerRegistry.Register<IMapper, MapperUtility>();
+            containerRegistry.RegisterSingleton<IMapper, MapperUtility>();
             containerRegistry.RegisterSingleton(typeof(IRealmBaseService<,>), typeof(RealmBaseService<,>));
-
-            containerRegistry.Register<IRealmConnection, RealmConnection>();
-            containerRegistry.Register<IBaseRepository, BaseRepository>();
-
+            containerRegistry.RegisterSingleton<IRealmConnection, RealmConnection>();
+            containerRegistry.RegisterSingleton<IBaseRepository, BaseRepository>();
             containerRegistry.RegisterSingleton<IRequestProvider, RequestProvider>();
-            containerRegistry.Register<IPlacesAutocomplete, PlacesAutocomplete>();
-            containerRegistry.Register<IPlacesGeocode, PlacesGeocode>();
-            containerRegistry.Register<IVehicleOnlineHubService, VehicleOnlineHubService>();
-            containerRegistry.Register<IAlertHubService, AlertHubService>();
-            containerRegistry.Register<IIdentityHubService, IdentityHubService>();
-            containerRegistry.Register<IAuthenticationService, AuthenticationService>();
-            containerRegistry.Register<IHomeService, HomeService>();
-            containerRegistry.Register<IResourceService, ResourceService>();
-            containerRegistry.Register<IDBVersionService, DBVersionService>();
-            containerRegistry.Register<ILanguageService, LanguageService>();
-            containerRegistry.Register<ICategoryService, CategoryService>();
-            containerRegistry.Register<IFeedbackService, FeedbackService>();
-            containerRegistry.Register<IUserService, UserService>();
-            containerRegistry.Register<IRegisterConsultService, RegisterConsultService>();
-            containerRegistry.Register<IVehicleOnlineService, VehicleOnlineService>();
-            containerRegistry.Register<IGeocodeService, GeocodeService>();
-            containerRegistry.Register<IAlertService, AlertService>();
-            containerRegistry.Register<IVehicleDebtMoneyService, VehicleDebtMoneyService>();
-            containerRegistry.Register<IDetailVehicleService, DetailVehicleService>();
-            containerRegistry.Register<IVehicleRouteService, VehicleRouteService>();
-            containerRegistry.Register<IReportTemperatureService, ReportTemperatureService>();
-            containerRegistry.Register<IMachineVehicleService, MachineVehicleService>();
-            containerRegistry.Register<IFuelChartService, FuelChartService>();
-            containerRegistry.Register<IActivityDetailsService, ActivityDetailsService>();
-            containerRegistry.Register<IActivitySummariesService, ActivitySummariesService>();
-            containerRegistry.Register<IFuelsSummariesService, FuelsSummariesService>();
-            containerRegistry.Register<IFuelsSummariesTotalService, FuelsSummariesTotalService>();
-            containerRegistry.Register<ISpeedOversService, SpeedOversService>();
-            containerRegistry.Register<IStopParkingVehicleService, StopsParkingVehicleService>();
-            containerRegistry.Register<IShowHideColumnService, ShowHideColumnService>();
-            containerRegistry.Register<ICameraService, CameraService>();
-            containerRegistry.Register<IGuideService, GuideService>();
-            containerRegistry.Register<IHelperService, HelperService>();
-            containerRegistry.Register<IAppDeviceService, AppDeviceService>();
-            containerRegistry.Register<INotificationService, NotificationService>();
-            containerRegistry.Register<ISendEngineControlService, SendEngineControlService>();
-            containerRegistry.Register<IUserLandmarkGroupService, UserLandmarkGroupService>();
-            containerRegistry.Register<IPingServerService, PingServerService>();
-            containerRegistry.Register<IStreamCameraService, StreamCameraService>();
-
-            containerRegistry.Register<IPopupServices, PopupServices>();
-            containerRegistry.Register<IThemeServices, ThemeServices>();
+            containerRegistry.RegisterSingleton<IPlacesAutocomplete, PlacesAutocomplete>();
+            containerRegistry.RegisterSingleton<IPlacesGeocode, PlacesGeocode>();
+            containerRegistry.RegisterSingleton<IVehicleOnlineHubService, VehicleOnlineHubService>();
+            containerRegistry.RegisterSingleton<IAlertHubService, AlertHubService>();
+            containerRegistry.RegisterSingleton<IIdentityHubService, IdentityHubService>();
+            containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
+            containerRegistry.RegisterSingleton<IHomeService, HomeService>();
+            containerRegistry.RegisterSingleton<IResourceService, ResourceService>();
+            containerRegistry.RegisterSingleton<IDBVersionService, DBVersionService>();
+            containerRegistry.RegisterSingleton<ILanguageService, LanguageService>();
+            containerRegistry.RegisterSingleton<ICategoryService, CategoryService>();
+            containerRegistry.RegisterSingleton<IFeedbackService, FeedbackService>();
+            containerRegistry.RegisterSingleton<IUserService, UserService>();
+            containerRegistry.RegisterSingleton<IRegisterConsultService, RegisterConsultService>();
+            containerRegistry.RegisterSingleton<IVehicleOnlineService, VehicleOnlineService>();
+            containerRegistry.RegisterSingleton<IGeocodeService, GeocodeService>();
+            containerRegistry.RegisterSingleton<IAlertService, AlertService>();
+            containerRegistry.RegisterSingleton<IVehicleDebtMoneyService, VehicleDebtMoneyService>();
+            containerRegistry.RegisterSingleton<IDetailVehicleService, DetailVehicleService>();
+            containerRegistry.RegisterSingleton<IVehicleRouteService, VehicleRouteService>();
+            containerRegistry.RegisterSingleton<IReportTemperatureService, ReportTemperatureService>();
+            containerRegistry.RegisterSingleton<IMachineVehicleService, MachineVehicleService>();
+            containerRegistry.RegisterSingleton<IFuelChartService, FuelChartService>();
+            containerRegistry.RegisterSingleton<IActivityDetailsService, ActivityDetailsService>();
+            containerRegistry.RegisterSingleton<IActivitySummariesService, ActivitySummariesService>();
+            containerRegistry.RegisterSingleton<IFuelsSummariesService, FuelsSummariesService>();
+            containerRegistry.RegisterSingleton<IFuelsSummariesTotalService, FuelsSummariesTotalService>();
+            containerRegistry.RegisterSingleton<ISpeedOversService, SpeedOversService>();
+            containerRegistry.RegisterSingleton<IStopParkingVehicleService, StopsParkingVehicleService>();
+            containerRegistry.RegisterSingleton<IShowHideColumnService, ShowHideColumnService>();
+            containerRegistry.RegisterSingleton<ICameraService, CameraService>();
+            containerRegistry.RegisterSingleton<IGuideService, GuideService>();
+            containerRegistry.RegisterSingleton<IHelperService, HelperService>();
+            containerRegistry.RegisterSingleton<IAppDeviceService, AppDeviceService>();
+            containerRegistry.RegisterSingleton<INotificationService, NotificationService>();
+            containerRegistry.RegisterSingleton<ISendEngineControlService, SendEngineControlService>();
+            containerRegistry.RegisterSingleton<IUserLandmarkGroupService, UserLandmarkGroupService>();
+            containerRegistry.RegisterSingleton<IPingServerService, PingServerService>();
+            containerRegistry.RegisterSingleton<IStreamCameraService, StreamCameraService>();
+            containerRegistry.RegisterSingleton<IMobileSettingService, MobileSettingService>();
+            containerRegistry.RegisterSingleton<IPopupServices, PopupServices>();
+            containerRegistry.RegisterSingleton<IThemeServices, ThemeServices>();
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)
@@ -100,6 +95,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<SelectDateTimeCalendar, SelectDateTimeCalendarViewModel>("SelectDateTimeCalendar");
             containerRegistry.RegisterForNavigation<SelectDateCalendar, SelectDateCalendarViewModel>("SelectDateCalendar");
             containerRegistry.RegisterForNavigation<SelectDateTimeCalendarPopup, SelectDateTimeCalendarPopupViewModel>("SelectDateTimeCalendarPopup");
+            containerRegistry.RegisterForNavigation<SelectRangeDateTime, SelectRangeDateTimeViewModel>("SelectRangeDateTime");
             containerRegistry.RegisterForNavigation<ComboboxPage, ComboboxPageViewModel>("ComboboxPage");
 
             containerRegistry.RegisterForNavigation<LanguagePage, LanguagePageViewModel>("LanguagePage");
@@ -169,26 +165,24 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ListVehicleHelpPage, ListVehicleHelpViewModel>("ListVehicleHelpPage");
             containerRegistry.RegisterForNavigation<DetailVehiclePopup, DetailVehiclePopupViewModel>("DetailVehiclePopup");
 
-            ViewModelLocationProvider.Register<Home, HomeViewModel>();
-            ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
-            ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
-            ViewModelLocationProvider.Register<OnlinePageNoCluster, OnlinePageViewModel>();
-            ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
-            ViewModelLocationProvider.Register<Account, AccountViewModel>();
+            containerRegistry.RegisterForNavigation<Home, HomeViewModel>("Home");
+            containerRegistry.RegisterForNavigation<ListVehiclePage, ListVehiclePageViewModel>("ListVehiclePage");
+            containerRegistry.RegisterForNavigation<OnlinePage, OnlinePageViewModel>("OnlinePage");
+            containerRegistry.RegisterForNavigation<OnlinePageNoCluster, OnlinePageViewModel>("OnlinePageNoCluster");
+            containerRegistry.RegisterForNavigation<RoutePage, RoutePageViewModel>("RoutePage");
+            containerRegistry.RegisterForNavigation<Account, AccountViewModel>("Account");
 
-            //containerRegistry.Register<ContentView, Home>("HomeTab");
-            containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
-            containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
-            containerRegistry.Register<ContentView, OnlinePageNoCluster>("OnlineTabNoCluster");
-            containerRegistry.Register<ContentView, RoutePage>("RouteTab");
-           // containerRegistry.Register<ContentView, Account>("AccountTab");
+            containerRegistry.Register<ContentPage, ListVehiclePage>("ListVehiclePage");
+            containerRegistry.Register<ContentPage, OnlinePage>("OnlinePage");
+            containerRegistry.Register<ContentPage, OnlinePageNoCluster>("OnlinePageNoCluster");
+            containerRegistry.Register<ContentPage, RoutePage>("RoutePage");
 
             containerRegistry.Register<ResourceDictionary, Dark>(Theme.Dark.ToString());
             containerRegistry.Register<ResourceDictionary, Light>(Theme.Light.ToString());
             containerRegistry.Register<ResourceDictionary, Custom>(Theme.Custom.ToString());
             containerRegistry.RegisterForNavigation<SettingThemePage, SettingThemePageViewModel>("SettingThemePage");
 
-            containerRegistry.RegisterForNavigation<RegisterConsultPage, RegisterConsultPageViewModel>("RegisterConsultPage");        
+            containerRegistry.RegisterForNavigation<RegisterConsultPage, RegisterConsultPageViewModel>("RegisterConsultPage");
 
             containerRegistry.RegisterForNavigation<CameraManagingPage, CameraManagingPageViewModel>("CameraManagingPage");
 
@@ -197,6 +191,14 @@ namespace BA_MobileGPS.Core
 
             containerRegistry.RegisterForNavigation<ReLoginPage, ReLoginPageViewModel>();
             containerRegistry.RegisterForNavigation<RequestMoreTimePopup, RequestMoreTimePopupViewModel>();
+
+            containerRegistry.RegisterForNavigation<CameraRestreamOverview, CameraRestreamOverviewViewModel>("CameraRestreamOverview");
+            containerRegistry.RegisterForNavigation<CameraRestream, CameraRestreamViewModel>("CameraRestream");
+            containerRegistry.RegisterForNavigation<DeviceTab, DeviceTabViewModel>();
+            containerRegistry.RegisterForNavigation<BACloudTab, BACloudTabViewModel>();
+            containerRegistry.RegisterForNavigation<MyVideoTab, MyVideoTabViewModel>();
+            containerRegistry.RegisterForNavigation<VehicleCameraLookup, VehicleCameraLookupViewModel>("VehicleCameraLookup");
+
         }
     }
 }

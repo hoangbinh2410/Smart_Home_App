@@ -1,14 +1,14 @@
-﻿using System.Linq;
-using Android.Graphics;
+﻿using Android.Graphics;
 using Android.Widget;
 using BA_MobileGPS.Core.Droid.Effects;
 using Java.Lang;
+using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using FormsTintImageEffect = BA_MobileGPS.Core.Effects.TintImageEffect;
 
-
 [assembly: ExportEffect(typeof(TintImageEffect), BA_MobileGPS.Core.Effects.TintImageEffect.Name)]
+
 namespace BA_MobileGPS.Core.Droid.Effects
 {
     public class TintImageEffect : PlatformEffect
@@ -32,6 +32,8 @@ namespace BA_MobileGPS.Core.Droid.Effects
             }
         }
 
-        protected override void OnDetached() { }
+        protected override void OnDetached()
+        {
+        }
     }
 }

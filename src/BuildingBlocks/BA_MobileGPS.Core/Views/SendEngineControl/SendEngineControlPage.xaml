@@ -349,7 +349,6 @@
                                                                   Converter={StaticResource UpperCaseConverter}}"
                                     VerticalOptions="Center" />
                             </StackLayout>
-
                         </Grid>
                         <syncDataGrid:SfDataGrid
                             x:Name="dataGrid"

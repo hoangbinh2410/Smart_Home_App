@@ -1,0 +1,12 @@
+﻿"CFBundleDisplayName" = "BA MOTO";
+"CFBundleName" = "BA MOTO";
+
+"NSLocationAlwaysUsageDescription" = "This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
+"NSLocationWhenInUseUsageDescription" = "This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
+"NSLocationUsageDescription" = "This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
+"NSLocationAlwaysAndWhenInUseUsageDescription"="This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
+"NSCalendarsUsageDescription"="This app needs you to allow access to your calendar to choose the time, do you allow the application to access your calendar?";
+"NSCameraUsageDescription"="This application needs you to allow access to your camera to take photos, do you allow the application to access your camera?";
+"NSPhotoLibraryUsageDescription"="This application needs your permission to access the photo library to get your photos, do you allow the application to access your photo library?";
+"NSMicrophoneUsageDescription"="This application needs you to allow access to your camera to take photos, do you allow the application to access your camera?";
+"NSPhotoLibraryAddUsageDescription"="This application needs your permission to access the photo library to get your photos, do you allow the application to access your photo library?";

@@ -152,7 +152,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 ComboboxType = ComboboxType
                             };
                             EventAggregator.GetEvent<SelectComboboxEvent>().Publish(input);
-                            await NavigationService.GoBackAsync(useModalNavigation: true);
+                            await NavigationService.GoBackAsync(null, useModalNavigation: true, true);
                         }
                         catch (Exception ex)
                         {

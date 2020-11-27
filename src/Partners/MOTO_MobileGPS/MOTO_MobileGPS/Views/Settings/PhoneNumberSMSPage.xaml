@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MOTO_MobileGPS.Views.PhoneNumberSMSPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:BA_MobileGPS.Core.Behaviors;assembly=BA_MobileGPS.Core"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="{i18n:TranslateResource Moto_Label_Set_Phone_Number}"
+    NavigationPage.BackButtonTitle=""
+    mc:Ignorable="d">
+
+
+    <ContentPage.Content>
+        <StackLayout Padding="15" Spacing="5">
+            <input:SfTextInputLayout
+                Margin="0"
+                ContainerType="Outlined"
+                ErrorColor="{DynamicResource DangerousColor}"
+                ErrorText="{Binding PhoneNumber.ErrorFirst}"
+                HasError="{Binding PhoneNumber.IsNotValid}"
+                Hint="{i18n:TranslateResource RegisterConfig_Label_PhoneNumber1}"
+                HorizontalOptions="FillAndExpand"
+                ShowHelperText="False"
+                VerticalOptions="Start">
+                <Entry
+                    Keyboard="Numeric"
+                    MaxLength="20"
+                    Text="{Binding PhoneNumber.Value}">
+                    <Entry.Behaviors>
+                        <behaviors:DangerousCharsValidatorBehavior />
+                        <behaviors:EntryPreventSpaceBehavior />
+                    </Entry.Behaviors>
+                </Entry>
+            </input:SfTextInputLayout>
+            <input:SfTextInputLayout
+                Margin="0"
+                ContainerType="Outlined"
+                ErrorColor="{DynamicResource DangerousColor}"
+                ErrorText="{Binding PhoneNumber2.ErrorFirst}"
+                HasError="{Binding PhoneNumber2.IsNotValid}"
+                Hint="{i18n:TranslateResource RegisterConfig_Label_PhoneNumber2}"
+                HorizontalOptions="FillAndExpand"
+                ShowHelperText="False"
+                VerticalOptions="Start">
+                <Entry
+                    Keyboard="Numeric"
+                    MaxLength="20"
+                    Text="{Binding PhoneNumber2.Value}">
+                    <Entry.Behaviors>
+                        <behaviors:DangerousCharsValidatorBehavior />
+                        <behaviors:EntryPreventSpaceBehavior />
+                    </Entry.Behaviors>
+                </Entry>
+            </input:SfTextInputLayout>
+            <input:SfTextInputLayout
+                Margin="0"
+                ContainerType="Outlined"
+                ErrorColor="{DynamicResource DangerousColor}"
+                ErrorText="{Binding PhoneNumber3.ErrorFirst}"
+                HasError="{Binding PhoneNumber3.IsNotValid}"
+                Hint="{i18n:TranslateResource RegisterConfig_Label_PhoneNumber3}"
+                HorizontalOptions="FillAndExpand"
+                ShowHelperText="False"
+                VerticalOptions="Start">
+                <Entry
+                    Keyboard="Numeric"
+                    MaxLength="20"
+                    Text="{Binding PhoneNumber3.Value}">
+                    <Entry.Behaviors>
+                        <behaviors:DangerousCharsValidatorBehavior />
+                        <behaviors:EntryPreventSpaceBehavior />
+                    </Entry.Behaviors>
+                </Entry>
+            </input:SfTextInputLayout>
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                VerticalOptions="End">
+
+                <Button
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    BorderColor="{DynamicResource PrimaryColor}"
+                    BorderRadius="0"
+                    BorderWidth="1"
+                    Command="{Binding CloseFormCommand}"
+                    CornerRadius="5"
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    HorizontalOptions="FillAndExpand"
+                    Text="{i18n:TranslateResource Common_Message_Skip}"
+                    TextColor="{DynamicResource PrimaryColor}" />
+                <Button
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    BorderRadius="0"
+                    Command="{Binding SendPhoneNumberCommand}"
+                    CornerRadius="5"
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    HorizontalOptions="FillAndExpand"
+                    Text="{i18n:TranslateResource Moto_Label_Confirm}"
+                    TextColor="{DynamicResource WhiteColor}" />
+
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

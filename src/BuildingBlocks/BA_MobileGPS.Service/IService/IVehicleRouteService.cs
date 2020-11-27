@@ -8,8 +8,6 @@ namespace BA_MobileGPS.Service
     {
         Task<RouteHistoryResponse> GetHistoryRoute(RouteHistoryRequest request);
 
-        Task<RouteHistoryResponse> GetHistoryRouteTest(RouteHistoryRequest request);
-        
         Task<ValidateUserConfigGetHistoryRouteResponse> ValidateUserConfigGetHistoryRoute(ValidateUserConfigGetHistoryRouteRequest request);
     }
 }

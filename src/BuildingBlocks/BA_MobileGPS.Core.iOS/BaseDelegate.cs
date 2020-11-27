@@ -5,7 +5,8 @@ using Foundation;
 using Prism;
 using Prism.Common;
 using Prism.Ioc;
-using System.Linq;
+using System;
+using System.Collections.Generic;
 using UIKit;
 
 using UserNotifications;
@@ -38,7 +39,7 @@ namespace BA_MobileGPS.Core.iOS
                 return true;
 
             return base.OpenUrl(app, url, options);
-        }       
+        }
 
         protected class IOSInitializer : IPlatformInitializer
         {
@@ -58,15 +59,26 @@ namespace BA_MobileGPS.Core.iOS
                 containerRegistry.RegisterInstance<IScreenOrientServices>(new ScreenOrientServices());
             }
         }
+
         public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, UIWindow forWindow)
         {
             var mainPage = Xamarin.Forms.Application.Current.MainPage;
-            if (PageUtilities.GetCurrentPage(mainPage) is CameraManagingPage
+            var currentPage = PageUtilities.GetCurrentPage(mainPage);
+            var canLanscape = listLanscapePage.Contains(currentPage.GetType());
+            if (canLanscape
                 && UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
             {
                 return UIInterfaceOrientationMask.AllButUpsideDown;
             }
             return UIInterfaceOrientationMask.Portrait;
         }
+
+        private List<Type> listLanscapePage = new List<Type>() 
+        { 
+            typeof(CameraManagingPage),
+            typeof(DeviceTab),
+            typeof(BACloudTab),
+            typeof(MyVideoTab)
+        };
     }
 }

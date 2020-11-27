@@ -1,16 +1,11 @@
-﻿using System;
-using System.IO;
-using Android.Content;
+﻿using Android.Content;
 using Android.Graphics;
-using Android.Media;
 using Android.OS;
-using Android.Provider;
 using BA_MobileGPS.Core.Droid.DependencyServices;
 using BA_MobileGPS.Core.Interfaces;
-using Java.IO;
-using Java.Util;
 using Plugin.CurrentActivity;
-using Plugin.Media;
+using System;
+using System.IO;
 using Xamarin.Forms;
 using static Android.Provider.MediaStore;
 
@@ -20,12 +15,10 @@ namespace BA_MobileGPS.Core.Droid.DependencyServices
 {
     public class CameraSnapShotServices : ICameraSnapShotServices
     {
-
         public string GetFolderPath()
         {
             return CrossCurrentActivity.Current.AppContext.GetExternalFilesDir(Android.OS.Environment.DirectoryPictures).Path;
         }
-
 
         public bool SaveSnapShotToGalery(string oldPath)
         {
@@ -64,16 +57,12 @@ namespace BA_MobileGPS.Core.Droid.DependencyServices
                     stream.Close();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
-                throw;
             }
-      
+
             return true;
-           
         }
-
-
     }
 }

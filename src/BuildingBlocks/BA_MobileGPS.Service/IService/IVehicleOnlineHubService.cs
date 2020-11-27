@@ -11,11 +11,9 @@ namespace BA_MobileGPS.Service
 
         bool IsConnectedOrConnecting();
 
-
         void JoinGroupReceivedVehicleID(string vehicleIds);
 
         void LeaveGroupReceivedVehicleID(string vehicleIds);
-
 
         event EventHandler<string> onReceiveSendCarSignalR;
 

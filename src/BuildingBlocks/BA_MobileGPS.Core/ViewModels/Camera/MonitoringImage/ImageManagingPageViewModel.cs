@@ -1,22 +1,19 @@
-﻿using BA_MobileGPS.Service.IService;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Entities;
+using BA_MobileGPS.Service;
+using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
-using System;
-using BA_MobileGPS.Service;
-
-using System.Windows.Input;
-
-using System.Collections.ObjectModel;
-using BA_MobileGPS.Utilities;
-using System.Reflection;
-using BA_MobileGPS.Entities;
-using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
-using BA_MobileGPS.Core.Constant;
-using System.Collections.Generic;
-using System.Linq;
-using Syncfusion.XlsIO.Parser.Biff_Records;
 using Syncfusion.Data.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reflection;
+using System.Windows.Input;
 using Xamarin.Forms.Extensions;
+using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -37,7 +34,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand LoadMoreItemsCommand { get; set; }
 
         public ICommand RefeshCommand { get; set; }
-
 
         public ImageManagingPageViewModel(INavigationService navigationService,
             IStreamCameraService streamCameraService,
@@ -79,7 +75,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else if (parameters.ContainsKey(ParameterKey.Company) && parameters.GetValue<Company>(ParameterKey.Company) is Company company)
             {
-
             }
             else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
             {
@@ -90,7 +85,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 ShowImage();
             }
         }
-
 
         private int spanCount;
         public int SpanCount { get => spanCount; set => SetProperty(ref spanCount, value); }
@@ -132,9 +126,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool isShowLastViewVehicle = true;
         public bool IsShowLastViewVehicle { get => isShowLastViewVehicle; set => SetProperty(ref isShowLastViewVehicle, value); }
 
-        private ObservableCollection<LastViewVehicleImageModel> listLastView;
+        private ObservableCollection<string> listLastView;
 
-        public ObservableCollection<LastViewVehicleImageModel> ListLastView { get => listLastView; set => SetProperty(ref listLastView, value); }
+        public ObservableCollection<string> ListLastView { get => listLastView; set => SetProperty(ref listLastView, value); }
 
         private List<string> mVehicleString { get; set; }
 
@@ -179,7 +173,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         { ParameterKey.ImageCamera, item },
                         { ParameterKey.VehiclePlate, item.VehiclePlate }
                     };
-                    await NavigationService.NavigateAsync("ImageDetailPage", parameters, useModalNavigation: false);
+                    await NavigationService.NavigateAsync("ImageDetailPage", parameters, useModalNavigation: false, true);
                 }
             }
             catch (Exception ex)
@@ -210,7 +204,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         { ParameterKey.VehicleRoute, vehicle }
                     };
 
-                    await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, useModalNavigation: true);
+                    await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, useModalNavigation: true, true);
                 }
                 else
                 {
@@ -218,7 +212,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         { ParameterKey.VehiclePlate, obj }
                     };
-                    await NavigationService.NavigateAsync("ImageDetailPage", parameters, useModalNavigation: false);
+                    await NavigationService.NavigateAsync("ImageDetailPage", parameters, useModalNavigation: false, true);
                 }
             });
         }
@@ -288,7 +282,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-
         }
 
         private void TapItems(object obj)
@@ -297,7 +290,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 // truyền key xử lý ở đây
-                CarSearch = ((LastViewVehicleImageModel)listview.ItemData).Name;
+                CarSearch = (string)listview.ItemData;
 
                 ShowImageSearch();
             }
@@ -380,7 +373,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     PageIndex = 0;
                     ListGroup = new ObservableCollection<CaptureImageData>();
-                    ShowImageLoadMore();
+                    ShowImageLoad();
+                    LoadMoreItemsCommand.Execute(new Syncfusion.ListView.XForms.SfListView());
                 }
                 else
                 {
@@ -409,7 +403,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsMaxLoadMore = true;
 
                 var response = await _streamCameraService.GetListCaptureImage(request);
-                
+
                 if (response != null && response.Count > 0)
                 {
                     ListGroup = new ObservableCollection<CaptureImageData>(response);
@@ -432,7 +426,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             TryExecute(async () =>
             {
-
                 if (mVehicleString != null && mVehicleString.Count > 0)
                 {
                     var request = new StreamImageRequest();
@@ -557,13 +550,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 ListHeight = view[1]; // gán chiều cao cho listview
 
-                ListLastView = new ObservableCollection<LastViewVehicleImageModel>();
+                ListLastView = new ObservableCollection<string>();
                 for (int i = 0; i < lst.Count; i++)
                 {
-                    ListLastView.Add(new LastViewVehicleImageModel
-                    {
-                        Name = lst[i].VehiclePlate
-                    });
+                    ListLastView.Add(lst[i].VehiclePlate);
                 }
             }
             else
@@ -594,11 +584,5 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             return respone;
         }
-
-    }
-
-    public class LastViewVehicleImageModel
-    {
-        public string Name { get; set; }
     }
 }

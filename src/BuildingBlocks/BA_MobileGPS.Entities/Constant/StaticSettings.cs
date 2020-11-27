@@ -8,12 +8,14 @@ namespace BA_MobileGPS.Entities
         public static LoginResponse User { get; set; }
 
         public static string Token { get; set; }
- 
+
         public static List<HomeMenuItem> ListMenu { get; set; } = new List<HomeMenuItem>();
 
         public static List<HomeMenuItem> ListMenuOriginGroup { get; set; } = new List<HomeMenuItem>();
 
         public static List<VehicleOnline> ListVehilceOnline { get; set; }
+
+        public static List<StreamDevices> ListVehilceCamera { get; set; }
 
         public static List<VehicleDebtMoneyResponse> ListVehilceDebtMoney { get; set; }
 
@@ -38,6 +40,7 @@ namespace BA_MobileGPS.Entities
             ListVehilceOnline = null;
             ListAlertType = null;
             ListVehilceDebtMoney = null;
+            ListVehilceCamera = null;
             ListVehilceFree = null;
             ListCompany = null;
             LastSyncTime = DateTime.Now;

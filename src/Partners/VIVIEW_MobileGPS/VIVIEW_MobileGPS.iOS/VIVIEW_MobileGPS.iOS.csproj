@@ -115,9 +115,6 @@
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <BundleResource Include="vi.lproj\InfoPlist.strings" />
-    <BundleResource Include="Resources\fa-brands-400.ttf" />
-    <BundleResource Include="Resources\fa-regular-400.ttf" />
-    <BundleResource Include="Resources\fa-solid-900.ttf" />
     <BundleResource Include="Resources\Roboto-Bold.ttf" />
     <BundleResource Include="Resources\Roboto-Regular.ttf" />
     <ITunesArtwork Include="iTunesArtwork%402x" />
@@ -145,12 +142,9 @@
     <PackageReference Include="VideoLAN.LibVLC.iOS">
       <Version>3.3.10</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1534" />
-    <PackageReference Include="Prism.Unity.Forms">
-      <Version>7.2.0.1422</Version>
-    </PackageReference>
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
     <PackageReference Include="Realm">
-      <Version>5.0.1</Version>
+      <Version>5.1.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Build.Download">
       <Version>0.10.0</Version>
@@ -161,7 +155,7 @@
       <IncludeAssets>none</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Xamarin.Google.iOS.Maps">
-      <Version>3.7.0.1</Version>
+      <Version>3.9.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -176,7 +170,7 @@
       <Name>BA_MobileGPS.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\VIVIEW_MobileGPS\VIVIEW_MobileGPS.csproj">
-      <Project>{3824D767-D090-4FD6-B845-0153713C45E1}</Project>
+      <Project>{3824d767-d090-4fd6-b845-0153713c45e1}</Project>
       <Name>VIVIEW_MobileGPS</Name>
     </ProjectReference>
   </ItemGroup>
@@ -540,6 +534,15 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\NoItem.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_trackingcar%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_trackingcar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_trackingcar%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

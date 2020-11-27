@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.SelectRangeDateTime"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Controls"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:syncalendar="clr-namespace:Syncfusion.SfCalendar.XForms;assembly=Syncfusion.SfCalendar.XForms"
+    Title="Chọn khoảng thời gian"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <pancake:DropShadow
+            x:Key="shadow"
+            BlurRadius="3"
+            Color="Black" />
+        <Style TargetType="pancake:PancakeView">
+            <Setter Property="Shadow" Value="{StaticResource shadow}" />
+        </Style>
+        <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout
+            BackgroundColor="{DynamicResource WhiteColor}"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <StackLayout
+                Padding="10"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal">
+                <pancake:PancakeView
+                    Padding="10,5"
+                    BackgroundColor="{Binding BgActiveStartDate}"
+                    Border="{StaticResource GrayColor2}"
+                    CornerRadius="15"
+                    HorizontalOptions="StartAndExpand"
+                    VerticalOptions="Center">
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectActiveStartDateCommand}" />
+                    </pancake:PancakeView.GestureRecognizers>
+                    <StackLayout
+                        Padding="0"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <Label
+                            FontSize="16"
+                            HorizontalOptions="StartAndExpand"
+                            Text="{Binding StartDate, Converter={StaticResource DateTimeViewConverter}}"
+                            TextColor="{Binding TextcolorActiveStartDate}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                </pancake:PancakeView>
+                <ffImage:CachedImage
+                    HorizontalOptions="Center"
+                    Source="ic_next.png"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="25" />
+                <pancake:PancakeView
+                    Padding="10,5"
+                    BackgroundColor="{Binding BgActiveEndDate}"
+                    Border="{StaticResource GrayColor2}"
+                    CornerRadius="15"
+                    HorizontalOptions="EndAndExpand"
+                    VerticalOptions="Center">
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectActiveEndDateCommand}" />
+                    </pancake:PancakeView.GestureRecognizers>
+                    <StackLayout
+                        Padding="0"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <Label
+                            FontSize="16"
+                            HorizontalOptions="StartAndExpand"
+                            Text="{Binding EndDate, Converter={StaticResource DateTimeViewConverter}}"
+                            TextColor="{Binding TextcolorActiveEndDate}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                </pancake:PancakeView>
+            </StackLayout>
+            <syncalendar:SfCalendar
+                x:Name="calendar"
+                EnableDatesInPast="True"
+                EnableSwiping="True"
+                HeaderHeight="40"
+                HeightRequest="300"
+                HorizontalOptions="Center"
+                SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
+                SelectionChangedCommand="{Binding OnSelectionChangedCommand}"
+                SelectionMode="SingleSelection"
+                VerticalOptions="Center"
+                ViewMode="MonthView">
+                <syncalendar:SfCalendar.MonthViewSettings>
+                    <syncalendar:MonthViewSettings TodayTextColor="{DynamicResource PrimaryColor}" />
+                </syncalendar:SfCalendar.MonthViewSettings>
+            </syncalendar:SfCalendar>
+            <controls:CustomTimePicker
+                BorderColor="White"
+                ColumnHeaderFontSize="18"
+                ColumnHeaderHeight="70"
+                ColumnHeaderTextColor="{DynamicResource PrimaryColor}"
+                HeightRequest="250"
+                HorizontalOptions="Center"
+                PickerHeight="250"
+                SelectedItem="{Binding SelectedTime, Mode=TwoWay}"
+                SelectedItemFontSize="18"
+                SelectedItemTextColor="{DynamicResource PrimaryColor}"
+                UnSelectedItemFontSize="16"
+                VerticalOptions="CenterAndExpand"
+                WidthRequest="300" />
+
+
+            <StackLayout
+                Margin="10"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                VerticalOptions="End">
+                <Button
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    BorderColor="{DynamicResource PrimaryColor}"
+                    BorderRadius="0"
+                    BorderWidth="1"
+                    Command="{Binding CancelCommand}"
+                    CornerRadius="22"
+                    FontAttributes="Bold"
+                    HorizontalOptions="FillAndExpand"
+                    Text="BỎ QUA"
+                    TextColor="{DynamicResource PrimaryColor}" />
+                <Button
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    BorderRadius="0"
+                    Command="{Binding AggreeCommand}"
+                    CornerRadius="22"
+                    FontAttributes="Bold"
+                    HorizontalOptions="FillAndExpand"
+                    Text="XÁC NHẬN"
+                    TextColor="White" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -169,6 +169,7 @@
                     <Label
                         FontAttributes="Bold"
                         HorizontalOptions="StartAndExpand"
+                        IsVisible="{Binding IsShowPhoneNumber}"
                         VerticalOptions="Start">
                         <Label.FormattedText>
                             <FormattedString>
@@ -183,6 +184,7 @@
                         ErrorText="{Binding PhoneNumberErrorMessage}"
                         HasError="{Binding PhoneNumberHasError}"
                         HorizontalOptions="FillAndExpand"
+                        IsVisible="{Binding IsShowPhoneNumber}"
                         LeadingViewPosition="Inside"
                         VerticalOptions="Start">
                         <input:SfTextInputLayout.LeadingView>

@@ -3,14 +3,11 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 
 using Prism.Ioc;
-using Syncfusion.XlsIO.Implementation.PivotTables;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 using System.Threading.Tasks;
-
-using Unity;
 
 namespace BA_MobileGPS.Core
 {
@@ -77,7 +74,6 @@ namespace BA_MobileGPS.Core
         {
             get
             {
-
                 if (_DicMobileConfigurations == null)
                 {
                     try
@@ -90,7 +86,7 @@ namespace BA_MobileGPS.Core
                             if (_Configurations == null)
                             {
                                 // Đọc dữ liệu từ API
-                                var service = Prism.PrismApplicationBase.Current.Container.Resolve<IResourceService>();
+                                var service = Prism.PrismApplicationBase.Current.Container.Resolve<IMobileSettingService>();
                                 _Configurations = await service.GetAllMobileConfigs(App.AppType);
                             }
 
@@ -195,7 +191,6 @@ namespace BA_MobileGPS.Core
 
         public static string LinkBAGPS => Get(MobileConfigurationNames.LinkBAGPS, "https://bagps.vn/");
 
-
         public static int TimeVehicleSync => Get(MobileConfigurationNames.TimeVehicleSync, 2);
 
         public static int TimmerVehicleSync => Get(MobileConfigurationNames.TimmerVehicleSync, 60000);
@@ -205,7 +200,6 @@ namespace BA_MobileGPS.Core
         public static int Mapzoom => Get(MobileConfigurationNames.Mapzoom, 14);
 
         public static int ClusterMapzoom => Get(MobileConfigurationNames.ClusterMapzoom, 16);
-
 
         /// <summary>
         /// trungtq: Mức đồng bộ cho phần đồng bộ online
@@ -228,5 +222,7 @@ namespace BA_MobileGPS.Core
         /// </Modified>
         public static bool EnableLongPoolRequest => Get(MobileConfigurationNames.EnableLongPoolRequest, true);
 
+        public static bool VehicleOnlineAddressEnabled => Get(MobileConfigurationNames.VehicleOnlineAddressEnabled, true);
+        
     }
 }

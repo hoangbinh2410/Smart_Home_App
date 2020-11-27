@@ -1,5 +1,4 @@
-﻿using Plugin.Geolocator;
-using Plugin.Permissions;
+﻿using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
@@ -21,123 +20,6 @@ namespace BA_MobileGPS.Core
     {
         private const string POSITIVE = "Cài đặt";
         private const string NEGATIVE = "Để sau";
-
-        /// <summary>
-        /// Kiểm tra xem có quyền không thì mới tiếp tục cho phép hoạt động.
-        /// </summary>
-        /// <param name="permission">The permission.</param>
-        /// <returns></returns>
-        /// <Modified>
-        /// Name     Date         Comments
-        /// Namth  27/11/2017   created
-        /// </Modified>
-        public static async Task<bool> CheckLocationPermissions(bool isAleart = true)
-        {
-            var title = "Quyền truy cập vị trí";
-            var question = "Chức năng yêu cầu quyền truy cập vị trí của bạn.";
-
-            var permissionStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<Plugin.Permissions.LocationPermission>();
-
-            // Chưa bật định vị
-            if (permissionStatus == PermissionStatus.Granted)
-            {
-                var locator = CrossGeolocator.Current;
-
-                var isGeolocationEnabled = locator.IsGeolocationEnabled;
-
-                if (!isGeolocationEnabled)
-                {
-                    if (isAleart)
-                    {
-                        var task = Application.Current?.MainPage?.DisplayAlert(title, question, POSITIVE, NEGATIVE);
-                        if (task == null)
-                            return false;
-
-                        var result = await task;
-
-                        if (result)
-                        {
-                            DependencyService.Get<ISettingsService>().OpenLocationSettings();
-                        }
-                    }
-
-                    return false;
-                }
-
-                return true;
-            }
-            else
-            {
-                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
-                {
-                    if (isAleart)
-                    {
-                        if (Device.RuntimePlatform == Device.iOS)
-                        {
-                            var task = Application.Current?.MainPage?.DisplayAlert(title, question, POSITIVE, NEGATIVE);
-                            if (task == null)
-                                return false;
-
-                            var result = await task;
-                            if (result)
-                            {
-                                CrossPermissions.Current.OpenAppSettings();
-                            }
-
-                            return false;
-                        }
-
-                        permissionStatus = await CrossPermissions.Current.RequestPermissionAsync<Plugin.Permissions.LocationPermission>();
-
-                        if (permissionStatus == PermissionStatus.Granted)
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            var task = Application.Current?.MainPage?.DisplayAlert(title, question, POSITIVE, NEGATIVE);
-                            if (task == null)
-                                return false;
-
-                            var result = await task;
-                            if (result)
-                            {
-                                CrossPermissions.Current.OpenAppSettings();
-                            }
-
-                            return false;
-                        }
-                    }
-                }
-                else
-                {
-                    permissionStatus = await CrossPermissions.Current.RequestPermissionAsync<Plugin.Permissions.LocationPermission>();
-
-                    if (permissionStatus == PermissionStatus.Granted)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        if (isAleart)
-                        {
-                            var task = Application.Current?.MainPage?.DisplayAlert(title, question, POSITIVE, NEGATIVE);
-                            if (task == null)
-                                return false;
-
-                            var result = await task;
-                            if (result)
-                            {
-                                CrossPermissions.Current.OpenAppSettings();
-                            }
-                            return false;
-                        }
-                    }
-                }
-            }
-
-            return false;
-        }
 
         /// <summary>
         /// Kiểm tra xem có quyền truy cập Camera không thì mới tiếp tục cho phép hoạt động.
@@ -277,74 +159,38 @@ namespace BA_MobileGPS.Core
             //return true;
         }
 
-        public static bool IsDeviceLocationEnabled
-        {
-            get
-            {
-                var locator = CrossGeolocator.Current;
-                return locator.IsGeolocationEnabled;
-            }
-        }
-
         public static async Task<bool> CheckLocationPermissions()
         {
             bool result = false;
             var permissionStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<Plugin.Permissions.LocationPermission>();
-            // Bat quyeen va dinh vi hay chua
-            if (!CheckGeolocationEnabled(permissionStatus))
+            //Nếu từ chối quyền
+            if (permissionStatus == PermissionStatus.Denied)
             {
-                //Nếu từ chối quyền
-                if (permissionStatus == PermissionStatus.Denied)
+                if (Device.RuntimePlatform == Device.iOS)
                 {
-                    if (Device.RuntimePlatform == Device.iOS)
-                    {
-                        OpenAppSettings();
-
-                        return false;
-                    }
-
-                    result = true;
-                }
-
-                if (result || permissionStatus != PermissionStatus.Granted)
-                {
-                    var newStatus = await CrossPermissions.Current.RequestPermissionAsync<Plugin.Permissions.LocationPermission>();
-                    if (newStatus != PermissionStatus.Granted)
-                    {
-                        OpenAppSettings();
-
-                        return false;
-                    }
-                    else
-                    {
-                        result = CheckGeolocationEnabled(newStatus);
-                    }
-                }
-            }
-            else
-            {
-                result = true;
-            }
-            return result;
-        }
-
-        public static bool CheckGeolocationEnabled(PermissionStatus permissionStatus)
-        {
-            bool result = false;
-            // Chưa bật định vị
-            if (permissionStatus == PermissionStatus.Granted)
-            {
-                var locator = CrossGeolocator.Current;
-
-                var isGeolocationEnabled = locator.IsGeolocationEnabled;
-
-                if (!isGeolocationEnabled)
-                {
-                    OpenLocationSettings();
+                    OpenAppSettings();
 
                     return false;
                 }
 
+                result = true;
+            }
+            if (result || permissionStatus != PermissionStatus.Granted)
+            {
+                var newStatus = await CrossPermissions.Current.RequestPermissionAsync<Plugin.Permissions.LocationPermission>();
+                if (newStatus != PermissionStatus.Granted)
+                {
+                    OpenAppSettings();
+
+                    return false;
+                }
+                else
+                {
+                    result = true;
+                }
+            }
+            else
+            {
                 result = true;
             }
             return result;

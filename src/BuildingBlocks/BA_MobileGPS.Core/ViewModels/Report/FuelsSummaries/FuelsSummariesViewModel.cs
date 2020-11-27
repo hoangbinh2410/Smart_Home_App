@@ -181,40 +181,12 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 SelectFuelsSummariesItem = ListDataSearch.Where(x => x.OrderNumber == OrderNumber).FirstOrDefault();
                 SelectFuelsSummariesItem.VehiclePlate = VehicleSelect.VehiclePlate;
-                if (string.IsNullOrEmpty(SelectFuelsSummariesItem.StartAddress) && string.IsNullOrEmpty(SelectFuelsSummariesItem.EndAddress))
-                {
-                    var startLat = SelectFuelsSummariesItem.StartLatitude;
-                    var startLong = SelectFuelsSummariesItem.StartLongitude;
-                    var endLat = SelectFuelsSummariesItem.EndLatitude;
-                    var endLong = SelectFuelsSummariesItem.EndLongitude;
-                    if (string.IsNullOrEmpty(SelectFuelsSummariesItem.StartAddress) && string.IsNullOrEmpty(SelectFuelsSummariesItem.EndAddress))
-                    {
-                        var input = string.Format("{0} {1};{2} {3}", startLat, startLong, endLat, endLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        if (response.Count >= 2)
-                        {
-                            SelectFuelsSummariesItem.StartAddress = response[0];
-                            SelectFuelsSummariesItem.EndAddress = response[1];
-                        }
-                    }
-                    else if (string.IsNullOrEmpty(SelectFuelsSummariesItem.StartAddress))
-                    {
-                        var input = string.Format("{0} {1}}", startLat, startLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        SelectFuelsSummariesItem.StartAddress = response[0];
-                    }
-                    else if (string.IsNullOrEmpty(SelectFuelsSummariesItem.EndAddress))
-                    {
-                        var input = string.Format("{0} {1}}", endLat, endLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        SelectFuelsSummariesItem.EndAddress = response[0];
-                    }
-                }
+
                 var p = new NavigationParameters
                 {
                     { ParameterKey.ReportFuelsSummariesSelected, SelectFuelsSummariesItem }
                 };
-                await NavigationService.NavigateAsync("FuelsSummariesDetailReportPage", p, useModalNavigation: false);
+                await NavigationService.NavigateAsync("FuelsSummariesDetailReportPage", p, useModalNavigation: false, true);
             }
             catch (Exception ex)
             {

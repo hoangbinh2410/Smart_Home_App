@@ -10,8 +10,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
-using Unity;
-
 namespace BA_MobileGPS.Core.Resources
 {
     public partial class MobileResource
@@ -30,7 +28,6 @@ namespace BA_MobileGPS.Core.Resources
                     instance = new MobileResource();
                     sw.Stop();
                     Debug.WriteLine(string.Format("InstanceMobileResource: {0}", sw.ElapsedMilliseconds));
-
                 }
                 return instance;
             }
@@ -77,6 +74,12 @@ namespace BA_MobileGPS.Core.Resources
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, string.Format("{0} with Key = {1} has an Exception: {2}", MethodBase.GetCurrentMethod().Name, key.ToString(), ex));
             }
+            return val;
+        }
+
+        public static string GetResourceNotDB(MobileResourceNames key, string defaultValue, string defaultValueEng)
+        {
+            var val = App.CurrentLanguage == CultureCountry.Vietnamese ? defaultValue : defaultValueEng;
             return val;
         }
 

@@ -12,6 +12,7 @@ namespace BA_MobileGPS.Core.Views
             InitializeComponent();
             this.Title = MobileResource.Route_Label_ListTitle;
         }
+
         protected override void OnAppearing()
         {
             lblTime.Text = MobileResource.Route_Label_Time;

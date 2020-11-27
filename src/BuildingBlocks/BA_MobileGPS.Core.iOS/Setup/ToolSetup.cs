@@ -9,7 +9,6 @@ using PanCardView.iOS;
 using Plugin.Toasts;
 using Sharpnado.MaterialFrame.iOS;
 using Sharpnado.Presentation.Forms.iOS;
-using Shiny;
 using Syncfusion.ListView.XForms.iOS;
 using Syncfusion.SfBusyIndicator.XForms.iOS;
 using Syncfusion.SfCalendar.XForms.iOS;
@@ -18,13 +17,13 @@ using Syncfusion.SfDataGrid.XForms.iOS;
 using Syncfusion.SfImageEditor.XForms.iOS;
 using Syncfusion.SfMaps.XForms.iOS;
 using Syncfusion.SfPicker.XForms.iOS;
+using Syncfusion.SfRangeSlider.XForms.iOS;
 using Syncfusion.XForms.iOS.BadgeView;
 using Syncfusion.XForms.iOS.Border;
 using Syncfusion.XForms.iOS.Buttons;
 using Syncfusion.XForms.iOS.ComboBox;
 using Syncfusion.XForms.iOS.PopupLayout;
 using Syncfusion.XForms.iOS.TabView;
-using Xamarin;
 using Xamarin.Forms.Platform.iOS;
 
 namespace BA_MobileGPS.Core.iOS.Setup
@@ -48,15 +47,11 @@ namespace BA_MobileGPS.Core.iOS.Setup
 
             CardsViewRenderer.Preserve();
 
-            //IQKeyboardManager.SharedManager.Enable = true;
-
             // Override default ImageFactory by your implementation.
             FormsGoogleMaps.Init(Config.GoogleMapKeyiOS, new PlatformConfig
             {
                 ImageFactory = new CachingImageFactory()
             });
-            iOSShinyHost.Init(new ShinyAppStartup());
-
             iOSMaterialFrameRenderer.Init();
 
             // Syncfusion
@@ -77,7 +72,7 @@ namespace BA_MobileGPS.Core.iOS.Setup
             SfTabViewRenderer.Init();
             //SfRatingRenderer.Init();
             SfPopupLayoutRenderer.Init();
-            //SfRangeSliderRenderer.Init();
+            SfRangeSliderRenderer.Init();
 
             // HtmlLabel
             HtmlLabelRenderer.Initialize();

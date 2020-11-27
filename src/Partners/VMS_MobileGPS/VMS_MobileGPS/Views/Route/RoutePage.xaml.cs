@@ -21,7 +21,6 @@ namespace VMS_MobileGPS.Views
     public partial class RoutePage : ContentView, INavigationAware, IDestructible
     {
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
-        private readonly IHelperAdvanceService helperAdvanceService;
         private readonly IEventAggregator eventAggregator;
 
         private bool infoWindowIsShown;
@@ -43,8 +42,6 @@ namespace VMS_MobileGPS.Views
             map.UiSettings.RotateGesturesEnabled = false;
 
             map.PinClicked += Map_PinClicked;
-
-            helperAdvanceService = PrismApplicationBase.Current.Container.Resolve<IHelperAdvanceService>();
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             eventAggregator.GetEvent<ThemeChangedEvent>().Subscribe(ThemeChanged);
         }

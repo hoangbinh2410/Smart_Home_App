@@ -174,9 +174,9 @@ namespace BA_MobileGPS.Core.Views
                             eventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(OnDateTimeSelected);
 
                             if (PickerMode == PickerMode.Default)
-                                await navigationService.NavigateAsync("SelectDateTimeCalendar", parameters, useModalNavigation: true);
+                                await navigationService.NavigateAsync("SelectDateTimeCalendar", parameters, useModalNavigation: true,true);
                             else
-                                await navigationService.NavigateAsync("SelectDateTimeCalendarPopup", parameters, useModalNavigation: true);
+                                await navigationService.NavigateAsync("SelectDateTimeCalendarPopup", parameters, useModalNavigation: true,true);
                         })
                     }
                 }

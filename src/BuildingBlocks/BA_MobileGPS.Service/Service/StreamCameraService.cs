@@ -5,7 +5,6 @@ using BA_MobileGPS.Utilities.Constant;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BA_MobileGPS.Service.Service
@@ -13,6 +12,7 @@ namespace BA_MobileGPS.Service.Service
     public class StreamCameraService : IStreamCameraService
     {
         private readonly IRequestProvider requestProvider;
+
         public StreamCameraService(IRequestProvider requestProvider)
         {
             this.requestProvider = requestProvider;
@@ -33,6 +33,20 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
+        public async Task<StreamDevicesResponse> GetListVehicleCamera(int xncode)
+        {
+            var result = new StreamDevicesResponse();
+            try
+            {
+                string url = string.Format(ApiUri.GET_DEVICESTREAMINFOR + "?type={0}&value={1}", (int)ConditionType.MXN, xncode);
+                result = await requestProvider.GetAsync<StreamDevicesResponse>(url);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
 
         public async Task<StreamPingResponse> RequestMoreStreamTime(StreamPingRequest request)
         {
@@ -45,7 +59,6 @@ namespace BA_MobileGPS.Service.Service
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-
             }
             return result;
         }
@@ -61,7 +74,6 @@ namespace BA_MobileGPS.Service.Service
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-
             }
             return result;
         }
@@ -77,7 +89,6 @@ namespace BA_MobileGPS.Service.Service
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-
             }
             return result;
         }
@@ -135,7 +146,125 @@ namespace BA_MobileGPS.Service.Service
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
 
+        public async Task<List<CameraRestreamInfo>> GetListVideoByDate(CameraRestreamRequest request)
+        {
+            var result = new List<CameraRestreamInfo>();
+            try
+            {
+                string url = $"{ApiUri.POST_RESTREAM_INFOR}";
+                var response = await requestProvider.PostAsync<CameraRestreamRequest, CameraRestreamInfoResponse>(url, request);
+                if (response != null && response.Data.Count > 0)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<List<CameraRestreamUploadInfo>> GetListVideoOnServer(CameraRestreamRequest request)
+        {
+            var result = new List<CameraRestreamUploadInfo>();
+            try
+            {
+                string url = $"{ApiUri.POST_RESTREAM_LISTUPLOAD}";
+                var response = await requestProvider.PostAsync<CameraRestreamRequest, CameraRestreamUploadResponse>(url, request);
+                if (response != null && response.Data.Count > 0)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<RestreamStartResponese> StartRestream(StartRestreamRequest request)
+        {
+            var result = new RestreamStartResponese();
+            try
+            {
+                string url = $"{ApiUri.POST_RESTREAM_START}";
+                result = await requestProvider.PostAsync<StartRestreamRequest, RestreamStartResponese>(url, request);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<StreamStopResponse> StopRestream(StopRestreamRequest request)
+        {
+            var result = new StreamStopResponse();
+            try
+            {
+                string url = $"{ApiUri.POST_RESTREAM_STOP}";
+                result = await requestProvider.PostAsync<StopRestreamRequest, StreamStopResponse>(url, request);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<List<CaptureImageData>> RestreamCaptureImageInfo(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime, int? channel = null, int? limit = null)
+        {
+            var result = new List<CaptureImageData>();
+            try
+            {
+                var from = fromTime.ToString("yyyy/MM/dd HH:mm:ss").Replace(" ", "T");
+                var to = toTime.ToString("yyyy/MM/dd HH:mm:ss").Replace(" ", "T");
+                string url = string.Format(ApiUri.GET_RESTREAM_IMAGES + "?xncode={0}&vehiclePlate={1}&fromTime={2}&toTime={3}&limit={4}&channel={5}", xncode, vehiclePlate, from, to, limit, channel);
+                var response = await requestProvider.GetAsync<ResponseStreamBase<List<CaptureImageData>>>(url);
+                if (response != null && response.Data.Count > 0)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<RestreamUploadResponse> UploadToCloud(StartRestreamRequest request)
+        {
+            var result = new RestreamUploadResponse();
+            try
+            {
+                string url = $"{ApiUri.POST_RESTREAM_UPLOAD}";
+                result = await requestProvider.PostAsync<StartRestreamRequest, RestreamUploadResponse>(url, request);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<RestreamUploadResponse> CancelUploadToCloud(StopRestreamRequest request)
+        {
+            var result = new RestreamUploadResponse();
+            try
+            {
+                string url = $"{ApiUri.POST_RESTREAM_CANCELUPLOAD}";
+                result = await requestProvider.PostAsync<StopRestreamRequest, RestreamUploadResponse>(url, request);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
             return result;
         }

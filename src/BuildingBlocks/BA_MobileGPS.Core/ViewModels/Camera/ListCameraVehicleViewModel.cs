@@ -244,7 +244,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else if (task.IsFaulted)
             {
-                PageDialog.DisplayAlertAsync("", task.Exception?.GetRootException().Message, MobileResource.Common_Button_OK);
+                PageDialog.DisplayAlertAsync("", task.Exception?.Message, MobileResource.Common_Button_OK);
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, task.Exception);
             }
         }));
@@ -268,7 +268,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.VehiclePlate, VehiclePlate }
                 };
 
-                await NavigationService.NavigateAsync("CameraDetail", parameters, useModalNavigation: false);
+                await NavigationService.NavigateAsync("CameraDetail", parameters, useModalNavigation: false, true);
             });
         }
     }

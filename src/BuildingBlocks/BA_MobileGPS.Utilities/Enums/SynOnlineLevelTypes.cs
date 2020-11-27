@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BA_MobileGPS.Utilities
+﻿namespace BA_MobileGPS.Utilities
 {
     /// <summary>
     /// trungtq: Mức đồng bộ cho phần đồng bộ online

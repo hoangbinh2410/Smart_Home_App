@@ -16,6 +16,20 @@ namespace BA_MobileGPS.Core.Views
 
             showhideColumn.TranslateTo(0, (int)Application.Current.MainPage.Height, 250);
             IsShowFilter = !IsShowFilter;
+
+            FixColumTablet();
+        }
+
+        private void FixColumTablet()
+        {
+            if (TargetIdiom.Tablet == Device.Idiom)
+            {
+                dataGrid.GridColumnSizer.DataGrid.Columns["OrderNumber"].Width = 60;
+                dataGrid.GridColumnSizer.DataGrid.Columns["StartTime"].Width = 200;
+                dataGrid.GridColumnSizer.DataGrid.Columns["ChangingFuel"].Width = 200;
+                dataGrid.GridColumnSizer.DataGrid.Columns["FuelStatus"].Width = 150;
+                dataGrid.GridColumnSizer.DataGrid.Columns["CurrentAddress"].Width = 250;
+            }
         }
 
         private void HideableToolbarItem_Clicked(object sender, EventArgs e)

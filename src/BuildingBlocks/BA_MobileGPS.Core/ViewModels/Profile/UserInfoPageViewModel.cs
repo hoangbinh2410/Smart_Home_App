@@ -44,7 +44,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private Religion selectedReligion;
         public Religion SelectedReligion { get => selectedReligion; set => SetProperty(ref selectedReligion, value, onChanged: OnReligionChanged); }
-
+        private bool isShowPhoneNumber;
+        public bool IsShowPhoneNumber { get => isShowPhoneNumber; set => SetProperty(ref isShowPhoneNumber, value); }
         public ICommand AvatarTappedCommand { get; private set; }
         public ICommand UpdateUserInfoCommand { get; private set; }
 
@@ -54,6 +55,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this.userService = userService;
             AvatarTappedCommand = new DelegateCommand(AvatarTapped);
             UpdateUserInfoCommand = new DelegateCommand(UpdateUserInfo);
+            isShowPhoneNumber = MobileUserSettingHelper.IsShowPhoneNumber;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -246,7 +248,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 { "ImagePath", CurrentUser.AvatarPathLocal }
             };
 
-            await NavigationService.NavigateAsync("BaseNavigationPage/ImageEditorPage", @params, true);
+            await NavigationService.NavigateAsync("BaseNavigationPage/ImageEditorPage", @params, true, true);
         }
 
         private void OnGenderChanged()
@@ -541,7 +543,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             StaticSettings.User.UserName = CurrentUser.UserName?.Trim();
                             StaticSettings.User.FullName = CurrentUser.FullName?.Trim();
                             StaticSettings.User.PhoneNumber = CurrentUser.PhoneNumber?.Trim();
-                            await NavigationService.GoBackAsync(useModalNavigation: true);
+                            await NavigationService.GoBackAsync(null, useModalNavigation: true, true);
                         }
                     }
                 }

@@ -36,7 +36,6 @@
         { get => groupName; set => SetProperty(ref groupName, value, nameof(GroupName)); }
 
         private string groupName;
-
     }
 
     public class HomeMenuItem

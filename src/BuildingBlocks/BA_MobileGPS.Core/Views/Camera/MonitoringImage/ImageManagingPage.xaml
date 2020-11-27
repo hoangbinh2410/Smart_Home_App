@@ -52,7 +52,6 @@
                 Padding="0"
                 BackgroundColor="{DynamicResource WhiteColor}"
                 CornerRadius="20"
-                HasShadow="True"
                 HeightRequest="40"
                 VerticalOptions="Center">
                 <pancake:PancakeView.GestureRecognizers>
@@ -202,7 +201,7 @@
                             VerticalOptions="Center">
                             <Label
                                 HorizontalOptions="Center"
-                                Text="{Binding Name}"
+                                Text="{Binding .}"
                                 TextColor="{DynamicResource WhiteColor}"
                                 VerticalOptions="Center" />
                         </pancake:PancakeView>
@@ -213,7 +212,5 @@
         <!--  Image  -->
 
         <Grid x:Name="ImagePanel" Grid.Row="2" />
-
     </Grid>
-
 </ContentPage>

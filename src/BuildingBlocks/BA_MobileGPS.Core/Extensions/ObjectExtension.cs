@@ -64,7 +64,6 @@ namespace BA_MobileGPS.Core
             }
         }
 
-
         public static Object GetPropValue(String name, Object obj)
         {
             foreach (String part in name.Split('.'))
@@ -79,6 +78,7 @@ namespace BA_MobileGPS.Core
             }
             return obj;
         }
+
         public static object GetPropertyValue(object src, string propName)
         {
             if (src == null) throw new ArgumentException("Value cannot be null.", "src");

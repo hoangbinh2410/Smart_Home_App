@@ -12,8 +12,8 @@ namespace BA_MobileGPS.Core.Views
         public DetailVehiclePopup()
         {
             InitializeComponent();
-            
         }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -81,10 +81,14 @@ namespace BA_MobileGPS.Core.Views
             lsvMenu.ItemsSource = lstresource;
         }
 
-
         public virtual bool CheckPermision(int PermissionKey)
         {
             return StaticSettings.User.Permissions.IndexOf(PermissionKey) != -1;
+        }
+
+        private void PopupPage_BackgroundClicked(object sender, System.EventArgs e)
+        {
+            ((DetailVehiclePopupViewModel)BindingContext).Close();
         }
     }
 }

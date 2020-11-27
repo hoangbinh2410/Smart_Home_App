@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BA_MobileGPS.Core.iOS.DependencyService;
-using Foundation;
-using UIKit;
+﻿using BA_MobileGPS.Core.iOS.DependencyService;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(PhotoBrowserImplementation))]
+
 namespace BA_MobileGPS.Core.iOS.DependencyService
 {
     public class PhotoBrowserImplementation : IPhotoBrowser

@@ -109,7 +109,7 @@ namespace BA_MobileGPS.Core.Views
                     this.TotalVmax = item.Vmax;
                     this.TotalVarg = (int)Math.Round((double)item.Varg);
                 }
-                else if(enumerableItems.ToList().Count > 1)
+                else if (enumerableItems.ToList().Count > 1)
                 {
                     this.TotalTime = DateTimeHelper.FormatTimeSpan24h(new TimeSpan(enumerableItems.Sum(x => x.ActivityTimes.Ticks)));
                     this.SumTotalKmGps = Math.Round(enumerableItems.Sum(x => x.TotalKmGps), 2);

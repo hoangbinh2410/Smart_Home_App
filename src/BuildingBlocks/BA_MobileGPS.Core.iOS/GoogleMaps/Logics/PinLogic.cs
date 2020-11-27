@@ -1,4 +1,4 @@
-using BA_MobileGPS.Core.iOS.Extensions;
+﻿using BA_MobileGPS.Core.iOS.Extensions;
 using BA_MobileGPS.Core.iOS.Factories;
 using BA_MobileGPS.Core.Logics;
 
@@ -243,10 +243,7 @@ namespace BA_MobileGPS.Core.iOS.Logics
 
         protected override void OnUpdatePosition(Pin outerItem, Marker nativeItem)
         {
-            if (!_withoutUpdateNative)
-            {
-                nativeItem.Position = outerItem.Position.ToCoord();
-            }
+            nativeItem.Position = outerItem.Position.ToCoord();
         }
 
         protected override void OnUpdateType(Pin outerItem, Marker nativeItem)

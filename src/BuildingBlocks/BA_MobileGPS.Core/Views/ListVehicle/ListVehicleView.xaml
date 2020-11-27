@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="BA_MobileGPS.Core.Views.ListVehicleView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:template="clr-namespace:BA_MobileGPS.Core.Views"
+    xmlns:templateSelector="clr-namespace:BA_MobileGPS.Core.DataTemplateSelectors"
+    xmlns:viewcore="clr-namespace:BA_MobileGPS.Core.Views.PartialView;assembly=BA_MobileGPS.Core"
+    x:Name="this">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:HasDataBackgroundColorConverter x:Key="HasDataBackgroundColorConverter" />
+            <converter:HasDataIconColorConverter x:Key="HasDataIconColorConverter" />
+            <converter:SelectedStatusBackgroundColorConverter x:Key="SelectedStatusBackgroundColorConverter" />
+            <converter:SelectedStatusIconColorConverter x:Key="SelectedStatusIconColorConverter" />
+            <Style TargetType="controls:IconView">
+                <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
+                <Setter Property="HeightRequest" Value="17" />
+                <Setter Property="WidthRequest" Value="17" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="LineBreakMode" Value="TailTruncation" />
+            </Style>
+            <DataTemplate x:Key="DefaultTemplateVMS">
+                <template:VehicleDefaultView />
+            </DataTemplate>
+            <DataTemplate x:Key="LostSignalTemplateVMS">
+                <template:VehicleLostSignalView />
+            </DataTemplate>
+            <DataTemplate x:Key="ExpiredTemplate">
+                <template:VehicleExpiredView />
+            </DataTemplate>
+            <DataTemplate x:Key="UnpaidTemplate">
+                <template:VehicleUnpaidView />
+            </DataTemplate>
+            <DataTemplate x:Key="StopServiceTemplate">
+                <template:VehicleStopServiceView />
+            </DataTemplate>
+            <templateSelector:ListVehicleTemplateSelector
+                x:Key="ListVehicleTemplateSelector"
+                DefaultTemplate="{StaticResource DefaultTemplateVMS}"
+                ExpiredTemplate="{StaticResource ExpiredTemplate}"
+                LostSignalTemplate="{StaticResource LostSignalTemplateVMS}"
+                StopServiceTemplate="{StaticResource StopServiceTemplate}"
+                UnpaidTemplate="{StaticResource UnpaidTemplate}" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid RowDefinitions="Auto,*" RowSpacing="0">
+            <viewcore:TitleBarView Grid.Row="0" />
+            <Grid
+                Grid.Row="1"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <StackLayout>
+                    <Grid
+                        Margin="5,10,5,0"
+                        ColumnDefinitions="*,Auto,Auto,Auto,Auto"
+                        HeightRequest="40"
+                        MinimumHeightRequest="40">
+
+                        <pancake:PancakeView
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            CornerRadius="20">
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow
+                                    BlurRadius="3"
+                                    Offset="0,0"
+                                    Color="Black" />
+                            </pancake:PancakeView.Shadow>
+                            <StackLayout
+                                Padding="0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal">
+                                <pancake:PancakeView
+                                    BackgroundColor="{DynamicResource PrimaryColor}"
+                                    CornerRadius="20"
+                                    WidthRequest="40">
+                                    <controls:IconView
+                                        Margin="13"
+                                        Foreground="{DynamicResource WhiteColor}"
+                                        Source="ic_search.png" />
+                                </pancake:PancakeView>
+                                <Entry x:Name="entrySearchVehicle" Text="{Binding SearchedText}">
+                                    <Entry.Behaviors>
+                                        <prismbehaviors:EventToCommandBehavior
+                                            Command="{Binding SearchVehicleCommand}"
+                                            EventArgsConverter="{StaticResource TextChangedEventArgsConverter}"
+                                            EventName="TextChanged" />
+                                    </Entry.Behaviors>
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                            </StackLayout>
+                        </pancake:PancakeView>
+                        <pancake:PancakeView
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            CornerRadius="20"
+                            HeightRequest="40"
+                            VerticalOptions="End"
+                            WidthRequest="40">
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow
+                                    BlurRadius="3"
+                                    Offset="0,0"
+                                    Color="Black" />
+                            </pancake:PancakeView.Shadow>
+                            <pancake:PancakeView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowHelpCommand}" />
+                            </pancake:PancakeView.GestureRecognizers>
+                            <controls:IconView
+                                Foreground="{DynamicResource PrimaryColor}"
+                                HeightRequest="25"
+                                HorizontalOptions="Center"
+                                Source="ic_infor_light.png"
+                                VerticalOptions="Center"
+                                WidthRequest="25" />
+                        </pancake:PancakeView>
+                        <pancake:PancakeView
+                            Grid.Column="2"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            CornerRadius="20"
+                            HeightRequest="40"
+                            VerticalOptions="End"
+                            WidthRequest="40">
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow
+                                    BlurRadius="3"
+                                    Offset="0,0"
+                                    Color="Black" />
+                            </pancake:PancakeView.Shadow>
+                            <pancake:PancakeView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ChangeSortCommand}" />
+                            </pancake:PancakeView.GestureRecognizers>
+                            <controls:FontAwesomeIcon
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.SortAmountUp}"
+                                TextColor="{DynamicResource PrimaryColor}"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </pancake:PancakeView>
+                        <pancake:PancakeView
+                            Grid.Column="3"
+                            Padding="0"
+                            BackgroundColor="{Binding VehicleGroups, Converter={StaticResource HasDataBackgroundColorConverter}}"
+                            CornerRadius="20"
+                            HeightRequest="40"
+                            VerticalOptions="End"
+                            WidthRequest="40">
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow
+                                    BlurRadius="3"
+                                    Offset="0,0"
+                                    Color="Black" />
+                            </pancake:PancakeView.Shadow>
+                            <pancake:PancakeView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
+                            </pancake:PancakeView.GestureRecognizers>
+                            <controls:IconView
+                                Foreground="{Binding VehicleGroups, Converter={StaticResource HasDataIconColorConverter}}"
+                                HeightRequest="25"
+                                HorizontalOptions="Center"
+                                Source="ic_doublevehicle.png"
+                                VerticalOptions="Center"
+                                WidthRequest="25" />
+                        </pancake:PancakeView>
+                        <pancake:PancakeView
+                            Grid.Column="4"
+                            Padding="0"
+                            BackgroundColor="{Binding VehicleStatusSelected, Converter={StaticResource SelectedStatusBackgroundColorConverter}}"
+                            CornerRadius="20"
+                            HeightRequest="40"
+                            VerticalOptions="End"
+                            WidthRequest="40">
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow
+                                    BlurRadius="3"
+                                    Offset="0,0"
+                                    Color="Black" />
+                            </pancake:PancakeView.Shadow>
+                            <pancake:PancakeView.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="FilterCarType_Tapped" />
+                            </pancake:PancakeView.GestureRecognizers>
+                            <controls:IconView
+                                Foreground="{Binding VehicleStatusSelected, Converter={StaticResource SelectedStatusIconColorConverter}}"
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Source="ic_filter.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </pancake:PancakeView>
+                    </Grid>
+
+                    <Grid>
+                        <syncfusionList:SfListView
+                            Grid.Row="0"
+                            AutoFitMode="DynamicHeight"
+                            IsScrollBarVisible="True"
+                            IsScrollingEnabled="True"
+                            ItemTemplate="{StaticResource ListVehicleTemplateSelector}"
+                            ItemsSource="{Binding ListVehicle}"
+                            SelectionBackgroundColor="Transparent"
+                            TapCommand="{Binding TapListVehicleCommand}" />
+                        <StackLayout
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="Center"
+                            IsVisible="{Binding ListVehicle, Converter={StaticResource IsEmptyDataConverter}}"
+                            Spacing="10"
+                            VerticalOptions="Center">
+
+                            <!--  Image for display svg image  -->
+                            <!--  Image for display svg image  -->
+                            <ffsvg:SvgCachedImage
+                                Margin="{x:OnIdiom Phone='0,0,0,0',
+                                                   Desktop='0',
+                                                   Tablet='0'}"
+                                HeightRequest="200"
+                                Source="NoItem.svg"
+                                VerticalOptions="Center"
+                                WidthRequest="200" />
+
+                            <!--  Label to display content  -->
+                            <Label
+                                x:Name="lblNotFound"
+                                HorizontalOptions="Center"
+                                TextColor="{DynamicResource TextSecondaryColor}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+
+                <Grid x:Name="boxStatusVehicle" HorizontalOptions="End">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*" />
+                        <ColumnDefinition Width="0.5*" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Column="0" BackgroundColor="Transparent">
+                        <StackLayout.GestureRecognizers>
+                            <SwipeGestureRecognizer Direction="Right" Swiped="SwipeGestureBoxStatus" />
+                            <TapGestureRecognizer Tapped="TappedHidenBoxStatus" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                    <Frame
+                        Grid.Column="1"
+                        Padding="0"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
+                        CornerRadius="0"
+                        HasShadow="True"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <syncfusionList:SfListView
+                                x:Name="lvStatusCar"
+                                Margin="0"
+                                AutoFitMode="Height"
+                                ItemSpacing="0"
+                                ItemTapped="TapStatusVehicle"
+                                ItemsSource="{Binding ListVehilceStatus}"
+                                SelectedItem="{Binding SelectedStatus}"
+                                SelectionBackgroundColor="{DynamicResource TextPlaceHolderColor}"
+                                TapCommand="{Binding SelectStatusVehicleCommand}">
+                                <syncfusionList:SfListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid ColumnSpacing="0" RowSpacing="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <StackLayout
+                                                Padding="10"
+                                                Orientation="Horizontal"
+                                                Spacing="5"
+                                                VerticalOptions="FillAndExpand">
+                                                <ffImage:CachedImage
+                                                    HorizontalOptions="Start"
+                                                    Source="{Binding Icon}"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="40" />
+                                                <StackLayout Spacing="3" VerticalOptions="Center">
+                                                    <Label
+                                                        HorizontalOptions="Start"
+                                                        Text="{Binding Name}"
+                                                        TextColor="{DynamicResource WhiteColor}"
+                                                        VerticalOptions="Center" />
+                                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                                        <Label
+                                                            HorizontalOptions="Start"
+                                                            Text="{Binding CountCar, Converter={StaticResource UnitConverter}}"
+                                                            TextColor="{DynamicResource WhiteColor}"
+                                                            VerticalOptions="Center" />
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <BoxView
+                                                Grid.Row="1"
+                                                BackgroundColor="{DynamicResource GrayColor}"
+                                                HeightRequest="0.5"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="Start" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </syncfusionList:SfListView.ItemTemplate>
+                            </syncfusionList:SfListView>
+                        </Grid>
+                    </Frame>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

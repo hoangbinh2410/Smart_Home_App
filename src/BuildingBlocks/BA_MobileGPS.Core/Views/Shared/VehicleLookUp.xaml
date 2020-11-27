@@ -54,7 +54,7 @@
                 <syncfusionList:SfListView
                     AutoFitMode="Height"
                     IsScrollBarVisible="False"
-                    ItemSpacing="0"
+                    ItemSpacing="5"
                     ItemsSource="{Binding ListVehicle}"
                     SelectionBackgroundColor="Transparent"
                     TapCommand="{Binding TapListVehicleCommand}">
@@ -62,37 +62,52 @@
                         <DataTemplate>
                             <Grid ColumnSpacing="0" RowSpacing="0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width=".2*" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="1" />
                                 </Grid.RowDefinitions>
-                                <forms:CachedImage
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    HeightRequest="25"
-                                    HorizontalOptions="CenterAndExpand"
-                                    Source="car_blue.png"
-                                    VerticalOptions="CenterAndExpand"
-                                    WidthRequest="25" />
+                                <StackLayout Grid.Row="0" Grid.Column="0">
+                                    <forms:CachedImage
+                                        HeightRequest="30"
+                                        HorizontalOptions="CenterAndExpand"
+                                        Source="{Binding IconImage}"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="30" />
+                                    <Label
+                                        FontSize="12"
+                                        Text="{Binding Velocity, Converter={StaticResource VelocityConverter}}"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+
                                 <Label
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     Margin="10"
+                                    FontAttributes="Bold"
+                                    FontFamily="{StaticResource myFontLatoBold}"
+                                    FontSize="{StaticResource FontSize16}"
                                     HorizontalOptions="FillAndExpand"
                                     HorizontalTextAlignment="Start"
                                     Text="{Binding PrivateCode}"
                                     VerticalOptions="Center" />
+
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="10"
+                                    HorizontalOptions="End"
+                                    HorizontalTextAlignment="End"
+                                    Text="{Binding VehicleTime, Converter={StaticResource DateTimeConverter}}"
+                                    VerticalOptions="Center" />
                                 <BoxView
                                     Grid.Row="1"
                                     Grid.Column="0"
-                                    Grid.ColumnSpan="2"
-                                    BackgroundColor="{DynamicResource GrayColor}"
-                                    HeightRequest="0.5"
-                                    HorizontalOptions="FillAndExpand"
-                                    VerticalOptions="Start" />
+                                    Grid.ColumnSpan="3"
+                                    StyleClass="SlimLine" />
                             </Grid>
                         </DataTemplate>
                     </syncfusionList:SfListView.ItemTemplate>

@@ -274,7 +274,6 @@
                                         <effects:BorderlessEffect />
                                     </Entry.Effects>
                                 </Entry>
-
                             </StackLayout>
                         </Frame>
                         <!--  Trạng Thái  -->
@@ -307,10 +306,8 @@
                                         <effects:BorderlessEffect />
                                     </Entry.Effects>
                                 </Entry>
-
                             </StackLayout>
                         </Frame>
-
                     </StackLayout>
                     <!--  button ecxel  -->
                     <sharpnado:MaterialFrame

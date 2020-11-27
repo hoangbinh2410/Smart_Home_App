@@ -1,8 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
-using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
@@ -13,7 +11,6 @@ using Plugin.Toasts;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -67,8 +64,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
             StaticSettings.TimeServer = UserInfo.TimeServer.AddSeconds(1);
             SetTimeServer();
-            StartTimmerSynData();
-            EventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
             EventAggregator.GetEvent<OnResumeEvent>().Subscribe(OnResumePage);
             EventAggregator.GetEvent<OnSleepEvent>().Subscribe(OnSleepPage);
             EventAggregator.GetEvent<SelectedCompanyEvent>().Subscribe(SelectedCompanyChanged);
@@ -82,63 +77,57 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
-
-            TryExecute(async () =>
+            TryExecute(() =>
             {
-                await ConnectSignalR();
-            });
-
-        }
-
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-
-            TryExecute(async () =>
-            {
-                await ConnectSignalROnline();
-
                 InitVehilceOnline();
+                Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
+                {
+                    TryExecute(async () =>
+                    {
+                        await ConnectSignalR();
+                        GetCountVehicleDebtMoney();
+                        InsertOrUpdateAppDevice();
+                        GetNoticePopup();
+                        PushPageFileBase();
+                        // Lấy danh sách cảnh báo
+                        GetCountAlert();
+                    });
 
-                // Lấy danh sách cảnh báo
-                GetCountAlert();
-
-                PushPageFileBase();
-
-                InsertOrUpdateAppDevice();
-
-                GetNoticePopup();
-
-                GetCountVehicleDebtMoney();
+                    return false;
+                });
             });
         }
 
         public override void OnDestroy()
         {
             base.OnDestroy();
-            timer.Stop();
-            timer.Dispose();
-            timerSyncData.Stop();
-            timerSyncData.Dispose();
-            EventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
-            EventAggregator.GetEvent<OnResumeEvent>().Unsubscribe(OnResumePage);
-            EventAggregator.GetEvent<OnSleepEvent>().Unsubscribe(OnSleepPage);
-            EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(SelectedCompanyChanged);
-            EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
-            DisconnectSignalR();
+            if (IsLoaded)
+            {
+                base.OnDestroy();
+                timer.Stop();
+                timer.Dispose();
+                timerSyncData.Stop();
+                timerSyncData.Dispose();
+                EventAggregator.GetEvent<OnResumeEvent>().Unsubscribe(OnResumePage);
+                EventAggregator.GetEvent<OnSleepEvent>().Unsubscribe(OnSleepPage);
+                EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(SelectedCompanyChanged);
+                EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
+                DisconnectSignalR();
+                IsLoaded = false;
+            }
         }
 
         private void InitVehilceOnline()
         {
             if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                Device.BeginInvokeOnMainThread(async () =>
                 {
                     EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
+                    await ConnectSignalROnline();
+                    //Join vào nhóm signalR để nhận dữ liệu online
+                    JoinGroupSignalRCar(StaticSettings.ListVehilceOnline.Select(x => x.VehicleId.ToString()).ToList());
                 });
-
-                //Join vào nhóm signalR để nhận dữ liệu online
-                JoinGroupSignalRCar(StaticSettings.ListVehilceOnline.Select(x => x.VehicleId.ToString()).ToList());
             }
             else
             {
@@ -164,7 +153,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             GetListVehicleOnlineResume();
                         }
-
                     }
                     GetTimeServer();
                     //kiểm tra xem có thông báo nào không
@@ -178,7 +166,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                 }
             });
-
         }
 
         private void OnSleepPage(bool obj)
@@ -191,74 +178,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Property
 
-        private int selectedIndex;
-
-        public int SelectedIndex
-        {
-            get => selectedIndex;
-            set
-            {
-                SetProperty(ref selectedIndex, value);
-                RaisePropertyChanged();
-            }
-        }
+        private bool IsLoaded { get; set; }
 
         #endregion Property
 
         #region PrivateMethod
-
-        private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
-        {
-            switch (obj.Item1)
-            {
-                case ItemTabPageEnums.HomePage:
-                    SelectedIndex = (int)obj.Item1;
-                    break;
-
-                case ItemTabPageEnums.ListVehiclePage:
-                    SelectedIndex = (int)obj.Item1;
-                    break;
-
-                case ItemTabPageEnums.OnlinePage:
-                    int indexonline = (int)ItemTabPageEnums.OnlinePage;
-                    if (!CheckPermision((int)PermissionKeyNames.VehicleView))
-                    {
-                        indexonline -= 1;
-                    }
-                    SelectedIndex = indexonline;
-                    break;
-
-                case ItemTabPageEnums.RoutePage:
-                    int indexroute = (int)ItemTabPageEnums.RoutePage;
-                    if (!CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
-                    {
-                        indexroute -= 1;
-                    }
-                    else if (!CheckPermision((int)PermissionKeyNames.VehicleView))
-                    {
-                        indexroute -= 1;
-                    }
-                    SelectedIndex = indexroute;
-                    break;
-
-                case ItemTabPageEnums.ProfilePage:
-                    int indexprofile = (int)ItemTabPageEnums.ProfilePage;
-                    if (!CheckPermision((int)PermissionKeyNames.ViewModuleOnline))
-                    {
-                        indexprofile -= 1;
-                    }
-                    else if (!CheckPermision((int)PermissionKeyNames.VehicleView))
-                    {
-                        indexprofile -= 1;
-                    }
-                    else if (!CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
-                    {
-                        indexprofile -= 1;
-                    }
-                    SelectedIndex = indexprofile;
-                    break;
-            }
-        }
 
         public override void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
@@ -322,7 +246,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             // Khởi tạo signalR
             await vehicleOnlineHubService.Connect();
-
+            vehicleOnlineHubService.onReceiveSendCarSignalR -= OnReceiveSendCarSignalR;
             vehicleOnlineHubService.onReceiveSendCarSignalR += OnReceiveSendCarSignalR;
         }
 
@@ -416,22 +340,25 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SendDataCar(VehicleOnlineMessage carInfo)
         {
-            var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == carInfo.VehicleId);
-            if (vehicle != null && !StateVehicleExtension.IsVehicleDebtMoney(vehicle.MessageId, vehicle.DataExt) && vehicle.VehicleTime < carInfo.VehicleTime)
+            if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
             {
-                vehicle.Update(carInfo);
-                vehicle.IconImage = IconCodeHelper.GetMarkerResource(vehicle);
-                vehicle.StatusEngineer = StateVehicleExtension.EngineState(vehicle);
-                if (!StateVehicleExtension.IsLostGPS(vehicle.GPSTime, vehicle.VehicleTime) && !StateVehicleExtension.IsLostGSM(vehicle.VehicleTime))
+                var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == carInfo.VehicleId);
+                if (vehicle != null && !StateVehicleExtension.IsVehicleDebtMoney(vehicle.MessageId, vehicle.DataExt) && vehicle.VehicleTime < carInfo.VehicleTime)
                 {
-                    vehicle.SortOrder = 1;
-                }
-                else
-                {
-                    vehicle.SortOrder = 0;
-                }
+                    vehicle.Update(carInfo);
+                    vehicle.IconImage = IconCodeHelper.GetMarkerResource(vehicle);
+                    vehicle.StatusEngineer = StateVehicleExtension.EngineState(vehicle);
+                    if (!StateVehicleExtension.IsLostGPS(vehicle.GPSTime, vehicle.VehicleTime) && !StateVehicleExtension.IsLostGSM(vehicle.VehicleTime))
+                    {
+                        vehicle.SortOrder = 1;
+                    }
+                    else
+                    {
+                        vehicle.SortOrder = 0;
+                    }
 
-                EventAggregator.GetEvent<ReceiveSendCarEvent>().Publish(vehicle);
+                    EventAggregator.GetEvent<ReceiveSendCarEvent>().Publish(vehicle);
+                }
             }
         }
 
@@ -579,13 +506,16 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     StaticSettings.ListVehilceOnline = result;
 
-                    Device.BeginInvokeOnMainThread(() =>
+                    StartTimmerSynData();
+
+                    Device.BeginInvokeOnMainThread(async () =>
                     {
                         EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
-                    });
 
-                    //Join vào nhóm signalR để nhận dữ liệu online
-                    JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
+                        await ConnectSignalROnline();
+                        //Join vào nhóm signalR để nhận dữ liệu online
+                        JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
+                    });
                 }
                 else
                 {
@@ -618,6 +548,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     if (synVehicles != null && synVehicles.Count > 0)
                     {
+                        TryExecute(async () =>
+                        {
+                            if (!vehicleOnlineHubService.IsConnectedOrConnecting())
+                            {
+                                await ConnectSignalROnline();
+                            }
+                        });
+
                         var vehicelIDs = string.Join(",", synVehicles);
                         var userID = UserInfo.UserId;
                         var companyID = UserInfo.CompanyId;
@@ -738,7 +676,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (string.IsNullOrEmpty(Settings.ReceivedNotificationType))
                         {
                             // gọi sang trang danh sách nợ phí
-                            _ = await NavigationService.NavigateAsync("NavigationPage/VehicleDebtMoneyPage", null, useModalNavigation: true);
+                            _ = await NavigationService.NavigateAsync("NavigationPage/VehicleDebtMoneyPage", null, useModalNavigation: true, true);
                         }
                     }
                 });
@@ -863,7 +801,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             await NavigationService.NavigateAsync("BaseNavigationPage/NotificationDetailPage", parameters: new NavigationParameters
                              {
                                  { ParameterKey.NotificationKey, int.Parse(Settings.ReceivedNotificationValue) }
-                            }, useModalNavigation: true);
+                            }, useModalNavigation: true, true);
                         });
                     }
                 }

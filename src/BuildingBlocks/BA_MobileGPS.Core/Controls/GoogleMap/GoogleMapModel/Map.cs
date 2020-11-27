@@ -46,7 +46,7 @@ namespace BA_MobileGPS.Core
 
         public static readonly BindableProperty InitialCameraUpdateProperty = BindableProperty.Create(
             nameof(InitialCameraUpdate), typeof(CameraUpdate), typeof(Map),
-            CameraUpdateFactory.NewPositionZoom(new Position(41.89, 12.49), 10),  // center on Rome by default
+            CameraUpdateFactory.NewPositionZoom(new Position(20.9735, 105.847), 10),  // center on Binh Anh by default
             propertyChanged: (bindable, oldValue, newValue) =>
             {
                 ((Map)bindable)._useMoveToRegisonAsInitialBounds = false;
@@ -289,7 +289,7 @@ namespace BA_MobileGPS.Core
                 if (_visibleRegion == value)
                     return;
                 if (value == null)
-                    throw new ArgumentNullException(nameof(value));
+                    return;
                 OnPropertyChanging();
                 _visibleRegion = value;
                 OnPropertyChanged();
@@ -304,7 +304,7 @@ namespace BA_MobileGPS.Core
                 if (_region == value)
                     return;
                 if (value == null)
-                    throw new ArgumentNullException(nameof(value));
+                    return;
                 OnPropertyChanging();
                 _region = value;
                 OnPropertyChanged();
@@ -326,7 +326,7 @@ namespace BA_MobileGPS.Core
         public void MoveToRegion(MapSpan mapSpan, bool animate = true)
         {
             if (mapSpan == null)
-                throw new ArgumentNullException(nameof(mapSpan));
+                return;
 
             if (_useMoveToRegisonAsInitialBounds)
             {

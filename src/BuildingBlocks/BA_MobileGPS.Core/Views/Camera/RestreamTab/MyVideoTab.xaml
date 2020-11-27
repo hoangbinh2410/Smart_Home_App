@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.MyVideoTab"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <Grid Padding="5,5,5,0" RowDefinitions="Auto,*">
+        <!--  Khu vực tìm kiếm  -->
+        <Grid
+            Margin="0,5"
+            ColumnDefinitions="*,Auto,Auto,Auto,Auto"
+            ColumnSpacing="8">
+            <pancake:PancakeView
+                Padding="0"
+                BackgroundColor="{DynamicResource WhiteColor}"
+                CornerRadius="22"
+                HeightRequest="45"
+                VerticalOptions="Center">
+                <pancake:PancakeView.Shadow>
+                    <pancake:DropShadow
+                        BlurRadius="3"
+                        Offset="0,0"
+                        Color="Black" />
+                </pancake:PancakeView.Shadow>
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                </pancake:PancakeView.GestureRecognizers>
+                <StackLayout
+                    Padding="0"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <pancake:PancakeView
+                        BackgroundColor="{DynamicResource PrimaryColor}"
+                        CornerRadius="22"
+                        WidthRequest="45">
+                        <icons:IconView
+                            Margin="13"
+                            Foreground="{DynamicResource WhiteColor}"
+                            Source="ic_search.png" />
+                    </pancake:PancakeView>
+                    <Entry
+                        x:Name="entrySearch"
+                        FontSize="14"
+                        HorizontalOptions="FillAndExpand"
+                        InputTransparent="True"
+                        PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
+                        Text="{Binding VehicleSelectedPlate}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
+                        VerticalOptions="Center">
+                        <Entry.Effects>
+                            <effects:BorderlessEffect />
+                        </Entry.Effects>
+                    </Entry>
+                </StackLayout>
+            </pancake:PancakeView>
+            <pancake:PancakeView
+                Grid.Column="2"
+                Padding="0"
+                BackgroundColor="{DynamicResource WhiteColor}"
+                CornerRadius="22"
+                HeightRequest="45"
+                VerticalOptions="Center"
+                WidthRequest="45">
+                <pancake:PancakeView.Shadow>
+                    <pancake:DropShadow
+                        BlurRadius="3"
+                        Offset="0,0"
+                        Color="Black" />
+                </pancake:PancakeView.Shadow>
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
+                </pancake:PancakeView.GestureRecognizers>
+                <icons:IconView
+                    Margin="8"
+                    Foreground="{DynamicResource PrimaryColor}"
+                    Source="ic_group.png"
+                    VerticalOptions="Center" />
+            </pancake:PancakeView>
+            <pancake:PancakeView
+                Grid.Column="3"
+                Padding="0"
+                BackgroundColor="{DynamicResource WhiteColor}"
+                CornerRadius="22"
+                HeightRequest="45"
+                VerticalOptions="Center"
+                WidthRequest="45">
+                <pancake:PancakeView.Shadow>
+                    <pancake:DropShadow
+                        BlurRadius="3"
+                        Offset="0,0"
+                        Color="Black" />
+                </pancake:PancakeView.Shadow>
+                <pancake:PancakeView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
+                </pancake:PancakeView.GestureRecognizers>
+                <icons:IconView
+                    Margin="8"
+                    Foreground="{DynamicResource PrimaryColor}"
+                    Source="ic_calendar.png"
+                    VerticalOptions="Center" />
+            </pancake:PancakeView>
+        </Grid>
+        <!--  Khu vực video và danh sách  -->
+        <Grid Grid.Row="1">
+            <Label
+                FontSize="20"
+                HorizontalOptions="Center"
+                Text="Chức năng chưa hoàn thiện"
+                VerticalOptions="Center" />
+        </Grid>
+    </Grid>
+</ContentPage>

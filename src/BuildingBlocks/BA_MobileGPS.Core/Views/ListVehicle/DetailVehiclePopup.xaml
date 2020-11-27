@@ -8,9 +8,10 @@
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:renderedViews="clr-namespace:Sharpnado.Presentation.Forms.RenderedViews;assembly=Sharpnado.Presentation.Forms"
+    BackgroundClicked="PopupPage_BackgroundClicked"
     BackgroundColor="#90FFFFFF"
     BackgroundInputTransparent="False"
-    CloseWhenBackgroundIsClicked="True">
+    CloseWhenBackgroundIsClicked="False">
     <pages:PopupPage.Animation>
         <animation:MoveAnimation
             DurationIn="0"
@@ -18,12 +19,9 @@
             PositionIn="Bottom"
             PositionOut="Bottom" />
     </pages:PopupPage.Animation>
-
-
     <pancakeview:PancakeView
         BackgroundColor="{DynamicResource WhiteColor}"
         CornerRadius="10,10,0,0"
-        HasShadow="True"
         VerticalOptions="EndAndExpand">
         <pancakeview:PancakeView.Shadow>
             <pancakeview:DropShadow
@@ -95,7 +93,6 @@
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
-
                 </renderedViews:HorizontalListView.ItemTemplate>
             </renderedViews:HorizontalListView>
         </StackLayout>

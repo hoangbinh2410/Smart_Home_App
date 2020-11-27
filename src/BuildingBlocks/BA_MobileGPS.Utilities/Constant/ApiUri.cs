@@ -171,7 +171,7 @@
 
         public const string GET_VEHICLEDETAIL = "api/v3/vehicles/getvehicledetail";
 
-        public const string GET_ADDRESSESBYLATLNG = "api/address/batchaddress";
+        public const string GET_ADDRESSESBYLATLNG = "api/geocode/batchaddress";
 
         #endregion Vehicle detail
 
@@ -205,6 +205,14 @@
         public const string GET_IMAGESLIMIT = "api/stream/imagelimit";
         public const string GET_IMAGESTIME = "api/stream/imagetime";
         public const string GET_IMAGES = "api/stream/image";
+        public const string POST_RESTREAM_INFOR = "api/stream/restreaminfo";
+        public const string POST_RESTREAM_LISTUPLOAD = "api/stream/restreamuploadinfo";
+        public const string POST_RESTREAM_START = "api/stream/restreamstart";
+        public const string POST_RESTREAM_STOP = "api/stream/restreamstop";
+        public const string GET_RESTREAM_IMAGES = "api/stream/restreamimage";
+        public const string POST_RESTREAM_UPLOAD = "api/stream/uploadcloud";
+        public const string POST_RESTREAM_CANCELUPLOAD = "api/stream/canceluploadcloud";
+
         #endregion Camera
 
         #region Guide

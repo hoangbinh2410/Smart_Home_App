@@ -6,8 +6,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using FormsTintImageEffect = BA_MobileGPS.Core.Effects.TintImageEffect;
 
-
 [assembly: ExportEffect(typeof(TintImageEffect), BA_MobileGPS.Core.Effects.TintImageEffect.Name)]
+
 namespace BA_MobileGPS.Core.iOS.Effects
 {
     public class TintImageEffect : PlatformEffect
@@ -30,6 +30,8 @@ namespace BA_MobileGPS.Core.iOS.Effects
             }
         }
 
-        protected override void OnDetached() { }
+        protected override void OnDetached()
+        {
+        }
     }
 }

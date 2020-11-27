@@ -3,7 +3,6 @@
     x:Class="BA_MobileGPS.Core.Views.Camera.MonitoringImage.Template4Image"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:data="clr-namespace:Syncfusion.DataSource;assembly=Syncfusion.DataSource.Portable"
@@ -11,7 +10,6 @@
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
-    xmlns:local="clr-namespace:BA_MobileGPS.Core.Views.Camera.MonitoringImage"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
@@ -188,7 +186,7 @@
                                         MaxLines="2"
                                         Text="{Binding CurrentAddress}"
                                         VerticalOptions="Center" />
-                                    <icons:IconView
+                                    <!--<icons:IconView
                                         Grid.Row="3"
                                         Grid.Column="0"
                                         Foreground="{DynamicResource PrimaryColor}"
@@ -204,7 +202,7 @@
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
                                         Text="Xe quá tốc độ"
-                                        VerticalOptions="Center" />
+                                        VerticalOptions="Center" />-->
                                     <StackLayout
                                         Grid.RowSpan="4"
                                         Grid.Column="2"

@@ -153,7 +153,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else if (task.IsFaulted)
                 {
-                    Logger.WriteError(MethodBase.GetCurrentMethod().Name, task.Exception?.GetRootException().Message);
+                    Logger.WriteError(MethodBase.GetCurrentMethod().Name, task.Exception?.Message);
                 }
             }));
         }
@@ -332,7 +332,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("AlertTimeSettingPage", new NavigationParameters
                 {
                     { ParameterKey.AlertVehicleConfig, alertConfigRequest }
-                }, useModalNavigation: false);
+                }, useModalNavigation: false, false);
             });
         }
     }

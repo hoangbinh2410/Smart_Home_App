@@ -12,7 +12,6 @@ namespace BA_MobileGPS.Service
     {
         public FuelsSummariesService()
         {
-
         }
 
         public async override Task<IList<FuelsSummariesModel>> GetData(FuelsSummariesRequest input)
@@ -35,7 +34,5 @@ namespace BA_MobileGPS.Service
             }
             return respone;
         }
-
-
     }
 }

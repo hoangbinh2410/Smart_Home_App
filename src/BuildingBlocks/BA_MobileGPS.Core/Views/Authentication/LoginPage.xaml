@@ -6,25 +6,14 @@
     xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors"
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
-    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     prism:ViewModelLocator.AutowireViewModel="True">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converter:HasDataConverter x:Key="HasDataConverter" />
-        </ResourceDictionary>
-        <Style TargetType="sharpnado:MaterialFrame">
-            <Setter Property="LightThemeBackgroundColor" Value="{DynamicResource LoginIconBackgroundColor}" />
-            <Setter Property="WidthRequest" Value="42" />
-            <Setter Property="CornerRadius" Value="21" />
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="TranslationY" Value="0.5" />
-        </Style>
-    </ContentPage.Resources>
     <Grid RowSpacing="0">
         <ff:CachedImage Aspect="AspectFill" Source="bg_Login.png" />
         <Grid RowDefinitions="*,2.8*">
@@ -50,6 +39,7 @@
                     VerticalOptions="Center" />
             </StackLayout>
             <ff:CachedImage
+                x:Name="logo"
                 Grid.Row="0"
                 HeightRequest="50"
                 HorizontalOptions="Center"
@@ -74,7 +64,8 @@
                             <sh:Shadows
                                 CornerRadius="21"
                                 HeightRequest="42"
-                                Scale="1.01"
+                                Scale="{OnPlatform Android=1.02,
+                                                   iOS=1.01}"
                                 WidthRequest="42">
                                 <sh:Shadows.Shades>
                                     <sh:ImmutableShades>
@@ -86,18 +77,27 @@
                                     </sh:ImmutableShades>
                                 </sh:Shadows.Shades>
                                 <sharpnado:MaterialFrame
+                                    Padding="0"
                                     CornerRadius="21"
                                     HeightRequest="42"
                                     LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                                     TranslationX="{OnPlatform Android=-1.2,
                                                               iOS=-2.2}"
+                                    TranslationY="0.5"
                                     WidthRequest="42">
-                                    <controls:IconView
+                                    <controls:FontAwesomeIcon
+                                        Margin="9"
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="Center"
+                                        Text="{x:Static fontawesome:FontAwesomeIcons.User}"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="CenterAndExpand" />
+                                    <!--<controls:IconView
                                         Margin="9"
                                         Foreground="{DynamicResource WhiteColor}"
                                         HorizontalOptions="Center"
                                         Source="ic_userwhite.png"
-                                        VerticalOptions="CenterAndExpand" />
+                                        VerticalOptions="CenterAndExpand" />-->
                                 </sharpnado:MaterialFrame>
 
                             </sh:Shadows>
@@ -107,7 +107,11 @@
                                 x:Name="account"
                                 HeightRequest="{OnPlatform Android=40,
                                                            iOS=30}"
-                                Text="{Binding UserName.Value}" />
+                                Text="{Binding UserName.Value}">
+                                <Entry.Effects>
+                                    <effects:ClearEntryEffect />
+                                </Entry.Effects>
+                            </Entry>
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
                     <input:SfTextInputLayout
@@ -123,7 +127,8 @@
                             <sh:Shadows
                                 CornerRadius="21"
                                 HeightRequest="42"
-                                Scale="1.01"
+                                Scale="{OnPlatform Android=1.02,
+                                                   iOS=1.01}"
                                 WidthRequest="42">
                                 <sh:Shadows.Shades>
                                     <sh:ImmutableShades>
@@ -135,11 +140,13 @@
                                     </sh:ImmutableShades>
                                 </sh:Shadows.Shades>
                                 <sharpnado:MaterialFrame
+                                    Padding="0"
                                     CornerRadius="21"
                                     HeightRequest="42"
                                     LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                                     TranslationX="{OnPlatform Android=-1.2,
                                                               iOS=-2.2}"
+                                    TranslationY="0.5"
                                     WidthRequest="42">
                                     <controls:IconView
                                         Margin="9"
@@ -156,7 +163,11 @@
                                 HeightRequest="{OnPlatform Android=40,
                                                            iOS=30}"
                                 IsPassword="True"
-                                Text="{Binding Password.Value}" />
+                                Text="{Binding Password.Value}">
+                                <Entry.Effects>
+                                    <effects:ClearEntryEffect />
+                                </Entry.Effects>
+                            </Entry>
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
                     <StackLayout
@@ -236,7 +247,12 @@
                         Margin="20,0,0,0"
                         Orientation="Horizontal"
                         Spacing="20">
-                        <sharpnado:MaterialFrame>
+                        <sharpnado:MaterialFrame
+                            Padding="0"
+                            CornerRadius="21"
+                            HeightRequest="42"
+                            LightThemeBackgroundColor="{DynamicResource LoginIconBackgroundColor}"
+                            WidthRequest="42">
                             <controls:IconView
                                 Margin="6"
                                 Foreground="{DynamicResource LoginIconColor}"
@@ -246,7 +262,12 @@
                                 <TapGestureRecognizer Command="{Binding CallHotLineCommand}" NumberOfTapsRequired="1" />
                             </sharpnado:MaterialFrame.GestureRecognizers>
                         </sharpnado:MaterialFrame>
-                        <sharpnado:MaterialFrame>
+                        <sharpnado:MaterialFrame
+                            Padding="0"
+                            CornerRadius="21"
+                            HeightRequest="42"
+                            LightThemeBackgroundColor="{DynamicResource LoginIconBackgroundColor}"
+                            WidthRequest="42">
                             <controls:IconView
                                 Margin="6"
                                 Foreground="{DynamicResource LoginIconColor}"
@@ -256,7 +277,12 @@
                                 <TapGestureRecognizer Command="{Binding SendEmailCommand}" NumberOfTapsRequired="1" />
                             </sharpnado:MaterialFrame.GestureRecognizers>
                         </sharpnado:MaterialFrame>
-                        <sharpnado:MaterialFrame>
+                        <sharpnado:MaterialFrame
+                            Padding="0"
+                            CornerRadius="21"
+                            HeightRequest="42"
+                            LightThemeBackgroundColor="{DynamicResource LoginIconBackgroundColor}"
+                            WidthRequest="42">
                             <controls:IconView
                                 Margin="6"
                                 Foreground="{DynamicResource LoginIconColor}"
