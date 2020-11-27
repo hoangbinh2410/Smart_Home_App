@@ -158,8 +158,8 @@
       <Name>BA_MobileGPS.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\CNN_MobileGPS\CNN_MobileGPS.csproj">
-      <Project>{6A28A714-343F-41F0-85FD-1A0C07B6F478}</Project>
-      <Name>BA_MobileGPS</Name>
+      <Project>{fc745b10-097a-45fc-8234-0eed72aa3e89}</Project>
+      <Name>CNN_MobileGPS</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

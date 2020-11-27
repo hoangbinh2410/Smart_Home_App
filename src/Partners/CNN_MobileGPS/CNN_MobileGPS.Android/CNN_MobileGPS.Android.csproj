@@ -114,6 +114,7 @@
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.ExifInterface" Version="1.3.1" />
     <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.2.0" />
+    <PackageReference Include="Xamarin.AndroidX.Palette" Version="1.0.0.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\BA_MobileGPS.Core.Droid\BA_MobileGPS.Core.Droid.csproj">
@@ -123,10 +124,6 @@
     <ProjectReference Include="..\..\..\BuildingBlocks\BA_MobileGPS.Core\BA_MobileGPS.Core.csproj">
       <Project>{55e2fe34-997f-4771-a5d7-8114b5fb7899}</Project>
       <Name>BA_MobileGPS.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CNN_MobileGPS\CNN_MobileGPS.csproj">
-      <Project>{51827F75-FA66-46BE-906B-E25B80839DDE}</Project>
-      <Name>BA_MobileGPS</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
