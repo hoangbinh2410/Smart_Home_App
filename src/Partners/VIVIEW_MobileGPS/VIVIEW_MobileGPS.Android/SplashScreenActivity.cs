@@ -5,7 +5,7 @@ using AndroidX.AppCompat.App;
 
 namespace VIVIEW_MobileGPS.Droid
 {
-    [Activity(Label = "@string/app_name", MainLauncher = true, NoHistory = true, Theme = "@style/Theme.Splash", ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Label = "@string/app_name", MainLauncher = true, NoHistory = true, Theme = "@style/MainTheme.Splash", ScreenOrientation = ScreenOrientation.Portrait)]
     public class SplashScreenActivity : AppCompatActivity
     {
         protected override void OnResume()
