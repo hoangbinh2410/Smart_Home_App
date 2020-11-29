@@ -21,7 +21,7 @@
 	<key>MinimumOSVersion</key>
 	<string>9.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>VIVIEW GPS 2</string>
+	<string>VIVIEW GPS</string>
 	<key>CFBundleIdentifier</key>
 	<string>vn.viviewgps.gpsmobile</string>
 	<key>CFBundleName</key>
@@ -73,9 +73,9 @@
 		<true/>
 	</dict>
 	<key>CFBundleVersion</key>
-	<string>3.1.0</string>
+	<string>3.2.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.1.0</string>
+	<string>3.2.0</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>XSLaunchImageAssets</key>
