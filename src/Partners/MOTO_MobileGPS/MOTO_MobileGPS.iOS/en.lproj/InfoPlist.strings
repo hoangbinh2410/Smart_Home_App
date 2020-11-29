@@ -1,12 +1,12 @@
 ﻿"CFBundleDisplayName" = "BA MOTO";
 "CFBundleName" = "BA MOTO";
 
-"NSLocationAlwaysUsageDescription" = "This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
-"NSLocationWhenInUseUsageDescription" = "This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
-"NSLocationUsageDescription" = "This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
-"NSLocationAlwaysAndWhenInUseUsageDescription"="This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
-"NSCalendarsUsageDescription"="This app needs you to allow access to your calendar to choose the time, do you allow the application to access your calendar?";
-"NSCameraUsageDescription"="This application needs you to allow access to your camera to take photos, do you allow the application to access your camera?";
-"NSPhotoLibraryUsageDescription"="This application needs your permission to access the photo library to get your photos, do you allow the application to access your photo library?";
-"NSMicrophoneUsageDescription"="This application needs you to allow access to your camera to take photos, do you allow the application to access your camera?";
-"NSPhotoLibraryAddUsageDescription"="This application needs your permission to access the photo library to get your photos, do you allow the application to access your photo library?";
+"NSLocationAlwaysUsageDescription" = "BA MOTO cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
+"NSLocationWhenInUseUsageDescription" = "BA MOTO cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
+"NSLocationUsageDescription" = "BA MOTO cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
+"NSLocationAlwaysAndWhenInUseUsageDescription"="BA MOTO cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
+"NSCalendarsUsageDescription"="BA MOTO cần bạn cho phép truy cập lịch của bạn để chọn thời gian, bạn có cho phép ứng dụng truy cập lịch của bạn không?";
+"NSCameraUsageDescription"="BA MOTO cần bạn cho phép truy cập camera của bạn để chụp ảnh, bạn có cho phép ứng dụng truy cập camera của bạn không?";
+"NSPhotoLibraryUsageDescription"="BA MOTO cần bạn cho phép truy cập thư viện ảnh để lấy ảnh của bạn, bạn có cho phép ứng dụng truy cập thư viện hình ảnh của bạn không?";
+"NSMicrophoneUsageDescription"="BA MOTO cần bạn cho phép truy cập micro để quay video, bạn có cho phép ứng dụng truy cập micro của bạn không?";
+"NSPhotoLibraryAddUsageDescription"="BA MOTO cần bạn cho phép truy cập thư viện ảnh để lấy ảnh của bạn, bạn có cho phép ứng dụng truy cập thư viện hình ảnh của bạn không?"

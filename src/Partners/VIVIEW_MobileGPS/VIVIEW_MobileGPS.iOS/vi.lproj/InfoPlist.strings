@@ -1,12 +1,12 @@
 ﻿"CFBundleDisplayName" = "VIVIEW GPS";
 "CFBundleName" = "VIVIEW GPS";
 
-"NSLocationAlwaysUsageDescription" = "Ứng dụng này cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
-"NSLocationWhenInUseUsageDescription" = "Ứng dụng này cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
-"NSLocationUsageDescription" = "Ứng dụng này cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
-"NSLocationAlwaysAndWhenInUseUsageDescription"="Ứng dụng này cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
-"NSCalendarsUsageDescription"="Ứng dụng này cần bạn cho phép truy cập lịch của bạn để chọn thời gian, bạn có cho phép ứng dụng truy cập lịch của bạn không?";
-"NSCameraUsageDescription"="Ứng dụng này cần bạn cho phép truy cập camera của bạn để chụp ảnh, bạn có cho phép ứng dụng truy cập camera của bạn không?";
-"NSPhotoLibraryUsageDescription"="Ứng dụng này cần bạn cho phép truy cập thư viện ảnh để lấy ảnh của bạn, bạn có cho phép ứng dụng truy cập thư viện hình ảnh của bạn không?";
-"NSMicrophoneUsageDescription"="Ứng dụng này cần bạn cho phép truy cập micro để quay video, bạn có cho phép ứng dụng truy cập micro của bạn không?";
-"NSPhotoLibraryAddUsageDescription"="Ứng dụng này cần bạn cho phép truy cập thư viện ảnh để lấy ảnh của bạn, bạn có cho phép ứng dụng truy cập thư viện hình ảnh của bạn không?";
+"NSLocationAlwaysUsageDescription" = "VIVIEW GPS cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
+"NSLocationWhenInUseUsageDescription" = "VIVIEW GPS cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
+"NSLocationUsageDescription" = "VIVIEW GPS cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
+"NSLocationAlwaysAndWhenInUseUsageDescription"="VIVIEW GPS cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
+"NSCalendarsUsageDescription"="VIVIEW GPS cần bạn cho phép truy cập lịch của bạn để chọn thời gian, bạn có cho phép ứng dụng truy cập lịch của bạn không?";
+"NSCameraUsageDescription"="VIVIEW GPS cần bạn cho phép truy cập camera của bạn để chụp ảnh, bạn có cho phép ứng dụng truy cập camera của bạn không?";
+"NSPhotoLibraryUsageDescription"="VIVIEW GPS cần bạn cho phép truy cập thư viện ảnh để lấy ảnh của bạn, bạn có cho phép ứng dụng truy cập thư viện hình ảnh của bạn không?";
+"NSMicrophoneUsageDescription"="VIVIEW GPS cần bạn cho phép truy cập micro để quay video, bạn có cho phép ứng dụng truy cập micro của bạn không?";
+"NSPhotoLibraryAddUsageDescription"="VIVIEW GPS cần bạn cho phép truy cập thư viện ảnh để lấy ảnh của bạn, bạn có cho phép ứng dụng truy cập thư viện hình ảnh của bạn không?";
