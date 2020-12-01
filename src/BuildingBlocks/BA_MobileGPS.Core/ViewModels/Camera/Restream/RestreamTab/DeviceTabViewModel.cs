@@ -539,7 +539,7 @@ namespace BA_MobileGPS.Core.ViewModels
             listview.IsBusy = true;
             try
             {
-                pageIndex++;
+                //pageIndex++;
                 LoadMore();
             }
             catch (Exception ex)
@@ -622,8 +622,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         //Sort lại theo kênh và thời gian ASC
                         VideoItemsSourceOrigin.Sort((x, y) => DateTime.Compare(x.VideoStartTime, y.VideoStartTime));
                                          
-
                         VideoItemsSource = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToObservableCollection();
+                        pageIndex++;
                     }
                 }, showLoading: true);
             }
