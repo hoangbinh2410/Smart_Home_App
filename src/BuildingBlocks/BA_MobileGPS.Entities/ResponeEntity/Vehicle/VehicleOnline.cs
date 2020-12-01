@@ -116,7 +116,7 @@ namespace BA_MobileGPS.Entities
         ///* Cập nhật lại dữ liệu */
         public void Update(VehicleOnlineMessage message)
         {
-            if (message.GPSTime > this.GPSTime && message.VehicleTime > this.VehicleTime)
+            if (message.GPSTime > this.GPSTime || message.VehicleTime > this.VehicleTime)
             {
                 this.VehicleId = message.VehicleId;
                 this.VehiclePlate = message.VehiclePlate;
