@@ -222,6 +222,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             var Pin = Pins[0];
                             Pin.Position = new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng);
+                            Pin.Address = ListCameraImage[Position].CurrentAddress;
                             _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(Pin.Position, 14), TimeSpan.FromMilliseconds(10));
                             SelectedPin = Pins[0];
                             return false;

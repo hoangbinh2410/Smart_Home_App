@@ -125,6 +125,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             var Pin = Pins[0];
                             Pin.Position = new Position(ListCameraImage[Position].Latitude, ListCameraImage[Position].Longitude);
+                            Pin.Address = ListCameraImage[Position].Address;
                             _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ListCameraImage[Position].Latitude, ListCameraImage[Position].Longitude), 14), TimeSpan.FromMilliseconds(10));
                             SelectedPin = Pins[0];
                             return false;
