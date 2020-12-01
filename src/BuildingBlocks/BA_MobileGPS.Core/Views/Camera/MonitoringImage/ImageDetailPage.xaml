@@ -7,6 +7,7 @@
     xmlns:core="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:googlemapsBehaviors="clr-namespace:BA_MobileGPS.Core.GoogleMap.Behaviors"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:vm="clr-namespace:BA_MobileGPS.Core.ViewModels">
@@ -256,7 +257,13 @@
                 <core:Map
                     x:Name="Map"
                     HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand" />
+                    SelectedPin="{Binding SelectedPin}"
+                    VerticalOptions="FillAndExpand">
+                    <core:Map.Behaviors>
+                        <googlemapsBehaviors:BindingPinsBehavior Value="{Binding Pins}" />
+                        <googlemapsBehaviors:AnimateCameraBehavior Request="{Binding AnimateCameraRequest}" />
+                    </core:Map.Behaviors>
+                </core:Map>
             </sharpnado:MaterialFrame>
         </StackLayout>
     </ContentPage.Content>
