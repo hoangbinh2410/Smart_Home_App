@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace MOTO_MobileGPS.Droid
 {
-    [Activity(Label = "MOTO GPS", Icon = "@mipmap/ic_launcher", Theme = "@style/MainTheme", MainLauncher = false,
+    [Activity(Label = "@string/app_name", Icon = "@mipmap/ic_launcher", Theme = "@style/MainTheme", MainLauncher = false,
         LaunchMode = LaunchMode.SingleTask, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : BaseActivity
     {
