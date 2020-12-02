@@ -21,6 +21,7 @@ namespace BA_MobileGPS.Core.ViewModels
         protected int pageIndex { get; set; } = 0;
         protected int pageCount { get; } = 7;
         private readonly IStreamCameraService cameraService;
+        private string selectedVehiclePlates { get; set; }
         public CameraTimeChartViewModel(INavigationService navigationService,
             IStreamCameraService cameraService) : base(navigationService)
         {
@@ -37,7 +38,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.Initialize(parameters);
             EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
-            GetAllChartData();
+
         }
         public override void OnDestroy()
         {
@@ -48,7 +49,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
-
+            GetAllChartData();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -57,7 +58,8 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
             {
                 Vehicle = vehicle;
-                GetChartData(vehicle.VehiclePlate);
+                selectedVehiclePlates = vehicle.VehiclePlate;
+                GetChartData(selectedVehiclePlates);
             }
         }
 
@@ -83,6 +85,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
             {
                 var vehicleString = GetVehiclesHaveCamera(StaticSettings.ListVehilceCamera);
+
                 GetChartData(vehicleString);
             }
             else
@@ -108,12 +111,21 @@ namespace BA_MobileGPS.Core.ViewModels
             var listVehicles = (from a in lstcamera
                                 join b in StaticSettings.ListVehilceOnline on a.VehiclePlate.ToUpper() equals b.VehiclePlate.ToUpper()
                                 select b.VehiclePlate).ToList();
-            return string.Join(",", listVehicles);
+
+            selectedVehiclePlates = string.Join(",", listVehicles);
+            return selectedVehiclePlates;
         }
 
         private void GetChartData(string vehicleString)
         {
+
+            if (ChartItemsSource.Count > 0)
+            {
+                ChartItemsSource.Clear();
+            }
+
             pageIndex = 0;
+
             var request = new CameraRestreamRequest()
             {
                 CustomerId = UserInfo.XNCode,
@@ -125,7 +137,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 return await cameraService.GetVehiclesChartDataByDate(request);
             }, (res) =>
             {
-
                 foreach (var item in res)
                 {
                     if (item.DeviceTimes == null || item.DeviceTimes.Count == 0)
@@ -138,8 +149,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 }
                 ChartItemsSourceOrigin = res;
-                ChartItemsSource = ChartItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToObservableCollection();
-                pageIndex++;
+                LoadMore();
             });
         }
 
@@ -175,11 +185,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 listview.IsBusy = false;
                 IsBusy = false;
             }
+
         }
 
         private bool CanLoadMoreItems(object obj)
         {
-            if (ChartItemsSourceOrigin.Count < pageIndex * pageCount)
+            if (ChartItemsSourceOrigin.Count <= pageIndex * pageCount)
                 return false;
             return true;
         }
@@ -216,14 +227,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (param != null)
             {
                 SelectedDate = param.Value;
-                if (vehicle == null)
-                {
-                    GetAllChartData();
-                }
-                else
-                {
-                    GetChartData(vehicle.VehiclePlate);
-                }
+                GetChartData(selectedVehiclePlates);
             }
         }
         private void SelectVehicleCamera()
@@ -236,7 +240,16 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GotoResreamTab(object obj)
         {
-
+            var item = (RestreamChartData)obj;
+            var param = new NavigationParameters()
+            {
+                {ParameterKey.SelectDate,selectedDate },
+                {ParameterKey.Vehicle,item.VehiclePlate }
+            };
+            SafeExecute(async () =>
+            {
+                var a = await NavigationService.NavigateAsync("NavigationPage/CameraRestream?selectedTab=DeviceTab", param, useModalNavigation: true, true);
+            });
         }
     }
 }

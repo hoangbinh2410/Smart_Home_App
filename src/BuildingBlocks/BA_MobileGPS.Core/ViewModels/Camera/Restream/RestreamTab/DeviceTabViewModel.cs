@@ -45,6 +45,7 @@ namespace BA_MobileGPS.Core.ViewModels
             InitDateTimeInSearch();
             vehicle = new CameraLookUpVehicleModel();
             listChannel = new List<ChannelModel> { new ChannelModel() { Name = "Tất cả kênh", Value = 0 } };
+          
         }
 
         #region Lifecycle
@@ -52,17 +53,13 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            LibVLCSharp.Shared.Core.Initialize();
-            LibVLC = new LibVLC("--no-rtsp-tcp");
-            MediaPlayer = new MediaPlayer(libVLC);
-            MediaPlayer.TimeChanged += Media_TimeChanged;
-            MediaPlayer.EndReached += Media_EndReached;
-            MediaPlayer.EncounteredError += Media_EncounteredError;
+            InitVLC();
         }
 
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
+            
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -662,6 +659,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 dateStart = dateEnd.AddMinutes(-20);
             }
             else dateStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+        }
+        private void InitVLC()
+        {
+            LibVLCSharp.Shared.Core.Initialize();
+            LibVLC = new LibVLC("--no-rtsp-tcp");
+            MediaPlayer = new MediaPlayer(libVLC);
+            MediaPlayer.TimeChanged += Media_TimeChanged;
+            MediaPlayer.EndReached += Media_EndReached;
+            MediaPlayer.EncounteredError += Media_EncounteredError;
         }
 
         private void SearchData()
