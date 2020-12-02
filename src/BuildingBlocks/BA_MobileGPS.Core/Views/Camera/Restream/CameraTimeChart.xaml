@@ -15,11 +15,11 @@
     Title="Xem lại video"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
-        <Style TargetType="indicator:SfBusyIndicator">
+        <Style TargetType="busyIndicator:SfBusyIndicator">
             <Setter Property="AnimationType" Value="Cupertino" />
             <Setter Property="BackgroundColor" Value="Transparent" />
             <Setter Property="EnableAnimation" Value="True" />
-            <Setter Property="TextColor" Value="White" />
+            <Setter Property="TextColor" Value="Black" />
             <Setter Property="ViewBoxHeight" Value="50" />
             <Setter Property="ViewBoxWidth" Value="50" />
             <Setter Property="Duration" Value="0.8" />
