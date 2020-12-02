@@ -3,6 +3,7 @@
     x:Class="BA_MobileGPS.Core.Views.CameraTimeChart"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:busyIndicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
@@ -13,6 +14,17 @@
     x:Name="root"
     Title="Xem lại video"
     prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <Style TargetType="indicator:SfBusyIndicator">
+            <Setter Property="AnimationType" Value="Cupertino" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="EnableAnimation" Value="True" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="ViewBoxHeight" Value="50" />
+            <Setter Property="ViewBoxWidth" Value="50" />
+            <Setter Property="Duration" Value="0.8" />
+        </Style>
+    </ContentPage.Resources>
     <NavigationPage.TitleView>
         <Grid VerticalOptions="Center">
             <icons:IconView
@@ -385,6 +397,7 @@
                         VerticalOptions="Center" />
                 </Grid>
             </Grid>-->
+            <busyIndicator:SfBusyIndicator Grid.RowSpan="3" IsBusy="{Binding IsBusy}" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

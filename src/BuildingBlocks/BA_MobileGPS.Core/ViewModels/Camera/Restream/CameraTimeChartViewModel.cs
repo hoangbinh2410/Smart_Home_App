@@ -3,25 +3,23 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class CameraTimeChartViewModel : ViewModelBase
     {
         protected int pageIndex { get; set; } = 0;
-        protected int pageCount { get; } = 7;
+        protected int pageCount { get; } = 5;
         private readonly IStreamCameraService cameraService;
         private string selectedVehiclePlates { get; set; }
+
         public CameraTimeChartViewModel(INavigationService navigationService,
             IStreamCameraService cameraService) : base(navigationService)
         {
@@ -31,15 +29,16 @@ namespace BA_MobileGPS.Core.ViewModels
             chartItemsSource = new ObservableCollection<RestreamChartData>();
             PushToFromDatePageCommand = new DelegateCommand(ExecuteToFromDate);
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
-            selectedDate = DateTime.Today;
+            selectedDate = DateTime.Now.Date;
         }
 
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
             EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
-
+            IsBusy = true;
         }
+
         public override void OnDestroy()
         {
             EventAggregator.GetEvent<SelectDateTimeEvent>().Unsubscribe(UpdateDateTime);
@@ -72,11 +71,13 @@ namespace BA_MobileGPS.Core.ViewModels
         public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
         private List<RestreamChartData> ChartItemsSourceOrigin { get; set; } = new List<RestreamChartData>();
         private ObservableCollection<RestreamChartData> chartItemsSource;
+
         public ObservableCollection<RestreamChartData> ChartItemsSource
         {
             get { return chartItemsSource; }
             set { SetProperty(ref chartItemsSource, value); }
         }
+
         private DateTime selectedDate;
         public virtual DateTime SelectedDate { get => selectedDate; set => SetProperty(ref selectedDate, value); }
 
@@ -118,7 +119,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetChartData(string vehicleString)
         {
-
+            if (!IsBusy)
+            {
+                IsBusy = true;
+            }
             if (ChartItemsSource.Count > 0)
             {
                 ChartItemsSource.Clear();
@@ -150,6 +154,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 ChartItemsSourceOrigin = res;
                 LoadMore();
+                IsBusy = false;
             });
         }
 
@@ -185,7 +190,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 listview.IsBusy = false;
                 IsBusy = false;
             }
-
         }
 
         private bool CanLoadMoreItems(object obj)
@@ -206,7 +210,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     ChartItemsSource.Add(item);
                 }
             }
-
         }
 
         public virtual void ExecuteToFromDate()
@@ -230,6 +233,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 GetChartData(selectedVehiclePlates);
             }
         }
+
         private void SelectVehicleCamera()
         {
             SafeExecute(async () =>
@@ -241,15 +245,25 @@ namespace BA_MobileGPS.Core.ViewModels
         private void GotoResreamTab(object obj)
         {
             var item = (RestreamChartData)obj;
-            var param = new NavigationParameters()
+            var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate);
+            if (vehicle != null)
             {
-                {ParameterKey.SelectDate,selectedDate },
-                {ParameterKey.Vehicle,item.VehiclePlate }
-            };
-            SafeExecute(async () =>
-            {
-                var a = await NavigationService.NavigateAsync("NavigationPage/CameraRestream?selectedTab=DeviceTab", param, useModalNavigation: true, true);
-            });
+                var vehicleModel = new CameraLookUpVehicleModel()
+                {
+                    VehiclePlate = item.VehiclePlate,
+                    VehicleId = vehicle.VehicleId,
+                    PrivateCode = vehicle.PrivateCode
+                };
+                var param = new NavigationParameters()
+                {
+                    {ParameterKey.SelectDate,selectedDate },
+                    {ParameterKey.VehiclePlate,vehicleModel }
+                };
+                SafeExecute(async () =>
+                {
+                    var a = await NavigationService.NavigateAsync("NavigationPage/CameraRestream", param, useModalNavigation: true, true);
+                });
+            }
         }
     }
 }
