@@ -374,7 +374,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (Settings.SortOrder == (int)SortOrderType.PrivateCodeASC)
                     Settings.SortOrder = (int)SortOrderType.PrivateCodeDES;
                 else
-                    Settings.SortOrder = (int)SortOrderType.PrivateCodeASC;
+                    Settings.SortOrder = (int)SortOrderType.PrivateCodeDES;
             }
             else if (MobileResource.ListVehicle_Label_ByTime.Equals(sort))
             {
