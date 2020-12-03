@@ -129,10 +129,6 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
-
-        public SortOrder sortOrder = SortOrder.DefaultDES;
-        public SortOrder SortOrder { get => sortOrder; set => SetProperty(ref sortOrder, value); }
-
         // Danh sách xe gốc chưa lọc
         private List<VehicleOnlineViewModel> ListVehicleOrigin
         {
@@ -140,15 +136,15 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (StaticSettings.ListVehilceOnline != null)
                 {
-                    if (SortOrder == SortOrder.PrivateCodeASC)
+                    if (Settings.SortOrder == (int)SortOrder.PrivateCodeASC)
                         return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).OrderBy(x => x.PrivateCode).ToList());
-                    else if (SortOrder == SortOrder.PrivateCodeDES)
+                    else if (Settings.SortOrder == (int)SortOrder.PrivateCodeDES)
                         return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).OrderByDescending(x => x.PrivateCode).ToList());
-                    else if (SortOrder == SortOrder.TimeASC)
+                    else if (Settings.SortOrder == (int)SortOrder.TimeASC)
                         return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).OrderBy(x => x.VehicleTime).ToList());
-                    else if (SortOrder == SortOrder.TimeDES)
+                    else if (Settings.SortOrder == (int)SortOrder.TimeDES)
                         return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).OrderByDescending(x => x.VehicleTime).ToList());
-                    else if (SortOrder == SortOrder.DefaultASC)
+                    else if (Settings.SortOrder == (int)SortOrder.DefaultASC)
                         return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderBy(x => x.SortOrder).ToList());
                     else
                         return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).ToList());
@@ -383,39 +379,39 @@ namespace BA_MobileGPS.Core.ViewModels
 
             if (MobileResource.ListVehicle_Label_ByVehiclePlate.Equals(sort))
             {
-                if (SortOrder == SortOrder.PrivateCodeASC)
-                    SortOrder = SortOrder.PrivateCodeDES;
+                if (Settings.SortOrder == (int)SortOrder.PrivateCodeASC)
+                    Settings.SortOrder = (int)SortOrder.PrivateCodeDES;
                 else
-                    SortOrder = SortOrder.PrivateCodeASC;
+                    Settings.SortOrder = (int)SortOrder.PrivateCodeASC;
             }
             else if (MobileResource.ListVehicle_Label_ByTime.Equals(sort))
             {
-                if (SortOrder == SortOrder.TimeDES)
-                    SortOrder = SortOrder.TimeASC;
+                if (Settings.SortOrder == (int)SortOrder.TimeDES)
+                    Settings.SortOrder = (int)SortOrder.TimeASC;
                 else
-                    SortOrder = SortOrder.TimeDES;
+                    Settings.SortOrder = (int)SortOrder.TimeDES;
             }
             else if (MobileResource.ListVehicle_Label_Default.Equals(sort))
             {
-                if (SortOrder == SortOrder.DefaultDES)
-                    SortOrder = SortOrder.DefaultASC;
+                if (Settings.SortOrder == (int)SortOrder.DefaultDES)
+                    Settings.SortOrder = (int)SortOrder.DefaultASC;
                 else
-                    SortOrder = SortOrder.DefaultDES;
+                    Settings.SortOrder = (int)SortOrder.DefaultDES;
             }
             else
             {
                 return;
             }
 
-            if (SortOrder == SortOrder.PrivateCodeASC)
+            if (Settings.SortOrder == (int)SortOrder.PrivateCodeASC)
                 ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).OrderBy(x => x.PrivateCode).ToObservableCollection();
-            else if (SortOrder == SortOrder.PrivateCodeDES)
+            else if (Settings.SortOrder == (int)SortOrder.PrivateCodeDES)
                 ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).OrderByDescending(x => x.PrivateCode).ToObservableCollection();
-            else if (SortOrder == SortOrder.TimeASC)
+            else if (Settings.SortOrder == (int)SortOrder.TimeASC)
                 ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).OrderBy(x => x.VehicleTime).ToObservableCollection();
-            else if (SortOrder == SortOrder.TimeDES)
+            else if (Settings.SortOrder == (int)SortOrder.TimeDES)
                 ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).OrderByDescending(x => x.VehicleTime).ToObservableCollection();
-            else if (SortOrder == SortOrder.DefaultASC)
+            else if (Settings.SortOrder == (int)SortOrder.DefaultASC)
                 ListVehicle = ListVehicle.OrderBy(x => x.SortOrder).ToObservableCollection();
             else
                 ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).ToObservableCollection();
