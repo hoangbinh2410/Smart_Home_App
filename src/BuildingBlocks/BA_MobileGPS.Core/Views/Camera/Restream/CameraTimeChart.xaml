@@ -6,6 +6,7 @@
     xmlns:busyIndicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
@@ -26,20 +27,32 @@
         </Style>
     </ContentPage.Resources>
     <NavigationPage.TitleView>
-        <Grid VerticalOptions="Center">
-            <icons:IconView
-                Foreground="{DynamicResource WhiteColor}"
-                HeightRequest="25"
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="35" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                HeightRequest="27"
                 HorizontalOptions="Start"
                 Source="ic_close.png"
                 VerticalOptions="Center">
-                <icons:IconView.GestureRecognizers>
+                <ffImage:CachedImage.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
-                </icons:IconView.GestureRecognizers>
-            </icons:IconView>
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
             <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="20"
                 HorizontalOptions="Center"
-                StyleClass="GroupTitleLabel,BoldText"
+                LineBreakMode="TailTruncation"
                 Text="Xem lại video"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />

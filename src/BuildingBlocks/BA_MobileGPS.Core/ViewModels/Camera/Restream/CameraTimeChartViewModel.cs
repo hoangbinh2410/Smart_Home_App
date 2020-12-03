@@ -261,7 +261,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 };
                 SafeExecute(async () =>
                 {
-                    var a = await NavigationService.NavigateAsync("NavigationPage/CameraRestream", param, useModalNavigation: true, true);
+                    var a = await NavigationService.NavigateAsync("CameraRestream", param);
                 });
             }
         }
