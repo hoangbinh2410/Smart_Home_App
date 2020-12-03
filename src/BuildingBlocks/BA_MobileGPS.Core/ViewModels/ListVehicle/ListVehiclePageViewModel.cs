@@ -373,6 +373,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (Settings.SortOrder == (int)SortOrderType.PrivateCodeASC)
                     Settings.SortOrder = (int)SortOrderType.PrivateCodeDES;
+                else if (Settings.SortOrder == (int)SortOrderType.PrivateCodeDES)
+                    Settings.SortOrder = (int)SortOrderType.PrivateCodeASC;
                 else
                     Settings.SortOrder = (int)SortOrderType.PrivateCodeDES;
             }
