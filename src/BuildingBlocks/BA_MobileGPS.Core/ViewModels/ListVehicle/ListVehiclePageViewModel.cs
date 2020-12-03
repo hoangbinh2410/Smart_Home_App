@@ -415,6 +415,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 ListVehicle = ListVehicle.OrderBy(x => x.SortOrder).ToObservableCollection();
             else
                 ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).ToObservableCollection();
+
+            ListVehicleByStatus = ListVehicle.ToList();
         }
 
         private void SearchVehiclewithText(TextChangedEventArgs args)
