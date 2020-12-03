@@ -9,6 +9,7 @@ using BA_MobileGPS.Entities.ModelViews;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities;
+using BA_MobileGPS.Utilities.Enums;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Navigation.TabbedPages;
@@ -27,16 +28,6 @@ using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public enum SortOrder
-    {
-        PrivateCodeASC,
-        PrivateCodeDES,
-        TimeASC,
-        TimeDES,
-        DefaultASC,
-        DefaultDES
-    }
-
     public class ListVehiclePageViewModel : TabbedPageChildVMBase
     {
         private CancellationTokenSource cts;
@@ -129,6 +120,7 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
+
         // Danh sách xe gốc chưa lọc
         private List<VehicleOnlineViewModel> ListVehicleOrigin
         {
@@ -136,15 +128,15 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (StaticSettings.ListVehilceOnline != null)
                 {
-                    if (Settings.SortOrder == (int)SortOrder.PrivateCodeASC)
+                    if (Settings.SortOrder == (int)SortOrderType.PrivateCodeASC)
                         return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).ThenBy(x => x.PrivateCode).ToList());
-                    else if (Settings.SortOrder == (int)SortOrder.PrivateCodeDES)
+                    else if (Settings.SortOrder == (int)SortOrderType.PrivateCodeDES)
                         return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).ThenByDescending(x => x.PrivateCode).ToList());
-                    else if (Settings.SortOrder == (int)SortOrder.TimeASC)
+                    else if (Settings.SortOrder == (int)SortOrderType.TimeASC)
                         return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).ThenBy(x => x.VehicleTime).ToList());
-                    else if (Settings.SortOrder == (int)SortOrder.TimeDES)
+                    else if (Settings.SortOrder == (int)SortOrderType.TimeDES)
                         return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).ThenByDescending(x => x.VehicleTime).ToList());
-                    else if (Settings.SortOrder == (int)SortOrder.DefaultASC)
+                    else if (Settings.SortOrder == (int)SortOrderType.DefaultASC)
                         return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderBy(x => x.SortOrder).ToList());
                     else
                         return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).ToList());
@@ -379,42 +371,44 @@ namespace BA_MobileGPS.Core.ViewModels
 
             if (MobileResource.ListVehicle_Label_ByVehiclePlate.Equals(sort))
             {
-                if (Settings.SortOrder == (int)SortOrder.PrivateCodeASC)
-                    Settings.SortOrder = (int)SortOrder.PrivateCodeDES;
+                if (Settings.SortOrder == (int)SortOrderType.PrivateCodeASC)
+                    Settings.SortOrder = (int)SortOrderType.PrivateCodeDES;
                 else
-                    Settings.SortOrder = (int)SortOrder.PrivateCodeASC;
+                    Settings.SortOrder = (int)SortOrderType.PrivateCodeDES;
             }
             else if (MobileResource.ListVehicle_Label_ByTime.Equals(sort))
             {
-                if (Settings.SortOrder == (int)SortOrder.TimeDES)
-                    Settings.SortOrder = (int)SortOrder.TimeASC;
+                if (Settings.SortOrder == (int)SortOrderType.TimeDES)
+                    Settings.SortOrder = (int)SortOrderType.TimeASC;
                 else
-                    Settings.SortOrder = (int)SortOrder.TimeDES;
+                    Settings.SortOrder = (int)SortOrderType.TimeDES;
             }
             else if (MobileResource.ListVehicle_Label_Default.Equals(sort))
             {
-                if (Settings.SortOrder == (int)SortOrder.DefaultDES)
-                    Settings.SortOrder = (int)SortOrder.DefaultASC;
+                if (Settings.SortOrder == (int)SortOrderType.DefaultDES)
+                    Settings.SortOrder = (int)SortOrderType.DefaultASC;
                 else
-                    Settings.SortOrder = (int)SortOrder.DefaultDES;
+                    Settings.SortOrder = (int)SortOrderType.DefaultDES;
             }
             else
             {
                 return;
             }
 
-            if (Settings.SortOrder == (int)SortOrder.PrivateCodeASC)
+            if (Settings.SortOrder == (int)SortOrderType.PrivateCodeASC)
                 ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).ThenBy(x => x.PrivateCode).ToObservableCollection();
-            else if (Settings.SortOrder == (int)SortOrder.PrivateCodeDES)
+            else if (Settings.SortOrder == (int)SortOrderType.PrivateCodeDES)
                 ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).ThenByDescending(x => x.PrivateCode).ToObservableCollection();
-            else if (Settings.SortOrder == (int)SortOrder.TimeASC)
+            else if (Settings.SortOrder == (int)SortOrderType.TimeASC)
                 ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).ThenBy(x => x.VehicleTime).ToObservableCollection();
-            else if (Settings.SortOrder == (int)SortOrder.TimeDES)
+            else if (Settings.SortOrder == (int)SortOrderType.TimeDES)
                 ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).ThenByDescending(x => x.VehicleTime).ToObservableCollection();
-            else if (Settings.SortOrder == (int)SortOrder.DefaultASC)
+            else if (Settings.SortOrder == (int)SortOrderType.DefaultASC)
                 ListVehicle = ListVehicle.OrderBy(x => x.SortOrder).ToObservableCollection();
             else
                 ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).ToObservableCollection();
+
+            ListVehicleByStatus = ListVehicle.ToList();
         }
 
         private void SearchVehiclewithText(TextChangedEventArgs args)
