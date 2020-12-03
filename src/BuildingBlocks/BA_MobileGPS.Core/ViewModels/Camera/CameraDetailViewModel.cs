@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Entities.ResponeEntity.Camera;
 using BA_MobileGPS.Utilities;
 using Prism.Navigation;
@@ -32,6 +33,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand TabImageCommand { get; private set; }
 
+        public ObservableCollection<Pin> Pins { get; set; } = new ObservableCollection<Pin>();
+        private Pin selectedPin;
+        public Pin SelectedPin { get => selectedPin; set => SetProperty(ref selectedPin, value); }
+
+
+        public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
+
         private readonly IDownloader downloader;
 
         private ObservableCollection<Photo> listphotoImages;
@@ -48,20 +56,10 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-        }
-
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-
-            if (parameters.GetValue<string>(ParameterKey.VehiclePlate) is string vehiclePlate)
+            if (parameters.TryGetValue(ParameterKey.ListImageCamera, out List<ImageCamera> listCameraImage)
+               && parameters.TryGetValue(ParameterKey.ImageCamera, out ImageCamera imageCamera) && parameters.TryGetValue(ParameterKey.VehiclePlate, out string vehiclePlate))
             {
                 VehiclePlate = vehiclePlate;
-            }
-
-            if (parameters.TryGetValue(ParameterKey.ListImageCamera, out List<ImageCamera> listCameraImage)
-               && parameters.TryGetValue(ParameterKey.ImageCamera, out ImageCamera imageCamera))
-            {
                 ListCameraImage = listCameraImage;
                 ImageCamera = imageCamera;
 
@@ -70,22 +68,20 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
                 {
-                    if (GetControl<Map>("Map") is Map map)
+                    Pins.Clear();
+                    Pins.Add(new Pin()
                     {
-                        map.Pins.Clear();
-                        map.Pins.Add(new Pin()
-                        {
-                            Type = PinType.Place,
-                            Label = VehiclePlate,
-                            Anchor = new Point(.5, .5),
-                            Address = ListCameraImage[Position].Address,
-                            Position = new Position(ListCameraImage[Position].Latitude, ListCameraImage[Position].Longitude),
-                            Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
-                            IsDraggable = false
-                        });
-                        map.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Latitude, ImageCamera.Longitude), 14), TimeSpan.FromMilliseconds(10));
-                        map.SelectedPin = map.Pins[0];
-                    }
+                        Type = PinType.Place,
+                        Label = VehiclePlate,
+                        Anchor = new Point(.5, .5),
+                        Address = ListCameraImage[Position].Address,
+                        Position = new Position(ListCameraImage[Position].Latitude, ListCameraImage[Position].Longitude),
+                        Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
+                        IsDraggable = false,
+                        Tag = "CAMERA" + VehiclePlate
+                    });
+                    _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Latitude, ImageCamera.Longitude), 14), TimeSpan.FromMilliseconds(10));
+                    SelectedPin = Pins[0];
                     return false;
                 });
 
@@ -119,7 +115,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (ListCameraImage != null)
                 {
-                    if (Position >= 0)
+                    if (Position >= 0 && Pins != null && Pins.Count > 0)
                     {
                         ImageCamera = ListCameraImage[Position];
 
@@ -127,22 +123,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
                         {
-                            if (GetControl<Map>("Map") is Map map)
-                            {
-                                map.Pins.Clear();
-                                map.Pins.Add(new Pin()
-                                {
-                                    Type = PinType.Place,
-                                    Label = VehiclePlate,
-                                    Anchor = new Point(.5, .5),
-                                    Address = ListCameraImage[Position].Address,
-                                    Position = new Position(ListCameraImage[Position].Latitude, ListCameraImage[Position].Longitude),
-                                    Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
-                                    IsDraggable = false
-                                });
-                                map.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Latitude, ImageCamera.Longitude), 14), TimeSpan.FromMilliseconds(10));
-                                map.SelectedPin = map.Pins[0];
-                            }
+                            var Pin = Pins[0];
+                            Pin.Position = new Position(ListCameraImage[Position].Latitude, ListCameraImage[Position].Longitude);
+                            Pin.Address = ListCameraImage[Position].Address;
+                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ListCameraImage[Position].Latitude, ListCameraImage[Position].Longitude), 14), TimeSpan.FromMilliseconds(10));
+                            SelectedPin = Pins[0];
                             return false;
                         });
                     }

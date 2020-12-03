@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
@@ -49,6 +50,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private ObservableCollection<Photo> listphotoImages;
         public ObservableCollection<Photo> ListphotoImages { get => listphotoImages; set => SetProperty(ref listphotoImages, value); }
+
+        public ObservableCollection<Pin> Pins { get; set; } = new ObservableCollection<Pin>();
+        private Pin selectedPin;
+        public Pin SelectedPin { get => selectedPin; set => SetProperty(ref selectedPin, value); }
+        public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
 
         public ImageDetailViewModel(INavigationService navigationService,
             IStreamCameraService streamCameraService,
@@ -158,22 +164,20 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
                     {
-                        if (GetControl<Map>("Map") is Map map)
+                        Pins.Clear();
+                        Pins.Add(new Pin()
                         {
-                            map.Pins.Clear();
-                            map.Pins.Add(new Pin()
-                            {
-                                Type = PinType.Place,
-                                Label = VehiclePlate,
-                                Anchor = new Point(.5, .5),
-                                Address = ListCameraImage[Position].CurrentAddress,
-                                Position = new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng),
-                                Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
-                                IsDraggable = false
-                            });
-                            map.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Lat, ImageCamera.Lng), 14), TimeSpan.FromMilliseconds(10));
-                            map.SelectedPin = map.Pins[0];
-                        }
+                            Type = PinType.Place,
+                            Label = VehiclePlate,
+                            Anchor = new Point(.5, .5),
+                            Address = ListCameraImage[Position].CurrentAddress,
+                            Position = new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng),
+                            Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
+                            IsDraggable = false,
+                            Tag = "CAMERA" + VehiclePlate
+                        });
+                        _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Lat, ImageCamera.Lng), 14), TimeSpan.FromMilliseconds(10));
+                        SelectedPin = Pins[0];
                         return false;
                     });
 
@@ -208,7 +212,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (ListCameraImage != null)
                 {
-                    if (Position >= 0)
+                    if (Position >= 0 && Pins != null && Pins.Count > 0)
                     {
                         ImageCamera = ListCameraImage[Position];
 
@@ -216,22 +220,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
                         {
-                            if (GetControl<Map>("Map") is Map map)
-                            {
-                                map.Pins.Clear();
-                                map.Pins.Add(new Pin()
-                                {
-                                    Type = PinType.Place,
-                                    Label = VehiclePlate,
-                                    Anchor = new Point(.5, .5),
-                                    Address = ListCameraImage[Position].CurrentAddress,
-                                    Position = new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng),
-                                    Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
-                                    IsDraggable = false
-                                });
-                                map.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Lat, ImageCamera.Lng), 14), TimeSpan.FromMilliseconds(10));
-                                map.SelectedPin = map.Pins[0];
-                            }
+                            var Pin = Pins[0];
+                            Pin.Position = new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng);
+                            Pin.Address = ListCameraImage[Position].CurrentAddress;
+                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(Pin.Position, 14), TimeSpan.FromMilliseconds(10));
+                            SelectedPin = Pins[0];
                             return false;
                         });
                     }

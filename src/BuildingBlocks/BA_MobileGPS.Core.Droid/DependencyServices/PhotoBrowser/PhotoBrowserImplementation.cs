@@ -17,17 +17,23 @@ namespace BA_MobileGPS.Core.Droid.DependencyServices
 
         public void Show(PhotoBrowser photoBrowser)
         {
-            ImageViewer.Builder builder = new ImageViewer.Builder(PlatformImageViewer.Context, photoBrowser.Photos.Select(x => x.URL).ToArray());
-            ImageOverlayView overlay = new ImageOverlayView(PlatformImageViewer.Context, photoBrowser);
+            try
+            {
+                ImageViewer.Builder builder = new ImageViewer.Builder(PlatformImageViewer.Context, photoBrowser.Photos.Select(x => x.URL).ToArray());
+                ImageOverlayView overlay = new ImageOverlayView(PlatformImageViewer.Context, photoBrowser);
 
-            builder.SetBackgroundColor(ColorExtensions.ToAndroid(photoBrowser.BackgroundColor));
+                builder.SetBackgroundColor(ColorExtensions.ToAndroid(photoBrowser.BackgroundColor));
 
-            builder.SetOverlayView(overlay);
-            builder.SetContainerPaddingPx(photoBrowser.Android_ContainerPaddingPx);
+                builder.SetOverlayView(overlay);
+                builder.SetContainerPaddingPx(photoBrowser.Android_ContainerPaddingPx);
 
-            builder.SetImageChangeListener(overlay);
-            builder.SetStartPosition(photoBrowser.StartIndex);
-            _imageViewer = builder.Show();
+                builder.SetImageChangeListener(overlay);
+                builder.SetStartPosition(photoBrowser.StartIndex);
+                _imageViewer = builder.Show();
+            }
+            catch (System.Exception)
+            {
+            }
         }
 
         public void Close()
