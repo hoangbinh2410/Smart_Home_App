@@ -94,6 +94,7 @@ namespace BA_MobileGPS.Core.Views
             PageUtilities.OnNavigatedTo(CurrentPage, param);
         }
 
+
         protected override void OnCurrentPageChanged()
         {
             base.OnCurrentPageChanged();
@@ -107,6 +108,8 @@ namespace BA_MobileGPS.Core.Views
             currentChildPage = newPage;
 
         }
+
+       
     }
 
 

@@ -35,9 +35,9 @@ namespace BA_MobileGPS.Service.IService
         /// <returns></returns>
         Task<List<CaptureImageData>> GetListCaptureImage(StreamImageRequest request);
 
-        Task<List<CameraRestreamInfo>> GetListVideoByDate(CameraRestreamRequest request);
+        Task<List<CameraRestreamInfo>> GetListVideoOnDevice(CameraRestreamRequest request);
 
-        Task<List<CameraRestreamUploadInfo>> GetListVideoOnServer(CameraRestreamRequest request);
+        Task<List<CameraRestreamUploadInfo>> GetListVideoOnCloud(CameraRestreamRequest request);
 
         Task<RestreamStartResponese> StartRestream(StartRestreamRequest request);
 
@@ -48,6 +48,8 @@ namespace BA_MobileGPS.Service.IService
         Task<RestreamUploadResponse> UploadToCloud(StartRestreamRequest request);
 
         Task<RestreamUploadResponse> CancelUploadToCloud(StopRestreamRequest request);
+
+        Task<List<RestreamChartData>> GetVehiclesChartDataByDate(CameraRestreamRequest request);
     }
 
     public enum ConditionType

@@ -150,7 +150,7 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<List<CameraRestreamInfo>> GetListVideoByDate(CameraRestreamRequest request)
+        public async Task<List<CameraRestreamInfo>> GetListVideoOnDevice(CameraRestreamRequest request)
         {
             var result = new List<CameraRestreamInfo>();
             try
@@ -169,7 +169,7 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<List<CameraRestreamUploadInfo>> GetListVideoOnServer(CameraRestreamRequest request)
+        public async Task<List<CameraRestreamUploadInfo>> GetListVideoOnCloud(CameraRestreamRequest request)
         {
             var result = new List<CameraRestreamUploadInfo>();
             try
@@ -261,6 +261,25 @@ namespace BA_MobileGPS.Service.Service
             {
                 string url = $"{ApiUri.POST_RESTREAM_CANCELUPLOAD}";
                 result = await requestProvider.PostAsync<StopRestreamRequest, RestreamUploadResponse>(url, request);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<List<RestreamChartData>> GetVehiclesChartDataByDate(CameraRestreamRequest request)
+        {
+            var result = new List<RestreamChartData>();
+            try
+            {
+                string url = $"{ApiUri.POST_CHART_DATA}";
+                var response = await requestProvider.PostAsync<CameraRestreamRequest, RestreamChartDataResponse>(url, request);
+                if (response != null && response.Data.Count > 0)
+                {
+                    result = response.Data;
+                }
             }
             catch (Exception ex)
             {
