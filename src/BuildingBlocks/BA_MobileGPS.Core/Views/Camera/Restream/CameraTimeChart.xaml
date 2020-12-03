@@ -14,7 +14,8 @@
     xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     x:Name="root"
     Title="Xem lại video"
-    prism:ViewModelLocator.AutowireViewModel="True">
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.HasBackButton="False">
     <ContentPage.Resources>
         <Style TargetType="busyIndicator:SfBusyIndicator">
             <Setter Property="AnimationType" Value="Cupertino" />
