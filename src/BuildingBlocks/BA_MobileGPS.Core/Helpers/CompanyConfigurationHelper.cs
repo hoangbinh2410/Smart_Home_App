@@ -74,6 +74,11 @@ namespace BA_MobileGPS.Core
         public static bool IsShowTemperatureOnline => Get(CompanyConfigurationNames.IsShowTemperatureOnline, false);
 
         /// <summary>
+        /// cấu hình có hiển thị ngày đăng kiểm trên online hay ko
+        /// </summary>
+        public static bool IsShowDateOfRegistration => Get(CompanyConfigurationNames.IsShowDateOfRegistration, true);
+
+        /// <summary>
         /// trungtq: Mức đồng bộ cho phần đồng bộ online
         /// Level1: Đồng bộ 1 phần như của Namth đang làm (hiện tại vẫn bị)
         /// Level2: Đồng bộ tất, giống như web đang làm, hơi tốn máu nhưng an toàn
