@@ -76,7 +76,7 @@ namespace BA_MobileGPS.Core
         /// <summary>
         /// cấu hình có hiển thị ngày đăng kiểm trên online hay ko
         /// </summary>
-        public static bool IsShowDateOfRegistration => Get(CompanyConfigurationNames.IsShowDateOfRegistration, true);
+        public static bool IsShowDateOfRegistration => Get(CompanyConfigurationNames.IsShowDateOfRegistration, false);
 
         /// <summary>
         /// trungtq: Mức đồng bộ cho phần đồng bộ online

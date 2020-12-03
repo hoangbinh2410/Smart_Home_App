@@ -90,7 +90,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         if (task.Result != null && task.Result.Count > 0)
                         {
-                            var result = task.Result.OrderByDescending(x => x.SortOrder).ToList();
+                            var result = task.Result.OrderByDescending(x => x.SortOrder).ThenBy(x => x.PrivateCode).ToList();
                             ListVehicleOrigin = result;
                             ListVehicle = result;
                         }
@@ -193,7 +193,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
-                    var result = task.Result.OrderByDescending(x => x.SortOrder).ToList();
+                    var result = task.Result.OrderByDescending(x => x.SortOrder).ThenBy(x => x.PrivateCode).ToList();
                     ListVehicle = result;
 
                     HasVehicle = ListVehicle.Count > 0;
