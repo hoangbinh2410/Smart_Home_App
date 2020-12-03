@@ -41,6 +41,9 @@
         public const string VehicleStatusSelected = "VehicleStatusSelected";
         public const string ChangeLanguge = "ChangeLanguge";
         public const string SelectRangeDateTime = "SelectRangeDateTime";
+        public const string SelectDate = "SelectDate";
         
+
+
     }
 }

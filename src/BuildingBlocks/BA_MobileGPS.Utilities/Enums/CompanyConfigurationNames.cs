@@ -26,6 +26,7 @@
         TimmerVehicleSync,
         SynOnlineLevel,
         EnableLongPoolRequest,
-        IsShowTemperatureOnline
+        IsShowTemperatureOnline,
+        IsShowDateOfRegistration
     }
 }

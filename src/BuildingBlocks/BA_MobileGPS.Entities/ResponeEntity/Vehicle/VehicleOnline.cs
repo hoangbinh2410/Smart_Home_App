@@ -98,6 +98,9 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("28")]
         public string Temperature { set; get; }
 
+        [JsonProperty("29")]
+        public DateTime? DateOfRegistration { set; get; }
+
         [JsonIgnore]
         public int STT { set; get; }
 

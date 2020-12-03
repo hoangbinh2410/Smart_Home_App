@@ -1,0 +1,417 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.CameraTimeChart"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:busyIndicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+    xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    x:Name="root"
+    Title="Xem lại video"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.HasBackButton="False">
+    <ContentPage.Resources>
+        <Style TargetType="busyIndicator:SfBusyIndicator">
+            <Setter Property="AnimationType" Value="Cupertino" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="EnableAnimation" Value="True" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="ViewBoxHeight" Value="50" />
+            <Setter Property="ViewBoxWidth" Value="50" />
+            <Setter Property="Duration" Value="0.8" />
+        </Style>
+    </ContentPage.Resources>
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="35" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
+            <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                LineBreakMode="TailTruncation"
+                Text="Xem lại video"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*,Auto" RowSpacing="0">
+            <!--  Khu vực tìm kiếm  -->
+            <StackLayout Margin="10,5" Orientation="Horizontal">
+                <pancake:PancakeView
+                    Padding="0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    CornerRadius="19"
+                    HeightRequest="38"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center">
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow
+                            BlurRadius="2"
+                            Offset="0,0"
+                            Color="Black" />
+                    </pancake:PancakeView.Shadow>
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectVehicleCameraCommand}" />
+                    </pancake:PancakeView.GestureRecognizers>
+                    <StackLayout
+                        Padding="10,0"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal"
+                        VerticalOptions="Center">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectVehicleCameraCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <Entry
+                            x:Name="entrySearch"
+                            FontSize="14"
+                            HorizontalOptions="FillAndExpand"
+                            InputTransparent="True"
+                            Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
+                            PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
+                            Text="{Binding Vehicle.PrivateCode}"
+                            TextColor="{DynamicResource TextPrimaryColor}"
+                            VerticalOptions="Center">
+                            <Entry.Effects>
+                                <effects:BorderlessEffect />
+                            </Entry.Effects>
+                        </Entry>
+                        <icons:IconView
+                            Foreground="{DynamicResource BlackColor}"
+                            HeightRequest="15"
+                            HorizontalOptions="End"
+                            Source="ic_sortdown"
+                            VerticalOptions="Center"
+                            WidthRequest="15" />
+                    </StackLayout>
+                </pancake:PancakeView>
+                <pancake:PancakeView
+                    Padding="0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    CornerRadius="19"
+                    HeightRequest="38"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    WidthRequest="120">
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow
+                            BlurRadius="2"
+                            Offset="0,0"
+                            Color="{DynamicResource BlackColor}" />
+                    </pancake:PancakeView.Shadow>
+                    <StackLayout
+                        Padding="10,0,0,0"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal"
+                        VerticalOptions="FillAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PushToFromDatePageCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <Entry
+                            FontSize="{StaticResource FontSize12}"
+                            HorizontalOptions="FillAndExpand"
+                            InputTransparent="True"
+                            Placeholder="Chọn ngày"
+                            Text="{Binding SelectedDate, Converter={StaticResource DateConverter}}"
+                            VerticalOptions="Center">
+                            <Entry.Effects>
+                                <effects:BorderlessEffect />
+                            </Entry.Effects>
+                        </Entry>
+                        <icons:IconView
+                            Margin="0,0,5,0"
+                            Foreground="{DynamicResource BlackColor}"
+                            HeightRequest="20"
+                            HorizontalOptions="End"
+                            Source="ic_date_range_black.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
+                    </StackLayout>
+                </pancake:PancakeView>
+            </StackLayout>
+
+            <xforms:SfListView
+                x:Name="listview"
+                Grid.Row="1"
+                Padding="5,0"
+                AllowSwiping="True"
+                AutoFitMode="DynamicHeight"
+                IsScrollBarVisible="True"
+                ItemSpacing="5"
+                ItemsSource="{Binding ChartItemsSource, Mode=OneWay}"
+                LoadMoreCommand="{Binding LoadMoreItemsCommand}"
+                LoadMoreCommandParameter="{Binding Source={x:Reference listview}}"
+                LoadMoreOption="Auto"
+                SelectionBackgroundColor="#FFFBD8"
+                SelectionMode="Single"
+                SwipeStarted="listview_SwipeStarted">
+                <xforms:SfListView.RightSwipeTemplate>
+                    <DataTemplate>
+                        <Grid BackgroundColor="#FFA842" WidthRequest="200">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={x:Reference root}, Path=BindingContext.GotoResreamTabCommand}"
+                                    CommandParameter="{Binding .}"
+                                    NumberOfTapsRequired="1" />
+                            </Grid.GestureRecognizers>
+                            <Label Text="Xem Video" VerticalOptions="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </xforms:SfListView.RightSwipeTemplate>
+                <xforms:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <!--<ScrollView Orientation="Horizontal">-->
+                        <chart:SfChart
+                            BackgroundColor="Transparent"
+                            ChartPadding="10"
+                            HeightRequest="200"
+                            HorizontalOptions="FillAndExpand"
+                            SideBySideSeriesPlacement="False"
+                            VerticalOptions="Start">
+                            <!--<chart:SfChart.ChartBehaviors>
+                                <chart:ChartZoomPanBehavior
+                                    EnableDoubleTap="True"
+                                    EnablePanning="True"
+                                    EnableSelectionZooming="True"
+                                    MaximumZoomLevel="10"
+                                    SelectionRectStrokeColor="Red"
+                                    ZoomMode="Y" />
+                            </chart:SfChart.ChartBehaviors>-->
+                            <chart:SfChart.ColorModel>
+                                <chart:ChartColorModel Palette="Custom">
+                                    <chart:ChartColorModel.CustomBrushes>
+                                        <Color>#FF8A00</Color>
+                                        <Color>#18A0FB</Color>
+                                    </chart:ChartColorModel.CustomBrushes>
+                                </chart:ChartColorModel>
+                            </chart:SfChart.ColorModel>
+                            <chart:SfChart.Title>
+                                <chart:ChartTitle
+                                    Margin="60,0,0,0"
+                                    BackgroundColor="Transparent"
+                                    FontAttributes="Bold"
+                                    FontFamily="{StaticResource myFontLatoBold}"
+                                    Text="{Binding VehiclePlate}"
+                                    TextAlignment="Start"
+                                    TextColor="{DynamicResource PrimaryColor}" />
+                            </chart:SfChart.Title>
+                            <chart:SfChart.PrimaryAxis>
+                                <chart:CategoryAxis ArrangeByIndex="False" ShowMajorGridLines="True">
+                                    <chart:CategoryAxis.MajorGridLineStyle>
+                                        <chart:ChartLineStyle StrokeColor="{DynamicResource TextPrimaryColor}" />
+                                    </chart:CategoryAxis.MajorGridLineStyle>
+                                    <chart:CategoryAxis.LabelStyle>
+                                        <chart:ChartAxisLabelStyle LabelFormat="Kênh " TextColor="{DynamicResource PrimaryColor}" />
+                                    </chart:CategoryAxis.LabelStyle>
+                                </chart:CategoryAxis>
+                            </chart:SfChart.PrimaryAxis>
+                            <chart:SfChart.SecondaryAxis>
+                                <chart:DateTimeAxis
+                                    Interval="4"
+                                    IntervalType="Hours"
+                                    Maximum="23:00"
+                                    Minimum="00:00"
+                                    ShowMajorGridLines="True">
+                                    <chart:DateTimeAxis.MajorGridLineStyle>
+                                        <chart:ChartLineStyle StrokeColor="{DynamicResource TextPrimaryColor}" />
+                                    </chart:DateTimeAxis.MajorGridLineStyle>
+                                    <chart:DateTimeAxis.LabelStyle>
+                                        <chart:ChartAxisLabelStyle LabelFormat="HH:mm" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    </chart:DateTimeAxis.LabelStyle>
+                                </chart:DateTimeAxis>
+                            </chart:SfChart.SecondaryAxis>
+                            <chart:SfChart.Series>
+                                <chart:RangeColumnSeries
+                                    Width="0.2"
+                                    High="EndTime"
+                                    IsTransposed="True"
+                                    ItemsSource="{Binding DeviceTimes}"
+                                    Low="StartTime"
+                                    XBindingPath="Channel" />
+                                <chart:RangeColumnSeries
+                                    Width="0.2"
+                                    High="EndTime"
+                                    IsTransposed="True"
+                                    ItemsSource="{Binding CloudTimes}"
+                                    Low="StartTime"
+                                    XBindingPath="Channel" />
+                            </chart:SfChart.Series>
+                        </chart:SfChart>
+                        <!--</ScrollView>-->
+                    </DataTemplate>
+                </xforms:SfListView.ItemTemplate>
+                <xforms:SfListView.SelectedItemTemplate>
+                    <DataTemplate>
+                        <!--<ScrollView Orientation="Horizontal">-->
+                        <chart:SfChart
+                            BackgroundColor="#FFFBD8"
+                            ChartPadding="10"
+                            HeightRequest="200"
+                            HorizontalOptions="FillAndExpand"
+                            SideBySideSeriesPlacement="False"
+                            VerticalOptions="Start">
+                            <chart:SfChart.ColorModel>
+                                <chart:ChartColorModel Palette="Custom">
+                                    <chart:ChartColorModel.CustomBrushes>
+                                        <Color>#FF8A00</Color>
+                                        <Color>#18A0FB</Color>
+                                    </chart:ChartColorModel.CustomBrushes>
+                                </chart:ChartColorModel>
+                            </chart:SfChart.ColorModel>
+                            <chart:SfChart.Title>
+                                <chart:ChartTitle
+                                    Margin="60,0,0,0"
+                                    BackgroundColor="Transparent"
+                                    FontAttributes="Bold"
+                                    FontFamily="{StaticResource myFontLatoBold}"
+                                    Text="{Binding VehiclePlate}"
+                                    TextAlignment="Start"
+                                    TextColor="Red" />
+                            </chart:SfChart.Title>
+                            <chart:SfChart.PrimaryAxis>
+                                <chart:CategoryAxis ArrangeByIndex="False" ShowMajorGridLines="True">
+                                    <chart:CategoryAxis.MajorGridLineStyle>
+                                        <chart:ChartLineStyle StrokeColor="#FFA842" />
+                                    </chart:CategoryAxis.MajorGridLineStyle>
+                                    <chart:CategoryAxis.AxisLineStyle>
+                                        <chart:ChartLineStyle StrokeColor="#FFA842" />
+                                    </chart:CategoryAxis.AxisLineStyle>
+                                    <chart:CategoryAxis.LabelStyle>
+                                        <chart:ChartAxisLabelStyle LabelFormat="Kênh " TextColor="#FFA842" />
+                                    </chart:CategoryAxis.LabelStyle>
+                                </chart:CategoryAxis>
+                            </chart:SfChart.PrimaryAxis>
+                            <chart:SfChart.SecondaryAxis>
+                                <chart:DateTimeAxis
+                                    Interval="4"
+                                    IntervalType="Hours"
+                                    Maximum="23:00"
+                                    Minimum="00:00"
+                                    ShowMajorGridLines="True">
+                                    <chart:DateTimeAxis.AxisLineStyle>
+                                        <chart:ChartLineStyle StrokeColor="#FFA842" />
+                                    </chart:DateTimeAxis.AxisLineStyle>
+                                    <chart:DateTimeAxis.MajorGridLineStyle>
+                                        <chart:ChartLineStyle StrokeColor="#FFA842" />
+                                    </chart:DateTimeAxis.MajorGridLineStyle>
+                                    <chart:DateTimeAxis.LabelStyle>
+                                        <chart:ChartAxisLabelStyle LabelFormat="HH:mm" TextColor="#FFA842" />
+                                    </chart:DateTimeAxis.LabelStyle>
+                                </chart:DateTimeAxis>
+                            </chart:SfChart.SecondaryAxis>
+                            <chart:SfChart.Series>
+                                <chart:RangeColumnSeries
+                                    Width="0.2"
+                                    High="EndTime"
+                                    IsTransposed="True"
+                                    ItemsSource="{Binding DeviceTimes}"
+                                    Low="StartTime"
+                                    XBindingPath="Channel" />
+                                <chart:RangeColumnSeries
+                                    Width="0.2"
+                                    High="EndTime"
+                                    IsTransposed="True"
+                                    ItemsSource="{Binding CloudTimes}"
+                                    Low="StartTime"
+                                    XBindingPath="Channel" />
+                            </chart:SfChart.Series>
+                        </chart:SfChart>
+                        <!--</ScrollView>-->
+                    </DataTemplate>
+                </xforms:SfListView.SelectedItemTemplate>
+            </xforms:SfListView>
+
+            <!--  THông tin chi tiết  -->
+            <!--<Grid
+                Grid.Row="2"
+                Padding="10,5"
+                ColumnDefinitions="*,1.4*"
+                ColumnSpacing="10"
+                HeightRequest="55">
+                <Grid.Style />
+                <Grid
+                    ColumnDefinitions="Auto,*"
+                    ColumnSpacing="10"
+                    RowDefinitions="*,*"
+                    RowSpacing="0">
+                    <Label
+                        HorizontalOptions="Start"
+                        StyleClass="BoldText"
+                        Text="BKS"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Column="1"
+                        HorizontalOptions="Start"
+                        StyleClass="BoldText"
+                        Text="{Binding Source={x:Reference listview}, Path=SelectedItem.VehiclePlate}"
+                        TextColor="Red"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="1"
+                        HorizontalOptions="Start"
+                        Text="Nhóm xe"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalOptions="Start"
+                        Text="123123123"
+                        VerticalOptions="Center" />
+                </Grid>
+                <Grid
+                    Grid.Column="1"
+                    ColumnDefinitions="Auto,*"
+                    ColumnSpacing="10"
+                    RowDefinitions="*,*"
+                    RowSpacing="0">
+                    <Label
+                        HorizontalOptions="Start"
+                        Text="Tổng số video"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Column="1"
+                        HorizontalOptions="Start"
+                        Text="{Binding Source={x:Reference listview}, Path=SelectedItem.VehiclePlate}"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="1"
+                        HorizontalOptions="Start"
+                        Text="Số video sự kiện"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalOptions="Start"
+                        Text="123123123"
+                        VerticalOptions="Center" />
+                </Grid>
+            </Grid>-->
+            <busyIndicator:SfBusyIndicator Grid.RowSpan="3" IsBusy="{Binding IsBusy}" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
