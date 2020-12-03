@@ -669,6 +669,11 @@ namespace BA_MobileGPS.Core.Views
                 {
                     carInfo.Temperature = string.Empty;
                 }
+                //Nếu không có cấu hình hiển thị ngày đăng kiểm thì không hiển thị lên màn online
+                if (!CompanyConfigurationHelper.IsShowDateOfRegistration || CompanyConfigurationHelper.IsShowTemperatureOnline)
+                {
+                    carInfo.DateOfRegistration = null;
+                }
                 vm.CarActive = carInfo;
 
                 btnDirectvehicleOnline.IsVisible = true;

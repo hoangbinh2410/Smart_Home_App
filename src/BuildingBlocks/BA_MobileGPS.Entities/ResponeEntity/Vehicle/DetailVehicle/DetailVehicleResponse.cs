@@ -305,6 +305,13 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("34")]
         public string SIMPhoneNumber { set; get; }
 
+        /// <summary>
+        /// Ngày đăng kiểm
+        /// </summary>
+        [JsonProperty("35")]
+        public DateTime? DateOfRegistration { set; get; }
+
+
         ////////////////////////////////////////
         /// <summary>
         /// ẩn hiện với đang đỗ

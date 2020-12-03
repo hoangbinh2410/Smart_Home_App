@@ -247,13 +247,21 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
-                                var a = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey, null, useModalNavigation: true, true);
+                                var a = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey, null, useModalNavigation: true, true);                          
                             }
                         }
                     });
 
                     break;
-
+                case "CameraRestream":
+                    SafeExecute(async () =>
+                    {
+                        using (new HUDService(MobileResource.Common_Message_Processing))
+                        {
+                            _ = await NavigationService.NavigateAsync("BaseNavigationPage/" + "CameraRestream", null, useModalNavigation: true, true);
+                        }
+                    });
+                    break;
                 default:
                     Device.BeginInvokeOnMainThread(() =>
                     {

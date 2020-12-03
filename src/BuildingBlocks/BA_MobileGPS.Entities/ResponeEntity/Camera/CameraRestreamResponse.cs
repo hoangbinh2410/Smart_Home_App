@@ -28,12 +28,6 @@ namespace BA_MobileGPS.Entities
         public DateTime EndTime { get; set; }
     }
 
-    public class AppVideoTimeInfor : VideoTimeInfo
-    {
-        public byte Channel { get; set; }
-    }
-
-
     public class CameraRestreamUploadResponse : BaseResponse<List<CameraRestreamUploadInfo>>
     {
 

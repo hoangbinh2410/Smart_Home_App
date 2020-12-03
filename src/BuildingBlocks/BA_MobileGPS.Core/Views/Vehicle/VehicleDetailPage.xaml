@@ -1351,6 +1351,7 @@
                                         VerticalTextAlignment="Center" />
                                 </sharpnado:MaterialFrame.Content>
                             </sharpnado:MaterialFrame>
+
                             <sharpnado:MaterialFrame
                                 Grid.Row="1"
                                 Padding="10,0,10,0"
@@ -1514,8 +1515,58 @@
                                                 VerticalOptions="Start" />
                                         </Grid>
 
+                                        <!--  ngày đăng kiểm  -->
+                                        <Grid
+                                            Grid.Row="3"
+                                            IsVisible="{Binding InforDetail.DateOfRegistration, Converter={StaticResource HasDataConverter}}"
+                                            RowSpacing="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="1" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Padding="0,10,0,10"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal">
+                                                <controls:IconView
+                                                    Foreground="{StaticResource PrimaryColor}"
+                                                    HeightRequest="20"
+                                                    HorizontalOptions="Center"
+                                                    Source="ic_time_black.png"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="20" />
+
+                                                <Label
+                                                    Text="Ngày đăng kiểm"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                            </StackLayout>
+
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                HorizontalOptions="EndAndExpand"
+                                                Text="{Binding InforDetail.DateOfRegistration, Converter={StaticResource DateConverter}}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+
+                                            <BoxView
+                                                Grid.Row="1"
+                                                Grid.ColumnSpan="2"
+                                                BackgroundColor="{StaticResource GrayColor}"
+                                                HeightRequest="0.5"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="Start" />
+                                        </Grid>
+
                                         <!--  Thời gian lái xe liên tục  -->
-                                        <Grid Grid.Row="3" RowSpacing="0">
+                                        <Grid Grid.Row="4" RowSpacing="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="1" />
@@ -1562,7 +1613,7 @@
                                         </Grid>
 
                                         <!--  Thời gian lái xe trong ngày  -->
-                                        <Grid Grid.Row="4" RowSpacing="0">
+                                        <Grid Grid.Row="5" RowSpacing="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="1" />
@@ -1609,7 +1660,7 @@
                                         </Grid>
 
                                         <!--  Quá tốc độ  -->
-                                        <Grid Grid.Row="5" RowSpacing="0">
+                                        <Grid Grid.Row="6" RowSpacing="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="1" />
@@ -1656,7 +1707,7 @@
                                         </Grid>
 
                                         <!--  Sở quản lý  -->
-                                        <Grid Grid.Row="6" RowSpacing="0">
+                                        <Grid Grid.Row="7" RowSpacing="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="1" />
@@ -1700,9 +1751,10 @@
                                                 HorizontalOptions="FillAndExpand"
                                                 VerticalOptions="Start" />
                                         </Grid>
+
                                         <!--  Camera  -->
                                         <Grid
-                                            Grid.Row="7"
+                                            Grid.Row="8"
                                             IsVisible="{Binding IsCameraEnable}"
                                             RowSpacing="0">
                                             <Grid.ColumnDefinitions>
@@ -1745,35 +1797,6 @@
                     </Grid>
                 </StackLayout>
             </ScrollView>
-            <!--<pancakeview:PancakeView Grid.Row="1">
-                <pancakeview:PancakeView.Shadow>
-                    <pancakeview:DropShadow
-                        BlurRadius="2"
-                        Offset="0,0"
-                        Color="Black" />
-                </pancakeview:PancakeView.Shadow>
-
-                <controls:HorizontalList
-                    Padding="10"
-                    BackgroundColor="{DynamicResource WhiteColor}"
-                    ItemsSource="{Binding MenuItems}"
-                    ListOrientation="Horizontal"
-                    SelectedCommand="{Binding SelectedMenuCommand}">
-                    <controls:HorizontalList.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
-                                <controls:IconView
-                                    Foreground="{DynamicResource PrimaryColor}"
-                                    HeightRequest="20"
-                                    HorizontalOptions="Center"
-                                    Source="{Binding Icon}"
-                                    WidthRequest="20" />
-                                <Label LineBreakMode="WordWrap" Text="{Binding Title}" />
-                            </StackLayout>
-                        </DataTemplate>
-                    </controls:HorizontalList.ItemTemplate>
-                </controls:HorizontalList>
-            </pancakeview:PancakeView>-->
         </Grid>
     </ContentPage.Content>
 </ContentPage>

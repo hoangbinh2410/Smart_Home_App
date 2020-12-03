@@ -96,8 +96,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 Date = Convert.ToDateTime("2020-11-05"),
                 VehicleNames = "CAM.PNC1"
             };
-            var allVideo = await streamCameraService.GetListVideoByDate(req);
-            var uploadVideo = await streamCameraService.GetListVideoOnServer(req);
+            var allVideo = await streamCameraService.GetListVideoOnDevice(req);
+            var uploadVideo = await streamCameraService.GetListVideoOnCloud(req);
         }
 
         private string chartItemsSource;

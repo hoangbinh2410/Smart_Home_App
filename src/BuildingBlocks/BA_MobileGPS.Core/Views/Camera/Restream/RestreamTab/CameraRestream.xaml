@@ -10,26 +10,6 @@
     prism:ViewModelLocator.AutowireViewModel="True"
     SelectedTabColor="{DynamicResource MainTabSelectedColor}"
     UnselectedTabColor="{DynamicResource MainTabUnSelectedTextColor}">
-    <NavigationPage.TitleView>
-        <Grid VerticalOptions="Center">
-            <icons:IconView
-                Foreground="{DynamicResource WhiteColor}"
-                HeightRequest="25"
-                HorizontalOptions="Start"
-                Source="ic_close.png"
-                VerticalOptions="Center">
-                <icons:IconView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
-                </icons:IconView.GestureRecognizers>
-            </icons:IconView>
-            <Label
-                HorizontalOptions="Center"
-                StyleClass="GroupTitleLabel,BoldText"
-                Text="Xem lại video"
-                TextColor="{DynamicResource WhiteColor}"
-                VerticalOptions="Center" />
-        </Grid>
-    </NavigationPage.TitleView>
     <TabbedPage.Children>
         <views:DeviceTab Title="{i18n:TranslateResource Camera_ChildTab_Device}" IconImageSource="ic_device" />
         <!--<views:BACloudTab Title="{i18n:TranslateResource Camera_ChildTab_BACloud}" IconImageSource="ic_cloud" />

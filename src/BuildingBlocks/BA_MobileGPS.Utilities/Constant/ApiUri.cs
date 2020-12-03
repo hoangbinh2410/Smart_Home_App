@@ -212,6 +212,7 @@
         public const string GET_RESTREAM_IMAGES = "api/stream/restreamimage";
         public const string POST_RESTREAM_UPLOAD = "api/stream/uploadcloud";
         public const string POST_RESTREAM_CANCELUPLOAD = "api/stream/canceluploadcloud";
+        public const string POST_CHART_DATA = "api/stream/chartdata";
 
         #endregion Camera
 

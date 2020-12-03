@@ -45,6 +45,7 @@ namespace BA_MobileGPS.Core.ViewModels
             InitDateTimeInSearch();
             vehicle = new CameraLookUpVehicleModel();
             listChannel = new List<ChannelModel> { new ChannelModel() { Name = "Tất cả kênh", Value = 0 } };
+            selectedChannel = listChannel[0];
         }
 
         #region Lifecycle
@@ -52,23 +53,29 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            LibVLCSharp.Shared.Core.Initialize();
-            LibVLC = new LibVLC("--no-rtsp-tcp");
-            MediaPlayer = new MediaPlayer(libVLC);
-            MediaPlayer.TimeChanged += Media_TimeChanged;
-            MediaPlayer.EndReached += Media_EndReached;
-            MediaPlayer.EncounteredError += Media_EncounteredError;
+            InitVLC();
         }
 
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
+
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
+            if (parameters.ContainsKey(ParameterKey.SelectDate)
+                 && (parameters.ContainsKey(ParameterKey.VehiclePlate)))
+            {
+                var selectDate = parameters.GetValue<DateTime>(ParameterKey.SelectDate);
+                var vehicleDetail = parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.VehiclePlate);
+                Vehicle = vehicleDetail;
+                DateStart = selectDate.Date;
+                DateEnd = selectDate.Date.AddDays(1).AddMinutes(-1);                    
+                SearchData();
+            }
+            else if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
             {
                 Vehicle = vehicle;
                 SetChannelSource(vehicle.CameraChannels);
@@ -539,7 +546,7 @@ namespace BA_MobileGPS.Core.ViewModels
             listview.IsBusy = true;
             try
             {
-                pageIndex++;
+                //pageIndex++;
                 LoadMore();
             }
             catch (Exception ex)
@@ -621,9 +628,9 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         //Sort lại theo kênh và thời gian ASC
                         VideoItemsSourceOrigin.Sort((x, y) => DateTime.Compare(x.VideoStartTime, y.VideoStartTime));
-                                         
 
                         VideoItemsSource = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToObservableCollection();
+                        pageIndex++;
                     }
                 }, showLoading: true);
             }
@@ -662,6 +669,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 dateStart = dateEnd.AddMinutes(-20);
             }
             else dateStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+        }
+        private void InitVLC()
+        {
+            LibVLCSharp.Shared.Core.Initialize();
+            LibVLC = new LibVLC("--no-rtsp-tcp");
+            MediaPlayer = new MediaPlayer(libVLC);
+            MediaPlayer.TimeChanged += Media_TimeChanged;
+            MediaPlayer.EndReached += Media_EndReached;
+            MediaPlayer.EncounteredError += Media_EncounteredError;
         }
 
         private void SearchData()
