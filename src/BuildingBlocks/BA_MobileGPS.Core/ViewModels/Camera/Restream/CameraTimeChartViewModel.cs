@@ -18,7 +18,7 @@ namespace BA_MobileGPS.Core.ViewModels
         protected int pageIndex { get; set; } = 0;
         protected int pageCount { get; } = 5;
         private readonly IStreamCameraService cameraService;
-      
+
 
         public CameraTimeChartViewModel(INavigationService navigationService,
             IStreamCameraService cameraService) : base(navigationService)
@@ -54,15 +54,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.ContainsKey(ParameterKey.Vehicle) 
-                && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
-            {
-                Vehicle = vehicle;
-                selectedVehiclePlates = vehicle.VehiclePlate;
-                GetChartData(selectedVehiclePlates);
-            }
-            else if (parameters.ContainsKey(ParameterKey.ListVehicleSelected) 
-                && parameters.GetValue<List<CameraLookUpVehicleModel>>(ParameterKey.ListVehicleSelected) is List<CameraLookUpVehicleModel> list)
+            if (parameters.ContainsKey(ParameterKey.ListVehicleSelected)
+                           && parameters.GetValue<List<CameraLookUpVehicleModel>>(ParameterKey.ListVehicleSelected) is List<CameraLookUpVehicleModel> list)
             {
                 var listVehiclePlate = new List<string>();
                 foreach (var item in list)
@@ -70,6 +63,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     listVehiclePlate.Add(item.VehiclePlate);
                 }
                 SelectedVehiclePlates = string.Join(",", listVehiclePlate);
+                GetChartData(selectedVehiclePlates);
             }
         }
 
@@ -131,7 +125,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 join b in StaticSettings.ListVehilceOnline on a.VehiclePlate.ToUpper() equals b.VehiclePlate.ToUpper()
                                 select b.VehiclePlate).ToList();
 
-           
+
             return string.Join(",", listVehicles);
         }
 
