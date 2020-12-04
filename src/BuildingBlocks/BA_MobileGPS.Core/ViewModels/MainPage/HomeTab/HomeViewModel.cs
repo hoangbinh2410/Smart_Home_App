@@ -258,7 +258,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         using (new HUDService(MobileResource.Common_Message_Processing))
                         {
-                            _ = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey, null, useModalNavigation: true, true);
+                            _ = await NavigationService.NavigateAsync("BaseNavigationPage/" + seletedMenu.MenuKey, null, useModalNavigation: true, true);
                         }
                     });
                     break;
