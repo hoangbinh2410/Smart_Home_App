@@ -139,9 +139,6 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="VideoLAN.LibVLC.iOS">
-      <Version>3.3.10</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
     <PackageReference Include="Realm">
       <Version>5.1.2</Version>
