@@ -444,6 +444,7 @@ namespace BA_MobileGPS.Core.Views
                 if (StateVehicleExtension.IsStopAndEngineOff(carInfo)
                         || GeoHelper.IsBetweenLatlng(item.Position.Latitude, item.Position.Longitude, carInfo.Lat, carInfo.Lng) || carInfo.Velocity == 0)
                 {
+                    item.Rotation = carInfo.Direction * 45;
                     itemLable.Position = new Position(carInfo.Lat, carInfo.Lng);
                     item.Position = new Position(carInfo.Lat, carInfo.Lng);
                     return;
