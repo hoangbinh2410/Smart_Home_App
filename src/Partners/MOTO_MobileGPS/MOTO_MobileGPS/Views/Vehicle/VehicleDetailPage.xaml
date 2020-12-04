@@ -551,7 +551,7 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="{Binding MotoDetail.ConnectTime, Converter={StaticResource DateTimeConverter}}"
+                                        Text="{Binding MotoDetail.ConnectTime, Converter={StaticResource DateTimeViewConverter}}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
@@ -598,7 +598,7 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="{Binding MotoDetail.UpdatePostionTime, Converter={StaticResource DateTimeConverter}}"
+                                        Text="{Binding MotoDetail.UpdatePostionTime, Converter={StaticResource DateTimeViewConverter}}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 

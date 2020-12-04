@@ -54,13 +54,13 @@
                 FontSize="20"
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
-                Text="Xem lại video"
+                Text="Biểu đồ - Tổng quan"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
-        <Grid RowDefinitions="Auto,*,Auto" RowSpacing="0">
+        <Grid RowDefinitions="Auto,Auto,2,*,Auto" RowSpacing="0">
             <!--  Khu vực tìm kiếm  -->
             <StackLayout Margin="10,5" Orientation="Horizontal">
                 <pancake:PancakeView
@@ -94,7 +94,7 @@
                             InputTransparent="True"
                             Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
                             PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                            Text="{Binding Vehicle.PrivateCode}"
+                            Text="{Binding SelectedVehiclePlates}"
                             TextColor="{DynamicResource TextPrimaryColor}"
                             VerticalOptions="Center">
                             <Entry.Effects>
@@ -154,10 +154,40 @@
                     </StackLayout>
                 </pancake:PancakeView>
             </StackLayout>
-
+            <!--  Chú thích biểu đồ  -->
+            <Grid
+                Grid.Row="1"
+                Padding="10,0"
+                ColumnDefinitions="*,*">
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <pancake:PancakeView
+                        Padding="0"
+                        BackgroundColor="#FF8A00"
+                        CornerRadius="10"
+                        HeightRequest="20"
+                        VerticalOptions="Center"
+                        WidthRequest="20" />
+                    <Label Text="Thời gian có video" VerticalOptions="Center" />
+                </StackLayout>
+                <StackLayout
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <pancake:PancakeView
+                        Padding="0"
+                        BackgroundColor="#18A0FB"
+                        CornerRadius="10"
+                        HeightRequest="20"
+                        VerticalOptions="Center"
+                        WidthRequest="20" />
+                    <Label Text="Thời gian video đã lưu" VerticalOptions="Center" />
+                </StackLayout>
+            </Grid>
+            <BoxView Grid.Row="2" BackgroundColor="{DynamicResource PrimaryColor}" />
+            <!--  Danh sách biểu đồ  -->
             <xforms:SfListView
                 x:Name="listview"
-                Grid.Row="1"
+                Grid.Row="3"
                 Padding="5,0"
                 AllowSwiping="True"
                 AutoFitMode="DynamicHeight"
@@ -348,7 +378,7 @@
 
             <!--  THông tin chi tiết  -->
             <!--<Grid
-                Grid.Row="2"
+                Grid.Row="3"
                 Padding="10,5"
                 ColumnDefinitions="*,1.4*"
                 ColumnSpacing="10"
@@ -411,7 +441,7 @@
                         VerticalOptions="Center" />
                 </Grid>
             </Grid>-->
-            <busyIndicator:SfBusyIndicator Grid.RowSpan="3" IsBusy="{Binding IsBusy}" />
+            <busyIndicator:SfBusyIndicator Grid.RowSpan="4" IsBusy="{Binding IsBusy}" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>
