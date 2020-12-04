@@ -135,6 +135,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetChartData(string vehicleString)
         {
+            vehicleString = vehicleString.Replace(" ", string.Empty);
+            ChartItemsSourceOrigin.Clear();
             if (!IsBusy)
             {
                 IsBusy = true;
