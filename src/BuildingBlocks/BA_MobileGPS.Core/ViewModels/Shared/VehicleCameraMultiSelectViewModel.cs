@@ -31,7 +31,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SearchVehicleCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehicle);
         }
 
-
+        #region Binding
         private List<CameraLookUpVehicleModel> listVehicle = new List<CameraLookUpVehicleModel>();
         public List<CameraLookUpVehicleModel> ListVehicle { get => listVehicle; set => SetProperty(ref listVehicle, value); }
 
@@ -49,12 +49,17 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand ConfirmCommand { get; }
         public ICommand TapListVehicleCommand { get; }
         public ICommand SearchVehicleCommand { get;  }
+
+        #endregion
+
+        #region life cycle
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
             GetVehicleCamera();
         }
-
+        #endregion
+        #region Function
         private void GetVehicleCamera()
         {
             if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
@@ -149,5 +154,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         }, true, true);
             });
         }
+        #endregion
     }
 }
