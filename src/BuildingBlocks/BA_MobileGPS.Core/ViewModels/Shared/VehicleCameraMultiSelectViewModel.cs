@@ -1,13 +1,11 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
-
+using BA_MobileGPS.Service.IService;
 using Prism.Commands;
+using Prism.Mvvm;
 using Prism.Navigation;
-
-using Syncfusion.Data.Extensions;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -15,47 +13,46 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
-using Exception = System.Exception;
-using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    #region Property
-
-    public class VehicleCameraLookupViewModel : ViewModelBase
+    public class VehicleCameraMultiSelectViewModel : ViewModelBase
     {
-        private readonly IStreamCameraService cameraService;
         private CancellationTokenSource cts;
-        private bool hasVehicle = true;
-        public bool HasVehicle { get => hasVehicle; set => SetProperty(ref hasVehicle, value); }
-       
         private static List<CameraLookUpVehicleModel> ListVehicleOrigin = new List<CameraLookUpVehicleModel>();
+        private readonly IStreamCameraService cameraService;
+
+        public VehicleCameraMultiSelectViewModel(INavigationService navigationService, IStreamCameraService cameraService) : base(navigationService)
+        {
+            this.cameraService = cameraService;
+            ConfirmCommand = new DelegateCommand(Confirm);
+            SearchVehicleCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehicle);
+        }
+
 
         private List<CameraLookUpVehicleModel> listVehicle = new List<CameraLookUpVehicleModel>();
         public List<CameraLookUpVehicleModel> ListVehicle { get => listVehicle; set => SetProperty(ref listVehicle, value); }
 
-        #endregion Property
-
-       
-
-        public ICommand SearchVehicleCommand { get; private set; }
-
-        public ICommand TapListVehicleCommand { get; }
-
-        public VehicleCameraLookupViewModel(INavigationService navigationService, IStreamCameraService cameraService) : base(navigationService)
+        private IList<object> selectedVehicles;
+        public IList<object> SelectedVehicles
         {
-            this.cameraService = cameraService;
-            SearchVehicleCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehicle);
-            TapListVehicleCommand = new DelegateCommand<ItemTappedEventArgs>(TapListVehicle);       
+            get { return selectedVehicles; }
+            set { 
+                SetProperty(ref selectedVehicles, value);
+            }
         }
 
+        private bool hasVehicle;
+        public bool HasVehicle { get => hasVehicle; set => SetProperty(ref hasVehicle, value); }
+        public ICommand ConfirmCommand { get; }
+        public ICommand TapListVehicleCommand { get; }
+        public ICommand SearchVehicleCommand { get;  }
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            GetVehicleCamera();         
+            GetVehicleCamera();
         }
 
         private void GetVehicleCamera()
@@ -108,7 +105,7 @@ namespace BA_MobileGPS.Core.ViewModels
             HasVehicle = ListVehicle.Count > 0;
         }
 
-        private void SearchVehicle(TextChangedEventArgs args)
+        public void SearchVehicle(TextChangedEventArgs args)
         {
             if (cts != null)
                 cts.Cancel(true);
@@ -138,19 +135,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }));
         }
-
-        public void TapListVehicle(ItemTappedEventArgs args)
+      
+       
+        private void Confirm()
         {
             SafeExecute(async () =>
             {
-                var selected = (args.ItemData as CameraLookUpVehicleModel);
-                if (selected != null)
-                {
-                    var navigationPara = new NavigationParameters();
-                    navigationPara.Add(ParameterKey.Vehicle, selected);
-                    await NavigationService.GoBackAsync(navigationPara, useModalNavigation: true, true);
-                }
+                var listGroupSelected = selectedVehicles.Cast<CameraLookUpVehicleModel>().ToList();
+
+                await NavigationService.GoBackAsync(parameters: new NavigationParameters
+                        {
+                            { ParameterKey.ListVehicleSelected,  listGroupSelected}
+                        }, true, true);
             });
-        }                
+        }
     }
 }

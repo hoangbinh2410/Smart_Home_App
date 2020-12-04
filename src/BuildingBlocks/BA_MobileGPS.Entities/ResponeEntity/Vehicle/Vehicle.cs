@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace BA_MobileGPS.Entities
 {
@@ -36,6 +38,6 @@ namespace BA_MobileGPS.Entities
 
     public class CameraLookUpVehicleModel : Vehicle
     {
-        public List<int> CameraChannels { get; set; }
+        public List<int> CameraChannels { get; set; }           
     }
 }

@@ -62,7 +62,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     listVehiclePlate.Add(item.VehiclePlate);
                 }
-                SelectedVehiclePlates = string.Join(",", listVehiclePlate);
+                SelectedVehiclePlates = string.Join(", ", listVehiclePlate);
                 GetChartData(selectedVehiclePlates);
             }
         }
@@ -248,13 +248,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SelectVehicleCamera()
         {
-            var param = new NavigationParameters()
-            {
-                {ParameterKey.MultiSelectLookup, true}
-            };
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraLookup", param, useModalNavigation: true, animated: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraMultiSelect", null, useModalNavigation: true, animated: true);
             });
         }
 
