@@ -18,4 +18,11 @@ namespace BA_MobileGPS.Entities
         public DateTime EndTime { get; set; }
 
     }
+
+    public class PickerDateResponse
+    {
+        public DateTime Value { get; set; }
+
+        public short PickerType { get; set; }
+    }
 }

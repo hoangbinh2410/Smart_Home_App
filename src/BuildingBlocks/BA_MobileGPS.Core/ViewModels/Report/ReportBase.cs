@@ -33,7 +33,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void Initialize(INavigationParameters parameters)
         {
-            EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectDateEvent>().Subscribe(UpdateDateTime);
             EventAggregator.GetEvent<SelectComboboxEvent>().Subscribe(UpdateCombobox);
         }
 
@@ -60,7 +60,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnDestroy()
         {
-            EventAggregator.GetEvent<SelectDateTimeEvent>().Unsubscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectDateEvent>().Unsubscribe(UpdateDateTime);
             EventAggregator.GetEvent<SelectComboboxEvent>().Unsubscribe(UpdateCombobox);
         }
 
@@ -414,7 +414,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        public virtual void UpdateDateTime(PickerDateTimeResponse param)
+        public virtual void UpdateDateTime(PickerDateResponse param)
         {
             if (param != null)
             {
