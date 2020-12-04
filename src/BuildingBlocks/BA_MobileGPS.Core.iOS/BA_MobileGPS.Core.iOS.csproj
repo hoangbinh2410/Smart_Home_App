@@ -148,7 +148,7 @@
       <Version>4.8.0.1687</Version>
     </PackageReference>
     <PackageReference Include="Com.OneSignal">
-      <Version>3.10.2</Version>
+      <Version>3.10.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter">
       <Version>4.0.0</Version>
