@@ -59,6 +59,7 @@
                     ItemsSource="{Binding ListVehicle}"
                     SelectedItems="{Binding SelectedVehicles, Mode=OneWayToSource}"
                     SelectionBackgroundColor="Transparent"
+                    SelectionGesture="Tap"
                     SelectionMode="Multiple">
                     <syncfusionList:SfListView.ItemTemplate>
                         <DataTemplate>
@@ -95,6 +96,14 @@
                                     HorizontalTextAlignment="Start"
                                     Text="{Binding PrivateCode}"
                                     VerticalOptions="Center" />
+                                <Image
+                                    Grid.Column="2"
+                                    HeightRequest="28"
+                                    HorizontalOptions="Center"
+                                    IsVisible="{Binding IsSelected, Converter={StaticResource InvertBooleanConverter}}"
+                                    Source="notSelected.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="28" />
                                 <BoxView
                                     Grid.Row="1"
                                     Grid.ColumnSpan="3"

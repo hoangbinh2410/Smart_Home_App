@@ -145,10 +145,10 @@
                         </Entry>
                         <icons:IconView
                             Margin="0,0,5,0"
-                            Foreground="{DynamicResource BlackColor}"
+                            Foreground="{DynamicResource PrimaryColor}"
                             HeightRequest="20"
                             HorizontalOptions="End"
-                            Source="ic_date_range_black.png"
+                            Source="ic_calendar.png"
                             VerticalOptions="Center"
                             WidthRequest="20" />
                     </StackLayout>
