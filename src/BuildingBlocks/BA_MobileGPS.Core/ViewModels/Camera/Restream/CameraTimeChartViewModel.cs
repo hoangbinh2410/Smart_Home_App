@@ -54,11 +54,17 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
+            if (parameters.ContainsKey(ParameterKey.Vehicle) 
+                && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
             {
                 Vehicle = vehicle;
                 selectedVehiclePlates = vehicle.VehiclePlate;
                 GetChartData(selectedVehiclePlates);
+            }
+            else if (parameters.ContainsKey(ParameterKey.ListVehicleSelected) 
+                && parameters.GetValue<List<CameraLookUpVehicleModel>>(ParameterKey.ListVehicleSelected) is List<CameraLookUpVehicleModel> list)
+            {
+                var a = list;
             }
         }
 
@@ -236,9 +242,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SelectVehicleCamera()
         {
+            var param = new NavigationParameters()
+            {
+                {ParameterKey.MultiSelectLookup, true}
+            };
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraLookup", null, useModalNavigation: true, animated: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraLookup", param, useModalNavigation: true, animated: true);
             });
         }
 
