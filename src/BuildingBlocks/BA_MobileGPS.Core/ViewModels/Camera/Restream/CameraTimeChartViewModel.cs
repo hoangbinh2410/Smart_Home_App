@@ -18,7 +18,7 @@ namespace BA_MobileGPS.Core.ViewModels
         protected int pageIndex { get; set; } = 0;
         protected int pageCount { get; } = 5;
         private readonly IStreamCameraService cameraService;
-        private string selectedVehiclePlates { get; set; }
+
 
         public CameraTimeChartViewModel(INavigationService navigationService,
             IStreamCameraService cameraService) : base(navigationService)
@@ -54,17 +54,16 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.ContainsKey(ParameterKey.Vehicle) 
-                && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
+            if (parameters.ContainsKey(ParameterKey.ListVehicleSelected)
+                           && parameters.GetValue<List<CameraLookUpVehicleModel>>(ParameterKey.ListVehicleSelected) is List<CameraLookUpVehicleModel> list)
             {
-                Vehicle = vehicle;
-                selectedVehiclePlates = vehicle.VehiclePlate;
+                var listVehiclePlate = new List<string>();
+                foreach (var item in list)
+                {
+                    listVehiclePlate.Add(item.VehiclePlate);
+                }
+                SelectedVehiclePlates = string.Join(",", listVehiclePlate);
                 GetChartData(selectedVehiclePlates);
-            }
-            else if (parameters.ContainsKey(ParameterKey.ListVehicleSelected) 
-                && parameters.GetValue<List<CameraLookUpVehicleModel>>(ParameterKey.ListVehicleSelected) is List<CameraLookUpVehicleModel> list)
-            {
-                var a = list;
             }
         }
 
@@ -72,6 +71,13 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand LoadMoreItemsCommand { get; }
         public ICommand GotoResreamTabCommand { get; }
         public ICommand PushToFromDatePageCommand { get; }
+
+        private string selectedVehiclePlates;
+        public string SelectedVehiclePlates
+        {
+            get { return selectedVehiclePlates; }
+            set { SetProperty(ref selectedVehiclePlates, value); }
+        }
 
         private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
         public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
@@ -119,8 +125,8 @@ namespace BA_MobileGPS.Core.ViewModels
                                 join b in StaticSettings.ListVehilceOnline on a.VehiclePlate.ToUpper() equals b.VehiclePlate.ToUpper()
                                 select b.VehiclePlate).ToList();
 
-            selectedVehiclePlates = string.Join(",", listVehicles);
-            return selectedVehiclePlates;
+
+            return string.Join(",", listVehicles);
         }
 
         private void GetChartData(string vehicleString)

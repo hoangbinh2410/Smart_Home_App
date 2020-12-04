@@ -94,7 +94,7 @@
                             InputTransparent="True"
                             Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
                             PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                            Text="{Binding Vehicle.PrivateCode}"
+                            Text="{Binding SelectedVehiclePlates}"
                             TextColor="{DynamicResource TextPrimaryColor}"
                             VerticalOptions="Center">
                             <Entry.Effects>
