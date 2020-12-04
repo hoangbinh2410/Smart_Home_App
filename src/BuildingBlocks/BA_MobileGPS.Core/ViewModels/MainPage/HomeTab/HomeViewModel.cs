@@ -258,7 +258,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         using (new HUDService(MobileResource.Common_Message_Processing))
                         {
-                            _ = await NavigationService.NavigateAsync("NavigationPage/" + "CameraTimeChart", null, useModalNavigation: true, true);
+                            _ = await NavigationService.NavigateAsync("BaseNavigationPage/" + "CameraRestream", null, useModalNavigation: true, true);
                         }
                     });
                     break;
