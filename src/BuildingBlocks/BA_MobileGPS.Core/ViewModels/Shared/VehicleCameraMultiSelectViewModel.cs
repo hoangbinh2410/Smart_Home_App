@@ -23,32 +23,24 @@ namespace BA_MobileGPS.Core.ViewModels
         private CancellationTokenSource cts;
         private static List<CameraLookUpVehicleModel> ListVehicleOrigin = new List<CameraLookUpVehicleModel>();
         private readonly IStreamCameraService cameraService;
-
+        private string listSelectedPlates { get; set; }
         public VehicleCameraMultiSelectViewModel(INavigationService navigationService, IStreamCameraService cameraService) : base(navigationService)
         {
             this.cameraService = cameraService;
             ConfirmCommand = new DelegateCommand(Confirm);
             SearchVehicleCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehicle);
+            TapListVehicleCommand = new DelegateCommand<object>(TapListVehicle);
         }
 
         #region Binding
         private List<CameraLookUpVehicleModel> listVehicle = new List<CameraLookUpVehicleModel>();
         public List<CameraLookUpVehicleModel> ListVehicle { get => listVehicle; set => SetProperty(ref listVehicle, value); }
 
-        private IList<object> selectedVehicles;
-        public IList<object> SelectedVehicles
-        {
-            get { return selectedVehicles; }
-            set { 
-                SetProperty(ref selectedVehicles, value);
-            }
-        }
-
         private bool hasVehicle;
         public bool HasVehicle { get => hasVehicle; set => SetProperty(ref hasVehicle, value); }
         public ICommand ConfirmCommand { get; }
         public ICommand TapListVehicleCommand { get; }
-        public ICommand SearchVehicleCommand { get;  }
+        public ICommand SearchVehicleCommand { get; }
 
         #endregion
 
@@ -56,7 +48,19 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
+            if (parameters.ContainsKey(ParameterKey.ListVehicleSelected)
+                            && parameters.GetValue<string>(ParameterKey.ListVehicleSelected) is string list)
+            {
+                listSelectedPlates = list;
+            }
+
             GetVehicleCamera();
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+
         }
         #endregion
         #region Function
@@ -100,6 +104,18 @@ namespace BA_MobileGPS.Core.ViewModels
                                VehicleTime = b.VehicleTime,
                                Velocity = b.Velocity
                            }).Distinct().OrderByDescending(x => x.SortOrder).ToList();
+
+            if (!string.IsNullOrEmpty(listSelectedPlates))
+            {
+                foreach (var item in listcam)
+                {
+                    if (listSelectedPlates.Contains(item.VehiclePlate))
+                    {
+                        item.IsSelected = true;
+                    }
+                }
+            }
+          
             ListVehicleOrigin.Clear();
             ListVehicle.Clear();
 
@@ -140,13 +156,32 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }));
         }
-      
-       
+
+        private void TapListVehicle(object obj)
+        {
+            if (obj != null && obj is Syncfusion.ListView.XForms.ItemTappedEventArgs args)
+            {
+                var seleted = (args.ItemData as CameraLookUpVehicleModel);
+                if (seleted != null)
+                {
+                    if (seleted.IsSelected)
+                    {
+                        seleted.IsSelected = false;
+                    }
+                    else
+                    {
+                        seleted.IsSelected = true;
+                    }
+                }
+            }
+        }
+
+
         private void Confirm()
         {
             SafeExecute(async () =>
             {
-                var listGroupSelected = selectedVehicles.Cast<CameraLookUpVehicleModel>().ToList();
+                var listGroupSelected = ListVehicleOrigin.Where(x=>x.IsSelected).ToList();
 
                 await NavigationService.GoBackAsync(parameters: new NavigationParameters
                         {

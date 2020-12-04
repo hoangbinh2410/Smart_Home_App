@@ -81,8 +81,7 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref selectedVehiclePlates, value); }
         }
 
-        private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
-        public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
+
        
         private ObservableCollection<RestreamChartData> chartItemsSource;
 
@@ -254,9 +253,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SelectVehicleCamera()
         {
+            var param = new NavigationParameters();
+            param.Add(ParameterKey.ListVehicleSelected, selectedVehiclePlates);
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraMultiSelect", null, useModalNavigation: true, animated: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraMultiSelect", param, useModalNavigation: true, animated: true);
             });
         }
 

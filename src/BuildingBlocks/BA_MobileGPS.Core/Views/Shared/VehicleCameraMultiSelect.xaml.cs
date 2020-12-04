@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using Prism.Navigation;
+using Xamarin.Forms;
+using BA_MobileGPS.Core.Constant;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -8,5 +10,7 @@ namespace BA_MobileGPS.Core.Views
         {
             InitializeComponent();
         }
+
+    
     }
 }
