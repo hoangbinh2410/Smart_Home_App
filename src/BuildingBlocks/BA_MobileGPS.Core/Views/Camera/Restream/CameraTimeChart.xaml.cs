@@ -7,7 +7,7 @@ namespace BA_MobileGPS.Core.Views
         public CameraTimeChart()
         {
             InitializeComponent();
-          
+            NavigationPage.SetBackButtonTitle(this, string.Empty);
         }
 
         private void listview_SwipeStarted(object sender, Syncfusion.ListView.XForms.SwipeStartedEventArgs e)
