@@ -123,12 +123,12 @@
                 </syncfusionList:SfListView>
                 <Grid Grid.Row="1" VerticalOptions="End">
                     <Button
-                        Margin="10,0,10,10"
+                        Margin="10"
                         Padding="0"
                         Command="{Binding ConfirmCommand}"
-                        HeightRequest="30"
-                        Text="Xong"
-                        TextColor="{DynamicResource WhiteColor}" />
+                        HorizontalOptions="FillAndExpand"
+                        Text="{i18n:TranslateResource VehicleGroupLookUp_Label_Confirm}"
+                        VerticalOptions="End" />
                 </Grid>
 
                 <StackLayout
