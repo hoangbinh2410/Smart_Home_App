@@ -3,6 +3,7 @@
     x:Class="BA_MobileGPS.Core.Views.CameraRestream"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:prism="http://prismlibrary.com"
@@ -10,6 +11,38 @@
     prism:ViewModelLocator.AutowireViewModel="True"
     SelectedTabColor="{DynamicResource MainTabSelectedColor}"
     UnselectedTabColor="{DynamicResource MainTabUnSelectedTextColor}">
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="35" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
+            <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                LineBreakMode="TailTruncation"
+                Text="Xem lại video"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
     <TabbedPage.Children>
         <views:DeviceTab Title="{i18n:TranslateResource Camera_ChildTab_Device}" IconImageSource="ic_device" />
         <!--<views:BACloudTab Title="{i18n:TranslateResource Camera_ChildTab_BACloud}" IconImageSource="ic_cloud" />

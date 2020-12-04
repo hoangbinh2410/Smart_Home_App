@@ -54,7 +54,7 @@
                 FontSize="20"
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
-                Text="Xem lại video"
+                Text="Biểu đồ - Tổng quan"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
         </Grid>
