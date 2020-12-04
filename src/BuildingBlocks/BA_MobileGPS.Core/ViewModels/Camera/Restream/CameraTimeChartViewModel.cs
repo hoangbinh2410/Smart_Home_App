@@ -15,11 +15,12 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class CameraTimeChartViewModel : ViewModelBase
     {
+        #region internal variable
         protected int pageIndex { get; set; } = 0;
         protected int pageCount { get; } = 5;
         private readonly IStreamCameraService cameraService;
-
-
+        private List<RestreamChartData> ChartItemsSourceOrigin { get; set; } = new List<RestreamChartData>();
+        #endregion
         public CameraTimeChartViewModel(INavigationService navigationService,
             IStreamCameraService cameraService) : base(navigationService)
         {
@@ -31,7 +32,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
             selectedDate = DateTime.Now.Date;
         }
-
+        #region life cycle
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
@@ -62,11 +63,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     listVehiclePlate.Add(item.VehiclePlate);
                 }
-                SelectedVehiclePlates = string.Join(",", listVehiclePlate);
+                SelectedVehiclePlates = string.Join(", ", listVehiclePlate);
                 GetChartData(selectedVehiclePlates);
             }
         }
-
+        #endregion
+        #region Binding
         public ICommand SelectVehicleCameraCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
         public ICommand GotoResreamTabCommand { get; }
@@ -81,7 +83,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
         public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
-        private List<RestreamChartData> ChartItemsSourceOrigin { get; set; } = new List<RestreamChartData>();
+       
         private ObservableCollection<RestreamChartData> chartItemsSource;
 
         public ObservableCollection<RestreamChartData> ChartItemsSource
@@ -92,7 +94,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private DateTime selectedDate;
         public virtual DateTime SelectedDate { get => selectedDate; set => SetProperty(ref selectedDate, value); }
+        #endregion
 
+        #region function
         private void GetAllChartData()
         {
             if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
@@ -248,13 +252,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SelectVehicleCamera()
         {
-            var param = new NavigationParameters()
-            {
-                {ParameterKey.MultiSelectLookup, true}
-            };
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraLookup", param, useModalNavigation: true, animated: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraMultiSelect", null, useModalNavigation: true, animated: true);
             });
         }
 
@@ -281,5 +281,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
         }
+        #endregion
     }
 }
