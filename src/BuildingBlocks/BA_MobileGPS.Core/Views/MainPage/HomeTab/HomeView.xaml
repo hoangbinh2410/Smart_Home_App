@@ -30,11 +30,11 @@
                         </pancake:PancakeView.Shadow>
                         <ff:CachedImage
                             Margin="15"
-                            HeightRequest="30"
+                            HeightRequest="35"
                             HorizontalOptions="Center"
                             Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
                             VerticalOptions="Center"
-                            WidthRequest="30" />
+                            WidthRequest="35" />
                     </pancake:PancakeView>
                     <Label
                         Margin="15,0,15,0"
