@@ -196,8 +196,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 item.CloudTimes = FixEmptyData();
                             }
-                            
-                           
                             item.DeviceTimes.Sort((y, x) => x.Channel.CompareTo(y.Channel));
                             item.CloudTimes.Sort((y, x) => x.Channel.CompareTo(y.Channel));
                         }
@@ -253,13 +251,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void LoadMore()
         {
-            var source = ChartItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount);
+            var source = ChartItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToList();
             pageIndex++;
             if (source != null && source.Count() > 0)
             {
-                foreach (var item in source)
+                for (int i = 0; i < source.Count; i++)
                 {
-                    ChartItemsSource.Add(item);
+                    ChartItemsSource.Add(source[i]);
                 }
             }
         }
@@ -340,7 +338,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (selectedDate != null)
             {
                 var maxDay = new TimeSpan(7, 0, 0, 0, 0);
-                if (DateTime.Now.Date - selectedDate.Date <= maxDay)
+                if (DateTime.Now.Date - selectedDate.Date <= maxDay && DateTime.Now.Date >= selectedDate.Date)
                 {
                     return true;
                 }
