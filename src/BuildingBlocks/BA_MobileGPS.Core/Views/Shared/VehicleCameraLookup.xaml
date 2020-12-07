@@ -50,7 +50,7 @@
                     </Entry.Behaviors>
                 </Entry>
             </inputLayout:SfTextInputLayout>
-            <Grid Grid.Row="1" RowDefinitions="*,Auto">
+            <Grid Grid.Row="1">
                 <syncfusionList:SfListView
                     x:Name="listView"
                     AutoFitMode="Height"
@@ -114,23 +114,9 @@
                         </DataTemplate>
                     </syncfusionList:SfListView.ItemTemplate>
                 </syncfusionList:SfListView>
-                <Grid
-                    Grid.Row="1"
-                    IsVisible="{Binding IsMultiSelect}"
-                    VerticalOptions="End">
-                    <Button
-                        Margin="10,0,10,10"
-                        Padding="0"
-                        Command="{Binding MultiSelectCompletedCommand}"
-                        CommandParameter="{Binding Source={x:Reference listView}, Path=SelectedItems}"
-                        HeightRequest="30"
-                        IsVisible="{Binding IsMultiSelect}"
-                        Text="Xong"
-                        TextColor="{DynamicResource WhiteColor}" />
-                </Grid>
+
 
                 <StackLayout
-                    Grid.RowSpan="2"
                     HorizontalOptions="Center"
                     IsVisible="{Binding HasVehicle, Converter={StaticResource InvertBooleanConverter}}"
                     Orientation="Vertical"
