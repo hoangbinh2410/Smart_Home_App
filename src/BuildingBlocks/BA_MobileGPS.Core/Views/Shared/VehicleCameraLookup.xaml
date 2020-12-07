@@ -50,7 +50,7 @@
                     </Entry.Behaviors>
                 </Entry>
             </inputLayout:SfTextInputLayout>
-            <Grid Grid.Row="1" RowDefinitions="*,Auto">
+            <Grid Grid.Row="1">
                 <syncfusionList:SfListView
                     x:Name="listView"
                     AutoFitMode="Height"
@@ -117,7 +117,6 @@
 
 
                 <StackLayout
-                    Grid.RowSpan="2"
                     HorizontalOptions="Center"
                     IsVisible="{Binding HasVehicle, Converter={StaticResource InvertBooleanConverter}}"
                     Orientation="Vertical"
