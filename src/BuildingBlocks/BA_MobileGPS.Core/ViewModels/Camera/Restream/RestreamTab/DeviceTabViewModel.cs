@@ -72,7 +72,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 var vehicleDetail = parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.VehiclePlate);
                 Vehicle = vehicleDetail;
                 DateStart = selectDate.Date;
-                DateEnd = selectDate.Date.AddDays(1).AddMinutes(-1);                    
+                DateEnd = selectDate.Date.AddDays(1).AddMinutes(-1);
+                SetChannelSource(vehicleDetail.CameraChannels);
                 SearchData();
             }
             else if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)

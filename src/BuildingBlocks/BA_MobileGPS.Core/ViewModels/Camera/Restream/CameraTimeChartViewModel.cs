@@ -318,11 +318,18 @@ namespace BA_MobileGPS.Core.ViewModels
             var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate);
             if (vehicle != null)
             {
+                var chanels = StaticSettings.ListVehilceCamera
+                                            .FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate)?
+                                            .CameraChannels?
+                                            .Select(y=>y.Channel)
+                                            .ToList();
+
                 var vehicleModel = new CameraLookUpVehicleModel()
                 {
                     VehiclePlate = item.VehiclePlate,
                     VehicleId = vehicle.VehicleId,
-                    PrivateCode = vehicle.PrivateCode
+                    PrivateCode = vehicle.PrivateCode,
+                    CameraChannels = chanels != null ? chanels : new List<int>()
                 };
                 var param = new NavigationParameters()
                 {
