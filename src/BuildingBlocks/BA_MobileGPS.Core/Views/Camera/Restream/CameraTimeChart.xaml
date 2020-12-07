@@ -276,7 +276,6 @@
                                     IntervalType="Hours"
                                     Maximum="{Binding Source={x:Reference root}, Path=BindingContext.MaxTime}"
                                     Minimum="{Binding Source={x:Reference root}, Path=BindingContext.MinTime}"
-                                    OpposedPosition="True"
                                     RangePadding="None"
                                     ShowMajorGridLines="True">
                                     <chart:DateTimeAxis.MajorGridLineStyle>
@@ -355,7 +354,6 @@
                                     IntervalType="Hours"
                                     Maximum="{Binding Source={x:Reference root}, Path=BindingContext.MaxTime}"
                                     Minimum="{Binding Source={x:Reference root}, Path=BindingContext.MinTime}"
-                                    OpposedPosition="True"
                                     RangePadding="None"
                                     ShowMajorGridLines="True">
                                     <chart:DateTimeAxis.AxisLineStyle>
