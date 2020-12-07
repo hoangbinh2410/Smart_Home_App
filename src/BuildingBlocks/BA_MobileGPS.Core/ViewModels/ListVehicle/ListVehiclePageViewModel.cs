@@ -592,13 +592,10 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private void ShowInfoMessageDetailBAP(string content)
+        private async void ShowInfoMessageDetailBAP(string content)
         {
-            SafeExecute(async () =>
-            {
-                var title = MobileResource.Common_Message_Warning;
-                await popupServices.ShowNotificatonPopup(title, content);
-            });
+            var title = MobileResource.Common_Message_Warning;
+            await popupServices.ShowNotificatonPopup(title, content);
         }
 
         public void GotoCameraPage(VehicleOnlineViewModel selected)

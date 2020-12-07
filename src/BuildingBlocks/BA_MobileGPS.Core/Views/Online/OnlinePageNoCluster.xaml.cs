@@ -671,7 +671,14 @@ namespace BA_MobileGPS.Core.Views
             }
             else
             {
-                pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
+                if (!string.IsNullOrEmpty(carInfo.MessageDetailBAP))
+                {
+                    pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, carInfo.MessageDetailBAP, MobileResource.Common_Label_Close);
+                }
+                else
+                {
+                    pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
+                }
             }
         }
 
