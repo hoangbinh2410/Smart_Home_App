@@ -113,8 +113,8 @@ namespace BA_MobileGPS.Core.ViewModels
         private DateTime minTime;
         public DateTime MinTime
         {
-            get { return maxTime; }
-            set { SetProperty(ref maxTime, value); }
+            get { return minTime; }
+            set { SetProperty(ref minTime, value); }
         }
 
         #endregion Binding
