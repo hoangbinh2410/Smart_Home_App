@@ -353,8 +353,10 @@
                                 <chart:DateTimeAxis
                                     Interval="6"
                                     IntervalType="Hours"
-                                    Maximum="23:59:59"
-                                    Minimum="00:00"
+                                    Maximum="{Binding Source={x:Reference root}, Path=BindingContext.MaxTime}"
+                                    Minimum="{Binding Source={x:Reference root}, Path=BindingContext.MinTime}"
+                                    OpposedPosition="True"
+                                    RangePadding="None"
                                     ShowMajorGridLines="True">
                                     <chart:DateTimeAxis.AxisLineStyle>
                                         <chart:ChartLineStyle StrokeColor="#FFA842" />
