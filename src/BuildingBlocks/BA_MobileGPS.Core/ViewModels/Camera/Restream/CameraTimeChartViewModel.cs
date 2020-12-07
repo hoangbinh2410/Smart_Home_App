@@ -225,6 +225,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void LoadMoreItems(object obj)
         {
+            if (IsBusy)
+            {
+                return;
+            }
             var listview = obj as Syncfusion.ListView.XForms.SfListView;
             listview.IsBusy = true;
             try
