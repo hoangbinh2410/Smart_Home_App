@@ -10,6 +10,7 @@
     xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
     Title="Xem lại video"
     prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.BackButtonTitle=""
     SelectedTabColor="{DynamicResource MainTabSelectedColor}"
     UnselectedTabColor="{DynamicResource MainTabUnSelectedTextColor}">
 
