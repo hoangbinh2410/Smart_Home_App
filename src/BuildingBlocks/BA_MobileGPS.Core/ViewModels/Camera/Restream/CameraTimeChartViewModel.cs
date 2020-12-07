@@ -34,6 +34,8 @@ namespace BA_MobileGPS.Core.ViewModels
             PushToFromDatePageCommand = new DelegateCommand(ExecuteToFromDate);
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
             selectedDate = DateTime.Now.Date;
+            MaxTime = selectedDate.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+            MinTime = selectedDate.Date;
         }
 
         #region life cycle
@@ -101,6 +103,20 @@ namespace BA_MobileGPS.Core.ViewModels
         private DateTime selectedDate;
         public virtual DateTime SelectedDate { get => selectedDate; set => SetProperty(ref selectedDate, value); }
 
+        private DateTime maxTime;
+        public DateTime MaxTime
+        {
+            get { return maxTime; }
+            set { SetProperty(ref maxTime, value); }
+        }
+
+        private DateTime minTime;
+        public DateTime MinTime
+        {
+            get { return minTime; }
+            set { SetProperty(ref minTime, value); }
+        }
+
         #endregion Binding
 
         #region function
@@ -142,45 +158,56 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetChartData(string vehicleString)
         {
-            vehicleString = vehicleString.Replace(" ", string.Empty);
             ChartItemsSourceOrigin.Clear();
-            if (!IsBusy)
+            if (Validate())
             {
-                IsBusy = true;
-            }
-            if (ChartItemsSource.Count > 0)
-            {
-                ChartItemsSource.Clear();
-            }
-
-            pageIndex = 0;
-
-            var request = new CameraRestreamRequest()
-            {
-                CustomerId = UserInfo.XNCode,
-                VehicleNames = vehicleString,
-                Date = selectedDate
-            };
-            RunOnBackground(async () =>
-            {
-                return await cameraService.GetVehiclesChartDataByDate(request);
-            }, (res) =>
-            {
-                foreach (var item in res)
+                vehicleString = vehicleString.Replace(" ", string.Empty);
+                if (!IsBusy)
                 {
-                    if (item.DeviceTimes == null || item.DeviceTimes.Count == 0)
-                    {
-                        item.DeviceTimes = FixEmptyData();
-                    }
-                    if (item.CloudTimes == null || item.CloudTimes.Count == 0)
-                    {
-                        item.CloudTimes = FixEmptyData();
-                    }
+                    IsBusy = true;
                 }
-                ChartItemsSourceOrigin = res;
-                LoadMore();
-                IsBusy = false;
-            });
+                if (ChartItemsSource.Count > 0)
+                {
+                    ChartItemsSource.Clear();
+                }
+
+                pageIndex = 0;
+
+                var request = new CameraRestreamRequest()
+                {
+                    CustomerId = UserInfo.XNCode,
+                    VehicleNames = vehicleString,
+                    Date = selectedDate
+                };
+                RunOnBackground(async () =>
+                {
+                    return await cameraService.GetVehiclesChartDataByDate(request);
+                }, (res) =>
+                {
+                    if (res != null && res.Count > 0)
+                    {
+                        foreach (var item in res)
+                        {
+                            if (item.DeviceTimes == null || item.DeviceTimes.Count == 0)
+                            {
+                                item.DeviceTimes = FixEmptyData();
+                            }
+                            if (item.CloudTimes == null || item.CloudTimes.Count == 0)
+                            {
+                                item.CloudTimes = FixEmptyData();
+                            }
+                            
+                           
+                            item.DeviceTimes.Sort((y, x) => x.Channel.CompareTo(y.Channel));
+                            item.CloudTimes.Sort((y, x) => x.Channel.CompareTo(y.Channel));
+                        }
+                        res.Sort((x, y) => string.Compare(x.VehiclePlate, y.VehiclePlate));
+                        ChartItemsSourceOrigin = res;
+                        LoadMore();
+                    }
+                    IsBusy = false;
+                });
+            }
         }
 
         private List<AppVideoTimeInfor> FixEmptyData()
@@ -239,7 +266,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public virtual void ExecuteToFromDate()
         {
-            SafeExecute(async () =>
+            TryExecute(async () =>
             {
                 var parameters = new NavigationParameters
                 {
@@ -255,6 +282,8 @@ namespace BA_MobileGPS.Core.ViewModels
             if (param != null)
             {
                 SelectedDate = param.Value;
+                MaxTime = selectedDate.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+                MinTime = selectedDate.Date;
                 if (!string.IsNullOrEmpty(SelectedVehiclePlates))
                 {
                     GetChartData(SelectedVehiclePlates);
@@ -303,6 +332,24 @@ namespace BA_MobileGPS.Core.ViewModels
                     var a = await NavigationService.NavigateAsync("CameraRestream", param);
                 });
             }
+        }
+
+        private bool Validate()
+        {
+            //Ngày
+            if (selectedDate != null)
+            {
+                var maxDay = new TimeSpan(7, 0, 0, 0, 0);
+                if (DateTime.Now.Date - selectedDate.Date <= maxDay)
+                {
+                    return true;
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo("Chỉ cho phép chọn từ ngày hiện tại lùi lại 7 ngày");
+                }
+            }
+            return false;
         }
 
         #endregion function
