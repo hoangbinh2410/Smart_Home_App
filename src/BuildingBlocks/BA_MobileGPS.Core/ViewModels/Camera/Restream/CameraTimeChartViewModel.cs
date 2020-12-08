@@ -85,7 +85,9 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand PushToFromDatePageCommand { get; }
 
         private string selectedVehiclePlates;
-
+        /// <summary>
+        /// Danh sách xe được chọn ở entry tìm kiếm xe
+        /// </summary>
         public string SelectedVehiclePlates
         {
             get { return selectedVehiclePlates; }
@@ -93,7 +95,9 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private ObservableCollection<RestreamChartData> chartItemsSource;
-
+        /// <summary>
+        /// Source danh sách biểu đồ
+        /// </summary>
         public ObservableCollection<RestreamChartData> ChartItemsSource
         {
             get { return chartItemsSource; }
@@ -101,9 +105,16 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private DateTime selectedDate;
+        /// <summary>
+        /// Ngày được chọn ở ô chọn ngày
+        /// </summary>
         public virtual DateTime SelectedDate { get => selectedDate; set => SetProperty(ref selectedDate, value); }
 
         private DateTime maxTime;
+        /// <summary>
+        /// Thời gian tối đa của dữ liệu trên 1 biểu đồ,
+        /// hỗ trợ hiển thị theo interval trục y
+        /// </summary>
         public DateTime MaxTime
         {
             get { return maxTime; }
@@ -111,6 +122,10 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private DateTime minTime;
+        /// <summary>
+        /// Thời gian tối thiểu của dữ liệu trên 1 biểu đồ,
+        /// hỗ trợ hiển thị theo interval trục y
+        /// </summary>
         public DateTime MinTime
         {
             get { return minTime; }
@@ -120,7 +135,9 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Binding
 
         #region function
-
+        /// <summary>
+        /// Load dữ liệu tất cả biểu dồ của xe có trên hệ thống, infinite scroll
+        /// </summary>
         private void GetAllChartData()
         {
             if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
@@ -146,7 +163,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
         }
-
+        /// <summary>
+        /// Kiểm tra xe có cam, dựa vào so sánh với pnc
+        /// </summary>
+        /// <param name="lstcamera">danh sách xe từ pnc</param>
+        /// StaticSettings.ListVehilceOnline : danh sách xe online, init từ trang online (code behind)
+        /// <returns></returns>
         private string GetVehiclesHaveCamera(List<StreamDevices> lstcamera)
         {
             var listVehicles = (from a in lstcamera
@@ -155,7 +177,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
             return string.Join(",", listVehicles);
         }
-
+        /// <summary>
+        /// Lấy dữ liệu biểu đồ theo chuỗi biển số
+        /// </summary>
+        /// <param name="vehicleString">chuỗi biển số join(',')</param>
         private void GetChartData(string vehicleString)
         {
             ChartItemsSourceOrigin.Clear();
@@ -207,7 +232,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
         }
-
+        /// <summary>
+        /// Lỗi init UI biểu đồ nếu trục X không có giá trị
+        /// </summary>
+        /// <returns></returns>
         private List<AppVideoTimeInfor> FixEmptyData()
         {
             return new List<AppVideoTimeInfor>()
@@ -222,7 +250,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             };
         }
-
+        /// <summary>
+        /// infinite scroll
+        /// </summary>
+        /// <param name="obj">listview</param>
         private void LoadMoreItems(object obj)
         {
             if (IsBusy)
@@ -245,7 +276,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsBusy = false;
             }
         }
-
+        /// <summary>
+        /// Command canexcute
+        /// </summary>
+        /// <param name="obj">listview</param>
+        /// <returns></returns>
         private bool CanLoadMoreItems(object obj)
         {
             if (ChartItemsSourceOrigin.Count <= pageIndex * pageCount)
@@ -265,7 +300,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
-
+        /// <summary>
+        /// Mở popup chọn ngày
+        /// </summary>
         public virtual void ExecuteToFromDate()
         {
             TryExecute(async () =>
@@ -278,7 +315,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("SelectDateCalendar", parameters);
             });
         }
-
+        /// <summary>
+        /// Dữ liệu ngày chọn trả về
+        /// </summary>
+        /// <param name="param">Ngày chọn</param>
         public virtual void UpdateDateTime(PickerDateResponse param)
         {
             if (param != null)
@@ -301,7 +341,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
-
+        /// <summary>
+        /// CHọn xe từ dánh sách, chọn nhiều
+        /// </summary>
         private void SelectVehicleCamera()
         {
             var param = new NavigationParameters();
@@ -311,7 +353,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraMultiSelect", param, useModalNavigation: true, animated: true);
             });
         }
-
+        /// <summary>
+        /// Chuyển qua trang xem lại
+        /// </summary>
+        /// <param name="obj">dữ liệu row ở listview</param>
         private void GotoResreamTab(object obj)
         {
             var item = (RestreamChartData)obj;
@@ -342,14 +387,18 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
         }
-
+        /// <summary>
+        /// Validate trước khi thục hiện load biểu đồ
+        /// </summary>
+        /// <returns></returns>
         private bool Validate()
         {
             //Ngày
             if (selectedDate != null)
             {
                 var maxDay = new TimeSpan(7, 0, 0, 0, 0);
-                if (DateTime.Now.Date - selectedDate.Date <= maxDay && DateTime.Now.Date >= selectedDate.Date)
+                if (DateTime.Now.Date - selectedDate.Date <= maxDay 
+                    && DateTime.Now.Date >= selectedDate.Date)
                 {
                     return true;
                 }
