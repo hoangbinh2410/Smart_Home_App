@@ -319,12 +319,13 @@
             HasShadow="False"
             HorizontalOptions="Start"
             IsClippedToBounds="True"
-            VerticalOptions="Start">
+            VerticalOptions="Start"
+            WidthRequest="200">
             <Grid BackgroundColor="White" Opacity=".9">
                 <Grid Padding="8" BackgroundColor="Transparent">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -336,6 +337,7 @@
                         Grid.Column="0"
                         FontAttributes="Bold"
                         FontSize="14"
+                        HorizontalOptions="FillAndExpand"
                         LineBreakMode="TailTruncation"
                         MaxLines="2"
                         Text="{Binding CarActive.PrivateCode}"
@@ -348,6 +350,7 @@
                         Text="{Binding CarActive.TotalKm, StringFormat='{}{0:###,###,##0.##} Km'}"
                         TextColor="Black"
                         VerticalOptions="Center" />
+
                     <BoxView
                         Grid.Row="1"
                         Grid.Column="0"
@@ -355,9 +358,24 @@
                         HeightRequest="1"
                         HorizontalOptions="FillAndExpand"
                         Color="LightGray" />
+
                     <StackLayout
                         Grid.Row="2"
                         Grid.Column="0"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="0">
+                        <Label
+                            x:Name="lblMotorStatus"
+                            HorizontalOptions="Center"
+                            TextColor="Gray" />
+                        <Label
+                            HorizontalOptions="Center"
+                            Text="{Binding EngineState}"
+                            TextColor="Black" />
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Row="2"
+                        Grid.Column="1"
                         HorizontalOptions="FillAndExpand"
                         Spacing="0">
                         <Label
@@ -370,20 +388,6 @@
                             Text="{Binding CarActive.Velocity, StringFormat='{}{0:###,###,##0.##} km/h'}"
                             TextColor="Black"
                             VerticalOptions="Center" />
-                    </StackLayout>
-                    <StackLayout
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        HorizontalOptions="FillAndExpand"
-                        Spacing="0">
-                        <Label
-                            x:Name="lblMotorStatus"
-                            HorizontalOptions="Center"
-                            TextColor="Gray" />
-                        <Label
-                            HorizontalOptions="Center"
-                            Text="{Binding EngineState}"
-                            TextColor="Black" />
                     </StackLayout>
                 </Grid>
             </Grid>
