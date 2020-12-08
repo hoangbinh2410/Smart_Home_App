@@ -99,7 +99,6 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
-
         public string BusyIndicatorText { get; set; }
 
         private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
@@ -405,8 +404,11 @@ namespace BA_MobileGPS.Core.ViewModels
            {
                Device.StartTimer(TimeSpan.FromSeconds(5), () =>
                {
-                   StartRestream();
-
+                   if (IsActive)
+                   {
+                       StartRestream();
+                   }
+                  
                    return false;
                });
 
@@ -476,7 +478,7 @@ namespace BA_MobileGPS.Core.ViewModels
             var loopIndex = 0;
             try
             {
-                while (IsLoadingCamera && loopIndex <= 7)
+                while (IsLoadingCamera && loopIndex <= 7 && IsActive)
                 {
                     var deviceStatus = await streamCameraService.GetDevicesStatus(ConditionType.BKS, Vehicle.VehiclePlate);
                     var device = deviceStatus?.Data?.FirstOrDefault();
