@@ -250,8 +250,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         MessageInforChargeMoney = string.Empty;
                     }
-                   
-                    KmInMonth = response.KmInMonth > 0 ? response.KmInMonth : 999;
+                    if (CompanyConfigurationHelper.ShowKmInMonth)
+                    {
+                        KmInMonth = response.KmInMonth;
+                    }
+                    else
+                    {
+                        KmInMonth = 0;
+                    }
                 }
             });
         }
