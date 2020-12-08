@@ -421,6 +421,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void GetHistoryRoute()
         {
             var currentCompany = Settings.CurrentCompany;
+            Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("Đang tải dữ liệu...");
             RunOnBackground(async () =>
             {
                 return await vehicleRouteService.GetHistoryRoute(new RouteHistoryRequest
@@ -473,7 +474,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     PageDialog.DisplayAlertAsync("", "Không tải được dữ liệu", MobileResource.Common_Button_OK);
                 }
-            }, showLoading: true);
+                Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
+            });
         }
 
         private void InitRoute()
