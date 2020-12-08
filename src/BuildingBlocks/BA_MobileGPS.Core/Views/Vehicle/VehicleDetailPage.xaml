@@ -730,7 +730,18 @@
                                                 VerticalOptions="Start" />
                                         </Grid>
                                         <!--  km trong tháng  -->
-                                        <Grid Grid.Row="7" RowSpacing="0">
+                                        <Grid
+                                            Grid.Row="7"
+                                            IsVisible="true"
+                                            RowSpacing="0">
+                                            <Grid.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding KmInMonth}"
+                                                    TargetType="Grid"
+                                                    Value="0">
+                                                    <Setter Property="IsVisible" Value="false" />
+                                                </DataTrigger>
+                                            </Grid.Triggers>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="1" />
