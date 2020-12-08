@@ -2,6 +2,7 @@
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.Utilities;
@@ -9,6 +10,7 @@ using BA_MobileGPS.Utilities;
 using Newtonsoft.Json;
 using Plugin.Toasts;
 using Prism.Navigation;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -139,10 +141,10 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (IsConnected)
+                var isconnectedinternet = NetworkHelper.ConnectedToInternet();
+                if (IsConnected && isconnectedinternet)
                 {
                     await ConnectSignalROnline();
-                    await ConnectSignalR();
                     if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                     {
                         if (DateTime.Now.Subtract(StaticSettings.TimeSleep).TotalMinutes >= MobileSettingHelper.TimeSleep)
@@ -155,13 +157,24 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                     }
                     GetTimeServer();
-                    //kiểm tra xem có thông báo nào không
-                    //GetNofitication();
+                    Device.StartTimer(TimeSpan.FromMilliseconds(700), () =>
+                    {
+                        TryExecute(async () =>
+                        {
+                            await ConnectSignalR();
+                        });
+
+                        return false;
+                    });
                 }
                 else
                 {
-                    Device.BeginInvokeOnMainThread(() =>
+                    Device.BeginInvokeOnMainThread(async () =>
                     {
+                        if (!isconnectedinternet)
+                        {
+                            await PopupNavigation.Instance.PushAsync(new NetworkPage());
+                        }
                         DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
                     });
                 }
