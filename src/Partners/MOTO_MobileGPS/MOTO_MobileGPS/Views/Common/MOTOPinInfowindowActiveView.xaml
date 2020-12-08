@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Padding="3,0"
     AnchorX="0.5"
-    AnchorY="2.5"
+    AnchorY="2.8"
     BackgroundColor="Orange"
     FontAttributes="Bold"
     FontFamily="{StaticResource myFontLatoBold}"
@@ -14,5 +14,4 @@
                                Default=-1}"
     HorizontalTextAlignment="Center"
     TextColor="#333333"
-    WidthRequest="{OnPlatform iOS=100,
-                              Default=-1}" />
+    VerticalTextAlignment="Center" />
