@@ -266,7 +266,7 @@
                                         <chart:ChartLineStyle StrokeColor="{DynamicResource TextPrimaryColor}" />
                                     </chart:CategoryAxis.MajorGridLineStyle>
                                     <chart:CategoryAxis.LabelStyle>
-                                        <chart:ChartAxisLabelStyle LabelFormat="Kênh " TextColor="{DynamicResource PrimaryColor}" />
+                                        <chart:ChartAxisLabelStyle TextColor="{DynamicResource PrimaryColor}" />
                                     </chart:CategoryAxis.LabelStyle>
                                 </chart:CategoryAxis>
                             </chart:SfChart.PrimaryAxis>
@@ -293,14 +293,14 @@
                                     IsTransposed="True"
                                     ItemsSource="{Binding DeviceTimes}"
                                     Low="StartTime"
-                                    XBindingPath="Channel" />
+                                    XBindingPath="ChannelName" />
                                 <chart:RangeColumnSeries
                                     Width="0.1"
                                     High="EndTime"
                                     IsTransposed="True"
                                     ItemsSource="{Binding CloudTimes}"
                                     Low="StartTime"
-                                    XBindingPath="Channel" />
+                                    XBindingPath="ChannelName" />
                             </chart:SfChart.Series>
                         </chart:SfChart>
                         <!--</ScrollView>-->
@@ -344,7 +344,7 @@
                                         <chart:ChartLineStyle StrokeColor="#FFA842" />
                                     </chart:CategoryAxis.AxisLineStyle>
                                     <chart:CategoryAxis.LabelStyle>
-                                        <chart:ChartAxisLabelStyle LabelFormat="Kênh " TextColor="#FFA842" />
+                                        <chart:ChartAxisLabelStyle TextColor="#FFA842" />
                                     </chart:CategoryAxis.LabelStyle>
                                 </chart:CategoryAxis>
                             </chart:SfChart.PrimaryAxis>
@@ -374,14 +374,14 @@
                                     IsTransposed="True"
                                     ItemsSource="{Binding DeviceTimes}"
                                     Low="StartTime"
-                                    XBindingPath="Channel" />
+                                    XBindingPath="ChannelName" />
                                 <chart:RangeColumnSeries
                                     Width="0.1"
                                     High="EndTime"
                                     IsTransposed="True"
                                     ItemsSource="{Binding CloudTimes}"
                                     Low="StartTime"
-                                    XBindingPath="Channel" />
+                                    XBindingPath="ChannelName" />
                             </chart:SfChart.Series>
                         </chart:SfChart>
                         <!--</ScrollView>-->

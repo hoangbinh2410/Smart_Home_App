@@ -290,15 +290,23 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void LoadMore()
         {
-            var source = ChartItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToList();
-            pageIndex++;
-            if (source != null && source.Count() > 0)
+            try
             {
-                for (int i = 0; i < source.Count; i++)
+                var source = ChartItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToList();
+                pageIndex++;
+                if (source != null && source.Count() > 0)
                 {
-                    ChartItemsSource.Add(source[i]);
+                    for (int i = 0; i < source.Count; i++)
+                    {
+                        ChartItemsSource.Add(source[i]);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+          
         }
         /// <summary>
         /// Mở popup chọn ngày
@@ -321,25 +329,32 @@ namespace BA_MobileGPS.Core.ViewModels
         /// <param name="param">Ngày chọn</param>
         public virtual void UpdateDateTime(PickerDateResponse param)
         {
-            if (param != null)
+            try
             {
-                SelectedDate = param.Value;
-                MaxTime = selectedDate.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
-                MinTime = selectedDate.Date;
-                if (!string.IsNullOrEmpty(SelectedVehiclePlates))
+                if (param != null)
                 {
-                    GetChartData(SelectedVehiclePlates);
-                }
-                else
-                {
-                    if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
+                    SelectedDate = param.Value;
+                    MaxTime = selectedDate.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+                    MinTime = selectedDate.Date;
+                    if (!string.IsNullOrEmpty(SelectedVehiclePlates))
                     {
-                        var vehicleString = GetVehiclesHaveCamera(StaticSettings.ListVehilceCamera);
+                        GetChartData(SelectedVehiclePlates);
+                    }
+                    else
+                    {
+                        if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
+                        {
+                            var vehicleString = GetVehiclesHaveCamera(StaticSettings.ListVehilceCamera);
 
-                        GetChartData(vehicleString);
+                            GetChartData(vehicleString);
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);               
+            }        
         }
         /// <summary>
         /// CHọn xe từ dánh sách, chọn nhiều
@@ -359,33 +374,41 @@ namespace BA_MobileGPS.Core.ViewModels
         /// <param name="obj">dữ liệu row ở listview</param>
         private void GotoResreamTab(object obj)
         {
-            var item = (RestreamChartData)obj;
-            var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate);
-            if (vehicle != null)
+            try
             {
-                var chanels = StaticSettings.ListVehilceCamera
-                                            .FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate)?
-                                            .CameraChannels?
-                                            .Select(y=>y.Channel)
-                                            .ToList();
-
-                var vehicleModel = new CameraLookUpVehicleModel()
+                var item = (RestreamChartData)obj;
+                var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate);
+                if (vehicle != null)
                 {
-                    VehiclePlate = item.VehiclePlate,
-                    VehicleId = vehicle.VehicleId,
-                    PrivateCode = vehicle.PrivateCode,
-                    CameraChannels = chanels != null ? chanels : new List<int>()
-                };
-                var param = new NavigationParameters()
+                    var chanels = StaticSettings.ListVehilceCamera
+                                                .FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate)?
+                                                .CameraChannels?
+                                                .Select(y => y.Channel)
+                                                .ToList();
+
+                    var vehicleModel = new CameraLookUpVehicleModel()
+                    {
+                        VehiclePlate = item.VehiclePlate,
+                        VehicleId = vehicle.VehicleId,
+                        PrivateCode = vehicle.PrivateCode,
+                        CameraChannels = chanels != null ? chanels : new List<int>()
+                    };
+                    var param = new NavigationParameters()
                 {
                     {ParameterKey.SelectDate,selectedDate },
                     {ParameterKey.VehiclePlate,vehicleModel }
                 };
-                SafeExecute(async () =>
-                {
-                    var a = await NavigationService.NavigateAsync("CameraRestream", param);
-                });
+                    SafeExecute(async () =>
+                    {
+                        var a = await NavigationService.NavigateAsync("CameraRestream", param);
+                    });
+                }
             }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+         
         }
         /// <summary>
         /// Validate trước khi thục hiện load biểu đồ
@@ -404,7 +427,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    DisplayMessage.ShowMessageInfo("Chỉ cho phép chọn từ ngày hiện tại lùi lại 7 ngày");
+                    DisplayMessage.ShowMessageInfo("Chỉ cho phép chọn từ ngày hiện tại lùi lại 7 ngày",20000);
                 }
             }
             return false;

@@ -21,5 +21,13 @@ namespace BA_MobileGPS.Entities
     {
         [JsonProperty("c")]
         public byte Channel { get; set; }
+
+        public string ChannelName
+        {
+            get
+            {
+                return string.Format("Kênh {0}", Channel);
+            }
+        }
     }
 }
