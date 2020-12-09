@@ -520,4 +520,10 @@
   <ItemGroup>
     <BundleResource Include="Resources\ic_trackingcar%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bagps_logo%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bagps_logo%403x.png" />
+  </ItemGroup>
 </Project>

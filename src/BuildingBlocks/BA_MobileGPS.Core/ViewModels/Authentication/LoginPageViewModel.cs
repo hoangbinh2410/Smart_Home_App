@@ -131,12 +131,26 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand PushtoLanguageCommand => new DelegateCommand(() =>
         {
-            SafeExecute(async () => await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true, true));
+            SafeExecute(async () =>
+            {
+                var iconSwitcher = DependencyService.Get<IIconSwitchService>();
+                await iconSwitcher.SwitchAppIcon(null);
+                await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true, true);
+            });
         });
 
         public ICommand ForgotPasswordCommand => new DelegateCommand(() =>
         {
-            PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
+            SafeExecute(async () =>
+            {
+                var iconSwitcher = DependencyService.Get<IIconSwitchService>();
+
+                await iconSwitcher.SwitchAppIcon("BAGPSLOGO");
+
+                await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
+
+            });
+
         });
 
         public ICommand OpenLoginFragmentCommand => new DelegateCommand(() =>
