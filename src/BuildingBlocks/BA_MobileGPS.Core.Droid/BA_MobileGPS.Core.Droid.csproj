@@ -146,7 +146,7 @@
       <Version>8.0.0.1909</Version>
     </PackageReference>
     <PackageReference Include="Rg.Plugins.Popup">
-      <Version>2.0.0.8</Version>
+      <Version>2.0.0.7</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider">
       <Version>18.3.0.53</Version>
