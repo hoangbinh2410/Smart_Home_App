@@ -54,6 +54,7 @@
     <Compile Include="DependencyServices\CameraSnapShotServices.cs" />
     <Compile Include="DependencyServices\DisplayMessageService.cs" />
     <Compile Include="DependencyServices\AppleHUDService.cs" />
+    <Compile Include="DependencyServices\IconSwitchService.cs" />
     <Compile Include="DependencyServices\IosDownloader.cs" />
     <Compile Include="DependencyServices\iOSTooltipService.cs" />
     <Compile Include="DependencyServices\IsNetworkAvailableImplement.cs" />
