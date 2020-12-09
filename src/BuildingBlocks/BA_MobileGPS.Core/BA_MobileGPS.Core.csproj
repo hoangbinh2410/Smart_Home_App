@@ -24,7 +24,7 @@
 	<ItemGroup>
 		<PackageReference Include="CardsView" Version="2.6.8" />
 		<PackageReference Include="Prism.DryIoc.Forms" Version="8.0.0.1909" />
-		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.8" />
+		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.7" />
 		<PackageReference Include="LibVLCSharp.Forms" Version="3.4.9" />
 		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.3.0.53" />
 		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.3.0.53" />
