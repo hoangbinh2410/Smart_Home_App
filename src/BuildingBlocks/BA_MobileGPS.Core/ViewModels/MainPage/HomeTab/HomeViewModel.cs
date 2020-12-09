@@ -72,6 +72,17 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         });
 
+        public ICommand PushWebCommand => new Command(() =>
+        {
+            SafeExecute(async () =>
+            {
+                if (!string.IsNullOrEmpty(MobileSettingHelper.LinkAdvertising))
+                {
+                    SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkAdvertising)));
+                }
+            });
+        });
+
         public ICommand TapMenuCommand { get; set; }
 
         #endregion Icommand
@@ -247,12 +258,13 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
-                                var a = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey, null, useModalNavigation: true, true);                          
+                                var a = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey, null, useModalNavigation: true, true);
                             }
                         }
                     });
 
                     break;
+
                 case "CameraRestream":
                     SafeExecute(async () =>
                     {
@@ -262,6 +274,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                     });
                     break;
+
                 default:
                     Device.BeginInvokeOnMainThread(() =>
                     {
