@@ -87,22 +87,25 @@
 		<string>3.8.0</string>
 		<key>UIUserInterfaceStyle</key>
 		<string>Light</string>
-		<key>CFBundleAlternateIcons</key>
+		<key>CFBundleIcons</key>
 		<dict>
-			<key>BAGPSLOGO</key>
+			<key>CFBundleAlternateIcons</key>
+			<dict>
+				<key>BAGPSLOGO</key>
+				<dict>
+					<key>CFBundleIconFiles</key>
+					<array>
+						<string>bagps_logo</string>
+					</array>
+				</dict>
+			</dict>
+			<key>CFBundlePrimaryIcon</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
-				<array>
-					<string>bagps_logo</string>
-				</array>
+				<array/>
+				<key>UIPrerenderedIcon</key>
+				<false/>
 			</dict>
-		</dict>
-		<key>CFBundlePrimaryIcon</key>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array/>
-			<key>UIPrerenderedIcon</key>
-			<false/>
 		</dict>
 	</dict>
 </plist>
