@@ -75,13 +75,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand PushWebCommand => new Command(() =>
         {
-            SafeExecute(async () =>
+            if (!string.IsNullOrEmpty(MobileSettingHelper.LinkAdvertising))
             {
-                if (!string.IsNullOrEmpty(MobileSettingHelper.LinkAdvertising))
-                {
-                    SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkAdvertising)));
-                }
-            });
+                SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkAdvertising)));
+            }
         });
 
         public ICommand TapMenuCommand { get; set; }
