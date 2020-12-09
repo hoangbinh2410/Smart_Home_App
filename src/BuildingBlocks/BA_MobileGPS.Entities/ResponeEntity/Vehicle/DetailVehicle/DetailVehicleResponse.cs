@@ -311,6 +311,12 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("35")]
         public DateTime? DateOfRegistration { set; get; }
 
+        /// <summary>
+        /// TỔNG KM XE CHẠY TRONG THÁNG
+        /// </summary>
+        [JsonProperty("36")]
+        public float KmInMonth { set; get; }
+
 
         ////////////////////////////////////////
         /// <summary>

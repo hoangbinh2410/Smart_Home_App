@@ -172,6 +172,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
+        /// <summary>
+        /// KM trong tháng
+        /// </summary>
+        private float kmInMonth;
+        public float KmInMonth
+        {
+            get { return kmInMonth; }
+            set { SetProperty(ref kmInMonth, value); }
+        }
 
         #endregion property
 
@@ -240,6 +249,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     else
                     {
                         MessageInforChargeMoney = string.Empty;
+                    }
+                    if (CompanyConfigurationHelper.ShowKmInMonth)
+                    {
+                        KmInMonth = response.KmInMonth;
+                    }
+                    else
+                    {
+                        KmInMonth = 0;
                     }
                 }
             });

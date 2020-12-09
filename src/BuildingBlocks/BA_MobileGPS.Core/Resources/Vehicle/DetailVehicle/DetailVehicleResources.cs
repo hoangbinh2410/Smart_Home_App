@@ -23,6 +23,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string DetailVehicle_Label_Speed => Get(MobileResourceNames.DetailVehicle_Label_Speed, "Vận tốc", "Speed");
         public static string DetailVehicle_Label_Engineer => Get(MobileResourceNames.DetailVehicle_Label_Engineer, "Động cơ", "Engine speed");
         public static string DetailVehicle_Label_KilometInToDay => Get(MobileResourceNames.DetailVehicle_Label_KilometInToDay, "KM trong ngày", "Traveled distance today");
+        public static string DetailVehicle_Label_KilometInMonth => Get(MobileResourceNames.DetailVehicle_Label_KilometInMonth, "KM trong tháng", "Traveled this month");
         public static string DetailVehicle_Label_KilometAccumulated => Get(MobileResourceNames.DetailVehicle_Label_KilometAccumulated, "KM tích luỹ", "KM accumulated");
         public static string DetailVehicle_Label_CountStopVehicle => Get(MobileResourceNames.DetailVehicle_Label_CountStopVehicle, "Dừng đỗ", "Stoping");
         public static string DetailVehicle_Label_ParkingVehicleNow => Get(MobileResourceNames.DetailVehicle_Label_ParkingVehicleNow, "Đang đỗ", "Parking");
