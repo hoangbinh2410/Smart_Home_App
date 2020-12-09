@@ -22,7 +22,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private ObservableCollection<object> selectedtime;
         public ObservableCollection<object> SelectedTime
         {
-            get => selectedtime; 
+            get => selectedtime;
             set
             {
                 SetProperty(ref selectedtime, value);
@@ -69,11 +69,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                EventAggregator.GetEvent<SelectDateTimeEvent>().Publish(new PickerDateTimeResponse()
-                {
-                    Value = oldValue
-                });
-
                 _ = await NavigationService.GoBackAsync(null, useModalNavigation: true, true);
             });
         }
@@ -84,12 +79,12 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (SelectedTime != null)
                 {
+                    _ = await NavigationService.GoBackAsync(null, useModalNavigation: true, true);
                     EventAggregator.GetEvent<SelectDateTimeEvent>().Publish(new PickerDateTimeResponse()
                     {
                         Value = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, int.Parse(SelectedTime[0].ToString()), int.Parse(SelectedTime[1].ToString()), 0)
                     });
 
-                    _ = await NavigationService.GoBackAsync(null, useModalNavigation: true, true);
                 }
             });
         }
