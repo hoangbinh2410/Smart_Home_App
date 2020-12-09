@@ -133,8 +133,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                var iconSwitcher = DependencyService.Get<IIconSwitchService>();
-                await iconSwitcher.SwitchAppIcon(null);
                 await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true, true);
             });
         });
@@ -143,12 +141,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                var iconSwitcher = DependencyService.Get<IIconSwitchService>();
-
-                await iconSwitcher.SwitchAppIcon("BAGPSLOGO");
-
                 await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
-
             });
 
         });
