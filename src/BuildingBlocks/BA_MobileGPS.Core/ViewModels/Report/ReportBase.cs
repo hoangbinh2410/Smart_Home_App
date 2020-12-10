@@ -41,7 +41,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
+                if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehiclePlate)
                 {
                     VehicleSelect = vehiclePlate;
                 }
