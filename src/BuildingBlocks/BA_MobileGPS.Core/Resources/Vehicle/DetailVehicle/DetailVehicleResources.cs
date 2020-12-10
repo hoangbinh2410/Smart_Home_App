@@ -14,7 +14,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string DetailVehicle_Label_TilePage => Get(MobileResourceNames.DetailVehicle_Label_TilePage, "Chi tiết", "Vehicle information");
         public static string DetailVehicleVMS_Label_TilePage => Get(MobileResourceNames.DetailVehicleVMS_Label_TilePage, "Thông tin tàu cá", "Fishing Boat Information");
         public static string DetailVehicle_Label_InforFee => Get(MobileResourceNames.DetailVehicle_Label_InforFee, "Thông tin phí", "Information Fee");
-        public static string DetailVehicle_MessageFee => Get(MobileResourceNames.DetailVehicle_MessageFee, "Xe sắp đến hạn thu phí ngày {0}", "The car is about to mature on a daily basis {0}");
+        public static string DetailVehicle_MessageFee => Get(MobileResourceNames.DetailVehicle_MessageFee, "Phương tiện sắp đến hạn thu phí ngày {0}", "The car is about to mature on a daily basis {0}");
         public static string DetailVehicle_Label_TileInforVehicle => Get(MobileResourceNames.DetailVehicle_Label_TileInforVehicle, "Thông tin chung", "Common information");
         public static string DetailVehicle_Label_VehiclePlate => Get(MobileResourceNames.DetailVehicle_Label_VehiclePlate, "Biển kiểm soát", "Vehicle Plate");
         public static string DetailVehicle_Label_Address => Get(MobileResourceNames.DetailVehicle_Label_Address, "Địa chỉ", "Address");

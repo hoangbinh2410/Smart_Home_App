@@ -147,7 +147,7 @@ namespace BA_MobileGPS.Core.ViewModels
             return new List<ComboboxRequest>() {
                 new ComboboxRequest() { Keys = "-1" , Value = MobileResource.Common_Lable_All },
                 new ComboboxRequest() { Keys = "0,1" , Value = MobileResource.VehicleDebtMoney_Message_ID0 },
-                new ComboboxRequest() { Keys = "1" , Value = MobileResource.VehicleDebtMoney_Message_ID1 },
+                new ComboboxRequest() { Keys = "1,129" , Value = MobileResource.VehicleDebtMoney_Message_ID1 },
                 new ComboboxRequest() { Keys = "128" , Value = MobileResource.VehicleDebtMoney_Message_ID128 },
                 new ComboboxRequest() { Keys = "3,127" , Value = MobileResource.VehicleDebtMoney_Message_ID3 },
                 new ComboboxRequest() { Keys = "2" , Value = MobileResource.VehicleDebtMoney_Message_ID2 },
@@ -173,11 +173,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (response != null && response.Count() > 0)
                         {
-                            for (int i = 0; i < response.Count; i++)
-                            {
-                                response[i].ExpireDate = response[i].ExpireDate.AddDays(1);
-                                response[i].CountExpireDate = response[i].CountExpireDate + 1;
-                            }
                             StaticSettings.ListVehilceDebtMoney = response;
                             // hàm chạy
                             InitVehicleDebt(response);
