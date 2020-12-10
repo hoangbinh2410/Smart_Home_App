@@ -127,7 +127,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     //nếu là Viview thì lọc thêm messageid=3 nữa
                     if (App.AppType == AppType.Viview)
                     {
-                        listOnline.Where(x => x.MessageId != 3);
+                        listOnline = listOnline.Where(x => x.MessageId != 3).ToList();
                     }
                     if (groupids != null && groupids.Length > 0)
                     {
