@@ -215,6 +215,10 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (response != null)
                 {
+                    if (!CompanyConfigurationHelper.IsShowDateOfRegistration)
+                    {
+                        response.DateOfRegistration = null;
+                    }
                     InforDetail = response;
                     if (response.VehicleNl != null)
                     {
@@ -250,6 +254,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         MessageInforChargeMoney = string.Empty;
                     }
+
                     if (CompanyConfigurationHelper.ShowKmInMonth)
                     {
                         KmInMonth = response.KmInMonth;
