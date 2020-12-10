@@ -20,9 +20,9 @@
                 VerticalOptions="CenterAndExpand">
                 <ffImage:CachedImage
                     BitmapOptimizations="True"
-                    HeightRequest="25"
+                    HeightRequest="30"
                     Source="{Binding IconImage}"
-                    WidthRequest="25" />
+                    WidthRequest="30" />
                 <Label
                     FontSize="12"
                     HorizontalOptions="Center"
