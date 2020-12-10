@@ -394,6 +394,7 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
                                         <!--  biển kiểm soát  -->
@@ -728,10 +729,68 @@
                                                 HorizontalOptions="FillAndExpand"
                                                 VerticalOptions="Start" />
                                         </Grid>
+                                        <!--  km trong tháng  -->
+                                        <Grid
+                                            Grid.Row="7"
+                                            IsVisible="true"
+                                            RowSpacing="0">
+                                            <Grid.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding KmInMonth}"
+                                                    TargetType="Grid"
+                                                    Value="0">
+                                                    <Setter Property="IsVisible" Value="false" />
+                                                </DataTrigger>
+                                            </Grid.Triggers>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="1" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Padding="0,10,0,10"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal">
+                                                <controls:IconView
+                                                    Foreground="{StaticResource PrimaryColor}"
+                                                    HeightRequest="20"
+                                                    HorizontalOptions="Center"
+                                                    Source="ic_distance.png"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="20" />
+
+                                                <Label
+                                                    Text="{i18n:TranslateResource DetailVehicle_Label_KilometInMonth}"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                            </StackLayout>
+
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                HorizontalOptions="EndAndExpand"
+                                                Text="{Binding KmInMonth, Converter={StaticResource KmConverter}}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+
+                                            <BoxView
+                                                Grid.Row="1"
+                                                Grid.ColumnSpan="2"
+                                                BackgroundColor="{StaticResource GrayColor}"
+                                                HeightRequest="0.5"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="Start" />
+                                        </Grid>
+
 
                                         <!--  KM tích luỹ  -->
                                         <Grid
-                                            Grid.Row="7"
+                                            Grid.Row="8"
                                             IsVisible="{Binding InforDetail.KilometAccumulated, Converter={StaticResource HasDataConverter}}"
                                             RowSpacing="0">
                                             <Grid.RowDefinitions>
@@ -781,7 +840,7 @@
 
                                         <!--  Dừng đỗ  -->
                                         <Grid
-                                            Grid.Row="8"
+                                            Grid.Row="9"
                                             IsVisible="{Binding InforDetail.StopCount, Converter={StaticResource HasDataConverter}}"
                                             RowSpacing="0">
                                             <Grid.RowDefinitions>
@@ -830,7 +889,7 @@
                                         </Grid>
                                         <!--  Đang đỗ  -->
                                         <Grid
-                                            Grid.Row="9"
+                                            Grid.Row="10"
                                             IsVisible="{Binding InforDetail.IsShowParkingVehicleNow}"
                                             RowSpacing="0">
                                             <Grid.RowDefinitions>
@@ -880,7 +939,7 @@
 
                                         <!--  Dừng đỗ nổ máy  -->
                                         <Grid
-                                            Grid.Row="10"
+                                            Grid.Row="11"
                                             IsVisible="{Binding InforDetail.IsShowParkingTurnOnVehicle}"
                                             RowSpacing="0">
                                             <Grid.RowDefinitions>
@@ -929,7 +988,7 @@
                                         </Grid>
 
                                         <!--  Điều hoà  -->
-                                        <Grid Grid.Row="11" RowSpacing="0">
+                                        <Grid Grid.Row="12" RowSpacing="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="1" />
@@ -977,7 +1036,7 @@
 
                                         <!--  Số lần mở cửa  -->
                                         <Grid
-                                            Grid.Row="12"
+                                            Grid.Row="13"
                                             IsVisible="{Binding InforDetail.VehicleHtn.DoorOpenCount, Converter={StaticResource HasDataConverter}}"
                                             RowSpacing="0">
                                             <Grid.RowDefinitions>
@@ -1027,7 +1086,7 @@
 
                                         <!--  Ben / Cẩu  -->
                                         <Grid
-                                            Grid.Row="13"
+                                            Grid.Row="14"
                                             IsVisible="{Binding InforDetail.Crane, Converter={StaticResource HasDataConverter}}"
                                             RowSpacing="0">
                                             <Grid.RowDefinitions>
@@ -1077,7 +1136,7 @@
 
                                         <!--  Nhiên liệu  -->
                                         <Grid
-                                            Grid.Row="14"
+                                            Grid.Row="15"
                                             IsVisible="{Binding IsFuelVisible}"
                                             RowSpacing="0">
                                             <Grid.RowDefinitions>
@@ -1127,7 +1186,7 @@
 
                                         <!--  Nhiệt độ  -->
                                         <Grid
-                                            Grid.Row="15"
+                                            Grid.Row="16"
                                             IsVisible="{Binding Temperature, Converter={StaticResource HasDataConverter}}"
                                             RowSpacing="0">
                                             <Grid.RowDefinitions>
@@ -1177,7 +1236,7 @@
 
                                         <!--  Bê tông  -->
                                         <Grid
-                                            Grid.Row="16"
+                                            Grid.Row="17"
                                             IsVisible="{Binding InforDetail.ConcretePump, Converter={StaticResource HasDataConverter}}"
                                             RowSpacing="0">
                                             <Grid.RowDefinitions>
@@ -1226,7 +1285,7 @@
                                         </Grid>
 
                                         <!--  Thẻ nhớ  -->
-                                        <Grid Grid.Row="17" RowSpacing="0">
+                                        <Grid Grid.Row="18" RowSpacing="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="1" />
@@ -1274,7 +1333,7 @@
 
                                         <!--  Cửa  -->
                                         <Grid
-                                            Grid.Row="18"
+                                            Grid.Row="19"
                                             IsVisible="{Binding InforDetail.Door, Converter={StaticResource HasDataConverter}}"
                                             RowSpacing="0">
                                             <Grid.RowDefinitions>
@@ -1514,59 +1573,8 @@
                                                 HorizontalOptions="FillAndExpand"
                                                 VerticalOptions="Start" />
                                         </Grid>
-
-                                        <!--  ngày đăng kiểm  -->
-                                        <Grid
-                                            Grid.Row="3"
-                                            IsVisible="{Binding InforDetail.DateOfRegistration, Converter={StaticResource HasDataConverter}}"
-                                            RowSpacing="0">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="1" />
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <StackLayout
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                Padding="0,10,0,10"
-                                                HorizontalOptions="FillAndExpand"
-                                                Orientation="Horizontal">
-                                                <controls:IconView
-                                                    Foreground="{StaticResource PrimaryColor}"
-                                                    HeightRequest="20"
-                                                    HorizontalOptions="Center"
-                                                    Source="ic_time_black.png"
-                                                    VerticalOptions="Center"
-                                                    WidthRequest="20" />
-
-                                                <Label
-                                                    Text="Ngày đăng kiểm"
-                                                    VerticalOptions="Center"
-                                                    VerticalTextAlignment="Center" />
-                                            </StackLayout>
-
-                                            <Label
-                                                Grid.Row="0"
-                                                Grid.Column="1"
-                                                HorizontalOptions="EndAndExpand"
-                                                Text="{Binding InforDetail.DateOfRegistration, Converter={StaticResource DateConverter}}"
-                                                VerticalOptions="Center"
-                                                VerticalTextAlignment="Center" />
-
-                                            <BoxView
-                                                Grid.Row="1"
-                                                Grid.ColumnSpan="2"
-                                                BackgroundColor="{StaticResource GrayColor}"
-                                                HeightRequest="0.5"
-                                                HorizontalOptions="FillAndExpand"
-                                                VerticalOptions="Start" />
-                                        </Grid>
-
                                         <!--  Thời gian lái xe liên tục  -->
-                                        <Grid Grid.Row="4" RowSpacing="0">
+                                        <Grid Grid.Row="3" RowSpacing="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="1" />
@@ -1613,7 +1621,7 @@
                                         </Grid>
 
                                         <!--  Thời gian lái xe trong ngày  -->
-                                        <Grid Grid.Row="5" RowSpacing="0">
+                                        <Grid Grid.Row="4" RowSpacing="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="1" />
@@ -1660,7 +1668,7 @@
                                         </Grid>
 
                                         <!--  Quá tốc độ  -->
-                                        <Grid Grid.Row="6" RowSpacing="0">
+                                        <Grid Grid.Row="5" RowSpacing="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="1" />
@@ -1707,7 +1715,7 @@
                                         </Grid>
 
                                         <!--  Sở quản lý  -->
-                                        <Grid Grid.Row="7" RowSpacing="0">
+                                        <Grid Grid.Row="6" RowSpacing="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="1" />
@@ -1789,6 +1797,100 @@
                                                     <TapGestureRecognizer Command="{Binding GotoCameraPageComamnd}" CommandParameter="Video" />
                                                 </controls:IconView.GestureRecognizers>
                                             </controls:IconView>
+                                        </Grid>
+                                    </Grid>
+                                </sharpnado:MaterialFrame.Content>
+                            </sharpnado:MaterialFrame>
+                        </Grid>
+
+                        <!--  phần hiển thị thông tin chi tiết SIM  -->
+                        <Grid
+                            Grid.Row="4"
+                            IsVisible="{Binding InforDetail.DateOfRegistration, Converter={StaticResource HasDataConverter}}"
+                            RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <sharpnado:MaterialFrame
+                                Grid.Row="0"
+                                Padding="10"
+                                CornerRadius="0"
+                                HasShadow="False"
+                                HorizontalOptions="FillAndExpand"
+                                LightThemeBackgroundColor="{StaticResource GrayColor}"
+                                VerticalOptions="FillAndExpand">
+
+                                <sharpnado:MaterialFrame.Content>
+                                    <Label
+                                        HorizontalOptions="StartAndExpand"
+                                        Text="Ngày đến hạn"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+                                </sharpnado:MaterialFrame.Content>
+                            </sharpnado:MaterialFrame>
+                            <sharpnado:MaterialFrame
+                                Grid.Row="1"
+                                Padding="10,0,10,0"
+                                BackgroundColor="White"
+                                CornerRadius="0"
+                                HasShadow="False"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+                                <sharpnado:MaterialFrame.Content>
+                                    <Grid Grid.Row="0" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <!--  ngày đăng kiểm  -->
+                                        <Grid
+                                            Grid.Row="0"
+                                            IsVisible="{Binding InforDetail.DateOfRegistration, Converter={StaticResource HasDataConverter}}"
+                                            RowSpacing="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="1" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Padding="0,10,0,10"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal">
+                                                <controls:IconView
+                                                    Foreground="{StaticResource PrimaryColor}"
+                                                    HeightRequest="20"
+                                                    HorizontalOptions="Center"
+                                                    Source="ic_time_black.png"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="20" />
+
+                                                <Label
+                                                    Text="Ngày đăng kiểm"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                            </StackLayout>
+
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                HorizontalOptions="EndAndExpand"
+                                                Text="{Binding InforDetail.DateOfRegistration, Converter={StaticResource DateConverter}}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+
+                                            <BoxView
+                                                Grid.Row="1"
+                                                Grid.ColumnSpan="2"
+                                                BackgroundColor="{StaticResource GrayColor}"
+                                                HeightRequest="0.5"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="Start" />
                                         </Grid>
                                     </Grid>
                                 </sharpnado:MaterialFrame.Content>

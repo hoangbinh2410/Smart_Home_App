@@ -442,6 +442,7 @@
         DetailVehicle_Label_Speed,
         DetailVehicle_Label_Engineer,
         DetailVehicle_Label_KilometInToDay,
+        DetailVehicle_Label_KilometInMonth,
         DetailVehicle_Label_KilometAccumulated,
         DetailVehicle_Label_CountStopVehicle,
         DetailVehicle_Label_ParkingVehicleNow,

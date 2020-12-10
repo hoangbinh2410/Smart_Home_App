@@ -233,6 +233,11 @@ namespace BA_MobileGPS.Core.Extensions
             return (messageID == 2 || messageID == 3 || (messageID == 128 && (DataExt & 5) > 0)) ? true : false;
         }
 
+        public static bool IsVehicleDebtMoneyViview(int messageID, int DataExt)
+        {
+            return (messageID == 1 || messageID == 2 || messageID == 3 || (messageID == 128 && (DataExt & 5) > 0)) ? true : false;
+        }
+
         /* Xe dừng dịch vụ */
 
         public static bool IsVehicleStopService(int messageID)
@@ -496,10 +501,21 @@ namespace BA_MobileGPS.Core.Extensions
                             break;
 
                         case VehicleStatusGroup.VehicleDebtMoney:
-                            if (IsVehicleDebtMoney(x.MessageId, x.DataExt))
+                            if (App.AppType == AppType.Viview)
                             {
-                                result += 1;
+                                if (IsVehicleDebtMoneyViview(x.MessageId, x.DataExt))
+                                {
+                                    result += 1;
+                                }
                             }
+                            else
+                            {
+                                if (IsVehicleDebtMoney(x.MessageId, x.DataExt))
+                                {
+                                    result += 1;
+                                }
+                            }
+                           
                             break;
                     }
                 });
@@ -583,9 +599,19 @@ namespace BA_MobileGPS.Core.Extensions
                         break;
 
                     case VehicleStatusGroup.VehicleDebtMoney:
-                        if (IsVehicleDebtMoney(x.MessageId, x.DataExt))
+                        if (App.AppType == AppType.Viview)
                         {
-                            result.Add(x);
+                            if (IsVehicleDebtMoneyViview(x.MessageId, x.DataExt))
+                            {
+                                result.Add(x);
+                            }
+                        }
+                        else
+                        {
+                            if (IsVehicleDebtMoney(x.MessageId, x.DataExt))
+                            {
+                                result.Add(x);
+                            }
                         }
                         break;
                 }

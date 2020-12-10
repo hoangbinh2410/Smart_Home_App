@@ -27,6 +27,7 @@
         SynOnlineLevel,
         EnableLongPoolRequest,
         IsShowTemperatureOnline,
-        IsShowDateOfRegistration
+        IsShowDateOfRegistration,
+        ShowKmInMonth
     }
 }

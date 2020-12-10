@@ -13,7 +13,6 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     x:Name="root"
-    Title="Xem lại video"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.HasBackButton="False">
     <ContentPage.Resources>
@@ -60,9 +59,9 @@
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
-        <Grid RowDefinitions="Auto,*,Auto" RowSpacing="0">
+        <Grid RowDefinitions="Auto,Auto,2,*,Auto" RowSpacing="0">
             <!--  Khu vực tìm kiếm  -->
-            <StackLayout Margin="10,5" Orientation="Horizontal">
+            <Grid Margin="10,5" ColumnDefinitions="*,Auto">
                 <pancake:PancakeView
                     Padding="0"
                     BackgroundColor="{DynamicResource WhiteColor}"
@@ -94,7 +93,7 @@
                             InputTransparent="True"
                             Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
                             PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                            Text="{Binding Vehicle.PrivateCode}"
+                            Text="{Binding SelectedVehiclePlates}"
                             TextColor="{DynamicResource TextPrimaryColor}"
                             VerticalOptions="Center">
                             <Entry.Effects>
@@ -111,6 +110,7 @@
                     </StackLayout>
                 </pancake:PancakeView>
                 <pancake:PancakeView
+                    Grid.Column="1"
                     Padding="0"
                     BackgroundColor="{DynamicResource WhiteColor}"
                     CornerRadius="19"
@@ -145,19 +145,59 @@
                         </Entry>
                         <icons:IconView
                             Margin="0,0,5,0"
-                            Foreground="{DynamicResource BlackColor}"
+                            Foreground="{DynamicResource PrimaryColor}"
                             HeightRequest="20"
                             HorizontalOptions="End"
-                            Source="ic_date_range_black.png"
+                            Source="ic_calendar.png"
                             VerticalOptions="Center"
                             WidthRequest="20" />
                     </StackLayout>
                 </pancake:PancakeView>
-            </StackLayout>
-
+            </Grid>
+            <!--  Chú thích biểu đồ  -->
+            <Grid
+                Grid.Row="1"
+                Padding="10,0"
+                ColumnDefinitions="*,*"
+                RowDefinitions="Auto,Auto">
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <pancake:PancakeView
+                        Padding="0"
+                        BackgroundColor="#FF8A00"
+                        CornerRadius="10"
+                        HeightRequest="20"
+                        VerticalOptions="Center"
+                        WidthRequest="20" />
+                    <Label Text="Thời gian có video" VerticalOptions="Center" />
+                </StackLayout>
+                <StackLayout
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <pancake:PancakeView
+                        Padding="0"
+                        BackgroundColor="#18A0FB"
+                        CornerRadius="10"
+                        HeightRequest="20"
+                        VerticalOptions="Center"
+                        WidthRequest="20" />
+                    <Label
+                        HorizontalOptions="Start"
+                        Text="Thời gian video đã lưu"
+                        VerticalOptions="Center" />
+                </StackLayout>
+                <Label
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="Start"
+                    Text="Không tải được video khi phương tiện tắt máy."
+                    TextColor="Red" />
+            </Grid>
+            <BoxView Grid.Row="2" BackgroundColor="{DynamicResource PrimaryColor}" />
+            <!--  Danh sách biểu đồ  -->
             <xforms:SfListView
                 x:Name="listview"
-                Grid.Row="1"
+                Grid.Row="3"
                 Padding="5,0"
                 AllowSwiping="True"
                 AutoFitMode="DynamicHeight"
@@ -189,7 +229,7 @@
                         <chart:SfChart
                             BackgroundColor="Transparent"
                             ChartPadding="10"
-                            HeightRequest="200"
+                            HeightRequest="170"
                             HorizontalOptions="FillAndExpand"
                             SideBySideSeriesPlacement="False"
                             VerticalOptions="Start">
@@ -226,16 +266,17 @@
                                         <chart:ChartLineStyle StrokeColor="{DynamicResource TextPrimaryColor}" />
                                     </chart:CategoryAxis.MajorGridLineStyle>
                                     <chart:CategoryAxis.LabelStyle>
-                                        <chart:ChartAxisLabelStyle LabelFormat="Kênh " TextColor="{DynamicResource PrimaryColor}" />
+                                        <chart:ChartAxisLabelStyle TextColor="{DynamicResource PrimaryColor}" />
                                     </chart:CategoryAxis.LabelStyle>
                                 </chart:CategoryAxis>
                             </chart:SfChart.PrimaryAxis>
                             <chart:SfChart.SecondaryAxis>
                                 <chart:DateTimeAxis
-                                    Interval="4"
+                                    Interval="6"
                                     IntervalType="Hours"
-                                    Maximum="23:00"
-                                    Minimum="00:00"
+                                    Maximum="{Binding Source={x:Reference root}, Path=BindingContext.MaxTime}"
+                                    Minimum="{Binding Source={x:Reference root}, Path=BindingContext.MinTime}"
+                                    RangePadding="None"
                                     ShowMajorGridLines="True">
                                     <chart:DateTimeAxis.MajorGridLineStyle>
                                         <chart:ChartLineStyle StrokeColor="{DynamicResource TextPrimaryColor}" />
@@ -247,19 +288,19 @@
                             </chart:SfChart.SecondaryAxis>
                             <chart:SfChart.Series>
                                 <chart:RangeColumnSeries
-                                    Width="0.2"
+                                    Width="0.1"
                                     High="EndTime"
                                     IsTransposed="True"
                                     ItemsSource="{Binding DeviceTimes}"
                                     Low="StartTime"
-                                    XBindingPath="Channel" />
+                                    XBindingPath="ChannelName" />
                                 <chart:RangeColumnSeries
-                                    Width="0.2"
+                                    Width="0.1"
                                     High="EndTime"
                                     IsTransposed="True"
                                     ItemsSource="{Binding CloudTimes}"
                                     Low="StartTime"
-                                    XBindingPath="Channel" />
+                                    XBindingPath="ChannelName" />
                             </chart:SfChart.Series>
                         </chart:SfChart>
                         <!--</ScrollView>-->
@@ -268,10 +309,11 @@
                 <xforms:SfListView.SelectedItemTemplate>
                     <DataTemplate>
                         <!--<ScrollView Orientation="Horizontal">-->
+
                         <chart:SfChart
                             BackgroundColor="#FFFBD8"
                             ChartPadding="10"
-                            HeightRequest="200"
+                            HeightRequest="170"
                             HorizontalOptions="FillAndExpand"
                             SideBySideSeriesPlacement="False"
                             VerticalOptions="Start">
@@ -302,16 +344,17 @@
                                         <chart:ChartLineStyle StrokeColor="#FFA842" />
                                     </chart:CategoryAxis.AxisLineStyle>
                                     <chart:CategoryAxis.LabelStyle>
-                                        <chart:ChartAxisLabelStyle LabelFormat="Kênh " TextColor="#FFA842" />
+                                        <chart:ChartAxisLabelStyle TextColor="#FFA842" />
                                     </chart:CategoryAxis.LabelStyle>
                                 </chart:CategoryAxis>
                             </chart:SfChart.PrimaryAxis>
                             <chart:SfChart.SecondaryAxis>
                                 <chart:DateTimeAxis
-                                    Interval="4"
+                                    Interval="6"
                                     IntervalType="Hours"
-                                    Maximum="23:00"
-                                    Minimum="00:00"
+                                    Maximum="{Binding Source={x:Reference root}, Path=BindingContext.MaxTime}"
+                                    Minimum="{Binding Source={x:Reference root}, Path=BindingContext.MinTime}"
+                                    RangePadding="None"
                                     ShowMajorGridLines="True">
                                     <chart:DateTimeAxis.AxisLineStyle>
                                         <chart:ChartLineStyle StrokeColor="#FFA842" />
@@ -326,19 +369,19 @@
                             </chart:SfChart.SecondaryAxis>
                             <chart:SfChart.Series>
                                 <chart:RangeColumnSeries
-                                    Width="0.2"
+                                    Width="0.1"
                                     High="EndTime"
                                     IsTransposed="True"
                                     ItemsSource="{Binding DeviceTimes}"
                                     Low="StartTime"
-                                    XBindingPath="Channel" />
+                                    XBindingPath="ChannelName" />
                                 <chart:RangeColumnSeries
-                                    Width="0.2"
+                                    Width="0.1"
                                     High="EndTime"
                                     IsTransposed="True"
                                     ItemsSource="{Binding CloudTimes}"
                                     Low="StartTime"
-                                    XBindingPath="Channel" />
+                                    XBindingPath="ChannelName" />
                             </chart:SfChart.Series>
                         </chart:SfChart>
                         <!--</ScrollView>-->
@@ -348,7 +391,7 @@
 
             <!--  THông tin chi tiết  -->
             <!--<Grid
-                Grid.Row="2"
+                Grid.Row="3"
                 Padding="10,5"
                 ColumnDefinitions="*,1.4*"
                 ColumnSpacing="10"
@@ -411,7 +454,7 @@
                         VerticalOptions="Center" />
                 </Grid>
             </Grid>-->
-            <busyIndicator:SfBusyIndicator Grid.RowSpan="3" IsBusy="{Binding IsBusy}" />
+            <busyIndicator:SfBusyIndicator Grid.RowSpan="4" IsBusy="{Binding IsBusy}" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

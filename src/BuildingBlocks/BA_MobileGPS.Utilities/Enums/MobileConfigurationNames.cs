@@ -101,6 +101,7 @@
         IsUseForgotpassword,
         LinkYoutube,
         LinkBAGPS,
+        LinkAdvertising,
 
         /// <summary>
         /// trungtq: có cần đồng bộ dạng request giống Web không? mặc định là có

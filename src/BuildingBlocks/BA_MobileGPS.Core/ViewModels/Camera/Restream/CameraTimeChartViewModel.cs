@@ -15,10 +15,14 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class CameraTimeChartViewModel : ViewModelBase
     {
+        #region internal variable
+
         protected int pageIndex { get; set; } = 0;
         protected int pageCount { get; } = 5;
         private readonly IStreamCameraService cameraService;
-        private string selectedVehiclePlates { get; set; }
+        private List<RestreamChartData> ChartItemsSourceOrigin { get; set; } = new List<RestreamChartData>();
+
+        #endregion internal variable
 
         public CameraTimeChartViewModel(INavigationService navigationService,
             IStreamCameraService cameraService) : base(navigationService)
@@ -30,18 +34,22 @@ namespace BA_MobileGPS.Core.ViewModels
             PushToFromDatePageCommand = new DelegateCommand(ExecuteToFromDate);
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
             selectedDate = DateTime.Now.Date;
+            MaxTime = selectedDate.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+            MinTime = selectedDate.Date;
         }
+
+        #region life cycle
 
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectDateEvent>().Subscribe(UpdateDateTime);
             IsBusy = true;
         }
 
         public override void OnDestroy()
         {
-            EventAggregator.GetEvent<SelectDateTimeEvent>().Unsubscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectDateEvent>().Unsubscribe(UpdateDateTime);
             base.OnDestroy();
         }
 
@@ -54,24 +62,42 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
+            if (parameters.ContainsKey(ParameterKey.ListVehicleSelected)
+                           && parameters.GetValue<List<CameraLookUpVehicleModel>>(ParameterKey.ListVehicleSelected) is List<CameraLookUpVehicleModel> list)
             {
-                Vehicle = vehicle;
-                selectedVehiclePlates = vehicle.VehiclePlate;
+                var listVehiclePlate = new List<string>();
+                foreach (var item in list)
+                {
+                    listVehiclePlate.Add(item.VehiclePlate);
+                }
+                SelectedVehiclePlates = string.Join(", ", listVehiclePlate);
                 GetChartData(selectedVehiclePlates);
             }
         }
+
+        #endregion life cycle
+
+        #region Binding
 
         public ICommand SelectVehicleCameraCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
         public ICommand GotoResreamTabCommand { get; }
         public ICommand PushToFromDatePageCommand { get; }
 
-        private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
-        public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
-        private List<RestreamChartData> ChartItemsSourceOrigin { get; set; } = new List<RestreamChartData>();
-        private ObservableCollection<RestreamChartData> chartItemsSource;
+        private string selectedVehiclePlates;
+        /// <summary>
+        /// Danh sách xe được chọn ở entry tìm kiếm xe
+        /// </summary>
+        public string SelectedVehiclePlates
+        {
+            get { return selectedVehiclePlates; }
+            set { SetProperty(ref selectedVehiclePlates, value); }
+        }
 
+        private ObservableCollection<RestreamChartData> chartItemsSource;
+        /// <summary>
+        /// Source danh sách biểu đồ
+        /// </summary>
         public ObservableCollection<RestreamChartData> ChartItemsSource
         {
             get { return chartItemsSource; }
@@ -79,8 +105,39 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private DateTime selectedDate;
+        /// <summary>
+        /// Ngày được chọn ở ô chọn ngày
+        /// </summary>
         public virtual DateTime SelectedDate { get => selectedDate; set => SetProperty(ref selectedDate, value); }
 
+        private DateTime maxTime;
+        /// <summary>
+        /// Thời gian tối đa của dữ liệu trên 1 biểu đồ,
+        /// hỗ trợ hiển thị theo interval trục y
+        /// </summary>
+        public DateTime MaxTime
+        {
+            get { return maxTime; }
+            set { SetProperty(ref maxTime, value); }
+        }
+
+        private DateTime minTime;
+        /// <summary>
+        /// Thời gian tối thiểu của dữ liệu trên 1 biểu đồ,
+        /// hỗ trợ hiển thị theo interval trục y
+        /// </summary>
+        public DateTime MinTime
+        {
+            get { return minTime; }
+            set { SetProperty(ref minTime, value); }
+        }
+
+        #endregion Binding
+
+        #region function
+        /// <summary>
+        /// Load dữ liệu tất cả biểu dồ của xe có trên hệ thống, infinite scroll
+        /// </summary>
         private void GetAllChartData()
         {
             if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
@@ -106,58 +163,79 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
         }
-
+        /// <summary>
+        /// Kiểm tra xe có cam, dựa vào so sánh với pnc
+        /// </summary>
+        /// <param name="lstcamera">danh sách xe từ pnc</param>
+        /// StaticSettings.ListVehilceOnline : danh sách xe online, init từ trang online (code behind)
+        /// <returns></returns>
         private string GetVehiclesHaveCamera(List<StreamDevices> lstcamera)
         {
             var listVehicles = (from a in lstcamera
                                 join b in StaticSettings.ListVehilceOnline on a.VehiclePlate.ToUpper() equals b.VehiclePlate.ToUpper()
                                 select b.VehiclePlate).ToList();
 
-            selectedVehiclePlates = string.Join(",", listVehicles);
-            return selectedVehiclePlates;
+            return string.Join(",", listVehicles);
         }
-
+        /// <summary>
+        /// Lấy dữ liệu biểu đồ theo chuỗi biển số
+        /// </summary>
+        /// <param name="vehicleString">chuỗi biển số join(',')</param>
         private void GetChartData(string vehicleString)
         {
-            if (!IsBusy)
+            ChartItemsSourceOrigin.Clear();
+            if (Validate())
             {
-                IsBusy = true;
-            }
-            if (ChartItemsSource.Count > 0)
-            {
-                ChartItemsSource.Clear();
-            }
-
-            pageIndex = 0;
-
-            var request = new CameraRestreamRequest()
-            {
-                CustomerId = UserInfo.XNCode,
-                VehicleNames = vehicleString,
-                Date = selectedDate
-            };
-            RunOnBackground(async () =>
-            {
-                return await cameraService.GetVehiclesChartDataByDate(request);
-            }, (res) =>
-            {
-                foreach (var item in res)
+                vehicleString = vehicleString.Replace(" ", string.Empty);
+                if (!IsBusy)
                 {
-                    if (item.DeviceTimes == null || item.DeviceTimes.Count == 0)
-                    {
-                        item.DeviceTimes = FixEmptyData();
-                    }
-                    if (item.CloudTimes == null || item.CloudTimes.Count == 0)
-                    {
-                        item.CloudTimes = FixEmptyData();
-                    }
+                    IsBusy = true;
                 }
-                ChartItemsSourceOrigin = res;
-                LoadMore();
-                IsBusy = false;
-            });
-        }
+                if (ChartItemsSource.Count > 0)
+                {
+                    ChartItemsSource.Clear();
+                }
 
+                pageIndex = 0;
+
+                var request = new CameraRestreamRequest()
+                {
+                    CustomerId = UserInfo.XNCode,
+                    VehicleNames = vehicleString,
+                    Date = selectedDate
+                };
+                RunOnBackground(async () =>
+                {
+                    return await cameraService.GetVehiclesChartDataByDate(request);
+                }, (res) =>
+                {
+                    if (res != null && res.Count > 0)
+                    {
+                        foreach (var item in res)
+                        {
+                            if (item.DeviceTimes == null || item.DeviceTimes.Count == 0)
+                            {
+                                item.DeviceTimes = FixEmptyData();
+                            }
+                            if (item.CloudTimes == null || item.CloudTimes.Count == 0)
+                            {
+                                item.CloudTimes = FixEmptyData();
+                            }
+                            item.DeviceTimes.Sort((y, x) => x.Channel.CompareTo(y.Channel));
+                            item.CloudTimes.Sort((y, x) => x.Channel.CompareTo(y.Channel));
+                        }
+                        res.Sort((x, y) => string.Compare(x.VehiclePlate, y.VehiclePlate));
+                        ChartItemsSourceOrigin = res;
+                        LoadMore();
+                    }
+                    IsBusy = false;
+                });
+            }
+        }
+        /// <summary>
+        /// Lỗi init UI biểu đồ nếu trục X không có giá trị
+        /// </summary>
+        /// <returns></returns>
         private List<AppVideoTimeInfor> FixEmptyData()
         {
             return new List<AppVideoTimeInfor>()
@@ -172,9 +250,16 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             };
         }
-
+        /// <summary>
+        /// infinite scroll
+        /// </summary>
+        /// <param name="obj">listview</param>
         private void LoadMoreItems(object obj)
         {
+            if (IsBusy)
+            {
+                return;
+            }
             var listview = obj as Syncfusion.ListView.XForms.SfListView;
             listview.IsBusy = true;
             try
@@ -191,7 +276,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsBusy = false;
             }
         }
-
+        /// <summary>
+        /// Command canexcute
+        /// </summary>
+        /// <param name="obj">listview</param>
+        /// <returns></returns>
         private bool CanLoadMoreItems(object obj)
         {
             if (ChartItemsSourceOrigin.Count <= pageIndex * pageCount)
@@ -201,20 +290,30 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void LoadMore()
         {
-            var source = ChartItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount);
-            pageIndex++;
-            if (source != null && source.Count() > 0)
+            try
             {
-                foreach (var item in source)
+                var source = ChartItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToList();
+                pageIndex++;
+                if (source != null && source.Count() > 0)
                 {
-                    ChartItemsSource.Add(item);
+                    for (int i = 0; i < source.Count; i++)
+                    {
+                        ChartItemsSource.Add(source[i]);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+          
         }
-
+        /// <summary>
+        /// Mở popup chọn ngày
+        /// </summary>
         public virtual void ExecuteToFromDate()
         {
-            SafeExecute(async () =>
+            TryExecute(async () =>
             {
                 var parameters = new NavigationParameters
                 {
@@ -224,46 +323,116 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("SelectDateCalendar", parameters);
             });
         }
-
-        public virtual void UpdateDateTime(PickerDateTimeResponse param)
+        /// <summary>
+        /// Dữ liệu ngày chọn trả về
+        /// </summary>
+        /// <param name="param">Ngày chọn</param>
+        public virtual void UpdateDateTime(PickerDateResponse param)
         {
-            if (param != null)
+            try
             {
-                SelectedDate = param.Value;
-                GetChartData(selectedVehiclePlates);
-            }
-        }
+                if (param != null)
+                {
+                    SelectedDate = param.Value;
+                    MaxTime = selectedDate.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+                    MinTime = selectedDate.Date;
+                    if (!string.IsNullOrEmpty(SelectedVehiclePlates))
+                    {
+                        GetChartData(SelectedVehiclePlates);
+                    }
+                    else
+                    {
+                        if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
+                        {
+                            var vehicleString = GetVehiclesHaveCamera(StaticSettings.ListVehilceCamera);
 
+                            GetChartData(vehicleString);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);               
+            }        
+        }
+        /// <summary>
+        /// CHọn xe từ dánh sách, chọn nhiều
+        /// </summary>
         private void SelectVehicleCamera()
         {
+            var param = new NavigationParameters();
+            param.Add(ParameterKey.ListVehicleSelected, SelectedVehiclePlates);
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraLookup", null, useModalNavigation: true, animated: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraMultiSelect", param, useModalNavigation: true, animated: true);
             });
         }
-
+        /// <summary>
+        /// Chuyển qua trang xem lại
+        /// </summary>
+        /// <param name="obj">dữ liệu row ở listview</param>
         private void GotoResreamTab(object obj)
         {
-            var item = (RestreamChartData)obj;
-            var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate);
-            if (vehicle != null)
+            try
             {
-                var vehicleModel = new CameraLookUpVehicleModel()
+                var item = (RestreamChartData)obj;
+                var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate);
+                if (vehicle != null)
                 {
-                    VehiclePlate = item.VehiclePlate,
-                    VehicleId = vehicle.VehicleId,
-                    PrivateCode = vehicle.PrivateCode
-                };
-                var param = new NavigationParameters()
+                    var chanels = StaticSettings.ListVehilceCamera
+                                                .FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate)?
+                                                .CameraChannels?
+                                                .Select(y => y.Channel)
+                                                .ToList();
+
+                    var vehicleModel = new CameraLookUpVehicleModel()
+                    {
+                        VehiclePlate = item.VehiclePlate,
+                        VehicleId = vehicle.VehicleId,
+                        PrivateCode = vehicle.PrivateCode,
+                        CameraChannels = chanels != null ? chanels : new List<int>()
+                    };
+                    var param = new NavigationParameters()
                 {
                     {ParameterKey.SelectDate,selectedDate },
                     {ParameterKey.VehiclePlate,vehicleModel }
                 };
-                SafeExecute(async () =>
-                {
-                    var a = await NavigationService.NavigateAsync("CameraRestream", param);
-                });
+                    SafeExecute(async () =>
+                    {
+                        var a = await NavigationService.NavigateAsync("CameraRestream", param);
+                    });
+                }
             }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+         
         }
+        /// <summary>
+        /// Validate trước khi thục hiện load biểu đồ
+        /// </summary>
+        /// <returns></returns>
+        private bool Validate()
+        {
+            //Ngày
+            if (selectedDate != null)
+            {
+                var maxDay = new TimeSpan(7, 0, 0, 0, 0);
+                if (DateTime.Now.Date - selectedDate.Date <= maxDay 
+                    && DateTime.Now.Date >= selectedDate.Date)
+                {
+                    return true;
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo("Chỉ cho phép chọn từ ngày hiện tại lùi lại 7 ngày",20000);
+                }
+            }
+            return false;
+        }
+
+        #endregion function
     }
 }

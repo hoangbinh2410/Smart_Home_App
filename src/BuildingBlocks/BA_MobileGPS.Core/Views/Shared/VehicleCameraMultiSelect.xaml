@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="BA_MobileGPS.Core.Views.VehicleCameraLookup"
+    x:Class="BA_MobileGPS.Core.Views.VehicleCameraMultiSelect"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
@@ -50,7 +50,7 @@
                     </Entry.Behaviors>
                 </Entry>
             </inputLayout:SfTextInputLayout>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" RowDefinitions="*,Auto">
                 <syncfusionList:SfListView
                     x:Name="listView"
                     AutoFitMode="Height"
@@ -58,7 +58,8 @@
                     ItemSpacing="5"
                     ItemsSource="{Binding ListVehicle}"
                     SelectionBackgroundColor="Transparent"
-                    SelectionMode="Single"
+                    SelectionGesture="Tap"
+                    SelectionMode="Multiple"
                     TapCommand="{Binding TapListVehicleCommand}">
                     <syncfusionList:SfListView.ItemTemplate>
                         <DataTemplate>
@@ -84,7 +85,6 @@
                                         Text="{Binding Velocity, Converter={StaticResource VelocityConverter}}"
                                         VerticalOptions="Center" />
                                 </StackLayout>
-
                                 <Label
                                     Grid.Row="0"
                                     Grid.Column="1"
@@ -96,27 +96,42 @@
                                     HorizontalTextAlignment="Start"
                                     Text="{Binding PrivateCode}"
                                     VerticalOptions="Center" />
-
-                                <Label
-                                    Grid.Row="0"
-                                    Grid.Column="1"
-                                    Margin="10"
-                                    HorizontalOptions="End"
-                                    HorizontalTextAlignment="End"
-                                    Text="{Binding VehicleTime, Converter={StaticResource DateTimeConverter}}"
-                                    VerticalOptions="Center" />
+                                <Image
+                                    Grid.Column="2"
+                                    HeightRequest="28"
+                                    HorizontalOptions="Center"
+                                    IsVisible="{Binding IsSelected}"
+                                    Source="selected.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="28" />
+                                <Image
+                                    Grid.Column="2"
+                                    HeightRequest="28"
+                                    HorizontalOptions="Center"
+                                    IsVisible="{Binding IsSelected, Converter={StaticResource InvertBooleanConverter}}"
+                                    Source="notSelected.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="28" />
                                 <BoxView
                                     Grid.Row="1"
-                                    Grid.Column="0"
                                     Grid.ColumnSpan="3"
                                     StyleClass="SlimLine" />
                             </Grid>
                         </DataTemplate>
                     </syncfusionList:SfListView.ItemTemplate>
-                </syncfusionList:SfListView>
 
+                </syncfusionList:SfListView>
+                <Grid Grid.Row="1" VerticalOptions="End">
+                    <Button
+                        Margin="10"
+                        Command="{Binding ConfirmCommand}"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{i18n:TranslateResource VehicleGroupLookUp_Label_Confirm}"
+                        VerticalOptions="End" />
+                </Grid>
 
                 <StackLayout
+                    Grid.RowSpan="2"
                     HorizontalOptions="Center"
                     IsVisible="{Binding HasVehicle, Converter={StaticResource InvertBooleanConverter}}"
                     Orientation="Vertical"

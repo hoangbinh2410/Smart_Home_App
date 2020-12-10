@@ -42,8 +42,8 @@
         public const string ChangeLanguge = "ChangeLanguge";
         public const string SelectRangeDateTime = "SelectRangeDateTime";
         public const string SelectDate = "SelectDate";
-        
-
+        public const string MultiSelectLookup = "MultiSelectLookup";
+        public const string ListVehicleSelected = "ListVehicleSelected";
 
     }
 }

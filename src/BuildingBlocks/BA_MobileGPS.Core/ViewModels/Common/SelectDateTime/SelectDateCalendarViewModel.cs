@@ -61,58 +61,27 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectedDate = date;
         }
 
-        public async void CloseTimePagePopupCommand()
+        public void CloseTimePagePopupCommand()
         {
-            if (IsBusy)
+            SafeExecute(async () =>
             {
-                return;
-            }
-            IsBusy = true;
-            try
-            {
-                var input = new PickerDateTimeResponse()
-                {
-                    Value = oldValue,
-                    PickerType = PickerType
-                };
-                _eventAggregator.GetEvent<SelectDateTimeEvent>().Publish(input);
                 await NavigationService.GoBackAsync(null, useModalNavigation: true, true);
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            });
         }
 
-        private async void IgreeSelectedTimeCommand()
+        private void IgreeSelectedTimeCommand()
         {
-            if (IsBusy)
+            SafeExecute(async () =>
             {
-                return;
-            }
-            IsBusy = true;
-            try
-            {
-                var input = new PickerDateTimeResponse()
+                var input = new PickerDateResponse()
                 {
                     Value = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day),
                     PickerType = PickerType
                 };
-                _eventAggregator.GetEvent<SelectDateTimeEvent>().Publish(input);
+                _eventAggregator.GetEvent<SelectDateEvent>().Publish(input);
                 await NavigationService.GoBackAsync();
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+
+            });
         }
     }
 }

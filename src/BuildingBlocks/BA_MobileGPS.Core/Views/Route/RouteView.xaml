@@ -293,6 +293,23 @@
                 VerticalOptions="End">
                 <pancake:PancakeView
                     Padding="0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    CornerRadius="22"
+                    HeightRequest="45"
+                    WidthRequest="45">
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="GetMylocation" />
+                    </pancake:PancakeView.GestureRecognizers>
+                    <controls:IconView
+                        Foreground="{DynamicResource PrimaryColor}"
+                        HeightRequest="25"
+                        HorizontalOptions="Center"
+                        Source="ic_vector.png"
+                        VerticalOptions="Center"
+                        WidthRequest="25" />
+                </pancake:PancakeView>
+                <pancake:PancakeView
+                    Padding="0"
                     BackgroundColor="{Binding BackgroundTrackingCar}"
                     CornerRadius="22"
                     HeightRequest="45"

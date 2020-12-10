@@ -8,6 +8,10 @@ namespace BA_MobileGPS.Core
     {
     }
 
+    public class SelectDateEvent : PubSubEvent<PickerDateResponse>
+    {
+    }
+
     public class SelectTimeEvent : PubSubEvent<PickerDateTimeResponse>
     {
     }
