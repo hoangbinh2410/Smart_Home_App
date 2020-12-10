@@ -373,54 +373,59 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ProcessUserConfigGetHistoryRoute(ValidateUserConfigGetHistoryRouteResponse result)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            if (result != null && result.State != ValidatedHistoryRouteState.Success)
             {
-                switch (result.State)
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    case ValidatedHistoryRouteState.OverTotalDateMobile:
-                        PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_TotalTimeLimit(result.TotalDayConfig), MobileResource.Common_Button_OK);
-                        break;
+                    switch (result.State)
+                    {
+                        case ValidatedHistoryRouteState.OverTotalDateMobile:
+                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_TotalTimeLimit(result.TotalDayConfig), MobileResource.Common_Button_OK);
+                            break;
 
-                    case ValidatedHistoryRouteState.Expired:
-                        PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_AccountIsExpired, MobileResource.Common_Button_OK);
-                        break;
+                        case ValidatedHistoryRouteState.Expired:
+                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_AccountIsExpired, MobileResource.Common_Button_OK);
+                            break;
 
-                    case ValidatedHistoryRouteState.OverDateConfig:
-                        if (result.MinDate != null && result.MaxDate != null)
-                        {
-                            if (result.MinDate > result.MaxDate)
-                                PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_ToDateFromDateLimit(result.MinDate.FormatDate(), result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
+                        case ValidatedHistoryRouteState.OverDateConfig:
+                            if (result.MinDate != null && result.MaxDate != null)
+                            {
+                                if (result.MinDate > result.MaxDate)
+                                    PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_ToDateFromDateLimit(result.MinDate.FormatDate(), result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
+                                else
+                                    PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_FromDateToDateLimit(result.MinDate.FormatDate(), result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
+                            }
+                            else if (result.MinDate != null)
+                            {
+                                PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_FromDateLimit(result.MinDate.FormatDate()), MobileResource.Common_Button_OK);
+                            }
+                            else if (result.MaxDate != null)
+                            {
+                                PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_ToDateLimit(result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
+                            }
                             else
-                                PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_FromDateToDateLimit(result.MinDate.FormatDate(), result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
-                        }
-                        else if (result.MinDate != null)
-                        {
-                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_FromDateLimit(result.MinDate.FormatDate()), MobileResource.Common_Button_OK);
-                        }
-                        else if (result.MaxDate != null)
-                        {
-                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_ToDateLimit(result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
-                        }
-                        else
-                        {
-                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_OverDateLimit, MobileResource.Common_Button_OK);
-                        }
-                        break;
+                            {
+                                PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_OverDateLimit, MobileResource.Common_Button_OK);
+                            }
+                            break;
 
-                    case ValidatedHistoryRouteState.DateFuture:
-                        PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_EndDateLimit, MobileResource.Common_Button_OK);
-                        break;
+                        case ValidatedHistoryRouteState.DateFuture:
+                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_EndDateLimit, MobileResource.Common_Button_OK);
+                            break;
 
-                    case ValidatedHistoryRouteState.FromDateOverToDate:
-                        PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_StartDateMustSmallerThanEndDate, MobileResource.Common_Button_OK);
-                        break;
-                }
-            });
+                        case ValidatedHistoryRouteState.FromDateOverToDate:
+                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_StartDateMustSmallerThanEndDate, MobileResource.Common_Button_OK);
+                            break;
+                    }
+                });
+            }
+
         }
 
         private void GetHistoryRoute()
         {
             var currentCompany = Settings.CurrentCompany;
+            Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("Đang tải dữ liệu...");
             RunOnBackground(async () =>
             {
                 return await vehicleRouteService.GetHistoryRoute(new RouteHistoryRequest
@@ -473,7 +478,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     PageDialog.DisplayAlertAsync("", "Không tải được dữ liệu", MobileResource.Common_Button_OK);
                 }
-            }, showLoading: true);
+                Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
+            });
         }
 
         private void InitRoute()
@@ -797,8 +803,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
+                    if (CurrentRoute == null)
+                        return;
                     RotateMarker(item, CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
                     {
+                        if (CurrentRoute == null)
+                            return;
                         MarkerAnimation(item, itemLable, CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
                         {
                             if (PlayCurrent + 1 > PlayMax || ctsRouting.IsCancellationRequested)

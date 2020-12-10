@@ -7,8 +7,9 @@ using Prism.Commands;
 using Prism.Navigation;
 
 using Syncfusion.Data.Extensions;
-
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -18,6 +19,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
 using Exception = System.Exception;
+using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -26,9 +28,10 @@ namespace BA_MobileGPS.Core.ViewModels
     public class VehicleCameraLookupViewModel : ViewModelBase
     {
         private readonly IStreamCameraService cameraService;
+        private CancellationTokenSource cts;
         private bool hasVehicle = true;
         public bool HasVehicle { get => hasVehicle; set => SetProperty(ref hasVehicle, value); }
-
+       
         private static List<CameraLookUpVehicleModel> ListVehicleOrigin = new List<CameraLookUpVehicleModel>();
 
         private List<CameraLookUpVehicleModel> listVehicle = new List<CameraLookUpVehicleModel>();
@@ -36,20 +39,23 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #endregion Property
 
-        private CancellationTokenSource cts;
+       
 
         public ICommand SearchVehicleCommand { get; private set; }
+
+        public ICommand TapListVehicleCommand { get; }
 
         public VehicleCameraLookupViewModel(INavigationService navigationService, IStreamCameraService cameraService) : base(navigationService)
         {
             this.cameraService = cameraService;
             SearchVehicleCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehicle);
+            TapListVehicleCommand = new DelegateCommand<ItemTappedEventArgs>(TapListVehicle);       
         }
 
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            GetVehicleCamera();
+            GetVehicleCamera();         
         }
 
         private void GetVehicleCamera()
@@ -133,37 +139,18 @@ namespace BA_MobileGPS.Core.ViewModels
             }));
         }
 
-        public Command TapListVehicleCommand
+        public void TapListVehicle(ItemTappedEventArgs args)
         {
-            get
+            SafeExecute(async () =>
             {
-                return new Command<Syncfusion.ListView.XForms.ItemTappedEventArgs>(async (args) =>
+                var selected = (args.ItemData as CameraLookUpVehicleModel);
+                if (selected != null)
                 {
-                    if (IsBusy)
-                    {
-                        return;
-                    }
-                    IsBusy = true;
-                    try
-                    {
-                        var selected = (args.ItemData as CameraLookUpVehicleModel);
-                        if (selected != null)
-                        {
-                            var navigationPara = new NavigationParameters();
-                            navigationPara.Add(ParameterKey.Vehicle, selected);
-                            await NavigationService.GoBackAsync(navigationPara, useModalNavigation: true, true);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-                    }
-                    finally
-                    {
-                        IsBusy = false;
-                    }
-                });
-            }
-        }
+                    var navigationPara = new NavigationParameters();
+                    navigationPara.Add(ParameterKey.Vehicle, selected);
+                    await NavigationService.GoBackAsync(navigationPara, useModalNavigation: true, true);
+                }
+            });
+        }                
     }
 }

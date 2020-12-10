@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -70,6 +71,14 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 await NavigationService.NavigateAsync("BaseNavigationPage/FavoritesConfigurationsPage", null, useModalNavigation: true, true);
             });
+        });
+
+        public ICommand PushWebCommand => new Command(() =>
+        {
+            if (!string.IsNullOrEmpty(MobileSettingHelper.LinkAdvertising))
+            {
+                SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkAdvertising)));
+            }
         });
 
         public ICommand TapMenuCommand { get; set; }
@@ -252,6 +261,16 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                     });
 
+                    break;
+
+                case "CameraRestream":
+                    SafeExecute(async () =>
+                    {
+                        using (new HUDService(MobileResource.Common_Message_Processing))
+                        {
+                            _ = await NavigationService.NavigateAsync("BaseNavigationPage/" + seletedMenu.MenuKey, null, useModalNavigation: true, true);
+                        }
+                    });
                     break;
 
                 default:

@@ -23,7 +23,6 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         #region Contructor
 
-        private readonly IUserService userService;
         private readonly IUserLandmarkGroupService userLandmarkGroupService;
         public ICommand NavigateToSettingsCommand { get; private set; }
         public ICommand ChangeMapTypeCommand { get; private set; }
@@ -38,11 +37,9 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SelectedMenuCommand { get; }
         public bool IsCheckShowLandmark { get; set; } = false;
 
-        public OnlinePageViewModel(INavigationService navigationService,
-            IUserService userService, IUserLandmarkGroupService userLandmarkGroupService)
+        public OnlinePageViewModel(INavigationService navigationService, IUserLandmarkGroupService userLandmarkGroupService)
             : base(navigationService)
         {
-            this.userService = userService;
             this.userLandmarkGroupService = userLandmarkGroupService;
 
             carActive = new VehicleOnline();

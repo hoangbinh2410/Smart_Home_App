@@ -90,7 +90,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         if (task.Result != null && task.Result.Count > 0)
                         {
-                            var result = task.Result.OrderByDescending(x => x.SortOrder).ToList();
+                            var result = task.Result.OrderByDescending(x => x.SortOrder).ThenBy(x => x.PrivateCode).ToList();
                             ListVehicleOrigin = result;
                             ListVehicle = result;
                         }
@@ -124,6 +124,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 else
                 {
                     var listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                    //nếu là Viview thì lọc thêm messageid=3 nữa
+                    if (App.AppType == AppType.Viview)
+                    {
+                        listOnline = listOnline.Where(x => x.MessageId != 3).ToList();
+                    }
                     if (groupids != null && groupids.Length > 0)
                     {
                         foreach (var item in groupids)
@@ -193,7 +198,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
-                    var result = task.Result.OrderByDescending(x => x.SortOrder).ToList();
+                    var result = task.Result.OrderByDescending(x => x.SortOrder).ThenBy(x => x.PrivateCode).ToList();
                     ListVehicle = result;
 
                     HasVehicle = ListVehicle.Count > 0;

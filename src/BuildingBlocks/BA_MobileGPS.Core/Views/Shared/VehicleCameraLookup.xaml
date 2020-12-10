@@ -52,11 +52,13 @@
             </inputLayout:SfTextInputLayout>
             <Grid Grid.Row="1">
                 <syncfusionList:SfListView
+                    x:Name="listView"
                     AutoFitMode="Height"
                     IsScrollBarVisible="False"
                     ItemSpacing="5"
                     ItemsSource="{Binding ListVehicle}"
                     SelectionBackgroundColor="Transparent"
+                    SelectionMode="Single"
                     TapCommand="{Binding TapListVehicleCommand}">
                     <syncfusionList:SfListView.ItemTemplate>
                         <DataTemplate>
@@ -112,6 +114,8 @@
                         </DataTemplate>
                     </syncfusionList:SfListView.ItemTemplate>
                 </syncfusionList:SfListView>
+
+
                 <StackLayout
                     HorizontalOptions="Center"
                     IsVisible="{Binding HasVehicle, Converter={StaticResource InvertBooleanConverter}}"

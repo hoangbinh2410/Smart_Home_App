@@ -1,6 +1,8 @@
-﻿using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Resources;
 using System;
 using System.Linq;
+using System.Reflection;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -106,6 +108,27 @@ namespace BA_MobileGPS.Core.Views
                 {
                     lbl2.TextColor = Color.White;
                 }
+            }
+        }
+
+        public async void GetMylocation(object sender, EventArgs e)
+        {
+            try
+            {
+                var mylocation = await LocationHelper.GetGpsLocation();
+
+                if (mylocation != null)
+                {
+                    if (!map.MyLocationEnabled)
+                    {
+                        map.MyLocationEnabled = true;
+                    }
+                    await map.AnimateCamera(CameraUpdateFactory.NewPosition(new Position(mylocation.Latitude, mylocation.Longitude)), TimeSpan.FromMilliseconds(300));
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
     }

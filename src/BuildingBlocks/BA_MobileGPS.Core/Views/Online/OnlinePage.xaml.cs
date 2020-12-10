@@ -444,6 +444,7 @@ namespace BA_MobileGPS.Core.Views
                 if (StateVehicleExtension.IsStopAndEngineOff(carInfo)
                         || GeoHelper.IsBetweenLatlng(item.Position.Latitude, item.Position.Longitude, carInfo.Lat, carInfo.Lng) || carInfo.Velocity == 0)
                 {
+                    item.Rotation = carInfo.Direction * 45;
                     itemLable.Position = new Position(carInfo.Lat, carInfo.Lng);
                     item.Position = new Position(carInfo.Lat, carInfo.Lng);
                     return;
@@ -669,6 +670,11 @@ namespace BA_MobileGPS.Core.Views
                 {
                     carInfo.Temperature = string.Empty;
                 }
+                //Nếu không có cấu hình hiển thị ngày đăng kiểm thì không hiển thị lên màn online
+                if (!CompanyConfigurationHelper.IsShowDateOfRegistration || CompanyConfigurationHelper.IsShowTemperatureOnline)
+                {
+                    carInfo.DateOfRegistration = null;
+                }
                 vm.CarActive = carInfo;
 
                 btnDirectvehicleOnline.IsVisible = true;
@@ -684,7 +690,14 @@ namespace BA_MobileGPS.Core.Views
             }
             else
             {
-                pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
+                if (!string.IsNullOrEmpty(carInfo.MessageDetailBAP))
+                {
+                    pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, carInfo.MessageDetailBAP, MobileResource.Common_Label_Close);
+                }
+                else
+                {
+                    pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
+                }
             }
         }
 

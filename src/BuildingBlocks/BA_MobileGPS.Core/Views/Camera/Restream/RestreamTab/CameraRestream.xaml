@@ -3,33 +3,17 @@
     x:Class="BA_MobileGPS.Core.Views.CameraRestream"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:prism="http://prismlibrary.com"
     xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
+    Title="Xem lại video"
     prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.BackButtonTitle=""
     SelectedTabColor="{DynamicResource MainTabSelectedColor}"
     UnselectedTabColor="{DynamicResource MainTabUnSelectedTextColor}">
-    <NavigationPage.TitleView>
-        <Grid VerticalOptions="Center">
-            <icons:IconView
-                Foreground="{DynamicResource WhiteColor}"
-                HeightRequest="25"
-                HorizontalOptions="Start"
-                Source="ic_close.png"
-                VerticalOptions="Center">
-                <icons:IconView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
-                </icons:IconView.GestureRecognizers>
-            </icons:IconView>
-            <Label
-                HorizontalOptions="Center"
-                StyleClass="GroupTitleLabel,BoldText"
-                Text="Xem lại video"
-                TextColor="{DynamicResource WhiteColor}"
-                VerticalOptions="Center" />
-        </Grid>
-    </NavigationPage.TitleView>
+
     <TabbedPage.Children>
         <views:DeviceTab Title="{i18n:TranslateResource Camera_ChildTab_Device}" IconImageSource="ic_device" />
         <!--<views:BACloudTab Title="{i18n:TranslateResource Camera_ChildTab_BACloud}" IconImageSource="ic_cloud" />
