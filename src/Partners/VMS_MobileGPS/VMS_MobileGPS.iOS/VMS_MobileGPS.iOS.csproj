@@ -166,6 +166,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Realm" Version="5.1.1" />
+    <PackageReference Include="Shiny.Locations">
+      <Version>1.2.0.1755</Version>
+    </PackageReference>
     <PackageReference Include="System.Reflection.Emit" Version="4.7.0">
       <ExcludeAssets>all</ExcludeAssets>
       <IncludeAssets>none</IncludeAssets>

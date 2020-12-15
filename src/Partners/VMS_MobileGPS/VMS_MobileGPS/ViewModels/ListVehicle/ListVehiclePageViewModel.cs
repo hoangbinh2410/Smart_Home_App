@@ -14,6 +14,7 @@ using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
+using Prism.Navigation.TabbedPages;
 using Syncfusion.Data.Extensions;
 
 using System;
@@ -344,7 +345,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("ListVehicleHelpPage", useModalNavigation: true);
+                await NavigationService.NavigateAsync("ListVehicleHelpPage", null, useModalNavigation: true, true);
             });
         }
 
@@ -566,25 +567,41 @@ namespace VMS_MobileGPS.ViewModels
                     { ParameterKey.CarDetail, param }
                 };
 
-                var a = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, useModalNavigation: true);
+                var a = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, useModalNavigation: true, true);
             });
         }
 
         public void GoRoutePage(VMSVehicleOnlineViewModel selected)
         {
-            SafeExecute(() =>
+            SafeExecute(async () =>
             {
                 var param = _mapper.MapProperties<VehicleOnline>(selected);
-                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, param));
+                var parameters = new NavigationParameters
+                {
+                    { ParameterKey.VehicleOnline, param }
+                };
+
+                await NavigationService.SelectTabAsync("RoutePage", parameters);
             });
         }
 
         public void GoOnlinePage(VMSVehicleOnlineViewModel selected)
         {
-            SafeExecute(() =>
+            SafeExecute(async () =>
             {
-                var param = _mapper.MapProperties<VehicleOnline>(selected);
-                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.OnlinePage, param));
+                var param = _mapper.MapProperties<Vehicle>(selected);
+                var parameters = new NavigationParameters
+                {
+                    { ParameterKey.Vehicle, param }
+                };
+                if (MobileUserSettingHelper.EnableShowCluster)
+                {
+                    await NavigationService.SelectTabAsync("OnlinePage", parameters);
+                }
+                else
+                {
+                    await NavigationService.SelectTabAsync("OnlinePageNoCluster", parameters);
+                }
             });
         }
 
@@ -598,7 +615,7 @@ namespace VMS_MobileGPS.ViewModels
                     { ParameterKey.VehicleOnline, param }
                 };
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/DistancePage", parameters, true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/DistancePage", parameters, true, true);
             });
         }
 

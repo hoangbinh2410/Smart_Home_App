@@ -21,7 +21,6 @@
             BlurRadius="3"
             Color="Black" />
         <Style TargetType="pancake:PancakeView">
-            <Setter Property="HasShadow" Value="True" />
             <Setter Property="Shadow" Value="{StaticResource shadow}" />
         </Style>
     </ContentView.Resources>
@@ -71,8 +70,7 @@
             <pancake:PancakeView
                 Padding="0"
                 BackgroundColor="{DynamicResource WhiteColor}"
-                CornerRadius="22"
-                HasShadow="True">
+                CornerRadius="22">
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
@@ -90,10 +88,10 @@
                             Source="ic_search.png" />
                     </pancake:PancakeView>
                     <Entry
+                        x:Name="entrySearch"
                         FontSize="14"
                         HorizontalOptions="FillAndExpand"
                         InputTransparent="True"
-                        Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
                         PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                         Text="{Binding CarSearch}"
                         TextColor="{DynamicResource TextPrimaryColor}"
@@ -201,7 +199,6 @@
             AbsoluteLayout.LayoutFlags="YProportional, WidthProportional"
             BackgroundColor="{DynamicResource WhiteColor}"
             CornerRadius="20,20,0,0"
-            HasShadow="False"
             HeightRequest="200"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="End" />

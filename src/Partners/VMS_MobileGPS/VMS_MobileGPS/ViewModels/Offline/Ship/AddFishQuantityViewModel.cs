@@ -118,15 +118,15 @@ namespace VMS_MobileGPS.ViewModels
                 fishTrip.Id = selectedID;
             }
 
-            await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+            await NavigationService.GoBackAsync(parameters: new NavigationParameters
             {
                 { ParameterKey.Fish, fishTrip }
-            });
+            },true,true);
         }
 
         private async void Cancel()
         {
-            await NavigationService.GoBackAsync(useModalNavigation: true);
+            await NavigationService.GoBackAsync(null,true,true);
         }
     }
 }

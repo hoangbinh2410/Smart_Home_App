@@ -12,7 +12,6 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
-    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     xmlns:template1="clr-namespace:VMS_MobileGPS.Views"
     xmlns:viewcore="clr-namespace:BA_MobileGPS.Core.Views.PartialView;assembly=BA_MobileGPS.Core"
@@ -73,8 +72,7 @@
                         <pancake:PancakeView
                             Padding="0"
                             BackgroundColor="{DynamicResource WhiteColor}"
-                            CornerRadius="20"
-                            HasShadow="True">
+                            CornerRadius="20">
                             <pancake:PancakeView.Shadow>
                                 <pancake:DropShadow
                                     BlurRadius="3"
@@ -94,7 +92,7 @@
                                         Foreground="{DynamicResource WhiteColor}"
                                         Source="ic_search.png" />
                                 </pancake:PancakeView>
-                                <Entry Placeholder="{i18n:TranslateResource Online_Label_SeachVehicle2}" Text="{Binding SearchedText}">
+                                <Entry x:Name="entrySearchVehicle" Text="{Binding SearchedText}">
                                     <Entry.Behaviors>
                                         <prismbehaviors:EventToCommandBehavior
                                             Command="{Binding SearchVehicleCommand}"
@@ -239,8 +237,8 @@
                                 WidthRequest="200" />
                             <!--  Label to display content  -->
                             <Label
+                                x:Name="lblNotFound"
                                 HorizontalOptions="Center"
-                                Text="{i18n:TranslateResource ListVehicle_Label_NotFound}"
                                 TextColor="{DynamicResource TextSecondaryColor}"
                                 VerticalOptions="Center"
                                 VerticalTextAlignment="Center" />

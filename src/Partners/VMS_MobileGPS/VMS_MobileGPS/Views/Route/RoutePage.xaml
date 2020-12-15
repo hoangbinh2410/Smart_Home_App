@@ -89,7 +89,6 @@
                         Padding="5,6"
                         BackgroundColor="{DynamicResource PrimaryColor}"
                         CornerRadius="15,0,15,0"
-                        HasShadow="False"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Border>
                             <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
@@ -111,9 +110,7 @@
                         Margin="-1,0,0,0"
                         Padding="5,6"
                         BackgroundColor="{DynamicResource PrimaryColor}"
-                        BorderColor="White"
                         CornerRadius="0"
-                        HasShadow="False"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Border>
                             <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
@@ -135,9 +132,7 @@
                         Margin="-1,0,0,0"
                         Padding="5,6"
                         BackgroundColor="{DynamicResource PrimaryColor}"
-                        BorderColor="White"
                         CornerRadius="0"
-                        HasShadow="False"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Border>
                             <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
@@ -159,9 +154,7 @@
                         Margin="-1,0,0,0"
                         Padding="5,6"
                         BackgroundColor="{DynamicResource PrimaryColor}"
-                        BorderColor="White"
                         CornerRadius="0"
-                        HasShadow="False"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Border>
                             <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
@@ -183,9 +176,7 @@
                         Margin="-1,0,0,0"
                         Padding="5,6"
                         BackgroundColor="{DynamicResource WhiteColor}"
-                        BorderColor="White"
                         CornerRadius="0,15,0,15"
-                        HasShadow="False"
                         VerticalOptions="Center">
                         <pancake:PancakeView.Border>
                             <pancake:Border Thickness="1" Color="{StaticResource WhiteColor}" />
@@ -197,10 +188,9 @@
                                 Tapped="TimeSelectorOther_Tapped" />
                         </pancake:PancakeView.GestureRecognizers>
                         <Label
+                            x:Name="lblMore"
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
-                            Text="{i18n:TranslateResource Route_Label_More,
-                                                          Converter={StaticResource UpperCaseConverter}}"
                             TextColor="{DynamicResource PrimaryColor}" />
                     </pancake:PancakeView>
                 </Grid>
@@ -262,10 +252,10 @@
                                     Source="ic_search.png" />
                             </pancake:PancakeView>
                             <Entry
+                                x:Name="entrySearch"
                                 FontSize="14"
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
-                                Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
                                 PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                                 Text="{Binding Vehicle.PrivateCode}"
                                 TextColor="{DynamicResource TextPrimaryColor}"
@@ -403,10 +393,10 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Label
+                                x:Name="lblTitle"
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 FontAttributes="Bold"
-                                Text="{i18n:TranslateResource Route_Label_TitleVMS}"
                                 TextColor="{DynamicResource PrimaryColor}" />
                             <Label
                                 Grid.Row="0"
@@ -509,9 +499,7 @@
                         x:Name="lbSpeedCar"
                         Padding="0"
                         BackgroundColor="{DynamicResource PrimaryColor}"
-                        BorderColor="White"
                         CornerRadius="15"
-                        HasShadow="False"
                         HeightRequest="30"
                         HorizontalOptions="End"
                         VerticalOptions="Center"

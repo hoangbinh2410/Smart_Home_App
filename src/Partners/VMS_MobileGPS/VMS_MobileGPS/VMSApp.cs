@@ -8,6 +8,7 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Prism;
+using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Mvvm;
 using VMS_MobileGPS.Styles;
@@ -25,10 +26,13 @@ namespace VMS_MobileGPS
 
         public override string OneSignalKey => Config.OneSignalKey_BASAT;
 
-        protected async override void OnInitialized()
+        protected override IContainerExtension CreateContainerExtension()
         {
-           
+            return ContainerLocator.Current;
+        }
 
+        protected async override void OnInitialized()
+        {         
             base.OnInitialized();
 
             ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerVMS;
@@ -86,7 +90,7 @@ namespace VMS_MobileGPS
 
             ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
             ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
-            ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
+            ViewModelLocationProvider.Register<RoutePage, RoutePageViewModel>();
 
             containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
             containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");

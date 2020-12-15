@@ -19,6 +19,7 @@ using Prism.Common;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Prism.Navigation.TabbedPages;
 using Realms.Sync;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -174,17 +175,21 @@ namespace VMS_MobileGPS.ViewModels
 
         private void PushtoRouterPage()
         {
-            SafeExecute(() =>
+            SafeExecute(async () =>
             {
                 if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
                 {
-                    EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, carActive));
+                    var parameters = new NavigationParameters
+                    {
+                        { ParameterKey.VehicleOnline, carActive }
+                    };
+                    EventAggregator.GetEvent<BackButtonEvent>().Publish(true);
+                    await NavigationService.SelectTabAsync("RoutePage", parameters);
                 }
                 else
                 {
-                    PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Common_Message_NotPermission, MobileResource.Common_Button_Close);
+                    await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Common_Message_NotPermission, MobileResource.Common_Button_Close);
                 }
-                   
             });
         }
 
@@ -233,7 +238,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("BaseNavigationPage/BoundaryPage", useModalNavigation: true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/BoundaryPage", null,useModalNavigation: true,true);
             });
         }
 
@@ -277,7 +282,7 @@ namespace VMS_MobileGPS.ViewModels
                 switch ((int)index)
                 {
                     case 1:
-                        await NavigationService.NavigateAsync("ListVehiclePage", null, useModalNavigation: false);
+                        await NavigationService.NavigateAsync("ListVehiclePage", null, useModalNavigation: false,true);
                         break;
 
                     case 2:
@@ -290,7 +295,7 @@ namespace VMS_MobileGPS.ViewModels
                         break;
 
                     case 3:
-                        await NavigationService.NavigateAsync("MenuNavigationPage/HeplerPage", null, useModalNavigation: true);
+                        await NavigationService.NavigateAsync("MenuNavigationPage/HeplerPage", null, useModalNavigation: true,true);
                         break;
                 }
             });
@@ -313,7 +318,7 @@ namespace VMS_MobileGPS.ViewModels
                     { ParameterKey.CarDetail, CarActive }
                 };
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true,true);
             });
         }
 
@@ -326,7 +331,7 @@ namespace VMS_MobileGPS.ViewModels
                     { ParameterKey.VehicleOnline, CarActive }
                 };
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/DistancePage", parameters, true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/DistancePage", parameters, true,true);
             });
         }
 
@@ -367,7 +372,7 @@ namespace VMS_MobileGPS.ViewModels
                         { ParameterKey.ShipDetail, model }
                     };
 
-                    await NavigationService.NavigateAsync("NavigationPage/ServicePackHistoryPage", parameters, true);
+                    await NavigationService.NavigateAsync("NavigationPage/ServicePackHistoryPage", parameters, true,true);
                 }
             });
         }

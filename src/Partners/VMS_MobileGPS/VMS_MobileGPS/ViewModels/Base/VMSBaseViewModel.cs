@@ -218,7 +218,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-               var a = await NavigationService.GoBackAsync(useModalNavigation: true);
+               var a = await NavigationService.GoBackAsync(null,true,true);
             });
         }
 
@@ -231,5 +231,12 @@ namespace VMS_MobileGPS.ViewModels
         {
             TryExecute(() => PageUtilities.GetCurrentPage(Application.Current.MainPage).FindByName<VisualElement>(control)?.Focus());
         }
+    }
+
+    public enum PageMode
+    {
+        View = 0,
+        Create = 1,
+        Edit = 2
     }
 }
