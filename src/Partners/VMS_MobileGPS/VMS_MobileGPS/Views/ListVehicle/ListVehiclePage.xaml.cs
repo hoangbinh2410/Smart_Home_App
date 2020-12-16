@@ -16,7 +16,7 @@ using Xamarin.Forms.Xaml;
 namespace VMS_MobileGPS.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ListVehiclePage : ContentView
+    public partial class ListVehiclePage : ContentPage
     {
         private Timer timer;
         private ListVehiclePageViewModel vm;

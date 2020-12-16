@@ -38,7 +38,7 @@ namespace VMS_MobileGPS
             ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerVMS;
             ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerVMS;
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerVMS;
-            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerVMS;
+            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerThat;
             Application.Current.Resources.MergedDictionaries.Add(new LightColor());
             Application.Current.Resources.MergedDictionaries.Add(new BA_MobileGPS.Core.Styles.Styles());
 
@@ -55,7 +55,7 @@ namespace VMS_MobileGPS
         {
             base.RegisterTypes(containerRegistry);
 
-            AppType = BA_MobileGPS.Entities.AppType.VMS;
+            AppType = BA_MobileGPS.Entities.AppType.BinhAnh;
           
             containerRegistry.Register<IMessageService, MessageService>();
             containerRegistry.Register<IFishShipService, FishShipService>();
@@ -88,14 +88,17 @@ namespace VMS_MobileGPS
 
             containerRegistry.RegisterForNavigation<BA_MobileGPS.Core.Views.HelperPage, HeplerViewModel>("HelperPage");
 
-            ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
-            ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
-            ViewModelLocationProvider.Register<RoutePage, RoutePageViewModel>();
+            containerRegistry.RegisterForNavigation<ListVehiclePage, ListVehiclePageViewModel>("ListVehiclePage");
+            containerRegistry.RegisterForNavigation<OnlinePage, OnlinePageViewModel>("OnlinePage");
+            containerRegistry.RegisterForNavigation<OnlinePageNoCluster, OnlinePageViewModel>("OnlinePageNoCluster");
+            containerRegistry.RegisterForNavigation<RoutePage, RoutePageViewModel>("RoutePageVMS");
 
-            containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
-            containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
-            containerRegistry.Register<ContentView, RoutePage>("RouteTab");
+            containerRegistry.Register<ContentPage, ListVehiclePage>("ListVehiclePage");
+            containerRegistry.Register<ContentPage, OnlinePage>("OnlinePage");
+            containerRegistry.Register<ContentPage, OnlinePageNoCluster>("OnlinePageNoCluster");
+            containerRegistry.Register<ContentPage, RoutePage>("RoutePage");
             containerRegistry.RegisterForNavigation<DetailVehiclePopup,DetailVehiclePopupViewModel>("DetailVehiclePopup");
+           
 
             //containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
             //containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());

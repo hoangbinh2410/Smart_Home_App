@@ -20,7 +20,7 @@ using Xamarin.Forms.Xaml;
 namespace VMS_MobileGPS.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RoutePage : ContentView
+    public partial class RoutePage : ContentPage
     {
         private bool infoWindowIsShown = true;
         private double TimeSelectorContainerHeight;

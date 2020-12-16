@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<ContentView
+<ContentPage
     x:Class="VMS_MobileGPS.Views.RoutePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -17,13 +17,13 @@
     xmlns:views="clr-namespace:BA_MobileGPS.Core.Views;assembly=BA_MobileGPS.Core"
     prism:ViewModelLocator.AutowireViewModel="True"
     mc:Ignorable="d">
-    <ContentView.Resources>
+    <ContentPage.Resources>
         <cluster:NMConverter x:Key="NMConverter" />
         <pancake:DropShadow
             x:Key="shadow"
             BlurRadius="3"
             Color="Black" />
-    </ContentView.Resources>
+    </ContentPage.Resources>
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -582,4 +582,4 @@
         </StackLayout>
 
     </Grid>
-</ContentView>
+</ContentPage>

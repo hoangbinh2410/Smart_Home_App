@@ -13,20 +13,11 @@
     Padding="5">
     <pancake:PancakeView.Resources>
         <cluster:NMConverter x:Key="NMConverter" />
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <syncTheme:SyncfusionThemeDictionary>
-                    <syncTheme:SyncfusionThemeDictionary.MergedDictionaries>
-                        <ResourceDictionary>
-                            <x:String x:Key="SfTextInputLayoutTheme">CustomTheme</x:String>
-                            <Color x:Key="SfTextInputLayoutLineColor">Transparent</Color>
-                        </ResourceDictionary>
-                    </syncTheme:SyncfusionThemeDictionary.MergedDictionaries>
-                </syncTheme:SyncfusionThemeDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
     </pancake:PancakeView.Resources>
-    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+    <Grid
+        HorizontalOptions="FillAndExpand"
+        RowSpacing="5"
+        VerticalOptions="FillAndExpand">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -119,7 +110,10 @@
             Grid.Row="6"
             Padding="10,0"
             ColumnDefinitions="*,*,Auto">
-            <StackLayout Grid.Column="0" Orientation="Horizontal">
+            <StackLayout
+                Grid.Column="0"
+                Orientation="Horizontal"
+                VerticalOptions="Center">
                 <controls:IconView
                     Foreground="{DynamicResource PrimaryColor}"
                     HeightRequest="20"
@@ -132,7 +126,8 @@
             <StackLayout
                 Grid.Column="1"
                 Orientation="Horizontal"
-                Spacing="3">
+                Spacing="3"
+                VerticalOptions="Center">
                 <controls:IconView
                     Foreground="{DynamicResource PrimaryColor}"
                     HeightRequest="20"
@@ -155,6 +150,7 @@
                     HeightRequest="20"
                     HorizontalOptions="Center"
                     LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                    VerticalOptions="Center"
                     WidthRequest="20">
 
                     <sharpnado:MaterialFrame.Content>
@@ -166,7 +162,10 @@
                             VerticalOptions="Center" />
                     </sharpnado:MaterialFrame.Content>
                 </sharpnado:MaterialFrame>
-                <Label LineBreakMode="TailTruncation" Text="{i18n:TranslateResource Online_CheckBox_Distance}" />
+                <Label
+                    LineBreakMode="TailTruncation"
+                    Text="{i18n:TranslateResource Online_CheckBox_Distance}"
+                    VerticalOptions="Center" />
             </StackLayout>
         </Grid>
         <BoxView
@@ -178,13 +177,15 @@
         <Grid
             Grid.Row="8"
             Padding="10,0"
-            ColumnDefinitions="*,*,*">
+            ColumnDefinitions="*,*,*"
+            HeightRequest="40">
             <sharpnado:MaterialFrame
                 Grid.Column="0"
                 Padding="0,10"
                 CornerRadius="15"
                 HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="{DynamicResource PrimaryColor}">
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                VerticalOptions="Center">
                 <sharpnado:MaterialFrame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PushToRouterPageCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
@@ -202,7 +203,8 @@
                 Padding="0,10"
                 CornerRadius="15"
                 HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="{DynamicResource PrimaryColor}">
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                VerticalOptions="Center">
                 <sharpnado:MaterialFrame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PushToServicePackHistoryPageCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
@@ -220,7 +222,8 @@
                 Padding="0,10"
                 CornerRadius="15"
                 HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="{DynamicResource PrimaryColor}">
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                VerticalOptions="Center">
                 <sharpnado:MaterialFrame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PushToDetailPageCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>

@@ -79,8 +79,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Prism.DryIoc.Extensions">
+      <Version>8.0.48</Version>
+    </PackageReference>
     <PackageReference Include="Shiny.Locations">
       <Version>1.2.0.1755</Version>
+    </PackageReference>
+    <PackageReference Include="Shiny.Prism">
+      <Version>8.0.48</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Palette">
       <Version>1.0.0.5</Version>
@@ -101,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
+    <Compile Include="MainApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashScreenActivity.cs" />
   </ItemGroup>
@@ -447,22 +454,22 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_vehicle.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_Mornitoring.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_mornitoring.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_Mornitoring.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_mornitoring.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_mornitoringsolid.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_Mornitoring.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_mornitoring.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_mornitoringsolid.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_Mornitoring.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_mornitoring.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_mornitoringsolid.png" />
@@ -554,7 +561,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionVMS_MobileGPSAndroidHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionVMS_MobileGPSAndroidHideInfoBar="True" />
+      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadDebuggerTimeoutExceptionVMS_MobileGPSAndroidHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionVMS_MobileGPSAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

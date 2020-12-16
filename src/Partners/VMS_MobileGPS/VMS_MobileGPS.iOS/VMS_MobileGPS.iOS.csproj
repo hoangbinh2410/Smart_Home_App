@@ -165,9 +165,15 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Prism.DryIoc.Extensions">
+      <Version>8.0.48</Version>
+    </PackageReference>
     <PackageReference Include="Realm" Version="5.1.1" />
     <PackageReference Include="Shiny.Locations">
       <Version>1.2.0.1755</Version>
+    </PackageReference>
+    <PackageReference Include="Shiny.Prism">
+      <Version>8.0.48</Version>
     </PackageReference>
     <PackageReference Include="System.Reflection.Emit" Version="4.7.0">
       <ExcludeAssets>all</ExcludeAssets>
