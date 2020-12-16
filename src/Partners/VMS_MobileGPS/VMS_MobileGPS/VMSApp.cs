@@ -88,9 +88,9 @@ namespace VMS_MobileGPS
 
             containerRegistry.RegisterForNavigation<BA_MobileGPS.Core.Views.HelperPage, HeplerViewModel>("HelperPage");
 
-            containerRegistry.RegisterForNavigation<ListVehiclePage, ListVehiclePageViewModel>("ListVehiclePage");
-            containerRegistry.RegisterForNavigation<OnlinePage, OnlinePageViewModel>("OnlinePage");
-            containerRegistry.RegisterForNavigation<OnlinePageNoCluster, OnlinePageViewModel>("OnlinePageNoCluster");
+            containerRegistry.RegisterForNavigation<ListVehiclePage, ListVehiclePageViewModel>("ListVehiclePageVMS");
+            containerRegistry.RegisterForNavigation<OnlinePage, OnlinePageViewModel>("OnlinePageVMS");
+            containerRegistry.RegisterForNavigation<OnlinePageNoCluster, OnlinePageViewModel>("OnlinePageNoClusterVMS");
             containerRegistry.RegisterForNavigation<RoutePage, RoutePageViewModel>("RoutePageVMS");
 
             containerRegistry.Register<ContentPage, ListVehiclePage>("ListVehiclePage");
