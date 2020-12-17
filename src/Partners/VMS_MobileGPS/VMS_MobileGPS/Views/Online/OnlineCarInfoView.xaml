@@ -177,8 +177,7 @@
         <Grid
             Grid.Row="8"
             Padding="10,0"
-            ColumnDefinitions="*,*,*"
-            HeightRequest="40">
+            ColumnDefinitions="*,*,*">
             <sharpnado:MaterialFrame
                 Grid.Column="0"
                 Padding="0,10"

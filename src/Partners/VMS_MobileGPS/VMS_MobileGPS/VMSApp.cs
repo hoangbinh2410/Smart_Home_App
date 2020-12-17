@@ -38,7 +38,7 @@ namespace VMS_MobileGPS
             ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerVMS;
             ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerVMS;
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerVMS;
-            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerThat;
+            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerVMS;
             Application.Current.Resources.MergedDictionaries.Add(new LightColor());
             Application.Current.Resources.MergedDictionaries.Add(new BA_MobileGPS.Core.Styles.Styles());
 
@@ -55,7 +55,7 @@ namespace VMS_MobileGPS
         {
             base.RegisterTypes(containerRegistry);
 
-            AppType = BA_MobileGPS.Entities.AppType.BinhAnh;
+            AppType = BA_MobileGPS.Entities.AppType.VMS;
           
             containerRegistry.Register<IMessageService, MessageService>();
             containerRegistry.Register<IFishShipService, FishShipService>();

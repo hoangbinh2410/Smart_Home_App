@@ -218,7 +218,7 @@
             Padding="0,10,0,0"
             BackgroundColor="{DynamicResource WhiteColor}"
             CornerRadius="20,20,0,0"
-            HeightRequest="220"
+            HeightRequest="190"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="End" />
         <!--  Trạng thái xe  -->
