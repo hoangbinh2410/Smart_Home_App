@@ -1,5 +1,7 @@
 ﻿using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Events;
+using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RealmEntity;
 using BA_MobileGPS.Service;
@@ -18,61 +20,144 @@ using Xamarin.Forms.Xaml;
 namespace VMS_MobileGPS.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RoutePage : ContentView, INavigationAware, IDestructible
+    public partial class RoutePage : ContentPage, INavigationAware
     {
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
-        private readonly IEventAggregator eventAggregator;
-
-        private bool infoWindowIsShown;
-        private bool viewHasAppeared;
-        private RouteViewModel vm;
-
+        private bool infoWindowIsShown = true;
+        private double TimeSelectorContainerHeight;
+        private bool IsExpanded;
+        private RoutePageViewModel vm;
         public RoutePage()
         {
             InitializeComponent();
-
-            boundaryRepository = PrismApplicationBase.Current.Container.Resolve<IRealmBaseService<BoundaryRealm, LandmarkResponse>>();
-
-            // Initialize the View Model Object
-            vm = (RouteViewModel)BindingContext;
-
+            lblMore.Text = MobileResource.Route_Label_More.Trim().ToUpper();
+            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
+            lblTitle.Text = MobileResource.Route_Label_Title;
             map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
-
+            map.IsUseCluster = false;
+            map.IsTrafficEnabled = false;
+            map.UiSettings.ZoomGesturesEnabled = true;
             map.UiSettings.ZoomControlsEnabled = false;
             map.UiSettings.RotateGesturesEnabled = false;
+            frVehicleInfo.TranslationX = 0;
+            IconInfo.Foreground = (Color)PrismApplicationBase.Current.Resources["PrimaryColor"];
+            TimeSelectorContainerHeight = Device.RuntimePlatform == Device.iOS ? TimeSelectorContainer.HeightRequest + 4 : TimeSelectorContainer.HeightRequest;
+            IsExpanded = false;
+            boundaryRepository = PrismApplicationBase.Current.Container.Resolve<IRealmBaseService<BoundaryRealm, LandmarkResponse>>();
+            // Initialize the View Model Object
+            vm = (RoutePageViewModel)BindingContext;
+        }
 
-            map.PinClicked += Map_PinClicked;
-            eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
-            eventAggregator.GetEvent<ThemeChangedEvent>().Subscribe(ThemeChanged);
+        public static string ConvertIntToHex(int value)
+        {
+            return value.ToString("X").PadLeft(6, '0');
+        }
+
+        private void IconInfo_Clicked(object sender, EventArgs e)
+        {
+            if (infoWindowIsShown)
+            {
+                IconInfo.Foreground = (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor2"];
+                Action<double> frcallback = input2 => frVehicleInfo.TranslationX = input2;
+                frVehicleInfo.Animate("animehicleInfo", frcallback, 0, -300, 16, 300, Easing.CubicInOut);
+            }
+            else
+            {
+                IconInfo.Foreground = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+                Action<double> frcallback = input2 => frVehicleInfo.TranslationX = input2;
+                frVehicleInfo.Animate("animehicleInfo", frcallback, -300, 0, 16, 300, Easing.CubicInOut);
+            }
+
+            infoWindowIsShown = !infoWindowIsShown;
+        }
+
+        public double CalcCurrentValue(double from, double to, double animationRatio)
+        {
+            return (from + (to - from) * animationRatio);
+        }
+
+        private void TimeSelector_Tapped(object sender, EventArgs e)
+        {
+            SetSelectedButton(sender as ContentView);
+
+            if (IsExpanded)
+            {
+                TimeSelectorContainer.Animate("invis", new Animation((d) =>
+                {
+                    TimeSelectorContainer.HeightRequest = CalcCurrentValue(TimeSelectorContainerHeight * 2, TimeSelectorContainerHeight, d);
+                }),
+              length: 200,
+              easing: Easing.Linear);
+                IsExpanded = false;
+            }
+        }
+
+        private void TimeSelectorOther_Tapped(object sender, EventArgs e)
+        {
+            SetSelectedButton(sender as ContentView);
+
+            if (!IsExpanded)
+            {
+                TimeSelectorContainer.Animate("invis", new Animation((d) =>
+                {
+                    TimeSelectorContainer.HeightRequest = CalcCurrentValue(TimeSelectorContainerHeight, TimeSelectorContainerHeight * 2, d);
+                }),
+               length: 200,
+               easing: Easing.Linear);
+                IsExpanded = true;
+            }
+        }
+
+        private void SetSelectedButton(ContentView button)
+        {
+            button.BackgroundColor = Color.White;
+            if (button.Content is Label lbl)
+            {
+                lbl.TextColor = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+            }
+
+            foreach (var btn in TimeSelector.Children.Where(b => b != button).Cast<ContentView>())
+            {
+                btn.BackgroundColor = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+                if (btn.Content is Label lbl2)
+                {
+                    lbl2.TextColor = Color.White;
+                }
+            }
+        }
+
+        public async void GetMylocation(object sender, EventArgs e)
+        {
+            try
+            {
+                var mylocation = await LocationHelper.GetGpsLocation();
+
+                if (mylocation != null)
+                {
+                    if (!map.MyLocationEnabled)
+                    {
+                        map.MyLocationEnabled = true;
+                    }
+                    await map.AnimateCamera(CameraUpdateFactory.NewPosition(new Position(mylocation.Latitude, mylocation.Longitude)), TimeSpan.FromMilliseconds(300));
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
+           
         }
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
-            OnPageAppearingFirstTime();
             GoogleMapAddBoundary();
             GoogleMapAddName();
         }
-
-        private double TimeSelectorContainerHeight;
-
-        protected void OnPageAppearingFirstTime()
-        {
-            if (!viewHasAppeared)
-            {
-                TimeSelectorContainerHeight = Device.RuntimePlatform == Device.iOS ? TimeSelectorContainer.HeightRequest + 4 : TimeSelectorContainer.HeightRequest;
-
-                AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight, TimeSelectorContainerHeight * 2, length: 150);
-                IsExpanded = true;
-
-                IconInfo_Clicked(this, EventArgs.Empty);
-
-                viewHasAppeared = true;
-            }
-        }
+       
 
         private void GoogleMapAddBoundary()
         {
@@ -138,14 +223,9 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-        }
-
-        public static string ConvertIntToHex(int value)
-        {
-            return value.ToString("X").PadLeft(6, '0');
-        }
+        }          
 
         private void GoogleMapAddName()
         {
@@ -165,7 +245,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -183,101 +263,8 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-        }
-
-        private void Map_PinClicked(object sender, PinClickedEventArgs e)
-        {
-            if (!"state_stop".Equals(e.Pin.Tag) && !"direction".Equals(e.Pin.Tag))
-                e.Handled = true;
-        }
-
-        private void IconInfo_Clicked(object sender, EventArgs e)
-        {
-            if (infoWindowIsShown)
-            {
-                IconInfo.Foreground = (Color)Prism.PrismApplicationBase.Current.Resources["GrayColor2"];
-                frVehicleInfo.FadeTo(0, 200);
-                frVehicleInfo.TranslateTo(-frVehicleInfo.Width - 5, 0, 250);
-            }
-            else
-            {
-                IconInfo.Foreground = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
-                frVehicleInfo.TranslateTo(0, 0, 250);
-                frVehicleInfo.FadeTo(1, 200);
-            }
-
-            infoWindowIsShown = !infoWindowIsShown;
-        }
-
-        private bool IsExpanded;
-
-        private void TimeSelector_Tapped(object sender, EventArgs e)
-        {
-            SetSelectedButton(sender as ContentView);
-
-            if (IsExpanded)
-            {
-                AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight * 2, TimeSelectorContainerHeight, length: 150);
-                IsExpanded = false;
-            }
-        }
-
-        private void TimeSelectorOther_Tapped(object sender, EventArgs e)
-        {
-            SetSelectedButton(sender as ContentView);
-
-            if (!IsExpanded)
-            {
-                AnimateHeight(TimeSelectorContainer, Callback, TimeSelectorContainerHeight, TimeSelectorContainerHeight * 2, length: 150);
-                IsExpanded = true;
-            }
-        }
-
-        private void Callback(double input)
-        {
-            TimeSelectorContainer.HeightRequest = input; // update the height of the layout with this callback
-        }
-
-        private void AnimateHeight(View view, Action<double> callback, double start, double end, uint rate = 16, uint length = 250, Easing easing = null)
-        {
-            view.Animate("invis", callback, start, end, rate, length, easing ?? Easing.Linear);
-        }
-
-        private void SetSelectedButton(ContentView button)
-        {
-            button.BackgroundColor = Color.White;
-            if (button.Content is Label lbl)
-            {
-                lbl.TextColor = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
-            }
-
-            foreach (var btn in TimeSelector.Children.Where(b => b != button).Cast<ContentView>())
-            {
-                btn.BackgroundColor = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
-                if (btn.Content is Label lbl2)
-                {
-                    lbl2.TextColor = Color.White;
-                }
-            }
-        }
-
-        private void ThemeChanged()
-        {
-            foreach (var btn in TimeSelector.Children.Cast<ContentView>())
-            {
-                btn.BackgroundColor = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
-                if (btn.Content is Label lbl2)
-                {
-                    lbl2.TextColor = Color.White;
-                }
-            }
-        }
-
-        public void Destroy()
-        {
-            eventAggregator.GetEvent<ThemeChangedEvent>().Unsubscribe(ThemeChanged);
         }
     }
 }

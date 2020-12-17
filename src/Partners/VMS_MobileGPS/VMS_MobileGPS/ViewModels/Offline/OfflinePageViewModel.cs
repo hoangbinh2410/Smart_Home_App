@@ -1,5 +1,4 @@
 ﻿using BA_MobileGPS.Core;
-using BA_MobileGPS.Core.Delegates.Shinny;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Models;
@@ -20,6 +19,7 @@ using System.Linq;
 using System.Timers;
 using System.Windows.Input;
 using VMS_MobileGPS.Constant;
+using VMS_MobileGPS.Delegates.Shinny;
 using VMS_MobileGPS.Events;
 using VMS_MobileGPS.Extensions;
 using VMS_MobileGPS.Service;
@@ -35,7 +35,7 @@ namespace VMS_MobileGPS.ViewModels
 
         private readonly IEventAggregator eventAggregator;
         private readonly IMessageService messageService;
-        private readonly IDBVersionService dBVersionService;
+        private readonly IMobileSettingService mobileSettingService;
         private readonly IAppVersionService appVersionService;
         private readonly IGpsListener _gpsListener;
         private readonly IGpsManager _gpsManager;
@@ -47,7 +47,6 @@ namespace VMS_MobileGPS.ViewModels
 
         public OfflinePageViewModel(INavigationService navigationService,
             IEventAggregator eventAggregator,
-            IDBVersionService dBVersionService,
             IAppVersionService appVersionService,
             IMessageService messageService,
             IGpsListener gpsListener,
@@ -56,7 +55,6 @@ namespace VMS_MobileGPS.ViewModels
         {
             this.messageService = messageService;
             this.eventAggregator = eventAggregator;
-            this.dBVersionService = dBVersionService;
             this.appVersionService = appVersionService;
             this._gpsListener = gpsListener;
             this._gpsManager = gpsManager;
@@ -402,7 +400,7 @@ namespace VMS_MobileGPS.ViewModels
                         {
                             return;
                         }
-                        result = await NavigationService.NavigateAsync("NavigationPage/BluetoothPage", useModalNavigation: true);
+                        result = await NavigationService.NavigateAsync("NavigationPage/BluetoothPage", null,useModalNavigation: true,true);
                     }
                     else
                     {
@@ -428,7 +426,7 @@ namespace VMS_MobileGPS.ViewModels
 
                 if (IsConnectBLE)
                 {
-                    _ = await NavigationService.NavigateAsync("NavigationPage/BluetoothPage", useModalNavigation: true);
+                    _ = await NavigationService.NavigateAsync("NavigationPage/BluetoothPage",null, useModalNavigation: true,true);
                 }
                 else
                 {
@@ -661,7 +659,7 @@ namespace VMS_MobileGPS.ViewModels
             }
             RunOnBackground(async () =>
             {
-                return await dBVersionService.GetMobileVersion(Device.RuntimePlatform.ToString(), (int)App.AppType);
+                return await mobileSettingService.GetMobileVersion(Device.RuntimePlatform.ToString(), (int)App.AppType);
             },
             (versionDB) =>
             {

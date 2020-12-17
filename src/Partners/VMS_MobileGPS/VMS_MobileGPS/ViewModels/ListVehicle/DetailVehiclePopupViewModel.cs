@@ -44,10 +44,10 @@ namespace VMS_MobileGPS.ViewModels
         private async void Navigative(object obj)
         {
             var param = obj.ToString();
-            await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+            await NavigationService.GoBackAsync( parameters: new NavigationParameters
                         {
                             { "pagetoNavigation",  param}
-                        });
+                        }, useModalNavigation: true,true);
         }
     }
 }

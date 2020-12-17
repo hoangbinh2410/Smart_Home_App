@@ -5,6 +5,9 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Prism.DryIoc.Extensions" Version="8.0.48" />
+		<PackageReference Include="Shiny.Locations" Version="1.2.0.1755" />
+		<PackageReference Include="Shiny.Prism" Version="8.0.48" />
 		<PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
 	</ItemGroup>
 
@@ -38,6 +41,9 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\ListVehicle\VehicleUnpaidView.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Online\OnlinePageNoCluster.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Report\ServicePackHistory\PackageInfosPage.xaml">

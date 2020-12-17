@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using VMS_MobileGPS.ViewModels;
@@ -28,8 +27,7 @@ using Xamarin.Forms.Xaml;
 
 namespace VMS_MobileGPS.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class OnlinePage : ContentPage, IDestructible, INavigationAware
+    public partial class OnlinePageNoCluster : ContentPage, INavigationAware, IDestructible
     {
         #region Contructor
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
@@ -38,10 +36,9 @@ namespace VMS_MobileGPS.Views
         private readonly IDisplayMessage displayMessage;
         private readonly IPageDialogService pageDialog;
 
-        public OnlinePage()
+        public OnlinePageNoCluster()
         {
             InitializeComponent();
-            googleMap.UiSettings.ZoomControlsEnabled = false;
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             geocodeService = PrismApplicationBase.Current.Container.Resolve<IGeocodeService>();
             displayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
@@ -51,27 +48,16 @@ namespace VMS_MobileGPS.Views
             boxInfo.TranslationY = 300;
             // Initialize the View Model Object
             vm = (OnlinePageViewModel)BindingContext;
-            googleMap.IsUseCluster = true;
+            googleMap.IsUseCluster = false;
             googleMap.IsTrafficEnabled = false;
-
-            googleMap.ClusterOptions.EnableBuckets = true;
-            googleMap.ClusterOptions.Algorithm = ClusterAlgorithm.GridBased;
             googleMap.UiSettings.MapToolbarEnabled = false;
             googleMap.UiSettings.ZoomControlsEnabled = false;
             googleMap.UiSettings.MyLocationButtonEnabled = false;
             googleMap.UiSettings.RotateGesturesEnabled = false;
-            if (Device.RuntimePlatform == Device.Android)
-            {
-                googleMap.ClusterOptions.RendererImage = BitmapDescriptorFactory.FromResource("ic_cluster.png");
-            }
-            googleMap.ClusterClicked += Map_ClusterClicked;
             googleMap.PinClicked += MapOnPinClicked;
             googleMap.MapClicked += Map_MapClicked;
-            googleMap.CameraIdled += GoogleMap_CameraIdled;
-
             mCarActive = new VehicleOnline();
             mCurrentVehicleList = new List<VehicleOnline>();
-
             IsInitMarker = false;
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
             boundaryRepository = PrismApplicationBase.Current.Container.Resolve<IRealmBaseService<BoundaryRealm, LandmarkResponse>>();
@@ -103,12 +89,11 @@ namespace VMS_MobileGPS.Views
 
                 viewHasAppeared = true;
             }
-
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
-                if (googleMap.ClusteredPins != null && googleMap.ClusteredPins.Count > 0)
+                if (googleMap.Pins != null && googleMap.Pins.Count > 0)
                 {
-                    var clusterpin = googleMap.ClusteredPins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
+                    var clusterpin = googleMap.Pins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
                     if (clusterpin != null)
                     {
                         var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehicleId == vehiclePlate.VehicleId);
@@ -159,15 +144,12 @@ namespace VMS_MobileGPS.Views
             GoogleMapAddName();
         }
 
-        public void OnNavigatingTo(INavigationParameters parameters)
-        {
-        }
-
         #endregion Lifecycle
 
         #region Property
 
         private int pageWidth = 0;
+
         private OnlinePageViewModel vm;
 
         private System.Timers.Timer timer;
@@ -321,7 +303,6 @@ namespace VMS_MobileGPS.Views
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
-
         private void OnReLoadVehicleOnlineCarSignalR(bool arg)
         {
             if (arg)
@@ -368,7 +349,7 @@ namespace VMS_MobileGPS.Views
         /// <param name="e"></param>
         private void OnReceiveSendCarSignalR(VehicleOnline carInfo)
         {
-            var lstpin = googleMap.ClusteredPins.Where(x => x.Label == carInfo.VehiclePlate).ToList();
+            var lstpin = googleMap.Pins.Where(x => x.Label == carInfo.VehiclePlate).ToList();
             if (lstpin != null && lstpin.Count > 1)
             {
                 Device.BeginInvokeOnMainThread(() =>
@@ -410,17 +391,17 @@ namespace VMS_MobileGPS.Views
 
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            var lstpin = googleMap.ClusteredPins.Where(x => x.Label == vehicle.VehiclePlate).ToList();
+                            var lstpin = googleMap.Pins.Where(x => x.Label == vehicle.VehiclePlate).ToList();
                             if (lstpin != null && lstpin.Count > 1)
                             {
-                                googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(lstpin[0].Position.Latitude, lstpin[0].Position.Longitude), MobileSettingHelper.ClusterMapzoom));
+                                googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(lstpin[0].Position.Latitude, lstpin[0].Position.Longitude), MobileSettingHelper.Mapzoom));
                             }
                         });
                     }
                 }
                 catch (Exception ex)
                 {
-                    LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                    LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
                 }
             }
         }
@@ -444,7 +425,7 @@ namespace VMS_MobileGPS.Views
                 }
                 else
                 {
-                    googleMap.ClusteredPins.Clear();
+                    googleMap.Pins.Clear();
 
                     googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(Settings.Latitude, Settings.Longitude), 5));
                 }
@@ -467,7 +448,6 @@ namespace VMS_MobileGPS.Views
             if (listResult.Count > 0)
             {
                 InitPinVehicle(ConvertMarkerPin(listResult));
-
                 var listPositon = new List<Position>();
                 listResult.ForEach(x =>
                 {
@@ -480,7 +460,7 @@ namespace VMS_MobileGPS.Views
             else
             {
                 vm.ListVehicleStatus = new List<VehicleOnline>();
-                googleMap.ClusteredPins.Clear();
+                googleMap.Pins.Clear();
 
                 googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom));
             }
@@ -615,44 +595,41 @@ namespace VMS_MobileGPS.Views
                 {
                     if (!IsInitMarker)
                     {
-                        using (new HUDService(MobileResource.Common_Message_Processing))
+                        vm.VehicleGroups = null;
+                        HideBoxInfoCarActive(new VehicleOnline() { VehicleId = 1 });
+                        var list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                        if (list != null && list.Count > 0)
                         {
-                            vm.VehicleGroups = null;
-                            HideBoxInfoCarActive(new VehicleOnline() { VehicleId = 1 });
-                            var list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
-                            if (list != null && list.Count > 0)
+                            //Nếu là công ty thường thì mặc định load xe của công ty lên bản đồ
+                            if (!UserHelper.isCompanyPartner(StaticSettings.User))
                             {
-                                //Nếu là công ty thường thì mặc định load xe của công ty lên bản đồ
-                                if (!UserHelper.isCompanyPartner(StaticSettings.User))
-                                {
-                                    InitVehicleStatus(list);
-                                    var listPin = ConvertMarkerPin(list);
+                                InitVehicleStatus(list);
+                                var listPin = ConvertMarkerPin(list);
 
-                                    //Vẽ xe lên bản đồ
-                                    InitPinVehicle(listPin);
+                                //Vẽ xe lên bản đồ
+                                InitPinVehicle(listPin);
+                            }
+                            else
+                            {
+                                //nếu trước đó đã chọn 1 công ty nào đó rồi thì load danh sách xe của công ty đó
+                                if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                                {
+                                    UpdateVehicleByCompany(Settings.CurrentCompany);
                                 }
                                 else
                                 {
-                                    //nếu trước đó đã chọn 1 công ty nào đó rồi thì load danh sách xe của công ty đó
-                                    if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
-                                    {
-                                        UpdateVehicleByCompany(Settings.CurrentCompany);
-                                    }
-                                    else
-                                    {
-                                        displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
-                                    }
+                                    displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
                                 }
                             }
-                            InitialCameraUpdate();
-                            StartTimmerCaculatorStatus();
                         }
+                        InitialCameraUpdate();
+                        StartTimmerCaculatorStatus();
                     }
                 }
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -712,7 +689,7 @@ namespace VMS_MobileGPS.Views
             try
             {
                 IsInitMarker = true;
-                googleMap.ClusteredPins.Clear();
+                googleMap.Pins.Clear();
 
                 for (int i = 0; i < lstVehicle.Count; i++)
                 {
@@ -721,7 +698,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
             finally
             {
@@ -735,8 +712,8 @@ namespace VMS_MobileGPS.Views
         /// <param name="carinfo"></param>
         private void RenderMarkerClusterOnMap(DoubleMarker carinfo)
         {
-            googleMap.ClusteredPins.Add(carinfo.Car);
-            googleMap.ClusteredPins.Add(carinfo.Plate);
+            googleMap.Pins.Add(carinfo.Car);
+            googleMap.Pins.Add(carinfo.Plate);
         }
 
         /// <summary>
@@ -746,7 +723,7 @@ namespace VMS_MobileGPS.Views
         /// <param name="bacground"></param>
         private void UpdateBackgroundPinLable(VehicleOnline carinfo, bool isActive = false)
         {
-            var lstpin = googleMap.ClusteredPins.Where(x => x.Label == carinfo.VehiclePlate).ToList();
+            var lstpin = googleMap.Pins.Where(x => x.Label == carinfo.VehiclePlate).ToList();
             if (lstpin != null && lstpin.Count > 1)
             {
                 Device.BeginInvokeOnMainThread(() =>
@@ -814,7 +791,7 @@ namespace VMS_MobileGPS.Views
                     pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
                 }
             }
-        }     
+        }       
 
         /// <summary>
         /// ẩn thông tin xe đi và remove active xe
@@ -838,19 +815,6 @@ namespace VMS_MobileGPS.Views
         }
 
         /// <summary>
-        /// sự kiện khi di chuyển map
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void GoogleMap_CameraIdled(object sender, CameraIdledEventArgs e)
-        {
-            if (Device.RuntimePlatform == Device.Android)
-            {
-                googleMap.Cluster();
-            }
-        }
-
-        /// <summary>
         /// Sự kiện khi click vào map
         /// </summary>
         /// <param name="sender"></param>
@@ -871,28 +835,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-        }
-
-        /// <summary>
-        /// Sự kiện khi click vào Cluster
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Map_ClusterClicked(object sender, ClusterClickedEventArgs e)
-        {
-            e.Handled = true;
-            if (e.Pins != null && e.Pins.Count() > 0)
-            {
-                var listPositon = new List<Position>();
-                e.Pins.ToList().ForEach(x =>
-                {
-                    listPositon.Add(x.Position);
-                });
-                var bounds = GeoHelper.FromPositions(listPositon);
-
-                googleMap.AnimateCamera(CameraUpdateFactory.NewBounds(bounds, 40));
+                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -903,14 +846,7 @@ namespace VMS_MobileGPS.Views
         /// <param name="args"></param>
         private void MapOnPinClicked(object sender, PinClickedEventArgs args)
         {
-            if (args.Pin != null)
-            {
-                args.Handled = true;
-            }
-            else
-            {
-                args.Handled = false;
-            }
+            args.Handled = true;
 
             try
             {
@@ -926,7 +862,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -950,7 +886,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -975,7 +911,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -1031,7 +967,7 @@ namespace VMS_MobileGPS.Views
 
             vm.CarSearch = string.Empty;
 
-            if (args.ItemData is VehicleStatusViewModel item)
+            if ((args as Syncfusion.ListView.XForms.ItemTappedEventArgs).ItemData is VehicleStatusViewModel item)
             {
                 Device.StartTimer(TimeSpan.FromMilliseconds(300), () =>
                 {
@@ -1117,11 +1053,11 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
 
-        public void Destroy()
+        void IDestructible.Destroy()
         {
             timer.Stop();
             timer.Dispose();

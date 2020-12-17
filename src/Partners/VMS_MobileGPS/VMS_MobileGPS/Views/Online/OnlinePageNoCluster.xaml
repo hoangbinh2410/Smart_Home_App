@@ -1,13 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="VMS_MobileGPS.Views.OnlinePage"
+    x:Class="VMS_MobileGPS.Views.OnlinePageNoCluster"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:cluster="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:mapbindings="clr-namespace:BA_MobileGPS.Core.GoogleMap.Behaviors;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
@@ -23,6 +22,10 @@
         <Style TargetType="pancake:PancakeView">
             <Setter Property="Shadow" Value="{StaticResource shadow}" />
         </Style>
+        <cluster:HasDataBackgroundColorConverter x:Key="HasDataBackgroundColorConverter" />
+        <cluster:HasDataIconColorConverter x:Key="HasDataIconColorConverter" />
+        <cluster:SelectedStatusBackgroundColorConverter x:Key="SelectedStatusBackgroundColorConverter" />
+        <cluster:SelectedStatusIconColorConverter x:Key="SelectedStatusIconColorConverter" />
     </ContentPage.Resources>
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
@@ -43,20 +46,6 @@
                 <mapbindings:BindingVisibleRegionBehavior Value="{Binding VisibleRegion}" />
                 <mapbindings:CameraIdledToCommandBehavior Command="{Binding CameraIdledCommand}" />
             </cluster:Map.Behaviors>
-            <cluster:Map.Triggers>
-                <DataTrigger
-                    Binding="{Binding Source={x:Reference BoxControls}, Path=Margin}"
-                    TargetType="cluster:Map"
-                    Value="15,30,15,130">
-                    <Setter Property="Margin" Value="0,0,0,110" />
-                </DataTrigger>
-                <DataTrigger
-                    Binding="{Binding Source={x:Reference BoxControls}, Path=Margin}"
-                    TargetType="cluster:Map"
-                    Value="15,30">
-                    <Setter Property="Margin" Value="0" />
-                </DataTrigger>
-            </cluster:Map.Triggers>
         </cluster:Map>
         <!--  Khung search bar phía trên  -->
         <Grid
@@ -70,7 +59,8 @@
             <pancake:PancakeView
                 Padding="0"
                 BackgroundColor="{DynamicResource WhiteColor}"
-                CornerRadius="22">
+                CornerRadius="22"
+                HeightRequest="45">
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
@@ -81,15 +71,19 @@
                     <pancake:PancakeView
                         BackgroundColor="{DynamicResource PrimaryColor}"
                         CornerRadius="22"
+                        HeightRequest="45"
                         WidthRequest="45">
                         <controls:IconView
                             Margin="13"
                             Foreground="{DynamicResource WhiteColor}"
-                            Source="ic_search.png" />
+                            HeightRequest="20"
+                            Source="ic_search.png"
+                            WidthRequest="20" />
                     </pancake:PancakeView>
                     <Entry
                         x:Name="entrySearch"
                         FontSize="14"
+                        HeightRequest="40"
                         HorizontalOptions="FillAndExpand"
                         InputTransparent="True"
                         PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
@@ -105,30 +99,38 @@
             <pancake:PancakeView
                 Grid.Column="1"
                 Padding="0"
-                BackgroundColor="{DynamicResource WhiteColor}"
+                BackgroundColor="{Binding VehicleGroups, Converter={StaticResource HasDataBackgroundColorConverter}}"
                 CornerRadius="22"
+                HeightRequest="45"
                 WidthRequest="45">
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
-                    Margin="8"
-                    Foreground="{DynamicResource PrimaryColor}"
+                    Foreground="{Binding VehicleGroups, Converter={StaticResource HasDataIconColorConverter}}"
+                    HeightRequest="25"
+                    HorizontalOptions="Center"
                     Source="ic_doublevehicle.png"
-                    VerticalOptions="Center" />
+                    VerticalOptions="Center"
+                    WidthRequest="25" />
             </pancake:PancakeView>
             <pancake:PancakeView
                 Grid.Column="2"
-                BackgroundColor="{DynamicResource WhiteColor}"
+                Padding="0"
+                BackgroundColor="{Binding VehicleStatusSelected, Converter={StaticResource SelectedStatusBackgroundColorConverter}}"
                 CornerRadius="22"
+                HeightRequest="45"
                 WidthRequest="45">
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer Tapped="FilterStatusCar" />
                 </pancake:PancakeView.GestureRecognizers>
                 <controls:IconView
-                    Margin="8"
-                    Foreground="{DynamicResource PrimaryColor}"
-                    Source="ic_filter.png" />
+                    Foreground="{Binding VehicleStatusSelected, Converter={StaticResource SelectedStatusIconColorConverter}}"
+                    HeightRequest="25"
+                    HorizontalOptions="Center"
+                    Source="ic_filter.png"
+                    VerticalOptions="Center"
+                    WidthRequest="25" />
             </pancake:PancakeView>
         </Grid>
         <!--  Nhóm button góc dưới  -->
@@ -176,7 +178,7 @@
             <pancake:PancakeView
                 Padding="0"
                 BackgroundColor="{DynamicResource PrimaryColor}"
-                CornerRadius="25"
+                CornerRadius="22"
                 HeightRequest="45"
                 WidthRequest="45">
                 <pancake:PancakeView.GestureRecognizers>
@@ -196,18 +198,13 @@
             x:Name="boxInfo"
             Grid.Row="1"
             Padding="0,10,0,0"
-            AbsoluteLayout.LayoutBounds="0,1,1,350"
-            AbsoluteLayout.LayoutFlags="YProportional, WidthProportional"
             BackgroundColor="{DynamicResource WhiteColor}"
             CornerRadius="20,20,0,0"
             HeightRequest="190"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="End" />
         <!--  Trạng thái xe  -->
-        <Grid
-            x:Name="boxStatusVehicle"
-            Grid.Row="1"
-            AbsoluteLayout.LayoutFlags="PositionProportional, HeightProportional">
+        <Grid x:Name="boxStatusVehicle" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*" />
                 <ColumnDefinition Width="0.5*" />
@@ -241,10 +238,7 @@
                         AutoFitMode="Height"
                         ItemSpacing="0"
                         ItemTapped="TapStatusVehicel"
-                        ItemsSource="{Binding ListVehilceStatus, Mode=OneWay}"
-                        SelectedItem="{Binding SelectedVehicleStatus}"
-                        SelectionBackgroundColor="{DynamicResource TextPlaceHolderColor}"
-                        TapCommand="{Binding SelectStatusVehicelCommand}">
+                        SelectionBackgroundColor="{DynamicResource TextPlaceHolderColor}">
                         <syncfusion:SfListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid ColumnSpacing="0" RowSpacing="0">
@@ -271,7 +265,7 @@
                                             <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                                                 <Label
                                                     HorizontalOptions="Start"
-                                                    Text="{Binding CountCar, Converter={StaticResource UnitConverter}, ConverterParameter={i18n:TranslateResource Common_Label_Vehicle, Converter={StaticResource LowerCaseConverter}}}"
+                                                    Text="{Binding CountCar, Converter={StaticResource UnitConverter}}"
                                                     TextColor="{DynamicResource WhiteColor}"
                                                     VerticalOptions="Center" />
                                             </StackLayout>
