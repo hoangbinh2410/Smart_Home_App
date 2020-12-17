@@ -42,11 +42,11 @@ namespace BA_MobileGPS.Core
                     return Math.Round((System.Convert.ToSingle(value) / 1.852)).ToString();
                 }
 
-                return $"{Math.Round((System.Convert.ToSingle(value) / 1.852)).ToString()} {parameter.ToString()}";
+                return $"{(System.Convert.ToSingle(value) / 1.852).ToString("F", CultureInfo.InvariantCulture)} {parameter.ToString()}";
             }
             catch
             {
-                return $"{0} {parameter.ToString()}";
+                return $"{0.00} {parameter.ToString()}";
             }
         }
 
