@@ -1,5 +1,8 @@
-﻿using Sharpnado.MaterialFrame;
+﻿
+using Xamarin.Forms;
 using Xamarin.Forms.PancakeView;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
 
 namespace VMS_MobileGPS.Views
@@ -10,6 +13,7 @@ namespace VMS_MobileGPS.Views
         public OnlineCarInfoView()
         {
             InitializeComponent();
+           
         }
     }
 }
