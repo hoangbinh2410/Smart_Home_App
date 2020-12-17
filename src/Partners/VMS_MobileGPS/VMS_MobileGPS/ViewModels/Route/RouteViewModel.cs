@@ -143,7 +143,7 @@ namespace VMS_MobileGPS.ViewModels
         #endregion Lifecycle
 
         #region Property
-
+        public ObservableCollection<Polygon> Boundaries { get; set; } = new ObservableCollection<Polygon>();
         private View view;
         private CancellationTokenSource ctsRouting = new CancellationTokenSource();
         private CancellationTokenSource ctsAddress = new CancellationTokenSource();
