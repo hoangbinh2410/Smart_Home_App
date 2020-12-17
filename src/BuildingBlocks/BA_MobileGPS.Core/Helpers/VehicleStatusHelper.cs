@@ -104,6 +104,16 @@ namespace BA_MobileGPS.Core
                     IsEnable = true
                 }
             },
+               {
+                (int)VehicleStatusGroup.SatelliteError,
+                new VehicleStatusViewModel
+                {
+                    ID = (int)VehicleStatusGroup.SatelliteError,
+                    Name = MobileResource.Online_Label_StatusCarSatelliteError,
+                    Icon = "ic_lost_gps.png",
+                    IsEnable = true
+                }
+            },
         };
     }
 }
