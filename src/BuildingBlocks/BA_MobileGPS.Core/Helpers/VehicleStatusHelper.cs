@@ -111,7 +111,7 @@ namespace BA_MobileGPS.Core
                     ID = (int)VehicleStatusGroup.SatelliteError,
                     Name = MobileResource.Online_Label_StatusCarSatelliteError,
                     Icon = "ic_lost_gps.png",
-                    IsEnable = true
+                    IsEnable = App.AppType==AppType.VMS
                 }
             },
         };
