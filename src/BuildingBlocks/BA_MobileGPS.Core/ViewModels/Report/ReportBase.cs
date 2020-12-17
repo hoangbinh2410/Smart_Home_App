@@ -33,7 +33,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void Initialize(INavigationParameters parameters)
         {
-            EventAggregator.GetEvent<SelectDateEvent>().Subscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectDateEvent>().Subscribe(UpdateDate);
+            EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
             EventAggregator.GetEvent<SelectComboboxEvent>().Subscribe(UpdateCombobox);
         }
 
@@ -41,7 +42,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
+                if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehiclePlate)
                 {
                     VehicleSelect = vehiclePlate;
                 }
@@ -60,7 +61,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnDestroy()
         {
-            EventAggregator.GetEvent<SelectDateEvent>().Unsubscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectDateEvent>().Unsubscribe(UpdateDate);
+            EventAggregator.GetEvent<SelectDateTimeEvent>().Unsubscribe(UpdateDateTime);
             EventAggregator.GetEvent<SelectComboboxEvent>().Unsubscribe(UpdateCombobox);
         }
 
@@ -414,7 +416,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        public virtual void UpdateDateTime(PickerDateResponse param)
+        public virtual void UpdateDate(PickerDateResponse param)
         {
             if (param != null)
             {
@@ -431,7 +433,23 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
-
+        public virtual void UpdateDateTime(PickerDateTimeResponse param)
+        {
+            if (param != null)
+            {
+                if (param.PickerType == (short)ComboboxType.First)
+                {
+                    FromDate = param.Value;
+                }
+                else if (param.PickerType == (short)ComboboxType.Second)
+                {
+                    ToDate = param.Value;
+                }
+                else if (param.PickerType == (short)ComboboxType.Third)
+                {
+                }
+            }
+        }
         public async void ExcuteExportExcell()
         {
             try

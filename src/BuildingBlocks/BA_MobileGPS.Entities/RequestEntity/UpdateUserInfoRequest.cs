@@ -6,6 +6,8 @@ namespace BA_MobileGPS.Entities
     {
         public Guid UserID { get; set; }
 
+        public string UserName { get; set; }
+
         public string AvatarUrl { get; set; }
 
         public string FullName { get; set; }
