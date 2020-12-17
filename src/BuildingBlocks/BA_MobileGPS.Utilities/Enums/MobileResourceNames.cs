@@ -322,6 +322,7 @@
         Online_Label_StatusCarOverVelocity,
         Online_Label_StatusCarLostGPS,
         Online_Label_StatusCarLostGSM,
+        Online_Label_StatusCarSatelliteError,
         Online_Label_TotalCar,
         Online_Label_TotalVehicle,
         Online_Button_Detail,

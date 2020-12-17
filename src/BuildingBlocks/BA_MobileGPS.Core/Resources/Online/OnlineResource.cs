@@ -27,6 +27,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string Online_Label_StatusCarLostGPS => Get(MobileResourceNames.Online_Label_StatusCarLostGPS, "Mất GPS", "Lost GPS");
 
         public static string Online_Label_StatusCarLostGSM => Get(MobileResourceNames.Online_Label_StatusCarLostGSM, "Mất GSM", "Lost GSM");
+        public static string Online_Label_StatusCarSatelliteError => Get(MobileResourceNames.Online_Label_StatusCarSatelliteError, "Lỗi vệ tinh", "Satellite Error");
 
         public static string Online_Label_TotalCar => Get(MobileResourceNames.Online_Label_TotalCar, "Tổng xe :", "Total car :");
         public static string Online_Label_TotalVehicle => Get(MobileResourceNames.Online_Label_TotalCar, "Tổng phương tiện :", "Total vehicle :");
