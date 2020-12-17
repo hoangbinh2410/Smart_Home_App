@@ -15,20 +15,20 @@
         <cluster:NMConverter x:Key="NMConverter" />
     </pancake:PancakeView.Resources>
     <Grid
-        Padding="0,0,0,5"
+        Padding="0,0,0,10"
         HorizontalOptions="FillAndExpand"
-        RowSpacing="8"
+        RowSpacing="6"
         VerticalOptions="FillAndExpand">
         <Grid.RowDefinitions>
+            <RowDefinition Height="1.1*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1.5*" />
         </Grid.RowDefinitions>
         <Grid
             Grid.Row="0"
@@ -43,7 +43,7 @@
                     VerticalOptions="Center"
                     WidthRequest="20" />
                 <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                    <Label FontAttributes="Bold" Text="{Binding CarActive.PrivateCode, Converter={StaticResource UnitConverter}, ConverterParameter={i18n:TranslateResource Online_Label_AtTime, Converter={StaticResource LowerCaseConverter}}}" />
+                    <Label Text="{Binding CarActive.PrivateCode, Converter={StaticResource UnitConverter}, ConverterParameter={i18n:TranslateResource Online_Label_AtTime, Converter={StaticResource LowerCaseConverter}}}" />
                 </StackLayout>
             </StackLayout>
             <buttons:SfCheckBox
@@ -51,6 +51,7 @@
                 BorderWidth="1.5"
                 CheckedColor="{DynamicResource BlueDarkColor}"
                 CornerRadius="2"
+                FontSize="13"
                 HeightRequest="30"
                 HorizontalOptions="EndAndExpand"
                 IsChecked="{Binding IsShowCircle}"
@@ -170,20 +171,21 @@
         <Grid
             Grid.Row="8"
             Padding="10,0"
-            ColumnDefinitions="*,*,*"
-            HeightRequest="40">
+            ColumnDefinitions="*,*,*">
             <sharpnado:MaterialFrame
                 Grid.Column="0"
-                Padding="0,7"
-                CornerRadius="15"
+                Padding="0"
+                CornerRadius="20"
+                HeightRequest="40"
                 HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="{DynamicResource PrimaryColor}">
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                VerticalOptions="Center">
                 <sharpnado:MaterialFrame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PushToRouterPageCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
                 <sharpnado:MaterialFrame.Content>
                     <Label
-                        FontSize="10"
+                        FontSize="12"
                         LineBreakMode="TailTruncation"
                         Text="{i18n:TranslateResource Route_Label_TitleVMS,
                                                       Converter={StaticResource UpperCaseConverter}}"
@@ -193,16 +195,18 @@
             </sharpnado:MaterialFrame>
             <sharpnado:MaterialFrame
                 Grid.Column="1"
-                Padding="0,7"
-                CornerRadius="15"
+                Padding="0"
+                CornerRadius="20"
+                HeightRequest="40"
                 HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="{DynamicResource PrimaryColor}">
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                VerticalOptions="Center">
                 <sharpnado:MaterialFrame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PushToServicePackHistoryPageCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
                 <sharpnado:MaterialFrame.Content>
                     <Label
-                        FontSize="10"
+                        FontSize="12"
                         LineBreakMode="TailTruncation"
                         Text="{i18n:TranslateResource Route_Label_FeeVMS,
                                                       Converter={StaticResource UpperCaseConverter}}"
@@ -212,16 +216,18 @@
             </sharpnado:MaterialFrame>
             <sharpnado:MaterialFrame
                 Grid.Column="2"
-                Padding="0,7"
-                CornerRadius="15"
+                Padding="0"
+                CornerRadius="20"
+                HeightRequest="40"
                 HorizontalOptions="FillAndExpand"
-                LightThemeBackgroundColor="{DynamicResource PrimaryColor}">
+                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                VerticalOptions="Center">
                 <sharpnado:MaterialFrame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PushToDetailPageCommand}" />
                 </sharpnado:MaterialFrame.GestureRecognizers>
                 <sharpnado:MaterialFrame.Content>
                     <Label
-                        FontSize="10"
+                        FontSize="12"
                         LineBreakMode="TailTruncation"
                         Text="{i18n:TranslateResource Online_Button_Detail,
                                                       Converter={StaticResource UpperCaseConverter}}"
