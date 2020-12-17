@@ -518,10 +518,13 @@ namespace BA_MobileGPS.Core.Extensions
                             break;
 
                         case VehicleStatusGroup.SatelliteError:
-                            if (IsSatelliteError(x))
+                            if (App.AppType == AppType.VMS)
                             {
-                                result += 1;
-                            }                          
+                                if (IsSatelliteError(x))
+                                {
+                                    result += 1;
+                                }
+                            }                        
                             break;
 
                     }
@@ -623,9 +626,12 @@ namespace BA_MobileGPS.Core.Extensions
                         break;
 
                     case VehicleStatusGroup.SatelliteError:
-                        if (IsSatelliteError(x))
+                        if (App.AppType == AppType.Viview)
                         {
-                            result.Add(x);
+                            if (IsSatelliteError(x))
+                            {
+                                result.Add(x);
+                            }
                         }
                         break;
                 }
