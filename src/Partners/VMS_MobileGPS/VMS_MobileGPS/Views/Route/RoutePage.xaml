@@ -308,16 +308,16 @@
                 AbsoluteLayout.LayoutFlags="PositionProportional">
                 <pancake:PancakeView
                     Padding="0"
-                    BackgroundColor="{DynamicResource WhiteColor}"
-                    CornerRadius="25"
-                    HeightRequest="50"
+                    BackgroundColor="{Binding BackgroundTrackingCar}"
+                    CornerRadius="22"
+                    HeightRequest="45"
                     Shadow="{x:StaticResource shadow}"
-                    WidthRequest="50">
+                    WidthRequest="45">
                     <pancake:PancakeView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding WatchVehicleCommand}" />
                     </pancake:PancakeView.GestureRecognizers>
                     <controls:IconView
-                        Foreground="{DynamicResource PrimaryColor}"
+                        Foreground="{Binding ColorTrackingCar}"
                         HeightRequest="25"
                         HorizontalOptions="Center"
                         Source="ic_trackingcar.png"
@@ -523,65 +523,7 @@
                         VerticalOptions="Center" />
                 </pancake:PancakeView>
             </StackLayout>
-            <!--<controls:IconView
-                    x:Name="btnLocationStart"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    BackgroundColor="Transparent"
-                    Foreground="White"
-                    HeightRequest="30"
-                    HorizontalOptions="Center"
-                    Source="ic_fast_start_black"
-                    VerticalOptions="Center"
-                    WidthRequest="30">
-                    <controls:IconView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding FastStartCommand}" />
-                    </controls:IconView.GestureRecognizers>
-                </controls:IconView>
-                <forms:CachedImage
-                    x:Name="btnSlowspeed"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    BackgroundColor="Transparent"
-                    HeightRequest="30"
-                    HorizontalOptions="Center"
-                    Source="ic_fast_rewind_white"
-                    VerticalOptions="Center"
-                    WidthRequest="30">
-                    <forms:CachedImage.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding DecreaseSpeedCommand}" />
-                    </forms:CachedImage.GestureRecognizers>
-                </forms:CachedImage>-->
 
-            <!--<forms:CachedImage
-                    x:Name="btnUpSpeed"
-                    Grid.Row="1"
-                    Grid.Column="3"
-                    BackgroundColor="Transparent"
-                    HeightRequest="30"
-                    HorizontalOptions="Center"
-                    Source="ic_fast_forward_white"
-                    VerticalOptions="Center"
-                    WidthRequest="30">
-                    <forms:CachedImage.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding IncreaseSpeedCommand}" />
-                    </forms:CachedImage.GestureRecognizers>
-                </forms:CachedImage>-->
-            <!--<controls:IconView
-                    x:Name="btnLocationEnd"
-                    Grid.Row="1"
-                    Grid.Column="4"
-                    BackgroundColor="Transparent"
-                    Foreground="White"
-                    HeightRequest="30"
-                    HorizontalOptions="Center"
-                    Source="ic_fast_end_black"
-                    VerticalOptions="Center"
-                    WidthRequest="30">
-                    <controls:IconView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding FastEndCommand}" />
-                    </controls:IconView.GestureRecognizers>
-                </controls:IconView>-->
         </Grid>
     </StackLayout>
 </ContentPage>

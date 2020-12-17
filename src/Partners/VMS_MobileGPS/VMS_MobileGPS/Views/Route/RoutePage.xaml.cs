@@ -32,7 +32,7 @@ namespace VMS_MobileGPS.Views
             InitializeComponent();
             lblMore.Text = MobileResource.Route_Label_More.Trim().ToUpper();
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
-            lblTitle.Text = MobileResource.Route_Label_Title;
+            lblTitle.Text = MobileResource.Route_Label_TitleVMS;
             map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
             map.IsUseCluster = false;
             map.IsTrafficEnabled = false;
