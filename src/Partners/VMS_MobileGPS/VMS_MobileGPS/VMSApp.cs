@@ -8,6 +8,7 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Prism;
+using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Mvvm;
 using VMS_MobileGPS.Styles;
@@ -25,10 +26,13 @@ namespace VMS_MobileGPS
 
         public override string OneSignalKey => Config.OneSignalKey_BASAT;
 
-        protected async override void OnInitialized()
+        protected override IContainerExtension CreateContainerExtension()
         {
-           
+            return ContainerLocator.Current;
+        }
 
+        protected async override void OnInitialized()
+        {         
             base.OnInitialized();
 
             ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerVMS;
@@ -84,14 +88,17 @@ namespace VMS_MobileGPS
 
             containerRegistry.RegisterForNavigation<BA_MobileGPS.Core.Views.HelperPage, HeplerViewModel>("HelperPage");
 
-            ViewModelLocationProvider.Register<OnlinePage, OnlinePageViewModel>();
-            ViewModelLocationProvider.Register<ListVehiclePage, ListVehiclePageViewModel>();
-            ViewModelLocationProvider.Register<RoutePage, RouteViewModel>();
+            containerRegistry.RegisterForNavigation<ListVehiclePage, ListVehiclePageViewModel>("ListVehiclePageVMS");
+            containerRegistry.RegisterForNavigation<OnlinePage, OnlinePageViewModel>("OnlinePageVMS");
+            containerRegistry.RegisterForNavigation<OnlinePageNoCluster, OnlinePageViewModel>("OnlinePageNoClusterVMS");
+            containerRegistry.RegisterForNavigation<RoutePage, RoutePageViewModel>("RoutePageVMS");
 
-            containerRegistry.Register<ContentView, OnlinePage>("OnlineTab");
-            containerRegistry.Register<ContentView, ListVehiclePage>("ListVehicleTab");
-            containerRegistry.Register<ContentView, RoutePage>("RouteTab");
+            containerRegistry.Register<ContentPage, ListVehiclePage>("ListVehiclePage");
+            containerRegistry.Register<ContentPage, OnlinePage>("OnlinePage");
+            containerRegistry.Register<ContentPage, OnlinePageNoCluster>("OnlinePageNoCluster");
+            containerRegistry.Register<ContentPage, RoutePage>("RoutePage");
             containerRegistry.RegisterForNavigation<DetailVehiclePopup,DetailVehiclePopupViewModel>("DetailVehiclePopup");
+           
 
             //containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
             //containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());

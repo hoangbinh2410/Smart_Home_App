@@ -186,11 +186,11 @@ namespace VMS_MobileGPS.ViewModels
 
             if ("Sửa".Equals(action))
             {
-                await NavigationService.NavigateAsync("AddFishQuantityPage", useModalNavigation: true, parameters: new NavigationParameters
+                await NavigationService.NavigateAsync("AddFishQuantityPage", parameters: new NavigationParameters
                 {
                     { ParameterKey.PageMode, PageMode.Edit },
                     { ParameterKey.Fish, args }
-                });
+                }, useModalNavigation: true,true);
             }
             else if ("Xoá".Equals(action))
             {

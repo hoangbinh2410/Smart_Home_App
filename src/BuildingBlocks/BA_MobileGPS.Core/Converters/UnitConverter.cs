@@ -14,8 +14,11 @@ namespace BA_MobileGPS.Core
             {
                 return string.Empty;
             }
-
-            return $"{value.ToString()} {MobileResource.Common_Label_Vehicle.Trim().ToLower()}";
+            if (parameter == null || string.IsNullOrEmpty(parameter.ToString()))
+            {
+                return $"{value.ToString()} {MobileResource.Common_Label_Vehicle.Trim().ToLower()}";
+            }
+            return $"{value.ToString()} {parameter.ToString().Trim().ToLower()}";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

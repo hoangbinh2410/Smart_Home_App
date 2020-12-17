@@ -4,6 +4,8 @@ using Android.OS;
 using BA_MobileGPS.Core.Droid;
 using BA_MobileGPS.Droid.Setup;
 using Xamarin.Forms;
+using Shiny;
+using Android.Runtime;
 
 namespace VMS_MobileGPS.Droid
 {
@@ -24,6 +26,12 @@ namespace VMS_MobileGPS.Droid
             ToolSetup.Initialize(this, bundle);
 
             LoadApplication(new VMSApp(new AndroidInitializer()));
+        }
+        
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        {
+            AndroidShinyHost.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

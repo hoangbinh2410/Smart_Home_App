@@ -22,6 +22,8 @@ namespace BA_MobileGPS.Core
             _eventAggregator = Current.Container.Resolve<IEventAggregator>();
         }
 
+
+
         private readonly IEventAggregator _eventAggregator;
 
         public static AppType AppType = AppType.BinhAnh;

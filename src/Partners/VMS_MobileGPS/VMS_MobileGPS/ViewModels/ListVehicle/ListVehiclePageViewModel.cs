@@ -12,8 +12,10 @@ using BA_MobileGPS.Entities.ModelViews;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities;
+using BA_MobileGPS.Utilities.Enums;
 using Prism.Commands;
 using Prism.Navigation;
+using Prism.Navigation.TabbedPages;
 using Syncfusion.Data.Extensions;
 
 using System;
@@ -28,15 +30,7 @@ using Xamarin.Forms;
 
 namespace VMS_MobileGPS.ViewModels
 {
-    public enum SortOrder
-    {
-        PrivateCodeASC,
-        PrivateCodeDES,
-        TimeASC,
-        TimeDES,
-        DefaultASC,
-        DefaultDES
-    }
+
 
     public class ListVehiclePageViewModel : ViewModelBase
     {
@@ -130,9 +124,6 @@ namespace VMS_MobileGPS.ViewModels
 
         #region Property
 
-        public SortOrder sortOrder = SortOrder.DefaultDES;
-        public SortOrder SortOrder { get => sortOrder; set => SetProperty(ref sortOrder, value); }
-
         // Danh sách xe gốc chưa lọc
         private List<VMSVehicleOnlineViewModel> ListVehicleOrigin
         {
@@ -140,18 +131,19 @@ namespace VMS_MobileGPS.ViewModels
             {
                 if (StaticSettings.ListVehilceOnline != null)
                 {
-                    if (SortOrder == SortOrder.PrivateCodeASC)
-                        return _mapper.MapListProperties<VMSVehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).OrderBy(x => x.PrivateCode));
-                    else if (SortOrder == SortOrder.PrivateCodeDES)
-                        return _mapper.MapListProperties<VMSVehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).OrderByDescending(x => x.PrivateCode));
-                    else if (SortOrder == SortOrder.TimeASC)
-                        return _mapper.MapListProperties<VMSVehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).OrderBy(x => x.VehicleTime));
-                    else if (SortOrder == SortOrder.TimeDES)
-                        return _mapper.MapListProperties<VMSVehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).OrderByDescending(x => x.VehicleTime));
-                    else if (SortOrder == SortOrder.DefaultASC)
-                        return _mapper.MapListProperties<VMSVehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderBy(x => x.SortOrder));
+
+                    if (Settings.SortOrder == (int)SortOrderType.PrivateCodeASC)
+                        return _mapper.MapListProperties<VMSVehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).ThenBy(x => x.PrivateCode).ToList());
+                    else if (Settings.SortOrder == (int)SortOrderType.PrivateCodeDES)
+                        return _mapper.MapListProperties<VMSVehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).ThenByDescending(x => x.PrivateCode).ToList());
+                    else if (Settings.SortOrder == (int)SortOrderType.TimeASC)
+                        return _mapper.MapListProperties<VMSVehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).ThenBy(x => x.VehicleTime).ToList());
+                    else if (Settings.SortOrder == (int)SortOrderType.TimeDES)
+                        return _mapper.MapListProperties<VMSVehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).ThenByDescending(x => x.VehicleTime).ToList());
+                    else if (Settings.SortOrder == (int)SortOrderType.DefaultASC)
+                        return _mapper.MapListProperties<VMSVehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderBy(x => x.SortOrder).ToList());
                     else
-                        return _mapper.MapListProperties<VMSVehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder));
+                        return _mapper.MapListProperties<VMSVehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).ToList());
                 }
                 else
                 {
@@ -344,53 +336,57 @@ namespace VMS_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("ListVehicleHelpPage", useModalNavigation: true);
+                await NavigationService.NavigateAsync("ListVehicleHelpPage", null, useModalNavigation: true, true);
             });
         }
 
         private async void ChangeSort()
         {
             var sort = await PageDialog.DisplayActionSheetAsync(MobileResource.ListVehicle_Label_SortBy, MobileResource.Common_Button_Cancel, null,
-                MobileResource.ListVehicle_Label_ByVehiclePlate, MobileResource.ListVehicle_Label_ByTime, MobileResource.ListVehicle_Label_Default);
+              MobileResource.ListVehicle_Label_ByVehiclePlate, MobileResource.ListVehicle_Label_ByTime, MobileResource.ListVehicle_Label_Default);
 
             if (MobileResource.ListVehicle_Label_ByVehiclePlate.Equals(sort))
             {
-                if (SortOrder == SortOrder.PrivateCodeASC)
-                    SortOrder = SortOrder.PrivateCodeDES;
+                if (Settings.SortOrder == (int)SortOrderType.PrivateCodeASC)
+                    Settings.SortOrder = (int)SortOrderType.PrivateCodeDES;
+                else if (Settings.SortOrder == (int)SortOrderType.PrivateCodeDES)
+                    Settings.SortOrder = (int)SortOrderType.PrivateCodeASC;
                 else
-                    SortOrder = SortOrder.PrivateCodeASC;
+                    Settings.SortOrder = (int)SortOrderType.PrivateCodeDES;
             }
             else if (MobileResource.ListVehicle_Label_ByTime.Equals(sort))
             {
-                if (SortOrder == SortOrder.TimeDES)
-                    SortOrder = SortOrder.TimeASC;
+                if (Settings.SortOrder == (int)SortOrderType.TimeDES)
+                    Settings.SortOrder = (int)SortOrderType.TimeASC;
                 else
-                    SortOrder = SortOrder.TimeDES;
+                    Settings.SortOrder = (int)SortOrderType.TimeDES;
             }
             else if (MobileResource.ListVehicle_Label_Default.Equals(sort))
             {
-                if (SortOrder == SortOrder.DefaultDES)
-                    SortOrder = SortOrder.DefaultASC;
+                if (Settings.SortOrder == (int)SortOrderType.DefaultDES)
+                    Settings.SortOrder = (int)SortOrderType.DefaultASC;
                 else
-                    SortOrder = SortOrder.DefaultDES;
+                    Settings.SortOrder = (int)SortOrderType.DefaultDES;
             }
             else
             {
                 return;
             }
 
-            if (SortOrder == SortOrder.PrivateCodeASC)
-                ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).OrderBy(x => x.PrivateCode).ToObservableCollection();
-            else if (SortOrder == SortOrder.PrivateCodeDES)
-                ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).OrderByDescending(x => x.PrivateCode).ToObservableCollection();
-            else if (SortOrder == SortOrder.TimeASC)
-                ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).OrderBy(x => x.VehicleTime).ToObservableCollection();
-            else if (SortOrder == SortOrder.TimeDES)
-                ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).OrderByDescending(x => x.VehicleTime).ToObservableCollection();
-            else if (SortOrder == SortOrder.DefaultASC)
+            if (Settings.SortOrder == (int)SortOrderType.PrivateCodeASC)
+                ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).ThenBy(x => x.PrivateCode).ToObservableCollection();
+            else if (Settings.SortOrder == (int)SortOrderType.PrivateCodeDES)
+                ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).ThenByDescending(x => x.PrivateCode).ToObservableCollection();
+            else if (Settings.SortOrder == (int)SortOrderType.TimeASC)
+                ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).ThenBy(x => x.VehicleTime).ToObservableCollection();
+            else if (Settings.SortOrder == (int)SortOrderType.TimeDES)
+                ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).ThenByDescending(x => x.VehicleTime).ToObservableCollection();
+            else if (Settings.SortOrder == (int)SortOrderType.DefaultASC)
                 ListVehicle = ListVehicle.OrderBy(x => x.SortOrder).ToObservableCollection();
             else
                 ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).ToObservableCollection();
+
+            ListVehicleByStatus = ListVehicle.ToList();
         }
 
         private void SearchVehiclewithText(TextChangedEventArgs args)
@@ -566,25 +562,41 @@ namespace VMS_MobileGPS.ViewModels
                     { ParameterKey.CarDetail, param }
                 };
 
-                var a = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, useModalNavigation: true);
+                var a = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, useModalNavigation: true, true);
             });
         }
 
         public void GoRoutePage(VMSVehicleOnlineViewModel selected)
         {
-            SafeExecute(() =>
+            SafeExecute(async () =>
             {
                 var param = _mapper.MapProperties<VehicleOnline>(selected);
-                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.RoutePage, param));
+                var parameters = new NavigationParameters
+                {
+                    { ParameterKey.VehicleOnline, param }
+                };
+
+                await NavigationService.SelectTabAsync("RoutePageVMS", parameters);
             });
         }
 
         public void GoOnlinePage(VMSVehicleOnlineViewModel selected)
         {
-            SafeExecute(() =>
+            SafeExecute(async () =>
             {
-                var param = _mapper.MapProperties<VehicleOnline>(selected);
-                EventAggregator.GetEvent<TabItemSwitchEvent>().Publish(new Tuple<ItemTabPageEnums, object>(ItemTabPageEnums.OnlinePage, param));
+                var param = _mapper.MapProperties<Vehicle>(selected);
+                var parameters = new NavigationParameters
+                {
+                    { ParameterKey.Vehicle, param }
+                };
+                if (MobileUserSettingHelper.EnableShowCluster)
+                {
+                    await NavigationService.SelectTabAsync("OnlinePageVMS", parameters);
+                }
+                else
+                {
+                    await NavigationService.SelectTabAsync("OnlinePageNoClusterVMS", parameters);
+                }
             });
         }
 
@@ -598,7 +610,7 @@ namespace VMS_MobileGPS.ViewModels
                     { ParameterKey.VehicleOnline, param }
                 };
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/DistancePage", parameters, true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/DistancePage", parameters, true, true);
             });
         }
 

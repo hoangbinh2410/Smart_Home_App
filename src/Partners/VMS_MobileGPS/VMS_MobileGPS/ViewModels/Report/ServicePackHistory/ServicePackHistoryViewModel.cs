@@ -101,7 +101,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("PackageInfosPage", useModalNavigation: false);
+                await NavigationService.NavigateAsync("PackageInfosPage", null,useModalNavigation: false,true);
             });
         }
 
