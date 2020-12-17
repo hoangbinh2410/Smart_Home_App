@@ -59,7 +59,7 @@ namespace VMS_MobileGPS.ViewModels
                 ColorMapType = (Color)App.Current.Resources["PrimaryColor"];
                 BackgroundMapType = (Color)App.Current.Resources["WhiteColor"];
             }
-            IsShowConfigLanmark = CompanyConfigurationHelper.IsShowConfigLanmark;
+     
             zoomLevel = MobileUserSettingHelper.Mapzoom;
             NavigateToSettingsCommand = new DelegateCommand(NavigateToSettings);
             ChangeMapTypeCommand = new DelegateCommand(ChangeMapType);

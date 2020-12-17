@@ -138,24 +138,7 @@
             Margin="10"
             HorizontalOptions="EndAndExpand"
             VerticalOptions="End">
-            <pancake:PancakeView
-                x:Name="btnDirectvehicleOnline"
-                Padding="0"
-                BackgroundColor="{DynamicResource WhiteColor}"
-                CornerRadius="22"
-                HeightRequest="45"
-                WidthRequest="45">
-                <pancake:PancakeView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding PushDirectvehicleOnlineCommand}" />
-                </pancake:PancakeView.GestureRecognizers>
-                <controls:IconView
-                    Foreground="{DynamicResource PrimaryColor}"
-                    HeightRequest="25"
-                    HorizontalOptions="Center"
-                    Source="direction.png"
-                    VerticalOptions="Center"
-                    WidthRequest="25" />
-            </pancake:PancakeView>
+
             <pancake:PancakeView
                 Padding="0"
                 BackgroundColor="{DynamicResource WhiteColor}"
@@ -217,7 +200,7 @@
             AbsoluteLayout.LayoutFlags="YProportional, WidthProportional"
             BackgroundColor="{DynamicResource WhiteColor}"
             CornerRadius="20,20,0,0"
-            HeightRequest="200"
+            HeightRequest="190"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="End" />
         <!--  Trạng thái xe  -->

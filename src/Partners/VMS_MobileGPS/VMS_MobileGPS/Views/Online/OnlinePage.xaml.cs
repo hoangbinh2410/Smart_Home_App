@@ -71,7 +71,7 @@ namespace VMS_MobileGPS.Views
 
             mCarActive = new VehicleOnline();
             mCurrentVehicleList = new List<VehicleOnline>();
-            btnDirectvehicleOnline.IsVisible = false;
+
             IsInitMarker = false;
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
             boundaryRepository = PrismApplicationBase.Current.Container.Resolve<IRealmBaseService<BoundaryRealm, LandmarkResponse>>();
@@ -266,7 +266,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
 
         }
@@ -420,7 +420,7 @@ namespace VMS_MobileGPS.Views
                 }
                 catch (Exception ex)
                 {
-                    LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                    LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
                 }
             }
         }
@@ -555,13 +555,7 @@ namespace VMS_MobileGPS.Views
 
                 if (carActive)
                 {
-                    //Nếu không cấu hình hiển thị nhiệt độ thì ko hiển thị lên màn hình online
-                    if (!string.IsNullOrEmpty(carInfo.Temperature) && !CompanyConfigurationHelper.IsShowTemperatureOnline)
-                    {
-                        carInfo.Temperature = string.Empty;
-                    }
                     vm.CarActive = carInfo;
-                    vm.EngineState = carInfo.StatusEngineer;
                 }
 
                 carInfo.IconImage = IconCodeHelper.GetMarkerResource(carInfo);
@@ -587,7 +581,7 @@ namespace VMS_MobileGPS.Views
                         {
                             if (carActive)
                             {
-                                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
+                                vm.CurrentAddress = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(carInfo.Lat), GeoHelper.LongitudeToDergeeMinSec(carInfo.Lng));
                             }
                         });
                     });
@@ -600,7 +594,7 @@ namespace VMS_MobileGPS.Views
                     if (carActive)
                     {
                         googleMap.AnimateCamera(CameraUpdateFactory.NewPosition(new Position(carInfo.Lat, carInfo.Lng)));
-                        Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
+                        vm.CurrentAddress = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(carInfo.Lat), GeoHelper.LongitudeToDergeeMinSec(carInfo.Lng));
                     }
                 }
             }
@@ -658,7 +652,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -727,7 +721,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
             finally
             {
@@ -793,7 +787,7 @@ namespace VMS_MobileGPS.Views
 
                 mCarActive = carInfo;
                 vm.CarActive = carInfo;
-                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
+                vm.CurrentAddress = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(carInfo.Lat), GeoHelper.LongitudeToDergeeMinSec(carInfo.Lng));
 
                 if (vm.Circles.Count > 0)
                 {
@@ -820,40 +814,7 @@ namespace VMS_MobileGPS.Views
                     pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
                 }
             }
-        }
-
-        private void Getaddress(string lat, string lng, long vehicleID)
-        {
-            try
-            {
-                vm.CurrentAddress = MobileResource.Online_Label_Determining;
-                Task.Run(async () =>
-                {
-                    return await geocodeService.GetAddressByLatLng(lat, lng);
-                }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
-                {
-                    if (task.Status == TaskStatus.RanToCompletion)
-                    {
-                        if (!string.IsNullOrEmpty(task.Result))
-                        {
-                            if (vm.CarActive.VehicleId == vehicleID)
-                            {
-                                vm.CurrentAddress = task.Result;
-                                vm.CarActive.CurrentAddress = task.Result;
-                            }
-                        }
-                    }
-                    else if (task.IsFaulted)
-                    {
-                        Logger.WriteError(MethodBase.GetCurrentMethod().Name, "Error");
-                    }
-                }));
-            }
-            catch (Exception ex)
-            {
-                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-            }
-        }
+        }     
 
         /// <summary>
         /// ẩn thông tin xe đi và remove active xe
@@ -873,7 +834,7 @@ namespace VMS_MobileGPS.Views
 
             vm.CarActive = new VehicleOnline();
             mCarActive = new VehicleOnline();
-            btnDirectvehicleOnline.IsVisible = false;
+
         }
 
         /// <summary>
@@ -910,7 +871,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -965,7 +926,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -989,7 +950,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -1014,7 +975,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -1070,7 +1031,7 @@ namespace VMS_MobileGPS.Views
 
             vm.CarSearch = string.Empty;
 
-            if ((args as Syncfusion.ListView.XForms.ItemTappedEventArgs).ItemData is VehicleStatusViewModel item)
+            if (args.ItemData is VehicleStatusViewModel item)
             {
                 Device.StartTimer(TimeSpan.FromMilliseconds(300), () =>
                 {
@@ -1156,7 +1117,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 

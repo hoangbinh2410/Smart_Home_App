@@ -7,6 +7,7 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
+using BA_MobileGPS.Entities.RealmEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism;
@@ -29,7 +30,7 @@ namespace VMS_MobileGPS.Views
     public partial class OnlinePageNoCluster : ContentPage, INavigationAware, IDestructible
     {
         #region Contructor
-
+        private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
         private readonly IEventAggregator eventAggregator;
         private readonly IGeocodeService geocodeService;
         private readonly IDisplayMessage displayMessage;
@@ -57,9 +58,9 @@ namespace VMS_MobileGPS.Views
             googleMap.MapClicked += Map_MapClicked;
             mCarActive = new VehicleOnline();
             mCurrentVehicleList = new List<VehicleOnline>();
-            btnDirectvehicleOnline.IsVisible = false;
             IsInitMarker = false;
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
+            boundaryRepository = PrismApplicationBase.Current.Container.Resolve<IRealmBaseService<BoundaryRealm, LandmarkResponse>>();
         }
 
         #endregion Contructor
@@ -138,6 +139,9 @@ namespace VMS_MobileGPS.Views
 
                 UpdateVehicleByVehicleGroup(vehiclegroup);
             }
+
+            GoogleMapAddBoundary();
+            GoogleMapAddName();
         }
 
         #endregion Lifecycle
@@ -181,7 +185,124 @@ namespace VMS_MobileGPS.Views
         #endregion Property
 
         #region Private Method
+        private void GoogleMapAddBoundary()
+        {
+            vm.Boundaries.Clear();
+            vm.Borders.Clear();
 
+            var listBoudary = boundaryRepository.Find(b => b.IsShowBoudary);
+
+            foreach (var item in listBoudary)
+            {
+                AddBoundary(item);
+            }
+        }
+
+        private void AddBoundary(LandmarkResponse boundary)
+        {
+            try
+            {
+
+                var result = boundary.Polygon.Split(',');
+
+                var color = Color.FromHex(ConvertIntToHex(boundary.Color));
+
+                if (boundary.IsClosed)
+                {
+                    var polygon = new Polygon
+                    {
+                        IsClickable = true,
+                        StrokeWidth = 1f,
+                        StrokeColor = color.MultiplyAlpha(.5),
+                        FillColor = color.MultiplyAlpha(.3),
+                        Tag = "POLYGON"
+                    };
+
+                    for (int i = 0; i < result.Length; i += 2)
+                    {
+                        polygon.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
+                    }
+
+                    polygon.Clicked += Polygon_Clicked;
+                    vm.Boundaries.Add(polygon);
+                }
+                else
+                {
+                    var polyline = new Polyline
+                    {
+                        IsClickable = false,
+                        StrokeColor = color,
+                        StrokeWidth = 2f,
+                        Tag = "POLYGON"
+                    };
+
+                    for (int i = 0; i < result.Length; i += 2)
+                    {
+                        polyline.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
+                    }
+
+                    vm.Borders.Add(polyline);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+
+        }
+
+        public static string ConvertIntToHex(int value)
+        {
+            return value.ToString("X").PadLeft(6, '0');
+        }
+
+        private void Polygon_Clicked(object sender, EventArgs e)
+        {
+            HideBoxInfo();
+        }
+
+        private void GoogleMapAddName()
+        {
+            try
+            {
+                var listName = boundaryRepository.Find(b => b.IsShowName);
+
+                foreach (var pin in googleMap.Pins.Where(p => p.Tag.ToString().Contains("Boundary")).ToList())
+                {
+                    googleMap.Pins.Remove(pin);
+                }
+
+                foreach (var item in listName)
+                {
+                    AddName(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+
+        }
+
+        private void AddName(LandmarkResponse name)
+        {
+            try
+            {
+                googleMap.Pins.Add(new Pin
+                {
+                    Label = name.Name,
+                    Position = new Position(name.Latitude, name.Longitude),
+                    Icon = BitmapDescriptorFactory.FromView(new BoundaryNameInfoWindow(name.Name) { WidthRequest = name.Name.Length < 20 ? 6 * name.Name.Length : 110, HeightRequest = 18 * ((name.Name.Length / 20) + 1) }),
+                    Tag = "Boundary" + name.Name
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
         private void OnReLoadVehicleOnlineCarSignalR(bool arg)
         {
             if (arg)
@@ -414,13 +535,7 @@ namespace VMS_MobileGPS.Views
 
                 if (carActive)
                 {
-                    //Nếu không cấu hình hiển thị nhiệt độ thì ko hiển thị lên màn hình online
-                    if (!string.IsNullOrEmpty(carInfo.Temperature) && !CompanyConfigurationHelper.IsShowTemperatureOnline)
-                    {
-                        carInfo.Temperature = string.Empty;
-                    }
                     vm.CarActive = carInfo;
-                    vm.EngineState = carInfo.StatusEngineer;
                 }
 
                 carInfo.IconImage = IconCodeHelper.GetMarkerResource(carInfo);
@@ -446,7 +561,7 @@ namespace VMS_MobileGPS.Views
                         {
                             if (carActive)
                             {
-                                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
+                                vm.CurrentAddress = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(carInfo.Lat), GeoHelper.LongitudeToDergeeMinSec(carInfo.Lng));
                             }
                         });
                     });
@@ -459,7 +574,7 @@ namespace VMS_MobileGPS.Views
                     if (carActive)
                     {
                         googleMap.AnimateCamera(CameraUpdateFactory.NewPosition(new Position(carInfo.Lat, carInfo.Lng)));
-                        Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
+                        vm.CurrentAddress = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(carInfo.Lat), GeoHelper.LongitudeToDergeeMinSec(carInfo.Lng));
                     }
                 }
             }
@@ -648,23 +763,17 @@ namespace VMS_MobileGPS.Views
                 }
 
                 mCarActive = carInfo;
-                //Nếu không cấu hình hiển thị nhiệt độ thì ko hiển thị lên màn hình online
-                if (!string.IsNullOrEmpty(carInfo.Temperature) && !CompanyConfigurationHelper.IsShowTemperatureOnline)
-                {
-                    carInfo.Temperature = string.Empty;
-                }
-                //Nếu không có cấu hình hiển thị ngày đăng kiểm thì không hiển thị lên màn online
-                if (!CompanyConfigurationHelper.IsShowDateOfRegistration || CompanyConfigurationHelper.IsShowTemperatureOnline)
-                {
-                    carInfo.DateOfRegistration = null;
-                }
                 vm.CarActive = carInfo;
+                vm.CurrentAddress = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(carInfo.Lat), GeoHelper.LongitudeToDergeeMinSec(carInfo.Lng));
 
-                btnDirectvehicleOnline.IsVisible = true;
-
-                vm.EngineState = StateVehicleExtension.EngineState(carInfo);
-
-                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
+                if (vm.Circles.Count > 0)
+                {
+                    vm.ShowBorder();
+                }
+                else
+                {
+                    vm.HideBorder();
+                }
 
                 //update active xe mới
                 UpdateBackgroundPinLable(carInfo, true);
@@ -682,36 +791,7 @@ namespace VMS_MobileGPS.Views
                     pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
                 }
             }
-        }
-
-        private void Getaddress(string lat, string lng, long vehicleID)
-        {
-            try
-            {
-                vm.CurrentAddress = MobileResource.Online_Label_Determining;
-                Task.Run(async () =>
-                {
-                    return await geocodeService.GetAddressByLatLng(lat, lng);
-                }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
-                {
-                    if (task.Status == TaskStatus.RanToCompletion)
-                    {
-                        if (!string.IsNullOrEmpty(task.Result))
-                        {
-                            if (vm.CarActive.VehicleId == vehicleID)
-                            {
-                                vm.CurrentAddress = task.Result;
-                                vm.CarActive.CurrentAddress = task.Result;
-                            }
-                        }
-                    }
-                }));
-            }
-            catch (Exception ex)
-            {
-                LoggerHelper.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-            }
-        }
+        }       
 
         /// <summary>
         /// ẩn thông tin xe đi và remove active xe
@@ -731,7 +811,7 @@ namespace VMS_MobileGPS.Views
 
             vm.CarActive = new VehicleOnline();
             mCarActive = new VehicleOnline();
-            btnDirectvehicleOnline.IsVisible = false;
+
         }
 
         /// <summary>
