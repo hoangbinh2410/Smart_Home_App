@@ -506,6 +506,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var request = new UpdateUserInfoRequest
                 {
                     UserID = UserInfo.UserId,
+                    UserName = UserInfo.UserName,
                     AvatarUrl = avatarUrl ?? CurrentUser.AvatarUrl,
                     FullName = CurrentUser.FullName?.Trim(),
                     PhoneNumber = CurrentUser.PhoneNumber?.Trim(),
