@@ -320,7 +320,7 @@
                         Foreground="{DynamicResource PrimaryColor}"
                         HeightRequest="25"
                         HorizontalOptions="Center"
-                        Source="ic_vector.png"
+                        Source="ic_trackingcar.png"
                         VerticalOptions="Center"
                         WidthRequest="25" />
                 </pancake:PancakeView>
