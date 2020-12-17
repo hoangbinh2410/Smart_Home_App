@@ -453,6 +453,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (ListRoute.Count == 0)
                         {
                             DisplayMessage.ShowMessageWarning(MobileResource.Route_Label_RouteNotFound, 3000);
+                            Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
                             return;
                         }
 
