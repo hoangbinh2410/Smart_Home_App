@@ -175,7 +175,8 @@
             <sharpnado:MaterialFrame
                 Grid.Column="0"
                 Padding="0"
-                CornerRadius="20"
+                CornerRadius="{OnPlatform Android=18,
+                                          iOS=16}"
                 HeightRequest="40"
                 HorizontalOptions="FillAndExpand"
                 LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
@@ -185,7 +186,8 @@
                 </sharpnado:MaterialFrame.GestureRecognizers>
                 <sharpnado:MaterialFrame.Content>
                     <Label
-                        FontSize="12"
+                        FontSize="{OnPlatform Android=12,
+                                              iOS=10}"
                         LineBreakMode="TailTruncation"
                         Text="{i18n:TranslateResource Route_Label_TitleVMS,
                                                       Converter={StaticResource UpperCaseConverter}}"
@@ -196,7 +198,8 @@
             <sharpnado:MaterialFrame
                 Grid.Column="1"
                 Padding="0"
-                CornerRadius="20"
+                CornerRadius="{OnPlatform Android=18,
+                                          iOS=16}"
                 HeightRequest="40"
                 HorizontalOptions="FillAndExpand"
                 LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
@@ -206,7 +209,8 @@
                 </sharpnado:MaterialFrame.GestureRecognizers>
                 <sharpnado:MaterialFrame.Content>
                     <Label
-                        FontSize="12"
+                        FontSize="{OnPlatform Android=12,
+                                              iOS=10}"
                         LineBreakMode="TailTruncation"
                         Text="{i18n:TranslateResource Route_Label_FeeVMS,
                                                       Converter={StaticResource UpperCaseConverter}}"
@@ -217,7 +221,8 @@
             <sharpnado:MaterialFrame
                 Grid.Column="2"
                 Padding="0"
-                CornerRadius="20"
+                CornerRadius="{OnPlatform Android=18,
+                                          iOS=16}"
                 HeightRequest="40"
                 HorizontalOptions="FillAndExpand"
                 LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
@@ -227,7 +232,8 @@
                 </sharpnado:MaterialFrame.GestureRecognizers>
                 <sharpnado:MaterialFrame.Content>
                     <Label
-                        FontSize="12"
+                        FontSize="{OnPlatform Android=12,
+                                              iOS=10}"
                         LineBreakMode="TailTruncation"
                         Text="{i18n:TranslateResource Online_Button_Detail,
                                                       Converter={StaticResource UpperCaseConverter}}"
