@@ -626,7 +626,7 @@ namespace BA_MobileGPS.Core.Extensions
                         break;
 
                     case VehicleStatusGroup.SatelliteError:
-                        if (App.AppType == AppType.Viview)
+                        if (App.AppType == AppType.VMS)
                         {
                             if (IsSatelliteError(x))
                             {
