@@ -636,6 +636,22 @@ namespace VMS_MobileGPS.ViewModels
                         };
             listSp.Add(v11Points);
 
+            var v12Points = new ObservableCollection<Point>() {
+                            new Point(9.725300, 114.229123),
+                         new Point(9.673861, 114.234620),
+                          new Point(9.684691, 114.344556),
+                           new Point(9.728007, 114.333563)
+                        };
+            listSp.Add(v12Points);
+
+            var v13Points = new ObservableCollection<Point>() {
+                            new Point(9.920155, 114.443655),
+                         new Point(9.871452, 114.438158),
+                          new Point(9.879570, 114.553592),
+                           new Point(9.920155, 114.548111)
+                        };
+            listSp.Add(v13Points);
+
             foreach (var item in listSp)
             {
                 OsmMapLayers.Add(new ShapeFileLayer() { Points = item, ShapeType = ShapeType.Polygon, ShapeSettings = shapeSetting });
