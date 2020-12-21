@@ -387,18 +387,14 @@
                             VerticalOptions="CenterAndExpand">
                             <Label
                                 x:Name="lblTitle"
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                FontAttributes="Bold"
+                                FontSize="{DynamicResource MyFontSize}"
                                 HorizontalOptions="StartAndExpand"
                                 TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center" />
                             <Label
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                FontAttributes="Bold"
-                                FontFamily="{StaticResource myFontLatoBold}"
+                                FontSize="{DynamicResource MyFontSize}"
                                 HorizontalOptions="End"
+                                StyleClass="BoldText"
                                 Text="{Binding DateKm, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm, Converter={StaticResource LowerCaseConverter}}}"
                                 TextColor="Black"
                                 VerticalOptions="Center" />
@@ -421,27 +417,16 @@
                                     Text="{Binding CurrentRoute.Time, StringFormat='{}{0:dd-MM-yyyy}'}"
                                     TextColor="Gray" />
                                 <Label
-                                    FontAttributes="Bold"
-                                    FontFamily="{StaticResource myFontLatoBold}"
-                                    FontSize="18"
                                     HorizontalOptions="Center"
+                                    StyleClass="BoldText"
                                     Text="{Binding CurrentRoute.Time, StringFormat='{}{0:HH:mm:ss}'}"
                                     TextColor="Black" />
                             </StackLayout>
-                            <StackLayout
-                                HorizontalOptions="Center"
-                                Spacing="0"
-                                VerticalOptions="End">
+                            <StackLayout Spacing="0" VerticalOptions="End">
+                                <Label Text="{i18n:TranslateResource Common_Lable_NMUnit, Converter={StaticResource LowerCaseConverter}}" TextColor="Gray" />
                                 <Label
-                                    HorizontalOptions="Center"
-                                    Text="{i18n:TranslateResource Common_Lable_NMUnit,
-                                                                  Converter={StaticResource LowerCaseConverter}}"
-                                    TextColor="Gray" />
-                                <Label
-                                    FontAttributes="Bold"
-                                    FontFamily="{StaticResource myFontLatoBold}"
-                                    FontSize="20"
-                                    HorizontalOptions="Center"
+                                    HorizontalOptions="End"
+                                    StyleClass="BoldText"
                                     Text="{Binding CurrentRoute.Velocity, Converter={StaticResource NMConverter}, ConverterParameter={i18n:TranslateResource Online_Label_TotalKm, Converter={StaticResource LowerCaseConverter}}}"
                                     TextColor="{DynamicResource PrimaryColor}" />
                             </StackLayout>

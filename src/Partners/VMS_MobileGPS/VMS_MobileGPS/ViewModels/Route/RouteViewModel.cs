@@ -141,8 +141,12 @@ namespace VMS_MobileGPS.ViewModels
             }
             else
             {
-                GoogleMapAddBoundary();
-                GoogleMapAddName();
+                Device.StartTimer(TimeSpan.FromMilliseconds(1500), () =>
+                {
+                    GoogleMapAddBoundary();
+                    GoogleMapAddName();
+                    return false;
+                });
             }
         }
 
