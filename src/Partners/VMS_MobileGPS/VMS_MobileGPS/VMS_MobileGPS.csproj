@@ -37,6 +37,9 @@
 	  <EmbeddedResource Update="Views\ListVehicle\DetailVehiclePopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\ListVehicle\ListVehicleView.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\ListVehicle\VehicleStopServiceView.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -75,6 +78,9 @@
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Permission\VMSPermissionGranted.xaml">
 	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Route\RouteView.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>
 

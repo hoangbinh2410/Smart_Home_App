@@ -34,8 +34,7 @@ namespace VMS_MobileGPS.Views
         #region Contructor
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
         private readonly IEventAggregator eventAggregator;
-        private readonly IGeocodeService geocodeService;
-        private readonly IDisplayMessage displayMessage;
+     private readonly IDisplayMessage displayMessage;
         private readonly IPageDialogService pageDialog;
 
         public OnlinePage()
@@ -43,7 +42,6 @@ namespace VMS_MobileGPS.Views
             InitializeComponent();
             googleMap.UiSettings.ZoomControlsEnabled = false;
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
-            geocodeService = PrismApplicationBase.Current.Container.Resolve<IGeocodeService>();
             displayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
             pageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
             pageWidth = (int)Application.Current.MainPage.Width;
