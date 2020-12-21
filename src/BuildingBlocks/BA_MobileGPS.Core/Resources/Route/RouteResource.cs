@@ -16,7 +16,9 @@ namespace BA_MobileGPS.Core.Resources
         public static string Route_Label_SearchFishing => Get(MobileResourceNames.Route_Label_SearchFishing, "Tìm kiếm phương tiện", "Search for fishing boat");
         public static string Route_Label_VehicleEmpty => Get(MobileResourceNames.Route_Label_VehicleEmpty, "Bạn chưa chọn xe", "Vehicle is empty");
         public static string Route_Label_RouteNotFound => Get(MobileResourceNames.Route_Label_RouteNotFound, "Không tìm thấy lộ trình", "Route not found");
+        public static string Route_Label_RouteNotFoundVMS => Get(MobileResourceNames.Route_Label_RouteNotFoundVMS, "Không tìm thấy hải trình", "Voyage not found");
         public static string Route_Label_RouteNotExist => Get(MobileResourceNames.Route_Label_RouteNotExist, "Chưa có lộ trình", "No route yet");
+        public static string Route_Label_RouteNotExistVMS => Get(MobileResourceNames.Route_Label_RouteNotExistVMS, "Chưa có hải trình", "Voyage not exist");
         public static string Route_Label_More => Get(MobileResourceNames.Route_Label_More, "Khác", "More");
 
         public static string Route_Label_Coordinates => Get(MobileResourceNames.Route_Label_Coordinates, "Tọa độ:", "Coordinates:");
