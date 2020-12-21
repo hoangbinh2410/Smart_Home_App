@@ -164,6 +164,11 @@ namespace BA_MobileGPS.Core.ViewModels
             GenerateFavouriteMenu(favourites);
             var notFavorites = result.Where(s => !s.IsFavorited).ToList();
 
+
+            ///Danh sách lái xe:
+            var listDriver = new HomeMenuItemViewModel() { NameByCulture = "Danh sách lái xe" };
+            notFavorites.Add(listDriver);
+            ///
             GenerateListFeatures(notFavorites);
             HasFavorite = FavouriteMenuItems.Count != 0;
             StaticSettings.ListMenu = mapper.MapListProperties<HomeMenuItem>(result.ToList());
