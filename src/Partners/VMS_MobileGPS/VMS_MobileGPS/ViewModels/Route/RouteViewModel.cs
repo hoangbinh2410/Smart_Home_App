@@ -36,7 +36,7 @@ namespace VMS_MobileGPS.ViewModels
 
         private readonly IGeocodeService geocodeService;
         private readonly IVehicleRouteService vehicleRouteService;
-
+        private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
         public ICommand TimeSelectedCommand { get; }
         public ICommand DateSelectedCommand { get; }
         public ICommand SearchVehicleCommand { get; }
@@ -55,12 +55,13 @@ namespace VMS_MobileGPS.ViewModels
         public ICommand FastEndCommand { get; }
         public ICommand ChangeSpeedCommand { get; }
 
-        public RoutePageViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService, IGeocodeService geocodeService)
+        public RoutePageViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService, 
+            IGeocodeService geocodeService, IRealmBaseService<BoundaryRealm, LandmarkResponse> realmBaseService)
            : base(navigationService)
         {
             this.vehicleRouteService = vehicleRouteService;
             this.geocodeService = geocodeService;
-
+            boundaryRepository = realmBaseService;
             if (MobileUserSettingHelper.MapType == 4 || MobileUserSettingHelper.MapType == 5)
             {
                 mapType = MapType.Hybrid;
@@ -137,6 +138,11 @@ namespace VMS_MobileGPS.ViewModels
             if (!IsActive)
             {
                 StopRoute();
+            }
+            else
+            {
+                GoogleMapAddBoundary();
+                GoogleMapAddName();
             }
         }
 
@@ -1017,6 +1023,117 @@ namespace VMS_MobileGPS.ViewModels
             else
             {
                 PlaySpeed *= 2;
+            }
+        }
+        private void GoogleMapAddBoundary()
+        {
+            Boundaries.Clear();
+            Polylines.Clear();
+
+            var listBoudary = boundaryRepository.Find(b => b.IsShowBoudary);
+
+            foreach (var item in listBoudary)
+            {
+                AddBoundary(item);
+            }
+        }
+
+        private void AddBoundary(LandmarkResponse boundary)
+        {
+            try
+            {
+
+                var result = boundary.Polygon.Split(',');
+
+                var color = Color.FromHex(ConvertIntToHex(boundary.Color));
+
+                if (boundary.IsClosed)
+                {
+                    var polygon = new Polygon
+                    {
+                        IsClickable = true,
+                        StrokeWidth = 1f,
+                        StrokeColor = color.MultiplyAlpha(.5),
+                        FillColor = color.MultiplyAlpha(.3),
+                        Tag = "POLYGON"
+                    };
+
+                    for (int i = 0; i < result.Length; i += 2)
+                    {
+                        polygon.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
+                    }
+
+                    Boundaries.Add(polygon);
+                }
+                else
+                {
+                    var polyline = new Polyline
+                    {
+                        IsClickable = false,
+                        StrokeColor = color,
+                        StrokeWidth = 2f,
+                        Tag = "POLYGON"
+                    };
+
+                    for (int i = 0; i < result.Length; i += 2)
+                    {
+                        polyline.Positions.Add(new Position(FormatHelper.ConvertToDouble(result[i + 1], 6), FormatHelper.ConvertToDouble(result[i], 6)));
+                    }
+
+                    Polylines.Add(polyline);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+
+        }
+        private  string ConvertIntToHex(int value)
+        {
+            return value.ToString("X").PadLeft(6, '0');
+        }
+
+        private void GoogleMapAddName()
+        {
+            try
+            {
+                var listName = boundaryRepository.Find(b => b.IsShowName);
+
+                foreach (var pin in Pins.Where(p => p.Tag.ToString().Contains("Boundary")).ToList())
+                {
+                    Pins.Remove(pin);
+                }
+
+                foreach (var item in listName)
+                {
+                    AddName(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+
+        }
+
+        private void AddName(LandmarkResponse name)
+        {
+            try
+            {
+                Pins.Add(new Pin
+                {
+                    Label = name.Name,
+                    Position = new Position(name.Latitude, name.Longitude),
+                    Icon = BitmapDescriptorFactory.FromView(new BoundaryNameInfoWindow(name.Name) { WidthRequest = name.Name.Length < 20 ? 6 * name.Name.Length : 110, HeightRequest = 18 * ((name.Name.Length / 20) + 1) }),
+                    Tag = "Boundary" + name.Name
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
