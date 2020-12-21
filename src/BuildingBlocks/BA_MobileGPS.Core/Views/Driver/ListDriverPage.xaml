@@ -4,10 +4,14 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    x:Name="this"
     Title="Danh sách lái xe"
     prism:ViewModelLocator.AutowireViewModel="True">
     <NavigationPage.TitleView>
@@ -42,9 +46,10 @@
                 VerticalOptions="Center" />
         </Grid>
     </NavigationPage.TitleView>
-    <Grid RowDefinitions="Auto,*">
+    <Grid RowDefinitions="Auto,1,*" RowSpacing="0">
         <!--  Search area  -->
         <pancake:PancakeView
+            Margin="10"
             Padding="0"
             BackgroundColor="{DynamicResource WhiteColor}"
             CornerRadius="22"
@@ -87,5 +92,132 @@
                 </Entry>
             </StackLayout>
         </pancake:PancakeView>
+        <BoxView
+            Grid.Row="1"
+            BackgroundColor="Black"
+            HeightRequest="1" />
+        <Grid
+            Grid.Row="2"
+            Margin="5,0"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <syncfusionList:SfListView
+                x:Name="listView"
+                AllowSwiping="True"
+                ItemSize="110"
+                ItemSpacing="5"
+                ItemsSource="{Binding ListAlert, Mode=TwoWay}"
+                LoadMoreCommand="{Binding LoadMoreItemsCommand}"
+                LoadMoreCommandParameter="{Binding Source={x:Reference listView}}"
+                LoadMoreOption="Auto"
+                SelectionBackgroundColor="Transparent"
+                SwipeOffset="200">
+                <syncfusionList:SfListView.RightSwipeTemplate>
+                    <DataTemplate>
+                        <Grid
+                            Margin="6,0"
+                            ColumnDefinitions="*,*"
+                            ColumnSpacing="6">
+                            <pancake:PancakeView
+                                Padding="0"
+                                BackgroundColor="#CCDCF8"
+                                CornerRadius="10">
+                                <pancake:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={x:Reference this}, Path=BindingContext.HandleAlertCommand}"
+                                        CommandParameter="{Binding .}"
+                                        NumberOfTapsRequired="1" />
+                                </pancake:PancakeView.GestureRecognizers>
+                                <Label Text="Xử lý" VerticalOptions="Center" />
+                            </pancake:PancakeView>
+
+                        </Grid>
+                    </DataTemplate>
+                </syncfusionList:SfListView.RightSwipeTemplate>
+                <syncfusionList:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <pancake:PancakeView
+                            Padding="0"
+                            BackgroundColor="{DynamicResource GrayColor}"
+                            CornerRadius="10">
+                            <Grid
+                                Padding="5"
+                                ColumnDefinitions="2*,8*"
+                                VerticalOptions="CenterAndExpand">
+                                <StackLayout Spacing="5" VerticalOptions="CenterAndExpand">
+                                    <image:CachedImage
+                                        HeightRequest="40"
+                                        HorizontalOptions="CenterAndExpand"
+                                        Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="40" />
+                                    <pancake:PancakeView
+                                        Padding="7,1"
+                                        BackgroundColor="{DynamicResource PrimaryColor}"
+                                        CornerRadius="4"
+                                        HorizontalOptions="Center">
+                                        <Label
+                                            Text="{Binding StartTime, Converter={x:StaticResource TimeConverter}}"
+                                            TextColor="{DynamicResource WhiteColor}"
+                                            VerticalTextAlignment="Center" />
+                                    </pancake:PancakeView>
+                                </StackLayout>
+                                <StackLayout
+                                    Grid.Column="1"
+                                    Padding="10,0"
+                                    Spacing="2"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontFamily="{StaticResource myFontLatoBold}"
+                                        FontSize="{StaticResource FontSize16}"
+                                        HorizontalOptions="Start"
+                                        LineBreakMode="TailTruncation"
+                                        Text="{Binding AlertName}" />
+                                    <Label
+                                        HorizontalOptions="Start"
+                                        HorizontalTextAlignment="Start"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="4"
+                                        Text="{Binding Content}" />
+                                </StackLayout>
+                            </Grid>
+                        </pancake:PancakeView>
+                    </DataTemplate>
+                </syncfusionList:SfListView.ItemTemplate>
+                <syncfusionList:SfListView.LoadMoreTemplate>
+                    <DataTemplate>
+                        <Grid
+                            Padding="3"
+                            HeightRequest="30"
+                            WidthRequest="30">
+                            <syncfusionList:LoadMoreIndicator
+                                HeightRequest="30"
+                                IsRunning="{Binding IsBusy, Source={x:Reference Name=listView}}"
+                                IsVisible="{Binding IsBusy, Source={x:Reference Name=listView}}"
+                                VerticalOptions="Center"
+                                WidthRequest="30"
+                                Color="{DynamicResource PrimaryColor}" />
+                        </Grid>
+                    </DataTemplate>
+                </syncfusionList:SfListView.LoadMoreTemplate>
+            </syncfusionList:SfListView>
+            <StackLayout
+                BackgroundColor="Transparent"
+                HorizontalOptions="Center"
+                IsVisible="{Binding ListAlert, Mode=TwoWay, Converter={StaticResource IsEmptyDataConverter}}"
+                Spacing="10"
+                VerticalOptions="Center">
+                <!--  Image for display svg image  -->
+                <ffsvg:SvgCachedImage
+                    HeightRequest="200"
+                    Source="NoItem.svg"
+                    VerticalOptions="Center"
+                    WidthRequest="200" />
+                <!--  Label to display content  -->
+                <Label Text="{i18n:TranslateResource Common_Message_NoData}" VerticalTextAlignment="Center" />
+            </StackLayout>
+        </Grid>
+
     </Grid>
 </ContentPage>
