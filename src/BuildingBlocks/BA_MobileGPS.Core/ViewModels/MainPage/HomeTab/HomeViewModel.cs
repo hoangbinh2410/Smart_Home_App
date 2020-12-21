@@ -166,7 +166,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
 
             ///Danh sách lái xe:
-            var listDriver = new HomeMenuItemViewModel() { NameByCulture = "Danh sách lái xe" };
+            var listDriver = new HomeMenuItemViewModel() 
+            { 
+                NameByCulture = "Danh sách lái xe" ,
+                MenuKey = "ListDriverPage"
+            };
             notFavorites.Add(listDriver);
             ///
             GenerateListFeatures(notFavorites);
