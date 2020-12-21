@@ -309,20 +309,20 @@
                 <pancake:PancakeView
                     Padding="0"
                     BackgroundColor="{Binding BackgroundTrackingCar}"
-                    CornerRadius="22"
-                    HeightRequest="45"
+                    CornerRadius="25"
+                    HeightRequest="50"
                     Shadow="{x:StaticResource shadow}"
-                    WidthRequest="45">
+                    WidthRequest="50">
                     <pancake:PancakeView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding WatchVehicleCommand}" />
                     </pancake:PancakeView.GestureRecognizers>
                     <controls:IconView
                         Foreground="{Binding ColorTrackingCar}"
-                        HeightRequest="25"
+                        HeightRequest="20"
                         HorizontalOptions="Center"
                         Source="ic_trackingcar.png"
                         VerticalOptions="Center"
-                        WidthRequest="25" />
+                        WidthRequest="20" />
                 </pancake:PancakeView>
                 <pancake:PancakeView
                     Padding="0"
