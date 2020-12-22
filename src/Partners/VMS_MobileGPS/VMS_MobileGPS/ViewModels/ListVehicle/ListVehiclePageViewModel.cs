@@ -562,7 +562,7 @@ namespace VMS_MobileGPS.ViewModels
                     { ParameterKey.CarDetail, param }
                 };
 
-                var a = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, useModalNavigation: true, true);
+                var a = await NavigationService.NavigateAsync("NavigationPage/VehicleDetailPage", parameters, useModalNavigation: true, true);
             });
         }
 

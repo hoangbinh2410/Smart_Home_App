@@ -17,7 +17,26 @@
             <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-
+    <!--<NavigationPage.TitleView>
+        <Grid VerticalOptions="Center">
+            <controls:IconView
+                Foreground="{DynamicResource WhiteColor}"
+                HeightRequest="25"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <controls:IconView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </controls:IconView.GestureRecognizers>
+            </controls:IconView>
+            <Label
+                HorizontalOptions="Center"
+                StyleClass="GroupTitleLabel,BoldText"
+                Text="{Binding Title}"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>-->
     <ContentPage.Content>
         <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
             <StackLayout BackgroundColor="{DynamicResource WhiteColor}" Spacing="0">
