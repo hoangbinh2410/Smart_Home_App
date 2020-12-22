@@ -1,32 +1,70 @@
-﻿using Prism.Commands;
+﻿using BA_MobileGPS.Entities;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class ListDriverPageViewModel : ViewModelBase
     {
-
+        private CancellationTokenSource cts;
         public ICommand SelectDriverCommand { get; }
+        public ICommand DeleteDriverCommand { get; }
+        public ICommand SearchDriverCommand { get; }
         public ListDriverPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             SelectDriverCommand = new DelegateCommand<object>(SelectDriver);
+            DeleteDriverCommand = new DelegateCommand<object>(DeleteDriver);
+            SearchDriverCommand = new DelegateCommand<TextChangedEventArgs>(SearchDriver);
+        }
+
+        private void SearchDriver(TextChangedEventArgs args)
+        {
+            if (args.NewTextValue == null || string.IsNullOrWhiteSpace(args.NewTextValue))
+                return;
+
+            if (cts != null)
+                cts.Cancel(true);
+            cts = new CancellationTokenSource();
+
+            Task.Run(async () =>
+            {
+                await Task.Delay(500, cts.Token);
+                return ListDriverOrigin.FindAll(v => v.FullName.ToUpper().Contains(searchedText.ToUpper()));
+            }, cts.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
+            {
+                if (task.Status == TaskStatus.RanToCompletion)
+                {
+                    ListDriver = new ObservableCollection<DriverInfor>(task.Result);
+                }
+            }));
+        }
+    
+
+        private void DeleteDriver(object obj)
+        {
+            if (obj != null && obj is Syncfusion.ListView.XForms.ItemTappedEventArgs agrs)
+            {
+                var item = (DriverInfor)agrs.ItemData;
+            }
         }
 
         private void SelectDriver(object obj)
         {
             if (obj != null && obj is Syncfusion.ListView.XForms.ItemTappedEventArgs agrs)
             {
-                var item = (DriverModel)agrs.ItemData;
+                var item = (DriverInfor)agrs.ItemData;
             }
         }
-
-       
+      
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -38,47 +76,27 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             for (int i = 0; i < 10; i++)
             {
-                ListDriver.Add(new DriverModel());
+                ListDriver.Add(new DriverInfor());
             }
         }
 
-
-        private ObservableCollection<DriverModel> listDriver;
-        public ObservableCollection<DriverModel> ListDriver
+        private List<DriverInfor> ListDriverOrigin { get; set; } = new List<DriverInfor>();
+        private ObservableCollection<DriverInfor> listDriver;
+        public ObservableCollection<DriverInfor> ListDriver
         {
             get { return listDriver; }
             set { SetProperty(ref listDriver, value); }
         }
-    }
-
-    public class DriverModel
-    {
-        public readonly Guid Id = new Guid();
-        public string AvatarUrl { get; set; } = "avatar_default";
-        public string FullName { get; set; } = " A B C D";
-        public DateTime BirthDay { get; set; } = DateTime.Today.AddDays(-1800);
-        public string IdentityNumber { get; set; } = "123123123";
-        public string PhoneNum { get; set; } = "12354353534";
-        public string Address { get; set; } = " Tỉnh A Phố B";
-        public DriverLicenseEnum DriverLicenseType { get; set; } = DriverLicenseEnum.A3;
-        public string DriverLicense { get; set; } = "123123123544";
-        public DateTime LicenseEffectiveDate { get; set; } = DateTime.Today.AddDays(-800);
-        public DateTime LicenseExpriedDate { get; set; } = DateTime.Today.AddDays(-300);
-        public string DriverLicenseTypeName
+        private bool listViewBusy;
+        public bool ListViewBusy
         {
-            get
-            {
-                return string.Format("Bằng lái {0}", DriverLicenseType.ToString());
-            }
+            get { return listViewBusy; }
+            set { SetProperty(ref listViewBusy, value); }
         }
+
+        public string searchedText;
+        public string SearchedText { get => searchedText; set => SetProperty(ref searchedText, value); }
     }
 
-    public enum DriverLicenseEnum
-    {
-        A1,
-        A2,
-        A3,
-        A4,
-        B1,B2,C,D,E,F
-    }
+    
 }

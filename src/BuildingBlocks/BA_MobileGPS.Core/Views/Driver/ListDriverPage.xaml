@@ -74,7 +74,7 @@
                 <Entry x:Name="entrySearchVehicle" Text="{Binding SearchedText}">
                     <Entry.Behaviors>
                         <prism:EventToCommandBehavior
-                            Command="{Binding SearchVehicleCommand}"
+                            Command="{Binding SearchDriverCommand}"
                             EventArgsConverter="{StaticResource TextChangedEventArgsConverter}"
                             EventName="TextChanged" />
                     </Entry.Behaviors>
@@ -99,8 +99,7 @@
                 AutoFitMode="Height"
                 IsBusy="{Binding ListViewBusy, Mode=OneWay}"
                 ItemSpacing="0"
-                ItemTapped="{Binding TapStatusVehicle}"
-                ItemsSource="{Binding ListDriver}"
+                ItemsSource="{Binding ListDriver, Mode=OneWay}"
                 SelectionBackgroundColor="{DynamicResource TextPlaceHolderColor}"
                 TapCommand="{Binding SelectDriverCommand}">
                 <syncfusionList:SfListView.RightSwipeTemplate>
@@ -115,7 +114,7 @@
                                 CornerRadius="10">
                                 <pancake:PancakeView.GestureRecognizers>
                                     <TapGestureRecognizer
-                                        Command="{Binding Source={x:Reference this}, Path=BindingContext.HandleAlertCommand}"
+                                        Command="{Binding Source={x:Reference this}, Path=BindingContext.DeleteDriverCommand}"
                                         CommandParameter="{Binding .}"
                                         NumberOfTapsRequired="1" />
                                 </pancake:PancakeView.GestureRecognizers>
@@ -199,7 +198,7 @@
             <StackLayout
                 BackgroundColor="Transparent"
                 HorizontalOptions="Center"
-                IsVisible="{Binding ListAlert, Mode=TwoWay, Converter={StaticResource IsEmptyDataConverter}}"
+                IsVisible="{Binding ListDriver, Mode=OneWay, Converter={StaticResource IsEmptyDataConverter}}"
                 Spacing="10"
                 VerticalOptions="Center">
                 <!--  Image for display svg image  -->
