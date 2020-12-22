@@ -141,7 +141,7 @@ namespace VMS_MobileGPS.ViewModels
             }
             else
             {
-                Device.StartTimer(TimeSpan.FromMilliseconds(1500), () =>
+                Device.StartTimer(TimeSpan.FromMilliseconds(1000), () =>
                 {
                     GoogleMapAddBoundary();
                     GoogleMapAddName();
@@ -1032,8 +1032,8 @@ namespace VMS_MobileGPS.ViewModels
         private void GoogleMapAddBoundary()
         {
             Boundaries.Clear();
-           
-            foreach (var line in Polylines.ToList().FindAll(l => "Boundary".Equals(l.Tag)))
+            var temp = Polylines.Where(l => l.Tag.ToString() == "POLYGON").ToList();
+            foreach (var line in temp)
             {
                Polylines.Remove(line);
             }

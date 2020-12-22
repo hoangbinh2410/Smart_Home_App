@@ -50,18 +50,18 @@ namespace BA_MobileGPS.Service
             throw new NotImplementedException();
         }
 
-        //public async Task<BaseResponse<ServicePackageInfo>> GetCurrentServicePack(dynamic request)
-        //{
-        //    try
-        //    {
-        //        return await _requestProvider.PostAsync<dynamic, BaseResponse<ServicePackageInfo>>(ApiUri.GET_CURRENT_PACKAGE, request);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-        //    }
-        //    return default;
-        //}
+        public async Task<BaseResponse<ServicePackageInfo>> GetCurrentServicePack(object request)
+        {
+            try
+            {
+                return await _requestProvider.PostAsync<object, BaseResponse<ServicePackageInfo>>(ApiUri.GET_CURRENT_PACKAGE, request);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return default;
+        }
 
         public async Task<BaseResponse<List<ShipPackage>>> GetShipPackages()
         {
@@ -76,9 +76,9 @@ namespace BA_MobileGPS.Service
             return default;
         }
 
-        public Task<BaseResponse<ServicePackageInfo>> GetCurrentServicePack(dynamic request)
-        {
-            throw new NotImplementedException();
-        }
+        //public Task<BaseResponse<ServicePackageInfo>> GetCurrentServicePack(dynamic request)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

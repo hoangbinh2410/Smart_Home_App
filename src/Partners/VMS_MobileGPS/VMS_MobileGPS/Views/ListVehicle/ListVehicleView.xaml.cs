@@ -7,6 +7,7 @@ using VMS_MobileGPS.ViewModels;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using BA_MobileGPS.Core.Helpers;
 
 namespace VMS_MobileGPS.Views.ListVehicle
 {
@@ -16,7 +17,7 @@ namespace VMS_MobileGPS.Views.ListVehicle
         private Timer timer;
         private ListVehiclePageViewModel vm;
         private bool infoStatusIsShown = false;
-        private int pageWidth = 0;
+        private int pageWidth = (int)Application.Current.MainPage.Width;
 
         public ListVehicleView()
         {
@@ -24,7 +25,6 @@ namespace VMS_MobileGPS.Views.ListVehicle
             // Initialize the View Model Object
             lblNotFound.Text = MobileResource.ListVehicle_Label_NotFound;
             entrySearchVehicle.Placeholder = MobileResource.Online_Label_SeachVehicle2;
-            int pageWidth = (int)Application.Current.MainPage.Width;
             boxStatusVehicle.TranslationX = pageWidth;
             StartTimmerCaculatorStatus();
         }
@@ -45,9 +45,16 @@ namespace VMS_MobileGPS.Views.ListVehicle
 
         private void HideBoxStatus()
         {
-            Action<double> callback = input => boxStatusVehicle.TranslationX = input;
-            boxStatusVehicle.Animate("animboxStatusVehicle", callback, 0, pageWidth, 16, 300, Easing.CubicInOut);
-            infoStatusIsShown = false;
+            try
+            {
+                Action<double> callback = input => boxStatusVehicle.TranslationX = input;
+                boxStatusVehicle.Animate("animboxStatusVehicle", callback, 0, pageWidth, 16, 300, Easing.CubicInOut);
+                infoStatusIsShown = false;
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError("HideBoxStatus", ex);
+            }
         }
 
         private void ShowBoxStatus()
