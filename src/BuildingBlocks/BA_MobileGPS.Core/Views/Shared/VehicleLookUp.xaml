@@ -16,6 +16,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:TextChangedEventArgsConverter x:Key="TextChangedEventArgsConverter" />
+            <converter:VelocityConverterUpdate x:Key="VelocityConverterUpdate" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -79,7 +80,7 @@
                                         WidthRequest="30" />
                                     <Label
                                         FontSize="12"
-                                        Text="{Binding Velocity, Converter={StaticResource VelocityConverter}}"
+                                        Text="{Binding Velocity, Converter={StaticResource VelocityConverterUpdate}}"
                                         VerticalOptions="Center" />
                                 </StackLayout>
 
