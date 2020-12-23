@@ -272,5 +272,15 @@
         public const string GET_SIM_MONEY = "api/vehicles/getsimmoney";
 
         #endregion MOTO
+        #region DriverInformation
+        public const string GET_LIST_DRIVER = "/api/v1/hrmemployees/gethrmemployeesbycompanyid";
+
+        public const string POST_ADD_DRIVER = "/api/v1/hrmemployees/inserthrmemployees";
+
+        public const string POST_UPDATE_DRIVER = "/api/v1/hrmemployees/updatehrmemployees";
+
+        public const string POST_DELETE_DRIVER = "/api/v1/hrmemployees/deletehrmemployees";
+
+        #endregion
     }
 }

@@ -3,6 +3,7 @@
     x:Class="BA_MobileGPS.Core.Views.ListDriverPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:busyIndicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
@@ -14,6 +15,17 @@
     x:Name="this"
     Title="Danh sách lái xe"
     prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <Style TargetType="busyIndicator:SfBusyIndicator">
+            <Setter Property="AnimationType" Value="Cupertino" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="EnableAnimation" Value="True" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="ViewBoxHeight" Value="50" />
+            <Setter Property="ViewBoxWidth" Value="50" />
+            <Setter Property="Duration" Value="0.8" />
+        </Style>
+    </ContentPage.Resources>
     <NavigationPage.TitleView>
         <Grid
             Padding="0,0,10,0"
@@ -96,11 +108,13 @@
             <syncfusionList:SfListView
                 x:Name="listView"
                 Margin="0"
-                AutoFitMode="Height"
+                AutoFitMode="DynamicHeight"
                 IsBusy="{Binding ListViewBusy, Mode=OneWay}"
                 ItemSpacing="0"
                 ItemsSource="{Binding ListDriver, Mode=OneWay}"
-                SelectionBackgroundColor="{DynamicResource TextPlaceHolderColor}"
+                LoadMoreCommand="{Binding LoadMoreItemsCommand}"
+                SelectionBackgroundColor="Transparent"
+                SelectionMode="Single"
                 TapCommand="{Binding SelectDriverCommand}">
                 <syncfusionList:SfListView.RightSwipeTemplate>
                     <DataTemplate>
@@ -135,7 +149,7 @@
                                     Margin="10,5"
                                     ColumnDefinitions="Auto,*"
                                     VerticalOptions="StartAndExpand">
-                                    <image:CachedImage HeightRequest="50" Source="{Binding AvatarUrl}" />
+                                    <image:CachedImage HeightRequest="50" Source="{Binding DriverImage}" />
                                     <StackLayout
                                         Grid.Column="1"
                                         HorizontalOptions="Fill"
@@ -144,7 +158,7 @@
                                             LineBreakMode="TailTruncation"
                                             MaxLines="1"
                                             StyleClass="BoldText"
-                                            Text="{Binding FullName}" />
+                                            Text="{Binding DisplayName}" />
                                         <Grid ColumnDefinitions="*,*,*" VerticalOptions="EndAndExpand">
                                             <StackLayout Orientation="Horizontal">
                                                 <icons:IconView
@@ -152,7 +166,7 @@
                                                     Foreground="{DynamicResource LoginIconColor}"
                                                     Source="ic_phone.png"
                                                     VerticalOptions="CenterAndExpand" />
-                                                <Label Text="{Binding PhoneNum}" />
+                                                <Label Text="{Binding Mobile}" />
                                             </StackLayout>
                                             <StackLayout Grid.Column="1" Orientation="Horizontal">
                                                 <icons:IconView
@@ -160,7 +174,7 @@
                                                     Foreground="{DynamicResource LoginIconColor}"
                                                     Source="ic_driverlicense.png"
                                                     VerticalOptions="CenterAndExpand" />
-                                                <Label Text="{Binding DriverLicenseTypeName}" />
+                                                <Label Text="{Binding LicenseTypeName}" />
                                             </StackLayout>
                                             <StackLayout Grid.Column="2" Orientation="Horizontal">
                                                 <icons:IconView
@@ -168,7 +182,7 @@
                                                     Foreground="{DynamicResource LoginIconColor}"
                                                     Source="ic_date_range_black.png"
                                                     VerticalOptions="CenterAndExpand" />
-                                                <Label Text="{Binding LicenseExpriedDate}" />
+                                                <Label Text="{Binding ExpireLicenseDate}" />
                                             </StackLayout>
                                         </Grid>
                                     </StackLayout>
@@ -178,23 +192,8 @@
                         </pancake:PancakeView>
                     </DataTemplate>
                 </syncfusionList:SfListView.ItemTemplate>
-                <syncfusionList:SfListView.LoadMoreTemplate>
-                    <DataTemplate>
-                        <Grid
-                            Padding="3"
-                            HeightRequest="30"
-                            WidthRequest="30">
-                            <syncfusionList:LoadMoreIndicator
-                                HeightRequest="30"
-                                IsRunning="{Binding IsBusy, Source={x:Reference Name=listView}}"
-                                IsVisible="{Binding IsBusy, Source={x:Reference Name=listView}}"
-                                VerticalOptions="Center"
-                                WidthRequest="30"
-                                Color="{DynamicResource PrimaryColor}" />
-                        </Grid>
-                    </DataTemplate>
-                </syncfusionList:SfListView.LoadMoreTemplate>
             </syncfusionList:SfListView>
+            <busyIndicator:SfBusyIndicator IsBusy="{Binding IsBusy}" />
             <StackLayout
                 BackgroundColor="Transparent"
                 HorizontalOptions="Center"
