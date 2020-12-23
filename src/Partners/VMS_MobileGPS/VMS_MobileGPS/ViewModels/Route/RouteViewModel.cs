@@ -1032,7 +1032,7 @@ namespace VMS_MobileGPS.ViewModels
         private void GoogleMapAddBoundary()
         {
             Boundaries.Clear();
-            var temp = Polylines.Where(l => l.Tag.ToString() == "POLYGON").ToList();
+            var temp = Polylines?.Where(l =>l.Tag != null && l.Tag.ToString() == "POLYGON")?.ToList();
             foreach (var line in temp)
             {
                Polylines.Remove(line);
