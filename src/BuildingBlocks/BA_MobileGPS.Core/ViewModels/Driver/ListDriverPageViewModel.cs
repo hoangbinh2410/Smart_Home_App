@@ -38,7 +38,7 @@ namespace BA_MobileGPS.Core.ViewModels
             Task.Run(async () =>
             {
                 await Task.Delay(500, cts.Token);
-                return ListDriverOrigin.FindAll(v => v.FullName.ToUpper().Contains(searchedText.ToUpper()));
+                return ListDriverOrigin.FindAll(v => v.FullName.ToUpper().Contains(args.NewTextValue.ToUpper()));
             }, cts.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
                 if (task.Status == TaskStatus.RanToCompletion)
