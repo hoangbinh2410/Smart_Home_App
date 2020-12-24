@@ -202,7 +202,8 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<CameraTimeChart, CameraTimeChartViewModel>("CameraTimeChart");
             containerRegistry.RegisterForNavigation<VehicleCameraMultiSelect, VehicleCameraMultiSelectViewModel>("VehicleCameraMultiSelect");
 
-            containerRegistry.RegisterForNavigation<ListDriverPage, ListDriverPageViewModel>();
+            containerRegistry.RegisterForNavigation<ListDriverPage, ListDriverPageViewModel>("ListDriverPage");
+            containerRegistry.RegisterForNavigation<UpdateDriverInforPage, UpdateDriverInforPageViewModel>("UpdateDriverInforPage");
 
         }
     }

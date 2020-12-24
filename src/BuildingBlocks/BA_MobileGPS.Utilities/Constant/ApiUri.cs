@@ -275,9 +275,9 @@
         #region DriverInformation
         public const string GET_LIST_DRIVER = "api/driverinfor/getall";
 
-        public const string POST_ADDORUPDATE_DRIVER = "api/driverinfor/addorupdate";
+        public const string POST_ADDORUPDATE_DRIVER = "api/driverinfor/insertorupdate";
 
-        public const string POST_DELETE_DRIVER = "api/driverinfor/delete";
+        public const string POST_DELETE_DRIVER = "api/driverinfor/deletedriverbyid";
 
         #endregion
     }

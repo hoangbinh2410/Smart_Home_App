@@ -44,6 +44,6 @@
         public const string SelectDate = "SelectDate";
         public const string MultiSelectLookup = "MultiSelectLookup";
         public const string ListVehicleSelected = "ListVehicleSelected";
-
+        public const string DriverInformation = "DriverInformation";
     }
 }

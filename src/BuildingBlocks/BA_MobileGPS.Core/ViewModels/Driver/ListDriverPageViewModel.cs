@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
@@ -171,6 +172,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (result == item.ID)
                     {
                         GetAllDriverData();
+                        SearchedText = string.Empty;
                     }
                 });
 
@@ -182,6 +184,9 @@ namespace BA_MobileGPS.Core.ViewModels
             if (obj != null && obj is Syncfusion.ListView.XForms.ItemTappedEventArgs agrs)
             {
                 var item = (DriverInfor)agrs.ItemData;
+                var param = new NavigationParameters();
+                param.Add(ParameterKey.DriverInformation, item);
+                NavigationService.NavigateAsync("BaseNavigationPage/UpdateDriverInforPage", param, true,true);
             }
         }
         private List<DriverInfor> listDriverSearch;
