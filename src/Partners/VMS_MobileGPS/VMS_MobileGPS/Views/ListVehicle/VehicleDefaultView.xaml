@@ -91,12 +91,13 @@
                         Text="{Binding Coordinates}"
                         VerticalOptions="Center" />
                 </StackLayout>
-                <Grid VerticalOptions="Start"
-                    Grid.Row="2"                
+                <Grid
+                    Grid.Row="2"
                     ColumnDefinitions="Auto,Auto"
                     ColumnSpacing="10"
-                    HeightRequest="35"
-                    IsVisible="{Binding MessageBAP, Converter={StaticResource HasDataConverter}}">
+                    HeightRequest="30"
+                    IsVisible="{Binding MessageBAP, Converter={StaticResource HasDataConverter}}"
+                    VerticalOptions="Start">
                     <controls:IconView Source="ic_fee.png" />
                     <Label
                         Grid.Column="1"
@@ -104,7 +105,6 @@
                         HorizontalOptions="Start"
                         HorizontalTextAlignment="Start"
                         LineBreakMode="TailTruncation"
-                        LineHeight="1.3"
                         MaxLines="2"
                         Text="{Binding MessageBAP}"
                         TextColor="{DynamicResource DangerousColor}"
