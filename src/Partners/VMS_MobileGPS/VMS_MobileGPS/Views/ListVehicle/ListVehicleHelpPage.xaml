@@ -135,7 +135,7 @@
                         Padding="5"
                         Orientation="Horizontal"
                         Spacing="8">
-                        <forms:CachedImage Source="ic_lost_gps.png" VerticalOptions="Center" />
+                        <forms:CachedImage Source="ic_errorgps.png" VerticalOptions="Center" />
                         <Label
                             FontAttributes="Bold"
                             FontSize="12"
