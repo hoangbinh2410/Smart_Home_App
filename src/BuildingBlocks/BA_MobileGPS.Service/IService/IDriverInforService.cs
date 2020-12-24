@@ -12,7 +12,7 @@ namespace BA_MobileGPS.Service
             int pageIndex = 0, DriverOrderByEnum orderBy = DriverOrderByEnum.ASC, DriverSortOderEnum sortOrder = DriverSortOderEnum.DisplayName);
         Task<int> AddDriverInfor(DriverInfor driver); // return Id
         Task<int> UpdateDriverInfor(DriverInfor driver); // return Id
-        Task<int> DeleteDriverInfor(int driverId); // return Id
+        Task<int> DeleteDriverInfor(DriverDeleteRequest driver); // return Id
     }
 
 

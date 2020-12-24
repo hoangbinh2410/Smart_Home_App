@@ -21,7 +21,7 @@ namespace BA_MobileGPS.Service
             int result = -1;
             try
             {
-                string url = $"{ApiUri.POST_UPDATE_DRIVER}";
+                string url = $"{ApiUri.POST_ADDORUPDATE_DRIVER}";
                 var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBaseV2<DriverInfor>>(url, driver);
                 if (response != null && response.Data != null)
                 {
@@ -35,16 +35,16 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<int> DeleteDriverInfor(int driverId)
+        public async Task<int> DeleteDriverInfor(DriverDeleteRequest driver)
         {
             int result = -1;
             try
             {
                 string url = $"{ApiUri.POST_DELETE_DRIVER}";
-                var response = await _IRequestProvider.PostAsync<int, ResponseBaseV2<DriverInfor>>(url, driverId);
-                if (response != null && response.Data != null)
+                var response = await _IRequestProvider.PostAsync<DriverDeleteRequest, ResponseBaseV2<int>>(url, driver);
+                if (response != null)
                 {
-                    result = response.Data.PK_EmployeeID;
+                    result = response.Data;
                 }
             }
             catch (Exception ex)
@@ -62,11 +62,11 @@ namespace BA_MobileGPS.Service
             List<DriverInfor> result = new List<DriverInfor>();
             try
             {
-                string url = $"{ApiUri.GET_LIST_DRIVER}?Fk_CompanyID={companyId}" +
-                    $"&PageSize={pageSize}" +
-                    $"&PageIndex={pageIndex}" +
-                    $"&OrderBy={(int)orderBy}" +
-                    $"&SortOrder={(int)sortOrder}";
+                string url = $"{ApiUri.GET_LIST_DRIVER}?companyId={companyId}";
+                    //$"&PageSize={pageSize}" +
+                    //$"&PageIndex={pageIndex}" +
+                    //$"&OrderBy={(int)orderBy}" +
+                    //$"&SortOrder={(int)sortOrder}";
                 var response = await _IRequestProvider.GetAsync<ResponseBaseV2<DataResponseBase<DriverInfor>>>(url);
                 if (response?.Data != null)
                 {
@@ -85,7 +85,7 @@ namespace BA_MobileGPS.Service
             int result = -1;
             try
             {
-                string url = $"{ApiUri.POST_ADD_DRIVER}";
+                string url = $"{ApiUri.POST_ADDORUPDATE_DRIVER}";
                 var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBaseV2<DriverInfor>>(url, driver);
                 if (response != null && response.Data != null)
                 {

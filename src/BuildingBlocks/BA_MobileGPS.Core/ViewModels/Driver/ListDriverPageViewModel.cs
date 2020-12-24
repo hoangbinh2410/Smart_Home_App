@@ -34,13 +34,14 @@ namespace BA_MobileGPS.Core.ViewModels
             DeleteDriverCommand = new DelegateCommand<object>(DeleteDriver);
             SearchDriverCommand = new DelegateCommand<TextChangedEventArgs>(SearchDriver);
             LoadMoreItemsCommand = new DelegateCommand(LoadMoreItems, CanLoadMoreItems);
-            ListDriver = new ObservableCollection<DriverInfor>();
+            ListDriverDisplay = new ObservableCollection<DriverInfor>();
+            ListDriverSearch = new List<DriverInfor>();
         }
 
         public override void OnPageAppearingFirstTime()
         {
             GetAllDriverData();
-            base.OnPageAppearingFirstTime();          
+            base.OnPageAppearingFirstTime();
         }
 
         private void GetAllDriverData()
@@ -50,9 +51,9 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 IsBusy = true;
             }
-            if (ListDriver.Count > 0)
+            if (ListDriverDisplay.Count > 0)
             {
-                ListDriver.Clear();
+                ListDriverDisplay.Clear();
             }
             RunOnBackground(async () =>
             {
@@ -62,7 +63,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (result != null && result.Count > 0)
                 {
                     ListDriverOrigin = result;
-                    LoadMore();
+                    ListDriverSearch = result;
                 }
                 IsBusy = false;
             });
@@ -70,7 +71,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool CanLoadMoreItems()
         {
-            if (ListDriverOrigin.Count <= pageIndex * pageCount)
+            if (ListDriverSearch.Count <= pageIndex * pageCount)
                 return false;
             return true;
         }
@@ -99,15 +100,18 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                var source = ListDriverOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToList();
+                var source = listDriverSearch.Skip(pageIndex * pageCount).Take(pageCount).ToList();
                 pageIndex++;
-                if (source != null && source.Count() > 0)
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    for (int i = 0; i < source.Count; i++)
+                    if (source != null && source.Count() > 0)
                     {
-                        ListDriver.Add(source[i]);
+                        for (int i = 0; i < source.Count; i++)
+                        {
+                            ListDriverDisplay.Add(source[i]);
+                        }
                     }
-                }
+                });
             }
             catch (Exception ex)
             {
@@ -122,7 +126,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SearchDriver(TextChangedEventArgs args)
         {
-            if (args.NewTextValue == null || string.IsNullOrWhiteSpace(args.NewTextValue))
+            if (args.NewTextValue == null)
                 return;
 
             if (cts != null)
@@ -132,12 +136,18 @@ namespace BA_MobileGPS.Core.ViewModels
             Task.Run(async () =>
             {
                 await Task.Delay(500, cts.Token);
-                return ListDriverOrigin.FindAll(v => v.DisplayName.ToUpper().Contains(SearchedText.ToUpper()));
+
+                if (string.IsNullOrWhiteSpace(args.NewTextValue))
+                {
+                    return ListDriverOrigin;
+                }
+                var temp = ListDriverOrigin.FindAll(v => v.DisplayName.ToUpper().Contains(SearchedText.ToUpper()));
+                return temp;
             }, cts.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
-                    ListDriver = new ObservableCollection<DriverInfor>(task.Result);
+                    ListDriverSearch = task.Result;
                 }
             }));
         }
@@ -145,9 +155,25 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void DeleteDriver(object obj)
         {
-            if (obj != null && obj is Syncfusion.ListView.XForms.ItemTappedEventArgs agrs)
+            if (obj != null && obj is DriverInfor item)
             {
-                var item = (DriverInfor)agrs.ItemData;
+                var req = new DriverDeleteRequest()
+                {
+                    PK_EmployeeID = item.ID,
+                    UpdatedByUser = UserInfo.UserId
+                };
+                RunOnBackground(async () =>
+                {
+                    var temp = await driverInforService.DeleteDriverInfor(req);
+                    return temp;
+                }, result =>
+                {
+                    if (result == item.ID)
+                    {
+                        GetAllDriverData();
+                    }
+                });
+
             }
         }
 
@@ -158,13 +184,37 @@ namespace BA_MobileGPS.Core.ViewModels
                 var item = (DriverInfor)agrs.ItemData;
             }
         }
+        private List<DriverInfor> listDriverSearch;
+        public List<DriverInfor> ListDriverSearch
+        {
+            get { return listDriverSearch; }
+            set
+            {
+                SetProperty(ref listDriverSearch, value);
+                if (ViewHasAppeared)
+                {
+                    SourceChange();
+                }
+            }
+        }
+
+        private void SourceChange()
+        {
+            ListDriverDisplay.Clear();
+            pageIndex = 0;
+            LoadMore();
+        }
 
         private List<DriverInfor> ListDriverOrigin { get; set; } = new List<DriverInfor>();
-        private ObservableCollection<DriverInfor> listDriver;
-        public ObservableCollection<DriverInfor> ListDriver
+        private ObservableCollection<DriverInfor> listDriverDisplay;
+        public ObservableCollection<DriverInfor> ListDriverDisplay
         {
-            get { return listDriver; }
-            set { SetProperty(ref listDriver, value); }
+            get { return listDriverDisplay; }
+            set
+            {
+                SetProperty(ref listDriverDisplay, value);
+                RaisePropertyChanged();
+            }
         }
         private bool listViewBusy;
         public bool ListViewBusy
