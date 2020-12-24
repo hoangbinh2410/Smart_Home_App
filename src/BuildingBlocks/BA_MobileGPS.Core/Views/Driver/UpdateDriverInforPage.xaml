@@ -3,11 +3,23 @@
     x:Class="BA_MobileGPS.Core.Views.UpdateDriverInforPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:prism="http://prismlibrary.com"
+    xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     x:Name="this"
     Title="Thông tin lái xe"
     prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <Style TargetType="input:SfTextInputLayout">
+            <Setter Property="ContainerBackgroundColor" Value="{DynamicResource WhiteColor}" />
+            <Setter Property="ContainerType" Value="Outlined" />
+            <Setter Property="OutlineCornerRadius" Value="30" />
+        </Style>
+    </ContentPage.Resources>
     <NavigationPage.TitleView>
         <Grid
             Padding="0,0,10,0"
@@ -19,16 +31,16 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <image:CachedImage
+            <ffImage:CachedImage
                 Grid.Column="0"
                 HeightRequest="27"
                 HorizontalOptions="Start"
                 Source="ic_close.png"
                 VerticalOptions="Center">
-                <image:CachedImage.GestureRecognizers>
+                <ffImage:CachedImage.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
-                </image:CachedImage.GestureRecognizers>
-            </image:CachedImage>
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
             <Label
                 Grid.ColumnSpan="3"
                 FontAttributes="Bold"
@@ -40,5 +52,231 @@
                 VerticalOptions="Center" />
         </Grid>
     </NavigationPage.TitleView>
-    <Grid />
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Spacing="0">
+                <Grid>
+                    <Grid Padding="0">
+                        <ffImage:CachedImage
+                            Aspect="AspectFill"
+                            Source="bg_Account.png"
+                            VerticalOptions="FillAndExpand" />
+                    </Grid>
+                    <Grid
+                        Margin="30,0,30,20"
+                        ColumnDefinitions="90,*"
+                        ColumnSpacing="10"
+                        VerticalOptions="EndAndExpand">
+                        <pancake:PancakeView
+                            Padding="0"
+                            BackgroundColor="Transparent"
+                            CornerRadius="45"
+                            HeightRequest="90"
+                            VerticalOptions="Center"
+                            WidthRequest="90">
+                            <pancake:PancakeView.Border>
+                                <pancake:Border Thickness="1" Color="White" />
+                            </pancake:PancakeView.Border>
+                            <pancake:PancakeView
+                                Padding="0"
+                                CornerRadius="40"
+                                HeightRequest="80"
+                                HorizontalOptions="Center"
+                                IsClippedToBounds="True"
+                                VerticalOptions="Center"
+                                WidthRequest="80">
+                                <ffImage:CachedImage Aspect="AspectFill" Source="{Binding UserInfo.AvatarUrl, Converter={StaticResource AddRootImageConverter}}" />
+                            </pancake:PancakeView>
+                        </pancake:PancakeView>
+                        <StackLayout
+                            Grid.Column="1"
+                            Spacing="7"
+                            VerticalOptions="Center">
+                            <Label
+                                FontAttributes="Bold"
+                                FontFamily="{StaticResource myFontLatoBold}"
+                                HorizontalOptions="StartAndExpand"
+                                HorizontalTextAlignment="Start"
+                                LineBreakMode="TailTruncation"
+                                MaxLines="2"
+                                Text="{Binding UserInfo.FullName, Converter={StaticResource UpperCaseConverter}}"
+                                TextColor="{DynamicResource WhiteColor}" />
+                            <Label
+                                Margin="5,0,0,0"
+                                HorizontalOptions="Start"
+                                IsVisible="{Binding IsShowPhoneNumber}"
+                                Text="{Binding UserInfo.PhoneNumber}"
+                                TextColor="{DynamicResource WhiteColor}" />
+
+                        </StackLayout>
+                    </Grid>
+                </Grid>
+                <StackLayout Padding="10" Spacing="0">
+                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{i18n:TranslateResource UserInfo_Label_FullName}" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text=" (*)" TextColor="OrangeRed" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <input:SfTextInputLayout
+                        ErrorText="{Binding FullNameErrorMessage}"
+                        HasError="{Binding FullNameHasError}"
+                        VerticalOptions="Start">
+
+                        <Entry
+                            MaxLength="250"
+                            Placeholder="{i18n:TranslateResource UserInfo_Label_FullName}"
+                            Text="{Binding CurrentUser.FullName}" />
+                    </input:SfTextInputLayout>
+                    <Label
+                        FontAttributes="Bold"
+                        HorizontalOptions="StartAndExpand"
+                        IsVisible="{Binding IsShowPhoneNumber}"
+                        VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{i18n:TranslateResource UserInfo_Label_PhoneNumber}" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text=" (*)" TextColor="{DynamicResource DangerousColor}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        ErrorColor="{DynamicResource DangerousColor}"
+                        ErrorText="{Binding PhoneNumberErrorMessage}"
+                        HasError="{Binding PhoneNumberHasError}"
+                        IsVisible="{Binding IsShowPhoneNumber}">
+
+                        <Entry
+                            Keyboard="Telephone"
+                            MaxLength="50"
+                            Placeholder="{i18n:TranslateResource UserInfo_Label_PhoneNumber}"
+                            Text="{Binding CurrentUser.PhoneNumber}" />
+                    </input:SfTextInputLayout>
+                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{i18n:TranslateResource UserInfo_Label_Address}" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text=" (*)" TextColor="OrangeRed" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        ErrorColor="{DynamicResource DangerousColor}"
+                        ErrorText="{Binding EmailErrorMessage}"
+                        HasError="{Binding EmailHasError}"
+                        VerticalOptions="Start">
+
+                        <Entry
+                            Keyboard="Email"
+                            MaxLength="50"
+                            Placeholder="{i18n:TranslateResource UserInfo_Label_Email}"
+                            Text="{Binding CurrentUser.Email}" />
+                    </input:SfTextInputLayout>
+                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{i18n:TranslateResource UserInfo_Label_Address}" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text=" (*)" TextColor="OrangeRed" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        ErrorColor="{DynamicResource DangerousColor}"
+                        ErrorText="{Binding AddressErrorMessage}"
+                        HasError="{Binding AddressHasError}">
+
+                        <Entry
+                            MaxLength="250"
+                            Placeholder="{i18n:TranslateResource UserInfo_Label_Address}"
+                            Text="{Binding CurrentUser.Address}" />
+                    </input:SfTextInputLayout>
+                    <Label HorizontalOptions="Start" VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{i18n:TranslateResource UserInfo_Label_Address}" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text=" (*)" TextColor="OrangeRed" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <input:SfTextInputLayout
+                        ErrorColor="{DynamicResource DangerousColor}"
+                        ErrorText="{Binding DateOfBirthErrorMessage}"
+                        HasError="{Binding DateOfBirthHasError}"
+                        VerticalOptions="Start">
+
+                        <controls:NullableDatePicker
+                            Format="{Binding DateFormat}"
+                            NullableDate="{Binding CurrentUser.DateOfBirth}"
+                            PlaceHolder=""
+                            TextColor="{DynamicResource TextPrimaryColor}" />
+                    </input:SfTextInputLayout>
+
+                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{i18n:TranslateResource UserInfo_Label_Address}" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text=" (*)" TextColor="OrangeRed" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        ErrorColor="{DynamicResource DangerousColor}"
+                        ErrorText="{Binding CareerErrorMessage}"
+                        HasError="{Binding CareerHasError}">
+
+                        <Entry
+                            MaxLength="250"
+                            Placeholder="{i18n:TranslateResource UserInfo_Label_Career}"
+                            Text="{Binding CurrentUser.Career}" />
+                    </input:SfTextInputLayout>
+                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{i18n:TranslateResource UserInfo_Label_Address}" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text=" (*)" TextColor="OrangeRed" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        ErrorColor="{DynamicResource DangerousColor}"
+                        ErrorText="{Binding RoleErrorMessage}"
+                        HasError="{Binding RoleHasError}">
+
+                        <Entry
+                            MaxLength="250"
+                            Placeholder="{i18n:TranslateResource UserInfo_Label_Role}"
+                            Text="{Binding CurrentUser.Role}" />
+                    </input:SfTextInputLayout>
+
+                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{i18n:TranslateResource UserInfo_Label_Address}" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text=" (*)" TextColor="OrangeRed" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        ErrorColor="{DynamicResource DangerousColor}"
+                        ErrorText="{Binding FacebookErrorMessage}"
+                        HasError="{Binding FacebookHasError}">
+                        <Entry
+                            MaxLength="250"
+                            Placeholder="{i18n:TranslateResource UserInfo_Label_Facebook}"
+                            Text="{Binding CurrentUser.Facebook}" />
+                    </input:SfTextInputLayout>
+                </StackLayout>
+
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
 </ContentPage>

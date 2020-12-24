@@ -186,7 +186,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var item = (DriverInfor)agrs.ItemData;
                 var param = new NavigationParameters();
                 param.Add(ParameterKey.DriverInformation, item);
-                NavigationService.NavigateAsync("BaseNavigationPage/UpdateDriverInforPage", param, true,true);
+                NavigationService.NavigateAsync("NavigationPage/UpdateDriverInforPage", param, true,true);
             }
         }
         private List<DriverInfor> listDriverSearch;
