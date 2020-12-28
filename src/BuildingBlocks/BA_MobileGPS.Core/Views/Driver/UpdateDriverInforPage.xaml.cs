@@ -6,7 +6,16 @@ namespace BA_MobileGPS.Core.Views
     {
         public UpdateDriverInforPage()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (System.Exception ex)
+            {
+
+               
+            }
+            
         }
     }
 }

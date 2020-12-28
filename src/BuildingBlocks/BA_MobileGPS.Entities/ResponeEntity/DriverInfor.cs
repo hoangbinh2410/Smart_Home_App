@@ -9,17 +9,19 @@ namespace BA_MobileGPS.Entities
     public class DriverInfor : BaseModel
     {
         public int ID { get; set; }
-        public int PK_EmployeeID { get; set; } // Dung cho update, = ID
-        public string EmployeeCode { get; set; } 
-        public int FK_CompanyID { get; set; } 
-       // public int FK_DepartmentID { get; set; } 
-        public string Name { get; set; } 
+        public int PK_EmployeeID { get; set; }
+        public string EmployeeCode { get; set; } = string.Empty;
+        public int FK_CompanyID { get; set; }
+        // public int FK_DepartmentID { get; set; } 
+        public string Name { get; set; }
         public string DisplayName { get; set; } //Họ tên require
         public DateTime Birthday { get; set; } //Ngày sinh require
         public string DriverImage { get; set; }
-      //   public bool Sex { get; set; } 
         public string Address { get; set; } //Địa chỉ  require
         public string Mobile { get; set; } //Số điện thoại require
+        public string PhoneNumber1 { get; set; }
+        public string PhoneNumber2 { get; set; }
+        public int Sex { get; set; }
         public string IdentityNumber { get; set; } //Số CMND require
         public int LicenseType { get; set; } //Loại bằng lái require
         public string DriverLicense { get; set; } //Số bằng lái require
@@ -31,10 +33,14 @@ namespace BA_MobileGPS.Entities
         public DateTime UpdatedDate { get; set; } //Ngày sua require
 
         [JsonIgnore]
-        public DriverLicenseEnum LicenseTypeName
+        public DriverLicenseEnum? LicenseTypeName
         {
-            get 
-            { 
+            get
+            {
+                if (LicenseType == 0)
+                {
+                    return null;
+                }
                 return (DriverLicenseEnum)LicenseType;
             }
             set
@@ -57,7 +63,7 @@ namespace BA_MobileGPS.Entities
             }
             set
             {
-                DriverImage = value;                
+                DriverImage = value;
             }
         }
 
@@ -71,11 +77,17 @@ namespace BA_MobileGPS.Entities
 
     public enum DriverLicenseEnum
     {
-        A1,
-        A2,
-        A3,
-        A4,
-        B1, B2, C, D, E, F
+        
+        A1 = 1,
+        A2 = 2,
+        A3 = 3,
+        A4 = 4,
+        B1 = 5,
+        B2 = 6,
+        C = 7,
+        D = 8,
+        E = 9,
+        F = 10
     }
 
 

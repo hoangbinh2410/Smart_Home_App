@@ -172,6 +172,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 MenuKey = "ListDriverPage"
             };
             notFavorites.Add(listDriver);
+            //Thêm mới lái xe
+            var addDriver = new HomeMenuItemViewModel()
+            {
+                NameByCulture = "Thêm mới lái xe",
+                MenuKey = "UpdateDriverInforPage"
+            };
+            notFavorites.Add(addDriver);
             ///
             GenerateListFeatures(notFavorites);
             HasFavorite = FavouriteMenuItems.Count != 0;

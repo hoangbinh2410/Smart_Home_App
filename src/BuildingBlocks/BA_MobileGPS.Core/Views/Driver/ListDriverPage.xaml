@@ -89,6 +89,7 @@
                 <Entry
                     x:Name="entrySearchVehicle"
                     HorizontalOptions="FillAndExpand"
+                    Placeholder="Tìm tên lái xe"
                     Text="{Binding SearchedText}">
                     <Entry.Behaviors>
                         <prism:EventToCommandBehavior
@@ -144,7 +145,6 @@
                                     VerticalOptions="Center" />
                             </pancake:PancakeView>
                         </Grid>
-
                     </DataTemplate>
                 </syncfusionList:SfListView.RightSwipeTemplate>
                 <syncfusionList:SfListView.ItemTemplate>
@@ -226,26 +226,21 @@
                 </syncfusionList:SfListView.ItemTemplate>
             </syncfusionList:SfListView>
             <busyIndicator:SfBusyIndicator IsBusy="{Binding IsBusy}" />
-            <!--<StackLayout
+            <StackLayout
                 BackgroundColor="Transparent"
                 HorizontalOptions="Center"
-                IsVisible="{Binding ListDriverDisplay, Converter={StaticResource IsEmptyDataConverter}}"
+                IsVisible="{Binding ListDriverSearch, Converter={StaticResource IsEmptyDataConverter}}"
                 Spacing="10"
                 VerticalOptions="Center">
-            -->
-            <!--  Image for display svg image  -->
-            <!--
+                <!--  Image for display svg image  -->
                 <ffsvg:SvgCachedImage
                     HeightRequest="200"
                     Source="NoItem.svg"
                     VerticalOptions="Center"
                     WidthRequest="200" />
-            -->
-            <!--  Label to display content  -->
-            <!--
+                <!--  Label to display content  -->
                 <Label Text="{i18n:TranslateResource Common_Message_NoData}" VerticalTextAlignment="Center" />
-            </StackLayout>-->
+            </StackLayout>
         </Grid>
-
     </Grid>
 </ContentPage>

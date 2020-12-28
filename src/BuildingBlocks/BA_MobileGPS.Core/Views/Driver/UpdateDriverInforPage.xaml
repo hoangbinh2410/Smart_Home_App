@@ -3,10 +3,9 @@
     x:Class="BA_MobileGPS.Core.Views.UpdateDriverInforPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
@@ -18,6 +17,7 @@
             <Setter Property="ContainerBackgroundColor" Value="{DynamicResource WhiteColor}" />
             <Setter Property="ContainerType" Value="Outlined" />
             <Setter Property="OutlineCornerRadius" Value="30" />
+            <Setter Property="ErrorColor" Value="{DynamicResource DangerousColor}" />
         </Style>
     </ContentPage.Resources>
     <NavigationPage.TitleView>
@@ -50,6 +50,17 @@
                 Text="{Binding Source={x:Reference this}, Path=Title}"
                 TextColor="White"
                 VerticalOptions="Center" />
+            <controls:IconView
+                Grid.Column="2"
+                Foreground="{DynamicResource WhiteColor}"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_save.png"
+                VerticalOptions="Center">
+                <controls:IconView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SaveDriverInforCommand}" />
+                </controls:IconView.GestureRecognizers>
+            </controls:IconView>
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
@@ -104,18 +115,18 @@
                             <Label
                                 Margin="5,0,0,0"
                                 HorizontalOptions="Start"
-                                IsVisible="{Binding IsShowPhoneNumber}"
                                 Text="{Binding UserInfo.PhoneNumber}"
                                 TextColor="{DynamicResource WhiteColor}" />
 
                         </StackLayout>
                     </Grid>
                 </Grid>
-                <StackLayout Padding="10" Spacing="0">
+                <StackLayout Padding="15,5" Spacing="5">
+                    <!--  Tên  -->
                     <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{i18n:TranslateResource UserInfo_Label_FullName}" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text="Họ tên" TextColor="{DynamicResource TextPrimaryColor}" />
                                 <Span Text=" (*)" TextColor="OrangeRed" />
                             </FormattedString>
                         </Label.FormattedText>
@@ -124,158 +135,177 @@
                         ErrorText="{Binding FullNameErrorMessage}"
                         HasError="{Binding FullNameHasError}"
                         VerticalOptions="Start">
-
                         <Entry
-                            MaxLength="250"
-                            Placeholder="{i18n:TranslateResource UserInfo_Label_FullName}"
-                            Text="{Binding CurrentUser.FullName}" />
+                            MaxLength="80"
+                            Placeholder="Nhập họ tên"
+                            Text="{Binding Driver.DisplayName}" />
                     </input:SfTextInputLayout>
-                    <Label
-                        FontAttributes="Bold"
-                        HorizontalOptions="StartAndExpand"
-                        IsVisible="{Binding IsShowPhoneNumber}"
-                        VerticalOptions="Start">
+                    <!--  Ngày sinh  -->
+                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{i18n:TranslateResource UserInfo_Label_PhoneNumber}" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text="Ngày sinh" TextColor="{DynamicResource TextPrimaryColor}" />
                                 <Span Text=" (*)" TextColor="{DynamicResource DangerousColor}" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
                     <input:SfTextInputLayout
+                        ErrorText="{Binding BirthDayErrorMessage}"
+                        HasError="{Binding BirthDayHasError}"
+                        VerticalOptions="Start">
+                        <controls:NullableDatePicker
+                            Format="{Binding DateFormat}"
+                            HeightRequest="48"
+                            NullableDate="{Binding BirthDay}"
+                            PlaceHolder="Chọn ngày sinh"
+                            TextColor="{DynamicResource TextPrimaryColor}" />
+                    </input:SfTextInputLayout>
+                    <!--  CMND  -->
+                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Số CMDND" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text=" (*)" TextColor="OrangeRed" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <input:SfTextInputLayout
                         ContainerType="Outlined"
-                        ErrorColor="{DynamicResource DangerousColor}"
-                        ErrorText="{Binding PhoneNumberErrorMessage}"
-                        HasError="{Binding PhoneNumberHasError}"
-                        IsVisible="{Binding IsShowPhoneNumber}">
-
+                        ErrorText="{Binding CMNDErrorMessage}"
+                        HasError="{Binding CMNDHasError}"
+                        VerticalOptions="Start">
+                        <Entry
+                            Keyboard="Numeric"
+                            MaxLength="50"
+                            Placeholder="Nhập số CMDND"
+                            Text="{Binding Driver.IdentityNumber}" />
+                    </input:SfTextInputLayout>
+                    <!--  SDT  -->
+                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Số điện thoại" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text=" (*)" TextColor="OrangeRed" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        ErrorText="{Binding PhoneNumErrorMessage}"
+                        HasError="{Binding PhoneNumHasError}">
                         <Entry
                             Keyboard="Telephone"
-                            MaxLength="50"
-                            Placeholder="{i18n:TranslateResource UserInfo_Label_PhoneNumber}"
-                            Text="{Binding CurrentUser.PhoneNumber}" />
-                    </input:SfTextInputLayout>
-                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="{i18n:TranslateResource UserInfo_Label_Address}" TextColor="{DynamicResource TextPrimaryColor}" />
-                                <Span Text=" (*)" TextColor="OrangeRed" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <input:SfTextInputLayout
-                        ContainerType="Outlined"
-                        ErrorColor="{DynamicResource DangerousColor}"
-                        ErrorText="{Binding EmailErrorMessage}"
-                        HasError="{Binding EmailHasError}"
-                        VerticalOptions="Start">
-
-                        <Entry
-                            Keyboard="Email"
-                            MaxLength="50"
-                            Placeholder="{i18n:TranslateResource UserInfo_Label_Email}"
-                            Text="{Binding CurrentUser.Email}" />
-                    </input:SfTextInputLayout>
-                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="{i18n:TranslateResource UserInfo_Label_Address}" TextColor="{DynamicResource TextPrimaryColor}" />
-                                <Span Text=" (*)" TextColor="OrangeRed" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <input:SfTextInputLayout
-                        ContainerType="Outlined"
-                        ErrorColor="{DynamicResource DangerousColor}"
-                        ErrorText="{Binding AddressErrorMessage}"
-                        HasError="{Binding AddressHasError}">
-
-                        <Entry
                             MaxLength="250"
-                            Placeholder="{i18n:TranslateResource UserInfo_Label_Address}"
-                            Text="{Binding CurrentUser.Address}" />
+                            Placeholder="Nhập số điện thoại"
+                            Text="{Binding Driver.Mobile}" />
                     </input:SfTextInputLayout>
+                    <!--  Địa chỉ  -->
                     <Label HorizontalOptions="Start" VerticalOptions="Start">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{i18n:TranslateResource UserInfo_Label_Address}" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text="Địa chỉ" TextColor="{DynamicResource TextPrimaryColor}" />
                                 <Span Text=" (*)" TextColor="OrangeRed" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
                     <input:SfTextInputLayout
-                        ErrorColor="{DynamicResource DangerousColor}"
-                        ErrorText="{Binding DateOfBirthErrorMessage}"
-                        HasError="{Binding DateOfBirthHasError}"
+                        ErrorText="{Binding AddressErrorMessage}"
+                        HasError="{Binding AddressHasError}"
                         VerticalOptions="Start">
+                        <Entry
+                            MaxLength="250"
+                            Placeholder="Nhập địa chỉ"
+                            Text="{Binding Driver.Address}" />
+                    </input:SfTextInputLayout>
+                    <!--  Loại băng lái  -->
+                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Loại bằng lái" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text=" (*)" TextColor="OrangeRed" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        ErrorText="{Binding SelectLicenseTypeErrorMessage}"
+                        HasError="{Binding SelectLicenseTypeHasError}">
+                        <Grid>
+                            <Picker
+                                FontSize="{DynamicResource MyFontSize}"
+                                HorizontalTextAlignment="Start"
+                                ItemsSource="{Binding ListDriverLicenseType}"
+                                SelectedIndex="{Binding SelectedLicenseType}"
+                                TitleColor="{DynamicResource PrimaryColor}">
+                                <Picker.Effects>
+                                    <effects:BorderlessEffect />
+                                </Picker.Effects>
+                            </Picker>
+                            <controls:IconView
+                                Foreground="{DynamicResource BlackColor}"
+                                HeightRequest="15"
+                                HorizontalOptions="End"
+                                Source="ic_sortdown"
+                                VerticalOptions="Center"
+                                WidthRequest="15" />
+                        </Grid>
 
+                    </input:SfTextInputLayout>
+                    <!--  Số bằng  -->
+                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Số bằng lái xe" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text=" (*)" TextColor="OrangeRed" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <input:SfTextInputLayout
+                        ContainerType="Outlined"
+                        ErrorText="{Binding DriverLicenseErrorMessage}"
+                        HasError="{Binding DriverLicenseHasError}">
+                        <Entry
+                            MaxLength="250"
+                            Placeholder="Nhập số bằng lái xe"
+                            Text="{Binding Driver.DriverLicense}" />
+                    </input:SfTextInputLayout>
+                    <!--  Ngày cấp bằng  -->
+                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Ngày cấp" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text=" (*)" TextColor="OrangeRed" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <input:SfTextInputLayout VerticalOptions="Start">
                         <controls:NullableDatePicker
+                            FontSize="{DynamicResource MyFontSize}"
                             Format="{Binding DateFormat}"
-                            NullableDate="{Binding CurrentUser.DateOfBirth}"
-                            PlaceHolder=""
+                            HeightRequest="48"
+                            NullableDate="{Binding IssueDate}"
                             TextColor="{DynamicResource TextPrimaryColor}" />
                     </input:SfTextInputLayout>
-
-                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                    <!--  Ngày hết hạn bằng  -->
+                    <Label HorizontalOptions="Start" VerticalOptions="Start">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{i18n:TranslateResource UserInfo_Label_Address}" TextColor="{DynamicResource TextPrimaryColor}" />
+                                <Span Text="Ngày hết hạn" TextColor="{DynamicResource TextPrimaryColor}" />
                                 <Span Text=" (*)" TextColor="OrangeRed" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
                     <input:SfTextInputLayout
-                        ContainerType="Outlined"
-                        ErrorColor="{DynamicResource DangerousColor}"
-                        ErrorText="{Binding CareerErrorMessage}"
-                        HasError="{Binding CareerHasError}">
-
-                        <Entry
-                            MaxLength="250"
-                            Placeholder="{i18n:TranslateResource UserInfo_Label_Career}"
-                            Text="{Binding CurrentUser.Career}" />
-                    </input:SfTextInputLayout>
-                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="{i18n:TranslateResource UserInfo_Label_Address}" TextColor="{DynamicResource TextPrimaryColor}" />
-                                <Span Text=" (*)" TextColor="OrangeRed" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <input:SfTextInputLayout
-                        ContainerType="Outlined"
-                        ErrorColor="{DynamicResource DangerousColor}"
-                        ErrorText="{Binding RoleErrorMessage}"
-                        HasError="{Binding RoleHasError}">
-
-                        <Entry
-                            MaxLength="250"
-                            Placeholder="{i18n:TranslateResource UserInfo_Label_Role}"
-                            Text="{Binding CurrentUser.Role}" />
-                    </input:SfTextInputLayout>
-
-                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="{i18n:TranslateResource UserInfo_Label_Address}" TextColor="{DynamicResource TextPrimaryColor}" />
-                                <Span Text=" (*)" TextColor="OrangeRed" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <input:SfTextInputLayout
-                        ContainerType="Outlined"
-                        ErrorColor="{DynamicResource DangerousColor}"
-                        ErrorText="{Binding FacebookErrorMessage}"
-                        HasError="{Binding FacebookHasError}">
-                        <Entry
-                            MaxLength="250"
-                            Placeholder="{i18n:TranslateResource UserInfo_Label_Facebook}"
-                            Text="{Binding CurrentUser.Facebook}" />
+                        ErrorText="{Binding ExpireLicenseDateErrorMessage}"
+                        HasError="{Binding ExpireLicenseDateHasError}"
+                        VerticalOptions="Start">
+                        <controls:NullableDatePicker
+                            Format="{Binding DateFormat}"
+                            HeightRequest="48"
+                            NullableDate="{Binding ExpiredDate}"
+                            TextColor="{DynamicResource TextPrimaryColor}" />
                     </input:SfTextInputLayout>
                 </StackLayout>
-
-
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

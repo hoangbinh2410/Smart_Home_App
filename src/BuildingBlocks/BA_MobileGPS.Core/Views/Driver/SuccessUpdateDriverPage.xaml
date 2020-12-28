@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.SuccessUpdateDriverPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:abstractions="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
+    xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:prism="http://prismlibrary.com"
+    x:Name="this"
+    Title="Thêm lái xe thành công"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <NavigationPage.TitleView>
+        <Grid
+            Padding="0,0,10,0"
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <image:CachedImage
+                Grid.Column="0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <image:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </image:CachedImage.GestureRecognizers>
+            </image:CachedImage>
+            <Label
+                Grid.ColumnSpan="3"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="CenterAndExpand"
+                LineBreakMode="MiddleTruncation"
+                Text="{Binding Source={x:Reference this}, Path=Title}"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
+    <StackLayout
+        Padding="20"
+        BackgroundColor="Red"
+        HorizontalOptions="Fill"
+        Spacing="15">
+        <image:CachedImage
+            Grid.Column="0"
+            HeightRequest="80"
+            HorizontalOptions="Center"
+            Source="add_success.png"
+            WidthRequest="80" />
+        <abstractions:HtmlLabel
+            FontSize="{DynamicResource MyFontSizeLarge}"
+            Text="Bạn đã thêm lái xe thành công"
+            TextColor="#8BC34A" />
+        <Label Text="Tiếp tục thêm lái xe mới?" />
+        <Button
+            Command="{Binding ContinueInsertCommand}"
+            CornerRadius="20"
+            HorizontalOptions="Center"
+            Text="Tiếp tục thêm"
+            WidthRequest="120" />
+        <Button
+            Command="{Binding CloseCommand}"
+            CornerRadius="20"
+            HorizontalOptions="Center"
+            Text="Đóng"
+            WidthRequest="120" />
+    </StackLayout>
+</ContentPage>

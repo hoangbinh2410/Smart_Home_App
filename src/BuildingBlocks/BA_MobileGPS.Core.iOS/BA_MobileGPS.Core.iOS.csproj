@@ -2243,5 +2243,8 @@
   <ItemGroup>
     <BundleResource Include="Resources\ic_driverlicense%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\add_success.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
