@@ -367,9 +367,6 @@
 	  <EmbeddedResource Update="Views\Driver\UpdateDriverInforPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Driver\SuccessUpdateDriverPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Update="Views\Vehicle\VehicleDebtMoneyPage.xaml">

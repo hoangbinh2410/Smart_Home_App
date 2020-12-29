@@ -39,10 +39,10 @@ namespace BA_MobileGPS.Core.ViewModels
             ListDriverSearch = new List<DriverInfor>();
         }
 
-        public override void OnPageAppearingFirstTime()
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            GetAllDriverData();
-            base.OnPageAppearingFirstTime();
+            base.OnNavigatedTo(parameters);
+            GetAllDriverData();            
         }
 
         private void GetAllDriverData()
@@ -120,11 +120,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-        }
-
         private void SearchDriver(TextChangedEventArgs args)
         {
             if (args.NewTextValue == null)
@@ -160,7 +155,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var req = new DriverDeleteRequest()
                 {
-                    PK_EmployeeID = item.ID,
+                    PK_EmployeeID = item.PK_EmployeeID,
                     UpdatedByUser = UserInfo.UserId
                 };
                 RunOnBackground(async () =>
@@ -169,7 +164,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     return temp;
                 }, result =>
                 {
-                    if (result == item.ID)
+                    if (result == item.PK_EmployeeID)
                     {
                         GetAllDriverData();
                         SearchedText = string.Empty;

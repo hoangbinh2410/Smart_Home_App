@@ -155,7 +155,10 @@
                                     Margin="5"
                                     ColumnDefinitions="Auto,*"
                                     VerticalOptions="StartAndExpand">
-                                    <image:CachedImage HeightRequest="50" Source="{Binding AvartarDisplay}" />
+                                    <image:CachedImage
+                                        HeightRequest="50"
+                                        Source="{Binding AvartarDisplay}"
+                                        WidthRequest="50" />
                                     <StackLayout
                                         Grid.Column="1"
                                         HorizontalOptions="Fill"

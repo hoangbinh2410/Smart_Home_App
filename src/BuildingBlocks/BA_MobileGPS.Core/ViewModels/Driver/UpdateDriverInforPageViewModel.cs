@@ -9,49 +9,80 @@ using System.Linq;
 using System.Windows.Input;
 using System.Globalization;
 using BA_MobileGPS.Utilities;
-
+using BA_MobileGPS.Core.Resources;
+using Plugin.Media;
+using Xamarin.Forms;
+using BA_MobileGPS.Core.Helpers;
+using Plugin.Media.Abstractions;
+using XamStorage;
+using System.IO;
+using BA_MobileGPS.Utilities.Constant;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class UpdateDriverInforPageViewModel : ViewModelBase
     {
         private readonly IDriverInforService driverInforService;
-        private readonly string NotEmptyMessenge = "Đây là trường bắt buộc";
+        private readonly IUserService userService;
+        private const string NotEmptyMessenge = "Đây là trường bắt buộc";
+        private const string updateTitle = "Xem thông tin lái xe";
+        private const string addTitle = "Nhập thông tin lái xe";
+        private const string successTitle = "Thêm lái xe thành công";
+        //private readonly string MinDateMessenger = "Ngày quá bé";
         public ICommand SaveDriverInforCommand { get; }
-        private bool IsInsertpage = false;
-        public UpdateDriverInforPageViewModel(INavigationService navigationService, IDriverInforService driverInforService) : base(navigationService)
+        public ICommand ContinueInsertCommand { get; }
+        public ICommand ChangeDriverAvtarCommand { get; }
+        private bool IsInsertpage = true;
+        public UpdateDriverInforPageViewModel(INavigationService navigationService, IDriverInforService driverInforService,
+            IUserService userService) : base(navigationService)
         {
             this.driverInforService = driverInforService;
+            this.userService = userService;
             SaveDriverInforCommand = new DelegateCommand(SaveDriverInfor);
+            ContinueInsertCommand = new DelegateCommand(ContinueInsert);
+            ChangeDriverAvtarCommand = new DelegateCommand(ChangeDriverAvtar);
             SetLicenseTypeSource();
+            SetGenderSource();
             InitValidations();
+            showSuccessScreen = false;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.TryGetValue(ParameterKey.DriverInformation, out DriverInfor driver))
+            if (parameters?.GetValue<string>(ParameterKey.ImageLocation) is string imageLocation)
             {
-                // Form Edit
-                Driver = driver;
-                SelectedLicenseType = driver.LicenseType;
-                BirthDay = driver.Birthday == null ? DateTime.Now.Date : driver.Birthday;
-                IssueDate = driver.IssueLicenseDate == null ? DateTime.Now.Date : driver.IssueLicenseDate;
-                ExpiredDate = driver.ExpireLicenseDate == null ? DateTime.Now.Date : driver.ExpireLicenseDate;
-                IsInsertpage = true;
+                newAvatarPath = imageLocation;
+                AvartarDisplay = imageLocation;
             }
             else
             {
-                // Form thêm mới
-                Driver = new DriverInfor();
-                Driver.FK_CompanyID = UserInfo.CompanyId;
-                SelectedLicenseType = 0;
-                Driver.CreatedDate = DateTime.Now;
-                Driver.CreatedByUser = UserInfo.UserId.ToString();
-                BirthDay = DateTime.Now.Date;
-                IssueDate = DateTime.Now.Date;
-                ExpiredDate = DateTime.Now.Date;              
+                if (parameters.TryGetValue(ParameterKey.DriverInformation, out DriverInfor driver))
+                {
+                    // Form Edit
+                    Driver = driver;
+                    IsInsertpage = false;
+                    PageTitle = updateTitle;
+                }
+                else
+                {
+                    // Form thêm mới
+                    Driver = new DriverInfor();
+                    Driver.FK_CompanyID = UserInfo.CompanyId;
+                    PageTitle = addTitle;
+                }
+                SetData(Driver);
+
             }
+
+        }
+        private string newAvatarPath { get; set; } = string.Empty;
+
+        private string avartarDisplay;
+        public string AvartarDisplay
+        {
+            get { return avartarDisplay; }
+            set { SetProperty(ref avartarDisplay, value); }
         }
 
         private DriverInfor driver;
@@ -61,26 +92,30 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref driver, value); }
         }
 
-        private DateTime birthDay;
-        public DateTime BirthDay
+        private ValidatableObject<DateTime> birthDay;
+        public ValidatableObject<DateTime> BirthDay
         {
             get { return birthDay; }
             set { SetProperty(ref birthDay, value); }
         }
-        private DateTime issueDate;
-        public DateTime IssueDate
+        private ValidatableObject<DateTime> issueDate;
+        public ValidatableObject<DateTime> IssueDate
         {
             get { return issueDate; }
-            set { SetProperty(ref issueDate, value);
-                ExpireLicenseDateHasError = false;
+            set
+            {
+                SetProperty(ref issueDate, value);
+
             }
         }
-        private DateTime expiredDate;
-        public DateTime ExpiredDate
+        private ValidatableObject<DateTime> expiredDate;
+        public ValidatableObject<DateTime> ExpiredDate
         {
             get { return expiredDate; }
-            set { SetProperty(ref expiredDate, value);
-                ExpireLicenseDateHasError = false;
+            set
+            {
+                SetProperty(ref expiredDate, value);
+
             }
         }
 
@@ -119,69 +154,161 @@ namespace BA_MobileGPS.Core.ViewModels
         public int SelectedLicenseType
         {
             get => selectedLicenseType;
-            set { SetProperty(ref selectedLicenseType, value); }
+            set
+            {
+                SetProperty(ref selectedLicenseType, value);
+                SelectLicenseTypeHasError = false;
+            }
         }
-
-        private bool expireLicenseDateHasError;
-        public bool ExpireLicenseDateHasError
+        private byte selectedGender;
+        public byte SelectedGender
         {
-            get { return expireLicenseDateHasError; }
-            set { SetProperty(ref expireLicenseDateHasError, value); }
+            get { return selectedGender; }
+            set { SetProperty(ref selectedGender, value);
+                SelectGenderHasError = false;
+            }
         }
 
-        private string expireLicenseDateErrorMessage;
-        public string ExpireLicenseDateErrorMessage
+        private bool showSuccessScreen;
+        public bool ShowSuccessScreen
         {
-            get { return expireLicenseDateErrorMessage; }
-            set { SetProperty(ref expireLicenseDateErrorMessage, value); }
+            get { return showSuccessScreen; }
+            set { SetProperty(ref showSuccessScreen, value); }
         }
 
+        private string pageTitle;
+        public string PageTitle
+        {
+            get { return pageTitle; }
+            set { SetProperty(ref pageTitle, value); }
+        }
+
+        private bool selectLicenseTypeHasError;
+        public bool SelectLicenseTypeHasError
+        {
+            get { return selectLicenseTypeHasError; }
+            set
+            {
+                SetProperty(ref selectLicenseTypeHasError, value);
+
+            }
+        }
+
+        private bool selectGenderHasError;
+        public bool SelectGenderHasError
+        {
+            get { return selectGenderHasError; }
+            set { SetProperty(ref selectGenderHasError, value); }
+        }
+        public string SelectLicenseTypeErrorMessage { get; set; } = NotEmptyMessenge;
+        public string SelectGenderErrorMessage { get; set; } = NotEmptyMessenge;
 
         public string DateFormat => CultureInfo.CurrentCulture.TwoLetterISOLanguageName.Equals("vi") ? "dd/MM/yyyy" : "MM/dd/yyyy";
         public List<string> ListDriverLicenseType { get; set; }
+        public List<string> ListGender { get; set; }
+
+        private void SaveNewAvartar()
+        {
+            IFile file = null;
+ 
+            RunOnBackground(async () =>
+            {
+                file = await FileSystem.Current.GetFileFromPathAsync(newAvatarPath);
+                using (Stream stream = await file.OpenAsync(XamStorage.FileAccess.Read))
+                {
+                    return await userService.UpdateUserAvatar("DriverAvatar", stream, file.Name);
+                }              
+
+            }, res => {
+                if (res != null)
+                {
+                    Driver.DriverImage = res;                   
+                }
+                SaveDriver();
+                file.DeleteAsync();
+            });
 
 
+        }
 
         private void SaveDriverInfor()
         {
             if (Validate())
             {
-                RunOnBackground(async () =>
+                if (!string.IsNullOrEmpty(newAvatarPath))
                 {
-                    UpdateData();
-                    SetDateData();
-                    var res = await driverInforService.AddDriverInfor(Driver);
-                    return res;
-                }, res =>
-                {
-                    //success khi id trả về  > 0
-                    if (IsInsertpage && res > 0)
-                    {
-                        SafeExecute(async () =>
-                        {
-                            var a = await NavigationService.NavigateAsync("NavigationPage/SuccessUpdateDriverPage", null, true, true);
-                        });
-
-                    }
-                });
-
+                    SaveNewAvartar();
+                }
+                else SaveDriver();
             }
+        }
+
+        private void SaveDriver()
+        {
+            RunOnBackground(async () =>
+            {
+                GetData();
+                var res = await driverInforService.AddDriverInfor(Driver);
+                return res;
+            }, res =>
+            {
+                //success khi id trả về  > 0
+                if (IsInsertpage && res > 0)
+                {
+                    // add success
+                    ShowSuccessScreen = true;
+                    PageTitle = successTitle;
+                    // clear data
+                    Driver = new DriverInfor();
+                    Driver.FK_CompanyID = UserInfo.CompanyId;
+                    SetData(Driver);
+
+                }
+                else if (!IsInsertpage && res == Driver.PK_EmployeeID)
+                {
+                    NavigationService.GoBackAsync(null, true, true);
+                }
+            });
+        }
+
+        private void ContinueInsert()
+        {
+            ShowSuccessScreen = false;
+            PageTitle = addTitle;
         }
 
 
         private bool Validate()
         {
-            
-            if (IssueDate.Date >= ExpiredDate.Date)
+            var res = DisplayName.Validate() && Address.Validate()
+              && Mobile.Validate() && IdentityNumber.Validate()
+              && DriverLicense.Validate();
+            if (!res)
             {
-                ExpireLicenseDateHasError = true;
-                ExpireLicenseDateErrorMessage = "Ngày hết hạn phải lớn hơn ngày cấp";
                 return false;
             }
 
-            return DisplayName.Validate() && Address.Validate()
-                && Mobile.Validate() && IdentityNumber.Validate()
-                && DriverLicense.Validate();
+            if (IssueDate.Value >= ExpiredDate.Value)
+            {
+                ExpiredDate.IsNotValid = true;
+                ExpiredDate.ErrorFirst = "Ngày hết hạn phải lớn hơn ngày cấp";
+                return false;
+            }
+
+            if (SelectedLicenseType < 1)
+            {
+                SelectLicenseTypeHasError = true;
+                return false;
+            }
+
+            if (SelectedGender == 0)
+            {
+                SelectGenderHasError = true;
+                return false;
+            }
+
+            return true;
+           
         }
 
 
@@ -196,23 +323,34 @@ namespace BA_MobileGPS.Core.ViewModels
             ListDriverLicenseType = list;
         }
 
-        private void UpdateData()
+        private void GetData()
         {
-            Driver.Name = StringHelper.ConvertToVn(Driver.DisplayName);
-            Driver.EmployeeCode = string.Empty;
-            Driver.PK_EmployeeID = Driver.ID;
-            Driver.PhoneNumber1 = string.Empty;
-            Driver.PhoneNumber2 = string.Empty;
-            Driver.Sex = 0;
-            Driver.UpdatedByUser = UserInfo.UserId.ToString();
-            Driver.UpdatedDate = DateTime.Now;
+            Driver.DisplayName = displayName.Value;
+            Driver.Address = address.Value;
+            Driver.Mobile = mobile.Value;
+            Driver.IdentityNumber = identityNumber.Value;
+            Driver.DriverLicense = driverLicense.Value;
+            Driver.LicenseType = selectedLicenseType;
+            Driver.ExpireLicenseDate = expiredDate.Value;
+            Driver.Birthday = birthDay.Value;
+            Driver.IssueLicenseDate = issueDate.Value;
+            Driver.Sex = SelectedGender;
         }
 
-        private void SetDateData()
+        private void SetData(DriverInfor driver)
         {
-            Driver.ExpireLicenseDate = expiredDate;
-            Driver.Birthday = birthDay;
-            Driver.IssueLicenseDate = issueDate;
+            //reset data
+            DisplayName.Value = driver.DisplayName;
+            Address.Value = driver.Address;
+            Mobile.Value = driver.Mobile;
+            IdentityNumber.Value = driver.IdentityNumber;
+            DriverLicense.Value = driver.DriverLicense;
+            SelectedLicenseType = driver.LicenseType;
+            BirthDay.Value = driver.Birthday == null ? DateTime.Now.Date : (DateTime)driver.Birthday;
+            IssueDate.Value = driver.IssueLicenseDate == null ? DateTime.Now.Date.AddDays(-1) : (DateTime)driver.IssueLicenseDate;
+            ExpiredDate.Value = driver.ExpireLicenseDate == null ? DateTime.Now.Date : (DateTime)driver.ExpireLicenseDate;
+            AvartarDisplay = string.IsNullOrEmpty(driver.DriverImage) ? "avatar_default.png" : $"{ServerConfig.ApiEndpoint}{driver.DriverImage}" ;
+            newAvatarPath = string.Empty;
         }
 
         private void InitValidations()
@@ -222,17 +360,132 @@ namespace BA_MobileGPS.Core.ViewModels
             Mobile = new ValidatableObject<string>();
             IdentityNumber = new ValidatableObject<string>();
             DriverLicense = new ValidatableObject<string>();
+            BirthDay = new ValidatableObject<DateTime>();
+            IssueDate = new ValidatableObject<DateTime>();
+            ExpiredDate = new ValidatableObject<DateTime>();
 
             DisplayName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge });
+
             Address.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge });
 
             Mobile.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge });
             Mobile.Validations.Add(new PhoneNumberRule<string> { ValidationMessage = "Số không chính xác" });
 
             IdentityNumber.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge });
-            IdentityNumber.Validations.Add(new MinLenghtRule<string> { ValidationMessage = "Tối thiểu 12", MinLenght = 12 });
 
             DriverLicense.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge });
+            DriverLicense.Validations.Add(new MinLenghtRule<string> { ValidationMessage = "Đúng 12 kí tự", MinLenght = 12 });
+            DriverLicense.Validations.Add(new MaxLengthRule<string> { ValidationMessage = "Đúng 12 kí tự", MaxLenght = 12 });
+
+            BirthDay.Validations.Add(new IsNotNullOrEmptyRule<DateTime> { ValidationMessage = NotEmptyMessenge });
+            IssueDate.Validations.Add(new IsNotNullOrEmptyRule<DateTime> { ValidationMessage = NotEmptyMessenge });
+            ExpiredDate.Validations.Add(new IsNotNullOrEmptyRule<DateTime> { ValidationMessage = NotEmptyMessenge });
+        }
+
+        private async void ChangeDriverAvtar()
+        {
+            string result = await PageDialog.DisplayActionSheetAsync("", MobileResource.Common_Button_Cancel, null, MobileResource.Common_Message_TakeNewPhoto, MobileResource.Common_Message_ChooseAvailablePhotos);
+
+            if (result == null)
+                return;
+
+            if (result.Equals(MobileResource.Common_Message_TakeNewPhoto))
+            {
+                TakeNewAvatar();
+            }
+            else if (result.Equals(MobileResource.Common_Message_ChooseAvailablePhotos))
+            {
+                PickAvatar();
+            }
+        }
+
+        private void TakeNewAvatar()
+        {
+            TryExecute(async () =>
+            {
+                await CrossMedia.Current.Initialize();
+                if (!CrossMedia.Current.IsCameraAvailable)
+                {
+                    await Application.Current.MainPage.DisplayAlert(MobileResource.Common_Label_CameraTitle, MobileResource.Common_Message_CameraUnavailable, MobileResource.Common_Button_OK);
+                    return;
+                }
+
+                if (!CrossMedia.Current.IsTakePhotoSupported)
+                {
+                    await Application.Current.MainPage.DisplayAlert(MobileResource.Common_Label_CameraTitle, MobileResource.Common_Message_CameraUnsupported, MobileResource.Common_Button_OK);
+                    return;
+                }
+                await PhotoHelper.CanTakePhoto(async () =>
+                {
+                    var fileAvatar = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
+                    {
+                        DefaultCamera = CameraDevice.Rear,
+                        Directory = "BAGPS",
+                        Name = string.Format("{0}.jpg", DateTime.Now.ToString("yyyyMMddHHmmss")),
+                        PhotoSize = PhotoSize.MaxWidthHeight,
+                        MaxWidthHeight = 1000,
+                        CompressionQuality = 85,
+                        RotateImage = true,
+                        SaveToAlbum = false
+                    });
+
+                    if (fileAvatar == null)
+                        return;
+                    ProcessImage(fileAvatar.Path);
+
+                    fileAvatar.Dispose();
+                });
+            });
+        }
+
+        private void PickAvatar()
+        {
+            TryExecute(async () =>
+            {
+                if (!CrossMedia.Current.IsPickPhotoSupported)
+                {
+                    await Application.Current.MainPage.DisplayAlert(MobileResource.Common_Message_PickPhotoUnsupported, MobileResource.Common_Message_PickPhotoPermissionNotGranted, MobileResource.Common_Button_OK);
+                    return;
+                }
+                await PhotoHelper.CanPickPhoto(async () =>
+                {
+                    var fileAvatar = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
+                    {
+                        PhotoSize = PhotoSize.MaxWidthHeight,
+                        MaxWidthHeight = 1000,
+                        CompressionQuality = 85,
+                        RotateImage = true
+                    });
+
+                    if (fileAvatar == null)
+                        return;
+
+                
+
+                    ProcessImage(fileAvatar.Path);
+
+                    fileAvatar.Dispose();
+                });
+            });
+        }
+
+        private async void ProcessImage(string imagePath)
+        {
+            var @params = new NavigationParameters
+            {
+                { "ImagePath", imagePath }
+            };
+
+            await NavigationService.NavigateAsync("BaseNavigationPage/ImageEditorPage", @params, true, true);
+        }
+
+        private void SetGenderSource()
+        {
+            ListGender = new List<string>();
+            ListGender.Add("Chọn giới tính");
+            ListGender.Add("Nam");
+            ListGender.Add("Nữ");
+            SelectedGender = 0;
         }
     }
 }

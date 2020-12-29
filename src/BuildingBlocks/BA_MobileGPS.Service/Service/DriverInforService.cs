@@ -3,6 +3,7 @@ using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -22,10 +23,10 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.POST_ADDORUPDATE_DRIVER}";
-                var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBaseV2<DriverInfor>>(url, driver);
-                if (response != null && response.Data != null)
+                var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBaseV2<int>>(url, driver);
+                if (response != null )
                 {
-                    result = response.Data.PK_EmployeeID;
+                    result = response.Data;
                 }
             }
             catch (Exception ex)
@@ -63,10 +64,6 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.GET_LIST_DRIVER}?companyId={companyId}";
-                    //$"&PageSize={pageSize}" +
-                    //$"&PageIndex={pageIndex}" +
-                    //$"&OrderBy={(int)orderBy}" +
-                    //$"&SortOrder={(int)sortOrder}";
                 var response = await _IRequestProvider.GetAsync<ResponseBaseV2<DataResponseBase<DriverInfor>>>(url);
                 if (response?.Data != null)
                 {
@@ -98,7 +95,5 @@ namespace BA_MobileGPS.Service
             }
             return result;
         }
-
-       
     }
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BA_MobileGPS.Utilities.Constant;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,30 +8,36 @@ namespace BA_MobileGPS.Entities
 {
 
     public class DriverInfor : BaseModel
-    {
-        public int ID { get; set; }
+    {      
         public int PK_EmployeeID { get; set; }
-        public string EmployeeCode { get; set; } = string.Empty;
+
         public int FK_CompanyID { get; set; }
-        // public int FK_DepartmentID { get; set; } 
-        public string Name { get; set; }
-        public string DisplayName { get; set; } //Họ tên require
-        public DateTime Birthday { get; set; } //Ngày sinh require
+
+        public string DisplayName { get; set; }
+
+        public DateTime? Birthday { get; set; }
+
         public string DriverImage { get; set; }
-        public string Address { get; set; } //Địa chỉ  require
-        public string Mobile { get; set; } //Số điện thoại require
-        public string PhoneNumber1 { get; set; }
-        public string PhoneNumber2 { get; set; }
-        public int Sex { get; set; }
-        public string IdentityNumber { get; set; } //Số CMND require
-        public int LicenseType { get; set; } //Loại bằng lái require
-        public string DriverLicense { get; set; } //Số bằng lái require
-        public DateTime IssueLicenseDate { get; set; } //Ngày cấp null 
-        public DateTime ExpireLicenseDate { get; set; } //Ngày hết hạn require
-        public string CreatedByUser { get; set; } // Nguoi tao require
-        public DateTime CreatedDate { get; set; } //Ngày tao require
-        public string UpdatedByUser { get; set; } // nguoi sua require
-        public DateTime UpdatedDate { get; set; } //Ngày sua require
+
+        public byte? Sex { get; set; }
+
+        public string Address { get; set; }
+
+        public string Mobile { get; set; }
+
+        public string IdentityNumber { get; set; }
+
+        public int LicenseType { get; set; }
+
+        public string DriverLicense { get; set; }
+
+        public DateTime? IssueLicenseDate { get; set; }
+
+        public string IssueLicensePlace { get; set; }
+
+        public DateTime? ExpireLicenseDate { get; set; }
+
+        public Guid? UpdatedByUser { get; set; }
 
         [JsonIgnore]
         public DriverLicenseEnum? LicenseTypeName
@@ -50,6 +57,7 @@ namespace BA_MobileGPS.Entities
             }
         }
 
+        // Dùng ở danh sách
         [JsonIgnore]
         public string AvartarDisplay
         {
@@ -59,14 +67,39 @@ namespace BA_MobileGPS.Entities
                 {
                     return "avatar_default.png";
                 }
-                return DriverImage;
-            }
-            set
-            {
-                DriverImage = value;
+                return $"{ServerConfig.ApiEndpoint}{DriverImage}";
             }
         }
 
+    }
+
+    public class InsertDriverInfor
+    {
+        public int FK_CompanyID { get; set; }
+
+        public string DisplayName { get; set; }
+
+        public DateTime? Birthday { get; set; }
+
+        public string DriverImage { get; set; }
+
+        public byte? Sex { get; set; }
+
+        public string Address { get; set; }
+
+        public string Mobile { get; set; }
+
+        public string IdentityNumber { get; set; }
+
+        public int LicenseType { get; set; }
+
+        public string DriverLicense { get; set; }
+
+        public DateTime? IssueLicenseDate { get; set; }
+
+        public string IssueLicensePlace { get; set; }
+
+        public DateTime? ExpireLicenseDate { get; set; }
     }
 
     public class DriverDeleteRequest
@@ -77,7 +110,7 @@ namespace BA_MobileGPS.Entities
 
     public enum DriverLicenseEnum
     {
-        
+
         A1 = 1,
         A2 = 2,
         A3 = 3,

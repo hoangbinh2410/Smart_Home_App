@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace BA_MobileGPS.Service
         Task<int> AddDriverInfor(DriverInfor driver); // return Id
         Task<int> UpdateDriverInfor(DriverInfor driver); // return Id
         Task<int> DeleteDriverInfor(DriverDeleteRequest driver); // return Id
+        
     }
 
 
