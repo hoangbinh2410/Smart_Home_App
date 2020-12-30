@@ -18,6 +18,7 @@
             <Setter Property="ContainerType" Value="Outlined" />
             <Setter Property="OutlineCornerRadius" Value="30" />
             <Setter Property="ErrorColor" Value="{DynamicResource DangerousColor}" />
+
         </Style>
     </ContentPage.Resources>
     <NavigationPage.TitleView>
@@ -75,17 +76,27 @@
                             Margin="0,0,10,0"
                             HorizontalOptions="Center"
                             Text="Chọn ảnh lái xe" />
+
                         <AbsoluteLayout
                             Grid.Row="1"
-                            HeightRequest="130"
+                            HeightRequest="144"
                             HorizontalOptions="Center"
                             VerticalOptions="Center"
-                            WidthRequest="130">
-                            <ffImage:CachedImage
-                                AbsoluteLayout.LayoutBounds="0,0,121,121"
+                            WidthRequest="144">
+                            <pancake:PancakeView
+                                Padding="2"
+                                AbsoluteLayout.LayoutBounds="0,0,135,135"
                                 AbsoluteLayout.LayoutFlags="PositionProportional"
-                                Aspect="AspectFill"
-                                Source="{Binding AvartarDisplay}" />
+                                BackgroundColor="{DynamicResource GrayColor}"
+                                HeightRequest="140"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                WidthRequest="140">
+                                <pancake:PancakeView.Border>
+                                    <pancake:Border Thickness="2" Color="Gray" />
+                                </pancake:PancakeView.Border>
+                                <ffImage:CachedImage Aspect="AspectFill" Source="{Binding AvartarDisplay}" />
+                            </pancake:PancakeView>
                             <ffImage:CachedImage
                                 AbsoluteLayout.LayoutBounds="1,1,30,30"
                                 AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -95,6 +106,8 @@
                                 <TapGestureRecognizer Command="{Binding ChangeDriverAvtarCommand}" />
                             </AbsoluteLayout.GestureRecognizers>
                         </AbsoluteLayout>
+
+
                     </Grid>
                     <StackLayout Padding="15,5" Spacing="5">
                         <!--  Tên  -->
@@ -130,7 +143,6 @@
                             VerticalOptions="Start">
                             <controls:NullableDatePicker
                                 Format="{Binding DateFormat}"
-                                HeightRequest="48"
                                 NullableDate="{Binding BirthDay.Value}"
                                 PlaceHolder="Chọn ngày sinh"
                                 TextColor="{DynamicResource TextPrimaryColor}" />
