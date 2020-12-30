@@ -351,6 +351,7 @@ namespace BA_MobileGPS.Core.ViewModels
             ExpiredDate.Value = driver.ExpireLicenseDate == null ? DateTime.Now.Date : (DateTime)driver.ExpireLicenseDate;
             AvartarDisplay = string.IsNullOrEmpty(driver.DriverImage) ? "avatar_default.png" : $"{ServerConfig.ApiEndpoint}{driver.DriverImage}" ;
             newAvatarPath = string.Empty;
+            SelectedGender = 0;
         }
 
         private void InitValidations()
