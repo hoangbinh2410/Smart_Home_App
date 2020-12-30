@@ -323,8 +323,6 @@
                     </StackLayout>
                 </StackLayout>
             </ScrollView>
-
-
             <!--  Phần thông báo thành công  -->
             <StackLayout
                 Padding="20"
