@@ -417,7 +417,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Expression = "['\"<>/&]",
                 ValidationMessage = MobileResource.Common_Property_DangerousChars("Địa chỉ")
             });
-           // Address.Validations.Add(new MaxLengthRule<string> { ValidationMessage = "Không nhập quá 150 kí tự", MaxLenght = 150 });
+
 
             Mobile.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge +"số điện thoại" });
             Mobile.Validations.Add(new PhoneNumberRule<string> { ValidationMessage = "Số điện thoại không hợp lệ", 
@@ -429,11 +429,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 Expression = "['\"<>/&]",
                 ValidationMessage = MobileResource.Common_Property_DangerousChars("CMND")
             });
-           // IdentityNumber.Validations.Add(new MaxLengthRule<string> { ValidationMessage = "Không nhập quá 15 kí tự", MaxLenght = 15 });
+
 
             DriverLicense.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge +"bằng lái"});
             DriverLicense.Validations.Add(new MinLenghtRule<string> { ValidationMessage = "Đúng 12 kí tự", MinLenght = 12 });
-            DriverLicense.Validations.Add(new MaxLengthRule<string> { ValidationMessage = "Đúng 12 kí tự", MaxLenght = 12 });
             DriverLicense.Validations.Add(new ExpressionDangerousCharsRule<string>
             {
                 Expression = "['\"<>/&]",
@@ -596,16 +595,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 switch (param)
                 {
                     case "BirthDay":
+                        var day = BirthDay == null? DateTime.Now : BirthDay;
                         parameters.Add("PickerType", ComboboxType.First);
-                        parameters.Add("DataPicker", BirthDay);
+                        parameters.Add("DataPicker", day);
                         break;
                     case "IssueDate":
+                        var issueDay = IssueDate == null ? DateTime.Now : IssueDate;
                         parameters.Add("PickerType", ComboboxType.Second);
-                        parameters.Add("DataPicker", IssueDate);
+                        parameters.Add("DataPicker", issueDay);
                         break;
                     case "ExpDate":
+                        var expDay = ExpiredDate == null ? DateTime.Now : ExpiredDate;
                         parameters.Add("PickerType", ComboboxType.Third);
-                        parameters.Add("DataPicker", ExpiredDate);
+                        parameters.Add("DataPicker", expDay);
                         break;
                 }
 

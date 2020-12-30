@@ -141,7 +141,7 @@
                                 </StackLayout.GestureRecognizers>
                                 <Entry
                                     InputTransparent="True"
-                                    Placeholder="Chọn ngày sinh"
+                                    Placeholder="__/__/____"
                                     Text="{Binding BirthDay, Converter={StaticResource DateConverter}}"
                                     VerticalOptions="Center" />
                             </StackLayout>
@@ -151,7 +151,6 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Giới tính" TextColor="{DynamicResource TextPrimaryColor}" />
-                                    <Span Text=" (*)" TextColor="OrangeRed" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -182,7 +181,7 @@
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Số CMDND" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text="Số CMND" TextColor="{DynamicResource TextPrimaryColor}" />
                                     <Span Text=" (*)" TextColor="OrangeRed" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -195,7 +194,7 @@
                             <Entry
                                 Keyboard="Numeric"
                                 MaxLength="15"
-                                Placeholder="Nhập số CMDND"
+                                Placeholder="Nhập số CMND"
                                 Text="{Binding IdentityNumber.Value}" />
                         </input:SfTextInputLayout>
                         <!--  SDT  -->
@@ -203,7 +202,7 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Số điện thoại" TextColor="{DynamicResource TextPrimaryColor}" />
-                                    <Span Text=" (*)" TextColor="OrangeRed" />
+
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -222,7 +221,7 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Địa chỉ" TextColor="{DynamicResource TextPrimaryColor}" />
-                                    <Span Text=" (*)" TextColor="OrangeRed" />
+
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -301,7 +300,7 @@
                                 </StackLayout.GestureRecognizers>
                                 <Entry
                                     InputTransparent="True"
-                                    Placeholder="Chọn ngày cấp bằng lái"
+                                    Placeholder="__/__/____"
                                     Text="{Binding IssueDate, Converter={StaticResource DateConverter}}"
                                     VerticalOptions="Center" />
                             </StackLayout>
@@ -325,7 +324,7 @@
                                 </StackLayout.GestureRecognizers>
                                 <Entry
                                     InputTransparent="True"
-                                    Placeholder="Chọn ngày hết hạn bằng lái"
+                                    Placeholder="__/__/____"
                                     Text="{Binding ExpiredDate, Converter={StaticResource DateConverter}}"
                                     VerticalOptions="Center" />
                             </StackLayout>
