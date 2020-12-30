@@ -21,7 +21,7 @@ using System.Reflection;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class UpdateDriverInforPageViewModel : ViewModelBase
+    public class InsertOrUpdateDriverPageViewModel : ViewModelBase
     {
         private readonly IDriverInforService driverInforService;
         private readonly IUserService userService;
@@ -38,7 +38,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand ChangeDriverAvtarCommand { get; }
         public ICommand PushToFromDatePageCommand { get; }
         private bool IsInsertpage = true;
-        public UpdateDriverInforPageViewModel(INavigationService navigationService, IDriverInforService driverInforService,
+        public InsertOrUpdateDriverPageViewModel(INavigationService navigationService, IDriverInforService driverInforService,
             IUserService userService) : base(navigationService)
         {
             this.driverInforService = driverInforService;
@@ -106,14 +106,14 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref driver, value); }
         }
 
-        private DateTime birthDay;
-        public DateTime BirthDay
+        private DateTime? birthDay;
+        public DateTime? BirthDay
         {
             get { return birthDay; }
             set { SetProperty(ref birthDay, value); }
         }
-        private DateTime issueDate;
-        public DateTime IssueDate
+        private DateTime? issueDate;
+        public DateTime? IssueDate
         {
             get { return issueDate; }
             set
@@ -122,8 +122,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
             }
         }
-        private DateTime expiredDate;
-        public DateTime ExpiredDate
+        private DateTime? expiredDate;
+        public DateTime? ExpiredDate
         {
             get { return expiredDate; }
             set
@@ -382,9 +382,9 @@ namespace BA_MobileGPS.Core.ViewModels
             IdentityNumber.Value = driver.IdentityNumber;
             DriverLicense.Value = driver.DriverLicense;
             SelectedLicenseType = driver.LicenseType;
-            BirthDay = (DateTime)driver.Birthday;
-            IssueDate = (DateTime)driver.IssueLicenseDate;
-            ExpiredDate = (DateTime)driver.ExpireLicenseDate;
+            BirthDay = driver.Birthday;
+            IssueDate = driver.IssueLicenseDate;
+            ExpiredDate = driver.ExpireLicenseDate;
             AvartarDisplay = string.IsNullOrEmpty(driver.DriverImage) ? "avatar_default.png" : $"{ServerConfig.ApiEndpoint}{driver.DriverImage}";
             newAvatarPath = string.Empty;
             if (driver.Sex == null)
