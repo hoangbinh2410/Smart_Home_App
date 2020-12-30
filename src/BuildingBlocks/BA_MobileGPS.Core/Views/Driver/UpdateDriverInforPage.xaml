@@ -134,15 +134,17 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                        <input:SfTextInputLayout
-                            ErrorText="{Binding BirthDay.ErrorFirst}"
-                            HasError="{Binding BirthDay.IsNotValid}"
-                            VerticalOptions="Start">
-                            <controls:NullableDatePicker
-                                Format="{Binding DateFormat}"
-                                NullableDate="{Binding BirthDay.Value}"
-                                PlaceHolder="Chọn ngày sinh"
-                                TextColor="{DynamicResource TextPrimaryColor}" />
+                        <input:SfTextInputLayout VerticalOptions="Start">
+                            <StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushToFromDatePageCommand}" CommandParameter="BirthDay" />
+                                </StackLayout.GestureRecognizers>
+                                <Entry
+                                    InputTransparent="True"
+                                    Placeholder="Chọn ngày sinh"
+                                    Text="{Binding BirthDay, Converter={StaticResource DateConverter}}"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
                         </input:SfTextInputLayout>
                         <!--  Giới tính  -->
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
@@ -166,6 +168,7 @@
                                     </Picker.Effects>
                                 </Picker>
                                 <controls:IconView
+                                    Margin="0,0,10,0"
                                     Foreground="{DynamicResource BlackColor}"
                                     HeightRequest="15"
                                     HorizontalOptions="End"
@@ -257,6 +260,7 @@
                                     </Picker.Effects>
                                 </Picker>
                                 <controls:IconView
+                                    Margin="0,0,10,0"
                                     Foreground="{DynamicResource BlackColor}"
                                     HeightRequest="15"
                                     HorizontalOptions="End"
@@ -290,16 +294,17 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                        <input:SfTextInputLayout
-                            ErrorText="{Binding IssueDate.ErrorFirst}"
-                            HasError="{Binding IssueDate.IsNotValid}"
-                            VerticalOptions="Start">
-                            <controls:NullableDatePicker
-                                FontSize="{DynamicResource MyFontSize}"
-                                Format="{Binding DateFormat}"
-                                HeightRequest="48"
-                                NullableDate="{Binding IssueDate.Value}"
-                                TextColor="{DynamicResource TextPrimaryColor}" />
+                        <input:SfTextInputLayout VerticalOptions="Start">
+                            <StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushToFromDatePageCommand}" CommandParameter="IssueDate" />
+                                </StackLayout.GestureRecognizers>
+                                <Entry
+                                    InputTransparent="True"
+                                    Placeholder="Chọn ngày cấp bằng lái"
+                                    Text="{Binding IssueDate, Converter={StaticResource DateConverter}}"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
                         </input:SfTextInputLayout>
                         <!--  Ngày hết hạn bằng  -->
                         <Label HorizontalOptions="Start" VerticalOptions="Start">
@@ -311,14 +316,19 @@
                             </Label.FormattedText>
                         </Label>
                         <input:SfTextInputLayout
-                            ErrorText="{Binding ExpiredDate.ErrorFirst}"
-                            HasError="{Binding ExpiredDate.IsNotValid}"
+                            ErrorText="{Binding OverDateErrMessenger}"
+                            HasError="{Binding ExpiredDateHasErr}"
                             VerticalOptions="Start">
-                            <controls:NullableDatePicker
-                                Format="{Binding DateFormat}"
-                                HeightRequest="48"
-                                NullableDate="{Binding ExpiredDate.Value}"
-                                TextColor="{DynamicResource TextPrimaryColor}" />
+                            <StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushToFromDatePageCommand}" CommandParameter="ExpDate" />
+                                </StackLayout.GestureRecognizers>
+                                <Entry
+                                    InputTransparent="True"
+                                    Placeholder="Chọn ngày hết hạn bằng lái"
+                                    Text="{Binding ExpiredDate, Converter={StaticResource DateConverter}}"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
                         </input:SfTextInputLayout>
                     </StackLayout>
                 </StackLayout>
