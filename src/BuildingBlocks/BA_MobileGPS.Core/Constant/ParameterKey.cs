@@ -46,5 +46,6 @@
         public const string ListVehicleSelected = "ListVehicleSelected";
         public const string Position = "Position";
 
+        public const string DriverInformation = "DriverInformation";
     }
 }

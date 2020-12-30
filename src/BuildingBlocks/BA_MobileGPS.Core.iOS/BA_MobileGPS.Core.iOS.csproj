@@ -2235,6 +2235,27 @@
     <BundleResource Include="Resources\ic_cloud_upload%403x.png" />
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\ic_driverlicense%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_driverlicense.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_driverlicense%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\add_success.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_photo_circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_photo_circle%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_photo_circle%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
     <BundleResource Include="Resources\ic_accountsolid%403x.png" />
   </ItemGroup>
   <ItemGroup>
