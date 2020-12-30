@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.RegularExpressions;
 
 namespace BA_MobileGPS.Utilities.Extensions
 {
@@ -159,6 +160,19 @@ namespace BA_MobileGPS.Utilities.Extensions
         public static string ConvertIntToHex(this int value)
         {
             return value.ToString("X").PadLeft(6, '0');
+        }
+
+        public static string SplitCamelCase(this string str)
+        {
+            return Regex.Replace(
+                Regex.Replace(
+                    str,
+                    @"(\P{Ll})(\P{Ll}\p{Ll})",
+                    "$1 $2"
+                ),
+                @"(\p{Ll})(\P{Ll})",
+                "$1 $2"
+            );
         }
     }
 

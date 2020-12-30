@@ -164,6 +164,22 @@ namespace BA_MobileGPS.Core.ViewModels
             GenerateFavouriteMenu(favourites);
             var notFavorites = result.Where(s => !s.IsFavorited).ToList();
 
+
+            ///Danh sách lái xe:
+            var listDriver = new HomeMenuItemViewModel() 
+            { 
+                NameByCulture = "Danh sách lái xe" ,
+                MenuKey = "ListDriverPage"
+            };
+            notFavorites.Add(listDriver);
+            //Thêm mới lái xe
+            var addDriver = new HomeMenuItemViewModel()
+            {
+                NameByCulture = "Thêm mới lái xe",
+                MenuKey = "UpdateDriverInforPage"
+            };
+            notFavorites.Add(addDriver);
+            ///
             GenerateListFeatures(notFavorites);
             HasFavorite = FavouriteMenuItems.Count != 0;
             StaticSettings.ListMenu = mapper.MapListProperties<HomeMenuItem>(result.ToList());
