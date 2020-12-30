@@ -189,6 +189,12 @@
     <PackageReference Include="Xamarin.Google.iOS.Maps" Version="3.9.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\BA_MobileGPS.Core.iOS\BA_MobileGPS.Core.iOS.csproj">
+      <Project>{0cf1bdae-b18e-46b4-b336-ce73d4323258}</Project>
+      <Name>BA_MobileGPS.Core.iOS</Name>
+      <IsAppExtension>false</IsAppExtension>
+      <IsWatchApp>false</IsWatchApp>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BuildingBlocks\BA_MobileGPS.Core\BA_MobileGPS.Core.csproj">
       <Project>{55e2fe34-997f-4771-a5d7-8114b5fb7899}</Project>
       <Name>BA_MobileGPS.Core</Name>
