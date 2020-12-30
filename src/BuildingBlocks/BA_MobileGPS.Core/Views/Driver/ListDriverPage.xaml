@@ -182,7 +182,10 @@
                                             MaxLines="1"
                                             StyleClass="BoldText"
                                             Text="{Binding DisplayName, Converter={StaticResource UpperCaseConverter}}" />
-                                        <Grid ColumnDefinitions="*,70,*" VerticalOptions="EndAndExpand">
+                                        <Grid
+                                            ColumnDefinitions="*,105,*"
+                                            ColumnSpacing="5"
+                                            VerticalOptions="EndAndExpand">
                                             <StackLayout Orientation="Horizontal" Spacing="5">
                                                 <icons:IconView
                                                     Foreground="{DynamicResource GreenColor}"
@@ -200,7 +203,7 @@
                                             <StackLayout
                                                 Grid.Column="1"
                                                 Orientation="Horizontal"
-                                                Spacing="10">
+                                                Spacing="5">
                                                 <icons:IconView
                                                     Foreground="{DynamicResource LoginIconColor}"
                                                     HeightRequest="20"

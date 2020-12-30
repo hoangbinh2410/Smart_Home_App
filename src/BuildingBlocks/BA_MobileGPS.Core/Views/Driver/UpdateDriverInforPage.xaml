@@ -121,7 +121,7 @@
                             HasError="{Binding DisplayName.IsNotValid}"
                             VerticalOptions="Start">
                             <Entry
-                                MaxLength="80"
+                                MaxLength="100"
                                 Placeholder="Nhập họ tên"
                                 Text="{Binding DisplayName.Value}" />
                         </input:SfTextInputLayout>
@@ -194,7 +194,7 @@
                             VerticalOptions="Start">
                             <Entry
                                 Keyboard="Numeric"
-                                MaxLength="50"
+                                MaxLength="15"
                                 Placeholder="Nhập số CMDND"
                                 Text="{Binding IdentityNumber.Value}" />
                         </input:SfTextInputLayout>
@@ -213,7 +213,7 @@
                             HasError="{Binding Mobile.IsNotValid}">
                             <Entry
                                 Keyboard="Telephone"
-                                MaxLength="250"
+                                MaxLength="12"
                                 Placeholder="Nhập số điện thoại"
                                 Text="{Binding Mobile.Value}" />
                         </input:SfTextInputLayout>
@@ -231,7 +231,7 @@
                             HasError="{Binding Address.IsNotValid}"
                             VerticalOptions="Start">
                             <Entry
-                                MaxLength="250"
+                                MaxLength="150"
                                 Placeholder="Nhập địa chỉ"
                                 Text="{Binding Address.Value}" />
                         </input:SfTextInputLayout>
@@ -281,7 +281,7 @@
                         </Label>
                         <input:SfTextInputLayout ErrorText="{Binding DriverLicense.ErrorFirst}" HasError="{Binding DriverLicense.IsNotValid}">
                             <Entry
-                                MaxLength="250"
+                                MaxLength="12"
                                 Placeholder="Nhập số bằng lái xe"
                                 Text="{Binding DriverLicense.Value}" />
                         </input:SfTextInputLayout>
