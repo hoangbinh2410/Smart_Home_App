@@ -56,6 +56,17 @@
                 Text="{Binding Source={x:Reference this}, Path=Title}"
                 TextColor="White"
                 VerticalOptions="Center" />
+            <image:CachedImage
+                Grid.Column="2"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Rotation="45"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <image:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GotoAddDriverPageCommand}" />
+                </image:CachedImage.GestureRecognizers>
+            </image:CachedImage>
         </Grid>
     </NavigationPage.TitleView>
     <Grid RowDefinitions="Auto,1,*" RowSpacing="0">
@@ -152,8 +163,9 @@
                         <pancake:PancakeView Padding="0" BackgroundColor="{DynamicResource GrayColor}">
                             <StackLayout Spacing="0">
                                 <Grid
-                                    Margin="5"
+                                    Margin="5,10"
                                     ColumnDefinitions="Auto,*"
+                                    ColumnSpacing="12"
                                     VerticalOptions="StartAndExpand">
                                     <image:CachedImage
                                         HeightRequest="50"
@@ -169,16 +181,15 @@
                                             LineBreakMode="TailTruncation"
                                             MaxLines="1"
                                             StyleClass="BoldText"
-                                            Text="{Binding DisplayName}" />
+                                            Text="{Binding DisplayName, Converter={StaticResource UpperCaseConverter}}" />
                                         <Grid ColumnDefinitions="*,70,*" VerticalOptions="EndAndExpand">
-                                            <StackLayout Orientation="Horizontal" Spacing="0">
+                                            <StackLayout Orientation="Horizontal" Spacing="5">
                                                 <icons:IconView
-                                                    Margin="6"
                                                     Foreground="{DynamicResource GreenColor}"
-                                                    HeightRequest="25"
+                                                    HeightRequest="20"
                                                     Source="ic_phone_black"
                                                     VerticalOptions="CenterAndExpand"
-                                                    WidthRequest="25" />
+                                                    WidthRequest="20" />
                                                 <Label
                                                     HorizontalOptions="Start"
                                                     LineBreakMode="TailTruncation"
@@ -189,27 +200,25 @@
                                             <StackLayout
                                                 Grid.Column="1"
                                                 Orientation="Horizontal"
-                                                Spacing="0">
+                                                Spacing="10">
                                                 <icons:IconView
-                                                    Margin="6"
                                                     Foreground="{DynamicResource LoginIconColor}"
-                                                    HeightRequest="25"
+                                                    HeightRequest="20"
                                                     Source="ic_driverlicense.png"
                                                     VerticalOptions="CenterAndExpand"
-                                                    WidthRequest="25" />
+                                                    WidthRequest="20" />
                                                 <Label Text="{Binding LicenseTypeName}" VerticalOptions="Center" />
                                             </StackLayout>
                                             <StackLayout
                                                 Grid.Column="2"
                                                 Orientation="Horizontal"
-                                                Spacing="0">
+                                                Spacing="10">
                                                 <icons:IconView
-                                                    Margin="6"
                                                     Foreground="{DynamicResource DangerousColor}"
-                                                    HeightRequest="25"
+                                                    HeightRequest="20"
                                                     Source="ic_date_range_black.png"
                                                     VerticalOptions="CenterAndExpand"
-                                                    WidthRequest="25" />
+                                                    WidthRequest="20" />
                                                 <Label
                                                     HorizontalOptions="Start"
                                                     LineBreakMode="TailTruncation"
