@@ -76,7 +76,6 @@
                             Margin="0,0,10,0"
                             HorizontalOptions="Center"
                             Text="Chọn ảnh lái xe" />
-
                         <AbsoluteLayout
                             Grid.Row="1"
                             HeightRequest="144"
@@ -106,8 +105,6 @@
                                 <TapGestureRecognizer Command="{Binding ChangeDriverAvtarCommand}" />
                             </AbsoluteLayout.GestureRecognizers>
                         </AbsoluteLayout>
-
-
                     </Grid>
                     <StackLayout Padding="15,5" Spacing="5">
                         <!--  Tên  -->
