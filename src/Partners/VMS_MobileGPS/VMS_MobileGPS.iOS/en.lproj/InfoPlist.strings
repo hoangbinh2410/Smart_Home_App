@@ -1,14 +1,14 @@
 ﻿"CFBundleDisplayName" = "BA-SAT";
 "CFBundleName" = "BA-SAT";
 
-"NSLocationAlwaysUsageDescription" = "This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
-"NSLocationWhenInUseUsageDescription" = "This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
-"NSLocationUsageDescription" = "This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
-"NSLocationAlwaysAndWhenInUseUsageDescription"="This app needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
-"NSCalendarsUsageDescription"="This app needs you to allow access to your calendar to choose the time, do you allow the application to access your calendar?";
-"NSCameraUsageDescription"="This application needs you to allow access to your camera to take photos, do you allow the application to access your camera?";
-"NSPhotoLibraryUsageDescription"="This application needs your permission to access the photo library to get your photos, do you allow the application to access your photo library?";
-"NSMicrophoneUsageDescription"="This application needs you to allow access to your camera to take photos, do you allow the application to access your camera?";
-"NSPhotoLibraryAddUsageDescription"="This application needs your permission to access the photo library to get your photos, do you allow the application to access your photo library?";
-"NSBluetoothAlwaysUsageDescription"="App uses Bluetooth to find, connect and communicate with nearby devices. Please grant access.";
-"NSBluetoothPeripheralUsageDescription"="App needs bluetooth access to connect via bluetooth.";
+"NSLocationAlwaysUsageDescription" = "BA-SAT needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
+"NSLocationWhenInUseUsageDescription" = "BA-SAT needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
+"NSLocationUsageDescription" = "BA-SAT needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
+"NSLocationAlwaysAndWhenInUseUsageDescription"="BA-SAT needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
+"NSCalendarsUsageDescription"="BA-SAT needs you to allow access to your calendar to choose the time, do you allow the application to access your calendar?";
+"NSCameraUsageDescription"="BA-SAT requires access to your camera to let you add pictures to post to your social media channels";
+"NSPhotoLibraryUsageDescription"="BA-SAT needs to access your camera roll so that you can upload images. Your images will not be shared without your permission";
+"NSMicrophoneUsageDescription"="BA-SAT needs you to allow access to your camera to take photos, do you allow the application to access your camera?";
+"NSPhotoLibraryAddUsageDescription"="BA-SAT needs to access your camera roll so that you can upload images. Your images will not be shared without your permission";
+"NSBluetoothAlwaysUsageDescription"="BA-SAT uses Bluetooth to find, connect and communicate with nearby devices. Please grant access.";
+"NSBluetoothPeripheralUsageDescription"="BA-SAT needs bluetooth access to connect via bluetooth.";

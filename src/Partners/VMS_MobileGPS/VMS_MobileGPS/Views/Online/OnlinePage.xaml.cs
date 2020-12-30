@@ -1,11 +1,10 @@
 ﻿using BA_MobileGPS;
 using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
-using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
 using BA_MobileGPS.Entities.RealmEntity;
@@ -16,10 +15,8 @@ using Prism.Events;
 using Prism.Ioc;
 using Prism.Navigation;
 using Prism.Services;
-using Realms.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -32,76 +29,65 @@ using Xamarin.Forms.Xaml;
 namespace VMS_MobileGPS.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class OnlinePage : ContentView, IDestructible, INavigationAware
+    public partial class OnlinePage : ContentPage, IDestructible, INavigationAware
     {
         #region Contructor
-
-        private enum States
-        {
-            ShowFilter,
-            HideFilter,
-            ShowStatus,
-            HideStatus
-        }
-
-        private readonly IEventAggregator eventAggregator;
-        private readonly IDisplayMessage displayMessage;
-        private readonly IPageDialogService pageDialog;
-        private readonly IVehicleOnlineService vehicleOnlineService;
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
-
-        private readonly BA_MobileGPS.Core.Animation _animations = new BA_MobileGPS.Core.Animation();
+        private readonly IEventAggregator eventAggregator;
+     private readonly IDisplayMessage displayMessage;
+        private readonly IPageDialogService pageDialog;
 
         public OnlinePage()
         {
             InitializeComponent();
             googleMap.UiSettings.ZoomControlsEnabled = false;
-
-            //On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
-
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             displayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
             pageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
-            vehicleOnlineService = PrismApplicationBase.Current.Container.Resolve<IVehicleOnlineService>();
-            boundaryRepository = PrismApplicationBase.Current.Container.Resolve<IRealmBaseService<BoundaryRealm, LandmarkResponse>>();
-
+            pageWidth = (int)Application.Current.MainPage.Width;
+            boxStatusVehicle.TranslationX = pageWidth;
+            boxInfo.TranslationY = 300;
             // Initialize the View Model Object
             vm = (OnlinePageViewModel)BindingContext;
-
             googleMap.IsUseCluster = true;
             googleMap.IsTrafficEnabled = false;
 
             googleMap.ClusterOptions.EnableBuckets = true;
             googleMap.ClusterOptions.Algorithm = ClusterAlgorithm.GridBased;
-
             googleMap.UiSettings.MapToolbarEnabled = false;
             googleMap.UiSettings.ZoomControlsEnabled = false;
             googleMap.UiSettings.MyLocationButtonEnabled = false;
             googleMap.UiSettings.RotateGesturesEnabled = false;
-
+            //if (Device.RuntimePlatform == Device.Android)
+            //{
+            //    googleMap.ClusterOptions.RendererImage = BitmapDescriptorFactory.FromResource("ic_cluster.png");
+            //}
             googleMap.ClusterClicked += Map_ClusterClicked;
             googleMap.PinClicked += MapOnPinClicked;
             googleMap.MapClicked += Map_MapClicked;
             googleMap.CameraIdled += GoogleMap_CameraIdled;
 
-            googleMap.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
-
-            InitAnimation();
-
             mCarActive = new VehicleOnline();
             mCurrentVehicleList = new List<VehicleOnline>();
 
-            this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
-            this.eventAggregator.GetEvent<TabItemSwitchEvent>().Subscribe(TabItemSwitch);
-
             IsInitMarker = false;
-
-            StartTimmerCaculatorStatus();
+            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
+            boundaryRepository = PrismApplicationBase.Current.Container.Resolve<IRealmBaseService<BoundaryRealm, LandmarkResponse>>();
         }
 
-        #endregion
+        #endregion Contructor
 
         #region Lifecycle
+
+        private bool viewHasAppeared = false;
+
+        public void OnPageAppearingFirstTime()
+        {
+            this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
+            this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
+            this.eventAggregator.GetEvent<BackButtonEvent>().Subscribe(AndroidBackButton);
+            googleMap.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
+        }
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
@@ -109,6 +95,13 @@ namespace VMS_MobileGPS.Views
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
+            if (!viewHasAppeared)
+            {
+                OnPageAppearingFirstTime();
+
+                viewHasAppeared = true;
+            }
+
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
                 if (googleMap.ClusteredPins != null && googleMap.ClusteredPins.Count > 0)
@@ -116,17 +109,25 @@ namespace VMS_MobileGPS.Views
                     var clusterpin = googleMap.ClusteredPins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
                     if (clusterpin != null)
                     {
-                        var vehicleselect = mCurrentVehicleList.FirstOrDefault(x => x.VehiclePlate == vehiclePlate.VehiclePlate);
+                        var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehicleId == vehiclePlate.VehicleId);
                         if (vehicleselect != null)
                         {
                             vm.CarSearch = vehicleselect.PrivateCode;
                             UpdateSelectVehicle(vehicleselect);
+                        }
+                        else
+                        {
+                            pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
                         }
                     }
                     else
                     {
                         displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
                     }
+                }
+                else
+                {
+                    displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
                 }
             }
             else if (parameters.ContainsKey(ParameterKey.Company) && parameters.GetValue<Company>(ParameterKey.Company) is Company company)
@@ -151,10 +152,7 @@ namespace VMS_MobileGPS.Views
 
                 UpdateVehicleByVehicleGroup(vehiclegroup);
             }
-            else
-            {
-                InitOnline();
-            }
+
             GoogleMapAddBoundary();
             GoogleMapAddName();
         }
@@ -163,24 +161,14 @@ namespace VMS_MobileGPS.Views
         {
         }
 
-        public void Destroy()
-        {
-            timer.Stop();
-            timer.Dispose();
-            this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
-            this.eventAggregator.GetEvent<TabItemSwitchEvent>().Unsubscribe(TabItemSwitch);
-        }
-
-        #endregion
+        #endregion Lifecycle
 
         #region Property
 
+        private int pageWidth = 0;
         private OnlinePageViewModel vm;
 
         private System.Timers.Timer timer;
-
-        private CancellationTokenSource cts;
-
 
         /* Xe đang được chọn */
         private VehicleOnline mCarActive;
@@ -207,12 +195,12 @@ namespace VMS_MobileGPS.Views
         private List<VehicleOnline> mCurrentVehicleList;
 
         private bool infoStatusIsShown = false;
+        private bool boxInfoIsShown = false;
         private bool IsInitMarker = false;
 
-        #endregion Propety
+        #endregion Property
 
         #region Private Method
-
         private void GoogleMapAddBoundary()
         {
             vm.Boundaries.Clear();
@@ -276,7 +264,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
 
         }
@@ -309,7 +297,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
 
         }
@@ -328,39 +316,28 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
-        private void TabItemSwitch(Tuple<ItemTabPageEnums, object> obj)
+        private void OnReLoadVehicleOnlineCarSignalR(bool arg)
         {
-            if (obj != null
-                && obj.Item2 != null
-                && obj.Item1 == ItemTabPageEnums.OnlinePage
-                && obj.Item2.GetType() == typeof(VehicleOnline))
+            if (arg)
             {
-                var vehiclePlate = (VehicleOnline)obj.Item2;
-                if (googleMap.ClusteredPins != null && googleMap.ClusteredPins.Count > 0)
+                if (mCarActive.VehicleId != -1 && !string.IsNullOrEmpty(mCarActive.VehiclePlate))
                 {
-                    var clusterpin = googleMap.ClusteredPins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
-                    if (clusterpin != null)
+                    var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehiclePlate == mCarActive.VehiclePlate);
+                    if (vehicleselect != null)
                     {
-                        var vehicleselect = mCurrentVehicleList.FirstOrDefault(x => x.VehiclePlate == vehiclePlate.VehiclePlate);
-                        if (vehicleselect != null)
-                        {
-                            vm.CarSearch = vehicleselect.PrivateCode;
-                            UpdateSelectVehicle(vehicleselect);
-                        }
-                    }
-                    else
-                    {
-                        displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
+                        vm.CarSearch = vehicleselect.PrivateCode;
+                        UpdateSelectVehicle(vehicleselect, true);
                     }
                 }
             }
             else
             {
-                HideBoxInfo();
+                IsInitMarker = false;
+                InitOnline();
             }
         }
 
@@ -380,52 +357,6 @@ namespace VMS_MobileGPS.Views
             if (infoStatusIsShown)
             {
                 CacularVehicleStatus();
-            }
-        }
-
-        private async void InitAnimation()
-        {
-            try
-            {
-                if (_animations == null)
-                {
-                    return;
-                }
-
-                _animations.Add(States.ShowFilter, new[] {
-                                                            new ViewTransition(boxInfo, AnimationType.TranslationY, 0, 300, delay: 300), // Active and visible
-                                                new ViewTransition(boxInfo, AnimationType.Opacity, 1, 0), // Active and visible
-                                                          });
-
-                _animations.Add(States.HideFilter, new[] {
-                                                            new ViewTransition(boxInfo, AnimationType.TranslationY, 300),
-                                                            new ViewTransition(boxInfo, AnimationType.Opacity, 0),
-                                                          });
-
-                await _animations.Go(States.HideFilter, false);
-
-                var pageWidth = Xamarin.Forms.Application.Current?.MainPage?.Width;
-
-                if (pageWidth > 0)
-                {
-                    AbsoluteLayout.SetLayoutBounds(boxStatusVehicle, new Rectangle(1, 0, pageWidth.GetValueOrDefault(), 1));
-
-                    _animations.Add(States.ShowStatus, new[] {
-                                                            new ViewTransition(boxStatusVehicle, AnimationType.TranslationX, 0,  pageWidth.GetValueOrDefault(), delay: 200), // Active and visible
-                                                            new ViewTransition(boxStatusVehicle, AnimationType.Opacity, 1, 0), // Active and visible
-                                                          });
-
-                    _animations.Add(States.HideStatus, new[] {
-                                                            new ViewTransition(boxStatusVehicle, AnimationType.TranslationX, pageWidth.GetValueOrDefault()),
-                                                            new ViewTransition(boxStatusVehicle, AnimationType.Opacity, 0),
-                                                          });
-                }
-
-                await _animations.Go(States.HideStatus, false);
-            }
-            catch (Exception ex)
-            {
-                LoggerHelper.WriteError("InitAnimation", ex);
             }
         }
 
@@ -452,13 +383,26 @@ namespace VMS_MobileGPS.Views
             }
         }
 
-        private void UpdateSelectVehicle(VehicleOnline vehicle)
+        private void AndroidBackButton(bool obj)
+        {
+            vm.CarSearch = string.Empty;
+            if (mCarActive != null && mCarActive.VehicleId > 0)
+            {
+                HideBoxInfoCarActive(mCarActive);
+            }
+            else
+            {
+                HideBoxStatus();
+            }
+        }
+
+        private void UpdateSelectVehicle(VehicleOnline vehicle, bool isReloadVehicle = false)
         {
             if (vehicle != null)
             {
                 try
                 {
-                    if (vehicle.VehiclePlate != mCarActive.VehiclePlate)
+                    if (vehicle.VehicleId != mCarActive.VehicleId || isReloadVehicle)
                     {
                         ShowBoxInfoCarActive(vehicle, vehicle.MessageId, vehicle.DataExt);
 
@@ -467,14 +411,14 @@ namespace VMS_MobileGPS.Views
                             var lstpin = googleMap.ClusteredPins.Where(x => x.Label == vehicle.VehiclePlate).ToList();
                             if (lstpin != null && lstpin.Count > 1)
                             {
-                                googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(lstpin[0].Position.Latitude, lstpin[0].Position.Longitude), 17));
+                                googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(lstpin[0].Position.Latitude, lstpin[0].Position.Longitude), MobileSettingHelper.ClusterMapzoom));
                             }
                         });
                     }
                 }
                 catch (Exception ex)
                 {
-                    Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                    LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
                 }
             }
         }
@@ -493,10 +437,14 @@ namespace VMS_MobileGPS.Views
 
                     // Chạy lại hàm tính toán trạng thái xe
                     InitVehicleStatus(mVehicleList);
+
+                    googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(listPin[0].Lat, listPin[0].Lng), 5));
                 }
                 else
                 {
-                    googleMap.Pins.Clear();
+                    googleMap.ClusteredPins.Clear();
+
+                    googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(Settings.Latitude, Settings.Longitude), 5));
                 }
             }
         }
@@ -517,23 +465,64 @@ namespace VMS_MobileGPS.Views
             if (listResult.Count > 0)
             {
                 InitPinVehicle(ConvertMarkerPin(listResult));
+
+                var listPositon = new List<Position>();
+                listResult.ForEach(x =>
+                {
+                    listPositon.Add(new Position(x.Lat, x.Lng));
+                });
+                var bounds = GeoHelper.FromPositions(listPositon);
+
+                googleMap.AnimateCamera(CameraUpdateFactory.NewBounds(bounds, 60));
             }
             else
             {
-                googleMap.Pins.Clear();
+                vm.ListVehicleStatus = new List<VehicleOnline>();
+                googleMap.ClusteredPins.Clear();
+
+                googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom));
             }
 
             // Chạy lại hàm tính toán trạng thái xe
             InitVehicleStatus(listResult);
         }
 
-        private List<VMSVehicleOnlineMarker> ConvertMarkerPin(List<VehicleOnline> lisVehicle)
+        public void UpdateVehicleByStatus(List<VehicleOnline> mVehicleList, VehicleStatusGroup vehiclestategroup)
         {
-            var listmarker = new List<VMSVehicleOnlineMarker>();
+            vm.VehicleStatusSelected = vehiclestategroup;
+            var listFilter = StateVehicleExtension.GetVehicleCarByStatus(mVehicleList, vehiclestategroup);
+            if (listFilter != null)
+            {
+                var listPin = ConvertMarkerPin(listFilter);
 
+                //Vẽ xe lên bản đồ
+                InitPinVehicle(listPin);
+
+                if (listPin.Count > 0)
+                {
+                    var listPositon = new List<Position>();
+                    listPin.ForEach(x =>
+                    {
+                        listPositon.Add(new Position(x.Lat, x.Lng));
+                    });
+                    var bounds = GeoHelper.FromPositions(listPositon);
+
+                    googleMap.AnimateCamera(CameraUpdateFactory.NewBounds(bounds, 40));
+                }
+            }
+            else
+            {
+                vm.ListVehicleStatus = new List<VehicleOnline>();
+            }
+        }
+
+        private List<VehicleOnlineMarker> ConvertMarkerPin(List<VehicleOnline> lisVehicle)
+        {
+            var listmarker = new List<VehicleOnlineMarker>();
+            vm.ListVehicleStatus = lisVehicle;
             lisVehicle.ForEach(x =>
             {
-                listmarker.Add(new VMSVehicleOnlineMarker()
+                listmarker.Add(new VehicleOnlineMarker()
                 {
                     VehicleId = x.VehicleId,
                     VehiclePlate = x.VehiclePlate,
@@ -546,7 +535,7 @@ namespace VMS_MobileGPS.Views
                     IconCode = x.IconCode,
                     PrivateCode = x.PrivateCode,
                     IconImage = IconCodeHelper.GetMarkerResource(x),
-                    DoubleMarker = new VMSDoubleMarker().DrawMarker(x),
+                    DoubleMarker = new DoubleMarker().DrawMarker(x),
                 });
             });
 
@@ -572,41 +561,44 @@ namespace VMS_MobileGPS.Views
 
                 // Các xe đang off hoặc khoảng cách quá ngắn thì bỏ qua và nằm trong màn hình
                 if (StateVehicleExtension.IsStopAndEngineOff(carInfo)
-                        && GeoHelper.IsBetweenLatlng(item.Position.Latitude, item.Position.Longitude, carInfo.Lat, carInfo.Lng))
+                        || GeoHelper.IsBetweenLatlng(item.Position.Latitude, item.Position.Longitude, carInfo.Lat, carInfo.Lng) || carInfo.Velocity == 0)
                 {
+                    item.Rotation = carInfo.Direction * 45;
+                    itemLable.Position = new Position(carInfo.Lat, carInfo.Lng);
+                    item.Position = new Position(carInfo.Lat, carInfo.Lng);
                     return;
                 }
 
                 //nếu xe nằm trong màn hình thì mới animation xoay và di chuyển
-                if (IsInMapScreen(new Position(carInfo.Lat, carInfo.Lng)))
+                if (IsInMapScreen(new Position(carInfo.Lat, carInfo.Lng)) && vm.IsActive)
                 {
                     //di chuyển xe
                     item.Rotate(carInfo.Lat, carInfo.Lng, () =>
                     {
-                        item.MarkerAnimation(carInfo.Lat, carInfo.Lng, () =>
+                        item.MarkerAnimation(itemLable, carInfo.Lat, carInfo.Lng, () =>
                         {
                             if (carActive)
                             {
                                 vm.CurrentAddress = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(carInfo.Lat), GeoHelper.LongitudeToDergeeMinSec(carInfo.Lng));
                             }
                         });
-                        //di chuyển biển số xe
-                        itemLable.MarkerAnimation(carInfo.Lat, carInfo.Lng, () => { });
                     });
                 }
                 else
                 {
+                    item.Rotation = carInfo.Direction * 45;
                     itemLable.Position = new Position(carInfo.Lat, carInfo.Lng);
                     item.Position = new Position(carInfo.Lat, carInfo.Lng);
                     if (carActive)
                     {
                         googleMap.AnimateCamera(CameraUpdateFactory.NewPosition(new Position(carInfo.Lat, carInfo.Lng)));
+                        vm.CurrentAddress = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(carInfo.Lat), GeoHelper.LongitudeToDergeeMinSec(carInfo.Lng));
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -623,14 +615,15 @@ namespace VMS_MobileGPS.Views
                     {
                         using (new HUDService(MobileResource.Common_Message_Processing))
                         {
-                            var list = StaticSettings.ListVehilceOnline;
+                            vm.VehicleGroups = null;
+                            HideBoxInfoCarActive(new VehicleOnline() { VehicleId = 1 });
+                            var list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
                             if (list != null && list.Count > 0)
                             {
                                 //Nếu là công ty thường thì mặc định load xe của công ty lên bản đồ
                                 if (!UserHelper.isCompanyPartner(StaticSettings.User))
                                 {
                                     InitVehicleStatus(list);
-
                                     var listPin = ConvertMarkerPin(list);
 
                                     //Vẽ xe lên bản đồ
@@ -649,79 +642,16 @@ namespace VMS_MobileGPS.Views
                                     }
                                 }
                             }
+                            InitialCameraUpdate();
+                            StartTimmerCaculatorStatus();
                         }
                     }
-                }
-                else
-                {
-                    GetListVehicleOnline();
                 }
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-        }
-
-        private void GetListVehicleOnline()
-        {
-            var userID = StaticSettings.User.UserId;
-            var companyID = StaticSettings.User.CompanyId;
-            var xnCode = StaticSettings.User.XNCode;
-            var userType = StaticSettings.User.UserType;
-            var companyType = StaticSettings.User.CompanyType;
-
-            if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
-            {
-                userID = Settings.CurrentCompany.UserId;
-                companyID = Settings.CurrentCompany.FK_CompanyID;
-                xnCode = Settings.CurrentCompany.XNCode;
-                userType = Settings.CurrentCompany.UserType;
-                companyType = Settings.CurrentCompany.CompanyType;
-            }
-            int vehicleGroup = 0;
-
-            if (cts != null)
-                cts.Cancel(true);
-
-            cts = new CancellationTokenSource();
-
-            Task.Run(async () =>
-            {
-                await Task.Delay(500, cts.Token);
-
-                return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
-            }, cts.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
-            {
-                if (task.Status == TaskStatus.RanToCompletion)
-                {
-                    if (task.Result != null && task.Result.Count > 0)
-                    {
-                        task.Result.ForEach(x =>
-                        {
-                            x.IconImage = IconCodeHelper.GetMarkerResource(x);
-                            x.StatusEngineer = StateVehicleExtension.EngineState(x);
-
-                            if (!StateVehicleExtension.IsLostGPS(x.GPSTime, x.VehicleTime) && !StateVehicleExtension.IsLostGSM(x.VehicleTime))
-                            {
-                                x.SortOrder = 1;
-                            }
-                            else
-                            {
-                                x.SortOrder = 0;
-                            }
-                        });
-
-                        StaticSettings.ListVehilceOnline = task.Result;
-                        InitialCameraUpdate();
-                        InitOnline();
-                    }
-                    else
-                    {
-                        StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
-                    }
-                }
-            }));
         }
 
         private void InitialCameraUpdate()
@@ -756,6 +686,7 @@ namespace VMS_MobileGPS.Views
         private void InitVehicleStatus(List<VehicleOnline> vehicleList)
         {
             //txtCountVehicle.Text = vehicleList.Count().ToString();
+            vm.VehicleStatusSelected = VehicleStatusGroup.All;
             mCurrentVehicleList = vehicleList;
             // Lấy trạng thái xe
             List<VehicleStatusViewModel> listStatus = (new VehicleStatusHelper()).DictVehicleStatus.Values.Where(x => x.IsEnable).ToList();
@@ -774,7 +705,7 @@ namespace VMS_MobileGPS.Views
         /// Khởi tạo xe trên mapp
         /// </summary>
         /// <param name="lstVehicle"></param>
-        private void InitPinVehicle(List<VMSVehicleOnlineMarker> lstVehicle)
+        private void InitPinVehicle(List<VehicleOnlineMarker> lstVehicle)
         {
             try
             {
@@ -788,7 +719,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
             finally
             {
@@ -800,7 +731,7 @@ namespace VMS_MobileGPS.Views
         /// Vẽ xe lên map không có cluster
         /// </summary>
         /// <param name="carinfo"></param>
-        private void RenderMarkerClusterOnMap(VMSDoubleMarker carinfo)
+        private void RenderMarkerClusterOnMap(DoubleMarker carinfo)
         {
             googleMap.ClusteredPins.Add(carinfo.Car);
             googleMap.ClusteredPins.Add(carinfo.Plate);
@@ -821,16 +752,14 @@ namespace VMS_MobileGPS.Views
                     if (isActive)
                     {
                         lstpin[1].Tag = carinfo.VehiclePlate + "Active";
-                        lstpin[1].Icon = BitmapDescriptorFactory.FromView(new VMSPinInfowindowActiveView(carinfo.PrivateCode));
+                        lstpin[1].Icon = BitmapDescriptorFactory.FromView(new PinInfowindowActiveView(carinfo.PrivateCode));
                     }
                     else
                     {
                         lstpin[1].Tag = carinfo.VehiclePlate + "Plate";
 
-                        lstpin[1].Icon = BitmapDescriptorFactory.FromView(new VMSPinInfowindowView(carinfo.PrivateCode));
+                        lstpin[1].Icon = BitmapDescriptorFactory.FromView(new PinInfowindowView(carinfo.PrivateCode));
                     }
-
-                    //googleMap.Cluster();
                 });
             }
         }
@@ -874,9 +803,16 @@ namespace VMS_MobileGPS.Views
             }
             else
             {
-                pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
+                if (!string.IsNullOrEmpty(carInfo.MessageDetailBAP))
+                {
+                    pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, carInfo.MessageDetailBAP, MobileResource.Common_Label_Close);
+                }
+                else
+                {
+                    pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
+                }
             }
-        }
+        }     
 
         /// <summary>
         /// ẩn thông tin xe đi và remove active xe
@@ -884,6 +820,7 @@ namespace VMS_MobileGPS.Views
         /// <param name="carinfo"></param>
         private void HideBoxInfoCarActive(VehicleOnline carinfo)
         {
+            vm.CarSearch = string.Empty;
             HideBoxStatus(); // ẩn tạm chưa có box trạng thái
 
             HideBoxInfo();
@@ -895,6 +832,7 @@ namespace VMS_MobileGPS.Views
 
             vm.CarActive = new VehicleOnline();
             mCarActive = new VehicleOnline();
+
         }
 
         /// <summary>
@@ -931,7 +869,7 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -963,7 +901,14 @@ namespace VMS_MobileGPS.Views
         /// <param name="args"></param>
         private void MapOnPinClicked(object sender, PinClickedEventArgs args)
         {
-            args.Handled = true;
+            if (args.Pin != null)
+            {
+                args.Handled = true;
+            }
+            else
+            {
+                args.Handled = false;
+            }
 
             try
             {
@@ -979,29 +924,57 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
         /// <summary>
         /// ẩn box  thông tin  xe
         /// </summary>
-        public async void HideBoxInfo()
+        public void HideBoxInfo()
         {
-            vm.HideBorder();
-            SetNoPaddingWithFooter();
-            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(true);
-            await _animations.Go(States.HideFilter, true);
+            try
+            {
+                vm.CarActive = new VehicleOnline();
+                mCarActive = new VehicleOnline();
+                SetNoPaddingWithFooter();
+                eventAggregator.GetEvent<ShowHideTabEvent>().Publish(true);
+                if (boxInfoIsShown)
+                {
+                    Action<double> callback = input => boxInfo.TranslationY = input;
+                    boxInfo.Animate("animBoxInfo", callback, 0, 300, 16, 300, Easing.CubicInOut);
+                    boxInfoIsShown = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
         }
 
         /// <summary>
         /// Hiển thị box thông tin xe
         /// </summary>
-        private async void ShowBoxInfo()
+        private void ShowBoxInfo()
         {
-            SetPaddingWithFooter();
-            eventAggregator.GetEvent<ShowTabItemEvent>().Publish(false);
-            await _animations.Go(States.ShowFilter, true);
+            try
+            {
+                SetPaddingWithFooter();
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    eventAggregator.GetEvent<ShowHideTabEvent>().Publish(false);
+                });
+                if (!boxInfoIsShown)
+                {
+                    Action<double> callback = input => boxInfo.TranslationY = input;
+                    boxInfo.Animate("animBoxInfo", callback, 300, 0, 16, 300, Easing.CubicInOut);
+                    boxInfoIsShown = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
         }
 
         /* Set padding map khi có thông tin xe ở footer - tracking */
@@ -1021,16 +994,31 @@ namespace VMS_MobileGPS.Views
             BoxControls.Margin = new Thickness(20);
         }
 
-        private async void HideBoxStatus()
+        private void ShowBoxStatus()
         {
-            await _animations.Go(States.HideStatus, true);
-            infoStatusIsShown = false;
+            if (!infoStatusIsShown)
+            {
+                Action<double> callback = input => boxStatusVehicle.TranslationX = input;
+                boxStatusVehicle.Animate("animboxStatusVehicle", callback, pageWidth, 0, 16, 300, Easing.CubicInOut);
+                infoStatusIsShown = true;
+            }
         }
 
-        private async void ShowBoxStatus()
+        private void HideBoxStatus()
         {
-            await _animations.Go(States.ShowStatus, true);
-            infoStatusIsShown = true;
+            try
+            {
+                if (infoStatusIsShown)
+                {
+                    Action<double> callback = input => boxStatusVehicle.TranslationX = input;
+                    boxStatusVehicle.Animate("animboxStatusVehicle", callback, 0, pageWidth, 16, 300, Easing.CubicInOut);
+                    infoStatusIsShown = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError("HideBoxStatus", ex);
+            }
         }
 
         private void TapStatusVehicel(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs args)
@@ -1041,57 +1029,35 @@ namespace VMS_MobileGPS.Views
 
             vm.CarSearch = string.Empty;
 
-            if ((args as Syncfusion.ListView.XForms.ItemTappedEventArgs).ItemData is VehicleStatusViewModel item)
+            if (args.ItemData is VehicleStatusViewModel item)
             {
                 Device.StartTimer(TimeSpan.FromMilliseconds(300), () =>
                 {
-                    var listFilter = StateVehicleExtension.GetVehicleCarByStatus(mCurrentVehicleList, (VehicleStatusGroup)item.ID);
-                    if (listFilter != null)
-                    {
-                        var listPin = ConvertMarkerPin(listFilter);
-
-                        //Vẽ xe lên bản đồ
-                        InitPinVehicle(listPin);
-
-                        if (listPin.Count > 0)
-                        {
-                            var listPositon = new List<Position>();
-                            listPin.ForEach(x =>
-                            {
-                                listPositon.Add(new Position(x.Lat, x.Lng));
-                            });
-                            var bounds = GeoHelper.FromPositions(listPositon);
-
-                            googleMap.AnimateCamera(CameraUpdateFactory.NewBounds(bounds, 40));
-                        }
-                    }
+                    UpdateVehicleByStatus(mCurrentVehicleList, (VehicleStatusGroup)item.ID);
                     return false;
                 });
             }
         }
 
-        private async void FilterStatusCar(object sender, EventArgs e)
+        private void FilterStatusCar(object sender, EventArgs e)
         {
             if (infoStatusIsShown)
             {
-                await _animations.Go(States.HideStatus, true);
+                HideBoxStatus();
             }
             else
             {
-                await _animations.Go(States.ShowStatus, true);
+                CacularVehicleStatus();
+                ShowBoxStatus();
             }
-
-            infoStatusIsShown = !infoStatusIsShown;
-
-            //InitVehicleStatus(mVehicleList);
         }
 
         private bool IsInMapScreen(Position latlng)
         {
             var result = false;
             //nhỏ hơn góc trái ở trên và lớn hơn góc phải ở dưới
-            if ((latlng.Latitude <= googleMap.Region.FarLeft.Latitude && latlng.Longitude >= googleMap.Region.FarLeft.Longitude) &&
-                (latlng.Latitude >= googleMap.Region.NearRight.Latitude && latlng.Longitude <= googleMap.Region.NearRight.Longitude))
+            if ((latlng.Latitude <= googleMap?.Region?.FarLeft.Latitude && latlng.Longitude >= googleMap?.Region?.FarLeft.Longitude) &&
+                (latlng.Latitude >= googleMap?.Region?.NearRight.Latitude && latlng.Longitude <= googleMap?.Region?.NearRight.Longitude))
                 result = true;
 
             return result;
@@ -1132,11 +1098,6 @@ namespace VMS_MobileGPS.Views
             }
         }
 
-        //private void SelectMenuFAB(object sender, XViewEventArgs e)
-        //{
-        //    vm.PushToFABPageCommand.Execute(e.EventIndex);
-        //}
-
         public async void GetMylocation(object sender, EventArgs e)
         {
             try
@@ -1154,8 +1115,17 @@ namespace VMS_MobileGPS.Views
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
+        }
+
+        public void Destroy()
+        {
+            timer.Stop();
+            timer.Dispose();
+            this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
+            this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
+            this.eventAggregator.GetEvent<BackButtonEvent>().Unsubscribe(AndroidBackButton);
         }
 
         #endregion Private Method

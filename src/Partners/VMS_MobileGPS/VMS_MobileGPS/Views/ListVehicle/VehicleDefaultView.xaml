@@ -16,8 +16,8 @@
             <converters:UnitConverter x:Key="UnitConverter" />
         </ResourceDictionary>
     </sharpnado:MaterialFrame.Resources>
-    <StackLayout>
-        <Grid Padding="8" ColumnSpacing="10">
+    <StackLayout Padding="0,5" Spacing="5">
+        <Grid ColumnSpacing="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width=".3*" />
                 <ColumnDefinition Width="*" />
@@ -34,13 +34,16 @@
                     LineBreakMode="WordWrap"
                     Text="{Binding PrivateCode}" />
             </StackLayout>
-            <StackLayout
+            <Grid
                 Grid.Column="1"
-                HorizontalOptions="FillAndExpand"
-                Spacing="10"
-                VerticalOptions="EndAndExpand">
+                HorizontalOptions="Fill"
+                RowDefinitions="Auto,Auto,Auto"
+                RowSpacing="10">
                 <Grid ColumnDefinitions="*,100">
-                    <StackLayout Grid.Column="0" HorizontalOptions="StartAndExpand">
+                    <StackLayout
+                        Grid.Column="0"
+                        HorizontalOptions="StartAndExpand"
+                        Spacing="8">
                         <StackLayout Orientation="Horizontal" Spacing="10">
                             <controls:IconView Source="ic_turnon_time_on_day.png" />
                             <Label
@@ -59,7 +62,8 @@
                     <StackLayout
                         Grid.Column="1"
                         Padding="0,0,10,0"
-                        HorizontalOptions="StartAndExpand">
+                        HorizontalOptions="StartAndExpand"
+                        Spacing="8">
                         <StackLayout Orientation="Horizontal" Spacing="10">
                             <controls:IconView Source="ic_clock.png" />
                             <Label
@@ -76,33 +80,38 @@
                         </StackLayout>
                     </StackLayout>
                 </Grid>
-                <StackLayout Spacing="10">
-                    <StackLayout Orientation="Horizontal" Spacing="10">
-                        <controls:IconView Source="ic_coordinates.png" />
-                        <Label
-                            FontSize="12"
-                            Text="{Binding Coordinates}"
-                            VerticalOptions="Center" />
-                    </StackLayout>
-                    <StackLayout
-                        Padding="0,0,0,-2"
-                        IsVisible="{Binding MessageBAP, Converter={StaticResource HasDataConverter}}"
-                        Orientation="Horizontal"
-                        Spacing="10">
-                        <controls:IconView Source="ic_fee.png" />
-                        <Label
-                            FontSize="12"
-                            HorizontalOptions="Start"
-                            HorizontalTextAlignment="Start"
-                            LineBreakMode="TailTruncation"
-                            LineHeight="1.1"
-                            MaxLines="2"
-                            Text="{Binding MessageBAP}"
-                            TextColor="{DynamicResource DangerousColor}"
-                            VerticalOptions="Center" />
-                    </StackLayout>
+
+                <StackLayout
+                    Grid.Row="1"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <controls:IconView Source="ic_coordinates.png" />
+                    <Label
+                        FontSize="12"
+                        Text="{Binding Coordinates}"
+                        VerticalOptions="Center" />
                 </StackLayout>
-            </StackLayout>
+                <Grid
+                    Grid.Row="2"
+                    ColumnDefinitions="Auto,Auto"
+                    ColumnSpacing="10"
+                    HeightRequest="30"
+                    IsVisible="{Binding MessageBAP, Converter={StaticResource HasDataConverter}}"
+                    VerticalOptions="Start">
+                    <controls:IconView Source="ic_fee.png" />
+                    <Label
+                        Grid.Column="1"
+                        FontSize="12"
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="2"
+                        Text="{Binding MessageBAP}"
+                        TextColor="{DynamicResource DangerousColor}"
+                        VerticalOptions="Center" />
+                </Grid>
+
+            </Grid>
         </Grid>
         <BoxView Margin="10,0" StyleClass="SlimLine" />
     </StackLayout>

@@ -161,6 +161,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         TryExecute(async () =>
                         {
+                            GetNofitication();
                             await ConnectSignalR();
                         });
 

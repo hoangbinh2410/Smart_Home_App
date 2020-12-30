@@ -130,6 +130,20 @@
                             Text="{i18n:TranslateResource ListVehicle_Label_VehicleLostGSM2VMS}"
                             VerticalOptions="Center" />
                     </StackLayout>
+                    <BoxView Opacity="0.5" StyleClass="SlimLine" />
+                    <StackLayout
+                        Padding="5"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <forms:CachedImage Source="ic_errorgps.png" VerticalOptions="Center" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="12"
+                            HorizontalTextAlignment="Start"
+                            Text="{i18n:TranslateResource Online_Label_StatusCarSatelliteError}"
+                            VerticalOptions="Center" />
+
+                    </StackLayout>
                 </StackLayout>
 
             </Grid>

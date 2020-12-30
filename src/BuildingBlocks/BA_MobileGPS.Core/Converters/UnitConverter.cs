@@ -14,8 +14,11 @@ namespace BA_MobileGPS.Core
             {
                 return string.Empty;
             }
-
-            return $"{value.ToString()} {MobileResource.Common_Label_Vehicle.Trim().ToLower()}";
+            if (parameter == null || string.IsNullOrEmpty(parameter.ToString()))
+            {
+                return $"{value.ToString()} {MobileResource.Common_Label_Vehicle.Trim().ToLower()}";
+            }
+            return $"{value.ToString()} {parameter.ToString().Trim().ToLower()}";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -39,11 +42,11 @@ namespace BA_MobileGPS.Core
                     return Math.Round((System.Convert.ToSingle(value) / 1.852)).ToString();
                 }
 
-                return $"{Math.Round((System.Convert.ToSingle(value) / 1.852)).ToString()} {parameter.ToString()}";
+                return $"{(System.Convert.ToSingle(value) / 1.852).ToString("F", CultureInfo.InvariantCulture)} {parameter.ToString()}";
             }
             catch
             {
-                return $"{0} {parameter.ToString()}";
+                return $"{0.00} {parameter.ToString()}";
             }
         }
 

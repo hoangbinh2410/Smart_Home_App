@@ -221,7 +221,14 @@ namespace BA_MobileGPS.Core.ViewModels
             switch (temp.MenuKey)
             {
                 case "ListVehiclePage":
-                    await NavigationService.SelectTabAsync("ListVehiclePage");
+                    if (App.AppType == AppType.VMS)
+                    {
+                        await NavigationService.SelectTabAsync("ListVehiclePageVMS");
+                    }
+                    else
+                    {
+                        await NavigationService.SelectTabAsync("ListVehiclePage");
+                    }
                     break;
 
                 case "OnlinePage":
@@ -234,6 +241,17 @@ namespace BA_MobileGPS.Core.ViewModels
                         else
                         {
                             await NavigationService.SelectTabAsync("OnlinePageNoClusterMoto");
+                        }
+                    }
+                    else if (App.AppType == AppType.VMS)
+                    {
+                        if (MobileUserSettingHelper.EnableShowCluster)
+                        {
+                            await NavigationService.SelectTabAsync("OnlinePageVMS");
+                        }
+                        else
+                        {
+                            await NavigationService.SelectTabAsync("OnlinePageNoClusterVMS");
                         }
                     }
                     else
@@ -250,7 +268,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     break;
 
                 case "RoutePage":
-                    await NavigationService.SelectTabAsync("RoutePage");
+                    if (App.AppType == AppType.VMS)
+                    {
+                        await NavigationService.SelectTabAsync("RoutePageVMS");
+                    }
+                    else 
+                    {
+                        await NavigationService.SelectTabAsync("RoutePage");                      
+                    }                    
                     break;
 
                 case "MessagesOnlinePage":
