@@ -17,6 +17,7 @@ using Plugin.Media.Abstractions;
 using XamStorage;
 using System.IO;
 using BA_MobileGPS.Utilities.Constant;
+using System.Reflection;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -30,8 +31,10 @@ namespace BA_MobileGPS.Core.ViewModels
         private const string successTitle = "Thêm lái xe thành công";
         //private readonly string MinDateMessenger = "Ngày quá bé";
         public ICommand SaveDriverInforCommand { get; }
+
         public ICommand ContinueInsertCommand { get; }
         public ICommand ChangeDriverAvtarCommand { get; }
+        public ICommand PushToFromDatePageCommand { get; }
         private bool IsInsertpage = true;
         public UpdateDriverInforPageViewModel(INavigationService navigationService, IDriverInforService driverInforService,
             IUserService userService) : base(navigationService)
@@ -41,12 +44,20 @@ namespace BA_MobileGPS.Core.ViewModels
             SaveDriverInforCommand = new DelegateCommand(SaveDriverInfor);
             ContinueInsertCommand = new DelegateCommand(ContinueInsert);
             ChangeDriverAvtarCommand = new DelegateCommand(ChangeDriverAvtar);
+            PushToFromDatePageCommand = new DelegateCommand<object>(ExecuteToFromDate);
             SetLicenseTypeSource();
             SetGenderSource();
             InitValidations();
             showSuccessScreen = false;
+            EventAggregator.GetEvent<SelectDateEvent>().Subscribe(UpdateDateTime);
         }
 
+
+        public override void OnDestroy()
+        {
+            EventAggregator.GetEvent<SelectDateEvent>().Unsubscribe(UpdateDateTime);
+            base.OnDestroy();
+        }
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -55,27 +66,28 @@ namespace BA_MobileGPS.Core.ViewModels
                 newAvatarPath = imageLocation;
                 AvartarDisplay = imageLocation;
             }
+        }
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+            if (parameters.TryGetValue(ParameterKey.DriverInformation, out DriverInfor driver))
+            {
+                // Form Edit
+                Driver = driver;
+                IsInsertpage = false;
+                PageTitle = updateTitle;
+            }
             else
             {
-                if (parameters.TryGetValue(ParameterKey.DriverInformation, out DriverInfor driver))
-                {
-                    // Form Edit
-                    Driver = driver;
-                    IsInsertpage = false;
-                    PageTitle = updateTitle;
-                }
-                else
-                {
-                    // Form thêm mới
-                    Driver = new DriverInfor();
-                    Driver.FK_CompanyID = UserInfo.CompanyId;
-                    PageTitle = addTitle;
-                }
-                SetData(Driver);
-
+                // Form thêm mới
+                Driver = new DriverInfor();
+                Driver.FK_CompanyID = UserInfo.CompanyId;
+                PageTitle = addTitle;
             }
-
+            SetData(Driver);
         }
+
         private string newAvatarPath { get; set; } = string.Empty;
 
         private string avartarDisplay;
@@ -92,14 +104,14 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref driver, value); }
         }
 
-        private ValidatableObject<DateTime> birthDay;
-        public ValidatableObject<DateTime> BirthDay
+        private DateTime birthDay;
+        public DateTime BirthDay
         {
             get { return birthDay; }
             set { SetProperty(ref birthDay, value); }
         }
-        private ValidatableObject<DateTime> issueDate;
-        public ValidatableObject<DateTime> IssueDate
+        private DateTime issueDate;
+        public DateTime IssueDate
         {
             get { return issueDate; }
             set
@@ -108,16 +120,25 @@ namespace BA_MobileGPS.Core.ViewModels
 
             }
         }
-        private ValidatableObject<DateTime> expiredDate;
-        public ValidatableObject<DateTime> ExpiredDate
+        private DateTime expiredDate;
+        public DateTime ExpiredDate
         {
             get { return expiredDate; }
             set
             {
                 SetProperty(ref expiredDate, value);
-
+                ExpiredDateHasErr = false;
             }
         }
+
+        private bool expiredDateHasErr;
+        public bool ExpiredDateHasErr
+        {
+            get { return expiredDateHasErr; }
+            set { SetProperty(ref expiredDateHasErr, value); }
+        }
+
+        public string OverDateErrMessenger { get; set; } = "Ngày hết hạn phải lớn hơn ngày cấp";
 
         private ValidatableObject<string> displayName;
         public ValidatableObject<string> DisplayName
@@ -164,7 +185,9 @@ namespace BA_MobileGPS.Core.ViewModels
         public byte SelectedGender
         {
             get { return selectedGender; }
-            set { SetProperty(ref selectedGender, value);
+            set
+            {
+                SetProperty(ref selectedGender, value);
                 SelectGenderHasError = false;
             }
         }
@@ -190,7 +213,6 @@ namespace BA_MobileGPS.Core.ViewModels
             set
             {
                 SetProperty(ref selectLicenseTypeHasError, value);
-
             }
         }
 
@@ -210,19 +232,20 @@ namespace BA_MobileGPS.Core.ViewModels
         private void SaveNewAvartar()
         {
             IFile file = null;
- 
+
             RunOnBackground(async () =>
             {
                 file = await FileSystem.Current.GetFileFromPathAsync(newAvatarPath);
                 using (Stream stream = await file.OpenAsync(XamStorage.FileAccess.Read))
                 {
                     return await userService.UpdateUserAvatar("DriverAvatar", stream, file.Name);
-                }              
+                }
 
-            }, res => {
+            }, res =>
+            {
                 if (res != null)
                 {
-                    Driver.DriverImage = res;                   
+                    Driver.DriverImage = res;
                 }
                 SaveDriver();
                 file.DeleteAsync();
@@ -268,6 +291,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     NavigationService.GoBackAsync(null, true, true);
                 }
+                else PageDialog.DisplayActionSheetAsync("Thông báo", string.Format("Thất bại {0}", res), "OK");
             });
         }
 
@@ -275,6 +299,9 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             ShowSuccessScreen = false;
             PageTitle = addTitle;
+            Driver = new DriverInfor();
+            Driver.FK_CompanyID = UserInfo.CompanyId;
+            SetData(Driver);
         }
 
 
@@ -288,10 +315,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 return false;
             }
 
-            if (IssueDate.Value >= ExpiredDate.Value)
+            if (IssueDate >= ExpiredDate)
             {
-                ExpiredDate.IsNotValid = true;
-                ExpiredDate.ErrorFirst = "Ngày hết hạn phải lớn hơn ngày cấp";
+                ExpiredDateHasErr = true;
                 return false;
             }
 
@@ -308,7 +334,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
 
             return true;
-           
+
         }
 
 
@@ -325,16 +351,24 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetData()
         {
-            Driver.DisplayName = displayName.Value;
-            Driver.Address = address.Value;
-            Driver.Mobile = mobile.Value;
-            Driver.IdentityNumber = identityNumber.Value;
-            Driver.DriverLicense = driverLicense.Value;
-            Driver.LicenseType = selectedLicenseType;
-            Driver.ExpireLicenseDate = expiredDate.Value;
-            Driver.Birthday = birthDay.Value;
-            Driver.IssueLicenseDate = issueDate.Value;
-            Driver.Sex = SelectedGender;
+            try
+            {
+                Driver.DisplayName = displayName.Value;
+                Driver.Address = address.Value;
+                Driver.Mobile = mobile.Value;
+                Driver.IdentityNumber = identityNumber.Value;
+                Driver.DriverLicense = driverLicense.Value;
+                Driver.LicenseType = selectedLicenseType;
+                Driver.ExpireLicenseDate = expiredDate;
+                Driver.Birthday = birthDay;
+                Driver.IssueLicenseDate = issueDate;
+                Driver.Sex = (byte)(SelectedGender - 1);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+
         }
 
         private void SetData(DriverInfor driver)
@@ -346,31 +380,37 @@ namespace BA_MobileGPS.Core.ViewModels
             IdentityNumber.Value = driver.IdentityNumber;
             DriverLicense.Value = driver.DriverLicense;
             SelectedLicenseType = driver.LicenseType;
-            BirthDay.Value = driver.Birthday == null ? DateTime.Now.Date : (DateTime)driver.Birthday;
-            IssueDate.Value = driver.IssueLicenseDate == null ? DateTime.Now.Date.AddDays(-1) : (DateTime)driver.IssueLicenseDate;
-            ExpiredDate.Value = driver.ExpireLicenseDate == null ? DateTime.Now.Date : (DateTime)driver.ExpireLicenseDate;
-            AvartarDisplay = string.IsNullOrEmpty(driver.DriverImage) ? "avatar_default.png" : $"{ServerConfig.ApiEndpoint}{driver.DriverImage}" ;
+            BirthDay = driver.Birthday == null ? DateTime.Now.Date : (DateTime)driver.Birthday;
+            IssueDate = driver.IssueLicenseDate == null ? DateTime.Now.Date.AddDays(-1) : (DateTime)driver.IssueLicenseDate;
+            ExpiredDate = driver.ExpireLicenseDate == null ? DateTime.Now.Date : (DateTime)driver.ExpireLicenseDate;
+            AvartarDisplay = string.IsNullOrEmpty(driver.DriverImage) ? "avatar_default.png" : $"{ServerConfig.ApiEndpoint}{driver.DriverImage}";
             newAvatarPath = string.Empty;
-            SelectedGender = 0;
+            if (driver.Sex == null)
+            {
+                SelectedGender = 0;
+            }
+            else SelectedGender = (byte)(driver.Sex + 1);
         }
 
         private void InitValidations()
         {
             DisplayName = new ValidatableObject<string>();
+            DisplayName.OnChanged += DisplayName_OnChanged;
             Address = new ValidatableObject<string>();
+            Address.OnChanged += Address_OnChanged;
             Mobile = new ValidatableObject<string>();
+            Mobile.OnChanged += Mobile_OnChanged;
             IdentityNumber = new ValidatableObject<string>();
+            IdentityNumber.OnChanged += IdentityNumber_OnChanged;
             DriverLicense = new ValidatableObject<string>();
-            BirthDay = new ValidatableObject<DateTime>();
-            IssueDate = new ValidatableObject<DateTime>();
-            ExpiredDate = new ValidatableObject<DateTime>();
+            DriverLicense.OnChanged += DriverLicense_OnChanged;
 
             DisplayName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge });
 
             Address.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge });
 
             Mobile.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge });
-            Mobile.Validations.Add(new PhoneNumberRule<string> { ValidationMessage = "Số không chính xác" });
+            Mobile.Validations.Add(new PhoneNumberRule<string> { ValidationMessage = "Số không chính xác", CountryCode = CountryCodeConstant.VietNam });
 
             IdentityNumber.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge });
 
@@ -378,9 +418,46 @@ namespace BA_MobileGPS.Core.ViewModels
             DriverLicense.Validations.Add(new MinLenghtRule<string> { ValidationMessage = "Đúng 12 kí tự", MinLenght = 12 });
             DriverLicense.Validations.Add(new MaxLengthRule<string> { ValidationMessage = "Đúng 12 kí tự", MaxLenght = 12 });
 
-            BirthDay.Validations.Add(new IsNotNullOrEmptyRule<DateTime> { ValidationMessage = NotEmptyMessenge });
-            IssueDate.Validations.Add(new IsNotNullOrEmptyRule<DateTime> { ValidationMessage = NotEmptyMessenge });
-            ExpiredDate.Validations.Add(new IsNotNullOrEmptyRule<DateTime> { ValidationMessage = NotEmptyMessenge });
+        }
+
+        private void DriverLicense_OnChanged(object sender, string e)
+        {
+            if (DriverLicense.IsNotValid)
+            {
+                DriverLicense.IsNotValid = false;
+            }
+        }
+
+        private void IdentityNumber_OnChanged(object sender, string e)
+        {
+            if (IdentityNumber.IsNotValid)
+            {
+                IdentityNumber.IsNotValid = false;
+            }
+        }
+
+        private void Mobile_OnChanged(object sender, string e)
+        {
+            if (Mobile.IsNotValid)
+            {
+                Mobile.IsNotValid = false;
+            }
+        }
+
+        private void Address_OnChanged(object sender, string e)
+        {
+            if (Address.IsNotValid)
+            {
+                Address.IsNotValid = false;
+            }
+        }
+
+        private void DisplayName_OnChanged(object sender, string e)
+        {
+            if (DisplayName.IsNotValid)
+            {
+                DisplayName.IsNotValid = false;
+            }
         }
 
         private async void ChangeDriverAvtar()
@@ -461,8 +538,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (fileAvatar == null)
                         return;
 
-                
-
                     ProcessImage(fileAvatar.Path);
 
                     fileAvatar.Dispose();
@@ -488,5 +563,66 @@ namespace BA_MobileGPS.Core.ViewModels
             ListGender.Add("Nữ");
             SelectedGender = 0;
         }
+        /// <summary>
+        /// Mở popup chọn ngày
+        /// </summary>
+        public virtual void ExecuteToFromDate(object obj)
+        {
+            if (obj is string param)
+            {
+                var parameters = new NavigationParameters();
+                switch (param)
+                {
+                    case "BirthDay":
+                        parameters.Add("PickerType", ComboboxType.First);
+                        parameters.Add("DataPicker", BirthDay);
+                        break;
+                    case "IssueDate":
+                        parameters.Add("PickerType", ComboboxType.Second);
+                        parameters.Add("DataPicker", IssueDate);
+                        break;
+                    case "ExpDate":
+                        parameters.Add("PickerType", ComboboxType.Third);
+                        parameters.Add("DataPicker", ExpiredDate);
+                        break;
+                }
+
+                TryExecute(async () =>
+                {
+                    await NavigationService.NavigateAsync("SelectDateCalendar", parameters);
+                });
+
+            }
+
+        }
+
+        private void UpdateDateTime(PickerDateResponse obj)
+        {
+            try
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    switch (obj.PickerType)
+                    {
+                        case (short)ComboboxType.First:
+                            BirthDay = obj.Value;
+                            break;
+                        case (short)ComboboxType.Second:
+                            IssueDate = obj.Value;
+                            break;
+                        case (short)ComboboxType.Third:
+                            ExpiredDate = obj.Value;
+                            break;
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+
+        }
+
+
     }
 }
