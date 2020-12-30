@@ -40,20 +40,15 @@ namespace BA_MobileGPS.Entities
         public Guid? UpdatedByUser { get; set; }
 
         [JsonIgnore]
-        public DriverLicenseEnum? LicenseTypeName
+        public string LicenseTypeName
         {
             get
             {
                 if (LicenseType == 0)
                 {
-                    return null;
+                    return string.Empty;
                 }
-                return (DriverLicenseEnum)LicenseType;
-            }
-            set
-            {
-                LicenseType = (int)value;
-                RaisePropertyChanged();
+                return  string.Format("Bằng lái {0}", ((DriverLicenseEnum)LicenseType).ToString());
             }
         }
 

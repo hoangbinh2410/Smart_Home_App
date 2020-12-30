@@ -25,11 +25,13 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         private readonly IDriverInforService driverInforService;
         private readonly IUserService userService;
-        private const string NotEmptyMessenge = "Đây là trường bắt buộc";
+        private const string NotEmptyMessenge = "Vui lòng nhập ";
+        private const string NotSelectMessenger = "Vui lòng chọn ";
         private const string updateTitle = "Xem thông tin lái xe";
         private const string addTitle = "Nhập thông tin lái xe";
         private const string successTitle = "Thêm lái xe thành công";
-        //private readonly string MinDateMessenger = "Ngày quá bé";
+        private const string licenseRank = "Bằng lái xe hạng ";
+
         public ICommand SaveDriverInforCommand { get; }
 
         public ICommand ContinueInsertCommand { get; }
@@ -222,8 +224,8 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return selectGenderHasError; }
             set { SetProperty(ref selectGenderHasError, value); }
         }
-        public string SelectLicenseTypeErrorMessage { get; set; } = NotEmptyMessenge;
-        public string SelectGenderErrorMessage { get; set; } = NotEmptyMessenge;
+        public string SelectLicenseTypeErrorMessage { get; set; } = string.Format("{0}{1}",NotSelectMessenger,"loại bằng lái");
+        public string SelectGenderErrorMessage { get; set; } = string.Format("{0}{1}", NotSelectMessenger, "giới tính");
 
         public string DateFormat => CultureInfo.CurrentCulture.TwoLetterISOLanguageName.Equals("vi") ? "dd/MM/yyyy" : "MM/dd/yyyy";
         public List<string> ListDriverLicenseType { get; set; }
@@ -344,7 +346,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 "Chọn loại bằng lái"
             };
-            var temp = Enum.GetNames(typeof(DriverLicenseEnum)).ToList();
+            var temp = Enum.GetNames(typeof(DriverLicenseEnum)).Select(b=> string.Format("{0}{1}",licenseRank,b)).ToList();
             list.AddRange(temp);
             ListDriverLicenseType = list;
         }
@@ -380,9 +382,9 @@ namespace BA_MobileGPS.Core.ViewModels
             IdentityNumber.Value = driver.IdentityNumber;
             DriverLicense.Value = driver.DriverLicense;
             SelectedLicenseType = driver.LicenseType;
-            BirthDay = driver.Birthday == null ? DateTime.Now.Date : (DateTime)driver.Birthday;
-            IssueDate = driver.IssueLicenseDate == null ? DateTime.Now.Date.AddDays(-1) : (DateTime)driver.IssueLicenseDate;
-            ExpiredDate = driver.ExpireLicenseDate == null ? DateTime.Now.Date : (DateTime)driver.ExpireLicenseDate;
+            BirthDay = (DateTime)driver.Birthday;
+            IssueDate = (DateTime)driver.IssueLicenseDate;
+            ExpiredDate = (DateTime)driver.ExpireLicenseDate;
             AvartarDisplay = string.IsNullOrEmpty(driver.DriverImage) ? "avatar_default.png" : $"{ServerConfig.ApiEndpoint}{driver.DriverImage}";
             newAvatarPath = string.Empty;
             if (driver.Sex == null)
@@ -405,19 +407,38 @@ namespace BA_MobileGPS.Core.ViewModels
             DriverLicense = new ValidatableObject<string>();
             DriverLicense.OnChanged += DriverLicense_OnChanged;
 
-            DisplayName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge });
+            DisplayName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "họ tên" });
+            DisplayName.Validations.Add(new ExpressionDangerousCharsRule<string> { Expression = "['\"<>/&]", 
+                ValidationMessage = MobileResource.Common_Property_DangerousChars("Họ tên") });
 
-            Address.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge });
+            Address.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge+ "địa chỉ" });
+            Address.Validations.Add(new ExpressionDangerousCharsRule<string>
+            {
+                Expression = "['\"<>/&]",
+                ValidationMessage = MobileResource.Common_Property_DangerousChars("Địa chỉ")
+            });
+           // Address.Validations.Add(new MaxLengthRule<string> { ValidationMessage = "Không nhập quá 150 kí tự", MaxLenght = 150 });
 
-            Mobile.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge });
-            Mobile.Validations.Add(new PhoneNumberRule<string> { ValidationMessage = "Số không chính xác", CountryCode = CountryCodeConstant.VietNam });
+            Mobile.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge +"số điện thoại" });
+            Mobile.Validations.Add(new PhoneNumberRule<string> { ValidationMessage = "Số điện thoại không hợp lệ", 
+                CountryCode = CountryCodeConstant.VietNam });
 
-            IdentityNumber.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge });
+            IdentityNumber.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge +"CMND" });
+            IdentityNumber.Validations.Add(new ExpressionDangerousCharsRule<string>
+            {
+                Expression = "['\"<>/&]",
+                ValidationMessage = MobileResource.Common_Property_DangerousChars("CMND")
+            });
+           // IdentityNumber.Validations.Add(new MaxLengthRule<string> { ValidationMessage = "Không nhập quá 15 kí tự", MaxLenght = 15 });
 
-            DriverLicense.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge });
+            DriverLicense.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge +"bằng lái"});
             DriverLicense.Validations.Add(new MinLenghtRule<string> { ValidationMessage = "Đúng 12 kí tự", MinLenght = 12 });
             DriverLicense.Validations.Add(new MaxLengthRule<string> { ValidationMessage = "Đúng 12 kí tự", MaxLenght = 12 });
-
+            DriverLicense.Validations.Add(new ExpressionDangerousCharsRule<string>
+            {
+                Expression = "['\"<>/&]",
+                ValidationMessage = MobileResource.Common_Property_DangerousChars("Bằng lái")
+            });
         }
 
         private void DriverLicense_OnChanged(object sender, string e)
@@ -561,6 +582,7 @@ namespace BA_MobileGPS.Core.ViewModels
             ListGender.Add("Chọn giới tính");
             ListGender.Add("Nam");
             ListGender.Add("Nữ");
+            ListGender.Add("Khác");
             SelectedGender = 0;
         }
         /// <summary>

@@ -96,8 +96,11 @@
                                     IsClippedToBounds="True"
                                     VerticalOptions="Center"
                                     WidthRequest="80">
-                                    <ffImage:CachedImage Aspect="AspectFill" Source="{Binding UserInfo.AvatarUrl, Converter={StaticResource AddRootImageConverter}}" />
+                                    <ffImage:CachedImage Aspect="AspectFill" Source="{Binding Driver.AvartarDisplay}" />
                                 </pancake:PancakeView>
+                                <pancake:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ChangeDriverAvtarCommand}" />
+                                </pancake:PancakeView.GestureRecognizers>
                             </pancake:PancakeView>
                             <StackLayout
                                 Grid.Column="1"
@@ -157,7 +160,7 @@
                                 </StackLayout.GestureRecognizers>
                                 <Entry
                                     InputTransparent="True"
-                                    Placeholder="Chọn ngày sinh"
+                                    Placeholder="__/__/____"
                                     Text="{Binding BirthDay, Converter={StaticResource DateConverter}}"
                                     VerticalOptions="Center" />
                             </StackLayout>
@@ -210,7 +213,7 @@
                             VerticalOptions="Start">
                             <Entry
                                 Keyboard="Numeric"
-                                MaxLength="50"
+                                MaxLength="15"
                                 Placeholder="Nhập số CMDND"
                                 Text="{Binding IdentityNumber.Value}" />
                         </input:SfTextInputLayout>
@@ -229,7 +232,7 @@
                             HasError="{Binding Mobile.IsNotValid}">
                             <Entry
                                 Keyboard="Telephone"
-                                MaxLength="250"
+                                MaxLength="12"
                                 Placeholder="Nhập số điện thoại"
                                 Text="{Binding Mobile.Value}" />
                         </input:SfTextInputLayout>
@@ -247,7 +250,7 @@
                             HasError="{Binding Address.IsNotValid}"
                             VerticalOptions="Start">
                             <Entry
-                                MaxLength="250"
+                                MaxLength="150"
                                 Placeholder="Nhập địa chỉ"
                                 Text="{Binding Address.Value}" />
                         </input:SfTextInputLayout>
@@ -317,7 +320,7 @@
                                 </StackLayout.GestureRecognizers>
                                 <Entry
                                     InputTransparent="True"
-                                    Placeholder="Chọn ngày cấp bằng lái"
+                                    Placeholder="__/__/____"
                                     Text="{Binding IssueDate, Converter={StaticResource DateConverter}}"
                                     VerticalOptions="Center" />
                             </StackLayout>
@@ -341,7 +344,7 @@
                                 </StackLayout.GestureRecognizers>
                                 <Entry
                                     InputTransparent="True"
-                                    Placeholder="Chọn ngày hết hạn bằng lái"
+                                    Placeholder="__/__/____"
                                     Text="{Binding ExpiredDate, Converter={StaticResource DateConverter}}"
                                     VerticalOptions="Center" />
                             </StackLayout>
