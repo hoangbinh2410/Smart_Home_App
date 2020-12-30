@@ -56,6 +56,17 @@
                 Text="{Binding Source={x:Reference this}, Path=Title}"
                 TextColor="White"
                 VerticalOptions="Center" />
+            <image:CachedImage
+                Grid.Column="2"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Rotation="45"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <image:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GotoAddDriverPageCommand}" />
+                </image:CachedImage.GestureRecognizers>
+            </image:CachedImage>
         </Grid>
     </NavigationPage.TitleView>
     <Grid RowDefinitions="Auto,1,*" RowSpacing="0">
