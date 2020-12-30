@@ -203,8 +203,8 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<VehicleCameraMultiSelect, VehicleCameraMultiSelectViewModel>("VehicleCameraMultiSelect");
 
             containerRegistry.RegisterForNavigation<ListDriverPage, ListDriverPageViewModel>("ListDriverPage");
-            containerRegistry.RegisterForNavigation<UpdateDriverInforPage, UpdateDriverInforPageViewModel>("UpdateDriverInforPage");
-            containerRegistry.RegisterForNavigation<DetailAndEditDriverPage, UpdateDriverInforPageViewModel>("DetailAndEditDriverPage");
+            containerRegistry.RegisterForNavigation<AddDriverInforPage, InsertOrUpdateDriverPageViewModel>("AddDriverInforPage");
+            containerRegistry.RegisterForNavigation<DetailAndEditDriverPage, InsertOrUpdateDriverPageViewModel>("DetailAndEditDriverPage");
 
         }
     }
