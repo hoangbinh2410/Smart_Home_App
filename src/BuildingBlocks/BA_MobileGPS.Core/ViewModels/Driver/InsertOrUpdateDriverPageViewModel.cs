@@ -65,7 +65,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters?.GetValue<string>(ParameterKey.ImageLocation) is string imageLocation)
             {
                 newAvatarPath = imageLocation;
-                AvartarDisplay = imageLocation;
+                //AvartarDisplay = imageLocation;
             }
         }
 
@@ -261,30 +261,33 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SaveDriver()
         {
-            RunOnBackground(async () =>
+            SafeExecute(() =>
             {
-                GetData();
-                var res = await driverInforService.AddDriverInfor(Driver);
-                return res;
-            }, res =>
-            {
-                //success khi id trả về  > 0
-                if (IsInsertpage && res > 0)
+                RunOnBackground(async () =>
                 {
-                    // add success
-                    ShowSuccessScreen = true;
-                    PageTitle = successTitle;
-                    // clear data
-                    Driver = new DriverInfor();
-                    Driver.FK_CompanyID = UserInfo.CompanyId;
-                    SetData(Driver);
+                    GetData();
+                    var res = await driverInforService.AddDriverInfor(Driver);
+                    return res;
+                }, res =>
+                {
+                     //success khi id trả về  > 0
+                     if (IsInsertpage && res > 0)
+                    {
+                         // add success
+                         ShowSuccessScreen = true;
+                        PageTitle = successTitle;
+                         // clear data
+                         Driver = new DriverInfor();
+                        Driver.FK_CompanyID = UserInfo.CompanyId;
+                        SetData(Driver);
 
-                }
-                else if (!IsInsertpage && res == Driver.PK_EmployeeID)
-                {
-                    NavigationService.GoBackAsync(null, true, true);
-                }
-                else PageDialog.DisplayAlertAsync("Thông báo", string.Format("Thất bại,bị trùng CMND hoặc số bằng lái với lái xe khác"), "OK");
+                    }
+                    else if (!IsInsertpage && res == Driver.PK_EmployeeID)
+                    {
+                        NavigationService.GoBackAsync(null, true, true);
+                    }
+                    else PageDialog.DisplayAlertAsync("Thông báo", string.Format("Thất bại,bị trùng CMND hoặc số bằng lái với lái xe khác"), "OK");
+                });
             });
         }
 
@@ -388,7 +391,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 ExpiredDate.Value = (DateTime)driver.ExpireLicenseDate;
             }
-          
+
             AvartarDisplay = string.IsNullOrEmpty(driver.DriverImage) ? "avatar_default.png" : $"{ServerConfig.ApiEndpoint}{driver.DriverImage}";
             newAvatarPath = string.Empty;
             if (driver.Sex == null)
@@ -415,7 +418,7 @@ namespace BA_MobileGPS.Core.ViewModels
             IssueDate = new ValidatableObject<DateTime>();
             IssueDate.OnChanged += IssueDate_OnChanged; ;
             ExpiredDate = new ValidatableObject<DateTime>();
-            ExpiredDate.OnChanged += ExpiredDate_OnChanged; 
+            ExpiredDate.OnChanged += ExpiredDate_OnChanged;
 
             DisplayName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "họ tên" });
             DisplayName.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
@@ -442,7 +445,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 DangerousChar = "['\"<>/&]",
                 ValidationMessage = "Vui lòng nhập CMND hợp lệ"
-            }); 
+            });
 
             DriverLicense.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "bằng lái" });
             DriverLicense.Validations.Add(new MinLenghtRule<string> { ValidationMessage = "Vui lòng nhập số bằng lái xe hợp lệ", MinLenght = 12 });
@@ -608,7 +611,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private async void ProcessImage(string imagePath)
         {
-
+            AvartarDisplay = imagePath;
             var @params = new NavigationParameters
             {
                 { "ImagePath", imagePath }
