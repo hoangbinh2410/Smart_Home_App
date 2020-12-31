@@ -65,7 +65,6 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters?.GetValue<string>(ParameterKey.ImageLocation) is string imageLocation)
             {
                 newAvatarPath = imageLocation;
-                //AvartarDisplay = imageLocation;
             }
         }
 
@@ -257,6 +256,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else SaveDriver();
             }
+            else PageDialog.DisplayAlertAsync("Thông báo", string.Format("Thất bại, vui lòng nhập đầy đủ thông tin cần thiết."), "OK");
         }
 
         private void SaveDriver()
