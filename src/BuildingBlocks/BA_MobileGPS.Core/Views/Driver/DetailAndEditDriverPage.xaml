@@ -114,12 +114,12 @@
                                     HorizontalTextAlignment="Start"
                                     LineBreakMode="TailTruncation"
                                     MaxLines="2"
-                                    Text="{Binding Driver.DisplayName, Converter={StaticResource UpperCaseConverter}}"
+                                    Text="{Binding DisplayName.Value, Converter={StaticResource UpperCaseConverter}}"
                                     TextColor="{DynamicResource WhiteColor}" />
                                 <Label
                                     Margin="5,0,0,0"
                                     HorizontalOptions="Start"
-                                    Text="{Binding Driver.Mobile}"
+                                    Text="{Binding Mobile.Value}"
                                     TextColor="{DynamicResource WhiteColor}" />
 
                             </StackLayout>
