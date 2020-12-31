@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace BA_MobileGPS.Core
 {
@@ -41,6 +43,32 @@ namespace BA_MobileGPS.Core
             Match match = regex.Match(str);
 
             return !match.Success;
+        }
+    }
+
+
+    public class ExpressionDangerousCharsUpdateRule<T> : IValidationRule<T>
+    {
+        public string DangerousChar { get; set; }
+        public string ValidationMessage { get; set; }
+
+        public bool Check(T value)
+        {
+            if (value == null)
+            {
+                return true;
+            }
+            var dangerList = DangerousChar.ToCharArray();
+
+            var str = value as string;
+            foreach (var item in dangerList)
+            {
+                if (str.Contains(item))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

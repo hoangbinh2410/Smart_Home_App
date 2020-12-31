@@ -96,7 +96,7 @@
                                     IsClippedToBounds="True"
                                     VerticalOptions="Center"
                                     WidthRequest="80">
-                                    <ffImage:CachedImage Aspect="AspectFill" Source="{Binding Driver.AvartarDisplay}" />
+                                    <ffImage:CachedImage Aspect="AspectFill" Source="{Binding AvartarDisplay}" />
                                 </pancake:PancakeView>
                                 <pancake:PancakeView.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding ChangeDriverAvtarCommand}" />
@@ -173,6 +173,7 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Giới tính" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text=" (*)" TextColor="{DynamicResource DangerousColor}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -197,7 +198,6 @@
                                     VerticalOptions="Center"
                                     WidthRequest="15" />
                             </Grid>
-
                         </input:SfTextInputLayout>
                         <!--  CMND  -->
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">

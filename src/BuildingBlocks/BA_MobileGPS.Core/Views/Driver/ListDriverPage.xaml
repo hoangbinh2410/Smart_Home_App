@@ -129,6 +129,7 @@
                 AllowSwiping="True"
                 AutoFitMode="DynamicHeight"
                 IsBusy="{Binding ListViewBusy, Mode=OneWay}"
+                ItemSize="60"
                 ItemSpacing="0"
                 ItemsSource="{Binding ListDriverDisplay, Mode=OneWay}"
                 LoadMoreCommand="{Binding LoadMoreItemsCommand}"
@@ -161,7 +162,7 @@
                 <syncfusionList:SfListView.ItemTemplate>
                     <DataTemplate>
                         <pancake:PancakeView Padding="0" BackgroundColor="{DynamicResource GrayColor}">
-                            <StackLayout Spacing="0">
+                            <Grid RowDefinitions="*,1">
                                 <Grid
                                     Margin="5,10"
                                     ColumnDefinitions="Auto,*"
@@ -231,11 +232,8 @@
                                         </Grid>
                                     </StackLayout>
                                 </Grid>
-                                <BoxView
-                                    BackgroundColor="{DynamicResource GrayColor2}"
-                                    HeightRequest="1"
-                                    VerticalOptions="End" />
-                            </StackLayout>
+                                <BoxView Grid.Row="1" BackgroundColor="{DynamicResource GrayColor2}" />
+                            </Grid>
                         </pancake:PancakeView>
                     </DataTemplate>
                 </syncfusionList:SfListView.ItemTemplate>

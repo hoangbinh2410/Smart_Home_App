@@ -416,22 +416,20 @@ namespace BA_MobileGPS.Core.ViewModels
             IssueDate = new ValidatableObject<DateTime>();
             IssueDate.OnChanged += IssueDate_OnChanged; ;
             ExpiredDate = new ValidatableObject<DateTime>();
-            ExpiredDate.OnChanged += ExpiredDate_OnChanged; ;
-
+            ExpiredDate.OnChanged += ExpiredDate_OnChanged; 
 
             DisplayName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "họ tên" });
-            DisplayName.Validations.Add(new ExpressionDangerousCharsRule<string>
+            DisplayName.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
-                Expression = "['\"<>/&]",
-                ValidationMessage = MobileResource.Common_Property_DangerousChars("Họ tên")
+                DangerousChar = "['\"<>/&]",
+                ValidationMessage = "Vui lòng nhập họ tên hợp lệ"
             });
 
-            Address.Validations.Add(new ExpressionDangerousCharsRule<string>
+            Address.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
-                Expression = "['\"<>/&]",
-                ValidationMessage = MobileResource.Common_Property_DangerousChars("Địa chỉ")
+                DangerousChar = "['\"<>/&]",
+                ValidationMessage = "Vui lòng nhập đia chỉ hợp lệ"
             });
-
 
             Mobile.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "số điện thoại" });
             Mobile.Validations.Add(new PhoneNumberRule<string>
@@ -441,25 +439,23 @@ namespace BA_MobileGPS.Core.ViewModels
             });
 
             IdentityNumber.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "CMND" });
-            IdentityNumber.Validations.Add(new ExpressionDangerousCharsRule<string>
+            IdentityNumber.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
-                Expression = "['\"<>/&]",
-                ValidationMessage = MobileResource.Common_Property_DangerousChars("CMND")
-            });
-
+                DangerousChar = "['\"<>/&]",
+                ValidationMessage = "Vui lòng nhập CMND hợp lệ"
+            }); 
 
             DriverLicense.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "bằng lái" });
-            DriverLicense.Validations.Add(new MinLenghtRule<string> { ValidationMessage = "Đúng 12 kí tự", MinLenght = 12 });
-            DriverLicense.Validations.Add(new ExpressionDangerousCharsRule<string>
+            DriverLicense.Validations.Add(new MinLenghtRule<string> { ValidationMessage = "Vui lòng nhập số bằng lái xe hợp lệ", MinLenght = 12 });
+            DriverLicense.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
-                Expression = "['\"<>/&]",
-                ValidationMessage = MobileResource.Common_Property_DangerousChars("Bằng lái")
+                DangerousChar = "['\"<>/&]",
+                ValidationMessage = "Vui lòng nhập bằng lái hợp lệ"
             });
 
             BirthDay.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + "ngày sinh" }); ;
             IssueDate.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + "ngày cấp bằng" });
             ExpiredDate.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + "ngày hết hạn bằng" });
-
         }
 
         private void ExpiredDate_OnChanged(object sender, DateTime e)
@@ -613,6 +609,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private async void ProcessImage(string imagePath)
         {
+
             var @params = new NavigationParameters
             {
                 { "ImagePath", imagePath }
@@ -661,9 +658,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     await NavigationService.NavigateAsync("SelectDateCalendar", parameters);
                 });
-
             }
-
         }
 
         private void UpdateDateTime(PickerDateResponse obj)
