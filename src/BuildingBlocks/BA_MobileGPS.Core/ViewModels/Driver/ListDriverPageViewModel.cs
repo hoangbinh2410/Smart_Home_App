@@ -40,7 +40,7 @@ namespace BA_MobileGPS.Core.ViewModels
             GotoAddDriverPageCommand = new DelegateCommand(GotoAddDriverPage);
             ListDriverDisplay = new ObservableCollection<DriverInfor>();
             ListDriverSearch = new List<DriverInfor>();
-            EventAggregator.GetEvent<RefreshDriverListEvent>().Subscribe(GetAllDriverData);
+            
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -48,10 +48,17 @@ namespace BA_MobileGPS.Core.ViewModels
             base.Initialize(parameters);
             GetAllDriverData();
         }
-        public override void OnDestroy()
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            base.OnDestroy();
-            EventAggregator.GetEvent<RefreshDriverListEvent>().Unsubscribe(GetAllDriverData);
+            base.OnNavigatedTo(parameters);
+            if (parameters?.GetValue<bool>("RefreshData") is bool refresh)
+            {
+                if (refresh)
+                {
+                    GetAllDriverData();
+                }
+            }
         }
         #region property
         private List<DriverInfor> listDriverSearch;

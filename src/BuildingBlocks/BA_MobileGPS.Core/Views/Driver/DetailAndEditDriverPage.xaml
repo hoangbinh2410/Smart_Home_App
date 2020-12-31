@@ -3,6 +3,7 @@
     x:Class="BA_MobileGPS.Core.Views.DetailAndEditDriverPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:busyIndicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
@@ -17,6 +18,15 @@
             <Setter Property="ContainerType" Value="Outlined" />
             <Setter Property="OutlineCornerRadius" Value="30" />
             <Setter Property="ErrorColor" Value="{DynamicResource DangerousColor}" />
+        </Style>
+        <Style TargetType="busyIndicator:SfBusyIndicator">
+            <Setter Property="AnimationType" Value="Cupertino" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="EnableAnimation" Value="True" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="ViewBoxHeight" Value="50" />
+            <Setter Property="ViewBoxWidth" Value="50" />
+            <Setter Property="Duration" Value="0.8" />
         </Style>
     </ContentPage.Resources>
     <NavigationPage.TitleView>
@@ -371,6 +381,7 @@
                     </StackLayout>
                 </StackLayout>
             </ScrollView>
+            <busyIndicator:SfBusyIndicator IsBusy="{Binding IsBusy}" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

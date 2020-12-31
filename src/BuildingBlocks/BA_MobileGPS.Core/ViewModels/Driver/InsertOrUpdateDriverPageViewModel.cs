@@ -31,6 +31,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand ContinueInsertCommand { get; }
         public ICommand ChangeDriverAvtarCommand { get; }
         public ICommand PushToFromDatePageCommand { get; }
+        public ICommand GoBackCommand { get; }
         private bool IsInsertpage = true;
 
         public InsertOrUpdateDriverPageViewModel(INavigationService navigationService, IDriverInforService driverInforService,
@@ -42,6 +43,7 @@ namespace BA_MobileGPS.Core.ViewModels
             ContinueInsertCommand = new DelegateCommand(ContinueInsert);
             ChangeDriverAvtarCommand = new DelegateCommand(ChangeDriverAvtar);
             PushToFromDatePageCommand = new DelegateCommand<object>(ExecuteToFromDate);
+            GoBackCommand = new DelegateCommand(GoBack);
             SetLicenseTypeSource();
             SetGenderSource();
             InitValidations();
@@ -291,6 +293,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     return res;
                 }, res =>
                 {
+                    var param = new NavigationParameters();
+                    param.Add("RefreshData", true);
                     //success khi id trả về  > 0
                     if (IsInsertpage && res > 0)
                     {
@@ -300,13 +304,11 @@ namespace BA_MobileGPS.Core.ViewModels
                         // clear data
                         Driver = new DriverInfor();
                         Driver.FK_CompanyID = UserInfo.CompanyId;
-                        SetData(Driver);
-                        EventAggregator.GetEvent<RefreshDriverListEvent>().Publish();
+                        SetData(Driver);                      
                     }
                     else if (!IsInsertpage && res == Driver.PK_EmployeeID)
-                    {
-                        EventAggregator.GetEvent<RefreshDriverListEvent>().Publish();
-                        NavigationService.GoBackAsync(null, true, true);
+                    {                      
+                        NavigationService.GoBackAsync(param, true, true);
                     }
                     else PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification,
                         MobileResource.ListDriver_Messenger_DuplicateData,
@@ -713,6 +715,13 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
+        }
+
+        private void GoBack()
+        {
+            var param = new NavigationParameters();
+            param.Add("RefreshData", true);
+            NavigationService.GoBackAsync(param, true, true);
         }
     }
 }
