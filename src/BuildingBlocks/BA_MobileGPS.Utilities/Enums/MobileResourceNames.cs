@@ -1205,7 +1205,19 @@
         ListDriver_Messenger_Delete,
         ListDriver_Messenger_NotNull,
         ListDriver_Messenger_NotSelect,
-
+        ListDriver_Title_Update,
+        ListDriver_Title_Insert,
+        ListDriver_Title_Success,
+        ListDriver_Messenger_LicenseRank,
+        ListDriver_Messenger_DuplicateData,
+        ListDriver_Messenger_LicenseType,
+        ListDriver_Item_SelectLicenseType,
+        ListDriver_Messenger_Gender,
+        ListDriver_Notify_DateGreater,
+        ListDriver_Item_SelectGender,
+        ListDriver_Item_Male,
+        ListDriver_Item_Female,
+        ListDriver_Item_Other,
         #endregion
     }
 }
