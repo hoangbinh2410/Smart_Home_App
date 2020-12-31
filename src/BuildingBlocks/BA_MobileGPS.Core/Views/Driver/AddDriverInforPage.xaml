@@ -18,7 +18,6 @@
             <Setter Property="ContainerType" Value="Outlined" />
             <Setter Property="OutlineCornerRadius" Value="30" />
             <Setter Property="ErrorColor" Value="{DynamicResource DangerousColor}" />
-
         </Style>
     </ContentPage.Resources>
     <NavigationPage.TitleView>
@@ -154,6 +153,7 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Giới tính" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text=" (*)" TextColor="{DynamicResource DangerousColor}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
