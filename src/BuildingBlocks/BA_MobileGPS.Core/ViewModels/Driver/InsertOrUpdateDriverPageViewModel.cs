@@ -118,7 +118,6 @@ namespace BA_MobileGPS.Core.ViewModels
             set
             {
                 SetProperty(ref issueDate, value);
-
             }
         }
         private ValidatableObject<DateTime> expiredDate;
