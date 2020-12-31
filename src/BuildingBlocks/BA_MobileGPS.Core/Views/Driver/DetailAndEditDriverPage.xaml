@@ -140,7 +140,7 @@
                             HasError="{Binding DisplayName.IsNotValid}"
                             VerticalOptions="Start">
                             <Entry
-                                MaxLength="80"
+                                MaxLength="100"
                                 Placeholder="Nhập họ tên"
                                 Text="{Binding DisplayName.Value}" />
                         </input:SfTextInputLayout>
@@ -153,7 +153,10 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                        <input:SfTextInputLayout VerticalOptions="Start">
+                        <input:SfTextInputLayout
+                            ErrorText="{Binding BirthDay.ErrorFirst}"
+                            HasError="{Binding BirthDay.IsNotValid}"
+                            VerticalOptions="Start">
                             <StackLayout>
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding PushToFromDatePageCommand}" CommandParameter="BirthDay" />
@@ -161,7 +164,7 @@
                                 <Entry
                                     InputTransparent="True"
                                     Placeholder="__/__/____"
-                                    Text="{Binding BirthDay, Converter={StaticResource DateConverter}}"
+                                    Text="{Binding BirthDay.Value, Converter={StaticResource DateConverter}}"
                                     VerticalOptions="Center" />
                             </StackLayout>
                         </input:SfTextInputLayout>
@@ -170,7 +173,6 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Giới tính" TextColor="{DynamicResource TextPrimaryColor}" />
-                                    <Span Text=" (*)" TextColor="OrangeRed" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -201,7 +203,7 @@
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Số CMDND" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text="Số CMND" TextColor="{DynamicResource TextPrimaryColor}" />
                                     <Span Text=" (*)" TextColor="OrangeRed" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -214,7 +216,7 @@
                             <Entry
                                 Keyboard="Numeric"
                                 MaxLength="15"
-                                Placeholder="Nhập số CMDND"
+                                Placeholder="Nhập số CMND"
                                 Text="{Binding IdentityNumber.Value}" />
                         </input:SfTextInputLayout>
                         <!--  SDT  -->
@@ -241,7 +243,6 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Địa chỉ" TextColor="{DynamicResource TextPrimaryColor}" />
-                                    <Span Text=" (*)" TextColor="OrangeRed" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -300,7 +301,7 @@
                         </Label>
                         <input:SfTextInputLayout ErrorText="{Binding DriverLicense.ErrorFirst}" HasError="{Binding DriverLicense.IsNotValid}">
                             <Entry
-                                MaxLength="250"
+                                MaxLength="12"
                                 Placeholder="Nhập số bằng lái xe"
                                 Text="{Binding DriverLicense.Value}" />
                         </input:SfTextInputLayout>
@@ -313,7 +314,10 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                        <input:SfTextInputLayout VerticalOptions="Start">
+                        <input:SfTextInputLayout
+                            ErrorText="{Binding IssueDate.ErrorFirst}"
+                            HasError="{Binding IssueDate.IsNotValid}"
+                            VerticalOptions="Start">
                             <StackLayout>
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding PushToFromDatePageCommand}" CommandParameter="IssueDate" />
@@ -321,7 +325,7 @@
                                 <Entry
                                     InputTransparent="True"
                                     Placeholder="__/__/____"
-                                    Text="{Binding IssueDate, Converter={StaticResource DateConverter}}"
+                                    Text="{Binding IssueDate.Value, Converter={StaticResource DateConverter}}"
                                     VerticalOptions="Center" />
                             </StackLayout>
                         </input:SfTextInputLayout>
@@ -335,8 +339,8 @@
                             </Label.FormattedText>
                         </Label>
                         <input:SfTextInputLayout
-                            ErrorText="{Binding OverDateErrMessenger}"
-                            HasError="{Binding ExpiredDateHasErr}"
+                            ErrorText="{Binding ExpiredDate.ErrorFirst}"
+                            HasError="{Binding ExpiredDate.IsNotValid}"
                             VerticalOptions="Start">
                             <StackLayout>
                                 <StackLayout.GestureRecognizers>
@@ -345,7 +349,7 @@
                                 <Entry
                                     InputTransparent="True"
                                     Placeholder="__/__/____"
-                                    Text="{Binding ExpiredDate, Converter={StaticResource DateConverter}}"
+                                    Text="{Binding ExpiredDate.Value, Converter={StaticResource DateConverter}}"
                                     VerticalOptions="Center" />
                             </StackLayout>
                         </input:SfTextInputLayout>
