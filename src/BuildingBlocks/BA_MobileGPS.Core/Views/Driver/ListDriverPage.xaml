@@ -195,6 +195,7 @@
                                                     VerticalOptions="CenterAndExpand"
                                                     WidthRequest="20" />
                                                 <Label
+                                                    FontSize="{DynamicResource MyFontSizeSmall}"
                                                     HorizontalOptions="Start"
                                                     LineBreakMode="TailTruncation"
                                                     MaxLines="1"
@@ -211,7 +212,10 @@
                                                     Source="ic_driverlicense.png"
                                                     VerticalOptions="CenterAndExpand"
                                                     WidthRequest="20" />
-                                                <Label Text="{Binding LicenseTypeName}" VerticalOptions="Center" />
+                                                <Label
+                                                    FontSize="{DynamicResource MyFontSizeSmall}"
+                                                    Text="{Binding LicenseTypeName}"
+                                                    VerticalOptions="Center" />
                                             </StackLayout>
                                             <StackLayout
                                                 Grid.Column="2"
@@ -224,6 +228,7 @@
                                                     VerticalOptions="CenterAndExpand"
                                                     WidthRequest="20" />
                                                 <Label
+                                                    FontSize="{DynamicResource MyFontSizeSmall}"
                                                     HorizontalOptions="Start"
                                                     LineBreakMode="TailTruncation"
                                                     Text="{Binding ExpireLicenseDate, Converter={StaticResource DateConverter}}"

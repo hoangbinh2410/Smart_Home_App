@@ -50,17 +50,20 @@
                 Text="{Binding PageTitle}"
                 TextColor="White"
                 VerticalOptions="Center" />
-            <controls:IconView
+            <Grid
                 Grid.Column="2"
-                Foreground="{DynamicResource WhiteColor}"
-                HeightRequest="27"
-                HorizontalOptions="Start"
-                Source="ic_save.png"
-                VerticalOptions="Center">
-                <controls:IconView.GestureRecognizers>
+                Padding="10,0"
+                VerticalOptions="Fill">
+                <controls:IconView
+                    Foreground="White"
+                    HeightRequest="27"
+                    InputTransparent="True"
+                    Source="ic_save.png"
+                    VerticalOptions="Center" />
+                <Grid.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveDriverInforCommand}" />
-                </controls:IconView.GestureRecognizers>
-            </controls:IconView>
+                </Grid.GestureRecognizers>
+            </Grid>
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
@@ -105,7 +108,7 @@
                             </AbsoluteLayout.GestureRecognizers>
                         </AbsoluteLayout>
                     </Grid>
-                    <StackLayout Padding="15,5" Spacing="5">
+                    <StackLayout Padding="15,5,15,20" Spacing="5">
                         <!--  Tên  -->
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                             <Label.FormattedText>
