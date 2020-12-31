@@ -2,9 +2,9 @@
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class ListDriverPage : ContentPage
+    public partial class DetailAndEditDriverPage : ContentPage
     {
-        public ListDriverPage()
+        public DetailAndEditDriverPage()
         {
             InitializeComponent();
         }

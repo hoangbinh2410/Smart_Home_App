@@ -90,6 +90,9 @@
 	  <Compile Update="Views\Camera\MonitoringImage\Template4Image.xaml.cs">
 	    <DependentUpon>Template4Image.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Driver\AddDriverInforPage.xaml.cs">
+	    <DependentUpon>AddDriverInforPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\ListVehicle\DetailVehiclePopup.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
@@ -364,7 +367,7 @@
 	  <EmbeddedResource Update="Views\Shared\VehicleCameraMultiSelect.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Driver\UpdateDriverInforPage.xaml">
+	  <EmbeddedResource Update="Views\Driver\AddDriverInforPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>
