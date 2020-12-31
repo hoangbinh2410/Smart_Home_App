@@ -164,9 +164,9 @@
                         <pancake:PancakeView Padding="0" BackgroundColor="{DynamicResource GrayColor}">
                             <Grid RowDefinitions="*,1">
                                 <Grid
-                                    Margin="5,10"
+                                    Margin="5,10,0,0"
                                     ColumnDefinitions="Auto,*"
-                                    ColumnSpacing="12"
+                                    ColumnSpacing="10"
                                     VerticalOptions="StartAndExpand">
                                     <image:CachedImage
                                         HeightRequest="50"
@@ -184,7 +184,7 @@
                                             StyleClass="BoldText"
                                             Text="{Binding DisplayName, Converter={StaticResource UpperCaseConverter}}" />
                                         <Grid
-                                            ColumnDefinitions="*,105,*"
+                                            ColumnDefinitions="*,90,*"
                                             ColumnSpacing="5"
                                             VerticalOptions="EndAndExpand">
                                             <StackLayout Orientation="Horizontal" Spacing="5">
@@ -195,6 +195,7 @@
                                                     VerticalOptions="CenterAndExpand"
                                                     WidthRequest="20" />
                                                 <Label
+                                                    FontSize="{DynamicResource MyFontSizeSmall}"
                                                     HorizontalOptions="Start"
                                                     LineBreakMode="TailTruncation"
                                                     MaxLines="1"
@@ -211,12 +212,17 @@
                                                     Source="ic_driverlicense.png"
                                                     VerticalOptions="CenterAndExpand"
                                                     WidthRequest="20" />
-                                                <Label Text="{Binding LicenseTypeName}" VerticalOptions="Center" />
+                                                <Label
+                                                    FontSize="{DynamicResource MyFontSizeSmall}"
+                                                    LineBreakMode="HeadTruncation"
+                                                    MaxLines="1"
+                                                    Text="{Binding LicenseTypeName}"
+                                                    VerticalOptions="Center" />
                                             </StackLayout>
                                             <StackLayout
                                                 Grid.Column="2"
                                                 Orientation="Horizontal"
-                                                Spacing="10">
+                                                Spacing="5">
                                                 <icons:IconView
                                                     Foreground="{DynamicResource DangerousColor}"
                                                     HeightRequest="20"
@@ -224,6 +230,7 @@
                                                     VerticalOptions="CenterAndExpand"
                                                     WidthRequest="20" />
                                                 <Label
+                                                    FontSize="{DynamicResource MyFontSizeSmall}"
                                                     HorizontalOptions="Start"
                                                     LineBreakMode="TailTruncation"
                                                     Text="{Binding ExpireLicenseDate, Converter={StaticResource DateConverter}}"

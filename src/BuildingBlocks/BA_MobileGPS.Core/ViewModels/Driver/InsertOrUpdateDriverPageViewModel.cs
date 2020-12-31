@@ -1,23 +1,23 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
+using BA_MobileGPS.Utilities;
+using BA_MobileGPS.Utilities.Constant;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Input;
 using System.Globalization;
-using BA_MobileGPS.Utilities;
-using BA_MobileGPS.Core.Resources;
-using Plugin.Media;
-using Xamarin.Forms;
-using BA_MobileGPS.Core.Helpers;
-using Plugin.Media.Abstractions;
-using XamStorage;
 using System.IO;
-using BA_MobileGPS.Utilities.Constant;
+using System.Linq;
 using System.Reflection;
+using System.Windows.Input;
+using Xamarin.Forms;
+using XamStorage;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -26,17 +26,13 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IDriverInforService driverInforService;
         private readonly IUserService userService;
         private string NotEmptyMessenge = MobileResource.ListDriver_Messenger_NotNull;
-        private const string updateTitle = "Xem thông tin lái xe";
-        private const string addTitle = "Nhập thông tin lái xe";
-        private const string successTitle = "Thêm lái xe thành công";
-        private const string licenseRank = "Bằng lái xe hạng ";
 
         public ICommand SaveDriverInforCommand { get; }
-
         public ICommand ContinueInsertCommand { get; }
         public ICommand ChangeDriverAvtarCommand { get; }
         public ICommand PushToFromDatePageCommand { get; }
         private bool IsInsertpage = true;
+
         public InsertOrUpdateDriverPageViewModel(INavigationService navigationService, IDriverInforService driverInforService,
             IUserService userService) : base(navigationService)
         {
@@ -53,19 +49,18 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<SelectDateEvent>().Subscribe(UpdateDateTime);
         }
 
-
         public override void OnDestroy()
         {
             EventAggregator.GetEvent<SelectDateEvent>().Unsubscribe(UpdateDateTime);
             base.OnDestroy();
         }
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
             if (parameters?.GetValue<string>(ParameterKey.ImageLocation) is string imageLocation)
             {
                 newAvatarPath = imageLocation;
-                AvartarDisplay = imageLocation;
             }
         }
 
@@ -77,21 +72,22 @@ namespace BA_MobileGPS.Core.ViewModels
                 // Form Edit
                 Driver = driver;
                 IsInsertpage = false;
-                PageTitle = updateTitle;
+                PageTitle = MobileResource.ListDriver_Title_Update;
             }
             else
             {
                 // Form thêm mới
                 Driver = new DriverInfor();
                 Driver.FK_CompanyID = UserInfo.CompanyId;
-                PageTitle = addTitle;
+                PageTitle = MobileResource.ListDriver_Title_Insert;
             }
             SetData(Driver);
         }
 
         private string newAvatarPath { get; set; } = string.Empty;
-
+        #region Binding Property
         private string avartarDisplay;
+
         public string AvartarDisplay
         {
             get { return avartarDisplay; }
@@ -99,6 +95,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private DriverInfor driver;
+
         public DriverInfor Driver
         {
             get { return driver; }
@@ -106,22 +103,26 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private ValidatableObject<DateTime> birthDay;
+
         public ValidatableObject<DateTime> BirthDay
         {
             get { return birthDay; }
             set { SetProperty(ref birthDay, value); }
         }
+
         private ValidatableObject<DateTime> issueDate;
+
         public ValidatableObject<DateTime> IssueDate
         {
             get { return issueDate; }
             set
             {
                 SetProperty(ref issueDate, value);
-
             }
         }
+
         private ValidatableObject<DateTime> expiredDate;
+
         public ValidatableObject<DateTime> ExpiredDate
         {
             get { return expiredDate; }
@@ -132,6 +133,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private ValidatableObject<string> displayName;
+
         public ValidatableObject<string> DisplayName
         {
             get { return displayName; }
@@ -139,6 +141,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private ValidatableObject<string> address;
+
         public ValidatableObject<string> Address
         {
             get { return address; }
@@ -146,6 +149,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private ValidatableObject<string> mobile;
+
         public ValidatableObject<string> Mobile
         {
             get { return mobile; }
@@ -153,6 +157,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private ValidatableObject<string> identityNumber;
+
         public ValidatableObject<string> IdentityNumber
         {
             get { return identityNumber; }
@@ -160,6 +165,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private ValidatableObject<string> driverLicense;
+
         public ValidatableObject<string> DriverLicense
         {
             get { return driverLicense; }
@@ -167,6 +173,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private int selectedLicenseType;
+
         public int SelectedLicenseType
         {
             get => selectedLicenseType;
@@ -176,7 +183,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 SelectLicenseTypeHasError = false;
             }
         }
+
         private byte selectedGender;
+
         public byte SelectedGender
         {
             get { return selectedGender; }
@@ -188,6 +197,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private bool showSuccessScreen;
+
         public bool ShowSuccessScreen
         {
             get { return showSuccessScreen; }
@@ -195,6 +205,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private string pageTitle;
+
         public string PageTitle
         {
             get { return pageTitle; }
@@ -202,6 +213,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private bool selectLicenseTypeHasError;
+
         public bool SelectLicenseTypeHasError
         {
             get { return selectLicenseTypeHasError; }
@@ -212,19 +224,25 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private bool selectGenderHasError;
+
         public bool SelectGenderHasError
         {
             get { return selectGenderHasError; }
             set { SetProperty(ref selectGenderHasError, value); }
         }
 
-        public string SelectLicenseTypeErrorMessage { get; set; } = string.Format("{0}{1}", MobileResource.ListDriver_Messenger_NotSelect, "loại bằng lái");
-        public string SelectGenderErrorMessage { get; set; } = string.Format("{0}{1}", MobileResource.ListDriver_Messenger_NotSelect, "giới tính");
+        public string SelectLicenseTypeErrorMessage { get; set; } = string.Format("{0}{1}",
+            MobileResource.ListDriver_Messenger_NotSelect, MobileResource.ListDriver_Messenger_LicenseType);
+
+        public string SelectGenderErrorMessage { get; set; } = string.Format("{0}{1}",
+            MobileResource.ListDriver_Messenger_NotSelect, MobileResource.ListDriver_Messenger_Gender);
 
         public string DateFormat => CultureInfo.CurrentCulture.TwoLetterISOLanguageName.Equals("vi") ? "dd/MM/yyyy" : "MM/dd/yyyy";
         public List<string> ListDriverLicenseType { get; set; }
         public List<string> ListGender { get; set; }
+        #endregion
 
+        #region function Save
         private void SaveNewAvartar()
         {
             IFile file = null;
@@ -236,7 +254,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     return await userService.UpdateUserAvatar("DriverAvatar", stream, file.Name);
                 }
-
             }, res =>
             {
                 if (res != null)
@@ -258,94 +275,55 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else SaveDriver();
             }
+            else PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification,
+                MobileResource.Common_Message_ErrorTryAgain,
+                MobileResource.Common_Button_OK);
         }
 
         private void SaveDriver()
         {
-            RunOnBackground(async () =>
+            SafeExecute(() =>
             {
-                GetData();
-                var res = await driverInforService.AddDriverInfor(Driver);
-                return res;
-            }, res =>
-            {
-                //success khi id trả về  > 0
-                if (IsInsertpage && res > 0)
+                RunOnBackground(async () =>
                 {
-                    // add success
-                    ShowSuccessScreen = true;
-                    PageTitle = successTitle;
-                    // clear data
-                    Driver = new DriverInfor();
-                    Driver.FK_CompanyID = UserInfo.CompanyId;
-                    SetData(Driver);
-
-                }
-                else if (!IsInsertpage && res == Driver.PK_EmployeeID)
+                    GetData();
+                    var res = await driverInforService.AddDriverInfor(Driver);
+                    return res;
+                }, res =>
                 {
-                    NavigationService.GoBackAsync(null, true, true);
-                }
-                else PageDialog.DisplayAlertAsync("Thông báo", string.Format("Thất bại,bị trùng CMND hoặc số bằng lái với lái xe khác"), "OK");
+                    //success khi id trả về  > 0
+                    if (IsInsertpage && res > 0)
+                    {
+                        // add success
+                        ShowSuccessScreen = true;
+                        PageTitle = MobileResource.ListDriver_Title_Success;
+                        // clear data
+                        Driver = new DriverInfor();
+                        Driver.FK_CompanyID = UserInfo.CompanyId;
+                        SetData(Driver);
+                        EventAggregator.GetEvent<RefreshDriverListEvent>().Publish();
+                    }
+                    else if (!IsInsertpage && res == Driver.PK_EmployeeID)
+                    {
+                        EventAggregator.GetEvent<RefreshDriverListEvent>().Publish();
+                        NavigationService.GoBackAsync(null, true, true);
+                    }
+                    else PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification,
+                        MobileResource.ListDriver_Messenger_DuplicateData,
+                       MobileResource.Common_Button_OK);
+                });
             });
         }
 
         private void ContinueInsert()
         {
             ShowSuccessScreen = false;
-            PageTitle = addTitle;
+            PageTitle = MobileResource.ListDriver_Title_Insert;
             Driver = new DriverInfor();
             Driver.FK_CompanyID = UserInfo.CompanyId;
             SetData(Driver);
         }
-
-
-        private bool Validate()
-        {
-            var name = DisplayName.Validate();
-            var address = Address.Validate();
-            var mobile = Mobile.Validate();
-            var cmt = IdentityNumber.Validate();
-            var driverLicense = DriverLicense.Validate();
-            var birthday = BirthDay.Validate();
-            var issuedate = IssueDate.Validate();
-            var expriDate = ExpiredDate.Validate();
-
-            var overdate = true;
-            if (IssueDate.Value >= ExpiredDate.Value)
-            {
-                ExpiredDate.IsNotValid = true;
-                ExpiredDate.ErrorFirst = "Ngày hết hạn phải lớn hơn ngày cấp";
-                overdate = false;
-            }
-            var licenseType = true;
-            if (SelectedLicenseType < 1)
-            {
-                SelectLicenseTypeHasError = true;
-                licenseType = false;
-            }
-            var gender = true;
-            if (SelectedGender == 0)
-            {
-                SelectGenderHasError = true;
-                gender = false;
-            }
-
-            return name && address && mobile && cmt && overdate && licenseType && gender
-                && driverLicense && birthday && issuedate && expriDate;
-        }
-
-
-        private void SetLicenseTypeSource()
-        {
-            var list = new List<string>
-            {
-                "Chọn loại bằng lái"
-            };
-            var temp = Enum.GetNames(typeof(DriverLicenseEnum)).Select(b => string.Format("{0}{1}", licenseRank, b)).ToList();
-            list.AddRange(temp);
-            ListDriverLicenseType = list;
-        }
-
+        
         private void GetData()
         {
             try
@@ -365,40 +343,44 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-
         }
-
-        private void SetData(DriverInfor driver)
+        #endregion
+        
+        #region Validation
+        private bool Validate()
         {
-            //reset data
-            DisplayName.Value = driver.DisplayName;
-            Address.Value = driver.Address;
-            Mobile.Value = driver.Mobile;
-            IdentityNumber.Value = driver.IdentityNumber;
-            DriverLicense.Value = driver.DriverLicense;
-            SelectedLicenseType = driver.LicenseType;
-            if (driver.Birthday != null)
-            {
-                BirthDay.Value = (DateTime)driver.Birthday;
-            }
-            if (driver.IssueLicenseDate != null)
-            {
-                IssueDate.Value = (DateTime)driver.IssueLicenseDate;
-            }
-            if (driver.ExpireLicenseDate != null)
-            {
-                ExpiredDate.Value = (DateTime)driver.ExpireLicenseDate;
-            }
-          
-            AvartarDisplay = string.IsNullOrEmpty(driver.DriverImage) ? "avatar_default.png" : $"{ServerConfig.ApiEndpoint}{driver.DriverImage}";
-            newAvatarPath = string.Empty;
-            if (driver.Sex == null)
-            {
-                SelectedGender = 0;
-            }
-            else SelectedGender = (byte)(driver.Sex + 1);
-        }
+            var name = DisplayName.Validate();
+            var address = Address.Validate();
+            var mobile = Mobile.Validate();
+            var cmt = IdentityNumber.Validate();
+            var driverLicense = DriverLicense.Validate();
+            var birthday = BirthDay.Validate();
+            var issuedate = IssueDate.Validate();
+            var expriDate = ExpiredDate.Validate();
 
+            var overdate = true;
+            if (IssueDate.Value >= ExpiredDate.Value)
+            {
+                ExpiredDate.IsNotValid = true;
+                ExpiredDate.ErrorFirst = MobileResource.ListDriver_Notify_DateGreater;
+                overdate = false;
+            }
+            var licenseType = true;
+            if (SelectedLicenseType < 1)
+            {
+                SelectLicenseTypeHasError = true;
+                licenseType = false;
+            }
+            var gender = true;
+            if (SelectedGender == 0)
+            {
+                SelectGenderHasError = true;
+                gender = false;
+            }
+
+            return name && address && mobile && cmt && overdate && licenseType && gender
+                && driverLicense && birthday && issuedate && expriDate;
+        }
         private void InitValidations()
         {
             DisplayName = new ValidatableObject<string>();
@@ -416,7 +398,7 @@ namespace BA_MobileGPS.Core.ViewModels
             IssueDate = new ValidatableObject<DateTime>();
             IssueDate.OnChanged += IssueDate_OnChanged; ;
             ExpiredDate = new ValidatableObject<DateTime>();
-            ExpiredDate.OnChanged += ExpiredDate_OnChanged; 
+            ExpiredDate.OnChanged += ExpiredDate_OnChanged;
 
             DisplayName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "họ tên" });
             DisplayName.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
@@ -443,7 +425,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 DangerousChar = "['\"<>/&]",
                 ValidationMessage = "Vui lòng nhập CMND hợp lệ"
-            }); 
+            });
 
             DriverLicense.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "bằng lái" });
             DriverLicense.Validations.Add(new MinLenghtRule<string> { ValidationMessage = "Vui lòng nhập số bằng lái xe hợp lệ", MinLenght = 12 });
@@ -521,7 +503,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 DisplayName.IsNotValid = false;
             }
         }
+        #endregion
 
+        #region Avatar
         private async void ChangeDriverAvtar()
         {
             string result = await PageDialog.DisplayActionSheetAsync("", MobileResource.Common_Button_Cancel, null, MobileResource.Common_Message_TakeNewPhoto, MobileResource.Common_Message_ChooseAvailablePhotos);
@@ -606,10 +590,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             });
         }
-
+       
         private async void ProcessImage(string imagePath)
         {
-
+            AvartarDisplay = imagePath;
             var @params = new NavigationParameters
             {
                 { "ImagePath", imagePath }
@@ -617,15 +601,55 @@ namespace BA_MobileGPS.Core.ViewModels
 
             await NavigationService.NavigateAsync("BaseNavigationPage/ImageEditorPage", @params, true, true);
         }
-
+        #endregion
+        private void SetLicenseTypeSource()
+        {
+            var list = new List<string>
+            {
+                MobileResource.ListDriver_Item_SelectLicenseType
+            };
+            var temp = Enum.GetNames(typeof(DriverLicenseEnum)).Select(b => string.Format("{0}{1}", MobileResource.ListDriver_Messenger_LicenseRank, b)).ToList();
+            list.AddRange(temp);
+            ListDriverLicenseType = list;
+        }
         private void SetGenderSource()
         {
             ListGender = new List<string>();
-            ListGender.Add("Chọn giới tính");
-            ListGender.Add("Nam");
-            ListGender.Add("Nữ");
-            ListGender.Add("Khác");
+            ListGender.Add(MobileResource.ListDriver_Item_SelectGender);
+            ListGender.Add(MobileResource.ListDriver_Item_Male);
+            ListGender.Add(MobileResource.ListDriver_Item_Female);
+            ListGender.Add(MobileResource.ListDriver_Item_Other);
             SelectedGender = 0;
+        }
+        private void SetData(DriverInfor driver)
+        {
+            //reset data
+            DisplayName.Value = driver.DisplayName;
+            Address.Value = driver.Address;
+            Mobile.Value = driver.Mobile;
+            IdentityNumber.Value = driver.IdentityNumber;
+            DriverLicense.Value = driver.DriverLicense;
+            SelectedLicenseType = driver.LicenseType;
+            if (driver.Birthday != null)
+            {
+                BirthDay.Value = (DateTime)driver.Birthday;
+            }
+            if (driver.IssueLicenseDate != null)
+            {
+                IssueDate.Value = (DateTime)driver.IssueLicenseDate;
+            }
+            if (driver.ExpireLicenseDate != null)
+            {
+                ExpiredDate.Value = (DateTime)driver.ExpireLicenseDate;
+            }
+
+            AvartarDisplay = string.IsNullOrEmpty(driver.DriverImage) ? "avatar_default.png" : $"{ServerConfig.ApiEndpoint}{driver.DriverImage}";
+            newAvatarPath = string.Empty;
+            if (driver.Sex == null)
+            {
+                SelectedGender = 0;
+            }
+            else SelectedGender = (byte)(driver.Sex + 1);
         }
         /// <summary>
         /// Mở popup chọn ngày
@@ -642,11 +666,13 @@ namespace BA_MobileGPS.Core.ViewModels
                         parameters.Add("PickerType", ComboboxType.First);
                         parameters.Add("DataPicker", day);
                         break;
+
                     case "IssueDate":
                         var issueDay = IssueDate.Value == new DateTime() ? DateTime.Now : IssueDate.Value;
                         parameters.Add("PickerType", ComboboxType.Second);
                         parameters.Add("DataPicker", issueDay);
                         break;
+
                     case "ExpDate":
                         var expDay = ExpiredDate.Value == new DateTime() ? DateTime.Now : ExpiredDate.Value;
                         parameters.Add("PickerType", ComboboxType.Third);
@@ -672,9 +698,11 @@ namespace BA_MobileGPS.Core.ViewModels
                         case (short)ComboboxType.First:
                             BirthDay.Value = obj.Value;
                             break;
+
                         case (short)ComboboxType.Second:
                             IssueDate.Value = obj.Value;
                             break;
+
                         case (short)ComboboxType.Third:
                             ExpiredDate.Value = obj.Value;
                             break;
@@ -685,9 +713,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-
         }
-
-
     }
 }

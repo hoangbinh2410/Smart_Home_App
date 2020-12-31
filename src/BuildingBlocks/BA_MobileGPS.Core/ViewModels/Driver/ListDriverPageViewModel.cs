@@ -40,14 +40,64 @@ namespace BA_MobileGPS.Core.ViewModels
             GotoAddDriverPageCommand = new DelegateCommand(GotoAddDriverPage);
             ListDriverDisplay = new ObservableCollection<DriverInfor>();
             ListDriverSearch = new List<DriverInfor>();
+            EventAggregator.GetEvent<RefreshDriverListEvent>().Subscribe(GetAllDriverData);
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public override void Initialize(INavigationParameters parameters)
         {
-            base.OnNavigatedTo(parameters);
+            base.Initialize(parameters);
             GetAllDriverData();
         }
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            EventAggregator.GetEvent<RefreshDriverListEvent>().Unsubscribe(GetAllDriverData);
+        }
+        #region property
+        private List<DriverInfor> listDriverSearch;
+        public List<DriverInfor> ListDriverSearch
+        {
+            get { return listDriverSearch; }
+            set
+            {
+                SetProperty(ref listDriverSearch, value);
+                if (ViewHasAppeared)
+                {
+                    SourceChange();
+                }
+            }
+        }
 
+        private void SourceChange()
+        {
+            ListDriverDisplay.Clear();
+            pageIndex = 0;
+            LoadMore();
+        }
+
+        private List<DriverInfor> ListDriverOrigin { get; set; } = new List<DriverInfor>();
+        private ObservableCollection<DriverInfor> listDriverDisplay;
+        public ObservableCollection<DriverInfor> ListDriverDisplay
+        {
+            get { return listDriverDisplay; }
+            set
+            {
+                SetProperty(ref listDriverDisplay, value);
+                RaisePropertyChanged();
+            }
+        }
+        private bool listViewBusy;
+        public bool ListViewBusy
+        {
+            get { return listViewBusy; }
+            set { SetProperty(ref listViewBusy, value); }
+        }
+
+        public string searchedText;
+        public string SearchedText { get => searchedText; set => SetProperty(ref searchedText, value); }
+        #endregion
+
+        #region function
         private void GetAllDriverData()
         {
             ListDriverOrigin.Clear();
@@ -199,47 +249,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             }
         }
-        private List<DriverInfor> listDriverSearch;
-        public List<DriverInfor> ListDriverSearch
-        {
-            get { return listDriverSearch; }
-            set
-            {
-                SetProperty(ref listDriverSearch, value);
-                if (ViewHasAppeared)
-                {
-                    SourceChange();
-                }
-            }
-        }
-
-        private void SourceChange()
-        {
-            ListDriverDisplay.Clear();
-            pageIndex = 0;
-            LoadMore();
-        }
-
-        private List<DriverInfor> ListDriverOrigin { get; set; } = new List<DriverInfor>();
-        private ObservableCollection<DriverInfor> listDriverDisplay;
-        public ObservableCollection<DriverInfor> ListDriverDisplay
-        {
-            get { return listDriverDisplay; }
-            set
-            {
-                SetProperty(ref listDriverDisplay, value);
-                RaisePropertyChanged();
-            }
-        }
-        private bool listViewBusy;
-        public bool ListViewBusy
-        {
-            get { return listViewBusy; }
-            set { SetProperty(ref listViewBusy, value); }
-        }
-
-        public string searchedText;
-        public string SearchedText { get => searchedText; set => SetProperty(ref searchedText, value); }
+     
 
         private void GotoAddDriverPage()
         {
@@ -248,6 +258,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 var a = await NavigationService.NavigateAsync("NavigationPage/AddDriverInforPage", null, true, true);
             });
         }
+        #endregion
+
     }
 
 
