@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -44,7 +45,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            GetAllDriverData();            
+            GetAllDriverData();
         }
 
         private void GetAllDriverData()
@@ -155,24 +156,32 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (obj != null && obj is DriverInfor item)
             {
-                var req = new DriverDeleteRequest()
+                SafeExecute(async () =>
                 {
-                    PK_EmployeeID = item.PK_EmployeeID,
-                    UpdatedByUser = UserInfo.UserId
-                };
-                RunOnBackground(async () =>
-                {
-                    var temp = await driverInforService.DeleteDriverInfor(req);
-                    return temp;
-                }, result =>
-                {
-                    if (result == item.PK_EmployeeID)
+                    var action = await PageDialog.DisplayAlertAsync(MobileResource.ListDriver_Label_Delete,
+                        MobileResource.ListDriver_Messenger_Delete, MobileResource.Moto_Label_Confirm,
+                        MobileResource.Common_Message_Skip);
+                    if (action)
                     {
-                        GetAllDriverData();
-                        SearchedText = string.Empty;
+                        var req = new DriverDeleteRequest()
+                        {
+                            PK_EmployeeID = item.PK_EmployeeID,
+                            UpdatedByUser = UserInfo.UserId
+                        };
+                        await RunOnBackground(async () =>
+                        {
+                            var temp = await driverInforService.DeleteDriverInfor(req);
+                            return temp;
+                        }, result =>
+                        {
+                            if (result == item.PK_EmployeeID)
+                            {
+                                GetAllDriverData();
+                                SearchedText = string.Empty;
+                            }
+                        });
                     }
                 });
-
             }
         }
 
@@ -183,11 +192,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 var item = (DriverInfor)agrs.ItemData;
                 var param = new NavigationParameters();
                 param.Add(ParameterKey.DriverInformation, item);
-                SafeExecute(async() =>
+                SafeExecute(async () =>
                 {
                     var a = await NavigationService.NavigateAsync("NavigationPage/DetailAndEditDriverPage", param, true, true);
                 });
-              
+
             }
         }
         private List<DriverInfor> listDriverSearch;

@@ -1199,5 +1199,13 @@
         Boundary_Label_All,
         Boundary_Label_Showarea,
         Boundary_Label_Showname,
+
+        #region Danh sách lái xe
+        ListDriver_Label_Delete,
+        ListDriver_Messenger_Delete,
+        ListDriver_Messenger_NotNull,
+        ListDriver_Messenger_NotSelect,
+
+        #endregion
     }
 }

@@ -25,8 +25,7 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         private readonly IDriverInforService driverInforService;
         private readonly IUserService userService;
-        private const string NotEmptyMessenge = "Vui lòng nhập ";
-        private const string NotSelectMessenger = "Vui lòng chọn ";
+        private string NotEmptyMessenge = MobileResource.ListDriver_Messenger_NotNull;
         private const string updateTitle = "Xem thông tin lái xe";
         private const string addTitle = "Nhập thông tin lái xe";
         private const string successTitle = "Thêm lái xe thành công";
@@ -106,14 +105,14 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref driver, value); }
         }
 
-        private DateTime? birthDay;
-        public DateTime? BirthDay
+        private ValidatableObject<DateTime> birthDay;
+        public ValidatableObject<DateTime> BirthDay
         {
             get { return birthDay; }
             set { SetProperty(ref birthDay, value); }
         }
-        private DateTime? issueDate;
-        public DateTime? IssueDate
+        private ValidatableObject<DateTime> issueDate;
+        public ValidatableObject<DateTime> IssueDate
         {
             get { return issueDate; }
             set
@@ -122,25 +121,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
             }
         }
-        private DateTime? expiredDate;
-        public DateTime? ExpiredDate
+        private ValidatableObject<DateTime> expiredDate;
+        public ValidatableObject<DateTime> ExpiredDate
         {
             get { return expiredDate; }
             set
             {
                 SetProperty(ref expiredDate, value);
-                ExpiredDateHasErr = false;
             }
         }
-
-        private bool expiredDateHasErr;
-        public bool ExpiredDateHasErr
-        {
-            get { return expiredDateHasErr; }
-            set { SetProperty(ref expiredDateHasErr, value); }
-        }
-
-        public string OverDateErrMessenger { get; set; } = "Ngày hết hạn phải lớn hơn ngày cấp";
 
         private ValidatableObject<string> displayName;
         public ValidatableObject<string> DisplayName
@@ -148,24 +137,28 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return displayName; }
             set { SetProperty(ref displayName, value); }
         }
+
         private ValidatableObject<string> address;
         public ValidatableObject<string> Address
         {
             get { return address; }
             set { SetProperty(ref address, value); }
         }
+
         private ValidatableObject<string> mobile;
         public ValidatableObject<string> Mobile
         {
             get { return mobile; }
             set { SetProperty(ref mobile, value); }
         }
+
         private ValidatableObject<string> identityNumber;
         public ValidatableObject<string> IdentityNumber
         {
             get { return identityNumber; }
             set { SetProperty(ref identityNumber, value); }
         }
+
         private ValidatableObject<string> driverLicense;
         public ValidatableObject<string> DriverLicense
         {
@@ -224,8 +217,9 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return selectGenderHasError; }
             set { SetProperty(ref selectGenderHasError, value); }
         }
-        public string SelectLicenseTypeErrorMessage { get; set; } = string.Format("{0}{1}",NotSelectMessenger,"loại bằng lái");
-        public string SelectGenderErrorMessage { get; set; } = string.Format("{0}{1}", NotSelectMessenger, "giới tính");
+
+        public string SelectLicenseTypeErrorMessage { get; set; } = string.Format("{0}{1}", MobileResource.ListDriver_Messenger_NotSelect, "loại bằng lái");
+        public string SelectGenderErrorMessage { get; set; } = string.Format("{0}{1}", MobileResource.ListDriver_Messenger_NotSelect, "giới tính");
 
         public string DateFormat => CultureInfo.CurrentCulture.TwoLetterISOLanguageName.Equals("vi") ? "dd/MM/yyyy" : "MM/dd/yyyy";
         public List<string> ListDriverLicenseType { get; set; }
@@ -252,8 +246,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 SaveDriver();
                 file.DeleteAsync();
             });
-
-
         }
 
         private void SaveDriverInfor()
@@ -293,7 +285,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     NavigationService.GoBackAsync(null, true, true);
                 }
-                else PageDialog.DisplayActionSheetAsync("Thông báo", string.Format("Thất bại {0}", res), "OK");
+                else PageDialog.DisplayAlertAsync("Thông báo", string.Format("Thất bại,bị trùng CMND hoặc số bằng lái với lái xe khác"), "OK");
             });
         }
 
@@ -309,34 +301,37 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool Validate()
         {
-            var res = DisplayName.Validate() && Address.Validate()
-              && Mobile.Validate() && IdentityNumber.Validate()
-              && DriverLicense.Validate();
-            if (!res)
-            {
-                return false;
-            }
+            var name = DisplayName.Validate();
+            var address = Address.Validate();
+            var mobile = Mobile.Validate();
+            var cmt = IdentityNumber.Validate();
+            var driverLicense = DriverLicense.Validate();
+            var birthday = BirthDay.Validate();
+            var issuedate = IssueDate.Validate();
+            var expriDate = ExpiredDate.Validate();
 
-            if (IssueDate >= ExpiredDate)
+            var overdate = true;
+            if (IssueDate.Value >= ExpiredDate.Value)
             {
-                ExpiredDateHasErr = true;
-                return false;
+                ExpiredDate.IsNotValid = true;
+                ExpiredDate.ErrorFirst = "Ngày hết hạn phải lớn hơn ngày cấp";
+                overdate = false;
             }
-
+            var licenseType = true;
             if (SelectedLicenseType < 1)
             {
                 SelectLicenseTypeHasError = true;
-                return false;
+                licenseType = false;
             }
-
+            var gender = true;
             if (SelectedGender == 0)
             {
                 SelectGenderHasError = true;
-                return false;
+                gender = false;
             }
 
-            return true;
-
+            return name && address && mobile && cmt && overdate && licenseType && gender
+                && driverLicense && birthday && issuedate && expriDate;
         }
 
 
@@ -346,7 +341,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 "Chọn loại bằng lái"
             };
-            var temp = Enum.GetNames(typeof(DriverLicenseEnum)).Select(b=> string.Format("{0}{1}",licenseRank,b)).ToList();
+            var temp = Enum.GetNames(typeof(DriverLicenseEnum)).Select(b => string.Format("{0}{1}", licenseRank, b)).ToList();
             list.AddRange(temp);
             ListDriverLicenseType = list;
         }
@@ -361,9 +356,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 Driver.IdentityNumber = identityNumber.Value;
                 Driver.DriverLicense = driverLicense.Value;
                 Driver.LicenseType = selectedLicenseType;
-                Driver.ExpireLicenseDate = expiredDate;
-                Driver.Birthday = birthDay;
-                Driver.IssueLicenseDate = issueDate;
+                Driver.ExpireLicenseDate = expiredDate.Value;
+                Driver.Birthday = birthDay.Value;
+                Driver.IssueLicenseDate = issueDate.Value;
                 Driver.Sex = (byte)(SelectedGender - 1);
             }
             catch (Exception ex)
@@ -382,9 +377,19 @@ namespace BA_MobileGPS.Core.ViewModels
             IdentityNumber.Value = driver.IdentityNumber;
             DriverLicense.Value = driver.DriverLicense;
             SelectedLicenseType = driver.LicenseType;
-            BirthDay = driver.Birthday;
-            IssueDate = driver.IssueLicenseDate;
-            ExpiredDate = driver.ExpireLicenseDate;
+            if (driver.Birthday != null)
+            {
+                BirthDay.Value = (DateTime)driver.Birthday;
+            }
+            if (driver.IssueLicenseDate != null)
+            {
+                IssueDate.Value = (DateTime)driver.IssueLicenseDate;
+            }
+            if (driver.ExpireLicenseDate != null)
+            {
+                ExpiredDate.Value = (DateTime)driver.ExpireLicenseDate;
+            }
+          
             AvartarDisplay = string.IsNullOrEmpty(driver.DriverImage) ? "avatar_default.png" : $"{ServerConfig.ApiEndpoint}{driver.DriverImage}";
             newAvatarPath = string.Empty;
             if (driver.Sex == null)
@@ -406,12 +411,21 @@ namespace BA_MobileGPS.Core.ViewModels
             IdentityNumber.OnChanged += IdentityNumber_OnChanged;
             DriverLicense = new ValidatableObject<string>();
             DriverLicense.OnChanged += DriverLicense_OnChanged;
+            BirthDay = new ValidatableObject<DateTime>();
+            BirthDay.OnChanged += BirthDay_OnChanged; ;
+            IssueDate = new ValidatableObject<DateTime>();
+            IssueDate.OnChanged += IssueDate_OnChanged; ;
+            ExpiredDate = new ValidatableObject<DateTime>();
+            ExpiredDate.OnChanged += ExpiredDate_OnChanged; ;
+
 
             DisplayName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "họ tên" });
-            DisplayName.Validations.Add(new ExpressionDangerousCharsRule<string> { Expression = "['\"<>/&]", 
-                ValidationMessage = MobileResource.Common_Property_DangerousChars("Họ tên") });
+            DisplayName.Validations.Add(new ExpressionDangerousCharsRule<string>
+            {
+                Expression = "['\"<>/&]",
+                ValidationMessage = MobileResource.Common_Property_DangerousChars("Họ tên")
+            });
 
-            Address.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge+ "địa chỉ" });
             Address.Validations.Add(new ExpressionDangerousCharsRule<string>
             {
                 Expression = "['\"<>/&]",
@@ -419,11 +433,14 @@ namespace BA_MobileGPS.Core.ViewModels
             });
 
 
-            Mobile.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge +"số điện thoại" });
-            Mobile.Validations.Add(new PhoneNumberRule<string> { ValidationMessage = "Số điện thoại không hợp lệ", 
-                CountryCode = CountryCodeConstant.VietNam });
+            Mobile.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "số điện thoại" });
+            Mobile.Validations.Add(new PhoneNumberRule<string>
+            {
+                ValidationMessage = "Số điện thoại không hợp lệ",
+                CountryCode = CountryCodeConstant.VietNam
+            });
 
-            IdentityNumber.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge +"CMND" });
+            IdentityNumber.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "CMND" });
             IdentityNumber.Validations.Add(new ExpressionDangerousCharsRule<string>
             {
                 Expression = "['\"<>/&]",
@@ -431,13 +448,42 @@ namespace BA_MobileGPS.Core.ViewModels
             });
 
 
-            DriverLicense.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge +"bằng lái"});
+            DriverLicense.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "bằng lái" });
             DriverLicense.Validations.Add(new MinLenghtRule<string> { ValidationMessage = "Đúng 12 kí tự", MinLenght = 12 });
             DriverLicense.Validations.Add(new ExpressionDangerousCharsRule<string>
             {
                 Expression = "['\"<>/&]",
                 ValidationMessage = MobileResource.Common_Property_DangerousChars("Bằng lái")
             });
+
+            BirthDay.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + "ngày sinh" }); ;
+            IssueDate.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + "ngày cấp bằng" });
+            ExpiredDate.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + "ngày hết hạn bằng" });
+
+        }
+
+        private void ExpiredDate_OnChanged(object sender, DateTime e)
+        {
+            if (ExpiredDate.IsNotValid)
+            {
+                ExpiredDate.IsNotValid = false;
+            }
+        }
+
+        private void IssueDate_OnChanged(object sender, DateTime e)
+        {
+            if (IssueDate.IsNotValid)
+            {
+                IssueDate.IsNotValid = false;
+            }
+        }
+
+        private void BirthDay_OnChanged(object sender, DateTime e)
+        {
+            if (BirthDay.IsNotValid)
+            {
+                BirthDay.IsNotValid = false;
+            }
         }
 
         private void DriverLicense_OnChanged(object sender, string e)
@@ -595,17 +641,17 @@ namespace BA_MobileGPS.Core.ViewModels
                 switch (param)
                 {
                     case "BirthDay":
-                        var day = BirthDay == null? DateTime.Now : BirthDay;
+                        var day = BirthDay.Value == new DateTime() ? DateTime.Now : BirthDay.Value;
                         parameters.Add("PickerType", ComboboxType.First);
                         parameters.Add("DataPicker", day);
                         break;
                     case "IssueDate":
-                        var issueDay = IssueDate == null ? DateTime.Now : IssueDate;
+                        var issueDay = IssueDate.Value == new DateTime() ? DateTime.Now : IssueDate.Value;
                         parameters.Add("PickerType", ComboboxType.Second);
                         parameters.Add("DataPicker", issueDay);
                         break;
                     case "ExpDate":
-                        var expDay = ExpiredDate == null ? DateTime.Now : ExpiredDate;
+                        var expDay = ExpiredDate.Value == new DateTime() ? DateTime.Now : ExpiredDate.Value;
                         parameters.Add("PickerType", ComboboxType.Third);
                         parameters.Add("DataPicker", expDay);
                         break;
@@ -629,13 +675,13 @@ namespace BA_MobileGPS.Core.ViewModels
                     switch (obj.PickerType)
                     {
                         case (short)ComboboxType.First:
-                            BirthDay = obj.Value;
+                            BirthDay.Value = obj.Value;
                             break;
                         case (short)ComboboxType.Second:
-                            IssueDate = obj.Value;
+                            IssueDate.Value = obj.Value;
                             break;
                         case (short)ComboboxType.Third:
-                            ExpiredDate = obj.Value;
+                            ExpiredDate.Value = obj.Value;
                             break;
                     }
                 });
