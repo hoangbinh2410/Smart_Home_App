@@ -498,7 +498,15 @@ namespace BA_MobileGPS.Core.Views
                         {
                             vm.VehicleGroups = null;
                             HideBoxInfoCarActive(new VehicleOnline() { VehicleId = 1 });
-                            var list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                            var list = new List<VehicleOnline>();
+                            if (App.AppType == AppType.Viview)
+                            {
+                                list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128 && x.MessageId != 3).ToList();
+                            }
+                            else
+                            {
+                                list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                            }
                             if (list != null && list.Count > 0)
                             {
                                 //Nếu là công ty thường thì mặc định load xe của công ty lên bản đồ
