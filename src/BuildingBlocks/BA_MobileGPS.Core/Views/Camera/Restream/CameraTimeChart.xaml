@@ -288,14 +288,14 @@
                             </chart:SfChart.SecondaryAxis>
                             <chart:SfChart.Series>
                                 <chart:RangeColumnSeries
-                                    Width="0.1"
+                                    Width="0.3"
                                     High="EndTime"
                                     IsTransposed="True"
                                     ItemsSource="{Binding DeviceTimes}"
                                     Low="StartTime"
                                     XBindingPath="ChannelName" />
                                 <chart:RangeColumnSeries
-                                    Width="0.1"
+                                    Width="0.3"
                                     High="EndTime"
                                     IsTransposed="True"
                                     ItemsSource="{Binding CloudTimes}"

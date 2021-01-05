@@ -57,6 +57,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.OnPageAppearingFirstTime();
             GetAllChartData();
+            DisplayMessage.ShowMessageInfo("Thiết bị không ghi video khi phương tiện tắt máy.");
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -184,8 +185,8 @@ namespace BA_MobileGPS.Core.ViewModels
         private void GetChartData(string vehicleString)
         {
             ChartItemsSourceOrigin.Clear();
-            if (Validate())
-            {
+            //if (Validate())
+            //{
                 vehicleString = vehicleString.Replace(" ", string.Empty);
                 if (!IsBusy)
                 {
@@ -230,7 +231,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     IsBusy = false;
                 });
-            }
+            //}
         }
         /// <summary>
         /// Lỗi init UI biểu đồ nếu trục X không có giá trị
