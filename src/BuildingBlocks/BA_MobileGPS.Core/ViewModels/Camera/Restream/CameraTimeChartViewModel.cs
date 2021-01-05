@@ -186,53 +186,52 @@ namespace BA_MobileGPS.Core.ViewModels
         private void GetChartData(string vehicleString)
         {
             ChartItemsSourceOrigin.Clear();
-            //if (Validate())
-            //{
-                vehicleString = vehicleString.Replace(" ", string.Empty);
-                if (!IsBusy)
-                {
-                    IsBusy = true;
-                }
-                if (ChartItemsSource.Count > 0)
-                {
-                    ChartItemsSource.Clear();
-                }
 
-                pageIndex = 0;
+            vehicleString = vehicleString.Replace(" ", string.Empty);
+            if (!IsBusy)
+            {
+                IsBusy = true;
+            }
+            if (ChartItemsSource.Count > 0)
+            {
+                ChartItemsSource.Clear();
+            }
 
-                var request = new CameraRestreamRequest()
+            pageIndex = 0;
+
+            var request = new CameraRestreamRequest()
+            {
+                CustomerId = UserInfo.XNCode,
+                VehicleNames = vehicleString,
+                Date = selectedDate
+            };
+            RunOnBackground(async () =>
+            {
+                return await cameraService.GetVehiclesChartDataByDate(request);
+            }, (res) =>
+            {
+                if (res != null && res.Count > 0)
                 {
-                    CustomerId = UserInfo.XNCode,
-                    VehicleNames = vehicleString,
-                    Date = selectedDate
-                };
-                RunOnBackground(async () =>
-                {
-                    return await cameraService.GetVehiclesChartDataByDate(request);
-                }, (res) =>
-                {
-                    if (res != null && res.Count > 0)
+                    foreach (var item in res)
                     {
-                        foreach (var item in res)
+                        if (item.DeviceTimes == null || item.DeviceTimes.Count == 0)
                         {
-                            if (item.DeviceTimes == null || item.DeviceTimes.Count == 0)
-                            {
-                                item.DeviceTimes = FixEmptyData();
-                            }
-                            if (item.CloudTimes == null || item.CloudTimes.Count == 0)
-                            {
-                                item.CloudTimes = FixEmptyData();
-                            }
-                            item.DeviceTimes.Sort((y, x) => x.Channel.CompareTo(y.Channel));
-                            item.CloudTimes.Sort((y, x) => x.Channel.CompareTo(y.Channel));
+                            item.DeviceTimes = FixEmptyData();
                         }
-                        res.Sort((x, y) => string.Compare(x.VehiclePlate, y.VehiclePlate));
-                        ChartItemsSourceOrigin = res;
-                        LoadMore();
+                        if (item.CloudTimes == null || item.CloudTimes.Count == 0)
+                        {
+                            item.CloudTimes = FixEmptyData();
+                        }
+                        item.DeviceTimes.Sort((y, x) => x.Channel.CompareTo(y.Channel));
+                        item.CloudTimes.Sort((y, x) => x.Channel.CompareTo(y.Channel));
                     }
-                    IsBusy = false;
-                });
-            //}
+                    res.Sort((x, y) => string.Compare(x.VehiclePlate, y.VehiclePlate));
+                    ChartItemsSourceOrigin = res;
+                    LoadMore();
+                }
+                IsBusy = false;
+            });
+
         }
         /// <summary>
         /// Lỗi init UI biểu đồ nếu trục X không có giá trị
@@ -308,7 +307,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-          
+
         }
         /// <summary>
         /// Mở popup chọn ngày
@@ -355,8 +354,8 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);               
-            }        
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
         }
         /// <summary>
         /// CHọn xe từ dánh sách, chọn nhiều
@@ -408,36 +407,15 @@ namespace BA_MobileGPS.Core.ViewModels
                         });
                     }
                 }
-              
+
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-         
+
         }
-        /// <summary>
-        /// Validate trước khi thục hiện load biểu đồ
-        /// </summary>
-        /// <returns></returns>
-        private bool Validate()
-        {
-            //Ngày
-            if (selectedDate != null)
-            {
-                var maxDay = new TimeSpan(7, 0, 0, 0, 0);
-                if (DateTime.Now.Date - selectedDate.Date <= maxDay 
-                    && DateTime.Now.Date >= selectedDate.Date)
-                {
-                    return true;
-                }
-                else
-                {
-                    DisplayMessage.ShowMessageInfo("Chỉ cho phép chọn từ ngày hiện tại lùi lại 7 ngày",20000);
-                }
-            }
-            return false;
-        }
+
 
         #endregion function
     }

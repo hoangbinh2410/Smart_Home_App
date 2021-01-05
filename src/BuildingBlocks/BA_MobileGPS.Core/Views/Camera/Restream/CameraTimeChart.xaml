@@ -202,12 +202,12 @@
                 AutoFitMode="DynamicHeight"
                 IsScrollBarVisible="True"
                 ItemSpacing="5"
+                ItemTapped="listview_ItemTapped"
                 ItemsSource="{Binding ChartItemsSource, Mode=OneWay}"
                 LoadMoreCommand="{Binding LoadMoreItemsCommand}"
                 LoadMoreCommandParameter="{Binding Source={x:Reference listview}}"
                 LoadMoreOption="Auto"
                 SelectionBackgroundColor="#FFFBD8"
-                SelectionGesture="Tap"
                 SelectionMode="Single"
                 TapCommand="{Binding GotoResreamTabCommand}">
                 <xforms:SfListView.ItemTemplate>
@@ -225,7 +225,8 @@
                                 <chart:ChartZoomPanBehavior
                                     EnableDoubleTap="True"
                                     EnablePanning="True"
-                                    MaximumZoomLevel="10"
+                                    EnableSelectionZooming="True"
+                                    MaximumZoomLevel="5"
                                     ZoomMode="Y" />
                             </chart:SfChart.ChartBehaviors>-->
                             <chart:SfChart.ColorModel>
