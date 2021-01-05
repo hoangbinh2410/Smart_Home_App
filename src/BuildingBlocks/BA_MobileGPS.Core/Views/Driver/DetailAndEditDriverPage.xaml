@@ -62,12 +62,12 @@
             <Grid
                 Grid.Column="2"
                 Padding="10,0"
+                IsVisible="{Binding CanUpdateData}"
                 VerticalOptions="Fill">
                 <controls:IconView
                     Foreground="White"
                     HeightRequest="27"
                     InputTransparent="True"
-                    IsVisible="{Binding UpdateVisible}"
                     Source="ic_save.png"
                     VerticalOptions="Center" />
                 <Grid.GestureRecognizers>
@@ -80,7 +80,7 @@
     <ContentPage.Content>
         <Grid Padding="0,0,0,20">
             <ScrollView>
-                <StackLayout Spacing="0">
+                <StackLayout IsEnabled="{Binding CanUpdateData}" Spacing="0">
                     <Grid HeightRequest="140">
                         <Grid Padding="0">
                             <ffImage:CachedImage

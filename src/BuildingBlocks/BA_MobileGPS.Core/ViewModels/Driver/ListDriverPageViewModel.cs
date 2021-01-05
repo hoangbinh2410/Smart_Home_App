@@ -249,6 +249,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 GetAllDriverData();
                                 SearchedText = string.Empty;
+                                DisplayMessage.ShowMessageSuccess("Xóa lái xe thành công");
                             }
                         });
                     }
