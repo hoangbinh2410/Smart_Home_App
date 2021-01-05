@@ -1218,6 +1218,7 @@
         ListDriver_Item_Male,
         ListDriver_Item_Female,
         ListDriver_Item_Other,
+        ListDriver_Messenger_UpdateSuccess,
         #endregion
     }
 }
