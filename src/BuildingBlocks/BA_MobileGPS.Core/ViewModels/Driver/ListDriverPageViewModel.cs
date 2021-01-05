@@ -39,14 +39,14 @@ namespace BA_MobileGPS.Core.ViewModels
             LoadMoreItemsCommand = new DelegateCommand(LoadMoreItems, CanLoadMoreItems);
             GotoAddDriverPageCommand = new DelegateCommand(GotoAddDriverPage);
             ListDriverDisplay = new ObservableCollection<DriverInfor>();
-            ListDriverSearch = new List<DriverInfor>();
-            
+            ListDriverSearch = new List<DriverInfor>();          
         }
 
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
             GetAllDriverData();
+            CheckUserPermission();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -61,6 +61,20 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
         #region property
+        private bool insertVisible;
+        public bool InsertVisible
+        {
+            get { return insertVisible; }
+            set { SetProperty(ref insertVisible, value); }
+        }
+
+        private bool deleteVisible;
+        public bool DeleteVisible
+        {
+            get { return deleteVisible; }
+            set { SetProperty(ref deleteVisible, value); }
+        }
+
         private List<DriverInfor> listDriverSearch;
         public List<DriverInfor> ListDriverSearch
         {
@@ -235,6 +249,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 GetAllDriverData();
                                 SearchedText = string.Empty;
+                                DisplayMessage.ShowMessageSuccess("Xóa lái xe thành công");
                             }
                         });
                     }
@@ -264,6 +279,22 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var a = await NavigationService.NavigateAsync("NavigationPage/AddDriverInforPage", null, true, true);
             });
+        }
+
+        private void CheckUserPermission()
+        {
+            var userPer = UserInfo.Permissions.Distinct();
+            var insertPer = (int)PermissionKeyNames.AdminEmployeeAdd;
+           // var updatePer = (int)PermissionKeyNames.AdminEmployeeUpdate;
+            var deletePer = (int)PermissionKeyNames.AdminEmployeeDelete;
+            if (userPer.Contains(insertPer))
+            {
+                InsertVisible = true;
+            }
+            if (userPer.Contains(deletePer))
+            {
+                DeleteVisible = true;
+            }
         }
         #endregion
 

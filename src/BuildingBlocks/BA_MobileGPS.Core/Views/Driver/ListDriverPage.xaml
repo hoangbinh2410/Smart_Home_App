@@ -60,6 +60,7 @@
                 Grid.Column="2"
                 HeightRequest="27"
                 HorizontalOptions="Start"
+                IsVisible="{Binding InsertVisible}"
                 Rotation="45"
                 Source="ic_close.png"
                 VerticalOptions="Center">
@@ -126,7 +127,7 @@
             <syncfusionList:SfListView
                 x:Name="listView"
                 Margin="0"
-                AllowSwiping="True"
+                AllowSwiping="{Binding DeleteVisible}"
                 AutoFitMode="DynamicHeight"
                 IsBusy="{Binding ListViewBusy, Mode=OneWay}"
                 ItemSize="60"

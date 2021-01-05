@@ -62,6 +62,7 @@
             <Grid
                 Grid.Column="2"
                 Padding="10,0"
+                IsVisible="{Binding CanUpdateData}"
                 VerticalOptions="Fill">
                 <controls:IconView
                     Foreground="White"
@@ -79,7 +80,7 @@
     <ContentPage.Content>
         <Grid Padding="0,0,0,20">
             <ScrollView>
-                <StackLayout Spacing="0">
+                <StackLayout IsEnabled="{Binding CanUpdateData}" Spacing="0">
                     <Grid HeightRequest="140">
                         <Grid Padding="0">
                             <ffImage:CachedImage
@@ -111,7 +112,11 @@
                                         IsClippedToBounds="True"
                                         VerticalOptions="Center"
                                         WidthRequest="80">
-                                        <ffImage:CachedImage Aspect="AspectFill" Source="{Binding AvartarDisplay}" />
+                                        <ffImage:CachedImage
+                                            Aspect="AspectFill"
+                                            CacheType="None"
+                                            DownsampleToViewSize="true"
+                                            Source="{Binding AvartarDisplay}" />
                                     </pancake:PancakeView>
                                 </pancake:PancakeView>
                                 <pancake:PancakeView
