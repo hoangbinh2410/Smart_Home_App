@@ -63,11 +63,14 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters?.GetValue<string>(ParameterKey.ImageLocation) is string imageLocation)
             {
                 newAvatarPath = imageLocation;
+                AvartarDisplay = string.Empty;
+                AvartarDisplay = imageLocation;
             }
         }
 
         public override void Initialize(INavigationParameters parameters)
         {
+
             base.Initialize(parameters);
             if (parameters.TryGetValue(ParameterKey.DriverInformation, out DriverInfor driver))
             {
@@ -75,6 +78,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Driver = driver;
                 IsInsertpage = false;
                 PageTitle = MobileResource.ListDriver_Title_Update;
+                Driver.UpdatedByUser = UserInfo.UserId;
             }
             else
             {
@@ -84,6 +88,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 PageTitle = MobileResource.ListDriver_Title_Insert;
             }
             SetData(Driver);
+            CheckUserPermission();
         }
 
         private string newAvatarPath { get; set; } = string.Empty;
@@ -233,6 +238,13 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref selectGenderHasError, value); }
         }
 
+        private bool updateVisible;
+        public bool UpdateVisible
+        {
+            get { return updateVisible; }
+            set { SetProperty(ref updateVisible, value); }
+        }
+
         public string SelectLicenseTypeErrorMessage { get; set; } = string.Format("{0}{1}",
             MobileResource.ListDriver_Messenger_NotSelect, MobileResource.ListDriver_Messenger_LicenseType);
 
@@ -277,9 +289,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else SaveDriver();
             }
-            else PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification,
-                MobileResource.Common_Message_ErrorTryAgain,
-                MobileResource.Common_Button_OK);
         }
 
         private void SaveDriver()
@@ -304,11 +313,12 @@ namespace BA_MobileGPS.Core.ViewModels
                         // clear data
                         Driver = new DriverInfor();
                         Driver.FK_CompanyID = UserInfo.CompanyId;
-                        SetData(Driver);                      
+                        SetData(Driver);
                     }
                     else if (!IsInsertpage && res == Driver.PK_EmployeeID)
-                    {                      
+                    {
                         NavigationService.GoBackAsync(param, true, true);
+                        DisplayMessage.ShowMessageSuccess(MobileResource.ListDriver_Messenger_UpdateSuccess, 5000);
                     }
                     else PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification,
                         MobileResource.ListDriver_Messenger_DuplicateData,
@@ -325,7 +335,7 @@ namespace BA_MobileGPS.Core.ViewModels
             Driver.FK_CompanyID = UserInfo.CompanyId;
             SetData(Driver);
         }
-        
+
         private void GetData()
         {
             try
@@ -347,7 +357,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
         #endregion
-        
+
         #region Validation
         private bool Validate()
         {
@@ -545,9 +555,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     var fileAvatar = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
                     {
-                        DefaultCamera = CameraDevice.Rear,
+                        DefaultCamera = CameraDevice.Front,
                         Directory = "BAGPS",
-                        Name = string.Format("{0}.jpg", DateTime.Now.ToString("yyyyMMddHHmmss")),
+                        Name = "avatar.jpg",
                         PhotoSize = PhotoSize.MaxWidthHeight,
                         MaxWidthHeight = 1000,
                         CompressionQuality = 85,
@@ -557,7 +567,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     if (fileAvatar == null)
                         return;
-                    ProcessImage(fileAvatar.Path);
+
+                    AvartarDisplay = fileAvatar.Path;
+
+                    ProcessImage();
 
                     fileAvatar.Dispose();
                 });
@@ -581,27 +594,32 @@ namespace BA_MobileGPS.Core.ViewModels
                         MaxWidthHeight = 1000,
                         CompressionQuality = 85,
                         RotateImage = true
-                    });
+                    }).ConfigureAwait(true);
 
                     if (fileAvatar == null)
                         return;
 
-                    ProcessImage(fileAvatar.Path);
+                    AvartarDisplay = fileAvatar.Path;
 
+                    ProcessImage();
+                    
                     fileAvatar.Dispose();
                 });
             });
         }
-       
-        private async void ProcessImage(string imagePath)
-        {
-            AvartarDisplay = imagePath;
-            var @params = new NavigationParameters
-            {
-                { "ImagePath", imagePath }
-            };
 
-            await NavigationService.NavigateAsync("BaseNavigationPage/ImageEditorPage", @params, true, true);
+        private void ProcessImage()
+        {
+            SafeExecute(async () =>
+            {
+                
+                var @params = new NavigationParameters
+                {
+                    { "ImagePath", avartarDisplay }
+                };
+
+                var a = await NavigationService.NavigateAsync("BaseNavigationPage/ImageEditorPage", @params, true, true);
+            });
         }
         #endregion
         private void SetLicenseTypeSource()
@@ -623,6 +641,11 @@ namespace BA_MobileGPS.Core.ViewModels
             ListGender.Add(MobileResource.ListDriver_Item_Other);
             SelectedGender = 0;
         }
+
+        /// <summary>
+        /// Cập nhật thông tin hiển thị ở UI
+        /// </summary>
+        /// <param name="driver"></param>
         private void SetData(DriverInfor driver)
         {
             //reset data
@@ -688,7 +711,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
         }
-
+        /// <summary>
+        /// Cập nhật dữ liệu các ô dữ liệu ngày tháng
+        /// </summary>
+        /// <param name="obj"></param>
         private void UpdateDateTime(PickerDateResponse obj)
         {
             try
@@ -698,14 +724,17 @@ namespace BA_MobileGPS.Core.ViewModels
                     switch (obj.PickerType)
                     {
                         case (short)ComboboxType.First:
+                            // Ngày sinh
                             BirthDay.Value = obj.Value;
                             break;
 
                         case (short)ComboboxType.Second:
+                            // Ngày cấp bằng lái
                             IssueDate.Value = obj.Value;
                             break;
 
                         case (short)ComboboxType.Third:
+                            // Ngày hết hạn bằng lái
                             ExpiredDate.Value = obj.Value;
                             break;
                     }
@@ -716,12 +745,26 @@ namespace BA_MobileGPS.Core.ViewModels
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
-
+        /// <summary>
+        /// Quay lại trang danh sách sau kh thêm mới thành công
+        /// </summary>
         private void GoBack()
         {
             var param = new NavigationParameters();
             param.Add("RefreshData", true);
             NavigationService.GoBackAsync(param, true, true);
+        }
+
+        private void CheckUserPermission()
+        {
+            var userPer = UserInfo.Permissions.Distinct();
+            var updatePermission = (int)PermissionKeyNames.AdminEmployeeUpdate;
+
+            if (userPer.Contains(updatePermission))
+            {
+                UpdateVisible = true;
+            }
+
         }
     }
 }

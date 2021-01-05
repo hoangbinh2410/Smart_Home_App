@@ -67,6 +67,7 @@
                     Foreground="White"
                     HeightRequest="27"
                     InputTransparent="True"
+                    IsVisible="{Binding UpdateVisible}"
                     Source="ic_save.png"
                     VerticalOptions="Center" />
                 <Grid.GestureRecognizers>
@@ -111,7 +112,11 @@
                                         IsClippedToBounds="True"
                                         VerticalOptions="Center"
                                         WidthRequest="80">
-                                        <ffImage:CachedImage Aspect="AspectFill" Source="{Binding AvartarDisplay}" />
+                                        <ffImage:CachedImage
+                                            Aspect="AspectFill"
+                                            CacheType="None"
+                                            DownsampleToViewSize="true"
+                                            Source="{Binding AvartarDisplay}" />
                                     </pancake:PancakeView>
                                 </pancake:PancakeView>
                                 <pancake:PancakeView

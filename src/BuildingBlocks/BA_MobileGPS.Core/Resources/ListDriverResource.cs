@@ -42,6 +42,8 @@ namespace BA_MobileGPS.Core.Resources
         public static string ListDriver_Item_Female => Get(MobileResourceNames.ListDriver_Item_Female, "Nữ", "Female");
 
         public static string ListDriver_Item_Other => Get(MobileResourceNames.ListDriver_Item_Other, "Khác", "Other");
+        public static string ListDriver_Messenger_UpdateSuccess => Get(MobileResourceNames.ListDriver_Messenger_UpdateSuccess, "Cập nhật thành công",
+        "Update successfully");
 
     }
 }
