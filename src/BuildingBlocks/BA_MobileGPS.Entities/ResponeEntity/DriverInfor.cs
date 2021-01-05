@@ -8,7 +8,7 @@ namespace BA_MobileGPS.Entities
 {
 
     public class DriverInfor : BaseModel
-    {      
+    {
         public int PK_EmployeeID { get; set; }
 
         public int FK_CompanyID { get; set; }
@@ -38,6 +38,7 @@ namespace BA_MobileGPS.Entities
         public DateTime? ExpireLicenseDate { get; set; }
 
         public Guid? UpdatedByUser { get; set; }
+        public Guid? CreatedByUser { get; set; }
 
         [JsonIgnore]
         public string LicenseTypeName
@@ -48,7 +49,7 @@ namespace BA_MobileGPS.Entities
                 {
                     return string.Empty;
                 }
-                return  string.Format("Bằng lái {0}", ((DriverLicenseEnum)LicenseType).ToString());
+                return string.Format("Bằng lái {0}", ((DriverLicenseEnum)LicenseType).ToString());
             }
         }
 

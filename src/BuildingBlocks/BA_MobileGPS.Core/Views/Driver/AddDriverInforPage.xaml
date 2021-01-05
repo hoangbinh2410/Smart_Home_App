@@ -106,7 +106,11 @@
                                 <pancake:PancakeView.Border>
                                     <pancake:Border Thickness="2" Color="Gray" />
                                 </pancake:PancakeView.Border>
-                                <ffImage:CachedImage Aspect="AspectFill" Source="{Binding AvartarDisplay}" />
+                                <ffImage:CachedImage
+                                    Aspect="AspectFill"
+                                    CacheType="None"
+                                    DownsampleToViewSize="true"
+                                    Source="{Binding AvartarDisplay}" />
                             </pancake:PancakeView>
                             <ffImage:CachedImage
                                 AbsoluteLayout.LayoutBounds="1,1,30,30"
