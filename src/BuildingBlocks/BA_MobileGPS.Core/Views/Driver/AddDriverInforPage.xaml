@@ -62,7 +62,8 @@
                 VerticalOptions="Center" />
             <Grid
                 Grid.Column="2"
-                Padding="10,0"
+                Padding="{x:OnPlatform Android='10,0',
+                                       iOS='0'}"
                 VerticalOptions="Fill">
                 <controls:IconView
                     Foreground="White"
