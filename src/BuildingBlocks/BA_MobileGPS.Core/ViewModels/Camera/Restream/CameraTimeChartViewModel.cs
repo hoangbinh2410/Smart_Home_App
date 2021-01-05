@@ -4,6 +4,7 @@ using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
+using Syncfusion.ListView.XForms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -377,33 +378,37 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                var item = (RestreamChartData)obj;
-                var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate);
-                if (vehicle != null)
+                if (obj is ItemTappedEventArgs even)
                 {
-                    var chanels = StaticSettings.ListVehilceCamera
-                                                .FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate)?
-                                                .CameraChannels?
-                                                .Select(y => y.Channel)
-                                                .ToList();
-
-                    var vehicleModel = new CameraLookUpVehicleModel()
+                    var item = (RestreamChartData)even.ItemData;
+                    var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate);
+                    if (vehicle != null)
                     {
-                        VehiclePlate = item.VehiclePlate,
-                        VehicleId = vehicle.VehicleId,
-                        PrivateCode = vehicle.PrivateCode,
-                        CameraChannels = chanels != null ? chanels : new List<int>()
-                    };
-                    var param = new NavigationParameters()
+                        var chanels = StaticSettings.ListVehilceCamera
+                                                    .FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate)?
+                                                    .CameraChannels?
+                                                    .Select(y => y.Channel)
+                                                    .ToList();
+
+                        var vehicleModel = new CameraLookUpVehicleModel()
+                        {
+                            VehiclePlate = item.VehiclePlate,
+                            VehicleId = vehicle.VehicleId,
+                            PrivateCode = vehicle.PrivateCode,
+                            CameraChannels = chanels != null ? chanels : new List<int>()
+                        };
+                        var param = new NavigationParameters()
                 {
                     {ParameterKey.SelectDate,selectedDate },
                     {ParameterKey.VehiclePlate,vehicleModel }
                 };
-                    SafeExecute(async () =>
-                    {
-                        var a = await NavigationService.NavigateAsync("CameraRestream", param);
-                    });
+                        SafeExecute(async () =>
+                        {
+                            var a = await NavigationService.NavigateAsync("CameraRestream", param);
+                        });
+                    }
                 }
+              
             }
             catch (Exception ex)
             {
