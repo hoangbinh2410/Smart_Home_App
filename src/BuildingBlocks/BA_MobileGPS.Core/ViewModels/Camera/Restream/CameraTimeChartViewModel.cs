@@ -4,6 +4,7 @@ using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
+using Syncfusion.ListView.XForms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -57,6 +58,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.OnPageAppearingFirstTime();
             GetAllChartData();
+            DisplayMessage.ShowMessageInfo("Thiết bị không ghi video khi phương tiện tắt máy.");
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -184,53 +186,52 @@ namespace BA_MobileGPS.Core.ViewModels
         private void GetChartData(string vehicleString)
         {
             ChartItemsSourceOrigin.Clear();
-            if (Validate())
+
+            vehicleString = vehicleString.Replace(" ", string.Empty);
+            if (!IsBusy)
             {
-                vehicleString = vehicleString.Replace(" ", string.Empty);
-                if (!IsBusy)
-                {
-                    IsBusy = true;
-                }
-                if (ChartItemsSource.Count > 0)
-                {
-                    ChartItemsSource.Clear();
-                }
-
-                pageIndex = 0;
-
-                var request = new CameraRestreamRequest()
-                {
-                    CustomerId = UserInfo.XNCode,
-                    VehicleNames = vehicleString,
-                    Date = selectedDate
-                };
-                RunOnBackground(async () =>
-                {
-                    return await cameraService.GetVehiclesChartDataByDate(request);
-                }, (res) =>
-                {
-                    if (res != null && res.Count > 0)
-                    {
-                        foreach (var item in res)
-                        {
-                            if (item.DeviceTimes == null || item.DeviceTimes.Count == 0)
-                            {
-                                item.DeviceTimes = FixEmptyData();
-                            }
-                            if (item.CloudTimes == null || item.CloudTimes.Count == 0)
-                            {
-                                item.CloudTimes = FixEmptyData();
-                            }
-                            item.DeviceTimes.Sort((y, x) => x.Channel.CompareTo(y.Channel));
-                            item.CloudTimes.Sort((y, x) => x.Channel.CompareTo(y.Channel));
-                        }
-                        res.Sort((x, y) => string.Compare(x.VehiclePlate, y.VehiclePlate));
-                        ChartItemsSourceOrigin = res;
-                        LoadMore();
-                    }
-                    IsBusy = false;
-                });
+                IsBusy = true;
             }
+            if (ChartItemsSource.Count > 0)
+            {
+                ChartItemsSource.Clear();
+            }
+
+            pageIndex = 0;
+
+            var request = new CameraRestreamRequest()
+            {
+                CustomerId = UserInfo.XNCode,
+                VehicleNames = vehicleString,
+                Date = selectedDate
+            };
+            RunOnBackground(async () =>
+            {
+                return await cameraService.GetVehiclesChartDataByDate(request);
+            }, (res) =>
+            {
+                if (res != null && res.Count > 0)
+                {
+                    foreach (var item in res)
+                    {
+                        if (item.DeviceTimes == null || item.DeviceTimes.Count == 0)
+                        {
+                            item.DeviceTimes = FixEmptyData();
+                        }
+                        if (item.CloudTimes == null || item.CloudTimes.Count == 0)
+                        {
+                            item.CloudTimes = FixEmptyData();
+                        }
+                        item.DeviceTimes.Sort((y, x) => x.Channel.CompareTo(y.Channel));
+                        item.CloudTimes.Sort((y, x) => x.Channel.CompareTo(y.Channel));
+                    }
+                    res.Sort((x, y) => string.Compare(x.VehiclePlate, y.VehiclePlate));
+                    ChartItemsSourceOrigin = res;
+                    LoadMore();
+                }
+                IsBusy = false;
+            });
+
         }
         /// <summary>
         /// Lỗi init UI biểu đồ nếu trục X không có giá trị
@@ -306,7 +307,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-          
+
         }
         /// <summary>
         /// Mở popup chọn ngày
@@ -353,8 +354,8 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             catch (Exception ex)
             {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);               
-            }        
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
         }
         /// <summary>
         /// CHọn xe từ dánh sách, chọn nhiều
@@ -376,62 +377,45 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                var item = (RestreamChartData)obj;
-                var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate);
-                if (vehicle != null)
+                if (obj is ItemTappedEventArgs even)
                 {
-                    var chanels = StaticSettings.ListVehilceCamera
-                                                .FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate)?
-                                                .CameraChannels?
-                                                .Select(y => y.Channel)
-                                                .ToList();
-
-                    var vehicleModel = new CameraLookUpVehicleModel()
+                    var item = (RestreamChartData)even.ItemData;
+                    var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate);
+                    if (vehicle != null)
                     {
-                        VehiclePlate = item.VehiclePlate,
-                        VehicleId = vehicle.VehicleId,
-                        PrivateCode = vehicle.PrivateCode,
-                        CameraChannels = chanels != null ? chanels : new List<int>()
-                    };
-                    var param = new NavigationParameters()
+                        var chanels = StaticSettings.ListVehilceCamera
+                                                    .FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate)?
+                                                    .CameraChannels?
+                                                    .Select(y => y.Channel)
+                                                    .ToList();
+
+                        var vehicleModel = new CameraLookUpVehicleModel()
+                        {
+                            VehiclePlate = item.VehiclePlate,
+                            VehicleId = vehicle.VehicleId,
+                            PrivateCode = vehicle.PrivateCode,
+                            CameraChannels = chanels != null ? chanels : new List<int>()
+                        };
+                        var param = new NavigationParameters()
                 {
                     {ParameterKey.SelectDate,selectedDate },
                     {ParameterKey.VehiclePlate,vehicleModel }
                 };
-                    SafeExecute(async () =>
-                    {
-                        var a = await NavigationService.NavigateAsync("CameraRestream", param);
-                    });
+                        SafeExecute(async () =>
+                        {
+                            var a = await NavigationService.NavigateAsync("CameraRestream", param);
+                        });
+                    }
                 }
+
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-         
+
         }
-        /// <summary>
-        /// Validate trước khi thục hiện load biểu đồ
-        /// </summary>
-        /// <returns></returns>
-        private bool Validate()
-        {
-            //Ngày
-            if (selectedDate != null)
-            {
-                var maxDay = new TimeSpan(7, 0, 0, 0, 0);
-                if (DateTime.Now.Date - selectedDate.Date <= maxDay 
-                    && DateTime.Now.Date >= selectedDate.Date)
-                {
-                    return true;
-                }
-                else
-                {
-                    DisplayMessage.ShowMessageInfo("Chỉ cho phép chọn từ ngày hiện tại lùi lại 7 ngày",20000);
-                }
-            }
-            return false;
-        }
+
 
         #endregion function
     }
