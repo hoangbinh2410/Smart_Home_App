@@ -277,7 +277,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                var a = await NavigationService.NavigateAsync("NavigationPage/AddDriverInforPage", null, true, true);
+                var a = await NavigationService.NavigateAsync("NavigationPage/AddDriverInfoPage", null, true, true);
             });
         }
 
