@@ -61,14 +61,13 @@
                 VerticalOptions="Center" />
             <Grid
                 Grid.Column="2"
-                Padding="10,0"
                 IsVisible="{Binding CanUpdateData}"
                 VerticalOptions="Fill">
                 <controls:IconView
                     Foreground="White"
                     HeightRequest="27"
                     InputTransparent="True"
-                    Source="ic_save.png"
+                    Source="ic_save_driver.png"
                     VerticalOptions="Center" />
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SaveDriverInforCommand}" />
