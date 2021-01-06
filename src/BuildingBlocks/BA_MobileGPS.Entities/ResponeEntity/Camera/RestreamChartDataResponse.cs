@@ -26,7 +26,7 @@ namespace BA_MobileGPS.Entities
         {
             get
             {
-                return string.Format("Kênh {0}", Channel);
+                return string.Format("CH {0}", Channel);
             }
         }
     }
