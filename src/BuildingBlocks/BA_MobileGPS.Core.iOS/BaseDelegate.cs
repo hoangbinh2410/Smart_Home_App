@@ -57,6 +57,7 @@ namespace BA_MobileGPS.Core.iOS
                 containerRegistry.RegisterInstance<ITooltipService>(new iOSTooltipService());
                 containerRegistry.RegisterInstance<IDownloader>(new IosDownloader());
                 containerRegistry.RegisterInstance<IScreenOrientServices>(new ScreenOrientServices());
+                containerRegistry.RegisterInstance<IDownloadVideoService>(new DownloadVideoService());
             }
         }
 

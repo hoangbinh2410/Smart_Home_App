@@ -1,15 +1,16 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
+﻿using BA_MobileGPS.Core.Interfaces;
+using Plugin.Permissions;
+using Prism.Commands;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Threading;
+using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class DownloadVideoViewModel : ViewModelBase
     {
-        public DownloadVideoViewModel(INavigationService navigationService) : base(navigationService)
+        public DownloadVideoViewModel(INavigationService navigationService, IDownloadVideoService downloadService) : base(navigationService)
         {
             Title = "Main Page";
             UrlFile = "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4";
@@ -18,6 +19,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private double _progressValue;
+
         public double ProgressValue
         {
             get { return _progressValue; }
@@ -25,19 +27,22 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private bool _isDownloading;
+
         public bool IsDownloading
         {
             get { return _isDownloading; }
             set { SetProperty(ref _isDownloading, value); }
         }
+
         private string urlFile;
+
         public string UrlFile
         {
             get { return urlFile; }
             set { SetProperty(ref urlFile, value); }
         }
 
-        private readonly IDownloader _downloadService;
+        private readonly IDownloadVideoService _downloadService;
 
         public ICommand StartDownloadCommand { get; }
 
