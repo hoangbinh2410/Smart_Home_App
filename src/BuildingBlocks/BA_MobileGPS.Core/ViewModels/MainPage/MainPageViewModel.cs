@@ -8,7 +8,6 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities;
 using Newtonsoft.Json;
-using Plugin.Toasts;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -384,20 +383,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (MobileUserSettingHelper.ShowNotification)
                 {
-                    DependencyService.Get<IToastNotificator>().Notify(new NotificationOptions()
-                    {
-                        Description = alert.WarningContent,
-                        Title = MobileResource.Alert_Label_TilePage,
-                        IsClickable = true,
-                        WindowsOptions = new WindowsOptions() { LogoUri = "ic_notification.png" },
-                        ClearFromHistory = false,
-                        AllowTapInNotificationCenter = false,
-                        AndroidOptions = new AndroidOptions()
-                        {
-                            HexColor = "#F99D1C",
-                            ForceOpenAppOnNotificationTap = true,
-                        }
-                    });
+                    DisplayMessage.ShowMessageInfo(alert.WarningContent);
                 }
 
                 EventAggregator.GetEvent<RecieveAlertEvent>().Publish(alert);
