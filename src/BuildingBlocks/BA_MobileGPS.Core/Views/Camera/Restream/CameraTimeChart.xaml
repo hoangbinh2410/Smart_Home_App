@@ -190,56 +190,40 @@
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
                     HorizontalOptions="Start"
-                    Text="Không tải được video khi phương tiện tắt máy."
-                    TextColor="Red" />
+                    Text="Không ghi video khi phương tiện tắt máy."
+                    TextColor="#18A0FB" />
             </Grid>
-            <BoxView Grid.Row="2" BackgroundColor="{DynamicResource PrimaryColor}" />
+
             <!--  Danh sách biểu đồ  -->
             <xforms:SfListView
                 x:Name="listview"
                 Grid.Row="3"
-                Padding="5,0"
-                AllowSwiping="True"
                 AutoFitMode="DynamicHeight"
                 IsScrollBarVisible="True"
-                ItemSpacing="5"
+                ItemSpacing="0,3"
                 ItemsSource="{Binding ChartItemsSource, Mode=OneWay}"
                 LoadMoreCommand="{Binding LoadMoreItemsCommand}"
                 LoadMoreCommandParameter="{Binding Source={x:Reference listview}}"
                 LoadMoreOption="Auto"
                 SelectionBackgroundColor="#FFFBD8"
                 SelectionMode="Single"
-                SwipeStarted="listview_SwipeStarted">
-                <xforms:SfListView.RightSwipeTemplate>
-                    <DataTemplate>
-                        <Grid BackgroundColor="#FFA842" WidthRequest="200">
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Command="{Binding Source={x:Reference root}, Path=BindingContext.GotoResreamTabCommand}"
-                                    CommandParameter="{Binding .}"
-                                    NumberOfTapsRequired="1" />
-                            </Grid.GestureRecognizers>
-                            <Label Text="Xem Video" VerticalOptions="Center" />
-                        </Grid>
-                    </DataTemplate>
-                </xforms:SfListView.RightSwipeTemplate>
+                TapCommand="{Binding GotoResreamTabCommand}">
                 <xforms:SfListView.ItemTemplate>
                     <DataTemplate>
                         <!--<ScrollView Orientation="Horizontal">-->
                         <chart:SfChart
                             BackgroundColor="Transparent"
-                            ChartPadding="10"
-                            HeightRequest="170"
+                            HeightRequest="180"
                             HorizontalOptions="FillAndExpand"
                             SideBySideSeriesPlacement="False"
                             VerticalOptions="Start">
+
                             <!--<chart:SfChart.ChartBehaviors>
                                 <chart:ChartZoomPanBehavior
                                     EnableDoubleTap="True"
                                     EnablePanning="True"
                                     EnableSelectionZooming="True"
-                                    MaximumZoomLevel="10"
-                                    SelectionRectStrokeColor="Red"
+                                    MaximumZoomLevel="5"
                                     ZoomMode="Y" />
                             </chart:SfChart.ChartBehaviors>-->
                             <chart:SfChart.ColorModel>
@@ -252,13 +236,13 @@
                             </chart:SfChart.ColorModel>
                             <chart:SfChart.Title>
                                 <chart:ChartTitle
-                                    Margin="60,0,0,0"
-                                    BackgroundColor="Transparent"
+                                    Margin="10,3,0,3"
+                                    BackgroundColor="{DynamicResource PrimaryColor}"
                                     FontAttributes="Bold"
                                     FontFamily="{StaticResource myFontLatoBold}"
                                     Text="{Binding VehiclePlate}"
                                     TextAlignment="Start"
-                                    TextColor="{DynamicResource PrimaryColor}" />
+                                    TextColor="{DynamicResource WhiteColor}" />
                             </chart:SfChart.Title>
                             <chart:SfChart.PrimaryAxis>
                                 <chart:CategoryAxis ArrangeByIndex="False" ShowMajorGridLines="True">
@@ -266,7 +250,7 @@
                                         <chart:ChartLineStyle StrokeColor="{DynamicResource TextPrimaryColor}" />
                                     </chart:CategoryAxis.MajorGridLineStyle>
                                     <chart:CategoryAxis.LabelStyle>
-                                        <chart:ChartAxisLabelStyle TextColor="{DynamicResource PrimaryColor}" />
+                                        <chart:ChartAxisLabelStyle FontSize="12" TextColor="{DynamicResource PrimaryColor}" />
                                     </chart:CategoryAxis.LabelStyle>
                                 </chart:CategoryAxis>
                             </chart:SfChart.PrimaryAxis>
@@ -282,20 +266,23 @@
                                         <chart:ChartLineStyle StrokeColor="{DynamicResource TextPrimaryColor}" />
                                     </chart:DateTimeAxis.MajorGridLineStyle>
                                     <chart:DateTimeAxis.LabelStyle>
-                                        <chart:ChartAxisLabelStyle LabelFormat="HH:mm" TextColor="{DynamicResource TextPrimaryColor}" />
+                                        <chart:ChartAxisLabelStyle
+                                            FontSize="12"
+                                            LabelFormat="HH'h'"
+                                            TextColor="{DynamicResource TextPrimaryColor}" />
                                     </chart:DateTimeAxis.LabelStyle>
                                 </chart:DateTimeAxis>
                             </chart:SfChart.SecondaryAxis>
                             <chart:SfChart.Series>
                                 <chart:RangeColumnSeries
-                                    Width="0.1"
+                                    Width="0.3"
                                     High="EndTime"
                                     IsTransposed="True"
                                     ItemsSource="{Binding DeviceTimes}"
                                     Low="StartTime"
                                     XBindingPath="ChannelName" />
                                 <chart:RangeColumnSeries
-                                    Width="0.1"
+                                    Width="0.3"
                                     High="EndTime"
                                     IsTransposed="True"
                                     ItemsSource="{Binding CloudTimes}"
@@ -306,154 +293,7 @@
                         <!--</ScrollView>-->
                     </DataTemplate>
                 </xforms:SfListView.ItemTemplate>
-                <xforms:SfListView.SelectedItemTemplate>
-                    <DataTemplate>
-                        <!--<ScrollView Orientation="Horizontal">-->
-
-                        <chart:SfChart
-                            BackgroundColor="#FFFBD8"
-                            ChartPadding="10"
-                            HeightRequest="170"
-                            HorizontalOptions="FillAndExpand"
-                            SideBySideSeriesPlacement="False"
-                            VerticalOptions="Start">
-                            <chart:SfChart.ColorModel>
-                                <chart:ChartColorModel Palette="Custom">
-                                    <chart:ChartColorModel.CustomBrushes>
-                                        <Color>#FF8A00</Color>
-                                        <Color>#18A0FB</Color>
-                                    </chart:ChartColorModel.CustomBrushes>
-                                </chart:ChartColorModel>
-                            </chart:SfChart.ColorModel>
-                            <chart:SfChart.Title>
-                                <chart:ChartTitle
-                                    Margin="60,0,0,0"
-                                    BackgroundColor="Transparent"
-                                    FontAttributes="Bold"
-                                    FontFamily="{StaticResource myFontLatoBold}"
-                                    Text="{Binding VehiclePlate}"
-                                    TextAlignment="Start"
-                                    TextColor="Red" />
-                            </chart:SfChart.Title>
-                            <chart:SfChart.PrimaryAxis>
-                                <chart:CategoryAxis ArrangeByIndex="False" ShowMajorGridLines="True">
-                                    <chart:CategoryAxis.MajorGridLineStyle>
-                                        <chart:ChartLineStyle StrokeColor="#FFA842" />
-                                    </chart:CategoryAxis.MajorGridLineStyle>
-                                    <chart:CategoryAxis.AxisLineStyle>
-                                        <chart:ChartLineStyle StrokeColor="#FFA842" />
-                                    </chart:CategoryAxis.AxisLineStyle>
-                                    <chart:CategoryAxis.LabelStyle>
-                                        <chart:ChartAxisLabelStyle TextColor="#FFA842" />
-                                    </chart:CategoryAxis.LabelStyle>
-                                </chart:CategoryAxis>
-                            </chart:SfChart.PrimaryAxis>
-                            <chart:SfChart.SecondaryAxis>
-                                <chart:DateTimeAxis
-                                    Interval="6"
-                                    IntervalType="Hours"
-                                    Maximum="{Binding Source={x:Reference root}, Path=BindingContext.MaxTime}"
-                                    Minimum="{Binding Source={x:Reference root}, Path=BindingContext.MinTime}"
-                                    RangePadding="None"
-                                    ShowMajorGridLines="True">
-                                    <chart:DateTimeAxis.AxisLineStyle>
-                                        <chart:ChartLineStyle StrokeColor="#FFA842" />
-                                    </chart:DateTimeAxis.AxisLineStyle>
-                                    <chart:DateTimeAxis.MajorGridLineStyle>
-                                        <chart:ChartLineStyle StrokeColor="#FFA842" />
-                                    </chart:DateTimeAxis.MajorGridLineStyle>
-                                    <chart:DateTimeAxis.LabelStyle>
-                                        <chart:ChartAxisLabelStyle LabelFormat="HH:mm" TextColor="#FFA842" />
-                                    </chart:DateTimeAxis.LabelStyle>
-                                </chart:DateTimeAxis>
-                            </chart:SfChart.SecondaryAxis>
-                            <chart:SfChart.Series>
-                                <chart:RangeColumnSeries
-                                    Width="0.1"
-                                    High="EndTime"
-                                    IsTransposed="True"
-                                    ItemsSource="{Binding DeviceTimes}"
-                                    Low="StartTime"
-                                    XBindingPath="ChannelName" />
-                                <chart:RangeColumnSeries
-                                    Width="0.1"
-                                    High="EndTime"
-                                    IsTransposed="True"
-                                    ItemsSource="{Binding CloudTimes}"
-                                    Low="StartTime"
-                                    XBindingPath="ChannelName" />
-                            </chart:SfChart.Series>
-                        </chart:SfChart>
-                        <!--</ScrollView>-->
-                    </DataTemplate>
-                </xforms:SfListView.SelectedItemTemplate>
             </xforms:SfListView>
-
-            <!--  THông tin chi tiết  -->
-            <!--<Grid
-                Grid.Row="3"
-                Padding="10,5"
-                ColumnDefinitions="*,1.4*"
-                ColumnSpacing="10"
-                HeightRequest="55">
-                <Grid.Style />
-                <Grid
-                    ColumnDefinitions="Auto,*"
-                    ColumnSpacing="10"
-                    RowDefinitions="*,*"
-                    RowSpacing="0">
-                    <Label
-                        HorizontalOptions="Start"
-                        StyleClass="BoldText"
-                        Text="BKS"
-                        VerticalOptions="Center" />
-                    <Label
-                        Grid.Column="1"
-                        HorizontalOptions="Start"
-                        StyleClass="BoldText"
-                        Text="{Binding Source={x:Reference listview}, Path=SelectedItem.VehiclePlate}"
-                        TextColor="Red"
-                        VerticalOptions="Center" />
-                    <Label
-                        Grid.Row="1"
-                        HorizontalOptions="Start"
-                        Text="Nhóm xe"
-                        VerticalOptions="Center" />
-                    <Label
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        HorizontalOptions="Start"
-                        Text="123123123"
-                        VerticalOptions="Center" />
-                </Grid>
-                <Grid
-                    Grid.Column="1"
-                    ColumnDefinitions="Auto,*"
-                    ColumnSpacing="10"
-                    RowDefinitions="*,*"
-                    RowSpacing="0">
-                    <Label
-                        HorizontalOptions="Start"
-                        Text="Tổng số video"
-                        VerticalOptions="Center" />
-                    <Label
-                        Grid.Column="1"
-                        HorizontalOptions="Start"
-                        Text="{Binding Source={x:Reference listview}, Path=SelectedItem.VehiclePlate}"
-                        VerticalOptions="Center" />
-                    <Label
-                        Grid.Row="1"
-                        HorizontalOptions="Start"
-                        Text="Số video sự kiện"
-                        VerticalOptions="Center" />
-                    <Label
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        HorizontalOptions="Start"
-                        Text="123123123"
-                        VerticalOptions="Center" />
-                </Grid>
-            </Grid>-->
             <busyIndicator:SfBusyIndicator Grid.RowSpan="4" IsBusy="{Binding IsBusy}" />
         </Grid>
     </ContentPage.Content>

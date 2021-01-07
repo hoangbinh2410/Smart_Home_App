@@ -32,6 +32,11 @@ namespace BA_MobileGPS.Core.Helpers
 
         public static string GetMarkerResource(VehicleOnline carInfo)
         {
+            if (App.AppType == AppType.VMS && StateVehicleExtension.IsSatelliteError(carInfo))
+            {
+                return "ic_errorgps.png";
+            }
+
             /* Vehicle time mất > 150 phút -> mất GSM */
             if (StateVehicleExtension.IsLostGSM(carInfo.VehicleTime) || StaticSettings.TimeServer.Subtract(carInfo.GPSTime).TotalMinutes > CompanyConfigurationHelper.DefaultMaxTimeLossGPS)
             {

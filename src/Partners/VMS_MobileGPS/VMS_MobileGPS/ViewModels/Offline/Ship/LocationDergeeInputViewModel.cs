@@ -55,15 +55,15 @@ namespace VMS_MobileGPS.ViewModels
             var latitude = GeoHelper.DergeeMinSecToLatitude(Latitude.Dergee, Latitude.Min, Latitude.Sec);
             var longitude = GeoHelper.DergeeMinSecToLatitude(Longitude.Dergee, Longitude.Min, Longitude.Sec);
 
-            await NavigationService.GoBackAsync(useModalNavigation: true, parameters: new NavigationParameters
+            await NavigationService.GoBackAsync( parameters: new NavigationParameters
             {
                 { ParameterKey.Position, new Position(latitude, longitude) }
-            });
+            }, useModalNavigation: true,true);
         }
 
         private async void Cancel()
         {
-            await NavigationService.GoBackAsync(useModalNavigation: true);
+            await NavigationService.GoBackAsync(null,useModalNavigation: true,true);
         }
     }
 }

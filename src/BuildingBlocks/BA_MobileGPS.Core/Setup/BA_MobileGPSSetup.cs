@@ -78,6 +78,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<IMobileSettingService, MobileSettingService>();
             containerRegistry.RegisterSingleton<IPopupServices, PopupServices>();
             containerRegistry.RegisterSingleton<IThemeServices, ThemeServices>();
+            containerRegistry.RegisterSingleton<IDriverInforService, DriverInforService>();
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)
@@ -200,6 +201,10 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<VehicleCameraLookup, VehicleCameraLookupViewModel>("VehicleCameraLookup");
             containerRegistry.RegisterForNavigation<CameraTimeChart, CameraTimeChartViewModel>("CameraTimeChart");
             containerRegistry.RegisterForNavigation<VehicleCameraMultiSelect, VehicleCameraMultiSelectViewModel>("VehicleCameraMultiSelect");
+
+            containerRegistry.RegisterForNavigation<ListDriverPage, ListDriverPageViewModel>("ListDriverPage");
+            containerRegistry.RegisterForNavigation<AddDriverInforPage, InsertOrUpdateDriverPageViewModel>("AddDriverInfoPage");
+            containerRegistry.RegisterForNavigation<DetailAndEditDriverPage, InsertOrUpdateDriverPageViewModel>("DetailAndEditDriverPage");
 
         }
     }

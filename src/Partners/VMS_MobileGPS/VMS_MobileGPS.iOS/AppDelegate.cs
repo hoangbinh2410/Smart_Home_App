@@ -2,7 +2,7 @@
 using BA_MobileGPS.Core.iOS.Setup;
 
 using Foundation;
-
+using Shiny;
 using UIKit;
 using Xamarin.Forms;
 
@@ -17,8 +17,8 @@ namespace VMS_MobileGPS.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Forms.SetFlags(new string[] { "CarouselView_Experimental", "IndicatorView_Experimental", "FastRenderers_Experimental", "AppTheme_Experimental", "RadioButton_Experimental" });
-            Xamarin.Forms.Forms.Init();
-            
+            iOSShinyHost.Init(new ShinyAppStartup());
+            Xamarin.Forms.Forms.Init();            
             ToolSetup.Initialize(this);
             UINavigationBar.Appearance.SetBackgroundImage(new UIImage(), UIBarMetrics.Default);
             UINavigationBar.Appearance.ShadowImage = new UIImage();

@@ -37,5 +37,8 @@ namespace BA_MobileGPS.Entities
 
         [Description("Xe nợ phí")]
         VehicleDebtMoney = 8,
+
+        [Description("Lỗi vệ tinh")]
+        SatelliteError = 9,
     }
 }

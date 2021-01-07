@@ -22,6 +22,8 @@ namespace BA_MobileGPS.Core
             _eventAggregator = Current.Container.Resolve<IEventAggregator>();
         }
 
+
+
         private readonly IEventAggregator _eventAggregator;
 
         public static AppType AppType = AppType.BinhAnh;
@@ -45,8 +47,7 @@ namespace BA_MobileGPS.Core
         {
             BA_MobileGPSSetup.RegisterServices(containerRegistry);
             BA_MobileGPSSetup.RegisterPages(containerRegistry);
-
-           
+            
         }
 
         protected override void OnStart()

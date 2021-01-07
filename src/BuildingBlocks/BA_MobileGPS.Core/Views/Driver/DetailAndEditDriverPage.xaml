@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.DetailAndEditDriverPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:busyIndicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    x:Name="this"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <Style TargetType="input:SfTextInputLayout">
+            <Setter Property="ContainerBackgroundColor" Value="{DynamicResource WhiteColor}" />
+            <Setter Property="ContainerType" Value="Outlined" />
+            <Setter Property="OutlineCornerRadius" Value="30" />
+            <Setter Property="ErrorColor" Value="{DynamicResource DangerousColor}" />
+        </Style>
+        <Style TargetType="busyIndicator:SfBusyIndicator">
+            <Setter Property="AnimationType" Value="Cupertino" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="EnableAnimation" Value="True" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="ViewBoxHeight" Value="50" />
+            <Setter Property="ViewBoxWidth" Value="50" />
+            <Setter Property="Duration" Value="0.8" />
+        </Style>
+    </ContentPage.Resources>
+    <NavigationPage.TitleView>
+        <Grid
+            Padding="0,0,10,0"
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
+            <Label
+                Grid.ColumnSpan="3"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="CenterAndExpand"
+                LineBreakMode="MiddleTruncation"
+                Text="{Binding PageTitle}"
+                TextColor="White"
+                VerticalOptions="Center" />
+            <Grid
+                Grid.Column="2"
+                IsVisible="{Binding CanUpdateData}"
+                VerticalOptions="Fill">
+                <controls:IconView
+                    Foreground="White"
+                    HeightRequest="27"
+                    InputTransparent="True"
+                    Source="ic_save_driver.png"
+                    VerticalOptions="Center" />
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SaveDriverInforCommand}" />
+                </Grid.GestureRecognizers>
+            </Grid>
+
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <Grid Padding="0,0,0,20">
+            <ScrollView>
+                <StackLayout IsEnabled="{Binding CanUpdateData}" Spacing="0">
+                    <Grid HeightRequest="140">
+                        <Grid Padding="0">
+                            <ffImage:CachedImage
+                                Aspect="AspectFill"
+                                Source="bg_driver_header.png"
+                                VerticalOptions="FillAndExpand" />
+                        </Grid>
+                        <Grid
+                            Margin="30,0,30,20"
+                            ColumnDefinitions="90,*"
+                            ColumnSpacing="10"
+                            VerticalOptions="EndAndExpand">
+                            <AbsoluteLayout HorizontalOptions="Fill" VerticalOptions="Fill">
+                                <pancake:PancakeView
+                                    Padding="0"
+                                    BackgroundColor="Transparent"
+                                    CornerRadius="45"
+                                    HeightRequest="85"
+                                    VerticalOptions="Center"
+                                    WidthRequest="85">
+                                    <pancake:PancakeView.Border>
+                                        <pancake:Border Thickness="1" Color="White" />
+                                    </pancake:PancakeView.Border>
+                                    <pancake:PancakeView
+                                        Padding="0"
+                                        CornerRadius="40"
+                                        HeightRequest="80"
+                                        HorizontalOptions="Center"
+                                        IsClippedToBounds="True"
+                                        VerticalOptions="Center"
+                                        WidthRequest="80">
+                                        <ffImage:CachedImage
+                                            Aspect="AspectFill"
+                                            CacheType="None"
+                                            DownsampleToViewSize="true"
+                                            Source="{Binding AvartarDisplay}" />
+                                    </pancake:PancakeView>
+                                </pancake:PancakeView>
+                                <pancake:PancakeView
+                                    Padding="4"
+                                    AbsoluteLayout.LayoutBounds="0.9,0.95,20,20"
+                                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                                    BackgroundColor="White"
+                                    CornerRadius="10">
+                                    <ffImage:CachedImage BackgroundColor="Transparent" Source="ic_camera.png" />
+                                </pancake:PancakeView>
+
+                                <AbsoluteLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ChangeDriverAvtarCommand}" />
+                                </AbsoluteLayout.GestureRecognizers>
+                            </AbsoluteLayout>
+                            <StackLayout
+                                Grid.Column="1"
+                                Spacing="7"
+                                VerticalOptions="Center">
+                                <Label
+                                    Margin="5,0,0,0"
+                                    FontAttributes="Bold"
+                                    FontFamily="{StaticResource myFontLatoBold}"
+                                    HorizontalOptions="StartAndExpand"
+                                    HorizontalTextAlignment="Start"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="2"
+                                    Text="{Binding DisplayName.Value, Converter={StaticResource UpperCaseConverter}}"
+                                    TextColor="{DynamicResource WhiteColor}" />
+                                <Label
+                                    Margin="5,0,0,0"
+                                    HorizontalOptions="Start"
+                                    Text="{Binding Mobile.Value}"
+                                    TextColor="{DynamicResource WhiteColor}" />
+
+                            </StackLayout>
+                        </Grid>
+                    </Grid>
+                    <StackLayout Padding="15,5,15,20" Spacing="5">
+                        <!--  Tên  -->
+                        <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Họ tên" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text=" (*)" TextColor="OrangeRed" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <input:SfTextInputLayout
+                            ErrorText="{Binding DisplayName.ErrorFirst}"
+                            HasError="{Binding DisplayName.IsNotValid}"
+                            VerticalOptions="Start">
+                            <Entry
+                                MaxLength="100"
+                                Placeholder="Nhập họ tên"
+                                Text="{Binding DisplayName.Value}" />
+                        </input:SfTextInputLayout>
+                        <!--  Ngày sinh  -->
+                        <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Ngày sinh" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text=" (*)" TextColor="{DynamicResource DangerousColor}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <input:SfTextInputLayout
+                            ErrorText="{Binding BirthDay.ErrorFirst}"
+                            HasError="{Binding BirthDay.IsNotValid}"
+                            VerticalOptions="Start">
+                            <StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushToFromDatePageCommand}" CommandParameter="BirthDay" />
+                                </StackLayout.GestureRecognizers>
+                                <Entry
+                                    InputTransparent="True"
+                                    Placeholder="__/__/____"
+                                    Text="{Binding BirthDay.Value, Converter={StaticResource DateConverter}}"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
+                        </input:SfTextInputLayout>
+                        <!--  Giới tính  -->
+                        <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Giới tính" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text=" (*)" TextColor="{DynamicResource DangerousColor}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <input:SfTextInputLayout ErrorText="{Binding SelectGenderErrorMessage}" HasError="{Binding SelectGenderHasError}">
+                            <Grid>
+                                <Picker
+                                    FontSize="{DynamicResource MyFontSize}"
+                                    HorizontalTextAlignment="Start"
+                                    ItemsSource="{Binding ListGender}"
+                                    SelectedIndex="{Binding SelectedGender}"
+                                    TitleColor="{DynamicResource PrimaryColor}">
+                                    <Picker.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Picker.Effects>
+                                </Picker>
+                                <controls:IconView
+                                    Margin="0,0,10,0"
+                                    Foreground="{DynamicResource BlackColor}"
+                                    HeightRequest="15"
+                                    HorizontalOptions="End"
+                                    Source="ic_sortdown"
+                                    VerticalOptions="Center"
+                                    WidthRequest="15" />
+                            </Grid>
+                        </input:SfTextInputLayout>
+                        <!--  CMND  -->
+                        <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Số CMND" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text=" (*)" TextColor="OrangeRed" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <input:SfTextInputLayout
+                            ContainerType="Outlined"
+                            ErrorText="{Binding IdentityNumber.ErrorFirst}"
+                            HasError="{Binding IdentityNumber.IsNotValid}"
+                            VerticalOptions="Start">
+                            <Entry
+                                Keyboard="Numeric"
+                                MaxLength="15"
+                                Placeholder="Nhập số CMND"
+                                Text="{Binding IdentityNumber.Value}" />
+                        </input:SfTextInputLayout>
+                        <!--  SDT  -->
+                        <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Số điện thoại" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text=" (*)" TextColor="OrangeRed" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <input:SfTextInputLayout
+                            ContainerType="Outlined"
+                            ErrorText="{Binding Mobile.ErrorFirst}"
+                            HasError="{Binding Mobile.IsNotValid}">
+                            <Entry
+                                Keyboard="Telephone"
+                                MaxLength="12"
+                                Placeholder="Nhập số điện thoại"
+                                Text="{Binding Mobile.Value}" />
+                        </input:SfTextInputLayout>
+                        <!--  Địa chỉ  -->
+                        <Label HorizontalOptions="Start" VerticalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Địa chỉ" TextColor="{DynamicResource TextPrimaryColor}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <input:SfTextInputLayout
+                            ErrorText="{Binding Address.ErrorFirst}"
+                            HasError="{Binding Address.IsNotValid}"
+                            VerticalOptions="Start">
+                            <Entry
+                                MaxLength="150"
+                                Placeholder="Nhập địa chỉ"
+                                Text="{Binding Address.Value}" />
+                        </input:SfTextInputLayout>
+                        <!--  Loại băng lái  -->
+                        <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Loại bằng lái" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text=" (*)" TextColor="OrangeRed" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <input:SfTextInputLayout
+                            ContainerType="Outlined"
+                            ErrorText="{Binding SelectLicenseTypeErrorMessage}"
+                            HasError="{Binding SelectLicenseTypeHasError}">
+                            <Grid>
+                                <Picker
+                                    FontSize="{DynamicResource MyFontSize}"
+                                    HorizontalTextAlignment="Start"
+                                    ItemsSource="{Binding ListDriverLicenseType}"
+                                    SelectedIndex="{Binding SelectedLicenseType}"
+                                    TitleColor="{DynamicResource PrimaryColor}">
+                                    <Picker.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Picker.Effects>
+                                </Picker>
+                                <controls:IconView
+                                    Margin="0,0,10,0"
+                                    Foreground="{DynamicResource BlackColor}"
+                                    HeightRequest="15"
+                                    HorizontalOptions="End"
+                                    Source="ic_sortdown"
+                                    VerticalOptions="Center"
+                                    WidthRequest="15" />
+                            </Grid>
+
+                        </input:SfTextInputLayout>
+                        <!--  Số bằng  -->
+                        <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Số bằng lái xe" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text=" (*)" TextColor="OrangeRed" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <input:SfTextInputLayout ErrorText="{Binding DriverLicense.ErrorFirst}" HasError="{Binding DriverLicense.IsNotValid}">
+                            <Entry
+                                MaxLength="12"
+                                Placeholder="Nhập số bằng lái xe"
+                                Text="{Binding DriverLicense.Value}" />
+                        </input:SfTextInputLayout>
+                        <!--  Ngày cấp bằng  -->
+                        <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Ngày cấp" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text=" (*)" TextColor="OrangeRed" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <input:SfTextInputLayout
+                            ErrorText="{Binding IssueDate.ErrorFirst}"
+                            HasError="{Binding IssueDate.IsNotValid}"
+                            VerticalOptions="Start">
+                            <StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushToFromDatePageCommand}" CommandParameter="IssueDate" />
+                                </StackLayout.GestureRecognizers>
+                                <Entry
+                                    InputTransparent="True"
+                                    Placeholder="__/__/____"
+                                    Text="{Binding IssueDate.Value, Converter={StaticResource DateConverter}}"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
+                        </input:SfTextInputLayout>
+                        <!--  Ngày hết hạn bằng  -->
+                        <Label HorizontalOptions="Start" VerticalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Ngày hết hạn" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text=" (*)" TextColor="OrangeRed" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <input:SfTextInputLayout
+                            ErrorText="{Binding ExpiredDate.ErrorFirst}"
+                            HasError="{Binding ExpiredDate.IsNotValid}"
+                            VerticalOptions="Start">
+                            <StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushToFromDatePageCommand}" CommandParameter="ExpDate" />
+                                </StackLayout.GestureRecognizers>
+                                <Entry
+                                    InputTransparent="True"
+                                    Placeholder="__/__/____"
+                                    Text="{Binding ExpiredDate.Value, Converter={StaticResource DateConverter}}"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
+                        </input:SfTextInputLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+            <busyIndicator:SfBusyIndicator IsBusy="{Binding IsBusy}" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

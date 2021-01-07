@@ -347,7 +347,7 @@
                                             HorizontalOptions="FillAndExpand"
                                             InputTransparent="True"
                                             Placeholder="{i18n:TranslateResource Common_Label_Grid_VehiclePlate}"
-                                            Text="{Binding PrivateCode}"
+                                            Text="{Binding VehicleSelect.PrivateCode}"
                                             VerticalOptions="Center">
                                             <Entry.Effects>
                                                 <effects:BorderlessEffect />

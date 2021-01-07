@@ -3,6 +3,7 @@
     x:Class="BA_MobileGPS.Core.Views.DeviceTab"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
@@ -25,6 +26,7 @@
             <Setter Property="ViewBoxWidth" Value="35" />
             <Setter Property="Duration" Value="0.8" />
         </Style>
+        <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*" RowSpacing="0">
@@ -340,7 +342,7 @@
                             TextColor="{DynamicResource WhiteColor}" />
                         <Label
                             HorizontalOptions="Start"
-                            Text="{Binding VideoSlected.ImageTime}"
+                            Text="{Binding VideoSlected.ImageTime, Converter={StaticResource DateTimeViewConverter}}"
                             TextColor="{DynamicResource WhiteColor}" />
                     </StackLayout>
 
@@ -415,7 +417,7 @@
                                             <Label
                                                 HorizontalOptions="Start"
                                                 StyleClass="BoldText"
-                                                Text="{Binding ImageTime}" />
+                                                Text="{Binding ImageTime, Converter={StaticResource DateTimeViewConverter}}" />
                                             <Label HorizontalOptions="Start" Text="{Binding VideoAddress}" />
                                         </StackLayout>
                                     </StackLayout>
