@@ -70,6 +70,7 @@
     <Compile Include="DependencyServices\AppVersionService.cs" />
     <Compile Include="DependencyServices\CameraSnapShotServices.cs" />
     <Compile Include="DependencyServices\DisplayMessageService.cs" />
+    <Compile Include="DependencyServices\DownloadVideoService.cs" />
     <Compile Include="DependencyServices\DroidAudioManager.cs" />
     <Compile Include="DependencyServices\DroidTooltipService.cs" />
     <Compile Include="DependencyServices\HUDService.cs" />
