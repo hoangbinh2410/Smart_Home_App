@@ -342,7 +342,7 @@
                             TextColor="{DynamicResource WhiteColor}" />
                         <Label
                             HorizontalOptions="Start"
-                            Text="{Binding VideoSlected.ImageTime}"
+                            Text="{Binding VideoSlected.ImageTime, Converter={StaticResource DateTimeViewConverter}}"
                             TextColor="{DynamicResource WhiteColor}" />
                     </StackLayout>
 
