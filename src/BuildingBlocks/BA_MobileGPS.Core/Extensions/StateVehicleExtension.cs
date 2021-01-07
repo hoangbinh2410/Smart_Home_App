@@ -371,11 +371,31 @@ namespace BA_MobileGPS.Core.Extensions
             return false;
         }
 
+        /// <summary>
+        /// trạng thái  xe di chuyển bật máy
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <returns></returns>
+        public static bool IsEngineState(VehicleOnline vehicle)
+        {
+            //Nếu xe không cấu hình acc thì dựa vào trạng thái máy là tắt máy thì là dừng đỗ
+            if (!vehicle.IsEnableAcc && IsEngineOn(vehicle.State))
+            {
+                return true;
+            }
+            //nếu xe có cấu hình sai acc thì dựa vào vận tốc
+            else if (vehicle.IsEnableAcc && IsMoving(vehicle.Velocity))
+            {
+                return true;
+            }
+            return false;
+        }
+
         /* Trả về trạng thái động cơ */
 
         public static string EngineState(VehicleOnline vehicle)
         {
-            if (!IsMovingAndEngineON(vehicle))
+            if (!IsEngineState(vehicle))
             {
                 return MobileResource.Common_Label_TurnOff;
             }
@@ -524,7 +544,7 @@ namespace BA_MobileGPS.Core.Extensions
                                 {
                                     result += 1;
                                 }
-                            }                        
+                            }
                             break;
 
                     }
@@ -698,7 +718,7 @@ namespace BA_MobileGPS.Core.Extensions
         public static bool IsSatelliteError(VehicleOnline vehicle)
         {
             //KCN-7220
-            if ((vehicle.State & 64) >0)
+            if ((vehicle.State & 64) > 0)
             {
                 return true;
             }
