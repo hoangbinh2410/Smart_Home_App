@@ -57,8 +57,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
-            GetAllChartData();
-            DisplayMessage.ShowMessageInfo("Thiết bị không ghi video khi phương tiện tắt máy.");
+            GetAllChartData();           
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
