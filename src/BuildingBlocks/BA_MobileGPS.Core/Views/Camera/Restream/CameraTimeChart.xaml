@@ -202,7 +202,6 @@
                 AutoFitMode="DynamicHeight"
                 IsScrollBarVisible="True"
                 ItemSpacing="5"
-                ItemTapped="listview_ItemTapped"
                 ItemsSource="{Binding ChartItemsSource, Mode=OneWay}"
                 LoadMoreCommand="{Binding LoadMoreItemsCommand}"
                 LoadMoreCommandParameter="{Binding Source={x:Reference listview}}"
