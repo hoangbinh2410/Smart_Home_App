@@ -7,15 +7,18 @@ using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core
 {
-    public class HasPermisstionConverter : IValueConverter
+    public class HasPermisstionAlertConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            //if null then not visible
-            if (value == null)
-                return false;
 
-            return StaticSettings.User.Permissions.IndexOf((int)value) != -1;
+            //if null then not visible
+            if (value != null)
+            {
+                return StaticSettings.User.Permissions.IndexOf((int)PermissionKeyNames.AdminAlertView) != -1;
+            }
+            else
+                return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

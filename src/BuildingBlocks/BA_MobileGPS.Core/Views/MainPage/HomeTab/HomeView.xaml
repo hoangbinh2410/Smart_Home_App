@@ -104,6 +104,7 @@
                         BackgroundColor="Transparent"
                         BadgeText="{Binding TotalAlertDisplay, Source={x:Static local:GlobalResources.Current}}"
                         HorizontalOptions="Center"
+                        IsVisible="{Binding UserInfo.Permissions, Converter={StaticResource HasPermisstionAlertConverter}}"
                         VerticalOptions="Center">
                         <badge:SfBadgeView.Content>
                             <controls:IconView
