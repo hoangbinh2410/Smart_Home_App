@@ -32,6 +32,7 @@
 		<PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="18.4.0.33" />
 		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.4.0.33" />
 		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.4.0.33" />
+		<PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="18.4.0.33" />
 		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.4.0.33" />
 		<PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="18.4.0.33" />
 		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.4.0.33" />

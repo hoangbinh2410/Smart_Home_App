@@ -122,6 +122,9 @@
     <PackageReference Include="EasyTipView">
       <Version>1.0.1</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfProgressBar">
+      <Version>18.4.0.33</Version>
+    </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider">
       <Version>18.4.0.33</Version>
     </PackageReference>
