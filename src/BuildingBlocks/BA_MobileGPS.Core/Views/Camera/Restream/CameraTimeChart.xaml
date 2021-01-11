@@ -190,7 +190,7 @@
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
                     HorizontalOptions="Start"
-                    Text="Không ghi video khi phương tiện tắt máy."
+                    Text="Thiết bị không ghi video khi phương tiện tắt máy."
                     TextColor="#18A0FB" />
             </Grid>
 
