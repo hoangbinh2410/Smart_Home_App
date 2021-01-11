@@ -250,9 +250,12 @@ namespace BA_MobileGPS.Core.ViewModels
             identityHubService.onReceivePushLogoutToAllUserInCompany += onReceivePushLogoutToAllUserInCompany;
             identityHubService.onReceivePushLogoutToUser += onReceivePushLogoutToUser;
 
-            // Khởi tạo alertlR
-            await alertHubService.Connect();
-            alertHubService.onReceiveAlertSignalR += OnReceiveAlertSignalR;
+            if (CheckPermision((int)PermissionKeyNames.AdminAlertView))
+            {
+                // Khởi tạo alertlR
+                await alertHubService.Connect();
+                alertHubService.onReceiveAlertSignalR += OnReceiveAlertSignalR;
+            }
         }
 
         private async Task ConnectSignalROnline()
@@ -279,9 +282,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
             await vehicleOnlineHubService.Disconnect();
 
-            alertHubService.onReceiveAlertSignalR -= OnReceiveAlertSignalR;
+            if (CheckPermision((int)PermissionKeyNames.AdminAlertView))
+            {
+                alertHubService.onReceiveAlertSignalR -= OnReceiveAlertSignalR;
 
-            await alertHubService.Disconnect();
+                await alertHubService.Disconnect();
+            }
         }
 
         private void JoinGroupSignalRCar(List<string> lstGroup)
@@ -626,19 +632,23 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetCountAlert()
         {
-            var userID = UserInfo.UserId;
-            if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+            //kiểm tra xem có quyền hay ko
+            if (CheckPermision((int)PermissionKeyNames.AdminAlertView))
             {
-                userID = Settings.CurrentCompany.UserId;
-            }
+                var userID = UserInfo.UserId;
+                if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                {
+                    userID = Settings.CurrentCompany.UserId;
+                }
 
-            RunOnBackground(async () =>
-            {
-                return await alertService.GetCountAlert(userID);
-            }, (result) =>
-            {
-                GlobalResources.Current.TotalAlert = result;
-            });
+                RunOnBackground(async () =>
+                {
+                    return await alertService.GetCountAlert(userID);
+                }, (result) =>
+                {
+                    GlobalResources.Current.TotalAlert = result;
+                });
+            }
         }
 
         private void GetTimeServer()

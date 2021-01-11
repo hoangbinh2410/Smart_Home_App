@@ -52,7 +52,10 @@
                         <TapGestureRecognizer Command="{Binding PushToNoticePageCommand}" />
                     </controls:IconView.GestureRecognizers>
                 </controls:IconView>
-                <badge:SfBadgeView BadgeText="{Binding TotalAlertDisplay, Source={x:Static local:GlobalResources.Current}}" VerticalOptions="EndAndExpand">
+                <badge:SfBadgeView
+                    BadgeText="{Binding TotalAlertDisplay, Source={x:Static local:GlobalResources.Current}}"
+                    IsVisible="{Binding UserInfo.Permissions, Converter={StaticResource HasPermisstionAlertConverter}}"
+                    VerticalOptions="EndAndExpand">
                     <badge:SfBadgeView.Content>
                         <controls:IconView
                             Margin="0,0,0,-1"
