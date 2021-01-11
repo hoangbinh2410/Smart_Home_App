@@ -624,7 +624,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var storagePermission = await PermissionHelper.CheckStoragePermissions();
                 if (photoPermission && storagePermission)
                 {
-                    var param = new Vehicle()
+                    var param = new CameraLookUpVehicleModel()
                     {
                         VehiclePlate = CarActive.VehiclePlate,
                         VehicleId = CarActive.VehicleId,
