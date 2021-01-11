@@ -1,9 +1,9 @@
 ﻿using Android.Animation;
 using Android.Content;
-using Android.Support.Design.Widget;
 using Android.Views;
 using BA_MobileGPS.Core.Controls;
 using BA_MobileGPS.Core.Droid.CustomRender;
+using Google.Android.Material.BottomNavigation;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -77,10 +77,7 @@ namespace BA_MobileGPS.Core.Droid.CustomRender
                     }
                     catch (System.Exception ex)
                     {
-
-                       
                     }
-                   
                 }
             }
         }

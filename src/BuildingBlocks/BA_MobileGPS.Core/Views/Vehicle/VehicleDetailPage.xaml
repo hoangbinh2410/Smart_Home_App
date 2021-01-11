@@ -9,6 +9,7 @@
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:progressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     Title="{Binding Title}"
     NavigationPage.BackButtonTitle="">
@@ -1141,6 +1142,7 @@
                                             RowSpacing="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="20" />
                                                 <RowDefinition Height="1" />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
@@ -1175,8 +1177,17 @@
                                                 VerticalOptions="Center"
                                                 VerticalTextAlignment="Center" />
 
-                                            <BoxView
+                                            <!--  Using linear progress bar  -->
+                                            <progressBar:SfLinearProgressBar
                                                 Grid.Row="1"
+                                                Grid.ColumnSpan="2"
+                                                Progress="{Binding FuelProgress}"
+                                                ProgressColor="{StaticResource PrimaryColor}"
+                                                TrackColor="{StaticResource GrayColor}"
+                                                TrackHeight="8" />
+
+                                            <BoxView
+                                                Grid.Row="2"
                                                 Grid.ColumnSpan="2"
                                                 BackgroundColor="{StaticResource GrayColor}"
                                                 HeightRequest="0.5"

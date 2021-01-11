@@ -90,9 +90,9 @@
                                     BackgroundColor="Black"
                                     HorizontalOptions="FillAndExpand"
                                     VerticalOptions="FillAndExpand">
-                                    <StackLayout.GestureRecognizers>
+                                    <!--<StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CameraDetailViewModel}}, Path=TabImageCommand}" />
-                                    </StackLayout.GestureRecognizers>
+                                    </StackLayout.GestureRecognizers>-->
                                     <ffImage:CachedImage
                                         Aspect="AspectFill"
                                         BitmapOptimizations="True"
@@ -106,7 +106,7 @@
                             </DataTemplate>
                         </cards:CoverFlowView.ItemTemplate>
                     </cards:CoverFlowView>
-                    <controls:FontAwesomeIcon
+                    <!--<controls:FontAwesomeIcon
                         Margin="8"
                         FontAttributes="Bold"
                         FontSize="25"
@@ -117,7 +117,7 @@
                         <controls:FontAwesomeIcon.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding TabImageCommand}" />
                         </controls:FontAwesomeIcon.GestureRecognizers>
-                    </controls:FontAwesomeIcon>
+                    </controls:FontAwesomeIcon>-->
                     <!--<controls:MaterialFrame
                         Padding="0"
                         BackgroundColor="{StaticResource Color_Navigation}"
