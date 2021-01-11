@@ -640,7 +640,7 @@ namespace BA_MobileGPS.Core.ViewModels
                           { ParameterKey.Vehicle, param }
                      };
 
-                    await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
+                   var a = await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
                 }
             });
         }
