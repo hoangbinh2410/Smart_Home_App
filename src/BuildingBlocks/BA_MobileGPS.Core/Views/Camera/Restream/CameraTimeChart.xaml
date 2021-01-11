@@ -190,7 +190,7 @@
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
                     HorizontalOptions="Start"
-                    Text="Không tải được video khi phương tiện tắt máy."
+                    Text="Thiết bị không ghi video khi phương tiện tắt máy."
                     TextColor="#18A0FB" />
             </Grid>
 
@@ -198,10 +198,9 @@
             <xforms:SfListView
                 x:Name="listview"
                 Grid.Row="3"
-                Padding="5,0"
                 AutoFitMode="DynamicHeight"
                 IsScrollBarVisible="True"
-                ItemSpacing="5"
+                ItemSpacing="0,3"
                 ItemsSource="{Binding ChartItemsSource, Mode=OneWay}"
                 LoadMoreCommand="{Binding LoadMoreItemsCommand}"
                 LoadMoreCommandParameter="{Binding Source={x:Reference listview}}"
@@ -214,7 +213,6 @@
                         <!--<ScrollView Orientation="Horizontal">-->
                         <chart:SfChart
                             BackgroundColor="Transparent"
-                            ChartPadding="10"
                             HeightRequest="180"
                             HorizontalOptions="FillAndExpand"
                             SideBySideSeriesPlacement="False"
@@ -238,7 +236,7 @@
                             </chart:SfChart.ColorModel>
                             <chart:SfChart.Title>
                                 <chart:ChartTitle
-                                    Margin="10,2,0,2"
+                                    Margin="10,3,0,3"
                                     BackgroundColor="{DynamicResource PrimaryColor}"
                                     FontAttributes="Bold"
                                     FontFamily="{StaticResource myFontLatoBold}"
