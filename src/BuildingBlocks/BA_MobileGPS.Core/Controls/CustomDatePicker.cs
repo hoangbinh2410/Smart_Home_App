@@ -84,14 +84,14 @@ namespace BA_MobileGPS.Controls
             Day = new ObservableCollection<object>();
             Month = new ObservableCollection<object>();
             Year = new ObservableCollection<object>();
-
+           
             Headers = new ObservableCollection<string>
             {
-                "Month",
-                "Day",
-                "Year"
+                Core.Resources.MobileResource.Common_Label_Month,
+                Core.Resources.MobileResource.Common_Label_Day,
+                Core.Resources.MobileResource.Common_Label_Year
             };
-            HeaderText = "SelectDate";
+            HeaderText = Core.Resources.MobileResource.Common_Label_DatePicker;
 
             PopulateDateCollection();
 
