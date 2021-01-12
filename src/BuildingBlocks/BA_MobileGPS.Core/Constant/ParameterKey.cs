@@ -47,5 +47,6 @@
         public const string Position = "Position";
 
         public const string DriverInformation = "DriverInformation";
+        public const string PaperType = "PaperType";
     }
 }

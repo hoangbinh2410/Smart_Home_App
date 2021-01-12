@@ -8,6 +8,7 @@
     xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     Title="Chọn loại giấy tờ nhập thông tin"
     prism:ViewModelLocator.AutowireViewModel="True">
     <NavigationPage.TitleView>
@@ -40,7 +41,6 @@
                 Text="{Binding Source={x:Reference this}, Path=Title}"
                 TextColor="White"
                 VerticalOptions="Center" />
-
         </Grid>
     </NavigationPage.TitleView>
     <StackLayout>
@@ -88,5 +88,28 @@
                 </Entry>
             </StackLayout>
         </pancake:PancakeView>
+        <BoxView BackgroundColor="Red" HeightRequest="1" />
+        <syncfusionList:SfListView
+            Margin="0"
+            AutoFitMode="DynamicHeight"
+            ItemSize="60"
+            ItemSpacing="0"
+            ItemsSource="{Binding ListPapersDisplay, Mode=OneWay}"
+            SelectedItem="{Binding SelectedPaper, Mode=OneWay}"
+            SelectionBackgroundColor="AliceBlue"
+            SelectionMode="Single"
+            TapCommand="{Binding SelectPaperCommand}">
+            <syncfusionList:SfListView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="{Binding Name}" VerticalOptions="Center" />
+                        <BoxView
+                            BackgroundColor="Gray"
+                            HeightRequest="1"
+                            VerticalOptions="End" />
+                    </StackLayout>
+                </DataTemplate>
+            </syncfusionList:SfListView.ItemTemplate>
+        </syncfusionList:SfListView>
     </StackLayout>
 </ContentPage>

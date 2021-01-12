@@ -18,7 +18,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectPaperTypeCommand = new DelegateCommand(SelectPaperType);
         }
 
-       
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -35,9 +35,15 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return selectedVehiclePlates; }
             set { SetProperty(ref selectedVehiclePlates, value); }
         }
+
+
         private void SelectPaperType()
         {
-            throw new NotImplementedException();
+            SafeExecute(async () =>
+            {
+                var res = await NavigationService.NavigateAsync("BaseNavigationPage/SelectPaperTypePage", null, true, true);
+            });
+
         }
 
 
