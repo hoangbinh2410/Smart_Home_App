@@ -110,7 +110,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
     public class PaperModel
     {
-
         public PaperEnum PaperType { get; set; }
         public string Name
         {
@@ -120,6 +119,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
     }
+
     public enum PaperEnum
     {
         A1, B1, C2

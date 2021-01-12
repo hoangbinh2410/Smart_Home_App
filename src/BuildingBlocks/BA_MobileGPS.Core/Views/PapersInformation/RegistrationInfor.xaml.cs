@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace BA_MobileGPS.Core.Views.PapersInformation
+namespace BA_MobileGPS.Core.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegistrationInfor : ContentView

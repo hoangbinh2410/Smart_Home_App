@@ -72,7 +72,6 @@
                         </StackLayout.GestureRecognizers>
                         <Entry
                             x:Name="entrySearch"
-                            FontSize="14"
                             HorizontalOptions="FillAndExpand"
                             InputTransparent="True"
                             Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
@@ -94,13 +93,21 @@
                     </StackLayout>
                 </pancake:PancakeView>
             </Grid>
-            <StackLayout HorizontalOptions="Fill" Orientation="Horizontal">
+            <StackLayout
+                Padding="5"
+                BackgroundColor="#0071BC"
+                HorizontalOptions="Fill"
+                Orientation="Horizontal">
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="{Binding SelectPaperTypeCommand}" />
+                    <TapGestureRecognizer Tapped="ChangePageType_Tapped" />
                 </StackLayout.GestureRecognizers>
-                <Label x:Name="papersName" HorizontalOptions="Center" />
+                <Label
+                    x:Name="papersName"
+                    HorizontalOptions="CenterAndExpand"
+                    InputTransparent="True"
+                    TextColor="{DynamicResource WhiteColor}" />
             </StackLayout>
-            <Grid x:Name="papersView" />
+            <Grid x:Name="papersChildView" />
         </StackLayout>
     </ScrollView>
 

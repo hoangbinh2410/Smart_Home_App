@@ -12,10 +12,10 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class InvalidPapersPageViewModel : ViewModelBase
     {
-        public ICommand SelectPaperTypeCommand { get; }
+   
         public InvalidPapersPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-            SelectPaperTypeCommand = new DelegateCommand(SelectPaperType);
+   
         }
 
 
@@ -23,7 +23,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.OnNavigatedTo(parameters);
 
-            if (parameters.ContainsKey(ParameterKey.VehicleOnline) && parameters.GetValue<Vehicle>(ParameterKey.VehicleOnline) is Vehicle vehicle)
+            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
             {
                 SelectedVehiclePlates = vehicle.PrivateCode;
             }
@@ -37,14 +37,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
 
-        private void SelectPaperType()
-        {
-            SafeExecute(async () =>
-            {
-                var res = await NavigationService.NavigateAsync("BaseNavigationPage/SelectPaperTypePage", null, true, true);
-            });
-
-        }
+   
 
 
     }

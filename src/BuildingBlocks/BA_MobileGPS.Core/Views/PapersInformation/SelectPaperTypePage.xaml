@@ -9,6 +9,7 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    x:Name="this"
     Title="Chọn loại giấy tờ nhập thông tin"
     prism:ViewModelLocator.AutowireViewModel="True">
     <NavigationPage.TitleView>
