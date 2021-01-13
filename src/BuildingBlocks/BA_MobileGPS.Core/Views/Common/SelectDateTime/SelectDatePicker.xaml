@@ -47,29 +47,26 @@
                             FontAttributes="Bold"
                             FontSize="16"
                             HorizontalOptions="CenterAndExpand"
-                            Text="{i18n:TranslateResource Common_Label_TimePicker}"
+                            Text="{i18n:TranslateResource Common_Label_DatePicker}"
                             TextColor="White"
                             VerticalOptions="CenterAndExpand" />
                     </StackLayout>
-                    <StackLayout Grid.Row="1">
+                    <Grid Grid.Row="1">
                         <controls:CustomDatePicker
                             x:Name="date"
                             BorderColor="Transparent"
-                            ColumnHeaderFontSize="13"
                             ColumnHeaderTextColor="{DynamicResource PrimaryColor}"
                             HorizontalOptions="CenterAndExpand"
                             PickerHeight="200"
-                            PickerMode="Dialog"
+                            PickerMode="Default"
                             PickerWidth="200"
                             SelectedItem="{Binding StartDate}"
-                            SelectedItemFontSize="12"
                             SelectedItemTextColor="{DynamicResource PrimaryColor}"
                             ShowColumnHeader="True"
                             ShowFooter="False"
                             ShowHeader="False"
-                            UnSelectedItemFontSize="10"
                             VerticalOptions="CenterAndExpand" />
-                    </StackLayout>
+                    </Grid>
                     <Grid
                         Grid.Row="2"
                         Padding="5"
@@ -90,7 +87,8 @@
                             BorderWidth="1"
                             Command="{Binding ClosePagePopupCommand}"
                             FontAttributes="Bold"
-                            FontSize="12"
+                            FontSize="14"
+                            HeightRequest="40"
                             Text="{i18n:TranslateResource Common_Button_Close}"
                             TextColor="{DynamicResource PrimaryColor}" />
                         <Button
@@ -100,7 +98,8 @@
                             BorderRadius="0"
                             Command="{Binding IgreeSelectedDateCommand}"
                             FontAttributes="Bold"
-                            FontSize="12"
+                            FontSize="14"
+                            HeightRequest="40"
                             Text="{i18n:TranslateResource Common_Button_OK}"
                             TextColor="White" />
                     </Grid>

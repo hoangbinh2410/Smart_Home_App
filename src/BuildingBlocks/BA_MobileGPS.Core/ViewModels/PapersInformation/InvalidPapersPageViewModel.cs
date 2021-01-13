@@ -12,12 +12,13 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class InvalidPapersPageViewModel : ViewModelBase
     {
-   
+
+        public ICommand SelectRegisterDateCommand { get; }
+        public ICommand SelectExpireDateCommand { get; }
         public InvalidPapersPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-   
+           
         }
-
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -36,9 +37,12 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref selectedVehiclePlates, value); }
         }
 
+        public void SafeEx(Action action)
+        {
+            SafeExecute(action);
+        }
 
-   
-
+        
 
     }
 }

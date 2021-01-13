@@ -10,6 +10,7 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources />
     <NavigationPage.TitleView>
         <Grid
             ColumnSpacing="10"
@@ -42,10 +43,14 @@
                 VerticalOptions="Center" />
         </Grid>
     </NavigationPage.TitleView>
-    <ScrollView>
-        <StackLayout>
+    <Grid>
+        <StackLayout Spacing="0">
             <!--  Khu vực tìm kiếm  -->
-            <Grid Margin="10,5" ColumnDefinitions="*,Auto">
+            <Grid
+                Margin="10,5"
+                ColumnDefinitions="*,Auto"
+                HeightRequest="50"
+                MinimumHeightRequest="50">
                 <pancake:PancakeView
                     Padding="0"
                     BackgroundColor="{DynamicResource WhiteColor}"
@@ -94,7 +99,7 @@
                 </pancake:PancakeView>
             </Grid>
             <StackLayout
-                Padding="5"
+                Padding="7"
                 BackgroundColor="#0071BC"
                 HorizontalOptions="Fill"
                 Orientation="Horizontal">
@@ -107,10 +112,10 @@
                     InputTransparent="True"
                     TextColor="{DynamicResource WhiteColor}" />
             </StackLayout>
-            <Grid x:Name="papersChildView" />
+            <ScrollView x:Name="papersChildView" />
         </StackLayout>
-    </ScrollView>
 
+    </Grid>
 
 
 </ContentPage>

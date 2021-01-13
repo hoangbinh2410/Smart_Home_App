@@ -8,6 +8,14 @@
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentView.Resources>
+        <Style TargetType="input:SfTextInputLayout">
+            <Setter Property="ContainerBackgroundColor" Value="{DynamicResource WhiteColor}" />
+            <Setter Property="ContainerType" Value="Outlined" />
+            <Setter Property="OutlineCornerRadius" Value="30" />
+            <Setter Property="ErrorColor" Value="{DynamicResource DangerousColor}" />
+        </Style>
+    </ContentView.Resources>
     <ContentView.Content>
         <ScrollView>
             <StackLayout Padding="15,5,15,20" Spacing="5">
@@ -44,7 +52,7 @@
                     VerticalOptions="Start">
                     <StackLayout>
                         <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding PushToSelectDatePageCommand}" CommandParameter="IssueDate" />
+                            <TapGestureRecognizer Command="{Binding SelectRegisterDateCommand}" />
                         </StackLayout.GestureRecognizers>
                         <Entry
                             InputTransparent="True"
@@ -68,7 +76,7 @@
                     VerticalOptions="Start">
                     <StackLayout>
                         <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding PushToSelectDatePageCommand}" CommandParameter="ExpDate" />
+                            <TapGestureRecognizer Command="{Binding SelectExpireDateCommand}" />
                         </StackLayout.GestureRecognizers>
                         <Entry
                             InputTransparent="True"
@@ -141,14 +149,18 @@
                     ErrorText="{Binding InsuranceFee.ErrorFirst}"
                     HasError="{Binding InsuranceFee.IsNotValid}"
                     VerticalOptions="Start">
-                    <StackLayout>
+                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                         <Entry
-                            HorizontalOptions="StartAndExpand"
+                            HorizontalOptions="FillAndExpand"
                             Keyboard="Numeric"
                             MaxLength="15"
                             Placeholder="Nhập số tiền"
                             Text="{Binding InsuranceFee.Value}" />
-                        <Label HorizontalOptions="End" Text="VND" />
+                        <Label
+                            Margin="10,0"
+                            HorizontalOptions="End"
+                            Text="VND"
+                            VerticalOptions="Center" />
                     </StackLayout>
                 </input:SfTextInputLayout>
                 <!--  Đơn vị  -->
@@ -187,10 +199,22 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <input:SfTextInputLayout ErrorText="{Binding Notes.ErrorFirst}" HasError="{Binding Notes.IsNotValid}">
-                    <Editor Placeholder="Nhập ghi chú" Text="{Binding Notes.Value}" />
+                <input:SfTextInputLayout
+                    ErrorText="{Binding Notes.ErrorFirst}"
+                    HasError="{Binding Notes.IsNotValid}"
+                    OutlineCornerRadius="20">
+                    <Editor
+                        HeightRequest="100"
+                        Placeholder="Nhập ghi chú"
+                        Text="{Binding Notes.Value}" />
                 </input:SfTextInputLayout>
-                <Button Text="Cập nhật" />
+                <Button
+                    Margin="10"
+                    Command="{Binding SaveInsuranceInforCommand}"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    Text="Cập nhật"
+                    WidthRequest="200" />
             </StackLayout>
 
         </ScrollView>

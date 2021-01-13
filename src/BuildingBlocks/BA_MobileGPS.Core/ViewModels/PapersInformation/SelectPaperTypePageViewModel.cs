@@ -35,7 +35,7 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnNavigatedTo(parameters);
             if (parameters.ContainsKey(ParameterKey.PaperType) && parameters.GetValue<PaperModel>(ParameterKey.PaperType) is PaperModel vehicle)
             {
-                SelectedPaper = vehicle;
+                //SelectedPaper = vehicle;
             }
         }
 
@@ -100,12 +100,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private PaperModel selectedPaper;
-        public PaperModel SelectedPaper
-        {
-            get { return selectedPaper; }
-            set { SetProperty(ref selectedPaper, value); }
-        }
+      
     }
 
     public class PaperModel

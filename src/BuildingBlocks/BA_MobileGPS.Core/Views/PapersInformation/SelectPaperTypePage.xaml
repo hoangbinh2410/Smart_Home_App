@@ -44,7 +44,7 @@
                 VerticalOptions="Center" />
         </Grid>
     </NavigationPage.TitleView>
-    <StackLayout>
+    <StackLayout Spacing="0">
         <!--  Search area  -->
         <pancake:PancakeView
             Margin="10"
@@ -89,21 +89,23 @@
                 </Entry>
             </StackLayout>
         </pancake:PancakeView>
-        <BoxView BackgroundColor="Red" HeightRequest="1" />
+        <BoxView BackgroundColor="{DynamicResource PrimaryColor}" HeightRequest="1" />
         <syncfusionList:SfListView
             Margin="0"
             AutoFitMode="DynamicHeight"
             ItemSize="60"
             ItemSpacing="0"
             ItemsSource="{Binding ListPapersDisplay, Mode=OneWay}"
-            SelectedItem="{Binding SelectedPaper, Mode=OneWay}"
-            SelectionBackgroundColor="AliceBlue"
+            SelectionBackgroundColor="Transparent"
             SelectionMode="Single"
             TapCommand="{Binding SelectPaperCommand}">
             <syncfusionList:SfListView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout>
-                        <Label Text="{Binding Name}" VerticalOptions="Center" />
+                        <Label
+                            Margin="0,10,0,0"
+                            Text="{Binding Name}"
+                            VerticalOptions="Center" />
                         <BoxView
                             BackgroundColor="Gray"
                             HeightRequest="1"

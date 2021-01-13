@@ -33,6 +33,7 @@
         Common_Label_Year,
         Common_Label_Month,
         Common_Label_Day,
+        Common_Label_DayUpper,
         Common_Label_Days,
         Common_Label_Day2,
         Common_Label_Hour,

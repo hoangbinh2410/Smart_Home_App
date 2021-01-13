@@ -88,7 +88,7 @@ namespace BA_MobileGPS.Controls
             Headers = new ObservableCollection<string>
             {
                 Core.Resources.MobileResource.Common_Label_Month,
-                Core.Resources.MobileResource.Common_Label_Day,
+                Core.Resources.MobileResource.Common_Label_DayUpper,
                 Core.Resources.MobileResource.Common_Label_Year
             };
             HeaderText = Core.Resources.MobileResource.Common_Label_DatePicker;
@@ -209,7 +209,7 @@ namespace BA_MobileGPS.Controls
             }
 
             Date.Add(Month);
-            Date.Add(Day);
+            Date.Add(Day);              
             Date.Add(Year);
         }
     }
