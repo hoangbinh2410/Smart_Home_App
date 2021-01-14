@@ -3,6 +3,8 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
+using BA_MobileGPS.Entities.ResponeEntity;
 using Prism;
 using Prism.Common;
 using Prism.Ioc;
@@ -13,14 +15,12 @@ namespace BA_MobileGPS.Core.Views
 {
     public partial class InvalidPapersPage : ContentPage, INavigationAware
     {
-        private PaperEnum currentPageType { get; set; } = PaperEnum.A1;
+        private PaperCategoryTypeEnum currentPageType { get; set; } 
         private readonly INavigationService navigationService = PrismApplicationBase.Current.Container.Resolve<INavigationService>();
         private InvalidPapersPageViewModel vm { get; set; }
         public InvalidPapersPage()
         {
             InitializeComponent();
-            papersChildView.Content = new RegistrationInfor();
-            papersName.Text = "Type A1";
             vm = (InvalidPapersPageViewModel)BindingContext;
         }
 
@@ -32,25 +32,27 @@ namespace BA_MobileGPS.Core.Views
         public void OnNavigatedTo(INavigationParameters parameters)
         {
 
-            if (parameters.ContainsKey(ParameterKey.PaperType) && parameters.GetValue<PaperModel>(ParameterKey.PaperType) is PaperModel vehicle)
+            if (parameters.ContainsKey(ParameterKey.PaperType) && parameters.GetValue<PaperCategory>(ParameterKey.PaperType) is PaperCategory paper)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     vm.SafeEx(() =>
                     {
-
-                        papersName.Text = vehicle.Name;
-                        currentPageType = vehicle.PaperType;
-                        switch (vehicle.PaperType)
+                        papersName.Text = paper.PaperName;
+                        currentPageType = (PaperCategoryTypeEnum)paper.PaperCategoryType;
+                        switch (currentPageType)
                         {
-                            case PaperEnum.A1:
+                            case PaperCategoryTypeEnum.Registry:
                                 papersChildView.Content = new RegistrationInfor();
                                 break;
-                            case PaperEnum.B1:
+                            case PaperCategoryTypeEnum.Insurrance:
                                 papersChildView.Content = new InsuranceInfor();
                                 break;
-                            case PaperEnum.C2:
+                            case PaperCategoryTypeEnum.Sign:
                                 papersChildView.Content = new CabSignInfor();
+                                break;
+                            case PaperCategoryTypeEnum.None:
+                                papersChildView.Content = new Grid();
                                 break;
                         }
                     });

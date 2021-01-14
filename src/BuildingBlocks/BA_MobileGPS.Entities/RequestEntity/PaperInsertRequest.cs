@@ -37,12 +37,5 @@ namespace BA_MobileGPS.Entities.RequestEntity
         public Guid CreatedByUser { get; set; }
     }
 
-    public enum PaperCategoryTypeEnum
-    {
-        None = 0,
-        Registry = 1, //(Đăng kiểm)
-        Insurrance = 2, //(Bảo hiểm)
-        Sign = 3  //(Phù hiệu)
 
-    }
 }

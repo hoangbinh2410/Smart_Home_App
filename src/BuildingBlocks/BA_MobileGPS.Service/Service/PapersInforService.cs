@@ -78,13 +78,13 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<List<InsuranceCategory>> GetPaperCategories()
+        public async Task<List<PaperCategory>> GetPaperCategories()
         {
-            List<InsuranceCategory> result = new List<InsuranceCategory>();
+            List<PaperCategory> result = new List<PaperCategory>();
             try
             {
                 string url = $"{ApiUri.GET_LIST_PAPER_CATEGORY}";
-                var response = await _IRequestProvider.GetAsync<InsuranceCategoriesResponse>(url);
+                var response = await _IRequestProvider.GetAsync<PaperCategoriesResponse>(url);
                 if (response?.Data != null)
                 {
                     result = response.Data;
@@ -97,13 +97,13 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<List<PaperCategory>> GetInsuranceCategories(int companyID)
+        public async Task<List<InsuranceCategory>> GetInsuranceCategories(int companyID)
         {
-            List<PaperCategory> result = new List<PaperCategory>();
+            List<InsuranceCategory> result = new List<InsuranceCategory>();
             try
             {
                 string url = $"{ApiUri.GET_LIST_INSURANCE_CATEGORY}?companyId={companyID}";
-                var response = await _IRequestProvider.GetAsync<PaperCategoriesResponse>(url);
+                var response = await _IRequestProvider.GetAsync<InsuranceCategoriesResponse>(url);
                 if (response?.Data != null)
                 {
                     result = response.Data;

@@ -1,10 +1,9 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Entities.ResponeEntity;
+using BA_MobileGPS.Service.IService;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -15,35 +14,37 @@ namespace BA_MobileGPS.Core.ViewModels
     public class SelectPaperTypePageViewModel : ViewModelBase
     {
         private CancellationTokenSource cts;
+        private readonly IPapersInforService papersInforService;
         public ICommand SearchPapersTypeCommand { get; }
         public ICommand SelectPaperCommand { get; }
-        public SelectPaperTypePageViewModel(INavigationService navigationService) : base(navigationService)
+        public SelectPaperTypePageViewModel(INavigationService navigationService, IPapersInforService papersInforService) : base(navigationService)
         {
+            this.papersInforService = papersInforService;
             SearchPapersTypeCommand = new DelegateCommand<TextChangedEventArgs>(SearchPapersType);
             SelectPaperCommand = new DelegateCommand<object>(SelectPaper);
-            ListPapersOrigin = new List<PaperModel>()
-            {
-                new PaperModel(){ PaperType= PaperEnum.A1},
-                new PaperModel(){ PaperType= PaperEnum.B1},
-                new PaperModel(){ PaperType= PaperEnum.C2}
-            };
-            ListPapersDisplay = ListPapersOrigin;
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public override void Initialize(INavigationParameters parameters)
         {
-            base.OnNavigatedTo(parameters);
-            if (parameters.ContainsKey(ParameterKey.PaperType) && parameters.GetValue<PaperModel>(ParameterKey.PaperType) is PaperModel vehicle)
-            {
-                //SelectedPaper = vehicle;
-            }
+            base.Initialize(parameters);
+            GetListPapers();
         }
+
+        private void GetListPapers()
+        {
+            SafeExecute(async() =>
+            {
+                ListPapersOrigin = await papersInforService.GetPaperCategories();
+                ListPapersDisplay = ListPapersOrigin;
+            });
+        }
+
 
         private void SelectPaper(object obj)
         {
             if (obj != null && obj is Syncfusion.ListView.XForms.ItemTappedEventArgs agrs)
             {
-                var item = (PaperModel)agrs.ItemData;
+                var item = (PaperCategory)agrs.ItemData;
                 var param = new NavigationParameters();
                 param.Add(ParameterKey.PaperType, item);
                 SafeExecute(async () =>
@@ -70,7 +71,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     return ListPapersOrigin;
                 }
-                var temp = ListPapersOrigin.FindAll(v => v.Name.ToUpper().Contains(SearchedText.ToUpper()));
+                var temp = ListPapersOrigin.FindAll(v => v.PaperName.ToUpper().Contains(SearchedText.ToUpper()));
                 return temp;
             }, cts.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
@@ -88,10 +89,10 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref searchedText, value); }
         }
 
-        private List<PaperModel> ListPapersOrigin { get; set; } = new List<PaperModel>();
+        private List<PaperCategory> ListPapersOrigin { get; set; } = new List<PaperCategory>();
 
-        private List<PaperModel> listPapersDisplay;
-        public List<PaperModel> ListPapersDisplay
+        private List<PaperCategory> listPapersDisplay;
+        public List<PaperCategory> ListPapersDisplay
         {
             get { return listPapersDisplay; }
             set
@@ -100,24 +101,9 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-      
+
     }
 
-    public class PaperModel
-    {
-        public PaperEnum PaperType { get; set; }
-        public string Name
-        {
-            get
-            {
-                return "Type " + PaperType.ToString();
-            }
-        }
-    }
-
-    public enum PaperEnum
-    {
-        A1, B1, C2
-    }
+    
 
 }
