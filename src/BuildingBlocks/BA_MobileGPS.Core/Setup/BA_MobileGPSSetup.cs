@@ -79,6 +79,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<IPopupServices, PopupServices>();
             containerRegistry.RegisterSingleton<IThemeServices, ThemeServices>();
             containerRegistry.RegisterSingleton<IDriverInforService, DriverInforService>();
+            containerRegistry.RegisterSingleton<IPapersInforService, PapersInforService>();
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)
