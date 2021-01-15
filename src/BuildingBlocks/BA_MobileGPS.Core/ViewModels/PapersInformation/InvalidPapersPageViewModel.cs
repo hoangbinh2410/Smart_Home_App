@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -15,9 +16,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand SelectRegisterDateCommand { get; }
         public ICommand SelectExpireDateCommand { get; }
+        public ICommand ChangePaperTypeCommand { get; }
         public InvalidPapersPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-           
+            ChangePaperTypeCommand = new DelegateCommand(ChangePaperType);
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -37,12 +39,13 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref selectedVehiclePlates, value); }
         }
 
-        public void SafeEx(Action action)
+        private void ChangePaperType()
         {
-            SafeExecute(action);
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("NavigationPage/SelectPaperTypePage", null, true, true);
+            });
         }
-
-        
 
     }
 }

@@ -256,21 +256,5 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private void UpdateDateTime(PickerDateTimeResponse obj)
-        {
-            switch (obj.PickerType)
-            {
-                case (short)ComboboxType.First:
-                    // Ngày đăng kí
-                    RegistrationDate.Value = obj.Value;
-                    break;
-
-                case (short)ComboboxType.Second:
-                    // Ngày hết hạn
-                    ExpireDate.Value = obj.Value;
-                    break;
-            }
-        }
-
     }
 }

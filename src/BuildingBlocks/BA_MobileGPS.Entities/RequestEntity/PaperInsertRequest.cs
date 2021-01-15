@@ -20,7 +20,7 @@ namespace BA_MobileGPS.Entities.RequestEntity
         public int FK_InsuranceCategoryID { get; set; }
     }
 
-    public class PaperCabSignInsertRequest : PaperBasicInfor
+    public class PaperCabSignInforRequest : PaperBasicInfor
     {
     }
 
@@ -35,6 +35,7 @@ namespace BA_MobileGPS.Entities.RequestEntity
         public int DayOfAlertBefore { get; set; }
         public string Description { get; set; }
         public Guid CreatedByUser { get; set; }
+        public Guid UpdatedByUser { get; set; }
     }
 
 

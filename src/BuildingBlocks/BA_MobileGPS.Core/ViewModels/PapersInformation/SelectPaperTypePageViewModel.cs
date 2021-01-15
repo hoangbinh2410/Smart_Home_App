@@ -37,7 +37,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 ListPapersOrigin = await papersInforService.GetPaperCategories();
                 ListPapersDisplay = ListPapersOrigin;
             });
-        }
+        }   
 
 
         private void SelectPaper(object obj)

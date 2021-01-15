@@ -17,7 +17,7 @@
     <ContentView.Content>
         <ScrollView>
             <StackLayout Padding="15,5,15,20" Spacing="5">
-                <Label Text="{Binding Test}" />
+                <Label Text="{Binding AlertMessenger}" />
                 <!--  Số phù hiệu  -->
                 <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                     <Label.FormattedText>
@@ -121,13 +121,24 @@
                         Placeholder="Nhập ghi chú"
                         Text="{Binding Notes.Value}" />
                 </input:SfTextInputLayout>
-                <Button
-                    Margin="10"
-                    Command="{Binding SaveInsuranceInforCommand}"
-                    HeightRequest="40"
-                    HorizontalOptions="Center"
-                    Text="Cập nhật"
-                    WidthRequest="200" />
+                <Grid ColumnDefinitions="Auto,Auto">
+                    <Button
+                        Margin="10"
+                        Command="{Binding SaveInsuranceInforCommand}"
+                        HeightRequest="40"
+                        HorizontalOptions="Center"
+                        Text="Lưu"
+                        WidthRequest="150" />
+                    <Button
+                        Grid.Column="1"
+                        Margin="10"
+                        Command="{Binding SaveInsuranceInforCommand}"
+                        HeightRequest="40"
+                        HorizontalOptions="Center"
+                        Text="Tạo mới"
+                        WidthRequest="150" />
+                </Grid>
+
             </StackLayout>
 
         </ScrollView>

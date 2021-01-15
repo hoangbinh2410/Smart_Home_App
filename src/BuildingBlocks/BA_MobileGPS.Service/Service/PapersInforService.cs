@@ -23,7 +23,7 @@ namespace BA_MobileGPS.Service.Service
 
         public async Task<PaperInsuranceInsertRequest> GetLastPaperInsuranceByVehicleId(int companyID, long vehicleId)
         {
-            PaperInsuranceInsertRequest result = new PaperInsuranceInsertRequest();
+            PaperInsuranceInsertRequest result = null;
             try
             {
                 string url = $"{ApiUri.GET_LAST_PAPER_INSURANCE}?companyId={companyID}&vehicleId={vehicleId}";
@@ -42,7 +42,7 @@ namespace BA_MobileGPS.Service.Service
 
         public async Task<PaperRegistrationInsertRequest> GetLastPaperRegistrationByVehicleId(int companyID, long vehicleId)
         {
-            PaperRegistrationInsertRequest result = new PaperRegistrationInsertRequest();
+            PaperRegistrationInsertRequest result = null;
             try
             {
                 string url = $"{ApiUri.GET_LAST_PAPER_REGISTRATION}?companyId={companyID}&vehicleId={vehicleId}";
@@ -59,13 +59,13 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<PaperCabSignInsertRequest> GetLastPaperSignByVehicleId(int companyID, long vehicleId)
+        public async Task<PaperCabSignInforRequest> GetLastPaperSignByVehicleId(int companyID, long vehicleId)
         {
-            PaperCabSignInsertRequest result = new PaperCabSignInsertRequest();
+            PaperCabSignInforRequest result = null;
             try
             {
                 string url = $"{ApiUri.GET_LAST_PAPER_SIGN}?companyId={companyID}&vehicleId={vehicleId}";
-                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<PaperCabSignInsertRequest>>(url);
+                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<PaperCabSignInforRequest>>(url);
                 if (response?.Data != null)
                 {
                     result = response.Data;
@@ -154,13 +154,13 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<PapersIdResponse> InsertSignPaper(PaperCabSignInsertRequest data)
+        public async Task<PapersIdResponse> InsertSignPaper(PaperCabSignInforRequest data)
         {
             PapersIdResponse result = new PapersIdResponse();
             try
             {
                 string url = $"{ApiUri.POST_INSERT_PAPER_SIGN}";
-                var response = await _IRequestProvider.PostAsync<PaperCabSignInsertRequest, PapersInforInsertResponse>(url, data);
+                var response = await _IRequestProvider.PostAsync<PaperCabSignInforRequest, PapersInforInsertResponse>(url, data);
                 if (response != null && response.Data != null)
                 {
                     result = response.Data;
@@ -213,14 +213,14 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<PapersIdResponse> UpdateSignPaper(PaperCabSignInsertRequest data)
+        public async Task<PapersIdResponse> UpdateSignPaper(PaperCabSignInforRequest data)
         {
 
             PapersIdResponse result = new PapersIdResponse();
             try
             {
                 string url = $"{ApiUri.POST_UPDATE_PAPER_SIGN}";
-                var response = await _IRequestProvider.PostAsync<PaperCabSignInsertRequest, PapersInforInsertResponse>(url, data);
+                var response = await _IRequestProvider.PostAsync<PaperCabSignInforRequest, PapersInforInsertResponse>(url, data);
                 if (response != null && response.Data != null)
                 {
                     result = response.Data;
