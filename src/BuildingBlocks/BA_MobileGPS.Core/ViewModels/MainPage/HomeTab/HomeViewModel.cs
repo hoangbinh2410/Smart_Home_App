@@ -164,6 +164,11 @@ namespace BA_MobileGPS.Core.ViewModels
             GenerateFavouriteMenu(favourites);
             var notFavorites = result.Where(s => !s.IsFavorited).ToList();
 
+            //tiện ích Nhập thông tin giấy tờ tới hạn
+            var temp = new HomeMenuItemViewModel() { NameByCulture = "Nhập thông tin giấy tờ tới hạn", MenuKey = "InvalidPapersPage" };
+            notFavorites.Add(temp);
+
+
             GenerateListFeatures(notFavorites);
             HasFavorite = FavouriteMenuItems.Count != 0;
             StaticSettings.ListMenu = mapper.MapListProperties<HomeMenuItem>(result.ToList());

@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.SelectPaperTypePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    x:Name="this"
+    Title="Chọn loại giấy tờ nhập thông tin"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <NavigationPage.TitleView>
+        <Grid
+            Padding="0,0,10,0"
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <image:CachedImage
+                Grid.Column="0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <image:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </image:CachedImage.GestureRecognizers>
+            </image:CachedImage>
+            <Label
+                Grid.ColumnSpan="3"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="CenterAndExpand"
+                LineBreakMode="MiddleTruncation"
+                Text="{Binding Source={x:Reference this}, Path=Title}"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
+    <StackLayout Spacing="0">
+        <!--  Search area  -->
+        <pancake:PancakeView
+            Margin="10"
+            Padding="0"
+            BackgroundColor="{DynamicResource WhiteColor}"
+            CornerRadius="20"
+            HeightRequest="40"
+            VerticalOptions="Center">
+            <pancake:PancakeView.Shadow>
+                <pancake:DropShadow
+                    BlurRadius="3"
+                    Offset="0,0"
+                    Color="Black" />
+            </pancake:PancakeView.Shadow>
+            <StackLayout
+                Padding="0"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal">
+                <pancake:PancakeView
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    CornerRadius="20"
+                    WidthRequest="40">
+                    <icons:IconView
+                        Margin="13"
+                        Foreground="{DynamicResource WhiteColor}"
+                        Source="ic_search.png" />
+                </pancake:PancakeView>
+                <Entry
+                    x:Name="entrySearchVehicle"
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Tìm loại giấy tờ"
+                    Text="{Binding SearchedText}">
+                    <Entry.Behaviors>
+                        <prism:EventToCommandBehavior
+                            Command="{Binding SearchPapersTypeCommand}"
+                            EventArgsConverter="{StaticResource TextChangedEventArgsConverter}"
+                            EventName="TextChanged" />
+                    </Entry.Behaviors>
+                    <Entry.Effects>
+                        <effects:BorderlessEffect />
+                    </Entry.Effects>
+                </Entry>
+            </StackLayout>
+        </pancake:PancakeView>
+        <BoxView BackgroundColor="{DynamicResource PrimaryColor}" HeightRequest="1" />
+        <syncfusionList:SfListView
+            Margin="0"
+            AutoFitMode="DynamicHeight"
+            ItemSize="60"
+            ItemSpacing="0"
+            ItemsSource="{Binding ListPapersDisplay, Mode=OneWay}"
+            SelectionBackgroundColor="Transparent"
+            SelectionMode="Single"
+            TapCommand="{Binding SelectPaperCommand}">
+            <syncfusionList:SfListView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label
+                            Margin="0,10,0,0"
+                            Text="{Binding PaperName}"
+                            VerticalOptions="Center" />
+                        <BoxView
+                            BackgroundColor="Gray"
+                            HeightRequest="1"
+                            VerticalOptions="End" />
+                    </StackLayout>
+                </DataTemplate>
+            </syncfusionList:SfListView.ItemTemplate>
+        </syncfusionList:SfListView>
+    </StackLayout>
+</ContentPage>

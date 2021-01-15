@@ -33,6 +33,7 @@
         Common_Label_Year,
         Common_Label_Month,
         Common_Label_Day,
+        Common_Label_DayUpper,
         Common_Label_Days,
         Common_Label_Day2,
         Common_Label_Hour,
@@ -1219,6 +1220,11 @@
         ListDriver_Item_Female,
         ListDriver_Item_Other,
         ListDriver_Messenger_UpdateSuccess,
+        #endregion
+
+        #region PaperInfor
+        PaperInfor_Page_Title,
+
         #endregion
     }
 }
