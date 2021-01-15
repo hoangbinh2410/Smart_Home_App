@@ -21,6 +21,8 @@ namespace BA_MobileGPS.Core.Views
         public InvalidPapersPage()
         {
             InitializeComponent();
+            papersChildView.Content = new RegistrationInfor();
+            papersName.Text = "Chọn loại giấy tờ";
             vm = (InvalidPapersPageViewModel)BindingContext;
         }
 

@@ -286,10 +286,12 @@
         public const string GET_LAST_PAPER_INSURANCE = "api/paperinfor/getpaperinsurance";
         public const string GET_LAST_PAPER_REGISTRATION = "api/paperinfor/getpaperregistration";
         public const string GET_LAST_PAPER_SIGN = "api/paperinfor/getpapersign";       
-        public const string POST_PAPER_INSURANCE = "api/paperinfor/insertregistrationpaper";
-        public const string POST_PAPER_REGISTRATION = "api/paperinfor/insertinsurancepaper";
-        public const string POST_PAPER_SIGN = "api/paperinfor/insertsignpaper";
-
+        public const string POST_INSERT_PAPER_INSURANCE = "api/paperinfor/insertregistrationpaper";
+        public const string POST_INSERT_PAPER_REGISTRATION = "api/paperinfor/insertinsurancepaper";
+        public const string POST_INSERT_PAPER_SIGN = "api/paperinfor/insertsignpaper";
+        public const string POST_UPDATE_PAPER_INSURANCE = "api/paperinfor/updateinsurancepaper";
+        public const string POST_UPDATE_PAPER_REGISTRATION = "api/paperinfor/updateregistrationpaper";
+        public const string POST_UPDATE_PAPER_SIGN = "api/paperinfor/updatesignpaper";
         #endregion
     }
 }

@@ -19,7 +19,8 @@ namespace BA_MobileGPS.Service.IService
         Task<PaperRegistrationInsertRequest> GetLastPaperRegistrationByVehicleId(int companyID, long vehicleId);
         Task<PaperInsuranceInsertRequest> GetLastPaperInsuranceByVehicleId(int companyID, long vehicleId);
         Task<PaperCabSignInsertRequest> GetLastPaperSignByVehicleId(int companyID, long vehicleId);
-
-
+        Task<PapersIdResponse> UpdateRegistrationPaper(PaperRegistrationInsertRequest data);
+        Task<PapersIdResponse> UpdateInsurancePaper(PaperInsuranceInsertRequest data);
+        Task<PapersIdResponse> UpdateSignPaper(PaperCabSignInsertRequest data);
     }
 }

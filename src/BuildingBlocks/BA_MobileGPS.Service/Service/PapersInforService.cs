@@ -121,7 +121,7 @@ namespace BA_MobileGPS.Service.Service
             PapersIdResponse result = new PapersIdResponse();
             try
             {
-                string url = $"{ApiUri.POST_PAPER_INSURANCE}";
+                string url = $"{ApiUri.POST_INSERT_PAPER_INSURANCE}";
                 var response = await _IRequestProvider.PostAsync<PaperInsuranceInsertRequest, PapersInforInsertResponse>(url, data);
                 if (response != null && response.Data != null)
                 {
@@ -140,7 +140,7 @@ namespace BA_MobileGPS.Service.Service
             PapersIdResponse result = new PapersIdResponse();
             try
             {
-                string url = $"{ApiUri.POST_PAPER_REGISTRATION}";
+                string url = $"{ApiUri.POST_INSERT_PAPER_REGISTRATION}";
                 var response = await _IRequestProvider.PostAsync<PaperRegistrationInsertRequest, PapersInforInsertResponse>(url, data);
                 if (response != null && response.Data != null)
                 {
@@ -159,7 +159,7 @@ namespace BA_MobileGPS.Service.Service
             PapersIdResponse result = new PapersIdResponse();
             try
             {
-                string url = $"{ApiUri.POST_PAPER_SIGN}";
+                string url = $"{ApiUri.POST_INSERT_PAPER_SIGN}";
                 var response = await _IRequestProvider.PostAsync<PaperCabSignInsertRequest, PapersInforInsertResponse>(url, data);
                 if (response != null && response.Data != null)
                 {
@@ -173,6 +173,64 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        
+        public async Task<PapersIdResponse> UpdateRegistrationPaper(PaperRegistrationInsertRequest data)
+        {
+
+            PapersIdResponse result = new PapersIdResponse();
+            try
+            {
+                string url = $"{ApiUri.POST_UPDATE_PAPER_REGISTRATION}";
+                var response = await _IRequestProvider.PostAsync<PaperRegistrationInsertRequest, PapersInforInsertResponse>(url, data);
+                if (response != null && response.Data != null)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<PapersIdResponse> UpdateInsurancePaper(PaperInsuranceInsertRequest data)
+        {
+
+            PapersIdResponse result = new PapersIdResponse();
+            try
+            {
+                string url = $"{ApiUri.POST_UPDATE_PAPER_INSURANCE}";
+                var response = await _IRequestProvider.PostAsync<PaperInsuranceInsertRequest, PapersInforInsertResponse>(url, data);
+                if (response != null && response.Data != null)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<PapersIdResponse> UpdateSignPaper(PaperCabSignInsertRequest data)
+        {
+
+            PapersIdResponse result = new PapersIdResponse();
+            try
+            {
+                string url = $"{ApiUri.POST_UPDATE_PAPER_SIGN}";
+                var response = await _IRequestProvider.PostAsync<PaperCabSignInsertRequest, PapersInforInsertResponse>(url, data);
+                if (response != null && response.Data != null)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
     }
 }
