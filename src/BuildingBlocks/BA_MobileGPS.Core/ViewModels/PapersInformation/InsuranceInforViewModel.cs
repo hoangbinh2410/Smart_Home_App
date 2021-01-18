@@ -1,27 +1,41 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
+using BA_MobileGPS.Entities.ResponeEntity;
+using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class InsuranceInforViewModel : ViewModelBase
     {
+        private bool IsUpdateForm { get; set; } = false;
+        private long currentVehicleId { get; set; }
         private string NotEmptyMessenge = MobileResource.ListDriver_Messenger_NotNull;
+        private readonly IPapersInforService paperinforService;
         public ICommand SaveInsuranceInforCommand { get; }
         public ICommand SelectRegisterDateCommand { get; }
         public ICommand SelectExpireDateCommand { get; }
-        public InsuranceInforViewModel(INavigationService navigationService) : base(navigationService)
+        public ICommand ChangeToInsertFormCommand { get; }
+        public InsuranceInforViewModel(INavigationService navigationService, IPapersInforService paperinforService) : base(navigationService)
         {
+            this.paperinforService = paperinforService;
             SaveInsuranceInforCommand = new DelegateCommand(SaveInsuranceInfor);
             SelectRegisterDateCommand = new DelegateCommand(SelectRegisterDate);
-            SelectExpireDateCommand = new DelegateCommand(SelectExpireDate);        
+            SelectExpireDateCommand = new DelegateCommand(SelectExpireDate);
+            ChangeToInsertFormCommand = new DelegateCommand(ChangeToInsertForm);
             InitValidations();
+            InitInsurancePickerSource();
         }
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -36,10 +50,20 @@ namespace BA_MobileGPS.Core.ViewModels
                 else if (date.PickerType == (int)ComboboxType.Second)
                 {
                     //expire
-                   ExpireDate.Value = date.Value;
+                    ExpireDate.Value = date.Value;
+                }
+            }
+            else if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<string>(ParameterKey.Vehicle) is string privateCode)
+            {
+                var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.PrivateCode == privateCode);
+                if (vehicle != null)
+                {
+                    currentVehicleId = vehicle.VehicleId;
+                    UpdateFormData(UserInfo.CompanyId, vehicle.VehicleId);
                 }
             }
         }
+
         private ValidatableObject<string> insuranceNumber;
 
         public ValidatableObject<string> InsuranceNumber
@@ -72,17 +96,17 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref daysNumberForAlertAppear, value); }
         }
 
-        private ValidatableObject<int> selectedInsuranceType;
+        private ValidatableObject<InsuranceCategory> selectedInsuranceType;
 
-        public ValidatableObject<int> SelectedInsuranceType
+        public ValidatableObject<InsuranceCategory> SelectedInsuranceType
         {
             get { return selectedInsuranceType; }
             set { SetProperty(ref selectedInsuranceType, value); }
         }
 
-        private ValidatableObject<string> insuranceFee;
+        private ValidatableObject<decimal?> insuranceFee;
 
-        public ValidatableObject<string> InsuranceFee
+        public ValidatableObject<decimal?> InsuranceFee
         {
             get { return insuranceFee; }
             set { SetProperty(ref insuranceFee, value); }
@@ -112,6 +136,21 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref notes, value); }
         }
 
+        private string alertMessenger;
+        public string AlertMessenger
+        {
+            get { return alertMessenger; }
+            set { SetProperty(ref alertMessenger, value);
+                RaisePropertyChanged(); // bắt buộc có
+            }
+        }
+        private List<InsuranceCategory> listInsuranceType;
+        public List<InsuranceCategory> ListInsuranceType
+        {
+            get { return listInsuranceType; }
+            set { SetProperty(ref listInsuranceType, value); }
+        }
+
         /// <summary>
         ///  Init validation rule cho các ô nhập dữ liệu
         /// </summary>
@@ -125,17 +164,30 @@ namespace BA_MobileGPS.Core.ViewModels
             ExpireDate.OnChanged += ValidationDateTimeValue_OnChanged;
             DaysNumberForAlertAppear = new ValidatableObject<int>();
             DaysNumberForAlertAppear.OnChanged += ValidationIntValue_OnChanged;
-            SelectedInsuranceType = new ValidatableObject<int>();
-            SelectedInsuranceType.OnChanged += ValidationIntValue_OnChanged;
-            InsuranceFee = new ValidatableObject<string>();
-            InsuranceFee.OnChanged += ValidationStringValue_OnChanged; ;
+            SelectedInsuranceType = new ValidatableObject<InsuranceCategory>();
+     
+            InsuranceFee = new ValidatableObject<decimal?>();
+            InsuranceFee.OnChanged += InsuranceFee_OnChanged;
             Contact = new ValidatableObject<string>();
             Contact.OnChanged += ValidationStringValue_OnChanged; ;
             Notes = new ValidatableObject<string>();
             Notes.OnChanged += ValidationStringValue_OnChanged;
-
+            UnitName = new ValidatableObject<string>();
+            UnitName.OnChanged += ValidationStringValue_OnChanged;
             SetValidationRule();
         }
+
+        private void InsuranceFee_OnChanged(object sender, decimal? e)
+        {
+            // Clear validation
+            var obj = (ValidatableObject<decimal?>)sender;
+            if (obj.IsNotValid)
+            {
+                obj.IsNotValid = false;
+                obj.Errors.Clear();
+            }
+        }
+
 
         private void ValidationIntValue_OnChanged(object sender, int e)
         {
@@ -185,12 +237,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
             DaysNumberForAlertAppear.Validations.Add(new IntMinValueRule<int>() { ValidationMessage = NotEmptyMessenge + "số ngày cảnh báo trước", MinValue = 1 });
 
-            InsuranceFee.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
-            {
-                DangerousChar = "['\"<>/&]",
-                ValidationMessage = "Vui lòng nhập số tiền hợp lệ"
-            });
-
             Contact.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
                 DangerousChar = "['\"<>/&]",
@@ -202,6 +248,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 DangerousChar = "['\"<>/&]",
                 ValidationMessage = "Vui lòng nhập ghi chú hợp lệ"
             });
+
+            UnitName.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
+            {
+                DangerousChar = "['\"<>/&]",
+                ValidationMessage = "Vui lòng nhập ghi chú hợp lệ"
+            });
         }
 
         /// <summary>
@@ -209,14 +261,14 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </summary>
         /// <returns>true : pass</returns>
         private bool Validate()
-        {           
+        {
             var insuranceNum = InsuranceNumber.Validate();
             var dateRegis = RegistrationDate.Validate();
             var dateExp = ExpireDate.Validate();
             var dayPrepareAlert = DaysNumberForAlertAppear.Validate();
             var insuranceType = SelectedInsuranceType.Validate();
             var fee = InsuranceFee.Validate();
-            var departmentUnit = UnitName.Validate(); 
+            var departmentUnit = UnitName.Validate();
             var contactInfor = Contact.Validate();
             var note = Notes.Validate();
 
@@ -228,8 +280,102 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (Validate())
             {
+                var data = GetFormData();
+                data.PaperInfo.FK_CompanyID = UserInfo.CompanyId;
+                data.PaperInfo.FK_VehicleID = currentVehicleId;
+                SafeExecute(async () =>
+                {
+                    if (IsUpdateForm)
+                    {                      
+                        data.PaperInfo.UpdatedByUser = UserInfo.UserId;
+                        data.PaperInfo.Id = oldInfor.PaperInfo.Id;
+                        var res = await paperinforService.UpdateInsurancePaper(data);
+                        if (res?.PK_PaperInfoID != new Guid())
+                        {
+                            DisplayMessage.ShowMessageSuccess("Cập nhật thông tin thành công");
+                        }
+                        else DisplayMessage.ShowMessageError("Cập nhật thông tin thất bại");
+                    }
+                    else
+                    {                    
+                        data.PaperInfo.CreatedByUser = UserInfo.UserId;
+                        var res = await paperinforService.InsertInsurancePaper(data);
+                        if (res?.PK_PaperInfoID != new Guid())
+                        {
+                            DisplayMessage.ShowMessageSuccess("Thêm mới thông tin thành công");
+                        }
+                        else DisplayMessage.ShowMessageError("Thêm mới thông tin thất bại");
 
+                    }
+                });
             }
+        }
+
+
+        private bool createButtonVisible;
+        public bool CreateButtonVisible
+        {
+            get { return createButtonVisible; }
+            set { SetProperty(ref createButtonVisible, value);
+                RaisePropertyChanged();// bắt buộc có
+            }
+        }
+        private PaperInsuranceInsertRequest oldInfor { get; set; }
+        private void UpdateFormData(int companyId, long vehicleId)
+        {
+            CreateButtonVisible = false;
+            SafeExecute(async () =>
+            {
+                var paper = await paperinforService.GetLastPaperInsuranceByVehicleId(companyId, vehicleId);
+                if (paper != null)
+                {
+                    oldInfor = paper;
+                    IsUpdateForm = true;
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        InsuranceNumber.Value = paper.PaperInfo.PaperNumber;
+                        RegistrationDate.Value = paper.PaperInfo.DateOfIssue;
+                        ExpireDate.Value = paper.PaperInfo.ExpireDate;
+                        DaysNumberForAlertAppear.Value = paper.PaperInfo.DayOfAlertBefore;
+                        SelectedInsuranceType.Value = listInsuranceType.FirstOrDefault(x => x.Id == paper.FK_InsuranceCategoryID);
+                        InsuranceFee.Value = paper.Cost;
+                        Contact.Value = paper.Contact;
+                        Notes.Value = paper.PaperInfo.Description;
+                        UnitName.Value = paper.WarrantyCompany;
+                    });
+                    if (DateTime.Now > paper.PaperInfo.ExpireDate)
+                    {
+                        AlertMessenger = MobileResource.PaperInfor_Msg_Expired;
+                        CreateButtonVisible = true;
+                    }
+                    else if (paper.PaperInfo.ExpireDate.AddDays(-CompanyConfigurationHelper.DayAllowRegister) <= DateTime.Now)
+                    {
+                        AlertMessenger = MobileResource.PaperInfor_Msg_NearExpire;
+                        CreateButtonVisible = true;
+                    }
+                }
+                else ClearData();
+            });
+        }
+
+        private PaperInsuranceInsertRequest GetFormData()
+        {
+            var res = new PaperInsuranceInsertRequest();
+            res.PaperInfo = new PaperBasicInfor()
+            {
+                PaperNumber = InsuranceNumber.Value,
+                DateOfIssue = RegistrationDate.Value,
+                ExpireDate = ExpireDate.Value,
+                DayOfAlertBefore = DaysNumberForAlertAppear.Value,
+                Description = Notes.Value
+            };
+            res.FK_InsuranceCategoryID = SelectedInsuranceType.Value?.Id;
+            res.Cost = InsuranceFee.Value;
+            res.Contact = Contact.Value;
+            res.WarrantyCompany = UnitName.Value;
+
+            return res;
+
         }
 
         private void SelectRegisterDate()
@@ -238,22 +384,61 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var parameters = new NavigationParameters();
                 var day = RegistrationDate.Value == new DateTime() ? DateTime.Now : RegistrationDate.Value;
-                parameters.Add("PickerType", ComboboxType.First);
+                parameters.Add("PickerType", (short)ComboboxType.First);
                 parameters.Add("DataPicker", day);
-                var a = await NavigationService.NavigateAsync("SelectDatePicker",parameters);
+                var a = await NavigationService.NavigateAsync("SelectDatePicker", parameters);
             });
 
         }
+
         private void SelectExpireDate()
         {
             SafeExecute(async () =>
             {
                 var parameters = new NavigationParameters();
                 var day = ExpireDate.Value == new DateTime() ? DateTime.Now : ExpireDate.Value;
-                parameters.Add("PickerType", ComboboxType.Second);
+                parameters.Add("PickerType", (short)ComboboxType.Second);
                 parameters.Add("DataPicker", day);
                 var a = await NavigationService.NavigateAsync("SelectDatePicker", parameters);
             });
+        }
+
+        private void InitInsurancePickerSource()
+        {
+            TryExecute(async () =>
+            {
+                var respon = await paperinforService.GetInsuranceCategories(UserInfo.CompanyId);
+
+            });          
+        }
+
+        private void ChangeToInsertForm()
+        {
+            InsuranceNumber = new ValidatableObject<string>();
+            ExpireDate = new ValidatableObject<DateTime>();
+            DaysNumberForAlertAppear = new ValidatableObject<int>();
+            SelectedInsuranceType = new ValidatableObject<InsuranceCategory>();
+            InsuranceFee = new ValidatableObject<decimal?>();
+            Contact = new ValidatableObject<string>();
+            Notes = new ValidatableObject<string>();
+            UnitName = new ValidatableObject<string>();
+
+            RegistrationDate.Value = oldInfor.PaperInfo.ExpireDate.AddDays(1);
+            CreateButtonVisible = false;
+        }
+        private void ClearData()
+        {
+            InsuranceNumber = new ValidatableObject<string>();
+            RegistrationDate = new ValidatableObject<DateTime>();
+            ExpireDate = new ValidatableObject<DateTime>();
+            DaysNumberForAlertAppear = new ValidatableObject<int>();
+            SelectedInsuranceType = new ValidatableObject<InsuranceCategory>();
+            InsuranceFee = new ValidatableObject<decimal?>();
+            Contact = new ValidatableObject<string>();
+            Notes = new ValidatableObject<string>();
+            UnitName = new ValidatableObject<string>();
+
+            CreateButtonVisible = false;
         }
 
     }

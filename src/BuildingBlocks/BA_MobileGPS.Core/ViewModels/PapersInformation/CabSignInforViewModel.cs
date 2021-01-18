@@ -19,21 +19,20 @@ namespace BA_MobileGPS.Core.ViewModels
     public class CabSignInforViewModel : ViewModelBase
     {
         private bool IsUpdateForm { get; set; } = false;
-        private const string Msg1 = "Giấy tờ sắp tới ngày hết hạn, vui lòng tạo đăng ký mới!";
-        private const string Msg2 = "Giấy tờ đã quá hạn, vui lòng tạo đăng ký mới!";
         private string NotEmptyMessenge = MobileResource.ListDriver_Messenger_NotNull;
+        private long currentVehicleId { get; set; }
         private readonly IPapersInforService paperinforService;
-        public ICommand SaveInsuranceInforCommand { get; }
+        public ICommand SaveCabSignInforCommand { get; }
         public ICommand SelectRegisterDateCommand { get; }
         public ICommand SelectExpireDateCommand { get; }
-        public ICommand ClearDataCommand { get; }
+        public ICommand ChangeToInsertFormCommand { get; }
         public CabSignInforViewModel(INavigationService navigationService, IPapersInforService paperinforService) : base(navigationService)
         {
             this.paperinforService = paperinforService;
-            SaveInsuranceInforCommand = new DelegateCommand(SaveSignInfor);
+            SaveCabSignInforCommand = new DelegateCommand(SaveSignInfor);
             SelectRegisterDateCommand = new DelegateCommand(SelectRegisterDate);
             SelectExpireDateCommand = new DelegateCommand(SelectExpireDate);
-            ClearDataCommand = new DelegateCommand(ClearData);
+            ChangeToInsertFormCommand = new DelegateCommand(ChangeToInsertForm);
             InitValidations();
         }
 
@@ -59,8 +58,20 @@ namespace BA_MobileGPS.Core.ViewModels
                 var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.PrivateCode == privateCode);
                 if (vehicle != null)
                 {
+                    currentVehicleId = vehicle.VehicleId;
                     UpdateFormData(UserInfo.CompanyId, vehicle.VehicleId);
                 }
+            }
+        }
+
+        private bool createButtonVisible;
+        public bool CreateButtonVisible
+        {
+            get { return createButtonVisible; }
+            set
+            {
+                SetProperty(ref createButtonVisible, value);
+                RaisePropertyChanged();
             }
         }
 
@@ -206,8 +217,8 @@ namespace BA_MobileGPS.Core.ViewModels
             if (Validate())
             {
                 var data = GetFormData();
-                data.FK_CompanyID = oldInfor.FK_CompanyID;
-                data.FK_VehicleID = oldInfor.FK_VehicleID;
+                data.FK_CompanyID = UserInfo.CompanyId;
+                data.FK_VehicleID = currentVehicleId;
                 SafeExecute(async () =>
                 {
                     if (IsUpdateForm)
@@ -223,6 +234,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
+
                         data.CreatedByUser = UserInfo.UserId;
                         var res = await paperinforService.InsertSignPaper(data);
                         if (res?.PK_PaperInfoID != new Guid())
@@ -239,6 +251,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private PaperCabSignInforRequest oldInfor { get; set; }
         private void UpdateFormData(int companyId, long vehicleId)
         {
+            CreateButtonVisible = false;
             SafeExecute(async () =>
             {
                 var paper = await paperinforService.GetLastPaperSignByVehicleId(companyId, vehicleId);
@@ -254,17 +267,41 @@ namespace BA_MobileGPS.Core.ViewModels
                         DaysNumberForAlertAppear.Value = paper.DayOfAlertBefore;
                         Notes.Value = paper.Description;
                     });
+                    if (DateTime.Now > paper.ExpireDate)
+                    {
+                        AlertMessenger = string.Format("<font color=#E65353>{0}</font>", MobileResource.PaperInfor_Msg_Expired); 
+                        CreateButtonVisible = true;
+                    }
+                    else if (paper.ExpireDate.AddDays(-CompanyConfigurationHelper.DayAllowRegister) <= DateTime.Now)
+                    {
+                        AlertMessenger = string.Format("<font color=#FFF766>{0}</font>", MobileResource.PaperInfor_Msg_NearExpire);
+                        CreateButtonVisible = true;
+                    }
                 }
+                else ClearData();
             });
         }
 
         private void ClearData()
         {
-            SignNumber = new ValidatableObject<string>();          
-            RegistrationDate = new ValidatableObject<DateTime>();           
-            ExpireDate = new ValidatableObject<DateTime>();        
-            DaysNumberForAlertAppear = new ValidatableObject<int>();        
+            SignNumber = new ValidatableObject<string>();
+            RegistrationDate = new ValidatableObject<DateTime>();
+            ExpireDate = new ValidatableObject<DateTime>();
+            DaysNumberForAlertAppear = new ValidatableObject<int>();
             Notes = new ValidatableObject<string>();
+
+            CreateButtonVisible = false;
+        }
+
+        private void ChangeToInsertForm()
+        {
+            SignNumber = new ValidatableObject<string>();
+            ExpireDate = new ValidatableObject<DateTime>();
+            DaysNumberForAlertAppear = new ValidatableObject<int>();
+            Notes = new ValidatableObject<string>();
+
+            RegistrationDate.Value = oldInfor.ExpireDate.AddDays(1);
+            CreateButtonVisible = false;
         }
 
         private PaperCabSignInforRequest GetFormData()
@@ -285,9 +322,9 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var parameters = new NavigationParameters();
                 var day = RegistrationDate.Value == new DateTime() ? DateTime.Now : RegistrationDate.Value;
-                parameters.Add("PickerType", ComboboxType.First);
+                parameters.Add("PickerType", (short)ComboboxType.First);
                 parameters.Add("DataPicker", day);
-                await NavigationService.NavigateAsync("SelectDatePicker");
+                await NavigationService.NavigateAsync("SelectDatePicker", parameters);
             });
 
         }
@@ -297,9 +334,9 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var parameters = new NavigationParameters();
                 var day = ExpireDate.Value == new DateTime() ? DateTime.Now : ExpireDate.Value;
-                parameters.Add("PickerType", ComboboxType.Second);
+                parameters.Add("PickerType", (short)ComboboxType.Second);
                 parameters.Add("DataPicker", day);
-                await NavigationService.NavigateAsync("SelectDatePicker");
+                await NavigationService.NavigateAsync("SelectDatePicker", parameters);
             });
         }
 

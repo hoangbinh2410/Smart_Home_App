@@ -3,6 +3,7 @@
     x:Class="BA_MobileGPS.Core.Views.CabSignInfor"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:abstractions="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
@@ -17,7 +18,10 @@
     <ContentView.Content>
         <ScrollView>
             <StackLayout Padding="15,5,15,20" Spacing="5">
-                <Label Text="{Binding AlertMessenger}" />
+                <abstractions:HtmlLabel
+                    HorizontalOptions="Start"
+                    IsVisible="{Binding CreateButtonVisible}"
+                    Text="{Binding AlertMessenger}" />
                 <!--  Số phù hiệu  -->
                 <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                     <Label.FormattedText>
@@ -121,22 +125,29 @@
                         Placeholder="Nhập ghi chú"
                         Text="{Binding Notes.Value}" />
                 </input:SfTextInputLayout>
-                <Grid ColumnDefinitions="Auto,Auto">
-                    <Button
-                        Margin="10"
-                        Command="{Binding SaveInsuranceInforCommand}"
-                        HeightRequest="40"
+                <Grid>
+                    <StackLayout
                         HorizontalOptions="Center"
-                        Text="Lưu"
-                        WidthRequest="150" />
-                    <Button
-                        Grid.Column="1"
-                        Margin="10"
-                        Command="{Binding SaveInsuranceInforCommand}"
-                        HeightRequest="40"
-                        HorizontalOptions="Center"
-                        Text="Tạo mới"
-                        WidthRequest="150" />
+                        Orientation="Horizontal"
+                        Spacing="30">
+                        <Button
+                            Margin="10"
+                            Command="{Binding SaveCabSignInforCommand}"
+                            HeightRequest="40"
+                            HorizontalOptions="Center"
+                            Text="Lưu"
+                            WidthRequest="150" />
+                        <Button
+                            Grid.Column="1"
+                            Margin="10"
+                            BackgroundColor="#00ADE5"
+                            Command="{Binding ChangeToInsertFormCommand}"
+                            HeightRequest="40"
+                            HorizontalOptions="Center"
+                            IsVisible="{Binding CreateButtonVisible}"
+                            Text="Tạo mới"
+                            WidthRequest="150" />
+                    </StackLayout>
                 </Grid>
 
             </StackLayout>

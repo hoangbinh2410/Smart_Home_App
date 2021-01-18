@@ -52,13 +52,15 @@ namespace BA_MobileGPS.Core.Views
                                 papersChildView.Content = new Grid();
                                 break;
                         }
+
+                        if (!string.IsNullOrEmpty(entrySearch.Text))
+                        {
+                            var param = new NavigationParameters();
+                            param.Add(ParameterKey.Vehicle, entrySearch.Text);
+                            PageUtilities.OnNavigatedTo(papersChildView.Content, param);
+                        }
                     });
-                    if (!string.IsNullOrEmpty(entrySearch.Text))
-                    {
-                        var param = new NavigationParameters();
-                        param.Add(ParameterKey.Vehicle, entrySearch.Text);
-                        PageUtilities.OnNavigatedTo(papersChildView.Content, param);
-                    }
+                 
                 }
                 else if (parameters.ContainsKey(ParameterKey.DateResponse)
                       && parameters.GetValue<PickerDateTimeResponse>(ParameterKey.DateResponse) is PickerDateTimeResponse date)

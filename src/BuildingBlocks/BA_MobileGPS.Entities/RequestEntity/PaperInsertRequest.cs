@@ -8,16 +8,16 @@ namespace BA_MobileGPS.Entities.RequestEntity
     {
         public PaperBasicInfor PaperInfo { get; set; }
         public string WarrantyCompany { get; set; }
-        public decimal Cost { get; set; }
+        public decimal? Cost { get; set; }
     }
 
     public class PaperInsuranceInsertRequest
     {
         public PaperBasicInfor PaperInfo { get; set; }
         public string WarrantyCompany { get; set; }
-        public decimal Cost { get; set; }
+        public decimal? Cost { get; set; }
         public string Contact { get; set; }
-        public int FK_InsuranceCategoryID { get; set; }
+        public int? FK_InsuranceCategoryID { get; set; }
     }
 
     public class PaperCabSignInforRequest : PaperBasicInfor
