@@ -51,6 +51,7 @@
     <Compile Include="CustomRenderer\MyDatePickerRenderer.cs" />
     <Compile Include="CustomRenderer\NullableDatePickerRenderer.cs" />
     <Compile Include="CustomRenderer\TabbedPageExRenderer.cs" />
+    <Compile Include="CustomRenderer\ZoomImageRenderer.cs" />
     <Compile Include="DependencyServices\AppleAudioManager.cs" />
     <Compile Include="DependencyServices\AppVersionService.cs" />
     <Compile Include="DependencyServices\CameraSnapShotServices.cs" />
