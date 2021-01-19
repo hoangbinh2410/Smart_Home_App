@@ -4,13 +4,13 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportRenderer(typeof(DatePicker), typeof(MyDatePickerRenderer))]
+[assembly: ExportRenderer(typeof(TimePicker), typeof(MyTimePickerRenderer))]
 
 namespace BA_MobileGPS.Core.iOS.CustomRenderer
 {
-    public class MyDatePickerRenderer : DatePickerRenderer
+    public class MyTimePickerRenderer : TimePickerRenderer
     {
-        protected override void OnElementChanged(ElementChangedEventArgs<DatePicker> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<TimePicker> e)
         {
             base.OnElementChanged(e);
 
