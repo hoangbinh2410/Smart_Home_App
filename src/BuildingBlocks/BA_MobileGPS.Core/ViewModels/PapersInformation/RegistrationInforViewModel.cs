@@ -1,27 +1,37 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
+using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class RegistrationInforViewModel : ViewModelBase
     {
+        private bool IsUpdateForm { get; set; } = false;
+        private long currentVehicleId { get; set; }
         private string NotEmptyMessenge = MobileResource.ListDriver_Messenger_NotNull;
-        public ICommand SaveInsuranceInforCommand { get; }
+        private readonly IPapersInforService paperinforService;
+        public ICommand SaveRegistrationInforCommand { get; }
         public ICommand SelectRegisterDateCommand { get; }
         public ICommand SelectExpireDateCommand { get; }
-        public RegistrationInforViewModel(INavigationService navigationService) : base(navigationService)
+        public ICommand ChangeToInsertFormCommand { get; }
+        public RegistrationInforViewModel(INavigationService navigationService, IPapersInforService paperinforService) : base(navigationService)
         {
-            SaveInsuranceInforCommand = new DelegateCommand(SaveInsuranceInfor);
+            this.paperinforService = paperinforService;
+            SaveRegistrationInforCommand = new DelegateCommand(SaveRegistrationInfor);
             SelectRegisterDateCommand = new DelegateCommand(SelectRegisterDate);
             SelectExpireDateCommand = new DelegateCommand(SelectExpireDate);
+            ChangeToInsertFormCommand = new DelegateCommand(ChangeToInsertForm);
             InitValidations();
         }
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -41,9 +51,27 @@ namespace BA_MobileGPS.Core.ViewModels
                     ExpireDate.Value = date.Value;
                 }
             }
+            else if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<string>(ParameterKey.Vehicle) is string privateCode)
+            {
+                var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.PrivateCode == privateCode);
+                if (vehicle != null)
+                {
+                    currentVehicleId = vehicle.VehicleId;
+                    UpdateFormData(UserInfo.CompanyId, vehicle.VehicleId);
+                }
+            }
         }
 
-
+        private bool createButtonVisible;
+        public bool CreateButtonVisible
+        {
+            get { return createButtonVisible; }
+            set
+            {
+                SetProperty(ref createButtonVisible, value);
+                RaisePropertyChanged();// bắt buộc có
+            }
+        }
 
         private ValidatableObject<string> identityCode;
 
@@ -77,14 +105,6 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref daysNumberForAlertAppear, value); }
         }
 
-        private ValidatableObject<int> selectedInsuranceType;
-
-        public ValidatableObject<int> SelectedInsuranceType
-        {
-            get { return selectedInsuranceType; }
-            set { SetProperty(ref selectedInsuranceType, value); }
-        }
-
         private ValidatableObject<string> unitName;
 
         public ValidatableObject<string> UnitName
@@ -93,6 +113,13 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref unitName, value); }
         }
 
+        private ValidatableObject<decimal?> registrationFee;
+
+        public ValidatableObject<decimal?> RegistrationFee
+        {
+            get { return registrationFee; }
+            set { SetProperty(ref registrationFee, value); }
+        }
 
         private ValidatableObject<string> notes;
 
@@ -100,6 +127,15 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get { return notes; }
             set { SetProperty(ref notes, value); }
+        }
+
+        private string alertMessenger;
+        public string AlertMessenger
+        {
+            get { return alertMessenger; }
+            set { SetProperty(ref alertMessenger, value);
+                RaisePropertyChanged();
+            }
         }
 
         /// <summary>
@@ -115,12 +151,25 @@ namespace BA_MobileGPS.Core.ViewModels
             ExpireDate.OnChanged += ValidationDateTimeValue_OnChanged;
             DaysNumberForAlertAppear = new ValidatableObject<int>();
             DaysNumberForAlertAppear.OnChanged += ValidationIntValue_OnChanged;
-            SelectedInsuranceType = new ValidatableObject<int>();
-            SelectedInsuranceType.OnChanged += ValidationIntValue_OnChanged;
+            RegistrationFee = new ValidatableObject<decimal?>();
+            RegistrationFee.OnChanged += RegistrationFee_OnChanged;
             Notes = new ValidatableObject<string>();
             Notes.OnChanged += ValidationStringValue_OnChanged;
+            UnitName = new ValidatableObject<string>();
+            UnitName.OnChanged += ValidationStringValue_OnChanged;
 
             SetValidationRule();
+        }
+
+        private void RegistrationFee_OnChanged(object sender, decimal? e)
+        {
+            // Clear validation
+            var obj = (ValidatableObject<int>)sender;
+            if (obj.IsNotValid)
+            {
+                obj.IsNotValid = false;
+                obj.Errors.Clear();
+            }
         }
 
         private void ValidationIntValue_OnChanged(object sender, int e)
@@ -188,19 +237,46 @@ namespace BA_MobileGPS.Core.ViewModels
             var dateRegis = RegistrationDate.Validate();
             var dateExp = ExpireDate.Validate();
             var dayPrepareAlert = DaysNumberForAlertAppear.Validate();
-            var insuranceType = SelectedInsuranceType.Validate();
+            var money = RegistrationFee.Validate();
             var departmentUnit = UnitName.Validate();
             var note = Notes.Validate();
 
             return (insuranceNum && dateRegis && dateExp && dayPrepareAlert
-                && insuranceType && departmentUnit && note);
+                && money && departmentUnit && note);
         }
 
-        private void SaveInsuranceInfor()
+        private void SaveRegistrationInfor()
         {
             if (Validate())
             {
+                var data = GetFormData();
+                data.PaperInfo.FK_CompanyID = UserInfo.CompanyId;
+                data.PaperInfo.FK_VehicleID = currentVehicleId;
+                SafeExecute(async () =>
+                {
+                    if (IsUpdateForm)
+                    {
+                        data.PaperInfo.UpdatedByUser = UserInfo.UserId;
+                        data.PaperInfo.Id = oldInfor.PaperInfo.Id;
+                        var res = await paperinforService.UpdateRegistrationPaper(data);
+                        if (res?.PK_PaperInfoID != new Guid())
+                        {
+                            DisplayMessage.ShowMessageSuccess("Cập nhật thông tin thành công");
+                        }
+                        else DisplayMessage.ShowMessageError("Cập nhật thông tin thất bại");
+                    }
+                    else
+                    {
+                        data.PaperInfo.CreatedByUser = UserInfo.UserId;
+                        var res = await paperinforService.InsertRegistrationPaper(data);
+                        if (res?.PK_PaperInfoID != new Guid())
+                        {
+                            DisplayMessage.ShowMessageSuccess("Thêm mới thông tin thành công");
+                        }
+                        else DisplayMessage.ShowMessageError("Thêm mới thông tin thất bại");
 
+                    }
+                });
             }
         }
 
@@ -210,9 +286,9 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var parameters = new NavigationParameters();
                 var day = RegistrationDate.Value == new DateTime() ? DateTime.Now : RegistrationDate.Value;
-                parameters.Add("PickerType", ComboboxType.First);
+                parameters.Add("PickerType", (short)ComboboxType.First);
                 parameters.Add("DataPicker", day);
-                await NavigationService.NavigateAsync("SelectDatePicker");
+                await NavigationService.NavigateAsync("SelectDatePicker",parameters);
             });
 
         }
@@ -222,11 +298,87 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var parameters = new NavigationParameters();
                 var day = ExpireDate.Value == new DateTime() ? DateTime.Now : ExpireDate.Value;
-                parameters.Add("PickerType", ComboboxType.Second);
+                parameters.Add("PickerType", (short)ComboboxType.Second);
                 parameters.Add("DataPicker", day);
-                await NavigationService.NavigateAsync("SelectDatePicker");
+                await NavigationService.NavigateAsync("SelectDatePicker",parameters);
+            });
+        }
+        private PaperRegistrationInsertRequest oldInfor { get; set; }
+        private void UpdateFormData(int companyId, long vehicleId)
+        {
+            CreateButtonVisible = false;
+            SafeExecute(async () =>
+            {
+                var paper = await paperinforService.GetLastPaperRegistrationByVehicleId(companyId, vehicleId);
+                if (paper != null)
+                {
+                    oldInfor = paper;
+                    IsUpdateForm = true;
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        IdentityCode.Value = paper.PaperInfo.PaperNumber;
+                        RegistrationDate.Value = paper.PaperInfo.DateOfIssue;
+                        ExpireDate.Value = paper.PaperInfo.ExpireDate;
+                        DaysNumberForAlertAppear.Value = paper.PaperInfo.DayOfAlertBefore;
+                        Notes.Value = paper.PaperInfo.Description;
+                        UnitName.Value = paper.WarrantyCompany;
+                        RegistrationFee.Value = paper.Cost;
+                    });
+                    if (DateTime.Now > paper.PaperInfo.ExpireDate)
+                    {
+                        AlertMessenger = MobileResource.PaperInfor_Msg_Expired;
+                        CreateButtonVisible = true;
+                    }
+                    else if (paper.PaperInfo.ExpireDate.AddDays(-CompanyConfigurationHelper.DayAllowRegister) <= DateTime.Now)
+                    {
+                        AlertMessenger = MobileResource.PaperInfor_Msg_NearExpire;
+                        CreateButtonVisible = true;
+                    }
+                }
+                else ClearData();
             });
         }
 
+        private void ClearData()
+        {
+            IdentityCode = new ValidatableObject<string>();       
+            RegistrationDate = new ValidatableObject<DateTime>();
+            ExpireDate = new ValidatableObject<DateTime>();
+            DaysNumberForAlertAppear = new ValidatableObject<int>();
+            RegistrationFee = new ValidatableObject<decimal?>();
+            Notes = new ValidatableObject<string>();
+            UnitName = new ValidatableObject<string>();
+            CreateButtonVisible = false;
+        }
+
+        private void ChangeToInsertForm()
+        {
+            IdentityCode = new ValidatableObject<string>();
+            ExpireDate = new ValidatableObject<DateTime>();
+            DaysNumberForAlertAppear = new ValidatableObject<int>();
+            RegistrationFee = new ValidatableObject<decimal?>();
+            Notes = new ValidatableObject<string>();
+            UnitName = new ValidatableObject<string>();
+            RegistrationDate.Value = oldInfor.PaperInfo.ExpireDate.AddDays(1);
+            CreateButtonVisible = false;
+        }
+
+        private PaperRegistrationInsertRequest GetFormData()
+        {
+            var res = new PaperRegistrationInsertRequest();
+            res.PaperInfo = new PaperBasicInfor()
+            {
+                PaperNumber = IdentityCode.Value,
+                DateOfIssue = RegistrationDate.Value,
+                ExpireDate = ExpireDate.Value,
+                DayOfAlertBefore = DaysNumberForAlertAppear.Value,
+                Description = Notes.Value
+            };         
+            res.Cost = RegistrationFee.Value;           
+            res.WarrantyCompany = UnitName.Value;
+
+            return res;
+
+        }
     }
 }

@@ -1224,6 +1224,9 @@
 
         #region PaperInfor
         PaperInfor_Page_Title,
+        PaperInfor_Msg_Expired,
+        PaperInfor_Msg_NearExpire,
+
 
         #endregion
     }

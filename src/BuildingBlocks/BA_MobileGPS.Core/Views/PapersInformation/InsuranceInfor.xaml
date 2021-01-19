@@ -3,6 +3,7 @@
     x:Class="BA_MobileGPS.Core.Views.InsuranceInfor"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:abstractions="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
@@ -19,6 +20,10 @@
     <ContentView.Content>
         <ScrollView>
             <StackLayout Padding="15,5,15,20" Spacing="5">
+                <abstractions:HtmlLabel
+                    HorizontalOptions="Start"
+                    IsVisible="{Binding CreateButtonVisible}"
+                    Text="{Binding AlertMessenger}" />
                 <!--  Số bảo hiểm  -->
                 <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                     <Label.FormattedText>
@@ -119,10 +124,12 @@
                     HasError="{Binding SelectedInsuranceType.IsNotValid}">
                     <Grid>
                         <Picker
+                            Title="Chọn loại bảo hiểm"
                             FontSize="{DynamicResource MyFontSize}"
                             HorizontalTextAlignment="Start"
+                            ItemDisplayBinding="{Binding CategoryName}"
                             ItemsSource="{Binding ListInsuranceType}"
-                            SelectedIndex="{Binding SelectedInsuranceType.Value}">
+                            SelectedItem="{Binding SelectedInsuranceType.Value}">
                             <Picker.Effects>
                                 <effects:BorderlessEffect />
                             </Picker.Effects>
@@ -208,13 +215,30 @@
                         Placeholder="Nhập ghi chú"
                         Text="{Binding Notes.Value}" />
                 </input:SfTextInputLayout>
-                <Button
-                    Margin="10"
-                    Command="{Binding SaveInsuranceInforCommand}"
-                    HeightRequest="40"
-                    HorizontalOptions="Center"
-                    Text="Cập nhật"
-                    WidthRequest="200" />
+                <Grid>
+                    <StackLayout
+                        HorizontalOptions="Center"
+                        Orientation="Horizontal"
+                        Spacing="30">
+                        <Button
+                            Margin="10"
+                            Command="{Binding SaveInsuranceInforCommand}"
+                            HeightRequest="40"
+                            HorizontalOptions="Center"
+                            Text="Lưu"
+                            WidthRequest="150" />
+                        <Button
+                            Grid.Column="1"
+                            Margin="10"
+                            BackgroundColor="#00ADE5"
+                            Command="{Binding ChangeToInsertFormCommand}"
+                            HeightRequest="40"
+                            HorizontalOptions="Center"
+                            IsVisible="{Binding CreateButtonVisible}"
+                            Text="Tạo mới"
+                            WidthRequest="150" />
+                    </StackLayout>
+                </Grid>
             </StackLayout>
 
         </ScrollView>

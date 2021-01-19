@@ -102,5 +102,11 @@ namespace BA_MobileGPS.Core
         /// trungtq  3/10/2020   created
         /// </Modified>
         public static bool EnableLongPoolRequest => Get(CompanyConfigurationNames.EnableLongPoolRequest, MobileSettingHelper.EnableLongPoolRequest);
+
+        /// <summary>
+        /// Cấu hình công ty về số ngay cho phép tạo mới giấy tờ xe ở 
+        /// form giấy tờ, mặc định là 30
+        /// </summary>
+        public static int DayAllowRegister => Get(CompanyConfigurationNames.DayAllowRegister, 30);
     }
 }

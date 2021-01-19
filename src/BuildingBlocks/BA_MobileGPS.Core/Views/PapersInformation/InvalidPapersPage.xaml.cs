@@ -1,83 +1,83 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Resources;
-using BA_MobileGPS.Core.ViewModels;
-using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Entities.ResponeEntity;
-using Prism;
+using BA_MobileGPS.Service.IService;
 using Prism.Common;
-using Prism.Ioc;
 using Prism.Navigation;
 using Xamarin.Forms;
+using Prism.Ioc;
+using System.Linq;
 
 namespace BA_MobileGPS.Core.Views
 {
     public partial class InvalidPapersPage : ContentPage, INavigationAware
     {
-        private PaperCategoryTypeEnum currentPageType { get; set; } 
-        private readonly INavigationService navigationService = PrismApplicationBase.Current.Container.Resolve<INavigationService>();
-        private InvalidPapersPageViewModel vm { get; set; }
+        private PaperCategoryTypeEnum currentPageType { get; set; }
+        private readonly IPapersInforService papersInforService = Prism.PrismApplicationBase.Current.Container.Resolve<IPapersInforService>();
         public InvalidPapersPage()
         {
             InitializeComponent();
-            papersChildView.Content = new RegistrationInfor();
             papersName.Text = "Chọn loại giấy tờ";
-            vm = (InvalidPapersPageViewModel)BindingContext;
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
-
         }
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
-
-            if (parameters.ContainsKey(ParameterKey.PaperType) && parameters.GetValue<PaperCategory>(ParameterKey.PaperType) is PaperCategory paper)
+            using (new HUDService())
             {
-                Device.BeginInvokeOnMainThread(() =>
+                if (parameters.ContainsKey(ParameterKey.PaperType) && parameters.GetValue<PaperCategory>(ParameterKey.PaperType) is PaperCategory paper)
                 {
-                    vm.SafeEx(() =>
+                    Device.BeginInvokeOnMainThread(() =>
                     {
-                        papersName.Text = paper.PaperName;
+                        papersName.Text = string.Format("Nhập thông tin {0}", paper.PaperName);
                         currentPageType = (PaperCategoryTypeEnum)paper.PaperCategoryType;
                         switch (currentPageType)
                         {
                             case PaperCategoryTypeEnum.Registry:
                                 papersChildView.Content = new RegistrationInfor();
                                 break;
+
                             case PaperCategoryTypeEnum.Insurrance:
                                 papersChildView.Content = new InsuranceInfor();
                                 break;
+
                             case PaperCategoryTypeEnum.Sign:
                                 papersChildView.Content = new CabSignInfor();
                                 break;
+
                             case PaperCategoryTypeEnum.None:
                                 papersChildView.Content = new Grid();
                                 break;
                         }
+
+                        if (!string.IsNullOrEmpty(entrySearch.Text))
+                        {
+                            var param = new NavigationParameters();
+                            param.Add(ParameterKey.Vehicle, entrySearch.Text);
+                            PageUtilities.OnNavigatedTo(papersChildView.Content, param);
+                        }
                     });
-                });
-            }
-            else if (parameters.ContainsKey(ParameterKey.DateResponse)
-                && parameters.GetValue<PickerDateTimeResponse>(ParameterKey.DateResponse) is PickerDateTimeResponse date)
-            {
-                PageUtilities.OnNavigatedTo(papersChildView.Content, parameters);
+                 
+                }
+                else if (parameters.ContainsKey(ParameterKey.DateResponse)
+                      && parameters.GetValue<PickerDateTimeResponse>(ParameterKey.DateResponse) is PickerDateTimeResponse date)
+                {
+                    PageUtilities.OnNavigatedTo(papersChildView.Content, parameters);
+                }
             }
         }
 
-
-        private void ChangePageType_Tapped(object sender, System.EventArgs e)
+        private void entrySearch_TextChanged(object sender, TextChangedEventArgs e)         
         {
-            vm.SafeEx(async () =>
+            if (!string.IsNullOrEmpty(entrySearch.Text) && currentPageType != PaperCategoryTypeEnum.None)
             {
-                var param = new NavigationParameters()
-                {
-                   { ParameterKey.PaperType, new PaperModel(){ PaperType = currentPageType} }
-                };
-                await navigationService.NavigateAsync("NavigationPage/SelectPaperTypePage", param, true, true);
-            });
+                var param = new NavigationParameters();
+                param.Add(ParameterKey.Vehicle, entrySearch.Text);
+                PageUtilities.OnNavigatedTo(papersChildView.Content, param);
+            }
         }
     }
 }

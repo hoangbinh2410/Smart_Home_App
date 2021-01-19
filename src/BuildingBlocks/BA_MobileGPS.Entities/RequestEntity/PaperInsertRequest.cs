@@ -8,19 +8,19 @@ namespace BA_MobileGPS.Entities.RequestEntity
     {
         public PaperBasicInfor PaperInfo { get; set; }
         public string WarrantyCompany { get; set; }
-        public decimal Cost { get; set; }
+        public decimal? Cost { get; set; }
     }
 
     public class PaperInsuranceInsertRequest
     {
         public PaperBasicInfor PaperInfo { get; set; }
         public string WarrantyCompany { get; set; }
-        public decimal Cost { get; set; }
+        public decimal? Cost { get; set; }
         public string Contact { get; set; }
-        public int FK_InsuranceCategoryID { get; set; }
+        public int? FK_InsuranceCategoryID { get; set; }
     }
 
-    public class PaperCabSignInsertRequest : PaperBasicInfor
+    public class PaperCabSignInforRequest : PaperBasicInfor
     {
     }
 
@@ -35,6 +35,7 @@ namespace BA_MobileGPS.Entities.RequestEntity
         public int DayOfAlertBefore { get; set; }
         public string Description { get; set; }
         public Guid CreatedByUser { get; set; }
+        public Guid UpdatedByUser { get; set; }
     }
 
 
