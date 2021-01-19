@@ -34,7 +34,7 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
                 _scrollView = new UIScrollView
                 {
                     ClipsToBounds = true,
-                    BackgroundColor = UIColor.Red,
+                    BackgroundColor = UIColor.Black,
                     ContentMode = _zoomImage.Aspect.ToUIViewContentMode(),
                     ScrollEnabled = _zoomImage.ScrollEnabled
                 };

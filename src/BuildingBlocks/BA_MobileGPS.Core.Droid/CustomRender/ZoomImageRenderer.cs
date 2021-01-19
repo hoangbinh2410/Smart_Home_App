@@ -22,10 +22,6 @@ namespace BA_MobileGPS.Core.Droid.CustomRender
         {
         }
 
-        public static void Init()
-        {
-        }
-
         protected async override void OnElementChanged(ElementChangedEventArgs<CachedImage> e)
         {
             base.OnElementChanged(e);
@@ -74,9 +70,7 @@ namespace BA_MobileGPS.Core.Droid.CustomRender
         private async Task LoadImage()
         {
             var image = await (new ImageLoaderSourceHandler()).LoadImageAsync(_zoomImage.Source, Context);
-            // would seem like the below would offer more flexibility, but actually is causing an exception
-            //            if (image == null)
-            //                image = await (new StreamImagesourceHandler()).LoadImageAsync(_zoomImage.Source, Context);
+
             if (image == null)
                 image = await (new FileImageSourceHandler()).LoadImageAsync(_zoomImage.Source, Context);
 
