@@ -113,8 +113,8 @@ namespace BA_MobileGPS.Core.ViewModels
         private string fuel;
         public string Fuel { get => fuel; set => SetProperty(ref fuel, value); }
 
-        private int fuelProgress;
-        public int FuelProgress { get => fuelProgress; set => SetProperty(ref fuelProgress, value); }
+        private double fuelProgress;
+        public double FuelProgress { get => fuelProgress; set => SetProperty(ref fuelProgress, value); }
 
         private string temperature;
         public string Temperature { get => temperature; set => SetProperty(ref temperature, value); }
@@ -227,7 +227,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         IsFuelVisible = response.VehicleNl.IsUseFuel;
                         Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
-                        FuelProgress = (int)(response.VehicleNl.NumberOfLiters / response.VehicleNl.Capacity) * 100;
+                        FuelProgress = (response.VehicleNl.NumberOfLiters / response.VehicleNl.Capacity) * 100;
                     }
                     else
                     {
