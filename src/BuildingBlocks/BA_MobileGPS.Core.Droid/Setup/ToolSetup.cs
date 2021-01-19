@@ -21,7 +21,7 @@ namespace BA_MobileGPS.Droid.Setup
 
             Xamarin.Essentials.Platform.Init(activity, bundle); // add this line to your code, it may also be called: bundle
 
-            Rg.Plugins.Popup.Popup.Init(activity, bundle);
+            Rg.Plugins.Popup.Popup.Init(activity);
 
             SharpnadoInitializer.Initialize();
 
