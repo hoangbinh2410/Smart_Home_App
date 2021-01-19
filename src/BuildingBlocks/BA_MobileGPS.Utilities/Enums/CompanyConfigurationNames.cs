@@ -28,6 +28,7 @@
         EnableLongPoolRequest,
         IsShowTemperatureOnline,
         IsShowDateOfRegistration,
-        ShowKmInMonth
+        ShowKmInMonth,
+        DayAllowRegister
     }
 }

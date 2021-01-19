@@ -82,6 +82,7 @@
                             Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
                             PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                             Text="{Binding SelectedVehiclePlates}"
+                            TextChanged="entrySearch_TextChanged"
                             TextColor="{DynamicResource TextPrimaryColor}"
                             VerticalOptions="Center">
                             <Entry.Effects>
@@ -98,21 +99,33 @@
                     </StackLayout>
                 </pancake:PancakeView>
             </Grid>
-            <StackLayout
+            <Grid
                 Padding="7"
                 BackgroundColor="#0071BC"
+                HeightRequest="20"
                 HorizontalOptions="Fill"
-                Orientation="Horizontal">
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="ChangePageType_Tapped" />
-                </StackLayout.GestureRecognizers>
+                MinimumHeightRequest="20">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ChangePaperTypeCommand}" />
+                </Grid.GestureRecognizers>
                 <Label
                     x:Name="papersName"
                     HorizontalOptions="CenterAndExpand"
                     InputTransparent="True"
                     TextColor="{DynamicResource WhiteColor}" />
-            </StackLayout>
-            <ScrollView x:Name="papersChildView" />
+                <icons:IconView
+                    Margin="0,0,20,0"
+                    Foreground="{DynamicResource WhiteColor}"
+                    HeightRequest="15"
+                    HorizontalOptions="End"
+                    Rotation="90"
+                    Source="ic_play_arrow_white"
+                    VerticalOptions="Center"
+                    WidthRequest="15" />
+            </Grid>
+            <ScrollView x:Name="papersChildView">
+                <Label Margin="10" Text="Chọn phương tiện để nhập thông tin giấy tờ" />
+            </ScrollView>
         </StackLayout>
 
     </Grid>
