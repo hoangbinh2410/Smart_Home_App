@@ -52,9 +52,6 @@ namespace BA_MobileGPS.Core.Droid.CustomRender
         private bool doubleTapped = false;
         private GestureDetector m_GestureDetector;
 
-        private float doubleTapMaxScale;
-        private float doubleTapMinScale;
-
         public ScaleImageView(Context context, IAttributeSet attrs) :
         base(context, attrs)
         {
