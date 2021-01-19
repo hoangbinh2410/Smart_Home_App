@@ -5,9 +5,12 @@
     xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:core="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:googlemapsBehaviors="clr-namespace:BA_MobileGPS.Core.GoogleMap.Behaviors"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:vm="clr-namespace:BA_MobileGPS.Core.ViewModels"
     Title="{i18n:TranslateResource Camera_Label_TilePage}">
     <ContentPage.Content>
         <StackLayout
@@ -90,7 +93,7 @@
                                     <!--<StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CameraDetailViewModel}}, Path=TabImageCommand}" />
                                     </StackLayout.GestureRecognizers>-->
-                                    <controls:ZoomImage
+                                    <ffImage:CachedImage
                                         Aspect="AspectFill"
                                         BitmapOptimizations="True"
                                         DownsampleToViewSize="True"
