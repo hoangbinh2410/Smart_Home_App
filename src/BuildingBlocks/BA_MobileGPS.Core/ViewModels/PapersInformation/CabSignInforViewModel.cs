@@ -142,7 +142,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void ValidationIntValue_OnChanged(object sender, int e)
         {
             // Check chon xe chua?
-            if (currentVehicleId == 0)
+            if (currentVehicleId == 0 && ViewHasAppeared)
             {
                 DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
             }
@@ -157,8 +157,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ValidationStringValue_OnChanged(object sender, string e)
         {
+
             // Check chon xe chua?
-            if (currentVehicleId == 0)
+            if (currentVehicleId == 0 && ViewHasAppeared)
             {
                 DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
             }
@@ -174,7 +175,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void ValidationDateTimeValue_OnChanged(object sender, DateTime e)
         {
             // Check chon xe chua?
-            if (currentVehicleId == 0)
+            if (currentVehicleId == 0 && ViewHasAppeared)
             {
                 DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
             }
@@ -282,7 +283,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                     if (DateTime.Now > paper.ExpireDate)
                     {
-                        AlertMessenger = string.Format("<font color=#E65353>{0}</font>", MobileResource.PaperInfor_Msg_Expired); 
+                        AlertMessenger = string.Format("<font color=#E65353>{0}</font>", MobileResource.PaperInfor_Msg_Expired);
                         CreateButtonVisible = true;
                     }
                     else if (paper.ExpireDate.AddDays(-CompanyConfigurationHelper.DayAllowRegister) <= DateTime.Now)
