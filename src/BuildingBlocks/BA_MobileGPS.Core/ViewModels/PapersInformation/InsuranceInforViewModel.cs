@@ -140,7 +140,9 @@ namespace BA_MobileGPS.Core.ViewModels
         public string AlertMessenger
         {
             get { return alertMessenger; }
-            set { SetProperty(ref alertMessenger, value);
+            set
+            {
+                SetProperty(ref alertMessenger, value);
                 RaisePropertyChanged(); // bắt buộc có
             }
         }
@@ -165,7 +167,7 @@ namespace BA_MobileGPS.Core.ViewModels
             DaysNumberForAlertAppear = new ValidatableObject<int>();
             DaysNumberForAlertAppear.OnChanged += ValidationIntValue_OnChanged;
             SelectedInsuranceType = new ValidatableObject<InsuranceCategory>();
-     
+
             InsuranceFee = new ValidatableObject<decimal?>();
             InsuranceFee.OnChanged += InsuranceFee_OnChanged;
             Contact = new ValidatableObject<string>();
@@ -179,66 +181,100 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void InsuranceFee_OnChanged(object sender, decimal? e)
         {
-            // Check chon xe chua?
-            if (currentVehicleId == 0)
+            try
             {
-                DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
+                // Check chon xe chua?
+                if (currentVehicleId == 0)
+                {
+                    DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
+                }
+                // Clear validation
+                var obj = (ValidatableObject<decimal?>)sender;
+                if (obj.IsNotValid)
+                {
+                    obj.IsNotValid = false;
+                    obj.Errors.Clear();
+                }
             }
-            // Clear validation
-            var obj = (ValidatableObject<decimal?>)sender;
-            if (obj.IsNotValid)
+            catch (Exception ex)
             {
-                obj.IsNotValid = false;
-                obj.Errors.Clear();
+
+
             }
+
         }
 
 
         private void ValidationIntValue_OnChanged(object sender, int e)
         {
-            // Check chon xe chua?
-            if (currentVehicleId == 0)
+            try
             {
-                DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
+                // Check chon xe chua?
+                if (currentVehicleId == 0)
+                {
+                    DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
+                }
+                // Clear validation
+                var obj = (ValidatableObject<int>)sender;
+                if (obj.IsNotValid)
+                {
+                    obj.IsNotValid = false;
+                    obj.Errors.Clear();
+                }
             }
-            // Clear validation
-            var obj = (ValidatableObject<int>)sender;
-            if (obj.IsNotValid)
+            catch (Exception ex)
             {
-                obj.IsNotValid = false;
-                obj.Errors.Clear();
+
+
             }
+
         }
 
         private void ValidationStringValue_OnChanged(object sender, string e)
         {
-            // Check chon xe chua?
-            if (currentVehicleId == 0)
+            try
             {
-                DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
+                // Check chon xe chua?
+                if (currentVehicleId == 0)
+                {
+                    DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
+                }
+                // Clear validation
+                var obj = (ValidatableObject<string>)sender;
+                if (obj.IsNotValid)
+                {
+                    obj.IsNotValid = false;
+                    obj.Errors.Clear();
+                }
             }
-            // Clear validation
-            var obj = (ValidatableObject<string>)sender;
-            if (obj.IsNotValid)
+            catch (Exception ex)
             {
-                obj.IsNotValid = false;
-                obj.Errors.Clear();
+
+
             }
         }
 
         private void ValidationDateTimeValue_OnChanged(object sender, DateTime e)
         {
-            // Check chon xe chua?
-            if (currentVehicleId == 0)
+            try
             {
-                DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
+                // Check chon xe chua?
+                if (currentVehicleId == 0)
+                {
+                    DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
+                }
+                // Clear validation
+                var obj = (ValidatableObject<DateTime>)sender;
+                if (obj.IsNotValid)
+                {
+                    obj.IsNotValid = false;
+                    obj.Errors.Clear();
+                }
             }
-            // Clear validation
-            var obj = (ValidatableObject<DateTime>)sender;
-            if (obj.IsNotValid)
+            catch (Exception ex)
             {
-                obj.IsNotValid = false;
-                obj.Errors.Clear();
+
+
             }
         }
 
@@ -306,7 +342,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 SafeExecute(async () =>
                 {
                     if (IsUpdateForm)
-                    {                      
+                    {
                         data.PaperInfo.UpdatedByUser = UserInfo.UserId;
                         data.PaperInfo.Id = oldInfor.PaperInfo.Id;
                         var res = await paperinforService.UpdateInsurancePaper(data);
@@ -317,7 +353,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         else DisplayMessage.ShowMessageError("Cập nhật thông tin thất bại");
                     }
                     else
-                    {                    
+                    {
                         data.PaperInfo.CreatedByUser = UserInfo.UserId;
                         var res = await paperinforService.InsertInsurancePaper(data);
                         if (res?.PK_PaperInfoID != new Guid())
@@ -336,7 +372,9 @@ namespace BA_MobileGPS.Core.ViewModels
         public bool CreateButtonVisible
         {
             get { return createButtonVisible; }
-            set { SetProperty(ref createButtonVisible, value);
+            set
+            {
+                SetProperty(ref createButtonVisible, value);
                 RaisePropertyChanged();// bắt buộc có
             }
         }
@@ -425,11 +463,17 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void InitInsurancePickerSource()
         {
-            TryExecute(async () =>
+            RunOnBackground(async () =>
             {
-                ListInsuranceType = await paperinforService.GetInsuranceCategories(UserInfo.CompanyId);
+                return await paperinforService.GetInsuranceCategories(UserInfo.CompanyId);
 
-            });          
+            }, res =>
+            {
+                if (res != null && res.Count >0)
+                {
+                    ListInsuranceType = res;
+                }
+            });
         }
 
         private void ChangeToInsertForm()
