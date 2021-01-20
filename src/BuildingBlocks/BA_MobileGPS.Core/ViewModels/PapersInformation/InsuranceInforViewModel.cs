@@ -184,7 +184,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 // Check chon xe chua?
-                if (currentVehicleId == 0)
+                if (currentVehicleId == 0 && ViewHasAppeared)
                 {
                     DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
                 }
@@ -210,7 +210,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 // Check chon xe chua?
-                if (currentVehicleId == 0)
+                if (currentVehicleId == 0 && ViewHasAppeared)
                 {
                     DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
                 }
@@ -235,7 +235,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 // Check chon xe chua?
-                if (currentVehicleId == 0)
+                if (currentVehicleId == 0 && ViewHasAppeared)
                 {
                     DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
                 }
@@ -259,7 +259,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 // Check chon xe chua?
-                if (currentVehicleId == 0)
+                if (currentVehicleId == 0 && ViewHasAppeared)
                 {
                     DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
                 }
