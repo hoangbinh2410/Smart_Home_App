@@ -152,7 +152,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 obj.ErrorFirst = "Vui lòng chọn xe trước khi nhập dữ liệu";
                 return;
             }
-            var obj = (ValidatableObject<string>)sender;
+           
             if (obj.IsNotValid)
             {
                 obj.IsNotValid = false;
@@ -170,6 +170,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 obj.ErrorFirst = "Vui lòng chọn xe trước khi nhập dữ liệu";
                 return;
             }
+
             if (obj.IsNotValid)
             {
                 obj.IsNotValid = false;
