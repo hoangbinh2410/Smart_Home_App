@@ -79,7 +79,7 @@
                             x:Name="entrySearch"
                             HorizontalOptions="FillAndExpand"
                             InputTransparent="True"
-                            Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
+                            Placeholder="Chọn phương tiện áp dụng"
                             PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                             Text="{Binding SelectedVehiclePlates}"
                             TextChanged="entrySearch_TextChanged"

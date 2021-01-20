@@ -19,6 +19,18 @@ namespace BA_MobileGPS.Core
                 }
                 return true;
             }
+            if (value is string temp)
+            {
+                if (string.IsNullOrEmpty(temp))
+                {
+                    return false;
+                }
+                if (int.Parse(temp) < MinValue)
+                {
+                    return false;
+                }
+                return true;
+            }
             return false;
         }
     }
@@ -32,6 +44,18 @@ namespace BA_MobileGPS.Core
             if (value is int current)
             {
                 if (current > MaxValue)
+                {
+                    return false;
+                }
+                return true;
+            }
+            if (value is string temp)
+            {
+                if (string.IsNullOrEmpty(temp))
+                {
+                    return false;
+                }
+                if (int.Parse(temp) > MaxValue)
                 {
                     return false;
                 }
