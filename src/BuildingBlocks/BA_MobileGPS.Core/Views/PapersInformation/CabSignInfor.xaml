@@ -133,6 +133,7 @@
                         <Button
                             Margin="10"
                             Command="{Binding SaveCabSignInforCommand}"
+                            CornerRadius="20"
                             HeightRequest="40"
                             HorizontalOptions="Center"
                             Text="Lưu"
@@ -142,6 +143,7 @@
                             Margin="10"
                             BackgroundColor="#00ADE5"
                             Command="{Binding ChangeToInsertFormCommand}"
+                            CornerRadius="20"
                             HeightRequest="40"
                             HorizontalOptions="Center"
                             IsVisible="{Binding CreateButtonVisible}"
