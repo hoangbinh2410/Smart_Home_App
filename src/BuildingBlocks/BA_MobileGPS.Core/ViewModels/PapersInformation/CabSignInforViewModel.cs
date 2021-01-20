@@ -2,13 +2,11 @@
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RequestEntity;
-using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
@@ -20,7 +18,7 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         private bool IsUpdateForm { get; set; } = false;
         private string NotEmptyMessenge = MobileResource.ListDriver_Messenger_NotNull;
-        private long currentVehicleId { get; set; }
+        private long currentVehicleId { get; set; } = 0;
         private readonly IPapersInforService paperinforService;
         public ICommand SaveCabSignInforCommand { get; }
         public ICommand SelectRegisterDateCommand { get; }
@@ -143,6 +141,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ValidationIntValue_OnChanged(object sender, int e)
         {
+            // Check chon xe chua?
+            if (currentVehicleId == 0)
+            {
+                DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
+            }
             // Clear validation
             var obj = (ValidatableObject<int>)sender;
             if (obj.IsNotValid)
@@ -154,6 +157,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ValidationStringValue_OnChanged(object sender, string e)
         {
+            // Check chon xe chua?
+            if (currentVehicleId == 0)
+            {
+                DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
+            }
             // Clear validation
             var obj = (ValidatableObject<string>)sender;
             if (obj.IsNotValid)
@@ -165,6 +173,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ValidationDateTimeValue_OnChanged(object sender, DateTime e)
         {
+            // Check chon xe chua?
+            if (currentVehicleId == 0)
+            {
+                DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
+            }
             // Clear validation
             var obj = (ValidatableObject<DateTime>)sender;
             if (obj.IsNotValid)
@@ -176,7 +189,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SetValidationRule()
         {
-            SignNumber.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "họ tên" });
+            SignNumber.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "số phù hiệu" });
             SignNumber.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
                 DangerousChar = "['\"<>/&]",
@@ -284,21 +297,21 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ClearData()
         {
-            SignNumber = new ValidatableObject<string>();
-            RegistrationDate = new ValidatableObject<DateTime>();
-            ExpireDate = new ValidatableObject<DateTime>();
-            DaysNumberForAlertAppear = new ValidatableObject<int>();
-            Notes = new ValidatableObject<string>();
+            SignNumber.Value = string.Empty;
+            RegistrationDate.Value = DateTime.MinValue;
+            ExpireDate.Value = DateTime.MinValue;
+            DaysNumberForAlertAppear.Value = 3;
+            Notes.Value = string.Empty;
 
             CreateButtonVisible = false;
         }
 
         private void ChangeToInsertForm()
         {
-            SignNumber = new ValidatableObject<string>();
-            ExpireDate = new ValidatableObject<DateTime>();
-            DaysNumberForAlertAppear = new ValidatableObject<int>();
-            Notes = new ValidatableObject<string>();
+            SignNumber.Value = string.Empty;
+            ExpireDate.Value = DateTime.MinValue;
+            DaysNumberForAlertAppear.Value = 3;
+            Notes.Value = string.Empty;
 
             RegistrationDate.Value = oldInfor.ExpireDate.AddDays(1);
             CreateButtonVisible = false;

@@ -35,8 +35,8 @@ namespace BA_MobileGPS.Entities.ResponeEntity
         public int Id { get; set; }
         public int FK_CompanyID { get; set; }
         public string CategoryName { get; set; }
-        public int InsuranceCost { get; set; }
-        public int CashIndemnityMax { get; set; }
+        public decimal? InsuranceCost { get; set; }
+        public decimal? CashIndemnityMax { get; set; }
         public string Description { get; set; }
     }
     public enum PaperCategoryTypeEnum
