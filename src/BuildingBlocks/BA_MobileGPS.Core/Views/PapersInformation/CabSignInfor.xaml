@@ -130,18 +130,31 @@
                     <StackLayout
                         HorizontalOptions="Center"
                         Orientation="Horizontal"
-                        Spacing="30">
+                        Spacing="20">
                         <Button
-                            Margin="10"
                             Command="{Binding SaveCabSignInforCommand}"
                             CornerRadius="20"
                             HeightRequest="40"
                             HorizontalOptions="Center"
                             Text="Lưu"
-                            WidthRequest="150" />
+                            WidthRequest="150">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="{DynamicResource GrayColor2}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Button>
                         <Button
                             Grid.Column="1"
-                            Margin="10"
                             BackgroundColor="#00ADE5"
                             Command="{Binding ChangeToInsertFormCommand}"
                             CornerRadius="20"

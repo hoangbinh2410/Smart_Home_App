@@ -27,7 +27,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public CabSignInforViewModel(INavigationService navigationService, IPapersInforService paperinforService) : base(navigationService)
         {
             this.paperinforService = paperinforService;
-            SaveCabSignInforCommand = new DelegateCommand(SaveSignInfor);
+            SaveCabSignInforCommand = new DelegateCommand(SaveSignInfor).ObservesCanExecute(() => SaveEnable); 
             SelectRegisterDateCommand = new DelegateCommand(SelectRegisterDate);
             SelectExpireDateCommand = new DelegateCommand(SelectExpireDate);
             ChangeToInsertFormCommand = new DelegateCommand(ChangeToInsertForm);
@@ -64,6 +64,16 @@ namespace BA_MobileGPS.Core.ViewModels
                     currentVehicleId = vehicle.VehicleId;
                     UpdateFormData(UserInfo.CompanyId, vehicle.VehicleId);
                 }
+            }
+        }
+
+        private bool saveEnable = true;
+        public bool SaveEnable
+        {
+            get { return saveEnable; }
+            set
+            {
+                SetProperty(ref saveEnable, value);
             }
         }
 
@@ -157,7 +167,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 obj.ErrorFirst = "Vui lòng chọn xe trước khi nhập dữ liệu";
                 return;
             }
-           
+
+            //enable button save
+            if (!saveEnable && ViewHasAppeared)
+            {
+                SaveEnable = true;
+            }
+
             if (obj.IsNotValid)
             {
                 obj.IsNotValid = false;
@@ -174,6 +190,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 obj.IsNotValid = true;
                 obj.ErrorFirst = "Vui lòng chọn xe trước khi nhập dữ liệu";
                 return;
+            }
+
+            //enable button save
+            if (!saveEnable && ViewHasAppeared)
+            {
+                SaveEnable = true;
             }
 
             if (obj.IsNotValid)
@@ -203,6 +225,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 DangerousChar = "['\"<>/&]",
                 ValidationMessage = "Vui lòng nhập ghi chú hợp lệ"
             });
+            Notes.Validations.Add(new MaxLengthRule<string>() { MaxLenght = 1000, ValidationMessage = "Không nhập quá 1000 kí tự" });
         }
 
         /// <summary>
@@ -322,6 +345,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var paper = await paperinforService.GetLastPaperSignByVehicleId(companyId, vehicleId);
                 if (paper != null)
                 {
+                   
                     oldInfor = paper;
                     IsUpdateForm = true;
                     Device.BeginInvokeOnMainThread(() =>
@@ -331,6 +355,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         ExpireDate.Value = paper.ExpireDate;
                         DaysNumberForAlertAppear.Value = paper.DayOfAlertBefore.ToString();
                         Notes.Value = paper.Description;
+
+                        SaveEnable = false;
                     });
                     if (DateTime.Now > paper.ExpireDate)
                     {
@@ -343,7 +369,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         CreateButtonVisible = true;
                     }
                 }
-               
+                
             });
         }
 

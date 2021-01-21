@@ -18,6 +18,7 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class InsuranceInforViewModel : ViewModelBase
     {
+     
         private bool IsUpdateForm { get; set; } = false;
         private long currentVehicleId { get; set; } = 0;
         private string NotEmptyMessenge = MobileResource.ListDriver_Messenger_NotNull;
@@ -29,7 +30,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public InsuranceInforViewModel(INavigationService navigationService, IPapersInforService paperinforService) : base(navigationService)
         {
             this.paperinforService = paperinforService;
-            SaveInsuranceInforCommand = new DelegateCommand(SaveInsuranceInfor);
+            SaveInsuranceInforCommand = new DelegateCommand(SaveInsuranceInfor).ObservesCanExecute(()=>SaveEnable);
             SelectRegisterDateCommand = new DelegateCommand(SelectRegisterDate);
             SelectExpireDateCommand = new DelegateCommand(SelectExpireDate);
             ChangeToInsertFormCommand = new DelegateCommand(ChangeToInsertForm);
@@ -67,6 +68,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     currentVehicleId = vehicle.VehicleId;
                     UpdateFormData(UserInfo.CompanyId, vehicle.VehicleId);
                 }
+            }
+        }
+     
+        private bool saveEnable = true;
+        public bool SaveEnable
+        {
+            get { return saveEnable; }
+            set { SetProperty(ref saveEnable, value);           
             }
         }
 
@@ -201,6 +210,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 obj.ErrorFirst = "Vui lòng chọn xe trước khi nhập dữ liệu";
                 return;
             }
+            //enable button save
+            if (!SaveEnable && ViewHasAppeared)
+            {
+                SaveEnable = true;
+            }
+
             // Clear validation              
             if (obj.IsNotValid)
             {
@@ -221,6 +236,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 obj.ErrorFirst = "Vui lòng chọn xe trước khi nhập dữ liệu";
                 return;
             }
+
+            //enable button save
+            if (!SaveEnable && ViewHasAppeared)
+            {
+                SaveEnable = true;
+            }
+
             // Clear validation              
             if (obj.IsNotValid)
             {
@@ -249,19 +271,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 DangerousChar = "['\"<>/&]",
                 ValidationMessage = "Vui lòng không nhập [,',\",<,>,/, &,]"
             });
-
+            Contact.Validations.Add(new MaxLengthRule<string>() { MaxLenght = 500, ValidationMessage = "Không nhập quá 500 kí tự" });
             Notes.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
                 DangerousChar = "['\"<>/&]",
                 ValidationMessage = "Vui lòng không nhập [,',\",<,>,/, &,]"
             });
-
+            Notes.Validations.Add(new MaxLengthRule<string>() { MaxLenght = 1000, ValidationMessage = "Không nhập quá 1000 kí tự" });
             UnitName.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
                 DangerousChar = "['\"<>/&]",
                 ValidationMessage = "Vui lòng không nhập [,',\",<,>,/, &,]"
             });
-
+            UnitName.Validations.Add(new MaxLengthRule<string>() { MaxLenght = 500, ValidationMessage = "Không nhập quá 500 kí tự" });
             SelectedInsuranceType.Validations.Add(new IsNotNullObjectRule<InsuranceCategory>() { ValidationMessage = NotEmptyMessenge + "loại bảo hiểm" });
         }
 
@@ -397,6 +419,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var paper = await paperinforService.GetLastPaperInsuranceByVehicleId(companyId, vehicleId);
                 if (paper != null)
                 {
+                    
                     oldInfor = paper;
                     IsUpdateForm = true;
                     Device.BeginInvokeOnMainThread(() =>
@@ -410,6 +433,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         Contact.Value = paper.Contact;
                         Notes.Value = paper.PaperInfo.Description;
                         UnitName.Value = paper.WarrantyCompany;
+
+                        SaveEnable = false;
                     });
                     if (DateTime.Now > paper.PaperInfo.ExpireDate)
                     {
@@ -505,6 +530,7 @@ namespace BA_MobileGPS.Core.ViewModels
             RegistrationDate.Value = oldInfor.PaperInfo.ExpireDate.AddDays(1);
             CreateButtonVisible = false;
             IsUpdateForm = false;
+            SaveEnable = true;
         }
         private void ClearData()
         {
