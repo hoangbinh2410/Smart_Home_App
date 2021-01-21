@@ -215,7 +215,7 @@ namespace BA_MobileGPS.Core.ViewModels
             IdentityCode.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
                 DangerousChar = "['\"<>/&]",
-                ValidationMessage = "Vui lòng nhập số bảo hiểm hợp lệ"
+                ValidationMessage = "Vui lòng không nhập [,',\",<,>,/, &,]"
             });
 
             RegistrationDate.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + "ngày đăng kí" });
@@ -227,7 +227,7 @@ namespace BA_MobileGPS.Core.ViewModels
             Notes.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
                 DangerousChar = "['\"<>/&]",
-                ValidationMessage = "Vui lòng nhập ghi chú hợp lệ"
+                ValidationMessage = "Vui lòng không nhập [,',\",<,>,/, &,]"
             });
         }
 
@@ -268,8 +268,22 @@ namespace BA_MobileGPS.Core.ViewModels
                 outDateRule = false;
             }
 
+            //Check ngày đăng kí mới và ngày hết hạn cũ
+            var oldExpireDayRule = true;
+            if (!IsUpdateForm && oldInfor != null)
+            {
+                var oldExpireDay = oldInfor.PaperInfo.ExpireDate;
+                if (RegistrationDate.Value <= oldExpireDay)
+                {
+                    RegistrationDate.IsNotValid = true;
+                    RegistrationDate.ErrorFirst = "Ngày đăng kí mới > ngày hết hạn giấy tờ gần nhất";
+                    oldExpireDayRule = false;
+                }
+            }
+
             return (insuranceNum && dateRegis && dateExp && dayPrepareAlert
-                && money && departmentUnit && note && newRule && outDateRule);
+                && money && departmentUnit && note && newRule && outDateRule
+                && oldExpireDayRule);
         }
 
         private void SaveRegistrationInfor()
