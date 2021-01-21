@@ -7,10 +7,7 @@ using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -19,6 +16,7 @@ namespace BA_MobileGPS.Core.ViewModels
     public class RegistrationInforViewModel : ViewModelBase
     {
         private bool IsUpdateForm { get; set; } = false;
+       
         private long currentVehicleId { get; set; } = 0;
         private string NotEmptyMessenge = MobileResource.ListDriver_Messenger_NotNull;
         private readonly IPapersInforService paperinforService;
@@ -29,7 +27,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public RegistrationInforViewModel(INavigationService navigationService, IPapersInforService paperinforService) : base(navigationService)
         {
             this.paperinforService = paperinforService;
-            SaveRegistrationInforCommand = new DelegateCommand(SaveRegistrationInfor);
+            SaveRegistrationInforCommand = new DelegateCommand(SaveRegistrationInfor).ObservesCanExecute(() => SaveEnable);
             SelectRegisterDateCommand = new DelegateCommand(SelectRegisterDate);
             SelectExpireDateCommand = new DelegateCommand(SelectExpireDate);
             ChangeToInsertFormCommand = new DelegateCommand(ChangeToInsertForm);
@@ -65,6 +63,16 @@ namespace BA_MobileGPS.Core.ViewModels
                     currentVehicleId = vehicle.VehicleId;
                     UpdateFormData(UserInfo.CompanyId, vehicle.VehicleId);
                 }
+            }
+        }
+
+        private bool saveEnable = true;
+        public bool SaveEnable
+        {
+            get { return saveEnable; }
+            set
+            {
+                SetProperty(ref saveEnable, value);
             }
         }
 
@@ -183,7 +191,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 obj.ErrorFirst = "Vui lòng chọn xe trước khi nhập dữ liệu";
                 return;
             }
-         
+            //enable button save
+            if (!SaveEnable && ViewHasAppeared)
+            {
+                SaveEnable = true;
+            }
+
             if (obj.IsNotValid)
             {
                 obj.IsNotValid = false;
@@ -201,7 +214,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 obj.ErrorFirst = "Vui lòng chọn xe trước khi nhập dữ liệu";
                 return;
             }
-          
+            //enable button save
+            if (!SaveEnable && ViewHasAppeared)
+            {
+                SaveEnable = true;
+            }
+
             if (obj.IsNotValid)
             {
                 obj.IsNotValid = false;
@@ -229,6 +247,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 DangerousChar = "['\"<>/&]",
                 ValidationMessage = "Vui lòng không nhập [,',\",<,>,/, &,]"
             });
+            Notes.Validations.Add(new MaxLengthRule<string>() {  MaxLenght=1000, ValidationMessage ="Không nhập quá 1000 kí tự"});
+           
         }
 
         /// <summary>
@@ -375,6 +395,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var paper = await paperinforService.GetLastPaperRegistrationByVehicleId(companyId, vehicleId);
                 if (paper != null)
                 {
+                                
                     oldInfor = paper;
                     IsUpdateForm = true;
                     Device.BeginInvokeOnMainThread(() =>
@@ -386,6 +407,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         Notes.Value = paper.PaperInfo.Description;
                         UnitName.Value = paper.WarrantyCompany;
                         RegistrationFee.Value = paper.Cost?.ToString("G0");
+
+                        SaveEnable = false;
                     });
                     if (DateTime.Now.Date > paper.PaperInfo.ExpireDate.Date)
                     {
