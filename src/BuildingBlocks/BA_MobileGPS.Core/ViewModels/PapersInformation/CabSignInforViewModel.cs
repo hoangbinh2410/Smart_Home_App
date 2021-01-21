@@ -345,7 +345,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var paper = await paperinforService.GetLastPaperSignByVehicleId(companyId, vehicleId);
                 if (paper != null)
                 {
-                    SaveEnable = false;
+                   
                     oldInfor = paper;
                     IsUpdateForm = true;
                     Device.BeginInvokeOnMainThread(() =>
@@ -355,6 +355,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         ExpireDate.Value = paper.ExpireDate;
                         DaysNumberForAlertAppear.Value = paper.DayOfAlertBefore.ToString();
                         Notes.Value = paper.Description;
+
+                        SaveEnable = false;
                     });
                     if (DateTime.Now > paper.ExpireDate)
                     {

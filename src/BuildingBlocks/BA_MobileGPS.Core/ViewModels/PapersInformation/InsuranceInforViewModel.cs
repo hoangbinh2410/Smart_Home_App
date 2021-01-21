@@ -419,7 +419,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var paper = await paperinforService.GetLastPaperInsuranceByVehicleId(companyId, vehicleId);
                 if (paper != null)
                 {
-                    SaveEnable = false;
+                    
                     oldInfor = paper;
                     IsUpdateForm = true;
                     Device.BeginInvokeOnMainThread(() =>
@@ -433,6 +433,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         Contact.Value = paper.Contact;
                         Notes.Value = paper.PaperInfo.Description;
                         UnitName.Value = paper.WarrantyCompany;
+
+                        SaveEnable = false;
                     });
                     if (DateTime.Now > paper.PaperInfo.ExpireDate)
                     {

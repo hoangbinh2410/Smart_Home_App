@@ -395,7 +395,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var paper = await paperinforService.GetLastPaperRegistrationByVehicleId(companyId, vehicleId);
                 if (paper != null)
                 {
-                    SaveEnable = false;               
+                                
                     oldInfor = paper;
                     IsUpdateForm = true;
                     Device.BeginInvokeOnMainThread(() =>
@@ -407,6 +407,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         Notes.Value = paper.PaperInfo.Description;
                         UnitName.Value = paper.WarrantyCompany;
                         RegistrationFee.Value = paper.Cost?.ToString("G0");
+
+                        SaveEnable = false;
                     });
                     if (DateTime.Now.Date > paper.PaperInfo.ExpireDate.Date)
                     {
