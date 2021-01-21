@@ -9,6 +9,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -17,6 +18,8 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class InsuranceInforViewModel : ViewModelBase
     {
+        //kiểm tra dữ liệu đã bị nhập vào form hay chưa
+        private bool dataIsTyped { get; set; }
         private bool IsUpdateForm { get; set; } = false;
         private long currentVehicleId { get; set; } = 0;
         private string NotEmptyMessenge = MobileResource.ListDriver_Messenger_NotNull;
@@ -34,6 +37,11 @@ namespace BA_MobileGPS.Core.ViewModels
             ChangeToInsertFormCommand = new DelegateCommand(ChangeToInsertForm);
             InitValidations();
             InitInsurancePickerSource();
+            Device.StartTimer(new TimeSpan(0, 0, 3), () =>
+            {
+                ViewHasAppeared = true;
+                return false;
+            });
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -186,41 +194,49 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ValidationStringValue_OnChanged(object sender, string e)
         {
+            if (ViewHasAppeared && !dataIsTyped)
+            {
+                dataIsTyped = true;
+            }
 
-                var obj = (ValidatableObject<string>)sender;
-                // Check chon xe chua?
-                if (currentVehicleId == 0 && ViewHasAppeared)
-                {
-                    obj.IsNotValid = true;
-                    obj.ErrorFirst = "Vui lòng chọn xe trước khi nhập dữ liệu";
-                    return;
-                }
-                // Clear validation              
-                if (obj.IsNotValid)
-                {
-                    obj.IsNotValid = false;
-                    obj.Errors.Clear();
-                }
+            var obj = (ValidatableObject<string>)sender;
+            // Check chon xe chua?
+            if (currentVehicleId == 0 && ViewHasAppeared)
+            {
+                obj.IsNotValid = true;
+                obj.ErrorFirst = "Vui lòng chọn xe trước khi nhập dữ liệu";
+                return;
+            }
+            // Clear validation              
+            if (obj.IsNotValid)
+            {
+                obj.IsNotValid = false;
+                obj.Errors.Clear();
+            }
 
         }
 
         private void ValidationDateTimeValue_OnChanged(object sender, DateTime e)
         {
+            if (ViewHasAppeared && !dataIsTyped)
+            {
+                dataIsTyped = true;
+            }
 
-                var obj = (ValidatableObject<DateTime>)sender;
-                // Check chon xe chua?
-                if (currentVehicleId == 0 && ViewHasAppeared)
-                {
-                    obj.IsNotValid = true;
-                    obj.ErrorFirst = "Vui lòng chọn xe trước khi nhập dữ liệu";
-                    return;
-                }
-                // Clear validation              
-                if (obj.IsNotValid)
-                {
-                    obj.IsNotValid = false;
-                    obj.Errors.Clear();
-                }
+            var obj = (ValidatableObject<DateTime>)sender;
+            // Check chon xe chua?
+            if (currentVehicleId == 0 && ViewHasAppeared)
+            {
+                obj.IsNotValid = true;
+                obj.ErrorFirst = "Vui lòng chọn xe trước khi nhập dữ liệu";
+                return;
+            }
+            // Clear validation              
+            if (obj.IsNotValid)
+            {
+                obj.IsNotValid = false;
+                obj.Errors.Clear();
+            }
 
         }
 
@@ -274,13 +290,36 @@ namespace BA_MobileGPS.Core.ViewModels
             var contactInfor = Contact.Validate();
             var note = Notes.Validate();
 
+            //Check số ngày cảnh báo trước quá lớn
+            var newRule = true;
+            var temp = (ExpireDate.Value - RegistrationDate.Value).TotalDays;
+            if (!string.IsNullOrEmpty(DaysNumberForAlertAppear.Value))
+            {
+                if (Convert.ToInt32(DaysNumberForAlertAppear.Value) >= temp)
+                {
+                    DaysNumberForAlertAppear.IsNotValid = true;
+                    DaysNumberForAlertAppear.ErrorFirst = "Số ngày cảnh báo trước quá lớn";
+                    newRule = false;
+                }
+            }
+
+            //Check ngày đăng kí > ngày hết hạn
+            var outDateRule = true;
+            if (RegistrationDate.Value >= ExpireDate.Value)
+            {
+                ExpireDate.IsNotValid = true;
+                ExpireDate.ErrorFirst = "Vui lòng nhập ngày hết hạn > ngày đăng ký";
+                outDateRule = false;
+            }
+
+
             return (insuranceNum && dateRegis && dateExp && dayPrepareAlert
-                && insuranceType && fee && departmentUnit && contactInfor && note);
+                && insuranceType && fee && departmentUnit && contactInfor && note && newRule && outDateRule);
         }
 
         private void SaveInsuranceInfor()
         {
-            if (currentVehicleId ==0)
+            if (currentVehicleId == 0)
             {
                 DisplayMessage.ShowMessageError("Vui lòng chọn biển số phương tiện");
                 return;
@@ -333,39 +372,43 @@ namespace BA_MobileGPS.Core.ViewModels
         private PaperInsuranceInsertRequest oldInfor { get; set; }
         private void UpdateFormData(int companyId, long vehicleId)
         {
-            CreateButtonVisible = false;
-            SafeExecute(async () =>
+            // Nếu dữ liệu đã bị nhập trên form => không đổi
+            if (!dataIsTyped)
             {
-                var paper = await paperinforService.GetLastPaperInsuranceByVehicleId(companyId, vehicleId);
-                if (paper != null)
+                CreateButtonVisible = false;
+                SafeExecute(async () =>
                 {
-                    oldInfor = paper;
-                    IsUpdateForm = true;
-                    Device.BeginInvokeOnMainThread(() =>
+                    var paper = await paperinforService.GetLastPaperInsuranceByVehicleId(companyId, vehicleId);
+                    if (paper != null)
                     {
-                        InsuranceNumber.Value = paper.PaperInfo.PaperNumber;
-                        RegistrationDate.Value = paper.PaperInfo.DateOfIssue;
-                        ExpireDate.Value = paper.PaperInfo.ExpireDate;
-                        DaysNumberForAlertAppear.Value = paper.PaperInfo.DayOfAlertBefore.ToString();
-                        SelectedInsuranceType.Value = listInsuranceType.FirstOrDefault(x => x.Id == paper.FK_InsuranceCategoryID);
-                        InsuranceFee.Value = paper.Cost?.ToString("{0:0}");
-                        Contact.Value = paper.Contact;
-                        Notes.Value = paper.PaperInfo.Description;
-                        UnitName.Value = paper.WarrantyCompany;
-                    });
-                    if (DateTime.Now > paper.PaperInfo.ExpireDate)
-                    {
-                        AlertMessenger = string.Format("<font color=#E65353>{0}</font>", MobileResource.PaperInfor_Msg_Expired);
-                        CreateButtonVisible = true;
+                        oldInfor = paper;
+                        IsUpdateForm = true;
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            InsuranceNumber.Value = paper.PaperInfo.PaperNumber;
+                            RegistrationDate.Value = paper.PaperInfo.DateOfIssue;
+                            ExpireDate.Value = paper.PaperInfo.ExpireDate;
+                            DaysNumberForAlertAppear.Value = paper.PaperInfo.DayOfAlertBefore.ToString();
+                            SelectedInsuranceType.Value = listInsuranceType.FirstOrDefault(x => x.Id == paper.FK_InsuranceCategoryID);
+                            InsuranceFee.Value = paper.Cost?.ToString("N0", CultureInfo.CreateSpecificCulture("sv-SE"));
+                            Contact.Value = paper.Contact;
+                            Notes.Value = paper.PaperInfo.Description;
+                            UnitName.Value = paper.WarrantyCompany;
+                        });
+                        if (DateTime.Now > paper.PaperInfo.ExpireDate)
+                        {
+                            AlertMessenger = string.Format("<font color=#E65353>{0}</font>", MobileResource.PaperInfor_Msg_Expired);
+                            CreateButtonVisible = true;
+                        }
+                        else if (paper.PaperInfo.ExpireDate.AddDays(-CompanyConfigurationHelper.DayAllowRegister) <= DateTime.Now)
+                        {
+                            AlertMessenger = string.Format("<font color=#F99B09>{0}</font>", MobileResource.PaperInfor_Msg_NearExpire);
+                            CreateButtonVisible = true;
+                        }
                     }
-                    else if (paper.PaperInfo.ExpireDate.AddDays(-CompanyConfigurationHelper.DayAllowRegister) <= DateTime.Now)
-                    {
-                        AlertMessenger = string.Format("<font color=#F99B09>{0}</font>", MobileResource.PaperInfor_Msg_NearExpire);
-                        CreateButtonVisible = true;
-                    }
-                }
-                else ClearData();
-            });
+                    else ClearData();
+                });
+            }
         }
 
         private PaperInsuranceInsertRequest GetFormData()
@@ -380,7 +423,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 Description = Notes.Value
             };
             res.FK_InsuranceCategoryID = SelectedInsuranceType.Value?.Id;
-            res.Cost =Convert.ToDecimal(InsuranceFee.Value.Trim());
+            if (!string.IsNullOrEmpty(InsuranceFee.Value))
+            {
+                res.Cost = Convert.ToDecimal(InsuranceFee.Value.Replace(" ",""));
+            }          
+
             res.Contact = Contact.Value;
             res.WarrantyCompany = UnitName.Value;
 
@@ -421,7 +468,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             }, res =>
             {
-                if (res != null && res.Count >0)
+                if (res != null && res.Count > 0)
                 {
                     ListInsuranceType = res;
                 }

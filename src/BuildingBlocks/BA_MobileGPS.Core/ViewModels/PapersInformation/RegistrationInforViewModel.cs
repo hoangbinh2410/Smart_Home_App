@@ -8,6 +8,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
@@ -33,6 +34,11 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectExpireDateCommand = new DelegateCommand(SelectExpireDate);
             ChangeToInsertFormCommand = new DelegateCommand(ChangeToInsertForm);
             InitValidations();
+            Device.StartTimer(new TimeSpan(0, 0, 3), () =>
+            {
+                ViewHasAppeared = true;
+                return false;
+            });
         }
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -239,8 +245,31 @@ namespace BA_MobileGPS.Core.ViewModels
             var departmentUnit = UnitName.Validate();
             var note = Notes.Validate();
 
+            //Check số ngày cảnh báo trước quá lớn
+            var newRule = true;
+            var temp = (ExpireDate.Value - RegistrationDate.Value).TotalDays;
+            if (!string.IsNullOrEmpty(DaysNumberForAlertAppear.Value))
+            {
+                if (Convert.ToInt32(DaysNumberForAlertAppear.Value) >= temp)
+                {
+                    DaysNumberForAlertAppear.IsNotValid = true;
+                    DaysNumberForAlertAppear.ErrorFirst = "Số ngày cảnh báo trước quá lớn";
+                    newRule = false;
+                }
+            }
+
+
+            //Check ngày đăng kí > ngày hết hạn
+            var outDateRule = true;
+            if (RegistrationDate.Value >= ExpireDate.Value)
+            {
+                ExpireDate.IsNotValid = true;
+                ExpireDate.ErrorFirst = "Vui lòng nhập ngày hết hạn > ngày đăng ký";
+                outDateRule = false;
+            }
+
             return (insuranceNum && dateRegis && dateExp && dayPrepareAlert
-                && money && departmentUnit && note);
+                && money && departmentUnit && note && newRule && outDateRule);
         }
 
         private void SaveRegistrationInfor()
@@ -327,7 +356,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         DaysNumberForAlertAppear.Value = paper.PaperInfo.DayOfAlertBefore.ToString();
                         Notes.Value = paper.PaperInfo.Description;
                         UnitName.Value = paper.WarrantyCompany;
-                        RegistrationFee.Value = paper.Cost?.ToString("{0:0}");
+                        RegistrationFee.Value = paper.Cost?.ToString("N0", CultureInfo.CreateSpecificCulture("sv-SE"));
                     });
                     if (DateTime.Now > paper.PaperInfo.ExpireDate)
                     {
@@ -381,8 +410,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 ExpireDate = ExpireDate.Value,
                 DayOfAlertBefore = Convert.ToInt32(DaysNumberForAlertAppear.Value),
                 Description = Notes.Value
-            };
-            res.Cost = Convert.ToDecimal(RegistrationFee.Value);
+            };     
+            if (!string.IsNullOrEmpty(RegistrationFee.Value))
+            {
+                res.Cost = Convert.ToDecimal(RegistrationFee.Value.Replace(" ", ""));
+            }
             res.WarrantyCompany = UnitName.Value;
 
             return res;

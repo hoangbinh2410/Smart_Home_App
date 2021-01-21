@@ -32,6 +32,11 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectExpireDateCommand = new DelegateCommand(SelectExpireDate);
             ChangeToInsertFormCommand = new DelegateCommand(ChangeToInsertForm);
             InitValidations();
+            Device.StartTimer(new TimeSpan(0, 0, 3), () =>
+            {
+                ViewHasAppeared = true;
+                return false;
+            });
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -212,8 +217,31 @@ namespace BA_MobileGPS.Core.ViewModels
             var dayPrepareAlert = DaysNumberForAlertAppear.Validate();
             var note = Notes.Validate();
 
+            //Check số ngày cảnh báo trước quá lớn
+            var newRule = true;
+            var temp = (ExpireDate.Value - RegistrationDate.Value).TotalDays;
+            if (!string.IsNullOrEmpty(DaysNumberForAlertAppear.Value))
+            {
+                if (Convert.ToInt32(DaysNumberForAlertAppear.Value) >= temp)
+                {
+                    DaysNumberForAlertAppear.IsNotValid = true;
+                    DaysNumberForAlertAppear.ErrorFirst = "Số ngày cảnh báo trước quá lớn";
+                    newRule = false;
+                }
+            }
+
+
+            //Check ngày đăng kí > ngày hết hạn
+            var outDateRule = true;
+            if (RegistrationDate.Value >= ExpireDate.Value)
+            {
+                ExpireDate.IsNotValid = true;
+                ExpireDate.ErrorFirst = "Vui lòng nhập ngày hết hạn > ngày đăng ký";
+                outDateRule = false;
+            }
+
             return (insuranceNum && dateRegis && dateExp && dayPrepareAlert
-                 && note);
+                 && note && newRule && outDateRule);
         }
 
         private void SaveSignInfor()
