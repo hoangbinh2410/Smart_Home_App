@@ -19,6 +19,7 @@
     <ContentView.Resources>
         <ResourceDictionary>
             <converter:FavoritesColorConverter x:Key="FavoritesColorConverter" />
+            <converter:HasPermisstionCameraConverter x:Key="HasPermisstionCameraConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
     <Grid VerticalOptions="StartAndExpand">
@@ -74,6 +75,7 @@
                             <StackLayout
                                 Padding="0"
                                 HorizontalOptions="End"
+                                IsVisible="{Binding UserInfo.Permissions, Converter={StaticResource HasPermisstionCameraConverter}}"
                                 Orientation="Horizontal">
                                 <pancake:PancakeView WidthRequest="40">
                                     <icons:IconView
