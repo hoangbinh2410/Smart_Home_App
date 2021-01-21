@@ -19,8 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Timers;
 using VMS_MobileGPS.ViewModels;
 using Xamarin.Forms;
@@ -32,9 +30,10 @@ namespace VMS_MobileGPS.Views
     public partial class OnlinePage : ContentPage, IDestructible, INavigationAware
     {
         #region Contructor
+
         private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> boundaryRepository;
         private readonly IEventAggregator eventAggregator;
-     private readonly IDisplayMessage displayMessage;
+        private readonly IDisplayMessage displayMessage;
         private readonly IPageDialogService pageDialog;
 
         public OnlinePage()
@@ -201,6 +200,7 @@ namespace VMS_MobileGPS.Views
         #endregion Property
 
         #region Private Method
+
         private void GoogleMapAddBoundary()
         {
             vm.Boundaries.Clear();
@@ -218,10 +218,21 @@ namespace VMS_MobileGPS.Views
         {
             try
             {
-
                 var result = boundary.Polygon.Split(',');
 
-                var color = Color.FromHex(ConvertIntToHex(boundary.Color));
+                var color = Color.Blue;
+                if (boundary.PK_LandmarkID == 376650)
+                {
+                    color = Color.Red;
+                }
+                else if (boundary.PK_LandmarkID == 376651)
+                {
+                    color = Color.Blue;
+                }
+                else if (boundary.PK_LandmarkID == 376652)
+                {
+                    color = Color.Green;
+                }
 
                 if (boundary.IsClosed)
                 {
@@ -259,14 +270,11 @@ namespace VMS_MobileGPS.Views
 
                     vm.Borders.Add(polyline);
                 }
-
-
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-
         }
 
         public static string ConvertIntToHex(int value)
@@ -299,7 +307,6 @@ namespace VMS_MobileGPS.Views
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-
         }
 
         private void AddName(LandmarkResponse name)
@@ -812,7 +819,7 @@ namespace VMS_MobileGPS.Views
                     pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
                 }
             }
-        }     
+        }
 
         /// <summary>
         /// ẩn thông tin xe đi và remove active xe
@@ -832,7 +839,6 @@ namespace VMS_MobileGPS.Views
 
             vm.CarActive = new VehicleOnline();
             mCarActive = new VehicleOnline();
-
         }
 
         /// <summary>
