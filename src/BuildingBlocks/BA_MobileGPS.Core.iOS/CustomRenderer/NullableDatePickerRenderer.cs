@@ -22,12 +22,6 @@ namespace BA_MobileGPS.Core.iOS.CustomRenderer
 
             if (e.NewElement != null && Control != null)
             {
-                if (UIDevice.CurrentDevice.CheckSystemVersion(13, 2))
-                {
-                    UIDatePicker picker = (UIDatePicker)Control.InputView;
-                    picker.PreferredDatePickerStyle = UIDatePickerStyle.Wheels;
-                }
-
                 AddClearButton();
 
                 Control.BorderStyle = UITextBorderStyle.Line;
