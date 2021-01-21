@@ -144,7 +144,7 @@
                 </Label>
                 <input:SfTextInputLayout ErrorText="{Binding UnitName.ErrorFirst}" HasError="{Binding UnitName.IsNotValid}">
                     <Entry
-                        MaxLength="12"
+                        MaxLength="500"
                         Placeholder="Nhập tên đơn vị"
                         Text="{Binding UnitName.Value}" />
                 </input:SfTextInputLayout>
