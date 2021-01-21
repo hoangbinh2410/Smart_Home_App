@@ -186,8 +186,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ValidationStringValue_OnChanged(object sender, string e)
         {
-            try
-            {
+
                 var obj = (ValidatableObject<string>)sender;
                 // Check chon xe chua?
                 if (currentVehicleId == 0 && ViewHasAppeared)
@@ -202,18 +201,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     obj.IsNotValid = false;
                     obj.Errors.Clear();
                 }
-            }
-            catch (Exception ex)
-            {
 
-
-            }
         }
 
         private void ValidationDateTimeValue_OnChanged(object sender, DateTime e)
         {
-            try
-            {
+
                 var obj = (ValidatableObject<DateTime>)sender;
                 // Check chon xe chua?
                 if (currentVehicleId == 0 && ViewHasAppeared)
@@ -228,12 +221,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     obj.IsNotValid = false;
                     obj.Errors.Clear();
                 }
-            }
-            catch (Exception ex)
-            {
 
-
-            }
         }
 
         private void SetValidationRule()
@@ -242,7 +230,7 @@ namespace BA_MobileGPS.Core.ViewModels
             InsuranceNumber.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
                 DangerousChar = "['\"<>/&]",
-                ValidationMessage = "Vui lòng nhập số bảo hiểm hợp lệ"
+                ValidationMessage = "Vui lòng không nhập [,',\",<,>,/, &,]"
             });
 
             RegistrationDate.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + "ngày đăng kí" });
@@ -254,19 +242,19 @@ namespace BA_MobileGPS.Core.ViewModels
             Contact.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
                 DangerousChar = "['\"<>/&]",
-                ValidationMessage = "Vui lòng nhập nơi liên hệ hợp lệ"
+                ValidationMessage = "Vui lòng không nhập [,',\",<,>,/, &,]"
             });
 
             Notes.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
                 DangerousChar = "['\"<>/&]",
-                ValidationMessage = "Vui lòng nhập ghi chú hợp lệ"
+                ValidationMessage = "Vui lòng không nhập [,',\",<,>,/, &,]"
             });
 
             UnitName.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
                 DangerousChar = "['\"<>/&]",
-                ValidationMessage = "Vui lòng nhập ghi chú hợp lệ"
+                ValidationMessage = "Vui lòng không nhập [,',\",<,>,/, &,]"
             });
         }
 
