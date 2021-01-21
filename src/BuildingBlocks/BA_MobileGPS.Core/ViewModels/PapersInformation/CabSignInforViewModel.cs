@@ -280,7 +280,14 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             DisplayMessage.ShowMessageSuccess("Cập nhật thông tin thành công");
                         }
-                        else DisplayMessage.ShowMessageError("Cập nhật thông tin thất bại");
+                        else
+                        {
+                            if (!string.IsNullOrEmpty(res?.ErrorMessenger))
+                            {
+                                DisplayMessage.ShowMessageError(res?.ErrorMessenger);
+                            }
+                            else DisplayMessage.ShowMessageError("Cập nhật thông tin thất bại");
+                        }
                     }
                     else
                     {
@@ -291,7 +298,14 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             DisplayMessage.ShowMessageSuccess("Thêm mới thông tin thành công");
                         }
-                        else DisplayMessage.ShowMessageError("Thêm mới thông tin thất bại");
+                        else
+                        {
+                            if (!string.IsNullOrEmpty(res?.ErrorMessenger))
+                            {
+                                DisplayMessage.ShowMessageError(res?.ErrorMessenger);
+                            }
+                            else DisplayMessage.ShowMessageError("Thêm mới thông tin thất bại");
+                        }
 
                     }
                 });
@@ -337,7 +351,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SignNumber.Value = string.Empty;
             RegistrationDate.Value = DateTime.Now;
             ExpireDate.Value = DateTime.Now;
-            DaysNumberForAlertAppear.Value = string.Empty;
+            DaysNumberForAlertAppear.Value = "3";
             Notes.Value = string.Empty;
 
             CreateButtonVisible = false;
@@ -347,7 +361,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SignNumber.Value = string.Empty;
             ExpireDate.Value = DateTime.Now;
-            DaysNumberForAlertAppear.Value = string.Empty;
+            DaysNumberForAlertAppear.Value = "3";
             Notes.Value = string.Empty;
 
             RegistrationDate.Value = oldInfor.ExpireDate.AddDays(1);

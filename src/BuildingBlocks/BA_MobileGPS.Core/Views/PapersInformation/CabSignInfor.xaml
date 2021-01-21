@@ -122,6 +122,7 @@
                     OutlineCornerRadius="20">
                     <Editor
                         HeightRequest="100"
+                        MaxLength="1000"
                         Placeholder="Nhập ghi chú"
                         Text="{Binding Notes.Value}" />
                 </input:SfTextInputLayout>
