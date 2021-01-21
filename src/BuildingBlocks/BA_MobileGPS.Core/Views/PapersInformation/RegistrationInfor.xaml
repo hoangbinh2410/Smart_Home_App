@@ -168,9 +168,8 @@
                         Placeholder="Nhập ghi chú"
                         Text="{Binding Notes.Value}" />
                 </input:SfTextInputLayout>
-                <Grid>
+                <Grid Margin="0,10,0,0">
                     <StackLayout
-                        Margin="0,10,0,0"
                         HorizontalOptions="Center"
                         Orientation="Horizontal"
                         Spacing="20">
