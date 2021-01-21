@@ -429,7 +429,7 @@ namespace VMS_MobileGPS.ViewModels
                     var polyline = new Polyline
                     {
                         IsClickable = false,
-                        StrokeColor = color,
+                        StrokeColor = color.MultiplyAlpha(.5),
                         StrokeWidth = 2f,
                         Tag = "POLYLINE"
                     };
