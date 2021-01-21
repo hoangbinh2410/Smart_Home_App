@@ -347,11 +347,12 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         else
                         {
-                            DisplayMessage.ShowMessageError("Cập nhật thông tin thất bại");
-                        } 
-                            
-                            
-                            
+                            if (!string.IsNullOrEmpty(res?.ErrorMessenger))
+                            {
+                                DisplayMessage.ShowMessageError(res?.ErrorMessenger);
+                            }
+                            else DisplayMessage.ShowMessageError("Cập nhật thông tin thất bại");
+                        }
                     }
                     else
                     {
@@ -361,7 +362,14 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             DisplayMessage.ShowMessageSuccess("Thêm mới thông tin thành công");
                         }
-                        else DisplayMessage.ShowMessageError("Thêm mới thông tin thất bại");
+                        else
+                        {
+                            if (!string.IsNullOrEmpty(res?.ErrorMessenger))
+                            {
+                                DisplayMessage.ShowMessageError(res?.ErrorMessenger);
+                            }
+                            else DisplayMessage.ShowMessageError("Thêm mới thông tin thất bại");
+                        }
 
                     }
                 });
@@ -486,7 +494,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             InsuranceNumber.Value = string.Empty;
             ExpireDate.Value = DateTime.Now;
-            DaysNumberForAlertAppear.Value = string.Empty;
+            DaysNumberForAlertAppear.Value = "3";
             SelectedInsuranceType.Value = null;
             InsuranceFee.Value = null;
             Contact.Value = string.Empty;
@@ -502,7 +510,7 @@ namespace BA_MobileGPS.Core.ViewModels
             RegistrationDate.Value = DateTime.Now;
             InsuranceNumber.Value = string.Empty;
             ExpireDate.Value = DateTime.Now;
-            DaysNumberForAlertAppear.Value = string.Empty;
+            DaysNumberForAlertAppear.Value = "3";
             SelectedInsuranceType.Value = null;
             InsuranceFee.Value = null;
             Contact.Value = string.Empty;
