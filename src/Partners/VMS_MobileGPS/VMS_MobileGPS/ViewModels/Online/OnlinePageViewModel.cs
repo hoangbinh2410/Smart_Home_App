@@ -28,16 +28,16 @@ namespace VMS_MobileGPS.ViewModels
         private readonly IUserLandmarkGroupService userLandmarkGroupService;
         public ICommand NavigateToSettingsCommand { get; private set; }
         public ICommand ChangeMapTypeCommand { get; private set; }
-        public ICommand PushToRouterPageCommand { get; private set; }      
+        public ICommand PushToRouterPageCommand { get; private set; }
         public ICommand PushDirectvehicleOnlineCommand { get; private set; }
         public DelegateCommand<CameraIdledEventArgs> CameraIdledCommand { get; private set; }
-        public DelegateCommand PushToDetailPageCommand { get; private set; }    
-        public DelegateCommand GoDistancePageCommand { get; private set; }             
+        public DelegateCommand PushToDetailPageCommand { get; private set; }
+        public DelegateCommand GoDistancePageCommand { get; private set; }
         public DelegateCommand PushToServicePackHistoryPageCommand { get; private set; }
         public bool IsCheckShowLandmark { get; set; } = false;
 
-        public OnlinePageViewModel(INavigationService navigationService, 
-            IUserLandmarkGroupService userLandmarkGroupService, 
+        public OnlinePageViewModel(INavigationService navigationService,
+            IUserLandmarkGroupService userLandmarkGroupService,
             IDetailVehicleService detailVehicleService)
             : base(navigationService)
         {
@@ -59,7 +59,7 @@ namespace VMS_MobileGPS.ViewModels
                 ColorMapType = (Color)App.Current.Resources["PrimaryColor"];
                 BackgroundMapType = (Color)App.Current.Resources["WhiteColor"];
             }
-     
+
             zoomLevel = MobileUserSettingHelper.Mapzoom;
             NavigateToSettingsCommand = new DelegateCommand(NavigateToSettings);
             ChangeMapTypeCommand = new DelegateCommand(ChangeMapType);
@@ -403,9 +403,19 @@ namespace VMS_MobileGPS.ViewModels
             TryExecute(() =>
             {
                 var result = boundary.Polygon.Split(',');
-
-                var color = Color.FromHex(StringHelper.ConvertIntToHex(boundary.Color));
-
+                var color = Color.Blue;
+                if (boundary.PK_LandmarkID == 376650)
+                {
+                    color = Color.Red;
+                }
+                else if (boundary.PK_LandmarkID == 376651)
+                {
+                    color = Color.Blue;
+                }
+                else if (boundary.PK_LandmarkID == 376652)
+                {
+                    color = Color.Green;
+                }
                 if (boundary.IsClosed)
                 {
                     var polygon = new Polygon
@@ -498,7 +508,7 @@ namespace VMS_MobileGPS.ViewModels
                         { ParameterKey.VehicleOnline, carActive }
                     };
                     EventAggregator.GetEvent<BackButtonEvent>().Publish(true);
-                   var a = await NavigationService.SelectTabAsync("RoutePageVMS", parameters);
+                    var a = await NavigationService.SelectTabAsync("RoutePageVMS", parameters);
                 }
                 else
                 {
@@ -628,7 +638,7 @@ namespace VMS_MobileGPS.ViewModels
                 }
             });
         }
-      
+
 
         private void GoServicePackHistoryPage()
         {
