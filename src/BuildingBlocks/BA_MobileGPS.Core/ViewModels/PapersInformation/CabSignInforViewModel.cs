@@ -230,7 +230,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
 
-
             //Check ngày đăng kí > ngày hết hạn
             var outDateRule = true;
             if (RegistrationDate.Value >= ExpireDate.Value)
@@ -240,8 +239,21 @@ namespace BA_MobileGPS.Core.ViewModels
                 outDateRule = false;
             }
 
+            //Check ngày đăng kí mới và ngày hết hạn cũ
+            var oldExpireDayRule = true;
+            if (!IsUpdateForm && oldInfor != null)
+            {
+                var oldExpireDay = oldInfor.ExpireDate;
+                if (RegistrationDate.Value <= oldExpireDay)
+                {
+                    RegistrationDate.IsNotValid = true;
+                    RegistrationDate.ErrorFirst = "Ngày đăng kí mới > ngày hết hạn giấy tờ gần nhất";
+                    oldExpireDayRule = false;
+                }
+            }
+
             return (insuranceNum && dateRegis && dateExp && dayPrepareAlert
-                 && note && newRule && outDateRule);
+                 && note && newRule && outDateRule && oldExpireDayRule);
         }
 
         private void SaveSignInfor()
