@@ -47,8 +47,6 @@
     <Compile Include="CustomRenderer\EntryMinusRenderer.cs" />
     <Compile Include="CustomRenderer\FrameShadowRenderer.cs" />
     <Compile Include="CustomRenderer\IconViewRenderer.cs" />
-    <Compile Include="CustomRenderer\MyTimePickerRenderer.cs" />
-    <Compile Include="CustomRenderer\MyDatePickerRenderer.cs" />
     <Compile Include="CustomRenderer\NullableDatePickerRenderer.cs" />
     <Compile Include="CustomRenderer\TabbedPageExRenderer.cs" />
     <Compile Include="CustomRenderer\ZoomImageRenderer.cs" />
@@ -150,7 +148,7 @@
       <Version>2.4.11.982</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>5.0.0.1874</Version>
+      <Version>5.0.0.1905</Version>
     </PackageReference>
     <PackageReference Include="Com.OneSignal">
       <Version>3.10.3</Version>

@@ -26,4 +26,24 @@ namespace BA_MobileGPS.Core
             return value;
         }
     }
+
+    public class HasPermisstionCameraConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+            //if null then not visible
+            if (value != null)
+            {
+                return StaticSettings.User.Permissions.IndexOf((int)PermissionKeyNames.AdminUtilityImageView) != -1;
+            }
+            else
+                return false;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
 }
