@@ -390,7 +390,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             ExpireDate.Value = paper.PaperInfo.ExpireDate;
                             DaysNumberForAlertAppear.Value = paper.PaperInfo.DayOfAlertBefore.ToString();
                             SelectedInsuranceType.Value = listInsuranceType.FirstOrDefault(x => x.Id == paper.FK_InsuranceCategoryID);
-                            InsuranceFee.Value = paper.Cost?.ToString("N0", CultureInfo.CreateSpecificCulture("sv-SE"));
+                            InsuranceFee.Value = paper.Cost?.ToString("G0");
                             Contact.Value = paper.Contact;
                             Notes.Value = paper.PaperInfo.Description;
                             UnitName.Value = paper.WarrantyCompany;
@@ -425,7 +425,7 @@ namespace BA_MobileGPS.Core.ViewModels
             res.FK_InsuranceCategoryID = SelectedInsuranceType.Value?.Id;
             if (!string.IsNullOrEmpty(InsuranceFee.Value))
             {
-                res.Cost = Convert.ToDecimal(InsuranceFee.Value.Replace(" ",""));
+                res.Cost = Convert.ToDecimal(InsuranceFee.Value.Trim());
             }          
 
             res.Contact = Contact.Value;

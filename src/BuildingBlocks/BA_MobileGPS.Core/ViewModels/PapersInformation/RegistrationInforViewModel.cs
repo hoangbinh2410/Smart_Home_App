@@ -356,7 +356,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         DaysNumberForAlertAppear.Value = paper.PaperInfo.DayOfAlertBefore.ToString();
                         Notes.Value = paper.PaperInfo.Description;
                         UnitName.Value = paper.WarrantyCompany;
-                        RegistrationFee.Value = paper.Cost?.ToString("N0", CultureInfo.CreateSpecificCulture("sv-SE"));
+                        RegistrationFee.Value = paper.Cost?.ToString("G0");
                     });
                     if (DateTime.Now > paper.PaperInfo.ExpireDate)
                     {
@@ -413,7 +413,7 @@ namespace BA_MobileGPS.Core.ViewModels
             };     
             if (!string.IsNullOrEmpty(RegistrationFee.Value))
             {
-                res.Cost = Convert.ToDecimal(RegistrationFee.Value.Replace(" ", ""));
+                res.Cost = Convert.ToDecimal(RegistrationFee.Value);
             }
             res.WarrantyCompany = UnitName.Value;
 

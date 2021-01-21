@@ -182,7 +182,7 @@
                 </Label>
                 <input:SfTextInputLayout ErrorText="{Binding UnitName.ErrorFirst}" HasError="{Binding UnitName.IsNotValid}">
                     <Entry
-                        MaxLength="12"
+                        MaxLength="500"
                         Placeholder="Nhập tên đơn vị"
                         Text="{Binding UnitName.Value}" />
                 </input:SfTextInputLayout>
@@ -196,7 +196,7 @@
                 </Label>
                 <input:SfTextInputLayout ErrorText="{Binding Contact.ErrorFirst}" HasError="{Binding Contact.IsNotValid}">
                     <Entry
-                        MaxLength="12"
+                        MaxLength="500"
                         Placeholder="Nhập thông tin liên hệ"
                         Text="{Binding Contact.Value}" />
                 </input:SfTextInputLayout>
