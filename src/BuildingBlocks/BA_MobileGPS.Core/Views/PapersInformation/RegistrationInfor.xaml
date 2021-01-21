@@ -119,20 +119,22 @@
                 <input:SfTextInputLayout
                     ErrorText="{Binding RegistrationFee.ErrorFirst}"
                     HasError="{Binding RegistrationFee.IsNotValid}"
+                    TrailingViewPosition="Inside"
                     VerticalOptions="Start">
-                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                        <Entry
-                            HorizontalOptions="FillAndExpand"
-                            Keyboard="Numeric"
-                            MaxLength="15"
-                            Placeholder="Nhập số tiền"
-                            Text="{Binding RegistrationFee.Value}" />
+                    <Entry
+                        HorizontalOptions="FillAndExpand"
+                        Keyboard="Numeric"
+                        MaxLength="15"
+                        Placeholder="Nhập số tiền"
+                        Text="{Binding RegistrationFee.Value}" />
+                    <input:SfTextInputLayout.TrailingView>
                         <Label
-                            Margin="10,0"
+                            Margin="0,0,10,0"
                             HorizontalOptions="End"
                             Text="VNĐ"
-                            VerticalOptions="Center" />
-                    </StackLayout>
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center" />
+                    </input:SfTextInputLayout.TrailingView>
                 </input:SfTextInputLayout>
                 <!--  Đơn vị  -->
                 <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">

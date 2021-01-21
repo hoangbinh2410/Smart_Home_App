@@ -12,6 +12,7 @@ namespace BA_MobileGPS.Entities.ResponeEntity
     public class PapersIdResponse
     {
         public Guid PK_PaperInfoID { get; set; }
+        public string ErrorMessenger { get; set; }
     }
 
     public class BasePaperInforResponse : ResponseBaseV2<BasePaperInfor>
