@@ -96,10 +96,12 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return expireDate; }
             set { SetProperty(ref expireDate, value); }
         }
+        /// <summary>
+        /// Type int, dùng string thay thế do có lỗi với ValidatableObject
+        /// </summary>
+        private ValidatableObject<string> daysNumberForAlertAppear;
 
-        private ValidatableObject<int> daysNumberForAlertAppear;
-
-        public ValidatableObject<int> DaysNumberForAlertAppear
+        public ValidatableObject<string> DaysNumberForAlertAppear
         {
             get { return daysNumberForAlertAppear; }
             set { SetProperty(ref daysNumberForAlertAppear, value); }
@@ -131,40 +133,26 @@ namespace BA_MobileGPS.Core.ViewModels
             RegistrationDate.OnChanged += ValidationDateTimeValue_OnChanged;
             ExpireDate = new ValidatableObject<DateTime>();
             ExpireDate.OnChanged += ValidationDateTimeValue_OnChanged;
-            DaysNumberForAlertAppear = new ValidatableObject<int>();
-            DaysNumberForAlertAppear.OnChanged += ValidationIntValue_OnChanged;
+            DaysNumberForAlertAppear = new ValidatableObject<string>();
+            DaysNumberForAlertAppear.OnChanged += ValidationStringValue_OnChanged;
             Notes = new ValidatableObject<string>();
             Notes.OnChanged += ValidationStringValue_OnChanged;
 
             SetValidationRule();
         }
 
-        private void ValidationIntValue_OnChanged(object sender, int e)
-        {
-            // Check chon xe chua?
-            if (currentVehicleId == 0 && ViewHasAppeared)
-            {
-                DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
-            }
-            // Clear validation
-            var obj = (ValidatableObject<int>)sender;
-            if (obj.IsNotValid)
-            {
-                obj.IsNotValid = false;
-                obj.Errors.Clear();
-            }
-        }
 
         private void ValidationStringValue_OnChanged(object sender, string e)
         {
-
+            var obj = (ValidatableObject<string>)sender;
             // Check chon xe chua?
             if (currentVehicleId == 0 && ViewHasAppeared)
             {
-                DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
+                obj.IsNotValid = true;
+                obj.ErrorFirst = "Vui lòng chọn xe trước khi nhập dữ liệu";
+                return;
             }
-            // Clear validation
-            var obj = (ValidatableObject<string>)sender;
+           
             if (obj.IsNotValid)
             {
                 obj.IsNotValid = false;
@@ -174,13 +162,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ValidationDateTimeValue_OnChanged(object sender, DateTime e)
         {
+            var obj = (ValidatableObject<DateTime>)sender;
             // Check chon xe chua?
             if (currentVehicleId == 0 && ViewHasAppeared)
             {
-                DisplayMessage.ShowMessageWarning("Vui lòng chọn xe trước khi nhập dữ liệu");
+                obj.IsNotValid = true;
+                obj.ErrorFirst = "Vui lòng chọn xe trước khi nhập dữ liệu";
+                return;
             }
-            // Clear validation
-            var obj = (ValidatableObject<DateTime>)sender;
+
             if (obj.IsNotValid)
             {
                 obj.IsNotValid = false;
@@ -201,7 +191,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             ExpireDate.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + "ngày hết hạn" });
 
-            DaysNumberForAlertAppear.Validations.Add(new IntMinValueRule<int>() { ValidationMessage = NotEmptyMessenge + "số ngày cảnh báo trước", MinValue = 1 });
+            DaysNumberForAlertAppear.Validations.Add(new IntMinValueRule<string>() { ValidationMessage = NotEmptyMessenge + "số ngày cảnh báo trước", MinValue = 1 });
 
             Notes.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
@@ -228,6 +218,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SaveSignInfor()
         {
+            if (currentVehicleId == 0)
+            {
+                DisplayMessage.ShowMessageError("Vui lòng chọn biển số phương tiện");
+                return;
+            }
+
             if (Validate())
             {
                 var data = GetFormData();
@@ -278,7 +274,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         SignNumber.Value = paper.PaperNumber;
                         RegistrationDate.Value = paper.DateOfIssue;
                         ExpireDate.Value = paper.ExpireDate;
-                        DaysNumberForAlertAppear.Value = paper.DayOfAlertBefore;
+                        DaysNumberForAlertAppear.Value = paper.DayOfAlertBefore.ToString();
                         Notes.Value = paper.Description;
                     });
                     if (DateTime.Now > paper.ExpireDate)
@@ -288,7 +284,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else if (paper.ExpireDate.AddDays(-CompanyConfigurationHelper.DayAllowRegister) <= DateTime.Now)
                     {
-                        AlertMessenger = string.Format("<font color=#FFF766>{0}</font>", MobileResource.PaperInfor_Msg_NearExpire);
+                        AlertMessenger = string.Format("<font color=#F99B09>{0}</font>", MobileResource.PaperInfor_Msg_NearExpire);
                         CreateButtonVisible = true;
                     }
                 }
@@ -299,9 +295,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private void ClearData()
         {
             SignNumber.Value = string.Empty;
-            RegistrationDate.Value = DateTime.MinValue;
-            ExpireDate.Value = DateTime.MinValue;
-            DaysNumberForAlertAppear.Value = 3;
+            RegistrationDate.Value = DateTime.Now;
+            ExpireDate.Value = DateTime.Now;
+            DaysNumberForAlertAppear.Value = string.Empty;
             Notes.Value = string.Empty;
 
             CreateButtonVisible = false;
@@ -310,12 +306,13 @@ namespace BA_MobileGPS.Core.ViewModels
         private void ChangeToInsertForm()
         {
             SignNumber.Value = string.Empty;
-            ExpireDate.Value = DateTime.MinValue;
-            DaysNumberForAlertAppear.Value = 3;
+            ExpireDate.Value = DateTime.Now;
+            DaysNumberForAlertAppear.Value = string.Empty;
             Notes.Value = string.Empty;
 
             RegistrationDate.Value = oldInfor.ExpireDate.AddDays(1);
             CreateButtonVisible = false;
+            IsUpdateForm = false;
         }
 
         private PaperCabSignInforRequest GetFormData()
@@ -325,7 +322,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 PaperNumber = SignNumber.Value,
                 DateOfIssue = RegistrationDate.Value,
                 ExpireDate = ExpireDate.Value,
-                DayOfAlertBefore = DaysNumberForAlertAppear.Value,
+                DayOfAlertBefore = Convert.ToInt32(DaysNumberForAlertAppear.Value.Trim()),
                 Description = Notes.Value
             };
         }

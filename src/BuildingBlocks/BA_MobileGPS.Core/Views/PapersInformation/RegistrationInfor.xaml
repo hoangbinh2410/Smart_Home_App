@@ -37,14 +37,14 @@
                     VerticalOptions="Start">
                     <Entry
                         MaxLength="100"
-                        Placeholder="Nhập số bảo hiểm"
+                        Placeholder="Nhập mã số đăng kiểm"
                         Text="{Binding IdentityCode.Value}" />
                 </input:SfTextInputLayout>
                 <!--  Ngày đăng kí  -->
                 <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="Ngày đăng kí" TextColor="{DynamicResource TextPrimaryColor}" />
+                            <Span Text="Ngày đăng ký" TextColor="{DynamicResource TextPrimaryColor}" />
                             <Span Text=" (*)" TextColor="{DynamicResource DangerousColor}" />
                         </FormattedString>
                     </Label.FormattedText>
@@ -130,7 +130,7 @@
                         <Label
                             Margin="10,0"
                             HorizontalOptions="End"
-                            Text="VND"
+                            Text="VNĐ"
                             VerticalOptions="Center" />
                     </StackLayout>
                 </input:SfTextInputLayout>

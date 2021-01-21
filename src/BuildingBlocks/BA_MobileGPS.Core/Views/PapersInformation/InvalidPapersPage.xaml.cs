@@ -32,7 +32,7 @@ namespace BA_MobileGPS.Core.Views
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        papersName.Text = string.Format("Nhập thông tin {0}", paper.PaperName);
+                        papersName.Text =  paper.PaperName;
                         currentPageType = (PaperCategoryTypeEnum)paper.PaperCategoryType;
                         switch (currentPageType)
                         {
