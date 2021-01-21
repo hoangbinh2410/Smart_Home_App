@@ -311,7 +311,14 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             DisplayMessage.ShowMessageSuccess("Cập nhật thông tin thành công");
                         }
-                        else DisplayMessage.ShowMessageError("Cập nhật thông tin thất bại");
+                        else
+                        {
+                            if (!string.IsNullOrEmpty(res?.ErrorMessenger))
+                            {
+                                DisplayMessage.ShowMessageError(res?.ErrorMessenger);
+                            }
+                            else DisplayMessage.ShowMessageError("Cập nhật thông tin thất bại");
+                        }
                     }
                     else
                     {
@@ -321,7 +328,14 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             DisplayMessage.ShowMessageSuccess("Thêm mới thông tin thành công");
                         }
-                        else DisplayMessage.ShowMessageError("Thêm mới thông tin thất bại");
+                        else
+                        {
+                            if (!string.IsNullOrEmpty(res?.ErrorMessenger))
+                            {
+                                DisplayMessage.ShowMessageError(res?.ErrorMessenger);
+                            }
+                            else DisplayMessage.ShowMessageError("Thêm mới thông tin thất bại");
+                        }
 
                     }
                 });
@@ -372,12 +386,12 @@ namespace BA_MobileGPS.Core.ViewModels
                         UnitName.Value = paper.WarrantyCompany;
                         RegistrationFee.Value = paper.Cost?.ToString("G0");
                     });
-                    if (DateTime.Now > paper.PaperInfo.ExpireDate)
+                    if (DateTime.Now.Date > paper.PaperInfo.ExpireDate.Date)
                     {
                         AlertMessenger = string.Format("<font color=#E65353>{0}</font>", MobileResource.PaperInfor_Msg_Expired);
                         CreateButtonVisible = true;
                     }
-                    else if (paper.PaperInfo.ExpireDate.AddDays(-CompanyConfigurationHelper.DayAllowRegister) <= DateTime.Now)
+                    else if (paper.PaperInfo.ExpireDate.Date.AddDays(-CompanyConfigurationHelper.DayAllowRegister) <= DateTime.Now.Date)
                     {
                         AlertMessenger = string.Format("<font color=#F99B09>{0}</font>", MobileResource.PaperInfor_Msg_NearExpire);
                         CreateButtonVisible = true;
@@ -392,7 +406,7 @@ namespace BA_MobileGPS.Core.ViewModels
             IdentityCode.Value = string.Empty;
             RegistrationDate.Value = DateTime.Now;
             ExpireDate.Value = DateTime.Now;
-            DaysNumberForAlertAppear.Value = string.Empty;
+            DaysNumberForAlertAppear.Value = "3";
             RegistrationFee.Value = string.Empty;
             Notes.Value = string.Empty;
             UnitName.Value = string.Empty;
@@ -403,7 +417,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             IdentityCode.Value = string.Empty;
             ExpireDate.Value = DateTime.Now;
-            DaysNumberForAlertAppear.Value = string.Empty;
+            DaysNumberForAlertAppear.Value = "3";
             RegistrationFee.Value = string.Empty;
             Notes.Value = string.Empty;
             UnitName.Value = string.Empty;
