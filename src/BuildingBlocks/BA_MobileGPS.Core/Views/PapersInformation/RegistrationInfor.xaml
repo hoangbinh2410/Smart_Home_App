@@ -3,8 +3,9 @@
     x:Class="BA_MobileGPS.Core.Views.RegistrationInfor"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:abstractions="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
-    xmlns:prism="http://prismlibrary.com" xmlns:abstractions="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
+    xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentView.Resources>
         <Style TargetType="input:SfTextInputLayout">
@@ -36,14 +37,14 @@
                     VerticalOptions="Start">
                     <Entry
                         MaxLength="100"
-                        Placeholder="Nhập số bảo hiểm"
+                        Placeholder="Nhập mã số đăng kiểm"
                         Text="{Binding IdentityCode.Value}" />
                 </input:SfTextInputLayout>
                 <!--  Ngày đăng kí  -->
                 <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="Ngày đăng kí" TextColor="{DynamicResource TextPrimaryColor}" />
+                            <Span Text="Ngày đăng ký" TextColor="{DynamicResource TextPrimaryColor}" />
                             <Span Text=" (*)" TextColor="{DynamicResource DangerousColor}" />
                         </FormattedString>
                     </Label.FormattedText>
@@ -129,7 +130,7 @@
                         <Label
                             Margin="10,0"
                             HorizontalOptions="End"
-                            Text="VND"
+                            Text="VNĐ"
                             VerticalOptions="Center" />
                     </StackLayout>
                 </input:SfTextInputLayout>
@@ -143,7 +144,7 @@
                 </Label>
                 <input:SfTextInputLayout ErrorText="{Binding UnitName.ErrorFirst}" HasError="{Binding UnitName.IsNotValid}">
                     <Entry
-                        MaxLength="12"
+                        MaxLength="500"
                         Placeholder="Nhập tên đơn vị"
                         Text="{Binding UnitName.Value}" />
                 </input:SfTextInputLayout>
@@ -172,6 +173,7 @@
                         <Button
                             Margin="10"
                             Command="{Binding SaveRegistrationInforCommand}"
+                            CornerRadius="20"
                             HeightRequest="40"
                             HorizontalOptions="Center"
                             Text="Lưu"
@@ -181,6 +183,7 @@
                             Margin="10"
                             BackgroundColor="#00ADE5"
                             Command="{Binding ChangeToInsertFormCommand}"
+                            CornerRadius="20"
                             HeightRequest="40"
                             HorizontalOptions="Center"
                             IsVisible="{Binding CreateButtonVisible}"

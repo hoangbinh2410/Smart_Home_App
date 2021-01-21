@@ -28,7 +28,7 @@
                 <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="Số bảo hiểm" TextColor="{DynamicResource TextPrimaryColor}" />
+                            <Span Text="Mã số" TextColor="{DynamicResource TextPrimaryColor}" />
                             <Span Text=" (*)" TextColor="OrangeRed" />
                         </FormattedString>
                     </Label.FormattedText>
@@ -39,14 +39,14 @@
                     VerticalOptions="Start">
                     <Entry
                         MaxLength="100"
-                        Placeholder="Nhập số bảo hiểm"
+                        Placeholder="Nhập mã số giấy tờ"
                         Text="{Binding InsuranceNumber.Value}" />
                 </input:SfTextInputLayout>
                 <!--  Ngày đăng kí  -->
                 <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="Ngày đăng kí" TextColor="{DynamicResource TextPrimaryColor}" />
+                            <Span Text="Ngày đăng ký" TextColor="{DynamicResource TextPrimaryColor}" />
                             <Span Text=" (*)" TextColor="{DynamicResource DangerousColor}" />
                         </FormattedString>
                     </Label.FormattedText>
@@ -115,6 +115,7 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="Loại bảo hiểm" TextColor="{DynamicResource TextPrimaryColor}" />
+                            <Span Text=" (*)" TextColor="OrangeRed" />
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
@@ -129,7 +130,8 @@
                             HorizontalTextAlignment="Start"
                             ItemDisplayBinding="{Binding CategoryName}"
                             ItemsSource="{Binding ListInsuranceType}"
-                            SelectedItem="{Binding SelectedInsuranceType.Value}">
+                            SelectedItem="{Binding SelectedInsuranceType.Value}"
+                            TitleColor="{DynamicResource TextPrimaryColor}">
                             <Picker.Effects>
                                 <effects:BorderlessEffect />
                             </Picker.Effects>
@@ -166,7 +168,7 @@
                         <Label
                             Margin="10,0"
                             HorizontalOptions="End"
-                            Text="VND"
+                            Text="VNĐ"
                             VerticalOptions="Center" />
                     </StackLayout>
                 </input:SfTextInputLayout>
@@ -180,7 +182,7 @@
                 </Label>
                 <input:SfTextInputLayout ErrorText="{Binding UnitName.ErrorFirst}" HasError="{Binding UnitName.IsNotValid}">
                     <Entry
-                        MaxLength="12"
+                        MaxLength="500"
                         Placeholder="Nhập tên đơn vị"
                         Text="{Binding UnitName.Value}" />
                 </input:SfTextInputLayout>
@@ -194,7 +196,7 @@
                 </Label>
                 <input:SfTextInputLayout ErrorText="{Binding Contact.ErrorFirst}" HasError="{Binding Contact.IsNotValid}">
                     <Entry
-                        MaxLength="12"
+                        MaxLength="500"
                         Placeholder="Nhập thông tin liên hệ"
                         Text="{Binding Contact.Value}" />
                 </input:SfTextInputLayout>
@@ -223,6 +225,7 @@
                         <Button
                             Margin="10"
                             Command="{Binding SaveInsuranceInforCommand}"
+                            CornerRadius="20"
                             HeightRequest="40"
                             HorizontalOptions="Center"
                             Text="Lưu"
@@ -232,6 +235,7 @@
                             Margin="10"
                             BackgroundColor="#00ADE5"
                             Command="{Binding ChangeToInsertFormCommand}"
+                            CornerRadius="20"
                             HeightRequest="40"
                             HorizontalOptions="Center"
                             IsVisible="{Binding CreateButtonVisible}"
