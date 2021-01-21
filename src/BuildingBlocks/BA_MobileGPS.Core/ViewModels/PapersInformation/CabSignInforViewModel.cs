@@ -297,6 +297,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (res?.PK_PaperInfoID != new Guid())
                         {
                             DisplayMessage.ShowMessageSuccess("Thêm mới thông tin thành công");
+                            ClearData();
                         }
                         else
                         {
@@ -342,7 +343,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         CreateButtonVisible = true;
                     }
                 }
-                else ClearData();
+               
             });
         }
 
