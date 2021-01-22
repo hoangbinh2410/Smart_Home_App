@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentView
-    x:Class="BA_MobileGPS.Core.Views.CabSignInfor"
+    x:Class="BA_MobileGPS.Core.Views.RegistrationInfor"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:abstractions="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
@@ -22,29 +22,29 @@
                     HorizontalOptions="Start"
                     IsVisible="{Binding CreateButtonVisible}"
                     Text="{Binding AlertMessenger}" />
-                <!--  Số phù hiệu  -->
+                <!--  Mã số  -->
                 <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="Số phù hiệu" TextColor="{DynamicResource TextPrimaryColor}" />
+                            <Span Text="Mã số " TextColor="{DynamicResource TextPrimaryColor}" />
                             <Span Text=" (*)" TextColor="OrangeRed" />
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
                 <input:SfTextInputLayout
-                    ErrorText="{Binding SignNumber.ErrorFirst}"
-                    HasError="{Binding SignNumber.IsNotValid}"
+                    ErrorText="{Binding IdentityCode.ErrorFirst}"
+                    HasError="{Binding IdentityCode.IsNotValid}"
                     VerticalOptions="Start">
                     <Entry
                         MaxLength="100"
-                        Placeholder="Nhập số phù hiệu"
-                        Text="{Binding SignNumber.Value}" />
+                        Placeholder="Nhập mã số đăng kiểm"
+                        Text="{Binding IdentityCode.Value}" />
                 </input:SfTextInputLayout>
                 <!--  Ngày đăng kí  -->
                 <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="Ngày đăng kí" TextColor="{DynamicResource TextPrimaryColor}" />
+                            <Span Text="Ngày đăng ký" TextColor="{DynamicResource TextPrimaryColor}" />
                             <Span Text=" (*)" TextColor="{DynamicResource DangerousColor}" />
                         </FormattedString>
                     </Label.FormattedText>
@@ -108,6 +108,48 @@
                         Placeholder="Nhập số ngày cảnh báo trước"
                         Text="{Binding DaysNumberForAlertAppear.Value}" />
                 </input:SfTextInputLayout>
+                <!--  Số tiền  -->
+                <Label HorizontalOptions="Start" VerticalOptions="Start">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Số tiền" TextColor="{DynamicResource TextPrimaryColor}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <input:SfTextInputLayout
+                    ErrorText="{Binding RegistrationFee.ErrorFirst}"
+                    HasError="{Binding RegistrationFee.IsNotValid}"
+                    TrailingViewPosition="Inside"
+                    VerticalOptions="Start">
+                    <Entry
+                        HorizontalOptions="FillAndExpand"
+                        Keyboard="Numeric"
+                        MaxLength="15"
+                        Placeholder="Nhập số tiền"
+                        Text="{Binding RegistrationFee.Value}" />
+                    <input:SfTextInputLayout.TrailingView>
+                        <Label
+                            Margin="0,0,10,0"
+                            HorizontalOptions="End"
+                            Text="VNĐ"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center" />
+                    </input:SfTextInputLayout.TrailingView>
+                </input:SfTextInputLayout>
+                <!--  Đơn vị  -->
+                <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Đơn vị" TextColor="{DynamicResource TextPrimaryColor}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <input:SfTextInputLayout ErrorText="{Binding UnitName.ErrorFirst}" HasError="{Binding UnitName.IsNotValid}">
+                    <Entry
+                        MaxLength="500"
+                        Placeholder="Nhập tên đơn vị"
+                        Text="{Binding UnitName.Value}" />
+                </input:SfTextInputLayout>
                 <!--  Ghi chú  -->
                 <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                     <Label.FormattedText>
@@ -126,13 +168,13 @@
                         Placeholder="Nhập ghi chú"
                         Text="{Binding Notes.Value}" />
                 </input:SfTextInputLayout>
-                <Grid>
+                <Grid Margin="0,10,0,0">
                     <StackLayout
                         HorizontalOptions="Center"
                         Orientation="Horizontal"
                         Spacing="20">
                         <Button
-                            Command="{Binding SaveCabSignInforCommand}"
+                            Command="{Binding SaveRegistrationInforCommand}"
                             CornerRadius="20"
                             HeightRequest="40"
                             HorizontalOptions="Center"
@@ -165,7 +207,6 @@
                             WidthRequest="150" />
                     </StackLayout>
                 </Grid>
-
             </StackLayout>
 
         </ScrollView>
