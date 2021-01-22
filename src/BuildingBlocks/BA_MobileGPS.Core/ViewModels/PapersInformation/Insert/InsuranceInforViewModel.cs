@@ -284,7 +284,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 ValidationMessage = "Vui lòng không nhập [,',\",<,>,/, &,]"
             });
             UnitName.Validations.Add(new MaxLengthRule<string>() { MaxLenght = 500, ValidationMessage = "Không nhập quá 500 kí tự" });
-            SelectedInsuranceType.Validations.Add(new IsNotNullObjectRule<InsuranceCategory>() { ValidationMessage = NotEmptyMessenge + "loại bảo hiểm" });
+            SelectedInsuranceType.Validations.Add(new IsNotNullObjectRule<InsuranceCategory>() { ValidationMessage = MobileResource.ListDriver_Messenger_NotSelect + "loại bảo hiểm" });
         }
 
         /// <summary>
