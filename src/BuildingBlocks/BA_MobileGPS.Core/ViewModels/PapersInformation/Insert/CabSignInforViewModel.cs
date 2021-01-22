@@ -344,8 +344,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var paper = await paperinforService.GetLastPaperSignByVehicleId(companyId, vehicleId);
                 if (paper != null)
-                {
-                   
+                {                   
                     oldInfor = paper;
                     IsUpdateForm = true;
                     Device.BeginInvokeOnMainThread(() =>
@@ -369,7 +368,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         CreateButtonVisible = true;
                     }
                 }
-                
+                else ClearData();
             });
         }
 
