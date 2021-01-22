@@ -234,13 +234,16 @@
 	  <EmbeddedResource Update="Views\Driver\ListDriverPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\PapersInformation\CabSignInfor.xaml">
+	  <EmbeddedResource Update="Views\PapersInformation\ListPapersPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\PapersInformation\InsuranceInfor.xaml">
+	  <EmbeddedResource Update="Views\PapersInformation\Insert\CabSignInfor.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\PapersInformation\InvalidPapersPage.xaml">
+	  <EmbeddedResource Update="Views\PapersInformation\Insert\InsuranceInfor.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\PapersInformation\Insert\InvalidPapersPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\ListVehicle\ListVehicleHelpPage.xaml">
@@ -337,7 +340,7 @@
 	  <EmbeddedResource Update="Views\Online\OnlinePage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\PapersInformation\RegistrationInfor.xaml">
+	  <EmbeddedResource Update="Views\PapersInformation\Insert\RegistrationInfor.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\PartialView\TitleBarView.xaml">

@@ -207,8 +207,9 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<AddDriverInforPage, InsertOrUpdateDriverPageViewModel>("AddDriverInfoPage");
             containerRegistry.RegisterForNavigation<DetailAndEditDriverPage, InsertOrUpdateDriverPageViewModel>("DetailAndEditDriverPage");
 
-            containerRegistry.RegisterForNavigation<InvalidPapersPage, InvalidPapersPageViewModel>();
-            containerRegistry.RegisterForNavigation<SelectPaperTypePage, SelectPaperTypePageViewModel>();
+            containerRegistry.RegisterForNavigation<InvalidPapersPage, InvalidPapersPageViewModel>("InvalidPapersPage");
+            containerRegistry.RegisterForNavigation<SelectPaperTypePage, SelectPaperTypePageViewModel>("SelectPaperTypePage");
+            containerRegistry.RegisterForNavigation<ListPapersPage, ListPapersPageViewModel>("ListPapersPage");
         }
     }
 }
