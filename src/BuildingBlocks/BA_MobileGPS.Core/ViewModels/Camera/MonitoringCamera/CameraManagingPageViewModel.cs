@@ -412,7 +412,7 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </summary>
         public ICommand ReLoadCommand { get; }
 
-        private void Reload(object obj)
+        private async void Reload(object obj)
         {
             try
             {
@@ -421,11 +421,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (item.Data != null)
                     {
                         item.Clear();
-                        RunOnBackground(async () =>
-                        {
-                            await RequestStartCam(item.Data.Channel, false);
-                        });
-                        item.SetMedia(item.Data.Link);
+
+                        await RequestStartCam(item.Data.Channel, false);
+                        item.StartWorkUnit(Vehicle.VehiclePlate);
                     }
                 }
             }
@@ -518,15 +516,9 @@ namespace BA_MobileGPS.Core.ViewModels
             var startResponse = camResponse?.Data?.FirstOrDefault();
             if (startResponse != null)
             {
-                // Gửi 1 request ping để chắc chắn lúc đầu là 10p
-                SendRequestTime(maxTimeCameraRemain, startResponse.Channel);
                 if (initMedia)
                 {
-                    result = new CameraManagement(maxLoadingTime, libVLC);
-                    if (result.Data != null)
-                    {
-                        result.Data = null;
-                    }
+                    result = new CameraManagement(maxLoadingTime, libVLC, _streamCameraService);
                     result.Data = startResponse;
                 }
             }
@@ -558,7 +550,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         foreach (var item in cameraActive)
                         {
                             var res = await RequestStartCam(item.Channel);
-                            res.SetMedia(res.Data.Link);
+                            // Check status
+                            res.StartWorkUnit(vehicle.VehiclePlate);
                             listCam.Add(res);
                         }
                         SetItemsSource(listCam);
