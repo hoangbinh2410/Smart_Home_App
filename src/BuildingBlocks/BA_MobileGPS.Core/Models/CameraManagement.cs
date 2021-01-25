@@ -12,6 +12,11 @@ using System.Timers;
 using Xamarin.Forms;
 using Timer = System.Timers.Timer;
 using BA_MobileGPS.Core.Events;
+using BA_MobileGPS.Service.IService;
+using System.Threading.Tasks;
+using System.Linq;
+using BA_MobileGPS.Utilities;
+using BA_MobileGPS.Core.Extensions;
 
 namespace BA_MobileGPS.Core.Models
 {
@@ -21,9 +26,14 @@ namespace BA_MobileGPS.Core.Models
         private Timer countLoadingTimer;
         private int counter { get; set; } // timer counter
         private bool internalError { get; set; }
+        private bool loadingErr { get; set; }
+        private readonly IStreamCameraService streamCameraService;
 
-        public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC)
+
+        public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC,
+            IStreamCameraService streamCameraService)
         {
+            this.streamCameraService = streamCameraService;
             maxLoadingTime = maxTimeLoadingMedia;
             this.LibVLC = libVLC;
             InitMediaPlayer();
@@ -141,7 +151,9 @@ namespace BA_MobileGPS.Core.Models
         }
 
         private bool isLoaded;
-
+        /// <summary>
+        /// control busy indicator
+        /// </summary>
         public bool IsLoaded
         {
             get { return isLoaded; }
@@ -171,7 +183,7 @@ namespace BA_MobileGPS.Core.Models
             counter -= 1;
             if (!isLoaded)
             {
-                if (internalError)
+                if (internalError || loadingErr)
                 {
                     if (counter <= 0)
                     {
@@ -186,10 +198,7 @@ namespace BA_MobileGPS.Core.Models
                             var eventAggre = Prism.PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
                             eventAggre.GetEvent<RequestStartLiveStreamEvent>().Publish(data.Channel);
                         }
-                        SetMedia(data.Link);
                     }
-
-
                 }
             }
             else
@@ -224,7 +233,9 @@ namespace BA_MobileGPS.Core.Models
             mediaPlayer.Media.Dispose();
             mediaPlayer.Media = null;
         }
-
+        /// <summary>
+        /// Init base vlc voi cac behaviour can thiet, chua co url media
+        /// </summary>
         private void InitMediaPlayer()
         {
             mediaPlayer = new MediaPlayer(libVLC);
@@ -235,35 +246,101 @@ namespace BA_MobileGPS.Core.Models
             mediaPlayer.Scale = 0;
         }
 
+        /// <summary>
+        /// raise khi co su co ket noi (loi mang hoac out time livestram)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MediaPlayer_EndReached(object sender, EventArgs e)
         {
             internalError = true;
         }
 
+        /// <summary>
+        /// thuong raise khi url sai hoac chua co ket noi den url
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MediaPlayer_EncounteredError(object sender, EventArgs e)
         {
             internalError = true;
         }
 
-        public void SetMedia(string url)
+        /// <summary>
+        /// start via trace current device,which has camera
+        /// this func work after a request start sent successfully
+        /// </summary>
+        /// <param name="url">cam url</param>
+        /// <param name="vehicle">vehicle Plate</param>
+        public void StartWorkUnit(string vehicle)
         {
             if (!countLoadingTimer.Enabled && counter == maxLoadingTime)
             {
                 countLoadingTimer.Start();
             }
-            Device.BeginInvokeOnMainThread(() =>
+            IsLoaded = false;
+            //Check status:
+            StartTrackDeviceStatus(vehicle);
+
+        }
+
+        private void StartTrackDeviceStatus(string vehicle)
+        {
+            int oldTimeout = 0;
+            int oldTotalPackage = 0;
+            try
             {
-                try
+                Task.Run(async () =>
                 {
-                    IsLoaded = false;
-                    MediaPlayer.Media = new Media(libVLC, new Uri(url));
-                    MediaPlayer.Play();
-                }
-                catch (Exception ex)
+                    while (!IsLoaded && MediaPlayer != null)
+                    {
+                        var deviceStatus = await streamCameraService.GetDevicesStatus(ConditionType.BKS, vehicle);
+                        var device = deviceStatus?.Data?.FirstOrDefault();
+                        if (device != null && device.CameraChannels != null)
+                        {
+                            var streamDevice = device.CameraChannels.FirstOrDefault(x => x.Channel == Data.Channel);
+
+                            if (streamDevice != null && streamDevice.IsStreaming)
+                            {
+                                if (streamDevice.StreamingTotal != oldTotalPackage
+                                    && streamDevice.StreamingTimeout != oldTimeout)
+                                {
+                                    //Set url nếu internal Err đã raise hoặc lần đầu khởi tạo.
+                                    SetUrlMedia();
+                                    oldTimeout = streamDevice.StreamingTimeout;
+                                    oldTotalPackage = streamDevice.StreamingTotal;
+                                }
+                                else loadingErr = true;
+                            }
+                            else loadingErr = true;
+                            await Task.Delay(4000);
+                        }
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
+
+        private void SetUrlMedia()
+        {
+            if (internalError || MediaPlayer.Media == null)
+            {
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    LoggerHelper.WriteError("SetMedia", ex);
-                }
-            });
+                    try
+                    {
+                        MediaPlayer.Media = new Media(libVLC, new Uri(Data.Link));
+                        MediaPlayer.Play();
+                    }
+                    catch (Exception ex)
+                    {
+                        LoggerHelper.WriteError("SetMedia", ex);
+                    }
+                });
+            }
         }
 
         private void MediaPlayer_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
@@ -286,6 +363,7 @@ namespace BA_MobileGPS.Core.Models
             {
                 internalError = false;
                 ErrorMessenger = string.Empty;
+                loadingErr = false;
                 countLoadingTimer.Stop();
                 countLoadingTimer.Interval = 1000;
                 counter = maxLoadingTime;
@@ -335,6 +413,7 @@ namespace BA_MobileGPS.Core.Models
                     MediaPlayer = null;
                     media?.Dispose();
                 }
+                GC.SuppressFinalize(this);
             }
             catch (Exception ex)
             {
