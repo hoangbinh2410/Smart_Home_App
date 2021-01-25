@@ -88,6 +88,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 ShowLandmark();
             }
+            else if (parameters?.GetValue<string>("pagetoNavigation") is string action)
+            {
+                if (action == "Video")
+                {
+                    GotoVideoPage();
+                }
+            }
         }
 
         private void ShowLandmark()
