@@ -240,8 +240,8 @@ namespace VMS_MobileGPS.Views
                     {
                         IsClickable = true,
                         StrokeWidth = 1f,
-                        StrokeColor = color.MultiplyAlpha(.3),
-                        FillColor = color.MultiplyAlpha(.1),
+                        StrokeColor = color,
+                        FillColor = color,
                         Tag = "POLYGON"
                     };
 
