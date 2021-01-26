@@ -211,11 +211,11 @@ namespace VMS_MobileGPS.Views
                 }
                 else if (boundary.PK_LandmarkID == 376651)
                 {
-                    color = Color.FromRgba(0, 0, 255, 0.5);
+                    color = Color.Blue;
                 }
                 else if (boundary.PK_LandmarkID == 376652)
                 {
-                    color = Color.FromRgba(0, 128, 0, 0.5);
+                    color = Color.Green;
                 }
 
                 if (boundary.IsClosed)
@@ -224,8 +224,8 @@ namespace VMS_MobileGPS.Views
                     {
                         IsClickable = true,
                         StrokeWidth = 1f,
-                        StrokeColor = color,
-                        FillColor = color,
+                        StrokeColor = color.MultiplyAlpha(.5),
+                        FillColor = color.MultiplyAlpha(.3),
                         Tag = "POLYGON"
                     };
 
@@ -242,7 +242,7 @@ namespace VMS_MobileGPS.Views
                     var polyline = new Polyline
                     {
                         IsClickable = false,
-                        StrokeColor = color.MultiplyAlpha(.3),
+                        StrokeColor = color,
                         StrokeWidth = 2f,
                         Tag = "POLYGON"
                     };
