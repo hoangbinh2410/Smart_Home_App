@@ -242,7 +242,7 @@ namespace VMS_MobileGPS.Views
                     var polyline = new Polyline
                     {
                         IsClickable = false,
-                        StrokeColor = color,
+                        StrokeColor = color.MultiplyAlpha(.3),
                         StrokeWidth = 2f,
                         Tag = "POLYGON"
                     };

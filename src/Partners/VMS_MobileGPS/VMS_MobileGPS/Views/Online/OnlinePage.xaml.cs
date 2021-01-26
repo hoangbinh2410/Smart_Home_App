@@ -240,8 +240,8 @@ namespace VMS_MobileGPS.Views
                     {
                         IsClickable = true,
                         StrokeWidth = 1f,
-                        StrokeColor = color.MultiplyAlpha(.5),
-                        FillColor = color.MultiplyAlpha(.3),
+                        StrokeColor = color.MultiplyAlpha(.3),
+                        FillColor = color.MultiplyAlpha(.1),
                         Tag = "POLYGON"
                     };
 
@@ -258,7 +258,7 @@ namespace VMS_MobileGPS.Views
                     var polyline = new Polyline
                     {
                         IsClickable = false,
-                        StrokeColor = color,
+                        StrokeColor = color.MultiplyAlpha(.3),
                         StrokeWidth = 2f,
                         Tag = "POLYGON"
                     };
