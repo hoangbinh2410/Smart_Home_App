@@ -127,6 +127,12 @@
 	  <Compile Update="Views\Online\OnlinePageNoCluster.xaml.cs">
 	    <DependentUpon>OnlinePageNoCluster.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\PapersInformation\ListPaperTab\FollowPaperTypeTab.xaml.cs">
+	    <DependentUpon>FollowPaperTypeTab.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\PapersInformation\ListPaperTab\FollowVehiclePlateTab.xaml.cs">
+	    <DependentUpon>FollowVehiclePlateTab.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Popup\BasePopup.xaml.cs">
 	    <DependentUpon>BasePopup.xaml</DependentUpon>
 	  </Compile>
@@ -234,7 +240,13 @@
 	  <EmbeddedResource Update="Views\Driver\ListDriverPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\PapersInformation\ListPapersPage.xaml">
+	  <EmbeddedResource Update="Views\PapersInformation\ListPaperTab\FollowPaperTypeTab.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\PapersInformation\ListPaperTab\FollowVehiclePlateTab.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\PapersInformation\ListPaperTab\ListPapersPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\PapersInformation\Insert\CabSignInfor.xaml">
@@ -341,6 +353,9 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\PapersInformation\Insert\RegistrationInfor.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\PapersInformation\SelectAlertTypePage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\PartialView\TitleBarView.xaml">

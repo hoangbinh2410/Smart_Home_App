@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Entities.ResponeEntity
 {
@@ -41,5 +44,62 @@ namespace BA_MobileGPS.Entities.ResponeEntity
         public decimal Cost { get; set; }
         public string Contact { get; set; }
         public int FK_InsuranceCategoryID { get; set; }
+    }
+
+    /// <summary>
+    /// Thong tin item trong list
+    /// </summary>
+    public class PaperItemInfor
+    {
+        public Guid Id { get; set; }
+        public int FK_CompanyID { get; set; }
+        public long FK_VehicleID { get; set; }
+        public Guid FK_PaperCategoryID { get; set; }
+        public string PaperCategoryName { get; set; }
+        public DateTime DateOfIssue { get; set; }
+        public DateTime ExpireDate { get; set; }
+        public DateTime CreatedDate { get; set; }
+
+
+        // Dùng ở itemTemplate theo loại giấy tờ => hiển thị biển số
+        [JsonIgnore]
+        public string VehiclePlate
+        {
+            get
+            {
+                var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == FK_VehicleID);
+                if (vehicle != null)
+                {
+                    return vehicle.VehiclePlate.ToUpper();
+                }
+                else return string.Empty;
+
+            }
+        }
+
+        // Dùng ở itemTemplate theo loại giấy tờ => HIỂN THỊ ngày hết hạn
+        [JsonIgnore]
+        public string ExpireDateDisplay
+        {
+            get
+            {
+                return string.Format("Ngày hết hạn: {0}", ExpireDate.ToString("dd/MM/yyyy"));
+            }
+        }
+      
+
+
+     
+
+      
+
+
+    }
+    /// <summary>
+    /// danh sach giay to tra ve
+    /// </summary>
+    public class ListPaperResponse : ResponseBaseV2<List<PaperItemInfor>>
+    {
+
     }
 }

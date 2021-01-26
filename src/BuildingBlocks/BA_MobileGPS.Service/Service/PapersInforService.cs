@@ -232,5 +232,24 @@ namespace BA_MobileGPS.Service.Service
             }
             return result;
         }
+
+        public async Task<List<PaperItemInfor>> GetListPaper(int companyId)
+        {
+            List<PaperItemInfor> result = new List<PaperItemInfor>();
+            try
+            {
+                string url = $"{ApiUri.GET_LIST_ALL_PAPER}?companyId={companyId}";
+                var response = await _IRequestProvider.GetAsync<ListPaperResponse>(url);
+                if (response?.Data != null && response.Data.Count > 0)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
     }
 }
