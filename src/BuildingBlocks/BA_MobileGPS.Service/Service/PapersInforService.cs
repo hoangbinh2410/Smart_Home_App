@@ -233,12 +233,18 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<List<PaperItemInfor>> GetListPaper(int companyId)
+        public async Task<List<PaperItemInfor>> GetListPaper(int companyId, int OrderBy = 0, int sortOrder = 0)
         {
             List<PaperItemInfor> result = new List<PaperItemInfor>();
             try
             {
-                string url = $"{ApiUri.GET_LIST_ALL_PAPER}?companyId={companyId}";
+                string url = string.Empty;
+                if (OrderBy ==0 && sortOrder==0)
+                {
+                    url = $"{ApiUri.GET_LIST_ALL_PAPER}?companyId={companyId}";
+                }
+                else url = $"{ApiUri.GET_LIST_ALL_PAPER}?companyId={companyId}&OrderBy={OrderBy}&SortOder={sortOrder}";
+
                 var response = await _IRequestProvider.GetAsync<ListPaperResponse>(url);
                 if (response?.Data != null && response.Data.Count > 0)
                 {

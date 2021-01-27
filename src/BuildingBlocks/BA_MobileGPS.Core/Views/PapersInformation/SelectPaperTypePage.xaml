@@ -52,6 +52,7 @@
             BackgroundColor="{DynamicResource WhiteColor}"
             CornerRadius="20"
             HeightRequest="40"
+            IsVisible="{Binding HiddenSearch}"
             VerticalOptions="Center">
             <pancake:PancakeView.Shadow>
                 <pancake:DropShadow

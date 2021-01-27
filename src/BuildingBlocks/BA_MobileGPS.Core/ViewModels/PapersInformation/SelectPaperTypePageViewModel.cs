@@ -22,11 +22,17 @@ namespace BA_MobileGPS.Core.ViewModels
             this.papersInforService = papersInforService;
             SearchPapersTypeCommand = new DelegateCommand<TextChangedEventArgs>(SearchPapersType);
             SelectPaperCommand = new DelegateCommand<object>(SelectPaper);
+            hiddenSearch = true;
         }
 
-        public override void Initialize(INavigationParameters parameters)
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            base.Initialize(parameters);
+            base.OnNavigatedTo(parameters);
+            if (parameters.TryGetValue(ParameterKey.PaperType, out bool visibleSearch))
+            {
+                HiddenSearch = visibleSearch;
+            }
             GetListPapers();
         }
 
@@ -35,6 +41,11 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(async() =>
             {
                 ListPapersOrigin = await papersInforService.GetPaperCategories();
+                if (hiddenSearch)
+                {
+                    var temp = new PaperCategory() { PaperName = "Tất cả giấy tờ", PaperCategoryType = 0 };
+                    ListPapersOrigin.Insert(0, temp);
+                }
                 ListPapersDisplay = ListPapersOrigin;
             });
         }   
@@ -87,6 +98,13 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get { return searchedText; }
             set { SetProperty(ref searchedText, value); }
+        }
+
+        private bool hiddenSearch;
+        public bool HiddenSearch
+        {
+            get { return hiddenSearch; }
+            set { SetProperty(ref hiddenSearch, value); }
         }
 
         private List<PaperCategory> ListPapersOrigin { get; set; } = new List<PaperCategory>();

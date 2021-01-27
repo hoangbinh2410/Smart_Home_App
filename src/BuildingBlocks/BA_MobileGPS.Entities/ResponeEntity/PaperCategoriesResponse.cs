@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace BA_MobileGPS.Entities.ResponeEntity
@@ -41,10 +42,14 @@ namespace BA_MobileGPS.Entities.ResponeEntity
     }
     public enum PaperCategoryTypeEnum
     {
+        [Description("Tất cả giấy tờ")]
         None = 0,
-        Registry = 1, //(Đăng kiểm)
-        Insurrance = 2,// (Bảo hiểm)
-        Sign = 3// (Phù hiệu)
+        [Description("Đăng kiểm")]
+        Registry = 1, 
+        [Description("Bảo hiểm")]
+        Insurrance = 2,
+        [Description("Phù hiệu")]
+        Sign = 3
     }
 
 }

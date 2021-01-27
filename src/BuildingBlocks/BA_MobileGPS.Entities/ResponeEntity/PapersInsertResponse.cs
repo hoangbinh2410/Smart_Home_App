@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BA_MobileGPS.Utilities.Enums;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,15 +87,11 @@ namespace BA_MobileGPS.Entities.ResponeEntity
                 return string.Format("Ngày hết hạn: {0}", ExpireDate.ToString("dd/MM/yyyy"));
             }
         }
-      
 
-
-     
-
-      
 
 
     }
+
     /// <summary>
     /// danh sach giay to tra ve
     /// </summary>

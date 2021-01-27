@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <icons:TabbedPageEx
-             xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls" 
-             xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
-             xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="BA_MobileGPS.Core.Views.ListPapersPage" >
+    x:Class="BA_MobileGPS.Core.Views.ListPapersPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
+    prism:ViewModelLocator.AutowireViewModel="True">
     <NavigationPage.TitleView>
         <Grid
             Padding="0,0,10,0"
@@ -38,6 +38,18 @@
                 Text="Danh sách giấy tờ"
                 TextColor="White"
                 VerticalOptions="Center" />
+            <image:CachedImage
+                Grid.Column="2"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                IsVisible="{Binding InsertVisible}"
+                Rotation="45"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <image:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GotoAddDriverPageCommand}" />
+                </image:CachedImage.GestureRecognizers>
+            </image:CachedImage>
         </Grid>
     </NavigationPage.TitleView>
     <TabbedPage.Children>
