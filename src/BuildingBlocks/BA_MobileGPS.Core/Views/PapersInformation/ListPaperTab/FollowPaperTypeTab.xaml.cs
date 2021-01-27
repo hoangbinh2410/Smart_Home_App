@@ -2,9 +2,9 @@
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class ListPapersPage : ContentPage
+    public partial class FollowPaperTypeTab : ContentPage
     {
-        public ListPapersPage()
+        public FollowPaperTypeTab()
         {
             InitializeComponent();
         }

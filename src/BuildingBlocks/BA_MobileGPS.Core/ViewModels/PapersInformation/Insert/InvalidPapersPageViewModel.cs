@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -28,7 +29,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
             {
-                SelectedVehiclePlates = vehicle.PrivateCode;
+                Device.StartTimer(new TimeSpan(0, 0, 1), () =>
+                {
+                    SelectedVehiclePlates = vehicle.PrivateCode;
+                    return false;
+                });             
             }
         }
 

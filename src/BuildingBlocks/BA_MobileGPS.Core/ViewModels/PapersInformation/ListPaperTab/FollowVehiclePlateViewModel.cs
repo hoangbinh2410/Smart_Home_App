@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class ListPapersPageViewModel : BindableBase
+    public class FollowVehiclePlateViewModel : BindableBase
     {
-        public ListPapersPageViewModel()
+        public FollowVehiclePlateViewModel()
         {
 
         }
