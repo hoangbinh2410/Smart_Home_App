@@ -17,7 +17,7 @@ using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class FollowPaperTypeViewModel : ViewModelBase
+    public class FollowPaperTypeTabViewModel : ViewModelBase
     {
         private int pageIndex { get; set; } = 0;
         private int pageCount { get; } = 10;
@@ -28,7 +28,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SelectAlertTypeCommand { get; }
         private List<PaperCategory> paperCat { get; set; }
 
-        public FollowPaperTypeViewModel(INavigationService navigationService, IPapersInforService papersInforService) : base(navigationService)
+        public FollowPaperTypeTabViewModel(INavigationService navigationService, IPapersInforService papersInforService) : base(navigationService)
         {
             this.paperinforService = papersInforService;
             SelectPaperCommand = new DelegateCommand<object>(SelectPaper);
@@ -37,21 +37,12 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectPaperTypeCommand = new DelegateCommand(SelectPaperType);
             SelectAlertTypeCommand = new DelegateCommand(SelectAlertType);
             ListPapersDisplay = new ObservableCollection<PaperItemInfor>();
-            AllPapers = new List<PaperItemInfor>();
+            allPapers = new List<PaperItemInfor>();
             originSource = new List<PaperItemInfor>();
-
-        }
-
-
-
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
             GetAllPaperCat();
             GetAllPaperData();
             PaperTypeName = PaperCategoryTypeEnum.None.ToDescription();
             AlertTypeName = PaperAlertTypeEnum.All.ToDescription();
-
         }
 
         private Guid filterTypeId { get; set; } = new Guid();
@@ -93,11 +84,10 @@ namespace BA_MobileGPS.Core.ViewModels
             set
             {
                 SetProperty(ref allPapers, value);
-                if (ViewHasAppeared)
-                {
-                    SourceChange();
-                }
+
+                SourceChange();
             }
+
         }
 
         private string paperTypeName;
@@ -130,12 +120,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref listPapersDisplay, value);
                 RaisePropertyChanged();
             }
-        }
-        private bool listViewBusy;
-        public bool ListViewBusy
-        {
-            get { return listViewBusy; }
-            set { SetProperty(ref listViewBusy, value); }
         }
 
         #endregion

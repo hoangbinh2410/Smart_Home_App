@@ -210,9 +210,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<InvalidPapersPage, InvalidPapersPageViewModel>("InvalidPapersPage");
             containerRegistry.RegisterForNavigation<SelectPaperTypePage, SelectPaperTypePageViewModel>("SelectPaperTypePage");
             containerRegistry.RegisterForNavigation<ListPapersPage, ListPapersPageViewModel>("ListPapersPage");
-
-            containerRegistry.RegisterForNavigation<FollowPaperTypeTab, FollowPaperTypeViewModel>("FollowPaperTypeTab");
-            containerRegistry.RegisterForNavigation<FollowVehiclePlateTab, FollowVehiclePlateViewModel>("FollowVehiclePlateTab");
+          
             containerRegistry.RegisterForNavigation<SelectAlertTypePage, SelectAlertTypePageViewModel>("SelectAlertTypePage");
         }
     }
