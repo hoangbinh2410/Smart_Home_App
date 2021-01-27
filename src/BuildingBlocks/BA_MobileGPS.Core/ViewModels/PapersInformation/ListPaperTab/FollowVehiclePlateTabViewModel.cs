@@ -19,7 +19,7 @@ using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class FollowVehiclePlateViewModel : ViewModelBase
+    public class FollowVehiclePlateTabViewModel : ViewModelBase
     {
         private CancellationTokenSource cts;
         private int pageIndex { get; set; } = 0;
@@ -31,7 +31,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SelectAlertTypeCommand { get; }
         private List<PaperCategory> paperCat { get; set; }
 
-        public FollowVehiclePlateViewModel(INavigationService navigationService, IPapersInforService papersInforService) : base(navigationService)
+        public FollowVehiclePlateTabViewModel(INavigationService navigationService, IPapersInforService papersInforService) : base(navigationService)
         {
             this.paperinforService = papersInforService;
             SelectPaperCommand = new DelegateCommand<object>(SelectPaper);
@@ -42,14 +42,8 @@ namespace BA_MobileGPS.Core.ViewModels
             allPapers = new List<PaperItemInfor>();
             originSource = new List<PaperItemInfor>();
             GetAllPaperCat();
-        }
-
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
             GetAllPaperData();
             AlertTypeName = PaperAlertTypeEnum.All.ToDescription();
-
         }
 
         private PaperAlertTypeEnum filterTypeAlert { get; set; } = PaperAlertTypeEnum.All;

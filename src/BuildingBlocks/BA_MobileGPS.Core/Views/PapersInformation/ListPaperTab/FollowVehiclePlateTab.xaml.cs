@@ -2,7 +2,7 @@
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class FollowVehiclePlateTab : ContentPage
+    public partial class FollowVehiclePlateTab : ContentView
     {
         public FollowVehiclePlateTab()
         {

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<ContentView
     x:Class="BA_MobileGPS.Core.Views.FollowPaperTypeTab"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -15,7 +15,7 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     prism:ViewModelLocator.AutowireViewModel="True">
-    <ContentPage.Resources>
+    <ContentView.Resources>
         <Style TargetType="busyIndicator:SfBusyIndicator">
             <Setter Property="AnimationType" Value="Cupertino" />
             <Setter Property="BackgroundColor" Value="Transparent" />
@@ -76,7 +76,7 @@
                 <BoxView Grid.Row="2" StyleClass="SlimLine" />
             </Grid>
         </DataTemplate>
-    </ContentPage.Resources>
+    </ContentView.Resources>
     <Grid>
         <StackLayout Spacing="10">
             <!--  Filter area  -->
@@ -214,4 +214,4 @@
         <busyIndicator:SfBusyIndicator IsBusy="{Binding IsBusy}" />
     </Grid>
 
-</ContentPage>
+</ContentView>
