@@ -32,7 +32,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectExpireDateCommand = new DelegateCommand(SelectExpireDate);
             ChangeToInsertFormCommand = new DelegateCommand(ChangeToInsertForm);
             InitValidations();
-            Device.StartTimer(new TimeSpan(0, 0, 3), () =>
+            Device.StartTimer(new TimeSpan(0, 0, 1), () =>
             {
                 ViewHasAppeared = true;
                 return false;

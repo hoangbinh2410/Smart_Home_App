@@ -36,7 +36,7 @@ namespace BA_MobileGPS.Core.ViewModels
             ChangeToInsertFormCommand = new DelegateCommand(ChangeToInsertForm);
             InitValidations();
             InitInsurancePickerSource();
-            Device.StartTimer(new TimeSpan(0, 0, 3), () =>
+            Device.StartTimer(new TimeSpan(0, 0, 1), () =>
             {
                 ViewHasAppeared = true;
                 return false;

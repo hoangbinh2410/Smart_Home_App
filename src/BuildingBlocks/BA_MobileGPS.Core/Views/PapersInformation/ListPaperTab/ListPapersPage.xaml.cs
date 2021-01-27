@@ -1,0 +1,13 @@
+﻿using BA_MobileGPS.Core.Controls;
+using Xamarin.Forms;
+
+namespace BA_MobileGPS.Core.Views
+{
+    public partial class ListPapersPage : TabbedPageEx
+    {
+        public ListPapersPage()
+        {
+            InitializeComponent();
+        }
+    }
+}

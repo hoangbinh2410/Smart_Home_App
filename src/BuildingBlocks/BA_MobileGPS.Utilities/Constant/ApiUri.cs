@@ -292,6 +292,7 @@
         public const string POST_UPDATE_PAPER_INSURANCE = "api/paperinfor/updateinsurancepaper";
         public const string POST_UPDATE_PAPER_REGISTRATION = "api/paperinfor/updateregistrationpaper";
         public const string POST_UPDATE_PAPER_SIGN = "api/paperinfor/updatesignpaper";
+        public const string GET_LIST_ALL_PAPER = "api/paperinfor/getlistpaper";
         #endregion
     }
 }
