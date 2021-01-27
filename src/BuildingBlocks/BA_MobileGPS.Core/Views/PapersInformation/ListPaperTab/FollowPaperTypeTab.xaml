@@ -175,7 +175,6 @@
                 AllowSwiping="{Binding DeleteVisible}"
                 AutoFitMode="DynamicHeight"
                 GroupHeaderTemplate="{StaticResource groupHeader}"
-                IsBusy="{Binding ListViewBusy, Mode=OneWay}"
                 ItemSpacing="0,2"
                 ItemTemplate="{StaticResource itemTemplate}"
                 ItemsSource="{Binding ListPapersDisplay}"

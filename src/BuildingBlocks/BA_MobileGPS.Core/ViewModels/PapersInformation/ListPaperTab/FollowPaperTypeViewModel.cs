@@ -37,9 +37,8 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectPaperTypeCommand = new DelegateCommand(SelectPaperType);
             SelectAlertTypeCommand = new DelegateCommand(SelectAlertType);
             ListPapersDisplay = new ObservableCollection<PaperItemInfor>();
-            AllPapers = new List<PaperItemInfor>();
+            allPapers = new List<PaperItemInfor>();
             originSource = new List<PaperItemInfor>();
-
         }
 
 
@@ -93,11 +92,10 @@ namespace BA_MobileGPS.Core.ViewModels
             set
             {
                 SetProperty(ref allPapers, value);
-                if (ViewHasAppeared)
-                {
-                    SourceChange();
-                }
+
+                SourceChange();
             }
+
         }
 
         private string paperTypeName;
@@ -130,12 +128,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref listPapersDisplay, value);
                 RaisePropertyChanged();
             }
-        }
-        private bool listViewBusy;
-        public bool ListViewBusy
-        {
-            get { return listViewBusy; }
-            set { SetProperty(ref listViewBusy, value); }
         }
 
         #endregion
