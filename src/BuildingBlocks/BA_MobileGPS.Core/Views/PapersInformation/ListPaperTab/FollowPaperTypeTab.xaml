@@ -62,11 +62,17 @@
                         HeightRequest="20"
                         Source="ic_vehiclesolid"
                         WidthRequest="20" />
-                    <Label Text="{Binding VehiclePlate}" TextColor="{DynamicResource PrimaryColor}" />
+                    <Label
+                        Text="{Binding VehiclePlate}"
+                        TextColor="{DynamicResource PrimaryColor}"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center" />
                     <Label
                         HorizontalOptions="EndAndExpand"
                         Text="{Binding ExpireDateDisplay}"
-                        TextColor="{DynamicResource TextSecondaryColor}" />
+                        TextColor="{DynamicResource TextSecondaryColor}"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center" />
                 </StackLayout>
                 <abstractions:HtmlLabel
                     Grid.Row="1"

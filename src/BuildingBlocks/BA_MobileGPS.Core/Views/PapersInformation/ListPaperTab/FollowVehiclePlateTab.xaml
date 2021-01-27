@@ -52,11 +52,15 @@
                     <Label
                         StyleClass="BoldText"
                         Text="{Binding PaperCategoryName}"
-                        TextColor="{DynamicResource PrimaryColor}" />
+                        TextColor="{DynamicResource PrimaryColor}"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center" />
                     <Label
                         HorizontalOptions="EndAndExpand"
                         Text="{Binding ExpireDateDisplay}"
-                        TextColor="{DynamicResource TextSecondaryColor}" />
+                        TextColor="{DynamicResource TextSecondaryColor}"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center" />
                 </StackLayout>
                 <abstractions:HtmlLabel
                     Grid.Row="1"
@@ -167,7 +171,6 @@
                 AllowSwiping="{Binding DeleteVisible}"
                 AutoFitMode="DynamicHeight"
                 GroupHeaderTemplate="{StaticResource groupHeader}"
-                IsStickyGroupHeader="True"
                 ItemSpacing="0,2"
                 ItemTemplate="{StaticResource itemTemplate}"
                 ItemsSource="{Binding ListPapersDisplay}"
