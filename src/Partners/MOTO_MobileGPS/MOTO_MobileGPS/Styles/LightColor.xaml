@@ -38,7 +38,7 @@
     <Color x:Key="PopupYesBtnTextColor">White</Color>
     <Color x:Key="PopupYesBtnBackgroundColor">#00709A</Color>
     <!--  Login  -->
-    <Color x:Key="LoginTextColor">#00ADE5</Color>
+    <Color x:Key="LoginTextColor">White</Color>
     <Color x:Key="LoginIconBackgroundColor">White</Color>
     <Color x:Key="LoginIconColor">#00ADE5</Color>
     <Color x:Key="LoginGradientStartColor">White</Color>
