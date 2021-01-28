@@ -186,7 +186,7 @@ namespace BA_MobileGPS.Core.ViewModels
             DaysNumberForAlertAppear = new ValidatableObject<string>();
             DaysNumberForAlertAppear.OnChanged += ValidationStringValue_OnChanged;
             SelectedInsuranceType = new ValidatableObject<InsuranceCategory>();
-
+            SelectedInsuranceType.OnChanged += SelectedInsuranceType_OnChanged;
             InsuranceFee = new ValidatableObject<string>();
             InsuranceFee.OnChanged += ValidationStringValue_OnChanged;
             Contact = new ValidatableObject<string>();
@@ -198,6 +198,29 @@ namespace BA_MobileGPS.Core.ViewModels
             SetValidationRule();
         }
 
+        private void SelectedInsuranceType_OnChanged(object sender, InsuranceCategory e)
+        {
+            var obj = (ValidatableObject<InsuranceCategory>)sender;
+            // Check chon xe chua?
+            if (currentVehicleId == 0 && ViewHasAppeared)
+            {
+                obj.IsNotValid = true;
+                obj.ErrorFirst = "Vui lòng chọn xe ";
+                return;
+            }
+            //enable button save
+            if (!SaveEnable && ViewHasAppeared)
+            {
+                SaveEnable = true;
+            }
+
+            // Clear validation              
+            if (obj.IsNotValid)
+            {
+                obj.IsNotValid = false;
+                obj.Errors.Clear();
+            }
+        }
 
         private void ValidationStringValue_OnChanged(object sender, string e)
         {
