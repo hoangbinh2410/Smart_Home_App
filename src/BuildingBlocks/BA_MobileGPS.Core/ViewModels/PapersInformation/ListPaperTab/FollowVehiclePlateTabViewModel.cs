@@ -42,7 +42,6 @@ namespace BA_MobileGPS.Core.ViewModels
             allPapers = new List<PaperItemInfor>();
             originSource = new List<PaperItemInfor>();
             GetAllPaperCat();
-            GetAllPaperData();
             AlertTypeName = PaperAlertTypeEnum.All.ToDescription();
         }
 
@@ -58,6 +57,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     AlertTypeName = alertType.ToDescription();
                     Filter();
                 }
+            }
+            else if (parameters.ContainsKey("paperSource") && parameters.GetValue<List<PaperItemInfor>>("paperSource") is List<PaperItemInfor> allSource)
+            {
+                originSource = allSource;
+                AllPapers = originSource;
             }
         }
         #region property
@@ -117,30 +121,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private List<PaperItemInfor> originSource { get; set; }
 
-        private void GetAllPaperData()
-        {
-            allPapers.Clear();
-            if (!IsBusy)
-            {
-                IsBusy = true;
-            }
-            if (ListPapersDisplay.Count > 0)
-            {
-                ListPapersDisplay.Clear();
-            }
-            RunOnBackground(async () =>
-            {
-                return await paperinforService.GetListPaper(UserInfo.CompanyId);
-            }, result =>
-            {
-                if (result != null && result.Count > 0)
-                {
-                    originSource = result.Where(x => !string.IsNullOrEmpty(x.VehiclePlate)).OrderBy(x => x.VehiclePlate).ToList();
-                    AllPapers = originSource;
-                }
-                IsBusy = false;
-            });
-        }
+       
 
         private bool CanLoadMoreItems()
         {

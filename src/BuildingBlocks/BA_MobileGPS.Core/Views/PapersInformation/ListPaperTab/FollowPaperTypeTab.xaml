@@ -3,7 +3,6 @@
     x:Class="BA_MobileGPS.Core.Views.FollowPaperTypeTab"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:abstractions="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
     xmlns:busyIndicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:dataSource="clr-namespace:Syncfusion.DataSource;assembly=Syncfusion.DataSource.Portable"
@@ -26,7 +25,7 @@
             <Setter Property="Duration" Value="0.8" />
         </Style>
         <local:BoolToImageConverter x:Key="BoolToImageConverter" />
-        <local:ListPaperExpireDateConverter x:Key="ListPaperExpireDateConverter" />
+
         <DataTemplate x:Key="groupHeader">
             <StackLayout
                 BackgroundColor="{DynamicResource PrimaryColor}"
@@ -74,11 +73,12 @@
                         VerticalOptions="Center"
                         VerticalTextAlignment="Center" />
                 </StackLayout>
-                <abstractions:HtmlLabel
+                <Label
                     Grid.Row="1"
                     Margin="0,0,20,0"
                     HorizontalOptions="End"
-                    Text="{Binding ExpireDate, Converter={StaticResource ListPaperExpireDateConverter}}" />
+                    Text="{Binding RemainDate}"
+                    TextColor="{Binding RemainDateColor}" />
                 <BoxView Grid.Row="2" StyleClass="SlimLine" />
             </Grid>
         </DataTemplate>
