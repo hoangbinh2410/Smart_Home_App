@@ -100,7 +100,7 @@ namespace BA_MobileGPS.Entities.ResponeEntity
         public void UpdateData(int dayAllowRegister)
         {
             var days = (ExpireDate.Date - DateTime.Now).Days;
-            if (days <= 0)
+            if (days < 0)
             {              
                 RemainDateColor = Color.FromHex("#F80A0A");
                 RemainDate = "Còn 0 ngày";
