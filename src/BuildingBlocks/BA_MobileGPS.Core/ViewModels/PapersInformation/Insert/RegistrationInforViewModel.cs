@@ -308,6 +308,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SaveRegistrationInfor()
         {
+            var insertPer = (int)PermissionKeyNames.PaperAddNew;
+            if (!UserInfo.Permissions.Distinct().Contains(insertPer))
+            {
+                DisplayMessage.ShowMessageError("Tài khoản hiện tại chưa có quyền thay đổi dữ liệu");
+                return;
+            }
 
             if (currentVehicleId == 0)
             {

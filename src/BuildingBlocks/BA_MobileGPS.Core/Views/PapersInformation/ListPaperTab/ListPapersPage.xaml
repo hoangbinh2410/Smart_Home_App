@@ -48,7 +48,7 @@
                 Source="ic_close.png"
                 VerticalOptions="Center">
                 <image:CachedImage.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GotoAddDriverPageCommand}" />
+                    <TapGestureRecognizer Command="{Binding GotoAddPaperPageCommand}" />
                 </image:CachedImage.GestureRecognizers>
             </image:CachedImage>
         </Grid>

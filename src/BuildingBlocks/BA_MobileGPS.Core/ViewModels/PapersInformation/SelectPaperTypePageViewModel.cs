@@ -41,7 +41,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(async() =>
             {
                 ListPapersOrigin = await papersInforService.GetPaperCategories();
-                if (hiddenSearch)
+                if (!hiddenSearch)
                 {
                     var temp = new PaperCategory() { PaperName = "Tất cả giấy tờ", PaperCategoryType = 0 };
                     ListPapersOrigin.Insert(0, temp);
