@@ -71,6 +71,18 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 originSource = allSource;
                 AllPapers = originSource;
+
+                //Clear text ô filter :
+                if (filterTypeId != new Guid())
+                {
+                    filterTypeId = new Guid();
+                    PaperTypeName = PaperCategoryTypeEnum.None.ToDescription();
+                }
+                if (filterTypeAlert != PaperAlertTypeEnum.All)
+                {
+                    filterTypeAlert = PaperAlertTypeEnum.All;
+                    AlertTypeName = PaperAlertTypeEnum.All.ToDescription();
+                }
             }
         }
         #region property   
