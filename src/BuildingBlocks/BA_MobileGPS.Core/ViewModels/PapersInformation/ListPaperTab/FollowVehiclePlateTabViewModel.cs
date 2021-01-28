@@ -73,13 +73,6 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref searchedText, value); }
         }
 
-        private bool insertVisible;
-        public bool InsertVisible
-        {
-            get { return insertVisible; }
-            set { SetProperty(ref insertVisible, value); }
-        }
-
         private List<PaperItemInfor> allPapers;
         public List<PaperItemInfor> AllPapers
         {
