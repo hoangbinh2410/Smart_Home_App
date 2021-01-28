@@ -39,13 +39,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void Initialize(INavigationParameters parameters)
         {
+            // Lấy danh sách menu
+            GetListMenu();
         }
 
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
-            // Lấy danh sách menu
-            GetListMenu();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

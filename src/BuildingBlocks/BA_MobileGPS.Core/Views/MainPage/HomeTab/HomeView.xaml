@@ -160,7 +160,6 @@
                                 HeightRequest="130"
                                 HorizontalScrollBarVisibility="Never"
                                 IndicatorView="indicatorFavourite"
-                                IsVisible="{Binding HasFavorite, Mode=OneWay}"
                                 ItemsSource="{Binding FavouriteMenuItems, Mode=OneWay}">
                                 <CarouselView.ItemTemplate>
                                     <DataTemplate>
