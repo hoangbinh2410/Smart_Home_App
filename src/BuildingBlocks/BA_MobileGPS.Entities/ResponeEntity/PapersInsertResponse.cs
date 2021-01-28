@@ -58,7 +58,7 @@ namespace BA_MobileGPS.Entities.ResponeEntity
         public Guid FK_PaperCategoryID { get; set; }
         public string PaperCategoryName { get; set; }
         public DateTime DateOfIssue { get; set; }
-        public DateTime ExpireDate { get; set; }
+        public DateTime ExpireDate { get; set;}
         public DateTime CreatedDate { get; set; }
 
 
@@ -88,6 +88,30 @@ namespace BA_MobileGPS.Entities.ResponeEntity
             }
         }
 
+        // Dùng ở itemTemplate theo loại giấy tờ => màu text còn số ngày hết hạn
+        [JsonIgnore]
+        public Color RemainDateColor { get; private set; }    
+
+        // Dùng ở itemTemplate theo loại giấy tờ => số ngày hết hạn
+        [JsonIgnore]
+        public string RemainDate { get; private set; }
+       
+        // Không lấy dc configcomapny ở entities nên phải update
+        public void UpdateData(int dayAllowRegister)
+        {
+            var days = (ExpireDate.Date - DateTime.Now).Days;
+            if (days <= 0)
+            {              
+                RemainDateColor = Color.FromHex("#F80A0A");
+                RemainDate = "Còn 0 ngày";
+            }
+            else
+            {
+                var temp = (ExpireDate - new TimeSpan(dayAllowRegister, 0, 0, 0)).Date;
+                RemainDate = string.Format("Còn {0} ngày", days);
+                RemainDateColor = DateTime.Now.Date < temp ? Color.FromHex("#1CB6E8") : Color.FromHex("#FF6C3E");
+            }
+        }
 
 
     }
