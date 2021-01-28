@@ -1028,7 +1028,7 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\LaunchImages.launchimage\LaunchScreen375x667.png">
+    <ImageAsset Include="Assets.xcassets\LaunchImages.launchimage\LaunchScreen1356x2048.png">
       <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
