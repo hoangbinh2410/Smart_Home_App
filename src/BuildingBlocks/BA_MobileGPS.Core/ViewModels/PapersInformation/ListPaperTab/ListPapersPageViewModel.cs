@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Service.IService;
+﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Service.IService;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -25,7 +26,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                var a = await NavigationService.NavigateAsync("NavigationPage/AddPaperInfoPage", null, true, true);
+                var a = await NavigationService.NavigateAsync("NavigationPage/InvalidPapersPage", null, true, true);
             });
         }
 
@@ -38,15 +39,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void CheckUserPermission()
         {
-            InsertVisible = true;
-            //var userPer = UserInfo.Permissions.Distinct();
-            //var insertPer = (int)PermissionKeyNames.AdminEmployeeAdd;
-            //// var updatePer = (int)PermissionKeyNames.AdminEmployeeUpdate;
-            //var deletePer = (int)PermissionKeyNames.AdminEmployeeDelete;
-            //if (userPer.Contains(insertPer))
-            //{
-            //    InsertVisible = true;
-            //}
+            InsertVisible = false;
+            var userPer = UserInfo.Permissions.Distinct();
+            var insertPer = (int)PermissionKeyNames.PaperAddNew;         
+            if (userPer.Contains(insertPer))
+            {
+                InsertVisible = true;
+            }
         }
     }
 }

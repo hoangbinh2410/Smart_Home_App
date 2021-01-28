@@ -73,14 +73,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 AllPapers = originSource;
             }
         }
-        #region property
-        private bool insertVisible;
-        public bool InsertVisible
-        {
-            get { return insertVisible; }
-            set { SetProperty(ref insertVisible, value); }
-        }
-
+        #region property   
         private List<PaperItemInfor> allPapers;
         public List<PaperItemInfor> AllPapers
         {
@@ -182,6 +175,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SelectPaper(object obj)
         {
+
             if (obj != null && obj is Syncfusion.ListView.XForms.ItemTappedEventArgs agrs)
             {
                 SafeExecute(async () =>
