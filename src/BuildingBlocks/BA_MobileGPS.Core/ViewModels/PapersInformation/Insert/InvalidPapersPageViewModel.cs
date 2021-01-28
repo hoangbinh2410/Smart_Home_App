@@ -37,6 +37,12 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            parameters.Add("RefreshListPaper", true);
+            base.OnNavigatedFrom(parameters);
+        }
+
         private string selectedVehiclePlates;
         public string SelectedVehiclePlates
         {

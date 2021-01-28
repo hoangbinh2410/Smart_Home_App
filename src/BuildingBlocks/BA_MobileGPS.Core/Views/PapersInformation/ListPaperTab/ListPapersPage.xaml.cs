@@ -37,20 +37,33 @@ namespace BA_MobileGPS.Core.Views
         {
             if (firstAppear)
             {
-                OnFisrtAppearing();
+                GetData();
                 firstAppear = false;
             }
-
-            foreach (var item in tabview.Items)
+            else if(parameters.ContainsKey("RefreshListPaper") && parameters.GetValue<bool>("RefreshListPaper") is bool refresh)
             {
-                if (item.IsSelected)
+                //Load lại dữ liệu khi com back từ trang thêm sửa thông tin
+                if (refresh)
                 {
-                    PageUtilities.OnNavigatedTo(item.Content, parameters);
+                    GetData();
+                }
+               
+            }
+            else
+            {
+                // filter param ở từng trang
+                foreach (var item in tabview.Items)
+                {
+                    if (item.IsSelected)
+                    {
+                        PageUtilities.OnNavigatedTo(item.Content, parameters);
+                    }
                 }
             }
+         
         }
 
-        private void OnFisrtAppearing()
+        private void GetData()
         {           
             Task.Run(async () =>
             {
