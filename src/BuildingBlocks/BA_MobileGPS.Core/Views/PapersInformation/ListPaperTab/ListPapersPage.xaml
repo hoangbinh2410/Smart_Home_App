@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<icons:TabbedPageEx
+<ContentPage
     x:Class="BA_MobileGPS.Core.Views.ListPapersPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
     xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
     prism:ViewModelLocator.AutowireViewModel="True">
     <NavigationPage.TitleView>
@@ -52,9 +53,39 @@
             </image:CachedImage>
         </Grid>
     </NavigationPage.TitleView>
-    <TabbedPage.Children>
-        <views:FollowPaperTypeTab Title="Theo loại giấy tờ" />
-        <views:FollowVehiclePlateTab Title="Theo phương tiện" />
-    </TabbedPage.Children>
+    <tabView:SfTabView
+        x:Name="tabview"
+        DisplayMode="Text"
+        EnableSwiping="False"
+        TabHeaderBackgroundColor="{DynamicResource WhiteColor}"
+        VisibleHeaderCount="2">
+        <tabView:SfTabView.SelectionIndicatorSettings>
+            <tabView:SelectionIndicatorSettings
+                Position="Fill"
+                StrokeThickness="10"
+                Color="#00ADE5" />
+        </tabView:SfTabView.SelectionIndicatorSettings>
+        <tabView:SfTabItem
+            Title="Theo loại giấy tờ"
+            SelectionColor="{DynamicResource WhiteColor}"
+            TitleFontAttributes="Bold"
+            TitleFontColor="#00ADE5"
+            TitleFontSize="14">
+            <tabView:SfTabItem.Content>
+                <views:FollowPaperTypeTab x:Name="paperTypeTab" />
+            </tabView:SfTabItem.Content>
+        </tabView:SfTabItem>
+        <tabView:SfTabItem
+            Title="Theo phương tiện"
+            SelectionColor="{DynamicResource WhiteColor}"
+            TitleFontAttributes="Bold"
+            TitleFontColor="#00ADE5"
+            TitleFontSize="14">
+            <tabView:SfTabItem.Content>
+                <views:FollowVehiclePlateTab x:Name="vehicleTab" />
+            </tabView:SfTabItem.Content>
+        </tabView:SfTabItem>
 
-</icons:TabbedPageEx>
+    </tabView:SfTabView>
+
+</ContentPage>
