@@ -281,11 +281,18 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SaveSignInfor()
         {
+            var insertPer = (int)PermissionKeyNames.PaperAddNew;
+            if (!UserInfo.Permissions.Distinct().Contains(insertPer))
+            {
+                DisplayMessage.ShowMessageError("Tài khoản hiện tại chưa có quyền thay đổi dữ liệu");
+                return;
+            }
+
             if (currentVehicleId == 0)
             {
                 DisplayMessage.ShowMessageError("Vui lòng chọn biển số phương tiện");
                 return;
-            }
+            }         
 
             if (Validate())
             {
