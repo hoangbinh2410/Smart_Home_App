@@ -164,26 +164,28 @@
                     </StackLayout>
                 </pancake:PancakeView>
             </Grid>
-            <syncfusion:SfListView
-                x:Name="listView"
-                Margin="0"
-                AutoFitMode="DynamicHeight"
-                GroupHeaderTemplate="{StaticResource groupHeader}"
-                ItemSpacing="0,2"
-                ItemTemplate="{StaticResource itemTemplate}"
-                ItemsSource="{Binding AllPapers}"
-                ItemsSourceChangeCachingStrategy="RecycleItems"
-                ListViewCachingStrategy="RecycleTemplate"
-                SelectionBackgroundColor="Transparent"
-                TapCommand="{Binding SelectPaperCommand}">
-                <syncfusion:SfListView.DataSource>
-                    <dataSource:DataSource>
-                        <dataSource:DataSource.GroupDescriptors>
-                            <dataSource:GroupDescriptor PropertyName="VehiclePlate" />
-                        </dataSource:DataSource.GroupDescriptors>
-                    </dataSource:DataSource>
-                </syncfusion:SfListView.DataSource>
-            </syncfusion:SfListView>
+            <ScrollView>
+                <syncfusion:SfListView
+                    x:Name="listView"
+                    Margin="0"
+                    AutoFitMode="DynamicHeight"
+                    GroupHeaderTemplate="{StaticResource groupHeader}"
+                    ItemSpacing="0,2"
+                    ItemTemplate="{StaticResource itemTemplate}"
+                    ItemsSource="{Binding AllPapers}"
+                    ItemsSourceChangeCachingStrategy="RecycleItems"
+                    ListViewCachingStrategy="RecycleTemplate"
+                    SelectionBackgroundColor="Transparent"
+                    TapCommand="{Binding SelectPaperCommand}">
+                    <syncfusion:SfListView.DataSource>
+                        <dataSource:DataSource>
+                            <dataSource:DataSource.GroupDescriptors>
+                                <dataSource:GroupDescriptor PropertyName="VehiclePlate" />
+                            </dataSource:DataSource.GroupDescriptors>
+                        </dataSource:DataSource>
+                    </syncfusion:SfListView.DataSource>
+                </syncfusion:SfListView>
+            </ScrollView>
         </StackLayout>
 
         <StackLayout
