@@ -175,9 +175,7 @@
                     </StackLayout>
                 </pancake:PancakeView>
             </Grid>
-            <ScrollView>
-
-
+          
                 <syncfusion:SfListView
                     x:Name="listView"
                     Margin="0"
@@ -200,7 +198,7 @@
                         </dataSource:DataSource>
                     </syncfusion:SfListView.DataSource>
                 </syncfusion:SfListView>
-            </ScrollView>
+           
         </StackLayout>
         <StackLayout
             BackgroundColor="Transparent"
