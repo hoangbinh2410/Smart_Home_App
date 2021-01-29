@@ -27,7 +27,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public CabSignInforViewModel(INavigationService navigationService, IPapersInforService paperinforService) : base(navigationService)
         {
             this.paperinforService = paperinforService;
-            SaveCabSignInforCommand = new DelegateCommand(SaveSignInfor).ObservesCanExecute(() => SaveEnable); 
+            SaveCabSignInforCommand = new DelegateCommand(SaveSignInfor).ObservesCanExecute(() => SaveEnable);
             SelectRegisterDateCommand = new DelegateCommand(SelectRegisterDate);
             SelectExpireDateCommand = new DelegateCommand(SelectExpireDate);
             ChangeToInsertFormCommand = new DelegateCommand(ChangeToInsertForm);
@@ -281,28 +281,27 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SaveSignInfor()
         {
-            var insertPer = (int)PermissionKeyNames.PaperAddNew;
-            if (!UserInfo.Permissions.Distinct().Contains(insertPer))
+            SafeExecute(async () =>
             {
-                DisplayMessage.ShowMessageError("Tài khoản hiện tại chưa có quyền thay đổi dữ liệu");
-                return;
-            }
-
-            if (currentVehicleId == 0)
-            {
-                DisplayMessage.ShowMessageError("Vui lòng chọn biển số phương tiện");
-                return;
-            }         
-
-            if (Validate())
-            {
-                var data = GetFormData();
-                data.FK_CompanyID = UserInfo.CompanyId;
-                data.FK_VehicleID = currentVehicleId;
-                SafeExecute(async () =>
+                if (currentVehicleId == 0)
                 {
+                    DisplayMessage.ShowMessageError("Vui lòng chọn biển số phương tiện");
+                    return;
+                }
+
+                if (Validate())
+                {
+                    var data = GetFormData();
+                    data.FK_CompanyID = UserInfo.CompanyId;
+                    data.FK_VehicleID = currentVehicleId;
+
                     if (IsUpdateForm)
                     {
+                        if (!CheckPermision((int)PermissionKeyNames.PaperUpdate))
+                        {
+                            DisplayMessage.ShowMessageWarning("Tài khoản không có quyền cập nhật");
+                            return;
+                        }
                         data.UpdatedByUser = UserInfo.UserId;
                         data.Id = oldInfor.Id;
                         var res = await paperinforService.UpdateSignPaper(data);
@@ -321,6 +320,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
+                        if (!CheckPermision((int)PermissionKeyNames.PaperAddNew))
+                        {
+                            DisplayMessage.ShowMessageWarning("Tài khoản không có quyền thêm mới");
+                            return;
+                        }
 
                         data.CreatedByUser = UserInfo.UserId;
                         var res = await paperinforService.InsertSignPaper(data);
@@ -337,11 +341,11 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                             else DisplayMessage.ShowMessageError("Thêm mới thông tin thất bại");
                         }
-
                     }
-                });
+                }
+            });
 
-            }
+
         }
         private PaperCabSignInforRequest oldInfor { get; set; }
         private void UpdateFormData(int companyId, long vehicleId)
@@ -351,7 +355,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var paper = await paperinforService.GetLastPaperSignByVehicleId(companyId, vehicleId);
                 if (paper != null)
-                {                   
+                {
                     oldInfor = paper;
                     IsUpdateForm = true;
                     Device.BeginInvokeOnMainThread(() =>
