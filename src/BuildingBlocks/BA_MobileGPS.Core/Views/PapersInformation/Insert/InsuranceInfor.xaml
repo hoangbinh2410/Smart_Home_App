@@ -230,6 +230,7 @@
                         HeightRequest="40"
                         HorizontalOptions="Center"
                         IsEnabled="False"
+                        IsVisible="{Binding SaveButtonVisible}"
                         Text="Lưu"
                         WidthRequest="150">
                         <VisualStateManager.VisualStateGroups>

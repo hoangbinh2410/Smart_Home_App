@@ -24,6 +24,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SelectRegisterDateCommand { get; }
         public ICommand SelectExpireDateCommand { get; }
         public ICommand ChangeToInsertFormCommand { get; }
+
         public RegistrationInforViewModel(INavigationService navigationService, IPapersInforService paperinforService) : base(navigationService)
         {
             this.paperinforService = paperinforService;
@@ -37,7 +38,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 ViewHasAppeared = true;
                 return false;
             });
+            SaveButtonVisible = true;
         }
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -66,7 +69,20 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        private bool saveButtonVisible;
+
+        public bool SaveButtonVisible
+        {
+            get { return saveButtonVisible; }
+            set
+            {
+                SetProperty(ref saveButtonVisible, value);
+                RaisePropertyChanged();
+            }
+        }
+
         private bool saveEnable = true;
+
         public bool SaveEnable
         {
             get { return saveEnable; }
@@ -77,6 +93,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private bool createButtonVisible;
+
         public bool CreateButtonVisible
         {
             get { return createButtonVisible; }
@@ -110,6 +127,7 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return expireDate; }
             set { SetProperty(ref expireDate, value); }
         }
+
         /// <summary>
         /// Type int, dùng string thay thế do có lỗi với ValidatableObject
         /// </summary>
@@ -128,6 +146,7 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return unitName; }
             set { SetProperty(ref unitName, value); }
         }
+
         /// <summary>
         /// Type decimal, dùng string thay thế do có lỗi với ValidatableObject
         /// </summary>
@@ -148,6 +167,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private string alertMessenger;
+
         public string AlertMessenger
         {
             get { return alertMessenger; }
@@ -248,7 +268,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 ValidationMessage = "Vui lòng không nhập [,',\",<,>,/, &,]"
             });
             Notes.Validations.Add(new MaxLengthRule<string>() { MaxLenght = 1000, ValidationMessage = "Không nhập quá 1000 kí tự" });
-
         }
 
         /// <summary>
@@ -277,7 +296,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     newRule = false;
                 }
             }
-
 
             //Check ngày đăng kí > ngày hết hạn
             var outDateRule = true;
@@ -324,12 +342,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     if (IsUpdateForm)
                     {
-                        if (!CheckPermision((int)PermissionKeyNames.PaperUpdate))
-                        {
-                            DisplayMessage.ShowMessageWarning("Tài khoản không có quyền cập nhật");
-                            return;
-                        }
-
                         data.PaperInfo.UpdatedByUser = UserInfo.UserId;
                         data.PaperInfo.Id = oldInfor.PaperInfo.Id;
                         var res = await paperinforService.UpdateRegistrationPaper(data);
@@ -348,12 +360,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
-                        if (!CheckPermision((int)PermissionKeyNames.PaperAddNew))
-                        {
-                            DisplayMessage.ShowMessageWarning("Tài khoản không có quyền thêm mới");
-                            return;
-                        }
-
                         data.PaperInfo.CreatedByUser = UserInfo.UserId;
                         var res = await paperinforService.InsertRegistrationPaper(data);
                         if (res?.PK_PaperInfoID != new Guid())
@@ -369,9 +375,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                             else DisplayMessage.ShowMessageError("Thêm mới thông tin thất bại");
                         }
-
                     }
-
                 }
             });
         }
@@ -386,8 +390,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 parameters.Add("DataPicker", day);
                 await NavigationService.NavigateAsync("SelectDatePicker", parameters);
             });
-
         }
+
         private void SelectExpireDate()
         {
             SafeExecute(async () =>
@@ -399,18 +403,24 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("SelectDatePicker", parameters);
             });
         }
+
         private PaperRegistrationInsertRequest oldInfor { get; set; }
+
         private void UpdateFormData(int companyId, long vehicleId)
         {
             CreateButtonVisible = false;
+            SaveButtonVisible = false;
             SafeExecute(async () =>
             {
                 var paper = await paperinforService.GetLastPaperRegistrationByVehicleId(companyId, vehicleId);
                 if (paper != null)
                 {
-
                     oldInfor = paper;
                     IsUpdateForm = true;
+                    if (CheckPermision((int)PermissionKeyNames.PaperUpdate))
+                    {
+                        SaveButtonVisible = true;
+                    }
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         IdentityCode.Value = paper.PaperInfo.PaperNumber;
@@ -463,6 +473,7 @@ namespace BA_MobileGPS.Core.ViewModels
             RegistrationDate.Value = oldInfor.PaperInfo.ExpireDate.AddDays(1);
             CreateButtonVisible = false;
             IsUpdateForm = false;
+            SaveButtonVisible = true;
         }
 
         private PaperRegistrationInsertRequest GetFormData()
@@ -483,7 +494,6 @@ namespace BA_MobileGPS.Core.ViewModels
             res.WarrantyCompany = UnitName.Value;
 
             return res;
-
         }
     }
 }

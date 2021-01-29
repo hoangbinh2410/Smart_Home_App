@@ -8,7 +8,6 @@ using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -24,6 +23,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SelectRegisterDateCommand { get; }
         public ICommand SelectExpireDateCommand { get; }
         public ICommand ChangeToInsertFormCommand { get; }
+
         public CabSignInforViewModel(INavigationService navigationService, IPapersInforService paperinforService) : base(navigationService)
         {
             this.paperinforService = paperinforService;
@@ -37,6 +37,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 ViewHasAppeared = true;
                 return false;
             });
+            SaveButtonVisible = true;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -67,7 +68,20 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        private bool saveButtonVisible;
+
+        public bool SaveButtonVisible
+        {
+            get { return saveButtonVisible; }
+            set
+            {
+                SetProperty(ref saveButtonVisible, value);
+                RaisePropertyChanged();
+            }
+        }
+
         private bool saveEnable = true;
+
         public bool SaveEnable
         {
             get { return saveEnable; }
@@ -78,6 +92,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private bool createButtonVisible;
+
         public bool CreateButtonVisible
         {
             get { return createButtonVisible; }
@@ -111,6 +126,7 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return expireDate; }
             set { SetProperty(ref expireDate, value); }
         }
+
         /// <summary>
         /// Type int, dùng string thay thế do có lỗi với ValidatableObject
         /// </summary>
@@ -131,6 +147,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private string alertMessenger;
+
         public string AlertMessenger
         {
             get { return alertMessenger; }
@@ -155,7 +172,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
             SetValidationRule();
         }
-
 
         private void ValidationStringValue_OnChanged(object sender, string e)
         {
@@ -297,11 +313,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     if (IsUpdateForm)
                     {
-                        if (!CheckPermision((int)PermissionKeyNames.PaperUpdate))
-                        {
-                            DisplayMessage.ShowMessageWarning("Tài khoản không có quyền cập nhật");
-                            return;
-                        }
                         data.UpdatedByUser = UserInfo.UserId;
                         data.Id = oldInfor.Id;
                         var res = await paperinforService.UpdateSignPaper(data);
@@ -320,12 +331,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
-                        if (!CheckPermision((int)PermissionKeyNames.PaperAddNew))
-                        {
-                            DisplayMessage.ShowMessageWarning("Tài khoản không có quyền thêm mới");
-                            return;
-                        }
-
                         data.CreatedByUser = UserInfo.UserId;
                         var res = await paperinforService.InsertSignPaper(data);
                         if (res?.PK_PaperInfoID != new Guid())
@@ -344,13 +349,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 }
             });
-
-
         }
+
         private PaperCabSignInforRequest oldInfor { get; set; }
+
         private void UpdateFormData(int companyId, long vehicleId)
         {
             CreateButtonVisible = false;
+            SaveButtonVisible = false;
             SafeExecute(async () =>
             {
                 var paper = await paperinforService.GetLastPaperSignByVehicleId(companyId, vehicleId);
@@ -358,6 +364,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     oldInfor = paper;
                     IsUpdateForm = true;
+                    if (CheckPermision((int)PermissionKeyNames.PaperUpdate))
+                    {
+                        SaveButtonVisible = true;
+                    }
+
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         SignNumber.Value = paper.PaperNumber;
@@ -404,6 +415,8 @@ namespace BA_MobileGPS.Core.ViewModels
             RegistrationDate.Value = oldInfor.ExpireDate.AddDays(1);
             CreateButtonVisible = false;
             IsUpdateForm = false;
+
+            SaveButtonVisible = true;
         }
 
         private PaperCabSignInforRequest GetFormData()
@@ -428,8 +441,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 parameters.Add("DataPicker", day);
                 await NavigationService.NavigateAsync("SelectDatePicker", parameters);
             });
-
         }
+
         private void SelectExpireDate()
         {
             SafeExecute(async () =>
@@ -441,6 +454,5 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("SelectDatePicker", parameters);
             });
         }
-
     }
 }

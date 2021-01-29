@@ -135,6 +135,7 @@
                         CornerRadius="20"
                         HeightRequest="40"
                         HorizontalOptions="Center"
+                        IsVisible="{Binding SaveButtonVisible}"
                         Text="Lưu"
                         WidthRequest="150">
                         <VisualStateManager.VisualStateGroups>
