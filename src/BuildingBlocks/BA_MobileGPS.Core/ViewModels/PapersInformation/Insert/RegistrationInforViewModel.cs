@@ -16,7 +16,7 @@ namespace BA_MobileGPS.Core.ViewModels
     public class RegistrationInforViewModel : ViewModelBase
     {
         private bool IsUpdateForm { get; set; } = false;
-       
+
         private long currentVehicleId { get; set; } = 0;
         private string NotEmptyMessenge = MobileResource.ListDriver_Messenger_NotNull;
         private readonly IPapersInforService paperinforService;
@@ -247,8 +247,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 DangerousChar = "['\"<>/&]",
                 ValidationMessage = "Vui lòng không nhập [,',\",<,>,/, &,]"
             });
-            Notes.Validations.Add(new MaxLengthRule<string>() {  MaxLenght=1000, ValidationMessage ="Không nhập quá 1000 kí tự"});
-           
+            Notes.Validations.Add(new MaxLengthRule<string>() { MaxLenght = 1000, ValidationMessage = "Không nhập quá 1000 kí tự" });
+
         }
 
         /// <summary>
@@ -308,28 +308,28 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SaveRegistrationInfor()
         {
-            var insertPer = (int)PermissionKeyNames.PaperAddNew;
-            if (!UserInfo.Permissions.Distinct().Contains(insertPer))
+            SafeExecute(async () =>
             {
-                DisplayMessage.ShowMessageError("Tài khoản hiện tại chưa có quyền thay đổi dữ liệu");
-                return;
-            }
-
-            if (currentVehicleId == 0)
-            {
-                DisplayMessage.ShowMessageError("Vui lòng chọn biển số phương tiện");
-                return;
-            }
-
-            if (Validate())
-            {
-                var data = GetFormData();
-                data.PaperInfo.FK_CompanyID = UserInfo.CompanyId;
-                data.PaperInfo.FK_VehicleID = currentVehicleId;
-                SafeExecute(async () =>
+                if (currentVehicleId == 0)
                 {
+                    DisplayMessage.ShowMessageError("Vui lòng chọn biển số phương tiện");
+                    return;
+                }
+
+                if (Validate())
+                {
+                    var data = GetFormData();
+                    data.PaperInfo.FK_CompanyID = UserInfo.CompanyId;
+                    data.PaperInfo.FK_VehicleID = currentVehicleId;
+
                     if (IsUpdateForm)
                     {
+                        if (!CheckPermision((int)PermissionKeyNames.PaperUpdate))
+                        {
+                            DisplayMessage.ShowMessageWarning("Tài khoản không có quyền cập nhật");
+                            return;
+                        }
+
                         data.PaperInfo.UpdatedByUser = UserInfo.UserId;
                         data.PaperInfo.Id = oldInfor.PaperInfo.Id;
                         var res = await paperinforService.UpdateRegistrationPaper(data);
@@ -348,6 +348,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
+                        if (!CheckPermision((int)PermissionKeyNames.PaperAddNew))
+                        {
+                            DisplayMessage.ShowMessageWarning("Tài khoản không có quyền thêm mới");
+                            return;
+                        }
+
                         data.PaperInfo.CreatedByUser = UserInfo.UserId;
                         var res = await paperinforService.InsertRegistrationPaper(data);
                         if (res?.PK_PaperInfoID != new Guid())
@@ -365,8 +371,9 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
 
                     }
-                });
-            }
+
+                }
+            });
         }
 
         private void SelectRegisterDate()
@@ -468,7 +475,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 ExpireDate = ExpireDate.Value,
                 DayOfAlertBefore = Convert.ToInt32(DaysNumberForAlertAppear.Value),
                 Description = Notes.Value
-            };     
+            };
             if (!string.IsNullOrEmpty(RegistrationFee.Value))
             {
                 res.Cost = Convert.ToDecimal(RegistrationFee.Value);

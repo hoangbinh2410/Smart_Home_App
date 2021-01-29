@@ -18,7 +18,7 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class InsuranceInforViewModel : ViewModelBase
     {
-     
+
         private bool IsUpdateForm { get; set; } = false;
         private long currentVehicleId { get; set; } = 0;
         private string NotEmptyMessenge = MobileResource.ListDriver_Messenger_NotNull;
@@ -30,7 +30,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public InsuranceInforViewModel(INavigationService navigationService, IPapersInforService paperinforService) : base(navigationService)
         {
             this.paperinforService = paperinforService;
-            SaveInsuranceInforCommand = new DelegateCommand(SaveInsuranceInfor).ObservesCanExecute(()=>SaveEnable);
+            SaveInsuranceInforCommand = new DelegateCommand(SaveInsuranceInfor).ObservesCanExecute(() => SaveEnable);
             SelectRegisterDateCommand = new DelegateCommand(SelectRegisterDate);
             SelectExpireDateCommand = new DelegateCommand(SelectExpireDate);
             ChangeToInsertFormCommand = new DelegateCommand(ChangeToInsertForm);
@@ -70,12 +70,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
-     
+
         private bool saveEnable = true;
         public bool SaveEnable
         {
             get { return saveEnable; }
-            set { SetProperty(ref saveEnable, value);           
+            set
+            {
+                SetProperty(ref saveEnable, value);
             }
         }
 
@@ -362,34 +364,34 @@ namespace BA_MobileGPS.Core.ViewModels
             }
 
             return (insuranceNum && dateRegis && dateExp && dayPrepareAlert
-                && insuranceType && fee && departmentUnit && contactInfor && note && newRule 
+                && insuranceType && fee && departmentUnit && contactInfor && note && newRule
                 && outDateRule && oldExpireDayRule);
         }
 
         private void SaveInsuranceInfor()
         {
-            var insertPer = (int)PermissionKeyNames.PaperAddNew;
-            if (!UserInfo.Permissions.Distinct().Contains(insertPer))
+            SafeExecute(async () =>
             {
-                DisplayMessage.ShowMessageError("Tài khoản hiện tại chưa có quyền thay đổi dữ liệu");
-                return;
-            }
-
-            if (currentVehicleId == 0)
-            {
-                DisplayMessage.ShowMessageError("Vui lòng chọn biển số phương tiện");
-                return;
-            }
-          
-            if (Validate())
-            {
-                var data = GetFormData();
-                data.PaperInfo.FK_CompanyID = UserInfo.CompanyId;
-                data.PaperInfo.FK_VehicleID = currentVehicleId;
-                SafeExecute(async () =>
+                if (currentVehicleId == 0)
                 {
+                    DisplayMessage.ShowMessageError("Vui lòng chọn biển số phương tiện");
+                    return;
+                }
+
+                if (Validate())
+                {
+                    var data = GetFormData();
+                    data.PaperInfo.FK_CompanyID = UserInfo.CompanyId;
+                    data.PaperInfo.FK_VehicleID = currentVehicleId;
+
                     if (IsUpdateForm)
                     {
+
+                        if (!CheckPermision((int)PermissionKeyNames.PaperUpdate))
+                        {
+                            DisplayMessage.ShowMessageWarning("Tài khoản không có quyền cập nhật");
+                            return;
+                        }
                         data.PaperInfo.UpdatedByUser = UserInfo.UserId;
                         data.PaperInfo.Id = oldInfor.PaperInfo.Id;
                         var res = await paperinforService.UpdateInsurancePaper(data);
@@ -408,6 +410,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
+                        if (!CheckPermision((int)PermissionKeyNames.PaperAddNew))
+                        {
+                            DisplayMessage.ShowMessageWarning("Tài khoản không có quyền thêm mới");
+                            return;
+                        }
+
                         data.PaperInfo.CreatedByUser = UserInfo.UserId;
                         var res = await paperinforService.InsertInsurancePaper(data);
                         if (res?.PK_PaperInfoID != new Guid())
@@ -425,8 +433,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
 
                     }
-                });
-            }
+
+
+                }
+            });
         }
 
 
@@ -449,7 +459,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var paper = await paperinforService.GetLastPaperInsuranceByVehicleId(companyId, vehicleId);
                 if (paper != null)
                 {
-                    
+
                     oldInfor = paper;
                     IsUpdateForm = true;
                     Device.BeginInvokeOnMainThread(() =>
