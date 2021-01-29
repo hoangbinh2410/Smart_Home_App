@@ -22,8 +22,6 @@ namespace BA_MobileGPS.Core.ViewModels
     public class FollowVehiclePlateTabViewModel : ViewModelBase
     {
         private CancellationTokenSource cts;
-        private int pageIndex { get; set; } = 0;
-        private int pageCount { get; } = 10;
         private readonly IPapersInforService paperinforService;
         public ICommand SelectPaperCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
@@ -35,7 +33,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             this.paperinforService = papersInforService;
             SelectPaperCommand = new DelegateCommand<object>(SelectPaper);
-            LoadMoreItemsCommand = new DelegateCommand(LoadMoreItems, CanLoadMoreItems);
+
             SearchVehicleCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehicle);
             SelectAlertTypeCommand = new DelegateCommand(SelectAlertType);
             ListPapersDisplay = new ObservableCollection<PaperItemInfor>();
@@ -91,8 +89,6 @@ namespace BA_MobileGPS.Core.ViewModels
             set
             {
                 SetProperty(ref allPapers, value);
-
-                SourceChange();
             }
         }
 
@@ -103,12 +99,6 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref alertTypeName, value); }
         }
 
-        private void SourceChange()
-        {
-            ListPapersDisplay.Clear();
-            pageIndex = 0;
-            LoadMore();
-        }
 
         private ObservableCollection<PaperItemInfor> listPapersDisplay;
         public ObservableCollection<PaperItemInfor> ListPapersDisplay
@@ -120,70 +110,23 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
-
-        #endregion
-
         private List<PaperItemInfor> originSource { get; set; }
-
-       
-
-        private bool CanLoadMoreItems()
-        {
-            if (AllPapers.Count <= pageIndex * pageCount)
-                return false;
-            return true;
-        }
-
-        private void LoadMoreItems()
-        {
-            if (IsBusy)
-            {
-                return;
-            }
-            IsBusy = true;
-            try
-            {
-                LoadMore();
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-        private void LoadMore()
-        {
-            try
-            {
-                var source = allPapers.Skip(pageIndex * pageCount).Take(pageCount).ToList();
-                pageIndex++;
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    if (source != null && source.Count() > 0)
-                    {
-                        for (int i = 0; i < source.Count; i++)
-                        {
-                            ListPapersDisplay.Add(source[i]);
-                        }
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-        }
+        #endregion
 
 
         private void SelectPaper(object obj)
         {
-            if (obj != null && obj is Syncfusion.ListView.XForms.ItemTappedEventArgs agrs)
+            SafeExecute(async () =>
             {
-                SafeExecute(async () =>
+                if (!CheckPermision((int)PermissionKeyNames.PaperUpdate))
                 {
+                    return;
+                }
+
+
+                if (obj != null && obj is Syncfusion.ListView.XForms.ItemTappedEventArgs agrs)
+                {
+
                     var item = (PaperItemInfor)agrs.ItemData;
                     var temp = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == item.FK_VehicleID);
                     var vehicle = new Vehicle()
@@ -198,9 +141,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     param.Add(ParameterKey.Vehicle, vehicle);
 
                     var a = await NavigationService.NavigateAsync("NavigationPage/InvalidPapersPage", param, true, true);
-                });
+                }
+            });
 
-            }
         }
 
         private void SelectAlertType()

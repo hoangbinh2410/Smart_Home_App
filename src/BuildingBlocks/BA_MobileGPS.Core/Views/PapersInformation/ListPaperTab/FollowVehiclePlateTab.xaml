@@ -167,17 +167,14 @@
             <syncfusion:SfListView
                 x:Name="listView"
                 Margin="0"
-                AllowSwiping="{Binding DeleteVisible}"
                 AutoFitMode="DynamicHeight"
                 GroupHeaderTemplate="{StaticResource groupHeader}"
                 ItemSpacing="0,2"
                 ItemTemplate="{StaticResource itemTemplate}"
-                ItemsSource="{Binding ListPapersDisplay}"
-                LoadMoreCommand="{Binding LoadMoreItemsCommand}"
-                LoadMoreOption="AutoOnScroll"
+                ItemsSource="{Binding AllPapers}"
+                ItemsSourceChangeCachingStrategy="RecycleItems"
+                ListViewCachingStrategy="RecycleTemplate"
                 SelectionBackgroundColor="Transparent"
-                SelectionMode="Single"
-                SwipeOffset="80"
                 TapCommand="{Binding SelectPaperCommand}">
                 <syncfusion:SfListView.DataSource>
                     <dataSource:DataSource>
