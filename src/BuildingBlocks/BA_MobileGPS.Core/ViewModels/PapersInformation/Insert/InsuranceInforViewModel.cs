@@ -9,7 +9,6 @@ using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -18,7 +17,6 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class InsuranceInforViewModel : ViewModelBase
     {
-
         private bool IsUpdateForm { get; set; } = false;
         private long currentVehicleId { get; set; } = 0;
         private string NotEmptyMessenge = MobileResource.ListDriver_Messenger_NotNull;
@@ -27,6 +25,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SelectRegisterDateCommand { get; }
         public ICommand SelectExpireDateCommand { get; }
         public ICommand ChangeToInsertFormCommand { get; }
+
         public InsuranceInforViewModel(INavigationService navigationService, IPapersInforService paperinforService) : base(navigationService)
         {
             this.paperinforService = paperinforService;
@@ -41,6 +40,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 ViewHasAppeared = true;
                 return false;
             });
+            SaveButtonVisible = true;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -72,12 +72,25 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private bool saveEnable = true;
+
         public bool SaveEnable
         {
             get { return saveEnable; }
             set
             {
                 SetProperty(ref saveEnable, value);
+            }
+        }
+
+        private bool saveButtonVisible;
+
+        public bool SaveButtonVisible
+        {
+            get { return saveButtonVisible; }
+            set
+            {
+                SetProperty(ref saveButtonVisible, value);
+                RaisePropertyChanged();
             }
         }
 
@@ -104,6 +117,7 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return expireDate; }
             set { SetProperty(ref expireDate, value); }
         }
+
         /// <summary>
         /// Type int, dùng string thay thế do có lỗi với ValidatableObject
         /// </summary>
@@ -122,6 +136,7 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return selectedInsuranceType; }
             set { SetProperty(ref selectedInsuranceType, value); }
         }
+
         /// <summary>
         /// Type decimal, dùng string thay thế do có lỗi với ValidatableObject
         /// </summary>
@@ -158,6 +173,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private string alertMessenger;
+
         public string AlertMessenger
         {
             get { return alertMessenger; }
@@ -167,7 +183,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged(); // bắt buộc có
             }
         }
+
         private List<InsuranceCategory> listInsuranceType;
+
         public List<InsuranceCategory> ListInsuranceType
         {
             get { return listInsuranceType; }
@@ -216,7 +234,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 SaveEnable = true;
             }
 
-            // Clear validation              
+            // Clear validation
             if (obj.IsNotValid)
             {
                 obj.IsNotValid = false;
@@ -226,7 +244,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ValidationStringValue_OnChanged(object sender, string e)
         {
-
             var obj = (ValidatableObject<string>)sender;
             // Check chon xe chua?
             if (currentVehicleId == 0 && ViewHasAppeared)
@@ -241,18 +258,16 @@ namespace BA_MobileGPS.Core.ViewModels
                 SaveEnable = true;
             }
 
-            // Clear validation              
+            // Clear validation
             if (obj.IsNotValid)
             {
                 obj.IsNotValid = false;
                 obj.Errors.Clear();
             }
-
         }
 
         private void ValidationDateTimeValue_OnChanged(object sender, DateTime e)
         {
-
             var obj = (ValidatableObject<DateTime>)sender;
             // Check chon xe chua?
             if (currentVehicleId == 0 && ViewHasAppeared)
@@ -268,7 +283,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 SaveEnable = true;
             }
 
-            // Clear validation              
+            // Clear validation
             if (obj.IsNotValid)
             {
                 obj.IsNotValid = false;
@@ -386,12 +401,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     if (IsUpdateForm)
                     {
-
-                        if (!CheckPermision((int)PermissionKeyNames.PaperUpdate))
-                        {
-                            DisplayMessage.ShowMessageWarning("Tài khoản không có quyền cập nhật");
-                            return;
-                        }
                         data.PaperInfo.UpdatedByUser = UserInfo.UserId;
                         data.PaperInfo.Id = oldInfor.PaperInfo.Id;
                         var res = await paperinforService.UpdateInsurancePaper(data);
@@ -410,12 +419,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
-                        if (!CheckPermision((int)PermissionKeyNames.PaperAddNew))
-                        {
-                            DisplayMessage.ShowMessageWarning("Tài khoản không có quyền thêm mới");
-                            return;
-                        }
-
                         data.PaperInfo.CreatedByUser = UserInfo.UserId;
                         var res = await paperinforService.InsertInsurancePaper(data);
                         if (res?.PK_PaperInfoID != new Guid())
@@ -431,16 +434,13 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                             else DisplayMessage.ShowMessageError("Thêm mới thông tin thất bại");
                         }
-
                     }
-
-
                 }
             });
         }
 
-
         private bool createButtonVisible;
+
         public bool CreateButtonVisible
         {
             get { return createButtonVisible; }
@@ -450,18 +450,24 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();// bắt buộc có
             }
         }
+
         private PaperInsuranceInsertRequest oldInfor { get; set; }
+
         private void UpdateFormData(int companyId, long vehicleId)
         {
             CreateButtonVisible = false;
+            SaveButtonVisible = false;
             SafeExecute(async () =>
             {
                 var paper = await paperinforService.GetLastPaperInsuranceByVehicleId(companyId, vehicleId);
                 if (paper != null)
                 {
-
                     oldInfor = paper;
                     IsUpdateForm = true;
+                    if (CheckPermision((int)PermissionKeyNames.PaperUpdate))
+                    {
+                        SaveButtonVisible = true;
+                    }
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         InsuranceNumber.Value = paper.PaperInfo.PaperNumber;
@@ -489,7 +495,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else ClearData();
             });
-
         }
 
         private PaperInsuranceInsertRequest GetFormData()
@@ -513,7 +518,6 @@ namespace BA_MobileGPS.Core.ViewModels
             res.WarrantyCompany = UnitName.Value;
 
             return res;
-
         }
 
         private void SelectRegisterDate()
@@ -526,7 +530,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 parameters.Add("DataPicker", day);
                 var a = await NavigationService.NavigateAsync("SelectDatePicker", parameters);
             });
-
         }
 
         private void SelectExpireDate()
@@ -546,7 +549,6 @@ namespace BA_MobileGPS.Core.ViewModels
             RunOnBackground(async () =>
             {
                 return await paperinforService.GetInsuranceCategories(UserInfo.CompanyId);
-
             }, res =>
             {
                 if (res != null && res.Count > 0)
@@ -571,7 +573,9 @@ namespace BA_MobileGPS.Core.ViewModels
             CreateButtonVisible = false;
             IsUpdateForm = false;
             SaveEnable = true;
+            SaveButtonVisible = true;
         }
+
         private void ClearData()
         {
             RegistrationDate.Value = DateTime.Now;
@@ -586,6 +590,5 @@ namespace BA_MobileGPS.Core.ViewModels
 
             CreateButtonVisible = false;
         }
-
     }
 }
