@@ -5,8 +5,8 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="18.3.0.53" />
-		<PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
+		<PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="18.4.0.39" />
+		<PackageReference Include="Xamarin.Forms" Version="5.0.0.1931" />
 	</ItemGroup>
 
 	<ItemGroup>

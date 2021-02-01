@@ -12,7 +12,7 @@ namespace BA_MobileGPS.Core
         {
             if (value is DateTime date)
             {
-                if (date == new DateTime())
+                if (date == new DateTime() || date == DateTime.MinValue)
                 {
                     return false;
                 }

@@ -634,13 +634,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 var storagePermission = await PermissionHelper.CheckStoragePermissions();
                 if (photoPermission && storagePermission)
                 {
-                    var param = _mapper.MapProperties<Vehicle>(selected);
+                    var param = _mapper.MapProperties<CameraLookUpVehicleModel>(selected);
                     var parameters = new NavigationParameters
                       {
                           { ParameterKey.Vehicle, param }
                      };
 
-                    await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
+                   var a = await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
                 }
             });
         }

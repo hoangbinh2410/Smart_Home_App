@@ -8,7 +8,6 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities;
 using Newtonsoft.Json;
-using Plugin.Toasts;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -251,9 +250,12 @@ namespace BA_MobileGPS.Core.ViewModels
             identityHubService.onReceivePushLogoutToAllUserInCompany += onReceivePushLogoutToAllUserInCompany;
             identityHubService.onReceivePushLogoutToUser += onReceivePushLogoutToUser;
 
-            // Khởi tạo alertlR
-            await alertHubService.Connect();
-            alertHubService.onReceiveAlertSignalR += OnReceiveAlertSignalR;
+            if (CheckPermision((int)PermissionKeyNames.AdminAlertView))
+            {
+                // Khởi tạo alertlR
+                await alertHubService.Connect();
+                alertHubService.onReceiveAlertSignalR += OnReceiveAlertSignalR;
+            }
         }
 
         private async Task ConnectSignalROnline()
@@ -280,9 +282,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
             await vehicleOnlineHubService.Disconnect();
 
-            alertHubService.onReceiveAlertSignalR -= OnReceiveAlertSignalR;
+            if (CheckPermision((int)PermissionKeyNames.AdminAlertView))
+            {
+                alertHubService.onReceiveAlertSignalR -= OnReceiveAlertSignalR;
 
-            await alertHubService.Disconnect();
+                await alertHubService.Disconnect();
+            }
         }
 
         private void JoinGroupSignalRCar(List<string> lstGroup)
@@ -384,20 +389,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (MobileUserSettingHelper.ShowNotification)
                 {
-                    DependencyService.Get<IToastNotificator>().Notify(new NotificationOptions()
-                    {
-                        Description = alert.WarningContent,
-                        Title = MobileResource.Alert_Label_TilePage,
-                        IsClickable = true,
-                        WindowsOptions = new WindowsOptions() { LogoUri = "ic_notification.png" },
-                        ClearFromHistory = false,
-                        AllowTapInNotificationCenter = false,
-                        AndroidOptions = new AndroidOptions()
-                        {
-                            HexColor = "#F99D1C",
-                            ForceOpenAppOnNotificationTap = true,
-                        }
-                    });
+                    DisplayMessage.ShowMessageInfo(alert.WarningContent);
                 }
 
                 EventAggregator.GetEvent<RecieveAlertEvent>().Publish(alert);
@@ -640,19 +632,23 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetCountAlert()
         {
-            var userID = UserInfo.UserId;
-            if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+            //kiểm tra xem có quyền hay ko
+            if (CheckPermision((int)PermissionKeyNames.AdminAlertView))
             {
-                userID = Settings.CurrentCompany.UserId;
-            }
+                var userID = UserInfo.UserId;
+                if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                {
+                    userID = Settings.CurrentCompany.UserId;
+                }
 
-            RunOnBackground(async () =>
-            {
-                return await alertService.GetCountAlert(userID);
-            }, (result) =>
-            {
-                GlobalResources.Current.TotalAlert = result;
-            });
+                RunOnBackground(async () =>
+                {
+                    return await alertService.GetCountAlert(userID);
+                }, (result) =>
+                {
+                    GlobalResources.Current.TotalAlert = result;
+                });
+            }
         }
 
         private void GetTimeServer()

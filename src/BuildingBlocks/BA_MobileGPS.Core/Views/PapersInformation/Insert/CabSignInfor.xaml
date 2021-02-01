@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="BA_MobileGPS.Core.Views.CabSignInfor"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:abstractions="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
+    xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentView.Resources>
+        <Style TargetType="input:SfTextInputLayout">
+            <Setter Property="ContainerBackgroundColor" Value="{DynamicResource WhiteColor}" />
+            <Setter Property="ContainerType" Value="Outlined" />
+            <Setter Property="OutlineCornerRadius" Value="30" />
+            <Setter Property="ErrorColor" Value="{DynamicResource DangerousColor}" />
+        </Style>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <StackLayout Padding="15,5,15,20" Spacing="5">
+            <abstractions:HtmlLabel
+                HorizontalOptions="Start"
+                IsVisible="{Binding CreateButtonVisible}"
+                Text="{Binding AlertMessenger}" />
+            <!--  Số phù hiệu  -->
+            <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Số phù hiệu" TextColor="{DynamicResource TextPrimaryColor}" />
+                        <Span Text=" (*)" TextColor="OrangeRed" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <input:SfTextInputLayout
+                ErrorText="{Binding SignNumber.ErrorFirst}"
+                HasError="{Binding SignNumber.IsNotValid}"
+                VerticalOptions="Start">
+                <Entry
+                    MaxLength="100"
+                    Placeholder="Nhập số phù hiệu"
+                    Text="{Binding SignNumber.Value}" />
+            </input:SfTextInputLayout>
+            <!--  Ngày đăng kí  -->
+            <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Ngày đăng kí" TextColor="{DynamicResource TextPrimaryColor}" />
+                        <Span Text=" (*)" TextColor="{DynamicResource DangerousColor}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <input:SfTextInputLayout
+                ErrorText="{Binding RegistrationDate.ErrorFirst}"
+                HasError="{Binding RegistrationDate.IsNotValid}"
+                VerticalOptions="Start">
+                <StackLayout>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectRegisterDateCommand}" />
+                    </StackLayout.GestureRecognizers>
+                    <Entry
+                        InputTransparent="True"
+                        Placeholder="DD/MM/YYYY"
+                        Text="{Binding RegistrationDate.Value, Converter={StaticResource DateConverter}, Mode=OneWay}"
+                        VerticalOptions="Center" />
+                </StackLayout>
+            </input:SfTextInputLayout>
+            <!--  Ngày hết hạn  -->
+            <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Ngày hết hạn" TextColor="{DynamicResource TextPrimaryColor}" />
+                        <Span Text=" (*)" TextColor="{DynamicResource DangerousColor}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <input:SfTextInputLayout
+                ErrorText="{Binding ExpireDate.ErrorFirst}"
+                HasError="{Binding ExpireDate.IsNotValid}"
+                VerticalOptions="Start">
+                <StackLayout>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectExpireDateCommand}" />
+                    </StackLayout.GestureRecognizers>
+                    <Entry
+                        InputTransparent="True"
+                        Placeholder="DD/MM/YYYY"
+                        Text="{Binding ExpireDate.Value, Converter={StaticResource DateConverter}, Mode=OneWay}"
+                        VerticalOptions="Center" />
+                </StackLayout>
+            </input:SfTextInputLayout>
+            <!--  Số ngày cảnh báo trước  -->
+            <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Số ngày cảnh báo trước" TextColor="{DynamicResource TextPrimaryColor}" />
+                        <Span Text=" (*)" TextColor="OrangeRed" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <input:SfTextInputLayout
+                ContainerType="Outlined"
+                ErrorText="{Binding DaysNumberForAlertAppear.ErrorFirst}"
+                HasError="{Binding DaysNumberForAlertAppear.IsNotValid}"
+                VerticalOptions="Start">
+                <Entry
+                    Keyboard="Numeric"
+                    MaxLength="3"
+                    Placeholder="Nhập số ngày cảnh báo trước"
+                    Text="{Binding DaysNumberForAlertAppear.Value}" />
+            </input:SfTextInputLayout>
+            <!--  Ghi chú  -->
+            <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Ghi chú" TextColor="{DynamicResource TextPrimaryColor}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <input:SfTextInputLayout
+                ErrorText="{Binding Notes.ErrorFirst}"
+                HasError="{Binding Notes.IsNotValid}"
+                OutlineCornerRadius="20">
+                <Editor
+                    HeightRequest="100"
+                    MaxLength="1000"
+                    Placeholder="Nhập ghi chú"
+                    Text="{Binding Notes.Value}" />
+            </input:SfTextInputLayout>
+            <Grid Margin="0,10,0,0">
+                <StackLayout
+                    HorizontalOptions="Center"
+                    Orientation="Horizontal"
+                    Spacing="20">
+                    <Button
+                        Command="{Binding SaveCabSignInforCommand}"
+                        CornerRadius="20"
+                        HeightRequest="40"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding SaveButtonVisible}"
+                        Text="Lưu"
+                        WidthRequest="150">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="{DynamicResource GrayColor2}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Button>
+                    <Button
+                        Grid.Column="1"
+                        BackgroundColor="#00ADE5"
+                        Command="{Binding ChangeToInsertFormCommand}"
+                        CornerRadius="20"
+                        HeightRequest="40"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding CreateButtonVisible}"
+                        Text="Tạo mới"
+                        WidthRequest="150" />
+                </StackLayout>
+            </Grid>
+
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

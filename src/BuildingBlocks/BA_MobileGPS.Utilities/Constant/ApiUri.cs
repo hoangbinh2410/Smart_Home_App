@@ -279,5 +279,20 @@
 
         public const string POST_DELETE_DRIVER = "api/driverinfor/deletedriverbyid";
         #endregion
+
+        #region PapersInformation
+        public const string GET_LIST_PAPER_CATEGORY = "api/paperinfor/getpapercategory";
+        public const string GET_LIST_INSURANCE_CATEGORY = "api/paperinfor/getinsurancecategories";
+        public const string GET_LAST_PAPER_INSURANCE = "api/paperinfor/getpaperinsurance";
+        public const string GET_LAST_PAPER_REGISTRATION = "api/paperinfor/getpaperregistration";
+        public const string GET_LAST_PAPER_SIGN = "api/paperinfor/getpapersign";       
+        public const string POST_INSERT_PAPER_INSURANCE = "api/paperinfor/insertinsurancepaper";
+        public const string POST_INSERT_PAPER_REGISTRATION = "api/paperinfor/insertregistrationpaper";
+        public const string POST_INSERT_PAPER_SIGN = "api/paperinfor/insertsignpaper";
+        public const string POST_UPDATE_PAPER_INSURANCE = "api/paperinfor/updateinsurancepaper";
+        public const string POST_UPDATE_PAPER_REGISTRATION = "api/paperinfor/updateregistrationpaper";
+        public const string POST_UPDATE_PAPER_SIGN = "api/paperinfor/updatesignpaper";
+        public const string GET_LIST_ALL_PAPER = "api/paperinfor/getlistpaper";
+        #endregion
     }
 }

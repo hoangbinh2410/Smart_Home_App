@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.ListPapersPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
+    xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <NavigationPage.TitleView>
+        <Grid
+            Padding="0,0,10,0"
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <image:CachedImage
+                Grid.Column="0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <image:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </image:CachedImage.GestureRecognizers>
+            </image:CachedImage>
+            <Label
+                Grid.ColumnSpan="3"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="CenterAndExpand"
+                LineBreakMode="MiddleTruncation"
+                Text="Danh sách giấy tờ"
+                TextColor="White"
+                VerticalOptions="Center" />
+            <image:CachedImage
+                Grid.Column="2"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                IsVisible="{Binding InsertVisible}"
+                Rotation="45"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <image:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GotoAddPaperPageCommand}" />
+                </image:CachedImage.GestureRecognizers>
+            </image:CachedImage>
+        </Grid>
+    </NavigationPage.TitleView>
+    <tabView:SfTabView
+        x:Name="tabview"
+        DisplayMode="Text"
+        EnableSwiping="False"
+        TabHeaderBackgroundColor="{DynamicResource WhiteColor}"
+        VisibleHeaderCount="2">
+        <tabView:SfTabView.SelectionIndicatorSettings>
+            <tabView:SelectionIndicatorSettings
+                Position="Fill"
+                StrokeThickness="10"
+                Color="#00ADE5" />
+        </tabView:SfTabView.SelectionIndicatorSettings>
+        <tabView:SfTabItem
+            Title="Theo loại giấy tờ"
+            SelectionColor="{DynamicResource WhiteColor}"
+            TitleFontAttributes="Bold"
+            TitleFontColor="#00ADE5"
+            TitleFontSize="14">
+            <tabView:SfTabItem.Content>
+                <views:FollowPaperTypeTab x:Name="paperTypeTab" />
+            </tabView:SfTabItem.Content>
+        </tabView:SfTabItem>
+        <tabView:SfTabItem
+            Title="Theo phương tiện"
+            SelectionColor="{DynamicResource WhiteColor}"
+            TitleFontAttributes="Bold"
+            TitleFontColor="#00ADE5"
+            TitleFontSize="14">
+            <tabView:SfTabItem.Content>
+                <views:FollowVehiclePlateTab x:Name="vehicleTab" />
+            </tabView:SfTabItem.Content>
+        </tabView:SfTabItem>
+
+    </tabView:SfTabView>
+
+</ContentPage>

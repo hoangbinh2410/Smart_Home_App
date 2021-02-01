@@ -47,7 +47,8 @@ namespace BA_MobileGPS.Core
         {
             BA_MobileGPSSetup.RegisterServices(containerRegistry);
             BA_MobileGPSSetup.RegisterPages(containerRegistry);
-            
+
+           
         }
 
         protected override void OnStart()

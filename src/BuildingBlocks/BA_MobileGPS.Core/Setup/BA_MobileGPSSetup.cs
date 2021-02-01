@@ -79,6 +79,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<IPopupServices, PopupServices>();
             containerRegistry.RegisterSingleton<IThemeServices, ThemeServices>();
             containerRegistry.RegisterSingleton<IDriverInforService, DriverInforService>();
+            containerRegistry.RegisterSingleton<IPapersInforService, PapersInforService>();
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)
@@ -206,6 +207,11 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<AddDriverInforPage, InsertOrUpdateDriverPageViewModel>("AddDriverInfoPage");
             containerRegistry.RegisterForNavigation<DetailAndEditDriverPage, InsertOrUpdateDriverPageViewModel>("DetailAndEditDriverPage");
 
+            containerRegistry.RegisterForNavigation<InvalidPapersPage, InvalidPapersPageViewModel>("InvalidPapersPage");
+            containerRegistry.RegisterForNavigation<SelectPaperTypePage, SelectPaperTypePageViewModel>("SelectPaperTypePage");
+            containerRegistry.RegisterForNavigation<ListPapersPage, ListPapersPageViewModel>("ListPapersPage");
+          
+            containerRegistry.RegisterForNavigation<SelectAlertTypePage, SelectAlertTypePageViewModel>("SelectAlertTypePage");
         }
     }
 }

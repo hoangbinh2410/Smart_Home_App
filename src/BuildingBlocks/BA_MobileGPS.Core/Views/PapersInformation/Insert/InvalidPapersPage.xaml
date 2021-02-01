@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.InvalidPapersPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources />
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="35" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
+            <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                LineBreakMode="TailTruncation"
+                Text="{i18n:TranslateResource PaperInfor_Page_Title}"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
+    <Grid>
+        <StackLayout Spacing="0">
+            <!--  Khu vực tìm kiếm  -->
+            <Grid
+                Margin="10,5"
+                ColumnDefinitions="*,Auto"
+                HeightRequest="50"
+                MinimumHeightRequest="50">
+                <pancake:PancakeView
+                    Padding="0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    CornerRadius="19"
+                    HeightRequest="38"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center">
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow
+                            BlurRadius="2"
+                            Offset="0,0"
+                            Color="Black" />
+                    </pancake:PancakeView.Shadow>
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                    </pancake:PancakeView.GestureRecognizers>
+                    <StackLayout
+                        Padding="10,0"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal"
+                        VerticalOptions="Center">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <Entry
+                            x:Name="entrySearch"
+                            HorizontalOptions="FillAndExpand"
+                            InputTransparent="True"
+                            Placeholder="Chọn phương tiện áp dụng"
+                            PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
+                            Text="{Binding SelectedVehiclePlates}"
+                            TextChanged="entrySearch_TextChanged"
+                            TextColor="{DynamicResource TextPrimaryColor}"
+                            VerticalOptions="Center">
+                            <Entry.Effects>
+                                <effects:BorderlessEffect />
+                            </Entry.Effects>
+                        </Entry>
+                        <icons:IconView
+                            Foreground="{DynamicResource BlackColor}"
+                            HeightRequest="15"
+                            HorizontalOptions="End"
+                            Source="ic_sortdown"
+                            VerticalOptions="Center"
+                            WidthRequest="15" />
+                    </StackLayout>
+                </pancake:PancakeView>
+            </Grid>
+            <Grid
+                Padding="7"
+                BackgroundColor="#0071BC"
+                HeightRequest="20"
+                HorizontalOptions="Fill"
+                MinimumHeightRequest="20">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ChangePaperTypeCommand}" />
+                </Grid.GestureRecognizers>
+                <Label
+                    x:Name="papersName"
+                    HorizontalOptions="CenterAndExpand"
+                    InputTransparent="True"
+                    TextColor="{DynamicResource WhiteColor}" />
+                <icons:IconView
+                    Margin="0,0,20,0"
+                    Foreground="{DynamicResource WhiteColor}"
+                    HeightRequest="15"
+                    HorizontalOptions="End"
+                    Rotation="90"
+                    Source="ic_play_arrow_white"
+                    VerticalOptions="Center"
+                    WidthRequest="15" />
+            </Grid>
+            <ScrollView x:Name="papersChildView">
+                <Label Margin="10" Text="Chọn phương tiện để nhập thông tin giấy tờ" />
+            </ScrollView>
+        </StackLayout>
+
+    </Grid>
+
+
+</ContentPage>

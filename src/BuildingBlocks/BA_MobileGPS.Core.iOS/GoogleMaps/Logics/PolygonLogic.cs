@@ -41,7 +41,7 @@ namespace BA_MobileGPS.Core.iOS.Logics
             var nativePolygon = NativePolygon.FromPath(outerItem.Positions.ToMutablePath());
             nativePolygon.StrokeWidth = outerItem.StrokeWidth;
             nativePolygon.StrokeColor = outerItem.StrokeColor.ToUIColor();
-            nativePolygon.FillColor = outerItem.FillColor.ToUIColor().ColorWithAlpha(0.5f);
+            nativePolygon.FillColor = outerItem.FillColor.ToUIColor().ColorWithAlpha(0.2f);
             nativePolygon.Tappable = outerItem.IsClickable;
             nativePolygon.ZIndex = outerItem.ZIndex;
 

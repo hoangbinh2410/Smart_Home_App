@@ -39,13 +39,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void Initialize(INavigationParameters parameters)
         {
+            // Lấy danh sách menu
+            GetListMenu();
         }
 
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
-            // Lấy danh sách menu
-            GetListMenu();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -163,7 +163,6 @@ namespace BA_MobileGPS.Core.ViewModels
             var favourites = result.Where(s => s.IsFavorited).ToList();
             GenerateFavouriteMenu(favourites);
             var notFavorites = result.Where(s => !s.IsFavorited).ToList();
-
             GenerateListFeatures(notFavorites);
             HasFavorite = FavouriteMenuItems.Count != 0;
             StaticSettings.ListMenu = mapper.MapListProperties<HomeMenuItem>(result.ToList());

@@ -4,13 +4,11 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Models;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
-using Plugin.Toasts;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
 using Shiny.Locations;
-using Syncfusion.XForms.Buttons;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -39,6 +37,7 @@ namespace VMS_MobileGPS.ViewModels
         private readonly IAppVersionService appVersionService;
         private readonly IGpsListener _gpsListener;
         private readonly IGpsManager _gpsManager;
+        private readonly IDisplayMessage _displayMessage;
 
         public ICommand NavigateToCommand { get; private set; }
         public ICommand ConnectBleCommand { get; private set; }
@@ -50,7 +49,7 @@ namespace VMS_MobileGPS.ViewModels
             IAppVersionService appVersionService,
             IMessageService messageService,
             IGpsListener gpsListener,
-            IGpsManager gpsManager)
+            IGpsManager gpsManager, IDisplayMessage displayMessage)
             : base(navigationService)
         {
             this.messageService = messageService;
@@ -58,6 +57,7 @@ namespace VMS_MobileGPS.ViewModels
             this.appVersionService = appVersionService;
             this._gpsListener = gpsListener;
             this._gpsManager = gpsManager;
+            this._displayMessage = displayMessage;
 
             _gpsListener.OnReadingReceived += OnReadingReceived;
 
@@ -400,7 +400,7 @@ namespace VMS_MobileGPS.ViewModels
                         {
                             return;
                         }
-                        result = await NavigationService.NavigateAsync("NavigationPage/BluetoothPage", null,useModalNavigation: true,true);
+                        result = await NavigationService.NavigateAsync("NavigationPage/BluetoothPage", null, useModalNavigation: true, true);
                     }
                     else
                     {
@@ -426,7 +426,7 @@ namespace VMS_MobileGPS.ViewModels
 
                 if (IsConnectBLE)
                 {
-                    _ = await NavigationService.NavigateAsync("NavigationPage/BluetoothPage",null, useModalNavigation: true,true);
+                    _ = await NavigationService.NavigateAsync("NavigationPage/BluetoothPage", null, useModalNavigation: true, true);
                 }
                 else
                 {
@@ -573,20 +573,7 @@ namespace VMS_MobileGPS.ViewModels
                     eventAggregator.GetEvent<RecieveMessageEvent>().Publish(message);
                     TryExecute(() =>
                     {
-                        Xamarin.Forms.DependencyService.Get<IToastNotificator>().Notify(new NotificationOptions()
-                        {
-                            Title = "Tin nhắn đến",
-                            Description = message.Content,
-                            IsClickable = true,
-                            WindowsOptions = new WindowsOptions() { LogoUri = "ic_notification.png" },
-                            ClearFromHistory = false,
-                            AllowTapInNotificationCenter = false,
-                            AndroidOptions = new AndroidOptions()
-                            {
-                                HexColor = "#F99D1C",
-                                ForceOpenAppOnNotificationTap = true,
-                            }
-                        });
+                        _displayMessage.ShowMessageInfo(message.Content, 10000);
                     });
 
                     GlobalResourcesVMS.Current.TotalMessage = messageService.GetListMessage("").Count(m => m.IsRead == false);
