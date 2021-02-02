@@ -1,8 +1,8 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Entities.ResponeEntity.Camera;
+using BA_MobileGPS.Utilities;
 using Prism.Navigation;
-using Stormlion.PhotoBrowser;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -36,6 +36,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ObservableCollection<Pin> Pins { get; set; } = new ObservableCollection<Pin>();
         private Pin selectedPin;
         public Pin SelectedPin { get => selectedPin; set => SetProperty(ref selectedPin, value); }
+
 
         public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
 
@@ -92,7 +93,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     tempListData.Add(new Photo()
                     {
                         URL = item.ImageLink,
-                        //Info = "Kênh " + item.Channel + " - " + DateTimeHelper.FormatDateTimeWithoutSecond(item.CreatedDate),
+                        Info = "Kênh " + item.Channel + " - " + DateTimeHelper.FormatDateTimeWithoutSecond(item.CreatedDate),
                         Title = item.Address
                     });
                 }

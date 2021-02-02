@@ -7,7 +7,6 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism.Navigation;
-using Stormlion.PhotoBrowser;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -190,7 +189,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         tempListData.Add(new Photo()
                         {
                             URL = item.Url,
-                            //Info = "Kênh " + item.Channel + " - " + DateTimeHelper.FormatDateTimeWithoutSecond(item.Time),
+                            Info = "Kênh " + item.Channel + " - " + DateTimeHelper.FormatDateTimeWithoutSecond(item.Time),
                             Title = item.CurrentAddress
                         });
                     }
@@ -223,7 +222,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             var Pin = Pins[0];
                             Pin.Position = new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng);
-                            Pin.Address = ListCameraImage[Position].CurrentAddress;
                             _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(Pin.Position, 14), TimeSpan.FromMilliseconds(10));
                             SelectedPin = Pins[0];
                             return false;
