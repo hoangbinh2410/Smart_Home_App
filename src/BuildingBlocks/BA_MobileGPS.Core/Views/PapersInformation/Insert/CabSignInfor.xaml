@@ -155,7 +155,7 @@
                     </Button>
                     <Button
                         Grid.Column="1"
-                        BackgroundColor="#00ADE5"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
                         Command="{Binding ChangeToInsertFormCommand}"
                         CornerRadius="20"
                         HeightRequest="40"
