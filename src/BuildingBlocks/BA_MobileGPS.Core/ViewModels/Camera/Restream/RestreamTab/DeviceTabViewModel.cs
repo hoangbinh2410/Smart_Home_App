@@ -203,7 +203,16 @@ namespace BA_MobileGPS.Core.ViewModels
             resetDeviceCounter++;
             if (resetDeviceCounter < 4)
             {
-                StopAndStartRestream();
+                Device.StartTimer(new TimeSpan(0,0,4), ()=>
+                {
+                    if (videoSlected?.Data != null)
+                    {
+                        MediaPlayer.Media = new Media(libVLC, new Uri(videoSlected?.Data.Link));                    
+                        MediaPlayer.Play();
+                    }
+
+                    return false;
+                });
             }
             else
             {
@@ -217,12 +226,27 @@ namespace BA_MobileGPS.Core.ViewModels
 
         /// <summary>
         /// Err : BỊ abort sau 10s không nhận tín hiệu từ server
-        /// hoặc hết video
+        /// hoặc hết video hoặc video bị gọi đóng từ thiết bị khác
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Media_EndReached(object sender, EventArgs e)
         {
+            //case abort 10s hoặc bị đóng từ nơi khác => thời gian play < 10s:
+            if (MediaPlayer.Time < 10000 && resetDeviceCounter < 4)
+            {
+                resetDeviceCounter++;
+                Device.StartTimer(new TimeSpan(0, 0, 4), () =>
+                {
+                    if (videoSlected?.Data != null)
+                    {
+                        MediaPlayer.Media = new Media(libVLC, new Uri(videoSlected?.Data.Link));
+                        MediaPlayer.Play();
+                    }
+                    return false;
+                });
+            }
+            else
             Device.BeginInvokeOnMainThread(() =>
             {
                 IsError = true;
@@ -256,23 +280,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     IsError = false;
                     BusyIndicatorActive = true;
                 });
-
-                if (isAbort)
-                {
-                    isAbort = false;
-                    resetDeviceCounter = 0;
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        if (videoSlected?.Data != null)
-                        {
-                            MediaPlayer.Media = new Media(libVLC, new Uri(videoSlected?.Data.Link));
-                            await Task.Delay(1000);
-                            MediaPlayer.Play();
-                        }
-                    });
-                }
-                else
-                    StopAndStartRestream();
+                DisposeVLC();
+                resetDeviceCounter = 0;
+                isAbort = false;
+                StopAndStartRestream();                   
             }
             catch (Exception ex)
             {
