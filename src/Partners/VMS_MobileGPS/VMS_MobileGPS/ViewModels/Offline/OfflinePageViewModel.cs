@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Helpers;
-using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RealmEntity;
 using BA_MobileGPS.Models;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -33,11 +34,11 @@ namespace VMS_MobileGPS.ViewModels
 
         private readonly IEventAggregator eventAggregator;
         private readonly IMessageService messageService;
-        private readonly IMobileSettingService mobileSettingService;
-        private readonly IAppVersionService appVersionService;
         private readonly IGpsListener _gpsListener;
         private readonly IGpsManager _gpsManager;
         private readonly IDisplayMessage _displayMessage;
+        private readonly IVehicleOnlineService vehicleOnlineService;
+        private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> baseRepository;
 
         public ICommand NavigateToCommand { get; private set; }
         public ICommand ConnectBleCommand { get; private set; }
@@ -46,18 +47,20 @@ namespace VMS_MobileGPS.ViewModels
 
         public OfflinePageViewModel(INavigationService navigationService,
             IEventAggregator eventAggregator,
-            IAppVersionService appVersionService,
             IMessageService messageService,
             IGpsListener gpsListener,
-            IGpsManager gpsManager, IDisplayMessage displayMessage)
+            IGpsManager gpsManager, IDisplayMessage displayMessage,
+            IVehicleOnlineService vehicleOnlineService,
+            IRealmBaseService<BoundaryRealm, LandmarkResponse> baseRepository)
             : base(navigationService)
         {
             this.messageService = messageService;
             this.eventAggregator = eventAggregator;
-            this.appVersionService = appVersionService;
             this._gpsListener = gpsListener;
             this._gpsManager = gpsManager;
             this._displayMessage = displayMessage;
+            this.vehicleOnlineService = vehicleOnlineService;
+            this.baseRepository = baseRepository;
 
             _gpsListener.OnReadingReceived += OnReadingReceived;
 
@@ -117,6 +120,7 @@ namespace VMS_MobileGPS.ViewModels
                 {
                     ShowPermistionPage();
                 }
+                GetListLandmark();
             });
         }
 
@@ -159,8 +163,6 @@ namespace VMS_MobileGPS.ViewModels
         #endregion Lifecycle
 
         #region Property
-
-        public string AppVersion => appVersionService.GetAppVersion();
 
         private bool isConnectBLE = GlobalResourcesVMS.Current.DeviceManager.State == BleConnectionState.NO_CONNECTION ? false : true;
         public bool IsConnectBLE { get => isConnectBLE; set => SetProperty(ref isConnectBLE, value); }
@@ -638,67 +640,38 @@ namespace VMS_MobileGPS.ViewModels
             });
         }
 
-        private void GetMobileVersion()
+        private void GetListLandmark()
         {
             if (!IsConnected)
             {
                 return;
             }
-            RunOnBackground(async () =>
+            TryExecute(() =>
             {
-                return await mobileSettingService.GetMobileVersion(Device.RuntimePlatform.ToString(), (int)App.AppType);
-            },
-            (versionDB) =>
-            {
-                if (versionDB != null && !string.IsNullOrEmpty(versionDB.VersionName) && !string.IsNullOrEmpty(versionDB.LinkDownload))
+                //lấy từ local DB
+                var list = baseRepository.All()?.ToList();
+                if (list != null && list.Count > 0)
                 {
-                    // Nếu giá trị bị null hoặc giá trị đường link thay đổi => cập nhật lại
-                    if (string.IsNullOrEmpty(Settings.AppLinkDownload) || !versionDB.LinkDownload.Equals(Settings.AppLinkDownload, StringComparison.InvariantCultureIgnoreCase))
+                    foreach (var item in list)
                     {
-                        Settings.AppLinkDownload = versionDB.LinkDownload;
-                    }
-
-                    if (!versionDB.VersionName.Equals(AppVersion, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        bool flags = false;
-
-                        if (!flags)
-                        {
-                            flags = true;
-
-                            string title = "Cập nhập phiên bản mới";
-                            string message = !string.IsNullOrEmpty(versionDB.Description) ? versionDB.Description : "Cập nhập phiên bản mới";
-                            string accept = MobileResource.Common_Button_Update;
-                            string cancel = MobileResource.Common_Button_No;
-
-                            // Nếu yêu cầu cài lại app
-                            if (versionDB.IsMustUpdate)
-                            {
-                                Device.BeginInvokeOnMainThread(async () =>
-                                {
-                                    await NavigationService.NavigateAsync("UpdateVersion");
-                                });
-                            }
-                            else
-                            {
-                                Device.BeginInvokeOnMainThread(async () =>
-                                {
-                                    var install = await PageDialog.DisplayAlertAsync(title, message, accept, cancel);
-
-                                    if (install == true) // if it's equal to Update
-                                    {
-                                        await Launcher.OpenAsync(new Uri(versionDB.LinkDownload));
-                                    }
-                                    else // if it's equal to Skip
-                                    {
-                                        return; // just return to the page and do nothing.
-                                    }
-                                });
-                            }
-                            flags = true;
-                        }
+                        baseRepository.Delete(item.Id);
                     }
                 }
+                RunOnBackground(async () =>
+                {
+                    return await vehicleOnlineService.GetListBoundary();
+                },
+                    (respones) =>
+                    {
+                        if (respones != null && respones.Count > 0)
+                        {
+                            foreach (var item in respones)
+                            {
+                                //thêm dữ liệu vào local database với bẳng là LanmarkReal
+                                baseRepository.Add(item);
+                            }
+                        }
+                    });
             });
         }
 
