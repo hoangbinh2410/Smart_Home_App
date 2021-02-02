@@ -43,6 +43,9 @@ namespace BA_MobileGPS.Droid.Setup
 
             //PlatformImageViewer.Init(activity);
             LibVLCSharpFormsRenderer.Init();
+
+
+            Stormlion.PhotoBrowser.Droid.Platform.Init(activity);
         }
     }
 }

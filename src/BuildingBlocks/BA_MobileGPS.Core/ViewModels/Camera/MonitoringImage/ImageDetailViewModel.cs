@@ -7,6 +7,7 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism.Navigation;
+using Stormlion.PhotoBrowser;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -189,7 +190,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         tempListData.Add(new Photo()
                         {
                             URL = item.Url,
-                            Info = "Kênh " + item.Channel + " - " + DateTimeHelper.FormatDateTimeWithoutSecond(item.Time),
+                            //Info = "Kênh " + item.Channel + " - " + DateTimeHelper.FormatDateTimeWithoutSecond(item.Time),
                             Title = item.CurrentAddress
                         });
                     }
