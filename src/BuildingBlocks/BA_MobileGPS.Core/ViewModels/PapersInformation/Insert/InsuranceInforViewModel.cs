@@ -456,7 +456,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void UpdateFormData(int companyId, long vehicleId)
         {
             CreateButtonVisible = false;
-            SaveButtonVisible = false;
+           
             SafeExecute(async () =>
             {
                 var paper = await paperinforService.GetLastPaperInsuranceByVehicleId(companyId, vehicleId);
@@ -464,12 +464,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     oldInfor = paper;
                     IsUpdateForm = true;
-                    if (CheckPermision((int)PermissionKeyNames.PaperUpdate))
-                    {
-                        SaveButtonVisible = true;
-                    }
+
                     Device.BeginInvokeOnMainThread(() =>
                     {
+                        SaveButtonVisible = CheckPermision((int)PermissionKeyNames.PaperUpdate);
                         InsuranceNumber.Value = paper.PaperInfo.PaperNumber;
                         RegistrationDate.Value = paper.PaperInfo.DateOfIssue;
                         ExpireDate.Value = paper.PaperInfo.ExpireDate;
@@ -589,6 +587,10 @@ namespace BA_MobileGPS.Core.ViewModels
             UnitName.Value = string.Empty;
 
             CreateButtonVisible = false;
+            if (!SaveButtonVisible)
+            {
+                SaveButtonVisible = true;
+            }
         }
     }
 }
