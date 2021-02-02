@@ -366,6 +366,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 VideoSlected = item; // Set màu select cho item
                 StopAndStartRestream();
 
+                // Thay cho timer sau 62s, nếu vẫn có indicator=> lỗi.
                 _ = Task.Run(async () =>
                   {
                       await Task.Delay(2000);
@@ -374,8 +375,7 @@ namespace BA_MobileGPS.Core.ViewModels
                       {
                           Device.BeginInvokeOnMainThread(() =>
                           {
-                              IsError = true;
-                              isAbort = true;
+                              IsError = true;                             
                               ErrorMessenger = "Vui lòng load lại hoặc chọn xem video khác";
                           });
                       }
