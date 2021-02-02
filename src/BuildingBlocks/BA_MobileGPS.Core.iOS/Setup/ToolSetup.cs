@@ -75,8 +75,6 @@ namespace BA_MobileGPS.Core.iOS.Setup
             // HtmlLabel
             HtmlLabelRenderer.Initialize();
             LibVLCSharpFormsRenderer.Init();
-
-            Stormlion.PhotoBrowser.iOS.Platform.Init();
         }
     }
 }
