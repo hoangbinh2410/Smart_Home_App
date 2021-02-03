@@ -371,11 +371,11 @@ namespace BA_MobileGPS.Core.ViewModels
                   {
                       await Task.Delay(2000);
                       await Task.Delay(60000, cts.Token);
-                      if (BusyIndicatorActive)
+                      if (BusyIndicatorActive && !IsError)
                       {
                           Device.BeginInvokeOnMainThread(() =>
                           {
-                              IsError = true;                             
+                              IsError = true;
                               ErrorMessenger = "Vui lòng load lại hoặc chọn xem video khác";
                           });
                       }
@@ -673,8 +673,8 @@ namespace BA_MobileGPS.Core.ViewModels
                                 var videoModel = new RestreamVideoModel()
                                 {
                                     VideoImageSource = image.Url,
-                                    VideoStartTime = image.Time.AddMinutes(-configMinute),
-                                    VideoEndTime = image.Time.AddMinutes(configMinute),
+                                    VideoStartTime = (image.Time.Hour == 0 && image.Time.Minute < 2 && image.Time.Second < 35) ? image.Time : image.Time.AddMinutes(-configMinute),
+                                    VideoEndTime = (image.Time.Hour == 23 && image.Time.Minute > 57 && image.Time.Second > 25) ? image.Time : image.Time.AddMinutes(configMinute),
                                     VideoTime = TimeSpan.FromMinutes(2 * configMinute),
                                     Data = new StreamStart() { Channel = image.Channel },
                                     EventType = image.Type,
