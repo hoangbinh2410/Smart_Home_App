@@ -13,5 +13,8 @@ namespace BA_MobileGPS.Core.ViewModels
         {
 
         }
+
+
+
     }
 }
