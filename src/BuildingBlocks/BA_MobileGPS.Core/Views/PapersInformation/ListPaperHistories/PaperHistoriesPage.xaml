@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.PaperHistoriesPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <NavigationPage.TitleView>
+        <Grid
+            Padding="0,0,10,0"
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <image:CachedImage
+                Grid.Column="0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <image:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </image:CachedImage.GestureRecognizers>
+            </image:CachedImage>
+            <Label
+                Grid.ColumnSpan="3"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="CenterAndExpand"
+                LineBreakMode="MiddleTruncation"
+                Text="Lịch sử nhập giấy tờ"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*" RowSpacing="0">
+            <!--  Search area  -->
+            <Grid
+                ColumnDefinitions="1.1*,*"
+                MinimumHeightRequest="105"
+                RowDefinitions="50,50"
+                RowSpacing="0">
+                <pancake:PancakeView
+                    Padding="0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    CornerRadius="19"
+                    HeightRequest="38"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center">
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow
+                            BlurRadius="3"
+                            Offset="0,0"
+                            Color="Black" />
+                    </pancake:PancakeView.Shadow>
+                    <StackLayout
+                        Padding="0"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal"
+                        Spacing="0">
+                        <pancake:PancakeView
+                            BackgroundColor="{DynamicResource PrimaryColor}"
+                            CornerRadius="20"
+                            WidthRequest="40">
+                            <icons:IconView
+                                Margin="13"
+                                Foreground="{DynamicResource WhiteColor}"
+                                Source="ic_search.png" />
+                        </pancake:PancakeView>
+                        <Entry
+                            x:Name="entrySearchVehicle"
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="Tìm kiếm phương tiện"
+                            Text="{Binding SearchedText}">
+                            <Entry.Behaviors>
+                                <prism:EventToCommandBehavior
+                                    Command="{Binding SearchVehicleCommand}"
+                                    EventArgsConverter="{StaticResource TextChangedEventArgsConverter}"
+                                    EventName="TextChanged" />
+                            </Entry.Behaviors>
+                            <Entry.Effects>
+                                <effects:BorderlessEffect />
+                            </Entry.Effects>
+                        </Entry>
+                    </StackLayout>
+                </pancake:PancakeView>
+                <pancake:PancakeView
+                    Grid.Column="1"
+                    Padding="0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    CornerRadius="19"
+                    HeightRequest="38"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center">
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow
+                            BlurRadius="2"
+                            Offset="0,0"
+                            Color="Black" />
+                    </pancake:PancakeView.Shadow>
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectAlertTypeCommand}" />
+                    </pancake:PancakeView.GestureRecognizers>
+                    <StackLayout
+                        Padding="10,0"
+                        HorizontalOptions="FillAndExpand"
+                        InputTransparent="True"
+                        Orientation="Horizontal"
+                        VerticalOptions="Center">
+                        <Entry
+                            HorizontalOptions="FillAndExpand"
+                            InputTransparent="True"
+                            Text="{Binding AlertTypeName}"
+                            TextColor="{DynamicResource TextPrimaryColor}"
+                            VerticalOptions="Center">
+                            <Entry.Effects>
+                                <effects:BorderlessEffect />
+                            </Entry.Effects>
+                        </Entry>
+                        <icons:IconView
+                            Foreground="{DynamicResource BlackColor}"
+                            HeightRequest="15"
+                            HorizontalOptions="End"
+                            Source="ic_sortdown"
+                            VerticalOptions="Center"
+                            WidthRequest="15" />
+                    </StackLayout>
+                </pancake:PancakeView>
+                <pancake:PancakeView
+                    Grid.Row="1"
+                    Padding="0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    CornerRadius="18"
+                    HeightRequest="35"
+                    VerticalOptions="Center">
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow
+                            BlurRadius="2"
+                            Offset="0,0"
+                            Color="{DynamicResource BlackColor}" />
+                    </pancake:PancakeView.Shadow>
+                    <Entry
+                        HorizontalOptions="FillAndExpand"
+                        InputTransparent="True"
+                        Text="{Binding AlertTypeName}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
+                        VerticalOptions="Center">
+                        <Entry.Effects>
+                            <effects:BorderlessEffect />
+                        </Entry.Effects>
+                    </Entry>
+                </pancake:PancakeView>
+                <pancake:PancakeView
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Padding="0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    CornerRadius="18"
+                    HeightRequest="35"
+                    VerticalOptions="Center">
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow
+                            BlurRadius="2"
+                            Offset="0,0"
+                            Color="{DynamicResource BlackColor}" />
+                    </pancake:PancakeView.Shadow>
+                    <Entry
+                        HorizontalOptions="FillAndExpand"
+                        InputTransparent="True"
+                        Text="{Binding AlertTypeName}"
+                        TextColor="{DynamicResource TextPrimaryColor}"
+                        VerticalOptions="Center">
+                        <Entry.Effects>
+                            <effects:BorderlessEffect />
+                        </Entry.Effects>
+                    </Entry>
+                </pancake:PancakeView>
+
+
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>
