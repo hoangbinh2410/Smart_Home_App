@@ -1,11 +1,9 @@
 ﻿using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
-using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RealmEntity;
@@ -55,7 +53,7 @@ namespace VMS_MobileGPS.ViewModels
         public ICommand FastEndCommand { get; }
         public ICommand ChangeSpeedCommand { get; }
 
-        public RoutePageViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService, 
+        public RoutePageViewModel(INavigationService navigationService, IVehicleRouteService vehicleRouteService,
             IGeocodeService geocodeService, IRealmBaseService<BoundaryRealm, LandmarkResponse> realmBaseService)
            : base(navigationService)
         {
@@ -153,6 +151,7 @@ namespace VMS_MobileGPS.ViewModels
         #endregion Lifecycle
 
         #region Property
+
         public ObservableCollection<Polygon> Boundaries { get; set; } = new ObservableCollection<Polygon>();
         private View view;
         private CancellationTokenSource ctsRouting = new CancellationTokenSource();
@@ -435,7 +434,6 @@ namespace VMS_MobileGPS.ViewModels
                     }
                 });
             }
-
         }
 
         private void GetHistoryRoute()
@@ -1029,13 +1027,14 @@ namespace VMS_MobileGPS.ViewModels
                 PlaySpeed *= 2;
             }
         }
+
         private void GoogleMapAddBoundary()
         {
             Boundaries.Clear();
-            var temp = Polylines?.Where(l =>l.Tag != null && l.Tag.ToString() == "POLYGON")?.ToList();
+            var temp = Polylines?.Where(l => l.Tag != null && l.Tag.ToString() == "POLYGON")?.ToList();
             foreach (var line in temp)
             {
-               Polylines.Remove(line);
+                Polylines.Remove(line);
             }
 
             var listBoudary = boundaryRepository.Find(b => b.IsShowBoudary);
@@ -1050,10 +1049,21 @@ namespace VMS_MobileGPS.ViewModels
         {
             try
             {
-
                 var result = boundary.Polygon.Split(',');
 
-                var color = Color.FromHex(ConvertIntToHex(boundary.Color));
+                var color = Color.Blue;
+                if (boundary.PK_LandmarkID == 376650)
+                {
+                    color = Color.Red;
+                }
+                else if (boundary.PK_LandmarkID == 376651)
+                {
+                    color = Color.Blue;
+                }
+                else if (boundary.PK_LandmarkID == 376652)
+                {
+                    color = Color.Green;
+                }
 
                 if (boundary.IsClosed)
                 {
@@ -1090,16 +1100,14 @@ namespace VMS_MobileGPS.ViewModels
 
                     Polylines.Add(polyline);
                 }
-
-
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-
         }
-        private  string ConvertIntToHex(int value)
+
+        private string ConvertIntToHex(int value)
         {
             return value.ToString("X").PadLeft(6, '0');
         }
@@ -1124,7 +1132,6 @@ namespace VMS_MobileGPS.ViewModels
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-
         }
 
         private void AddName(LandmarkResponse name)
