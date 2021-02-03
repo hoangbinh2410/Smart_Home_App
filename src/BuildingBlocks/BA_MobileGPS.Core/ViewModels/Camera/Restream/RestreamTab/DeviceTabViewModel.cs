@@ -85,6 +85,21 @@ namespace BA_MobileGPS.Core.ViewModels
             DisposeVLC();
         }
 
+        public override void OnSleep()
+        {
+            base.OnSleep();
+            if (MediaPlayerVisible)
+            {
+                VideoSlected = null;
+                cts.Cancel();
+                cts.Dispose();
+                CloseVideo();
+                cts = new CancellationTokenSource();
+                
+            }
+        }
+     
+
         #endregion Lifecycle
 
         #region Property
@@ -109,9 +124,6 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref dateEnd, value);
         }
 
-        // Loi abort 10s
-        private bool isAbort { get; set; }
-
         /// <summary>
         /// Thời gian trừ trước và sau thời gian của ảnh => gửi request video
         /// 1.5 theo yêu cầu từ QA
@@ -119,7 +131,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly double configMinute = 1.5;
 
         private List<RestreamVideoModel> VideoItemsSourceOrigin = new List<RestreamVideoModel>();
-        private bool IsLoadingCamera = false;
+        private bool isLoadingCamera = false;
 
         // dem so lan request lai khi connect fail, gioi han la 3
         private int resetDeviceCounter = 0;
@@ -250,7 +262,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     IsError = true;
-                    isAbort = true;
                     ErrorMessenger = "Vui lòng load lại hoặc chọn xem video khác";
                 });
             // hết video??/
@@ -282,7 +293,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
                 DisposeVLC();
                 resetDeviceCounter = 0;
-                isAbort = false;
                 StopAndStartRestream();
             }
             catch (Exception ex)
@@ -360,7 +370,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     IsError = false;
                     BusyIndicatorActive = true;
                     MediaPlayerVisible = true; // Bật layout media lên
-                    IsLoadingCamera = false; // Trạng thái load url media từ pnc                    
+                    isLoadingCamera = false; // Trạng thái load url media từ pnc                    
                 });
 
                 VideoSlected = item; // Set màu select cho item
@@ -529,7 +539,7 @@ namespace BA_MobileGPS.Core.ViewModels
         /// <returns></returns>
         private async Task<bool> CheckDeviceStatus()
         {
-            IsLoadingCamera = true;
+            isLoadingCamera = true;
             var result = false;
             var loopIndex = 0;
             var start = new StartRestreamRequest()
@@ -542,7 +552,7 @@ namespace BA_MobileGPS.Core.ViewModels
             };
             try
             {
-                while (IsLoadingCamera && loopIndex <= 7 && IsActive && !cts.IsCancellationRequested)
+                while (isLoadingCamera && loopIndex <= 7 && IsActive && !cts.IsCancellationRequested)
                 {
                     var deviceStatus = await streamCameraService.GetDevicesStatus(ConditionType.BKS, Vehicle.VehiclePlate);
                     var device = deviceStatus?.Data?.FirstOrDefault();
@@ -554,14 +564,14 @@ namespace BA_MobileGPS.Core.ViewModels
                             var isStreaming = CameraStatusExtension.IsRestreaming(streamDevice.CameraStatus);
                             if (isStreaming)
                             {
-                                IsLoadingCamera = false;
+                                isLoadingCamera = false;
                                 result = true;
                             }
                             // Neu trang thai chưa thay đổi => gọi lại start
                             else await streamCameraService.StartRestream(start);
                         }
                         loopIndex++;
-                        if (IsLoadingCamera && loopIndex <= 7)
+                        if (isLoadingCamera && loopIndex <= 7)
                         {
                             await Task.Delay(1500, cts.Token);
                         }
