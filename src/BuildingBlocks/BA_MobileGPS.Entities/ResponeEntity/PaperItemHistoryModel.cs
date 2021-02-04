@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BA_MobileGPS.Entities.ResponeEntity
@@ -26,6 +28,22 @@ namespace BA_MobileGPS.Entities.ResponeEntity
         public DateTime? UpdatedDate { get; set; }
         //public Guid UpdatedByUser { get; set; }
         public string UserUpdated { get; set; }
+
+        // Dùng ở itemTemplate theo loại giấy tờ => hiển thị biển số
+        [JsonIgnore]
+        public string VehiclePlate
+        {
+            get
+            {
+                var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == FK_VehicleID);
+                if (vehicle != null)
+                {
+                    return vehicle.VehiclePlate.ToUpper();
+                }
+                else return string.Empty;
+
+            }
+        }
     }
 
     public class PaperHistoriesResponse : ResponseBaseV2<DataResponseBase<PaperItemHistoryModel>>

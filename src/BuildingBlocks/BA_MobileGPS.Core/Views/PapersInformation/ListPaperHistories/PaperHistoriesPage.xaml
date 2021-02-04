@@ -60,10 +60,12 @@
         <Grid RowDefinitions="Auto,1,*" RowSpacing="0">
             <!--  Search area  -->
             <Grid
+                Padding="5"
                 ColumnDefinitions="1.1*,*"
-                MinimumHeightRequest="105"
+                MinimumHeightRequest="100"
                 RowDefinitions="50,50"
                 RowSpacing="0">
+                <!--  Biển số  -->
                 <pancake:PancakeView
                     Padding="0"
                     BackgroundColor="{DynamicResource WhiteColor}"
@@ -108,6 +110,7 @@
                         </Entry>
                     </StackLayout>
                 </pancake:PancakeView>
+                <!--  Loại giấy tờ  -->
                 <pancake:PancakeView
                     Grid.Column="1"
                     Padding="0"
@@ -123,7 +126,7 @@
                             Color="Black" />
                     </pancake:PancakeView.Shadow>
                     <pancake:PancakeView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding SelectAlertTypeCommand}" />
+                        <TapGestureRecognizer Command="{Binding SelectPaperTypeCommand}" />
                     </pancake:PancakeView.GestureRecognizers>
                     <StackLayout
                         Padding="10,0"
@@ -134,7 +137,7 @@
                         <Entry
                             HorizontalOptions="FillAndExpand"
                             InputTransparent="True"
-                            Text="{Binding AlertTypeName}"
+                            Text="{Binding PaperTypeName}"
                             TextColor="{DynamicResource TextPrimaryColor}"
                             VerticalOptions="Center">
                             <Entry.Effects>
@@ -150,6 +153,7 @@
                             WidthRequest="15" />
                     </StackLayout>
                 </pancake:PancakeView>
+                <!--  Từ ngày  -->
                 <pancake:PancakeView
                     Grid.Row="1"
                     Padding="0"
@@ -163,32 +167,33 @@
                             Offset="0,0"
                             Color="{DynamicResource BlackColor}" />
                     </pancake:PancakeView.Shadow>
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectFromDateCommand}" />
+                    </pancake:PancakeView.GestureRecognizers>
                     <StackLayout
-                        Padding="10,0"
+                        Padding="20,0,10,0"
                         HorizontalOptions="FillAndExpand"
                         InputTransparent="True"
                         Orientation="Horizontal"
                         VerticalOptions="Center">
-                        <Entry
-                            HorizontalOptions="FillAndExpand"
+                        <Label
+                            HorizontalOptions="StartAndExpand"
                             InputTransparent="True"
-                            Text="{Binding AlertTypeName}"
+                            Text="{Binding FromDate, Converter={StaticResource DateConverter}, Mode=OneWay}"
                             TextColor="{DynamicResource TextPrimaryColor}"
-                            VerticalOptions="Center">
-                            <Entry.Effects>
-                                <effects:BorderlessEffect />
-                            </Entry.Effects>
-                        </Entry>
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center" />
                         <icons:IconView
-                            Foreground="{DynamicResource BlackColor}"
+                            Foreground="{DynamicResource PrimaryColor}"
                             HeightRequest="15"
                             HorizontalOptions="End"
-                            Source="ic_sortdown"
+                            Source="ic_calendar"
                             VerticalOptions="Center"
                             WidthRequest="15" />
                     </StackLayout>
 
                 </pancake:PancakeView>
+                <!--  Đến ngày  -->
                 <pancake:PancakeView
                     Grid.Row="1"
                     Grid.Column="1"
@@ -203,33 +208,30 @@
                             Offset="0,0"
                             Color="{DynamicResource BlackColor}" />
                     </pancake:PancakeView.Shadow>
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectToDateCommand}" />
+                    </pancake:PancakeView.GestureRecognizers>
                     <StackLayout
-                        Padding="10,0"
+                        Padding="20,0,10,0"
                         HorizontalOptions="FillAndExpand"
                         InputTransparent="True"
                         Orientation="Horizontal"
                         VerticalOptions="Center">
-                        <Entry
-                            HorizontalOptions="FillAndExpand"
+                        <Label
+                            HorizontalOptions="StartAndExpand"
                             InputTransparent="True"
-                            Text="{Binding AlertTypeName}"
+                            Text="{Binding ToDate, Converter={StaticResource DateConverter}, Mode=OneWay}"
                             TextColor="{DynamicResource TextPrimaryColor}"
-                            VerticalOptions="Center">
-                            <Entry.Effects>
-                                <effects:BorderlessEffect />
-                            </Entry.Effects>
-                        </Entry>
+                            VerticalOptions="Center" />
                         <icons:IconView
-                            Foreground="{DynamicResource BlackColor}"
+                            Foreground="{DynamicResource PrimaryColor}"
                             HeightRequest="15"
                             HorizontalOptions="End"
-                            Source="ic_sortdown"
+                            Source="ic_calendar"
                             VerticalOptions="Center"
                             WidthRequest="15" />
                     </StackLayout>
                 </pancake:PancakeView>
-
-
             </Grid>
             <BoxView Grid.Row="1" StyleClass="SlimLine" />
             <Grid
@@ -240,130 +242,229 @@
                 <xforms:SfListView
                     x:Name="listView"
                     Margin="0"
-                    AllowSwiping="{Binding DeleteVisible}"
                     AutoFitMode="DynamicHeight"
-                    IsBusy="{Binding ListViewBusy, Mode=OneWay}"
-                    ItemSize="60"
                     ItemSpacing="0"
-                    ItemsSource="{Binding ListDriverDisplay, Mode=OneWay}"
+                    ItemsSource="{Binding ListPaperDisplay, Mode=OneWay}"
                     LoadMoreCommand="{Binding LoadMoreItemsCommand}"
                     LoadMoreOption="AutoOnScroll"
                     SelectionBackgroundColor="Transparent"
                     SelectionMode="Single"
                     SwipeOffset="80"
                     TapCommand="{Binding SelectDriverCommand}">
-                    <xforms:SfListView.RightSwipeTemplate>
-                        <DataTemplate>
-                            <Grid Padding="7" BackgroundColor="#57606F">
-                                <pancake:PancakeView
-                                    Padding="0"
-                                    BackgroundColor="{DynamicResource DangerousColor}"
-                                    CornerRadius="10">
-                                    <pancake:PancakeView.GestureRecognizers>
-                                        <TapGestureRecognizer
-                                            Command="{Binding Source={x:Reference this}, Path=BindingContext.DeleteDriverCommand}"
-                                            CommandParameter="{Binding .}"
-                                            NumberOfTapsRequired="1" />
-                                    </pancake:PancakeView.GestureRecognizers>
-                                    <Label
-                                        Text="Xóa"
-                                        TextColor="{DynamicResource WhiteColor}"
-                                        VerticalOptions="Center" />
-                                </pancake:PancakeView>
-                            </Grid>
-                        </DataTemplate>
-                    </xforms:SfListView.RightSwipeTemplate>
                     <xforms:SfListView.ItemTemplate>
                         <DataTemplate>
-                            <pancake:PancakeView Padding="0" BackgroundColor="{DynamicResource GrayColor}">
-                                <Grid RowDefinitions="*,1">
-                                    <Grid
-                                        Margin="5,10,0,0"
-                                        ColumnDefinitions="Auto,*"
-                                        ColumnSpacing="10"
-                                        VerticalOptions="StartAndExpand">
-                                        <image:CachedImage
-                                            HeightRequest="50"
-                                            Source="{Binding AvartarDisplay}"
-                                            WidthRequest="50" />
-                                        <StackLayout
-                                            Grid.Column="1"
-                                            HorizontalOptions="Fill"
-                                            Spacing="0"
-                                            VerticalOptions="Fill">
-                                            <Label
-                                                HorizontalOptions="Start"
-                                                LineBreakMode="TailTruncation"
-                                                MaxLines="1"
-                                                StyleClass="BoldText"
-                                                Text="{Binding DisplayName, Converter={StaticResource UpperCaseConverter}}" />
-                                            <Grid
-                                                ColumnDefinitions="*,90,*"
-                                                ColumnSpacing="5"
-                                                VerticalOptions="EndAndExpand">
-                                                <StackLayout Orientation="Horizontal" Spacing="5">
-                                                    <icons:IconView
-                                                        Foreground="{DynamicResource GreenColor}"
-                                                        HeightRequest="20"
-                                                        Source="ic_phone_black"
-                                                        VerticalOptions="CenterAndExpand"
-                                                        WidthRequest="20" />
-                                                    <Label
-                                                        FontSize="{DynamicResource MyFontSizeSmall}"
-                                                        HorizontalOptions="Start"
-                                                        LineBreakMode="TailTruncation"
-                                                        MaxLines="1"
-                                                        Text="{Binding Mobile}"
-                                                        VerticalOptions="Center" />
-                                                </StackLayout>
-                                                <StackLayout
-                                                    Grid.Column="1"
-                                                    Orientation="Horizontal"
-                                                    Spacing="5">
-                                                    <icons:IconView
-                                                        Foreground="{DynamicResource LoginIconColor}"
-                                                        HeightRequest="20"
-                                                        Source="ic_driverlicense.png"
-                                                        VerticalOptions="CenterAndExpand"
-                                                        WidthRequest="20" />
-                                                    <Label
-                                                        FontSize="{DynamicResource MyFontSizeSmall}"
-                                                        LineBreakMode="HeadTruncation"
-                                                        MaxLines="1"
-                                                        Text="{Binding LicenseTypeName}"
-                                                        VerticalOptions="Center" />
-                                                </StackLayout>
-                                                <StackLayout
-                                                    Grid.Column="2"
-                                                    Orientation="Horizontal"
-                                                    Spacing="5">
-                                                    <icons:IconView
-                                                        Foreground="{DynamicResource DangerousColor}"
-                                                        HeightRequest="20"
-                                                        Source="ic_date_range_black.png"
-                                                        VerticalOptions="CenterAndExpand"
-                                                        WidthRequest="20" />
-                                                    <Label
-                                                        FontSize="{DynamicResource MyFontSizeSmall}"
-                                                        HorizontalOptions="Start"
-                                                        LineBreakMode="TailTruncation"
-                                                        Text="{Binding ExpireLicenseDate, Converter={StaticResource DateConverter}}"
-                                                        VerticalOptions="Center" />
-                                                </StackLayout>
-                                            </Grid>
-                                        </StackLayout>
-                                    </Grid>
-                                    <BoxView Grid.Row="1" BackgroundColor="{DynamicResource GrayColor2}" />
+                            <Grid RowDefinitions="Auto,1">
+
+
+                                <Grid
+                                    Padding="10,5"
+                                    ColumnDefinitions="1.2*,*"
+                                    RowDefinitions="1.1*,*,*,*">
+                                    <!--  Biển số  -->
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <icons:IconView
+                                            Foreground="{DynamicResource TextSecondaryColor}"
+                                            HeightRequest="20"
+                                            Source="ic_vehiclesolid"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="20" />
+                                        <Label
+                                            FontSize="{DynamicResource MyFontSizeLarge}"
+                                            HorizontalOptions="Start"
+                                            LineBreakMode="TailTruncation"
+                                            MaxLines="1"
+                                            StyleClass="BoldText"
+                                            Text="{Binding VehiclePlate}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                    <!--  Loại giấy tờ  -->
+                                    <StackLayout
+                                        Grid.Column="1"
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <icons:IconView
+                                            Foreground="{DynamicResource GreenColor}"
+                                            HeightRequest="20"
+                                            Source="ic_paper_type"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="20" />
+                                        <Label
+                                            HorizontalOptions="Start"
+                                            LineBreakMode="TailTruncation"
+                                            MaxLines="1"
+                                            StyleClass="BoldText"
+                                            Text="{Binding PaperCategoryName}"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                    <!--  Ngày đăng kí  -->
+                                    <StackLayout
+                                        Grid.Row="1"
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <icons:IconView
+                                            Foreground="{DynamicResource GreenColor}"
+                                            HeightRequest="15"
+                                            Source="ic_date_range_black"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="15" />
+                                        <Label
+                                            Margin="5,0,0,0"
+                                            FontSize="{DynamicResource MyFontSizeSmall}"
+                                            Text="Đăng kí: "
+                                            TextColor="{DynamicResource BluePrimaryColor}"
+                                            VerticalTextAlignment="Center" />
+                                        <Label
+                                            FontSize="{DynamicResource MyFontSizeSmall}"
+                                            HorizontalOptions="Start"
+                                            LineBreakMode="TailTruncation"
+                                            MaxLines="1"
+                                            Text="{Binding DateOfIssue, Converter={StaticResource DateConverter}, Mode=OneWay}"
+                                            TextColor="{DynamicResource BluePrimaryColor}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+                                    <!--  Ngày hết hạn  -->
+                                    <StackLayout
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <icons:IconView
+                                            Foreground="{DynamicResource DangerousColor}"
+                                            HeightRequest="15"
+                                            Source="ic_date_range_black"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="15" />
+                                        <Label
+                                            Margin="5,0,0,0"
+                                            FontSize="{DynamicResource MyFontSizeSmall}"
+                                            Text="Hết hạn: "
+                                            TextColor="{DynamicResource BluePrimaryColor}"
+                                            VerticalTextAlignment="Center" />
+                                        <Label
+                                            FontSize="{DynamicResource MyFontSizeSmall}"
+                                            HorizontalOptions="Start"
+                                            LineBreakMode="TailTruncation"
+                                            MaxLines="1"
+                                            Text="{Binding ExpireDate, Converter={StaticResource DateConverter}, Mode=OneWay}"
+                                            TextColor="{DynamicResource BluePrimaryColor}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+                                    <!--  Người tạo  -->
+                                    <StackLayout
+                                        Grid.Row="2"
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <icons:IconView
+                                            Foreground="{DynamicResource TextSecondaryColor}"
+                                            HeightRequest="15"
+                                            Source="ic_account"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="15" />
+                                        <Label
+                                            Margin="5,0,0,0"
+                                            FontSize="{DynamicResource MyFontSizeSmall}"
+                                            Text="Người tạo: "
+                                            VerticalTextAlignment="Center" />
+                                        <Label
+                                            FontSize="{DynamicResource MyFontSizeSmall}"
+                                            HorizontalOptions="Start"
+                                            LineBreakMode="TailTruncation"
+                                            MaxLines="1"
+                                            Text="{Binding UserCreated}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+                                    <!--  Ngày tạo  -->
+                                    <StackLayout
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <icons:IconView
+                                            Foreground="{DynamicResource TextSecondaryColor}"
+                                            HeightRequest="15"
+                                            Source="ic_calendar_create"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="15" />
+                                        <Label
+                                            Margin="5,0,0,0"
+                                            FontSize="{DynamicResource MyFontSizeSmall}"
+                                            Text="Ngày tạo: "
+                                            VerticalTextAlignment="Center" />
+                                        <Label
+                                            FontSize="{DynamicResource MyFontSizeSmall}"
+                                            HorizontalOptions="Start"
+                                            LineBreakMode="TailTruncation"
+                                            MaxLines="1"
+                                            Text="{Binding CreatedDate, Converter={StaticResource DateConverter}, Mode=OneWay}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+                                    <!--  Người cập nhật  -->
+                                    <StackLayout
+                                        Grid.Row="3"
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <icons:IconView
+                                            Foreground="{DynamicResource TextSecondaryColor}"
+                                            HeightRequest="15"
+                                            Source="ic_account"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="15" />
+                                        <Label
+                                            Margin="5,0,0,0"
+                                            FontSize="{DynamicResource MyFontSizeSmall}"
+                                            Text="Người cập nhật: "
+                                            VerticalTextAlignment="Center" />
+                                        <Label
+                                            FontSize="{DynamicResource MyFontSizeSmall}"
+                                            HorizontalOptions="Start"
+                                            LineBreakMode="TailTruncation"
+                                            MaxLines="1"
+                                            Text="{Binding UserUpdated}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+                                    <!--  Ngày cập nhật  -->
+                                    <StackLayout
+                                        Grid.Row="3"
+                                        Grid.Column="1"
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <icons:IconView
+                                            Foreground="{DynamicResource TextSecondaryColor}"
+                                            HeightRequest="15"
+                                            Source="ic_calendar_update"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="15" />
+                                        <Label
+                                            Margin="5,0,0,0"
+                                            FontSize="{DynamicResource MyFontSizeSmall}"
+                                            Text="Ngày cập nhật: "
+                                            VerticalTextAlignment="Center" />
+                                        <Label
+                                            FontSize="{DynamicResource MyFontSizeSmall}"
+                                            HorizontalOptions="Start"
+                                            LineBreakMode="TailTruncation"
+                                            MaxLines="1"
+                                            Text="{Binding UpdatedDate, Converter={StaticResource DateConverter}, Mode=OneWay}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
                                 </Grid>
-                            </pancake:PancakeView>
+                                <BoxView Grid.Row="1" StyleClass="SlimLine" />
+                            </Grid>
                         </DataTemplate>
                     </xforms:SfListView.ItemTemplate>
                 </xforms:SfListView>
-                <busyIndicator:SfBusyIndicator IsBusy="{Binding IsBusy}" />
+
                 <StackLayout
                     BackgroundColor="Transparent"
                     HorizontalOptions="Center"
-                    IsVisible="{Binding ListDriverSearch, Converter={StaticResource IsEmptyDataConverter}}"
+                    IsVisible="{Binding ListPaperAfterSearch, Converter={StaticResource IsEmptyDataConverter}}"
                     Spacing="10"
                     VerticalOptions="Center">
                     <!--  Image for display svg image  -->
@@ -375,6 +476,7 @@
                     <!--  Label to display content  -->
                     <Label Text="{i18n:TranslateResource Common_Message_NoData}" VerticalTextAlignment="Center" />
                 </StackLayout>
+                <busyIndicator:SfBusyIndicator IsBusy="{Binding IsBusy}" />
             </Grid>
         </Grid>
     </ContentPage.Content>
