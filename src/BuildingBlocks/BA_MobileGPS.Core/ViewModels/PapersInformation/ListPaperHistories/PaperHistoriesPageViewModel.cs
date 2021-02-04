@@ -46,30 +46,13 @@ namespace BA_MobileGPS.Core.ViewModels
             paperType = PaperCategoryTypeEnum.None.ToDescription();
         }
 
-
-
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
             GetData();
         }
 
-        private void GetData()
-        {
-            RunOnBackground(async () =>
-            {
-                return await paperInforService.GetListPaperHistory(UserInfo.CompanyId);
-            },
-            res =>
-            {
-                if (res != null && res.Count >0)
-                {
-                    listPaperOrigin = res.Where(x => !string.IsNullOrEmpty(x.VehiclePlate)).ToList();
-                    Filter();
-                }             
-            });
-        }
-
+     
         private Guid paperTypeIdFilter { get; set; } = new Guid();
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -99,6 +82,88 @@ namespace BA_MobileGPS.Core.ViewModels
                     Filter();
                 }
             }
+        }
+
+    
+
+        private string searchedText;
+        public string SearchedText
+        {
+            get { return searchedText; }
+            set { SetProperty(ref searchedText, value); }
+        }
+
+        private string paperType;
+        public string PaperTypeName
+        {
+            get { return paperType; }
+            set { SetProperty(ref paperType, value); }
+        }
+
+        private DateTime fromDate;
+        public DateTime FromDate
+        {
+            get { return fromDate; }
+            set { SetProperty(ref fromDate, value); }
+        }
+
+        private DateTime toDate;
+        public DateTime ToDate
+        {
+            get { return toDate; }
+            set { SetProperty(ref toDate, value); }
+        }
+
+        private ObservableCollection<PaperItemHistoryModel> listPaperDisplay;
+        public ObservableCollection<PaperItemHistoryModel> ListPaperDisplay
+        {
+            get { return listPaperDisplay; }
+            set { SetProperty(ref listPaperDisplay, value); }
+        }
+
+        private List<PaperItemHistoryModel> listPaperOrigin { get; set; } = new List<PaperItemHistoryModel>();
+        private List<PaperItemHistoryModel> listPaperAfterSearch;
+        public List<PaperItemHistoryModel> ListPaperAfterSearch
+        {
+            get { return listPaperAfterSearch; }
+            set { SetProperty(ref listPaperAfterSearch, value); }
+        }
+
+        private void Filter()
+        {
+
+            ListPaperDisplay = new ObservableCollection<PaperItemHistoryModel>();
+            pageIndex = 0;
+            var temp = listPaperOrigin.Where(x => (string.IsNullOrWhiteSpace(searchedText) || x.VehiclePlate.Contains(searchedText))
+                                     && (paperTypeIdFilter == new Guid() || x.FK_PaperCategoryID == paperTypeIdFilter)
+                                     && (x.CreatedDate.Date >= fromDate)
+                                     && (x.CreatedDate.Date <= toDate)).ToList();
+
+            ListPaperAfterSearch = temp;
+            LoadMore();
+
+        }
+
+        private void SelectToDate()
+        {
+            SafeExecute(async () =>
+            {
+                var parameters = new NavigationParameters();
+                parameters.Add("PickerType", (short)ComboboxType.First);
+                parameters.Add("DataPicker", toDate);
+                await NavigationService.NavigateAsync("SelectDatePicker", parameters);
+            });
+        }
+
+        private void SelectFromDate()
+        {
+            SafeExecute(async () =>
+            {
+                var parameters = new NavigationParameters();
+                parameters.Add("PickerType", (short)ComboboxType.Second);
+                parameters.Add("DataPicker", fromDate);
+                await NavigationService.NavigateAsync("SelectDatePicker", parameters);
+            });
         }
 
         private bool CanLoadMoreItems()
@@ -176,92 +241,21 @@ namespace BA_MobileGPS.Core.ViewModels
                 Filter();
             }, cts.Token);
         }
-
-        private string searchedText;
-        public string SearchedText
+        private void GetData()
         {
-            get { return searchedText; }
-            set { SetProperty(ref searchedText, value); }
-        }
-
-        private string paperType;
-        public string PaperTypeName
-        {
-            get { return paperType; }
-            set { SetProperty(ref paperType, value); }
-        }
-
-        private DateTime fromDate;
-        public DateTime FromDate
-        {
-            get { return fromDate; }
-            set { SetProperty(ref fromDate, value); }
-        }
-
-        private DateTime toDate;
-        public DateTime ToDate
-        {
-            get { return toDate; }
-            set { SetProperty(ref toDate, value); }
-        }
-
-        private ObservableCollection<PaperItemHistoryModel> listPaperDisplay;
-        public ObservableCollection<PaperItemHistoryModel> ListPaperDisplay
-        {
-            get { return listPaperDisplay; }
-            set { SetProperty(ref listPaperDisplay, value); }
-        }
-
-        private List<PaperItemHistoryModel> listPaperOrigin { get; set; } = new List<PaperItemHistoryModel>();
-        private List<PaperItemHistoryModel> listPaperAfterSearch;
-        public List<PaperItemHistoryModel> ListPaperAfterSearch
-        {
-            get { return listPaperAfterSearch; }
-            set { SetProperty(ref listPaperAfterSearch, value); }
-        }
-
-        private void Filter()
-        {
-            try
+            RunOnBackground(async () =>
             {
-                ListPaperDisplay = new ObservableCollection<PaperItemHistoryModel>();
-                pageIndex = 0;
-                var temp = listPaperOrigin.Where(x => (string.IsNullOrWhiteSpace(searchedText) || x.VehiclePlate.Contains(searchedText))
-                                         && (paperTypeIdFilter == new Guid() || x.FK_PaperCategoryID == paperTypeIdFilter)
-                                         && (x.CreatedDate.Date >= fromDate)
-                                         && (x.CreatedDate.Date <= toDate)).ToList();
-
-                ListPaperAfterSearch = temp;
-                LoadMore();
-            }
-            catch (Exception ex)
+                return await paperInforService.GetListPaperHistory(UserInfo.CompanyId);
+            },
+            res =>
             {
-
-                throw;
-            }
-          
-        }
-
-        private void SelectToDate()
-        {
-            SafeExecute(async () =>
-            {
-                var parameters = new NavigationParameters();
-                parameters.Add("PickerType", (short)ComboboxType.First);
-                parameters.Add("DataPicker", toDate);
-                await NavigationService.NavigateAsync("SelectDatePicker", parameters);
+                if (res != null && res.Count > 0)
+                {
+                    listPaperOrigin = res.Where(x => !string.IsNullOrEmpty(x.VehiclePlate)).ToList();
+                    Filter();
+                }
             });
         }
 
-        private void SelectFromDate()
-        {
-            SafeExecute(async () =>
-            {
-                var parameters = new NavigationParameters();
-                parameters.Add("PickerType", (short)ComboboxType.Second);
-                parameters.Add("DataPicker", fromDate);
-                await NavigationService.NavigateAsync("SelectDatePicker", parameters);
-            });
-        }
     }
 }
