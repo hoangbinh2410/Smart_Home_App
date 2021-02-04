@@ -83,7 +83,7 @@
                         Padding="0"
                         HorizontalOptions="FillAndExpand"
                         Orientation="Horizontal"
-                        Spacing="0">
+                        Spacing="5">
                         <pancake:PancakeView
                             BackgroundColor="{DynamicResource PrimaryColor}"
                             CornerRadius="20"
@@ -298,23 +298,22 @@
                                             VerticalOptions="Center" />
                                     </StackLayout>
                                     <!--  Ngày đăng kí  -->
-                                    <StackLayout
-                                        Grid.Row="1"
-                                        Orientation="Horizontal"
-                                        Spacing="5">
+                                    <Grid Grid.Row="1" ColumnDefinitions="Auto,Auto,*">
                                         <icons:IconView
                                             Foreground="{DynamicResource GreenColor}"
-                                            HeightRequest="15"
+                                            HeightRequest="18"
                                             Source="ic_date_range_black"
                                             VerticalOptions="CenterAndExpand"
-                                            WidthRequest="15" />
+                                            WidthRequest="18" />
                                         <Label
-                                            Margin="5,0,0,0"
+                                            Grid.Column="1"
+                                            Margin="2,0,0,0"
                                             FontSize="{DynamicResource MyFontSizeSmall}"
-                                            Text="Đăng kí: "
+                                            Text="Đăng kí:"
                                             TextColor="{DynamicResource BluePrimaryColor}"
                                             VerticalTextAlignment="Center" />
                                         <Label
+                                            Grid.Column="2"
                                             FontSize="{DynamicResource MyFontSizeSmall}"
                                             HorizontalOptions="Start"
                                             LineBreakMode="TailTruncation"
@@ -323,26 +322,27 @@
                                             TextColor="{DynamicResource BluePrimaryColor}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
-                                    </StackLayout>
+                                    </Grid>
                                     <!--  Ngày hết hạn  -->
-                                    <StackLayout
+                                    <Grid
                                         Grid.Row="1"
                                         Grid.Column="1"
-                                        Orientation="Horizontal"
-                                        Spacing="5">
+                                        ColumnDefinitions="Auto,Auto,*">
                                         <icons:IconView
                                             Foreground="{DynamicResource DangerousColor}"
-                                            HeightRequest="15"
+                                            HeightRequest="18"
                                             Source="ic_date_range_black"
                                             VerticalOptions="CenterAndExpand"
-                                            WidthRequest="15" />
+                                            WidthRequest="18" />
                                         <Label
-                                            Margin="5,0,0,0"
+                                            Grid.Column="1"
+                                            Margin="2,0,0,0"
                                             FontSize="{DynamicResource MyFontSizeSmall}"
-                                            Text="Hết hạn: "
+                                            Text="Hết hạn:"
                                             TextColor="{DynamicResource BluePrimaryColor}"
                                             VerticalTextAlignment="Center" />
                                         <Label
+                                            Grid.Column="2"
                                             FontSize="{DynamicResource MyFontSizeSmall}"
                                             HorizontalOptions="Start"
                                             LineBreakMode="TailTruncation"
@@ -351,7 +351,7 @@
                                             TextColor="{DynamicResource BluePrimaryColor}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
-                                    </StackLayout>
+                                    </Grid>
                                     <!--  Người tạo  -->
                                     <Grid Grid.Row="2" ColumnDefinitions="Auto,Auto,*">
                                         <icons:IconView
@@ -377,11 +377,10 @@
                                             VerticalTextAlignment="Center" />
                                     </Grid>
                                     <!--  Ngày tạo  -->
-                                    <StackLayout
+                                    <Grid
                                         Grid.Row="2"
                                         Grid.Column="1"
-                                        Orientation="Horizontal"
-                                        Spacing="5">
+                                        ColumnDefinitions="Auto,Auto,*">
                                         <icons:IconView
                                             Foreground="{DynamicResource TextSecondaryColor}"
                                             HeightRequest="15"
@@ -389,11 +388,13 @@
                                             VerticalOptions="CenterAndExpand"
                                             WidthRequest="15" />
                                         <Label
+                                            Grid.Column="1"
                                             Margin="5,0,0,0"
                                             FontSize="{DynamicResource MyFontSizeSmall}"
-                                            Text="Ngày tạo: "
+                                            Text="Ngày tạo:"
                                             VerticalTextAlignment="Center" />
                                         <Label
+                                            Grid.Column="2"
                                             FontSize="{DynamicResource MyFontSizeSmall}"
                                             HorizontalOptions="Start"
                                             LineBreakMode="TailTruncation"
@@ -401,7 +402,7 @@
                                             Text="{Binding CreatedDate, Converter={StaticResource DateConverter}, Mode=OneWay}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
-                                    </StackLayout>
+                                    </Grid>
                                     <!--  Người cập nhật  -->
                                     <Grid Grid.Row="3" ColumnDefinitions="Auto,Auto,*">
                                         <icons:IconView
@@ -430,11 +431,10 @@
                                             VerticalTextAlignment="Center" />
                                     </Grid>
                                     <!--  Ngày cập nhật  -->
-                                    <StackLayout
+                                    <Grid
                                         Grid.Row="3"
                                         Grid.Column="1"
-                                        Orientation="Horizontal"
-                                        Spacing="5">
+                                        ColumnDefinitions="Auto,Auto,*">
                                         <icons:IconView
                                             Foreground="{DynamicResource TextSecondaryColor}"
                                             HeightRequest="15"
@@ -442,13 +442,15 @@
                                             VerticalOptions="CenterAndExpand"
                                             WidthRequest="15" />
                                         <Label
+                                            Grid.Column="1"
                                             Margin="5,0,0,0"
                                             FontSize="{DynamicResource MyFontSizeSmall}"
                                             HorizontalTextAlignment="Start"
                                             MaxLines="1"
-                                            Text="Cập nhật: "
+                                            Text="Cập nhật:"
                                             VerticalTextAlignment="Center" />
                                         <Label
+                                            Grid.Column="2"
                                             FontSize="{DynamicResource MyFontSizeSmall}"
                                             HorizontalOptions="Start"
                                             LineBreakMode="TailTruncation"
@@ -456,7 +458,7 @@
                                             Text="{Binding UpdatedDate, Converter={StaticResource DateConverter}, Mode=OneWay}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
-                                    </StackLayout>
+                                    </Grid>
                                 </Grid>
                                 <BoxView Grid.Row="1" StyleClass="SlimLine" />
                             </Grid>
