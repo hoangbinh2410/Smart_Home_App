@@ -44,6 +44,9 @@ namespace BA_MobileGPS.Entities.ResponeEntity
 
             }
         }
+
+       
+
     }
 
     public class PaperHistoriesResponse : ResponseBaseV2<DataResponseBase<PaperItemHistoryModel>>

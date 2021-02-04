@@ -353,10 +353,7 @@
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
                                     <!--  Người tạo  -->
-                                    <StackLayout
-                                        Grid.Row="2"
-                                        Orientation="Horizontal"
-                                        Spacing="5">
+                                    <Grid Grid.Row="2" ColumnDefinitions="Auto,Auto,*">
                                         <icons:IconView
                                             Foreground="{DynamicResource TextSecondaryColor}"
                                             HeightRequest="15"
@@ -364,11 +361,13 @@
                                             VerticalOptions="CenterAndExpand"
                                             WidthRequest="15" />
                                         <Label
+                                            Grid.Column="1"
                                             Margin="5,0,0,0"
                                             FontSize="{DynamicResource MyFontSizeSmall}"
-                                            Text="Người tạo: "
+                                            Text="Người tạo:"
                                             VerticalTextAlignment="Center" />
                                         <Label
+                                            Grid.Column="2"
                                             FontSize="{DynamicResource MyFontSizeSmall}"
                                             HorizontalOptions="Start"
                                             LineBreakMode="TailTruncation"
@@ -376,7 +375,7 @@
                                             Text="{Binding UserCreated}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
-                                    </StackLayout>
+                                    </Grid>
                                     <!--  Ngày tạo  -->
                                     <StackLayout
                                         Grid.Row="2"
@@ -404,10 +403,7 @@
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
                                     <!--  Người cập nhật  -->
-                                    <StackLayout
-                                        Grid.Row="3"
-                                        Orientation="Horizontal"
-                                        Spacing="5">
+                                    <Grid Grid.Row="3" ColumnDefinitions="Auto,Auto,*">
                                         <icons:IconView
                                             Foreground="{DynamicResource TextSecondaryColor}"
                                             HeightRequest="15"
@@ -415,20 +411,24 @@
                                             VerticalOptions="CenterAndExpand"
                                             WidthRequest="15" />
                                         <Label
+                                            Grid.Column="1"
                                             Margin="5,0,0,0"
                                             FontSize="{DynamicResource MyFontSizeSmall}"
+                                            HorizontalOptions="StartAndExpand"
                                             HorizontalTextAlignment="Start"
-                                            Text="Người cập nhật: "
+                                            LineBreakMode="WordWrap"
+                                            MaxLines="2"
+                                            Text="Người cập nhật:"
                                             VerticalTextAlignment="Center" />
                                         <Label
+                                            Grid.Column="2"
                                             FontSize="{DynamicResource MyFontSizeSmall}"
                                             HorizontalOptions="Start"
                                             LineBreakMode="TailTruncation"
-                                            MaxLines="1"
-                                            Text="ssssssssssssssssssssssssssssssssssss"
+                                            Text="{Binding UserUpdated}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
-                                    </StackLayout>
+                                    </Grid>
                                     <!--  Ngày cập nhật  -->
                                     <StackLayout
                                         Grid.Row="3"

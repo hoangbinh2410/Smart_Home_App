@@ -51,14 +51,22 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
+            GetData();
+        }
+
+        private void GetData()
+        {
             RunOnBackground(async () =>
             {
                 return await paperInforService.GetListPaperHistory(UserInfo.CompanyId);
             },
             res =>
             {
-                listPaperOrigin = res.Where(x=> !string.IsNullOrEmpty(x.VehiclePlate)).ToList();
-                Filter();
+                if (res != null && res.Count >0)
+                {
+                    listPaperOrigin = res.Where(x => !string.IsNullOrEmpty(x.VehiclePlate)).ToList();
+                    Filter();
+                }             
             });
         }
 
@@ -158,21 +166,15 @@ namespace BA_MobileGPS.Core.ViewModels
             if (args.NewTextValue == null)
                 return;
 
-
             if (cts != null)
-            {
                 cts.Cancel(true);
-                cts.Dispose();
-                cts = new CancellationTokenSource();
-            }
-
+            cts = new CancellationTokenSource();
 
             Task.Run(async () =>
             {
                 await Task.Delay(500, cts.Token);
-
                 Filter();
-            });
+            }, cts.Token);
         }
 
         private string searchedText;
@@ -220,15 +222,24 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void Filter()
         {
-            ListPaperDisplay = new ObservableCollection<PaperItemHistoryModel>();
-            pageIndex = 0;
-            var temp = listPaperOrigin.Where(x => (string.IsNullOrWhiteSpace(searchedText) || x.VehiclePlate.Contains(searchedText))
-                                     && (paperTypeIdFilter == new Guid() || x.FK_PaperCategoryID == paperTypeIdFilter)
-                                     && (x.CreatedDate.Date >= fromDate)
-                                     && (x.CreatedDate.Date <= toDate)).ToList();
+            try
+            {
+                ListPaperDisplay = new ObservableCollection<PaperItemHistoryModel>();
+                pageIndex = 0;
+                var temp = listPaperOrigin.Where(x => (string.IsNullOrWhiteSpace(searchedText) || x.VehiclePlate.Contains(searchedText))
+                                         && (paperTypeIdFilter == new Guid() || x.FK_PaperCategoryID == paperTypeIdFilter)
+                                         && (x.CreatedDate.Date >= fromDate)
+                                         && (x.CreatedDate.Date <= toDate)).ToList();
 
-            ListPaperAfterSearch = temp;
-            LoadMore();
+                ListPaperAfterSearch = temp;
+                LoadMore();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+          
         }
 
         private void SelectToDate()
