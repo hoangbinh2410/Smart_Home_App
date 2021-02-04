@@ -57,7 +57,7 @@ namespace BA_MobileGPS.Core.ViewModels
             },
             res =>
             {
-                listPaperOrigin = res;
+                listPaperOrigin = res.Where(x=> !string.IsNullOrEmpty(x.VehiclePlate)).ToList();
                 Filter();
             });
         }
@@ -220,7 +220,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void Filter()
         {
-            ListPaperDisplay.Clear();
+            ListPaperDisplay = new ObservableCollection<PaperItemHistoryModel>();
             pageIndex = 0;
             var temp = listPaperOrigin.Where(x => (string.IsNullOrWhiteSpace(searchedText) || x.VehiclePlate.Contains(searchedText))
                                      && (paperTypeIdFilter == new Guid() || x.FK_PaperCategoryID == paperTypeIdFilter)

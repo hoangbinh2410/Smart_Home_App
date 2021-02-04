@@ -259,7 +259,7 @@
                                 <Grid
                                     Padding="10,5"
                                     ColumnDefinitions="1.2*,*"
-                                    RowDefinitions="1.1*,*,*,*">
+                                    RowDefinitions="Auto,Auto,Auto,Auto">
                                     <!--  Biển số  -->
                                     <StackLayout Orientation="Horizontal" Spacing="5">
                                         <icons:IconView
@@ -283,7 +283,7 @@
                                         Orientation="Horizontal"
                                         Spacing="5">
                                         <icons:IconView
-                                            Foreground="{DynamicResource GreenColor}"
+                                            Foreground="{DynamicResource TextSecondaryColor}"
                                             HeightRequest="20"
                                             Source="ic_paper_type"
                                             VerticalOptions="CenterAndExpand"
@@ -417,6 +417,7 @@
                                         <Label
                                             Margin="5,0,0,0"
                                             FontSize="{DynamicResource MyFontSizeSmall}"
+                                            HorizontalTextAlignment="Start"
                                             Text="Người cập nhật: "
                                             VerticalTextAlignment="Center" />
                                         <Label
@@ -424,7 +425,7 @@
                                             HorizontalOptions="Start"
                                             LineBreakMode="TailTruncation"
                                             MaxLines="1"
-                                            Text="{Binding UserUpdated}"
+                                            Text="ssssssssssssssssssssssssssssssssssss"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
@@ -443,7 +444,9 @@
                                         <Label
                                             Margin="5,0,0,0"
                                             FontSize="{DynamicResource MyFontSizeSmall}"
-                                            Text="Ngày cập nhật: "
+                                            HorizontalTextAlignment="Start"
+                                            MaxLines="1"
+                                            Text="Cập nhật: "
                                             VerticalTextAlignment="Center" />
                                         <Label
                                             FontSize="{DynamicResource MyFontSizeSmall}"
