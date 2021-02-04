@@ -146,10 +146,6 @@
     <AndroidResource Include="Resources\drawable\avatar_default.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BuildingBlocks\BA_MobileGPS.Core.Droid\BA_MobileGPS.Core.Droid.csproj">
-      <Project>{c936199a-57c9-44c2-9671-82c1bf971dcd}</Project>
-      <Name>BA_MobileGPS.Core.Droid</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\BuildingBlocks\BA_MobileGPS.Core\BA_MobileGPS.Core.csproj">
       <Project>{55e2fe34-997f-4771-a5d7-8114b5fb7899}</Project>
       <Name>BA_MobileGPS.Core</Name>

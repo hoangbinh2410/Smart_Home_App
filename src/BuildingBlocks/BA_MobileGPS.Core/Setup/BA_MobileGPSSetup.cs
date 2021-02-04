@@ -212,6 +212,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ListPapersPage, ListPapersPageViewModel>("ListPapersPage");
           
             containerRegistry.RegisterForNavigation<SelectAlertTypePage, SelectAlertTypePageViewModel>("SelectAlertTypePage");
+            containerRegistry.RegisterForNavigation<PaperHistoriesPage, PaperHistoriesPageViewModel>("PaperHistoriesPage");
         }
     }
 }
