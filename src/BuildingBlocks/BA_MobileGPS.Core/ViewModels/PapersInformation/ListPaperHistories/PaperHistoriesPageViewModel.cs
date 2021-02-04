@@ -5,7 +5,6 @@ using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Extensions;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -31,6 +30,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SelectFromDateCommand { get; }
         public ICommand SelectToDateCommand { get; }
         private readonly IPapersInforService paperInforService;
+
         public PaperHistoriesPageViewModel(INavigationService navigationService, IPapersInforService paperInforService) : base(navigationService)
         {
             this.paperInforService = paperInforService;
@@ -52,8 +52,8 @@ namespace BA_MobileGPS.Core.ViewModels
             GetData();
         }
 
-     
         private Guid paperTypeIdFilter { get; set; } = new Guid();
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -73,20 +73,27 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     //toDate
                     ToDate = date.Value;
+                    if (date.Value < fromDate)
+                    {
+                        DisplayMessage.ShowMessageError("Thời gian tìm kiếm chưa hợp lệ");
+                    }
                     Filter();
                 }
                 else if (date.PickerType == (int)ComboboxType.Second)
                 {
                     //fromDate
                     FromDate = date.Value;
+                    if (date.Value > toDate)
+                    {
+                        DisplayMessage.ShowMessageError("Thời gian tìm kiếm chưa hợp lệ");
+                    }
                     Filter();
                 }
             }
         }
 
-    
-
         private string searchedText;
+
         public string SearchedText
         {
             get { return searchedText; }
@@ -94,6 +101,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private string paperType;
+
         public string PaperTypeName
         {
             get { return paperType; }
@@ -101,6 +109,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private DateTime fromDate;
+
         public DateTime FromDate
         {
             get { return fromDate; }
@@ -108,6 +117,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private DateTime toDate;
+
         public DateTime ToDate
         {
             get { return toDate; }
@@ -115,6 +125,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private ObservableCollection<PaperItemHistoryModel> listPaperDisplay;
+
         public ObservableCollection<PaperItemHistoryModel> ListPaperDisplay
         {
             get { return listPaperDisplay; }
@@ -123,6 +134,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private List<PaperItemHistoryModel> listPaperOrigin { get; set; } = new List<PaperItemHistoryModel>();
         private List<PaperItemHistoryModel> listPaperAfterSearch;
+
         public List<PaperItemHistoryModel> ListPaperAfterSearch
         {
             get { return listPaperAfterSearch; }
@@ -131,17 +143,18 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void Filter()
         {
+            SafeExecute(() =>
+            {
+                ListPaperDisplay = new ObservableCollection<PaperItemHistoryModel>();
+                pageIndex = 0;
+                var temp = listPaperOrigin.Where(x => (string.IsNullOrWhiteSpace(searchedText) || x.VehiclePlate.Contains(searchedText))
+                                         && (paperTypeIdFilter == new Guid() || x.FK_PaperCategoryID == paperTypeIdFilter)
+                                         && (x.CreatedDate.Date >= fromDate)
+                                         && (x.CreatedDate.Date <= toDate)).ToList();
 
-            ListPaperDisplay = new ObservableCollection<PaperItemHistoryModel>();
-            pageIndex = 0;
-            var temp = listPaperOrigin.Where(x => (string.IsNullOrWhiteSpace(searchedText) || x.VehiclePlate.Contains(searchedText))
-                                     && (paperTypeIdFilter == new Guid() || x.FK_PaperCategoryID == paperTypeIdFilter)
-                                     && (x.CreatedDate.Date >= fromDate)
-                                     && (x.CreatedDate.Date <= toDate)).ToList();
-
-            ListPaperAfterSearch = temp;
-            LoadMore();
-
+                ListPaperAfterSearch = temp;
+                LoadMore();
+            });      
         }
 
         private void SelectToDate()
@@ -241,6 +254,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Filter();
             }, cts.Token);
         }
+
         private void GetData()
         {
             RunOnBackground(async () =>
@@ -256,6 +270,5 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
-
     }
 }
