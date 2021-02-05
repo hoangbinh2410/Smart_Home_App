@@ -158,8 +158,8 @@
                     Grid.Row="1"
                     Padding="0"
                     BackgroundColor="{DynamicResource WhiteColor}"
-                    CornerRadius="18"
-                    HeightRequest="35"
+                    CornerRadius="19"
+                    HeightRequest="38"
                     VerticalOptions="Center">
                     <pancake:PancakeView.Shadow>
                         <pancake:DropShadow
@@ -199,8 +199,8 @@
                     Grid.Column="1"
                     Padding="0"
                     BackgroundColor="{DynamicResource WhiteColor}"
-                    CornerRadius="18"
-                    HeightRequest="35"
+                    CornerRadius="19"
+                    HeightRequest="38"
                     VerticalOptions="Center">
                     <pancake:PancakeView.Shadow>
                         <pancake:DropShadow
