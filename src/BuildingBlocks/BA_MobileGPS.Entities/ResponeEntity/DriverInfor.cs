@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BA_MobileGPS.Entities
@@ -39,12 +40,13 @@ namespace BA_MobileGPS.Entities
 
         public Guid? UpdatedByUser { get; set; }
         public Guid? CreatedByUser { get; set; }
+        public long? FK_VehicleID { get; set; }
 
         [JsonIgnore]
         public string LicenseTypeName
         {
             get
-            {
+            {              
                 if (LicenseType == 0)
                 {
                     return string.Empty;
@@ -64,6 +66,26 @@ namespace BA_MobileGPS.Entities
                     return "avatar_default.png";
                 }
                 return $"{ServerConfig.ApiEndpoint}{DriverImage}";
+            }
+        }
+
+        // Dùng ở danh sách
+        [JsonIgnore]
+        public string VehiclePlate
+        {
+            get
+            {
+                if (FK_VehicleID == null)
+                {
+                    return string.Empty;
+                }
+                var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == FK_VehicleID);
+                if (vehicle != null)
+                {
+                    return vehicle.VehiclePlate;
+                }
+
+                 return string.Empty;
             }
         }
 
