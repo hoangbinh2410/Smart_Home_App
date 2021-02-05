@@ -66,6 +66,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 AvartarDisplay = string.Empty;
                 AvartarDisplay = imageLocation;
             }
+            else if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
+            {
+                selectedVehicle = vehicle;
+                SelectedVehiclePlates = vehicle.VehiclePlate;
+            }
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -91,8 +96,16 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private string newAvatarPath { get; set; } = string.Empty;
+        private Vehicle selectedVehicle { get; set; }
 
         #region Binding Property
+
+        private string selectedVehiclePlates;
+        public string SelectedVehiclePlates
+        {
+            get { return selectedVehiclePlates; }
+            set { SetProperty(ref selectedVehiclePlates, value); }
+        }
 
         private string avartarDisplay;
 
@@ -373,6 +386,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Driver.CreatedByUser = UserInfo.UserId;
                 }
+                Driver.FK_VehicleID = selectedVehicle == null ? 0 : selectedVehicle.VehicleId;
             }
             catch (Exception ex)
             {
@@ -780,8 +794,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 SelectedGender = 0;
             }
             else SelectedGender = (byte)(driver.Sex + 1);
-
-
+            if (driver.FK_VehicleID != null)
+            {
+                var temp = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == driver.FK_VehicleID);
+                if (temp != null)
+                {                 
+                    selectedVehicle = new Vehicle() { VehicleId = temp.VehicleId, VehiclePlate = temp.VehiclePlate };
+                    SelectedVehiclePlates = selectedVehicle.VehiclePlate;
+                }              
+            }
         }
 
         /// <summary>
