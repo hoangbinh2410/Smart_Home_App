@@ -347,12 +347,10 @@ namespace BA_MobileGPS.Core.Models
         {
             if (e.Time > 1 && !IsLoaded)
             {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    IsLoaded = true;
-                    TotalTime = 600;
-                    IsError = false;
-                });
+                IsLoaded = true;
+                TotalTime = 600;
+                IsError = false;
+
                 internalError = false;
             }
         }
