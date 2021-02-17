@@ -222,12 +222,11 @@ namespace BA_MobileGPS.Core.Models
 
         private void SetError(string errMessenger)
         {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                IsError = true;
-                IsLoaded = true;
-                ErrorMessenger = errMessenger;
-            });
+
+            IsError = true;
+            IsLoaded = true;
+            ErrorMessenger = errMessenger;
+
             countLoadingTimer.Stop();
             ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
             mediaPlayer.Media.Dispose();
@@ -347,12 +346,10 @@ namespace BA_MobileGPS.Core.Models
         {
             if (e.Time > 1 && !IsLoaded)
             {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    IsLoaded = true;
-                    TotalTime = 600;
-                    IsError = false;
-                });
+                IsLoaded = true;
+                TotalTime = 600;
+                IsError = false;
+
                 internalError = false;
             }
         }

@@ -101,7 +101,7 @@
             </Grid>
             <Grid
                 Padding="7"
-                BackgroundColor="#0071BC"
+                BackgroundColor="{DynamicResource PrimaryColor}"
                 HeightRequest="20"
                 HorizontalOptions="Fill"
                 MinimumHeightRequest="20">

@@ -35,6 +35,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     Icon = "ic_fishingnet.png",
                     Url = "/NavigationPage/OfflinePage",
                     ItemType = LoginPopupItemType.OfflinePage,
+                    IsEnable = true
                 });
             }
             // Mạng lưới
@@ -95,7 +96,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private async void ClosePopup()
         {
             //await PopupNavigation.Instance.PopAsync();
-           var a = await NavigationService.GoBackAsync();
+            var a = await NavigationService.GoBackAsync();
         }
 
         public ICommand NavigateCommand { get; }

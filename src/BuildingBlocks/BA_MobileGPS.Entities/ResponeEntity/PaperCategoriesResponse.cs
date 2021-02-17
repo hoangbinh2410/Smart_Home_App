@@ -42,7 +42,7 @@ namespace BA_MobileGPS.Entities.ResponeEntity
     }
     public enum PaperCategoryTypeEnum
     {
-        [Description("Tất cả giấy tờ")]
+        [Description("Tất cả loại giấy tờ")]
         None = 0,
         [Description("Đăng kiểm")]
         Registry = 1, 

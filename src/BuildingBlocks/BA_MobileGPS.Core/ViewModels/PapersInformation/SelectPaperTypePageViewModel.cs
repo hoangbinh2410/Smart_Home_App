@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Utilities.Extensions;
 using Prism.Commands;
 using Prism.Navigation;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 ListPapersOrigin = await papersInforService.GetPaperCategories();
                 if (!hiddenSearch)
                 {
-                    var temp = new PaperCategory() { PaperName = "Tất cả giấy tờ", PaperCategoryType = 0 };
+                    var temp = new PaperCategory() { PaperName = PaperCategoryTypeEnum.None.ToDescription(), PaperCategoryType = 0 };
                     ListPapersOrigin.Insert(0, temp);
                 }
                 ListPapersDisplay = ListPapersOrigin;
