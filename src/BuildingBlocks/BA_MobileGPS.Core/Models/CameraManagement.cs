@@ -222,12 +222,11 @@ namespace BA_MobileGPS.Core.Models
 
         private void SetError(string errMessenger)
         {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                IsError = true;
-                IsLoaded = true;
-                ErrorMessenger = errMessenger;
-            });
+
+            IsError = true;
+            IsLoaded = true;
+            ErrorMessenger = errMessenger;
+
             countLoadingTimer.Stop();
             ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
             mediaPlayer.Media.Dispose();
