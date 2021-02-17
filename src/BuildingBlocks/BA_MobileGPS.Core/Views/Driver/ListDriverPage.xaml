@@ -171,13 +171,14 @@
                                     VerticalOptions="StartAndExpand">
                                     <image:CachedImage
                                         Aspect="AspectFill"
-                                        HeightRequest="50"
+                                        HeightRequest="65"
                                         Source="{Binding AvartarDisplay}"
-                                        WidthRequest="50" />
+                                        VerticalOptions="Center"
+                                        WidthRequest="65" />
                                     <StackLayout
                                         Grid.Column="1"
                                         HorizontalOptions="Fill"
-                                        Spacing="10"
+                                        Spacing="5"
                                         VerticalOptions="Fill">
                                         <Label
                                             HorizontalOptions="Start"

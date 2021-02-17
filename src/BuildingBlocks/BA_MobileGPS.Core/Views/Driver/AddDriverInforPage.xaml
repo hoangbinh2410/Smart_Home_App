@@ -120,43 +120,6 @@
                         </AbsoluteLayout>
                     </Grid>
                     <StackLayout Padding="15,5,15,20" Spacing="5">
-                        <!--  Phương tiện đang điều khiển  -->
-                        <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Phương tiện đang điều khiển" TextColor="{DynamicResource TextPrimaryColor}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <input:SfTextInputLayout TrailingViewPosition="Inside" VerticalOptions="Start">
-                            <input:SfTextInputLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
-                            </input:SfTextInputLayout.GestureRecognizers>
-                            <input:SfTextInputLayout.TrailingView>
-                                <Grid>
-                                    <controls:IconView
-                                        Margin="0,0,8,0"
-                                        Foreground="{DynamicResource BlackColor}"
-                                        HeightRequest="15"
-                                        Source="ic_sortdown"
-                                        VerticalOptions="Center"
-                                        WidthRequest="15" />
-                                </Grid>
-                            </input:SfTextInputLayout.TrailingView>
-                            <Entry
-                                x:Name="entrySearch"
-                                HorizontalOptions="FillAndExpand"
-                                InputTransparent="True"
-                                Placeholder="Chọn phương tiện lái xe đang điều khiển"
-                                PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                                Text="{Binding SelectedVehiclePlates}"
-                                TextColor="{DynamicResource TextPrimaryColor}"
-                                VerticalOptions="Center">
-                                <Entry.Effects>
-                                    <effects:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
-                        </input:SfTextInputLayout>
                         <!--  Tên  -->
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                             <Label.FormattedText>
@@ -287,6 +250,43 @@
                                 MaxLength="150"
                                 Placeholder="Nhập địa chỉ"
                                 Text="{Binding Address.Value}" />
+                        </input:SfTextInputLayout>
+                        <!--  Phương tiện đang điều khiển  -->
+                        <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Phương tiện" TextColor="{DynamicResource TextPrimaryColor}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <input:SfTextInputLayout TrailingViewPosition="Inside" VerticalOptions="Start">
+                            <input:SfTextInputLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                            </input:SfTextInputLayout.GestureRecognizers>
+                            <input:SfTextInputLayout.TrailingView>
+                                <Grid>
+                                    <controls:IconView
+                                        Margin="0,0,8,0"
+                                        Foreground="{DynamicResource BlackColor}"
+                                        HeightRequest="15"
+                                        Source="ic_sortdown"
+                                        VerticalOptions="Center"
+                                        WidthRequest="15" />
+                                </Grid>
+                            </input:SfTextInputLayout.TrailingView>
+                            <Entry
+                                x:Name="entrySearch"
+                                HorizontalOptions="FillAndExpand"
+                                InputTransparent="True"
+                                Placeholder="Chọn biển số phương tiện"
+                                PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
+                                Text="{Binding SelectedVehiclePlates}"
+                                TextColor="{DynamicResource TextPrimaryColor}"
+                                VerticalOptions="Center">
+                                <Entry.Effects>
+                                    <effects:BorderlessEffect />
+                                </Entry.Effects>
+                            </Entry>
                         </input:SfTextInputLayout>
                         <!--  Loại băng lái  -->
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
