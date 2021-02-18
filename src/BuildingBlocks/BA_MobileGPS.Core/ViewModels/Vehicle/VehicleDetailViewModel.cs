@@ -69,12 +69,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {                 
                     Task.Run(async () =>
                     {
-                        InsuranceDate = await papersInforService.GetInsuranceDateByVehicle(StaticSettings.User.CompanyId, PK_VehicleID);
-                        // Fake cho xe không có, đợi api hoàn thiện
-                        if (insuranceDate == null)
-                        {
-                            InsuranceDate = DateTime.Today;
-                        }
+                        InsuranceDate = await papersInforService.GetInsuranceDateByVehicle(StaticSettings.User.CompanyId, PK_VehicleID);                                          
                     });
                 }
                 GetVehicleDetail();               
