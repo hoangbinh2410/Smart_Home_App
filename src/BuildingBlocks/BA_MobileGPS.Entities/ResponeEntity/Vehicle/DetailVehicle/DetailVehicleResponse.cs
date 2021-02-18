@@ -317,12 +317,6 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("36")]
         public float KmInMonth { set; get; }
 
-        /// <summary>
-        /// Ngày hết hạn bảo hiểm
-        /// </summary>
-        [JsonProperty("37")]
-        public DateTime? DateOfInsurance { set; get; }
-
         ////////////////////////////////////////
         /// <summary>
         /// ẩn hiện với đang đỗ

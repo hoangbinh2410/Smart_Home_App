@@ -35,6 +35,7 @@
             <input:SfTextInputLayout
                 ErrorText="{Binding InsuranceNumber.ErrorFirst}"
                 HasError="{Binding InsuranceNumber.IsNotValid}"
+                IsEnabled="{Binding IsUpdateForm, Converter={StaticResource ShowHideColumnConverter}}"
                 VerticalOptions="Start">
                 <Entry
                     MaxLength="100"

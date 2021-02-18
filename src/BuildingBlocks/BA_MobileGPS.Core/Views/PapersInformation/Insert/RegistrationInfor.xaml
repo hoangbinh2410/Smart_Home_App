@@ -33,6 +33,7 @@
             <input:SfTextInputLayout
                 ErrorText="{Binding IdentityCode.ErrorFirst}"
                 HasError="{Binding IdentityCode.IsNotValid}"
+                IsEnabled="{Binding IsUpdateForm, Converter={StaticResource ShowHideColumnConverter}}"
                 VerticalOptions="Start">
                 <Entry
                     MaxLength="100"
