@@ -10,6 +10,7 @@ namespace BA_MobileGPS.Core.Extensions
     {
         public static bool IsLiveStreaming(int state)
         {
+            // livestream k check bằng camerastatus => check qua isstreaming + timeout + package.
             return true;
         }
 

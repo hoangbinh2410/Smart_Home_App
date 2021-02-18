@@ -88,11 +88,8 @@
     <PackageReference Include="Shiny.Prism">
       <Version>8.0.48</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.AndroidX.Palette">
-      <Version>1.0.0.6</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1931" />
-    <PackageReference Include="Realm" Version="5.1.2" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="Realm" Version="10.1.0" />
     <PackageReference Include="Xamarin.Build.Download">
       <Version>0.10.0</Version>
     </PackageReference>
@@ -554,7 +551,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadDebuggerTimeoutExceptionVMS_MobileGPSAndroidHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionVMS_MobileGPSAndroidHideInfoBar="True" />
+      <UserProperties XamarinHotReloadUnhandledDeviceExceptionVMS_MobileGPSAndroidHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionVMS_MobileGPSAndroidHideInfoBar="True" TriggeredFromHotReload="False" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

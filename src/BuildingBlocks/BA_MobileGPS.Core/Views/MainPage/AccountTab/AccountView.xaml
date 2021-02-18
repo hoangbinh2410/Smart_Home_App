@@ -19,7 +19,7 @@
     <Grid BackgroundColor="{DynamicResource WhiteColor}" RowDefinitions="150,*,Auto">
         <Grid Padding="0">
             <ff:CachedImage
-                Aspect="AspectFill"
+                Aspect="Fill"
                 Source="bg_Account.png"
                 VerticalOptions="FillAndExpand" />
         </Grid>

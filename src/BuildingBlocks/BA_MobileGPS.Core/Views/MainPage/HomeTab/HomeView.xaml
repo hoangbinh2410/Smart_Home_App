@@ -54,7 +54,7 @@
     <Grid RowDefinitions="*,2.8*">
         <Grid Padding="0">
             <ff:CachedImage
-                Aspect="AspectFill"
+                Aspect="Fill"
                 Source="bg_HomeTop.png"
                 VerticalOptions="FillAndExpand" />
         </Grid>
@@ -160,7 +160,6 @@
                                 HeightRequest="130"
                                 HorizontalScrollBarVisibility="Never"
                                 IndicatorView="indicatorFavourite"
-                                IsVisible="{Binding HasFavorite, Mode=OneWay}"
                                 ItemsSource="{Binding FavouriteMenuItems, Mode=OneWay}">
                                 <CarouselView.ItemTemplate>
                                     <DataTemplate>

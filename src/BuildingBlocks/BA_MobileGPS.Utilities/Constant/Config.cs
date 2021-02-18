@@ -84,6 +84,15 @@
         /// </Modified>
         public const string OneSignalKey_BASAT = "fbe15fa2-7fb4-4f71-a1ff-60304e673d22";
 
+        /// <summary>
+        /// Key cho OneSignal
+        /// </summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// Namth  16/1/2018   created
+        /// </Modified>
+        public const string OneSignalKey_MOTO = "421f94ae-3bcc-4405-9a3d-9ea15108ed35";
+
         public const string ClientId = "xamarin";
 
         public const string ClientSecret = "secret";
