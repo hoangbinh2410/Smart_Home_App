@@ -277,5 +277,25 @@ namespace BA_MobileGPS.Service.Service
             }
             return result;
         }
+
+        public async Task<DateTime?> GetInsuranceDateByVehicle(int companyId, long vehicleId)
+        {
+            DateTime? result = null;
+            try
+            {
+                var url = $"{ApiUri.GET_INSURANCE_DATE_BY_VEHICLE}?companyId={companyId}&vehicleId={vehicleId}";
+
+                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<DateTime?>>(url);
+                if (response?.Data != null)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
     }
 }
