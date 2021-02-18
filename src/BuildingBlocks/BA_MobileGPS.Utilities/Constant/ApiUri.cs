@@ -294,6 +294,7 @@
         public const string POST_UPDATE_PAPER_SIGN = "api/paperinfor/updatesignpaper";
         public const string GET_LIST_ALL_PAPER = "api/paperinfor/getlistpaper";
         public const string GET_LIST_ALL_PAPER_HISTORY = "api/paperinfor/getlistpaperhistory";
+        public const string GET_INSURANCE_DATE_BY_VEHICLE = "api/paperinfor/getinsurancedatebyvehicle";
         #endregion
     }
 }

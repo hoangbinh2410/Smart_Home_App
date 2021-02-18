@@ -1907,7 +1907,7 @@
                                         <!--  ngày bảo hiểm  -->
                                         <Grid
                                             Grid.Row="1"
-                                            IsVisible="{Binding InforDetail.DateOfRegistration, Converter={StaticResource HasDataConverter}}"
+                                            IsVisible="{Binding InsuranceDate, Converter={StaticResource HasDataConverter}}"
                                             RowSpacing="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
@@ -1930,29 +1930,19 @@
                                                     Source="ic_time_black.png"
                                                     VerticalOptions="Center"
                                                     WidthRequest="20" />
-
                                                 <Label
                                                     Text="Ngày hết hạn bảo hiểm"
                                                     VerticalOptions="Center"
                                                     VerticalTextAlignment="Center" />
                                             </StackLayout>
 
-                                            <!--<Label
-                                                Grid.Row="0"
-                                                Grid.Column="1"
-                                                HorizontalOptions="EndAndExpand"
-                                                Text="{Binding InforDetail.DateOfInsurance, Converter={StaticResource DateConverter}}"
-                                                VerticalOptions="Center"
-                                                VerticalTextAlignment="Center" />-->
-
                                             <Label
                                                 Grid.Row="0"
                                                 Grid.Column="1"
                                                 HorizontalOptions="EndAndExpand"
-                                                Text="Updating..."
+                                                Text="{Binding InsuranceDate, Converter={StaticResource DateConverter}}"
                                                 VerticalOptions="Center"
                                                 VerticalTextAlignment="Center" />
-
 
                                             <BoxView
                                                 Grid.Row="1"

@@ -17,7 +17,6 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class InsuranceInforViewModel : ViewModelBase
     {
-        private bool IsUpdateForm { get; set; } = false;
         private long currentVehicleId { get; set; } = 0;
         private string NotEmptyMessenge = MobileResource.ListDriver_Messenger_NotNull;
         private readonly IPapersInforService paperinforService;
@@ -69,6 +68,13 @@ namespace BA_MobileGPS.Core.ViewModels
                     UpdateFormData(UserInfo.CompanyId, vehicle.VehicleId);
                 }
             }
+        }
+
+        private bool isUpdateForm;
+        public bool IsUpdateForm
+        {
+            get { return isUpdateForm; }
+            set { SetProperty(ref isUpdateForm, value); }
         }
 
         private bool saveEnable = true;
@@ -591,6 +597,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 SaveButtonVisible = true;
             }
+            IsUpdateForm = false;
         }
     }
 }
