@@ -679,7 +679,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     break;
             }
         }
-
+        /// <summary>
+        ///  Thay đổi ngày đăng kiểm ở thông tin chi tiết xe (góc dưới)
+        /// </summary>
+        /// <param name="vehicleId"></param>
         public void BoxInforUpdateRegistrationDate(long vehicleId)
         {
             if (CompanyConfigurationHelper.IsShowDateOfRegistration)
