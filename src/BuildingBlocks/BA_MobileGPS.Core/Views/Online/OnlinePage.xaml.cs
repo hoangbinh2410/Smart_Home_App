@@ -113,6 +113,15 @@ namespace BA_MobileGPS.Core.Views
                         {
                             vm.CarSearch = vehicleselect.PrivateCode;
                             UpdateSelectVehicle(vehicleselect);
+                            // Không update realtime =>
+                            if (CompanyConfigurationHelper.IsShowDateOfRegistration)
+                            {
+                                Task.Run(async () =>
+                                {
+                                    vm.RegistrationDate = await papersInforService.GetLastPaperDateByVehicle(StaticSettings.User.CompanyId,
+                                        vehicleselect.VehicleId, PaperCategoryTypeEnum.Registry);
+                                });
+                            }
                         }
                         else
                         {
@@ -438,10 +447,6 @@ namespace BA_MobileGPS.Core.Views
                     }
                     vm.CarActive = carInfo;
                     vm.EngineState = carInfo.StatusEngineer;
-                    Task.Run(async () =>
-                    {
-                        vm.RegistrationDate = await papersInforService.GetLastPaperDateByVehicle(StaticSettings.User.CompanyId, carInfo.VehicleId, PaperCategoryTypeEnum.Registry);
-                    });
                 }
 
                 carInfo.IconImage = IconCodeHelper.GetMarkerResource(carInfo);
@@ -695,10 +700,6 @@ namespace BA_MobileGPS.Core.Views
                 btnDirectvehicleOnline.IsVisible = true;
 
                 vm.EngineState = StateVehicleExtension.EngineState(carInfo);
-                Task.Run(async () =>
-                {
-                    vm.RegistrationDate = await papersInforService.GetLastPaperDateByVehicle(StaticSettings.User.CompanyId, carInfo.VehicleId, PaperCategoryTypeEnum.Registry);
-                });
 
                 Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
 
@@ -857,7 +858,16 @@ namespace BA_MobileGPS.Core.Views
                     if (car != null)
                     {
                         vm.CarSearch = car.PrivateCode;
-                        ShowBoxInfoCarActive(car, car.MessageId, car.DataExt);
+                        // Không update realtime
+                        if (CompanyConfigurationHelper.IsShowDateOfRegistration)
+                        {
+                            Task.Run(async () =>
+                            {
+                                vm.RegistrationDate = await papersInforService.GetLastPaperDateByVehicle(StaticSettings.User.CompanyId,
+                                    car.VehicleId, PaperCategoryTypeEnum.Registry);
+                            });
+                        }
+                        ShowBoxInfoCarActive(car, car.MessageId, car.DataExt);                      
                     }
                 }
             }
