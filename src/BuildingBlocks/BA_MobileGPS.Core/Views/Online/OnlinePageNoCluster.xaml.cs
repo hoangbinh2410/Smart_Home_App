@@ -677,16 +677,9 @@ namespace BA_MobileGPS.Core.Views
                 btnDirectvehicleOnline.IsVisible = true;
 
                 vm.EngineState = StateVehicleExtension.EngineState(carInfo);
-                // Không update realtime =>
-                if (CompanyConfigurationHelper.IsShowDateOfRegistration)
-                {
-                    Task.Run(async () =>
-                    {
-                        vm.RegistrationDate = await papersInforService.GetLastPaperDateByVehicle(StaticSettings.User.CompanyId,
-                            carInfo.VehicleId, PaperCategoryTypeEnum.Registry);
-                    });
-                }
-                else vm.RegistrationDate = null;
+
+                vm.BoxInforUpdateRegistrationDate(carInfo.VehicleId);
+
                 Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
 
                 //update active xe mới
@@ -706,6 +699,8 @@ namespace BA_MobileGPS.Core.Views
                 }
             }
         }
+
+                         
 
         private void Getaddress(string lat, string lng, long vehicleID)
         {
