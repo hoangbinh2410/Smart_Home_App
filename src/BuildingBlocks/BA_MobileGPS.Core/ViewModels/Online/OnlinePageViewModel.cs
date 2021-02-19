@@ -202,6 +202,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public string engineState;
         public string EngineState { get => engineState; set => SetProperty(ref engineState, value); }
+        private DateTime? registrationDate;
+        public DateTime? RegistrationDate
+        {
+            get { return registrationDate; }
+            set { SetProperty(ref registrationDate, value); }
+        }
 
         public bool isShowConfigLanmark;
         public bool IsShowConfigLanmark { get => isShowConfigLanmark; set => SetProperty(ref isShowConfigLanmark, value); }

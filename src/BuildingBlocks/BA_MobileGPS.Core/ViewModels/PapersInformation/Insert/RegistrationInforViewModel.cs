@@ -61,6 +61,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.PrivateCode == privateCode);
                 if (vehicle != null)
                 {
+                    oldInfor = null;
                     currentVehicleId = vehicle.VehicleId;
                     UpdateFormData(UserInfo.CompanyId, vehicle.VehicleId);
                 }
