@@ -278,12 +278,13 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<DateTime?> GetInsuranceDateByVehicle(int companyId, long vehicleId)
+        public async Task<DateTime?> GetLastPaperDateByVehicle(int companyId, long vehicleId,PaperCategoryTypeEnum paperType)
         {
             DateTime? result = null;
             try
             {
-                var url = $"{ApiUri.GET_INSURANCE_DATE_BY_VEHICLE}?companyId={companyId}&vehicleId={vehicleId}";
+                var type = (int)paperType;
+                var url = $"{ApiUri.GET_LAST_PAPER_DATE_BY_VEHICLE}?companyId={companyId}&vehicleId={vehicleId}&paperType={type}";
 
                 var response = await _IRequestProvider.GetAsync<ResponseBaseV2<DateTime?>>(url);
                 if (response?.Data != null)

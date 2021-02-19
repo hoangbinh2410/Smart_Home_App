@@ -2,6 +2,7 @@
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
@@ -51,34 +52,35 @@ namespace BA_MobileGPS.Core.ViewModels
 
             if (parameters?.GetValue<VehicleOnline>(ParameterKey.CarDetail) is VehicleOnline cardetail)
             {
-                PK_VehicleID = (int)cardetail.VehicleId;
-                VehiclePlate = cardetail.VehiclePlate;
-                PrivateCode = cardetail.PrivateCode;
-                if (cardetail.CurrentAddress != null)
+                TryExecute(async () =>
                 {
-                    Address = cardetail.CurrentAddress;
-                }
-                else
-                {
-                    Getaddress(cardetail.Lat.ToString(), cardetail.Lng.ToString());
-                }
-                Coordinates = cardetail.Lat.ToString().Replace(",", ".") + ", " + cardetail.Lng.ToString().Replace(",", ".");
-                // Nếu có quyền hiển thị ngày đăng kiểm => hiển thị ngày bảo hiểm
-                // Thông tin k cần update liên tục => vứt ở đây
-                if (CompanyConfigurationHelper.IsShowDateOfRegistration)
-                {                 
-                    Task.Run(async () =>
+                    PK_VehicleID = (int)cardetail.VehicleId;
+                    VehiclePlate = cardetail.VehiclePlate;
+                    PrivateCode = cardetail.PrivateCode;
+                    if (cardetail.CurrentAddress != null)
                     {
-                        InsuranceDate = await papersInforService.GetInsuranceDateByVehicle(StaticSettings.User.CompanyId, PK_VehicleID);
-                        // Fake cho xe không có, đợi api hoàn thiện
-                        if (insuranceDate == null)
+                        Address = cardetail.CurrentAddress;
+                    }
+                    else
+                    {
+                        Getaddress(cardetail.Lat.ToString(), cardetail.Lng.ToString());
+                    }
+                    Coordinates = cardetail.Lat.ToString().Replace(",", ".") + ", " + cardetail.Lng.ToString().Replace(",", ".");
+                    GetVehicleDetail();
+                    IsCameraEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView);
+                    // Nếu có quyền hiển thị ngày đăng kiểm => hiển thị ngày bảo hiểm
+                    // Thông tin k cần update liên tục => vứt ở đây
+                    if (CompanyConfigurationHelper.IsShowDateOfRegistration)
+                    {
+                        InsuranceDate = await papersInforService.GetLastPaperDateByVehicle(StaticSettings.User.CompanyId, PK_VehicleID, PaperCategoryTypeEnum.Insurrance);
+                        DateOfRegistration = await papersInforService.GetLastPaperDateByVehicle(StaticSettings.User.CompanyId, PK_VehicleID, PaperCategoryTypeEnum.Registry);
+                        if (insuranceDate != null || dateOfRegistration != null)
                         {
-                            InsuranceDate = DateTime.Today;
+                            ShowPaperInfor = true;
                         }
-                    });
-                }
-                GetVehicleDetail();               
-                IsCameraEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView);
+                    }                 
+                });
+
             }
             //InitMenuItems();
         }
@@ -208,6 +210,19 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref insuranceDate, value); }
         }
 
+        private DateTime? dateOfRegistration;
+        public DateTime? DateOfRegistration
+        {
+            get { return dateOfRegistration; }
+            set { SetProperty(ref dateOfRegistration, value); }
+        }
+
+        private bool showPaperInfor;
+        public bool ShowPaperInfor
+        {
+            get { return showPaperInfor; }
+            set { SetProperty(ref showPaperInfor, value); }
+        }
         #endregion property
 
         #region command
@@ -241,11 +256,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (response != null)
                 {
-                    if (!CompanyConfigurationHelper.IsShowDateOfRegistration)
-                    {
-                        response.DateOfRegistration = null;
-                    }
-
                     InforDetail = response;
                     if (response.VehicleNl != null)
                     {

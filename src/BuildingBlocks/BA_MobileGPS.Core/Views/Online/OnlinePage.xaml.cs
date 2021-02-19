@@ -5,7 +5,9 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
+using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Service;
+using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism;
 using Prism.Events;
@@ -32,7 +34,7 @@ namespace BA_MobileGPS.Core.Views
         private readonly IGeocodeService geocodeService;
         private readonly IDisplayMessage displayMessage;
         private readonly IPageDialogService pageDialog;
-
+        private readonly IPapersInforService papersInforService;
         public OnlinePage()
         {
             InitializeComponent();
@@ -41,6 +43,7 @@ namespace BA_MobileGPS.Core.Views
             geocodeService = PrismApplicationBase.Current.Container.Resolve<IGeocodeService>();
             displayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
             pageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
+            papersInforService = PrismApplicationBase.Current.Container.Resolve<IPapersInforService>();
             pageWidth = (int)Application.Current.MainPage.Width;
             boxStatusVehicle.TranslationX = pageWidth;
             boxInfo.TranslationY = 300;
@@ -109,7 +112,7 @@ namespace BA_MobileGPS.Core.Views
                         if (vehicleselect != null)
                         {
                             vm.CarSearch = vehicleselect.PrivateCode;
-                            UpdateSelectVehicle(vehicleselect);
+                            UpdateSelectVehicle(vehicleselect);                         
                         }
                         else
                         {
@@ -689,6 +692,8 @@ namespace BA_MobileGPS.Core.Views
 
                 vm.EngineState = StateVehicleExtension.EngineState(carInfo);
 
+                vm.BoxInforUpdateRegistrationDate(carInfo.VehicleId);
+
                 Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
 
                 //update active xe mới
@@ -845,8 +850,8 @@ namespace BA_MobileGPS.Core.Views
                     var car = mVehicleList.FirstOrDefault(x => x.VehiclePlate == args.Pin.Label);
                     if (car != null)
                     {
-                        vm.CarSearch = car.PrivateCode;
-                        ShowBoxInfoCarActive(car, car.MessageId, car.DataExt);
+                        vm.CarSearch = car.PrivateCode;                       
+                        ShowBoxInfoCarActive(car, car.MessageId, car.DataExt);                      
                     }
                 }
             }
