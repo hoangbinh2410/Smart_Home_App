@@ -34,7 +34,6 @@ namespace BA_MobileGPS.Core.Views
         private readonly IGeocodeService geocodeService;
         private readonly IDisplayMessage displayMessage;
         private readonly IPageDialogService pageDialog;
-        private readonly IPapersInforService papersInforService;
         public OnlinePageNoCluster()
         {
             InitializeComponent();
@@ -42,7 +41,6 @@ namespace BA_MobileGPS.Core.Views
             geocodeService = PrismApplicationBase.Current.Container.Resolve<IGeocodeService>();
             displayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
             pageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
-            papersInforService = PrismApplicationBase.Current.Container.Resolve<IPapersInforService>();
             pageWidth = (int)Application.Current.MainPage.Width;
             boxStatusVehicle.TranslationX = pageWidth;
             boxInfo.TranslationY = 300;
@@ -423,10 +421,6 @@ namespace BA_MobileGPS.Core.Views
                     }
                     vm.CarActive = carInfo;
                     vm.EngineState = carInfo.StatusEngineer;
-                    Task.Run(async () =>
-                    {
-                        vm.RegistrationDate = await papersInforService.GetLastPaperDateByVehicle(StaticSettings.User.CompanyId, carInfo.VehicleId, PaperCategoryTypeEnum.Registry);
-                    });
                 }
 
                 carInfo.IconImage = IconCodeHelper.GetMarkerResource(carInfo);
