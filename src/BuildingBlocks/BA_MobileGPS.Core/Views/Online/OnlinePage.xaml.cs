@@ -112,7 +112,7 @@ namespace BA_MobileGPS.Core.Views
                         if (vehicleselect != null)
                         {
                             vm.CarSearch = vehicleselect.PrivateCode;
-                            UpdateSelectVehicle(vehicleselect);
+                            UpdateSelectVehicle(vehicleselect);                         
                         }
                         else
                         {
@@ -438,10 +438,6 @@ namespace BA_MobileGPS.Core.Views
                     }
                     vm.CarActive = carInfo;
                     vm.EngineState = carInfo.StatusEngineer;
-                    Task.Run(async () =>
-                    {
-                        vm.RegistrationDate = await papersInforService.GetLastPaperDateByVehicle(StaticSettings.User.CompanyId, carInfo.VehicleId, PaperCategoryTypeEnum.Registry);
-                    });
                 }
 
                 carInfo.IconImage = IconCodeHelper.GetMarkerResource(carInfo);
@@ -695,10 +691,8 @@ namespace BA_MobileGPS.Core.Views
                 btnDirectvehicleOnline.IsVisible = true;
 
                 vm.EngineState = StateVehicleExtension.EngineState(carInfo);
-                Task.Run(async () =>
-                {
-                    vm.RegistrationDate = await papersInforService.GetLastPaperDateByVehicle(StaticSettings.User.CompanyId, carInfo.VehicleId, PaperCategoryTypeEnum.Registry);
-                });
+
+                vm.BoxInforUpdateRegistrationDate(carInfo.VehicleId);
 
                 Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
 
@@ -856,8 +850,8 @@ namespace BA_MobileGPS.Core.Views
                     var car = mVehicleList.FirstOrDefault(x => x.VehiclePlate == args.Pin.Label);
                     if (car != null)
                     {
-                        vm.CarSearch = car.PrivateCode;
-                        ShowBoxInfoCarActive(car, car.MessageId, car.DataExt);
+                        vm.CarSearch = car.PrivateCode;                       
+                        ShowBoxInfoCarActive(car, car.MessageId, car.DataExt);                      
                     }
                 }
             }
