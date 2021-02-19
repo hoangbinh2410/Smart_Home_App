@@ -110,6 +110,7 @@ namespace BA_MobileGPS.Core.Views
                                         vehicleselect.VehicleId, PaperCategoryTypeEnum.Registry);
                                 });
                             }
+                            else vm.RegistrationDate = null;
                         }
                         else
                         {
@@ -806,6 +807,7 @@ namespace BA_MobileGPS.Core.Views
                                     car.VehicleId, PaperCategoryTypeEnum.Registry);
                             });
                         }
+                        else vm.RegistrationDate = null;
                         ShowBoxInfoCarActive(car, car.MessageId, car.DataExt);
                        
                     }
