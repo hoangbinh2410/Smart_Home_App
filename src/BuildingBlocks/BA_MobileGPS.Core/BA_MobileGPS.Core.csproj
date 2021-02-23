@@ -225,6 +225,9 @@
 	  <EmbeddedResource Update="Views\Authentication\LoginPreviewFeaturesPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Common\PopupHtmlPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Common\SelectDateTime\SelectRangeDateTime.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
