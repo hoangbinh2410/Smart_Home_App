@@ -744,8 +744,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     return await papersInforService.GetListPaper(StaticSettings.User.CompanyId);
                 }, async (result) =>
                 {
-
-                    var dueDatePaper = result.FirstOrDefault(s =>
+                    var dueDatePaper = result.Where(x=> !string.IsNullOrEmpty(x.VehiclePlate))
+                    .FirstOrDefault(s =>
                     {
                         var day = (s.ExpireDate - new TimeSpan(CompanyConfigurationHelper.DayAllowRegister, 0, 0, 0)).Date;
                         if (s.ExpireDate.Date > DateTime.Now.Date && DateTime.Now.Date >= day)
