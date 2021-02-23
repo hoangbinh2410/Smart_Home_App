@@ -40,6 +40,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 return false;
             });
             SaveButtonVisible = true;
+            canEditPaperNumber = true;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -70,7 +71,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
-
+        private bool canEditPaperNumber;
+        public bool CanEditPaperNumber
+        {
+            get { return canEditPaperNumber; }
+            set { SetProperty(ref canEditPaperNumber, value); }
+        }
         private bool isUpdateForm;
         public bool IsUpdateForm
         {
@@ -431,7 +437,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (res?.PK_PaperInfoID != new Guid())
                         {
                             DisplayMessage.ShowMessageSuccess("Thêm mới thông tin thành công");
-                            ClearData();
+                            ClearData(true);
+                            oldInfor = data;
                         }
                         else
                         {
@@ -471,7 +478,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     oldInfor = paper;
                     IsUpdateForm = true;
-
+                    CanEditPaperNumber = false;
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         SaveButtonVisible = CheckPermision((int)PermissionKeyNames.PaperUpdate);
@@ -498,7 +505,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         CreateButtonVisible = true;
                     }
                 }
-                else ClearData();
+                else ClearData(true);
             });
         }
 
@@ -562,9 +569,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
-
+        /// <summary>
+        /// btn tạo mới => khi đã có dữ liệu cũ => chuyển form tạo mới
+        /// Khác với 2 giấy tờ còn lại.Ở đây mã số phải nhập và check
+        /// </summary>
         private void ChangeToInsertForm()
         {
+            CanEditPaperNumber = true;
             InsuranceNumber.Value = string.Empty;
             ExpireDate.Value = DateTime.Now;
             DaysNumberForAlertAppear.Value = "3";
@@ -580,11 +591,18 @@ namespace BA_MobileGPS.Core.ViewModels
             SaveEnable = true;
             SaveButtonVisible = true;
         }
-
-        private void ClearData()
+        /// <summary>
+        /// Xóa dữ liệu khi xe thay đổi hoặc khi thêm mới thành công
+        /// </summary>
+        /// <param name="canEditNumber">Được phép thay đổi mã số giấy tờ không</param>
+        private void ClearData(bool canEditNumber = false)
         {
+            CanEditPaperNumber = canEditNumber;
+            if (canEditNumber)
+            {
+                InsuranceNumber.Value = string.Empty;
+            }
             RegistrationDate.Value = DateTime.Now;
-            InsuranceNumber.Value = string.Empty;
             ExpireDate.Value = DateTime.Now;
             DaysNumberForAlertAppear.Value = "3";
             SelectedInsuranceType.Value = null;
