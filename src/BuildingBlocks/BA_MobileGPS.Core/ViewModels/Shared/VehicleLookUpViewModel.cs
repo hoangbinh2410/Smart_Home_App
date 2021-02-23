@@ -123,12 +123,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    var listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
-                    //nếu là Viview thì lọc thêm messageid=3 nữa
-                    if (App.AppType == AppType.Viview)
-                    {
-                        listOnline = listOnline.Where(x => x.MessageId != 3).ToList();
-                    }
+                    var listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65
+                    && x.MessageId != 254 
+                    && x.MessageId != 128
+                    && x.MessageId != 3
+                    && x.MessageId != 2).ToList();
                     if (groupids != null && groupids.Length > 0)
                     {
                         foreach (var item in groupids)
