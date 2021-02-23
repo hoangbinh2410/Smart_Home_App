@@ -214,7 +214,7 @@
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
-                                <controls:IconView
+                                <!--<controls:IconView
                                     x:Name="lbHelp"
                                     Grid.Row="0"
                                     Grid.Column="1"
@@ -223,14 +223,16 @@
                                     Source="ic_help.png"
                                     VerticalOptions="Center"
                                     WidthRequest="15">
-                                    <!--
-                                        behaviors:ItemTappedCommandListView.ItemTappedCommand="Filter_Clicked"
-                                        xe:Commands.Tap="{Binding HelpCommand}"
-                                    -->
+                                -->
+                                <!--
+                                    behaviors:ItemTappedCommandListView.ItemTappedCommand="Filter_Clicked"
+                                    xe:Commands.Tap="{Binding HelpCommand}"
+                                -->
+                                <!--
                                     <controls:IconView.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding HelpCommand}" />
                                     </controls:IconView.GestureRecognizers>
-                                </controls:IconView>
+                                </controls:IconView>-->
                             </Grid>
                         </StackLayout>
                         <StackLayout Grid.Row="3" HorizontalOptions="FillAndExpand">
