@@ -90,11 +90,24 @@ namespace BA_MobileGPS.Core.ViewModels
                     InitVehicleFree(StaticSettings.ListVehilceFree.ToList());
                 }
             }
+            else if (parameters?.GetValue<bool>(ParameterKey.IsLoginAnnouncement) is bool init)
+            {
+                isLoginAnnountment = init;
+            }
         }
+        private bool isLoginAnnountment { get; set; }
 
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
+        }
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            if (isLoginAnnountment)
+            {
+                parameters.Add(ParameterKey.IsLoginAnnouncement, true);
+            }
+            base.OnNavigatedFrom(parameters);
         }
 
         public override void OnDestroy()

@@ -33,7 +33,7 @@
             <input:SfTextInputLayout
                 ErrorText="{Binding IdentityCode.ErrorFirst}"
                 HasError="{Binding IdentityCode.IsNotValid}"
-                IsEnabled="{Binding IsUpdateForm, Converter={StaticResource ShowHideColumnConverter}}"
+                IsEnabled="{Binding CanEditPaperNumber}"
                 VerticalOptions="Start">
                 <Entry
                     MaxLength="100"
