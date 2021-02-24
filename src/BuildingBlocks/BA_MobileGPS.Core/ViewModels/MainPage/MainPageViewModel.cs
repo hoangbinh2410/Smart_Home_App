@@ -102,11 +102,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             });
         }
-
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters?.GetValue<bool>(ParameterKey.IsLoginAnnouncement) is bool init)
+            if (parameters.TryGetValue(ParameterKey.IsLoginAnnouncement, out bool init))
             {
                 if (init)
                 {
@@ -715,7 +714,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 {ParameterKey.IsLoginAnnouncement, true }
                             };
-                            _ = await NavigationService.NavigateAsync("NavigationPage/VehicleDebtMoneyPage", null, useModalNavigation: true, true);
+                            _ = await NavigationService.NavigateAsync("NavigationPage/VehicleDebtMoneyPage", param, useModalNavigation: true, true);
                             return;
                         }
                     }
@@ -744,7 +743,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     return await papersInforService.GetListPaper(StaticSettings.User.CompanyId);
                 }, async (result) =>
                 {
-                    var dueDatePaper = result.Where(x=> !string.IsNullOrEmpty(x.VehiclePlate))
+                    var dueDatePaper = result.Where(x => !string.IsNullOrEmpty(x.VehiclePlate))
                     .FirstOrDefault(s =>
                     {
                         var day = (s.ExpireDate - new TimeSpan(CompanyConfigurationHelper.DayAllowRegister, 0, 0, 0)).Date;
