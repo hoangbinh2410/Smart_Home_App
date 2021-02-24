@@ -571,6 +571,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     Settings.ReceivedNotificationType = string.Empty;
                     if (!string.IsNullOrEmpty(Settings.ReceivedNotificationValue))
                     {
+                        DisplayMessage.ShowMessageInfo("Thông báo ngoài đăng nhập");
                         Device.BeginInvokeOnMainThread(async () =>
                         {
                             await NavigationService.NavigateAsync("NotificationPopupWhenLogin", parameters: new NavigationParameters
