@@ -9,7 +9,6 @@ using Prism.Commands;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
 using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -45,13 +44,13 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (!isLogout)
                 {
-                    GetMobileVersion();
+                    PushPageFileBase();
                 }
             }
             else
             {
                 GetMobileSetting();
-                GetMobileVersion();
+                PushPageFileBase();
             }
         }
 
@@ -143,7 +142,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
             });
-
         });
 
         public ICommand OpenLoginFragmentCommand => new DelegateCommand(() =>
@@ -555,6 +553,38 @@ namespace BA_MobileGPS.Core.ViewModels
             if (e.NetworkAccess == NetworkAccess.Internet)
             {
                 GetMobileSetting();
+            }
+        }
+
+        /// <summary>Lấy thông tin từ firebase</summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// linhlv  2/26/2020   created
+        /// </Modified>
+        private void PushPageFileBase()
+        {
+            //nếu người dùng click vào mở thông báo firebase thì vào trang thông báo luôn
+            if (!string.IsNullOrEmpty(Settings.ReceivedNotificationType))
+            {
+                if (Settings.ReceivedNotificationType == (((int)FormOfNoticeTypeEnum.NoticeWhenLogin).ToString()))
+                {
+                    Settings.ReceivedNotificationType = string.Empty;
+                    if (!string.IsNullOrEmpty(Settings.ReceivedNotificationValue))
+                    {
+                        DisplayMessage.ShowMessageInfo("Thông báo ngoài đăng nhập");
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            await NavigationService.NavigateAsync("NotificationPopupWhenLogin", parameters: new NavigationParameters
+                             {
+                                 { ParameterKey.NotificationForm, Settings.ReceivedNotificationValue }
+                            });
+                        });
+                    }
+                }
+            }
+            else
+            {
+                GetMobileVersion();
             }
         }
 
