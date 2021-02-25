@@ -24,8 +24,10 @@
             Padding="0"
             BackgroundColor="White"
             CornerRadius="10"
+            HeightRequest="250"
             HorizontalOptions="Center"
-            VerticalOptions="Center">
+            VerticalOptions="Center"
+            WidthRequest="250">
             <Grid RowSpacing="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -46,17 +48,18 @@
                         TextColor="White"
                         VerticalOptions="CenterAndExpand" />
                 </StackLayout>
-                <StackLayout Grid.Row="1" Padding="10">
+                <StackLayout
+                    Grid.Row="1"
+                    Padding="10"
+                    HeightRequest="150"
+                    WidthRequest="200">
                     <htmlLabel:HtmlLabel
-                        x:Name="content"
-                        FontFamily="{StaticResource myFontFamily}"
-                        FontSize="{OnPlatform Android=14,
-                                              iOS=15}"
-                        HorizontalOptions="Start"
-                        HorizontalTextAlignment="Start"
-                        LineBreakMode="TailTruncation"
-                        LineHeight="1.1"
-                        Text="{Binding ContentPopup}" />
+                        FontSize="16"
+                        HeightRequest="150"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{Binding ContentPopup}"
+                        VerticalOptions="StartAndExpand"
+                        WidthRequest="200" />
                 </StackLayout>
                 <Grid
                     Grid.Row="2"
