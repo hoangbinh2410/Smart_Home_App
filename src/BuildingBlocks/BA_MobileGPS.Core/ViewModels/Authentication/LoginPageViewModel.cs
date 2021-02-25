@@ -577,7 +577,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 return await notificationService.GetNotificationWhenLogin(App.AppType);
             }, (items) =>
             {
-                if (items != null && items.Data != null)
+                if (items != null && items.Data != null && items.Data.Id > 0)
                 {
                     if (items.Data.IsAlwayShow) // true luôn luôn hiển thị
                     {
