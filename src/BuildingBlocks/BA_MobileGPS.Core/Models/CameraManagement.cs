@@ -243,8 +243,7 @@ namespace BA_MobileGPS.Core.Models
             }
             catch (Exception ex)
             {
-
-          
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
          
         }
