@@ -28,7 +28,7 @@ namespace BA_MobileGPS.Entities.ResponeEntity
     {
         public string Id { get; set; }
         public int FK_CompanyID { get; set; }
-        public int FK_VehicleID { get; set; }
+        public long FK_VehicleID { get; set; }
         public string FK_PaperCategoryID { get; set; }
         public string PaperNumber { get; set; }
         public DateTime DateOfIssue { get; set; }
