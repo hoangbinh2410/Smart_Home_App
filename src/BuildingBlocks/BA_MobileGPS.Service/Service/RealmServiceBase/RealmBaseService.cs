@@ -28,7 +28,7 @@ namespace BA_MobileGPS.Service
             {
                 var entity = _mapper.MapProperties<TEntity>(viewModel);
                 var result = _baseRepository.Add(entity);
-                return viewModel;
+                return _mapper.MapProperties<TViewModel>(result);
             }
             catch (Exception ex)
             {
