@@ -5,6 +5,7 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
+using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities;
 using Newtonsoft.Json;
@@ -36,6 +37,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IAlertHubService alertHubService;
         private readonly IPingServerService pingServerService;
         private readonly IMapper _mapper;
+        private readonly IPapersInforService papersInforService;
         private Timer timer;
         private Timer timerSyncData;
 
@@ -48,9 +50,11 @@ namespace BA_MobileGPS.Core.ViewModels
             IIdentityHubService identityHubService,
             IVehicleOnlineHubService vehicleOnlineHubService,
             IPingServerService pingServerService,
-            IAlertHubService alertHubService, IMapper mapper)
+            IAlertHubService alertHubService, IMapper mapper,
+            IPapersInforService papersInforService)
             : base(navigationService)
         {
+            this.papersInforService = papersInforService;
             this.vehicleOnlineService = vehicleOnlineService;
             this.alertService = alertService;
             this.appVersionService = appVersionService;
@@ -97,6 +101,22 @@ namespace BA_MobileGPS.Core.ViewModels
                     return false;
                 });
             });
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            if (parameters?.GetValue<bool>(ParameterKey.IsLoginAnnouncement) is bool init)
+            {
+                if (init)
+                {
+                    if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+                    {
+                        GetPaperAlert();
+                    }
+                    else isWaitingVehicleOnline = true;
+                }
+            }
         }
 
         public override void OnDestroy()
@@ -522,6 +542,11 @@ namespace BA_MobileGPS.Core.ViewModels
                         //Join vào nhóm signalR để nhận dữ liệu online
                         JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
                     });
+
+                    if (isWaitingVehicleOnline && StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+                    {
+                        GetPaperAlert();
+                    }
                 }
                 else
                 {
@@ -686,8 +711,58 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (string.IsNullOrEmpty(Settings.ReceivedNotificationType))
                         {
                             // gọi sang trang danh sách nợ phí
+                            var param = new NavigationParameters
+                            {
+                                {ParameterKey.IsLoginAnnouncement, true }
+                            };
                             _ = await NavigationService.NavigateAsync("NavigationPage/VehicleDebtMoneyPage", null, useModalNavigation: true, true);
+                            return;
                         }
+                    }
+
+                    //Nếu không hiện nợ phí => check luôn hiện giáy tờ
+                    if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+                    {
+                        GetPaperAlert();
+                    }
+                    else isWaitingVehicleOnline = true;
+                });
+            }
+        }
+
+        private bool isWaitingVehicleOnline { get; set; }
+
+        private void GetPaperAlert()
+        {
+            var userPer = UserInfo.Permissions.Distinct();
+            var viewPaperPermission = (int)PermissionKeyNames.PaperView;
+
+            if (userPer.Contains(viewPaperPermission))
+            {
+                RunOnBackground(async () =>
+                {
+                    return await papersInforService.GetListPaper(StaticSettings.User.CompanyId);
+                }, async (result) =>
+                {
+                    var dueDatePaper = result.Where(x=> !string.IsNullOrEmpty(x.VehiclePlate))
+                    .FirstOrDefault(s =>
+                    {
+                        var day = (s.ExpireDate - new TimeSpan(CompanyConfigurationHelper.DayAllowRegister, 0, 0, 0)).Date;
+                        if (s.ExpireDate.Date > DateTime.Now.Date && DateTime.Now.Date >= day)
+                        {
+                            return true;
+                        }
+                        return false;
+                    });
+
+                    if (dueDatePaper != null)
+                    {
+                        //Gọi sang trang danh sách giấy tờ
+                        var param = new NavigationParameters
+                        {
+                            { "AlertType", Utilities.Enums.PaperAlertTypeEnum.DueAlert }
+                        };
+                        var temp = await NavigationService.NavigateAsync("NavigationPage/ListPapersPage", param, useModalNavigation: true, true);
                     }
                 });
             }

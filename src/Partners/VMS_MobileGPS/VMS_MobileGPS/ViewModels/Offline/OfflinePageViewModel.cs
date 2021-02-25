@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core;
 using BA_MobileGPS.Core.Helpers;
-using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RealmEntity;
 using BA_MobileGPS.Models;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -33,11 +34,11 @@ namespace VMS_MobileGPS.ViewModels
 
         private readonly IEventAggregator eventAggregator;
         private readonly IMessageService messageService;
-        private readonly IMobileSettingService mobileSettingService;
-        private readonly IAppVersionService appVersionService;
         private readonly IGpsListener _gpsListener;
         private readonly IGpsManager _gpsManager;
         private readonly IDisplayMessage _displayMessage;
+        private readonly IVehicleOnlineService vehicleOnlineService;
+        private readonly IRealmBaseService<BoundaryRealm, LandmarkResponse> baseRepository;
 
         public ICommand NavigateToCommand { get; private set; }
         public ICommand ConnectBleCommand { get; private set; }
@@ -46,18 +47,20 @@ namespace VMS_MobileGPS.ViewModels
 
         public OfflinePageViewModel(INavigationService navigationService,
             IEventAggregator eventAggregator,
-            IAppVersionService appVersionService,
             IMessageService messageService,
             IGpsListener gpsListener,
-            IGpsManager gpsManager, IDisplayMessage displayMessage)
+            IGpsManager gpsManager, IDisplayMessage displayMessage,
+            IVehicleOnlineService vehicleOnlineService,
+            IRealmBaseService<BoundaryRealm, LandmarkResponse> baseRepository)
             : base(navigationService)
         {
             this.messageService = messageService;
             this.eventAggregator = eventAggregator;
-            this.appVersionService = appVersionService;
             this._gpsListener = gpsListener;
             this._gpsManager = gpsManager;
             this._displayMessage = displayMessage;
+            this.vehicleOnlineService = vehicleOnlineService;
+            this.baseRepository = baseRepository;
 
             _gpsListener.OnReadingReceived += OnReadingReceived;
 
@@ -117,6 +120,7 @@ namespace VMS_MobileGPS.ViewModels
                 {
                     ShowPermistionPage();
                 }
+                GetListLandmark();
             });
         }
 
@@ -159,8 +163,6 @@ namespace VMS_MobileGPS.ViewModels
         #endregion Lifecycle
 
         #region Property
-
-        public string AppVersion => appVersionService.GetAppVersion();
 
         private bool isConnectBLE = GlobalResourcesVMS.Current.DeviceManager.State == BleConnectionState.NO_CONNECTION ? false : true;
         public bool IsConnectBLE { get => isConnectBLE; set => SetProperty(ref isConnectBLE, value); }
@@ -638,67 +640,53 @@ namespace VMS_MobileGPS.ViewModels
             });
         }
 
-        private void GetMobileVersion()
+        private void GetListLandmark()
         {
             if (!IsConnected)
             {
                 return;
             }
-            RunOnBackground(async () =>
+            TryExecute(() =>
             {
-                return await mobileSettingService.GetMobileVersion(Device.RuntimePlatform.ToString(), (int)App.AppType);
-            },
-            (versionDB) =>
-            {
-                if (versionDB != null && !string.IsNullOrEmpty(versionDB.VersionName) && !string.IsNullOrEmpty(versionDB.LinkDownload))
+                RunOnBackground(async () =>
                 {
-                    // Nếu giá trị bị null hoặc giá trị đường link thay đổi => cập nhật lại
-                    if (string.IsNullOrEmpty(Settings.AppLinkDownload) || !versionDB.LinkDownload.Equals(Settings.AppLinkDownload, StringComparison.InvariantCultureIgnoreCase))
+                    return await vehicleOnlineService.GetListBoundary();
+                },
+                    (respones) =>
                     {
-                        Settings.AppLinkDownload = versionDB.LinkDownload;
-                    }
-
-                    if (!versionDB.VersionName.Equals(AppVersion, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        bool flags = false;
-
-                        if (!flags)
+                        if (respones != null && respones.Count > 0)
                         {
-                            flags = true;
-
-                            string title = "Cập nhập phiên bản mới";
-                            string message = !string.IsNullOrEmpty(versionDB.Description) ? versionDB.Description : "Cập nhập phiên bản mới";
-                            string accept = MobileResource.Common_Button_Update;
-                            string cancel = MobileResource.Common_Button_No;
-
-                            // Nếu yêu cầu cài lại app
-                            if (versionDB.IsMustUpdate)
+                            var list = baseRepository.All()?.ToList();
+                            foreach (var item in respones)
                             {
-                                Device.BeginInvokeOnMainThread(async () =>
+                                if (item.PK_LandmarkID == 376652)
                                 {
-                                    await NavigationService.NavigateAsync("UpdateVersion");
-                                });
-                            }
-                            else
-                            {
-                                Device.BeginInvokeOnMainThread(async () =>
+                                    item.Polygon = "108.37917, 20.40167, 107.93, 19.95806, 107.52806, 19.65806, 107.34972, 19.42306, 107.21167, 19.42306, 107.18972, 19.26806, 107.15972, 19.21472, 107.15972, 18.71472, 107.56667, 18.23, 107.62667,18.11806, 107.65167, 18.07, 107.96667, 17.78306, 108.55694, 17.33167, 109.49556, 16.78167, 110.97944, 16.44806, 111.09389, 16.4725, 111.28944, 17.45972,111.35806, 17.55139, 111.44333, 17.60639, 111.52833, 17.62722, 111.61917, 17.62722, 112.14361, 17.55139, 112.43194, 17.50167, 112.74528, 17.35222, 112.94833, 17.22111, 112.98417, 17.15167, 112.98139, 17.08194,113.55306, 17.43278, 114.61306, 18.51278, 116.1875, 18.92861, 117.62583, 19.74278, 117.44417, 18.64194, 116.98972, 17.8225, 116.52056, 16.25917, 116.80806, 13.86167, 116.82333, 13.84694, 116.49583, 12.66806,115.76667, 11.92667, 116.82167, 12.12306, 117.82806, 11.11806, 117.97806, 10.345, 116, 9.02139, 115.76167, 7.66167, 113.68806, 6.73917, 112.56194, 7.66167, 111.02417, 6.24972, 109.84139, 5.8525,109.5683, 6.4153, 109.28667, 6.83667, 106.66167, 6.34972, 106.31667, 6.25, 106.2, 6.25, 105.81972, 6.09667, 103.86667, 7.04972, 103.595, 7.305, 103.65, 7.33306, 103.70806, 7.36667,103.04167, 7.81667, 102.20167, 8.78167, 103.17083, 9.58333, 102.89167, 9.91667, 102.92, 9.90306, 102.95, 9.90806, 103.79972, 10.40167, 103.81972, 10.42667, 103.79, 10.5, 103.82, 10.4267,103.807500, 10.379444, 103.424444, 9.993333, 103.694444, 9.500000, 104.030556, 9.499167, 104.033056, 7.898889, 105.466111, 7.918333, 106.046389, 8.636667, 107.046944, 8.968611, 107.351667, 9.603611,109.576111, 10.776667, 110.089722, 12.614444, 109.624444, 15.621111, 107.578611, 17.393889, 107.031944, 18.000000, 106.885556, 18.316111, 106.621389, 18.666667, 106.621389, 19.551944, 107.128056, 20.000000, 108.294444, 20.803333";
+                                }
+                                //lấy từ local DB
+                                if (list != null && list.Count > 0)
                                 {
-                                    var install = await PageDialog.DisplayAlertAsync(title, message, accept, cancel);
-
-                                    if (install == true) // if it's equal to Update
+                                    var itemlocal = list.FirstOrDefault(x => x.PK_LandmarkID == item.PK_LandmarkID);
+                                    if (itemlocal != null)
                                     {
-                                        await Launcher.OpenAsync(new Uri(versionDB.LinkDownload));
+                                        itemlocal.Color = item.Color;
+                                        itemlocal.Polygon = item.Polygon;
+                                        itemlocal.PK_LandmarkID = item.PK_LandmarkID;
+                                        itemlocal.IsClosed = item.IsClosed;
+                                        itemlocal.Latitude = item.Latitude;
+                                        itemlocal.Longitude = item.Longitude;
+                                        itemlocal.Name = item.Name;
+                                        baseRepository.Update(itemlocal);
                                     }
-                                    else // if it's equal to Skip
-                                    {
-                                        return; // just return to the page and do nothing.
-                                    }
-                                });
+                                }
+                                else
+                                {
+                                    //thêm dữ liệu vào local database với bẳng là LanmarkReal
+                                    baseRepository.Add(item);
+                                }
                             }
-                            flags = true;
                         }
-                    }
-                }
+                    });
             });
         }
 

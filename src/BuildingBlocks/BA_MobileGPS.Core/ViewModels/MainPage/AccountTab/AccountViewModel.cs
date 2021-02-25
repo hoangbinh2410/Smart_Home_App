@@ -78,16 +78,16 @@ namespace BA_MobileGPS.Core.ViewModels
             });
 
             // Hướng dẫn sử dụng
-            //list.Add(new MenuItem
-            //{
-            //    Title = MobileResource.AccountTab_Label_DeviceManual,
-            //    Icon = "ic_devicemanual.png",
-            //    UseModalNavigation = true,
-            //    Url = "NavigationPage/HelperPage",
-            //    MenuType = MenuType.DeviceManual,
-            //    IsEnable = true,
-            //    IconColor = Color.FromHex("#FF9900")
-            //});
+            list.Add(new MenuItem
+            {
+                Title = MobileResource.AccountTab_Label_DeviceManual,
+                Icon = "ic_devicemanual.png",
+                UseModalNavigation = true,
+                Url = "NavigationPage/HelperPage",
+                MenuType = MenuType.DeviceManual,
+                IsEnable = true,
+                IconColor = Color.FromHex("#FF9900")
+            });
             // Giới thiệu BAGPS
             list.Add(new MenuItem
             {

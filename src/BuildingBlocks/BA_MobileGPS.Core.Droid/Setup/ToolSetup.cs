@@ -2,6 +2,7 @@
 using Android.OS;
 
 using BA_MobileGPS.Core.Droid;
+using BA_MobileGPS.Core.Droid.DependencyServices;
 using FFImageLoading.Forms.Platform;
 using LabelHtml.Forms.Plugin.Droid;
 using LibVLCSharp.Forms.Shared;
@@ -41,8 +42,11 @@ namespace BA_MobileGPS.Droid.Setup
             //Html Label
             HtmlLabelRenderer.Initialize();
 
-            //PlatformImageViewer.Init(activity);
+            PlatformImageViewer.Init(activity);
             LibVLCSharpFormsRenderer.Init();
+
+
+            Stormlion.PhotoBrowser.Droid.Platform.Init(activity);
         }
     }
 }

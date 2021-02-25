@@ -33,6 +33,7 @@
             <input:SfTextInputLayout
                 ErrorText="{Binding SignNumber.ErrorFirst}"
                 HasError="{Binding SignNumber.IsNotValid}"
+                IsEnabled="{Binding CanEditPaperNumber}"
                 VerticalOptions="Start">
                 <Entry
                     MaxLength="100"
@@ -155,7 +156,7 @@
                     </Button>
                     <Button
                         Grid.Column="1"
-                        BackgroundColor="#00ADE5"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
                         Command="{Binding ChangeToInsertFormCommand}"
                         CornerRadius="20"
                         HeightRequest="40"

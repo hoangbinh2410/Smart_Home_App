@@ -17,7 +17,6 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class InsuranceInforViewModel : ViewModelBase
     {
-        private bool IsUpdateForm { get; set; } = false;
         private long currentVehicleId { get; set; } = 0;
         private string NotEmptyMessenge = MobileResource.ListDriver_Messenger_NotNull;
         private readonly IPapersInforService paperinforService;
@@ -41,6 +40,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 return false;
             });
             SaveButtonVisible = true;
+            canEditPaperNumber = true;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -65,10 +65,23 @@ namespace BA_MobileGPS.Core.ViewModels
                 var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.PrivateCode == privateCode);
                 if (vehicle != null)
                 {
+                    oldInfor = null;
                     currentVehicleId = vehicle.VehicleId;
                     UpdateFormData(UserInfo.CompanyId, vehicle.VehicleId);
                 }
             }
+        }
+        private bool canEditPaperNumber;
+        public bool CanEditPaperNumber
+        {
+            get { return canEditPaperNumber; }
+            set { SetProperty(ref canEditPaperNumber, value); }
+        }
+        private bool isUpdateForm;
+        public bool IsUpdateForm
+        {
+            get { return isUpdateForm; }
+            set { SetProperty(ref isUpdateForm, value); }
         }
 
         private bool saveEnable = true;
@@ -424,7 +437,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (res?.PK_PaperInfoID != new Guid())
                         {
                             DisplayMessage.ShowMessageSuccess("Thêm mới thông tin thành công");
-                            ClearData();
+                            ClearData(true);
+                            oldInfor = data;
                         }
                         else
                         {
@@ -456,7 +470,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void UpdateFormData(int companyId, long vehicleId)
         {
             CreateButtonVisible = false;
-            SaveButtonVisible = false;
+           
             SafeExecute(async () =>
             {
                 var paper = await paperinforService.GetLastPaperInsuranceByVehicleId(companyId, vehicleId);
@@ -464,12 +478,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     oldInfor = paper;
                     IsUpdateForm = true;
-                    if (CheckPermision((int)PermissionKeyNames.PaperUpdate))
-                    {
-                        SaveButtonVisible = true;
-                    }
+                    CanEditPaperNumber = false;
                     Device.BeginInvokeOnMainThread(() =>
                     {
+                        SaveButtonVisible = CheckPermision((int)PermissionKeyNames.PaperUpdate);
                         InsuranceNumber.Value = paper.PaperInfo.PaperNumber;
                         RegistrationDate.Value = paper.PaperInfo.DateOfIssue;
                         ExpireDate.Value = paper.PaperInfo.ExpireDate;
@@ -493,7 +505,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         CreateButtonVisible = true;
                     }
                 }
-                else ClearData();
+                else ClearData(true);
             });
         }
 
@@ -557,9 +569,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
-
+        /// <summary>
+        /// btn tạo mới => khi đã có dữ liệu cũ => chuyển form tạo mới
+        /// Khác với 2 giấy tờ còn lại.Ở đây mã số phải nhập và check
+        /// </summary>
         private void ChangeToInsertForm()
         {
+            CanEditPaperNumber = true;
             InsuranceNumber.Value = string.Empty;
             ExpireDate.Value = DateTime.Now;
             DaysNumberForAlertAppear.Value = "3";
@@ -575,11 +591,18 @@ namespace BA_MobileGPS.Core.ViewModels
             SaveEnable = true;
             SaveButtonVisible = true;
         }
-
-        private void ClearData()
+        /// <summary>
+        /// Xóa dữ liệu khi xe thay đổi hoặc khi thêm mới thành công
+        /// </summary>
+        /// <param name="canEditNumber">Được phép thay đổi mã số giấy tờ không</param>
+        private void ClearData(bool canEditNumber = false)
         {
+            CanEditPaperNumber = canEditNumber;
+            if (canEditNumber)
+            {
+                InsuranceNumber.Value = string.Empty;
+            }
             RegistrationDate.Value = DateTime.Now;
-            InsuranceNumber.Value = string.Empty;
             ExpireDate.Value = DateTime.Now;
             DaysNumberForAlertAppear.Value = "3";
             SelectedInsuranceType.Value = null;
@@ -589,6 +612,11 @@ namespace BA_MobileGPS.Core.ViewModels
             UnitName.Value = string.Empty;
 
             CreateButtonVisible = false;
+            if (!SaveButtonVisible)
+            {
+                SaveButtonVisible = true;
+            }
+            IsUpdateForm = false;
         }
     }
 }

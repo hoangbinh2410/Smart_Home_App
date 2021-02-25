@@ -23,5 +23,7 @@ namespace BA_MobileGPS.Service.IService
         Task<PapersIdResponse> UpdateInsurancePaper(PaperInsuranceInsertRequest data);
         Task<PapersIdResponse> UpdateSignPaper(PaperCabSignInforRequest data);
         Task<List<PaperItemInfor>> GetListPaper(int companyId,int orderBy =0,int sortOrder=0);
+        Task<List<PaperItemHistoryModel>> GetListPaperHistory(int companyId, int pageSize = 0, int pageIndex = 0, int orderBy = 0, int sortOrder = 0);
+        Task<DateTime?> GetLastPaperDateByVehicle(int companyID, long vehicleId,PaperCategoryTypeEnum paperType);
     }
 }

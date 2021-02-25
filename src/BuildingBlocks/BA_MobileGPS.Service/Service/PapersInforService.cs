@@ -239,7 +239,7 @@ namespace BA_MobileGPS.Service.Service
             try
             {
                 string url = string.Empty;
-                if (OrderBy ==0 && sortOrder==0)
+                if (OrderBy == 0 && sortOrder == 0)
                 {
                     url = $"{ApiUri.GET_LIST_ALL_PAPER}?companyId={companyId}";
                 }
@@ -247,6 +247,47 @@ namespace BA_MobileGPS.Service.Service
 
                 var response = await _IRequestProvider.GetAsync<ListPaperResponse>(url);
                 if (response?.Data != null && response.Data.Count > 0)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<List<PaperItemHistoryModel>> GetListPaperHistory(int companyId, int pageSize = 0, int pageIndex = 0, int orderBy = 0, int sortOrder = 0)
+        {
+            List<PaperItemHistoryModel> result = new List<PaperItemHistoryModel>();
+            try
+            {
+               var url = $"{ApiUri.GET_LIST_ALL_PAPER_HISTORY}?companyId={companyId}&pageSize={pageSize}&pageIndex={pageIndex}&orderBy={orderBy}&sortOrder={sortOrder}";
+
+                var response = await _IRequestProvider.GetAsync<PaperHistoriesResponse>(url);
+                if (response?.Data?.Items != null && response.Data.Items.Count > 0)
+                {
+                    result = response.Data.Items;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<DateTime?> GetLastPaperDateByVehicle(int companyId, long vehicleId,PaperCategoryTypeEnum paperType)
+        {
+            DateTime? result = null;
+            try
+            {
+                var type = (int)paperType;
+                var url = $"{ApiUri.GET_LAST_PAPER_DATE_BY_VEHICLE}?companyId={companyId}&vehicleId={vehicleId}&paperType={type}";
+
+                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<DateTime?>>(url);
+                if (response?.Data != null)
                 {
                     result = response.Data;
                 }

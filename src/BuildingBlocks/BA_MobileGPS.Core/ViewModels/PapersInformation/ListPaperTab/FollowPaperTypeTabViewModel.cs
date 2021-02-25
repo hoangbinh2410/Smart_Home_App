@@ -45,6 +45,25 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+
+            if (parameters.ContainsKey("paperSource") && parameters.GetValue<List<PaperItemInfor>>("paperSource") is List<PaperItemInfor> allSource)
+            {
+                originSource = allSource;
+                AllPapers = originSource;
+
+                //Clear text ô filter :
+                if (filterTypeId != new Guid())
+                {
+                    filterTypeId = new Guid();
+                    PaperTypeName = PaperCategoryTypeEnum.None.ToDescription();
+                }
+                if (filterTypeAlert != PaperAlertTypeEnum.All)
+                {
+                    filterTypeAlert = PaperAlertTypeEnum.All;
+                    AlertTypeName = PaperAlertTypeEnum.All.ToDescription();
+                }
+            }
+
             if (parameters.ContainsKey(ParameterKey.PaperType) && parameters.GetValue<PaperCategory>(ParameterKey.PaperType) is PaperCategory paper)
             {
                 if (PaperTypeName != ((PaperCategoryTypeEnum)paper.PaperCategoryType).ToDescription())
@@ -63,23 +82,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     Filter();
                 }
             }
-            else if (parameters.ContainsKey("paperSource") && parameters.GetValue<List<PaperItemInfor>>("paperSource") is List<PaperItemInfor> allSource)
-            {
-                originSource = allSource;
-                AllPapers = originSource;
 
-                //Clear text ô filter :
-                if (filterTypeId != new Guid())
-                {
-                    filterTypeId = new Guid();
-                    PaperTypeName = PaperCategoryTypeEnum.None.ToDescription();
-                }
-                if (filterTypeAlert != PaperAlertTypeEnum.All)
-                {
-                    filterTypeAlert = PaperAlertTypeEnum.All;
-                    AlertTypeName = PaperAlertTypeEnum.All.ToDescription();
-                }
-            }
+           
         }
         #region property   
         private List<PaperItemInfor> allPapers;
