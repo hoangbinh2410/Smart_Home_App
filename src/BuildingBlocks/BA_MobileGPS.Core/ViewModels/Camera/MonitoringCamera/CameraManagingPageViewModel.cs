@@ -545,9 +545,12 @@ namespace BA_MobileGPS.Core.ViewModels
                         currentIMEI = deviceResponseData.IMEI;
                         CurrentAddress = await _geocodeService.GetAddressByLatLng(deviceResponseData.Latitude.ToString(), deviceResponseData.Longitude.ToString());
                         CurrentTime = deviceResponseData.DeviceTime;
-                        var cameraActive = deviceResponseData.CameraChannels?.Where(x => x.IsPlug).ToList();
+                        // CHờ thay đổi từ Pnc, hiển thị hết tất cả cam
+                        // => thay đổi cách init player và hoạt động
+
+                        var camera = deviceResponseData.CameraChannels;
                         var listCam = new List<CameraManagement>();
-                        foreach (var item in cameraActive)
+                        foreach (var item in camera)
                         {
                             var res = await RequestStartCam(item.Channel);
                             // Check status
