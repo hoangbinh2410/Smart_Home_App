@@ -31,11 +31,11 @@
 
         public const string GET_NOTIFICATION = "api/v2/notification/getnotification";
 
-        public const string GET_LIST_NOTIFICATION = "api/notification/listnotification";
+        public const string GET_LIST_NOTIFICATION = "api/v2/notification/listnotification";
 
-        public const string GET_NOTIFICATION_DETAIL = "api/notification/notificationdetail";
+        public const string GET_NOTIFICATION_DETAIL = "api/v2/notification/notificationdetail";
 
-        public const string GET_NOTIFICATION_BODY = "api/notification/notificationbody";
+        public const string GET_NOTIFICATION_BODY = "api/v2/notification/notificationbody";
 
         public const string POST_UPDATEISREAD_NOTIFICATION = "api/notification/updateisread";
 
@@ -43,9 +43,9 @@
 
         public const string POST_DELETERANGE_NOTIFICATION_BYUSER = "api/notification/deleterangenoticebyuser";
 
-        public const string GET_NOTIFICATION_WHEN_LOGIN = "api/notification/notificationwhenlogin";
+        public const string GET_NOTIFICATION_WHEN_LOGIN = "api/v2/notification/notificationwhenlogin";
 
-        public const string GET_NOTIFICATION_AFTER_LOGIN = "api/notification/notificationafterlogin";
+        public const string GET_NOTIFICATION_AFTER_LOGIN = "api/v2/notification/notificationafterlogin";
 
         public const string POST_INSERT_FEEDBACK_NOTIFICATION_BYUSER = "api/notification/insertfeedbackbyuser";
 

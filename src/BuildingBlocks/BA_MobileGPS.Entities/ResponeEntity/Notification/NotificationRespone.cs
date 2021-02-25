@@ -5,7 +5,7 @@ namespace BA_MobileGPS.Entities
 {
     public class NotificationRespone : BaseModel
     {
-        public int PK_NoticeContentID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Tên loại thông báo
@@ -56,23 +56,23 @@ namespace BA_MobileGPS.Entities
         public string Body { get; set; }
     }
 
-    public class NotificationWhenLoginRespone
-    {
-        public int PK_NoticeContentID { get; set; }
+    //public class NotificationWhenLoginRespone
+    //{
+    //    public int PK_NoticeContentID { get; set; }
 
-        public string Title { get; set; }
+    //    public string Title { get; set; }
 
-        public bool IsAlwayShow { get; set; }
-    }
+    //    public bool IsAlwayShow { get; set; }
+    //}
 
-    public class NotificationAfterLoginRespone
-    {
-        public int PK_NoticeContentID { get; set; }
+    //public class NotificationAfterLoginRespone
+    //{
+    //    public int PK_NoticeContentID { get; set; }
 
-        public string Title { get; set; }
+    //    public string Title { get; set; }
 
-        public bool IsAlwayShow { get; set; }
+    //    public bool IsAlwayShow { get; set; }
 
-        public bool IsFeedback { get; set; }
-    }
+    //    public bool IsFeedback { get; set; }
+    //}
 }

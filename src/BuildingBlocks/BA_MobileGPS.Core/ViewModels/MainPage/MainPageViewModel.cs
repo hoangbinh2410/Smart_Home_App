@@ -744,7 +744,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     return await papersInforService.GetListPaper(StaticSettings.User.CompanyId);
                 }, async (result) =>
                 {
-                    var dueDatePaper = result.Where(x=> !string.IsNullOrEmpty(x.VehiclePlate))
+                    var dueDatePaper = result.Where(x => !string.IsNullOrEmpty(x.VehiclePlate))
                     .FirstOrDefault(s =>
                     {
                         var day = (s.ExpireDate - new TimeSpan(CompanyConfigurationHelper.DayAllowRegister, 0, 0, 0)).Date;
@@ -855,7 +855,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
-                        if (Settings.NoticeIdAfterLogin != items.Data.PK_NoticeContentID)
+                        if (Settings.NoticeIdAfterLogin != items.Data.Id)
                         {
                             Device.BeginInvokeOnMainThread(async () =>
                             {
