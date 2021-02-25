@@ -28,10 +28,10 @@ namespace BA_MobileGPS.Core.Models
         private bool internalError { get; set; }
         private bool loadingErr { get; set; }
         private readonly IStreamCameraService streamCameraService;
-
-
+        private StreamStartRequest startRequest { get; set; }
+        CancellationTokenSource cts = new CancellationTokenSource();
         public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC,
-            IStreamCameraService streamCameraService)
+            IStreamCameraService streamCameraService, StreamStartRequest startRequest)
         {
             this.streamCameraService = streamCameraService;
             maxLoadingTime = maxTimeLoadingMedia;
@@ -43,6 +43,8 @@ namespace BA_MobileGPS.Core.Models
             counter = maxLoadingTime;
             internalError = false;
             AutoRequestPing = true;
+            this.startRequest = startRequest;
+            StartWorkUnit(startRequest.VehiclePlate);
         }
 
         private LibVLC libVLC;
@@ -194,9 +196,10 @@ namespace BA_MobileGPS.Core.Models
                     {
                         if (counter % 10 == 0)
                         {
-                            // Gửi lại request start, cứ 10s bị báo lỗi sẽ request lại 1 lần
-                            var eventAggre = Prism.PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
-                            eventAggre.GetEvent<RequestStartLiveStreamEvent>().Publish(data.Channel);
+                            Task.Run(async () =>
+                            {
+                                var requestStartResponse = await streamCameraService.StartStream(startRequest);
+                            });
                         }
                     }
                 }
@@ -222,15 +225,28 @@ namespace BA_MobileGPS.Core.Models
 
         private void SetError(string errMessenger)
         {
+            try
+            {
+                IsError = true;
+                IsLoaded = true;
+                ErrorMessenger = errMessenger;
+                if (countLoadingTimer != null && countLoadingTimer.Enabled)
+                {
+                    countLoadingTimer.Stop();
+                }
+                if (mediaPlayer != null)
+                {
+                    ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
+                    mediaPlayer?.Media?.Dispose();
+                    mediaPlayer.Media = null;
+                }              
+            }
+            catch (Exception ex)
+            {
 
-            IsError = true;
-            IsLoaded = true;
-            ErrorMessenger = errMessenger;
-
-            countLoadingTimer.Stop();
-            ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
-            mediaPlayer.Media.Dispose();
-            mediaPlayer.Media = null;
+          
+            }
+         
         }
         /// <summary>
         /// Init base vlc voi cac behaviour can thiet, chua co url media
@@ -273,14 +289,27 @@ namespace BA_MobileGPS.Core.Models
         /// <param name="vehicle">vehicle Plate</param>
         public void StartWorkUnit(string vehicle)
         {
-            if (!countLoadingTimer.Enabled && counter == maxLoadingTime)
+            Task.Run(async() =>
             {
-                countLoadingTimer.Start();
-            }
-            IsLoaded = false;
-            //Check status:
-            StartTrackDeviceStatus(vehicle);
-
+                var requestStartResponse = await streamCameraService.StartStream(startRequest);
+                // case trả về mã lỗi # 0 => báo lỗi
+                if (requestStartResponse.StatusCode == 0)
+                {
+                    var startData = requestStartResponse?.Data?.FirstOrDefault();
+                    if (startData != null)
+                    {
+                        Data = startData;
+                        if (!countLoadingTimer.Enabled && counter == maxLoadingTime)
+                        {
+                            countLoadingTimer.Start();
+                        }
+                        IsLoaded = false;
+                        //Check status:
+                        StartTrackDeviceStatus(vehicle);
+                    }                  
+                }
+                else SetError(requestStartResponse.UserMessage);
+            });         
         }
 
         private void StartTrackDeviceStatus(string vehicle)
@@ -312,7 +341,7 @@ namespace BA_MobileGPS.Core.Models
                                 else loadingErr = true;
                             }
                             else loadingErr = true;
-                            await Task.Delay(4000);
+                            await Task.Delay(2000);
                         }
                     }
                 });
