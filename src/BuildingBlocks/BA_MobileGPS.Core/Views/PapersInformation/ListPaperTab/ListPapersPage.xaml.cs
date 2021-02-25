@@ -17,8 +17,6 @@ namespace BA_MobileGPS.Core.Views
         public ListPapersPage()
         {
             InitializeComponent();
-
-
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)
@@ -87,7 +85,6 @@ namespace BA_MobileGPS.Core.Views
                     PageUtilities.OnNavigatedTo(item.Content, param);
                 }
             });
-
         }
     }
 }

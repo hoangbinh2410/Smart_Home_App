@@ -173,8 +173,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     return await notificationService.DeleteNotificationByUser(new NoticeDeletedByUserRequest()
                     {
-                        FK_NoticeContentID = notification.Id,
-                        FK_UserID = UserInfo.UserId
+                        NoticeId = notification.Id,
+                        UserID = UserInfo.UserId
                     });
                 },
                  (items) =>
@@ -205,8 +205,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 return await notificationService.UpdateIsReadNotification(new UpdateIsReadRequest()
                 {
-                    fk_NoticeContentID = notification.Id,
-                    userId = UserInfo.UserId
+                    NoticeId = notification.Id,
+                    UserID = UserInfo.UserId
                 });
             },
                  async (items) =>
@@ -241,17 +241,17 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (action)
                     {
                         var list = new NoticeDeletedRangeByUserRequest();
-                        list.FK_UserID = UserInfo.UserId;
-                        list.FK_NoticeContentID = new List<int>();
+                        list.UserID = UserInfo.UserId;
+                        list.NoticeIds = new List<int>();
                         foreach (var item in ListNotice)
                         {
-                            list.FK_NoticeContentID.Add(item.Id);
+                            list.NoticeIds.Add(item.Id);
                         }
                         DependencyService.Get<IHUDProvider>().DisplayProgress("");
                         var result = await notificationService.DeleteRangeNotificationByUser(list);
 
                         DependencyService.Get<IHUDProvider>().Dismiss();
-                        if (result != null && result.Success && result.Data)
+                        if (result != null && result.Data)
                         {
                             ListNotice = new ObservableCollection<NotificationRespone>();
                         }

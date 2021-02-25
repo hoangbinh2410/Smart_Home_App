@@ -15,11 +15,11 @@ namespace BA_MobileGPS.Service
 
         Task<ResponseBaseV2<NoticeDetailRespone>> GetNotificationDetail(int id);
 
-        Task<BaseResponse<bool>> UpdateIsReadNotification(UpdateIsReadRequest updateIsReadRequest);
+        Task<ResponseBaseV2<bool>> UpdateIsReadNotification(UpdateIsReadRequest updateIsReadRequest);
 
-        Task<BaseResponse<bool>> DeleteNotificationByUser(NoticeDeletedByUserRequest noticeDeletedByUserRequest);
+        Task<ResponseBaseV2<bool>> DeleteNotificationByUser(NoticeDeletedByUserRequest noticeDeletedByUserRequest);
 
-        Task<BaseResponse<bool>> DeleteRangeNotificationByUser(NoticeDeletedRangeByUserRequest noticeDeletedByUserRequest);
+        Task<ResponseBaseV2<bool>> DeleteRangeNotificationByUser(NoticeDeletedRangeByUserRequest noticeDeletedByUserRequest);
 
         Task<ResponseBaseV2<NoticeDetailRespone>> GetNotificationWhenLogin(AppType appType);
 
