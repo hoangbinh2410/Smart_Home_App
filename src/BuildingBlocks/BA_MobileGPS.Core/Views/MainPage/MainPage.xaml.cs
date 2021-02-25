@@ -217,5 +217,6 @@ namespace BA_MobileGPS.Core.Views
                 bExit = false;
             }, 2000);
         }
+
     }
 }
