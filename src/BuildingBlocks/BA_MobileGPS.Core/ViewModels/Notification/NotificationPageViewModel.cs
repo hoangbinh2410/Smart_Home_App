@@ -124,7 +124,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             RunOnBackground(async () =>
             {
-                return await notificationService.GetListNotification(UserInfo.UserId, PageCount, PageIndex, Settings.CurrentLanguage);
+                return await notificationService.GetListNotification(UserInfo.UserId, PageCount, PageIndex);
             },
                   (items) =>
                   {
@@ -173,7 +173,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     return await notificationService.DeleteNotificationByUser(new NoticeDeletedByUserRequest()
                     {
-                        FK_NoticeContentID = notification.PK_NoticeContentID,
+                        FK_NoticeContentID = notification.Id,
                         FK_UserID = UserInfo.UserId
                     });
                 },
@@ -205,7 +205,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 return await notificationService.UpdateIsReadNotification(new UpdateIsReadRequest()
                 {
-                    fk_NoticeContentID = notification.PK_NoticeContentID,
+                    fk_NoticeContentID = notification.Id,
                     userId = UserInfo.UserId
                 });
             },
@@ -215,7 +215,7 @@ namespace BA_MobileGPS.Core.ViewModels
                       {
                           foreach (var item in ListNotice)
                           {
-                              if (item.PK_NoticeContentID == notification.PK_NoticeContentID)
+                              if (item.Id == notification.Id)
                               {
                                   item.IsRead = true;
                               }
@@ -245,7 +245,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         list.FK_NoticeContentID = new List<int>();
                         foreach (var item in ListNotice)
                         {
-                            list.FK_NoticeContentID.Add(item.PK_NoticeContentID);
+                            list.FK_NoticeContentID.Add(item.Id);
                         }
                         DependencyService.Get<IHUDProvider>().DisplayProgress("");
                         var result = await notificationService.DeleteRangeNotificationByUser(list);

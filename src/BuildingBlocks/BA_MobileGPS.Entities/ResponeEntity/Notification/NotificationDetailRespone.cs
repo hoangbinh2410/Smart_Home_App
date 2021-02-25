@@ -2,9 +2,9 @@
 
 namespace BA_MobileGPS.Entities
 {
-    public class NotificationDetailRespone
+    public class NoticeDetailRespone
     {
-        public int PK_NoticeContentID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Tiêu đề thông báo
@@ -25,6 +25,10 @@ namespace BA_MobileGPS.Entities
         /// Link kích vào thì hiển thị sang trang mong muốn
         /// </summary>
         public string Linkview { get; set; }
+
+        public bool IsAlwayShow { get; set; }
+
+        public bool IsFeedback { get; set; }
 
         /// <summary>
         /// Tên đường link file đính kèm

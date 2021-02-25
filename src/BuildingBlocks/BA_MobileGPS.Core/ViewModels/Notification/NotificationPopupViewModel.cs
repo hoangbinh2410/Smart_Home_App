@@ -25,7 +25,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey(ParameterKey.NotificationKey) && parameters.GetValue<NotificationRespone>(ParameterKey.NotificationKey) is NotificationRespone notice)
             {
                 Title = notice.Title;
-                GetListNoticeDetail(notice.PK_NoticeContentID);
+                GetListNoticeDetail(notice.Id);
             }
         }
 
@@ -36,11 +36,11 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             RunOnBackground(async () =>
             {
-                return await notificationService.GetNotificationBody(ID, Settings.CurrentLanguage);
+                return await notificationService.GetNotificationBody(ID);
             },
                   (items) =>
                   {
-                      if (items != null && items.Success && items.Data != null)
+                      if (items != null && items?.Data != null)
                       {
                           Content = Content = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1\" />" + items.Data.Body;
                       }

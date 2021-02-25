@@ -24,13 +24,17 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private readonly IAuthenticationService authenticationService;
         private readonly IMobileSettingService mobileSettingService;
+        private readonly INotificationService notificationService;
 
         public LoginPageViewModel(INavigationService navigationService,
-            IAuthenticationService authenticationService, IMobileSettingService mobileSettingService)
+            IAuthenticationService authenticationService,
+            IMobileSettingService mobileSettingService,
+            INotificationService notificationService)
             : base(navigationService)
         {
             this.authenticationService = authenticationService;
             this.mobileSettingService = mobileSettingService;
+            this.notificationService = notificationService;
             InitValidations();
         }
 
@@ -454,16 +458,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                             else
                             {
-                                if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
-                                {
-                                    if (Settings.Rememberme)
-                                    {
-                                        Device.BeginInvokeOnMainThread(() =>
-                                        {
-                                            Login();
-                                        });
-                                    }
-                                }
+                                GetNoticePopup();
                             }
                         }
                     }
@@ -473,30 +468,12 @@ namespace BA_MobileGPS.Core.ViewModels
                         Settings.TempVersionName = versionDB.VersionName;
                         Settings.AppVersionDB = versionDB.VersionName;
 
-                        if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
-                        {
-                            if (Settings.Rememberme)
-                            {
-                                Device.BeginInvokeOnMainThread(() =>
-                                {
-                                    Login();
-                                });
-                            }
-                        }
+                        GetNoticePopup();
                     }
                 }
                 else
                 {
-                    if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
-                    {
-                        if (Settings.Rememberme)
-                        {
-                            Device.BeginInvokeOnMainThread(() =>
-                            {
-                                Login();
-                            });
-                        }
-                    }
+                    GetNoticePopup();
                 }
             });
         }
@@ -586,6 +563,60 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 GetMobileVersion();
             }
+        }
+
+        /// <summary>Gọi thông tin popup khi đăng nhập</summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// linhlv  2/26/2020   created
+        /// </Modified>
+        private void GetNoticePopup()
+        {
+            RunOnBackground(async () =>
+            {
+                return await notificationService.GetNotificationWhenLogin(App.AppType);
+            }, (items) =>
+            {
+                if (items != null && items.Data != null)
+                {
+                    if (items.Data.IsAlwayShow) // true luôn luôn hiển thị
+                    {
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            await NavigationService.NavigateAsync("NotificationPopupWhenLogin", parameters: new NavigationParameters
+                             {
+                                 { ParameterKey.NotificationKey, items.Data }
+                            });
+                        });
+                    }
+                    else
+                    {
+                        if (Settings.NoticeIdWhenLogin != items?.Data.Id)
+                        {
+                            Device.BeginInvokeOnMainThread(async () =>
+                            {
+                                await NavigationService.NavigateAsync("NotificationPopupWhenLogin", parameters: new NavigationParameters
+                             {
+                                 { ParameterKey.NotificationKey, items.Data }
+                            });
+                            });
+                        }
+                    }
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
+                    {
+                        if (Settings.Rememberme)
+                        {
+                            Device.BeginInvokeOnMainThread(() =>
+                            {
+                                Login();
+                            });
+                        }
+                    }
+                }
+            });
         }
 
         #endregion PrivateMethod

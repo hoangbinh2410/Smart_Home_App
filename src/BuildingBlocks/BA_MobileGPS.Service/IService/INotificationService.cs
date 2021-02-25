@@ -9,11 +9,11 @@ namespace BA_MobileGPS.Service
     {
         Task<BaseResponse<NotificationTypeEnum>> GetNotification(Guid userID);
 
-        Task<BaseResponse<List<NotificationRespone>>> GetListNotification(Guid userID, int pageSize, int pageIndex, string culture);
+        Task<ResponseBaseV2<List<NotificationRespone>>> GetListNotification(Guid userID, int pageSize, int pageIndex);
 
-        Task<BaseResponse<NotificationBody>> GetNotificationBody(int id, string culture);
+        Task<ResponseBaseV2<NotificationBody>> GetNotificationBody(int id);
 
-        Task<BaseResponse<NotificationDetailRespone>> GetNotificationDetail(int id, string culture);
+        Task<ResponseBaseV2<NoticeDetailRespone>> GetNotificationDetail(int id);
 
         Task<BaseResponse<bool>> UpdateIsReadNotification(UpdateIsReadRequest updateIsReadRequest);
 
@@ -21,9 +21,9 @@ namespace BA_MobileGPS.Service
 
         Task<BaseResponse<bool>> DeleteRangeNotificationByUser(NoticeDeletedRangeByUserRequest noticeDeletedByUserRequest);
 
-        Task<BaseResponse<NotificationWhenLoginRespone>> GetNotificationWhenLogin(AppType appType);
+        Task<ResponseBaseV2<NoticeDetailRespone>> GetNotificationWhenLogin(AppType appType);
 
-        Task<BaseResponse<NotificationAfterLoginRespone>> GetNotificationAfterLogin(Guid userId);
+        Task<ResponseBaseV2<NoticeDetailRespone>> GetNotificationAfterLogin(Guid userId);
 
         Task<BaseResponse<bool>> SendFeedbackNotification(InsertFeedbackNoticeRequest insertRequest);
     }
