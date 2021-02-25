@@ -98,12 +98,12 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<BaseResponse<bool>> UpdateIsReadNotification(UpdateIsReadRequest updateIsReadRequest)
+        public async Task<ResponseBaseV2<bool>> UpdateIsReadNotification(UpdateIsReadRequest updateIsReadRequest)
         {
-            BaseResponse<bool> result = new BaseResponse<bool>();
+            ResponseBaseV2<bool> result = new ResponseBaseV2<bool>();
             try
             {
-                var data = await requestProvider.PostAsync<UpdateIsReadRequest, BaseResponse<bool>>(ApiUri.POST_UPDATEISREAD_NOTIFICATION, updateIsReadRequest);
+                var data = await requestProvider.PostAsync<UpdateIsReadRequest, ResponseBaseV2<bool>>(ApiUri.POST_UPDATEISREAD_NOTIFICATION, updateIsReadRequest);
 
                 if (data != null)
                 {
@@ -117,12 +117,12 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<BaseResponse<bool>> DeleteNotificationByUser(NoticeDeletedByUserRequest noticeDeletedByUserRequest)
+        public async Task<ResponseBaseV2<bool>> DeleteNotificationByUser(NoticeDeletedByUserRequest noticeDeletedByUserRequest)
         {
-            BaseResponse<bool> result = new BaseResponse<bool>();
+            ResponseBaseV2<bool> result = new ResponseBaseV2<bool>();
             try
             {
-                var data = await requestProvider.PostAsync<NoticeDeletedByUserRequest, BaseResponse<bool>>(ApiUri.POST_DELETE_NOTIFICATION_BYUSER, noticeDeletedByUserRequest);
+                var data = await requestProvider.PostAsync<NoticeDeletedByUserRequest, ResponseBaseV2<bool>>(ApiUri.POST_DELETE_NOTIFICATION_BYUSER, noticeDeletedByUserRequest);
 
                 if (data != null)
                 {
@@ -136,12 +136,12 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<BaseResponse<bool>> DeleteRangeNotificationByUser(NoticeDeletedRangeByUserRequest noticeDeletedByUserRequest)
+        public async Task<ResponseBaseV2<bool>> DeleteRangeNotificationByUser(NoticeDeletedRangeByUserRequest noticeDeletedByUserRequest)
         {
-            BaseResponse<bool> result = new BaseResponse<bool>();
+            ResponseBaseV2<bool> result = new ResponseBaseV2<bool>();
             try
             {
-                var data = await requestProvider.PostAsync<NoticeDeletedRangeByUserRequest, BaseResponse<bool>>(ApiUri.POST_DELETERANGE_NOTIFICATION_BYUSER, noticeDeletedByUserRequest);
+                var data = await requestProvider.PostAsync<NoticeDeletedRangeByUserRequest, ResponseBaseV2<bool>>(ApiUri.POST_DELETERANGE_NOTIFICATION_BYUSER, noticeDeletedByUserRequest);
 
                 if (data != null)
                 {

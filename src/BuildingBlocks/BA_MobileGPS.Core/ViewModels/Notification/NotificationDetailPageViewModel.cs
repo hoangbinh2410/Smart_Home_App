@@ -135,8 +135,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 return await notificationService.UpdateIsReadNotification(new UpdateIsReadRequest()
                 {
-                    fk_NoticeContentID = PK_NoticeContentID,
-                    userId = UserInfo.UserId
+                    NoticeId = PK_NoticeContentID,
+                    UserID = UserInfo.UserId
                 });
             },
                  (items) =>
