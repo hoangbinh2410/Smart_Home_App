@@ -458,7 +458,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         CreateButtonVisible = true;
                     }
                 }
-                else ClearData();
+                else ClearData(true);
             });
         }
         /// <summary>
