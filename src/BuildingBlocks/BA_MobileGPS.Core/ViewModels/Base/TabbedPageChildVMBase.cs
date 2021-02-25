@@ -1,4 +1,7 @@
-﻿using Prism;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Entities;
+using Prism;
+using Prism.Common;
 using Prism.Navigation;
 using System;
 
@@ -35,6 +38,19 @@ namespace BA_MobileGPS.Core.ViewModels.Base
         private void RaiseIsActiveChanged()
         {
             IsActiveChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {           
+            base.OnNavigatedTo(parameters);
+            if (parameters.TryGetValue(ParameterKey.IsLoginAnnouncement, out bool init))
+            {
+                if (init)
+                {
+                    var currentPage = App.Current.MainPage;
+                    PageUtilities.OnNavigatedTo(currentPage, parameters);
+                }
+            }
         }
     }
 }

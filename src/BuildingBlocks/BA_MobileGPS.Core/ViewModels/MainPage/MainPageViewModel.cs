@@ -102,11 +102,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             });
         }
-
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters?.GetValue<bool>(ParameterKey.IsLoginAnnouncement) is bool init)
+            if (parameters.TryGetValue(ParameterKey.IsLoginAnnouncement, out bool init))
             {
                 if (init)
                 {
@@ -715,7 +714,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 {ParameterKey.IsLoginAnnouncement, true }
                             };
-                            _ = await NavigationService.NavigateAsync("NavigationPage/VehicleDebtMoneyPage", null, useModalNavigation: true, true);
+                            _ = await NavigationService.NavigateAsync("NavigationPage/VehicleDebtMoneyPage", param, useModalNavigation: true, true);
                             return;
                         }
                     }

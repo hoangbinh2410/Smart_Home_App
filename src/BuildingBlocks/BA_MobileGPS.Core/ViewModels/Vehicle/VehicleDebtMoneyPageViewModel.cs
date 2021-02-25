@@ -90,7 +90,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     InitVehicleFree(StaticSettings.ListVehilceFree.ToList());
                 }
             }
-            else if (parameters?.GetValue<bool>(ParameterKey.IsLoginAnnouncement) is bool init)
+            else if (parameters.TryGetValue(ParameterKey.IsLoginAnnouncement, out bool init))
             {
                 isLoginAnnountment = init;
             }
