@@ -125,7 +125,7 @@
                             Orientation="Horizontal"
                             VerticalOptions="Center">
                             <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding PushToFromDatePageCommand}" />
+                                <TapGestureRecognizer Command="{Binding PushToFromDateTimePageCommand}" />
                             </StackLayout.GestureRecognizers>
                             <Entry
                                 FontSize="{StaticResource FontSize12}"
@@ -167,7 +167,7 @@
                             Orientation="Horizontal"
                             VerticalOptions="Center">
                             <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding PushToEndDatePageCommand}" />
+                                <TapGestureRecognizer Command="{Binding PushToEndDateTimePageCommand}" />
                             </StackLayout.GestureRecognizers>
                             <Entry
                                 FontSize="{StaticResource FontSize12}"
