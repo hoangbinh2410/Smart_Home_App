@@ -24,10 +24,8 @@
             Padding="0"
             BackgroundColor="White"
             CornerRadius="10"
-            HeightRequest="250"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            WidthRequest="250">
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand">
             <Grid RowSpacing="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -51,15 +49,16 @@
                 <StackLayout
                     Grid.Row="1"
                     Padding="10"
-                    HeightRequest="150"
-                    WidthRequest="200">
+                    HeightRequest="300"
+                    WidthRequest="400">
                     <htmlLabel:HtmlLabel
                         FontSize="16"
-                        HeightRequest="150"
-                        HorizontalOptions="FillAndExpand"
+                        HeightRequest="300"
+                        HorizontalOptions="StartAndExpand"
+                        HorizontalTextAlignment="Start"
                         Text="{Binding ContentPopup}"
                         VerticalOptions="StartAndExpand"
-                        WidthRequest="200" />
+                        WidthRequest="400" />
                 </StackLayout>
                 <Grid
                     Grid.Row="2"
