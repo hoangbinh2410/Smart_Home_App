@@ -81,15 +81,15 @@
 
         public const string GET_COUNT_ALERT_ONLINE = "api/v2/alerts/countalert";
 
-        public const string GET_ALERT_TYPE = "api/alerts/getalerttype";
+        public const string GET_ALERT_TYPE = "api/v2/alerts/getalerttypebycompanyid";
 
         public const string POST_ALERT_HANDLE = "api/alerts/handlealert";
 
         public const string GET_LIST_ALERT_COMPANY_CONFIG_BY_COMPANYID = "api/alerts/getalertcompanyconfig";
 
-        public const string GET_ALERT_USER_CONFIGURATIONS = "api/alerts/getalertuserconfigurations";
+        public const string GET_ALERT_USER_CONFIGURATIONS = "api/v2/alerts/getalertuserconfigurationbyuserid";
 
-        public const string SEND_ALERT_USER_CONFIG = "api/alerts/sendalertconfig";
+        public const string SEND_ALERT_USER_CONFIG = "api/v2/alerts/insertorupdateuseralertconfig";
 
         #endregion alert
 
@@ -285,7 +285,7 @@
         public const string GET_LIST_INSURANCE_CATEGORY = "api/paperinfor/getinsurancecategories";
         public const string GET_LAST_PAPER_INSURANCE = "api/paperinfor/getpaperinsurance";
         public const string GET_LAST_PAPER_REGISTRATION = "api/paperinfor/getpaperregistration";
-        public const string GET_LAST_PAPER_SIGN = "api/paperinfor/getpapersign";       
+        public const string GET_LAST_PAPER_SIGN = "api/paperinfor/getpapersign";
         public const string POST_INSERT_PAPER_INSURANCE = "api/paperinfor/insertinsurancepaper";
         public const string POST_INSERT_PAPER_REGISTRATION = "api/paperinfor/insertregistrationpaper";
         public const string POST_INSERT_PAPER_SIGN = "api/paperinfor/insertsignpaper";
