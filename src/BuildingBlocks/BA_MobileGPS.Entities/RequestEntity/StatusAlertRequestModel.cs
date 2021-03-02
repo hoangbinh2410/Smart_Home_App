@@ -52,6 +52,7 @@ namespace BA_MobileGPS.Entities
         /// </Modified>
         public Guid UserID { set; get; }
 
+        public int CompanyID { get; set; }
         #region Thông tin ID cuốc cảnh báo
 
         public long FK_VehicleID { set; get; }

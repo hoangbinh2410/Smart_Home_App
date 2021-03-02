@@ -88,7 +88,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     UserID = UserInfo.UserId,
                     FK_AlertTypeID = Alert.FK_AlertTypeID,
                     FK_VehicleID = Alert.FK_VehicleID,
-                    StartTime = Alert.StartTime
+                    StartTime = Alert.StartTime,
+                    CompanyID = CurrentComanyID
                 });
 
                 if (isSuccess)
