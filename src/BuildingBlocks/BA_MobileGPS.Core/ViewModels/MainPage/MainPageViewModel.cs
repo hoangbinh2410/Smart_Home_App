@@ -4,6 +4,7 @@ using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Service.Utilities;
@@ -94,14 +95,13 @@ namespace BA_MobileGPS.Core.ViewModels
                         InsertOrUpdateAppDevice();
                         GetNoticePopup();
                         PushPageFileBase();
-                        // Lấy danh sách cảnh báo
-                        GetCountAlert();
                     });
 
                     return false;
                 });
             });
         }
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -542,6 +542,9 @@ namespace BA_MobileGPS.Core.ViewModels
                         JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
                     });
 
+                    // Lấy danh sách cảnh báo
+                    GetCountAlert();
+
                     if (isWaitingVehicleOnline && StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                     {
                         GetPaperAlert();
@@ -659,19 +662,27 @@ namespace BA_MobileGPS.Core.ViewModels
             //kiểm tra xem có quyền hay ko
             if (CheckPermision((int)PermissionKeyNames.AdminAlertView))
             {
-                var userID = UserInfo.UserId;
-                if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                 {
-                    userID = Settings.CurrentCompany.UserId;
+                    var userID = UserInfo.UserId;
+                    if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                    {
+                        userID = Settings.CurrentCompany.UserId;
+                    }
+                    var request = new GetCountAlertByUserIDRequest()
+                    {
+                        CompanyID = CurrentComanyID,
+                        UserID = userID,
+                        ListVehicleIDs = string.Join(",", StaticSettings.ListVehilceOnline.Select(x=>x.VehicleId))
+                    };
+                    RunOnBackground(async () =>
+                    {
+                        return await alertService.GetCountAlert(request);
+                    }, (result) =>
+                    {
+                        GlobalResources.Current.TotalAlert = result;
+                    });
                 }
-
-                RunOnBackground(async () =>
-                {
-                    return await alertService.GetCountAlert(userID);
-                }, (result) =>
-                {
-                    GlobalResources.Current.TotalAlert = result;
-                });
             }
         }
 
