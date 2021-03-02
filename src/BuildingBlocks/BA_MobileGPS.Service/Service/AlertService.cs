@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 
@@ -52,25 +53,23 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<int> GetCountAlert(Guid PK_UserID)
+        public async Task<int> GetCountAlert(GetCountAlertByUserIDRequest request)
         {
-            int result = 0;
+            int response = 0;
             try
             {
-                string url = string.Format(ApiUri.GET_COUNT_ALERT_ONLINE + "/?userID={0}", PK_UserID);
-
-                var response = await _IRequestProvider.GetAsync<int>(url);
-
-                if (response > 0)
+                string url = $"{ApiUri.GET_COUNT_ALERT_ONLINE}";
+                var result = await _IRequestProvider.PostAsync<GetCountAlertByUserIDRequest, ResponseBaseV2<int>>(url, request);
+                if (result != null && result.Data > 0)
                 {
-                    result = response;
+                    response = result.Data;
                 }
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
-            return result;
+            return response;
         }
 
         /// <summary>
@@ -86,23 +85,23 @@ namespace BA_MobileGPS.Service
         /// Name     Date         Comments
         /// TruongPV  1/7/2019   created
         /// </Modified>
-        public async Task<AlertOnlineViewModel> GetListAlertOnlineAsync(AlertGetRequest request)
+        public async Task<List<AlertOnlineDetailModel>> GetListAlertOnlineAsync(AlertGetRequest request)
         {
-            AlertOnlineViewModel result = new AlertOnlineViewModel();
+            List<AlertOnlineDetailModel> respone = new List<AlertOnlineDetailModel>();
             try
             {
                 string url = $"{ApiUri.GET_ALERT_ONLINE}";
-                var data = await _IRequestProvider.PostAsync<AlertGetRequest, AlertOnlineViewModel>(url, request);
-                if (result != null)
+                var result = await _IRequestProvider.PostAsync<AlertGetRequest, ResponseBaseV2<List<AlertOnlineDetailModel>>>(url, request);
+                if (result != null && result.Data != null)
                 {
-                    result = data;
+                    respone = result.Data;
                 }
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
-            return result;
+            return respone;
         }
 
         /// <summary>
@@ -115,17 +114,21 @@ namespace BA_MobileGPS.Service
         /// </Modified>
         public async Task<bool> HandleAlertAsync(StatusAlertRequestModel rqModel)
         {
-            bool result = false;
+            bool respone = false;
             try
             {
                 string url = $"{ApiUri.POST_ALERT_HANDLE}";
-                result = await _IRequestProvider.PostAsync<StatusAlertRequestModel, bool>(url, rqModel);
+                var result = await _IRequestProvider.PostAsync<StatusAlertRequestModel, ResponseBaseV2<bool>>(url, rqModel);
+                if (result != null && result.Data)
+                {
+                    respone = result.Data;
+                }
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
-            return result;
+            return respone;
         }
 
         public async Task<List<AlertCompanyConfigRespone>> GetAlertCompanyConfig(int companyID)

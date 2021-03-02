@@ -77,13 +77,13 @@
 
         // Đổi thành post vì quá nhiều xe => url quá dài, dài quá 2000 ký tự thì sẽ ko xử lý được
         // Đổi thành phương thức post
-        public const string GET_ALERT_ONLINE = "api/alerts/getalert";
+        public const string GET_ALERT_ONLINE = "api/v2/alerts/getalert";
 
-        public const string GET_COUNT_ALERT_ONLINE = "api/v2/alerts/countalert";
+        public const string GET_COUNT_ALERT_ONLINE = "api/v3/alerts/getcountalert";
 
         public const string GET_ALERT_TYPE = "api/v2/alerts/getalerttypebycompanyid";
 
-        public const string POST_ALERT_HANDLE = "api/alerts/handlealert";
+        public const string POST_ALERT_HANDLE = "api/v2/alerts/handlealert";
 
         public const string GET_LIST_ALERT_COMPANY_CONFIG_BY_COMPANYID = "api/alerts/getalertcompanyconfig";
 
