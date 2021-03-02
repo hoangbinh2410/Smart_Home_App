@@ -14,7 +14,7 @@ namespace BA_MobileGPS.Entities
         /// Name     Date         Comments
         /// GIANGLT  1/4/2019   created
         /// </Modified>
-        public long PK_AlertDetailID { set; get; }
+        public long Id { set; get; }
 
         /// <summary>
         /// giá trị flag trạng thái cảnh báo

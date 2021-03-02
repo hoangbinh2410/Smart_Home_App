@@ -334,7 +334,7 @@ namespace BA_MobileGPS.Core.ViewModels
                        DependencyService.Get<IHUDProvider>().DisplayProgress("");
                        var isSuccess = await alertService.HandleAlertAsync(new StatusAlertRequestModel
                        {
-                           PK_AlertDetailID = alertSelected.PK_AlertDetailID,
+                           Id = alertSelected.PK_AlertDetailID,
                            Status = StatusAlert.Readed,
                            ProccessContent = string.Empty,
                            UserID = UserInfo.UserId,
