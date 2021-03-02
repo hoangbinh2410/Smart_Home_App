@@ -10,7 +10,7 @@ namespace BA_MobileGPS.Service
     {
         Task<AlertOnlineViewModel> GetListAlertOnlineAsync(AlertGetRequest request);
 
-        Task<List<AlertTypeModel>> GetAlertTypeAsync(Guid userId, string cultureName = "en");
+        Task<List<AlertTypeModel>> GetAlertTypeAsync(int CompanyID);
 
         Task<bool> HandleAlertAsync(StatusAlertRequestModel rqModel);
 
@@ -20,6 +20,6 @@ namespace BA_MobileGPS.Service
 
         Task<AlertUserConfigurationsRespone> GetAlertUserConfigurations(Guid userId);
 
-        Task<BaseResponse<bool>> SendAlertUserConfig(AlertUserConfigurationsRequest request);
+        Task<ResponseBaseV2<bool>> SendAlertUserConfig(AlertUserConfigurationsRequest request);
     }
 }

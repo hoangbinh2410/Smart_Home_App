@@ -1,30 +1,17 @@
-﻿using Newtonsoft.Json;
-
-using System;
-
-namespace BA_MobileGPS.Entities
+﻿namespace BA_MobileGPS.Entities
 {
     public class AlertTypeModel
     {
-        [JsonProperty("1")]
-        public int PK_AlertTypeID { set; get; }
+        public int Id { get; set; }
 
-        [JsonProperty("2")]
-        public string Name { set; get; }
+        public string Name { get; set; }
 
-        [JsonProperty("3")]
-        public int ColorAlert { set; get; }
+        public short MinutesToRepeat { get; set; }
 
-        [JsonProperty("4")]
-        public Guid FK_UserID { set; get; }
+        public string AllowRangeValue { get; set; }
 
-        [JsonProperty("5")]
-        public string NameEng { set; get; }
+        public short DayOfProcess { get; set; }
 
-        [JsonProperty("6")]
-        public string AlertTypeIDs { set; get; }
-
-        [JsonProperty("7")]
-        public string IconMobile { set; get; }
+        public string IconMobile { get; set; }
     }
 }

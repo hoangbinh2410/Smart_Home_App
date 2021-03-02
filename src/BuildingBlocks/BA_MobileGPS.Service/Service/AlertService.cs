@@ -33,16 +33,16 @@ namespace BA_MobileGPS.Service
         /// Name     Date         Comments
         /// TruongPV  1/7/2019   created
         /// </Modified>
-        public async Task<List<AlertTypeModel>> GetAlertTypeAsync(Guid userId, string cultureName = "en")
+        public async Task<List<AlertTypeModel>> GetAlertTypeAsync(int CompanyID)
         {
             List<AlertTypeModel> result = new List<AlertTypeModel>();
             try
             {
-                string url = $"{ApiUri.GET_ALERT_TYPE}?cultureName={cultureName}&userId={userId}";
-                var response = await _IRequestProvider.GetAsync<List<AlertTypeModel>>(url);
-                if (result != null)
+                string url = $"{ApiUri.GET_ALERT_TYPE}?CompanyID={CompanyID}";
+                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<List<AlertTypeModel>>>(url);
+                if (response != null && response.Data != null)
                 {
-                    result = response;
+                    result = response.Data;
                 }
             }
             catch (Exception ex)
@@ -154,9 +154,9 @@ namespace BA_MobileGPS.Service
             var result = new AlertUserConfigurationsRespone();
             try
             {
-                var url = string.Format(ApiUri.GET_ALERT_USER_CONFIGURATIONS + "?userId={0}", userId);
+                var url = string.Format(ApiUri.GET_ALERT_USER_CONFIGURATIONS + "?UserId={0}", userId);
 
-                var data = await _IRequestProvider.GetAsync<BaseResponse<AlertUserConfigurationsRespone>>(url);
+                var data = await _IRequestProvider.GetAsync<ResponseBaseV2<AlertUserConfigurationsRespone>>(url);
 
                 if (data != null)
                 {
@@ -170,12 +170,12 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<BaseResponse<bool>> SendAlertUserConfig(AlertUserConfigurationsRequest request)
+        public async Task<ResponseBaseV2<bool>> SendAlertUserConfig(AlertUserConfigurationsRequest request)
         {
-            BaseResponse<bool> result = new BaseResponse<bool>();
+            ResponseBaseV2<bool> result = new ResponseBaseV2<bool>();
             try
             {
-                var data = await _IRequestProvider.PostAsync<AlertUserConfigurationsRequest, BaseResponse<bool>>(ApiUri.SEND_ALERT_USER_CONFIG, request);
+                var data = await _IRequestProvider.PostAsync<AlertUserConfigurationsRequest, ResponseBaseV2<bool>>(ApiUri.SEND_ALERT_USER_CONFIG, request);
 
                 if (data != null && data.Data)
                 {
