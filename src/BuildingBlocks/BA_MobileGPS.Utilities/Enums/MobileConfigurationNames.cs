@@ -122,6 +122,7 @@
         /// trungtq  3/10/2020   created
         /// </Modified>
         SynOnlineLevel,
-        VehicleOnlineAddressEnabled
+        VehicleOnlineAddressEnabled,
+        UseHelper
     }
 }
