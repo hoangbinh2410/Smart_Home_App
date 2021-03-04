@@ -1,6 +1,5 @@
 ﻿using BA_MobileGPS.Core.Controls;
 using BA_MobileGPS.Core.Resources;
-using LabelHtml.Forms.Plugin.Abstractions;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -64,7 +63,8 @@ namespace BA_MobileGPS.Core.Views
                                                                   new ColumnDefinition() { Width = GridLength.Auto}};
             body.HorizontalOptions = LayoutOptions.Center;
 
-            var title = new HtmlLabel();
+            var title = new Label();
+            title.TextType = TextType.Html;
             title.Margin = new Thickness(20, 10, 0, 0);
             //title.TextType = TextType.Html;
             title.Text = "<strong>" + _title + "</strong>";
@@ -73,7 +73,8 @@ namespace BA_MobileGPS.Core.Views
             title.HorizontalOptions = LayoutOptions.Center;
             title.VerticalTextAlignment = TextAlignment.Center;
 
-            var messenger = new HtmlLabel();
+            var messenger = new Label();
+            messenger.TextType = TextType.Html;
             messenger.Text = _messenger;
             messenger.FontSize = 14;
             messenger.HorizontalOptions = LayoutOptions.StartAndExpand;
