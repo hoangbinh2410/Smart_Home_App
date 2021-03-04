@@ -4,7 +4,6 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
-    xmlns:htmlLabel="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
     xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     prism:ViewModelLocator.AutowireViewModel="True">
@@ -51,12 +50,13 @@
                     Padding="10"
                     HeightRequest="300"
                     WidthRequest="400">
-                    <htmlLabel:HtmlLabel
+                    <Label
                         FontSize="16"
                         HeightRequest="300"
                         HorizontalOptions="StartAndExpand"
                         HorizontalTextAlignment="Start"
                         Text="{Binding ContentPopup}"
+                        TextType="Html"
                         VerticalOptions="StartAndExpand"
                         WidthRequest="400" />
                 </StackLayout>
