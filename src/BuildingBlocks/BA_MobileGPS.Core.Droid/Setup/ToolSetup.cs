@@ -4,7 +4,6 @@ using Android.OS;
 using BA_MobileGPS.Core.Droid;
 using BA_MobileGPS.Core.Droid.DependencyServices;
 using FFImageLoading.Forms.Platform;
-using LabelHtml.Forms.Plugin.Droid;
 using LibVLCSharp.Forms.Shared;
 using PanCardView.Droid;
 using Sharpnado.Presentation.Forms.Droid;
@@ -39,12 +38,8 @@ namespace BA_MobileGPS.Droid.Setup
                 BitmapDescriptorFactory = new CachingNativeBitmapDescriptorFactory()
             });
 
-            //Html Label
-            HtmlLabelRenderer.Initialize();
-
             PlatformImageViewer.Init(activity);
             LibVLCSharpFormsRenderer.Init();
-
 
             Stormlion.PhotoBrowser.Droid.Platform.Init(activity);
         }

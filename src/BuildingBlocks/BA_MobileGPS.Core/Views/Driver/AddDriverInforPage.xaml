@@ -3,7 +3,6 @@
     x:Class="BA_MobileGPS.Core.Views.AddDriverInforPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:abstractions="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
     xmlns:busyIndicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
@@ -403,7 +402,7 @@
                     HorizontalOptions="Center"
                     Source="add_success.png"
                     WidthRequest="120" />
-                <abstractions:HtmlLabel
+                <Label
                     FontSize="{DynamicResource MyFontSizeLarge}"
                     Text="Bạn đã thêm lái xe thành công"
                     TextColor="#8BC34A" />

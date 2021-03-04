@@ -41,7 +41,6 @@
 		<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="18.4.0.46" />
 		<PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="18.4.0.46" />
 		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.4.0.46" />
-		<PackageReference Include="Xam.Plugin.HtmlLabel" Version="5.0.0" />
 		<PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
 		<PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
 		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
