@@ -38,13 +38,13 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<BaseResponse<List<NotificationRespone>>> GetListNotification(Guid userID, int pageSize, int pageIndex, string culture)
+        public async Task<ResponseBaseV2<List<NotificationRespone>>> GetListNotification(Guid userID, int pageSize, int pageIndex)
         {
-            BaseResponse<List<NotificationRespone>> result = new BaseResponse<List<NotificationRespone>>();
+            ResponseBaseV2<List<NotificationRespone>> result = new ResponseBaseV2<List<NotificationRespone>>();
             try
             {
-                string url = $"{ApiUri.GET_LIST_NOTIFICATION}?UserId={userID}&PageSize={pageSize}&PageIndex={pageIndex}&Culture={culture}";
-                var data = await requestProvider.GetAsync<BaseResponse<List<NotificationRespone>>>(url);
+                string url = $"{ApiUri.GET_LIST_NOTIFICATION}?UserId={userID}&PageSize={pageSize}&PageIndex={pageIndex}";
+                var data = await requestProvider.GetAsync<ResponseBaseV2<List<NotificationRespone>>>(url);
 
                 if (data != null)
                 {
@@ -58,13 +58,13 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<BaseResponse<NotificationBody>> GetNotificationBody(int id, string culture)
+        public async Task<ResponseBaseV2<NotificationBody>> GetNotificationBody(int id)
         {
-            BaseResponse<NotificationBody> result = new BaseResponse<NotificationBody>();
+            ResponseBaseV2<NotificationBody> result = new ResponseBaseV2<NotificationBody>();
             try
             {
-                string url = $"{ApiUri.GET_NOTIFICATION_BODY}?FK_NoticeContentID={id}&Culture={culture}";
-                var data = await requestProvider.GetAsync<BaseResponse<NotificationBody>>(url);
+                string url = $"{ApiUri.GET_NOTIFICATION_BODY}?noticeId={id}";
+                var data = await requestProvider.GetAsync<ResponseBaseV2<NotificationBody>>(url);
 
                 if (data != null)
                 {
@@ -78,13 +78,13 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<BaseResponse<NotificationDetailRespone>> GetNotificationDetail(int id, string culture)
+        public async Task<ResponseBaseV2<NoticeDetailRespone>> GetNotificationDetail(int id)
         {
-            BaseResponse<NotificationDetailRespone> result = new BaseResponse<NotificationDetailRespone>();
+            ResponseBaseV2<NoticeDetailRespone> result = new ResponseBaseV2<NoticeDetailRespone>();
             try
             {
-                string url = $"{ApiUri.GET_NOTIFICATION_DETAIL}?FK_NoticeContentID={id}&Culture={culture}";
-                var data = await requestProvider.GetAsync<BaseResponse<NotificationDetailRespone>>(url);
+                string url = $"{ApiUri.GET_NOTIFICATION_DETAIL}?noticeId={id}";
+                var data = await requestProvider.GetAsync<ResponseBaseV2<NoticeDetailRespone>>(url);
 
                 if (data != null)
                 {
@@ -98,12 +98,12 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<BaseResponse<bool>> UpdateIsReadNotification(UpdateIsReadRequest updateIsReadRequest)
+        public async Task<ResponseBaseV2<bool>> UpdateIsReadNotification(UpdateIsReadRequest updateIsReadRequest)
         {
-            BaseResponse<bool> result = new BaseResponse<bool>();
+            ResponseBaseV2<bool> result = new ResponseBaseV2<bool>();
             try
             {
-                var data = await requestProvider.PostAsync<UpdateIsReadRequest, BaseResponse<bool>>(ApiUri.POST_UPDATEISREAD_NOTIFICATION, updateIsReadRequest);
+                var data = await requestProvider.PostAsync<UpdateIsReadRequest, ResponseBaseV2<bool>>(ApiUri.POST_UPDATEISREAD_NOTIFICATION, updateIsReadRequest);
 
                 if (data != null)
                 {
@@ -117,12 +117,12 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<BaseResponse<bool>> DeleteNotificationByUser(NoticeDeletedByUserRequest noticeDeletedByUserRequest)
+        public async Task<ResponseBaseV2<bool>> DeleteNotificationByUser(NoticeDeletedByUserRequest noticeDeletedByUserRequest)
         {
-            BaseResponse<bool> result = new BaseResponse<bool>();
+            ResponseBaseV2<bool> result = new ResponseBaseV2<bool>();
             try
             {
-                var data = await requestProvider.PostAsync<NoticeDeletedByUserRequest, BaseResponse<bool>>(ApiUri.POST_DELETE_NOTIFICATION_BYUSER, noticeDeletedByUserRequest);
+                var data = await requestProvider.PostAsync<NoticeDeletedByUserRequest, ResponseBaseV2<bool>>(ApiUri.POST_DELETE_NOTIFICATION_BYUSER, noticeDeletedByUserRequest);
 
                 if (data != null)
                 {
@@ -136,12 +136,12 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<BaseResponse<bool>> DeleteRangeNotificationByUser(NoticeDeletedRangeByUserRequest noticeDeletedByUserRequest)
+        public async Task<ResponseBaseV2<bool>> DeleteRangeNotificationByUser(NoticeDeletedRangeByUserRequest noticeDeletedByUserRequest)
         {
-            BaseResponse<bool> result = new BaseResponse<bool>();
+            ResponseBaseV2<bool> result = new ResponseBaseV2<bool>();
             try
             {
-                var data = await requestProvider.PostAsync<NoticeDeletedRangeByUserRequest, BaseResponse<bool>>(ApiUri.POST_DELETERANGE_NOTIFICATION_BYUSER, noticeDeletedByUserRequest);
+                var data = await requestProvider.PostAsync<NoticeDeletedRangeByUserRequest, ResponseBaseV2<bool>>(ApiUri.POST_DELETERANGE_NOTIFICATION_BYUSER, noticeDeletedByUserRequest);
 
                 if (data != null)
                 {
@@ -155,16 +155,16 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<BaseResponse<NotificationWhenLoginRespone>> GetNotificationWhenLogin(AppType appType)
+        public async Task<ResponseBaseV2<NoticeDetailRespone>> GetNotificationWhenLogin(AppType appType)
         {
-            BaseResponse<NotificationWhenLoginRespone> result = new BaseResponse<NotificationWhenLoginRespone>();
+            ResponseBaseV2<NoticeDetailRespone> result = new ResponseBaseV2<NoticeDetailRespone>();
             try
             {
                 int appID = (int)appType;
 
-                var url = string.Format(ApiUri.GET_NOTIFICATION_WHEN_LOGIN + "?MobileAppTypesId={0}", appID);
+                var url = string.Format(ApiUri.GET_NOTIFICATION_WHEN_LOGIN + "?appID={0}", appID);
 
-                var data = await requestProvider.GetAsync<BaseResponse<NotificationWhenLoginRespone>>(url);
+                var data = await requestProvider.GetAsync<ResponseBaseV2<NoticeDetailRespone>>(url);
 
                 if (data != null)
                 {
@@ -178,14 +178,14 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<BaseResponse<NotificationAfterLoginRespone>> GetNotificationAfterLogin(Guid userId)
+        public async Task<ResponseBaseV2<NoticeDetailRespone>> GetNotificationAfterLogin(Guid userId)
         {
-            BaseResponse<NotificationAfterLoginRespone> result = new BaseResponse<NotificationAfterLoginRespone>();
+            ResponseBaseV2<NoticeDetailRespone> result = new ResponseBaseV2<NoticeDetailRespone>();
             try
             {
-                var url = string.Format(ApiUri.GET_NOTIFICATION_AFTER_LOGIN + "?UserId={0}", userId);
+                var url = string.Format(ApiUri.GET_NOTIFICATION_AFTER_LOGIN + "?userId={0}", userId);
 
-                var data = await requestProvider.GetAsync<BaseResponse<NotificationAfterLoginRespone>>(url);
+                var data = await requestProvider.GetAsync<ResponseBaseV2<NoticeDetailRespone>>(url);
 
                 if (data != null)
                 {

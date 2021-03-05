@@ -3,7 +3,6 @@ using BA_MobileGPS.Utilities.Constant;
 
 using FFImageLoading.Forms.Platform;
 using FFImageLoading.Svg.Forms;
-using LabelHtml.Forms.Plugin.iOS;
 using LibVLCSharp.Forms.Shared;
 using PanCardView.iOS;
 using Sharpnado.MaterialFrame.iOS;
@@ -71,9 +70,6 @@ namespace BA_MobileGPS.Core.iOS.Setup
             SfPopupLayoutRenderer.Init();
             SfRangeSliderRenderer.Init();
             SfLinearProgressBarRenderer.Init();
-
-            // HtmlLabel
-            HtmlLabelRenderer.Initialize();
             LibVLCSharpFormsRenderer.Init();
         }
     }

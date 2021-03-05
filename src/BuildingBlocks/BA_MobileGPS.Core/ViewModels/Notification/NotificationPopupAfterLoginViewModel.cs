@@ -42,7 +42,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.Initialize(parameters);
 
-            if (parameters.ContainsKey(ParameterKey.NotificationKey) && parameters.GetValue<NotificationAfterLoginRespone>(ParameterKey.NotificationKey) is NotificationAfterLoginRespone notice)
+            if (parameters.ContainsKey(ParameterKey.NotificationKey) && parameters.GetValue<NoticeDetailRespone>(ParameterKey.NotificationKey) is NoticeDetailRespone notice)
             {
                 GetNoticePopupAfterLogin(notice);
             }
@@ -75,17 +75,17 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Name     Date         Comments
         /// linhlv  2/26/2020   created
         /// </Modified>
-        private void GetNoticePopupAfterLogin(NotificationAfterLoginRespone notice)
+        private void GetNoticePopupAfterLogin(NoticeDetailRespone notice)
         {
             SafeExecute(() =>
             {
                 RunOnBackground(async () =>
                 {
-                    return await notificationService.GetNotificationBody(notice.PK_NoticeContentID, Settings.CurrentLanguage);
+                    return await notificationService.GetNotificationBody(notice.Id);
                 },
                  (items) =>
                  {
-                     if (items != null && items.Success && items.Data != null)
+                     if (items != null && items?.Data != null)
                      {
                          IsFormFeedback = false;
                          IsFormContent = true;
@@ -97,7 +97,7 @@ namespace BA_MobileGPS.Core.ViewModels
                          {
                              IsShowFeedback = false;
                          }
-                         pk_NoticeContentID = notice.PK_NoticeContentID;
+                         pk_NoticeContentID = notice.Id;
                          Name = notice.Title;
                          Content = Content = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1\" />" + items.Data.Body;
                      }
@@ -165,8 +165,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 return await notificationService.UpdateIsReadNotification(new UpdateIsReadRequest()
                 {
-                    fk_NoticeContentID = PK_NoticeContentID,
-                    userId = UserInfo.UserId
+                    NoticeId = PK_NoticeContentID,
+                    UserID = UserInfo.UserId
                 });
             },
              (items) =>

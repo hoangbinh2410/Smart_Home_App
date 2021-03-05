@@ -23,7 +23,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.Initialize(parameters);
 
-            if (parameters.ContainsKey(ParameterKey.NotificationKey) && parameters.GetValue<NotificationWhenLoginRespone>(ParameterKey.NotificationKey) is NotificationWhenLoginRespone notice)
+            if (parameters.ContainsKey(ParameterKey.NotificationKey) && parameters.GetValue<NoticeDetailRespone>(ParameterKey.NotificationKey) is NoticeDetailRespone notice)
             {
                 GetListNoticeDetail(notice);
             }
@@ -56,15 +56,15 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Name     Date         Comments
         /// linhlv  2/26/2020   created
         /// </Modified>
-        private void GetListNoticeDetail(NotificationWhenLoginRespone notice)
+        private void GetListNoticeDetail(NoticeDetailRespone notice)
         {
             RunOnBackground(async () =>
             {
-                return await notificationService.GetNotificationBody(notice.PK_NoticeContentID, Settings.CurrentLanguage);
+                return await notificationService.GetNotificationBody(notice.Id);
             },
                  (items) =>
                  {
-                     if (items != null && items.Success && items.Data != null)
+                     if (items != null && items?.Data != null)
                      {
                          if (notice.IsAlwayShow)
                          {
@@ -76,7 +76,7 @@ namespace BA_MobileGPS.Core.ViewModels
                              IsClosePage = false;
                              IsSaveCache = true;
                          }
-                         pk_NoticeContentID = notice.PK_NoticeContentID;
+                         pk_NoticeContentID = notice.Id;
                          Name = notice.Title;
                          Content = Content = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1\" />" + items.Data.Body;
                      }

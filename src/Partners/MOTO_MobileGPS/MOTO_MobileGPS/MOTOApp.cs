@@ -24,7 +24,7 @@ namespace MOTO_MobileGPS
 
         }
 
-        public override string OneSignalKey => base.OneSignalKey;
+        public override string OneSignalKey => Config.OneSignalKey_MOTO;
 
         protected async override void OnInitialized()
         {

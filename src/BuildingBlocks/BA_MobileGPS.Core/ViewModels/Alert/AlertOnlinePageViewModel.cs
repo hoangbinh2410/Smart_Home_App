@@ -10,7 +10,6 @@ using Syncfusion.Data.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -25,7 +24,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IAlertService alertService;
         private readonly IVehicleOnlineService vehicleOnlineService;
 
-        public ICommand LoadMoreItemsCommand { get; set; }
+        public ICommand LoadMoreItemsCommand { get; }
         public ICommand PushAlerTypeComboboxCommand { get; private set; }
         public ICommand PushVehicleComboboxCommand { get; private set; }
 
@@ -48,7 +47,7 @@ namespace BA_MobileGPS.Core.ViewModels
             selectedAlertType = new AlertTypeModel();
             selectedVehicle = new Vehicle();
 
-            LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
+            LoadMoreItemsCommand = new DelegateCommand(LoadMoreItems, CanLoadMoreItems);
             PushAlerTypeComboboxCommand = new DelegateCommand(ExecuteAlertTypeCombobox);
         }
 
@@ -111,8 +110,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         vehicleIDs = new List<long>() { SelectedVehicle.VehicleId };
                     }
 
-                    var alertType = StaticSettings.ListAlertType?.Find(a => a.PK_AlertTypeID == alert.WarningType);
-                    var alertTypeIDs = SelectedAlertType.PK_AlertTypeID == 0 ? string.Join(",", StaticSettings.ListAlertType.Select(t => t.PK_AlertTypeID)) : SelectedAlertType.PK_AlertTypeID.ToString();
+                    var alertType = StaticSettings.ListAlertType?.Find(a => a.Id == alert.WarningType);
+                    var alertTypeIDs = SelectedAlertType.Id == 0 ? string.Join(",", StaticSettings.ListAlertType.Select(t => t.Id)) : SelectedAlertType.Id.ToString();
 
                     var model = new AlertOnlineDetailModel
                     {
@@ -157,6 +156,18 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion signalR
 
         #region property
+
+        private List<AlertOnlineDetailModel> listAlertOrigin = new List<AlertOnlineDetailModel>();
+
+        public List<AlertOnlineDetailModel> ListAlertOrigin
+        {
+            get => listAlertOrigin;
+            set
+            {
+                SetProperty(ref listAlertOrigin, value);
+                RaisePropertyChanged();
+            }
+        }
 
         private ObservableCollection<AlertOnlineDetailModel> listAlert = new ObservableCollection<AlertOnlineDetailModel>();
 
@@ -219,14 +230,23 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Command
 
-        private async void LoadMoreItems(object obj)
+        private bool CanLoadMoreItems()
         {
-            var listview = obj as Syncfusion.ListView.XForms.SfListView;
-            listview.IsBusy = true;
+            if (ListAlert.Count <= PageIndex * PageCount || ListAlert.Count >= TotalRow || ListAlert.Count < PageCount)
+                return false;
+            return true;
+        }
+
+        private void LoadMoreItems()
+        {
+            if (IsBusy)
+            {
+                return;
+            }
+            IsBusy = true;
             try
             {
-                PageIndex++;
-                await AddListAsync(PageIndex);
+                LoadMore();
             }
             catch (Exception ex)
             {
@@ -234,8 +254,30 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             finally
             {
-                listview.IsBusy = false;
                 IsBusy = false;
+            }
+        }
+
+        private void LoadMore()
+        {
+            try
+            {
+                var source = ListAlertOrigin.Skip(PageIndex * PageCount).Take(PageCount).ToList();
+                PageIndex++;
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    if (source != null && source.Count() > 0)
+                    {
+                        for (int i = 0; i < source.Count; i++)
+                        {
+                            ListAlert.Add(source[i]);
+                        }
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
 
@@ -250,10 +292,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         using (new HUDService())
                         {
                             ListAlert = new ObservableCollection<AlertOnlineDetailModel>();
-
-                            PageIndex = 1;
-
-                            await AddListAsync(PageIndex);
+                            PageIndex = 0;
+                            await GetListAlert();
                         }
                     });
                 });
@@ -264,24 +304,21 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get
             {
-                return new Command<object>(async (obj) =>
-                {
-                    if (IsBusy)
-                    {
-                        return;
-                    }
-                    IsBusy = true;
-                    var alertSelected = (AlertOnlineDetailModel)obj;
-                    if (alertSelected != null)
-                    {
-                        var navigationPara = new NavigationParameters
-                        {
+                return new Command<object>((obj) =>
+               {
+                   SafeExecute(async () =>
+                   {
+                       var alertSelected = (AlertOnlineDetailModel)obj;
+                       if (alertSelected != null)
+                       {
+                           var navigationPara = new NavigationParameters
+                       {
                             { "alert", alertSelected }
-                        };
-                        await NavigationService.NavigateAsync("AlertHandlingPage", navigationPara);
-                    }
-                    IsBusy = false;
-                });
+                       };
+                           await NavigationService.NavigateAsync("AlertHandlingPage", navigationPara);
+                       }
+                   });
+               });
             }
         }
 
@@ -289,56 +326,44 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get
             {
-                return new Command<object>(async (obj) =>
-                {
-                    try
-                    {
-                        if (IsBusy)
-                        {
-                            return;
-                        }
-                        IsBusy = true;
-                        var alertSelected = (AlertOnlineDetailModel)obj;
-                        DependencyService.Get<IHUDProvider>().DisplayProgress("");
-                        var isSuccess = await alertService.HandleAlertAsync(new StatusAlertRequestModel
-                        {
-                            PK_AlertDetailID = alertSelected.PK_AlertDetailID,
-                            Status = StatusAlert.Readed,
-                            ProccessContent = string.Empty,
-                            UserID = UserInfo.UserId,
-                            FK_AlertTypeID = alertSelected.FK_AlertTypeID,
-                            FK_VehicleID = alertSelected.FK_VehicleID,
-                            StartTime = alertSelected.StartTime
-                        });
-                        if (isSuccess)
-                        {
-                            GlobalResources.Current.TotalAlert--;
-                            ListAlert.Remove(alertSelected);
-                            DisplayMessage.ShowMessageInfo(MobileResource.Alert_Message_Alert_Success);
-                        }
-                        else
-                        {
-                            DisplayMessage.ShowMessageInfo(MobileResource.Alert_Message_Alert_Fail);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-                    }
-                    finally
-                    {
-                        DependencyService.Get<IHUDProvider>().Dismiss();
-                    }
-                    IsBusy = false;
-                });
+                return new Command<object>((obj) =>
+               {
+                   SafeExecute(async () =>
+                   {
+                       var alertSelected = (AlertOnlineDetailModel)obj;
+                       DependencyService.Get<IHUDProvider>().DisplayProgress("");
+                       var isSuccess = await alertService.HandleAlertAsync(new StatusAlertRequestModel
+                       {
+                           Id = alertSelected.PK_AlertDetailID,
+                           Status = StatusAlert.Readed,
+                           ProccessContent = string.Empty,
+                           UserID = UserInfo.UserId,
+                           FK_AlertTypeID = alertSelected.FK_AlertTypeID,
+                           FK_VehicleID = alertSelected.FK_VehicleID,
+                           StartTime = alertSelected.StartTime,
+                           CompanyID = CurrentComanyID
+                       });
+                       if (isSuccess)
+                       {
+                           GlobalResources.Current.TotalAlert--;
+                           ListAlert.Remove(alertSelected);
+                           DisplayMessage.ShowMessageInfo(MobileResource.Alert_Message_Alert_Success);
+                       }
+                       else
+                       {
+                           DependencyService.Get<IHUDProvider>().Dismiss();
+                           DisplayMessage.ShowMessageInfo(MobileResource.Alert_Message_Alert_Fail);
+                       }
+                   });
+               });
             }
         }
 
-        private async Task AddListAsync(int pageIndex)
+        private async Task GetListAlert()
         {
             try
             {
-                string alertTypeIDs = SelectedAlertType.PK_AlertTypeID == 0 ? string.Join(",", StaticSettings.ListAlertType.Select(t => t.PK_AlertTypeID)) : SelectedAlertType.PK_AlertTypeID.ToString();
+                string alertTypeIDs = SelectedAlertType.Id == 0 ? string.Join(",", StaticSettings.ListAlertType.Select(t => t.Id)) : SelectedAlertType.Id.ToString();
 
                 string vehicleIDs = string.Empty;
                 if (string.IsNullOrEmpty(SelectedVehicle.VehiclePlate) || SelectedVehicle.VehicleId == 0)
@@ -366,24 +391,23 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     var respone = await alertService.GetListAlertOnlineAsync(new AlertGetRequest
                     {
-                        UserId = userID,
-                        CultureName = Settings.CurrentLanguage == CultureCountry.Vietnamese ? "vi-VN" : "en",
+                        CompanyID = CurrentComanyID,
+                        UserID = userID,
                         ListAlertTypeIDs = alertTypeIDs,
                         ListVehicleIDs = vehicleIDs,
-                        PageCount = PageCount,
-                        PageIndex = pageIndex
                     });
 
-                    if (respone != null && respone.Alerts != null)
+                    if (respone != null && respone.Count > 0)
                     {
                         var lst = ListAlert.ToList();
-                        respone.Alerts.ForEach(a =>
+                        respone.ForEach(a =>
                         {
                             a.Content = StringHelper.StripHtml(a.Content);
                             lst.Add(a);
                         });
+                        ListAlertOrigin = lst;
                         ListAlert = lst.ToObservableCollection();
-                        TotalRow = respone.TotalRow;
+                        TotalRow = respone.Count;
                     }
                     else
                     {
@@ -395,13 +419,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
-        }
-
-        private bool CanLoadMoreItems(object obj)
-        {
-            if (ListAlert.Count >= TotalRow || ListAlert.Count < PageCount)
-                return false;
-            return true;
         }
 
         private async void ExecuteAlertTypeCombobox()
@@ -422,7 +439,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     foreach (var item in StaticSettings.ListAlertType)
                     {
-                        listAllAlertType.Add(new ComboboxRequest { Key = Convert.ToInt32(item.PK_AlertTypeID), Value = item.Name });
+                        listAllAlertType.Add(new ComboboxRequest { Key = Convert.ToInt32(item.Id), Value = item.Name });
                     }
                 }
 
@@ -445,9 +462,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private async void InitListAleart()
         {
-            // Load list alert
-            PageIndex = 1;
-            await AddListAsync(PageIndex);
+            await GetListAlert();
         }
 
         private void GetAleartType()
@@ -456,7 +471,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Task.Run(async () =>
                 {
-                    return await alertService.GetAlertTypeAsync(UserInfo.UserId, CultureInfo.CurrentCulture.Name);
+                    return await alertService.GetAlertTypeAsync(CurrentComanyID);
                 }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
                 {
                     if (task.Status == TaskStatus.RanToCompletion)
@@ -487,7 +502,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var dataResponse = param;
                 if (dataResponse.ComboboxType == (short)ComboboxType.First)
                 {
-                    SelectedAlertType = new AlertTypeModel() { Name = param.Value, PK_AlertTypeID = param.Key };
+                    SelectedAlertType = new AlertTypeModel() { Name = param.Value, Id = param.Key };
                 }
             }
         }

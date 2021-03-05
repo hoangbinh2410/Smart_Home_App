@@ -53,11 +53,11 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             RunOnBackground(async () =>
             {
-                return await notificationService.GetNotificationBody(notice.PK_NoticeContentID, Settings.CurrentLanguage);
+                return await notificationService.GetNotificationBody(notice.Id);
             },
                   (items) =>
                   {
-                      if (items != null && items.Success && items.Data != null)
+                      if (items != null  && items.Data != null)
                       {
                           if (!string.IsNullOrEmpty(items.Data.Body))
                           {
@@ -82,11 +82,11 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             RunOnBackground(async () =>
             {
-                return await notificationService.GetNotificationDetail(PK_NoticeContentID, Settings.CurrentLanguage);
+                return await notificationService.GetNotificationDetail(PK_NoticeContentID);
             },
                   (items) =>
                   {
-                      if (items != null && items.Success && items.Data != null)
+                      if (items != null && items.Data != null)
                       {
                           var notice = items.Data;
                           Title = notice.Title;
@@ -112,7 +112,7 @@ namespace BA_MobileGPS.Core.ViewModels
                               });
                           }
 
-                          UpdateIsReadNotification(notice.PK_NoticeContentID);
+                          UpdateIsReadNotification(notice.Id);
                       }
                   });
         }
@@ -135,8 +135,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 return await notificationService.UpdateIsReadNotification(new UpdateIsReadRequest()
                 {
-                    fk_NoticeContentID = PK_NoticeContentID,
-                    userId = UserInfo.UserId
+                    NoticeId = PK_NoticeContentID,
+                    UserID = UserInfo.UserId
                 });
             },
                  (items) =>

@@ -3,7 +3,6 @@
     x:Class="BA_MobileGPS.Core.Views.AddDriverInforPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:abstractions="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
     xmlns:busyIndicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
@@ -120,43 +119,6 @@
                         </AbsoluteLayout>
                     </Grid>
                     <StackLayout Padding="15,5,15,20" Spacing="5">
-                        <!--  Phương tiện đang điều khiển  -->
-                        <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Phương tiện đang điều khiển" TextColor="{DynamicResource TextPrimaryColor}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <input:SfTextInputLayout TrailingViewPosition="Inside" VerticalOptions="Start">
-                            <input:SfTextInputLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
-                            </input:SfTextInputLayout.GestureRecognizers>
-                            <input:SfTextInputLayout.TrailingView>
-                                <Grid>
-                                    <controls:IconView
-                                        Margin="0,0,8,0"
-                                        Foreground="{DynamicResource BlackColor}"
-                                        HeightRequest="15"
-                                        Source="ic_sortdown"
-                                        VerticalOptions="Center"
-                                        WidthRequest="15" />
-                                </Grid>
-                            </input:SfTextInputLayout.TrailingView>
-                            <Entry
-                                x:Name="entrySearch"
-                                HorizontalOptions="FillAndExpand"
-                                InputTransparent="True"
-                                Placeholder="Chọn phương tiện lái xe đang điều khiển"
-                                PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                                Text="{Binding SelectedVehiclePlates}"
-                                TextColor="{DynamicResource TextPrimaryColor}"
-                                VerticalOptions="Center">
-                                <Entry.Effects>
-                                    <effects:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
-                        </input:SfTextInputLayout>
                         <!--  Tên  -->
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                             <Label.FormattedText>
@@ -288,6 +250,43 @@
                                 Placeholder="Nhập địa chỉ"
                                 Text="{Binding Address.Value}" />
                         </input:SfTextInputLayout>
+                        <!--  Phương tiện đang điều khiển  -->
+                        <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Phương tiện" TextColor="{DynamicResource TextPrimaryColor}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <input:SfTextInputLayout TrailingViewPosition="Inside" VerticalOptions="Start">
+                            <input:SfTextInputLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                            </input:SfTextInputLayout.GestureRecognizers>
+                            <input:SfTextInputLayout.TrailingView>
+                                <Grid>
+                                    <controls:IconView
+                                        Margin="0,0,8,0"
+                                        Foreground="{DynamicResource BlackColor}"
+                                        HeightRequest="15"
+                                        Source="ic_sortdown"
+                                        VerticalOptions="Center"
+                                        WidthRequest="15" />
+                                </Grid>
+                            </input:SfTextInputLayout.TrailingView>
+                            <Entry
+                                x:Name="entrySearch"
+                                HorizontalOptions="FillAndExpand"
+                                InputTransparent="True"
+                                Placeholder="Chọn biển số phương tiện"
+                                PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
+                                Text="{Binding SelectedVehiclePlates}"
+                                TextColor="{DynamicResource TextPrimaryColor}"
+                                VerticalOptions="Center">
+                                <Entry.Effects>
+                                    <effects:BorderlessEffect />
+                                </Entry.Effects>
+                            </Entry>
+                        </input:SfTextInputLayout>
                         <!--  Loại băng lái  -->
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                             <Label.FormattedText>
@@ -403,7 +402,7 @@
                     HorizontalOptions="Center"
                     Source="add_success.png"
                     WidthRequest="120" />
-                <abstractions:HtmlLabel
+                <Label
                     FontSize="{DynamicResource MyFontSizeLarge}"
                     Text="Bạn đã thêm lái xe thành công"
                     TextColor="#8BC34A" />

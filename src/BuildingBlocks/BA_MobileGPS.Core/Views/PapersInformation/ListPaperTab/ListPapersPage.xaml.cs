@@ -8,6 +8,7 @@ using Prism.Ioc;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Entities;
 using System.Linq;
+using BA_MobileGPS.Utilities.Enums;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -16,8 +17,6 @@ namespace BA_MobileGPS.Core.Views
         public ListPapersPage()
         {
             InitializeComponent();
-
-
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)
@@ -37,7 +36,7 @@ namespace BA_MobileGPS.Core.Views
         {
             if (firstAppear)
             {
-                GetData();
+                GetData(parameters);
                 firstAppear = false;
             }
             else if(parameters.ContainsKey("RefreshListPaper") && parameters.GetValue<bool>("RefreshListPaper") is bool refresh)
@@ -45,7 +44,7 @@ namespace BA_MobileGPS.Core.Views
                 //Load lại dữ liệu khi com back từ trang thêm sửa thông tin
                 if (refresh)
                 {
-                    GetData();
+                    GetData(parameters);
                 }
                
             }
@@ -63,7 +62,7 @@ namespace BA_MobileGPS.Core.Views
          
         }
 
-        private void GetData()
+        private void GetData(INavigationParameters parameters)
         {           
             Task.Run(async () =>
             {
@@ -77,12 +76,15 @@ namespace BA_MobileGPS.Core.Views
                 }
                 var param = new NavigationParameters();
                 param.Add("paperSource", originSource);
+                if (parameters.ContainsKey("AlertType") && parameters.GetValue<PaperAlertTypeEnum>("AlertType") is PaperAlertTypeEnum alertType)
+                {
+                    param.Add("AlertType", alertType);
+                }
                 foreach (var item in tabview.Items)
                 {
                     PageUtilities.OnNavigatedTo(item.Content, param);
                 }
             });
-
         }
     }
 }

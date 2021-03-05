@@ -82,13 +82,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 var isSuccess = await alertService.HandleAlertAsync(new StatusAlertRequestModel
                 {
-                    PK_AlertDetailID = Alert.PK_AlertDetailID,
+                    Id = Alert.PK_AlertDetailID,
                     Status = StatusAlert.Process,
                     ProccessContent = HandlingContent.Value,
                     UserID = UserInfo.UserId,
                     FK_AlertTypeID = Alert.FK_AlertTypeID,
                     FK_VehicleID = Alert.FK_VehicleID,
-                    StartTime = Alert.StartTime
+                    StartTime = Alert.StartTime,
+                    CompanyID = CurrentComanyID
                 });
 
                 if (isSuccess)

@@ -15,7 +15,6 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class CabSignInforViewModel : ViewModelBase
     {
-        private bool IsUpdateForm { get; set; } = false;
         private string NotEmptyMessenge = MobileResource.ListDriver_Messenger_NotNull;
         private long currentVehicleId { get; set; } = 0;
         private readonly IPapersInforService paperinforService;
@@ -38,6 +37,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 return false;
             });
             SaveButtonVisible = true;
+            canEditPaperNumber = true;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -62,10 +62,25 @@ namespace BA_MobileGPS.Core.ViewModels
                 var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.PrivateCode == privateCode);
                 if (vehicle != null)
                 {
+                    oldInfor = null;
                     currentVehicleId = vehicle.VehicleId;
                     UpdateFormData(UserInfo.CompanyId, vehicle.VehicleId);
                 }
             }
+        }
+
+        private bool canEditPaperNumber;
+        public bool CanEditPaperNumber
+        {
+            get { return canEditPaperNumber; }
+            set { SetProperty(ref canEditPaperNumber, value); }
+        }
+
+        private bool isUpdateForm;
+        public bool IsUpdateForm
+        {
+            get { return isUpdateForm; }
+            set { SetProperty(ref isUpdateForm, value); }
         }
 
         private bool saveButtonVisible;
@@ -152,6 +167,13 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get { return alertMessenger; }
             set { SetProperty(ref alertMessenger, value); }
+        }
+
+        private Color alertMessengerColor;
+        public Color AlertMessengerColor
+        {
+            get { return alertMessengerColor; }
+            set { SetProperty(ref alertMessengerColor, value); }
         }
 
         /// <summary>
@@ -337,6 +359,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             DisplayMessage.ShowMessageSuccess("Thêm mới thông tin thành công");
                             ClearData();
+                            oldInfor = data;
                         }
                         else
                         {
@@ -356,15 +379,16 @@ namespace BA_MobileGPS.Core.ViewModels
         private void UpdateFormData(int companyId, long vehicleId)
         {
             CreateButtonVisible = false;
-         
+
             SafeExecute(async () =>
             {
                 var paper = await paperinforService.GetLastPaperSignByVehicleId(companyId, vehicleId);
                 if (paper != null)
-                {                  
+                {
                     oldInfor = paper;
                     IsUpdateForm = true;
-                
+                    CanEditPaperNumber = false;
+
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         SaveButtonVisible = CheckPermision((int)PermissionKeyNames.PaperUpdate);
@@ -373,51 +397,62 @@ namespace BA_MobileGPS.Core.ViewModels
                         ExpireDate.Value = paper.ExpireDate;
                         DaysNumberForAlertAppear.Value = paper.DayOfAlertBefore.ToString();
                         Notes.Value = paper.Description;
-
                         SaveEnable = false;
                     });
                     if (DateTime.Now > paper.ExpireDate)
                     {
-                        AlertMessenger = string.Format("<font color=#E65353>{0}</font>", MobileResource.PaperInfor_Msg_Expired);
+                        AlertMessenger = MobileResource.PaperInfor_Msg_Expired;
+                        AlertMessengerColor = Color.FromHex("#E65353");
                         CreateButtonVisible = true;
                     }
                     else if (paper.ExpireDate.AddDays(-CompanyConfigurationHelper.DayAllowRegister) <= DateTime.Now)
                     {
-                        AlertMessenger = string.Format("<font color=#F99B09>{0}</font>", MobileResource.PaperInfor_Msg_NearExpire);
+                        AlertMessenger = MobileResource.PaperInfor_Msg_NearExpire;
+                        AlertMessengerColor = Color.FromHex("#F99B09");
                         CreateButtonVisible = true;
                     }
                 }
-                else ClearData();
+                else ClearData(true);
             });
         }
-
-        private void ClearData()
+        /// <summary>
+        /// Xóa dữ liệu khi xe thay đổi hoặc khi thêm mới thành công
+        /// </summary>
+        /// <param name="canEditNumber">Được phép thay đổi mã số giấy tờ không</param>
+        private void ClearData(bool canEditNumber = false)
         {
-            SignNumber.Value = string.Empty;
+            CanEditPaperNumber = canEditNumber;
+            if (canEditNumber)
+            {
+                SignNumber.Value = string.Empty;
+            }            
             RegistrationDate.Value = DateTime.Now;
             ExpireDate.Value = DateTime.Now;
             DaysNumberForAlertAppear.Value = "3";
             Notes.Value = string.Empty;
-
             CreateButtonVisible = false;
             if (!SaveButtonVisible)
             {
                 SaveButtonVisible = true;
             }
+            IsUpdateForm = false;           
         }
 
         private void ChangeToInsertForm()
-        {
-            SignNumber.Value = string.Empty;
+        {           
             ExpireDate.Value = DateTime.Now;
-            DaysNumberForAlertAppear.Value = "3";
-            Notes.Value = string.Empty;
-
             RegistrationDate.Value = oldInfor.ExpireDate.AddDays(1);
+            DaysNumberForAlertAppear.Value = "3";
+            Notes.Value = string.Empty;          
             CreateButtonVisible = false;
             IsUpdateForm = false;
 
             SaveButtonVisible = true;
+            if (oldInfor != null)
+            {
+                SignNumber.Value = oldInfor.PaperNumber;
+            }
+            CanEditPaperNumber = false;
         }
 
         private PaperCabSignInforRequest GetFormData()

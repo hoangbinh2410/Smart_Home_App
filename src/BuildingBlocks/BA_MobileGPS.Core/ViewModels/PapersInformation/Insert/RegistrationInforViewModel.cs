@@ -15,8 +15,6 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class RegistrationInforViewModel : ViewModelBase
     {
-        private bool IsUpdateForm { get; set; } = false;
-
         private long currentVehicleId { get; set; } = 0;
         private string NotEmptyMessenge = MobileResource.ListDriver_Messenger_NotNull;
         private readonly IPapersInforService paperinforService;
@@ -39,6 +37,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 return false;
             });
             SaveButtonVisible = true;
+            canEditPaperNumber = true;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -63,10 +62,25 @@ namespace BA_MobileGPS.Core.ViewModels
                 var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.PrivateCode == privateCode);
                 if (vehicle != null)
                 {
+                    oldInfor = null;
                     currentVehicleId = vehicle.VehicleId;
                     UpdateFormData(UserInfo.CompanyId, vehicle.VehicleId);
                 }
             }
+        }
+
+        private bool canEditPaperNumber;
+        public bool CanEditPaperNumber
+        {
+            get { return canEditPaperNumber; }
+            set { SetProperty(ref canEditPaperNumber, value); }
+        }
+
+        private bool isUpdateForm;
+        public bool IsUpdateForm
+        {
+            get { return isUpdateForm; }
+            set { SetProperty(ref isUpdateForm, value); }
         }
 
         private bool saveButtonVisible;
@@ -176,6 +190,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref alertMessenger, value);
                 RaisePropertyChanged();
             }
+        }
+        private Color alertMessengerColor;
+        public Color AlertMessengerColor
+        {
+            get { return alertMessengerColor; }
+            set { SetProperty(ref alertMessengerColor, value); }
         }
 
         /// <summary>
@@ -366,6 +386,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             DisplayMessage.ShowMessageSuccess("Thêm mới thông tin thành công");
                             ClearData();
+                            oldInfor = data;
                         }
                         else
                         {
@@ -417,6 +438,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     oldInfor = paper;
                     IsUpdateForm = true;
+                    CanEditPaperNumber = false;
                  
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -433,22 +455,31 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                     if (DateTime.Now.Date > paper.PaperInfo.ExpireDate.Date)
                     {
-                        AlertMessenger = string.Format("<font color=#E65353>{0}</font>", MobileResource.PaperInfor_Msg_Expired);
+                        AlertMessenger = MobileResource.PaperInfor_Msg_Expired;
+                        AlertMessengerColor = Color.FromHex("#E65353");
                         CreateButtonVisible = true;
                     }
                     else if (paper.PaperInfo.ExpireDate.Date.AddDays(-CompanyConfigurationHelper.DayAllowRegister) <= DateTime.Now.Date)
                     {
-                        AlertMessenger = string.Format("<font color=#F99B09>{0}</font>", MobileResource.PaperInfor_Msg_NearExpire);
+                        AlertMessenger = MobileResource.PaperInfor_Msg_NearExpire;
+                        AlertMessengerColor = Color.FromHex("#F99B09");
                         CreateButtonVisible = true;
                     }
                 }
-                else ClearData();
+                else ClearData(true);
             });
         }
-
-        private void ClearData()
+        /// <summary>
+        /// Xóa dữ liệu khi xe thay đổi hoặc khi thêm mới thành công
+        /// </summary>
+        /// <param name="canEditNumber">Được phép thay đổi mã số giấy tờ không</param>
+        private void ClearData(bool canEditNumber = false)
         {
-            IdentityCode.Value = string.Empty;
+            CanEditPaperNumber = canEditNumber;
+            if (canEditNumber)
+            {
+                IdentityCode.Value = string.Empty;
+            }            
             RegistrationDate.Value = DateTime.Now;
             ExpireDate.Value = DateTime.Now;
             DaysNumberForAlertAppear.Value = "3";
@@ -460,22 +491,28 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 SaveButtonVisible = true;
             }
+            IsUpdateForm = false;          
         }
-
+        /// <summary>
+        /// btn tạo mới => khi đã có dữ liệu cũ => chuyển form tạo mới
+        /// </summary>
         private void ChangeToInsertForm()
-        {
-            IdentityCode.Value = string.Empty;
+        {           
             ExpireDate.Value = DateTime.Now;
             DaysNumberForAlertAppear.Value = "3";
             RegistrationFee.Value = string.Empty;
             Notes.Value = string.Empty;
             UnitName.Value = string.Empty;
             CreateButtonVisible = false;
-
             RegistrationDate.Value = oldInfor.PaperInfo.ExpireDate.AddDays(1);
             CreateButtonVisible = false;
             IsUpdateForm = false;
             SaveButtonVisible = true;
+            if (oldInfor != null)
+            {
+                IdentityCode.Value = oldInfor.PaperInfo?.PaperNumber;
+            }
+            CanEditPaperNumber = false;
         }
 
         private PaperRegistrationInsertRequest GetFormData()

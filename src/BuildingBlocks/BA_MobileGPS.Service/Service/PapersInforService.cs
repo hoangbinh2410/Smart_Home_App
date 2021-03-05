@@ -277,5 +277,26 @@ namespace BA_MobileGPS.Service.Service
             }
             return result;
         }
+
+        public async Task<DateTime?> GetLastPaperDateByVehicle(int companyId, long vehicleId,PaperCategoryTypeEnum paperType)
+        {
+            DateTime? result = null;
+            try
+            {
+                var type = (int)paperType;
+                var url = $"{ApiUri.GET_LAST_PAPER_DATE_BY_VEHICLE}?companyId={companyId}&vehicleId={vehicleId}&paperType={type}";
+
+                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<DateTime?>>(url);
+                if (response?.Data != null)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
     }
 }

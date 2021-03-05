@@ -1,5 +1,5 @@
 ﻿using BA_MobileGPS.Entities;
-
+using BA_MobileGPS.Entities.RequestEntity;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,18 +8,18 @@ namespace BA_MobileGPS.Service
 {
     public interface IAlertService
     {
-        Task<AlertOnlineViewModel> GetListAlertOnlineAsync(AlertGetRequest request);
+        Task<List<AlertOnlineDetailModel>> GetListAlertOnlineAsync(AlertGetRequest request);
 
-        Task<List<AlertTypeModel>> GetAlertTypeAsync(Guid userId, string cultureName = "en");
+        Task<List<AlertTypeModel>> GetAlertTypeAsync(int CompanyID);
 
         Task<bool> HandleAlertAsync(StatusAlertRequestModel rqModel);
 
-        Task<int> GetCountAlert(Guid PK_UserID);
+        Task<int> GetCountAlert(GetCountAlertByUserIDRequest request);
 
         Task<List<AlertCompanyConfigRespone>> GetAlertCompanyConfig(int companyID);
 
         Task<AlertUserConfigurationsRespone> GetAlertUserConfigurations(Guid userId);
 
-        Task<BaseResponse<bool>> SendAlertUserConfig(AlertUserConfigurationsRequest request);
+        Task<ResponseBaseV2<bool>> SendAlertUserConfig(AlertUserConfigurationsRequest request);
     }
 }

@@ -3,7 +3,6 @@
     x:Class="BA_MobileGPS.Core.Views.RegistrationInfor"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:abstractions="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
@@ -17,10 +16,11 @@
     </ContentView.Resources>
     <ContentView.Content>
         <StackLayout Padding="15,5,15,20" Spacing="5">
-            <abstractions:HtmlLabel
+            <Label
                 HorizontalOptions="Start"
                 IsVisible="{Binding CreateButtonVisible}"
-                Text="{Binding AlertMessenger}" />
+                Text="{Binding AlertMessenger}"
+                TextColor="{Binding AlertMessengerColor}" />
             <!--  Mã số  -->
             <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                 <Label.FormattedText>
@@ -33,6 +33,7 @@
             <input:SfTextInputLayout
                 ErrorText="{Binding IdentityCode.ErrorFirst}"
                 HasError="{Binding IdentityCode.IsNotValid}"
+                IsEnabled="{Binding CanEditPaperNumber}"
                 VerticalOptions="Start">
                 <Entry
                     MaxLength="100"
