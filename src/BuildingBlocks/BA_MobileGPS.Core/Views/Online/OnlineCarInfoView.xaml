@@ -223,7 +223,7 @@
                         Padding="5"
                         BackgroundColor="White"
                         HorizontalOptions="FillAndExpand"
-                        IsVisible="{Binding CarActive.DateOfRegistration, Converter={StaticResource HasDataConverter}}"
+                        IsVisible="{Binding RegistrationDate, Converter={StaticResource HasDataConverter}}"
                         Spacing="0"
                         VerticalOptions="CenterAndExpand">
                         <Label
@@ -236,7 +236,7 @@
                             FontSize="13"
                             HorizontalTextAlignment="Center"
                             LineBreakMode="TailTruncation"
-                            Text="{Binding CarActive.DateOfRegistration, Converter={StaticResource DateConverter}}"
+                            Text="{Binding RegistrationDate, Converter={StaticResource DateConverter}}"
                             TextColor="{DynamicResource TextPrimaryColor}" />
                     </StackLayout>
                 </Grid>

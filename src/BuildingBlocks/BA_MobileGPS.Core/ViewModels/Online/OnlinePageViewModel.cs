@@ -3,7 +3,9 @@ using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Service;
+using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
@@ -12,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -22,7 +25,7 @@ namespace BA_MobileGPS.Core.ViewModels
     public class OnlinePageViewModel : TabbedPageChildVMBase
     {
         #region Contructor
-
+        private readonly IPapersInforService papersInforService;
         private readonly IUserLandmarkGroupService userLandmarkGroupService;
         public ICommand NavigateToSettingsCommand { get; private set; }
         public ICommand ChangeMapTypeCommand { get; private set; }
@@ -37,11 +40,11 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SelectedMenuCommand { get; }
         public bool IsCheckShowLandmark { get; set; } = false;
 
-        public OnlinePageViewModel(INavigationService navigationService, IUserLandmarkGroupService userLandmarkGroupService)
+        public OnlinePageViewModel(INavigationService navigationService, IUserLandmarkGroupService userLandmarkGroupService, IPapersInforService papersInforService)
             : base(navigationService)
         {
             this.userLandmarkGroupService = userLandmarkGroupService;
-
+            this.papersInforService = papersInforService;
             carActive = new VehicleOnline();
             selectedVehicleGroup = new List<int>();
             CarSearch = string.Empty;
@@ -87,6 +90,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 ListLandmark = listLandmark;
 
                 ShowLandmark();
+            }
+            else if (parameters?.GetValue<string>("pagetoNavigation") is string action)
+            {
+                if (action == "Video")
+                {
+                    GotoVideoPage();
+                }
             }
         }
 
@@ -195,6 +205,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public string engineState;
         public string EngineState { get => engineState; set => SetProperty(ref engineState, value); }
+        private DateTime? registrationDate;
+        public DateTime? RegistrationDate
+        {
+            get { return registrationDate; }
+            set { SetProperty(ref registrationDate, value); }
+        }
 
         public bool isShowConfigLanmark;
         public bool IsShowConfigLanmark { get => isShowConfigLanmark; set => SetProperty(ref isShowConfigLanmark, value); }
@@ -624,7 +640,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var storagePermission = await PermissionHelper.CheckStoragePermissions();
                 if (photoPermission && storagePermission)
                 {
-                    var param = new Vehicle()
+                    var param = new CameraLookUpVehicleModel()
                     {
                         VehiclePlate = CarActive.VehiclePlate,
                         VehicleId = CarActive.VehicleId,
@@ -662,6 +678,22 @@ namespace BA_MobileGPS.Core.ViewModels
                     GotoVideoPage();
                     break;
             }
+        }
+        /// <summary>
+        ///  Thay đổi ngày đăng kiểm ở thông tin chi tiết xe (góc dưới)
+        /// </summary>
+        /// <param name="vehicleId"></param>
+        public void BoxInforUpdateRegistrationDate(long vehicleId)
+        {
+            if (CompanyConfigurationHelper.IsShowDateOfRegistration)
+            {
+                Task.Run(async () =>
+                {
+                    RegistrationDate = await papersInforService.GetLastPaperDateByVehicle(StaticSettings.User.CompanyId,
+                        vehicleId, PaperCategoryTypeEnum.Registry);
+                });
+            }
+            else RegistrationDate = null;
         }
 
         #endregion Private Method

@@ -2,7 +2,9 @@
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Service;
+using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 
 using Prism.Commands;
@@ -19,16 +21,17 @@ namespace BA_MobileGPS.Core.ViewModels
     public class VehicleDetailViewModel : ViewModelBase
     {
         private readonly IDetailVehicleService detailVehicleService;
+        private readonly IPapersInforService papersInforService;
         private readonly IGeocodeService geocodeService;
         public ICommand GotoCameraPageComamnd { get; }
         public ICommand SelectedMenuCommand { get; }
 
         public VehicleDetailViewModel(INavigationService navigationService, IGeocodeService geocodeService,
-            IDetailVehicleService detailVehicleService) : base(navigationService)
+            IDetailVehicleService detailVehicleService, IPapersInforService papersInforService) : base(navigationService)
         {
             this.geocodeService = geocodeService;
             this.detailVehicleService = detailVehicleService;
-
+            this.papersInforService = papersInforService;
             Title = MobileResource.DetailVehicle_Label_TilePage;
 
             MessageInforChargeMoney = string.Empty;
@@ -49,20 +52,35 @@ namespace BA_MobileGPS.Core.ViewModels
 
             if (parameters?.GetValue<VehicleOnline>(ParameterKey.CarDetail) is VehicleOnline cardetail)
             {
-                PK_VehicleID = (int)cardetail.VehicleId;
-                VehiclePlate = cardetail.VehiclePlate;
-                PrivateCode = cardetail.PrivateCode;
-                if (cardetail.CurrentAddress != null)
+                TryExecute(async () =>
                 {
-                    Address = cardetail.CurrentAddress;
-                }
-                else
-                {
-                    Getaddress(cardetail.Lat.ToString(), cardetail.Lng.ToString());
-                }
-                Coordinates = cardetail.Lat.ToString().Replace(",", ".") + ", " + cardetail.Lng.ToString().Replace(",", ".");
-                GetVehicleDetail();
-                IsCameraEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView);
+                    PK_VehicleID = (int)cardetail.VehicleId;
+                    VehiclePlate = cardetail.VehiclePlate;
+                    PrivateCode = cardetail.PrivateCode;
+                    if (cardetail.CurrentAddress != null)
+                    {
+                        Address = cardetail.CurrentAddress;
+                    }
+                    else
+                    {
+                        Getaddress(cardetail.Lat.ToString(), cardetail.Lng.ToString());
+                    }
+                    Coordinates = cardetail.Lat.ToString().Replace(",", ".") + ", " + cardetail.Lng.ToString().Replace(",", ".");
+                    GetVehicleDetail();
+                    IsCameraEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView);
+                    // Nếu có quyền hiển thị ngày đăng kiểm => hiển thị ngày bảo hiểm
+                    // Thông tin k cần update liên tục => vứt ở đây
+                    if (CompanyConfigurationHelper.IsShowDateOfRegistration)
+                    {
+                        InsuranceDate = await papersInforService.GetLastPaperDateByVehicle(StaticSettings.User.CompanyId, PK_VehicleID, PaperCategoryTypeEnum.Insurrance);
+                        DateOfRegistration = await papersInforService.GetLastPaperDateByVehicle(StaticSettings.User.CompanyId, PK_VehicleID, PaperCategoryTypeEnum.Registry);
+                        if (insuranceDate != null || dateOfRegistration != null)
+                        {
+                            ShowPaperInfor = true;
+                        }
+                    }                 
+                });
+
             }
             //InitMenuItems();
         }
@@ -112,6 +130,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private string fuel;
         public string Fuel { get => fuel; set => SetProperty(ref fuel, value); }
+
+        private double fuelProgress;
+        public double FuelProgress { get => fuelProgress; set => SetProperty(ref fuelProgress, value); }
 
         private string temperature;
         public string Temperature { get => temperature; set => SetProperty(ref temperature, value); }
@@ -182,6 +203,26 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref kmInMonth, value); }
         }
 
+        private DateTime? insuranceDate;
+        public DateTime? InsuranceDate
+        {
+            get { return insuranceDate; }
+            set { SetProperty(ref insuranceDate, value); }
+        }
+
+        private DateTime? dateOfRegistration;
+        public DateTime? DateOfRegistration
+        {
+            get { return dateOfRegistration; }
+            set { SetProperty(ref dateOfRegistration, value); }
+        }
+
+        private bool showPaperInfor;
+        public bool ShowPaperInfor
+        {
+            get { return showPaperInfor; }
+            set { SetProperty(ref showPaperInfor, value); }
+        }
         #endregion property
 
         #region command
@@ -215,15 +256,12 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (response != null)
                 {
-                    if (!CompanyConfigurationHelper.IsShowDateOfRegistration)
-                    {
-                        response.DateOfRegistration = null;
-                    }
                     InforDetail = response;
                     if (response.VehicleNl != null)
                     {
                         IsFuelVisible = response.VehicleNl.IsUseFuel;
                         Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
+                        FuelProgress = (response.VehicleNl.NumberOfLiters / response.VehicleNl.Capacity) * 100;
                     }
                     else
                     {

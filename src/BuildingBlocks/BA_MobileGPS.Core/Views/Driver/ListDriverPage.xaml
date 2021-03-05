@@ -170,13 +170,15 @@
                                     ColumnSpacing="10"
                                     VerticalOptions="StartAndExpand">
                                     <image:CachedImage
-                                        HeightRequest="50"
+                                        Aspect="AspectFill"
+                                        HeightRequest="65"
                                         Source="{Binding AvartarDisplay}"
-                                        WidthRequest="50" />
+                                        VerticalOptions="Center"
+                                        WidthRequest="65" />
                                     <StackLayout
                                         Grid.Column="1"
                                         HorizontalOptions="Fill"
-                                        Spacing="0"
+                                        Spacing="5"
                                         VerticalOptions="Fill">
                                         <Label
                                             HorizontalOptions="Start"
@@ -185,10 +187,32 @@
                                             StyleClass="BoldText"
                                             Text="{Binding DisplayName, Converter={StaticResource UpperCaseConverter}}" />
                                         <Grid
-                                            ColumnDefinitions="*,90,*"
+                                            Padding="10,0,0,0"
+                                            ColumnDefinitions="*,*"
                                             ColumnSpacing="5"
+                                            RowDefinitions="Auto,Auto"
+                                            RowSpacing="5"
                                             VerticalOptions="EndAndExpand">
                                             <StackLayout Orientation="Horizontal" Spacing="5">
+
+                                                <icons:IconView
+                                                    Foreground="{DynamicResource PrimaryColor}"
+                                                    HeightRequest="20"
+                                                    Source="ic_vehiclesolid"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    WidthRequest="20" />
+                                                <Label
+                                                    FontSize="{DynamicResource MyFontSizeSmall}"
+                                                    HorizontalOptions="Start"
+                                                    LineBreakMode="TailTruncation"
+                                                    MaxLines="1"
+                                                    Text="{Binding VehiclePlate}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+                                            <StackLayout
+                                                Grid.Column="1"
+                                                Orientation="Horizontal"
+                                                Spacing="5">
                                                 <icons:IconView
                                                     Foreground="{DynamicResource GreenColor}"
                                                     HeightRequest="20"
@@ -204,7 +228,7 @@
                                                     VerticalOptions="Center" />
                                             </StackLayout>
                                             <StackLayout
-                                                Grid.Column="1"
+                                                Grid.Row="1"
                                                 Orientation="Horizontal"
                                                 Spacing="5">
                                                 <icons:IconView
@@ -221,7 +245,8 @@
                                                     VerticalOptions="Center" />
                                             </StackLayout>
                                             <StackLayout
-                                                Grid.Column="2"
+                                                Grid.Row="1"
+                                                Grid.Column="1"
                                                 Orientation="Horizontal"
                                                 Spacing="5">
                                                 <icons:IconView

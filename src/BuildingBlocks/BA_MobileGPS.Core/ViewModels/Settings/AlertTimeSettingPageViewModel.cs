@@ -98,6 +98,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     return await alertService.SendAlertUserConfig(new AlertUserConfigurationsRequest()
                     {
+                        Id = AlertConfigRequest.Id,
                         FK_CompanyID = AlertConfigRequest.FK_CompanyID,
                         FK_UserID = AlertConfigRequest.FK_UserID,
                         AlertTypeIDs = AlertConfigRequest.AlertTypeIDs,
@@ -184,26 +185,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     var check = ListTimeCheckBox.All(l => l.IsVisible);
                     IsAllTimeSelected = check;
-
-                    //var start = ListTimeCheckBox.Where(x => x.IsVisible).FirstOrDefault();
-                    //if (start != null)
-                    //{
-                    //    SelectedStartTime = start;
-                    //}
-                    //else
-                    //{
-                    //    SelectedStartTime = ListTime.FirstOrDefault();
-                    //}
-
-                    //var end = ListTimeCheckBox.Where(x => x.IsVisible).LastOrDefault();
-                    //if (end != null)
-                    //{
-                    //    SelectedEndTime = end;
-                    //}
-                    //else
-                    //{
-                    //    SelectedEndTime = ListTime.FirstOrDefault();
-                    //}
                 }
             });
         }

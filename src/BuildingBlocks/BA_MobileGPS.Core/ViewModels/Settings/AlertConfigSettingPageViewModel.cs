@@ -6,7 +6,6 @@ using Prism.Commands;
 using Prism.Navigation;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 
@@ -113,7 +112,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 //var list = await alertService.GetAlertCompanyConfig(UserInfo.CompanyId);
 
-                var list = await alertService.GetAlertTypeAsync(UserInfo.UserId, CultureInfo.CurrentCulture.Name);
+                var list = await alertService.GetAlertTypeAsync(CurrentComanyID);
 
                 DependencyService.Get<IHUDProvider>().Dismiss();
                 if (list != null && list.Count > 0)
@@ -121,7 +120,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     var result = new List<AlertCompanyConfigRespone>();
                     list.ForEach(x =>
                     {
-                        result.Add(new AlertCompanyConfigRespone { FK_AlertTypeID = x.PK_AlertTypeID, Name = x.Name });
+                        result.Add(new AlertCompanyConfigRespone { FK_AlertTypeID = x.Id, Name = x.Name });
                     });
 
                     ListAlertCompanyConfig = new ObservableCollection<AlertCompanyConfigRespone>(result);
@@ -174,6 +173,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     var alertConfigRequest = new AlertUserConfigurationsRequest()
                     {
+                        Id = AlertConfigRespone.Id,
                         FK_UserID = UserInfo.UserId,
                         FK_CompanyID = UserInfo.CompanyId,
                         AlertTypeIDs = AlertTypeIDs,

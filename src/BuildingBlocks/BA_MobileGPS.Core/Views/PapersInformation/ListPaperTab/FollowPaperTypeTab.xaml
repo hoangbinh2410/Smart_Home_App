@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="BA_MobileGPS.Core.Views.FollowPaperTypeTab"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:busyIndicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:dataSource="clr-namespace:Syncfusion.DataSource;assembly=Syncfusion.DataSource.Portable"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:local="clr-namespace:BA_MobileGPS.Core.Converters"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentView.Resources>
+        <Style TargetType="busyIndicator:SfBusyIndicator">
+            <Setter Property="AnimationType" Value="Cupertino" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="EnableAnimation" Value="True" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="ViewBoxHeight" Value="50" />
+            <Setter Property="ViewBoxWidth" Value="50" />
+            <Setter Property="Duration" Value="0.8" />
+        </Style>
+        <local:BoolToImageConverter x:Key="BoolToImageConverter" />
+
+        <DataTemplate x:Key="groupHeader">
+            <StackLayout
+                BackgroundColor="{DynamicResource PrimaryColor}"
+                HeightRequest="40"
+                Orientation="Horizontal">
+                <StackLayout
+                    Padding="10,0,0,0"
+                    HorizontalOptions="Start"
+                    Orientation="Horizontal"
+                    VerticalOptions="Center">
+                    <Label
+                        FontSize="Medium"
+                        Text="{Binding Key}"
+                        TextColor="{DynamicResource WhiteColor}" />
+
+                </StackLayout>
+                <controls:IconView
+                    Margin="0,0,20,0"
+                    Foreground="{DynamicResource WhiteColor}"
+                    HeightRequest="20"
+                    HorizontalOptions="EndAndExpand"
+                    Source="{Binding IsExpand, Converter={StaticResource BoolToImageConverter}}"
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
+            </StackLayout>
+        </DataTemplate>
+
+        <DataTemplate x:Key="itemTemplate">
+            <Grid RowDefinitions="*,*,1" RowSpacing="10">
+                <StackLayout Padding="20,0" Orientation="Horizontal">
+                    <controls:IconView
+                        Foreground="{DynamicResource PrimaryColor}"
+                        HeightRequest="20"
+                        Source="ic_vehiclesolid"
+                        WidthRequest="20" />
+                    <Label
+                        Text="{Binding VehiclePlate}"
+                        TextColor="{DynamicResource PrimaryColor}"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center" />
+                    <Label
+                        HorizontalOptions="EndAndExpand"
+                        Text="{Binding ExpireDateDisplay}"
+                        TextColor="{DynamicResource TextSecondaryColor}"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center" />
+                </StackLayout>
+                <Label
+                    Grid.Row="1"
+                    Margin="0,0,20,0"
+                    HorizontalOptions="End"
+                    Text="{Binding RemainDate}"
+                    TextColor="{Binding RemainDateColor}" />
+                <BoxView Grid.Row="2" StyleClass="SlimLine" />
+            </Grid>
+        </DataTemplate>
+    </ContentView.Resources>
+
+    <Grid>
+        <StackLayout Spacing="10">
+            <!--  Filter area  -->
+            <Grid
+                Margin="10,10,10,0"
+                ColumnDefinitions="*,*"
+                MinimumHeightRequest="50">
+                <pancake:PancakeView
+                    Padding="0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    CornerRadius="19"
+                    HeightRequest="38"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center">
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow
+                            BlurRadius="2"
+                            Offset="0,0"
+                            Color="Black" />
+                    </pancake:PancakeView.Shadow>
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectPaperTypeCommand}" />
+                    </pancake:PancakeView.GestureRecognizers>
+                    <StackLayout
+                        Padding="10,0"
+                        HorizontalOptions="FillAndExpand"
+                        InputTransparent="True"
+                        Orientation="Horizontal"
+                        VerticalOptions="Center">
+                        <Entry
+                            HorizontalOptions="FillAndExpand"
+                            InputTransparent="True"
+                            Text="{Binding PaperTypeName}"
+                            TextColor="{DynamicResource TextPrimaryColor}"
+                            VerticalOptions="Center">
+                            <Entry.Effects>
+                                <effects:BorderlessEffect />
+                            </Entry.Effects>
+                        </Entry>
+                        <controls:IconView
+                            Foreground="{DynamicResource BlackColor}"
+                            HeightRequest="15"
+                            HorizontalOptions="End"
+                            Source="ic_sortdown"
+                            VerticalOptions="Center"
+                            WidthRequest="15" />
+                    </StackLayout>
+                </pancake:PancakeView>
+                <pancake:PancakeView
+                    Grid.Column="1"
+                    Padding="0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    CornerRadius="19"
+                    HeightRequest="38"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center">
+                    <pancake:PancakeView.Shadow>
+                        <pancake:DropShadow
+                            BlurRadius="2"
+                            Offset="0,0"
+                            Color="Black" />
+                    </pancake:PancakeView.Shadow>
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectAlertTypeCommand}" />
+                    </pancake:PancakeView.GestureRecognizers>
+                    <StackLayout
+                        Padding="10,0"
+                        HorizontalOptions="FillAndExpand"
+                        InputTransparent="True"
+                        Orientation="Horizontal"
+                        VerticalOptions="Center">
+                        <Entry
+                            HorizontalOptions="FillAndExpand"
+                            InputTransparent="True"
+                            Text="{Binding AlertTypeName}"
+                            TextColor="{DynamicResource TextPrimaryColor}"
+                            VerticalOptions="Center">
+                            <Entry.Effects>
+                                <effects:BorderlessEffect />
+                            </Entry.Effects>
+                        </Entry>
+                        <controls:IconView
+                            Foreground="{DynamicResource BlackColor}"
+                            HeightRequest="15"
+                            HorizontalOptions="End"
+                            Source="ic_sortdown"
+                            VerticalOptions="Center"
+                            WidthRequest="15" />
+                    </StackLayout>
+                </pancake:PancakeView>
+            </Grid>
+          
+                <syncfusion:SfListView
+                    x:Name="listView"
+                    Margin="0"
+                    AllowGroupExpandCollapse="True"
+                    AutoFitMode="DynamicHeight"
+                    GroupHeaderTemplate="{StaticResource groupHeader}"
+                    IsScrollingEnabled="True"
+                    ItemSpacing="0,2"
+                    ItemTemplate="{StaticResource itemTemplate}"
+                    ItemsSource="{Binding AllPapers}"
+                    ItemsSourceChangeCachingStrategy="ClearItems"
+                    ListViewCachingStrategy="CreateNewTemplate"
+                    SelectionBackgroundColor="Transparent"
+                    TapCommand="{Binding SelectPaperCommand}">
+                    <syncfusion:SfListView.DataSource>
+                        <dataSource:DataSource>
+                            <dataSource:DataSource.GroupDescriptors>
+                                <dataSource:GroupDescriptor PropertyName="PaperCategoryName" />
+                            </dataSource:DataSource.GroupDescriptors>
+                        </dataSource:DataSource>
+                    </syncfusion:SfListView.DataSource>
+                </syncfusion:SfListView>
+           
+        </StackLayout>
+        <StackLayout
+            BackgroundColor="Transparent"
+            HorizontalOptions="Center"
+            IsVisible="{Binding AllPapers, Converter={StaticResource IsEmptyDataConverter}}"
+            Spacing="10"
+            VerticalOptions="Center">
+            <!--  Image for display svg image  -->
+            <ffsvg:SvgCachedImage
+                HeightRequest="200"
+                Source="NoItem.svg"
+                VerticalOptions="Center"
+                WidthRequest="200" />
+            <!--  Label to display content  -->
+            <Label Text="{i18n:TranslateResource Common_Message_NoData}" VerticalTextAlignment="Center" />
+        </StackLayout>
+
+        <busyIndicator:SfBusyIndicator IsBusy="{Binding IsBusy}" />
+    </Grid>
+
+</ContentView>

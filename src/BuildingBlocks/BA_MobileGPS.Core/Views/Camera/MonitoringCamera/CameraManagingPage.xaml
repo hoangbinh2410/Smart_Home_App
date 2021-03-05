@@ -3,7 +3,6 @@
     x:Class="BA_MobileGPS.Core.Views.CameraManagingPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:abstractions="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
@@ -229,7 +228,7 @@
                                                     HeightRequest="25"
                                                     Source="ic_reload"
                                                     WidthRequest="25" />
-                                                <abstractions:HtmlLabel
+                                                <Label
                                                     x:Name="lblErr"
                                                     FontSize="13"
                                                     HorizontalOptions="Center"

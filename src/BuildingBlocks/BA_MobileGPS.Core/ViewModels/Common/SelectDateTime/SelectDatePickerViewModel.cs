@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
 
 using Prism.Events;
@@ -118,7 +119,9 @@ namespace BA_MobileGPS.Core.ViewModels
                                 PickerType = PickerType
                             };
                             _eventAggregator.GetEvent<SelectDateTimeEvent>().Publish(input);
-                            await _navigationService.GoBackAsync();
+                            var param = new NavigationParameters();
+                            param.Add(ParameterKey.DateResponse, input);
+                            await _navigationService.GoBackAsync(param);
                         }
                     }
                     catch (Exception ex)

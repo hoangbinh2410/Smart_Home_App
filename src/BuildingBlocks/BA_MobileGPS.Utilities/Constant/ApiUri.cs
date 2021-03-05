@@ -31,21 +31,21 @@
 
         public const string GET_NOTIFICATION = "api/v2/notification/getnotification";
 
-        public const string GET_LIST_NOTIFICATION = "api/notification/listnotification";
+        public const string GET_LIST_NOTIFICATION = "api/v2/notification/listnotification";
 
-        public const string GET_NOTIFICATION_DETAIL = "api/notification/notificationdetail";
+        public const string GET_NOTIFICATION_DETAIL = "api/v2/notification/notificationdetail";
 
-        public const string GET_NOTIFICATION_BODY = "api/notification/notificationbody";
+        public const string GET_NOTIFICATION_BODY = "api/v2/notification/notificationbody";
 
-        public const string POST_UPDATEISREAD_NOTIFICATION = "api/notification/updateisread";
+        public const string POST_UPDATEISREAD_NOTIFICATION = "api/v2/notification/updateisread";
 
-        public const string POST_DELETE_NOTIFICATION_BYUSER = "api/notification/deletenoticebyuser";
+        public const string POST_DELETE_NOTIFICATION_BYUSER = "api/v2/notification/deletenoticebyuser";
 
-        public const string POST_DELETERANGE_NOTIFICATION_BYUSER = "api/notification/deleterangenoticebyuser";
+        public const string POST_DELETERANGE_NOTIFICATION_BYUSER = "api/v2/notification/deleterangenoticebyuser";
 
-        public const string GET_NOTIFICATION_WHEN_LOGIN = "api/notification/notificationwhenlogin";
+        public const string GET_NOTIFICATION_WHEN_LOGIN = "api/v2/notification/notificationwhenlogin";
 
-        public const string GET_NOTIFICATION_AFTER_LOGIN = "api/notification/notificationafterlogin";
+        public const string GET_NOTIFICATION_AFTER_LOGIN = "api/v2/notification/notificationafterlogin";
 
         public const string POST_INSERT_FEEDBACK_NOTIFICATION_BYUSER = "api/notification/insertfeedbackbyuser";
 
@@ -81,15 +81,15 @@
 
         public const string GET_COUNT_ALERT_ONLINE = "api/v2/alerts/countalert";
 
-        public const string GET_ALERT_TYPE = "api/alerts/getalerttype";
+        public const string GET_ALERT_TYPE = "api/v2/alerts/getalerttypebycompanyid";
 
         public const string POST_ALERT_HANDLE = "api/alerts/handlealert";
 
         public const string GET_LIST_ALERT_COMPANY_CONFIG_BY_COMPANYID = "api/alerts/getalertcompanyconfig";
 
-        public const string GET_ALERT_USER_CONFIGURATIONS = "api/alerts/getalertuserconfigurations";
+        public const string GET_ALERT_USER_CONFIGURATIONS = "api/v2/alerts/getalertuserconfigurationbyuserid";
 
-        public const string SEND_ALERT_USER_CONFIG = "api/alerts/sendalertconfig";
+        public const string SEND_ALERT_USER_CONFIG = "api/v2/alerts/insertorupdateuseralertconfig";
 
         #endregion alert
 
@@ -213,6 +213,7 @@
         public const string POST_RESTREAM_UPLOAD = "api/stream/uploadcloud";
         public const string POST_RESTREAM_CANCELUPLOAD = "api/stream/canceluploadcloud";
         public const string POST_CHART_DATA = "api/stream/chartdata";
+        public const string GET_RESTREAM_DEVICETAB_VIDEO_INFOR = "api/v2/stream/restreamdevicetabvideo";
 
         #endregion Camera
 
@@ -278,6 +279,23 @@
         public const string POST_ADDORUPDATE_DRIVER = "api/driverinfor/insertorupdate";
 
         public const string POST_DELETE_DRIVER = "api/driverinfor/deletedriverbyid";
+        #endregion
+
+        #region PapersInformation
+        public const string GET_LIST_PAPER_CATEGORY = "api/paperinfor/getpapercategory";
+        public const string GET_LIST_INSURANCE_CATEGORY = "api/paperinfor/getinsurancecategories";
+        public const string GET_LAST_PAPER_INSURANCE = "api/paperinfor/getpaperinsurance";
+        public const string GET_LAST_PAPER_REGISTRATION = "api/paperinfor/getpaperregistration";
+        public const string GET_LAST_PAPER_SIGN = "api/paperinfor/getpapersign";
+        public const string POST_INSERT_PAPER_INSURANCE = "api/paperinfor/insertinsurancepaper";
+        public const string POST_INSERT_PAPER_REGISTRATION = "api/paperinfor/insertregistrationpaper";
+        public const string POST_INSERT_PAPER_SIGN = "api/paperinfor/insertsignpaper";
+        public const string POST_UPDATE_PAPER_INSURANCE = "api/paperinfor/updateinsurancepaper";
+        public const string POST_UPDATE_PAPER_REGISTRATION = "api/paperinfor/updateregistrationpaper";
+        public const string POST_UPDATE_PAPER_SIGN = "api/paperinfor/updatesignpaper";
+        public const string GET_LIST_ALL_PAPER = "api/paperinfor/getlistpaper";
+        public const string GET_LIST_ALL_PAPER_HISTORY = "api/paperinfor/getlistpaperhistory";
+        public const string GET_LAST_PAPER_DATE_BY_VEHICLE = "api/paperinfor/getlastpaperdatebyvehicle";
         #endregion
     }
 }

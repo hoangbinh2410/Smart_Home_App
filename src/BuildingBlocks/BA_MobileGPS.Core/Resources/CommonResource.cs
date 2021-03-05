@@ -155,6 +155,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string Common_Label_Year => Get(MobileResourceNames.Common_Label_Year, "Năm", "Year");
         public static string Common_Label_Month => Get(MobileResourceNames.Common_Label_Month, "Tháng", "Month");
         public static string Common_Label_Day => Get(MobileResourceNames.Common_Label_Day, "ngày", "day");
+        public static string Common_Label_DayUpper => Get(MobileResourceNames.Common_Label_DayUpper, "Ngày", "Day");
         public static string Common_Label_Days => Get(MobileResourceNames.Common_Label_Days, "ngày", "days");
         public static string Common_Label_Day2 => Get(MobileResourceNames.Common_Label_Day2, "N", "D");
         public static string Common_Label_Hour => Get(MobileResourceNames.Common_Label_Hour, "Giờ", "hour");

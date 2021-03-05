@@ -4443,6 +4443,18 @@
         ViewMessageOnline = 2001,
 
         TrackingVideosView = 1346,
-        TrackingOnlineByImagesView = 1345
+        TrackingOnlineByImagesView = 1345,
+        /// <summary>
+        /// Thêm mới giấy tờ phương tiện
+        /// </summary>
+        PaperAddNew = 2021,
+        /// <summary>
+        /// Xem thông tin giấy tờ phương tiện
+        /// </summary>
+        PaperView = 2022,
+        /// <summary>
+        /// Chỉnh sửa thông tin giấy tờ
+        /// </summary>
+        PaperUpdate = 2023
     }
 }

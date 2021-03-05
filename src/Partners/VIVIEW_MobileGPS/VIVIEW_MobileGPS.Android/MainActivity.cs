@@ -15,8 +15,6 @@ namespace VIVIEW_MobileGPS.Droid
         protected override void OnCreate(Bundle bundle)
         {
             Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
-            TabLayoutResource = Resource.Layout.Tabbar;
-            ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
 

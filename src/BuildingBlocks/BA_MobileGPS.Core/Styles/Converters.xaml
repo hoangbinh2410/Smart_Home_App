@@ -73,6 +73,6 @@
 
     <converters:MemoryStickConverter x:Key="MemoryStickConverter" />
 
-    <converters:HasPermisstionConverter x:Key="HasPermisstionConverter" />
+    <converters:HasPermisstionAlertConverter x:Key="HasPermisstionAlertConverter" />
 
 </ResourceDictionary>

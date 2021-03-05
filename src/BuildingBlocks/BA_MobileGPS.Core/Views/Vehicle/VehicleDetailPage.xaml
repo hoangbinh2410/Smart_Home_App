@@ -3,12 +3,11 @@
     x:Class="BA_MobileGPS.Core.Views.VehicleDetailPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:busyIndicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
-    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
-    xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:progressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     Title="{Binding Title}"
     NavigationPage.BackButtonTitle="">
@@ -17,6 +16,15 @@
             <converters:NMConverter x:Key="NMConverter" />
             <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
         </ResourceDictionary>
+        <Style TargetType="busyIndicator:SfBusyIndicator">
+            <Setter Property="AnimationType" Value="Cupertino" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="EnableAnimation" Value="True" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="ViewBoxHeight" Value="50" />
+            <Setter Property="ViewBoxWidth" Value="50" />
+            <Setter Property="Duration" Value="0.8" />
+        </Style>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem
@@ -1141,6 +1149,7 @@
                                             RowSpacing="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="20" />
                                                 <RowDefinition Height="1" />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
@@ -1175,8 +1184,17 @@
                                                 VerticalOptions="Center"
                                                 VerticalTextAlignment="Center" />
 
-                                            <BoxView
+                                            <!--  Using linear progress bar  -->
+                                            <progressBar:SfLinearProgressBar
                                                 Grid.Row="1"
+                                                Grid.ColumnSpan="2"
+                                                Progress="{Binding FuelProgress}"
+                                                ProgressColor="{StaticResource PrimaryColor}"
+                                                TrackColor="{StaticResource GrayColor}"
+                                                TrackHeight="8" />
+
+                                            <BoxView
+                                                Grid.Row="2"
                                                 Grid.ColumnSpan="2"
                                                 BackgroundColor="{StaticResource GrayColor}"
                                                 HeightRequest="0.5"
@@ -1806,7 +1824,7 @@
                         <!--  phần hiển thị thông tin chi tiết SIM  -->
                         <Grid
                             Grid.Row="4"
-                            IsVisible="{Binding InforDetail.DateOfRegistration, Converter={StaticResource HasDataConverter}}"
+                            IsVisible="{Binding ShowPaperInfor}"
                             RowSpacing="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -1842,11 +1860,12 @@
                                     <Grid Grid.Row="0" RowSpacing="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <!--  ngày đăng kiểm  -->
                                         <Grid
                                             Grid.Row="0"
-                                            IsVisible="{Binding InforDetail.DateOfRegistration, Converter={StaticResource HasDataConverter}}"
+                                            IsVisible="{Binding DateOfRegistration, Converter={StaticResource HasDataConverter}}"
                                             RowSpacing="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
@@ -1880,7 +1899,55 @@
                                                 Grid.Row="0"
                                                 Grid.Column="1"
                                                 HorizontalOptions="EndAndExpand"
-                                                Text="{Binding InforDetail.DateOfRegistration, Converter={StaticResource DateConverter}}"
+                                                Text="{Binding DateOfRegistration, Converter={StaticResource DateConverter}}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+
+                                            <BoxView
+                                                Grid.Row="1"
+                                                Grid.ColumnSpan="2"
+                                                BackgroundColor="{StaticResource GrayColor}"
+                                                HeightRequest="0.5"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="Start" />
+                                        </Grid>
+                                        <!--  ngày bảo hiểm  -->
+                                        <Grid
+                                            Grid.Row="1"
+                                            IsVisible="{Binding InsuranceDate, Converter={StaticResource HasDataConverter}}"
+                                            RowSpacing="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="1" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Padding="0,10,0,10"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal">
+                                                <controls:IconView
+                                                    Foreground="{StaticResource PrimaryColor}"
+                                                    HeightRequest="20"
+                                                    HorizontalOptions="Center"
+                                                    Source="ic_time_black.png"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="20" />
+                                                <Label
+                                                    Text="Ngày hết hạn bảo hiểm"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                            </StackLayout>
+
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                HorizontalOptions="EndAndExpand"
+                                                Text="{Binding InsuranceDate, Converter={StaticResource DateConverter}}"
                                                 VerticalOptions="Center"
                                                 VerticalTextAlignment="Center" />
 
@@ -1899,6 +1966,7 @@
                     </Grid>
                 </StackLayout>
             </ScrollView>
+            <busyIndicator:SfBusyIndicator Grid.RowSpan="2" IsBusy="{Binding IsBusy}" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -25,6 +25,11 @@ using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
+
+    /// <summary>
+    /// Thay đổi ngày 25/02/2021: Hiển thị tất cả các camera của xe (k check lỗi)
+    /// => lỗi sẽ dc trả về sua khi call start livestream
+    /// </summary>
     public class CameraManagingPageViewModel : ViewModelBase
     {
         #region internal property
@@ -62,7 +67,6 @@ namespace BA_MobileGPS.Core.ViewModels
             ReLoadCommand = new DelegateCommand<object>(Reload);
             itemsSource = new List<ChildStackSource>();
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
-            EventAggregator.GetEvent<RequestStartLiveStreamEvent>().Subscribe(RequestStartLiveStream);
         }
 
         #region Life Cycle
@@ -121,7 +125,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             ClearAllMediaPlayer();
             DependencyService.Get<IScreenOrientServices>().ForcePortrait();
-            EventAggregator.GetEvent<RequestStartLiveStreamEvent>().Unsubscribe(RequestStartLiveStream);
             LibVLC?.Dispose();
             LibVLC = null;
 
@@ -412,7 +415,7 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </summary>
         public ICommand ReLoadCommand { get; }
 
-        private void Reload(object obj)
+        private  void Reload(object obj)
         {
             try
             {
@@ -420,12 +423,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (item.Data != null)
                     {
-                        item.Clear();
-                        RunOnBackground(async () =>
-                        {
-                            await RequestStartCam(item.Data.Channel, false);
-                        });
-                        item.SetMedia(item.Data.Link);
+                        item.Clear();                     
+                        item.StartWorkUnit(Vehicle.VehiclePlate);
                     }
                 }
             }
@@ -498,42 +497,6 @@ namespace BA_MobileGPS.Core.ViewModels
         #region Private method
 
         /// <summary>
-        /// Gửi request start cho thiết bị
-        /// </summary>
-        /// <param name="chanel">kênh</param>
-        /// <param name="initMedia">có khởi tạo lần đàu không?</param>
-        /// <returns></returns>
-        private async Task<CameraManagement> RequestStartCam(int chanel, bool initMedia = true)
-        {
-            CameraManagement result = null;
-            var request = new StreamStartRequest()
-            {
-                Channel = chanel,
-                IMEI = currentIMEI,
-                VehiclePlate = Vehicle.VehiclePlate,
-                xnCode = currentXnCode
-            };
-
-            var camResponse = await _streamCameraService.StartStream(request);
-            var startResponse = camResponse?.Data?.FirstOrDefault();
-            if (startResponse != null)
-            {
-                // Gửi 1 request ping để chắc chắn lúc đầu là 10p
-                SendRequestTime(maxTimeCameraRemain, startResponse.Channel);
-                if (initMedia)
-                {
-                    result = new CameraManagement(maxLoadingTime, libVLC);
-                    if (result.Data != null)
-                    {
-                        result.Data = null;
-                    }
-                    result.Data = startResponse;
-                }
-            }
-            return result;
-        }
-
-        /// <summary>
         /// Lấy thông tin camera trên xe
         /// </summary>
         /// <param name="bks">Biển số xe</param>
@@ -553,15 +516,26 @@ namespace BA_MobileGPS.Core.ViewModels
                         currentIMEI = deviceResponseData.IMEI;
                         CurrentAddress = await _geocodeService.GetAddressByLatLng(deviceResponseData.Latitude.ToString(), deviceResponseData.Longitude.ToString());
                         CurrentTime = deviceResponseData.DeviceTime;
-                        var cameraActive = deviceResponseData.CameraChannels?.Where(x => x.IsPlug).ToList();
-                        var listCam = new List<CameraManagement>();
-                        foreach (var item in cameraActive)
+
+                        if (deviceResponseData.CameraChannels != null && deviceResponseData.CameraChannels.Count > 0)
                         {
-                            var res = await RequestStartCam(item.Channel);
-                            res.SetMedia(res.Data.Link);
-                            listCam.Add(res);
+                            var listCam = new List<CameraManagement>();
+                            foreach (var item in deviceResponseData.CameraChannels)
+                            {
+                                var request = new StreamStartRequest()
+                                {
+                                    Channel = item.Channel,
+                                    IMEI = currentIMEI,
+                                    VehiclePlate = Vehicle.VehiclePlate,
+                                    xnCode = currentXnCode
+                                };
+                               // var res = await RequestStartCam(item.Channel);                              
+                                var cam = new CameraManagement(maxLoadingTime, libVLC, _streamCameraService, request);                               
+                                listCam.Add(cam);
+                            }
+                            SetItemsSource(listCam);
                         }
-                        SetItemsSource(listCam);
+                      
                     }
                 }
             });
@@ -743,14 +717,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
                 }
-            });
-        }
-
-        private void RequestStartLiveStream(int channel)
-        {
-            RunOnBackground(async () =>
-            {
-                await RequestStartCam(channel, false);
             });
         }
 

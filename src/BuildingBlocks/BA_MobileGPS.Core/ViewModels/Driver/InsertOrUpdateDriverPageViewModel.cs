@@ -66,6 +66,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 AvartarDisplay = string.Empty;
                 AvartarDisplay = imageLocation;
             }
+            else if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
+            {
+                selectedVehicle = vehicle;
+                SelectedVehiclePlates = vehicle.VehiclePlate;
+            }
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -91,8 +96,16 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private string newAvatarPath { get; set; } = string.Empty;
+        private Vehicle selectedVehicle { get; set; }
 
         #region Binding Property
+
+        private string selectedVehiclePlates;
+        public string SelectedVehiclePlates
+        {
+            get { return selectedVehiclePlates; }
+            set { SetProperty(ref selectedVehiclePlates, value); }
+        }
 
         private string avartarDisplay;
 
@@ -308,14 +321,11 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </summary>
         private void SaveDriver()
         {
-            SafeExecute(() =>
+            SafeExecute(async () =>
             {
-                RunOnBackground(async () =>
-                {
-                    GetData();
-                    var res = await driverInforService.AddDriverInfor(Driver);
-                    return res;
-                }, res =>
+                GetData();
+                var res = await driverInforService.AddDriverInfor(Driver);
+                if (res != 0)
                 {
                     var param = new NavigationParameters();
                     param.Add("RefreshData", true);
@@ -332,13 +342,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else if (!IsInsertpage && res == Driver.PK_EmployeeID)
                     {
-                        NavigationService.GoBackAsync(param, true, true);
+                        await NavigationService.GoBackAsync(param, true, true);
                         DisplayMessage.ShowMessageSuccess(MobileResource.ListDriver_Messenger_UpdateSuccess, 5000);
                     }
-                    else PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification,
-                        MobileResource.ListDriver_Messenger_DuplicateData,
-                       MobileResource.Common_Button_OK);
-                });
+                }
+                else await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification,
+                    MobileResource.ListDriver_Messenger_DuplicateData,
+                   MobileResource.Common_Button_OK);
+
             });
         }
 
@@ -375,6 +386,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Driver.CreatedByUser = UserInfo.UserId;
                 }
+                Driver.FK_VehicleID = selectedVehicle == null ? 0 : selectedVehicle.VehicleId;
             }
             catch (Exception ex)
             {
@@ -421,8 +433,16 @@ namespace BA_MobileGPS.Core.ViewModels
                 gender = false;
             }
 
+            var birthDay = true;
+            if (BirthDay.Value.Date >= DateTime.Now.Date)
+            {
+                BirthDay.IsNotValid = true;
+                BirthDay.ErrorFirst = "Vui lòng nhập ngày sinh bé hơn ngày hiện tại";
+                birthDay = false;
+            }
+
             return name && address && mobile && cmt && overdate && licenseType && gender
-                && driverLicense && birthday && issuedate && expriDate;
+                && driverLicense && birthday && issuedate && expriDate && birthDay;
         }
 
         /// <summary>
@@ -482,7 +502,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 ValidationMessage = "Vui lòng nhập bằng lái hợp lệ"
             });
 
-            BirthDay.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + "ngày sinh" }); ;
+            BirthDay.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + "ngày sinh" });
             IssueDate.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + "ngày cấp bằng" });
             ExpiredDate.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + "ngày hết hạn bằng" });
         }
@@ -774,8 +794,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 SelectedGender = 0;
             }
             else SelectedGender = (byte)(driver.Sex + 1);
-
-          
+            if (driver.FK_VehicleID != null)
+            {
+                var temp = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == driver.FK_VehicleID);
+                if (temp != null)
+                {                 
+                    selectedVehicle = new Vehicle() { VehicleId = temp.VehicleId, VehiclePlate = temp.VehiclePlate };
+                    SelectedVehiclePlates = selectedVehicle.VehiclePlate;
+                }              
+            }
         }
 
         /// <summary>

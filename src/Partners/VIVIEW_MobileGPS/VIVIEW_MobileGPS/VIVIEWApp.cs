@@ -19,7 +19,7 @@ namespace VIVIEW_MobileGPS
         {
         }
 
-        public override string OneSignalKey => base.OneSignalKey;
+        public override string OneSignalKey => Config.OneSignalKey_VIVIEW;
 
         protected async override void OnInitialized()
         {

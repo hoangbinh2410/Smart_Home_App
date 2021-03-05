@@ -54,7 +54,7 @@
     <Grid RowDefinitions="*,2.8*">
         <Grid Padding="0">
             <ff:CachedImage
-                Aspect="AspectFill"
+                Aspect="Fill"
                 Source="bg_HomeTop.png"
                 VerticalOptions="FillAndExpand" />
         </Grid>
@@ -104,6 +104,7 @@
                         BackgroundColor="Transparent"
                         BadgeText="{Binding TotalAlertDisplay, Source={x:Static local:GlobalResources.Current}}"
                         HorizontalOptions="Center"
+                        IsVisible="{Binding UserInfo.Permissions, Converter={StaticResource HasPermisstionAlertConverter}}"
                         VerticalOptions="Center">
                         <badge:SfBadgeView.Content>
                             <controls:IconView
@@ -131,7 +132,7 @@
                 </StackLayout>
             </Grid>
             <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
-                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="0">
+                <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="0">
                     <pancake:PancakeView
                         Margin="10,5"
                         CornerRadius="10"
@@ -159,7 +160,6 @@
                                 HeightRequest="130"
                                 HorizontalScrollBarVisibility="Never"
                                 IndicatorView="indicatorFavourite"
-                                IsVisible="{Binding HasFavorite, Mode=OneWay}"
                                 ItemsSource="{Binding FavouriteMenuItems, Mode=OneWay}">
                                 <CarouselView.ItemTemplate>
                                     <DataTemplate>
@@ -256,7 +256,11 @@
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding PushWebCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
-                        <ff:CachedImage Aspect="Fill" StyleClass="HomePageBotImage" />
+                        <ff:CachedImage
+                            Aspect="Fill"
+                            HeightRequest="150"
+                            HorizontalOptions="Fill"
+                            StyleClass="HomePageBotImage" />
                     </pancake:PancakeView>
                 </Grid>
             </ScrollView>

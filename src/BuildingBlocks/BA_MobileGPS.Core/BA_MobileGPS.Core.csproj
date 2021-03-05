@@ -22,36 +22,36 @@
 	  <EmbeddedResource Include="Resources\Font\fa-solid-900.ttf" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="CardsView" Version="2.6.9" />
+		<PackageReference Include="CardsView" Version="2.7.0" />
 		<PackageReference Include="Prism.DryIoc.Forms" Version="8.0.0.1909" />
-		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.7" />
+		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.10" />
 		<PackageReference Include="LibVLCSharp.Forms" Version="3.4.9" />
-		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.4.0.32" />
-		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.4.0.32" />
-		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="18.4.0.32" />
-		<PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="18.4.0.32" />
-		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.4.0.32" />
-		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.4.0.32" />
-		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.4.0.32" />
-		<PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="18.4.0.32" />
-		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.4.0.32" />
-		<PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="18.4.0.32" />
-		<PackageReference Include="Syncfusion.Xamarin.SfChart" Version="18.4.0.32" />
-		<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="18.4.0.32" />
-		<PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="18.4.0.32" />
-		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.4.0.32" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.4.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.4.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="18.4.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="18.4.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.4.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.4.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="18.4.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.4.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="18.4.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.4.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="18.4.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfChart" Version="18.4.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="18.4.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="18.4.0.44" />
+		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.4.0.44" />
 		<PackageReference Include="Xam.Plugin.HtmlLabel" Version="5.0.0" />
 		<PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
 		<PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
-		<PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
-		<PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
-		<PackageReference Include="Com.OneSignal" Version="3.10.3" />
-		<PackageReference Include="Microsoft.AppCenter" Version="4.0.0" />
-		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.0.0" />
-		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.0.0" />
+		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+		<PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+		<PackageReference Include="Com.OneSignal" Version="3.10.4" />
+		<PackageReference Include="Microsoft.AppCenter" Version="4.1.0" />
+		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.1.0" />
+		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.1.0" />
 		<PackageReference Include="Plugin.Permissions" Version="6.0.1" />
 		<PackageReference Include="Sharpnado.Presentation.Forms" Version="1.7.1" />		
-		<PackageReference Include="Toasts.Forms.Plugin" Version="3.3.2" />
 		<PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
 		<PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.11.982" />
 		<PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
@@ -126,6 +126,12 @@
 	  </Compile>
 	  <Compile Update="Views\Online\OnlinePageNoCluster.xaml.cs">
 	    <DependentUpon>OnlinePageNoCluster.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\PapersInformation\ListPaperTab\FollowPaperTypeTab.xaml.cs">
+	    <DependentUpon>FollowPaperTypeTab.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\PapersInformation\ListPaperTab\FollowVehiclePlateTab.xaml.cs">
+	    <DependentUpon>FollowVehiclePlateTab.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Popup\BasePopup.xaml.cs">
 	    <DependentUpon>BasePopup.xaml</DependentUpon>
@@ -219,6 +225,9 @@
 	  <EmbeddedResource Update="Views\Authentication\LoginPreviewFeaturesPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Common\PopupHtmlPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Common\SelectDateTime\SelectRangeDateTime.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -235,6 +244,30 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Driver\ListDriverPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Authentication\ForgotPasswordPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\PapersInformation\ListPaperHistories\PaperHistoriesPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\PapersInformation\ListPaperTab\FollowPaperTypeTab.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\PapersInformation\ListPaperTab\FollowVehiclePlateTab.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\PapersInformation\ListPaperTab\ListPapersPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\PapersInformation\Insert\CabSignInfor.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\PapersInformation\Insert\InsuranceInfor.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\PapersInformation\Insert\InvalidPapersPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\ListVehicle\ListVehicleHelpPage.xaml">
@@ -331,6 +364,12 @@
 	  <EmbeddedResource Update="Views\Online\OnlinePage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\PapersInformation\Insert\RegistrationInfor.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\PapersInformation\SelectAlertTypePage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\PartialView\TitleBarView.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -350,6 +389,9 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Route\RouteView.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\PapersInformation\SelectPaperTypePage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Settings\AlertConfigSettingPage.xaml">

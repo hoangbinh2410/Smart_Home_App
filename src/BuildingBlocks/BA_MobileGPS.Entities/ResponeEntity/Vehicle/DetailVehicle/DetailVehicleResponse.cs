@@ -317,7 +317,6 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("36")]
         public float KmInMonth { set; get; }
 
-
         ////////////////////////////////////////
         /// <summary>
         /// ẩn hiện với đang đỗ

@@ -56,4 +56,18 @@ namespace BA_MobileGPS.Entities
         public string Link { get; set; }
     }
 
+    public class DeviceTabVideoInfoResponse : BaseResponse<List<RestreamVideoTimeInfo>>
+    {
+    }
+
+    public class RestreamVideoTimeInfo : VideoTimeInfo
+    {
+        [JsonProperty("i")]
+        public string Image { get; set; }
+        [JsonProperty("c")]
+        public byte Channel { get; set; }
+        [JsonProperty("d")]
+        public byte Duration { get; set; } = 0;
+    }
+
 }

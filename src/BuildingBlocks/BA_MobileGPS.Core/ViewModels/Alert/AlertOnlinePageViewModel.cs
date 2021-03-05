@@ -10,7 +10,6 @@ using Syncfusion.Data.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -111,8 +110,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         vehicleIDs = new List<long>() { SelectedVehicle.VehicleId };
                     }
 
-                    var alertType = StaticSettings.ListAlertType?.Find(a => a.PK_AlertTypeID == alert.WarningType);
-                    var alertTypeIDs = SelectedAlertType.PK_AlertTypeID == 0 ? string.Join(",", StaticSettings.ListAlertType.Select(t => t.PK_AlertTypeID)) : SelectedAlertType.PK_AlertTypeID.ToString();
+                    var alertType = StaticSettings.ListAlertType?.Find(a => a.Id == alert.WarningType);
+                    var alertTypeIDs = SelectedAlertType.Id == 0 ? string.Join(",", StaticSettings.ListAlertType.Select(t => t.Id)) : SelectedAlertType.Id.ToString();
 
                     var model = new AlertOnlineDetailModel
                     {
@@ -338,7 +337,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                string alertTypeIDs = SelectedAlertType.PK_AlertTypeID == 0 ? string.Join(",", StaticSettings.ListAlertType.Select(t => t.PK_AlertTypeID)) : SelectedAlertType.PK_AlertTypeID.ToString();
+                string alertTypeIDs = SelectedAlertType.Id == 0 ? string.Join(",", StaticSettings.ListAlertType.Select(t => t.Id)) : SelectedAlertType.Id.ToString();
 
                 string vehicleIDs = string.Empty;
                 if (string.IsNullOrEmpty(SelectedVehicle.VehiclePlate) || SelectedVehicle.VehicleId == 0)
@@ -422,7 +421,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     foreach (var item in StaticSettings.ListAlertType)
                     {
-                        listAllAlertType.Add(new ComboboxRequest { Key = Convert.ToInt32(item.PK_AlertTypeID), Value = item.Name });
+                        listAllAlertType.Add(new ComboboxRequest { Key = Convert.ToInt32(item.Id), Value = item.Name });
                     }
                 }
 
@@ -456,7 +455,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Task.Run(async () =>
                 {
-                    return await alertService.GetAlertTypeAsync(UserInfo.UserId, CultureInfo.CurrentCulture.Name);
+                    return await alertService.GetAlertTypeAsync(CurrentComanyID);
                 }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
                 {
                     if (task.Status == TaskStatus.RanToCompletion)
@@ -487,7 +486,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var dataResponse = param;
                 if (dataResponse.ComboboxType == (short)ComboboxType.First)
                 {
-                    SelectedAlertType = new AlertTypeModel() { Name = param.Value, PK_AlertTypeID = param.Key };
+                    SelectedAlertType = new AlertTypeModel() { Name = param.Value, Id = param.Key };
                 }
             }
         }
