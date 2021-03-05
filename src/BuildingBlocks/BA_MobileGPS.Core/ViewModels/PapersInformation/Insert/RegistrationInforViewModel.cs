@@ -191,6 +191,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
+        private Color alertMessengerColor;
+        public Color AlertMessengerColor
+        {
+            get { return alertMessengerColor; }
+            set { SetProperty(ref alertMessengerColor, value); }
+        }
 
         /// <summary>
         ///  Init validation rule cho các ô nhập dữ liệu
@@ -449,12 +455,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                     if (DateTime.Now.Date > paper.PaperInfo.ExpireDate.Date)
                     {
-                        AlertMessenger = string.Format("<font color=#E65353>{0}</font>", MobileResource.PaperInfor_Msg_Expired);
+                        AlertMessenger = MobileResource.PaperInfor_Msg_Expired;
+                        AlertMessengerColor = Color.FromHex("#E65353");
                         CreateButtonVisible = true;
                     }
                     else if (paper.PaperInfo.ExpireDate.Date.AddDays(-CompanyConfigurationHelper.DayAllowRegister) <= DateTime.Now.Date)
                     {
-                        AlertMessenger = string.Format("<font color=#F99B09>{0}</font>", MobileResource.PaperInfor_Msg_NearExpire);
+                        AlertMessenger = MobileResource.PaperInfor_Msg_NearExpire;
+                        AlertMessengerColor = Color.FromHex("#F99B09");
                         CreateButtonVisible = true;
                     }
                 }

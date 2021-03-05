@@ -85,7 +85,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = "NavigationPage/HelperPage",
                 MenuType = MenuType.DeviceManual,
-                IsEnable = true,
+                IsEnable = MobileSettingHelper.UseHelper,
                 IconColor = Color.FromHex("#FF9900")
             });
             // Giới thiệu BAGPS

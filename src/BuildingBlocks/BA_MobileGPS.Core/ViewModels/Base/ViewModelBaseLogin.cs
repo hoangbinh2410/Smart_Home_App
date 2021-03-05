@@ -1,10 +1,8 @@
 ﻿using BA_MobileGPS.Core.Helpers;
-using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Utilities;
 using Prism;
 using Prism.AppModel;
 using Prism.Commands;
-using Prism.Events;
 using Prism.Ioc;
 using Prism.Navigation;
 using Prism.Services;
@@ -49,6 +47,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             Connectivity.ConnectivityChanged -= OnConnectivityChanged;
         }
+
         public virtual void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
             RaisePropertyChanged(nameof(IsConnected));
