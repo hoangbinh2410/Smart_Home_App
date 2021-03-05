@@ -78,6 +78,7 @@
                                 Grid.Column="0"
                                 Margin="10"
                                 HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
                                 LineBreakMode="WordWrap"
                                 Text="{Binding CompanyName}"
                                 TextColor="#596a88"
