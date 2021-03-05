@@ -20,7 +20,7 @@
                 HorizontalOptions="Start"
                 IsVisible="{Binding CreateButtonVisible}"
                 Text="{Binding AlertMessenger}"
-                TextType="Html" />
+                TextColor="{Binding AlertMessengerColor}" />
             <!--  Mã số  -->
             <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                 <Label.FormattedText>
