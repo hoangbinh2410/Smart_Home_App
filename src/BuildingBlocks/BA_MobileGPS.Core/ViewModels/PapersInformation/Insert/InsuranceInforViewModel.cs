@@ -197,6 +197,13 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        private Color alertMessengerColor;
+        public Color AlertMessengerColor
+        {
+            get { return alertMessengerColor; }
+            set { SetProperty(ref alertMessengerColor, value); }
+        }
+
         private List<InsuranceCategory> listInsuranceType;
 
         public List<InsuranceCategory> ListInsuranceType
@@ -496,12 +503,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                     if (DateTime.Now > paper.PaperInfo.ExpireDate)
                     {
-                        AlertMessenger = string.Format("<font color=#E65353>{0}</font>", MobileResource.PaperInfor_Msg_Expired);
+                        AlertMessenger =  MobileResource.PaperInfor_Msg_Expired;
+                        AlertMessengerColor = Color.FromHex("#E65353");
                         CreateButtonVisible = true;
                     }
                     else if (paper.PaperInfo.ExpireDate.AddDays(-CompanyConfigurationHelper.DayAllowRegister) <= DateTime.Now)
                     {
-                        AlertMessenger = string.Format("<font color=#F99B09>{0}</font>", MobileResource.PaperInfor_Msg_NearExpire);
+                        AlertMessenger = MobileResource.PaperInfor_Msg_NearExpire;
+                        AlertMessengerColor = Color.FromHex("#F99B09");
                         CreateButtonVisible = true;
                     }
                 }
