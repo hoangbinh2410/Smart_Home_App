@@ -22,8 +22,9 @@
         HorizontalOptions="FillAndExpand"
         Spacing="0"
         VerticalOptions="FillAndExpand">
+
         <inputLayout:SfTextInputLayout
-            Margin="10,0,10,0"
+            Margin="10"
             Padding="0"
             ContainerType="Outlined"
             HorizontalOptions="FillAndExpand"
@@ -43,6 +44,7 @@
                 </Entry.Behaviors>
             </Entry>
         </inputLayout:SfTextInputLayout>
+
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <sfList:SfListView
                 AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -76,6 +78,7 @@
                                 Grid.Column="0"
                                 Margin="10"
                                 HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
                                 LineBreakMode="WordWrap"
                                 Text="{Binding CompanyName}"
                                 TextColor="#596a88"
@@ -102,7 +105,7 @@
             <StackLayout
                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                 AbsoluteLayout.LayoutFlags="All"
-               BackgroundColor="{DynamicResource WhiteColor}"
+                BackgroundColor="{DynamicResource WhiteColor}"
                 IsVisible="{Binding HasCompany, Converter={StaticResource InvertBooleanConverter}}"
                 Spacing="10">
                 <!--  Image for display svg image  -->

@@ -48,15 +48,15 @@
                 Grid.Column="2"
                 HorizontalOptions="End"
                 Orientation="Horizontal">
-                <controls:FontAwesomeIcon
+                <controls:IconView
                     Margin="5,0,10,0"
                     IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
-                    StyleClass="TopIconView"
-                    Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
-                    <controls:FontAwesomeIcon.GestureRecognizers>
+                    Source="ic_company.png"
+                    StyleClass="TopIconView">
+                    <controls:IconView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
-                    </controls:FontAwesomeIcon.GestureRecognizers>
-                </controls:FontAwesomeIcon>
+                    </controls:IconView.GestureRecognizers>
+                </controls:IconView>
             </StackLayout>
         </Grid>
     </NavigationPage.TitleView>

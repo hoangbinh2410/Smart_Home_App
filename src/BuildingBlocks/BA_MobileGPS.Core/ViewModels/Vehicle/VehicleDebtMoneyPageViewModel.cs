@@ -95,12 +95,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 isLoginAnnountment = init;
             }
         }
+
         private bool isLoginAnnountment { get; set; }
 
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
         }
+
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
             if (isLoginAnnountment)
@@ -179,9 +181,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 // gọi vào server để lấy ra dữ liệu
                 if (StaticSettings.ListVehilceDebtMoney == null || StaticSettings.ListVehilceDebtMoney.Count <= 0)
                 {
+                    var userID = UserInfo.UserId;
+                    if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                    {
+                        userID = Settings.CurrentCompany.UserId;
+                    }
+
                     RunOnBackground(async () =>
                     {
-                        return await vehicleDebtMoneyService.LoadAllVehicleDebtMoney(UserInfo.UserId);
+                        return await vehicleDebtMoneyService.LoadAllVehicleDebtMoney(userID);
                     }, (response) =>
                     {
                         if (response != null && response.Count() > 0)
@@ -216,9 +224,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 // gọi vào server để lấy ra dữ liệu
                 if (StaticSettings.ListVehilceFree == null || StaticSettings.ListVehilceFree.Count <= 0)
                 {
+                    var userID = UserInfo.UserId;
+                    if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
+                    {
+                        userID = Settings.CurrentCompany.UserId;
+                    }
                     RunOnBackground(async () =>
                     {
-                        return await vehicleDebtMoneyService.LoadAllVehicleFree(UserInfo.UserId);
+                        return await vehicleDebtMoneyService.LoadAllVehicleFree(userID);
                     }, (response) =>
                     {
                         if (response != null && response.Count() > 0)

@@ -163,7 +163,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         for (int i = 0; i < level; i++)
                         {
-                            company.CompanyName = "-" + company.CompanyName;
+                            company.CompanyName = "- " + company.CompanyName;
                         }
 
                         listCompany.Add(company);
