@@ -1,0 +1,12 @@
+﻿"CFBundleDisplayName" = "GISVIET";
+"CFBundleName" = "GISVIET";
+
+"NSLocationAlwaysUsageDescription" = "GISVIET cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
+"NSLocationWhenInUseUsageDescription" = "GISVIET cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
+"NSLocationUsageDescription" = "GISVIET cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
+"NSLocationAlwaysAndWhenInUseUsageDescription"="GISVIET cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
+"NSCalendarsUsageDescription"="GISVIET cần bạn cho phép truy cập lịch của bạn để chọn thời gian, bạn có cho phép ứng dụng truy cập lịch của bạn không?";
+"NSCameraUsageDescription"="GISVIET cần bạn cho phép truy cập camera của bạn để chụp ảnh, bạn có cho phép ứng dụng truy cập camera của bạn không?";
+"NSPhotoLibraryUsageDescription"="GISVIET cần bạn cho phép truy cập thư viện ảnh để lấy ảnh của bạn, bạn có cho phép ứng dụng truy cập thư viện hình ảnh của bạn không?";
+"NSMicrophoneUsageDescription"="GISVIET cần bạn cho phép truy cập micro để quay video, bạn có cho phép ứng dụng truy cập micro của bạn không?";
+"NSPhotoLibraryAddUsageDescription"="GISVIET cần bạn cho phép truy cập thư viện ảnh để lấy ảnh của bạn, bạn có cho phép ứng dụng truy cập thư viện hình ảnh của bạn không?";
