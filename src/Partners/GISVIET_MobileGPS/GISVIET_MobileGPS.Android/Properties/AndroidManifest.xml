@@ -30,7 +30,7 @@
 	</queries>
 	<permission android:name="vn.gisvietgps.gpsmobile.OneSignl.permission.C2D_MESSAGE" android:protectionLevel="signature" />
 	<uses-permission android:name="vn.gisvietgps.gpsmobile.permission.C2D_MESSAGE" />
-	<application android:label="GISVIET GPS" android:icon="@mipmap/ic_launcher" android:usesCleartextTraffic="true" android:requestLegacyExternalStorage="true">
+	<application android:label="GISVIET" android:icon="@mipmap/ic_launcher" android:usesCleartextTraffic="true" android:requestLegacyExternalStorage="true">
 		<receiver android:name="com.onesignal.GcmBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
 			<intent-filter>
 				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
