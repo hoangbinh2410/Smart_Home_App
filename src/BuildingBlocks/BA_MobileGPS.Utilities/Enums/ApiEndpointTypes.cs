@@ -22,7 +22,7 @@ namespace BA_MobileGPS.Utilities.Enums
         [Description("http://apiviview.bagroup.vn")]
         ServerVIVIEW,
 
-        [Description("http://125.212.226.154:4990")]
+        [Description("http://apiviview.bagroup.vn")]
         ServerGISVIET,
 
         [Description("http://apivms.bagroup.vn")]

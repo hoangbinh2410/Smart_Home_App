@@ -24,10 +24,10 @@ namespace GISVIET_MobileGPS
         {
             base.OnInitialized();
 
-            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerVIVIEW;
-            ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerVIVIEW;
-            ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerVIVIEW;
-            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerVIVIEW;
+            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerGISVIET;
+            ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerGISVIET;
+            ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerGISVIET;
+            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerGISVIET;
 
             Application.Current.Resources.MergedDictionaries.Add(new LightColor());
             Application.Current.Resources.MergedDictionaries.Add(new BA_MobileGPS.Core.Styles.Styles());
@@ -51,14 +51,13 @@ namespace GISVIET_MobileGPS
         {
             base.RegisterTypes(containerRegistry);
 
-            AppType = BA_MobileGPS.Entities.AppType.Viview;
+            AppType = BA_MobileGPS.Entities.AppType.GisViet;
 
             containerRegistry.RegisterForNavigation<BA_MobileGPS.Core.Views.HelperPage, HeplerViewModel>("HelperPage");
 
             //containerRegistry.Register<ResourceDictionary, LightColor>(Theme.Light.ToString());
             //containerRegistry.Register<ResourceDictionary, DarkColor>(Theme.Dark.ToString());
             //containerRegistry.Register<ResourceDictionary, VIVIEW_MobileGPS.Styles.Custom>(Theme.Custom.ToString());
-
         }
     }
 }
