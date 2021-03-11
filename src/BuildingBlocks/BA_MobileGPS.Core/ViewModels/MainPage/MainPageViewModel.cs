@@ -36,6 +36,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IIdentityHubService identityHubService;
         private readonly IVehicleOnlineHubService vehicleOnlineHubService;
         private readonly IAlertHubService alertHubService;
+        private readonly IUserBahaviorHubService userBahaviorHubService;
         private readonly IPingServerService pingServerService;
         private readonly IMapper _mapper;
         private readonly IPapersInforService papersInforService;
@@ -51,7 +52,7 @@ namespace BA_MobileGPS.Core.ViewModels
             IIdentityHubService identityHubService,
             IVehicleOnlineHubService vehicleOnlineHubService,
             IPingServerService pingServerService,
-            IAlertHubService alertHubService, IMapper mapper,
+            IAlertHubService alertHubService, IUserBahaviorHubService userBahaviorHubService, IMapper mapper,
             IPapersInforService papersInforService)
             : base(navigationService)
         {
@@ -65,6 +66,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this.identityHubService = identityHubService;
             this.vehicleOnlineHubService = vehicleOnlineHubService;
             this.alertHubService = alertHubService;
+            this.userBahaviorHubService = userBahaviorHubService;
             this.pingServerService = pingServerService;
             this._mapper = mapper;
 
@@ -74,6 +76,7 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<OnSleepEvent>().Subscribe(OnSleepPage);
             EventAggregator.GetEvent<SelectedCompanyEvent>().Subscribe(SelectedCompanyChanged);
             EventAggregator.GetEvent<OneSignalOpendEvent>().Subscribe(OneSignalOpend);
+            EventAggregator.GetEvent<UserBehaviorEvent>().Subscribe(OnUserBehavior);
         }
 
         #endregion Contructor
@@ -206,6 +209,14 @@ namespace BA_MobileGPS.Core.ViewModels
             DisconnectSignalR();
         }
 
+        private void OnUserBehavior(UserBehaviorModel obj)
+        {
+            if (obj != null && MobileSettingHelper.UseUserBehavior)
+            {
+                userBahaviorHubService.SendUserBehavior(UserInfo.UserId, obj.Page, (int)obj.Type, (int)App.AppType);
+            }
+        }
+
         #endregion Lifecycle
 
         #region Property
@@ -269,11 +280,16 @@ namespace BA_MobileGPS.Core.ViewModels
             identityHubService.onReceivePushLogoutToAllUserInCompany += onReceivePushLogoutToAllUserInCompany;
             identityHubService.onReceivePushLogoutToUser += onReceivePushLogoutToUser;
 
-            if (CheckPermision((int)PermissionKeyNames.AdminAlertView))
+            //if (CheckPermision((int)PermissionKeyNames.AdminAlertView))
+            //{
+            //    // Khởi tạo alertlR
+            //    await alertHubService.Connect();
+            //    alertHubService.onReceiveAlertSignalR += OnReceiveAlertSignalR;
+            //}
+            if (MobileSettingHelper.UseUserBehavior)
             {
-                // Khởi tạo alertlR
-                await alertHubService.Connect();
-                alertHubService.onReceiveAlertSignalR += OnReceiveAlertSignalR;
+                await userBahaviorHubService.Connect();
+                userBahaviorHubService.SendUserBehavior(UserInfo.UserId, "OnlinePage", (int)UserBehaviorType.Start, (int)App.AppType);
             }
         }
 
@@ -301,11 +317,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
             await vehicleOnlineHubService.Disconnect();
 
-            if (CheckPermision((int)PermissionKeyNames.AdminAlertView))
-            {
-                alertHubService.onReceiveAlertSignalR -= OnReceiveAlertSignalR;
+            //if (CheckPermision((int)PermissionKeyNames.AdminAlertView))
+            //{
+            //    alertHubService.onReceiveAlertSignalR -= OnReceiveAlertSignalR;
 
-                await alertHubService.Disconnect();
+            //    await alertHubService.Disconnect();
+            //}
+            if (MobileSettingHelper.UseUserBehavior)
+            {
+                await userBahaviorHubService.Disconnect();
             }
         }
 
@@ -673,7 +693,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         CompanyID = CurrentComanyID,
                         UserID = userID,
-                        ListVehicleIDs = string.Join(",", StaticSettings.ListVehilceOnline.Select(x=>x.VehicleId))
+                        ListVehicleIDs = string.Join(",", StaticSettings.ListVehilceOnline.Select(x => x.VehicleId))
                     };
                     RunOnBackground(async () =>
                     {

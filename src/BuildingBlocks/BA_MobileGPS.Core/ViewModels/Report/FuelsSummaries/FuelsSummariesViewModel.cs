@@ -122,6 +122,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 PrivateCode = request.VehiclePlate;
                 SearchDataCommand.Execute(null);
             }
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = "FuelsSummaries",
+                Type = UserBehaviorType.End
+            });
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -131,6 +136,16 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 PrivateCode = request.VehiclePlate;
             }
+        }
+
+        public override void OnDestroy()
+        {
+            base.Dispose();
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = "FuelsSummaries",
+                Type = UserBehaviorType.Start
+            });
         }
 
         /// <summary>Set dữ liệu đầu vào</summary>

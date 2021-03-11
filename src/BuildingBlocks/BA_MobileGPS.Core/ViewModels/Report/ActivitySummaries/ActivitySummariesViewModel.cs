@@ -39,7 +39,25 @@ namespace BA_MobileGPS.Core.ViewModels
 
             IsExportExcel = CheckPermision((int)PermissionKeyNames.ReportActivitySummaryExport);
         }
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = "ActivitySummaries",
+                Type = UserBehaviorType.End
+            });
+        }
 
+        public override void OnDestroy()
+        {
+            base.Dispose();
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = "ActivitySummaries",
+                Type = UserBehaviorType.Start
+            });
+        }
         public ICommand DetailVehicleCommand { get; private set; }
 
         public ICommand SelectJoinDayCommand { get; private set; }

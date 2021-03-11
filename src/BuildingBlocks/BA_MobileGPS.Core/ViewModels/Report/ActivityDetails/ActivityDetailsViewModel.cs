@@ -38,6 +38,26 @@ namespace BA_MobileGPS.Core.ViewModels
             IsExportExcel = CheckPermision((int)PermissionKeyNames.ReportActivityDetailExport);
         }
 
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = "ActivityDetails",
+                Type = UserBehaviorType.End
+            });
+        }
+
+        public override void OnDestroy()
+        {
+            base.Dispose();
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = "ActivityDetails",
+                Type = UserBehaviorType.Start
+            });
+        }
+
         public ICommand DetailVehicleCommand { get; private set; }
 
         // cấu hình không quá số ngày cho phép để tìm kiếm dữ liệu

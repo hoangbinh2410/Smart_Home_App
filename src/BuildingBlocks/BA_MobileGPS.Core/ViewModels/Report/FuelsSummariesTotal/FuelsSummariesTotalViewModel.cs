@@ -41,6 +41,26 @@ namespace BA_MobileGPS.Core.ViewModels
             IsExportExcel = CheckPermision((int)PermissionKeyNames.FuelConsumptionSummaryExport);
         }
 
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = "FuelsSummariesTotal",
+                Type = UserBehaviorType.End
+            });
+        }
+
+        public override void OnDestroy()
+        {
+            base.Dispose();
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = "FuelsSummariesTotal",
+                Type = UserBehaviorType.Start
+            });
+        }
+
         public ICommand DetailVehicleCommand { get; private set; }
 
         public ICommand DetailRedirectVehicleCommand { get; private set; }

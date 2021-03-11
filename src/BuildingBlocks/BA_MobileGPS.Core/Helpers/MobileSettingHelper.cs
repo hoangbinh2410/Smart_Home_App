@@ -228,5 +228,7 @@ namespace BA_MobileGPS.Core
 
         public static bool UseHelper => Get(MobileConfigurationNames.UseHelper, true);
 
+        public static bool UseUserBehavior => Get(MobileConfigurationNames.UseUserBehavior, true);
+
     }
 }

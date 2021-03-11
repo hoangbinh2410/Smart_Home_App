@@ -48,6 +48,26 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = "MachineVehicleReport",
+                Type = UserBehaviorType.End
+            });
+        }
+
+        public override void OnDestroy()
+        {
+            base.Dispose();
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = "MachineVehicleReport",
+                Type = UserBehaviorType.Start
+            });
+        }
+
         #region property
 
         // thuộc tính số phút tìm kiếm

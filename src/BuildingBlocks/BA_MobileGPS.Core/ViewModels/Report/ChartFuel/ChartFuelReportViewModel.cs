@@ -76,12 +76,22 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void Initialize(INavigationParameters parameters)
         {
-            //DependencyService.Get<IDeviceOrientationService>()?.ChangeOrientation(Orientation.Both);
+            base.Initialize(parameters);
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = "ChartFuelReport",
+                Type = UserBehaviorType.End
+            });
         }
 
         public override void OnDestroy()
         {
-            //DependencyService.Get<IDeviceOrientationService>()?.ChangeOrientation(Orientation.Portrait);
+            base.Dispose();
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = "ChartFuelReport",
+                Type = UserBehaviorType.Start
+            });
         }
 
         private void DateSelected()

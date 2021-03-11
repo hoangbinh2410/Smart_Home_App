@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Styles;
 using BA_MobileGPS.Utilities.Constant;
 using BA_MobileGPS.Utilities.Enums;
@@ -50,6 +51,7 @@ namespace BA_MobileGPS
         {
             base.RegisterTypes(containerRegistry);
             AppType = BA_MobileGPS.Entities.AppType.BinhAnh;
+            StaticSettings.AppType = (int)AppType;
         }
     }
 }

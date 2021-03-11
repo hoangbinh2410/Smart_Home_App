@@ -44,6 +44,26 @@ namespace BA_MobileGPS.Core.ViewModels
             IsExportExcel = CheckPermision((int)PermissionKeyNames.ReportSignalLossExport);
         }
 
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = "SignalLoss",
+                Type = UserBehaviorType.End
+            });
+        }
+
+        public override void OnDestroy()
+        {
+            base.Dispose();
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = "SignalLoss",
+                Type = UserBehaviorType.Start
+            });
+        }
+
         public ICommand DetailSignalLossCommand { get; private set; }
 
         public ICommand PushStatusSignalLossCommand { get; private set; }

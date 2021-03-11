@@ -131,6 +131,20 @@ namespace BA_MobileGPS.Core.ViewModels
             if (!IsActive)
             {
                 StopRoute();
+
+                EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+                {
+                    Page = "RoutePage",
+                    Type = UserBehaviorType.End
+                });
+            }
+            else
+            {
+                EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+                {
+                    Page = "RoutePage",
+                    Type = UserBehaviorType.Start
+                });
             }
         }
 
