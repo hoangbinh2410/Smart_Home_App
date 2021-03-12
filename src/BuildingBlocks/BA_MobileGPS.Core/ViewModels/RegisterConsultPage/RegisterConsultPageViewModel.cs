@@ -131,7 +131,7 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref _transportTypeItem, value); }
         }
 
-        private string _hotline = MobileSettingHelper.HotlineTeleSaleGps;
+        private string _hotline = MobileSettingHelper.HotlineGps;
 
         public string Hotline
         {
