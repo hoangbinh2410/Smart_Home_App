@@ -32,8 +32,8 @@ namespace GISVIET_MobileGPS
             Application.Current.Resources.MergedDictionaries.Add(new LightColor());
             Application.Current.Resources.MergedDictionaries.Add(new BA_MobileGPS.Core.Styles.Styles());
 
-            AppCenter.Start("ios=26e01862-0464-4767-994a-ccb280c938fe;" +
-             "android=52f713d7-5e8f-4769-8341-f36243ab690c",
+            AppCenter.Start("ios=2960e96a-dd49-457d-9746-bedaabf2b105;" +
+             "android=20f10440-fdec-4b3e-be24-3ba2a715fdd3",
                 typeof(Analytics), typeof(Crashes));
 
             //Nếu cài app lần đầu tiên hoặc có sự thay đổi dữ liệu trên server thì sẽ vào trang cập nhật thông tin vào localDB
