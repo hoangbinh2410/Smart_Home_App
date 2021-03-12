@@ -226,7 +226,7 @@ namespace BA_MobileGPS.Core
 
         public static bool VehicleOnlineAddressEnabled => Get(MobileConfigurationNames.VehicleOnlineAddressEnabled, true);
 
-        public static bool UseHelper => Get(MobileConfigurationNames.VehicleOnlineAddressEnabled, true);
+        public static bool UseHelper => Get(MobileConfigurationNames.UseHelper, true);
 
     }
 }
