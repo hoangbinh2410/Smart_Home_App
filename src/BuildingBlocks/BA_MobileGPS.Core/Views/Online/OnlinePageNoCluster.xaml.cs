@@ -159,8 +159,15 @@ namespace BA_MobileGPS.Core.Views
             {
                 if (StaticSettings.ListVehilceOnline != null)
                 {
-                    //nếu khóa BAP rồi thì ko hiển thị trên Map nữa
-                    return StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                    if (MobileSettingHelper.IsUseVehicleDebtMoney)
+                    {
+                        //nếu khóa BAP rồi thì ko hiển thị trên Map nữa
+                        return StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                    }
+                    else
+                    {
+                        return StaticSettings.ListVehilceOnline;
+                    }
                 }
                 else
                 {
