@@ -500,7 +500,11 @@ namespace BA_MobileGPS.Core.Views
                             vm.VehicleGroups = null;
                             HideBoxInfoCarActive(new VehicleOnline() { VehicleId = 1 });
                             var list = new List<VehicleOnline>();
-                            if (App.AppType == AppType.Viview)
+                            if (App.AppType == AppType.GisViet)
+                            {
+                                list = StaticSettings.ListVehilceOnline;
+                            }
+                            else if (App.AppType == AppType.Viview)
                             {
                                 list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128 && x.MessageId != 3).ToList();
                             }
