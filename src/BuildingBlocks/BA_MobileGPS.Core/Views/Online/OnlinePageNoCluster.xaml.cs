@@ -641,12 +641,12 @@ namespace BA_MobileGPS.Core.Views
         private void ShowBoxInfoCarActive(VehicleOnline carInfo, int messageId, int dataExt)
         {
             //nếu messageId==128 thì là xe dừng dịch vụ
-            if (messageId == 128)
-            {
-                pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
+            //if (messageId == 128)
+            //{
+            //    pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
 
-                return;
-            }
+            //    return;
+            //}
 
             //Nếu messageId=2 hoặc 3 là xe phải thu phí
             if (!StateVehicleExtension.IsVehicleDebtMoney(messageId, dataExt) || !MobileSettingHelper.IsUseVehicleDebtMoney)
