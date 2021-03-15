@@ -146,6 +146,9 @@ namespace BA_MobileGPS.Utilities.Constant
                     case ServerIdentityHubTypes.ServerVIVIEW:
                         return ServerIdentityHubTypes.ServerVIVIEW.ToDescription();
 
+                    case ServerIdentityHubTypes.ServerGISVIET:
+                        return ServerIdentityHubTypes.ServerGISVIET.ToDescription();
+
                     case ServerIdentityHubTypes.ServerVMS:
                         return ServerIdentityHubTypes.ServerVMS.ToDescription();
 
@@ -183,6 +186,9 @@ namespace BA_MobileGPS.Utilities.Constant
                     case ServerVehicleOnlineHubTypes.ServerVIVIEW:
                         return ServerVehicleOnlineHubTypes.ServerVIVIEW.ToDescription();
 
+                    case ServerVehicleOnlineHubTypes.ServerGISVIET:
+                        return ServerVehicleOnlineHubTypes.ServerGISVIET.ToDescription();
+
                     case ServerVehicleOnlineHubTypes.ServerVMS:
                         return ServerVehicleOnlineHubTypes.ServerVMS.ToDescription();
 
@@ -219,6 +225,9 @@ namespace BA_MobileGPS.Utilities.Constant
 
                     case ServerAlertHubTypes.ServerVIVIEW:
                         return ServerAlertHubTypes.ServerVIVIEW.ToDescription();
+
+                    case ServerAlertHubTypes.ServerGISVIET:
+                        return ServerAlertHubTypes.ServerGISVIET.ToDescription();
 
                     case ServerAlertHubTypes.ServerVMS:
                         return ServerAlertHubTypes.ServerVMS.ToDescription();
