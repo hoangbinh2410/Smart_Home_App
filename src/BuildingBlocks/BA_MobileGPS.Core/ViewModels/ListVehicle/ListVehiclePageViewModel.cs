@@ -489,7 +489,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (args.ItemData is VehicleOnlineViewModel selected)
                 {
                     //Nếu messageId = 2 hoặc 3 là xe phải thu phí
-                    if (StateVehicleExtension.IsVehicleStopService(selected.MessageId))
+                    if (StateVehicleExtension.IsVehicleStopService(selected.MessageId) && MobileSettingHelper.IsUseVehicleDebtMoney)
                     {
                         var mes = string.IsNullOrEmpty(selected.MessageDetailBAP) ? selected.MessageBAP : selected.MessageDetailBAP;
                         ShowInfoMessageDetailBAP(mes);
@@ -640,7 +640,7 @@ namespace BA_MobileGPS.Core.ViewModels
                           { ParameterKey.Vehicle, param }
                      };
 
-                   var a = await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
+                    var a = await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
                 }
             });
         }
