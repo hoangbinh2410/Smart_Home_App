@@ -44,7 +44,7 @@
                 Source="ic_close.png"
                 VerticalOptions="Center">
                 <image:CachedImage.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                    <TapGestureRecognizer Command="{Binding CloseDriverPageCommand}" />
                 </image:CachedImage.GestureRecognizers>
             </image:CachedImage>
             <Label
