@@ -183,6 +183,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (IsConnected)
                 {
+                   
                     if (Validate())
                     {
                         using (new HUDService())
@@ -212,10 +213,12 @@ namespace BA_MobileGPS.Core.ViewModels
                                 case (int)RegisterConsultEnum.Success:
                                     Device.BeginInvokeOnMainThread(async () =>
                                     {
+                                        var content = MobileResource.RegisterConsult_Message_SuccessRegister.Replace("\\n", "<br>");
+
                                         var p = new NavigationParameters
                                         {
                                             { "TitlePopup", MobileResource.Common_Label_BAGPS },
-                                            { "ContentPopup", MobileResource.RegisterConsult_Message_SuccessRegister },
+                                            { "ContentPopup", content },
                                             { "TitleButton", MobileResource.RegisterConsult_Button_ClosePopup }
                                         };
                                         var a = await NavigationService.NavigateAsync("PopupHtmlPage", p);
