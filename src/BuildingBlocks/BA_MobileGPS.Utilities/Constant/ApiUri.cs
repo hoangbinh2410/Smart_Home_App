@@ -131,7 +131,7 @@
 
         public const string CHECKVERIFYCODE = "api/sms/checkverifycode";
 
-        public const string CHANGEPASSWORDFORGET = "api/v2/authentcation/changepasswordforget";
+        public const string CHANGEPASSWORDFORGET = "api/authentcation/changepasswordforget";
 
         #endregion ForgotPassword
 
