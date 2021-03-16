@@ -144,7 +144,8 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
+                //await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
+                await NavigationService.NavigateAsync("NavigationPage/ForgotPasswordPage", null, useModalNavigation: true, true);
             });
         });
 
