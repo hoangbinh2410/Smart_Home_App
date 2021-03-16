@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.VerifyCodeSMSPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    Title="{Binding Title}"
+    NavigationPage.BackButtonTitle="">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ffImage:CachedImage
+                Grid.RowSpan="2"
+                Aspect="AspectFill"
+                HorizontalOptions="FillAndExpand"
+                Source="bg_app.png"
+                VerticalOptions="FillAndExpand" />
+            <StackLayout
+                Grid.Row="0"
+                Margin="20,0,20,0"
+                Padding="20,0,20,0"
+                VerticalOptions="CenterAndExpand">
+                <Label VerticalOptions="Start">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{i18n:TranslateResource VerifyCodeMS_Label_Code}" TextColor="{DynamicResource PrimaryColor}" />
+                            <Span Text=" (*)" TextColor="OrangeRed" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <input:SfTextInputLayout
+                    Margin="0"
+                    ContainerType="Outlined"
+                    ErrorColor="{DynamicResource DangerousColor}"
+                    ErrorText="{Binding Code.ErrorFirst}"
+                    FocusedColor="{DynamicResource PrimaryColor}"
+                    FocusedStrokeWidth="1"
+                    HasError="{Binding Code.IsNotValid}"
+                    HorizontalOptions="FillAndExpand"
+                    LeadingViewPosition="Inside"
+                    OutlineCornerRadius="25"
+                    ShowHelperText="False"
+                    VerticalOptions="Start">
+                    <input:SfTextInputLayout.LeadingView>
+                        <controls:IconView Foreground="{DynamicResource PrimaryColor}" Source="ic_lock.png" />
+                    </input:SfTextInputLayout.LeadingView>
+                    <Entry
+                        Keyboard="Numeric"
+                        MaxLength="60"
+                        Placeholder="{i18n:TranslateResource VerifyCodeMS_Label_Code}"
+                        PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
+                        Text="{Binding Code.Value}" />
+                </input:SfTextInputLayout>
+                <Label
+                    HorizontalOptions="Start"
+                    HorizontalTextAlignment="Start"
+                    Text="{Binding TimeNotice}"
+                    TextColor="{DynamicResource PrimaryColor}" />
+                <Button
+                    Margin="0,10,0,0"
+                    Command="{Binding VerifyCodeCommand}"
+                    CornerRadius="10"
+                    IsVisible="{Binding IsVisibleButtonVerifyCode}"
+                    Text="{i18n:TranslateResource VerifyCodeMS_Button_CheckVerify}" />
+                <Button
+                    Margin="0,10,0,0"
+                    Command="{Binding ResendCodeCommand}"
+                    CornerRadius="25"
+                    IsVisible="{Binding IsVisibleButtonResend}"
+                    Text="{i18n:TranslateResource VerifyCodeMS_Button_ResendCode,
+                                                  Converter={StaticResource UpperCaseConverter}}" />
+            </StackLayout>
+            <StackLayout
+                Grid.Row="1"
+                Margin="5"
+                HorizontalOptions="Center"
+                Orientation="Horizontal"
+                VerticalOptions="Center">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CallHotLineCommand}" />
+                </StackLayout.GestureRecognizers>
+                <Label
+                    Text="{i18n:TranslateResource Login_Lable_Hotline}"
+                    TextColor="{DynamicResource PrimaryColor}"
+                    VerticalOptions="Center" />
+                <Label
+                    FontAttributes="Bold"
+                    Text="{Binding Hotline}"
+                    TextColor="{DynamicResource DangerousColor}"
+                    VerticalOptions="Center" />
+                <controls:IconView
+                    Foreground="{DynamicResource PrimaryColor}"
+                    HeightRequest="25"
+                    Source="ic_customersupport"
+                    VerticalOptions="Center"
+                    WidthRequest="25" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
