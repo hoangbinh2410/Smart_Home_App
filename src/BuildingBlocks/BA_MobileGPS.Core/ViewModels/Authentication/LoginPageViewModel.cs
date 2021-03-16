@@ -1,13 +1,11 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Resources;
-using BA_MobileGPS.Core.Views.Authentication;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Com.OneSignal;
 using Prism.Commands;
 using Prism.Navigation;
-using Rg.Plugins.Popup.Services;
 using System;
 using System.Globalization;
 using System.Reflection;
@@ -500,6 +498,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 StaticSettings.Token = user.AccessToken;
                 StaticSettings.User = user;
                 OneSignal.Current.SendTag("UserID", user.UserId.ToString().ToUpper());
+                OneSignal.Current.SendTag("UserName", user.UserName.ToString().ToUpper());
                 CultureInfo.CurrentCulture = new CultureInfo(Language.CodeName);
                 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Language.CodeName);
                 //nếu cần đổi mật khẩu thì mở trang đổi mật khẩu
