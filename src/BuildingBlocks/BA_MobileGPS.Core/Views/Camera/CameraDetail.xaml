@@ -53,7 +53,7 @@
                         Grid.Column="0"
                         FontAttributes="Bold"
                         HorizontalOptions="StartAndExpand"
-                        Text="{Binding ImageCamera.CreatedDate, Converter={StaticResource DateTimeConverter}}"
+                        Text="{Binding ImageCamera.Time, Converter={StaticResource DateTimeConverter}}"
                         VerticalOptions="Center" />
                     <Label
                         Grid.Row="1"
@@ -100,7 +100,7 @@
                                         ErrorPlaceholder="camera_placeholder.png"
                                         HorizontalOptions="FillAndExpand"
                                         LoadingPlaceholder="camera_placeholder.png"
-                                        Source="{Binding ImageLink}"
+                                        Source="{Binding Url}"
                                         VerticalOptions="FillAndExpand" />
                                 </StackLayout>
                             </DataTemplate>

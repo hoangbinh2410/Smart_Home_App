@@ -197,7 +197,7 @@
 
         #region Camera
 
-        public const string GET_CAMERAIMAGE = "api/v2/cameras/getcameraimage";
+        public const string GET_CAMERAIMAGE = "api/cameras/getcameraimage";
         public const string POST_READYFORSTREAM = "api/stream/start";
         public const string POST_ENDSTREAM = "api/stream/stop";
         public const string POST_GETMORETIMESTREAM = "api/stream/ping";
