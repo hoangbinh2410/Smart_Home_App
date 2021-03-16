@@ -66,6 +66,16 @@
         /// </Modified>
         public const string OneSignalKey_VIVIEW = "8c4c17e6-5d74-45a6-bc76-1d12e698c1f1";
 
+
+        /// <summary>
+        /// Key cho OneSignal
+        /// </summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// Namth  16/1/2018   created
+        /// </Modified>
+        public const string OneSignalKey_GISVIET = "52945d01-9dcb-467d-b219-28e330177c57";
+
         /// <summary>
         /// Key cho OneSignal
         /// </summary>

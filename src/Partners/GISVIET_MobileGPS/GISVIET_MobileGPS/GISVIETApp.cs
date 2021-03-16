@@ -18,7 +18,7 @@ namespace GISVIET_MobileGPS
         {
         }
 
-        public override string OneSignalKey => Config.OneSignalKey_VIVIEW;
+        public override string OneSignalKey => Config.OneSignalKey_GISVIET;
 
         protected async override void OnInitialized()
         {
