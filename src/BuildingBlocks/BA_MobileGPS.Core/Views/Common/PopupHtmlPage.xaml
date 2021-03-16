@@ -25,7 +25,7 @@
             CornerRadius="10"
             HorizontalOptions="CenterAndExpand"
             VerticalOptions="CenterAndExpand">
-            <Grid RowSpacing="0">
+            <Grid BackgroundColor="{DynamicResource GrayColor}" RowSpacing="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -38,9 +38,9 @@
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal">
                     <Label
-                        FontAttributes="Bold"
                         FontSize="16"
                         HorizontalOptions="CenterAndExpand"
+                        StyleClass="BoldText"
                         Text="{Binding TitlePopup}"
                         TextColor="White"
                         VerticalOptions="CenterAndExpand" />
@@ -48,15 +48,13 @@
                 <StackLayout
                     Grid.Row="1"
                     Padding="10"
-                    HeightRequest="300"
                     WidthRequest="400">
                     <Label
                         FontSize="16"
-                        HeightRequest="300"
+                        HeightRequest="220"
                         HorizontalOptions="StartAndExpand"
                         HorizontalTextAlignment="Start"
                         Text="{Binding ContentPopup}"
-                        TextType="Html"
                         VerticalOptions="StartAndExpand"
                         WidthRequest="400" />
                 </StackLayout>

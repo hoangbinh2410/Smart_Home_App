@@ -61,6 +61,8 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<SelectComboboxEvent>().Subscribe(UpdateCombobox);
             EventAggregator.GetEvent<SelectCountryCodeEvent>().Subscribe(UpdateCountryCode);
             EventAggregator.GetEvent<SelectCancelPopupMessage>().Subscribe(UpdatePopupMessage);
+            AddValidations();
+            AddValidationsPhone();
         }
 
         public override void OnDestroy()
@@ -216,7 +218,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                             { "ContentPopup", MobileResource.RegisterConsult_Message_SuccessRegister },
                                             { "TitleButton", MobileResource.RegisterConsult_Button_ClosePopup }
                                         };
-                                        await NavigationService.NavigateAsync("PopupMessagePage", p);
+                                        var a = await NavigationService.NavigateAsync("PopupHtmlPage", p);
                                     });
 
                                     break;
@@ -435,14 +437,16 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool Validate()
         {
-            AddValidations();
-            if (_fullName.Validate() && _contentConsult.Validate() && _countryCode.Validate())
+            var nameVal = _fullName.Validate();
+            var contentVal = _contentConsult.Validate();
+            var countryCodeVal = _countryCode.Validate();
+            if ( nameVal && contentVal && countryCodeVal)
             {
                 // check là đầu số việt nam thì check tiếp ko thì mặc định là lưu
                 if (CountryCodeConstant.VietNam.Equals(CountryCode.Value))
-                {
-                    AddValidationsPhone();
-                    return _phoneNumber.Validate();
+                {    
+                    var phoneVal = _phoneNumber.Validate();
+                    return phoneVal;
                 }
                 return true;
             }

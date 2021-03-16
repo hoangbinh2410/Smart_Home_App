@@ -252,7 +252,7 @@
                                         HeightRequest="120"
                                         HorizontalOptions="FillAndExpand"
                                         LoadingPlaceholder="camera_placeholder.png"
-                                        Source="{Binding ImageLink}"
+                                        Source="{Binding Url}"
                                         VerticalOptions="FillAndExpand"
                                         WidthRequest="120" />
                                 </sharpnado:MaterialFrame>
@@ -268,7 +268,7 @@
                                         FontSize="10"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
-                                        Text="{Binding Address}"
+                                        Text="{Binding CurrentAddress}"
                                         VerticalOptions="Center" />
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" Spacing="2">
@@ -281,7 +281,7 @@
                                     <Label
                                         FontSize="10"
                                         HorizontalOptions="StartAndExpand"
-                                        Text="{Binding CreatedDate, Converter={StaticResource TimeConverter}}"
+                                        Text="{Binding Time, Converter={StaticResource TimeConverter}}"
                                         TextColor="Red"
                                         VerticalOptions="Center" />
                                     <Label

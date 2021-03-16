@@ -57,7 +57,7 @@ namespace BA_MobileGPS.Core.ViewModels
             },
                   (items) =>
                   {
-                      if (items != null  && items.Data != null)
+                      if (items != null && items.Data != null)
                       {
                           if (!string.IsNullOrEmpty(items.Data.Body))
                           {
@@ -106,9 +106,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
                               Device.BeginInvokeOnMainThread(async () =>
                               {
-                                  await Launcher.OpenAsync(new Uri(items.Data.Linkview));
+                                  if (!string.IsNullOrEmpty(items.Data.Linkview))
+                                  {
+                                      await Launcher.OpenAsync(new Uri(items.Data.Linkview));
 
-                                  await NavigationService.GoBackAsync();
+                                      await NavigationService.GoBackAsync();
+                                  }
                               });
                           }
 
