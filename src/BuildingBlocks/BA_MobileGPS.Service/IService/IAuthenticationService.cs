@@ -8,5 +8,13 @@ namespace BA_MobileGPS.Service
         Task<LoginResponse> LoginStreamAsync(LoginRequest request);
 
         Task<bool> ChangePassword(ChangePassRequest request);
+
+        Task<bool> CheckUserExists(ForgotPasswordRequest input);
+
+        Task<SendCodeSMSResponse> SendCodeSMS(ForgotPasswordRequest input);
+
+        Task<CheckVerifyCodeResponse> CheckVerifyCode(VerifyCodeRequest input);
+
+        Task<bool> ChangePassWordForget(ChangePasswordForgotRequest input);
     }
 }
