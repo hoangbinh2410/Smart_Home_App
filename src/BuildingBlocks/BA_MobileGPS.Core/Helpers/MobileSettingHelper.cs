@@ -171,7 +171,7 @@ namespace BA_MobileGPS.Core
 
         public static bool IsUseRegisterSupport => Get(MobileConfigurationNames.IsUseRegisterSupport, true);
 
-        public static bool IsUseForgotpassword => Get(MobileConfigurationNames.IsUseForgotpassword, true);
+        public static bool IsUseForgotpassword => Get(MobileConfigurationNames.IsUseForgotpassword, false);
 
         public static bool IsUseVehicleDebtMoney => Get(MobileConfigurationNames.IsUseVehicleDebtMoney, true);
 
