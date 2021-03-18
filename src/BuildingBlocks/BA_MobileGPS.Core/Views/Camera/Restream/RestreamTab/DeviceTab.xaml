@@ -337,12 +337,12 @@
                         Spacing="3">
                         <Label
                             HorizontalOptions="Start"
-                            StyleClass="BoldText"
-                            Text="{Binding VideoSlected.VideoName}"
+                            Text="{Binding VideoSlected.VideoStartTime, Converter={StaticResource DateTimeViewConverter}}"
                             TextColor="{DynamicResource WhiteColor}" />
                         <Label
                             HorizontalOptions="Start"
-                            Text="{Binding VideoSlected.ImageTime, Converter={StaticResource DateTimeViewConverter}}"
+                            StyleClass="BoldText"
+                            Text="{Binding VideoSlected.VideoName}"
                             TextColor="{DynamicResource WhiteColor}" />
                     </StackLayout>
 
@@ -389,6 +389,7 @@
                                     <StackLayout BackgroundColor="Transparent" Spacing="0">
                                         <Grid
                                             Padding="2"
+                                            BackgroundColor="Black"
                                             HorizontalOptions="Center"
                                             VerticalOptions="FillAndExpand">
                                             <ff:CachedImage Aspect="Fill" Source="{Binding VideoImageSource, Mode=OneWay}" />
@@ -413,12 +414,12 @@
                                             <Label
                                                 HorizontalOptions="Start"
                                                 StyleClass="BoldText"
-                                                Text="{Binding Data.Channel, StringFormat='Kênh {0}'}" />
+                                                Text="{Binding VideoStartTime, Converter={StaticResource DateTimeViewConverter}}" />
                                             <Label
                                                 HorizontalOptions="Start"
                                                 StyleClass="BoldText"
-                                                Text="{Binding ImageTime, Converter={StaticResource DateTimeViewConverter}}" />
-                                            <Label HorizontalOptions="Start" Text="{Binding VideoAddress}" />
+                                                Text="{Binding Data.Channel, StringFormat='Kênh {0}'}" />
+
                                         </StackLayout>
                                     </StackLayout>
                                 </pancake:PancakeView>
