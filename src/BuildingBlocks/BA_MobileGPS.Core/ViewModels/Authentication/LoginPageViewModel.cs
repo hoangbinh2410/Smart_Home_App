@@ -144,14 +144,14 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                //if (MobileSettingHelper.IsUseForgotpassword)
-               // {
+                if (MobileSettingHelper.IsUseForgotpassword)
+                {
                     await NavigationService.NavigateAsync("NavigationPage/ForgotPasswordPage", null, useModalNavigation: true, true);
-              //  }
-             //   else
-             //   {
-             //       await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
-               // }
+                }
+                else
+                {
+                    await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
+                }
             });
         });
 
