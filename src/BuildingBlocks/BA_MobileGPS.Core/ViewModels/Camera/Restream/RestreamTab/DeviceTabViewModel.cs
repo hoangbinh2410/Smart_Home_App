@@ -649,7 +649,7 @@ namespace BA_MobileGPS.Core.ViewModels
         /// <summary>
         /// Lấy danh sách video từ server
         /// </summary>
-        private void GetListImageDataFrom()
+        private void GetListVideoDataFrom()
         {
             try
             {
@@ -671,15 +671,15 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (result != null && result.Count > 0)
                         {
                             // Lọc sai số : video có timespan = timeEnd - timeStart tối thiểu 64s
-                            result = result.Where(x => (x.EndTime - x.StartTime) >= TimeSpan.FromSeconds(64)).ToList();
+                           // result = result.Where(x => (x.EndTime - x.StartTime) >= TimeSpan.FromSeconds(64)).ToList();
                             foreach (var video in result)
                             {
                                 var videoModel = new RestreamVideoModel()
                                 {
-                                    VideoImageSource =  string.IsNullOrEmpty(video.Image) ? "avatar_default" : video.Image,
+                                    VideoImageSource =   video.Image,
                                     VideoStartTime = video.StartTime,
                                     VideoEndTime = video.EndTime,
-                                    VideoTime = TimeSpan.FromMinutes(video.Duration),
+                                    VideoTime = video.EndTime - video.StartTime,
                                     Data = new StreamStart() { Channel = video.Channel },
                                 };
 
@@ -789,7 +789,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SearchData()
         {
-            GetListImageDataFrom();
+            GetListVideoDataFrom();
             CloseVideo();
         }
 
