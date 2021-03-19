@@ -41,40 +41,40 @@ namespace BA_MobileGPS.Core.ViewModels
         }
         private void InitValidation()
         {
-            accountName = new ValidatableObject<string>();
-            accountName.OnChanged += StringValue_OnChanged;
-            phoneNumber = new ValidatableObject<string>();
-            phoneNumber.OnChanged += StringValue_OnChanged;
+            AccountName = new ValidatableObject<string>();
+            AccountName.OnChanged += StringValue_OnChanged;
+            PhoneNumber = new ValidatableObject<string>();
+            PhoneNumber.OnChanged += StringValue_OnChanged;
 
-            accountName.Validations.Add(new IsNotNullOrEmptyRule<string>
+            AccountName.Validations.Add(new IsNotNullOrEmptyRule<string>
             {
                 ValidationMessage = MobileResource.ForgotPassword_Message_Validate_IsNull_AccountName
             });
-            accountName.Validations.Add(new MaxLengthRule<string>
+            AccountName.Validations.Add(new MaxLengthRule<string>
             {
                 ValidationMessage = MobileResource.ForgotPassword_Message_Validate_MaxLength_AccountName,
                 MaxLenght = 50
             });
-            accountName.Validations.Add(new IsNotContainsHTMLTag<string>
+            AccountName.Validations.Add(new IsNotContainsHTMLTag<string>
             {
                 ValidationMessage = MobileResource.ForgotPassword_Message_Validate_ConstantHTML_AccountName
             });
-            accountName.Validations.Add(new ExpressionDangerousCharsRule<string>
+            AccountName.Validations.Add(new ExpressionDangerousCharsRule<string>
             {
                 Expression = MobileSettingHelper.ConfigDangerousCharTextBox,
                 ValidationMessage = MobileResource.Common_Property_DangerousCharShow(MobileResource.ForgotPassword_Label_AccountName,
                                                                                       MobileSettingHelper.ConfigDangerousCharTextBox)
             });
 
-            phoneNumber.Validations.Add(new IsNotNullOrEmptyRule<string>
+            PhoneNumber.Validations.Add(new IsNotNullOrEmptyRule<string>
             {
                 ValidationMessage = MobileResource.ForgotPassword_Message_Validate_IsNull_Phone
             });
-            phoneNumber.Validations.Add(new IsNotContainsHTMLTag<string>
+            PhoneNumber.Validations.Add(new IsNotContainsHTMLTag<string>
             {
                 ValidationMessage = MobileResource.ForgotPassword_Message_Validate_ConstantHTML_AccountName
             });
-            phoneNumber.Validations.Add(new ExpressionDangerousCharsRule<string>
+            PhoneNumber.Validations.Add(new ExpressionDangerousCharsRule<string>
             {
                 Expression = MobileSettingHelper.ConfigDangerousCharTextBox,
                 ValidationMessage = MobileResource.Common_Property_DangerousCharShow(MobileResource.ForgotPassword_Label_Phone,
@@ -82,7 +82,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
             if (Settings.CurrentLanguage.Equals(CultureCountry.Vietnamese))
             {
-                phoneNumber.Validations.Add(new PhoneNumberRule<string>
+                PhoneNumber.Validations.Add(new PhoneNumberRule<string>
                 {
                     ValidationMessage = MobileResource.ForgotPassword_Message_Validate_Rule_Phone,
                     CountryCode = CountryCodeConstant.VietNam
@@ -92,15 +92,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void StringValue_OnChanged(object sender, string e)
         {
-
             var control = (ValidatableObject<string>)sender;
             control.IsNotValid = false;
         }
 
         private bool Validate()
         {
-            var accValidate = accountName.Validate();
-            var phoneValidate = phoneNumber.Validate();
+            var accValidate = AccountName.Validate();
+            var phoneValidate = PhoneNumber.Validate();
             return accValidate && phoneValidate;
         }
 
