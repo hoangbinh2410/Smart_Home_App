@@ -237,7 +237,8 @@
                                                     LineHeight="1.1"
                                                     MaxLines="2"
                                                     Text="{Binding ErrorMessenger}"
-                                                    TextColor="{DynamicResource WhiteColor}" />
+                                                    TextColor="{DynamicResource WhiteColor}"
+                                                    TextType="Html" />
                                                 <StackLayout.Triggers>
                                                     <DataTrigger
                                                         Binding="{Binding Source={x:Reference errGrid}, Path=BackgroundColor}"
