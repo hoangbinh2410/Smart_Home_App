@@ -163,7 +163,6 @@ namespace BA_MobileGPS.Core.ViewModels
             var favourites = result.Where(s => s.IsFavorited).ToList();
             GenerateFavouriteMenu(favourites);
             var notFavorites = result.Where(s => !s.IsFavorited).ToList();
-            notFavorites.Add(new HomeMenuItemViewModel() { MenuKey = "DownloadVideo", NameByCulture = "DownloadVideo" });
 
             GenerateListFeatures(notFavorites);
             HasFavorite = FavouriteMenuItems.Count != 0;
