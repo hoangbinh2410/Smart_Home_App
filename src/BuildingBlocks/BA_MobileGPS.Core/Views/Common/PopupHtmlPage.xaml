@@ -55,7 +55,7 @@
                         HorizontalOptions="StartAndExpand"
                         HorizontalTextAlignment="Start"
                         Text="{Binding ContentPopup}"
-                        TextType="Html"
+                        TextType="Text"
                         VerticalOptions="StartAndExpand"
                         WidthRequest="400" />
                 </StackLayout>
