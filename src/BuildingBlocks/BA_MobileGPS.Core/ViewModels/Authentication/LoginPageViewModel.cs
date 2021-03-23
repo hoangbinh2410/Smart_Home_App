@@ -1,11 +1,13 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.Views.Authentication;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Com.OneSignal;
 using Prism.Commands;
 using Prism.Navigation;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Globalization;
 using System.Reflection;
@@ -142,8 +144,14 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                //await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
-                await NavigationService.NavigateAsync("NavigationPage/ForgotPasswordPage", null, useModalNavigation: true, true);
+                if (MobileSettingHelper.IsUseForgotpassword)
+                {
+                    await NavigationService.NavigateAsync("NavigationPage/ForgotPasswordPage", null, useModalNavigation: true, true);
+                }
+                else
+                {
+                    await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
+                }
             });
         });
 

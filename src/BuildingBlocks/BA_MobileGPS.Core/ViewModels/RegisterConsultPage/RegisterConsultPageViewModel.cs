@@ -213,7 +213,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 case (int)RegisterConsultEnum.Success:
                                     Device.BeginInvokeOnMainThread(async () =>
                                     {
-                                        var content = MobileResource.RegisterConsult_Message_SuccessRegister.Replace("\\n", "<br>");
+                                        var content = MobileResource.RegisterConsult_Message_SuccessRegister;
 
                                         var p = new NavigationParameters
                                         {
