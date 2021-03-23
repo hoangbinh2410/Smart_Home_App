@@ -57,6 +57,7 @@ namespace BA_MobileGPS.Core.Droid
                 containerRegistry.RegisterInstance<IAppVersionService>(new AppVersionService());
                 containerRegistry.RegisterInstance<IScreenOrientServices>(new ScreenOrientServices());
                 containerRegistry.RegisterInstance<ICameraSnapShotServices>(new CameraSnapShotServices());
+                containerRegistry.RegisterInstance<IDownloadVideoService>(new DownloadVideoService());
             }
         }
     }

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.DownloadVideo"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:DowloadVideo.Converter"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <converters:InverterBooleanConverter x:Key="InverterBooleanConverter" />
+        <converters:ValueProgressBarConverter x:Key="ValueProgressBarConverter" />
+    </ContentPage.Resources>
+
+    <StackLayout Spacing="20" VerticalOptions="Center">
+        <Entry
+            x:Name="entry"
+            Margin="0,0,0,40"
+            HorizontalOptions="Center"
+            Placeholder="Nhập url"
+            Text="{Binding UrlFile}"
+            WidthRequest="250" />
+        <Button
+            Command="{Binding StartDownloadCommand}"
+            HorizontalOptions="Center"
+            IsEnabled="{Binding IsDownloading, Converter={StaticResource InverterBooleanConverter}}"
+            Text="Start Download" />
+        <StackLayout
+            Grid.Row="1"
+            Padding="20,0"
+            Spacing="20">
+
+            <ProgressBar Margin="10,0" Progress="{Binding ProgressValue, Converter={StaticResource ValueProgressBarConverter}}" />
+
+            <Label HorizontalOptions="Center" Text="{Binding ProgressValue, StringFormat='{0:F2}%'}" />
+
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
