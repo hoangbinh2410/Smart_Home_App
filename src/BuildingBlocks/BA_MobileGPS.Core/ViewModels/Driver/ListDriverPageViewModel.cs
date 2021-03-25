@@ -29,6 +29,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SearchDriverCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
         public ICommand GotoAddDriverPageCommand { get; }
+        public ICommand CloseDriverPageCommand { get; }
         public ListDriverPageViewModel(INavigationService navigationService, IDriverInforService driverInforService
             ) : base(navigationService)
         {
@@ -39,7 +40,8 @@ namespace BA_MobileGPS.Core.ViewModels
             LoadMoreItemsCommand = new DelegateCommand(LoadMoreItems, CanLoadMoreItems);
             GotoAddDriverPageCommand = new DelegateCommand(GotoAddDriverPage);
             ListDriverDisplay = new ObservableCollection<DriverInfor>();
-            ListDriverSearch = new List<DriverInfor>();          
+            ListDriverSearch = new List<DriverInfor>();
+            CloseDriverPageCommand = new DelegateCommand(CloseDriverPage);
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -275,7 +277,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GotoAddDriverPage()
         {
-            SafeExecute(async () =>
+            TryExecute(async () =>
             {
                 var a = await NavigationService.NavigateAsync("NavigationPage/AddDriverInfoPage", null, true, true);
             });
@@ -295,6 +297,14 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 DeleteVisible = true;
             }
+        }
+
+        private void CloseDriverPage()
+        {
+            TryExecute(async () =>
+            {
+                var res = await NavigationService.GoBackAsync(null, useModalNavigation: true, true);
+            });
         }
         #endregion
 

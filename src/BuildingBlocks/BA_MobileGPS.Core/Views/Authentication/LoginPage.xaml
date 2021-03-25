@@ -41,10 +41,11 @@
             <ff:CachedImage
                 x:Name="logo"
                 Grid.Row="0"
-                HeightRequest="50"
+                HeightRequest="90"
                 HorizontalOptions="Center"
                 Source="logo_Login.png"
-                VerticalOptions="EndAndExpand" />
+                VerticalOptions="EndAndExpand"
+                WidthRequest="180" />
             <StackLayout Grid.Row="1" Spacing="15">
                 <Grid
                     RowDefinitions="Auto,Auto,40,40"

@@ -21,7 +21,7 @@ namespace BA_MobileGPS.Core.DataTemplateSelectors
         {
             if (item is VehicleOnlineViewModel data)
             {
-                if (data.IsShowDetail)
+                if (data.IsShowDetail || !MobileSettingHelper.IsUseVehicleDebtMoney)
                 {
                     if (StateVehicleExtension.IsLostGSM(data.VehicleTime))
                     {

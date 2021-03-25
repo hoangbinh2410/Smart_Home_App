@@ -9,12 +9,12 @@ namespace BA_MobileGPS.Core.Resources
         public static string ForgotPassword_Label_TilePage => Get(MobileResourceNames.ForgotPassword_Label_TilePage, "Quên mật khẩu", "Forgot password");
         public static string ForgotPassword_Label_AccountName => Get(MobileResourceNames.ForgotPassword_Label_AccountName, "Nhập tài khoản", "Account");
         public static string ForgotPassword_Label_Phone => Get(MobileResourceNames.ForgotPassword_Label_Phone, "Số điện thoại", "Phone number");
-        public static string ForgotPassword_Label_Notes => Get(MobileResourceNames.ForgotPassword_Label_Notes, "Số điện thoại trùng với số điện thoại đăng ký tài khoản", "Phone number is the same as the phone number registered for the account");
+        public static string ForgotPassword_Label_Notes => Get(MobileResourceNames.ForgotPassword_Label_Notes, "Vui lòng nhập số điện thoại trùng với số điện thoại đăng ký tài khoản", "Phone number is the same as the phone number registered for the account");
         public static string ForgotPassword_Button_SendInfor => Get(MobileResourceNames.ForgotPassword_Button_SendInfor, "Gửi", "Send");
-        public static string ForgotPassword_Message_Validate_IsNull_AccountName => Get(MobileResourceNames.ForgotPassword_Message_Validate_IsNull_AccountName, "Tài khoản không được để trống", "Account is empty");
+        public static string ForgotPassword_Message_Validate_IsNull_AccountName => Get(MobileResourceNames.ForgotPassword_Message_Validate_IsNull_AccountName, "Vui lòng nhập tài khoản!", "Account is empty");
         public static string ForgotPassword_Message_Validate_MaxLength_AccountName => Get(MobileResourceNames.ForgotPassword_Message_Validate_MaxLength_AccountName, "Tài khoản được quá {0} kí tự", "Account must not exceed {0} characters");
         public static string ForgotPassword_Message_Validate_ConstantHTML_AccountName => Get(MobileResourceNames.ForgotPassword_Message_Validate_ConstantHTML_AccountName, "Dữ liệu không được chứa kí tự đặc biệt", "Data cannot contain special characters");
-        public static string ForgotPassword_Message_Validate_IsNull_Phone => Get(MobileResourceNames.ForgotPassword_Message_Validate_IsNull_Phone, "Số điện thoại không được để trống", "Phone number is empty");
+        public static string ForgotPassword_Message_Validate_IsNull_Phone => Get(MobileResourceNames.ForgotPassword_Message_Validate_IsNull_Phone, "Vui lòng nhập số điện thoại!", "Phone number is empty");
         public static string ForgotPassword_Message_Validate_Rule_Phone => Get(MobileResourceNames.ForgotPassword_Message_Validate_Rule_Phone, "Số điện thoại không đúng định dạng", "Phone number is incorrect");
         public static string ForgotPassword_Message_ErrorSendSMS => Get(MobileResourceNames.ForgotPassword_Message_ErrorSendSMS, "Lỗi gửi SMS xác thực. Mong quý khách quay lại sau.", "Error sending authentication SMS. ");
         public static string ForgotPassword_Message_SuccessSendSMS => Get(MobileResourceNames.ForgotPassword_Message_SuccessSendSMS, "Gửi mã xác thực thành công", "Success sending authentication SMS. ");

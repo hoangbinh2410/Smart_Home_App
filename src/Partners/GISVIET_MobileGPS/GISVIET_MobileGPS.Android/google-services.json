@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "842333133580",
+    "project_id": "gisviet-bc0b2",
+    "storage_bucket": "gisviet-bc0b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842333133580:android:0f4c5cf3d088838ab58729",
+        "android_client_info": {
+          "package_name": "vn.gisvietgps.gpsmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "842333133580-4jefet4tvkhqsif7skll3rg5o1ipifs6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArfwlXuoku-erBorQMF8hn-U6j63uzWKg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "842333133580-4jefet4tvkhqsif7skll3rg5o1ipifs6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

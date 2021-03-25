@@ -2,7 +2,6 @@
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RequestEntity;
-using BA_MobileGPS.Entities.ResponeEntity.Camera;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 
@@ -13,7 +12,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Xamarin.Forms;
@@ -61,9 +59,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private int toTal;
         public int Total { get => toTal; set => SetProperty(ref toTal, value); }
 
-        private ObservableCollection<ImageCamera> listCameraImage = new ObservableCollection<ImageCamera>();
+        private ObservableCollection<CaptureImageData> listCameraImage = new ObservableCollection<CaptureImageData>();
 
-        public ObservableCollection<ImageCamera> ListCameraImage
+        public ObservableCollection<CaptureImageData> ListCameraImage
         {
             get { return listCameraImage; }
             set
@@ -83,7 +81,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this.cameraService = cameraService;
             this.displayMessage = displayMessage;
             SearchCameraCommand = new Command(SearchCamera);
-            ViewCameraDetailCommand = new Command<ImageCamera>(ViewCameraDetail);
+            ViewCameraDetailCommand = new Command<CaptureImageData>(ViewCameraDetail);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
         }
 
@@ -162,92 +160,47 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 DependencyService.Get<IHUDProvider>().DisplayProgress("");
             }
-            Task.Run(async () =>
-        {
-            return await cameraService.GetCamera(new CameraImageRequest
+            RunOnBackground(async () =>
             {
-                CompanyID = CurrentComanyID,
-                VehiclePlate = VehiclePlate,
-                XNCode = UserInfo.XNCode,
-                DayBefore = DayBefore,
-                TimeFrom = TimeFrom,
-                PageIndex = PageIndex,
-                PageSize = PageSize,
-                TimeEnd = TimeEnd,
-                DayOffset = 0
+                var request = new CameraImageRequest
+                {
+                    VehiclePlate = VehiclePlate,
+                    XNCode = UserInfo.XNCode,
+                    PageIndex = PageIndex,
+                    PageSize = PageSize,
+                    FromDate = new DateTime(DayBefore.Year, DayBefore.Month, DayBefore.Day, TimeFrom.Hours, TimeFrom.Minutes, TimeFrom.Seconds),
+                    ToDate = new DateTime(DayBefore.Year, DayBefore.Month, DayBefore.Day, TimeEnd.Hours, TimeEnd.Minutes, TimeEnd.Seconds)
+                };
+                return await cameraService.GetListCaptureImage(request);
+            }, (result) =>
+            {
+                if (isSearch)
+                {
+                    DependencyService.Get<IHUDProvider>().Dismiss();
+                }
+                if (result != null && result.Count > 0)
+                {
+                    if (result != null)
+                    {
+                        TotalCount = result.Count();
+
+                        if (isSearch)
+                        {
+                            ListCameraImage = result.ToObservableCollection();
+                        }
+                        else
+                        {
+                            ListCameraImage.AddRange(result);
+                        }
+                    }
+                    Total = result.Count;
+                }
+                else
+                {
+                    Total = 0;
+                    ListCameraImage = new ObservableCollection<CaptureImageData>();
+                }
             });
-        }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
-        {
-            if (task.Status == TaskStatus.RanToCompletion && task.Result != null)
-            {
-                try
-                {
-                    if (isSearch)
-                    {
-                        DependencyService.Get<IHUDProvider>().Dismiss();
-                    }
-                    if (task.Result.State)
-                    {
-                        if (task.Result.ListCameraImage != null)
-                        {
-                            TotalCount = task.Result.TotalCount;
-
-                            if (isSearch)
-                            {
-                                ListCameraImage = task.Result.ListCameraImage.ToObservableCollection();
-                            }
-                            else
-                            {
-                                ListCameraImage.AddRange(task.Result.ListCameraImage);
-                            }
-                        }
-                        Total = task.Result.TotalCount;
-                    }
-                    else
-                    {
-                        switch (task.Result.ErrorCode)
-                        {
-                            case Utilities.Enums.ResponseEnum.Success:
-                                break;
-
-                            case Utilities.Enums.ResponseEnum.NotCreated:
-                                break;
-
-                            case Utilities.Enums.ResponseEnum.ParameterInvalid:
-                                break;
-
-                            case Utilities.Enums.ResponseEnum.NoData:
-                                break;
-
-                            case Utilities.Enums.ResponseEnum.BadRequest:
-                                break;
-
-                            case Utilities.Enums.ResponseEnum.Exception:
-                                break;
-
-                            case Utilities.Enums.ResponseEnum.LimitDate:
-                                displayMessage.ShowMessageInfo(task.Result.Message);
-                                break;
-
-                            default:
-                                break;
-                        }
-                        Total = 0;
-                        ListCameraImage = new ObservableCollection<ImageCamera>();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    PageDialog.DisplayAlertAsync("", ex.Message, MobileResource.Common_Button_OK);
-                    Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-                }
-            }
-            else if (task.IsFaulted)
-            {
-                PageDialog.DisplayAlertAsync("", task.Exception?.Message, MobileResource.Common_Button_OK);
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, task.Exception);
-            }
-        }));
         }
 
         private void SearchCamera()
@@ -257,7 +210,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         //Lấy chi tiết hình ảnh
-        private void ViewCameraDetail(ImageCamera camera)
+        private void ViewCameraDetail(CaptureImageData camera)
         {
             SafeExecute(async () =>
             {
