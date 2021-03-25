@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ResponeEntity.Camera;
 using BA_MobileGPS.Utilities;
 using Prism.Navigation;
@@ -20,14 +21,14 @@ namespace BA_MobileGPS.Core.ViewModels
         private string positionString;
         public string PositionString { get => positionString; set => SetProperty(ref positionString, value); }
 
-        private List<ImageCamera> listCameraImage;
-        public List<ImageCamera> ListCameraImage { get => listCameraImage; set => SetProperty(ref listCameraImage, value); }
+        private List<CaptureImageData> listCameraImage;
+        public List<CaptureImageData> ListCameraImage { get => listCameraImage; set => SetProperty(ref listCameraImage, value); }
 
         private int position;
         public int Position { get => position; set => SetProperty(ref position, value, onChanged: OnPositionChanged); }
 
-        private ImageCamera imageCamera;
-        public ImageCamera ImageCamera { get => imageCamera; set => SetProperty(ref imageCamera, value); }
+        private CaptureImageData imageCamera;
+        public CaptureImageData ImageCamera { get => imageCamera; set => SetProperty(ref imageCamera, value); }
 
         public ICommand DownloadImageCommand { get; }
 
@@ -56,8 +57,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.TryGetValue(ParameterKey.ListImageCamera, out List<ImageCamera> listCameraImage)
-               && parameters.TryGetValue(ParameterKey.ImageCamera, out ImageCamera imageCamera) && parameters.TryGetValue(ParameterKey.VehiclePlate, out string vehiclePlate))
+            if (parameters.TryGetValue(ParameterKey.ListImageCamera, out List<CaptureImageData> listCameraImage)
+               && parameters.TryGetValue(ParameterKey.ImageCamera, out CaptureImageData imageCamera) && parameters.TryGetValue(ParameterKey.VehiclePlate, out string vehiclePlate))
             {
                 VehiclePlate = vehiclePlate;
                 ListCameraImage = listCameraImage;
@@ -74,13 +75,13 @@ namespace BA_MobileGPS.Core.ViewModels
                         Type = PinType.Place,
                         Label = VehiclePlate,
                         Anchor = new Point(.5, .5),
-                        Address = ListCameraImage[Position].Address,
-                        Position = new Position(ListCameraImage[Position].Latitude, ListCameraImage[Position].Longitude),
+                        Address = ListCameraImage[Position].CurrentAddress,
+                        Position = new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng),
                         Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
                         IsDraggable = false,
                         Tag = "CAMERA" + VehiclePlate
                     });
-                    _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Latitude, ImageCamera.Longitude), 14), TimeSpan.FromMilliseconds(10));
+                    _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Lat, ImageCamera.Lng), 14), TimeSpan.FromMilliseconds(10));
                     SelectedPin = Pins[0];
                     return false;
                 });
@@ -92,9 +93,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     tempListData.Add(new Photo()
                     {
-                        URL = item.ImageLink,
-                        Info = "Kênh " + item.Channel + " - " + DateTimeHelper.FormatDateTimeWithoutSecond(item.CreatedDate),
-                        Title = item.Address
+                        URL = item.Url,
+                        Info = "Kênh " + item.Channel + " - " + DateTimeHelper.FormatDateTimeWithoutSecond(item.Time),
+                        Title = item.CurrentAddress
                     });
                 }
 
@@ -124,9 +125,9 @@ namespace BA_MobileGPS.Core.ViewModels
                         Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
                         {
                             var Pin = Pins[0];
-                            Pin.Position = new Position(ListCameraImage[Position].Latitude, ListCameraImage[Position].Longitude);
-                            Pin.Address = ListCameraImage[Position].Address;
-                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ListCameraImage[Position].Latitude, ListCameraImage[Position].Longitude), 14), TimeSpan.FromMilliseconds(10));
+                            Pin.Position = new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng);
+                            Pin.Address = ListCameraImage[Position].CurrentAddress;
+                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng), 14), TimeSpan.FromMilliseconds(10));
                             SelectedPin = Pins[0];
                             return false;
                         });
@@ -185,7 +186,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (await PermissionHelper.CheckStoragePermissions())
                 {
-                    downloader.DownloadFile(ImageCamera.ImageLink, "GPS-Camera");
+                    downloader.DownloadFile(ImageCamera.Url, "GPS-Camera");
                 }
             });
         }

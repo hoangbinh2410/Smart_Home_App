@@ -50,6 +50,8 @@ namespace BA_MobileGPS.Service.IService
         Task<RestreamUploadResponse> CancelUploadToCloud(StopRestreamRequest request);
 
         Task<List<RestreamChartData>> GetVehiclesChartDataByDate(CameraRestreamRequest request);
+
+        Task<List<RestreamVideoTimeInfo>> DeviceTabGetVideoInfor(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime, int? channel = null);
     }
 
     public enum ConditionType

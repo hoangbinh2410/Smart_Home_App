@@ -287,5 +287,32 @@ namespace BA_MobileGPS.Service.Service
             }
             return result;
         }
+
+        public async Task<List<RestreamVideoTimeInfo>> DeviceTabGetVideoInfor(int xncode, string vehiclePlate, DateTime fromTime, 
+            DateTime toTime, int? channel = null)
+        {
+            var result = new List<RestreamVideoTimeInfo>();
+            try
+            {
+                if (channel == 0)
+                {
+                    channel = null;
+                }
+                var from = fromTime.ToString("yyyy/MM/dd HH:mm:ss").Replace(" ", "T");
+                var to = toTime.ToString("yyyy/MM/dd HH:mm:ss").Replace(" ", "T");
+                string url = string.Format(ApiUri.GET_RESTREAM_DEVICETAB_VIDEO_INFOR + 
+                    "?xncode={0}&vehiclePlate={1}&fromTime={2}&toTime={3}&channel={4}", xncode, vehiclePlate, from, to, channel);
+                var response = await requestProvider.GetAsync<BaseResponse<List<RestreamVideoTimeInfo>>>(url);
+                if (response != null && response.Data.Count > 0)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
     }
 }

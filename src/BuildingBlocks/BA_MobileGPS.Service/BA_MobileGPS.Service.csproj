@@ -6,8 +6,8 @@
 	<ItemGroup>
 		<!--<PackageReference Include="AutoMapper" Version="10.0.0" />-->
 		<PackageReference Include="IdentityModel" Version="5.0.1" />
-		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.3" />
-		<PackageReference Include="Realm" Version="10.1.1" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.4" />
+		<PackageReference Include="Realm" Version="10.1.2" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\BA_MobileGPS.Entities\BA_MobileGPS.Entities.csproj" />

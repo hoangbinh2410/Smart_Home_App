@@ -51,6 +51,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -66,6 +67,7 @@
     <Compile Include="DependencyServices\AppVersionService.cs" />
     <Compile Include="DependencyServices\CameraSnapShotServices.cs" />
     <Compile Include="DependencyServices\DisplayMessageService.cs" />
+    <Compile Include="DependencyServices\DownloadVideoService.cs" />
     <Compile Include="DependencyServices\DroidAudioManager.cs" />
     <Compile Include="DependencyServices\DroidTooltipService.cs" />
     <Compile Include="DependencyServices\HUDService.cs" />
@@ -124,7 +126,7 @@
       <Version>1.4.2</Version>
     </PackageReference>
     <PackageReference Include="CardsView">
-      <Version>2.7.0</Version>
+      <Version>2.7.1</Version>
     </PackageReference>
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
       <Version>4.0.8</Version>
@@ -145,10 +147,10 @@
       <Version>2.0.0.10</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfProgressBar">
-      <Version>18.4.0.46</Version>
+      <Version>18.4.0.49</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider">
-      <Version>18.4.0.46</Version>
+      <Version>18.4.0.49</Version>
     </PackageReference>
     <PackageReference Include="VideoLAN.LibVLC.Android">
       <Version>3.2.0</Version>
@@ -192,20 +194,20 @@
     <PackageReference Include="Sharpnado.Presentation.Forms">
       <Version>1.7.1</Version>
     </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.4.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.4.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="18.4.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="18.4.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.4.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.4.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.4.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="18.4.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.4.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="18.4.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="18.4.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="18.4.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="18.4.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.4.0.46" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.4.0.49" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.4.0.49" />
+    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="18.4.0.49" />
+    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="18.4.0.49" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.4.0.49" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.4.0.49" />
+    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.4.0.49" />
+    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="18.4.0.49" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.4.0.49" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="18.4.0.49" />
+    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="18.4.0.49" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="18.4.0.49" />
+    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="18.4.0.49" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.4.0.49" />
     <!--<PackageReference Include="Toasts.Forms.Plugin">
       <Version>3.3.2</Version>
     </PackageReference>-->

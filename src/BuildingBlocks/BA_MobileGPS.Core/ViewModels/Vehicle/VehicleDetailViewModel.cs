@@ -11,10 +11,14 @@ using Prism.Commands;
 using Prism.Navigation;
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -78,11 +82,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             ShowPaperInfor = true;
                         }
-                    }                 
+                    }
                 });
-
             }
-            //InitMenuItems();
+            InitMenuItems();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -193,10 +196,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
+
         /// <summary>
         /// KM trong tháng
         /// </summary>
         private float kmInMonth;
+
         public float KmInMonth
         {
             get { return kmInMonth; }
@@ -204,6 +209,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private DateTime? insuranceDate;
+
         public DateTime? InsuranceDate
         {
             get { return insuranceDate; }
@@ -211,6 +217,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private DateTime? dateOfRegistration;
+
         public DateTime? DateOfRegistration
         {
             get { return dateOfRegistration; }
@@ -218,11 +225,28 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private bool showPaperInfor;
+
         public bool ShowPaperInfor
         {
             get { return showPaperInfor; }
             set { SetProperty(ref showPaperInfor, value); }
         }
+
+        private ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
+
+        public ObservableCollection<MenuItem> MenuItems
+        {
+            get
+            {
+                return menuItems;
+            }
+            set
+            {
+                SetProperty(ref menuItems, value);
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion property
 
         #region command
@@ -232,6 +256,40 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion command
 
         #region execute command
+
+        private void InitMenuItems()
+        {
+            var list = new List<MenuItem>();
+            list.Add(new MenuItem
+            {
+                Title = "Video",
+                Icon = "ic_videolive.png",
+                Url = "NavigationPage/CameraManagingPage",
+                IsEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView),
+            });
+            list.Add(new MenuItem
+            {
+                Title = "Hình Ảnh",
+                Icon = "ic_cameraonline.png",
+                Url = "NavigationPage/ImageManagingPage",
+                IsEnable = CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView),
+            });
+            list.Add(new MenuItem
+            {
+                Title = "Nhiên liệu",
+                Icon = "ic_fuel.png",
+                Url = "NavigationPage/PourFuelReportPage",
+                IsEnable = CheckPermision((int)PermissionKeyNames.ReportFuelView),
+            });
+            list.Add(new MenuItem
+            {
+                Title = "Nhiệt độ",
+                Icon = "ic_temperature.png",
+                Url = "NavigationPage/ReportTableTemperature",
+                IsEnable = CheckPermision((int)PermissionKeyNames.ReportTemperatureView),
+            });
+            MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
+        }
 
         /// <summary>
         /// Load tất cả dữ liệu về thông tin chi tiết 1 xe
@@ -374,10 +432,15 @@ namespace BA_MobileGPS.Core.ViewModels
             if (obj == null) return;
             SafeExecute(async () =>
             {
-                var parameters = new NavigationParameters
+                var parameters = new NavigationParameters();
+                if (obj.Url == "NavigationPage/CameraManagingPage")
                 {
-                    { ParameterKey.Vehicle, new Vehicle(){ VehicleId=PK_VehicleID,VehiclePlate=VehiclePlate,PrivateCode=PrivateCode} }
-                };
+                    parameters.Add(ParameterKey.Vehicle, new CameraLookUpVehicleModel() { VehicleId = PK_VehicleID, VehiclePlate = VehiclePlate, PrivateCode = PrivateCode });
+                }
+                else
+                {
+                    parameters.Add(ParameterKey.Vehicle, new Vehicle() { VehicleId = PK_VehicleID, VehiclePlate = VehiclePlate, PrivateCode = PrivateCode });
+                }
                 await NavigationService.NavigateAsync(obj.Url, parameters, useModalNavigation: true, true);
             });
         }

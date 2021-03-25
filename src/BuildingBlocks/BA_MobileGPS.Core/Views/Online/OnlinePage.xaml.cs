@@ -110,7 +110,7 @@ namespace BA_MobileGPS.Core.Views
                         if (vehicleselect != null)
                         {
                             vm.CarSearch = vehicleselect.PrivateCode;
-                            UpdateSelectVehicle(vehicleselect);                         
+                            UpdateSelectVehicle(vehicleselect);
                         }
                         else
                         {
@@ -175,8 +175,15 @@ namespace BA_MobileGPS.Core.Views
             {
                 if (StaticSettings.ListVehilceOnline != null)
                 {
-                    //nếu khóa BAP rồi thì ko hiển thị trên Map nữa
-                    return StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                    if (MobileSettingHelper.IsUseVehicleDebtMoney)
+                    {
+                        //nếu khóa BAP rồi thì ko hiển thị trên Map nữa
+                        return StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                    }
+                    else
+                    {
+                        return StaticSettings.ListVehilceOnline;
+                    }
                 }
                 else
                 {
@@ -500,7 +507,11 @@ namespace BA_MobileGPS.Core.Views
                             vm.VehicleGroups = null;
                             HideBoxInfoCarActive(new VehicleOnline() { VehicleId = 1 });
                             var list = new List<VehicleOnline>();
-                            if (App.AppType == AppType.Viview)
+                            if (App.AppType == AppType.GisViet)
+                            {
+                                list = StaticSettings.ListVehilceOnline;
+                            }
+                            else if (App.AppType == AppType.Viview)
                             {
                                 list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128 && x.MessageId != 3).ToList();
                             }
@@ -657,15 +668,15 @@ namespace BA_MobileGPS.Core.Views
         private void ShowBoxInfoCarActive(VehicleOnline carInfo, int messageId, int dataExt)
         {
             //nếu messageId==128 thì là xe dừng dịch vụ
-            if (messageId == 128)
-            {
-                pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
+            //if (messageId == 128 && MobileSettingHelper.IsUseVehicleDebtMoney)
+            //{
+            //    pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
 
-                return;
-            }
+            //    return;
+            //}
 
             //Nếu messageId=2 hoặc 3 là xe phải thu phí
-            if (!StateVehicleExtension.IsVehicleDebtMoney(messageId, dataExt))
+            if (!StateVehicleExtension.IsVehicleDebtMoney(messageId, dataExt) || !MobileSettingHelper.IsUseVehicleDebtMoney)
             {
                 //nếu đang có xe active thì xóa active xe ý đi
                 if (mCarActive != null && mCarActive.VehicleId > 0)
@@ -848,8 +859,8 @@ namespace BA_MobileGPS.Core.Views
                     var car = mVehicleList.FirstOrDefault(x => x.VehiclePlate == args.Pin.Label);
                     if (car != null)
                     {
-                        vm.CarSearch = car.PrivateCode;                       
-                        ShowBoxInfoCarActive(car, car.MessageId, car.DataExt);                      
+                        vm.CarSearch = car.PrivateCode;
+                        ShowBoxInfoCarActive(car, car.MessageId, car.DataExt);
                     }
                 }
             }
