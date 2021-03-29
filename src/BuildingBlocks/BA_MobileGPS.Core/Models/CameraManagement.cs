@@ -239,13 +239,13 @@ namespace BA_MobileGPS.Core.Models
                     ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
                     mediaPlayer?.Media?.Dispose();
                     mediaPlayer.Media = null;
-                }              
+                }
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-         
+
         }
         /// <summary>
         /// Init base vlc voi cac behaviour can thiet, chua co url media
@@ -288,8 +288,9 @@ namespace BA_MobileGPS.Core.Models
         /// <param name="vehicle">vehicle Plate</param>
         public void StartWorkUnit(string vehicle)
         {
-            Task.Run(async() =>
+            Task.Run(async () =>
             {
+                //startRequest.Channel = (int)Math.Pow(2, startRequest.Channel - 1);
                 var requestStartResponse = await streamCameraService.StartStream(startRequest);
                 // case trả về mã lỗi # 0 => báo lỗi
                 if (requestStartResponse.StatusCode == 0)
@@ -305,10 +306,10 @@ namespace BA_MobileGPS.Core.Models
                         IsLoaded = false;
                         //Check status:
                         StartTrackDeviceStatus(vehicle);
-                    }                  
+                    }
                 }
                 else SetError(requestStartResponse.UserMessage);
-            });         
+            });
         }
 
         private void StartTrackDeviceStatus(string vehicle)
