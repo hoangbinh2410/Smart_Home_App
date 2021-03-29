@@ -1,4 +1,5 @@
-﻿using Prism.Events;
+﻿using BA_MobileGPS.Entities.Enums;
+using Prism.Events;
 
 namespace BA_MobileGPS.Core
 {
@@ -8,7 +9,7 @@ namespace BA_MobileGPS.Core
 
     public class UserBehaviorModel
     {
-        public string Page { get; set; }
+        public MenuKeyEnums Page { get; set; }
 
         public UserBehaviorType Type { get; set; }
     }

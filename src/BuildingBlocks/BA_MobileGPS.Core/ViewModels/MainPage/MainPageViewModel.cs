@@ -213,7 +213,20 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (obj != null && MobileSettingHelper.UseUserBehavior)
             {
-                userBahaviorHubService.SendUserBehavior(UserInfo.UserId, obj.Page, (int)obj.Type, (int)App.AppType);
+                userBahaviorHubService.SendUserBehavior(new UserBehaviorRequest()
+                {
+                    ActionCode = (int)obj.Page,
+                    ActionName = "ModuleOnline",
+                    ActionTime = DateTime.Now.Ticks,
+                    EndTime = DateTime.Now.AddMinutes(5).Ticks,
+                    CompanyId = CurrentComanyID,
+                    Id = UserInfo.UserId,
+                    CurrentPage = (int)obj.Page,
+                    Fullname = "Trần hoàng NAm",
+                    Username = "camera1",
+                    XNCode = 295,
+                    SystemType = 54
+                });
             }
         }
 
@@ -289,7 +302,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (MobileSettingHelper.UseUserBehavior)
             {
                 await userBahaviorHubService.Connect();
-                userBahaviorHubService.SendUserBehavior(UserInfo.UserId, "OnlinePage", (int)UserBehaviorType.Start, (int)App.AppType);
+                //userBahaviorHubService.SendUserBehavior(UserInfo.UserId, "OnlinePage", (int)UserBehaviorType.Start, (int)App.AppType);
             }
         }
 

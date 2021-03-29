@@ -5,7 +5,6 @@ namespace BA_MobileGPS.Entities
 {
     public class StaticSettings
     {
-        public static int AppType { get; set; }
         public static LoginResponse User { get; set; }
 
         public static string Token { get; set; }

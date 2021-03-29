@@ -3,6 +3,7 @@ using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
@@ -140,7 +141,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
                 {
-                    Page = "OnlinePage",
+                    Page = MenuKeyEnums.ModuleOnline,
                     Type = UserBehaviorType.End
                 });
             }
@@ -148,7 +149,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
                 {
-                    Page = "OnlinePage",
+                    Page = MenuKeyEnums.ModuleOnline,
                     Type = UserBehaviorType.Start
                 });
             }

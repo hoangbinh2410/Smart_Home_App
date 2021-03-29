@@ -51,7 +51,6 @@ namespace BA_MobileGPS
         {
             base.RegisterTypes(containerRegistry);
             AppType = BA_MobileGPS.Entities.AppType.BinhAnh;
-            StaticSettings.AppType = (int)AppType;
         }
     }
 }

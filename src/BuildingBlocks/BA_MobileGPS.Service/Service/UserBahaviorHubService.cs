@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Utilities;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,7 +22,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 // Connect to the server
-                var url = string.Format("{0}/userBehaviorHub?PK_UserID={1}&AppID={2}", "http://192.168.1.49:8028", StaticSettings.User.UserId.ToString().ToUpper(), StaticSettings.AppType);
+                var url = string.Format("{0}/userBehaviorHub?PK_UserID={1}", "http://192.168.1.49:8028", StaticSettings.User.UserId.ToString().ToUpper());
                 _connection = new HubConnectionBuilder()
                       .AddJsonProtocol()
                       .WithUrl(url)
@@ -40,13 +41,13 @@ namespace BA_MobileGPS.Service
             }
         }
 
-        public async void SendUserBehavior(Guid userID, string page, int type, int apptype)
+        public async void SendUserBehavior(UserBehaviorRequest request)
         {
             try
             {
                 if (_connection.State == HubConnectionState.Connected)
                 {
-                    await _connection.InvokeAsync("SendUserBehavior", userID, page, type, apptype);
+                    await _connection.InvokeAsync("SendUserBehavior", request);
                 }
             }
             catch (Exception ex)

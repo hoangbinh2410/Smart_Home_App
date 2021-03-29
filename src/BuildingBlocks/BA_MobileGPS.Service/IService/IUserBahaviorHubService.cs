@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BA_MobileGPS.Entities.RequestEntity;
+using System;
 using System.Threading.Tasks;
 
 namespace BA_MobileGPS.Service
@@ -11,7 +12,7 @@ namespace BA_MobileGPS.Service
 
         bool IsConnectedOrConnecting();
 
-        void SendUserBehavior(Guid userID, string page, int type, int apptype);
+        void SendUserBehavior(UserBehaviorRequest request);
 
         event Action ConnectionReconnecting;
 
