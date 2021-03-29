@@ -290,7 +290,7 @@ namespace BA_MobileGPS.Core.Models
         {
             Task.Run(async () =>
             {
-                //startRequest.Channel = (int)Math.Pow(2, startRequest.Channel - 1);
+                startRequest.Channel = (int)Math.Pow(2, startRequest.Channel - 1);
                 var requestStartResponse = await streamCameraService.StartStream(startRequest);
                 // case trả về mã lỗi # 0 => báo lỗi
                 if (requestStartResponse.StatusCode == 0)
