@@ -125,7 +125,7 @@ namespace BA_MobileGPS.Core
 
         public static string LinkCHPlay => Get(MobileConfigurationNames.LinkCHPlay, "https://play.google.com/store/apps/details?id=vn.vietnamcnn.gpsmobile");
 
-        public static string LinkShareApp => Get(MobileConfigurationNames.LinkShareApp, "https://play.google.com/store/apps/details?id=vn.com.xechieuve.customer");
+        public static string LinkShareApp => Get(MobileConfigurationNames.LinkShareApp, "http://binhanh.vn/");
 
         public static string LinkExperience => Get(MobileConfigurationNames.LinkExperience, "http://binhanh.vn/");
 
@@ -171,7 +171,7 @@ namespace BA_MobileGPS.Core
 
         public static bool IsUseRegisterSupport => Get(MobileConfigurationNames.IsUseRegisterSupport, true);
 
-        public static bool IsUseForgotpassword => Get(MobileConfigurationNames.IsUseForgotpassword, true);
+        public static bool IsUseForgotpassword => Get(MobileConfigurationNames.IsUseForgotpassword, false);
 
         public static bool IsUseVehicleDebtMoney => Get(MobileConfigurationNames.IsUseVehicleDebtMoney, true);
 

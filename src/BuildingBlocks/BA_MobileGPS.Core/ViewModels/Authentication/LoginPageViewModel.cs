@@ -144,7 +144,14 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
+                if (MobileSettingHelper.IsUseForgotpassword)
+                {
+                    await NavigationService.NavigateAsync("NavigationPage/ForgotPasswordPage", null, useModalNavigation: true, true);
+                }
+                else
+                {
+                    await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
+                }
             });
         });
 
@@ -499,6 +506,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 StaticSettings.Token = user.AccessToken;
                 StaticSettings.User = user;
                 OneSignal.Current.SendTag("UserID", user.UserId.ToString().ToUpper());
+                OneSignal.Current.SendTag("UserName", user.UserName.ToString().ToUpper());
                 CultureInfo.CurrentCulture = new CultureInfo(Language.CodeName);
                 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Language.CodeName);
                 //nếu cần đổi mật khẩu thì mở trang đổi mật khẩu

@@ -77,7 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Realm">
-      <Version>10.1.1</Version>
+      <Version>10.1.2</Version>
     </PackageReference>
     <PackageReference Include="VideoLAN.LibVLC.Android">
       <Version>3.2.0</Version>
@@ -97,6 +97,7 @@
     <AndroidAsset Include="Assets\internetconnection.json" />
     <AndroidAsset Include="Assets\Roboto-Regular.ttf" />
     <AndroidAsset Include="Assets\Roboto-Bold.ttf" />
+    <None Include="google-services.json" />
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>

@@ -207,6 +207,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ListDriverPage, ListDriverPageViewModel>("ListDriverPage");
             containerRegistry.RegisterForNavigation<AddDriverInforPage, InsertOrUpdateDriverPageViewModel>("AddDriverInfoPage");
             containerRegistry.RegisterForNavigation<DetailAndEditDriverPage, InsertOrUpdateDriverPageViewModel>("DetailAndEditDriverPage");
+            containerRegistry.RegisterForNavigation<DownloadVideo, DownloadVideoViewModel>("DownloadVideo");
 
             containerRegistry.RegisterForNavigation<InvalidPapersPage, InvalidPapersPageViewModel>("InvalidPapersPage");
             containerRegistry.RegisterForNavigation<SelectPaperTypePage, SelectPaperTypePageViewModel>("SelectPaperTypePage");
@@ -215,6 +216,10 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<SelectAlertTypePage, SelectAlertTypePageViewModel>("SelectAlertTypePage");
             containerRegistry.RegisterForNavigation<PaperHistoriesPage, PaperHistoriesPageViewModel>("PaperHistoriesPage");
             containerRegistry.RegisterForNavigation<PopupHtmlPage, PopupHtmlPageViewModel>("PopupHtmlPage");
+            containerRegistry.RegisterForNavigation<ForgotPasswordPage, ForgotPasswordPageViewModel>("ForgotPasswordPage");
+            containerRegistry.RegisterForNavigation<VerifyCodeSMSPage, VerifyCodeSMSPageViewModel>();
+            containerRegistry.RegisterForNavigation<ChangePasswordForgotPage, ChangePasswordForgotPageViewModel>();
+
         }
     }
 }

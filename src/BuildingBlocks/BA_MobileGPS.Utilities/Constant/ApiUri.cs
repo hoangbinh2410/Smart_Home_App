@@ -131,7 +131,7 @@
 
         public const string CHECKVERIFYCODE = "api/sms/checkverifycode";
 
-        public const string CHANGEPASSWORDFORGET = "api/authentcation/changepasswordforget";
+        public const string CHANGEPASSWORDFORGET = "api/v2/authentcation/changepasswordforget";
 
         #endregion ForgotPassword
 
@@ -197,7 +197,7 @@
 
         #region Camera
 
-        public const string GET_CAMERAIMAGE = "api/v2/cameras/getcameraimage";
+        public const string GET_CAMERAIMAGE = "api/cameras/getcameraimage";
         public const string POST_READYFORSTREAM = "api/stream/start";
         public const string POST_ENDSTREAM = "api/stream/stop";
         public const string POST_GETMORETIMESTREAM = "api/stream/ping";
@@ -213,6 +213,7 @@
         public const string POST_RESTREAM_UPLOAD = "api/stream/uploadcloud";
         public const string POST_RESTREAM_CANCELUPLOAD = "api/stream/canceluploadcloud";
         public const string POST_CHART_DATA = "api/stream/chartdata";
+        public const string GET_RESTREAM_DEVICETAB_VIDEO_INFOR = "api/v2/stream/restreamdevicetabvideo";
 
         #endregion Camera
 

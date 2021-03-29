@@ -61,6 +61,8 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<SelectComboboxEvent>().Subscribe(UpdateCombobox);
             EventAggregator.GetEvent<SelectCountryCodeEvent>().Subscribe(UpdateCountryCode);
             EventAggregator.GetEvent<SelectCancelPopupMessage>().Subscribe(UpdatePopupMessage);
+            AddValidations();
+            AddValidationsPhone();
         }
 
         public override void OnDestroy()
@@ -131,7 +133,7 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref _transportTypeItem, value); }
         }
 
-        private string _hotline = MobileSettingHelper.HotlineTeleSaleGps;
+        private string _hotline = MobileSettingHelper.HotlineGps;
 
         public string Hotline
         {
@@ -181,6 +183,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (IsConnected)
                 {
+                   
                     if (Validate())
                     {
                         using (new HUDService())
@@ -210,13 +213,15 @@ namespace BA_MobileGPS.Core.ViewModels
                                 case (int)RegisterConsultEnum.Success:
                                     Device.BeginInvokeOnMainThread(async () =>
                                     {
+                                        var content = MobileResource.RegisterConsult_Message_SuccessRegister;
+
                                         var p = new NavigationParameters
                                         {
                                             { "TitlePopup", MobileResource.Common_Label_BAGPS },
-                                            { "ContentPopup", MobileResource.RegisterConsult_Message_SuccessRegister },
+                                            { "ContentPopup", content },
                                             { "TitleButton", MobileResource.RegisterConsult_Button_ClosePopup }
                                         };
-                                        await NavigationService.NavigateAsync("PopupMessagePage", p);
+                                        var a = await NavigationService.NavigateAsync("PopupHtmlPage", p);
                                     });
 
                                     break;
@@ -435,14 +440,16 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool Validate()
         {
-            AddValidations();
-            if (_fullName.Validate() && _contentConsult.Validate() && _countryCode.Validate())
+            var nameVal = _fullName.Validate();
+            var contentVal = _contentConsult.Validate();
+            var countryCodeVal = _countryCode.Validate();
+            if ( nameVal && contentVal && countryCodeVal)
             {
                 // check là đầu số việt nam thì check tiếp ko thì mặc định là lưu
                 if (CountryCodeConstant.VietNam.Equals(CountryCode.Value))
-                {
-                    AddValidationsPhone();
-                    return _phoneNumber.Validate();
+                {    
+                    var phoneVal = _phoneNumber.Validate();
+                    return phoneVal;
                 }
                 return true;
             }

@@ -124,12 +124,6 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref dateEnd, value);
         }
 
-        /// <summary>
-        /// Thời gian trừ trước và sau thời gian của ảnh => gửi request video
-        /// 1.5 theo yêu cầu từ QA
-        /// </summary>
-        private readonly double configMinute = 1.5;
-
         private List<RestreamVideoModel> VideoItemsSourceOrigin = new List<RestreamVideoModel>();
         private bool isLoadingCamera = false;
 
@@ -350,8 +344,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 return;
             }
-
-
 
             SafeExecute(async () =>
             {
@@ -655,9 +647,9 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         /// <summary>
-        /// Lấy danh sách ảnh từ server
+        /// Lấy danh sách video từ server
         /// </summary>
-        private void GetListImageDataFrom()
+        private void GetListVideoDataFrom()
         {
             try
             {
@@ -668,31 +660,30 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     RunOnBackground(async () =>
                     {
-                        return await streamCameraService.RestreamCaptureImageInfo(UserInfo.XNCode,
+                        return await streamCameraService.DeviceTabGetVideoInfor(UserInfo.XNCode,
                             Vehicle.VehiclePlate,
                             DateStart,
                             DateEnd,
-                            SelectedChannel.Value,
-                            null);
+                            SelectedChannel.Value);
+
                     }, (result) =>
                     {
                         if (result != null && result.Count > 0)
                         {
-                            foreach (var image in result)
+                            // Lọc sai số : video có timespan = timeEnd - timeStart tối thiểu 64s
+                           // result = result.Where(x => (x.EndTime - x.StartTime) >= TimeSpan.FromSeconds(64)).ToList();
+                            foreach (var video in result)
                             {
                                 var videoModel = new RestreamVideoModel()
                                 {
-                                    VideoImageSource = image.Url,
-                                    VideoStartTime = (image.Time.Hour == 0 && image.Time.Minute < 2 && image.Time.Second < 35) ? image.Time : image.Time.AddMinutes(-configMinute),
-                                    VideoEndTime = (image.Time.Hour == 23 && image.Time.Minute > 57 && image.Time.Second > 25) ? image.Time : image.Time.AddMinutes(configMinute),
-                                    VideoTime = TimeSpan.FromMinutes(2 * configMinute),
-                                    Data = new StreamStart() { Channel = image.Channel },
-                                    EventType = image.Type,
-                                    VideoAddress = string.IsNullOrEmpty(image.CurrentAddress) ? "Địa chỉ không xác định" : image.CurrentAddress,
-                                    ImageTime = image.Time
+                                    VideoImageSource =   video.Image,
+                                    VideoStartTime = video.StartTime,
+                                    VideoEndTime = video.EndTime,
+                                    VideoTime = video.EndTime - video.StartTime,
+                                    Data = new StreamStart() { Channel = video.Channel },
                                 };
 
-                                videoModel.VideoName = string.Format("Camera{0}_{1}", image.Channel,
+                                videoModel.VideoName = string.Format("Camera{0}_{1}", video.Channel,
                                     videoModel.VideoStartTime.ToString("yyyyMMdd_hhmmss"));
 
                                 VideoItemsSourceOrigin.Add(videoModel);
@@ -798,7 +789,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SearchData()
         {
-            GetListImageDataFrom();
+            GetListVideoDataFrom();
             CloseVideo();
         }
 

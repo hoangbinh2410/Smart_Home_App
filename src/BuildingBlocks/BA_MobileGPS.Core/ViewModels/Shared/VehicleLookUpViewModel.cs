@@ -123,11 +123,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    var listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65
-                    && x.MessageId != 254 
+                    var listOnline = new List<VehicleOnline>();
+                    if (App.AppType == AppType.GisViet)
+                    {
+                        listOnline = StaticSettings.ListVehilceOnline;
+                    }
+                    else
+                    {
+                        listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65
+                    && x.MessageId != 254
                     && x.MessageId != 128
                     && x.MessageId != 3
                     && x.MessageId != 2).ToList();
+                    }
                     if (groupids != null && groupids.Length > 0)
                     {
                         foreach (var item in groupids)
