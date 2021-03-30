@@ -564,9 +564,11 @@ namespace BA_MobileGPS.Core.ViewModels
                                     request, EventAggregator);
                                 listCam.Add(cam);
                             }
-
                             mCameraVehicle = deviceResponseData.CameraChannels;
-
+                            var query = (from p in ChannelCamera
+                                         join pts in deviceResponseData.CameraChannels on p.Channel equals pts.Channel
+                                         select p).ToList();
+                            ChannelCamera = query.ToObservableCollection();
                             SetItemsSource(listCam);
                         }
                     }
@@ -767,38 +769,47 @@ namespace BA_MobileGPS.Core.ViewModels
                     //	Kênh không active  không thay đổi
                     if (item.Status == ChannelCameraStatus.Error)
                     {
+                        DisplayMessage.ShowMessageInfo($"Kênh {item.Channel} không hoạt động");
                         return;
                     }
                     if (mCameraVehicle != null && mCameraVehicle.Count > 0)
                     {
-                        var isexistcamera = mCameraVehicle.Exists(x => x.Channel == item.Channel);
-                        if (isexistcamera)
+                        var channel = ChannelCamera.FirstOrDefault(x => x.Channel == item.Channel);
+                        if (channel != null)
                         {
-                            item.IsShow = !item.IsShow;
-                            var lstchannelActice = ChannelCamera.Where(x => x.IsShow == true).ToList();
-                            if (lstchannelActice != null && lstchannelActice.Count > 0)
+                            if (channel != null)
                             {
-                                ClearAllMediaPlayer();
+                                channel.IsShow = !item.IsShow;
                                 var listCam = new List<CameraManagement>();
-                                foreach (var itemcam in lstchannelActice)
+                                foreach (var itemcam in ChannelCamera)
                                 {
-                                    var request = new StreamStartRequest()
+                                    if (itemcam.IsShow)
                                     {
-                                        Channel = itemcam.Channel,
-                                        IMEI = currentIMEI,
-                                        VehiclePlate = Vehicle.VehiclePlate,
-                                        xnCode = currentXnCode
-                                    };
-                                    // var res = await RequestStartCam(item.Channel);
-                                    var cam = new CameraManagement(maxLoadingTime, libVLC, _streamCameraService, request, EventAggregator);
-                                    listCam.Add(cam);
+                                        channel.Status = ChannelCameraStatus.Selected;
+                                        var request = new StreamStartRequest()
+                                        {
+                                            Channel = itemcam.Channel,
+                                            IMEI = currentIMEI,
+                                            VehiclePlate = Vehicle.VehiclePlate,
+                                            xnCode = currentXnCode
+                                        };
+                                        var cam = new CameraManagement(maxLoadingTime, libVLC, _streamCameraService, request, EventAggregator);
+                                        listCam.Add(cam);
+                                    }
+                                    else
+                                    {
+                                        channel.Status = ChannelCameraStatus.UnSelected;
+                                    }
                                 }
-                                SetItemsSource(listCam);
-                            }
-                            else
-                            {
-                                item.IsShow = true;
-                                DisplayMessage.ShowMessageInfo("Bạn cần phải chọn 1 kênh để theo dõi");
+                                if (listCam.Count > 0)
+                                {
+                                    SetItemsSource(listCam);
+                                }
+                                else
+                                {
+                                    DisplayMessage.ShowMessageInfo($"Bạn cần chọn 1 kênh để theo dõi");
+                                }
+
                             }
                         }
                         else
