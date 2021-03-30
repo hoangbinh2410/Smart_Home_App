@@ -34,7 +34,7 @@ namespace GISVIET_MobileGPS.iOS
             UINavigationBar.Appearance.BarTintColor = UIColor.Clear;
             UINavigationBar.Appearance.Translucent = false;
             UINavigationBar.Appearance.BarStyle = UIBarStyle.Black;
-
+            UIApplication.SharedApplication.IdleTimerDisabled = true;
             RequestNotificationPermissions(app);
 
             LoadApplication(new GISVIETApp(new IOSInitializer()));
