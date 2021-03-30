@@ -1,5 +1,4 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
@@ -14,10 +13,10 @@ using Prism.Navigation;
 using Syncfusion.Data.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Input;
 
@@ -25,7 +24,6 @@ using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-
     /// <summary>
     /// Thay đổi ngày 25/02/2021: Hiển thị tất cả các camera của xe (k check lỗi)
     /// => lỗi sẽ dc trả về sua khi call start livestream
@@ -67,6 +65,8 @@ namespace BA_MobileGPS.Core.ViewModels
             ReLoadCommand = new DelegateCommand<object>(Reload);
             itemsSource = new List<ChildStackSource>();
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
+            SelectedChannelCommand = new DelegateCommand<object>(SelectedChannel);
+            EventAggregator.GetEvent<SendErrorCameraEvent>().Subscribe(SetErrorChannelCamera);
         }
 
         #region Life Cycle
@@ -97,6 +97,7 @@ namespace BA_MobileGPS.Core.ViewModels
             LibVLCSharp.Shared.Core.Initialize();
             LibVLC = new LibVLC("--no-osd", "--rtsp-tcp");
             InitTimer();
+            GetChannelCamera();
         }
 
         public override void OnSleep()
@@ -123,6 +124,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnDestroy()
         {
+            EventAggregator.GetEvent<SendErrorCameraEvent>().Unsubscribe(SetErrorChannelCamera);
             ClearAllMediaPlayer();
             DependencyService.Get<IScreenOrientServices>().ForcePortrait();
             LibVLC?.Dispose();
@@ -166,6 +168,20 @@ namespace BA_MobileGPS.Core.ViewModels
             set
             {
                 SetProperty(ref itemsSource, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private List<CameraChannel> mCameraVehicle;
+
+        private ObservableCollection<ChannelCamera> channelCamera;
+
+        public ObservableCollection<ChannelCamera> ChannelCamera
+        {
+            get { return channelCamera; }
+            set
+            {
+                SetProperty(ref channelCamera, value);
                 RaisePropertyChanged();
             }
         }
@@ -320,6 +336,8 @@ namespace BA_MobileGPS.Core.ViewModels
         #region ICommand & excute
 
         public ICommand SelectVehicleCameraCommand { get; }
+        public ICommand SelectedChannelCommand { get; }
+
         private void SelectVehicleCamera()
         {
             SafeExecute(async () =>
@@ -327,7 +345,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraLookup", null, useModalNavigation: true, animated: true);
             });
         }
-
 
         /// <summary>
         ///  Raise khi nút play được chạm
@@ -415,15 +432,15 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </summary>
         public ICommand ReLoadCommand { get; }
 
-        private  void Reload(object obj)
+        private void Reload(object obj)
         {
             try
             {
                 if (obj != null && obj is CameraManagement item)
                 {
-                    if (item.Data != null)
+                    if (item.Data != null && !string.IsNullOrEmpty(item.Data.Link))
                     {
-                        item.Clear();                     
+                        item.Clear();
                         item.StartWorkUnit(Vehicle.VehiclePlate);
                     }
                 }
@@ -496,6 +513,17 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Private method
 
+        private void GetChannelCamera()
+        {
+            ChannelCamera = new ObservableCollection<ChannelCamera>()
+            {
+                new ChannelCamera(){Channel=1, Name="CH1",Status=ChannelCameraStatus.Selected,IsShow=true},
+                new ChannelCamera(){Channel=2, Name="CH2",Status=ChannelCameraStatus.Selected,IsShow=true},
+                new ChannelCamera(){Channel=3, Name="CH3",Status=ChannelCameraStatus.Selected,IsShow=false},
+                new ChannelCamera(){Channel=4, Name="CH4",Status=ChannelCameraStatus.Selected,IsShow=false}
+            };
+        }
+
         /// <summary>
         /// Lấy thông tin camera trên xe
         /// </summary>
@@ -529,13 +557,18 @@ namespace BA_MobileGPS.Core.ViewModels
                                     VehiclePlate = Vehicle.VehiclePlate,
                                     xnCode = currentXnCode
                                 };
-                               // var res = await RequestStartCam(item.Channel);                              
-                                var cam = new CameraManagement(maxLoadingTime, libVLC, _streamCameraService, request);                               
+                                // var res = await RequestStartCam(item.Channel);
+                                var cam = new CameraManagement(maxLoadingTime,
+                                    libVLC,
+                                    _streamCameraService,
+                                    request, EventAggregator);
                                 listCam.Add(cam);
                             }
+
+                            mCameraVehicle = deviceResponseData.CameraChannels;
+
                             SetItemsSource(listCam);
                         }
-                      
                     }
                 }
             });
@@ -619,6 +652,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     item.Dispose();
                 }
+            }
+            foreach (var item in ChannelCamera)
+            {
+                item.IsShow = true;
+                item.Status = ChannelCameraStatus.Selected;
             }
             ItemsSource = new List<ChildStackSource>();
         }
@@ -718,6 +756,71 @@ namespace BA_MobileGPS.Core.ViewModels
                     LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
                 }
             });
+        }
+
+        private void SelectedChannel(object obj)
+        {
+            try
+            {
+                if (obj != null && obj is ChannelCamera item)
+                {
+                    //	Kênh không active  không thay đổi
+                    if (item.Status == ChannelCameraStatus.Error)
+                    {
+                        return;
+                    }
+                    if (mCameraVehicle != null && mCameraVehicle.Count > 0)
+                    {
+                        var isexistcamera = mCameraVehicle.Exists(x => x.Channel == item.Channel);
+                        if (isexistcamera)
+                        {
+                            item.IsShow = !item.IsShow;
+                            var lstchannelActice = ChannelCamera.Where(x => x.IsShow == true).ToList();
+                            if (lstchannelActice != null && lstchannelActice.Count > 0)
+                            {
+                                ClearAllMediaPlayer();
+                                var listCam = new List<CameraManagement>();
+                                foreach (var itemcam in lstchannelActice)
+                                {
+                                    var request = new StreamStartRequest()
+                                    {
+                                        Channel = itemcam.Channel,
+                                        IMEI = currentIMEI,
+                                        VehiclePlate = Vehicle.VehiclePlate,
+                                        xnCode = currentXnCode
+                                    };
+                                    // var res = await RequestStartCam(item.Channel);
+                                    var cam = new CameraManagement(maxLoadingTime, libVLC, _streamCameraService, request, EventAggregator);
+                                    listCam.Add(cam);
+                                }
+                                SetItemsSource(listCam);
+                            }
+                            else
+                            {
+                                item.IsShow = true;
+                                DisplayMessage.ShowMessageInfo("Bạn cần phải chọn 1 kênh để theo dõi");
+                            }
+                        }
+                        else
+                        {
+                            DisplayMessage.ShowMessageInfo($"Kênh {item.Channel} không hoạt động");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
+
+        public void SetErrorChannelCamera(int channel)
+        {
+            var channelcame = ChannelCamera.FirstOrDefault(x => x.Channel == channel);
+            if (channelcame != null)
+            {
+                channelcame.Status = ChannelCameraStatus.Error;
+            }
         }
 
         #endregion Private method
