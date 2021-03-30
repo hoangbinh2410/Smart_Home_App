@@ -25,7 +25,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>vn.gisvietgps.gpsmobile</string>
 	<key>CFBundleName</key>
-	<string>VIVIEW GPS</string>
+	<string>GISVIET</string>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>en</string>
