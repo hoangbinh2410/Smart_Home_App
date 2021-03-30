@@ -71,9 +71,9 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Distribution: Phan Anh Tung (K7W379K359)</CodesignKey>
+    <CodesignKey>iPhone Developer: Phan Anh Tung (U38W3KPMDL)</CodesignKey>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
-    <CodesignProvision>GISVIETDIS</CodesignProvision>
+    <CodesignProvision>GISVIETDEV</CodesignProvision>
     <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
