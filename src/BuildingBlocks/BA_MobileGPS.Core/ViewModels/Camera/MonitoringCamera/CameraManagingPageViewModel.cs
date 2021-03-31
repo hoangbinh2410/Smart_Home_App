@@ -781,11 +781,11 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 channel.IsShow = !item.IsShow;
                                 var listCam = new List<CameraManagement>();
-                                foreach (var itemcam in ChannelCamera)
+                                foreach (var itemcam in ChannelCamera.Where(x => x.Status != ChannelCameraStatus.Error).ToList())
                                 {
                                     if (itemcam.IsShow)
                                     {
-                                        channel.Status = ChannelCameraStatus.Selected;
+                                        itemcam.Status = ChannelCameraStatus.Selected;
                                         var request = new StreamStartRequest()
                                         {
                                             Channel = itemcam.Channel,
@@ -798,7 +798,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                     }
                                     else
                                     {
-                                        channel.Status = ChannelCameraStatus.UnSelected;
+                                        itemcam.Status = ChannelCameraStatus.UnSelected;
                                     }
                                 }
                                 if (listCam.Count > 0)
