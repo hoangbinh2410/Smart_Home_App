@@ -17,7 +17,7 @@ namespace GISVIET_MobileGPS.Droid
             Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
 
             base.OnCreate(bundle);
-
+            this.Window.SetFlags(WindowManagerFlags.KeepScreenOn, WindowManagerFlags.KeepScreenOn);
             Forms.SetFlags(new string[] { "CarouselView_Experimental", "IndicatorView_Experimental", "FastRenderers_Experimental", "AppTheme_Experimental" });
 
             Forms.Init(this, bundle);

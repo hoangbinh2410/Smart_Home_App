@@ -30,8 +30,9 @@ namespace BA_MobileGPS.Core.Models
         private readonly IStreamCameraService streamCameraService;
         private StreamStartRequest startRequest { get; set; }
         CancellationTokenSource cts = new CancellationTokenSource();
+        private readonly IEventAggregator _eventAggregator;
         public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC,
-            IStreamCameraService streamCameraService, StreamStartRequest startRequest)
+            IStreamCameraService streamCameraService, StreamStartRequest startRequest, IEventAggregator eventAggregator)
         {
             this.streamCameraService = streamCameraService;
             maxLoadingTime = maxTimeLoadingMedia;
@@ -44,6 +45,8 @@ namespace BA_MobileGPS.Core.Models
             internalError = false;
             AutoRequestPing = true;
             this.startRequest = startRequest;
+            Channel = startRequest.Channel;
+            _eventAggregator = eventAggregator;
             StartWorkUnit(startRequest.VehiclePlate);
         }
 
@@ -180,6 +183,8 @@ namespace BA_MobileGPS.Core.Models
 
         public bool AutoRequestPing { get; set; }
 
+        public int Channel { get; set; }
+
         private void CountLoadingTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             counter -= 1;
@@ -290,7 +295,7 @@ namespace BA_MobileGPS.Core.Models
         {
             Task.Run(async () =>
             {
-                startRequest.Channel = (int)Math.Pow(2, startRequest.Channel - 1);
+                //startRequest.Channel = (int)Math.Pow(2, startRequest.Channel - 1);
                 var requestStartResponse = await streamCameraService.StartStream(startRequest);
                 // case trả về mã lỗi # 0 => báo lỗi
                 if (requestStartResponse.StatusCode == 0)
@@ -308,7 +313,16 @@ namespace BA_MobileGPS.Core.Models
                         StartTrackDeviceStatus(vehicle);
                     }
                 }
-                else SetError(requestStartResponse.UserMessage);
+                else
+                {
+                    Data = new StreamStart()
+                    {
+                        Channel = Channel,
+                        Link = string.Empty
+                    };
+                    _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
+                    SetError(requestStartResponse.UserMessage);
+                }
             });
         }
 
