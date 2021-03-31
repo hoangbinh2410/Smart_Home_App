@@ -646,7 +646,7 @@ namespace BA_MobileGPS.Core.ViewModels
         /// <summary>
         /// Clear giao diện khi load lại xe hoặc máy chạy ngầm
         /// </summary>
-        private void ClearAllMediaPlayer()
+        private void ClearAllMediaPlayer(bool isloadchannel = true)
         {
             foreach (var child in itemsSource)
             {
@@ -655,10 +655,13 @@ namespace BA_MobileGPS.Core.ViewModels
                     item.Dispose();
                 }
             }
-            foreach (var item in ChannelCamera)
+            if (isloadchannel)
             {
-                item.IsShow = true;
-                item.Status = ChannelCameraStatus.Selected;
+                foreach (var item in ChannelCamera)
+                {
+                    item.IsShow = true;
+                    item.Status = ChannelCameraStatus.Selected;
+                }
             }
             ItemsSource = new List<ChildStackSource>();
         }
@@ -807,14 +810,13 @@ namespace BA_MobileGPS.Core.ViewModels
                                 }
                                 else
                                 {
-                                    DisplayMessage.ShowMessageInfo($"Bạn cần chọn 1 kênh để theo dõi");
+                                    ClearAllMediaPlayer(false);
                                 }
-
                             }
                         }
                         else
                         {
-                            DisplayMessage.ShowMessageInfo($"Kênh {item.Channel} không hoạt động");
+                            DisplayMessage.ShowMessageWarning($"Kênh {item.Channel} không hoạt động");
                         }
                     }
                 }
