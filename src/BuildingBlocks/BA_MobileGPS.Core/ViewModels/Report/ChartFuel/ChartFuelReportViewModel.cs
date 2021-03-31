@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
 
 using FFImageLoading.Forms;
@@ -79,8 +80,8 @@ namespace BA_MobileGPS.Core.ViewModels
             base.Initialize(parameters);
             EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
             {
-                Page = "ChartFuelReport",
-                Type = UserBehaviorType.End
+                Page = Entities.Enums.MenuKeyEnums.MobileFuelChart,
+                Type = UserBehaviorType.Start
             });
         }
 
@@ -89,8 +90,8 @@ namespace BA_MobileGPS.Core.ViewModels
             base.Dispose();
             EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
             {
-                Page = "ChartFuelReport",
-                Type = UserBehaviorType.Start
+                Page = Entities.Enums.MenuKeyEnums.MobileFuelChart,
+                Type = UserBehaviorType.End
             });
         }
 

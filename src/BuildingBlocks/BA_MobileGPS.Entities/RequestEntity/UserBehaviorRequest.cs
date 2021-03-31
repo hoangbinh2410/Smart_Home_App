@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BA_MobileGPS.Entities.Enums;
+using Newtonsoft.Json;
 using System;
 
 namespace BA_MobileGPS.Entities.RequestEntity
@@ -8,13 +9,13 @@ namespace BA_MobileGPS.Entities.RequestEntity
         /// <summary>
         /// Id hành vi
         /// </summary>
-        [JsonProperty("0")]
+        [JsonProperty(PropertyName = "0")]
         public Guid Id { set; get; }
 
         /// <summary>
         /// Mã hệ thống
         /// </summary>
-        [JsonProperty("1")]
+        [JsonProperty(PropertyName = "1")]
         public int SystemType { set; get; }
 
         /// <summary>
@@ -30,51 +31,39 @@ namespace BA_MobileGPS.Entities.RequestEntity
         public string Fullname { set; get; }
 
         /// <summary>
-        /// Mã hành vi
+        /// Tên đầy đủ người dùng
         /// </summary>
         [JsonProperty("4")]
-        public int ActionCode { set; get; }
-
-        /// <summary>
-        /// Tên hành vi
-        /// </summary>
-        [JsonProperty("5")]
-        public string ActionName { set; get; }
-
-        /// <summary>
-        /// Thời điểm thực hiện hành vi
-        /// </summary>
-        [JsonProperty("6")]
-        public long ActionTime { set; get; }
+        public MenuKeyEnums MenuKey { set; get; }
 
         /// <summary>
         /// Mã xí nghiệp
         /// </summary>
-        [JsonProperty("7")]
+        [JsonProperty("5")]
         public int XNCode { set; get; }
 
         /// <summary>
-        /// Menu Key
+        /// Thời điểm
         /// </summary>
-        [JsonProperty("8")]
-        public int CurrentPage { set; get; }
+        [JsonProperty("6")]
+        public long Time { set; get; }
 
         /// <summary>
-        /// Thời điểm bắt đầu
+        /// Loại start end
         /// </summary>
-        [JsonProperty("9")]
-        public long StartTime { set; get; }
-
-        /// <summary>
-        /// Thời điểm kết thúc
-        /// </summary>
-        [JsonProperty("10")]
-        public long EndTime { set; get; }
+        [JsonProperty("7")]
+        public UserBehaviorType TimeType { set; get; }
 
         /// <summary>
         /// Mã công ty
         /// </summary>
-        [JsonProperty("11")]
+        [JsonProperty("8")]
         public int CompanyId { set; get; }
+    }
+
+    public enum UserBehaviorType
+    {
+        Start = 0,
+        End = 1
     }
 }

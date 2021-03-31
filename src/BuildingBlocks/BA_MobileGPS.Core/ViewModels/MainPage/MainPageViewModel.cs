@@ -215,17 +215,15 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 userBahaviorHubService.SendUserBehavior(new UserBehaviorRequest()
                 {
-                    ActionCode = (int)obj.Page,
-                    ActionName = "ModuleOnline",
-                    ActionTime = DateTime.Now.Ticks,
-                    EndTime = DateTime.Now.AddMinutes(5).Ticks,
                     CompanyId = CurrentComanyID,
                     Id = UserInfo.UserId,
-                    CurrentPage = (int)obj.Page,
-                    Fullname = "Trần hoàng NAm",
-                    Username = "camera1",
-                    XNCode = 295,
-                    SystemType = 54
+                    Fullname = UserInfo.FullName,
+                    Username = UserInfo.UserName,
+                    XNCode = UserInfo.XNCode,
+                    SystemType = 54,
+                    MenuKey = obj.Page,
+                    Time = StaticSettings.TimeServer.Ticks,
+                    TimeType = obj.Type,
                 });
             }
         }

@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 
@@ -39,13 +40,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
             IsExportExcel = CheckPermision((int)PermissionKeyNames.ReportActivitySummaryExport);
         }
+
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
             EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
             {
-                Page = "ActivitySummaries",
-                Type = UserBehaviorType.End
+                Page = Entities.Enums.MenuKeyEnums.ReportActivitySummary,
+                Type = UserBehaviorType.Start
             });
         }
 
@@ -54,10 +56,11 @@ namespace BA_MobileGPS.Core.ViewModels
             base.Dispose();
             EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
             {
-                Page = "ActivitySummaries",
-                Type = UserBehaviorType.Start
+                Page = Entities.Enums.MenuKeyEnums.ReportActivitySummary,
+                Type = UserBehaviorType.End
             });
         }
+
         public ICommand DetailVehicleCommand { get; private set; }
 
         public ICommand SelectJoinDayCommand { get; private set; }

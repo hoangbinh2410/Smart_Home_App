@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 
@@ -51,8 +52,8 @@ namespace BA_MobileGPS.Core.ViewModels
             base.Initialize(parameters);
             EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
             {
-                Page = "PourFuel",
-                Type = UserBehaviorType.End
+                Page = Entities.Enums.MenuKeyEnums.ReportPourFuel,
+                Type = UserBehaviorType.Start
             });
         }
 
@@ -61,8 +62,8 @@ namespace BA_MobileGPS.Core.ViewModels
             base.Dispose();
             EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
             {
-                Page = "PourFuel",
-                Type = UserBehaviorType.Start
+                Page = Entities.Enums.MenuKeyEnums.ReportPourFuel,
+                Type = UserBehaviorType.End
             });
         }
 
