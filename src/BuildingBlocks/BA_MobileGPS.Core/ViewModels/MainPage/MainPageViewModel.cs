@@ -300,7 +300,18 @@ namespace BA_MobileGPS.Core.ViewModels
             if (MobileSettingHelper.UseUserBehavior)
             {
                 await userBahaviorHubService.Connect();
-                //userBahaviorHubService.SendUserBehavior(UserInfo.UserId, "OnlinePage", (int)UserBehaviorType.Start, (int)App.AppType);
+                userBahaviorHubService.SendUserBehavior(new UserBehaviorRequest()
+                {
+                    CompanyId = CurrentComanyID,
+                    Id = UserInfo.UserId,
+                    Fullname = UserInfo.FullName,
+                    Username = UserInfo.UserName,
+                    XNCode = UserInfo.XNCode,
+                    SystemType = 54,
+                    MenuKey = Entities.Enums.MenuKeyEnums.ModuleOnline,
+                    Time = StaticSettings.TimeServer.Ticks,
+                    TimeType = UserBehaviorType.Start,
+                });
             }
         }
 

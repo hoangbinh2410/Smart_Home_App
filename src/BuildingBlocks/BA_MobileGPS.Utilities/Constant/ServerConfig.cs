@@ -57,6 +57,8 @@ namespace BA_MobileGPS.Utilities.Constant
         /// </Modified>
         public static ServerAlertHubTypes ServerAlertHubType = ServerAlertHubTypes.ServerThat;
 
+        public static ServerUserBehaviorHubTypes ServerUserBehaviorHubType = ServerUserBehaviorHubTypes.ServerThat;
+
         /// <summary>
         /// Thông tin phiên bản App trên AppStore hoặc Google Play
         /// Khi đẩy thật thì chỉnh lại theo version trên market.
@@ -237,6 +239,39 @@ namespace BA_MobileGPS.Utilities.Constant
 
                     default:
                         return ServerAlertHubTypes.ServerTest.ToDescription();
+                }
+            }
+        }
+
+        public static string ServerUserBehaviorHubIP
+        {
+            get
+            {
+                switch (ServerUserBehaviorHubType)
+                {
+                    case ServerUserBehaviorHubTypes.ServerCNN:
+                        return ServerUserBehaviorHubTypes.ServerCNN.ToDescription();
+
+                    case ServerUserBehaviorHubTypes.ServerThat:
+                        return ServerUserBehaviorHubTypes.ServerThat.ToDescription();
+
+                    case ServerUserBehaviorHubTypes.ServerTest:
+                        return ServerUserBehaviorHubTypes.ServerTest.ToDescription();
+
+                    case ServerUserBehaviorHubTypes.ServerVIVIEW:
+                        return ServerUserBehaviorHubTypes.ServerVIVIEW.ToDescription();
+
+                    case ServerUserBehaviorHubTypes.ServerGISVIET:
+                        return ServerUserBehaviorHubTypes.ServerGISVIET.ToDescription();
+
+                    case ServerUserBehaviorHubTypes.ServerVMS:
+                        return ServerUserBehaviorHubTypes.ServerVMS.ToDescription();
+
+                    case ServerUserBehaviorHubTypes.ServerMoto:
+                        return ServerUserBehaviorHubTypes.ServerMoto.ToDescription();
+
+                    default:
+                        return ServerUserBehaviorHubTypes.ServerTest.ToDescription();
                 }
             }
         }
