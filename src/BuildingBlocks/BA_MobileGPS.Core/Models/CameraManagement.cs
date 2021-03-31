@@ -245,7 +245,6 @@ namespace BA_MobileGPS.Core.Models
                     mediaPlayer?.Media?.Dispose();
                     mediaPlayer.Media = null;
                 }
-                _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
             }
             catch (Exception ex)
             {
@@ -321,6 +320,7 @@ namespace BA_MobileGPS.Core.Models
                         Channel = Channel,
                         Link = string.Empty
                     };
+                    _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
                     SetError(requestStartResponse.UserMessage);
                 }
             });
