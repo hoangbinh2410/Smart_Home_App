@@ -23,10 +23,10 @@
             <controls:IconView
                 Margin="10,0"
                 Foreground="{DynamicResource WhiteColor}"
-                HeightRequest="15"
+                HeightRequest="20"
                 HorizontalOptions="End"
                 Source="ic_download.png"
-                WidthRequest="15">
+                WidthRequest="20">
                 <controls:IconView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DownloadImageCommand}" />
                 </controls:IconView.GestureRecognizers>
