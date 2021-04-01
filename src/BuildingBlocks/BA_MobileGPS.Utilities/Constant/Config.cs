@@ -46,7 +46,7 @@
         /// Name     Date         Comments
         /// Namth  16/1/2018   created
         /// </Modified>
-        public const string OneSignalKey = "601dc1c4-04ac-4ed7-b05a-a58b15c81935";
+        public const string OneSignalKey = "aeef0da5-0d33-4476-bb6d-599ac53d0b94";
 
         /// <summary>
         /// Key cho OneSignal
