@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Styles;
 using BA_MobileGPS.Utilities.Constant;
 using BA_MobileGPS.Utilities.Enums;
@@ -26,6 +27,7 @@ namespace BA_MobileGPS
             ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerThat;
             ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerThat;
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerThat;
+            ServerConfig.ServerUserBehaviorHubType = ServerUserBehaviorHubTypes.ServerTest;
             ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerThat;
 
             Application.Current.Resources.MergedDictionaries.Add(new LightColor());

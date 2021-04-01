@@ -5,6 +5,7 @@ using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
@@ -131,6 +132,20 @@ namespace BA_MobileGPS.Core.ViewModels
             if (!IsActive)
             {
                 StopRoute();
+
+                EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+                {
+                    Page = Entities.Enums.MenuKeyEnums.ModuleRoute,
+                    Type = UserBehaviorType.End
+                });
+            }
+            else
+            {
+                EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+                {
+                    Page = Entities.Enums.MenuKeyEnums.ModuleRoute,
+                    Type = UserBehaviorType.Start
+                });
             }
         }
 
@@ -419,7 +434,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 });
             }
-
         }
 
         private void GetHistoryRoute()

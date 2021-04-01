@@ -123,6 +123,7 @@
         /// </Modified>
         SynOnlineLevel,
         VehicleOnlineAddressEnabled,
-        UseHelper
+        UseHelper,
+        UseUserBehavior
     }
 }

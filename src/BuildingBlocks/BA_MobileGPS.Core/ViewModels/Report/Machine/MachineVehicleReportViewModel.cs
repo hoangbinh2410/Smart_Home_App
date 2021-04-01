@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 
@@ -46,6 +47,26 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
+        }
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = Entities.Enums.MenuKeyEnums.AdminReportMachine,
+                Type = UserBehaviorType.Start
+            });
+        }
+
+        public override void OnDestroy()
+        {
+            base.Dispose();
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = Entities.Enums.MenuKeyEnums.AdminReportMachine,
+                Type = UserBehaviorType.End
+            });
         }
 
         #region property

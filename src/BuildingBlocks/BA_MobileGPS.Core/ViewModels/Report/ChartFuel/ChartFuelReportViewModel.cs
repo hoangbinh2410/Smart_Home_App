@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
 
 using FFImageLoading.Forms;
@@ -76,12 +77,22 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void Initialize(INavigationParameters parameters)
         {
-            //DependencyService.Get<IDeviceOrientationService>()?.ChangeOrientation(Orientation.Both);
+            base.Initialize(parameters);
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = Entities.Enums.MenuKeyEnums.MobileFuelChart,
+                Type = UserBehaviorType.Start
+            });
         }
 
         public override void OnDestroy()
         {
-            //DependencyService.Get<IDeviceOrientationService>()?.ChangeOrientation(Orientation.Portrait);
+            base.Dispose();
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = Entities.Enums.MenuKeyEnums.MobileFuelChart,
+                Type = UserBehaviorType.End
+            });
         }
 
         private void DateSelected()

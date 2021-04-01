@@ -41,6 +41,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<IVehicleOnlineHubService, VehicleOnlineHubService>();
             containerRegistry.RegisterSingleton<IAlertHubService, AlertHubService>();
             containerRegistry.RegisterSingleton<IIdentityHubService, IdentityHubService>();
+            containerRegistry.RegisterSingleton<IUserBahaviorHubService, UserBahaviorHubService>();
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
             containerRegistry.RegisterSingleton<IHomeService, HomeService>();
             containerRegistry.RegisterSingleton<IResourceService, ResourceService>();

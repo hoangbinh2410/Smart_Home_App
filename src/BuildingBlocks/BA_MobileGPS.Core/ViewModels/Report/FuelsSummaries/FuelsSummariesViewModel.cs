@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
@@ -122,6 +123,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 PrivateCode = request.VehiclePlate;
                 SearchDataCommand.Execute(null);
             }
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = Entities.Enums.MenuKeyEnums.ReportFuelSummary,
+                Type = UserBehaviorType.Start
+            });
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -131,6 +137,16 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 PrivateCode = request.VehiclePlate;
             }
+        }
+
+        public override void OnDestroy()
+        {
+            base.Dispose();
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = Entities.Enums.MenuKeyEnums.ReportFuelSummary,
+                Type = UserBehaviorType.End
+            });
         }
 
         /// <summary>Set dữ liệu đầu vào</summary>

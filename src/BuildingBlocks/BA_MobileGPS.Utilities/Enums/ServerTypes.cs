@@ -143,4 +143,39 @@ namespace BA_MobileGPS.Utilities.Enums
         [Description("http://alertmoto.bagroup.vn")]
         ServerMoto,
     }
+
+
+    /// <summary>
+    /// Server đang trên máy nào?
+    /// </summary>
+    /// <Modified>
+    /// Name     Date         Comments
+    /// Namth  16/1/2018   created
+    /// </Modified>
+    public enum ServerUserBehaviorHubTypes
+    {
+        [Description("http://logincnn.bagroup.vn")]
+        ServerCNN,
+
+        [Description("http://loginbagps.bagroup.vn")]
+        ServerThat,
+
+        [Description("10.1.11.131")]
+        ServerNamth,
+
+        [Description("http://192.168.1.49:8028")]
+        ServerTest,
+
+        [Description("http://loginviview.bagroup.vn")]
+        ServerVIVIEW,
+
+        [Description("http://loginviview.bagroup.vn")]
+        ServerGISVIET,
+
+        [Description("http://loginbagps.bagroup.vn")]
+        ServerVMS,
+
+        [Description("http://loginmoto.bagroup.vn")]
+        ServerMoto,
+    }
 }
