@@ -77,6 +77,7 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<SelectedCompanyEvent>().Subscribe(SelectedCompanyChanged);
             EventAggregator.GetEvent<OneSignalOpendEvent>().Subscribe(OneSignalOpend);
             EventAggregator.GetEvent<UserBehaviorEvent>().Subscribe(OnUserBehavior);
+            InitSystemType();
         }
 
         #endregion Contructor
@@ -220,7 +221,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     Fullname = UserInfo.FullName,
                     Username = UserInfo.UserName,
                     XNCode = UserInfo.XNCode,
-                    SystemType = 54,
+                    SystemType = SystemType,
                     MenuKey = obj.Page,
                     Time = StaticSettings.TimeServer.Ticks,
                     TimeType = obj.Type,
@@ -233,10 +234,41 @@ namespace BA_MobileGPS.Core.ViewModels
         #region Property
 
         private bool IsLoaded { get; set; }
+        private int SystemType { get; set; } = 51;
 
         #endregion Property
 
         #region PrivateMethod
+
+        private void InitSystemType()
+        {
+            switch (App.AppType)
+            {
+                case AppType.BinhAnh:
+                    SystemType = 51;
+                    break;
+
+                case AppType.GisViet:
+                    SystemType = 56;
+                    break;
+
+                case AppType.CNN:
+                    SystemType = 52;
+                    break;
+
+                case AppType.Viview:
+                    SystemType = 53;
+                    break;
+
+                case AppType.VMS:
+                    SystemType = 55;
+                    break;
+
+                case AppType.Moto:
+                    SystemType = 54;
+                    break;
+            }
+        }
 
         public override void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
