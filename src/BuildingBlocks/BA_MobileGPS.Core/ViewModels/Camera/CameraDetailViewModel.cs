@@ -1,7 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Entities.ResponeEntity.Camera;
 using BA_MobileGPS.Utilities;
 using Prism.Navigation;
 using System;
@@ -37,7 +36,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public ObservableCollection<Pin> Pins { get; set; } = new ObservableCollection<Pin>();
         private Pin selectedPin;
         public Pin SelectedPin { get => selectedPin; set => SetProperty(ref selectedPin, value); }
-
 
         public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
 
