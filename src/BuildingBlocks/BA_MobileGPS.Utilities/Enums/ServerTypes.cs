@@ -154,10 +154,10 @@ namespace BA_MobileGPS.Utilities.Enums
     /// </Modified>
     public enum ServerUserBehaviorHubTypes
     {
-        [Description("http://logincnn.bagroup.vn")]
+        [Description("http://125.212.192.175:8095")]
         ServerCNN,
 
-        [Description("http://loginbagps.bagroup.vn")]
+        [Description("http://125.212.192.175:8095")]
         ServerThat,
 
         [Description("10.1.11.131")]
@@ -166,16 +166,16 @@ namespace BA_MobileGPS.Utilities.Enums
         [Description("http://192.168.1.49:8028")]
         ServerTest,
 
-        [Description("http://loginviview.bagroup.vn")]
+        [Description("http://125.212.192.175:8095")]
         ServerVIVIEW,
 
-        [Description("http://loginviview.bagroup.vn")]
+        [Description("http://125.212.192.175:8095")]
         ServerGISVIET,
 
-        [Description("http://loginbagps.bagroup.vn")]
+        [Description("http://125.212.192.175:8095")]
         ServerVMS,
 
-        [Description("http://loginmoto.bagroup.vn")]
+        [Description("http://125.212.192.175:8095")]
         ServerMoto,
     }
 }
