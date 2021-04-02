@@ -5,6 +5,7 @@ using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
 using LibVLCSharp.Shared;
@@ -98,6 +99,12 @@ namespace BA_MobileGPS.Core.ViewModels
             LibVLC = new LibVLC("--no-osd", "--rtsp-tcp");
             InitTimer();
             GetChannelCamera();
+
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = Entities.Enums.MenuKeyEnums.TrackingVideo,
+                Type = UserBehaviorType.Start
+            });
         }
 
         public override void OnSleep()
@@ -136,6 +143,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 timer.Stop();
                 timer.Dispose();
             }
+
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = Entities.Enums.MenuKeyEnums.TrackingVideo,
+                Type = UserBehaviorType.End
+            });
         }
 
         private void InitTimer()

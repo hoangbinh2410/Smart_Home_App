@@ -54,7 +54,7 @@ namespace BA_MobileGPS.Core.ViewModels
             base.Initialize(parameters);
             EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
             {
-                Page = Entities.Enums.MenuKeyEnums.AdminReportMachine,
+                Page = Entities.Enums.MenuKeyEnums.REPORTMACHINE,
                 Type = UserBehaviorType.Start
             });
         }
@@ -64,7 +64,7 @@ namespace BA_MobileGPS.Core.ViewModels
             base.Dispose();
             EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
             {
-                Page = Entities.Enums.MenuKeyEnums.AdminReportMachine,
+                Page = Entities.Enums.MenuKeyEnums.REPORTMACHINE,
                 Type = UserBehaviorType.End
             });
         }
