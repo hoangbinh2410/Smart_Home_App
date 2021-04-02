@@ -125,7 +125,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
             {
-                Page = Entities.Enums.MenuKeyEnums.ReportFuelSummary,
+                Page = Entities.Enums.MenuKeyEnums.FUELCONSUMPTIONDAILY,
                 Type = UserBehaviorType.Start
             });
         }
@@ -144,7 +144,7 @@ namespace BA_MobileGPS.Core.ViewModels
             base.Dispose();
             EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
             {
-                Page = Entities.Enums.MenuKeyEnums.ReportFuelSummary,
+                Page = Entities.Enums.MenuKeyEnums.FUELCONSUMPTIONDAILY,
                 Type = UserBehaviorType.End
             });
         }
