@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using BA_MobileGPS.Entities;
+using Prism.Commands;
 using Prism.Navigation;
 using System.Windows.Input;
 
@@ -10,6 +11,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             CloseCommand = new DelegateCommand(Close);
             NavigativeCommand = new DelegateCommand<object>(Navigative);
+            FavoritesCommand = new DelegateCommand(FavoritesVehcile);
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -17,9 +19,10 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnNavigatedTo(parameters);
             if (parameters != null)
             {
-                if (parameters.TryGetValue("vehicleItem", out string obj))
+                if (parameters.TryGetValue("vehicleItem", out VehicleOnlineViewModel obj))
                 {
-                    VehicleName = obj;
+                    VehicleName = obj.PrivateCode;
+                    IsFavorites = obj.IsFavorite;
                 }
             }
         }
@@ -30,6 +33,14 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get { return vehicleName; }
             set { SetProperty(ref vehicleName, value); }
+        }
+
+        private bool isFavorites;
+
+        public bool IsFavorites
+        {
+            get { return isFavorites; }
+            set { SetProperty(ref isFavorites, value); }
         }
 
         public ICommand CloseCommand { get; }
@@ -56,5 +67,21 @@ namespace BA_MobileGPS.Core.ViewModels
                         });
             });
         }
+
+
+        public ICommand FavoritesCommand { get; }
+
+        private void FavoritesVehcile()
+        {
+            SafeExecute(async () =>
+            {
+                IsFavorites = !IsFavorites;
+                await NavigationService.GoBackAsync(useModalNavigation: true, animated: true, parameters: new NavigationParameters
+                        {
+                            { "FavoriteVehicle",  IsFavorites}
+                        });
+            });
+        }
+
     }
 }

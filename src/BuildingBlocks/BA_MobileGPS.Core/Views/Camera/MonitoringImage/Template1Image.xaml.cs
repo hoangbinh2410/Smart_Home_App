@@ -40,7 +40,7 @@ namespace BA_MobileGPS.Core.Views.Camera.MonitoringImage
                 var vehiclePlate = temp.Children.Where(x => x is Label).FirstOrDefault() as Label;
                 if (!string.IsNullOrEmpty(vehiclePlate.Text))
                 {
-                    FavoritesVehicleImageHelper.UpdateFavoritesVehicleImage(vehiclePlate.Text);
+                    FavoritesVehicleHelper.UpdateFavoritesVehicleImage(vehiclePlate.Text);
                 }
             }
             catch (Exception ex)

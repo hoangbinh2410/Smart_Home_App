@@ -4,10 +4,17 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converters="clr-namespace:BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     Padding="0"
     BackgroundColor="{DynamicResource WhiteColor}">
+
+    <sharpnado:MaterialFrame.Resources>
+        <ResourceDictionary>
+            <converters:FavoritesColorConverter x:Key="FavoritesColorConverter" />
+        </ResourceDictionary>
+    </sharpnado:MaterialFrame.Resources>
     <StackLayout>
         <Grid Padding="8" ColumnSpacing="10">
             <Grid.ColumnDefinitions>
@@ -64,6 +71,15 @@
                         VerticalOptions="Center" />
                 </StackLayout>
             </StackLayout>
+
+            <controls:IconView
+                Margin="10"
+                Foreground="{Binding IsFavorite, Converter={StaticResource FavoritesColorConverter}}"
+                HeightRequest="15"
+                HorizontalOptions="Start"
+                Source="ic_star.png"
+                VerticalOptions="Start"
+                WidthRequest="15" />
         </Grid>
         <BoxView Margin="10,0" StyleClass="SlimLine" />
     </StackLayout>

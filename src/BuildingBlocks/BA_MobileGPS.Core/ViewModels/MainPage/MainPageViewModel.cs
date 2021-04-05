@@ -525,11 +525,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
                             if (!StateVehicleExtension.IsLostGPS(x.GPSTime, x.VehicleTime) && !StateVehicleExtension.IsLostGSM(x.VehicleTime))
                             {
-                                x.SortOrder = 1;
+                                x.SortOrder = 2;
                             }
                             else
                             {
-                                x.SortOrder = 0;
+                                x.SortOrder = 1;
                             }
                         });
 
