@@ -43,6 +43,7 @@
                 <mapbindings:BindingPolygonsBehavior Value="{Binding Boundaries}" />
                 <mapbindings:BindingPolylinesBehavior Value="{Binding Borders}" />
                 <mapbindings:BindingCirclesBehavior Value="{Binding Circles}" />
+                <mapbindings:BindingPinsBehavior Value="{Binding Pins}" />
                 <mapbindings:BindingVisibleRegionBehavior Value="{Binding VisibleRegion}" />
                 <mapbindings:CameraIdledToCommandBehavior Command="{Binding CameraIdledCommand}" />
             </cluster:Map.Behaviors>

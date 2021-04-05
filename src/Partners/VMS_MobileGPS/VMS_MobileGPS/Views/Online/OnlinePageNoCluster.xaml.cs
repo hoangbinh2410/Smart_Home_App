@@ -703,6 +703,7 @@ namespace VMS_MobileGPS.Views
                 {
                     RenderMarkerClusterOnMap(lstVehicle[i].DoubleMarker);
                 }
+                GetAllIslandVN();
             }
             catch (Exception ex)
             {
@@ -1071,6 +1072,34 @@ namespace VMS_MobileGPS.Views
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<BackButtonEvent>().Unsubscribe(AndroidBackButton);
+        }
+
+        private void GetAllIslandVN()
+        {
+            var ts = "TT. Trường Sa";
+            var st = "X. Sinh Tồn";
+            var stt = "X. Song Tử Tây";
+            googleMap.Pins.Add(new Pin()
+            {
+                Position = new Position(7.54174, 113.79929),
+                Label = "TT. Trường Sa",
+                Icon = BitmapDescriptorFactory.FromView(new BoundaryNameInfoWindow(ts) { WidthRequest = ts.Length < 20 ? 6 * ts.Length : 110, HeightRequest = 18 * ((ts.Length / 20) + 1) }),
+                Tag = "TT. Trường Sa" + "Island"
+            });
+            googleMap.Pins.Add(new Pin()
+            {
+                Position = new Position(8.81108, 116.32163),
+                Label = "X. Sinh Tồn",
+                Icon = BitmapDescriptorFactory.FromView(new BoundaryNameInfoWindow(st) { WidthRequest = st.Length < 20 ? 6 * st.Length : 110, HeightRequest = 18 * ((st.Length / 20) + 1) }),
+                Tag = "X. Sinh Tồn" + "Island"
+            });
+            googleMap.Pins.Add(new Pin()
+            {
+                Position = new Position(9.35837, 115.91965),
+                Label = "X. Song Tử Tây",
+                Icon = BitmapDescriptorFactory.FromView(new BoundaryNameInfoWindow(stt) { WidthRequest = stt.Length < 20 ? 6 * stt.Length : 110, HeightRequest = 18 * ((stt.Length / 20) + 1) }),
+                Tag = "X. Song Tử Tây" + "Island",
+            });
         }
 
         #endregion Private Method

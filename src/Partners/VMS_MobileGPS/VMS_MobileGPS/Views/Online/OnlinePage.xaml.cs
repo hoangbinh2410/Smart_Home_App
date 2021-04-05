@@ -723,6 +723,8 @@ namespace VMS_MobileGPS.Views
                 {
                     RenderMarkerClusterOnMap(lstVehicle[i].DoubleMarker);
                 }
+
+                GetAllIslandVN();
             }
             catch (Exception ex)
             {
@@ -1132,6 +1134,31 @@ namespace VMS_MobileGPS.Views
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<BackButtonEvent>().Unsubscribe(AndroidBackButton);
+        }
+
+        private void GetAllIslandVN()
+        {
+            googleMap.Pins.Add(new Pin()
+            {
+                Position = new Position(7.54174, 113.79929),
+                Label = "TT. Trường Sa",
+                Icon = BitmapDescriptorFactory.FromView(new VMSPinInfowindowView("TT. Trường Sa")),
+                Tag = "TT. Trường Sa" + "Island"
+            });
+            googleMap.Pins.Add(new Pin()
+            {
+                Position = new Position(8.81108, 116.32163),
+                Label = "X. Sinh Tồn",
+                Icon = BitmapDescriptorFactory.FromView(new VMSPinInfowindowView("X. Sinh Tồn")),
+                Tag = "X. Sinh Tồn" + "Island"
+            });
+            googleMap.Pins.Add(new Pin()
+            {
+                Position = new Position(9.35837, 115.91965),
+                Label = "X. Song Tử Tây",
+                Icon = BitmapDescriptorFactory.FromView(new VMSPinInfowindowView("X. Song Tử Tây")),
+                Tag = "X. Song Tử Tây" + "Island",
+            });
         }
 
         #endregion Private Method
