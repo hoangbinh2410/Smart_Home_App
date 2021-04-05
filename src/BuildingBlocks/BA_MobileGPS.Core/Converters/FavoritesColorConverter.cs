@@ -12,7 +12,7 @@ namespace BA_MobileGPS.Core
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             Color unFavorites = (Color)Application.Current.Resources["WhiteColor"];
-            Color favorites = (Color)Application.Current.Resources["YellowColor"];
+            Color favorites = (Color)Application.Current.Resources["WarningColor"];
 
             if (value == null)
             {
