@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Timers;
 using VMS_MobileGPS.ViewModels;
 using Xamarin.Forms;
@@ -35,6 +36,7 @@ namespace VMS_MobileGPS.Views
         private readonly IEventAggregator eventAggregator;
         private readonly IDisplayMessage displayMessage;
         private readonly IPageDialogService pageDialog;
+        private readonly IVehicleOnlineService vehicleOnlineService;
 
         public OnlinePage()
         {
@@ -43,6 +45,7 @@ namespace VMS_MobileGPS.Views
             eventAggregator = PrismApplicationBase.Current.Container.Resolve<IEventAggregator>();
             displayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
             pageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
+            vehicleOnlineService = PrismApplicationBase.Current.Container.Resolve<IVehicleOnlineService>();
             pageWidth = (int)Application.Current.MainPage.Width;
             boxStatusVehicle.TranslationX = pageWidth;
             boxInfo.TranslationY = 300;
@@ -1138,27 +1141,37 @@ namespace VMS_MobileGPS.Views
 
         private void GetAllIslandVN()
         {
-            googleMap.Pins.Add(new Pin()
+            Task.Run(async () =>
             {
-                Position = new Position(7.54174, 113.79929),
-                Label = "TT. Trường Sa",
-                Icon = BitmapDescriptorFactory.FromView(new VMSPinInfowindowView("TT. Trường Sa")),
-                Tag = "TT. Trường Sa" + "Island"
-            });
-            googleMap.Pins.Add(new Pin()
+                return await vehicleOnlineService.GetListParacelIslands();
+            }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
-                Position = new Position(8.81108, 116.32163),
-                Label = "X. Sinh Tồn",
-                Icon = BitmapDescriptorFactory.FromView(new VMSPinInfowindowView("X. Sinh Tồn")),
-                Tag = "X. Sinh Tồn" + "Island"
-            });
-            googleMap.Pins.Add(new Pin()
-            {
-                Position = new Position(9.35837, 115.91965),
-                Label = "X. Song Tử Tây",
-                Icon = BitmapDescriptorFactory.FromView(new VMSPinInfowindowView("X. Song Tử Tây")),
-                Tag = "X. Song Tử Tây" + "Island",
-            });
+                if (task.Status == TaskStatus.RanToCompletion)
+                {
+                    if (task.Result != null && task.Result.Count > 0)
+                    {
+                        foreach (var item in task.Result)
+                        {
+                            googleMap.Pins.Add(new Pin()
+                            {
+                                Position = new Position(item.Latitude, item.Longitude),
+                                Label = item.Name,
+                                Icon = BitmapDescriptorFactory.FromView(new BoundaryNameInfoWindow(item.Name)
+                                {
+                                    WidthRequest = item.Name.Length < 20 ? 6 * item.Name.Length : 110,
+                                    HeightRequest = 18 * ((item.Name.Length / 20) + 1),
+                                    FontSize = 10
+                                }),
+                                Tag = item.Name + "Island",
+                            });
+                        }
+                    }
+                }
+                else if (task.IsFaulted)
+                {
+                    Logger.WriteError(MethodBase.GetCurrentMethod().Name, "Error");
+                }
+            }));
         }
 
         #endregion Private Method
