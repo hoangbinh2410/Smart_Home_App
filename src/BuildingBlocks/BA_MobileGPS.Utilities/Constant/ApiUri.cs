@@ -71,6 +71,9 @@
 
         public const string GET_LIST_POLYGON = "api/landmark/polygon";
 
+        public const string GET_LIST_POLYGONPARACELISLANDS = "api/landmark/polygonparacelislands";
+        
+
         #endregion vehicle
 
         #region alert

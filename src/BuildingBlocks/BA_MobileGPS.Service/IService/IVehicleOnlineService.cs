@@ -21,5 +21,7 @@ namespace BA_MobileGPS.Service
         Task<List<VehicleOnlineMessage>> GetListVehicleOnlineSync(VehicleOnlineRequest vehiclerequest);
 
         Task<List<LandmarkResponse>> GetListBoundary();
+
+        Task<List<LandmarkResponse>> GetListParacelIslands();
     }
 }
