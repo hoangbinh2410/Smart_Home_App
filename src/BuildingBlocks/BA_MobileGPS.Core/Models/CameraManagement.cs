@@ -1,22 +1,19 @@
 ﻿using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Utilities;
 using LibVLCSharp.Shared;
 using Prism.Events;
 using Prism.Mvvm;
-using Prism.Ioc;
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.Forms;
 using Timer = System.Timers.Timer;
-using BA_MobileGPS.Core.Events;
-using BA_MobileGPS.Service.IService;
-using System.Threading.Tasks;
-using System.Linq;
-using BA_MobileGPS.Utilities;
-using BA_MobileGPS.Core.Extensions;
 
 namespace BA_MobileGPS.Core.Models
 {
@@ -29,8 +26,9 @@ namespace BA_MobileGPS.Core.Models
         private bool loadingErr { get; set; }
         private readonly IStreamCameraService streamCameraService;
         private StreamStartRequest startRequest { get; set; }
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private CancellationTokenSource cts = new CancellationTokenSource();
         private readonly IEventAggregator _eventAggregator;
+
         public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC,
             IStreamCameraService streamCameraService, StreamStartRequest startRequest, IEventAggregator eventAggregator)
         {
@@ -51,6 +49,7 @@ namespace BA_MobileGPS.Core.Models
         }
 
         private LibVLC libVLC;
+
         public LibVLC LibVLC
         {
             get { return libVLC; }
@@ -60,7 +59,6 @@ namespace BA_MobileGPS.Core.Models
                 RaisePropertyChanged();
             }
         }
-
 
         private int totalTime;
 
@@ -156,6 +154,7 @@ namespace BA_MobileGPS.Core.Models
         }
 
         private bool isLoaded;
+
         /// <summary>
         /// control busy indicator
         /// </summary>
@@ -250,8 +249,8 @@ namespace BA_MobileGPS.Core.Models
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-
         }
+
         /// <summary>
         /// Init base vlc voi cac behaviour can thiet, chua co url media
         /// </summary>
@@ -368,20 +367,20 @@ namespace BA_MobileGPS.Core.Models
 
         private void SetUrlMedia()
         {
-            if (internalError || MediaPlayer.Media == null)
+            try
             {
-                Device.BeginInvokeOnMainThread(() =>
+                if (MediaPlayer != null && (internalError || MediaPlayer.Media == null))
                 {
-                    try
+                    Device.BeginInvokeOnMainThread(() =>
                     {
                         MediaPlayer.Media = new Media(libVLC, new Uri(Data.Link));
                         MediaPlayer.Play();
-                    }
-                    catch (Exception ex)
-                    {
-                        LoggerHelper.WriteError("SetMedia", ex);
-                    }
-                });
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError("SetMedia", ex);
             }
         }
 

@@ -728,19 +728,22 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     counterRequestPing = 15;
                     UpdateTimeAndLocation();
-                    foreach (var child in itemsSource)
+                    if (itemsSource != null && itemsSource.Count > 0)
                     {
-                        foreach (var cam in child.ChildSource)
+                        foreach (var child in itemsSource)
                         {
-                            if (cam.AutoRequestPing || cam.TotalTime > maxTimeCameraRemain)
+                            foreach (var cam in child.ChildSource)
                             {
-                                if (cam != null && !cam.IsError && cam.IsLoaded)
+                                if (cam.AutoRequestPing || cam.TotalTime > maxTimeCameraRemain)
                                 {
-                                    SendRequestTime(maxTimeCameraRemain, cam.Data.Channel);
-                                }
-                                if (cam.AutoRequestPing && cam.TotalTime < maxTimeCameraRemain)
-                                {
-                                    cam.TotalTime = maxTimeCameraRemain;
+                                    if (cam != null && !cam.IsError && cam.IsLoaded)
+                                    {
+                                        SendRequestTime(maxTimeCameraRemain, cam.Data.Channel);
+                                    }
+                                    if (cam.AutoRequestPing && cam.TotalTime < maxTimeCameraRemain)
+                                    {
+                                        cam.TotalTime = maxTimeCameraRemain;
+                                    }
                                 }
                             }
                         }
