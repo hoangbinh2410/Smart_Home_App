@@ -38,7 +38,7 @@ namespace BA_MobileGPS.Core.Views
             {
                 var temp = ((TappedEventArgs)e).Parameter;
                 var newItemSlect = (CameraManagement)temp;
-                if (newItemSlect != null &&
+                if (newItemSlect != null && newItemSlect.Data != null &&
                     newItemSlect.Data.Channel != selectedItem?.Data?.Channel && !string.IsNullOrEmpty(newItemSlect.Data.Link))
                 {
                     SetSelectedItem(newItemSlect);
