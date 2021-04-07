@@ -4826,58 +4826,70 @@ namespace BA_MobileGPS.Core.Droid
 			public static int outerCircle = 2131100015;
 			
 			// aapt resource value: 0x7F060170
-			public static int test_mtrl_calendar_day_cornerSize = 2131100016;
+			public static int subtitle_corner_radius = 2131100016;
 			
 			// aapt resource value: 0x7F060171
-			public static int thumb_padding = 2131100017;
+			public static int subtitle_outline_width = 2131100017;
 			
 			// aapt resource value: 0x7F060172
-			public static int thumb_size = 2131100018;
+			public static int subtitle_shadow_offset = 2131100018;
 			
 			// aapt resource value: 0x7F060173
-			public static int tick_size = 2131100019;
-			
-			// aapt resource value: 0x7F060178
-			public static int tooltip_corner_radius = 2131100024;
-			
-			// aapt resource value: 0x7F060179
-			public static int tooltip_horizontal_padding = 2131100025;
-			
-			// aapt resource value: 0x7F06017A
-			public static int tooltip_margin = 2131100026;
-			
-			// aapt resource value: 0x7F06017B
-			public static int tooltip_precise_anchor_extra_offset = 2131100027;
-			
-			// aapt resource value: 0x7F06017C
-			public static int tooltip_precise_anchor_threshold = 2131100028;
-			
-			// aapt resource value: 0x7F06017D
-			public static int tooltip_textsize = 2131100029;
-			
-			// aapt resource value: 0x7F06017E
-			public static int tooltip_vertical_padding = 2131100030;
-			
-			// aapt resource value: 0x7F06017F
-			public static int tooltip_y_offset_non_touch = 2131100031;
-			
-			// aapt resource value: 0x7F060180
-			public static int tooltip_y_offset_touch = 2131100032;
+			public static int subtitle_shadow_radius = 2131100019;
 			
 			// aapt resource value: 0x7F060174
-			public static int tool_bottom = 2131100020;
+			public static int test_mtrl_calendar_day_cornerSize = 2131100020;
 			
 			// aapt resource value: 0x7F060175
-			public static int tool_left = 2131100021;
+			public static int thumb_padding = 2131100021;
 			
 			// aapt resource value: 0x7F060176
-			public static int tool_right = 2131100022;
+			public static int thumb_size = 2131100022;
 			
 			// aapt resource value: 0x7F060177
-			public static int tool_top = 2131100023;
+			public static int tick_size = 2131100023;
+			
+			// aapt resource value: 0x7F06017C
+			public static int tooltip_corner_radius = 2131100028;
+			
+			// aapt resource value: 0x7F06017D
+			public static int tooltip_horizontal_padding = 2131100029;
+			
+			// aapt resource value: 0x7F06017E
+			public static int tooltip_margin = 2131100030;
+			
+			// aapt resource value: 0x7F06017F
+			public static int tooltip_precise_anchor_extra_offset = 2131100031;
+			
+			// aapt resource value: 0x7F060180
+			public static int tooltip_precise_anchor_threshold = 2131100032;
 			
 			// aapt resource value: 0x7F060181
-			public static int track_size = 2131100033;
+			public static int tooltip_textsize = 2131100033;
+			
+			// aapt resource value: 0x7F060182
+			public static int tooltip_vertical_padding = 2131100034;
+			
+			// aapt resource value: 0x7F060183
+			public static int tooltip_y_offset_non_touch = 2131100035;
+			
+			// aapt resource value: 0x7F060184
+			public static int tooltip_y_offset_touch = 2131100036;
+			
+			// aapt resource value: 0x7F060178
+			public static int tool_bottom = 2131100024;
+			
+			// aapt resource value: 0x7F060179
+			public static int tool_left = 2131100025;
+			
+			// aapt resource value: 0x7F06017A
+			public static int tool_right = 2131100026;
+			
+			// aapt resource value: 0x7F06017B
+			public static int tool_top = 2131100027;
+			
+			// aapt resource value: 0x7F060185
+			public static int track_size = 2131100037;
 			
 			static Dimension()
 			{
