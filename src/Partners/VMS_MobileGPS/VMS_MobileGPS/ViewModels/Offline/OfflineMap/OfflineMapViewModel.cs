@@ -353,24 +353,27 @@ namespace VMS_MobileGPS.ViewModels
             var listBoudary = _boundaryRepository.All().ToList();
             for (int i = 0; i < listBoudary.Count; i++)
             {
-                var pointstring = listBoudary[i].Polygon.Split(',');
-                var points = new List<Point>();
-                for (int j = 0; j < pointstring.Length; j += 2)
+                if (listBoudary[i].IsEnableBoudary)
                 {
-                    points.Add(new Point(FormatHelper.ConvertToDouble(pointstring[j + 1], 6), FormatHelper.ConvertToDouble(pointstring[j], 6)));
+                    var pointstring = listBoudary[i].Polygon.Split(',');
+                    var points = new List<Point>();
+                    for (int j = 0; j < pointstring.Length; j += 2)
+                    {
+                        points.Add(new Point(FormatHelper.ConvertToDouble(pointstring[j + 1], 6), FormatHelper.ConvertToDouble(pointstring[j], 6)));
+                    }
+                    var shapeLayerSetting = new ShapeSetting
+                    {
+                        ShapeFill = Color.FromHex("#80CC0000"),
+                        ShapeStrokeThickness = 1
+                    };
+                    var layer = new ShapeFileLayer
+                    {
+                        ShapeType = ShapeType.Polyline,
+                        Points = points.ToObservableCollection(),
+                        ShapeSettings = shapeLayerSetting
+                    };
+                    OsmMapLayers.Add(layer);
                 }
-                var shapeLayerSetting = new ShapeSetting
-                {
-                    ShapeFill = Color.FromHex("#80CC0000"),
-                    ShapeStrokeThickness = 1
-                };
-                var layer = new ShapeFileLayer
-                {
-                    ShapeType = ShapeType.Polyline,
-                    Points = points.ToObservableCollection(),
-                    ShapeSettings = shapeLayerSetting
-                };
-                OsmMapLayers.Add(layer);
             }
         }
 
