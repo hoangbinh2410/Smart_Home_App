@@ -112,7 +112,7 @@
 
         #region Address
 
-        public const string GET_GETADDRESSBYLATLNG = "api/geocode/getaddressbylatlng";
+        public const string GET_GETADDRESSBYLATLNG = "api/geocode/getaddresslandmarkbylatlng";
 
         #endregion Address
 

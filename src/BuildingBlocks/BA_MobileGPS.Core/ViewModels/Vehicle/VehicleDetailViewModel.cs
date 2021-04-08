@@ -393,7 +393,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Task.Run(async () =>
                 {
-                    return await geocodeService.GetAddressByLatLng(lat, lng);
+                    return await geocodeService.GetAddressByLatLng(CurrentComanyID, lat, lng);
                 }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
                 {
                     if (task.Status == TaskStatus.RanToCompletion)

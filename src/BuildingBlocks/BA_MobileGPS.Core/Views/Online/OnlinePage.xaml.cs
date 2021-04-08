@@ -5,9 +5,7 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ModelViews;
-using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Service;
-using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism;
 using Prism.Events;
@@ -34,6 +32,7 @@ namespace BA_MobileGPS.Core.Views
         private readonly IGeocodeService geocodeService;
         private readonly IDisplayMessage displayMessage;
         private readonly IPageDialogService pageDialog;
+
         public OnlinePage()
         {
             InitializeComponent();
@@ -198,6 +197,19 @@ namespace BA_MobileGPS.Core.Views
         private bool infoStatusIsShown = false;
         private bool boxInfoIsShown = false;
         private bool IsInitMarker = false;
+
+        public int CurrentComanyID
+        {
+            get
+            {
+                var currentCompany = Settings.CurrentCompany;
+
+                if (currentCompany != null && StaticSettings.ListCompany != null && StaticSettings.ListCompany.Exists(c => c.FK_CompanyID == currentCompany.FK_CompanyID))
+                    return currentCompany.FK_CompanyID;
+                else
+                    return StaticSettings.User.CompanyId;
+            }
+        }
 
         #endregion Property
 
@@ -730,7 +742,7 @@ namespace BA_MobileGPS.Core.Views
                 vm.CurrentAddress = MobileResource.Online_Label_Determining;
                 Task.Run(async () =>
                 {
-                    return await geocodeService.GetAddressByLatLng(lat, lng);
+                    return await geocodeService.GetAddressByLatLng(CurrentComanyID, lat, lng);
                 }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
                 {
                     if (task.Status == TaskStatus.RanToCompletion)

@@ -555,7 +555,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         currentXnCode = deviceResponseData.XnCode;
                         currentIMEI = deviceResponseData.IMEI;
-                        CurrentAddress = await _geocodeService.GetAddressByLatLng(deviceResponseData.Latitude.ToString(), deviceResponseData.Longitude.ToString());
+                        CurrentAddress = await _geocodeService.GetAddressByLatLng(CurrentComanyID, deviceResponseData.Latitude.ToString(), deviceResponseData.Longitude.ToString());
                         CurrentTime = deviceResponseData.DeviceTime;
 
                         if (deviceResponseData.CameraChannels != null && deviceResponseData.CameraChannels.Count > 0)
@@ -767,7 +767,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         var deviceResponseData = deviceResponse?.Data?.FirstOrDefault();
                         if (deviceResponseData != null)
                         {
-                            CurrentAddress = await _geocodeService.GetAddressByLatLng(deviceResponseData.Latitude.ToString(), deviceResponseData.Longitude.ToString());
+                            CurrentAddress = await _geocodeService.GetAddressByLatLng(CurrentComanyID, deviceResponseData.Latitude.ToString(), deviceResponseData.Longitude.ToString());
                             CurrentTime = deviceResponseData.DeviceTime;
                         }
                     }

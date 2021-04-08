@@ -50,7 +50,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             Task.Run(async () =>
             {
-                return await geocodeService.GetAddressByLatLng(route.Latitude.ToString(), route.Longitude.ToString());
+                return await geocodeService.GetAddressByLatLng(CurrentComanyID, route.Latitude.ToString(), route.Longitude.ToString());
             }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
                 if (task.Status == TaskStatus.RanToCompletion)

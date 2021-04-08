@@ -700,7 +700,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (ctsAddress.IsCancellationRequested)
                     throw new Exception();
-                return await geocodeService.GetAddressByLatLng(args.Pin.Position.Latitude.ToString(), args.Pin.Position.Longitude.ToString());
+                return await geocodeService.GetAddressByLatLng(CurrentComanyID, args.Pin.Position.Latitude.ToString(), args.Pin.Position.Longitude.ToString());
             }, ctsAddress.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
                 if (task.Status == TaskStatus.RanToCompletion && !ctsAddress.IsCancellationRequested)
