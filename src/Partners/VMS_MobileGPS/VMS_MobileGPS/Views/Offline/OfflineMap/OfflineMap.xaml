@@ -91,37 +91,52 @@
                         ZoomLevelChanging="ImageryLayer_ZoomLevelChanging">
                         <maps:ImageryLayer.MarkerTemplate>
                             <DataTemplate>
-                                <StackLayout Spacing="0">
-                                    <Label
-                                        Padding="0,1"
-                                        BackgroundColor="#F58B03"
-                                        FontAttributes="Bold"
-                                        FontFamily="{StaticResource myFontLatoBold}"
-                                        FontSize="10"
-                                        HeightRequest="15"
-                                        HorizontalTextAlignment="Center"
-                                        Text="{Binding DeviceManager.DevicePlate, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource OfflineMapDeviceCodeConverter}}"
-                                        VerticalOptions="Center"
-                                        WidthRequest="100">
-                                        <Label.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding Source={RelativeSource Self}, Path=Text.Length}"
-                                                TargetType="Label"
-                                                Value="0">
-                                                <Setter Property="BackgroundColor" Value="Transparent" />
-                                            </DataTrigger>
-                                        </Label.Triggers>
-                                    </Label>
-                                    <Image
-                                        Margin="0,0,0,15"
-                                        Aspect="AspectFit"
-                                        HeightRequest="30"
-                                        HorizontalOptions="Center"
-                                        Rotation="{Binding Rotation}"
-                                        Scale="1"
-                                        Source="car_blue.png"
-                                        VerticalOptions="StartAndExpand"
-                                        WidthRequest="30" />
+                                <StackLayout>
+                                    <StackLayout IsVisible="{Binding IsCar}" Spacing="0">
+                                        <Label
+                                            Padding="0,1"
+                                            BackgroundColor="#F58B03"
+                                            FontAttributes="Bold"
+                                            FontFamily="{StaticResource myFontLatoBold}"
+                                            FontSize="10"
+                                            HeightRequest="15"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{Binding DeviceManager.DevicePlate, Source={x:Static local:GlobalResourcesVMS.Current}, Converter={StaticResource OfflineMapDeviceCodeConverter}}"
+                                            VerticalOptions="Center"
+                                            WidthRequest="100">
+                                            <Label.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding Source={RelativeSource Self}, Path=Text.Length}"
+                                                    TargetType="Label"
+                                                    Value="0">
+                                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                        <Image
+                                            Margin="0,0,0,15"
+                                            Aspect="AspectFit"
+                                            HeightRequest="30"
+                                            HorizontalOptions="Center"
+                                            Rotation="{Binding Rotation}"
+                                            Scale="1"
+                                            Source="car_blue.png"
+                                            VerticalOptions="StartAndExpand"
+                                            WidthRequest="30" />
+                                    </StackLayout>
+                                    <StackLayout IsVisible="{Binding IsCar, Converter={StaticResource InvertBooleanConverter}}">
+                                        <Label
+                                            Padding="0,1"
+                                            BackgroundColor="White"
+                                            FontAttributes="Bold"
+                                            FontFamily="{StaticResource myFontLatoBold}"
+                                            FontSize="10"
+                                            HeightRequest="15"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{Binding Label}"
+                                            VerticalOptions="Center"
+                                            WidthRequest="-1" />
+                                    </StackLayout>
                                 </StackLayout>
                             </DataTemplate>
                         </maps:ImageryLayer.MarkerTemplate>
