@@ -67,7 +67,7 @@ namespace VMS_MobileGPS.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            //ZoomSupprt();
+            ZoomSupprt();
             GetListLandmark();
 
             MarkerPosition = "Cần quyền truy cập vị trí hoặc kết nối thiết bị";
@@ -377,7 +377,7 @@ namespace VMS_MobileGPS.ViewModels
                     }
                     var shapeLayerSetting = new ShapeSetting
                     {
-                        ShapeFill = Color.FromHex("#80CC0000").MultiplyAlpha(0.2f),
+                        ShapeFill = Color.FromHex("#AAD3DF"),
                         ShapeStroke = Color.FromHex("#80CC0000"),
                         ShapeStrokeThickness = 1
                     };
@@ -528,7 +528,8 @@ namespace VMS_MobileGPS.ViewModels
 
                 if (Markers != null && Markers.Count > 0)
                 {
-                    (Markers[0] as CustomMarker).Rotation = (float)fractionAngle;
+                    var marker = Markers.FirstOrDefault(x => x.Label == "Car");
+                    (marker as CustomMarker).Rotation = (float)fractionAngle;
                 }
 
                 if (mRotateIndex > Constants.MAX_ROTATE_STEP)
@@ -610,7 +611,7 @@ namespace VMS_MobileGPS.ViewModels
 
         private void ZoomSupprt()
         {
-            var shapeSetting = new ShapeSetting() { ShapeFill = Color.FromHex("AAD3DF"), ShapeStroke = Color.FromHex("AAD3DF"), ShapeStrokeThickness = 3 };
+            var shapeSetting = new ShapeSetting() { ShapeFill = Color.FromHex("#AAD3DF"), ShapeStroke = Color.FromHex("#AAD3DF"), ShapeStrokeThickness = 3 };
             var listSp = new List<ObservableCollection<Point>>();
             var v1Points = new ObservableCollection<Point>() {
                     new Point(16.362310,111.888266),
