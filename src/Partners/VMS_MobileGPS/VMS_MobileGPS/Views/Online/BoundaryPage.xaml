@@ -134,6 +134,7 @@
                                     FontFamily="{StaticResource myFontFamily}"
                                     FontSize="13"
                                     IsChecked="{Binding IsShowBoudary}"
+                                    IsEnabled="{Binding IsEnableBoudary}"
                                     StateChanged="CkbBoudary_StateChanged"
                                     Text="{i18n:TranslateResource Boundary_Label_Showarea}" />
                                 <checkbox:SfCheckBox
