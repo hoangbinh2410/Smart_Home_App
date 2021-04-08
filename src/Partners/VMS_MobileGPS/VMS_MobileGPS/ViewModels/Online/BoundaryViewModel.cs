@@ -114,6 +114,14 @@ namespace VMS_MobileGPS.ViewModels
 
                            foreach (var item in respones)
                            {
+                               if (item.PK_LandmarkID == 376652 || item.PK_LandmarkID == 376650 || item.PK_LandmarkID == 376651)
+                               {
+                                   item.IsEnableBoudary = true;
+                               }
+                               else
+                               {
+                                   item.IsEnableBoudary = false;
+                               }
                                //thêm dữ liệu vào local database với bẳng là LanmarkReal
                                baseRepository.Add(item);
                            }
