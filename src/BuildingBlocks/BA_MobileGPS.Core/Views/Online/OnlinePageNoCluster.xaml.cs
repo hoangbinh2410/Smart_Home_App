@@ -176,6 +176,18 @@ namespace BA_MobileGPS.Core.Views
             }
         }
 
+        public int CurrentComanyID
+        {
+            get
+            {
+                var currentCompany = Settings.CurrentCompany;
+
+                if (currentCompany != null && StaticSettings.ListCompany != null && StaticSettings.ListCompany.Exists(c => c.FK_CompanyID == currentCompany.FK_CompanyID))
+                    return currentCompany.FK_CompanyID;
+                else
+                    return StaticSettings.User.CompanyId;
+            }
+        }
         /* Danh sách xe online */
         private List<VehicleOnline> mCurrentVehicleList;
 
@@ -710,7 +722,7 @@ namespace BA_MobileGPS.Core.Views
                 vm.CurrentAddress = MobileResource.Online_Label_Determining;
                 Task.Run(async () =>
                 {
-                    return await geocodeService.GetAddressByLatLng(lat, lng);
+                    return await geocodeService.GetAddressByLatLng(CurrentComanyID, lat, lng);
                 }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
                 {
                     if (task.Status == TaskStatus.RanToCompletion)
