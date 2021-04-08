@@ -684,6 +684,7 @@ namespace VMS_MobileGPS.ViewModels
                                         itemlocal.Latitude = item.Latitude;
                                         itemlocal.Longitude = item.Longitude;
                                         itemlocal.Name = item.Name;
+                                        itemlocal.IsEnableBoudary = item.IsEnableBoudary;
                                         baseRepository.Update(itemlocal);
                                     }
                                 }
