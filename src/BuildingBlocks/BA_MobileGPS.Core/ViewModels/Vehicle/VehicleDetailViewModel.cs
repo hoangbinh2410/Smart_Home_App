@@ -85,7 +85,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 });
             }
-            InitMenuItems();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -279,14 +278,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 Title = "Nhiên liệu",
                 Icon = "ic_fuel.png",
                 Url = "NavigationPage/PourFuelReportPage",
-                IsEnable = CheckPermision((int)PermissionKeyNames.ReportFuelView),
+                IsEnable = IsFuelVisible == true && CheckPermision((int)PermissionKeyNames.ReportFuelView) ? true : false,
             });
             list.Add(new MenuItem
             {
                 Title = "Nhiệt độ",
                 Icon = "ic_temperature.png",
                 Url = "NavigationPage/ReportTableTemperature",
-                IsEnable = CheckPermision((int)PermissionKeyNames.ReportTemperatureView),
+                IsEnable = !string.IsNullOrEmpty(Temperature) && CheckPermision((int)PermissionKeyNames.ReportTemperatureView) ? true : false,
             });
             MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
@@ -359,6 +358,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         KmInMonth = 0;
                     }
+
+                    InitMenuItems();
                 }
             });
         }
