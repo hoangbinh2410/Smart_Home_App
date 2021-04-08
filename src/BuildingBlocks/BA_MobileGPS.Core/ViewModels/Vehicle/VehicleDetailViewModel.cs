@@ -440,7 +440,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    parameters.Add(ParameterKey.Vehicle, new Vehicle() { VehicleId = PK_VehicleID, VehiclePlate = VehiclePlate, PrivateCode = PrivateCode });
+                    parameters.Add(ParameterKey.VehicleRoute, new Vehicle() { VehicleId = PK_VehicleID, VehiclePlate = VehiclePlate, PrivateCode = PrivateCode });
                 }
                 await NavigationService.NavigateAsync(obj.Url, parameters, useModalNavigation: true, true);
             });
