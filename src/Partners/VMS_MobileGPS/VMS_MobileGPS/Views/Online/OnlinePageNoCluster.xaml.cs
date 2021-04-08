@@ -706,7 +706,6 @@ namespace VMS_MobileGPS.Views
                 {
                     RenderMarkerClusterOnMap(lstVehicle[i].DoubleMarker);
                 }
-                GetAllIslandVN();
             }
             catch (Exception ex)
             {

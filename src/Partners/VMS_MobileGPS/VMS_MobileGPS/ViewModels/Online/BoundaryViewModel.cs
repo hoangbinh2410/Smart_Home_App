@@ -41,22 +41,28 @@ namespace VMS_MobileGPS.ViewModels
             CanelCommand = new DelegateCommand(Canel);
         }
 
-        #endregion
+        #endregion Contructor
 
         #region Lifecycle
 
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-
-            GetListLandmark();
         }
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
         }
 
-        #endregion
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+
+            GetListLandmark();
+        }
+
+        #endregion Lifecycle
 
         #region Property
 
@@ -70,7 +76,7 @@ namespace VMS_MobileGPS.ViewModels
         private bool hasBoundary = false;
         public bool HasBoundary { get => hasBoundary; set => SetProperty(ref hasBoundary, value); }
 
-        #endregion
+        #endregion Property
 
         #region PrivateMethod
 
@@ -116,9 +122,7 @@ namespace VMS_MobileGPS.ViewModels
                        }
                    });
                 }
-
             });
-
         }
 
         private async void Update()
@@ -165,6 +169,6 @@ namespace VMS_MobileGPS.ViewModels
             await NavigationService.GoBackAsync();
         }
 
-        #endregion
+        #endregion PrivateMethod
     }
 }
