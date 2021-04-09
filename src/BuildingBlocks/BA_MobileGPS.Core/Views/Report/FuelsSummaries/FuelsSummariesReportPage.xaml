@@ -201,9 +201,9 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <!--  từ ngày  -->
                             <Frame
@@ -228,7 +228,7 @@
                                         <TapGestureRecognizer Command="{Binding PushToFromDatePageCommand}" />
                                     </StackLayout.GestureRecognizers>
                                     <Entry
-                                        FontSize="{StaticResource FontSize11}"
+                                        FontSize="{StaticResource FontSize12}"
                                         HorizontalOptions="FillAndExpand"
                                         InputTransparent="True"
                                         Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
@@ -270,7 +270,7 @@
                                         <TapGestureRecognizer Command="{Binding PushToEndDatePageCommand}" />
                                     </StackLayout.GestureRecognizers>
                                     <Entry
-                                        FontSize="{StaticResource FontSize11}"
+                                        FontSize="{StaticResource FontSize12}"
                                         HorizontalOptions="FillAndExpand"
                                         InputTransparent="True"
                                         Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_ToDate}"
@@ -300,7 +300,7 @@
                                     CornerRadius="5"
                                     HasShadow="False"
                                     HeightRequest="35"
-                                    HorizontalOptions="CenterAndExpand"
+                                    HorizontalOptions="Start"
                                     LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="CenterAndExpand"
                                     WidthRequest="35">
@@ -393,7 +393,7 @@
                                     CornerRadius="5"
                                     HasShadow="False"
                                     HeightRequest="35"
-                                    HorizontalOptions="CenterAndExpand"
+                                    HorizontalOptions="Start"
                                     IsVisible="{Binding IsExportExcel}"
                                     LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="CenterAndExpand"
