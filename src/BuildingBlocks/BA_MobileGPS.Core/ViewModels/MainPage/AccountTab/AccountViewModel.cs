@@ -38,6 +38,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(Navigate);
         }
+
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
@@ -45,9 +46,9 @@ namespace BA_MobileGPS.Core.ViewModels
             IsShowPhoneNumber = MobileUserSettingHelper.IsShowPhoneNumber;
             InitMenuItems();
         }
+
         public override void Initialize(INavigationParameters parameters)
         {
-
         }
 
         private void InitMenuItems()
@@ -73,7 +74,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = "BaseNavigationPage/ChangePasswordPage",
                 MenuType = MenuType.ChangePassword,
-                IsEnable = CheckPermision((int)PermissionKeyNames.UserUpdate),
+                IsEnable = !CheckPermision((int)PermissionKeyNames.ChangePassword),
                 IconColor = Color.FromHex("#795548")
             });
 
