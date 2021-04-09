@@ -13,6 +13,7 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    x:Name="this"
     prism:ViewModelLocator.AutowireViewModel="True"
     BackgroundColor="#E5E5E5">
     <ContentPage.Resources>
@@ -266,7 +267,7 @@
                     ItemsSource="{Binding ListIssue, Mode=TwoWay}"
                     LoadMoreCommand="{Binding LoadMoreItemsCommand}"
                     LoadMoreCommandParameter="{Binding Source={x:Reference listView}}"
-                    LoadMoreOption="Auto"
+                    LoadMoreOption="AutoOnScroll"
                     SelectionBackgroundColor="Transparent">
                     <syncfusionList:SfListView.ItemTemplate>
                         <DataTemplate>
@@ -306,7 +307,14 @@
                                             HorizontalOptions="Center"
                                             Source="ic_star.png"
                                             VerticalOptions="Center"
-                                            WidthRequest="20" />
+                                            WidthRequest="20">
+                                            <icons:IconView.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Command="{Binding Source={x:Reference this}, Path=BindingContext.SetFavoriteIssueCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    NumberOfTapsRequired="1" />
+                                            </icons:IconView.GestureRecognizers>
+                                        </icons:IconView>
                                     </Grid>
 
                                     <Grid Grid.Row="0" RowSpacing="0">

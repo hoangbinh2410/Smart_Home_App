@@ -4,6 +4,8 @@ namespace BA_MobileGPS.Entities.Enums
 {
     public enum IssuesStatusEnums
     {
+        [Description("Tất cả")]
+        All = 0,
         [Description("Đã gửi yêu cầu")]
         SendRequestIssue = 1,
         [Description("CSKH đã tiếp nhận")]

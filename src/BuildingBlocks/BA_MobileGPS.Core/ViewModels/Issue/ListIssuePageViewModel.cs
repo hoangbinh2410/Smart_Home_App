@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Entities.ResponeEntity.Issues;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
@@ -6,8 +7,10 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
@@ -24,6 +27,9 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SortCommand { get; private set; }
         public ICommand SelectFavoriteIssueCommand { get; private set; }
 
+        public ICommand SetFavoriteIssueCommand { get; private set; }
+        public ICommand LoadMoreItemsCommand { get; }
+
         public ListIssuePageViewModel(INavigationService navigationService) : base(navigationService)
         {
             Title = "Danh sách yêu cầu hỗ trợ";
@@ -33,9 +39,19 @@ namespace BA_MobileGPS.Core.ViewModels
             SearchIssueCommand = new DelegateCommand<TextChangedEventArgs>(SearchIssuewithText);
             SortCommand = new DelegateCommand(SortIssue);
             SelectFavoriteIssueCommand = new DelegateCommand(SelectFavoriteIssue);
+            LoadMoreItemsCommand = new DelegateCommand(LoadMoreItems, CanLoadMoreItems);
+            SetFavoriteIssueCommand = new DelegateCommand<object>(SetFavoriteIssue);
+            StatusIssueSelected = new ComboboxResponse()
+            {
+                Key = 0,
+                Value = "Tất cả"
+            };
         }
 
         #region Property
+
+        private int pageIndex { get; set; } = 0;
+        private int pageCount { get; } = 10;
 
         private DateTime fromDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
         public virtual DateTime FromDate { get => fromDate; set => SetProperty(ref fromDate, value); }
@@ -52,7 +68,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private ObservableCollection<IssuesRespone> listIssue = new ObservableCollection<IssuesRespone>();
         public ObservableCollection<IssuesRespone> ListIssue { get => listIssue; set => SetProperty(ref listIssue, value); }
 
-        private List<IssuesRespone> ListIssueByStatus = new List<IssuesRespone>();
+        private List<IssuesRespone> ListIssueByOrigin = new List<IssuesRespone>();
+
+        public IssueSortOrderType SortTypeSelected = IssueSortOrderType.CreatedDateDES;
 
         #endregion Property
 
@@ -90,7 +108,7 @@ namespace BA_MobileGPS.Core.ViewModels
             var lst = new List<IssuesRespone>();
             lst.Add(new IssuesRespone()
             {
-                Content = "Phương tiện 29H123456 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
+                Content = "Phương tiện 29H123451 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
                 Id = new Guid(),
                 DueDate = DateTime.Now,
                 FK_CompanyID = 1111,
@@ -103,12 +121,12 @@ namespace BA_MobileGPS.Core.ViewModels
             });
             lst.Add(new IssuesRespone()
             {
-                Content = "Phương tiện 29H123456 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
+                Content = "Phương tiện 29H123452 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
                 Id = new Guid(),
                 DueDate = DateTime.Now,
                 FK_CompanyID = 1111,
                 FK_UserID = new Guid(),
-                IsFavorites = true,
+                IsFavorites = false,
                 Status = Entities.Enums.IssuesStatusEnums.EngineeringIsInprogress,
                 IssueCode = "",
                 CreatedDate = DateTime.Now,
@@ -116,12 +134,12 @@ namespace BA_MobileGPS.Core.ViewModels
             });
             lst.Add(new IssuesRespone()
             {
-                Content = "Phương tiện 29H123456 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
+                Content = "Phương tiện 29H123453 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
                 Id = new Guid(),
                 DueDate = DateTime.Now,
                 FK_CompanyID = 1111,
                 FK_UserID = new Guid(),
-                IsFavorites = true,
+                IsFavorites = false,
                 Status = Entities.Enums.IssuesStatusEnums.SendRequestIssue,
                 IssueCode = "",
                 CreatedDate = DateTime.Now,
@@ -129,12 +147,12 @@ namespace BA_MobileGPS.Core.ViewModels
             });
             lst.Add(new IssuesRespone()
             {
-                Content = "Phương tiện 29H123456 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
+                Content = "Phương tiện 29H123454 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
                 Id = new Guid(),
                 DueDate = DateTime.Now,
                 FK_CompanyID = 1111,
                 FK_UserID = new Guid(),
-                IsFavorites = true,
+                IsFavorites = false,
                 Status = Entities.Enums.IssuesStatusEnums.Finish,
                 IssueCode = "",
                 CreatedDate = DateTime.Now,
@@ -142,7 +160,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
             lst.Add(new IssuesRespone()
             {
-                Content = "Phương tiện 29H123456 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
+                Content = "Phương tiện 29H123455 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
                 Id = new Guid(),
                 DueDate = DateTime.Now,
                 FK_CompanyID = 1111,
@@ -153,6 +171,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now
             });
+            ListIssueByOrigin = lst;
             ListIssue = lst.ToObservableCollection();
         }
 
@@ -247,41 +266,86 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (dataResponse.ComboboxType == (Int16)ComboboxType.First)
                 {
                     StatusIssueSelected = dataResponse;
+                    var lst = ListIssueByOrigin.Where(x => (x.Content.ToUpper().Contains(SearchedText) || string.IsNullOrEmpty(SearchedText))
+                                && (x.Status == (IssuesStatusEnums)StatusIssueSelected.Key
+                                || StatusIssueSelected.Key == 0
+                                || StatusIssueSelected == null)).ToList();
+                    ListIssue = lst.ToObservableCollection();
+                    SetSortOrder();
                 }
             }
         }
 
         private void SortIssue()
         {
-            throw new NotImplementedException();
+            switch (SortTypeSelected)
+            {
+                case IssueSortOrderType.CreatedDateASC:
+                    SortTypeSelected = IssueSortOrderType.CreatedDateDES;
+                    ListIssue = ListIssue.OrderBy(x => x.CreatedDate).ToObservableCollection();
+                    break;
+
+                case IssueSortOrderType.CreatedDateDES:
+                    SortTypeSelected = IssueSortOrderType.CreatedDateASC;
+                    ListIssue = ListIssue.OrderByDescending(x => x.CreatedDate).ToObservableCollection();
+                    break;
+            }
         }
 
         private void SearchIssuewithText(TextChangedEventArgs args)
         {
-            //if (ListVehicleByGroup == null || ListVehicleByStatus == null || args.NewTextValue == null)
-            //    return;
+            SafeExecute(() =>
+            {
+                var keySearch = string.Empty;
+                if (args != null)
+                {
+                    keySearch = args.NewTextValue.ToUpper().Trim();
+                }
+                if (cts != null)
+                    cts.Cancel(true);
 
-            //if (cts != null)
-            //    cts.Cancel(true);
+                cts = new CancellationTokenSource();
 
-            //cts = new CancellationTokenSource();
+                Task.Run(async () =>
+                {
+                    await Task.Delay(500, cts.Token);
+                    if (cts.IsCancellationRequested)
+                        return null;
+                    return ListIssueByOrigin.Where(x => (x.Content.ToUpper().Contains(keySearch) || string.IsNullOrEmpty(keySearch))
+                    && (x.Status == (IssuesStatusEnums)StatusIssueSelected.Key)
+                    || StatusIssueSelected.Key == 0
+                    || StatusIssueSelected == null);
+                }, cts.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
+                {
+                    if (task.Status == TaskStatus.RanToCompletion && !cts.IsCancellationRequested)
+                    {
+                        ListIssue = new ObservableCollection<IssuesRespone>();
 
-            //Task.Run(async () =>
-            //{
-            //    await Task.Delay(500, cts.Token);
+                        if (task.Result != null && task.Result.Count() > 0)
+                        {
+                            ListIssue = task.Result.ToObservableCollection();
+                            SetSortOrder();
+                        }
+                    }
+                    else if (task.IsFaulted)
+                    {
+                    }
+                }));
+            });
+        }
 
-            //    if (string.IsNullOrWhiteSpace(args.NewTextValue))
-            //        return ListVehicleByStatus;
-            //    return ListVehicleByStatus.FindAll(v => v.VehiclePlate.ToUpper().Contains(args.NewTextValue.ToUpper()) || v.PrivateCode.ToUpper().Contains(args.NewTextValue.ToUpper()));
-            //}, cts.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
-            //{
-            //    if (task.Status == TaskStatus.RanToCompletion)
-            //    {
-            //        ListVehicle = new ObservableCollection<VehicleOnlineViewModel>(task.Result);
+        private void SetSortOrder()
+        {
+            switch (SortTypeSelected)
+            {
+                case IssueSortOrderType.CreatedDateASC:
+                    ListIssue = ListIssue.OrderBy(x => x.CreatedDate).ToObservableCollection();
+                    break;
 
-            //        SetSortOrder(false);
-            //    }
-            //}));
+                case IssueSortOrderType.CreatedDateDES:
+                    ListIssue = ListIssue.OrderByDescending(x => x.CreatedDate).ToObservableCollection();
+                    break;
+            }
         }
 
         private void SelectFavoriteIssue()
@@ -289,6 +353,65 @@ namespace BA_MobileGPS.Core.ViewModels
             throw new NotImplementedException();
         }
 
+        private bool CanLoadMoreItems()
+        {
+            return false;
+            //if (ListIssue.Count <= pageIndex * pageCount)
+            //    return false;
+            //return true;
+        }
+
+        private void LoadMoreItems()
+        {
+            SafeExecute(() =>
+            {
+                LoadMore();
+            });
+        }
+
+        private void LoadMore()
+        {
+            try
+            {
+                var source = listIssue.Skip(pageIndex * pageCount).Take(pageCount).ToList();
+                pageIndex++;
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    if (source != null && source.Count() > 0)
+                    {
+                        for (int i = 0; i < source.Count; i++)
+                        {
+                            ListIssue.Add(source[i]);
+                        }
+                        SetSortOrder();
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
+
+        private void SetFavoriteIssue(object obj)
+        {
+            if (obj != null && obj is IssuesRespone agrs)
+            {
+                var item = (IssuesRespone)agrs;
+                var model = ListIssue.FirstOrDefault(x => x.Id == item.Id);
+                if (model != null)
+                {
+                    model.IsFavorites = !item.IsFavorites;
+                }
+            }
+        }
+
         #endregion PrivateMethod
+    }
+
+    public enum IssueSortOrderType
+    {
+        CreatedDateASC,
+        CreatedDateDES,
     }
 }
