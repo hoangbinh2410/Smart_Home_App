@@ -470,6 +470,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
                     ListVehicle = new ObservableCollection<VehicleOnlineViewModel>(task.Result);
+
+                    SetSortOrder(false);
                 }
             }));
         }
@@ -580,12 +582,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (vehicle != null)
                 {
                     vehicle.IsFavorite = isFavorites;
-                    SetSortOrder(false);
                     var item = ListVehicleByStatus.FirstOrDefault(x => x.VehicleId == selected.VehicleId);
                     if (item != null)
                     {
                         item.IsFavorite = isFavorites;
                     }
+                    SetSortOrder(false);
                 }
             }
         }
