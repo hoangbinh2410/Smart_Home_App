@@ -120,7 +120,6 @@
                             Padding="5,0,5,0"
                             HorizontalOptions="FillAndExpand"
                             Orientation="Horizontal"
-                            Spacing="0"
                             VerticalOptions="Center">
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding PushToFromDateTimePageCommand}" />
@@ -162,7 +161,6 @@
                             Padding="5,0,5,0"
                             HorizontalOptions="FillAndExpand"
                             Orientation="Horizontal"
-                            Spacing="0"
                             VerticalOptions="Center">
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding PushToEndDateTimePageCommand}" />
@@ -195,7 +193,7 @@
                         CornerRadius="5"
                         HasShadow="False"
                         HeightRequest="35"
-                        HorizontalOptions="Center"
+                        HorizontalOptions="CenterAndExpand"
                         LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                         VerticalOptions="CenterAndExpand"
                         WidthRequest="35">
@@ -287,7 +285,7 @@
                             CornerRadius="5"
                             HasShadow="False"
                             HeightRequest="35"
-                            HorizontalOptions="Start"
+                            HorizontalOptions="Center"
                             IsVisible="{Binding IsExportExcel}"
                             LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="CenterAndExpand"

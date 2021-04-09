@@ -421,7 +421,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SetSortOrder();
         }
 
-        private void SetSortOrder()
+        private void SetSortOrder(bool isUpdateStatus = true)
         {
             if (Settings.SortOrder == (int)SortOrderType.PrivateCodeASC)
                 ListVehicle = ListVehicle.OrderByDescending(x => x.IsFavorite == true).ThenByDescending(x => x.SortOrder)
@@ -442,7 +442,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 ListVehicle = ListVehicle.OrderByDescending(x => x.IsFavorite == true)
                     .ThenByDescending(x => x.SortOrder).ToObservableCollection();
 
-            //ListVehicleByStatus = ListVehicle.ToList();
+            if (isUpdateStatus)
+            {
+                ListVehicleByStatus = ListVehicle.ToList();
+            }
         }
 
         private void SearchVehiclewithText(TextChangedEventArgs args)
@@ -467,7 +470,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
                     ListVehicle = new ObservableCollection<VehicleOnlineViewModel>(task.Result);
-                    SetSortOrder();
                 }
             }));
         }
@@ -513,10 +515,12 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             x.IsFavorite = true;
                         }
-                    });                    
-                    ListVehicle = lst.ToObservableCollection();
-                    SetSortOrder();
+                    });
                     ListVehicleByStatus = lst;
+
+                    ListVehicle = lst.ToObservableCollection();
+
+                    SetSortOrder();
                 }
             }
         }
@@ -576,7 +580,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (vehicle != null)
                 {
                     vehicle.IsFavorite = isFavorites;
-                    SetSortOrder();
+                    SetSortOrder(false);
+                    var item = ListVehicleByStatus.FirstOrDefault(x => x.VehicleId == selected.VehicleId);
+                    if (item != null)
+                    {
+                        item.IsFavorite = isFavorites;
+                    }
                 }
             }
         }
