@@ -1,13 +1,16 @@
 ﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.ResponeEntity.Issues;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -32,6 +35,8 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectFavoriteIssueCommand = new DelegateCommand(SelectFavoriteIssue);
         }
 
+        #region Property
+
         private DateTime fromDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
         public virtual DateTime FromDate { get => fromDate; set => SetProperty(ref fromDate, value); }
 
@@ -44,10 +49,20 @@ namespace BA_MobileGPS.Core.ViewModels
         private ComboboxResponse statusIssueSelected;
         public ComboboxResponse StatusIssueSelected { get => statusIssueSelected; set => SetProperty(ref statusIssueSelected, value); }
 
+        private ObservableCollection<IssuesRespone> listIssue = new ObservableCollection<IssuesRespone>();
+        public ObservableCollection<IssuesRespone> ListIssue { get => listIssue; set => SetProperty(ref listIssue, value); }
+
+        private List<IssuesRespone> ListIssueByStatus = new List<IssuesRespone>();
+
+        #endregion Property
+
+        #region Lifecycle
+
         public override void Initialize(INavigationParameters parameters)
         {
             EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
             EventAggregator.GetEvent<SelectComboboxEvent>().Subscribe(UpdateCombobox);
+            GetListIssue();
         }
 
         public override void OnDestroy()
@@ -58,6 +73,87 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
+            base.OnNavigatedTo(parameters);
+        }
+
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+        }
+
+        #endregion Lifecycle
+
+        #region PrivateMethod
+
+        private void GetListIssue()
+        {
+            var lst = new List<IssuesRespone>();
+            lst.Add(new IssuesRespone()
+            {
+                Content = "Phương tiện 29H123456 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
+                Id = new Guid(),
+                DueDate = DateTime.Now,
+                FK_CompanyID = 1111,
+                FK_UserID = new Guid(),
+                IsFavorites = true,
+                Status = Entities.Enums.IssuesStatusEnums.Finish,
+                IssueCode = "",
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now
+            });
+            lst.Add(new IssuesRespone()
+            {
+                Content = "Phương tiện 29H123456 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
+                Id = new Guid(),
+                DueDate = DateTime.Now,
+                FK_CompanyID = 1111,
+                FK_UserID = new Guid(),
+                IsFavorites = true,
+                Status = Entities.Enums.IssuesStatusEnums.EngineeringIsInprogress,
+                IssueCode = "",
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now
+            });
+            lst.Add(new IssuesRespone()
+            {
+                Content = "Phương tiện 29H123456 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
+                Id = new Guid(),
+                DueDate = DateTime.Now,
+                FK_CompanyID = 1111,
+                FK_UserID = new Guid(),
+                IsFavorites = true,
+                Status = Entities.Enums.IssuesStatusEnums.SendRequestIssue,
+                IssueCode = "",
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now
+            });
+            lst.Add(new IssuesRespone()
+            {
+                Content = "Phương tiện 29H123456 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
+                Id = new Guid(),
+                DueDate = DateTime.Now,
+                FK_CompanyID = 1111,
+                FK_UserID = new Guid(),
+                IsFavorites = true,
+                Status = Entities.Enums.IssuesStatusEnums.Finish,
+                IssueCode = "",
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now
+            });
+            lst.Add(new IssuesRespone()
+            {
+                Content = "Phương tiện 29H123456 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
+                Id = new Guid(),
+                DueDate = DateTime.Now,
+                FK_CompanyID = 1111,
+                FK_UserID = new Guid(),
+                IsFavorites = true,
+                Status = Entities.Enums.IssuesStatusEnums.CSKHInReceived,
+                IssueCode = "",
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now
+            });
+            ListIssue = lst.ToObservableCollection();
         }
 
         public void UpdateDateTime(PickerDateTimeResponse param)
@@ -192,5 +288,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             throw new NotImplementedException();
         }
+
+        #endregion PrivateMethod
     }
 }
