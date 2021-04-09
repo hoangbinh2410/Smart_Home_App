@@ -18,7 +18,7 @@
     BackgroundColor="#E5E5E5">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converter:FavoritesColorConverter x:Key="FavoritesColorConverter" />
+            <converter:FavoritesIssueColorConverter x:Key="FavoritesColorConverter" />
             <converter:StatusIssueColorConverter x:Key="StatusIssueColorConverter" />
             <converter:StatusIssueNameConverter x:Key="StatusIssueNameConverter" />
         </ResourceDictionary>
@@ -157,13 +157,25 @@
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding SelectFavoriteIssueCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
-                        <icons:IconView
-                            Foreground="{StaticResource PrimaryColor}"
-                            HeightRequest="25"
-                            HorizontalOptions="Center"
-                            Source="ic_star.png"
-                            VerticalOptions="Center"
-                            WidthRequest="25" />
+                        <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <icons:IconView
+                                Foreground="{StaticResource PrimaryColor}"
+                                HeightRequest="25"
+                                HorizontalOptions="Center"
+                                IsVisible="{Binding IsSelectedFavorites}"
+                                Source="ic_star.png"
+                                VerticalOptions="Center"
+                                WidthRequest="25" />
+                            <icons:IconView
+                                Foreground="#CED6E0"
+                                HeightRequest="25"
+                                HorizontalOptions="Center"
+                                IsVisible="{Binding IsSelectedFavorites, Converter={StaticResource InvertBooleanConverter}}"
+                                Source="ic_star.png"
+                                VerticalOptions="Center"
+                                WidthRequest="25" />
+                        </StackLayout>
+
                     </pancake:PancakeView>
                 </StackLayout>
 

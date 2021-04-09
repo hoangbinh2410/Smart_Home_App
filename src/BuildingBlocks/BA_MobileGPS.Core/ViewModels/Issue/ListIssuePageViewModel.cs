@@ -72,6 +72,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public IssueSortOrderType SortTypeSelected = IssueSortOrderType.CreatedDateDES;
 
+        private bool isSelectedFavorites;
+        public bool IsSelectedFavorites { get => isSelectedFavorites; set => SetProperty(ref isSelectedFavorites, value); }
+
         #endregion Property
 
         #region Lifecycle
@@ -269,7 +272,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     var lst = ListIssueByOrigin.Where(x => (x.Content.ToUpper().Contains(SearchedText) || string.IsNullOrEmpty(SearchedText))
                                 && (x.Status == (IssuesStatusEnums)StatusIssueSelected.Key
                                 || StatusIssueSelected.Key == 0
-                                || StatusIssueSelected == null)).ToList();
+                                || StatusIssueSelected == null) && (x.IsFavorites == IsSelectedFavorites || !IsSelectedFavorites)).ToList();
                     ListIssue = lst.ToObservableCollection();
                     SetSortOrder();
                 }
@@ -312,9 +315,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (cts.IsCancellationRequested)
                         return null;
                     return ListIssueByOrigin.Where(x => (x.Content.ToUpper().Contains(keySearch) || string.IsNullOrEmpty(keySearch))
-                    && (x.Status == (IssuesStatusEnums)StatusIssueSelected.Key)
+                    && ((x.Status == (IssuesStatusEnums)StatusIssueSelected.Key)
                     || StatusIssueSelected.Key == 0
-                    || StatusIssueSelected == null);
+                    || StatusIssueSelected == null) && (x.IsFavorites == IsSelectedFavorites || !IsSelectedFavorites));
                 }, cts.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
                 {
                     if (task.Status == TaskStatus.RanToCompletion && !cts.IsCancellationRequested)
@@ -350,7 +353,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SelectFavoriteIssue()
         {
-            throw new NotImplementedException();
+            IsSelectedFavorites = !IsSelectedFavorites;
         }
 
         private bool CanLoadMoreItems()
