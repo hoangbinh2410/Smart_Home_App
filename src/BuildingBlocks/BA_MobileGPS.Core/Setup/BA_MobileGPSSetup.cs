@@ -219,6 +219,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ForgotPasswordPage, ForgotPasswordPageViewModel>("ForgotPasswordPage");
             containerRegistry.RegisterForNavigation<VerifyCodeSMSPage, VerifyCodeSMSPageViewModel>();
             containerRegistry.RegisterForNavigation<ChangePasswordForgotPage, ChangePasswordForgotPageViewModel>();
+            containerRegistry.RegisterForNavigation<ListIssuePage, ListIssuePageViewModel>("ListIssuePage");
 
         }
     }
