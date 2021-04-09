@@ -9,8 +9,29 @@
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     prism:ViewModelLocator.AutowireViewModel="True"
     BackgroundColor="#E5E5E5">
+    <NavigationPage.TitleView>
+        <Grid VerticalOptions="Center">
+            <icons:IconView
+                Foreground="{DynamicResource WhiteColor}"
+                HeightRequest="25"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <icons:IconView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </icons:IconView.GestureRecognizers>
+            </icons:IconView>
+            <Label
+                HorizontalOptions="Center"
+                StyleClass="GroupTitleLabel,BoldText"
+                Text="{Binding Title}"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*" RowSpacing="0">
             <!--  Search area  -->
@@ -33,9 +54,7 @@
                                 Offset="0,0"
                                 Color="Black" />
                         </pancake:PancakeView.Shadow>
-                        <pancake:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SelectVehicleCameraCommand}" />
-                        </pancake:PancakeView.GestureRecognizers>
+
                         <StackLayout
                             Padding="0"
                             HorizontalOptions="FillAndExpand"
@@ -49,15 +68,13 @@
                                     Foreground="{DynamicResource WhiteColor}"
                                     Source="ic_search.png" />
                             </pancake:PancakeView>
-                            <Entry
-                                x:Name="entrySearch"
-                                FontSize="14"
-                                HorizontalOptions="FillAndExpand"
-                                InputTransparent="True"
-                                PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                                Text=""
-                                TextColor="{DynamicResource TextPrimaryColor}"
-                                VerticalOptions="Center">
+                            <Entry Placeholder="Nhập nội dung tìm kiếm" Text="{Binding SearchedText}">
+                                <Entry.Behaviors>
+                                    <prismbehaviors:EventToCommandBehavior
+                                        Command="{Binding SearchIssueCommand}"
+                                        EventArgsConverter="{StaticResource TextChangedEventArgsConverter}"
+                                        EventName="TextChanged" />
+                                </Entry.Behaviors>
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
                                 </Entry.Effects>
@@ -79,7 +96,7 @@
                                 Color="Black" />
                         </pancake:PancakeView.Shadow>
                         <pancake:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
+                            <TapGestureRecognizer Command="{Binding PushStatusIssueCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <icons:IconView
                             Foreground="{StaticResource PrimaryColor}"
@@ -103,7 +120,7 @@
                                 Color="Black" />
                         </pancake:PancakeView.Shadow>
                         <pancake:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
+                            <TapGestureRecognizer Command="{Binding SortCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <icons:FontAwesomeIcon
                             HeightRequest="20"
@@ -127,7 +144,7 @@
                                 Color="Black" />
                         </pancake:PancakeView.Shadow>
                         <pancake:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
+                            <TapGestureRecognizer Command="{Binding SelectFavoriteIssueCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
                         <icons:IconView
                             Foreground="{StaticResource PrimaryColor}"
@@ -225,7 +242,6 @@
                         </StackLayout>
                     </Frame>
                 </StackLayout>
-
             </StackLayout>
 
             <StackLayout Grid.Row="1" Padding="10">
@@ -259,7 +275,7 @@
                                 VerticalOptions="Center" />
                             <icons:IconView
                                 Grid.Column="3"
-                                Foreground="{StaticResource PrimaryColor}"
+                                Foreground="#F9CF26"
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
                                 Source="ic_star.png"
@@ -286,6 +302,7 @@
 
                                 <Label
                                     Text="Lịch hẹn"
+                                    TextColor="{StaticResource PrimaryColor}"
                                     VerticalOptions="Center"
                                     VerticalTextAlignment="Center" />
                             </StackLayout>
@@ -294,6 +311,7 @@
                                 Grid.Column="1"
                                 HorizontalOptions="EndAndExpand"
                                 Text="14:30 20/08/2020"
+                                TextColor="#FF6348"
                                 VerticalOptions="Center"
                                 VerticalTextAlignment="Center" />
                         </Grid>
@@ -319,6 +337,7 @@
                                     FontAttributes="Bold"
                                     FontFamily="{StaticResource myFontLatoBold}"
                                     Text="Trạng thái"
+                                    TextColor="{StaticResource PrimaryColor}"
                                     VerticalOptions="Center"
                                     VerticalTextAlignment="Center" />
                             </StackLayout>
@@ -329,6 +348,7 @@
                                 FontFamily="{StaticResource myFontLatoBold}"
                                 HorizontalOptions="EndAndExpand"
                                 Text="CSKH đã tiếp nhận"
+                                TextColor="{StaticResource PrimaryColor}"
                                 VerticalOptions="Center"
                                 VerticalTextAlignment="Center" />
                         </Grid>
