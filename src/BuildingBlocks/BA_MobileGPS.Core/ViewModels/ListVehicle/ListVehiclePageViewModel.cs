@@ -442,7 +442,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 ListVehicle = ListVehicle.OrderByDescending(x => x.IsFavorite == true)
                     .ThenByDescending(x => x.SortOrder).ToObservableCollection();
 
-            ListVehicleByStatus = ListVehicle.ToList();
+            //ListVehicleByStatus = ListVehicle.ToList();
         }
 
         private void SearchVehiclewithText(TextChangedEventArgs args)
@@ -467,6 +467,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
                     ListVehicle = new ObservableCollection<VehicleOnlineViewModel>(task.Result);
+                    SetSortOrder();
                 }
             }));
         }
@@ -505,10 +506,18 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         x.IconImage = IconCodeHelper.GetMarkerResource(x);
                     });
+                    var lst = _mapper.MapListProperties<VehicleOnlineViewModel>(listFilter);
+                    lst.ForEach(x =>
+                    {
+                        if (FavoritesVehicleHelper.IsFavoritesVehicleOnline(x.VehiclePlate))
+                        {
+                            x.IsFavorite = true;
+                        }
+                    });                    
+                    ListVehicle = lst.ToObservableCollection();
+                    SetSortOrder();
+                    ListVehicleByStatus = lst;
                 }
-
-                ListVehicleByStatus = _mapper.MapListProperties<VehicleOnlineViewModel>(listFilter);
-                ListVehicle = _mapper.MapListProperties<VehicleOnlineViewModel>(listFilter).ToObservableCollection();
             }
         }
 
