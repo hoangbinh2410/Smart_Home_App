@@ -39,6 +39,7 @@
             MapType="{Binding MapType}">
             <cluster:Map.Behaviors>
                 <mapbindings:AnimateCameraBehavior Request="{Binding AnimateCameraRequest}" />
+                <mapbindings:MoveCameraBehavior Request="{Binding MoveCameraRequest}" />
                 <mapbindings:BindingVisibleRegionBehavior Value="{Binding VisibleRegion}" />
                 <mapbindings:CameraIdledToCommandBehavior Command="{Binding CameraIdledCommand}" />
             </cluster:Map.Behaviors>
