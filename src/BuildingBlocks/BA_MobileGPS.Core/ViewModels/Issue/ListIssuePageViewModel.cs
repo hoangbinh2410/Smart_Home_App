@@ -46,6 +46,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 Key = 0,
                 Value = "Tất cả"
             };
+            isSelectedFavorites = false;
+            searchedText = "";
         }
 
         #region Property
@@ -269,12 +271,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (dataResponse.ComboboxType == (Int16)ComboboxType.First)
                 {
                     StatusIssueSelected = dataResponse;
-                    var lst = ListIssueByOrigin.Where(x => (x.Content.ToUpper().Contains(SearchedText) || string.IsNullOrEmpty(SearchedText))
-                                && (x.Status == (IssuesStatusEnums)StatusIssueSelected.Key
-                                || StatusIssueSelected.Key == 0
-                                || StatusIssueSelected == null) && (x.IsFavorites == IsSelectedFavorites || !IsSelectedFavorites)).ToList();
-                    ListIssue = lst.ToObservableCollection();
-                    SetSortOrder();
+                    FilterIssue();
                 }
             }
         }
@@ -354,6 +351,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void SelectFavoriteIssue()
         {
             IsSelectedFavorites = !IsSelectedFavorites;
+            FilterIssue();
         }
 
         private bool CanLoadMoreItems()
@@ -407,6 +405,17 @@ namespace BA_MobileGPS.Core.ViewModels
                     model.IsFavorites = !item.IsFavorites;
                 }
             }
+        }
+
+        private void FilterIssue()
+        {
+            var lst = ListIssueByOrigin.Where(x => (x.Content.ToUpper().Contains(SearchedText) || string.IsNullOrEmpty(SearchedText))
+                                            && (x.Status == (IssuesStatusEnums)StatusIssueSelected.Key
+                                            || StatusIssueSelected.Key == 0
+                                            || StatusIssueSelected == null)
+                                            && (x.IsFavorites == IsSelectedFavorites || !IsSelectedFavorites)).ToList();
+            ListIssue = lst.ToObservableCollection();
+            SetSortOrder();
         }
 
         #endregion PrivateMethod
