@@ -126,7 +126,7 @@
       <Version>1.4.2</Version>
     </PackageReference>
     <PackageReference Include="CardsView">
-      <Version>2.7.2</Version>
+      <Version>2.7.3</Version>
     </PackageReference>
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
       <Version>4.0.9</Version>
@@ -147,10 +147,10 @@
       <Version>2.0.0.11</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfProgressBar">
-      <Version>19.1.0.55</Version>
+      <Version>19.1.0.56</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider">
-      <Version>19.1.0.55</Version>
+      <Version>19.1.0.56</Version>
     </PackageReference>
     <PackageReference Include="VideoLAN.LibVLC.Android">
       <Version>3.2.0</Version>
@@ -194,20 +194,20 @@
     <PackageReference Include="Sharpnado.Presentation.Forms">
       <Version>1.7.1</Version>
     </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.1.0.55" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.1.0.55" />
-    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.1.0.55" />
-    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.1.0.55" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.1.0.55" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.1.0.55" />
-    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.1.0.55" />
-    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.1.0.55" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.1.0.55" />
-    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.1.0.55" />
-    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.1.0.55" />
-    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.1.0.55" />
-    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.1.0.55" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.1.0.55" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.1.0.56" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.1.0.56" />
+    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.1.0.56" />
+    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.1.0.56" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.1.0.56" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.1.0.56" />
+    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.1.0.56" />
+    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.1.0.56" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.1.0.56" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.1.0.56" />
+    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.1.0.56" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.1.0.56" />
+    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.1.0.56" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.1.0.56" />
     <!--<PackageReference Include="Toasts.Forms.Plugin">
       <Version>3.3.2</Version>
     </PackageReference>-->
@@ -3301,6 +3301,18 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_event.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_timeline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_timeline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_timeline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_timeline.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

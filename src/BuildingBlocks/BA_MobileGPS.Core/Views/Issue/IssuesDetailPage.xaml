@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.IssuesDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:progressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*" RowSpacing="0">
+            <Grid
+                Grid.Row="0"
+                Padding="10"
+                BackgroundColor="#0959A0"
+                RowDefinitions="Auto,Auto"
+                RowSpacing="10">
+                <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto,*">
+                    <BoxView
+                        Grid.Column="0"
+                        BackgroundColor="#FFA502"
+                        CornerRadius="9"
+                        HeightRequest="18"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        WidthRequest="18" />
+                    <Label
+                        Grid.Column="1"
+                        FontSize="15"
+                        HorizontalOptions="Start"
+                        Text="NỘI DUNG PHẢN HỒI"
+                        TextColor="{StaticResource WhiteColor}"
+                        VerticalOptions="Center" />
+
+                    <Label
+                        Grid.Column="2"
+                        FontSize="15"
+                        HorizontalOptions="EndAndExpand"
+                        Text="08:00 20/08/2020"
+                        TextColor="{StaticResource WhiteColor}"
+                        VerticalOptions="Center" />
+                </Grid>
+
+                <Label
+                    Grid.Row="1"
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    LineBreakMode="WordWrap"
+                    Text="Phương tiện 29H123456 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra"
+                    TextColor="{StaticResource WhiteColor}"
+                    VerticalOptions="Center" />
+            </Grid>
+            <StackLayout Grid.Row="1">
+                <StackLayout Padding="10,20,10,0" Orientation="Horizontal">
+                    <ffImage:CachedImage
+                        HeightRequest="20"
+                        HorizontalOptions="Center"
+                        Source="ic_timeline.png"
+                        VerticalOptions="Center"
+                        WidthRequest="20" />
+                    <Label
+                        Grid.Column="1"
+                        HorizontalOptions="Start"
+                        Text="THEO DÕI PHẢN HỒI"
+                        VerticalOptions="Center" />
+                </StackLayout>
+                <Grid Padding="10">
+                    <progressBar:SfStepProgressBar
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Vertical"
+                        VerticalOptions="FillAndExpand">
+                        <progressBar:StepView
+                            HeightRequest="18"
+                            PrimaryText="Step 1"
+                            WidthRequest="18" />
+                        <progressBar:StepView PrimaryText="Step 2" />
+                        <progressBar:StepView PrimaryText="Step 3" />
+                        <progressBar:StepView PrimaryText="Step 4" Status="InProgress" />
+                        <progressBar:StepView PrimaryText="Step 5" />
+                    </progressBar:SfStepProgressBar>
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
