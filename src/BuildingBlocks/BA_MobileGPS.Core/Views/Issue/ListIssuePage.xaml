@@ -375,13 +375,11 @@
                                                 Foreground="{StaticResource PrimaryColor}"
                                                 HeightRequest="20"
                                                 HorizontalOptions="Center"
-                                                Source="ic_phone_black.png"
+                                                Source="ic_event.png"
                                                 VerticalOptions="Center"
                                                 WidthRequest="20" />
 
                                             <Label
-                                                FontAttributes="Bold"
-                                                FontFamily="{StaticResource myFontLatoBold}"
                                                 Text="Trạng thái"
                                                 TextColor="{StaticResource PrimaryColor}"
                                                 VerticalOptions="Center"
