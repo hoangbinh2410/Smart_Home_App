@@ -124,6 +124,7 @@
         SynOnlineLevel,
         VehicleOnlineAddressEnabled,
         UseHelper,
-        UseUserBehavior
+        UseUserBehavior,
+        MinZoomLevelGoogleMap
     }
 }

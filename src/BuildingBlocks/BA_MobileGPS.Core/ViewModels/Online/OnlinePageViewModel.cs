@@ -170,6 +170,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public string CarSearch { get => carSearch; set => SetProperty(ref carSearch, value); }
 
         public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
+        public MoveCameraRequest MoveCameraRequest { get; } = new MoveCameraRequest();
 
         private MapType mapType;
         public MapType MapType { get => mapType; set => SetProperty(ref mapType, value); }
@@ -591,22 +592,29 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (args != null && args.Position != null)
             {
-                if (ZoomLevelFist == 0 && args.Position.Zoom != MobileUserSettingHelper.Mapzoom)
+                if (args.Position.Zoom <= MobileSettingHelper.MinZoomLevelGoogleMap)
                 {
-                    ZoomLevelFist = args.Position.Zoom;
+                    _ = MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPositionZoom(VisibleRegion.Center, MobileSettingHelper.MinZoomLevelGoogleMap + 1));
                 }
-
-                if (ZoomLevelFist > 0 && args.Position.Zoom != ZoomLevelFist)
+                else
                 {
-                    ZoomLevelLast = args.Position.Zoom;
-                }
+                    if (ZoomLevelFist == 0 && args.Position.Zoom != MobileUserSettingHelper.Mapzoom)
+                    {
+                        ZoomLevelFist = args.Position.Zoom;
+                    }
 
-                if (ZoomLevelLast > 0)
-                {
-                    ZoomLevel = args.Position.Zoom;
-                }
+                    if (ZoomLevelFist > 0 && args.Position.Zoom != ZoomLevelFist)
+                    {
+                        ZoomLevelLast = args.Position.Zoom;
+                    }
 
-                ShowLandmark();
+                    if (ZoomLevelLast > 0)
+                    {
+                        ZoomLevel = args.Position.Zoom;
+                    }
+
+                    ShowLandmark();
+                }
             }
         }
 
