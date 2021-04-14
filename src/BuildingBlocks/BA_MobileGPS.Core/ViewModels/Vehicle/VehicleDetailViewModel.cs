@@ -324,7 +324,17 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         IsFuelVisible = false;
                     }
-                    Temperature = response.Temperature2 == null ? string.Format("[{0} °C]", response.Temperature) : string.Format("[{0} °C]", response.Temperature) + " - " + string.Format("[{0} °C]", response.Temperature2);
+                    if (response.Temperature != null)
+                    {
+                        if (response.Temperature2 == null)
+                        {
+                            Temperature = string.Format("[{0} °C]", response.Temperature);
+                        }
+                        else
+                        {
+                            Temperature = string.Format("[{0} °C]", response.Temperature) + " - " + string.Format("[{0} °C]", response.Temperature2);
+                        }
+                    }
                     VehicleTime = response.VehicleTime;
                     VelocityGPS = response.VelocityGPS;
                     TotalKm = response.TotalKm.GetValueOrDefault();
