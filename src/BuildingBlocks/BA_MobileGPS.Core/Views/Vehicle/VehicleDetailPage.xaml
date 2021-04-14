@@ -35,12 +35,8 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid RowSpacing="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
             <ScrollView
-                Grid.Row="1"
+                Margin="0,0,0,70"
                 Orientation="Vertical"
                 VerticalOptions="StartAndExpand"
                 VerticalScrollBarVisibility="Never">
@@ -1967,7 +1963,7 @@
                     </Grid>
                 </StackLayout>
             </ScrollView>
-            <pancakeview:PancakeView Grid.Row="1" VerticalOptions="End">
+            <pancakeview:PancakeView VerticalOptions="End">
                 <pancakeview:PancakeView.Shadow>
                     <pancakeview:DropShadow
                         BlurRadius="2"
@@ -2003,7 +1999,7 @@
                     </controls:HorizontalList.ItemTemplate>
                 </controls:HorizontalList>
             </pancakeview:PancakeView>
-            <busyIndicator:SfBusyIndicator Grid.RowSpan="2" IsBusy="{Binding IsBusy}" />
+            <busyIndicator:SfBusyIndicator IsBusy="{Binding IsBusy}" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -169,14 +169,8 @@ namespace BA_MobileGPS.Core.ViewModels
         private string carSearch;
         public string CarSearch { get => carSearch; set => SetProperty(ref carSearch, value); }
 
-        public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
-        public MoveCameraRequest MoveCameraRequest { get; } = new MoveCameraRequest();
-
         private MapType mapType;
         public MapType MapType { get => mapType; set => SetProperty(ref mapType, value); }
-
-        private MapSpan visibleRegion;
-        public MapSpan VisibleRegion { get => visibleRegion; set => SetProperty(ref visibleRegion, value); }
 
         private Color colorMapType;
         public Color ColorMapType { get => colorMapType; set => SetProperty(ref colorMapType, value); }
@@ -592,11 +586,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (args != null && args.Position != null)
             {
-                if (args.Position.Zoom <= MobileSettingHelper.MinZoomLevelGoogleMap)
-                {
-                    _ = MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPositionZoom(VisibleRegion.Center, MobileSettingHelper.MinZoomLevelGoogleMap + 1));
-                }
-                else
+                if (args.Position.Zoom >= MobileSettingHelper.MinZoomLevelGoogleMap)
                 {
                     if (ZoomLevelFist == 0 && args.Position.Zoom != MobileUserSettingHelper.Mapzoom)
                     {
