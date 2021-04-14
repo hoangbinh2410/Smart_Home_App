@@ -114,11 +114,11 @@ namespace BA_MobileGPS.Core.ViewModels
             lst.Add(new IssuesRespone()
             {
                 Content = "Phương tiện 29H123451 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
-                Id = new Guid(),
+                Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA0"),
                 DueDate = DateTime.Now,
                 FK_CompanyID = 1111,
-                FK_UserID = new Guid(),
-                IsFavorites = true,
+                FK_UserID = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA2"),
+                IsFavorites = FavoritesVehicleHelper.IsFavoritesIssue(new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA0")),
                 Status = Entities.Enums.IssuesStatusEnums.Finish,
                 IssueCode = "",
                 CreatedDate = DateTime.Now,
@@ -127,11 +127,11 @@ namespace BA_MobileGPS.Core.ViewModels
             lst.Add(new IssuesRespone()
             {
                 Content = "Phương tiện 29H123452 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
-                Id = new Guid(),
+                Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA1"),
                 DueDate = DateTime.Now,
                 FK_CompanyID = 1111,
                 FK_UserID = new Guid(),
-                IsFavorites = false,
+                IsFavorites = FavoritesVehicleHelper.IsFavoritesIssue(new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA1")),
                 Status = Entities.Enums.IssuesStatusEnums.EngineeringIsInprogress,
                 IssueCode = "",
                 CreatedDate = DateTime.Now,
@@ -140,11 +140,11 @@ namespace BA_MobileGPS.Core.ViewModels
             lst.Add(new IssuesRespone()
             {
                 Content = "Phương tiện 29H123453 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
-                Id = new Guid(),
+                Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA3"),
                 DueDate = DateTime.Now,
                 FK_CompanyID = 1111,
                 FK_UserID = new Guid(),
-                IsFavorites = false,
+                IsFavorites = FavoritesVehicleHelper.IsFavoritesIssue(new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA3")),
                 Status = Entities.Enums.IssuesStatusEnums.SendRequestIssue,
                 IssueCode = "",
                 CreatedDate = DateTime.Now,
@@ -153,11 +153,11 @@ namespace BA_MobileGPS.Core.ViewModels
             lst.Add(new IssuesRespone()
             {
                 Content = "Phương tiện 29H123454 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
-                Id = new Guid(),
+                Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA4"),
                 DueDate = DateTime.Now,
                 FK_CompanyID = 1111,
                 FK_UserID = new Guid(),
-                IsFavorites = false,
+                IsFavorites = FavoritesVehicleHelper.IsFavoritesIssue(new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA4")),
                 Status = Entities.Enums.IssuesStatusEnums.Finish,
                 IssueCode = "",
                 CreatedDate = DateTime.Now,
@@ -166,11 +166,11 @@ namespace BA_MobileGPS.Core.ViewModels
             lst.Add(new IssuesRespone()
             {
                 Content = "Phương tiện 29H123455 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
-                Id = new Guid(),
+                Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA5"),
                 DueDate = DateTime.Now,
                 FK_CompanyID = 1111,
                 FK_UserID = new Guid(),
-                IsFavorites = true,
+                IsFavorites = FavoritesVehicleHelper.IsFavoritesIssue(new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA5")),
                 Status = Entities.Enums.IssuesStatusEnums.CSKHInReceived,
                 IssueCode = "",
                 CreatedDate = DateTime.Now,
@@ -403,6 +403,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (model != null)
                 {
                     model.IsFavorites = !item.IsFavorites;
+                    FavoritesVehicleHelper.UpdateFavoritesIssue(item.Id);
                 }
             }
         }

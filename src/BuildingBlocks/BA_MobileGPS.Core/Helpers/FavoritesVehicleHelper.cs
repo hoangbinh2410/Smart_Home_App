@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace BA_MobileGPS.Core
 {
@@ -96,6 +97,68 @@ namespace BA_MobileGPS.Core
             {
                 var split = Settings.FavoritesVehicleOnline.Split(',');
                 var splitVehicle = split.Where(x => x == vehiclePlate).ToArray();
+                if (splitVehicle.Length > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public static void UpdateFavoritesIssue(Guid id)
+        {
+            if (Settings.FavoritesIssue == string.Empty) // lần đầu
+            {
+                Settings.FavoritesIssue = id.ToString();
+            }
+            else
+            {
+                var split = Settings.FavoritesIssue.Split(',');
+
+                string[] temp = new string[split.Length];
+
+                var splitVehicle = split.Where(x => x == id.ToString()).ToArray();
+
+                if (splitVehicle.Length > 0) // đã có trong list thì xóa đi
+                {
+                    split = split.Where(x => x != id.ToString()).ToArray();
+
+                    temp = new string[split.Length];
+
+                    for (int i = 0; i < split.Length; i++)
+                    {
+                        temp[i] = split[i];
+                    }
+                }
+                else
+                {
+                    temp = new string[split.Length + 1];
+
+                    for (int i = 0; i < split.Length; i++)
+                    {
+                        temp[i] = split[i];
+                    }
+
+                    temp[split.Length] = id.ToString();
+                }
+
+                Settings.FavoritesIssue = string.Join(",", temp);
+            }
+        }
+
+        public static bool IsFavoritesIssue(Guid id)
+        {
+            if (string.IsNullOrEmpty(Settings.FavoritesIssue))
+            {
+                return false;
+            }
+            else
+            {
+                var split = Settings.FavoritesIssue.Split(',');
+                var splitVehicle = split.Where(x => x == id.ToString()).ToArray();
                 if (splitVehicle.Length > 0)
                 {
                     return true;
