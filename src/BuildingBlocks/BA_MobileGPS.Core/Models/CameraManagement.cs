@@ -373,7 +373,8 @@ namespace BA_MobileGPS.Core.Models
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        MediaPlayer.Media = new Media(libVLC, new Uri(Data.Link));
+                        var url = Data.Link.Replace("rtsp", "rtmp");
+                        MediaPlayer.Media = new Media(libVLC, new Uri(url));
                         MediaPlayer.Play();
                     });
                 }
