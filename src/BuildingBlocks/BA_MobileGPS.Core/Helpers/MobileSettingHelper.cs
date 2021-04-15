@@ -230,7 +230,7 @@ namespace BA_MobileGPS.Core
 
         public static bool UseUserBehavior => Get(MobileConfigurationNames.UseUserBehavior, true);
 
-        public static int MinZoomLevelGoogleMap => Get(MobileConfigurationNames.MinZoomLevelGoogleMap, 7);
+        public static int MinZoomLevelGoogleMap => Get(MobileConfigurationNames.MinZoomLevelGoogleMap, 5);
 
     }
 }
