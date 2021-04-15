@@ -262,8 +262,8 @@
                                                 </DataTrigger>
                                             </Frame.Triggers>
                                             <Label
-                                                Text="{Binding Data.Channel, Converter={StaticResource CameraChanelNameConverter}, Mode=OneWay}"
-                                                TextColor="{Binding Source={x:Reference frCam}, Path=BorderColor, Mode=OneWay}"
+                                                Text="{Binding Data.Channel, Converter={StaticResource CameraChanelNameConverter}, Mode=TwoWay}"
+                                                TextColor="{Binding Source={x:Reference frCam}, Path=BorderColor, Mode=TwoWay}"
                                                 VerticalOptions="Center">
                                                 <Label.Triggers>
                                                     <DataTrigger

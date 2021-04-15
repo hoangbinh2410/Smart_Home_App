@@ -96,7 +96,8 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.Initialize(parameters);
             LibVLCSharp.Shared.Core.Initialize();
-            LibVLC = new LibVLC("--no-osd", "--rtsp-tcp");
+            string[] options = { "--no-osd", "--rtsp-tcp", "-vvv", "--no-drop-late-frames", "--no-skip-frames" };
+            LibVLC = new LibVLC(options);
             InitTimer();
             GetChannelCamera();
 
