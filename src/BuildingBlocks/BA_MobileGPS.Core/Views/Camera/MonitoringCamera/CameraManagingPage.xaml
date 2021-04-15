@@ -243,7 +243,7 @@
 
                                         <Frame
                                             x:Name="frCam"
-                                            Margin="0,30,0,0"
+                                            Margin="0,15,0,0"
                                             BackgroundColor="Transparent"
                                             BorderColor="{DynamicResource WhiteColor}"
                                             InputTransparent="True"
