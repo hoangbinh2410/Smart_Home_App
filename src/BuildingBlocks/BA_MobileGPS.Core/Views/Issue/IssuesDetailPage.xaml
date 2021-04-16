@@ -184,6 +184,7 @@
                                 BackgroundColor=" #FFFFFF"
                                 BorderColor="#CED6E0"
                                 CornerRadius="10"
+                                HasShadow="False"
                                 HeightRequest="20"
                                 WidthRequest="20" />
                         </StackLayout>
