@@ -509,7 +509,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else if (result.StatusCode == 1)
                     {
-                        DisplayMessage.ShowMessageInfo(result.UserMessage);
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            IsError = true;
+                            ErrorMessenger = result.UserMessage;
+                        });
                     }
                 }, cts.Token);
             }
