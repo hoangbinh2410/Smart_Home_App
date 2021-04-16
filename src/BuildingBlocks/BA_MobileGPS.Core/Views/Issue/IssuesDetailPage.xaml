@@ -3,10 +3,20 @@
     x:Class="BA_MobileGPS.Core.Views.IssuesDetailPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:prism="http://prismlibrary.com"
-    xmlns:progressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
+    xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:StatusIssueColorConverter x:Key="StatusIssueColorConverter" />
+            <converter:StatusIssueNameConverter x:Key="StatusIssueNameConverter" />
+            <converter:TimelineIssueColorConverter x:Key="TimelineIssueColorConverter" />
+            <converter:IsNotFinishIssueConverter x:Key="IsNotFinishIssueConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*" RowSpacing="0">
             <Grid
@@ -64,20 +74,160 @@
                         Text="THEO DÕI PHẢN HỒI"
                         VerticalOptions="Center" />
                 </StackLayout>
-                <Grid Padding="10">
-                    <progressBar:SfStepProgressBar
-                        HorizontalOptions="FillAndExpand"
-                        Orientation="Vertical"
+                <Grid
+                    Padding="10"
+                    RowDefinitions="*,Auto"
+                    RowSpacing="0">
+
+                    <icons:HorizontalList
+                        Grid.Row="0"
+                        Margin="0"
+                        Padding="0"
+                        IsClippedToBounds="True"
+                        ItemsSource="{Binding ListIssue, Mode=TwoWay}"
                         VerticalOptions="FillAndExpand">
-                        <progressBar:StepView
-                            HeightRequest="18"
-                            PrimaryText="Step 1"
-                            WidthRequest="18" />
-                        <progressBar:StepView PrimaryText="Step 2" />
-                        <progressBar:StepView PrimaryText="Step 3" />
-                        <progressBar:StepView PrimaryText="Step 4" Status="InProgress" />
-                        <progressBar:StepView PrimaryText="Step 5" />
-                    </progressBar:SfStepProgressBar>
+                        <icons:HorizontalList.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout
+                                    Orientation="Horizontal"
+                                    Spacing="10"
+                                    VerticalOptions="Center">
+
+                                    <StackLayout
+                                        HorizontalOptions="Center"
+                                        Orientation="Vertical"
+                                        Spacing="0"
+                                        VerticalOptions="Start">
+
+                                        <BoxView
+                                            Margin="0,0,0,0"
+                                            BackgroundColor="{Binding Status, Converter={StaticResource StatusIssueColorConverter}}"
+                                            CornerRadius="10"
+                                            HeightRequest="20"
+                                            WidthRequest="20" />
+
+                                        <BoxView
+                                            HeightRequest="120"
+                                            HorizontalOptions="Center"
+                                            IsVisible="{Binding Status, Converter={StaticResource IsNotFinishIssueConverter}}"
+                                            WidthRequest="5"
+                                            Color="{Binding IsFinishStep, Converter={StaticResource TimelineIssueColorConverter}}" />
+                                    </StackLayout>
+
+                                    <!--  MESSAGE  -->
+                                    <StackLayout
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Vertical"
+                                        Spacing="20"
+                                        VerticalOptions="StartAndExpand">
+                                        <StackLayout
+                                            HorizontalOptions="Start"
+                                            Orientation="Horizontal"
+                                            VerticalOptions="Center">
+                                            <icons:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_event.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontFamily="{StaticResource myFontLatoBold}"
+                                                FontSize="15"
+                                                HorizontalOptions="Start"
+                                                Text="{Binding Status, Converter={StaticResource StatusIssueNameConverter}}"
+                                                TextColor="{StaticResource PrimaryColor}" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
+                                            <icons:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_date_range_black.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+                                            <Label
+                                                FontAttributes="Bold"
+                                                Text="{Binding DueDate, Converter={StaticResource DateTimeConverter}}"
+                                                TextColor="#2F3542" />
+                                        </StackLayout>
+                                        <BoxView
+                                            Margin="0,10,0,0"
+                                            HeightRequest="1"
+                                            HorizontalOptions="FillAndExpand"
+                                            IsVisible="{Binding Status, Converter={StaticResource IsNotFinishIssueConverter}}"
+                                            VerticalOptions="End"
+                                            Color="#CED6E0" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </DataTemplate>
+                        </icons:HorizontalList.ItemTemplate>
+                    </icons:HorizontalList>
+
+                    <StackLayout
+                        Grid.Row="1"
+                        IsVisible="{Binding IsNotFinish}"
+                        Orientation="Horizontal"
+                        Spacing="10"
+                        VerticalOptions="Start">
+
+                        <StackLayout
+                            HorizontalOptions="Center"
+                            Orientation="Vertical"
+                            Spacing="0"
+                            VerticalOptions="Start">
+
+                            <Frame
+                                Margin="0,0,0,0"
+                                Padding="0"
+                                BackgroundColor=" #FFFFFF"
+                                BorderColor="#CED6E0"
+                                CornerRadius="10"
+                                HeightRequest="20"
+                                WidthRequest="20" />
+                        </StackLayout>
+
+                        <!--  MESSAGE  -->
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Vertical"
+                            Spacing="20"
+                            VerticalOptions="StartAndExpand">
+                            <StackLayout
+                                HorizontalOptions="Start"
+                                Orientation="Horizontal"
+                                VerticalOptions="Center">
+                                <icons:IconView
+                                    Foreground="{StaticResource PrimaryColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    Source="ic_event.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontFamily="{StaticResource myFontLatoBold}"
+                                    FontSize="15"
+                                    HorizontalOptions="Start"
+                                    Text="Lịch hẹn hoàn thành"
+                                    TextColor="{StaticResource PrimaryColor}" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
+                                <icons:IconView
+                                    Foreground="{StaticResource PrimaryColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    Source="ic_date_range_black.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    Text="20/08/2020"
+                                    TextColor="#2F3542" />
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
                 </Grid>
             </StackLayout>
         </Grid>
