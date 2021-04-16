@@ -31,4 +31,23 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Issues
         [JsonIgnore]
         public bool IsFavorites { get => isFavorites; set => SetProperty(ref isFavorites, value); }
     }
+
+    public class IssuesDetailRespone : BaseModel
+    {
+        public Guid Id { get; set; }
+
+        public string IssueCode { get; set; }
+
+        public IssuesStatusEnums Status { get; set; }
+
+        public string Description { get; set; }
+
+        public DateTime DueDate { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public DateTime? UpdatedDate { get; set; }
+
+        public bool IsFinishStep { get; set; }
+    }
 }
