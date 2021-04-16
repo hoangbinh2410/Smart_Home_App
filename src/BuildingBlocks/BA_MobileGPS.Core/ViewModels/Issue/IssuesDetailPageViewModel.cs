@@ -72,18 +72,18 @@ namespace BA_MobileGPS.Core.ViewModels
                 IssueCode = "",
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
+                IsFinishStep = true
+            });
+            lst.Add(new IssuesDetailRespone()
+            {
+                Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA3"),
+                DueDate = DateTime.Now,
+                Status = Entities.Enums.IssuesStatusEnums.EngineeringIsInprogress,
+                IssueCode = "",
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
                 IsFinishStep = false
             });
-            //lst.Add(new IssuesDetailRespone()
-            //{
-            //    Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA3"),
-            //    DueDate = DateTime.Now,
-            //    Status = Entities.Enums.IssuesStatusEnums.EngineeringIsInprogress,
-            //    IssueCode = "",
-            //    CreatedDate = DateTime.Now,
-            //    UpdatedDate = DateTime.Now,
-            //    IsFinishStep = false
-            //});
             //lst.Add(new IssuesDetailRespone()
             //{
             //    Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA4"),
