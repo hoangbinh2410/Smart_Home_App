@@ -138,16 +138,10 @@
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand">
                                 <sharpnado:MaterialFrame.Content>
-                                    <Grid Grid.Row="0" RowSpacing="0">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
+                                    <StackLayout Grid.Row="0" Spacing="0">
 
                                         <!--  Số điện thoại  -->
-                                        <Grid Grid.Row="0" RowSpacing="0">
+                                        <Grid RowSpacing="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="1" />
@@ -181,6 +175,191 @@
                                                 Grid.Column="1"
                                                 HorizontalOptions="EndAndExpand"
                                                 Text="{Binding InforDetail.SIMPhoneNumber}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+
+                                            <BoxView
+                                                Grid.Row="1"
+                                                Grid.ColumnSpan="2"
+                                                BackgroundColor="{StaticResource GrayColor}"
+                                                HeightRequest="0.5"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="Start" />
+                                        </Grid>
+
+                                        <!--  Ngày đăng ký  -->
+                                        <Grid RowSpacing="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="1" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Padding="0,10,0,10"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal">
+                                                <controls:IconView
+                                                    Foreground="{StaticResource PrimaryColor}"
+                                                    HeightRequest="20"
+                                                    HorizontalOptions="Center"
+                                                    Source="ic_time_black.png"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="20" />
+
+                                                <Label
+                                                    Text="{i18n:TranslateResource DetailVehicle_Label_JoinSystemDate}"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                            </StackLayout>
+
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                HorizontalOptions="EndAndExpand"
+                                                Text="{Binding InforDetail.JoinSystemDate, Converter={StaticResource DateConverter}}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+
+                                            <BoxView
+                                                Grid.Row="1"
+                                                Grid.ColumnSpan="2"
+                                                BackgroundColor="{StaticResource GrayColor}"
+                                                HeightRequest="0.5"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="Start" />
+                                        </Grid>
+
+                                        <!--  Ngày hết hạn  -->
+                                        <!--<Grid IsVisible="{Binding InforDetail.MCExpried, Converter={StaticResource HasDataConverter}}" RowSpacing="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="1" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Padding="0,10,0,10"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal">
+                                                <controls:IconView
+                                                    Foreground="{StaticResource PrimaryColor}"
+                                                    HeightRequest="20"
+                                                    HorizontalOptions="Center"
+                                                    Source="ic_time_black.png"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="20" />
+
+                                                <Label
+                                                    Text="{i18n:TranslateResource DetailVehicle_Label_Vehicle_Expiration_Date}"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                            </StackLayout>
+
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                HorizontalOptions="EndAndExpand"
+                                                Text="{Binding InforDetail.MCExpried, Converter={StaticResource DateConverter}}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+
+                                            <BoxView
+                                                Grid.Row="1"
+                                                Grid.ColumnSpan="2"
+                                                BackgroundColor="{StaticResource GrayColor}"
+                                                HeightRequest="0.5"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="Start" />
+                                        </Grid>-->
+                                    </StackLayout>
+                                </sharpnado:MaterialFrame.Content>
+                            </sharpnado:MaterialFrame>
+                        </Grid>
+
+                        <!--  phần hiển thị thông tin chi tiết của xe  -->
+                        <Grid Grid.Row="2" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <sharpnado:MaterialFrame
+                                Grid.Row="0"
+                                Padding="10"
+                                CornerRadius="0"
+                                HasShadow="False"
+                                HorizontalOptions="FillAndExpand"
+                                LightThemeBackgroundColor="{StaticResource GrayColor}"
+                                VerticalOptions="FillAndExpand">
+
+                                <sharpnado:MaterialFrame.Content>
+                                    <Label
+                                        HorizontalOptions="StartAndExpand"
+                                        Text="{i18n:TranslateResource DetailVehicle_Label_TileInforVehicle}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+                                </sharpnado:MaterialFrame.Content>
+                            </sharpnado:MaterialFrame>
+                            <sharpnado:MaterialFrame
+                                Grid.Row="1"
+                                Padding="10,0,10,0"
+                                BackgroundColor="White"
+                                CornerRadius="0"
+                                HasShadow="False"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+
+                                <sharpnado:MaterialFrame.Content>
+
+                                    <StackLayout Spacing="0">
+
+                                        <!--  biển kiểm soát  -->
+                                        <Grid
+                                            x:Name="xxVehiclePlate"
+                                            Grid.Row="0"
+                                            RowSpacing="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="1" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Padding="0,10,0,10"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal">
+                                                <controls:IconView
+                                                    Foreground="{StaticResource PrimaryColor}"
+                                                    HeightRequest="20"
+                                                    HorizontalOptions="Center"
+                                                    Source="ic_vehicleplate.png"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="20" />
+                                                <Label
+                                                    Text="{i18n:TranslateResource DetailVehicle_Label_VehiclePlate}"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                            </StackLayout>
+
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                HorizontalOptions="EndAndExpand"
+                                                Text="{Binding InforDetail.VehiclePlate}"
                                                 VerticalOptions="Center"
                                                 VerticalTextAlignment="Center" />
 
@@ -229,216 +408,6 @@
                                                 Grid.Column="1"
                                                 HorizontalOptions="EndAndExpand"
                                                 Text="{Binding InforDetail.IMEI}"
-                                                VerticalOptions="Center"
-                                                VerticalTextAlignment="Center" />
-
-                                            <BoxView
-                                                Grid.Row="1"
-                                                Grid.ColumnSpan="2"
-                                                BackgroundColor="{StaticResource GrayColor}"
-                                                HeightRequest="0.5"
-                                                HorizontalOptions="FillAndExpand"
-                                                VerticalOptions="Start" />
-                                        </Grid>
-
-                                        <!--  Ngày đăng ký  -->
-                                        <Grid Grid.Row="2" RowSpacing="0">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="1" />
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <StackLayout
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                Padding="0,10,0,10"
-                                                HorizontalOptions="FillAndExpand"
-                                                Orientation="Horizontal">
-                                                <controls:IconView
-                                                    Foreground="{StaticResource PrimaryColor}"
-                                                    HeightRequest="20"
-                                                    HorizontalOptions="Center"
-                                                    Source="ic_time_black.png"
-                                                    VerticalOptions="Center"
-                                                    WidthRequest="20" />
-
-                                                <Label
-                                                    Text="{i18n:TranslateResource DetailVehicle_Label_JoinSystemDate}"
-                                                    VerticalOptions="Center"
-                                                    VerticalTextAlignment="Center" />
-                                            </StackLayout>
-
-                                            <Label
-                                                Grid.Row="0"
-                                                Grid.Column="1"
-                                                HorizontalOptions="EndAndExpand"
-                                                Text="{Binding InforDetail.JoinSystemDate, Converter={StaticResource DateConverter}}"
-                                                VerticalOptions="Center"
-                                                VerticalTextAlignment="Center" />
-
-                                            <BoxView
-                                                Grid.Row="1"
-                                                Grid.ColumnSpan="2"
-                                                BackgroundColor="{StaticResource GrayColor}"
-                                                HeightRequest="0.5"
-                                                HorizontalOptions="FillAndExpand"
-                                                VerticalOptions="Start" />
-                                        </Grid>
-
-                                        <!--  Ngày hết hạn  -->
-                                        <Grid
-                                            Grid.Row="3"
-                                            IsVisible="{Binding InforDetail.MCExpried, Converter={StaticResource HasDataConverter}}"
-                                            RowSpacing="0">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="1" />
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <StackLayout
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                Padding="0,10,0,10"
-                                                HorizontalOptions="FillAndExpand"
-                                                Orientation="Horizontal">
-                                                <controls:IconView
-                                                    Foreground="{StaticResource PrimaryColor}"
-                                                    HeightRequest="20"
-                                                    HorizontalOptions="Center"
-                                                    Source="ic_time_black.png"
-                                                    VerticalOptions="Center"
-                                                    WidthRequest="20" />
-
-                                                <Label
-                                                    Text="{i18n:TranslateResource DetailVehicle_Label_Vehicle_Expiration_Date}"
-                                                    VerticalOptions="Center"
-                                                    VerticalTextAlignment="Center" />
-                                            </StackLayout>
-
-                                            <Label
-                                                Grid.Row="0"
-                                                Grid.Column="1"
-                                                HorizontalOptions="EndAndExpand"
-                                                Text="{Binding InforDetail.MCExpried, Converter={StaticResource DateConverter}}"
-                                                VerticalOptions="Center"
-                                                VerticalTextAlignment="Center" />
-
-                                            <BoxView
-                                                Grid.Row="1"
-                                                Grid.ColumnSpan="2"
-                                                BackgroundColor="{StaticResource GrayColor}"
-                                                HeightRequest="0.5"
-                                                HorizontalOptions="FillAndExpand"
-                                                VerticalOptions="Start" />
-                                        </Grid>
-                                    </Grid>
-                                </sharpnado:MaterialFrame.Content>
-                            </sharpnado:MaterialFrame>
-                        </Grid>
-
-                        <!--  phần hiển thị thông tin chi tiết của xe  -->
-                        <Grid Grid.Row="2" RowSpacing="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
-                            <sharpnado:MaterialFrame
-                                Grid.Row="0"
-                                Padding="10"
-                                CornerRadius="0"
-                                HasShadow="False"
-                                HorizontalOptions="FillAndExpand"
-                                LightThemeBackgroundColor="{StaticResource GrayColor}"
-                                VerticalOptions="FillAndExpand">
-
-                                <sharpnado:MaterialFrame.Content>
-                                    <Label
-                                        HorizontalOptions="StartAndExpand"
-                                        Text="{i18n:TranslateResource DetailVehicle_Label_TileInforVehicle}"
-                                        VerticalOptions="Center"
-                                        VerticalTextAlignment="Center" />
-                                </sharpnado:MaterialFrame.Content>
-                            </sharpnado:MaterialFrame>
-                            <sharpnado:MaterialFrame
-                                Grid.Row="1"
-                                Padding="10,0,10,0"
-                                BackgroundColor="White"
-                                CornerRadius="0"
-                                HasShadow="False"
-                                HorizontalOptions="FillAndExpand"
-                                VerticalOptions="FillAndExpand">
-
-                                <sharpnado:MaterialFrame.Content>
-
-                                    <Grid Grid.Row="0" RowSpacing="0">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-
-                                        <!--  biển kiểm soát  -->
-                                        <Grid
-                                            x:Name="xxVehiclePlate"
-                                            Grid.Row="0"
-                                            RowSpacing="0">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="1" />
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <StackLayout
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                Padding="0,10,0,10"
-                                                HorizontalOptions="FillAndExpand"
-                                                Orientation="Horizontal">
-                                                <controls:IconView
-                                                    Foreground="{StaticResource PrimaryColor}"
-                                                    HeightRequest="20"
-                                                    HorizontalOptions="Center"
-                                                    Source="ic_vehicleplate.png"
-                                                    VerticalOptions="Center"
-                                                    WidthRequest="20" />
-                                                <Label
-                                                    Text="{i18n:TranslateResource DetailVehicle_Label_VehiclePlate}"
-                                                    VerticalOptions="Center"
-                                                    VerticalTextAlignment="Center" />
-                                            </StackLayout>
-
-                                            <Label
-                                                Grid.Row="0"
-                                                Grid.Column="1"
-                                                HorizontalOptions="EndAndExpand"
-                                                Text="{Binding InforDetail.VehiclePlate}"
                                                 VerticalOptions="Center"
                                                 VerticalTextAlignment="Center" />
 
@@ -1395,7 +1364,7 @@
                                                 HorizontalOptions="FillAndExpand"
                                                 VerticalOptions="Start" />
                                         </Grid>
-                                    </Grid>
+                                    </StackLayout>
                                 </sharpnado:MaterialFrame.Content>
                             </sharpnado:MaterialFrame>
                         </Grid>
@@ -1435,18 +1404,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand">
                                 <sharpnado:MaterialFrame.Content>
-                                    <Grid Grid.Row="0" RowSpacing="0">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-
+                                    <StackLayout Grid.Row="0" Spacing="0">
                                         <!--  Lái xe  -->
                                         <Grid Grid.Row="0" RowSpacing="0">
                                             <Grid.RowDefinitions>
@@ -1588,6 +1546,7 @@
                                                 HorizontalOptions="FillAndExpand"
                                                 VerticalOptions="Start" />
                                         </Grid>
+
                                         <!--  Thời gian lái xe liên tục  -->
                                         <Grid Grid.Row="3" RowSpacing="0">
                                             <Grid.RowDefinitions>
@@ -1813,7 +1772,7 @@
                                                 </controls:IconView.GestureRecognizers>
                                             </controls:IconView>
                                         </Grid>
-                                    </Grid>
+                                    </StackLayout>
                                 </sharpnado:MaterialFrame.Content>
                             </sharpnado:MaterialFrame>
                         </Grid>
