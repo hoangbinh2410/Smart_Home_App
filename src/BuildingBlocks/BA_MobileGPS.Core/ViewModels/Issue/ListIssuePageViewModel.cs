@@ -1,6 +1,8 @@
-﻿using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Entities.ResponeEntity.Issues;
+using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
@@ -14,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
+using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -26,13 +29,15 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand PushStatusIssueCommand { get; private set; }
         public ICommand SortCommand { get; private set; }
         public ICommand SelectFavoriteIssueCommand { get; private set; }
-
+        public ICommand NavigateCommand { get; private set; }
         public ICommand SetFavoriteIssueCommand { get; private set; }
         public ICommand LoadMoreItemsCommand { get; }
+        private readonly IIssueService _issueService;
 
-        public ListIssuePageViewModel(INavigationService navigationService) : base(navigationService)
+        public ListIssuePageViewModel(INavigationService navigationService, IIssueService issueService) : base(navigationService)
         {
             Title = "Danh sách yêu cầu hỗ trợ";
+            _issueService = issueService;
             PushToFromDateTimePageCommand = new DelegateCommand(ExecuteToFromDateTime);
             PushToEndDateTimePageCommand = new DelegateCommand(ExecuteToEndDateTime);
             PushStatusIssueCommand = new DelegateCommand(ExecuteStatusStatusIssueCombobox);
@@ -41,6 +46,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectFavoriteIssueCommand = new DelegateCommand(SelectFavoriteIssue);
             LoadMoreItemsCommand = new DelegateCommand(LoadMoreItems, CanLoadMoreItems);
             SetFavoriteIssueCommand = new DelegateCommand<object>(SetFavoriteIssue);
+            NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(Navigate);
             StatusIssueSelected = new ComboboxResponse()
             {
                 Key = 0,
@@ -83,6 +89,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void Initialize(INavigationParameters parameters)
         {
+            base.Initialize(parameters);
+
             EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
             EventAggregator.GetEvent<SelectComboboxEvent>().Subscribe(UpdateCombobox);
             GetListIssue();
@@ -110,74 +118,81 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetListIssue()
         {
-            var lst = new List<IssuesRespone>();
-            lst.Add(new IssuesRespone()
+            RunOnBackground(async () =>
             {
-                Content = "Phương tiện 29H123451 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
-                Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA0"),
-                DueDate = DateTime.Now,
-                FK_CompanyID = 1111,
-                FK_UserID = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA2"),
-                IsFavorites = FavoritesVehicleHelper.IsFavoritesIssue(new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA0")),
-                Status = Entities.Enums.IssuesStatusEnums.Finish,
-                IssueCode = "",
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now
-            });
-            lst.Add(new IssuesRespone()
+                return await _issueService.GetIssueByCompanyID(CurrentComanyID);
+            }, (result) =>
             {
-                Content = "Phương tiện 29H123452 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
-                Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA1"),
-                DueDate = DateTime.Now,
-                FK_CompanyID = 1111,
-                FK_UserID = new Guid(),
-                IsFavorites = FavoritesVehicleHelper.IsFavoritesIssue(new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA1")),
-                Status = Entities.Enums.IssuesStatusEnums.EngineeringIsInprogress,
-                IssueCode = "",
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now
+                ListIssueByOrigin = result;
+                ListIssue = result.ToObservableCollection();
             });
-            lst.Add(new IssuesRespone()
-            {
-                Content = "Phương tiện 29H123453 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
-                Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA3"),
-                DueDate = DateTime.Now,
-                FK_CompanyID = 1111,
-                FK_UserID = new Guid(),
-                IsFavorites = FavoritesVehicleHelper.IsFavoritesIssue(new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA3")),
-                Status = Entities.Enums.IssuesStatusEnums.SendRequestIssue,
-                IssueCode = "",
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now
-            });
-            lst.Add(new IssuesRespone()
-            {
-                Content = "Phương tiện 29H123454 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
-                Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA4"),
-                DueDate = DateTime.Now,
-                FK_CompanyID = 1111,
-                FK_UserID = new Guid(),
-                IsFavorites = FavoritesVehicleHelper.IsFavoritesIssue(new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA4")),
-                Status = Entities.Enums.IssuesStatusEnums.Finish,
-                IssueCode = "",
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now
-            });
-            lst.Add(new IssuesRespone()
-            {
-                Content = "Phương tiện 29H123455 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
-                Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA5"),
-                DueDate = DateTime.Now,
-                FK_CompanyID = 1111,
-                FK_UserID = new Guid(),
-                IsFavorites = FavoritesVehicleHelper.IsFavoritesIssue(new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA5")),
-                Status = Entities.Enums.IssuesStatusEnums.CSKHInReceived,
-                IssueCode = "",
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now
-            });
-            ListIssueByOrigin = lst;
-            ListIssue = lst.ToObservableCollection();
+
+            //var lst = new List<IssuesRespone>();
+            //lst.Add(new IssuesRespone()
+            //{
+            //    Content = "Phương tiện 29H123451 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
+            //    Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA0"),
+            //    DueDate = DateTime.Now,
+            //    FK_CompanyID = 1111,
+            //    FK_UserID = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA2"),
+            //    IsFavorites = FavoritesVehicleHelper.IsFavoritesIssue(new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA0")),
+            //    Status = Entities.Enums.IssuesStatusEnums.Finish,
+            //    IssueCode = "",
+            //    CreatedDate = DateTime.Now,
+            //    UpdatedDate = DateTime.Now
+            //});
+            //lst.Add(new IssuesRespone()
+            //{
+            //    Content = "Phương tiện 29H123452 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
+            //    Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA1"),
+            //    DueDate = DateTime.Now,
+            //    FK_CompanyID = 1111,
+            //    FK_UserID = new Guid(),
+            //    IsFavorites = FavoritesVehicleHelper.IsFavoritesIssue(new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA1")),
+            //    Status = Entities.Enums.IssuesStatusEnums.EngineeringIsInprogress,
+            //    IssueCode = "",
+            //    CreatedDate = DateTime.Now,
+            //    UpdatedDate = DateTime.Now
+            //});
+            //lst.Add(new IssuesRespone()
+            //{
+            //    Content = "Phương tiện 29H123453 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
+            //    Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA3"),
+            //    DueDate = DateTime.Now,
+            //    FK_CompanyID = 1111,
+            //    FK_UserID = new Guid(),
+            //    IsFavorites = FavoritesVehicleHelper.IsFavoritesIssue(new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA3")),
+            //    Status = Entities.Enums.IssuesStatusEnums.SendRequestIssue,
+            //    IssueCode = "",
+            //    CreatedDate = DateTime.Now,
+            //    UpdatedDate = DateTime.Now
+            //});
+            //lst.Add(new IssuesRespone()
+            //{
+            //    Content = "Phương tiện 29H123454 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
+            //    Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA4"),
+            //    DueDate = DateTime.Now,
+            //    FK_CompanyID = 1111,
+            //    FK_UserID = new Guid(),
+            //    IsFavorites = FavoritesVehicleHelper.IsFavoritesIssue(new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA4")),
+            //    Status = Entities.Enums.IssuesStatusEnums.Finish,
+            //    IssueCode = "",
+            //    CreatedDate = DateTime.Now,
+            //    UpdatedDate = DateTime.Now
+            //});
+            //lst.Add(new IssuesRespone()
+            //{
+            //    Content = "Phương tiện 29H123455 bị mất tín hiệu yêu cầu kỹ thuật hỗ trợ kiểm tra",
+            //    Id = new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA5"),
+            //    DueDate = DateTime.Now,
+            //    FK_CompanyID = 1111,
+            //    FK_UserID = new Guid(),
+            //    IsFavorites = FavoritesVehicleHelper.IsFavoritesIssue(new Guid("A2B22DF4-88FA-4AF6-A05F-F0FACC43CAA5")),
+            //    Status = Entities.Enums.IssuesStatusEnums.CSKHInReceived,
+            //    IssueCode = "",
+            //    CreatedDate = DateTime.Now,
+            //    UpdatedDate = DateTime.Now
+            //});
         }
 
         public void UpdateDateTime(PickerDateTimeResponse param)
@@ -417,6 +432,21 @@ namespace BA_MobileGPS.Core.ViewModels
                                             && (x.IsFavorites == IsSelectedFavorites || !IsSelectedFavorites)).ToList();
             ListIssue = lst.ToObservableCollection();
             SetSortOrder();
+        }
+
+        public void Navigate(ItemTappedEventArgs args)
+        {
+            if (!(args.ItemData is IssuesRespone item))
+            {
+                return;
+            }
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("IssuesDetailPage", parameters: new NavigationParameters
+                             {
+                                 { ParameterKey.IssuesKey, item }
+                            });
+            });
         }
 
         #endregion PrivateMethod

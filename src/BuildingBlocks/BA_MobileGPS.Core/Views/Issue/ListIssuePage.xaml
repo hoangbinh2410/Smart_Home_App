@@ -280,7 +280,8 @@
                     LoadMoreCommand="{Binding LoadMoreItemsCommand}"
                     LoadMoreCommandParameter="{Binding Source={x:Reference listView}}"
                     LoadMoreOption="AutoOnScroll"
-                    SelectionBackgroundColor="Transparent">
+                    SelectionBackgroundColor="Transparent"
+                    TapCommand="{Binding NavigateCommand}">
                     <syncfusionList:SfListView.ItemTemplate>
                         <DataTemplate>
                             <pancake:PancakeView

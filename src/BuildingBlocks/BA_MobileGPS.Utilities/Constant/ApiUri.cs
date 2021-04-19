@@ -300,5 +300,12 @@
         public const string GET_LIST_ALL_PAPER_HISTORY = "api/paperinfor/getlistpaperhistory";
         public const string GET_LAST_PAPER_DATE_BY_VEHICLE = "api/paperinfor/getlastpaperdatebyvehicle";
         #endregion
+
+
+        #region Issue
+        public const string GET_ISSUE_BYCOMPANYID = "api/issue/getissuebycompanyid";
+
+        public const string GET_ISSUE_BYISSUECODE = "api/issue/getissuebyissuecode";
+        #endregion
     }
 }
