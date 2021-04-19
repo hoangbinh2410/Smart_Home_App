@@ -78,7 +78,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     for (int i = 0; i < result.Count; i++)
                     {
-                        if (i == result.Count - 1 && result[i].Status != Entities.Enums.IssuesStatusEnums.Finish)
+                        var lastitem = result.Last();
+                        if (lastitem.Status != Entities.Enums.IssuesStatusEnums.Finish)
                         {
                             result[i].IsFinishStep = false;
                         }
