@@ -82,7 +82,6 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<IDriverInforService, DriverInforService>();
             containerRegistry.RegisterSingleton<IPapersInforService, PapersInforService>();
             containerRegistry.RegisterSingleton<IIssueService, IssueService>();
-
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)
@@ -223,7 +222,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ChangePasswordForgotPage, ChangePasswordForgotPageViewModel>();
             containerRegistry.RegisterForNavigation<ListIssuePage, ListIssuePageViewModel>("ListIssuePage");
             containerRegistry.RegisterForNavigation<IssuesDetailPage, IssuesDetailPageViewModel>("IssuesDetailPage");
-
+            containerRegistry.RegisterForNavigation<UploadVideoPage, UploadVideoPageViewModel>("UploadVideoPage");
         }
     }
 }
