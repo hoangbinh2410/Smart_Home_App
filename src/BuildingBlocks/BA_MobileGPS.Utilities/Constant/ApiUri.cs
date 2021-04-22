@@ -215,6 +215,7 @@
         public const string GET_RESTREAM_IMAGES = "api/stream/restreamimage";
         public const string POST_RESTREAM_UPLOAD = "api/stream/uploadcloud";
         public const string POST_RESTREAM_CANCELUPLOAD = "api/stream/canceluploadcloud";
+        public const string POST_RESTREAM_UPLOADPROGRESS = "api/stream/uploadprogress";
         public const string POST_CHART_DATA = "api/stream/chartdata";
         public const string GET_RESTREAM_DEVICETAB_VIDEO_INFOR = "api/v2/stream/restreamdevicetabvideo";
 
@@ -299,6 +300,13 @@
         public const string GET_LIST_ALL_PAPER = "api/paperinfor/getlistpaper";
         public const string GET_LIST_ALL_PAPER_HISTORY = "api/paperinfor/getlistpaperhistory";
         public const string GET_LAST_PAPER_DATE_BY_VEHICLE = "api/paperinfor/getlastpaperdatebyvehicle";
+        #endregion
+
+
+        #region Issue
+        public const string GET_ISSUE_BYCOMPANYID = "api/issue/getissuebycompanyid";
+
+        public const string GET_ISSUE_BYISSUECODE = "api/issue/getissuebyissuecode";
         #endregion
     }
 }
