@@ -232,5 +232,7 @@ namespace BA_MobileGPS.Core
 
         public static int MinZoomLevelGoogleMap => Get(MobileConfigurationNames.MinZoomLevelGoogleMap, 5);
 
+        public static bool UseCameraRTMP => Get(MobileConfigurationNames.UseUserBehavior, false);
+
     }
 }

@@ -42,6 +42,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 Issue = issue;
                 GetListIssue();
             }
+            else if (parameters.ContainsKey(ParameterKey.IssuesKey) && parameters.TryGetValue(ParameterKey.IssuesKey, out string issuecode))
+            {
+                Issue = new IssuesRespone();
+                Issue.IssueCode = issuecode;
+                GetListIssueActive(issuecode);
+                GetListIssue();
+            }
         }
 
         public override void OnDestroy()
@@ -71,25 +78,37 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (result != null && result.Count > 0)
                 {
+                    var lst = result.OrderBy(x => x.CreatedDate).ToList();
                     var isFinish = result.FirstOrDefault(x => x.Status == Entities.Enums.IssuesStatusEnums.Finish);
                     if (isFinish == null)
                     {
                         IsNotFinish = true;
                     }
-                    for (int i = 0; i < result.Count; i++)
+                    for (int i = 0; i < lst.Count; i++)
                     {
-                        var lastitem = result.Last();
+                        var lastitem = lst.Last();
                         if (lastitem.Status != Entities.Enums.IssuesStatusEnums.Finish)
                         {
-                            result[i].IsFinishStep = false;
+                            lst[i].IsFinishStep = false;
                         }
                         else
                         {
-                            result[i].IsFinishStep = true;
+                            lst[i].IsFinishStep = true;
                         }
                     }
-                    ListIssue = result.OrderBy(x => x.CreatedDate).ToObservableCollection();
+                    ListIssue = lst.ToObservableCollection();
                 }
+            });
+        }
+
+        private void GetListIssueActive(string issueCode)
+        {
+            RunOnBackground(async () =>
+            {
+                return await _issueService.GetIssueByCompanyID(CurrentComanyID);
+            }, (result) =>
+            {
+                Issue = result.FirstOrDefault(x => x.IssueCode == issueCode);
             });
         }
 

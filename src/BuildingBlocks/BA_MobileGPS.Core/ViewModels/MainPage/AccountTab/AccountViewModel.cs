@@ -77,7 +77,17 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsEnable = !CheckPermision((int)PermissionKeyNames.ChangePassword),
                 IconColor = Color.FromHex("#795548")
             });
-
+            // Hướng dẫn sử dụng
+            list.Add(new MenuItem
+            {
+                Title = "Phản hồi thông tin khách hàng",
+                Icon = "ic_customersupport.png",
+                UseModalNavigation = true,
+                Url = "NavigationPage/ListIssuePage",
+                MenuType = MenuType.DeviceManual,
+                IsEnable = true,
+                IconColor = Color.FromHex("#FF9900")
+            });
             // Hướng dẫn sử dụng
             list.Add(new MenuItem
             {

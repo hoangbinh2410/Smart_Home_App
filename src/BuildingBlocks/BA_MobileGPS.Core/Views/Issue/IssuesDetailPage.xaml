@@ -7,7 +7,7 @@
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:prism="http://prismlibrary.com"
-    xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -224,7 +224,7 @@
                                     WidthRequest="20" />
                                 <Label
                                     FontAttributes="Bold"
-                                    Text="20/08/2020"
+                                    Text="{Binding Issue.DueDate, Converter={StaticResource DateTimeConverter}}"
                                     TextColor="#2F3542" />
                             </StackLayout>
                         </StackLayout>

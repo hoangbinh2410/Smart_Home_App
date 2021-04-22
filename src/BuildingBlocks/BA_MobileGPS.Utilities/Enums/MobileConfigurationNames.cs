@@ -125,6 +125,7 @@
         VehicleOnlineAddressEnabled,
         UseHelper,
         UseUserBehavior,
+        UseCameraRTMP,
         MinZoomLevelGoogleMap
     }
 }
