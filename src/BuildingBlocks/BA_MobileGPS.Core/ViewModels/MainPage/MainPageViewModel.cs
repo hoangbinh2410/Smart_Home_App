@@ -960,7 +960,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (!string.IsNullOrEmpty(Settings.ReceivedNotificationType))
             {
                 //NẾU Firebase là tung điều thì mở lên cuốc được tung điều đó
-                if (Settings.ReceivedNotificationType == (((int)FormOfNoticeTypeEnum.Notice).ToString()))
+                if (Settings.ReceivedNotificationType == (((int)FirebaseNotificationTypeEnum.Notice).ToString()))
                 {
                     Settings.ReceivedNotificationType = string.Empty;
                     if (!string.IsNullOrEmpty(Settings.ReceivedNotificationValue))
@@ -971,6 +971,20 @@ namespace BA_MobileGPS.Core.ViewModels
                              {
                                  { ParameterKey.NotificationKey, int.Parse(Settings.ReceivedNotificationValue) }
                             }, useModalNavigation: true, true);
+                        });
+                    }
+                }
+                else if (Settings.ReceivedNotificationType == (((int)FirebaseNotificationTypeEnum.Issue).ToString()))
+                {
+                    Settings.ReceivedNotificationType = string.Empty;
+                    if (!string.IsNullOrEmpty(Settings.ReceivedNotificationValue))
+                    {
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            await NavigationService.NavigateAsync("BaseNavigationPage/IssuesDetailPage", parameters: new NavigationParameters
+                             {
+                                 { ParameterKey.IssuesKey, Settings.ReceivedNotificationValue }
+                            });
                         });
                     }
                 }
