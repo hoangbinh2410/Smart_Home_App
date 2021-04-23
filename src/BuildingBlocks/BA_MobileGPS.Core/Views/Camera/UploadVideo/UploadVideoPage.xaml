@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:prism="http://prismlibrary.com"
     Title="Tải về server"
@@ -34,160 +35,69 @@
                 Grid.Row="1"
                 Padding="10"
                 Spacing="20">
-                <Grid
-                    ColumnDefinitions="Auto,Auto,*"
-                    ColumnSpacing="20"
-                    RowDefinitions="Auto,Auto"
-                    RowSpacing="10">
-                    <CheckBox
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        IsChecked="True" />
-                    <ffImage:CachedImage
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Source="ic_cameraonline.png"
-                        WidthRequest="40" />
-                    <StackLayout
-                        Grid.Row="0"
-                        Grid.Column="2"
-                        HorizontalOptions="Start">
-                        <Label
-                            HorizontalOptions="Start"
-                            HorizontalTextAlignment="Start"
-                            Text="Video_29H123456_20202008_1" />
-                        <StackLayout Orientation="Horizontal">
-                            <Label
-                                FontSize="12"
-                                HorizontalOptions="Start"
-                                HorizontalTextAlignment="Start"
-                                Text="08:12:18 - 08:13:18"
-                                TextColor="#18A0FB" />
-                            <Label
-                                FontSize="12"
-                                HorizontalOptions="Start"
-                                HorizontalTextAlignment="Start"
-                                Text="52MB"
-                                TextColor="#878787" />
-                        </StackLayout>
-                    </StackLayout>
-                    <input:SfTextInputLayout
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="3"
-                        ErrorText="{Binding Notes.ErrorFirst}"
-                        HasError="{Binding Notes.IsNotValid}"
-                        OutlineCornerRadius="20">
-                        <Entry
-                            HeightRequest="45"
-                            MaxLength="1000"
-                            Placeholder="Nhập ghi chú"
-                            Text="{Binding Notes.Value}" />
-                    </input:SfTextInputLayout>
-                </Grid>
-                <Grid
-                    ColumnDefinitions="Auto,Auto,*"
-                    ColumnSpacing="20"
-                    RowDefinitions="Auto,Auto"
-                    RowSpacing="10">
-                    <CheckBox
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        IsChecked="True" />
-                    <ffImage:CachedImage
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Source="ic_cameraonline.png"
-                        WidthRequest="40" />
-                    <StackLayout
-                        Grid.Row="0"
-                        Grid.Column="2"
-                        HorizontalOptions="Start">
-                        <Label
-                            HorizontalOptions="Start"
-                            HorizontalTextAlignment="Start"
-                            Text="Video_29H123456_20202008_1" />
-                        <StackLayout Orientation="Horizontal">
-                            <Label
-                                FontSize="12"
-                                HorizontalOptions="Start"
-                                HorizontalTextAlignment="Start"
-                                Text="08:12:18 - 08:13:18"
-                                TextColor="#18A0FB" />
-                            <Label
-                                FontSize="12"
-                                HorizontalOptions="Start"
-                                HorizontalTextAlignment="Start"
-                                Text="52MB"
-                                TextColor="#878787" />
-                        </StackLayout>
-                    </StackLayout>
-                    <input:SfTextInputLayout
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="3"
-                        ErrorText="{Binding Notes.ErrorFirst}"
-                        HasError="{Binding Notes.IsNotValid}"
-                        OutlineCornerRadius="20">
-                        <Entry
-                            HeightRequest="45"
-                            MaxLength="1000"
-                            Placeholder="Nhập ghi chú"
-                            Text="{Binding Notes.Value}" />
-                    </input:SfTextInputLayout>
-                </Grid>
-                <Grid
-                    ColumnDefinitions="Auto,Auto,*"
-                    ColumnSpacing="20"
-                    RowDefinitions="Auto,Auto"
-                    RowSpacing="10">
-                    <CheckBox
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        IsChecked="True" />
-                    <ffImage:CachedImage
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Source="ic_cameraonline.png"
-                        WidthRequest="40" />
-                    <StackLayout
-                        Grid.Row="0"
-                        Grid.Column="2"
-                        HorizontalOptions="Start">
-                        <Label
-                            HorizontalOptions="Start"
-                            HorizontalTextAlignment="Start"
-                            Text="Video_29H123456_20202008_1" />
-                        <StackLayout Orientation="Horizontal">
-                            <Label
-                                FontSize="12"
-                                HorizontalOptions="Start"
-                                HorizontalTextAlignment="Start"
-                                Text="08:12:18 - 08:13:18"
-                                TextColor="#18A0FB" />
-                            <Label
-                                FontSize="12"
-                                HorizontalOptions="Start"
-                                HorizontalTextAlignment="Start"
-                                Text="52MB"
-                                TextColor="#878787" />
-                        </StackLayout>
-
-                    </StackLayout>
-                    <input:SfTextInputLayout
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="3"
-                        ErrorText="{Binding Notes.ErrorFirst}"
-                        HasError="{Binding Notes.IsNotValid}"
-                        OutlineCornerRadius="20">
-                        <Entry
-                            HeightRequest="45"
-                            MaxLength="1000"
-                            Placeholder="Nhập ghi chú"
-                            Text="{Binding Notes.Value}" />
-                    </input:SfTextInputLayout>
-                </Grid>
+                <icons:HorizontalList
+                    Grid.Row="0"
+                    Margin="0"
+                    Padding="0"
+                    IsClippedToBounds="True"
+                    ItemsSource="{Binding ListVideo, Mode=TwoWay}"
+                    VerticalOptions="FillAndExpand">
+                    <icons:HorizontalList.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                ColumnDefinitions="Auto,Auto,*"
+                                ColumnSpacing="20"
+                                RowDefinitions="Auto,Auto"
+                                RowSpacing="10">
+                                <CheckBox
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    IsChecked="True" />
+                                <ffImage:CachedImage
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Source="ic_cameraonline.png"
+                                    WidthRequest="40" />
+                                <StackLayout
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    HorizontalOptions="Start">
+                                    <Label
+                                        HorizontalOptions="Start"
+                                        HorizontalTextAlignment="Start"
+                                        Text="Video_29H123456_20202008_1" />
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label
+                                            FontSize="12"
+                                            HorizontalOptions="Start"
+                                            HorizontalTextAlignment="Start"
+                                            Text="08:12:18 - 08:13:18"
+                                            TextColor="#18A0FB" />
+                                        <Label
+                                            FontSize="12"
+                                            HorizontalOptions="Start"
+                                            HorizontalTextAlignment="Start"
+                                            Text="52MB"
+                                            TextColor="#878787" />
+                                    </StackLayout>
+                                </StackLayout>
+                                <input:SfTextInputLayout
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3"
+                                    ErrorText="{Binding Notes.ErrorFirst}"
+                                    HasError="{Binding Notes.IsNotValid}"
+                                    OutlineCornerRadius="20">
+                                    <Entry
+                                        HeightRequest="45"
+                                        MaxLength="1000"
+                                        Placeholder="Nhập ghi chú"
+                                        Text="{Binding Notes.Value}" />
+                                </input:SfTextInputLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </icons:HorizontalList.ItemTemplate>
+                </icons:HorizontalList>
             </StackLayout>
             <StackLayout
                 Grid.Row="2"
