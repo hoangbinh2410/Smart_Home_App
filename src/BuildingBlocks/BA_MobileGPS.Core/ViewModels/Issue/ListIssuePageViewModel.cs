@@ -4,6 +4,7 @@ using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Entities.ResponeEntity.Issues;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
+using FontAwesome;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
@@ -52,6 +53,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Key = 0,
                 Value = "Tất cả"
             };
+            orderByIcon = FontAwesomeIcons.SortAmountUp;
             isSelectedFavorites = false;
             searchedText = "";
         }
@@ -82,6 +84,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool isSelectedFavorites;
         public bool IsSelectedFavorites { get => isSelectedFavorites; set => SetProperty(ref isSelectedFavorites, value); }
+
+        private string orderByIcon;
+        public string OrderByIcon { get => orderByIcon; set => SetProperty(ref orderByIcon, value); }
 
         #endregion Property
 
@@ -123,8 +128,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 return await _issueService.GetIssueByCompanyID(CurrentComanyID);
             }, (result) =>
             {
+                foreach (var item in result)
+                {
+                    item.IsFavorites = FavoritesVehicleHelper.IsFavoritesIssue(item.Id);
+                }
                 ListIssueByOrigin = result;
-                ListIssue = result.ToObservableCollection();
+                FilterIssue();
             });
         }
 
@@ -140,9 +149,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     ToDate = param.Value;
                 }
-                else if (param.PickerType == (short)ComboboxType.Third)
+                if (FromDate > ToDate)
                 {
+                    DisplayMessage.ShowMessageInfo("Thời gian bắt đầu không được lớn hơn thời gian kết thúc");
                 }
+                FilterIssue();
             }
         }
 
@@ -231,11 +242,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 case IssueSortOrderType.CreatedDateASC:
                     SortTypeSelected = IssueSortOrderType.CreatedDateDES;
                     ListIssue = ListIssue.OrderBy(x => x.CreatedDate).ToObservableCollection();
+                    OrderByIcon = FontAwesomeIcons.SortAmountDown;
                     break;
 
                 case IssueSortOrderType.CreatedDateDES:
                     SortTypeSelected = IssueSortOrderType.CreatedDateASC;
                     ListIssue = ListIssue.OrderByDescending(x => x.CreatedDate).ToObservableCollection();
+                    OrderByIcon = FontAwesomeIcons.SortAmountUp;
                     break;
             }
         }
@@ -262,7 +275,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     return ListIssueByOrigin.Where(x => (x.Content.ToUpper().Contains(keySearch) || string.IsNullOrEmpty(keySearch))
                     && ((x.Status == (IssuesStatusEnums)StatusIssueSelected.Key)
                     || StatusIssueSelected.Key == 0
-                    || StatusIssueSelected == null) && (x.IsFavorites == IsSelectedFavorites || !IsSelectedFavorites));
+                    || StatusIssueSelected == null)
+                    && (x.IsFavorites == IsSelectedFavorites || !IsSelectedFavorites)
+                    && (x.CreatedDate >= FromDate && x.CreatedDate <= ToDate));
                 }, cts.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
                 {
                     if (task.Status == TaskStatus.RanToCompletion && !cts.IsCancellationRequested)
@@ -362,7 +377,8 @@ namespace BA_MobileGPS.Core.ViewModels
                                             && (x.Status == (IssuesStatusEnums)StatusIssueSelected.Key
                                             || StatusIssueSelected.Key == 0
                                             || StatusIssueSelected == null)
-                                            && (x.IsFavorites == IsSelectedFavorites || !IsSelectedFavorites)).ToList();
+                                            && (x.IsFavorites == IsSelectedFavorites || !IsSelectedFavorites)
+                                            && (x.CreatedDate >= FromDate && x.CreatedDate <= ToDate)).ToList();
             ListIssue = lst.ToObservableCollection();
             SetSortOrder();
         }
