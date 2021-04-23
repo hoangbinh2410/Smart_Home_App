@@ -4,6 +4,7 @@ using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Entities.ResponeEntity.Issues;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
+using FontAwesome;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
@@ -52,6 +53,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Key = 0,
                 Value = "Tất cả"
             };
+            orderByIcon = FontAwesomeIcons.SortAmountUp;
             isSelectedFavorites = false;
             searchedText = "";
         }
@@ -82,6 +84,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool isSelectedFavorites;
         public bool IsSelectedFavorites { get => isSelectedFavorites; set => SetProperty(ref isSelectedFavorites, value); }
+
+        private string orderByIcon;
+        public string OrderByIcon { get => orderByIcon; set => SetProperty(ref orderByIcon, value); }
 
         #endregion Property
 
@@ -237,11 +242,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 case IssueSortOrderType.CreatedDateASC:
                     SortTypeSelected = IssueSortOrderType.CreatedDateDES;
                     ListIssue = ListIssue.OrderBy(x => x.CreatedDate).ToObservableCollection();
+                    OrderByIcon = FontAwesomeIcons.SortAmountDown;
                     break;
 
                 case IssueSortOrderType.CreatedDateDES:
                     SortTypeSelected = IssueSortOrderType.CreatedDateASC;
                     ListIssue = ListIssue.OrderByDescending(x => x.CreatedDate).ToObservableCollection();
+                    OrderByIcon = FontAwesomeIcons.SortAmountUp;
                     break;
             }
         }

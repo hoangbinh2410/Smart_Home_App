@@ -136,7 +136,7 @@
                         <icons:FontAwesomeIcon
                             HeightRequest="20"
                             HorizontalOptions="Center"
-                            Text="{x:Static fontawesome:FontAwesomeIcons.SortAmountUp}"
+                            Text="{Binding OrderByIcon}"
                             TextColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="Center"
                             WidthRequest="20" />
