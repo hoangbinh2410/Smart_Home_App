@@ -320,6 +320,11 @@ namespace BA_MobileGPS.Core.Models
                         Link = string.Empty
                     };
                     _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
+
+                    if (requestStartResponse.StatusCode == StatusCodeCamera.ERROR_STREAMING_BY_PLAYBACK)
+                    {
+                        requestStartResponse.UserMessage = "Thiết bị đang ở chế độ xem lại, quý khách vui lòng tắt xem lại để xem trực tiếp";
+                    }
                     SetError(requestStartResponse.UserMessage);
                 }
             });
