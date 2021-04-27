@@ -507,11 +507,15 @@ namespace BA_MobileGPS.Core.ViewModels
                             StopAndStartRestream();
                         }
                     }
-                    else if (result.StatusCode == 1)
+                    else
                     {
-                        Device.BeginInvokeOnMainThread(async () =>
+                        Device.BeginInvokeOnMainThread(() =>
                         {
                             IsError = true;
+                            if (result.StatusCode == StatusCodeCamera.ERROR_PLAYBACK_BY_STREAMING)
+                            {
+                                result.UserMessage = "Thiết bị đang ở chế độ phát trực tiếp, quý khách vui lòng tắt để chuyển sang chế độ xem lại video.";
+                            }
                             ErrorMessenger = result.UserMessage;
                         });
                     }
