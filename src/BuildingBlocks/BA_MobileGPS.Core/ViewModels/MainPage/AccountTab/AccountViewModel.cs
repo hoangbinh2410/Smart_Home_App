@@ -83,7 +83,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Title = "Phản hồi thông tin khách hàng",
                 Icon = "ic_customersupport.png",
                 UseModalNavigation = true,
-                Url = "BaseNavigationPage/UploadVideoPage",
+                Url = "NavigationPage/ListIssuePage",
                 MenuType = MenuType.DeviceManual,
                 IsEnable = true,
                 IconColor = Color.FromHex("#FF9900")
@@ -94,7 +94,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Title = MobileResource.AccountTab_Label_DeviceManual,
                 Icon = "ic_devicemanual.png",
                 UseModalNavigation = true,
-                Url = "NavigationPage/ListIssuePage",
+                Url = "NavigationPage/HelperPage",
                 MenuType = MenuType.DeviceManual,
                 IsEnable = MobileSettingHelper.UseHelper,
                 IconColor = Color.FromHex("#FF9900")
