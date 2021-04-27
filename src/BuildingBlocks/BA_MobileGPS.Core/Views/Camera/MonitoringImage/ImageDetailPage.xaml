@@ -103,14 +103,14 @@
                         MaxLines="2"
                         Text="{Binding ImageCamera.CurrentAddress}"
                         VerticalOptions="Center" />
-                    <controls:IconView
+                    <!--<controls:IconView
                         Grid.Row="3"
                         Grid.Column="0"
                         Foreground="{DynamicResource PrimaryColor}"
                         HeightRequest="20"
                         Source="ic_info_outline_white"
                         VerticalOptions="Center"
-                        WidthRequest="20" />
+                        WidthRequest="20" />-->
                     <!--<Label
                         Grid.Row="3"
                         Grid.Column="1"
