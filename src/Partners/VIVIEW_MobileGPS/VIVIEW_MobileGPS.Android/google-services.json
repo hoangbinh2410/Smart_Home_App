@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "878525260883",
+    "firebase_url": "https://viviewgps-36a3e.firebaseio.com",
+    "project_id": "viviewgps-36a3e",
+    "storage_bucket": "viviewgps-36a3e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878525260883:android:abdf9d399c822592",
+        "android_client_info": {
+          "package_name": "vn.viviewgps.gpsmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878525260883-5k9muvqi23rjef30768cthctnutitqbf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpsgN3KauN62htSG9E9O5PolckqDYSFXE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878525260883-5k9muvqi23rjef30768cthctnutitqbf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "878525260883-hlln8a0b7rsktaerpqti6hbn8ehjr7ju.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "vn.viviewgps.gpsmobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

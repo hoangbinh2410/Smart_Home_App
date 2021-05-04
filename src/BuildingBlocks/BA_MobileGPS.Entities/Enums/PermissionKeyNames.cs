@@ -4436,6 +4436,7 @@
 
         InputRegisterExport = 1210,
         FeedbackSend = 1211,
+        ChangePassword= 1322,
 
         /// <summary>
         /// Tin nhắn online tầu cá

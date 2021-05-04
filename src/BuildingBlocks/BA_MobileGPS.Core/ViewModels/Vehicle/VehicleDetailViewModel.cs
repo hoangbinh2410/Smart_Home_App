@@ -85,7 +85,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 });
             }
-            InitMenuItems();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -279,14 +278,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 Title = "Nhiên liệu",
                 Icon = "ic_fuel.png",
                 Url = "NavigationPage/PourFuelReportPage",
-                IsEnable = CheckPermision((int)PermissionKeyNames.ReportFuelView),
+                IsEnable = IsFuelVisible == true && CheckPermision((int)PermissionKeyNames.ReportFuelView) ? true : false,
             });
             list.Add(new MenuItem
             {
                 Title = "Nhiệt độ",
                 Icon = "ic_temperature.png",
                 Url = "NavigationPage/ReportTableTemperature",
-                IsEnable = CheckPermision((int)PermissionKeyNames.ReportTemperatureView),
+                IsEnable = !string.IsNullOrEmpty(Temperature) && CheckPermision((int)PermissionKeyNames.ReportTemperatureView) ? true : false,
             });
             MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
@@ -325,7 +324,17 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         IsFuelVisible = false;
                     }
-                    Temperature = response.Temperature2 == null ? string.Format("[{0} °C]", response.Temperature) : string.Format("[{0} °C]", response.Temperature) + " - " + string.Format("[{0} °C]", response.Temperature2);
+                    if (response.Temperature != null)
+                    {
+                        if (response.Temperature2 == null)
+                        {
+                            Temperature = string.Format("[{0} °C]", response.Temperature);
+                        }
+                        else
+                        {
+                            Temperature = string.Format("[{0} °C]", response.Temperature) + " - " + string.Format("[{0} °C]", response.Temperature2);
+                        }
+                    }
                     VehicleTime = response.VehicleTime;
                     VelocityGPS = response.VelocityGPS;
                     TotalKm = response.TotalKm.GetValueOrDefault();
@@ -359,6 +368,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         KmInMonth = 0;
                     }
+
+                    InitMenuItems();
                 }
             });
         }
@@ -392,7 +403,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Task.Run(async () =>
                 {
-                    return await geocodeService.GetAddressByLatLng(lat, lng);
+                    return await geocodeService.GetAddressByLatLng(CurrentComanyID, lat, lng);
                 }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
                 {
                     if (task.Status == TaskStatus.RanToCompletion)
@@ -439,7 +450,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    parameters.Add(ParameterKey.Vehicle, new Vehicle() { VehicleId = PK_VehicleID, VehiclePlate = VehiclePlate, PrivateCode = PrivateCode });
+                    parameters.Add(ParameterKey.VehicleRoute, new Vehicle() { VehicleId = PK_VehicleID, VehiclePlate = VehiclePlate, PrivateCode = PrivateCode });
                 }
                 await NavigationService.NavigateAsync(obj.Url, parameters, useModalNavigation: true, true);
             });

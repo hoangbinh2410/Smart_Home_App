@@ -41,22 +41,28 @@ namespace VMS_MobileGPS.ViewModels
             CanelCommand = new DelegateCommand(Canel);
         }
 
-        #endregion
+        #endregion Contructor
 
         #region Lifecycle
 
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-
-            GetListLandmark();
         }
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
         }
 
-        #endregion
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+
+            GetListLandmark();
+        }
+
+        #endregion Lifecycle
 
         #region Property
 
@@ -70,7 +76,7 @@ namespace VMS_MobileGPS.ViewModels
         private bool hasBoundary = false;
         public bool HasBoundary { get => hasBoundary; set => SetProperty(ref hasBoundary, value); }
 
-        #endregion
+        #endregion Property
 
         #region PrivateMethod
 
@@ -108,6 +114,14 @@ namespace VMS_MobileGPS.ViewModels
 
                            foreach (var item in respones)
                            {
+                               if (item.PK_LandmarkID == 376652 || item.PK_LandmarkID == 376650 || item.PK_LandmarkID == 376651)
+                               {
+                                   item.IsEnableBoudary = true;
+                               }
+                               else
+                               {
+                                   item.IsEnableBoudary = false;
+                               }
                                //thêm dữ liệu vào local database với bẳng là LanmarkReal
                                baseRepository.Add(item);
                            }
@@ -116,9 +130,7 @@ namespace VMS_MobileGPS.ViewModels
                        }
                    });
                 }
-
             });
-
         }
 
         private async void Update()
@@ -165,6 +177,6 @@ namespace VMS_MobileGPS.ViewModels
             await NavigationService.GoBackAsync();
         }
 
-        #endregion
+        #endregion PrivateMethod
     }
 }

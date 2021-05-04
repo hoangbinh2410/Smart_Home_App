@@ -4,10 +4,16 @@ namespace BA_MobileGPS.Entities
 {
     public enum FirebaseNotificationTypeEnum
     {
+        [Description("None")]
+        None = 0,
+
         [Description("Alert")]
         Alert = 1,
 
-        [Description("Notification")]
-        Notification = 2,
+        [Description("Notice")]
+        Notice = 2,
+
+        [Description("Issue")]
+        Issue = 3
     }
 }

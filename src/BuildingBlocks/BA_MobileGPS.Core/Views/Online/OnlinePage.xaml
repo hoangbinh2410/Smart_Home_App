@@ -38,11 +38,9 @@
             Grid.Row="1"
             MapType="{Binding MapType}">
             <cluster:Map.Behaviors>
-                <mapbindings:AnimateCameraBehavior Request="{Binding AnimateCameraRequest}" />
                 <mapbindings:BindingPolygonsBehavior Value="{Binding Polygons}" />
                 <mapbindings:BindingPolylinesBehavior Value="{Binding Polylines}" />
                 <mapbindings:BindingPinsBehavior Value="{Binding Pins}" />
-                <mapbindings:BindingVisibleRegionBehavior Value="{Binding VisibleRegion}" />
                 <mapbindings:CameraIdledToCommandBehavior Command="{Binding CameraIdledCommand}" />
             </cluster:Map.Behaviors>
         </cluster:Map>

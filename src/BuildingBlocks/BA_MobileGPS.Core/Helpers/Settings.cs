@@ -84,6 +84,12 @@ namespace BA_MobileGPS.Core
         private const string FavoritesVehicleImageKey = "FavoritesVehicleImageKey";
         private static readonly string FavoritesVehicleImageDefault = string.Empty;
 
+        private const string FavoritesVehicleOnlineKey = "FavoritesVehicleOnlineKey";
+        private static readonly string FavoritesVehicleOnlineDefault = string.Empty;
+
+        private const string FavoritesIssueKey = "FavoritesIssueKey";
+        private static readonly string FavoritesIssueDefault = string.Empty;
+
         private const string ShowViewVehicleImageKey = "ShowViewVehicleImageKey";
         private static readonly int ShowViewVehicleImageDefault = 10;
 
@@ -279,12 +285,23 @@ namespace BA_MobileGPS.Core
             set => Preferences.Set(FavoritesVehicleImageKey, value);
         }
 
+        public static string FavoritesVehicleOnline
+        {
+            get => Preferences.Get(FavoritesVehicleOnlineKey, FavoritesVehicleOnlineDefault);
+            set => Preferences.Set(FavoritesVehicleOnlineKey, value);
+        }
+
+        public static string FavoritesIssue
+        {
+            get => Preferences.Get(FavoritesIssueKey, FavoritesIssueDefault);
+            set => Preferences.Set(FavoritesIssueKey, value);
+        }
+
         public static int ShowViewVehicleImage
         {
             get => Preferences.Get(ShowViewVehicleImageKey, ShowViewVehicleImageDefault);
             set => Preferences.Set(ShowViewVehicleImageKey, value);
         }
-
 
         public static int MapType
         {

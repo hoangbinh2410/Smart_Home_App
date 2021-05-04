@@ -133,6 +133,25 @@ namespace BA_MobileGPS.Service
             return new List<LandmarkResponse>();
         }
 
+        public async Task<List<LandmarkResponse>> GetListParacelIslands()
+        {
+            try
+            {
+                string url = $"{ApiUri.GET_LIST_POLYGONPARACELISLANDS}?FK_LandmarkCatalogueID=220";
+
+                var data = await requestProvider.GetHandleOutputAsync<List<LandmarkResponse>>(url);
+                if (data != null)
+                {
+                    return data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return new List<LandmarkResponse>();
+        }
+
         public async Task<List<VehicleOnlineMessage>> GetListVehicleOnlineSync(VehicleOnlineRequest vehiclerequest)
         {
             List<VehicleOnlineMessage> result = new List<VehicleOnlineMessage>();

@@ -30,6 +30,8 @@ namespace BA_MobileGPS.Entities.RealmEntity
 
         public bool IsShowName { get; set; }
 
+        public bool IsEnableBoudary { get; set; }
+
         public DateTimeOffset CreatedDate { get; set; }
 
         public DateTimeOffset? LastSynchronizationDate { get; set; }

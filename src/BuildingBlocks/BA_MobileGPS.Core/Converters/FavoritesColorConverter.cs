@@ -12,7 +12,7 @@ namespace BA_MobileGPS.Core
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             Color unFavorites = (Color)Application.Current.Resources["WhiteColor"];
-            Color favorites = (Color)Application.Current.Resources["YellowColor"];
+            Color favorites = (Color)Application.Current.Resources["WarningColor"];
 
             if (value == null)
             {
@@ -51,6 +51,34 @@ namespace BA_MobileGPS.Core
             else
             {
                 return false;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value.ToString();
+        }
+    }
+
+    public class FavoritesIssueColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Color unFavorites = Color.FromHex("#CED6E0");
+            Color favorites = (Color)Application.Current.Resources["WarningColor"];
+
+            if (value == null)
+            {
+                return unFavorites;
+            }
+
+            if ((bool)value)
+            {
+                return favorites;
+            }
+            else
+            {
+                return unFavorites;
             }
         }
 

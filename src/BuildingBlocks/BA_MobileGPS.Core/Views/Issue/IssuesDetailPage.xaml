@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.IssuesDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:prism="http://prismlibrary.com"
+    Title="{Binding Title}"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:StatusIssueColorConverter x:Key="StatusIssueColorConverter" />
+            <converter:StatusIssueNameConverter x:Key="StatusIssueNameConverter" />
+            <converter:TimelineIssueColorConverter x:Key="TimelineIssueColorConverter" />
+            <converter:IsNotFinishIssueConverter x:Key="IsNotFinishIssueConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*" RowSpacing="0">
+            <Grid
+                Grid.Row="0"
+                Padding="10"
+                BackgroundColor="#0959A0"
+                RowDefinitions="Auto,Auto"
+                RowSpacing="10">
+                <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto,*">
+                    <BoxView
+                        Grid.Column="0"
+                        BackgroundColor="#FFA502"
+                        CornerRadius="9"
+                        HeightRequest="18"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        WidthRequest="18" />
+                    <Label
+                        Grid.Column="1"
+                        FontSize="15"
+                        HorizontalOptions="Start"
+                        Text="NỘI DUNG PHẢN HỒI"
+                        TextColor="{StaticResource WhiteColor}"
+                        VerticalOptions="Center" />
+
+                    <Label
+                        Grid.Column="2"
+                        FontSize="15"
+                        HorizontalOptions="EndAndExpand"
+                        Text="{Binding Issue.CreatedDate, Converter={StaticResource DateTimeConverter}}"
+                        TextColor="{StaticResource WhiteColor}"
+                        VerticalOptions="Center" />
+                </Grid>
+
+                <Label
+                    Grid.Row="1"
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    LineBreakMode="WordWrap"
+                    Text="{Binding Issue.Content}"
+                    TextColor="{StaticResource WhiteColor}"
+                    VerticalOptions="Center" />
+            </Grid>
+            <StackLayout Grid.Row="1">
+                <StackLayout Padding="10,20,10,0" Orientation="Horizontal">
+                    <ffImage:CachedImage
+                        HeightRequest="20"
+                        HorizontalOptions="Center"
+                        Source="ic_timeline.png"
+                        VerticalOptions="Center"
+                        WidthRequest="20" />
+                    <Label
+                        Grid.Column="1"
+                        HorizontalOptions="Start"
+                        Text="THEO DÕI PHẢN HỒI"
+                        VerticalOptions="Center" />
+                </StackLayout>
+                <Grid
+                    Padding="10"
+                    RowDefinitions="*,Auto"
+                    RowSpacing="0">
+
+                    <icons:HorizontalList
+                        Grid.Row="0"
+                        Margin="0"
+                        Padding="0"
+                        IsClippedToBounds="True"
+                        ItemsSource="{Binding ListIssue, Mode=TwoWay}"
+                        VerticalOptions="FillAndExpand">
+                        <icons:HorizontalList.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout
+                                    Orientation="Horizontal"
+                                    Spacing="10"
+                                    VerticalOptions="Center">
+
+                                    <StackLayout
+                                        HorizontalOptions="Center"
+                                        Orientation="Vertical"
+                                        Spacing="0"
+                                        VerticalOptions="Start">
+
+                                        <BoxView
+                                            Margin="0,0,0,0"
+                                            BackgroundColor="{Binding Status, Converter={StaticResource StatusIssueColorConverter}}"
+                                            CornerRadius="10"
+                                            HeightRequest="20"
+                                            WidthRequest="20" />
+
+                                        <BoxView
+                                            HeightRequest="120"
+                                            HorizontalOptions="Center"
+                                            IsVisible="{Binding Status, Converter={StaticResource IsNotFinishIssueConverter}}"
+                                            WidthRequest="5"
+                                            Color="{Binding IsFinishStep, Converter={StaticResource TimelineIssueColorConverter}}" />
+                                    </StackLayout>
+
+                                    <!--  MESSAGE  -->
+                                    <StackLayout
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Vertical"
+                                        Spacing="20"
+                                        VerticalOptions="StartAndExpand">
+                                        <StackLayout
+                                            HorizontalOptions="Start"
+                                            Orientation="Horizontal"
+                                            VerticalOptions="Center">
+                                            <icons:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_event.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontFamily="{StaticResource myFontLatoBold}"
+                                                FontSize="15"
+                                                HorizontalOptions="Start"
+                                                Text="{Binding Status, Converter={StaticResource StatusIssueNameConverter}}"
+                                                TextColor="{StaticResource PrimaryColor}" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
+                                            <icons:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_date_range_black.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+                                            <Label
+                                                FontAttributes="Bold"
+                                                Text="{Binding CreatedDate, Converter={StaticResource DateTimeConverter}}"
+                                                TextColor="#2F3542" />
+                                        </StackLayout>
+                                        <BoxView
+                                            Margin="0,10,0,0"
+                                            HeightRequest="1"
+                                            HorizontalOptions="FillAndExpand"
+                                            IsVisible="{Binding Status, Converter={StaticResource IsNotFinishIssueConverter}}"
+                                            VerticalOptions="End"
+                                            Color="#CED6E0" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </DataTemplate>
+                        </icons:HorizontalList.ItemTemplate>
+                    </icons:HorizontalList>
+
+                    <StackLayout
+                        Grid.Row="1"
+                        IsVisible="{Binding IsNotFinish}"
+                        Orientation="Horizontal"
+                        Spacing="10"
+                        VerticalOptions="Start">
+
+                        <StackLayout
+                            HorizontalOptions="Center"
+                            Orientation="Vertical"
+                            Spacing="0"
+                            VerticalOptions="Start">
+
+                            <Frame
+                                Margin="0,0,0,0"
+                                Padding="0"
+                                BackgroundColor=" #FFFFFF"
+                                BorderColor="#CED6E0"
+                                CornerRadius="10"
+                                HasShadow="False"
+                                HeightRequest="20"
+                                WidthRequest="20" />
+                        </StackLayout>
+
+                        <!--  MESSAGE  -->
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Vertical"
+                            Spacing="20"
+                            VerticalOptions="StartAndExpand">
+                            <StackLayout
+                                HorizontalOptions="Start"
+                                Orientation="Horizontal"
+                                VerticalOptions="Center">
+                                <icons:IconView
+                                    Foreground="{StaticResource PrimaryColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    Source="ic_event.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontFamily="{StaticResource myFontLatoBold}"
+                                    FontSize="15"
+                                    HorizontalOptions="Start"
+                                    Text="Lịch hẹn hoàn thành"
+                                    TextColor="{StaticResource PrimaryColor}" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
+                                <icons:IconView
+                                    Foreground="{StaticResource PrimaryColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    Source="ic_date_range_black.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    Text="{Binding Issue.DueDate, Converter={StaticResource DateTimeConverter}}"
+                                    TextColor="#2F3542" />
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

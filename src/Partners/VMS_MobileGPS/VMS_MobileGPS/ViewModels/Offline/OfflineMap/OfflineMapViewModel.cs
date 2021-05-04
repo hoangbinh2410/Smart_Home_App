@@ -119,14 +119,20 @@ namespace VMS_MobileGPS.ViewModels
                         if (location != null)
                         {
                             MyLocation = new Shiny.Position(location.Latitude, location.Longitude);
-                            if (Markers.Count == 0)
+                            if (Markers != null && Markers.FirstOrDefault(x => x.Label == "Car") != null)
                             {
-                                Markers.Add(new CustomMarker() { Latitude = location.Latitude.ToString(), Longitude = location.Longitude.ToString() });
+                                Markers.FirstOrDefault(x => x.Label == "Car").Latitude = location.Latitude.ToString();
+                                Markers.FirstOrDefault(x => x.Label == "Car").Longitude = location.Longitude.ToString();
                             }
                             else
                             {
-                                Markers[0].Latitude = location.Latitude.ToString();
-                                Markers[0].Longitude = location.Longitude.ToString();
+                                Markers.Add(new CustomMarker()
+                                {
+                                    Latitude = location.Latitude.ToString(),
+                                    Longitude = location.Longitude.ToString(),
+                                    Label = "Car",
+                                    IsCar = true
+                                });
                             }
                             ConfigDetail();
                         }
@@ -167,30 +173,38 @@ namespace VMS_MobileGPS.ViewModels
                     DateTimeN = obj.GPSTime;
                     MyLocation = new Shiny.Position(obj.Lat, obj.Lng);
 
-                    var temp = Markers.First();
-
-                    var startLat = Convert.ToDouble(temp.Latitude.Replace(",", "."), CultureInfo.InvariantCulture);
-                    var startLng = Convert.ToDouble(temp.Longitude.Replace(",", "."), CultureInfo.InvariantCulture);
-                    var lastRotation = (temp as CustomMarker).Rotation;
-                    Rotate(startLat, startLng, obj.Lat, obj.Lng,
-                        lastRotation, () =>
-                        {
-                            MarkerAnimation(startLat, startLng, obj.Lat, obj.Lng, () =>
+                    var temp = Markers.FirstOrDefault(x => x.Label == "Car");
+                    if (temp != null)
+                    {
+                        var startLat = Convert.ToDouble(temp.Latitude.Replace(",", "."), CultureInfo.InvariantCulture);
+                        var startLng = Convert.ToDouble(temp.Longitude.Replace(",", "."), CultureInfo.InvariantCulture);
+                        var lastRotation = (temp as CustomMarker).Rotation;
+                        Rotate(startLat, startLng, obj.Lat, obj.Lng,
+                            lastRotation, () =>
                             {
+                                MarkerAnimation(startLat, startLng, obj.Lat, obj.Lng, () =>
+                                {
+                                });
                             });
-                        });
+                    }
                 }
                 else
                 {
                     MyLocation = new Shiny.Position(obj.Lat, obj.Lng);
-                    if (Markers.Count == 0)
+                    if (Markers != null && Markers.FirstOrDefault(x => x.Label == "Car") != null)
                     {
-                        Markers.Add(new CustomMarker() { Latitude = obj.Lat.ToString(), Longitude = obj.Lng.ToString() });
+                        Markers.FirstOrDefault(x => x.Label == "Car").Latitude = obj.Lat.ToString();
+                        Markers.FirstOrDefault(x => x.Label == "Car").Longitude = obj.Lng.ToString();
                     }
                     else
                     {
-                        Markers[0].Latitude = obj.Lat.ToString();
-                        Markers[0].Longitude = obj.Lng.ToString();
+                        Markers.Add(new CustomMarker()
+                        {
+                            Latitude = obj.Lat.ToString(),
+                            Longitude = obj.Lng.ToString(),
+                            Label = "Car",
+                            IsCar = true
+                        });
                     }
                 }
                 ConfigDetail();
@@ -353,24 +367,48 @@ namespace VMS_MobileGPS.ViewModels
             var listBoudary = _boundaryRepository.All().ToList();
             for (int i = 0; i < listBoudary.Count; i++)
             {
-                var pointstring = listBoudary[i].Polygon.Split(',');
-                var points = new List<Point>();
-                for (int j = 0; j < pointstring.Length; j += 2)
+                if (listBoudary[i].IsEnableBoudary)
                 {
-                    points.Add(new Point(FormatHelper.ConvertToDouble(pointstring[j + 1], 6), FormatHelper.ConvertToDouble(pointstring[j], 6)));
+                    var pointstring = listBoudary[i].Polygon.Split(',');
+                    var points = new List<Point>();
+                    for (int j = 0; j < pointstring.Length; j += 2)
+                    {
+                        points.Add(new Point(FormatHelper.ConvertToDouble(pointstring[j + 1], 6), FormatHelper.ConvertToDouble(pointstring[j], 6)));
+                    }
+                    var shapeLayerSetting = new ShapeSetting
+                    {
+                        ShapeFill = Color.FromHex("#AAD3DF"),
+                        ShapeStroke = Color.FromHex("#80CC0000"),
+                        ShapeStrokeThickness = 1
+                    };
+                    if (listBoudary[i].IsClosed)
+                    {
+                        var layer = new ShapeFileLayer
+                        {
+                            ShapeType = ShapeType.Polygon,
+                            Points = points.ToObservableCollection(),
+                            ShapeSettings = shapeLayerSetting
+                        };
+                        OsmMapLayers.Add(layer);
+                    }
+                    else
+                    {
+                        var layer = new ShapeFileLayer
+                        {
+                            ShapeType = ShapeType.Polyline,
+                            Points = points.ToObservableCollection(),
+                            ShapeSettings = shapeLayerSetting
+                        };
+                        OsmMapLayers.Add(layer);
+                    }
                 }
-                var shapeLayerSetting = new ShapeSetting
-                {
-                    ShapeFill = Color.FromHex("#80CC0000"),
-                    ShapeStrokeThickness = 1
-                };
-                var layer = new ShapeFileLayer
-                {
-                    ShapeType = ShapeType.Polyline,
-                    Points = points.ToObservableCollection(),
-                    ShapeSettings = shapeLayerSetting
-                };
-                OsmMapLayers.Add(layer);
+
+                CustomMarker marker = new CustomMarker();
+                marker.Label = listBoudary[i].Name;
+                marker.Latitude = listBoudary[i].Latitude.ToString();
+                marker.Longitude = listBoudary[i].Longitude.ToString();
+                marker.IsCar = false;
+                Markers.Add(marker);
             }
         }
 
@@ -444,8 +482,8 @@ namespace VMS_MobileGPS.ViewModels
 
                 if (Markers != null && Markers.Count > 0)
                 {
-                    Markers[0].Latitude = postionnew.Latitude.ToString();
-                    Markers[0].Longitude = postionnew.Longitude.ToString();
+                    Markers.FirstOrDefault(x => x.Label == "Car").Latitude = postionnew.Latitude.ToString();
+                    Markers.FirstOrDefault(x => x.Label == "Car").Longitude = postionnew.Longitude.ToString();
                 }
 
                 if (mMoveIndex > MAX_MOVE_STEP)
@@ -490,7 +528,8 @@ namespace VMS_MobileGPS.ViewModels
 
                 if (Markers != null && Markers.Count > 0)
                 {
-                    (Markers[0] as CustomMarker).Rotation = (float)fractionAngle;
+                    var marker = Markers.FirstOrDefault(x => x.Label == "Car");
+                    (marker as CustomMarker).Rotation = (float)fractionAngle;
                 }
 
                 if (mRotateIndex > Constants.MAX_ROTATE_STEP)
@@ -552,6 +591,14 @@ namespace VMS_MobileGPS.ViewModels
                        {
                            foreach (var item in respones)
                            {
+                               if (item.PK_LandmarkID == 376652 || item.PK_LandmarkID == 376650 || item.PK_LandmarkID == 376651)
+                               {
+                                   item.IsEnableBoudary = true;
+                               }
+                               else
+                               {
+                                   item.IsEnableBoudary = false;
+                               }
                                //thêm dữ liệu vào local database với bẳng là LanmarkReal
                                _boundaryRepository.Add(item);
                            }
@@ -564,7 +611,7 @@ namespace VMS_MobileGPS.ViewModels
 
         private void ZoomSupprt()
         {
-            var shapeSetting = new ShapeSetting() { ShapeFill = Color.FromHex("AAD3DF"), ShapeStroke = Color.FromHex("AAD3DF"), ShapeStrokeThickness = 3 };
+            var shapeSetting = new ShapeSetting() { ShapeFill = Color.FromHex("#AAD3DF"), ShapeStroke = Color.FromHex("#AAD3DF"), ShapeStrokeThickness = 3 };
             var listSp = new List<ObservableCollection<Point>>();
             var v1Points = new ObservableCollection<Point>() {
                     new Point(16.362310,111.888266),
@@ -684,8 +731,8 @@ namespace VMS_MobileGPS.ViewModels
                     };
             if (MyLocation != null)
             {
-                Markers[0].Latitude = MyLocation.Latitude.ToString();
-                Markers[0].Longitude = MyLocation.Longitude.ToString();
+                Markers.FirstOrDefault(x => x.Label == "Car").Latitude = MyLocation.Latitude.ToString();
+                Markers.FirstOrDefault(x => x.Label == "Car").Longitude = MyLocation.Longitude.ToString();
             }
         }
 
@@ -696,10 +743,10 @@ namespace VMS_MobileGPS.ViewModels
                 SwitchLocationSupport();
                 GlobalResourcesVMS.Current.OffMapZoomLevel += 1;
             }
-            if (Device.RuntimePlatform == Device.iOS)
-            {
-                ZoomBugSupport();
-            }
+            //if (Device.RuntimePlatform == Device.iOS)
+            //{
+            //    ZoomBugSupport();
+            //}
         }
 
         private void ZoomOut()
@@ -709,16 +756,29 @@ namespace VMS_MobileGPS.ViewModels
                 SwitchLocationSupport();
                 GlobalResourcesVMS.Current.OffMapZoomLevel -= 1;
             }
-            if (Device.RuntimePlatform == Device.iOS)
-            {
-                ZoomBugSupport();
-            }
+            //if (Device.RuntimePlatform == Device.iOS)
+            //{
+            //    ZoomBugSupport();
+            //}
         }
     }
 
     public class CustomMarker : MapMarker
     {
         public ImageSource ImageName { get; set; }
+
+        private bool _isCar;
+
+        public bool IsCar
+        {
+            get { return _isCar; }
+            set
+            {
+                _isCar = value;
+                OnPropertyChanged(nameof(IsCar));
+            }
+        }
+
         private double _rotation;
 
         public double Rotation

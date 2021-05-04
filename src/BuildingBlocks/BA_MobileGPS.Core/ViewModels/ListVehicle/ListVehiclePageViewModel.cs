@@ -75,13 +75,17 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 UpdateVehicleByVehicleGroup(vehiclegroup);
             }
+            else if (parameters.ContainsKey("FavoriteVehicle") && parameters?.GetValue<bool>("FavoriteVehicle") is bool isfavorites)
+            {
+                SetFavoritesVehicle(currentVehicle, isfavorites);
+            }
             else if (companyChanged)
             {
                 UpdateVehicleByCompany();
 
                 companyChanged = false;
             }
-            else if (parameters?.GetValue<string>("pagetoNavigation") is string action)
+            else if (parameters.ContainsKey("pagetoNavigation") && parameters?.GetValue<string>("pagetoNavigation") is string action)
             {
                 if (action == MobileResource.DetailVehicle_Label_TilePage)
                 {
@@ -128,18 +132,35 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (StaticSettings.ListVehilceOnline != null)
                 {
+                    List<VehicleOnlineViewModel> result = new List<VehicleOnlineViewModel>();
+                    var lstmap = _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline).ToList();
+                    lstmap.ForEach(x =>
+                    {
+                        if (FavoritesVehicleHelper.IsFavoritesVehicleOnline(x.VehiclePlate))
+                        {
+                            x.IsFavorite = true;
+                        }
+                    });
                     if (Settings.SortOrder == (int)SortOrderType.PrivateCodeASC)
-                        return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).ThenBy(x => x.PrivateCode).ToList());
+                        result = lstmap.OrderByDescending(x => x.IsFavorite == true)
+                            .ThenByDescending(x => x.SortOrder).ThenBy(x => x.PrivateCode).ToList();
                     else if (Settings.SortOrder == (int)SortOrderType.PrivateCodeDES)
-                        return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).ThenByDescending(x => x.PrivateCode).ToList());
+                        result = lstmap.OrderByDescending(x => x.IsFavorite == true)
+                            .ThenByDescending(x => x.SortOrder).ThenByDescending(x => x.PrivateCode).ToList();
                     else if (Settings.SortOrder == (int)SortOrderType.TimeASC)
-                        return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).ThenBy(x => x.VehicleTime).ToList());
+                        result = lstmap.OrderByDescending(x => x.IsFavorite == true)
+                            .ThenByDescending(x => x.SortOrder).ThenBy(x => x.VehicleTime).ToList();
                     else if (Settings.SortOrder == (int)SortOrderType.TimeDES)
-                        return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).ThenByDescending(x => x.VehicleTime).ToList());
+                        result = lstmap.OrderByDescending(x => x.IsFavorite == true)
+                            .ThenByDescending(x => x.SortOrder).ThenByDescending(x => x.VehicleTime).ToList();
                     else if (Settings.SortOrder == (int)SortOrderType.DefaultASC)
-                        return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderBy(x => x.SortOrder).ToList());
+                        result = lstmap.OrderByDescending(x => x.IsFavorite == true)
+                            .ThenBy(x => x.SortOrder).ToList();
                     else
-                        return _mapper.MapListProperties<VehicleOnlineViewModel>(StaticSettings.ListVehilceOnline.OrderByDescending(x => x.SortOrder).ToList());
+                        result = lstmap.OrderByDescending(x => x.IsFavorite == true)
+                            .ThenByDescending(x => x.SortOrder).ToList();
+
+                    return result;
                 }
                 else
                 {
@@ -337,7 +358,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         Task.Run(async () =>
                         {
-                            return await geocodeService.GetAddressByLatLng(vehicle.Lat.ToString(), vehicle.Lng.ToString());
+                            return await geocodeService.GetAddressByLatLng(CurrentComanyID, vehicle.Lat.ToString(), vehicle.Lng.ToString());
                         }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
                         {
                             if (task.Status == TaskStatus.RanToCompletion)
@@ -397,20 +418,34 @@ namespace BA_MobileGPS.Core.ViewModels
                 return;
             }
 
-            if (Settings.SortOrder == (int)SortOrderType.PrivateCodeASC)
-                ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).ThenBy(x => x.PrivateCode).ToObservableCollection();
-            else if (Settings.SortOrder == (int)SortOrderType.PrivateCodeDES)
-                ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).ThenByDescending(x => x.PrivateCode).ToObservableCollection();
-            else if (Settings.SortOrder == (int)SortOrderType.TimeASC)
-                ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).ThenBy(x => x.VehicleTime).ToObservableCollection();
-            else if (Settings.SortOrder == (int)SortOrderType.TimeDES)
-                ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).ThenByDescending(x => x.VehicleTime).ToObservableCollection();
-            else if (Settings.SortOrder == (int)SortOrderType.DefaultASC)
-                ListVehicle = ListVehicle.OrderBy(x => x.SortOrder).ToObservableCollection();
-            else
-                ListVehicle = ListVehicle.OrderByDescending(x => x.SortOrder).ToObservableCollection();
+            SetSortOrder();
+        }
 
-            ListVehicleByStatus = ListVehicle.ToList();
+        private void SetSortOrder(bool isUpdateStatus = true)
+        {
+            if (Settings.SortOrder == (int)SortOrderType.PrivateCodeASC)
+                ListVehicle = ListVehicle.OrderByDescending(x => x.IsFavorite == true).ThenByDescending(x => x.SortOrder)
+                    .ThenBy(x => x.PrivateCode).ToObservableCollection();
+            else if (Settings.SortOrder == (int)SortOrderType.PrivateCodeDES)
+                ListVehicle = ListVehicle.OrderByDescending(x => x.IsFavorite == true).ThenByDescending(x => x.SortOrder)
+                    .ThenByDescending(x => x.PrivateCode).ToObservableCollection();
+            else if (Settings.SortOrder == (int)SortOrderType.TimeASC)
+                ListVehicle = ListVehicle.OrderByDescending(x => x.IsFavorite == true)
+                    .ThenByDescending(x => x.SortOrder).ThenBy(x => x.VehicleTime).ToObservableCollection();
+            else if (Settings.SortOrder == (int)SortOrderType.TimeDES)
+                ListVehicle = ListVehicle.OrderByDescending(x => x.IsFavorite == true)
+                    .ThenByDescending(x => x.SortOrder).ThenByDescending(x => x.VehicleTime).ToObservableCollection();
+            else if (Settings.SortOrder == (int)SortOrderType.DefaultASC)
+                ListVehicle = ListVehicle.OrderByDescending(x => x.IsFavorite == true)
+                    .ThenBy(x => x.SortOrder).ToObservableCollection();
+            else
+                ListVehicle = ListVehicle.OrderByDescending(x => x.IsFavorite == true)
+                    .ThenByDescending(x => x.SortOrder).ToObservableCollection();
+
+            if (isUpdateStatus)
+            {
+                ListVehicleByStatus = ListVehicle.ToList();
+            }
         }
 
         private void SearchVehiclewithText(TextChangedEventArgs args)
@@ -435,6 +470,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
                     ListVehicle = new ObservableCollection<VehicleOnlineViewModel>(task.Result);
+
+                    SetSortOrder(false);
                 }
             }));
         }
@@ -473,10 +510,20 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         x.IconImage = IconCodeHelper.GetMarkerResource(x);
                     });
-                }
+                    var lst = _mapper.MapListProperties<VehicleOnlineViewModel>(listFilter);
+                    lst.ForEach(x =>
+                    {
+                        if (FavoritesVehicleHelper.IsFavoritesVehicleOnline(x.VehiclePlate))
+                        {
+                            x.IsFavorite = true;
+                        }
+                    });
+                    ListVehicleByStatus = lst;
 
-                ListVehicleByStatus = _mapper.MapListProperties<VehicleOnlineViewModel>(listFilter);
-                ListVehicle = _mapper.MapListProperties<VehicleOnlineViewModel>(listFilter).ToObservableCollection();
+                    ListVehicle = lst.ToObservableCollection();
+
+                    SetSortOrder();
+                }
             }
         }
 
@@ -499,7 +546,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     await NavigationService.NavigateAsync("DetailVehiclePopup", parameters: new NavigationParameters
                         {
-                            { "vehicleItem",  selected.PrivateCode}
+                            { "vehicleItem",  selected}
                         }, true, true);
                 }
             });
@@ -523,6 +570,25 @@ namespace BA_MobileGPS.Core.ViewModels
             if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
             {
                 InitVehicleList();
+            }
+        }
+
+        private void SetFavoritesVehicle(VehicleOnlineViewModel selected, bool isFavorites)
+        {
+            if (selected != null)
+            {
+                FavoritesVehicleHelper.UpdateFavoritesVehicleOnline(selected.VehiclePlate);
+                var vehicle = ListVehicle.FirstOrDefault(x => x.VehicleId == selected.VehicleId);
+                if (vehicle != null)
+                {
+                    vehicle.IsFavorite = isFavorites;
+                    var item = ListVehicleByStatus.FirstOrDefault(x => x.VehicleId == selected.VehicleId);
+                    if (item != null)
+                    {
+                        item.IsFavorite = isFavorites;
+                    }
+                    SetSortOrder(false);
+                }
             }
         }
 

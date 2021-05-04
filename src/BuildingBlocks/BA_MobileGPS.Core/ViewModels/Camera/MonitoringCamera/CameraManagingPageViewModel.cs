@@ -1,11 +1,11 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Events;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
 using LibVLCSharp.Shared;
@@ -14,10 +14,10 @@ using Prism.Navigation;
 using Syncfusion.Data.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Input;
 
@@ -25,7 +25,6 @@ using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-
     /// <summary>
     /// Thay đổi ngày 25/02/2021: Hiển thị tất cả các camera của xe (k check lỗi)
     /// => lỗi sẽ dc trả về sua khi call start livestream
@@ -67,6 +66,8 @@ namespace BA_MobileGPS.Core.ViewModels
             ReLoadCommand = new DelegateCommand<object>(Reload);
             itemsSource = new List<ChildStackSource>();
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
+            SelectedChannelCommand = new DelegateCommand<object>(SelectedChannel);
+            EventAggregator.GetEvent<SendErrorCameraEvent>().Subscribe(SetErrorChannelCamera);
         }
 
         #region Life Cycle
@@ -95,8 +96,16 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.Initialize(parameters);
             LibVLCSharp.Shared.Core.Initialize();
-            LibVLC = new LibVLC("--no-osd", "--rtsp-tcp");
+            string[] options = { "--no-osd", "--rtsp-tcp", "-vvv", "--no-drop-late-frames", "--no-skip-frames" };
+            LibVLC = new LibVLC(options);
             InitTimer();
+            GetChannelCamera();
+
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = Entities.Enums.MenuKeyEnums.TrackingVideo,
+                Type = UserBehaviorType.Start
+            });
         }
 
         public override void OnSleep()
@@ -123,6 +132,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnDestroy()
         {
+            EventAggregator.GetEvent<SendErrorCameraEvent>().Unsubscribe(SetErrorChannelCamera);
             ClearAllMediaPlayer();
             DependencyService.Get<IScreenOrientServices>().ForcePortrait();
             LibVLC?.Dispose();
@@ -134,6 +144,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 timer.Stop();
                 timer.Dispose();
             }
+
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = Entities.Enums.MenuKeyEnums.TrackingVideo,
+                Type = UserBehaviorType.End
+            });
         }
 
         private void InitTimer()
@@ -166,6 +182,20 @@ namespace BA_MobileGPS.Core.ViewModels
             set
             {
                 SetProperty(ref itemsSource, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private List<CameraChannel> mCameraVehicle;
+
+        private ObservableCollection<ChannelCamera> channelCamera;
+
+        public ObservableCollection<ChannelCamera> ChannelCamera
+        {
+            get { return channelCamera; }
+            set
+            {
+                SetProperty(ref channelCamera, value);
                 RaisePropertyChanged();
             }
         }
@@ -320,6 +350,8 @@ namespace BA_MobileGPS.Core.ViewModels
         #region ICommand & excute
 
         public ICommand SelectVehicleCameraCommand { get; }
+        public ICommand SelectedChannelCommand { get; }
+
         private void SelectVehicleCamera()
         {
             SafeExecute(async () =>
@@ -327,7 +359,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraLookup", null, useModalNavigation: true, animated: true);
             });
         }
-
 
         /// <summary>
         ///  Raise khi nút play được chạm
@@ -415,15 +446,15 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </summary>
         public ICommand ReLoadCommand { get; }
 
-        private  void Reload(object obj)
+        private void Reload(object obj)
         {
             try
             {
                 if (obj != null && obj is CameraManagement item)
                 {
-                    if (item.Data != null)
+                    if (item.Data != null && !string.IsNullOrEmpty(item.Data.Link))
                     {
-                        item.Clear();                     
+                        item.Clear();
                         item.StartWorkUnit(Vehicle.VehiclePlate);
                     }
                 }
@@ -496,6 +527,17 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Private method
 
+        private void GetChannelCamera()
+        {
+            ChannelCamera = new ObservableCollection<ChannelCamera>()
+            {
+                new ChannelCamera(){Channel=1, Name="CH1",Status=ChannelCameraStatus.Selected,IsShow=true},
+                new ChannelCamera(){Channel=2, Name="CH2",Status=ChannelCameraStatus.Selected,IsShow=true},
+                new ChannelCamera(){Channel=3, Name="CH3",Status=ChannelCameraStatus.Selected,IsShow=false},
+                new ChannelCamera(){Channel=4, Name="CH4",Status=ChannelCameraStatus.Selected,IsShow=false}
+            };
+        }
+
         /// <summary>
         /// Lấy thông tin camera trên xe
         /// </summary>
@@ -514,7 +556,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         currentXnCode = deviceResponseData.XnCode;
                         currentIMEI = deviceResponseData.IMEI;
-                        CurrentAddress = await _geocodeService.GetAddressByLatLng(deviceResponseData.Latitude.ToString(), deviceResponseData.Longitude.ToString());
+                        CurrentAddress = await _geocodeService.GetAddressByLatLng(CurrentComanyID, deviceResponseData.Latitude.ToString(), deviceResponseData.Longitude.ToString());
                         CurrentTime = deviceResponseData.DeviceTime;
 
                         if (deviceResponseData.CameraChannels != null && deviceResponseData.CameraChannels.Count > 0)
@@ -529,13 +571,20 @@ namespace BA_MobileGPS.Core.ViewModels
                                     VehiclePlate = Vehicle.VehiclePlate,
                                     xnCode = currentXnCode
                                 };
-                               // var res = await RequestStartCam(item.Channel);                              
-                                var cam = new CameraManagement(maxLoadingTime, libVLC, _streamCameraService, request);                               
+                                // var res = await RequestStartCam(item.Channel);
+                                var cam = new CameraManagement(maxLoadingTime,
+                                    libVLC,
+                                    _streamCameraService,
+                                    request, EventAggregator);
                                 listCam.Add(cam);
                             }
+                            mCameraVehicle = deviceResponseData.CameraChannels;
+                            var query = (from p in ChannelCamera
+                                         join pts in deviceResponseData.CameraChannels on p.Channel equals pts.Channel
+                                         select p).ToList();
+                            ChannelCamera = query.ToObservableCollection();
                             SetItemsSource(listCam);
                         }
-                      
                     }
                 }
             });
@@ -611,13 +660,21 @@ namespace BA_MobileGPS.Core.ViewModels
         /// <summary>
         /// Clear giao diện khi load lại xe hoặc máy chạy ngầm
         /// </summary>
-        private void ClearAllMediaPlayer()
+        private void ClearAllMediaPlayer(bool isloadchannel = true)
         {
             foreach (var child in itemsSource)
             {
                 foreach (var item in child.ChildSource)
                 {
                     item.Dispose();
+                }
+            }
+            if (isloadchannel)
+            {
+                foreach (var item in ChannelCamera)
+                {
+                    item.IsShow = true;
+                    item.Status = ChannelCameraStatus.Selected;
                 }
             }
             ItemsSource = new List<ChildStackSource>();
@@ -672,19 +729,22 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     counterRequestPing = 15;
                     UpdateTimeAndLocation();
-                    foreach (var child in itemsSource)
+                    if (itemsSource != null && itemsSource.Count > 0)
                     {
-                        foreach (var cam in child.ChildSource)
+                        foreach (var child in itemsSource)
                         {
-                            if (cam.AutoRequestPing || cam.TotalTime > maxTimeCameraRemain)
+                            foreach (var cam in child.ChildSource)
                             {
-                                if (cam != null && !cam.IsError && cam.IsLoaded)
+                                if (cam.AutoRequestPing || cam.TotalTime > maxTimeCameraRemain)
                                 {
-                                    SendRequestTime(maxTimeCameraRemain, cam.Data.Channel);
-                                }
-                                if (cam.AutoRequestPing && cam.TotalTime < maxTimeCameraRemain)
-                                {
-                                    cam.TotalTime = maxTimeCameraRemain;
+                                    if (cam != null && !cam.IsError && cam.IsLoaded)
+                                    {
+                                        SendRequestTime(maxTimeCameraRemain, cam.Data.Channel);
+                                    }
+                                    if (cam.AutoRequestPing && cam.TotalTime < maxTimeCameraRemain)
+                                    {
+                                        cam.TotalTime = maxTimeCameraRemain;
+                                    }
                                 }
                             }
                         }
@@ -708,7 +768,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         var deviceResponseData = deviceResponse?.Data?.FirstOrDefault();
                         if (deviceResponseData != null)
                         {
-                            CurrentAddress = await _geocodeService.GetAddressByLatLng(deviceResponseData.Latitude.ToString(), deviceResponseData.Longitude.ToString());
+                            CurrentAddress = await _geocodeService.GetAddressByLatLng(CurrentComanyID, deviceResponseData.Latitude.ToString(), deviceResponseData.Longitude.ToString());
                             CurrentTime = deviceResponseData.DeviceTime;
                         }
                     }
@@ -718,6 +778,79 @@ namespace BA_MobileGPS.Core.ViewModels
                     LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
                 }
             });
+        }
+
+        private void SelectedChannel(object obj)
+        {
+            try
+            {
+                if (obj != null && obj is ChannelCamera item)
+                {
+                    //	Kênh không active  không thay đổi
+                    if (item.Status == ChannelCameraStatus.Error)
+                    {
+                        DisplayMessage.ShowMessageInfo($"Kênh {item.Channel} không hoạt động");
+                        return;
+                    }
+                    if (mCameraVehicle != null && mCameraVehicle.Count > 0)
+                    {
+                        var channel = ChannelCamera.FirstOrDefault(x => x.Channel == item.Channel);
+                        if (channel != null)
+                        {
+                            if (channel != null)
+                            {
+                                channel.IsShow = !item.IsShow;
+                                var listCam = new List<CameraManagement>();
+                                foreach (var itemcam in ChannelCamera.Where(x => x.Status != ChannelCameraStatus.Error).ToList())
+                                {
+                                    if (itemcam.IsShow)
+                                    {
+                                        itemcam.Status = ChannelCameraStatus.Selected;
+                                        var request = new StreamStartRequest()
+                                        {
+                                            Channel = itemcam.Channel,
+                                            IMEI = currentIMEI,
+                                            VehiclePlate = Vehicle.VehiclePlate,
+                                            xnCode = currentXnCode
+                                        };
+                                        var cam = new CameraManagement(maxLoadingTime, libVLC, _streamCameraService, request, EventAggregator);
+                                        listCam.Add(cam);
+                                    }
+                                    else
+                                    {
+                                        itemcam.Status = ChannelCameraStatus.UnSelected;
+                                    }
+                                }
+                                if (listCam.Count > 0)
+                                {
+                                    SetItemsSource(listCam);
+                                }
+                                else
+                                {
+                                    ClearAllMediaPlayer(false);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            DisplayMessage.ShowMessageWarning($"Kênh {item.Channel} không hoạt động");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
+
+        public void SetErrorChannelCamera(int channel)
+        {
+            var channelcame = ChannelCamera.FirstOrDefault(x => x.Channel == channel);
+            if (channelcame != null)
+            {
+                channelcame.Status = ChannelCameraStatus.Error;
+            }
         }
 
         #endregion Private method
