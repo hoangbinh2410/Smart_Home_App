@@ -509,15 +509,29 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
-                        Device.BeginInvokeOnMainThread(() =>
-                        {
-                            IsError = true;
-                            if (result.StatusCode == StatusCodeCamera.ERROR_PLAYBACK_BY_STREAMING)
-                            {
-                                result.UserMessage = "Thiết bị đang ở chế độ phát trực tiếp, quý khách vui lòng tắt để chuyển sang chế độ xem lại video.";
-                            }
-                            ErrorMessenger = result.UserMessage;
-                        });
+                        Device.BeginInvokeOnMainThread(async () =>
+                       {
+                           IsError = true;
+                           if (result.StatusCode == StatusCodeCamera.ERROR_PLAYBACK_BY_STREAMING)
+                           {
+                               result.UserMessage = "Thiết bị đang ở chế độ phát trực tiếp, quý khách vui lòng làm theo chỉ dẫn sau:\nCách 1: Tắt xem trực tiếp để chuyển sang chế độ xem lại video \nCách 2: Chuyển đến trang xem lại hình ảnh tại đây";
+
+                               var action = await PageDialog.DisplayAlertAsync("Thông báo", "Thiết bị đang ở chế độ phát trực tiếp, quý khách vui lòng làm theo chỉ dẫn sau:\nCách 1: Tắt xem trực tiếp để chuyển sang chế độ xem lại video \nCách 2: Chuyển đến trang xem lại hình ảnh tại đây", "Xem hình ảnh", "Bỏ qua");
+                               if (action)
+                               {
+                                   var parameters = new NavigationParameters();
+                                   parameters.Add(ParameterKey.VehicleRoute, new Vehicle()
+                                   {
+                                       VehicleId = Vehicle.VehicleId,
+                                       VehiclePlate = Vehicle.VehiclePlate,
+                                       PrivateCode = Vehicle.PrivateCode
+                                   });
+                                   await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                               }
+
+                           }
+                           ErrorMessenger = result.UserMessage;
+                       });
                     }
                 }, cts.Token);
             }
