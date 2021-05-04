@@ -3,12 +3,18 @@
     x:Class="BA_MobileGPS.Core.Views.UploadVideoPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:prism="http://prismlibrary.com"
     Title="Tải về server"
     prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:TimeSecondConverter x:Key="TimeSecondConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*,Auto">
             <StackLayout Grid.Row="0" Padding="20,10,20,10">
@@ -26,10 +32,17 @@
                     Text="DANH SÁCH CÁC PHẦN VIDEO"
                     TextColor="{StaticResource PrimaryColor}" />
 
-                <Label
-                    HorizontalOptions="Center"
-                    HorizontalTextAlignment="Center"
-                    Text="Quý khách đang tải video của xe: 29H12345 - Kênh 1" />
+                <Label HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Quý khách đang tải video của xe: " />
+                            <Span Text="{Binding VideoRestreamInfo.VehicleName}" />
+                            <Span Text=" - " />
+                            <Span Text="Kênh " />
+                            <Span Text="{Binding VideoRestreamInfo.Channel}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
             </StackLayout>
             <StackLayout
                 Grid.Row="1"
@@ -41,6 +54,7 @@
                     Padding="0"
                     IsClippedToBounds="True"
                     ItemsSource="{Binding ListVideo, Mode=TwoWay}"
+                    Spacing="10"
                     VerticalOptions="FillAndExpand">
                     <icons:HorizontalList.ItemTemplate>
                         <DataTemplate>
@@ -65,20 +79,26 @@
                                     <Label
                                         HorizontalOptions="Start"
                                         HorizontalTextAlignment="Start"
-                                        Text="Video_29H123456_20202008_1" />
+                                        Text="{Binding FileName}" />
                                     <StackLayout Orientation="Horizontal">
                                         <Label
                                             FontSize="12"
                                             HorizontalOptions="Start"
                                             HorizontalTextAlignment="Start"
-                                            Text="08:12:18 - 08:13:18"
+                                            Text="{Binding StartTime, Converter={StaticResource TimeSecondConverter}}"
                                             TextColor="#18A0FB" />
                                         <Label
                                             FontSize="12"
                                             HorizontalOptions="Start"
                                             HorizontalTextAlignment="Start"
-                                            Text="52MB"
-                                            TextColor="#878787" />
+                                            Text="-"
+                                            TextColor="#18A0FB" />
+                                        <Label
+                                            FontSize="12"
+                                            HorizontalOptions="Start"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{Binding EndTime, Converter={StaticResource TimeSecondConverter}}"
+                                            TextColor="#18A0FB" />
                                     </StackLayout>
                                 </StackLayout>
                                 <input:SfTextInputLayout

@@ -33,27 +33,47 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnDestroy();
         }
 
-        private ObservableCollection<CameraRestreamInfo> listVideo = new ObservableCollection<CameraRestreamInfo>();
-        public ObservableCollection<CameraRestreamInfo> ListVideo { get => listVideo; set => SetProperty(ref listVideo, value); }
+        private VideoRestreamInfo videoRestreamInfo = new VideoRestreamInfo();
+        public VideoRestreamInfo VideoRestreamInfo { get => videoRestreamInfo; set => SetProperty(ref videoRestreamInfo, value); }
+        private ObservableCollection<VideoUploadTimeInfo> listVideo = new ObservableCollection<VideoUploadTimeInfo>();
+        public ObservableCollection<VideoUploadTimeInfo> ListVideo { get => listVideo; set => SetProperty(ref listVideo, value); }
 
         private void GetListVideoUploadActive()
         {
-            var req = new CameraRestreamRequest()
+            var req = new CameraUploadRequest()
             {
                 CustomerId = 1010,
-                Date = Convert.ToDateTime("2021-04-14"),
-                VehicleNames = "CAMTEST2"
+                FromDate = Convert.ToDateTime("2021-05-04 08:05:11"),
+                ToDate = Convert.ToDateTime("2021-05-04 08:15:11"),
+                Channel = 1,
+                VehiclePlate = "CAMTEST2"
             };
             RunOnBackground(async () =>
             {
-                return await streamCameraService.GetListVideoOnDevice(req);
+                return await streamCameraService.GetListVideoNotUpload(req);
             }, (result) =>
             {
-                if (result != null && result.Count > 0)
+                if (result != null && result.Data != null && result.Data.Count > 0)
                 {
-                    ListVideo = result.ToObservableCollection();
+                    VideoRestreamInfo = result;
+                    foreach (var item in result.Data)
+                    {
+                        item.FileName = FormatVideoFileName(item);
+                    }
+                    ListVideo = result.Data.ToObservableCollection();
                 }
             });
+        }
+
+
+        private string FormatVideoFileName(VideoUploadTimeInfo info)
+        {
+            var dt = info.StartTime;
+            return (dt.Day < 10 ? "0" + dt.Day.ToString() : dt.Day.ToString()) + (dt.Month < 9 ? "0" + (dt.Month + 1).ToString() : (dt.Month + 1).ToString()) +
+             dt.Year + '_' +
+            (dt.Hour < 10 ? "0" + dt.Hour.ToString() : dt.Hour.ToString()) +
+            (dt.Minute < 10 ? "0" + dt.Minute.ToString() : dt.Minute.ToString()) +
+            (dt.Second < 10 ? "0" + dt.Second.ToString() : dt.Second.ToString()) + "_CAM" + 1;
         }
     }
 }

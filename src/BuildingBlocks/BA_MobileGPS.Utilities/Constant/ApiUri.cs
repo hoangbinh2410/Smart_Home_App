@@ -209,6 +209,7 @@
         public const string GET_IMAGESTIME = "api/stream/imagetime";
         public const string GET_IMAGES = "api/stream/image";
         public const string POST_RESTREAM_INFOR = "api/stream/restreaminfo";
+        public const string POST_LISTVIDEONOTUPLOAD = "api/stream/getvideonotupload";
         public const string POST_RESTREAM_LISTUPLOAD = "api/stream/restreamuploadinfo";
         public const string POST_RESTREAM_START = "api/stream/restreamstart";
         public const string POST_RESTREAM_STOP = "api/stream/restreamstop";
