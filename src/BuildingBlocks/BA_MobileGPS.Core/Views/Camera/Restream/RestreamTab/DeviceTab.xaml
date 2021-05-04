@@ -312,11 +312,10 @@
                                         WidthRequest="25" />
                                     <Label
                                         Margin="30,0"
-                                        FontSize="{DynamicResource MyFontSize}"
+                                        FontSize="10"
                                         HorizontalOptions="Center"
                                         HorizontalTextAlignment="Center"
-                                        LineBreakMode="TailTruncation"
-                                        MaxLines="2"
+                                        LineBreakMode="WordWrap"
                                         Text="{Binding ErrorMessenger}"
                                         TextColor="{DynamicResource WhiteColor}" />
                                     <StackLayout.GestureRecognizers>
