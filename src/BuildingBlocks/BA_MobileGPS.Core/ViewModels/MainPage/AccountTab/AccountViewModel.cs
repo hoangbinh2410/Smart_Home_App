@@ -77,7 +77,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsEnable = !CheckPermision((int)PermissionKeyNames.ChangePassword),
                 IconColor = Color.FromHex("#795548")
             });
-            // Hướng dẫn sử dụng
+            // Phản hồi thông tin khách hàng
             list.Add(new MenuItem
             {
                 Title = "Phản hồi thông tin khách hàng",
@@ -85,7 +85,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = "NavigationPage/ListIssuePage",
                 MenuType = MenuType.DeviceManual,
-                IsEnable = true,
+                IsEnable = false,
                 IconColor = Color.FromHex("#FF9900")
             });
             // Hướng dẫn sử dụng
