@@ -136,6 +136,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 EventAggregator.GetEvent<OnSleepEvent>().Unsubscribe(OnSleepPage);
                 EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(SelectedCompanyChanged);
                 EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
+                EventAggregator.GetEvent<UserBehaviorEvent>().Unsubscribe(OnUserBehavior);
                 DisconnectSignalR();
                 IsLoaded = false;
             }
