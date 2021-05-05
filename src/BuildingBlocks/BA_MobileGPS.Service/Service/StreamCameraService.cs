@@ -189,6 +189,25 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
+        public async Task<VideoRestreamInfo> GetListVideoNotUpload(CameraUploadRequest request)
+        {
+            var result = new VideoRestreamInfo();
+            try
+            {
+                string url = $"{ApiUri.POST_LISTVIDEONOTUPLOAD}";
+                var response = await requestProvider.PostAsync<CameraUploadRequest, VideoNotUploadResponse>(url, request);
+                if (response != null && response.Data != null)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
         public async Task<RestreamStartResponese> StartRestream(StartRestreamRequest request)
         {
             var result = new RestreamStartResponese();

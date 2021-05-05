@@ -26,4 +26,15 @@ namespace BA_MobileGPS.Entities
         public string VehicleName { get; set; }
         public int Channel { get; set; }
     }
+
+    public class CameraUploadRequest
+    {
+        public int CustomerId { get; set; }
+
+        public int Channel { get; set; }
+
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
+        public string VehiclePlate { get; set; }
+    }
 }
