@@ -41,6 +41,8 @@ namespace BA_MobileGPS.Service.IService
 
         Task<List<CameraRestreamUploadInfo>> GetListVideoOnCloud(CameraRestreamRequest request);
 
+        Task<VideoRestreamInfo> GetListVideoNotUpload(CameraUploadRequest request);
+
         Task<RestreamStartResponese> StartRestream(StartRestreamRequest request);
 
         Task<StreamStopResponse> StopRestream(StopRestreamRequest request);
