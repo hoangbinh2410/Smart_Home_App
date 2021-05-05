@@ -3,6 +3,7 @@ using BA_MobileGPS.Service.IService;
 using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
@@ -48,8 +49,8 @@ namespace BA_MobileGPS.Core.ViewModels
             var req = new CameraUploadRequest()
             {
                 CustomerId = 1010,
-                FromDate = Convert.ToDateTime("2021-05-04 08:05:11"),
-                ToDate = Convert.ToDateTime("2021-05-04 08:08:11"),
+                FromDate = Convert.ToDateTime("2021-05-04 08:00:11"),
+                ToDate = Convert.ToDateTime("2021-05-04 08:05:11"),
                 Channel = 1,
                 VehiclePlate = "CAMTEST2"
             };
@@ -70,25 +71,33 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                foreach (var item in ListVideo)
+                Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("");
+                var lstvideoSelected = ListVideo.Where(x => x.IsSelected == true).ToList();
+                if (lstvideoSelected != null && lstvideoSelected.Count > 0)
                 {
-                    if (item.IsSelected)
+                    var isfinshUpload = false;
+                    int loopIndex = 1;
+                    while (loopIndex <= lstvideoSelected.Count && !isfinshUpload)
                     {
                         var result = await streamCameraService.UploadToCloud(new StartRestreamRequest()
                         {
                             Channel = VideoRestreamInfo.Channel,
                             CustomerID = 1010,
-                            StartTime = item.StartTime,
-                            EndTime = item.EndTime,
+                            StartTime = lstvideoSelected[loopIndex].StartTime,
+                            EndTime = lstvideoSelected[loopIndex].EndTime,
                             VehicleName = "CAMTEST2"
                         });
                         if (result != null && result.Data)
                         {
-                            continue;
+                            loopIndex++;
+                            if (loopIndex == lstvideoSelected.Count)
+                            {
+                                isfinshUpload = true;
+                            }
                         }
                     }
                 }
-
+                Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await PageDialog.DisplayAlertAsync("Thông báo", "Video đang được tải về server. Quý khách có thể xem các video đã tải trên tab Yêu cầu", "Đóng");
