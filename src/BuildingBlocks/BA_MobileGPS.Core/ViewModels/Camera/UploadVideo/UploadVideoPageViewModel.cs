@@ -56,24 +56,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (result != null && result.Data != null && result.Data.Count > 0)
                 {
                     VideoRestreamInfo = result;
-                    foreach (var item in result.Data)
-                    {
-                        item.FileName = FormatVideoFileName(item);
-                    }
                     ListVideo = result.Data.ToObservableCollection();
                 }
             });
-        }
-
-
-        private string FormatVideoFileName(VideoUploadTimeInfo info)
-        {
-            var dt = info.StartTime;
-            return (dt.Day < 10 ? "0" + dt.Day.ToString() : dt.Day.ToString()) + (dt.Month < 9 ? "0" + (dt.Month + 1).ToString() : (dt.Month + 1).ToString()) +
-             dt.Year + '_' +
-            (dt.Hour < 10 ? "0" + dt.Hour.ToString() : dt.Hour.ToString()) +
-            (dt.Minute < 10 ? "0" + dt.Minute.ToString() : dt.Minute.ToString()) +
-            (dt.Second < 10 ? "0" + dt.Second.ToString() : dt.Second.ToString()) + "_CAM" + VideoRestreamInfo.Channel;
         }
     }
 }

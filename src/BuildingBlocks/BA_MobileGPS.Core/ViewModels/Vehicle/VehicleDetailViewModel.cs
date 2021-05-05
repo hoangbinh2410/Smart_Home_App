@@ -277,7 +277,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Title = "Nhiên liệu",
                 Icon = "ic_fuel.png",
-                Url = "NavigationPage/PourFuelReportPage",
+                Url = "NavigationPage/ChartFuelReportPage",
                 IsEnable = IsFuelVisible == true && CheckPermision((int)PermissionKeyNames.ReportFuelView) ? true : false,
             });
             list.Add(new MenuItem
@@ -447,6 +447,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (obj.Url == "NavigationPage/CameraManagingPage")
                 {
                     parameters.Add(ParameterKey.Vehicle, new CameraLookUpVehicleModel() { VehicleId = PK_VehicleID, VehiclePlate = VehiclePlate, PrivateCode = PrivateCode });
+                }
+                if (obj.Url == "NavigationPage/ChartFuelReportPage")
+                {
+                    parameters.Add(ParameterKey.Vehicle, new Vehicle() { VehicleId = PK_VehicleID, VehiclePlate = VehiclePlate, PrivateCode = PrivateCode });
                 }
                 else
                 {
