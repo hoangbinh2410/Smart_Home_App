@@ -3,7 +3,7 @@ using BA_MobileGPS.Service.IService;
 using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
-using Xamarin.Forms.Extensions;
+using Xamarin.Forms.Extensions; 
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -73,7 +73,7 @@ namespace BA_MobileGPS.Core.ViewModels
              dt.Year + '_' +
             (dt.Hour < 10 ? "0" + dt.Hour.ToString() : dt.Hour.ToString()) +
             (dt.Minute < 10 ? "0" + dt.Minute.ToString() : dt.Minute.ToString()) +
-            (dt.Second < 10 ? "0" + dt.Second.ToString() : dt.Second.ToString()) + "_CAM" + 1;
+            (dt.Second < 10 ? "0" + dt.Second.ToString() : dt.Second.ToString()) + "_CAM" + VideoRestreamInfo.Channel;
         }
     }
 }
