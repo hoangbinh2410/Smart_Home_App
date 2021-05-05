@@ -278,7 +278,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Title = "Nhiên liệu",
                 Icon = "ic_fuel.png",
                 Url = "NavigationPage/ChartFuelReportPage",
-                IsEnable = IsFuelVisible == true && CheckPermision((int)PermissionKeyNames.ReportFuelView) ? true : false,
+                IsEnable = IsFuelVisible == true && CheckPermision((int)PermissionKeyNames.ShowFuelChartOnline) ? true : false,
             });
             list.Add(new MenuItem
             {
