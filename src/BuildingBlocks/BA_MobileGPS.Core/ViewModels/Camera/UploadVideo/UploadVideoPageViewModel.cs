@@ -4,6 +4,8 @@ using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
@@ -13,7 +15,7 @@ namespace BA_MobileGPS.Core.ViewModels
     public class UploadVideoPageViewModel : ViewModelBase
     {
         private readonly IStreamCameraService streamCameraService;
-
+        private CancellationTokenSource cts = new CancellationTokenSource();
         public ICommand UploadVideoCommand { get; }
 
         public UploadVideoPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService) : base(navigationService)
@@ -77,7 +79,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     var isfinshUpload = false;
                     int loopIndex = 1;
-                    while (loopIndex <= lstvideoSelected.Count && !isfinshUpload)
+                    while (loopIndex <= lstvideoSelected.Count && !isfinshUpload && !cts.IsCancellationRequested)
                     {
                         var result = await streamCameraService.UploadToCloud(new StartRestreamRequest()
                         {
@@ -93,6 +95,10 @@ namespace BA_MobileGPS.Core.ViewModels
                             if (loopIndex == lstvideoSelected.Count)
                             {
                                 isfinshUpload = true;
+                            }
+                            else
+                            {
+                                await Task.Delay(1500, cts.Token);
                             }
                         }
                     }
