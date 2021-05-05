@@ -7,7 +7,6 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Prism;
 using Prism.Ioc;
-using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS
@@ -26,6 +25,7 @@ namespace BA_MobileGPS
             ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerThat;
             ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerThat;
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerThat;
+            ServerConfig.ServerUserBehaviorHubType = ServerUserBehaviorHubTypes.ServerThat;
             ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerThat;
 
             Application.Current.Resources.MergedDictionaries.Add(new LightColor());

@@ -1,22 +1,19 @@
 ﻿using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Utilities;
 using LibVLCSharp.Shared;
 using Prism.Events;
 using Prism.Mvvm;
-using Prism.Ioc;
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.Forms;
 using Timer = System.Timers.Timer;
-using BA_MobileGPS.Core.Events;
-using BA_MobileGPS.Service.IService;
-using System.Threading.Tasks;
-using System.Linq;
-using BA_MobileGPS.Utilities;
-using BA_MobileGPS.Core.Extensions;
 
 namespace BA_MobileGPS.Core.Models
 {
@@ -29,9 +26,11 @@ namespace BA_MobileGPS.Core.Models
         private bool loadingErr { get; set; }
         private readonly IStreamCameraService streamCameraService;
         private StreamStartRequest startRequest { get; set; }
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private CancellationTokenSource cts = new CancellationTokenSource();
+        private readonly IEventAggregator _eventAggregator;
+
         public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC,
-            IStreamCameraService streamCameraService, StreamStartRequest startRequest)
+            IStreamCameraService streamCameraService, StreamStartRequest startRequest, IEventAggregator eventAggregator)
         {
             this.streamCameraService = streamCameraService;
             maxLoadingTime = maxTimeLoadingMedia;
@@ -44,10 +43,13 @@ namespace BA_MobileGPS.Core.Models
             internalError = false;
             AutoRequestPing = true;
             this.startRequest = startRequest;
+            Channel = startRequest.Channel;
+            _eventAggregator = eventAggregator;
             StartWorkUnit(startRequest.VehiclePlate);
         }
 
         private LibVLC libVLC;
+
         public LibVLC LibVLC
         {
             get { return libVLC; }
@@ -57,7 +59,6 @@ namespace BA_MobileGPS.Core.Models
                 RaisePropertyChanged();
             }
         }
-
 
         private int totalTime;
 
@@ -153,6 +154,7 @@ namespace BA_MobileGPS.Core.Models
         }
 
         private bool isLoaded;
+
         /// <summary>
         /// control busy indicator
         /// </summary>
@@ -179,6 +181,8 @@ namespace BA_MobileGPS.Core.Models
         }
 
         public bool AutoRequestPing { get; set; }
+
+        public int Channel { get; set; }
 
         private void CountLoadingTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -239,14 +243,14 @@ namespace BA_MobileGPS.Core.Models
                     ThreadPool.QueueUserWorkItem((r) => { MediaPlayer.Stop(); });
                     mediaPlayer?.Media?.Dispose();
                     mediaPlayer.Media = null;
-                }              
+                }
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-         
         }
+
         /// <summary>
         /// Init base vlc voi cac behaviour can thiet, chua co url media
         /// </summary>
@@ -288,8 +292,9 @@ namespace BA_MobileGPS.Core.Models
         /// <param name="vehicle">vehicle Plate</param>
         public void StartWorkUnit(string vehicle)
         {
-            Task.Run(async() =>
+            Task.Run(async () =>
             {
+                //startRequest.Channel = (int)Math.Pow(2, startRequest.Channel - 1);
                 var requestStartResponse = await streamCameraService.StartStream(startRequest);
                 // case trả về mã lỗi # 0 => báo lỗi
                 if (requestStartResponse.StatusCode == 0)
@@ -305,10 +310,26 @@ namespace BA_MobileGPS.Core.Models
                         IsLoaded = false;
                         //Check status:
                         StartTrackDeviceStatus(vehicle);
-                    }                  
+                    }
                 }
-                else SetError(requestStartResponse.UserMessage);
-            });         
+                else
+                {
+                    Data = new StreamStart()
+                    {
+                        Channel = Channel,
+                        Link = string.Empty
+                    };
+                    if (requestStartResponse.StatusCode == StatusCodeCamera.ERROR_STREAMING_BY_PLAYBACK)
+                    {
+                        requestStartResponse.UserMessage = "Thiết bị đang ở chế độ xem lại, quý khách vui lòng tắt xem lại để xem trực tiếp";
+                    }
+                    else
+                    {
+                        _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
+                    }
+                    SetError(requestStartResponse.UserMessage);
+                }
+            });
         }
 
         private void StartTrackDeviceStatus(string vehicle)
@@ -353,20 +374,30 @@ namespace BA_MobileGPS.Core.Models
 
         private void SetUrlMedia()
         {
-            if (internalError || MediaPlayer.Media == null)
+            try
             {
-                Device.BeginInvokeOnMainThread(() =>
+                if (MediaPlayer != null && (internalError || MediaPlayer.Media == null))
                 {
-                    try
+                    Device.BeginInvokeOnMainThread(() =>
                     {
-                        MediaPlayer.Media = new Media(libVLC, new Uri(Data.Link));
+                        IsError = false;
+                        var url = string.Empty;
+                        if (MobileSettingHelper.UseCameraRTMP)
+                        {
+                            url = Data.Link.Replace("rtsp", "rtmp");
+                        }
+                        else
+                        {
+                            url = Data.Link;
+                        }
+                        MediaPlayer.Media = new Media(libVLC, new Uri(url));
                         MediaPlayer.Play();
-                    }
-                    catch (Exception ex)
-                    {
-                        LoggerHelper.WriteError("SetMedia", ex);
-                    }
-                });
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError("SetMedia", ex);
             }
         }
 

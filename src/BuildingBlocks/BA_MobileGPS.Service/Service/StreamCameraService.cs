@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.ResponeEntity.Camera;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
@@ -188,6 +189,25 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
+        public async Task<VideoRestreamInfo> GetListVideoNotUpload(CameraUploadRequest request)
+        {
+            var result = new VideoRestreamInfo();
+            try
+            {
+                string url = $"{ApiUri.POST_LISTVIDEONOTUPLOAD}";
+                var response = await requestProvider.PostAsync<CameraUploadRequest, VideoNotUploadResponse>(url, request);
+                if (response != null && response.Data != null)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
         public async Task<RestreamStartResponese> StartRestream(StartRestreamRequest request)
         {
             var result = new RestreamStartResponese();
@@ -269,6 +289,25 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
+        public async Task<UploadProgressResponse> GetUploadProgress(int xncode, string vehiclePlate, int channel)
+        {
+            var result = new UploadProgressResponse();
+            try
+            {
+                string url = string.Format(ApiUri.POST_RESTREAM_UPLOADPROGRESS + "?xncode={0}&vehiclePlate={1}&channel={2}", xncode, vehiclePlate, channel);
+                var response = await requestProvider.GetAsync<ResponseBaseV2<UploadProgressResponse>>(url);
+                if (response != null && response.Data != null)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
         public async Task<List<RestreamChartData>> GetVehiclesChartDataByDate(CameraRestreamRequest request)
         {
             var result = new List<RestreamChartData>();
@@ -288,7 +327,7 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<List<RestreamVideoTimeInfo>> DeviceTabGetVideoInfor(int xncode, string vehiclePlate, DateTime fromTime, 
+        public async Task<List<RestreamVideoTimeInfo>> DeviceTabGetVideoInfor(int xncode, string vehiclePlate, DateTime fromTime,
             DateTime toTime, int? channel = null)
         {
             var result = new List<RestreamVideoTimeInfo>();
@@ -300,7 +339,7 @@ namespace BA_MobileGPS.Service.Service
                 }
                 var from = fromTime.ToString("yyyy/MM/dd HH:mm:ss").Replace(" ", "T");
                 var to = toTime.ToString("yyyy/MM/dd HH:mm:ss").Replace(" ", "T");
-                string url = string.Format(ApiUri.GET_RESTREAM_DEVICETAB_VIDEO_INFOR + 
+                string url = string.Format(ApiUri.GET_RESTREAM_DEVICETAB_VIDEO_INFOR +
                     "?xncode={0}&vehiclePlate={1}&fromTime={2}&toTime={3}&channel={4}", xncode, vehiclePlate, from, to, channel);
                 var response = await requestProvider.GetAsync<BaseResponse<List<RestreamVideoTimeInfo>>>(url);
                 if (response != null && response.Data.Count > 0)

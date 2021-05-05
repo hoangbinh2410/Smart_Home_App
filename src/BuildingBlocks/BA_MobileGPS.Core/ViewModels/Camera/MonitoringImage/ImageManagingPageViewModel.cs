@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
@@ -63,6 +64,22 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 ShowImage();
             }
+
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = Entities.Enums.MenuKeyEnums.TrackingVehiclesByImage,
+                Type = UserBehaviorType.Start
+            });
+        }
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+            {
+                Page = Entities.Enums.MenuKeyEnums.TrackingVehiclesByImage,
+                Type = UserBehaviorType.End
+            });
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

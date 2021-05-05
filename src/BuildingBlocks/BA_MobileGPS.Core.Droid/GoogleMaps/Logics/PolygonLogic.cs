@@ -45,7 +45,7 @@ namespace BA_MobileGPS.Core.Droid.Logics
 
             opts.InvokeStrokeWidth(outerItem.StrokeWidth * this.ScaledDensity); // TODO: convert from px to pt. Is this collect? (looks like same iOS Maps)
             opts.InvokeStrokeColor(outerItem.StrokeColor.ToAndroid());
-            opts.InvokeFillColor(outerItem.FillColor.MultiplyAlpha(0.2f).ToAndroid());
+            opts.InvokeFillColor(outerItem.FillColor.MultiplyAlpha(0.5f).ToAndroid());
             opts.Clickable(outerItem.IsClickable);
             opts.InvokeZIndex(outerItem.ZIndex);
 

@@ -36,6 +36,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IIdentityHubService identityHubService;
         private readonly IVehicleOnlineHubService vehicleOnlineHubService;
         private readonly IAlertHubService alertHubService;
+        private readonly IUserBahaviorHubService userBahaviorHubService;
         private readonly IPingServerService pingServerService;
         private readonly IMapper _mapper;
         private readonly IPapersInforService papersInforService;
@@ -51,7 +52,7 @@ namespace BA_MobileGPS.Core.ViewModels
             IIdentityHubService identityHubService,
             IVehicleOnlineHubService vehicleOnlineHubService,
             IPingServerService pingServerService,
-            IAlertHubService alertHubService, IMapper mapper,
+            IAlertHubService alertHubService, IUserBahaviorHubService userBahaviorHubService, IMapper mapper,
             IPapersInforService papersInforService)
             : base(navigationService)
         {
@@ -65,6 +66,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this.identityHubService = identityHubService;
             this.vehicleOnlineHubService = vehicleOnlineHubService;
             this.alertHubService = alertHubService;
+            this.userBahaviorHubService = userBahaviorHubService;
             this.pingServerService = pingServerService;
             this._mapper = mapper;
 
@@ -74,6 +76,8 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<OnSleepEvent>().Subscribe(OnSleepPage);
             EventAggregator.GetEvent<SelectedCompanyEvent>().Subscribe(SelectedCompanyChanged);
             EventAggregator.GetEvent<OneSignalOpendEvent>().Subscribe(OneSignalOpend);
+            EventAggregator.GetEvent<UserBehaviorEvent>().Subscribe(OnUserBehavior);
+            InitSystemType();
         }
 
         #endregion Contructor
@@ -132,6 +136,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 EventAggregator.GetEvent<OnSleepEvent>().Unsubscribe(OnSleepPage);
                 EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(SelectedCompanyChanged);
                 EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
+                EventAggregator.GetEvent<UserBehaviorEvent>().Unsubscribe(OnUserBehavior);
                 DisconnectSignalR();
                 IsLoaded = false;
             }
@@ -206,15 +211,65 @@ namespace BA_MobileGPS.Core.ViewModels
             DisconnectSignalR();
         }
 
+        private void OnUserBehavior(UserBehaviorModel obj)
+        {
+            if (obj != null && MobileSettingHelper.UseUserBehavior)
+            {
+                userBahaviorHubService.SendUserBehavior(new UserBehaviorRequest()
+                {
+                    CompanyId = CurrentComanyID,
+                    Id = UserInfo.UserId,
+                    Fullname = UserInfo.FullName,
+                    Username = UserInfo.UserName,
+                    XNCode = UserInfo.XNCode,
+                    SystemType = SystemType,
+                    MenuKey = obj.Page,
+                    Time = StaticSettings.TimeServer.Ticks,
+                    TimeType = obj.Type,
+                });
+            }
+        }
+
         #endregion Lifecycle
 
         #region Property
 
         private bool IsLoaded { get; set; }
+        private int SystemType { get; set; } = 51;
 
         #endregion Property
 
         #region PrivateMethod
+
+        private void InitSystemType()
+        {
+            switch (App.AppType)
+            {
+                case AppType.BinhAnh:
+                    SystemType = 51;
+                    break;
+
+                case AppType.GisViet:
+                    SystemType = 56;
+                    break;
+
+                case AppType.CNN:
+                    SystemType = 52;
+                    break;
+
+                case AppType.Viview:
+                    SystemType = 53;
+                    break;
+
+                case AppType.VMS:
+                    SystemType = 55;
+                    break;
+
+                case AppType.Moto:
+                    SystemType = 54;
+                    break;
+            }
+        }
 
         public override void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
@@ -269,11 +324,27 @@ namespace BA_MobileGPS.Core.ViewModels
             identityHubService.onReceivePushLogoutToAllUserInCompany += onReceivePushLogoutToAllUserInCompany;
             identityHubService.onReceivePushLogoutToUser += onReceivePushLogoutToUser;
 
-            if (CheckPermision((int)PermissionKeyNames.AdminAlertView))
+            //if (CheckPermision((int)PermissionKeyNames.AdminAlertView))
+            //{
+            //    // Khởi tạo alertlR
+            //    await alertHubService.Connect();
+            //    alertHubService.onReceiveAlertSignalR += OnReceiveAlertSignalR;
+            //}
+            if (MobileSettingHelper.UseUserBehavior)
             {
-                // Khởi tạo alertlR
-                await alertHubService.Connect();
-                alertHubService.onReceiveAlertSignalR += OnReceiveAlertSignalR;
+                await userBahaviorHubService.Connect();
+                userBahaviorHubService.SendUserBehavior(new UserBehaviorRequest()
+                {
+                    CompanyId = CurrentComanyID,
+                    Id = UserInfo.UserId,
+                    Fullname = UserInfo.FullName,
+                    Username = UserInfo.UserName,
+                    XNCode = UserInfo.XNCode,
+                    SystemType = 54,
+                    MenuKey = Entities.Enums.MenuKeyEnums.ModuleOnline,
+                    Time = StaticSettings.TimeServer.Ticks,
+                    TimeType = UserBehaviorType.Start,
+                });
             }
         }
 
@@ -301,11 +372,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
             await vehicleOnlineHubService.Disconnect();
 
-            if (CheckPermision((int)PermissionKeyNames.AdminAlertView))
-            {
-                alertHubService.onReceiveAlertSignalR -= OnReceiveAlertSignalR;
+            //if (CheckPermision((int)PermissionKeyNames.AdminAlertView))
+            //{
+            //    alertHubService.onReceiveAlertSignalR -= OnReceiveAlertSignalR;
 
-                await alertHubService.Disconnect();
+            //    await alertHubService.Disconnect();
+            //}
+            if (MobileSettingHelper.UseUserBehavior)
+            {
+                await userBahaviorHubService.Disconnect();
             }
         }
 
@@ -451,11 +526,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
                             if (!StateVehicleExtension.IsLostGPS(x.GPSTime, x.VehicleTime) && !StateVehicleExtension.IsLostGSM(x.VehicleTime))
                             {
-                                x.SortOrder = 1;
+                                x.SortOrder = 2;
                             }
                             else
                             {
-                                x.SortOrder = 0;
+                                x.SortOrder = 1;
                             }
                         });
 
@@ -673,7 +748,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         CompanyID = CurrentComanyID,
                         UserID = userID,
-                        ListVehicleIDs = string.Join(",", StaticSettings.ListVehilceOnline.Select(x=>x.VehicleId))
+                        ListVehicleIDs = string.Join(",", StaticSettings.ListVehilceOnline.Select(x => x.VehicleId))
                     };
                     RunOnBackground(async () =>
                     {
@@ -886,7 +961,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (!string.IsNullOrEmpty(Settings.ReceivedNotificationType))
             {
                 //NẾU Firebase là tung điều thì mở lên cuốc được tung điều đó
-                if (Settings.ReceivedNotificationType == (((int)FormOfNoticeTypeEnum.Notice).ToString()))
+                if (Settings.ReceivedNotificationType == (((int)FirebaseNotificationTypeEnum.Notice).ToString()))
                 {
                     Settings.ReceivedNotificationType = string.Empty;
                     if (!string.IsNullOrEmpty(Settings.ReceivedNotificationValue))
@@ -897,6 +972,20 @@ namespace BA_MobileGPS.Core.ViewModels
                              {
                                  { ParameterKey.NotificationKey, int.Parse(Settings.ReceivedNotificationValue) }
                             }, useModalNavigation: true, true);
+                        });
+                    }
+                }
+                else if (Settings.ReceivedNotificationType == (((int)FirebaseNotificationTypeEnum.Issue).ToString()))
+                {
+                    Settings.ReceivedNotificationType = string.Empty;
+                    if (!string.IsNullOrEmpty(Settings.ReceivedNotificationValue))
+                    {
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            await NavigationService.NavigateAsync("BaseNavigationPage/IssuesDetailPage", parameters: new NavigationParameters
+                             {
+                                 { ParameterKey.IssuesKey, Settings.ReceivedNotificationValue }
+                            });
                         });
                     }
                 }

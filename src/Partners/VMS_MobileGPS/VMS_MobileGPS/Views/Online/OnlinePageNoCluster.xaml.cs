@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Timers;
 using VMS_MobileGPS.ViewModels;
 using Xamarin.Forms;
@@ -34,6 +35,7 @@ namespace VMS_MobileGPS.Views
         private readonly IGeocodeService geocodeService;
         private readonly IDisplayMessage displayMessage;
         private readonly IPageDialogService pageDialog;
+        private readonly IVehicleOnlineService vehicleOnlineService;
 
         public OnlinePageNoCluster()
         {
@@ -42,6 +44,7 @@ namespace VMS_MobileGPS.Views
             geocodeService = PrismApplicationBase.Current.Container.Resolve<IGeocodeService>();
             displayMessage = PrismApplicationBase.Current.Container.Resolve<IDisplayMessage>();
             pageDialog = PrismApplicationBase.Current.Container.Resolve<IPageDialogService>();
+            vehicleOnlineService = PrismApplicationBase.Current.Container.Resolve<IVehicleOnlineService>();
             pageWidth = (int)Application.Current.MainPage.Width;
             boxStatusVehicle.TranslationX = pageWidth;
             boxInfo.TranslationY = 300;
@@ -710,7 +713,10 @@ namespace VMS_MobileGPS.Views
             }
             finally
             {
-                googleMap.Cluster();
+                if (googleMap.IsUseCluster)
+                {
+                    googleMap.Cluster();
+                }
             }
         }
 
@@ -1071,6 +1077,41 @@ namespace VMS_MobileGPS.Views
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
             this.eventAggregator.GetEvent<BackButtonEvent>().Unsubscribe(AndroidBackButton);
+        }
+
+        private void GetAllIslandVN()
+        {
+            Task.Run(async () =>
+            {
+                return await vehicleOnlineService.GetListParacelIslands();
+            }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
+            {
+                if (task.Status == TaskStatus.RanToCompletion)
+                {
+                    if (task.Result != null && task.Result.Count > 0)
+                    {
+                        foreach (var item in task.Result)
+                        {
+                            googleMap.Pins.Add(new Pin()
+                            {
+                                Position = new Position(item.Latitude, item.Longitude),
+                                Label = item.Name,
+                                Icon = BitmapDescriptorFactory.FromView(new BoundaryNameInfoWindow(item.Name)
+                                {
+                                    WidthRequest = item.Name.Length < 20 ? 6 * item.Name.Length : 110,
+                                    HeightRequest = 18 * ((item.Name.Length / 20) + 1),
+                                    FontSize = 10
+                                }),
+                                Tag = item.Name + "Island",
+                            });
+                        }
+                    }
+                }
+                else if (task.IsFaulted)
+                {
+                    Logger.WriteError(MethodBase.GetCurrentMethod().Name, "Error");
+                }
+            }));
         }
 
         #endregion Private Method

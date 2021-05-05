@@ -30,7 +30,10 @@ namespace VMS_MobileGPS.Views
                 {
                     ckbBoudary.StateChanged -= CkbBoudary_StateChanged;
 
-                    landmark.IsShowBoudary = ckbAllBoudary.IsChecked.Value;
+                    if (landmark.IsEnableBoudary)
+                    {
+                        landmark.IsShowBoudary = ckbAllBoudary.IsChecked.Value;
+                    }
 
                     ckbBoudary.StateChanged += CkbBoudary_StateChanged;
                 }

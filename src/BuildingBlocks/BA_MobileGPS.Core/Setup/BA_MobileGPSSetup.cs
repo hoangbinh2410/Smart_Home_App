@@ -41,6 +41,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<IVehicleOnlineHubService, VehicleOnlineHubService>();
             containerRegistry.RegisterSingleton<IAlertHubService, AlertHubService>();
             containerRegistry.RegisterSingleton<IIdentityHubService, IdentityHubService>();
+            containerRegistry.RegisterSingleton<IUserBahaviorHubService, UserBahaviorHubService>();
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
             containerRegistry.RegisterSingleton<IHomeService, HomeService>();
             containerRegistry.RegisterSingleton<IResourceService, ResourceService>();
@@ -80,6 +81,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<IThemeServices, ThemeServices>();
             containerRegistry.RegisterSingleton<IDriverInforService, DriverInforService>();
             containerRegistry.RegisterSingleton<IPapersInforService, PapersInforService>();
+            containerRegistry.RegisterSingleton<IIssueService, IssueService>();
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)
@@ -218,7 +220,9 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ForgotPasswordPage, ForgotPasswordPageViewModel>("ForgotPasswordPage");
             containerRegistry.RegisterForNavigation<VerifyCodeSMSPage, VerifyCodeSMSPageViewModel>();
             containerRegistry.RegisterForNavigation<ChangePasswordForgotPage, ChangePasswordForgotPageViewModel>();
-
+            containerRegistry.RegisterForNavigation<ListIssuePage, ListIssuePageViewModel>("ListIssuePage");
+            containerRegistry.RegisterForNavigation<IssuesDetailPage, IssuesDetailPageViewModel>("IssuesDetailPage");
+            containerRegistry.RegisterForNavigation<UploadVideoPage, UploadVideoPageViewModel>("UploadVideoPage");
         }
     }
 }

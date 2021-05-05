@@ -71,6 +71,9 @@
 
         public const string GET_LIST_POLYGON = "api/landmark/polygon";
 
+        public const string GET_LIST_POLYGONPARACELISLANDS = "api/landmark/polygonparacelislands";
+        
+
         #endregion vehicle
 
         #region alert
@@ -109,7 +112,7 @@
 
         #region Address
 
-        public const string GET_GETADDRESSBYLATLNG = "api/geocode/getaddressbylatlng";
+        public const string GET_GETADDRESSBYLATLNG = "api/geocode/getaddresslandmarkbylatlng";
 
         #endregion Address
 
@@ -206,12 +209,14 @@
         public const string GET_IMAGESTIME = "api/stream/imagetime";
         public const string GET_IMAGES = "api/stream/image";
         public const string POST_RESTREAM_INFOR = "api/stream/restreaminfo";
+        public const string POST_LISTVIDEONOTUPLOAD = "api/stream/getvideonotupload";
         public const string POST_RESTREAM_LISTUPLOAD = "api/stream/restreamuploadinfo";
         public const string POST_RESTREAM_START = "api/stream/restreamstart";
         public const string POST_RESTREAM_STOP = "api/stream/restreamstop";
         public const string GET_RESTREAM_IMAGES = "api/stream/restreamimage";
         public const string POST_RESTREAM_UPLOAD = "api/stream/uploadcloud";
         public const string POST_RESTREAM_CANCELUPLOAD = "api/stream/canceluploadcloud";
+        public const string POST_RESTREAM_UPLOADPROGRESS = "api/stream/uploadprogress";
         public const string POST_CHART_DATA = "api/stream/chartdata";
         public const string GET_RESTREAM_DEVICETAB_VIDEO_INFOR = "api/v2/stream/restreamdevicetabvideo";
 
@@ -296,6 +301,13 @@
         public const string GET_LIST_ALL_PAPER = "api/paperinfor/getlistpaper";
         public const string GET_LIST_ALL_PAPER_HISTORY = "api/paperinfor/getlistpaperhistory";
         public const string GET_LAST_PAPER_DATE_BY_VEHICLE = "api/paperinfor/getlastpaperdatebyvehicle";
+        #endregion
+
+
+        #region Issue
+        public const string GET_ISSUE_BYCOMPANYID = "api/issue/getissuebycompanyid";
+
+        public const string GET_ISSUE_BYISSUECODE = "api/issue/getissuebyissuecode";
         #endregion
     }
 }

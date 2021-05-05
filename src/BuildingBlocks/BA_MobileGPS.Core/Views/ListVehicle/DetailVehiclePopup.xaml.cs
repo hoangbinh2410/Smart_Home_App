@@ -58,7 +58,7 @@ namespace BA_MobileGPS.Core.Views
             {
                 Title = "Nhiên liệu",
                 Icon = "ic_fuel.png",
-                IsEnable = CheckPermision((int)PermissionKeyNames.ReportFuelView),
+                IsEnable = CheckPermision((int)PermissionKeyNames.ShowFuelChartOnline),
             });
             var lstresource = list.Where(x => x.IsEnable == true).ToList();
             if (lstresource.Count <= 3)

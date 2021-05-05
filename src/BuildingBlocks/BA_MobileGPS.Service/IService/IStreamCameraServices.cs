@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.ResponeEntity.Camera;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -28,6 +29,7 @@ namespace BA_MobileGPS.Service.IService
         Task<List<CaptureImageData>> GetCaptureImageLimit(int xncode, string vehiclePlate, int limit);
 
         Task<List<CaptureImageData>> GetCaptureImageTime(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime);
+
         /// <summary>
         /// tra ve 4 anh gan nhat
         /// </summary>
@@ -39,6 +41,8 @@ namespace BA_MobileGPS.Service.IService
 
         Task<List<CameraRestreamUploadInfo>> GetListVideoOnCloud(CameraRestreamRequest request);
 
+        Task<VideoRestreamInfo> GetListVideoNotUpload(CameraUploadRequest request);
+
         Task<RestreamStartResponese> StartRestream(StartRestreamRequest request);
 
         Task<StreamStopResponse> StopRestream(StopRestreamRequest request);
@@ -48,6 +52,8 @@ namespace BA_MobileGPS.Service.IService
         Task<RestreamUploadResponse> UploadToCloud(StartRestreamRequest request);
 
         Task<RestreamUploadResponse> CancelUploadToCloud(StopRestreamRequest request);
+
+        Task<UploadProgressResponse> GetUploadProgress(int xncode, string vehiclePlate, int channel);
 
         Task<List<RestreamChartData>> GetVehiclesChartDataByDate(CameraRestreamRequest request);
 

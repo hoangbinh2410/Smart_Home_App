@@ -12,6 +12,7 @@
     <sharpnado:MaterialFrame.Resources>
         <ResourceDictionary>
             <converters:NMConverter x:Key="NMConverter" />
+            <converters:FavoritesColorConverter x:Key="FavoritesColorConverter" />
         </ResourceDictionary>
     </sharpnado:MaterialFrame.Resources>
     <StackLayout Spacing="0">
@@ -134,6 +135,14 @@
                 </StackLayout>
 
             </StackLayout>
+            <!--<controls:IconView
+                Margin="10"
+                Foreground="{Binding IsFavorite, Converter={StaticResource FavoritesColorConverter}}"
+                HeightRequest="15"
+                HorizontalOptions="Start"
+                Source="ic_star.png"
+                VerticalOptions="Start"
+                WidthRequest="15" />-->
         </Grid>
         <BoxView Margin="10,0" StyleClass="SlimLine" />
     </StackLayout>

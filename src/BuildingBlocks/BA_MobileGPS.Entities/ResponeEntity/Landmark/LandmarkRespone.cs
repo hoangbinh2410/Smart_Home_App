@@ -18,6 +18,9 @@
 
         public bool IsClosed { get; set; }
 
+        private bool isEnableBoudary;
+        public bool IsEnableBoudary { get => isEnableBoudary; set => SetProperty(ref isEnableBoudary, value); }
+
         private bool isShowBoudary;
         public bool IsShowBoudary { get => isShowBoudary; set => SetProperty(ref isShowBoudary, value); }
 

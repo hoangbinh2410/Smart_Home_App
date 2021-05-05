@@ -17,12 +17,12 @@ namespace BA_MobileGPS.Service
             this.requestProvider = requestProvider;
         }
 
-        public async Task<string> GetAddressByLatLng(string lat, string lng)
+        public async Task<string> GetAddressByLatLng(int companyID, string lat, string lng)
         {
             var respone = string.Empty;
             try
             {
-                var URL = string.Format(ApiUri.GET_GETADDRESSBYLATLNG + "/?lat={0}&lng={1}", lat, lng);
+                var URL = string.Format(ApiUri.GET_GETADDRESSBYLATLNG + "/?companyID={0}&lat={1}&lng={2}", companyID, lat, lng);
 
                 var result = await requestProvider.GetAsync<string>(URL);
                 if (result != null)

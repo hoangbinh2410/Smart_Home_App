@@ -30,7 +30,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SearchCommand { get; }
         public ICommand SelectVehicleCameraCommand { get; }
 
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private CancellationTokenSource cts = new CancellationTokenSource();
+
         public DeviceTabViewModel(INavigationService navigationService,
             IStreamCameraService cameraService,
             IScreenOrientServices screenOrientServices) : base(navigationService, cameraService, screenOrientServices)
@@ -95,14 +96,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 cts.Dispose();
                 CloseVideo();
                 cts = new CancellationTokenSource();
-                
             }
         }
-     
 
         #endregion Lifecycle
 
         #region Property
+
         public string BusyIndicatorText { get; set; }
 
         private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
@@ -293,7 +293,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-
         }
 
         private void SelectVehicleCamera()
@@ -362,7 +361,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     IsError = false;
                     BusyIndicatorActive = true;
                     MediaPlayerVisible = true; // Bật layout media lên
-                    isLoadingCamera = false; // Trạng thái load url media từ pnc                    
+                    isLoadingCamera = false; // Trạng thái load url media từ pnc
                 });
 
                 VideoSlected = item; // Set màu select cho item
@@ -381,11 +380,8 @@ namespace BA_MobileGPS.Core.ViewModels
                               ErrorMessenger = "Vui lòng load lại hoặc chọn xem video khác";
                           });
                       }
-
                   }, cts.Token);
             });
-
-
         }
 
         /// <summary>
@@ -452,7 +448,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         else StopAndStartRestream();
                     }
-
                 }, cts.Token);
             }
             catch (OperationCanceledException)
@@ -484,32 +479,60 @@ namespace BA_MobileGPS.Core.ViewModels
                 Task.Run(async () =>
                 {
                     var result = await streamCameraService.StartRestream(start);
-                    if (result?.Data != null)
+                    if (result.StatusCode == 0)
                     {
-                        var isSteaming = await CheckDeviceStatus();
-                        if (isSteaming)
+                        if (result?.Data != null)
                         {
-                            // init ở đây :
-                            InitVLC();
-                            MediaPlayer.Media = new Media(libVLC, new Uri(result.Data.Link));
-                            MediaPlayer.Play();
-                            VideoSlected.Data = result.Data;
+                            var isSteaming = await CheckDeviceStatus();
+                            if (isSteaming)
+                            {
+                                // init ở đây :
+                                InitVLC();
+                                MediaPlayer.Media = new Media(libVLC, new Uri(result.Data.Link));
+                                MediaPlayer.Play();
+                                VideoSlected.Data = result.Data;
+                            }
+                            else
+                            {
+                                Device.BeginInvokeOnMainThread(() =>
+                                {
+                                    IsError = true;
+                                    ErrorMessenger = "Có lỗi khi kết nối server";
+                                });
+                            }
                         }
                         else
                         {
-                            Device.BeginInvokeOnMainThread(() =>
-                            {
-                                IsError = true;
-                                ErrorMessenger = "Có lỗi khi kết nối server";
-                            });
+                            // Video dang duoc xem tu thiet bi khác
+                            StopAndStartRestream();
                         }
                     }
                     else
                     {
-                        // Video dang duoc xem tu thiet bi khác
-                        StopAndStartRestream();
-                    }
+                        Device.BeginInvokeOnMainThread(async () =>
+                       {
+                           IsError = true;
+                           if (result.StatusCode == StatusCodeCamera.ERROR_PLAYBACK_BY_STREAMING)
+                           {
+                               result.UserMessage = "";
 
+                               var action = await PageDialog.DisplayAlertAsync("Thông báo", "Thiết bị đang ở chế độ phát trực tiếp, quý khách vui lòng làm theo chỉ dẫn sau:\nCách 1: Tắt xem trực tiếp để chuyển sang chế độ xem lại video \nCách 2: Chuyển đến trang xem lại hình ảnh", "Xem hình ảnh", "Bỏ qua");
+                               if (action)
+                               {
+                                   var parameters = new NavigationParameters();
+                                   parameters.Add(ParameterKey.VehicleRoute, new Vehicle()
+                                   {
+                                       VehicleId = Vehicle.VehicleId,
+                                       VehiclePlate = Vehicle.VehiclePlate,
+                                       PrivateCode = Vehicle.PrivateCode
+                                   });
+                                   await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                               }
+
+                           }
+                           ErrorMessenger = result.UserMessage;
+                       });
+                    }
                 }, cts.Token);
             }
             catch (OperationCanceledException)
@@ -665,18 +688,17 @@ namespace BA_MobileGPS.Core.ViewModels
                             DateStart,
                             DateEnd,
                             SelectedChannel.Value);
-
                     }, (result) =>
                     {
                         if (result != null && result.Count > 0)
                         {
                             // Lọc sai số : video có timespan = timeEnd - timeStart tối thiểu 64s
-                           // result = result.Where(x => (x.EndTime - x.StartTime) >= TimeSpan.FromSeconds(64)).ToList();
+                            // result = result.Where(x => (x.EndTime - x.StartTime) >= TimeSpan.FromSeconds(64)).ToList();
                             foreach (var video in result)
                             {
                                 var videoModel = new RestreamVideoModel()
                                 {
-                                    VideoImageSource =   video.Image,
+                                    VideoImageSource = video.Image,
                                     VideoStartTime = video.StartTime,
                                     VideoEndTime = video.EndTime,
                                     VideoTime = video.EndTime - video.StartTime,
@@ -701,7 +723,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-
         }
 
         /// <summary>
@@ -745,6 +766,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else dateStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
         }
+
         private void InitVLC()
         {
             try

@@ -76,6 +76,9 @@ namespace BA_MobileGPS.Entities
         public string temperature;
         public string Temperature { get => temperature; set => SetProperty(ref temperature, value); }
 
+        private bool isFavorite;
+        public bool IsFavorite { get => isFavorite; set => SetProperty(ref isFavorite, value); }
+
         public int StopTimeView
         {
             get

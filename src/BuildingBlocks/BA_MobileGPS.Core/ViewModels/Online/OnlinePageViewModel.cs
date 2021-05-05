@@ -3,6 +3,8 @@ using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.Enums;
+using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
@@ -25,6 +27,7 @@ namespace BA_MobileGPS.Core.ViewModels
     public class OnlinePageViewModel : TabbedPageChildVMBase
     {
         #region Contructor
+
         private readonly IPapersInforService papersInforService;
         private readonly IUserLandmarkGroupService userLandmarkGroupService;
         public ICommand NavigateToSettingsCommand { get; private set; }
@@ -40,7 +43,9 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SelectedMenuCommand { get; }
         public bool IsCheckShowLandmark { get; set; } = false;
 
-        public OnlinePageViewModel(INavigationService navigationService, IUserLandmarkGroupService userLandmarkGroupService, IPapersInforService papersInforService)
+        public OnlinePageViewModel(INavigationService navigationService,
+            IUserLandmarkGroupService userLandmarkGroupService,
+            IPapersInforService papersInforService)
             : base(navigationService)
         {
             this.userLandmarkGroupService = userLandmarkGroupService;
@@ -135,8 +140,26 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnIsActiveChanged(sender, e);
             if (!IsActive)
             {
-                //EventAggregator.GetEvent<ShowHideTabEvent>().Publish(true);
+                EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+                {
+                    Page = MenuKeyEnums.ModuleOnline,
+                    Type = UserBehaviorType.End
+                });
             }
+            else
+            {
+                EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
+                {
+                    Page = MenuKeyEnums.ModuleOnline,
+                    Type = UserBehaviorType.Start
+                });
+            }
+        }
+
+        //thoát trang
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            base.OnNavigatedFrom(parameters);
         }
 
         #endregion Contructor
@@ -146,13 +169,8 @@ namespace BA_MobileGPS.Core.ViewModels
         private string carSearch;
         public string CarSearch { get => carSearch; set => SetProperty(ref carSearch, value); }
 
-        public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
-
         private MapType mapType;
         public MapType MapType { get => mapType; set => SetProperty(ref mapType, value); }
-
-        private MapSpan visibleRegion;
-        public MapSpan VisibleRegion { get => visibleRegion; set => SetProperty(ref visibleRegion, value); }
 
         private Color colorMapType;
         public Color ColorMapType { get => colorMapType; set => SetProperty(ref colorMapType, value); }
@@ -206,6 +224,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public string engineState;
         public string EngineState { get => engineState; set => SetProperty(ref engineState, value); }
         private DateTime? registrationDate;
+
         public DateTime? RegistrationDate
         {
             get { return registrationDate; }
@@ -567,22 +586,25 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (args != null && args.Position != null)
             {
-                if (ZoomLevelFist == 0 && args.Position.Zoom != MobileUserSettingHelper.Mapzoom)
+                if (args.Position.Zoom >= MobileSettingHelper.MinZoomLevelGoogleMap)
                 {
-                    ZoomLevelFist = args.Position.Zoom;
-                }
+                    if (ZoomLevelFist == 0 && args.Position.Zoom != MobileUserSettingHelper.Mapzoom)
+                    {
+                        ZoomLevelFist = args.Position.Zoom;
+                    }
 
-                if (ZoomLevelFist > 0 && args.Position.Zoom != ZoomLevelFist)
-                {
-                    ZoomLevelLast = args.Position.Zoom;
-                }
+                    if (ZoomLevelFist > 0 && args.Position.Zoom != ZoomLevelFist)
+                    {
+                        ZoomLevelLast = args.Position.Zoom;
+                    }
 
-                if (ZoomLevelLast > 0)
-                {
-                    ZoomLevel = args.Position.Zoom;
-                }
+                    if (ZoomLevelLast > 0)
+                    {
+                        ZoomLevel = args.Position.Zoom;
+                    }
 
-                ShowLandmark();
+                    ShowLandmark();
+                }
             }
         }
 
@@ -679,6 +701,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     break;
             }
         }
+
         /// <summary>
         ///  Thay đổi ngày đăng kiểm ở thông tin chi tiết xe (góc dưới)
         /// </summary>

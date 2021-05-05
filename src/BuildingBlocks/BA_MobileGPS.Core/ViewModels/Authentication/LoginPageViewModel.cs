@@ -579,51 +579,58 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         private void GetNoticePopup()
         {
-            RunOnBackground(async () =>
+            if (Settings.Rememberme)
             {
-                return await notificationService.GetNotificationWhenLogin(App.AppType);
-            }, (items) =>
-            {
-                if (items != null && items.Data != null && items.Data.Id > 0)
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    if (items.Data.IsAlwayShow) // true luôn luôn hiển thị
-                    {
-                        Device.BeginInvokeOnMainThread(async () =>
-                        {
-                            await NavigationService.NavigateAsync("NotificationPopupWhenLogin", parameters: new NavigationParameters
-                             {
-                                 { ParameterKey.NotificationKey, items.Data }
-                            });
-                        });
-                    }
-                    else
-                    {
-                        if (Settings.NoticeIdWhenLogin != items?.Data.Id)
-                        {
-                            Device.BeginInvokeOnMainThread(async () =>
-                            {
-                                await NavigationService.NavigateAsync("NotificationPopupWhenLogin", parameters: new NavigationParameters
-                             {
-                                 { ParameterKey.NotificationKey, items.Data }
-                            });
-                            });
-                        }
-                    }
-                }
-                else
-                {
-                    if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
-                    {
-                        if (Settings.Rememberme)
-                        {
-                            Device.BeginInvokeOnMainThread(() =>
-                            {
-                                Login();
-                            });
-                        }
-                    }
-                }
-            });
+                    Login();
+                });
+            }
+            //RunOnBackground(async () =>
+            //{
+            //    return await notificationService.GetNotificationWhenLogin(App.AppType);
+            //}, (items) =>
+            //{
+            //    if (items != null && items.Data != null && items.Data.Id > 0)
+            //    {
+            //        if (items.Data.IsAlwayShow) // true luôn luôn hiển thị
+            //        {
+            //            Device.BeginInvokeOnMainThread(async () =>
+            //            {
+            //                await NavigationService.NavigateAsync("NotificationPopupWhenLogin", parameters: new NavigationParameters
+            //                 {
+            //                     { ParameterKey.NotificationKey, items.Data }
+            //                });
+            //            });
+            //        }
+            //        else
+            //        {
+            //            if (Settings.NoticeIdWhenLogin != items?.Data.Id)
+            //            {
+            //                Device.BeginInvokeOnMainThread(async () =>
+            //                {
+            //                    await NavigationService.NavigateAsync("NotificationPopupWhenLogin", parameters: new NavigationParameters
+            //                 {
+            //                     { ParameterKey.NotificationKey, items.Data }
+            //                });
+            //                });
+            //            }
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
+            //        {
+            //            if (Settings.Rememberme)
+            //            {
+            //                Device.BeginInvokeOnMainThread(() =>
+            //                {
+            //                    Login();
+            //                });
+            //            }
+            //        }
+            //    }
+            //});
         }
 
         #endregion PrivateMethod

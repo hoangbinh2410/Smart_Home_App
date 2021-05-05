@@ -38,6 +38,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(Navigate);
         }
+
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
@@ -45,9 +46,9 @@ namespace BA_MobileGPS.Core.ViewModels
             IsShowPhoneNumber = MobileUserSettingHelper.IsShowPhoneNumber;
             InitMenuItems();
         }
+
         public override void Initialize(INavigationParameters parameters)
         {
-
         }
 
         private void InitMenuItems()
@@ -73,10 +74,20 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = "BaseNavigationPage/ChangePasswordPage",
                 MenuType = MenuType.ChangePassword,
-                IsEnable = CheckPermision((int)PermissionKeyNames.UserUpdate),
+                IsEnable = !CheckPermision((int)PermissionKeyNames.ChangePassword),
                 IconColor = Color.FromHex("#795548")
             });
-
+            // Phản hồi thông tin khách hàng
+            list.Add(new MenuItem
+            {
+                Title = "Phản hồi thông tin khách hàng",
+                Icon = "ic_customersupport.png",
+                UseModalNavigation = true,
+                Url = "BaseNavigationPage/UploadVideoPage",
+                MenuType = MenuType.DeviceManual,
+                IsEnable = false,
+                IconColor = Color.FromHex("#FF9900")
+            });
             // Hướng dẫn sử dụng
             list.Add(new MenuItem
             {
