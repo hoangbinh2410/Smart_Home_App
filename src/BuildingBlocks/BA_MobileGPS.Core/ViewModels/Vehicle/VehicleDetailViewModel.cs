@@ -284,8 +284,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Title = "Nhiệt độ",
                 Icon = "ic_temperature.png",
-                Url = "NavigationPage/ReportTableTemperature",
-                IsEnable = !string.IsNullOrEmpty(Temperature) && CheckPermision((int)PermissionKeyNames.ReportTemperatureView) ? true : false,
+                Url = "NavigationPage/ChartFuelReportPage",
+                IsEnable = !string.IsNullOrEmpty(Temperature) && CheckPermision((int)PermissionKeyNames.ReportFuelView) ? true : false,
             });
             MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
@@ -447,6 +447,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (obj.Url == "NavigationPage/CameraManagingPage")
                 {
                     parameters.Add(ParameterKey.Vehicle, new CameraLookUpVehicleModel() { VehicleId = PK_VehicleID, VehiclePlate = VehiclePlate, PrivateCode = PrivateCode });
+                }
+                if (obj.Url == "NavigationPage/ChartFuelReportPage")
+                {
+                    parameters.Add(ParameterKey.Vehicle, new Vehicle() { VehicleId = PK_VehicleID, VehiclePlate = VehiclePlate, PrivateCode = PrivateCode });
                 }
                 else
                 {
