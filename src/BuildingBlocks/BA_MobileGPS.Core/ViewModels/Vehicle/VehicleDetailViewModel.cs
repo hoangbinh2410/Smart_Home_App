@@ -277,15 +277,15 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Title = "Nhiên liệu",
                 Icon = "ic_fuel.png",
-                Url = "NavigationPage/PourFuelReportPage",
+                Url = "NavigationPage/ChartFuelReportPage",
                 IsEnable = IsFuelVisible == true && CheckPermision((int)PermissionKeyNames.ReportFuelView) ? true : false,
             });
             list.Add(new MenuItem
             {
                 Title = "Nhiệt độ",
                 Icon = "ic_temperature.png",
-                Url = "NavigationPage/ChartFuelReportPage",
-                IsEnable = !string.IsNullOrEmpty(Temperature) && CheckPermision((int)PermissionKeyNames.ReportFuelView) ? true : false,
+                Url = "NavigationPage/ReportTableTemperature",
+                IsEnable = !string.IsNullOrEmpty(Temperature) && CheckPermision((int)PermissionKeyNames.ReportTemperatureView) ? true : false,
             });
             MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
