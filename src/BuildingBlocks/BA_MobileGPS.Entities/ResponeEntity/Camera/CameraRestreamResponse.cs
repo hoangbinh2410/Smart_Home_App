@@ -45,7 +45,7 @@ namespace BA_MobileGPS.Entities
         public DateTime EndTime { get; set; }
     }
 
-    public class VideoUploadTimeInfo
+    public class VideoUploadTimeInfo : BaseModel
     {
         [JsonProperty("s")]
         public DateTime StartTime { get; set; }
@@ -55,6 +55,16 @@ namespace BA_MobileGPS.Entities
 
         [JsonProperty("f")]
         public string FileName { get; set; }
+
+        private bool isSelected;
+
+        [JsonIgnore]
+        public bool IsSelected { get => isSelected; set => SetProperty(ref isSelected, value); }
+
+        private string note;
+
+        [JsonIgnore]
+        public string Note { get => note; set => SetProperty(ref note, value); }
     }
 
     public class CameraRestreamUploadResponse : BaseResponse<List<CameraRestreamUploadInfo>>

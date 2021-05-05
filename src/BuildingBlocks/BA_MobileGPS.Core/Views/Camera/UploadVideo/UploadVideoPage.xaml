@@ -66,7 +66,7 @@
                                 <CheckBox
                                     Grid.Row="0"
                                     Grid.Column="0"
-                                    IsChecked="True" />
+                                    IsChecked="{Binding IsSelected}" />
                                 <ffImage:CachedImage
                                     Grid.Row="0"
                                     Grid.Column="1"
@@ -112,7 +112,7 @@
                                         HeightRequest="45"
                                         MaxLength="1000"
                                         Placeholder="Nhập ghi chú"
-                                        Text="{Binding Notes.Value}" />
+                                        Text="{Binding Note}" />
                                 </input:SfTextInputLayout>
                             </Grid>
                         </DataTemplate>
@@ -129,6 +129,7 @@
                     Color="Gray" />
                 <Button
                     Margin="10"
+                    Command="{Binding UploadVideoCommand}"
                     CornerRadius="20"
                     HeightRequest="40"
                     HorizontalOptions="Center"
