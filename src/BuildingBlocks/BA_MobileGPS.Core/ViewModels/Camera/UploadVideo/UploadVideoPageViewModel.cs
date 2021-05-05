@@ -3,7 +3,9 @@ using BA_MobileGPS.Service.IService;
 using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
-using Xamarin.Forms.Extensions; 
+using System.Windows.Input;
+using Xamarin.Forms;
+using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -11,9 +13,12 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         private readonly IStreamCameraService streamCameraService;
 
+        public ICommand UploadVideoCommand { get; }
+
         public UploadVideoPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService) : base(navigationService)
         {
             this.streamCameraService = streamCameraService;
+            UploadVideoCommand = new Command(UploadVideo);
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -44,7 +49,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 CustomerId = 1010,
                 FromDate = Convert.ToDateTime("2021-05-04 08:05:11"),
-                ToDate = Convert.ToDateTime("2021-05-04 08:15:11"),
+                ToDate = Convert.ToDateTime("2021-05-04 08:08:11"),
                 Channel = 1,
                 VehiclePlate = "CAMTEST2"
             };
@@ -58,6 +63,38 @@ namespace BA_MobileGPS.Core.ViewModels
                     VideoRestreamInfo = result;
                     ListVideo = result.Data.ToObservableCollection();
                 }
+            });
+        }
+
+        private void UploadVideo(object obj)
+        {
+            SafeExecute(async () =>
+            {
+                foreach (var item in ListVideo)
+                {
+                    if (item.IsSelected)
+                    {
+                        var result = await streamCameraService.UploadToCloud(new StartRestreamRequest()
+                        {
+                            Channel = VideoRestreamInfo.Channel,
+                            CustomerID = 1010,
+                            StartTime = item.StartTime,
+                            EndTime = item.EndTime,
+                            VehicleName = "CAMTEST2"
+                        });
+                        if (result != null && result.Data)
+                        {
+                            continue;
+                        }
+                    }
+                }
+
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await PageDialog.DisplayAlertAsync("Thông báo", "Video đang được tải về server. Quý khách có thể xem các video đã tải trên tab Yêu cầu", "Đóng");
+
+                    await NavigationService.GoBackAsync();
+                });
             });
         }
     }
