@@ -1,4 +1,5 @@
-﻿using Prism.Navigation;
+﻿using BA_MobileGPS.Core.Resources;
+using Prism.Navigation;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
@@ -13,6 +14,7 @@ namespace BA_MobileGPS.Core.Views
         public MyVideoTab()
         {
             InitializeComponent();
+            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
         }
 
         protected override void OnAppearing()

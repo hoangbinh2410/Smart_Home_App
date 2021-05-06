@@ -50,8 +50,8 @@ namespace BA_MobileGPS.Core.ViewModels
             var req = new CameraUploadRequest()
             {
                 CustomerId = 1010,
-                FromDate = Convert.ToDateTime("2021-05-05 15:00:11"),
-                ToDate = Convert.ToDateTime("2021-05-05 15:05:11"),
+                FromDate = Convert.ToDateTime("2021-05-05 15:15:11"),
+                ToDate = Convert.ToDateTime("2021-05-05 15:20:11"),
                 Channel = 1,
                 VehiclePlate = "CAMTEST3"
             };
