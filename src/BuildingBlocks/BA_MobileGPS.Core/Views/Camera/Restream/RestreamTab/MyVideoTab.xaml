@@ -25,6 +25,7 @@
             <Setter Property="Duration" Value="0.8" />
         </Style>
         <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
+        <converter:ValueProgressBarConverter x:Key="ValueProgressBarConverter" />
     </ContentPage.Resources>
     <ContentPage.Content>
         <!--  Khu vực video và danh sách  -->
@@ -45,6 +46,7 @@
             <Grid
                 x:Name="mainTopLayout"
                 Grid.Row="0"
+                IsVisible="{Binding MediaPlayerVisible}"
                 RowDefinitions="*,Auto,1"
                 RowSpacing="0">
                 <!--  Video  -->
@@ -102,7 +104,6 @@
                                                         </StackLayout>
                                                     </StackLayout>
                                                 </StackLayout>
-
                                             </StackLayout>
                                         </ControlTemplate>
                                     </vlc:PlaybackControls.ControlTemplate>
@@ -149,48 +150,62 @@
                     BackgroundColor="#3D3D3D"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding IsFullScreenOff}"
-                    Orientation="Horizontal"
                     Spacing="3">
+                    <StackLayout HorizontalOptions="Fill" Orientation="Horizontal">
+                        <StackLayout HorizontalOptions="StartAndExpand" Spacing="0">
+                            <Label
+                                HorizontalOptions="Start"
+                                StyleClass="BoldText"
+                                Text="{Binding VideoSlected.FileName}"
+                                TextColor="{DynamicResource WhiteColor}" />
+                            <Label
+                                HorizontalOptions="Start"
+                                Text="{Binding VideoSlected.StartTime, Converter={StaticResource DateTimeViewConverter}}"
+                                TextColor="{DynamicResource WhiteColor}" />
+                        </StackLayout>
+                        <StackLayout
+                            HorizontalOptions="EndAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="15">
+                            <icons:IconView
+                                Foreground="{DynamicResource WhiteColor}"
+                                HeightRequest="20"
+                                Source="ic_camera.png"
+                                WidthRequest="20">
+                                <icons:IconView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ScreenShotTappedCommand}" />
+                                </icons:IconView.GestureRecognizers>
+                            </icons:IconView>
+                            <icons:IconView
+                                Foreground="{DynamicResource WhiteColor}"
+                                HeightRequest="20"
+                                Source="ic_cloud_upload.png"
+                                WidthRequest="20">
+                                <icons:IconView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding DowloadVideoCommand}" />
+                                </icons:IconView.GestureRecognizers>
+                            </icons:IconView>
 
-                    <StackLayout HorizontalOptions="StartAndExpand" Spacing="0">
-                        <Label
-                            HorizontalOptions="Start"
-                            StyleClass="BoldText"
-                            Text="Video_20201020_122320"
-                            TextColor="{DynamicResource WhiteColor}" />
-                        <Label
-                            HorizontalOptions="Start"
-                            Text="00:02 09/09/2020"
-                            TextColor="{DynamicResource WhiteColor}" />
+                            <icons:IconView
+                                Foreground="{DynamicResource WhiteColor}"
+                                HeightRequest="20"
+                                Source="ic_star.png"
+                                WidthRequest="20" />
+
+                            <icons:IconView
+                                Foreground="{DynamicResource WhiteColor}"
+                                HeightRequest="20"
+                                Source="ic_nl.png"
+                                WidthRequest="20" />
+                        </StackLayout>
                     </StackLayout>
-                    <StackLayout
-                        HorizontalOptions="EndAndExpand"
-                        Orientation="Horizontal"
-                        Spacing="15">
-                        <icons:IconView
-                            Foreground="{DynamicResource WhiteColor}"
-                            HeightRequest="20"
-                            Source="ic_camera.png"
-                            WidthRequest="20" />
-                        <icons:IconView
-                            Foreground="{DynamicResource WhiteColor}"
-                            HeightRequest="20"
-                            Source="ic_cloud_upload.png"
-                            WidthRequest="20" />
 
-                        <icons:IconView
-                            Foreground="{DynamicResource WhiteColor}"
-                            HeightRequest="20"
-                            Source="ic_star.png"
-                            WidthRequest="20" />
-
-                        <icons:IconView
-                            Foreground="{DynamicResource WhiteColor}"
-                            HeightRequest="20"
-                            Source="ic_nl.png"
-                            WidthRequest="20" />
-                    </StackLayout>
-
+                    <ProgressBar
+                        Margin="10,0"
+                        HorizontalOptions="Fill"
+                        IsVisible="{Binding IsDownloading}"
+                        Progress="{Binding ProgressValue, Converter={StaticResource ValueProgressBarConverter}}"
+                        ProgressColor="Green" />
                 </StackLayout>
             </Grid>
 
@@ -211,7 +226,7 @@
                 Grid.Row="2"
                 Padding="5,0"
                 ItemsSource="{Binding VideoItemsSource, Mode=OneWay}"
-                SelectedItem="{Binding VideoSlected}"
+                SelectedCommand="{Binding VideoItemTapCommand}"
                 Spacing="10">
                 <icons:HorizontalList.ItemTemplate>
                     <DataTemplate>

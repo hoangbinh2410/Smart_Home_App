@@ -4,11 +4,12 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:DowloadVideo.Converter"
+    xmlns:converters1="clr-namespace:BA_MobileGPS.Core"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <converters:InverterBooleanConverter x:Key="InverterBooleanConverter" />
-        <converters:ValueProgressBarConverter x:Key="ValueProgressBarConverter" />
+        <converters1:ValueProgressBarConverter x:Key="ValueProgressBarConverter" />
     </ContentPage.Resources>
 
     <StackLayout Spacing="20" VerticalOptions="Center">
