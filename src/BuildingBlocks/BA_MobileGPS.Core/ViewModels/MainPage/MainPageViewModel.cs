@@ -1023,6 +1023,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (loopIndex == obj.Data.Count)
                     {
                         isfinshUpload = true;
+                        if (cts != null)
+                        {
+                            cts.Cancel();
+                            cts.Dispose();
+                        }
                     }
                 }
                 else
