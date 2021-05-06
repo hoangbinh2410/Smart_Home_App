@@ -11,6 +11,7 @@
     Title="Xem lại video"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.BackButtonTitle=""
+    NavigationPage.HasNavigationBar="False"
     SelectedTabColor="{DynamicResource MainTabSelectedColor}"
     UnselectedTabColor="{DynamicResource MainTabUnSelectedTextColor}">
 
