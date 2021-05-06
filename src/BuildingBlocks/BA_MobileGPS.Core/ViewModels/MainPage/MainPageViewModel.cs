@@ -40,8 +40,10 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IPingServerService pingServerService;
         private readonly IMapper _mapper;
         private readonly IPapersInforService papersInforService;
+        private readonly IStreamCameraService streamCameraService;
         private Timer timer;
         private Timer timerSyncData;
+        private System.Threading.CancellationTokenSource cts = new System.Threading.CancellationTokenSource();
 
         public MainPageViewModel(INavigationService navigationService, IVehicleOnlineService vehicleOnlineService,
             IAlertService alertService,
@@ -53,7 +55,7 @@ namespace BA_MobileGPS.Core.ViewModels
             IVehicleOnlineHubService vehicleOnlineHubService,
             IPingServerService pingServerService,
             IAlertHubService alertHubService, IUserBahaviorHubService userBahaviorHubService, IMapper mapper,
-            IPapersInforService papersInforService)
+            IPapersInforService papersInforService, IStreamCameraService streamCameraService)
             : base(navigationService)
         {
             this.papersInforService = papersInforService;
@@ -68,6 +70,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this.alertHubService = alertHubService;
             this.userBahaviorHubService = userBahaviorHubService;
             this.pingServerService = pingServerService;
+            this.streamCameraService = streamCameraService;
             this._mapper = mapper;
 
             StaticSettings.TimeServer = UserInfo.TimeServer.AddSeconds(1);
@@ -76,6 +79,7 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<OnSleepEvent>().Subscribe(OnSleepPage);
             EventAggregator.GetEvent<SelectedCompanyEvent>().Subscribe(SelectedCompanyChanged);
             EventAggregator.GetEvent<OneSignalOpendEvent>().Subscribe(OneSignalOpend);
+            EventAggregator.GetEvent<UploadVideoEvent>().Subscribe(UploadVideoRestream);
             EventAggregator.GetEvent<UserBehaviorEvent>().Subscribe(OnUserBehavior);
             InitSystemType();
         }
@@ -132,10 +136,16 @@ namespace BA_MobileGPS.Core.ViewModels
                 timer.Dispose();
                 timerSyncData.Stop();
                 timerSyncData.Dispose();
+                if (cts != null)
+                {
+                    cts.Cancel();
+                    cts.Dispose();
+                }
                 EventAggregator.GetEvent<OnResumeEvent>().Unsubscribe(OnResumePage);
                 EventAggregator.GetEvent<OnSleepEvent>().Unsubscribe(OnSleepPage);
                 EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(SelectedCompanyChanged);
                 EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
+                EventAggregator.GetEvent<UploadVideoEvent>().Unsubscribe(UploadVideoRestream);
                 EventAggregator.GetEvent<UserBehaviorEvent>().Unsubscribe(OnUserBehavior);
                 DisconnectSignalR();
                 IsLoaded = false;
@@ -988,6 +998,36 @@ namespace BA_MobileGPS.Core.ViewModels
                             });
                         });
                     }
+                }
+            }
+        }
+
+        private async void UploadVideoRestream(VideoRestreamInfo obj)
+        {
+            var isfinshUpload = false;
+            int loopIndex = 0;
+            cts = new System.Threading.CancellationTokenSource();
+            while (loopIndex <= obj.Data.Count && !isfinshUpload && !cts.IsCancellationRequested)
+            {
+                var result = await streamCameraService.UploadToCloud(new StartRestreamRequest()
+                {
+                    Channel = obj.Channel,
+                    CustomerID = 1010,
+                    StartTime = obj.Data[loopIndex].StartTime,
+                    EndTime = obj.Data[loopIndex].EndTime,
+                    VehicleName = obj.VehicleName
+                });
+                if (result != null && result.Data)
+                {
+                    loopIndex++;
+                    if (loopIndex == obj.Data.Count)
+                    {
+                        isfinshUpload = true;
+                    }
+                }
+                else
+                {
+                    await Task.Delay(10000, cts.Token);
                 }
             }
         }
