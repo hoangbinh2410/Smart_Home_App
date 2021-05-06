@@ -11,8 +11,8 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
-    xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     x:Name="root"
+    Title="Yêu cầu"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <Style TargetType="indicator:SfBusyIndicator">
@@ -54,10 +54,64 @@
                             HorizontalOptions="Fill"
                             LibVLC="{Binding LibVLC}"
                             MediaPlayer="{Binding MediaPlayer}"
-                            VerticalOptions="Fill" />
+                            VerticalOptions="Fill">
+                            <vlc:MediaPlayerElement.PlaybackControls>
+                                <vlc:PlaybackControls>
+                                    <vlc:PlaybackControls.ControlTemplate>
+                                        <ControlTemplate>
+                                            <StackLayout IsVisible="{TemplateBinding MediaPlayer, Converter={StaticResource ObjectToBoolConverter}}" Spacing="0">
+                                                <StackLayout
+                                                    x:Name="ControlsPanel"
+                                                    Spacing="0"
+                                                    Style="{TemplateBinding ControlsPanelStyle}">
+                                                    <StackLayout Orientation="Horizontal">
+                                                        <StackLayout
+                                                            Margin="20,0,0,0"
+                                                            Orientation="Horizontal"
+                                                            Spacing="0">
+                                                            <Button
+                                                                x:Name="PlayPauseButton"
+                                                                FontSize="20"
+                                                                HeightRequest="30"
+                                                                Style="{TemplateBinding PlayPauseButtonStyle}"
+                                                                WidthRequest="30" />
+                                                        </StackLayout>
+                                                        <StackLayout
+                                                            Margin="0,0,20,0"
+                                                            HorizontalOptions="EndAndExpand"
+                                                            Orientation="Horizontal"
+                                                            Spacing="13"
+                                                            VerticalOptions="Center">
+                                                            <icons:IconView
+                                                                Foreground="{DynamicResource WhiteColor}"
+                                                                HeightRequest="25"
+                                                                Source="ic_fullscreen.png"
+                                                                WidthRequest="25">
+                                                                <icons:IconView.Triggers>
+                                                                    <DataTrigger
+                                                                        Binding="{Binding IsFullScreenOff}"
+                                                                        TargetType="icons:IconView"
+                                                                        Value="false">
+                                                                        <Setter Property="Source" Value="ic_normalscreen" />
+                                                                    </DataTrigger>
+                                                                </icons:IconView.Triggers>
+                                                                <icons:IconView.GestureRecognizers>
+                                                                    <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.FullScreenTappedCommand}" />
+                                                                </icons:IconView.GestureRecognizers>
+                                                            </icons:IconView>
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                </StackLayout>
+
+                                            </StackLayout>
+                                        </ControlTemplate>
+                                    </vlc:PlaybackControls.ControlTemplate>
+                                </vlc:PlaybackControls>
+                            </vlc:MediaPlayerElement.PlaybackControls>
+                        </vlc:MediaPlayerElement>
 
                         <indicator:SfBusyIndicator
-                            Title="Video đang load trực tiếp từ thiết bị. Vui lòng chờ trong giây lát."
+                            Title="Loadding...."
                             IsBusy="{Binding BusyIndicatorActive}"
                             TextColor="{DynamicResource WhiteColor}"
                             TextSize="10" />
@@ -91,19 +145,51 @@
                 <!--  Chi tiết video được chọn  -->
                 <StackLayout
                     Grid.Row="1"
-                    Padding="10,0,0,5"
+                    Padding="10,0,10,5"
                     BackgroundColor="#3D3D3D"
+                    HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding IsFullScreenOff}"
+                    Orientation="Horizontal"
                     Spacing="3">
-                    <Label
-                        HorizontalOptions="Start"
-                        StyleClass="BoldText"
-                        Text="Video_20201020_122320"
-                        TextColor="{DynamicResource WhiteColor}" />
-                    <Label
-                        HorizontalOptions="Start"
-                        Text="00:02 09/09/2020"
-                        TextColor="{DynamicResource WhiteColor}" />
+
+                    <StackLayout HorizontalOptions="StartAndExpand" Spacing="0">
+                        <Label
+                            HorizontalOptions="Start"
+                            StyleClass="BoldText"
+                            Text="Video_20201020_122320"
+                            TextColor="{DynamicResource WhiteColor}" />
+                        <Label
+                            HorizontalOptions="Start"
+                            Text="00:02 09/09/2020"
+                            TextColor="{DynamicResource WhiteColor}" />
+                    </StackLayout>
+                    <StackLayout
+                        HorizontalOptions="EndAndExpand"
+                        Orientation="Horizontal"
+                        Spacing="15">
+                        <icons:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="20"
+                            Source="ic_camera.png"
+                            WidthRequest="20" />
+                        <icons:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="20"
+                            Source="ic_cloud_upload.png"
+                            WidthRequest="20" />
+
+                        <icons:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="20"
+                            Source="ic_star.png"
+                            WidthRequest="20" />
+
+                        <icons:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="20"
+                            Source="ic_nl.png"
+                            WidthRequest="20" />
+                    </StackLayout>
 
                 </StackLayout>
             </Grid>
@@ -164,6 +250,7 @@
                                     <StackLayout
                                         Grid.Row="1"
                                         Padding="10,5"
+                                        Spacing="0"
                                         VerticalOptions="End">
                                         <Label
                                             HorizontalOptions="Start"
