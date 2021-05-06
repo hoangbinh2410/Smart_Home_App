@@ -6,7 +6,16 @@ namespace BA_MobileGPS.Core.Views
     {
         public MyVideoTab()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex;
+            }
+           
         }
     }
 }
