@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Helpers;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
@@ -22,6 +23,10 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         public ICommand ScreenShotTappedCommand { get; }
 
+        public ICommand SelectVehicleCameraCommand { get; }
+
+        public ICommand SearchCommand { get; }
+
         /// <summary>
         /// Chụp ảnh màn hình
         /// </summary>
@@ -37,6 +42,10 @@ namespace BA_MobileGPS.Core.ViewModels
             VideoItemTapCommand = new DelegateCommand<VideoUploadInfo>(VideoSelectedChange);
             ScreenShotTappedCommand = new DelegateCommand(TakeSnapShot);
             DowloadVideoCommand = new DelegateCommand(DowloadVideo);
+            SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
+            SearchCommand = new DelegateCommand(SearchData);
+            vehicle = new CameraLookUpVehicleModel();
+            InitDateTimeInSearch();
         }
 
         #region Lifecycle
@@ -44,12 +53,15 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            GetListVideoDataFrom();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
+            {
+                Vehicle = vehicle;
+            }
         }
 
         public override void OnPageAppearingFirstTime()
@@ -74,6 +86,25 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
+
+        private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
+        public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
+
+        private DateTime dateStart;
+
+        public DateTime DateStart
+        {
+            get => dateStart;
+            set => SetProperty(ref dateStart, value);
+        }
+
+        private DateTime dateEnd;
+
+        public DateTime DateEnd
+        {
+            get => dateEnd;
+            set => SetProperty(ref dateEnd, value);
+        }
 
         public string BusyIndicatorText { get; set; }
 
@@ -140,6 +171,43 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region PrivateMethod
 
+        private void InitDateTimeInSearch()
+        {
+            dateEnd = DateTime.Now;
+            //Nếu lớn hơn 00h20p
+            if (dateEnd.TimeOfDay > new TimeSpan(0, 20, 0))
+            {
+                dateStart = dateEnd.AddMinutes(-20);
+            }
+            else dateStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+        }
+
+        private bool ValidateInput()
+        {
+            if (dateStart > dateEnd)
+            {
+                DisplayMessage.ShowMessageInfo("Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc");
+                return false;
+            }
+            else if (Vehicle == null || Vehicle.VehicleId == 0)
+            {
+                DisplayMessage.ShowMessageInfo(" Vui lòng chọn phương tiện");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private void SelectVehicleCamera()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraLookup", null, useModalNavigation: true, animated: true);
+            });
+        }
+
         /// <summary>
         /// Lấy danh sách video từ server
         /// </summary>
@@ -147,28 +215,42 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                VideoItemsSource = new ObservableCollection<VideoUploadInfo>();
-                pageIndex = 0;
-                RunOnBackground(async () =>
+                if (ValidateInput())
                 {
-                    return await streamCameraService.GetListVideoOnCloud(new Entities.CameraRestreamRequest()
+                    VideoItemsSource = new ObservableCollection<VideoUploadInfo>();
+                    pageIndex = 0;
+                    RunOnBackground(async () =>
                     {
-                        CustomerId = 1010,
-                        Date = Convert.ToDateTime("2021-05-05"),
-                        VehicleNames = "CAMTEST3"
-                    });
-                }, (result) =>
-                {
-                    if (result != null && result.Count > 0)
+                        return await streamCameraService.GetListVideoOnCloud(new Entities.CameraRestreamRequest()
+                        {
+                            CustomerId = 1010,
+                            Date = DateStart.Date,
+                            VehicleNames = "CAMTEST3"
+                        });
+                    }, (result) =>
                     {
-                        VideoItemsSource = (result.FirstOrDefault(x => x.VehicleName == "CAMTEST3")?.Data).ToObservableCollection();
-                    }
-                }, showLoading: true);
+                        if (result != null && result.Count > 0)
+                        {
+                            var lstvideo = result.FirstOrDefault(x => x.VehicleName == "CAMTEST3")?.Data;
+                            if (lstvideo != null && lstvideo.Count > 0)
+                            {
+                                var video = lstvideo.Where(x => x.StartTime >= DateStart && x.StartTime <= DateEnd).ToList();
+                                VideoItemsSource = video.ToObservableCollection();
+                            }
+                        }
+                    }, showLoading: true);
+                }
             }
             catch (Exception ex)
             {
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
+        }
+
+        private void SearchData()
+        {
+            GetListVideoDataFrom();
+            CloseVideo();
         }
 
         private void InitVLC()
