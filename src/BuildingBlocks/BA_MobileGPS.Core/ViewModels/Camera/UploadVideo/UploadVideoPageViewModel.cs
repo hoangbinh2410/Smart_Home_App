@@ -5,7 +5,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
@@ -51,10 +50,10 @@ namespace BA_MobileGPS.Core.ViewModels
             var req = new CameraUploadRequest()
             {
                 CustomerId = 1010,
-                FromDate = Convert.ToDateTime("2021-05-04 08:00:11"),
-                ToDate = Convert.ToDateTime("2021-05-04 08:05:11"),
+                FromDate = Convert.ToDateTime("2021-05-05 15:00:11"),
+                ToDate = Convert.ToDateTime("2021-05-05 15:05:11"),
                 Channel = 1,
-                VehiclePlate = "CAMTEST2"
+                VehiclePlate = "CAMTEST3"
             };
             RunOnBackground(async () =>
             {
@@ -73,43 +72,18 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("");
                 var lstvideoSelected = ListVideo.Where(x => x.IsSelected == true).ToList();
                 if (lstvideoSelected != null && lstvideoSelected.Count > 0)
                 {
-                    var isfinshUpload = false;
-                    int loopIndex = 1;
-                    while (loopIndex <= lstvideoSelected.Count && !isfinshUpload && !cts.IsCancellationRequested)
-                    {
-                        var result = await streamCameraService.UploadToCloud(new StartRestreamRequest()
-                        {
-                            Channel = VideoRestreamInfo.Channel,
-                            CustomerID = 1010,
-                            StartTime = lstvideoSelected[loopIndex].StartTime,
-                            EndTime = lstvideoSelected[loopIndex].EndTime,
-                            VehicleName = "CAMTEST2"
-                        });
-                        if (result != null && result.Data)
-                        {
-                            loopIndex++;
-                            if (loopIndex == lstvideoSelected.Count)
-                            {
-                                isfinshUpload = true;
-                            }
-                            else
-                            {
-                                await Task.Delay(1500, cts.Token);
-                            }
-                        }
-                    }
-                }
-                Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
-                Device.BeginInvokeOnMainThread(async () =>
-                {
                     await PageDialog.DisplayAlertAsync("Thông báo", "Video đang được tải về server. Quý khách có thể xem các video đã tải trên tab Yêu cầu", "Đóng");
-
+                    EventAggregator.GetEvent<UploadVideoEvent>().Publish(new VideoRestreamInfo()
+                    {
+                        Channel = VideoRestreamInfo.Channel,
+                        Data = lstvideoSelected,
+                        VehicleName = VideoRestreamInfo.VehicleName
+                    });
                     await NavigationService.GoBackAsync();
-                });
+                }
             });
         }
     }
