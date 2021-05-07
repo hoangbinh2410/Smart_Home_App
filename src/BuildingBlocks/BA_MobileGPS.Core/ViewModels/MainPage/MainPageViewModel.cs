@@ -1012,7 +1012,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var result = await streamCameraService.UploadToCloud(new StartRestreamRequest()
                 {
                     Channel = obj.Channel,
-                    CustomerID = 1010,
+                    CustomerID = UserInfo.XNCode,
                     StartTime = obj.Data[loopIndex].StartTime,
                     EndTime = obj.Data[loopIndex].EndTime,
                     VehicleName = obj.VehicleName

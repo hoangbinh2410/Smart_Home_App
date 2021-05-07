@@ -30,8 +30,8 @@
         <converter:ValueProgressBarConverter x:Key="ValueProgressBarConverter" />
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <Grid StyleClass="TitleBarGrid">
+        <Grid RowDefinitions="Auto,*">
+            <Grid Grid.Row="0" StyleClass="TitleBarGrid">
                 <StackLayout
                     Margin="0"
                     HorizontalOptions="FillAndExpand"
@@ -53,7 +53,10 @@
                     VerticalOptions="Center" />
             </Grid>
 
-            <Grid RowDefinitions="Auto,*" RowSpacing="0">
+            <Grid
+                Grid.Row="1"
+                RowDefinitions="Auto,*"
+                RowSpacing="0">
                 <!--  Khu vực tìm kiếm  -->
                 <Grid
                     Padding="5"
@@ -338,7 +341,7 @@
                                     <icons:IconView
                                         Foreground="{DynamicResource WhiteColor}"
                                         HeightRequest="20"
-                                        Source="ic_cloud_upload.png"
+                                        Source="ic_dowload.png"
                                         WidthRequest="20">
                                         <icons:IconView.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding DowloadVideoCommand}" />
@@ -349,12 +352,6 @@
                                         Foreground="{DynamicResource WhiteColor}"
                                         HeightRequest="20"
                                         Source="ic_star.png"
-                                        WidthRequest="20" />
-
-                                    <icons:IconView
-                                        Foreground="{DynamicResource WhiteColor}"
-                                        HeightRequest="20"
-                                        Source="ic_nl.png"
                                         WidthRequest="20" />
                                 </StackLayout>
                             </StackLayout>
@@ -460,7 +457,7 @@
                     </StackLayout>
                 </Grid>
             </Grid>
-        </StackLayout>
+        </Grid>
 
     </ContentPage.Content>
 </ContentPage>

@@ -305,32 +305,24 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void UploadToCloudTapped()
         {
-            // var req = new StartRestreamRequest()
-            // {
-            //     Channel = videoSlected.Data.Channel,
-            //     CustomerID = customerId,
-            //     StartTime = videoSlected.VideoStartTime,
-            //     EndTime = videoSlected.VideoEndTime,
-            //     VehicleName = bks
-            // };
-            // RunOnBackground(async () =>
-            // {
-            //     return await streamCameraService.UploadToCloud(req);
-            // }, (res) =>
-            //{
-            //    Device.BeginInvokeOnMainThread(() =>
-            //    {
-            //        if (res?.Data != null && res.Data)
-            //        {
-            //            DisplayMessage.ShowMessageError("UpLoad thành công");
-            //        }
-            //        else
-            //        {
-            //            DisplayMessage.ShowMessageError("Có sự cố khi upload");
-            //        }
-            //    });
+            SafeExecute(async () =>
+            {
+                if (VideoSlected != null && VideoSlected.Data != null)
+                {
+                    var parameters = new NavigationParameters
+                      {
+                          { "UploadVideo", new CameraUploadRequest(){
+                               CustomerId =  UserInfo.XNCode,
+                               FromDate = VideoSlected.VideoStartTime,
+                               ToDate = VideoSlected.VideoEndTime,
+                               Channel = VideoSlected.Data.Channel,
+                               VehiclePlate =Vehicle.VehiclePlate
+                          } }
+                     };
 
-            //});
+                    var a = await NavigationService.NavigateAsync("UploadVideoPage", parameters, true, true);
+                }
+            });
         }
 
         /// <summary>
@@ -528,7 +520,6 @@ namespace BA_MobileGPS.Core.ViewModels
                                    });
                                    await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
                                }
-
                            }
                            ErrorMessenger = result.UserMessage;
                        });

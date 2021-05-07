@@ -1,8 +1,8 @@
-﻿using Xamarin.Forms;
+﻿using Rg.Plugins.Popup.Pages;
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class UploadVideoPage : ContentPage
+    public partial class UploadVideoPage : PopupPage
     {
         public UploadVideoPage()
         {
