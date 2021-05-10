@@ -331,7 +331,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void UploadToCloudInListTapped(RestreamVideoModel obj)
         {
-            SafeExecute(() =>
+            SafeExecute(async () =>
             {
                 if (obj != null)
                 {
