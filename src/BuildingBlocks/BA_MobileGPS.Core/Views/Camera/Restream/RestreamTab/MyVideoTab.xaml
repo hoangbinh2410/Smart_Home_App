@@ -31,7 +31,10 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*">
-            <Grid Grid.Row="0" StyleClass="TitleBarGrid">
+            <Grid
+                Grid.Row="0"
+                IsVisible="{Binding IsFullScreenOff}"
+                StyleClass="TitleBarGrid">
                 <StackLayout
                     Margin="0"
                     HorizontalOptions="FillAndExpand"
