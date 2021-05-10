@@ -8,6 +8,7 @@ using Plugin.Permissions;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -219,7 +220,16 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (result != null && result.Count > 0)
                         {
-                            var lstvideo = result.FirstOrDefault(x => x.VehicleName == Vehicle.VehiclePlate)?.Data;
+                            var lstvideo = new List<VideoUploadInfo>();
+                            foreach (var item in result)
+                            {
+                                foreach (var item1 in item.Data)
+                                {
+                                    item1.Channel = item.Channel;
+                                }
+                                lstvideo.AddRange(item.Data);
+                            }
+                            //var lstvideo = result.Where(x => x.VehicleName == Vehicle.VehiclePlate)?.Data;
                             if (lstvideo != null && lstvideo.Count > 0)
                             {
                                 var video = lstvideo.Where(x => x.StartTime >= DateStart && x.StartTime <= DateEnd).ToList();

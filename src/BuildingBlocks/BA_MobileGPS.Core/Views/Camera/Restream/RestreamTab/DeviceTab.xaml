@@ -460,21 +460,44 @@
                                                     TextColor="{DynamicResource WhiteColor}"
                                                     VerticalOptions="End" />
                                             </Grid>
-
                                             <StackLayout
                                                 Grid.Row="1"
                                                 Padding="10,5"
-                                                Spacing="0"
-                                                VerticalOptions="End">
-                                                <Label
-                                                    HorizontalOptions="Start"
-                                                    StyleClass="BoldText"
-                                                    Text="{Binding VideoStartTime, Converter={StaticResource DateTimeViewConverter}}" />
-                                                <Label
-                                                    HorizontalOptions="Start"
-                                                    StyleClass="BoldText"
-                                                    Text="{Binding Data.Channel, StringFormat='Kênh {0}'}" />
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal">
+                                                <StackLayout Spacing="0" VerticalOptions="End">
+                                                    <Label
+                                                        HorizontalOptions="Start"
+                                                        StyleClass="BoldText"
+                                                        Text="{Binding VideoStartTime, Converter={StaticResource DateTimeViewConverter}}" />
+                                                    <Label
+                                                        HorizontalOptions="Start"
+                                                        StyleClass="BoldText"
+                                                        Text="{Binding Data.Channel, StringFormat='Kênh {0}'}" />
+                                                </StackLayout>
+                                                <StackLayout
+                                                    HorizontalOptions="EndAndExpand"
+                                                    Orientation="Horizontal"
+                                                    Spacing="15">
+
+                                                    <icons:IconView
+                                                        Foreground="#2F3542"
+                                                        HeightRequest="20"
+                                                        Source="ic_cloud_upload.png"
+                                                        WidthRequest="20">
+                                                        <icons:IconView.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.UploadToCloudInListTappedCommand}" CommandParameter="{Binding .}" />
+                                                        </icons:IconView.GestureRecognizers>
+                                                    </icons:IconView>
+
+                                                    <icons:IconView
+                                                        Foreground="#2F3542"
+                                                        HeightRequest="20"
+                                                        Source="ic_star.png"
+                                                        WidthRequest="20" />
+                                                </StackLayout>
                                             </StackLayout>
+
                                         </Grid>
                                     </pancake:PancakeView>
                                 </Grid>

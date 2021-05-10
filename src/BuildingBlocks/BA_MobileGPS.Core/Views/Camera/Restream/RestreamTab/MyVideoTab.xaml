@@ -43,7 +43,6 @@
                             <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
                         </icons:IconView.GestureRecognizers>
                     </icons:IconView>
-
                 </StackLayout>
                 <Label
                     FontSize="16"
@@ -428,7 +427,7 @@
                                                 <Label
                                                     HorizontalOptions="Start"
                                                     StyleClass="BoldText"
-                                                    Text="Kênh 1" />
+                                                    Text="{Binding Channel, StringFormat='Kênh {0}'}" />
                                             </StackLayout>
                                         </Grid>
                                     </Frame>
@@ -458,6 +457,5 @@
                 </Grid>
             </Grid>
         </Grid>
-
     </ContentPage.Content>
 </ContentPage>

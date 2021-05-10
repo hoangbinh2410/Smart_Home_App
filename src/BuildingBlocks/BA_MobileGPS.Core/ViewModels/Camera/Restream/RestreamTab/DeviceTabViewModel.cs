@@ -25,6 +25,9 @@ namespace BA_MobileGPS.Core.ViewModels
     public class DeviceTabViewModel : RestreamChildVMBase
     {
         public ICommand UploadToCloudTappedCommand { get; }
+
+        public ICommand UploadToCloudInListTappedCommand { get; }
+
         public ICommand ReLoadCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
         public ICommand SearchCommand { get; }
@@ -37,6 +40,7 @@ namespace BA_MobileGPS.Core.ViewModels
             IScreenOrientServices screenOrientServices) : base(navigationService, cameraService, screenOrientServices)
         {
             UploadToCloudTappedCommand = new DelegateCommand(UploadToCloudTapped);
+            UploadToCloudInListTappedCommand = new DelegateCommand<RestreamVideoModel>(UploadToCloudInListTapped);
             ReLoadCommand = new DelegateCommand(ReloadVideo);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
             SearchCommand = new DelegateCommand(SearchData);
@@ -316,6 +320,28 @@ namespace BA_MobileGPS.Core.ViewModels
                                FromDate = VideoSlected.VideoStartTime,
                                ToDate = VideoSlected.VideoEndTime,
                                Channel = VideoSlected.Data.Channel,
+                               VehiclePlate =Vehicle.VehiclePlate
+                          } }
+                     };
+
+                    var a = await NavigationService.NavigateAsync("UploadVideoPage", parameters, true, true);
+                }
+            });
+        }
+
+        private void UploadToCloudInListTapped(RestreamVideoModel obj)
+        {
+            SafeExecute(() =>
+            {
+                if (obj != null)
+                {
+                    var parameters = new NavigationParameters
+                      {
+                          { "UploadVideo", new CameraUploadRequest(){
+                               CustomerId =  UserInfo.XNCode,
+                               FromDate = obj.VideoStartTime,
+                               ToDate = obj.VideoEndTime,
+                               Channel = obj.Data.Channel,
                                VehiclePlate =Vehicle.VehiclePlate
                           } }
                      };
