@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace BA_MobileGPS.Entities.ResponeEntity.Camera
 {
@@ -29,5 +30,7 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Camera
 
         //Thời điểm cập nhật dữ liệu tiến trình
         public DateTime UpdatedTime { get; set; }
+
+        public List<string> UploadedFiles { get; set; }
     }
 }

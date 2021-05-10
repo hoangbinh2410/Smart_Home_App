@@ -1004,25 +1004,62 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private async void UploadVideoRestream(VideoRestreamInfo obj)
         {
-            var isfinshUpload = false;
-            int loopIndex = 0;
-            cts = new System.Threading.CancellationTokenSource();
-            while (loopIndex <= obj.Data.Count && !isfinshUpload && !cts.IsCancellationRequested)
+            if (obj != null && obj.Data != null)
             {
-                var result = await streamCameraService.UploadToCloud(new StartRestreamRequest()
+                foreach (var item in obj.Data)
                 {
-                    Channel = obj.Channel,
-                    CustomerID = 1010,
-                    StartTime = obj.Data[loopIndex].StartTime,
-                    EndTime = obj.Data[loopIndex].EndTime,
-                    VehicleName = obj.VehicleName
-                });
-                if (result != null && result.Data)
-                {
-                    loopIndex++;
-                    if (loopIndex == obj.Data.Count)
+                    var result = await streamCameraService.UploadToCloud(new StartRestreamRequest()
                     {
-                        isfinshUpload = true;
+                        Channel = obj.Channel,
+                        CustomerID = UserInfo.XNCode,
+                        StartTime = item.StartTime,
+                        EndTime = item.EndTime,
+                        VehicleName = obj.VehicleName
+                    });
+                    if (result != null && result.Data)
+                    {
+                        var isUploaded = await CheckStatusUploadFile(obj, item.FileName);
+                        if (isUploaded)
+                        {
+                            Device.BeginInvokeOnMainThread(() =>
+                            {
+                                DisplayMessage.ShowMessageInfo("File " + item.FileName + " đã được Upload thành công");
+                            });
+                            continue;
+                        }
+                    }
+                }
+            }
+        }
+
+        private async Task<bool> CheckStatusUploadFile(VideoRestreamInfo obj, string filename)
+        {
+            var result = false;
+            try
+            {
+                cts = new System.Threading.CancellationTokenSource();
+                while (!result && !cts.IsCancellationRequested)
+                {
+                    var respone = await streamCameraService.GetUploadProgress(UserInfo.XNCode, obj.VehicleName, obj.Channel);
+                    if (respone != null)
+                    {
+                        if (respone.FinishCount + respone.ErrorCount == respone.TotalCount
+                            && respone.TotalCount > 0 && respone.UploadedFiles != null && respone.UploadedFiles.Contains((filename.ToUpper() + ".mp4")) == true)
+                        {
+                            result = true;
+                            if (cts != null)
+                            {
+                                cts.Cancel();
+                                cts.Dispose();
+                            }
+                        }
+                        else
+                        {
+                            await Task.Delay(10000, cts.Token);
+                        }
+                    }
+                    else
+                    {
                         if (cts != null)
                         {
                             cts.Cancel();
@@ -1030,11 +1067,12 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                     }
                 }
-                else
-                {
-                    await Task.Delay(10000, cts.Token);
-                }
             }
+            catch (Exception)
+            {
+                return false;
+            }
+            return result;
         }
 
         #endregion PrivateMethod

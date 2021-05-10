@@ -1,7 +1,6 @@
 ﻿using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
 using Prism.Navigation;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
@@ -26,18 +25,38 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-
-            GetListVideoUploadActive();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+            if (parameters != null)
+            {
+                if (parameters.TryGetValue("UploadVideo", out CameraUploadRequest obj))
+                {
+                    RequestInfo = obj;
+                    GetListVideoUploadActive();
+                }
+            }
         }
 
         public override void OnDestroy()
         {
             base.OnDestroy();
+        }
+
+        private CameraUploadRequest requestInfo;
+
+        /// <summary>
+        /// Ảnh được focus
+        /// </summary>
+        public CameraUploadRequest RequestInfo
+        {
+            get => requestInfo;
+            set
+            {
+                SetProperty(ref requestInfo, value);
+            }
         }
 
         private VideoRestreamInfo videoRestreamInfo = new VideoRestreamInfo();
@@ -47,17 +66,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetListVideoUploadActive()
         {
-            var req = new CameraUploadRequest()
-            {
-                CustomerId = 1010,
-                FromDate = Convert.ToDateTime("2021-05-05 15:15:11"),
-                ToDate = Convert.ToDateTime("2021-05-05 15:20:11"),
-                Channel = 1,
-                VehiclePlate = "CAMTEST3"
-            };
             RunOnBackground(async () =>
             {
-                return await streamCameraService.GetListVideoNotUpload(req);
+                return await streamCameraService.GetListVideoNotUpload(RequestInfo);
             }, (result) =>
             {
                 if (result != null && result.Data != null && result.Data.Count > 0)
@@ -65,7 +76,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     VideoRestreamInfo = result;
                     ListVideo = result.Data.ToObservableCollection();
                 }
-            });
+            }, showLoading: true);
         }
 
         private void UploadVideo(object obj)

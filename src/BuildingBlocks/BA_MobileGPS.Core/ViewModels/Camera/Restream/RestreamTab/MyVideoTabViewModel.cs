@@ -8,6 +8,7 @@ using Plugin.Permissions;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -45,7 +46,6 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
             SearchCommand = new DelegateCommand(SearchData);
             vehicle = new CameraLookUpVehicleModel();
-            InitDateTimeInSearch();
         }
 
         #region Lifecycle
@@ -90,7 +90,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
         public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
 
-        private DateTime dateStart;
+        private DateTime dateStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
 
         public DateTime DateStart
         {
@@ -98,7 +98,7 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref dateStart, value);
         }
 
-        private DateTime dateEnd;
+        private DateTime dateEnd = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 23, 59, 59);
 
         public DateTime DateEnd
         {
@@ -171,17 +171,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region PrivateMethod
 
-        private void InitDateTimeInSearch()
-        {
-            dateEnd = DateTime.Now;
-            //Nếu lớn hơn 00h20p
-            if (dateEnd.TimeOfDay > new TimeSpan(0, 20, 0))
-            {
-                dateStart = dateEnd.AddMinutes(-20);
-            }
-            else dateStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
-        }
-
         private bool ValidateInput()
         {
             if (dateStart > dateEnd)
@@ -223,15 +212,24 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         return await streamCameraService.GetListVideoOnCloud(new Entities.CameraRestreamRequest()
                         {
-                            CustomerId = 1010,
+                            CustomerId = UserInfo.XNCode,
                             Date = DateStart.Date,
-                            VehicleNames = "CAMTEST3"
+                            VehicleNames = Vehicle.VehiclePlate
                         });
                     }, (result) =>
                     {
                         if (result != null && result.Count > 0)
                         {
-                            var lstvideo = result.FirstOrDefault(x => x.VehicleName == "CAMTEST3")?.Data;
+                            var lstvideo = new List<VideoUploadInfo>();
+                            foreach (var item in result)
+                            {
+                                foreach (var item1 in item.Data)
+                                {
+                                    item1.Channel = item.Channel;
+                                }
+                                lstvideo.AddRange(item.Data);
+                            }
+                            //var lstvideo = result.Where(x => x.VehicleName == Vehicle.VehiclePlate)?.Data;
                             if (lstvideo != null && lstvideo.Count > 0)
                             {
                                 var video = lstvideo.Where(x => x.StartTime >= DateStart && x.StartTime <= DateEnd).ToList();

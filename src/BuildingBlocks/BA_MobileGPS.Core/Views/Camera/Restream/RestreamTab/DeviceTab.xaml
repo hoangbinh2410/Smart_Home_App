@@ -29,8 +29,8 @@
         <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <Grid StyleClass="TitleBarGrid">
+        <Grid RowDefinitions="Auto,*">
+            <Grid Grid.Row="0" StyleClass="TitleBarGrid">
                 <StackLayout
                     Margin="0"
                     HorizontalOptions="FillAndExpand"
@@ -42,7 +42,6 @@
                             <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
                         </icons:IconView.GestureRecognizers>
                     </icons:IconView>
-
                 </StackLayout>
                 <Label
                     FontSize="16"
@@ -51,7 +50,10 @@
                     TextColor="White"
                     VerticalOptions="Center" />
             </Grid>
-            <Grid RowDefinitions="Auto,*" RowSpacing="0">
+            <Grid
+                Grid.Row="1"
+                RowDefinitions="Auto,*"
+                RowSpacing="0">
                 <!--  Khu vực tìm kiếm  -->
                 <Grid
                     Padding="5"
@@ -141,7 +143,6 @@
                                     VerticalOptions="Center"
                                     WidthRequest="15" />
                             </Grid>
-
                         </pancake:PancakeView>
                     </StackLayout>
 
@@ -221,7 +222,6 @@
                                 WidthRequest="20" />
                         </pancake:PancakeView>
                     </Grid>
-
                 </Grid>
 
                 <!--  Khu vực video và danh sách  -->
@@ -308,7 +308,6 @@
                                                                 </StackLayout>
                                                             </StackLayout>
                                                         </StackLayout>
-
                                                     </StackLayout>
                                                 </ControlTemplate>
                                             </vlc:PlaybackControls.ControlTemplate>
@@ -345,28 +344,60 @@
                                         </StackLayout.GestureRecognizers>
                                     </StackLayout>
                                 </Grid>
-
                             </Grid>
                         </pancake:PancakeView>
 
                         <!--  Chi tiết video được chọn  -->
                         <StackLayout
                             Grid.Row="1"
-                            Padding="10,0,0,5"
+                            Padding="10,0,10,5"
                             BackgroundColor="#3D3D3D"
+                            HorizontalOptions="FillAndExpand"
                             IsVisible="{Binding IsFullScreenOff}"
                             Spacing="3">
-                            <Label
-                                HorizontalOptions="Start"
-                                Text="{Binding VideoSlected.VideoStartTime, Converter={StaticResource DateTimeViewConverter}}"
-                                TextColor="{DynamicResource WhiteColor}" />
-                            <Label
-                                HorizontalOptions="Start"
-                                StyleClass="BoldText"
-                                Text="{Binding VideoSlected.VideoName}"
-                                TextColor="{DynamicResource WhiteColor}" />
-                        </StackLayout>
+                            <StackLayout HorizontalOptions="Fill" Orientation="Horizontal">
+                                <StackLayout HorizontalOptions="StartAndExpand" Spacing="0">
+                                    <Label
+                                        HorizontalOptions="Start"
+                                        StyleClass="BoldText"
+                                        Text="{Binding VideoSlected.VideoStartTime, Converter={StaticResource DateTimeViewConverter}}"
+                                        TextColor="{DynamicResource WhiteColor}" />
+                                    <Label
+                                        HorizontalOptions="Start"
+                                        Text="{Binding VideoSlected.VideoName}"
+                                        TextColor="{DynamicResource WhiteColor}" />
+                                </StackLayout>
+                                <StackLayout
+                                    HorizontalOptions="EndAndExpand"
+                                    Orientation="Horizontal"
+                                    Spacing="15">
+                                    <icons:IconView
+                                        Foreground="{DynamicResource WhiteColor}"
+                                        HeightRequest="20"
+                                        Source="ic_camera.png"
+                                        WidthRequest="20">
+                                        <icons:IconView.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding ScreenShotTappedCommand}" />
+                                        </icons:IconView.GestureRecognizers>
+                                    </icons:IconView>
+                                    <icons:IconView
+                                        Foreground="{DynamicResource WhiteColor}"
+                                        HeightRequest="20"
+                                        Source="ic_cloud_upload.png"
+                                        WidthRequest="20">
+                                        <icons:IconView.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding UploadToCloudTappedCommand}" />
+                                        </icons:IconView.GestureRecognizers>
+                                    </icons:IconView>
 
+                                    <icons:IconView
+                                        Foreground="{DynamicResource WhiteColor}"
+                                        HeightRequest="20"
+                                        Source="ic_star.png"
+                                        WidthRequest="20" />
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
                     </Grid>
 
                     <!--  Tự động phát  -->
@@ -429,23 +460,44 @@
                                                     TextColor="{DynamicResource WhiteColor}"
                                                     VerticalOptions="End" />
                                             </Grid>
-
-
                                             <StackLayout
                                                 Grid.Row="1"
                                                 Padding="10,5"
-                                                Spacing="0"
-                                                VerticalOptions="End">
-                                                <Label
-                                                    HorizontalOptions="Start"
-                                                    StyleClass="BoldText"
-                                                    Text="{Binding VideoStartTime, Converter={StaticResource DateTimeViewConverter}}" />
-                                                <Label
-                                                    HorizontalOptions="Start"
-                                                    StyleClass="BoldText"
-                                                    Text="{Binding Data.Channel, StringFormat='Kênh {0}'}" />
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal">
+                                                <StackLayout Spacing="0" VerticalOptions="End">
+                                                    <Label
+                                                        HorizontalOptions="Start"
+                                                        StyleClass="BoldText"
+                                                        Text="{Binding VideoStartTime, Converter={StaticResource DateTimeViewConverter}}" />
+                                                    <Label
+                                                        HorizontalOptions="Start"
+                                                        StyleClass="BoldText"
+                                                        Text="{Binding Data.Channel, StringFormat='Kênh {0}'}" />
+                                                </StackLayout>
+                                                <StackLayout
+                                                    HorizontalOptions="EndAndExpand"
+                                                    Orientation="Horizontal"
+                                                    Spacing="15">
 
+                                                    <icons:IconView
+                                                        Foreground="#2F3542"
+                                                        HeightRequest="20"
+                                                        Source="ic_cloud_upload.png"
+                                                        WidthRequest="20">
+                                                        <icons:IconView.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.UploadToCloudInListTappedCommand}" CommandParameter="{Binding .}" />
+                                                        </icons:IconView.GestureRecognizers>
+                                                    </icons:IconView>
+
+                                                    <icons:IconView
+                                                        Foreground="#2F3542"
+                                                        HeightRequest="20"
+                                                        Source="ic_star.png"
+                                                        WidthRequest="20" />
+                                                </StackLayout>
                                             </StackLayout>
+
                                         </Grid>
                                     </pancake:PancakeView>
                                 </Grid>
@@ -473,7 +525,6 @@
                     </StackLayout>
                 </Grid>
             </Grid>
-        </StackLayout>
-
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
