@@ -353,5 +353,24 @@ namespace BA_MobileGPS.Service.Service
             }
             return result;
         }
+
+        public async Task<PackageBACameraRespone> GetPackageByXnPlate(PackageBACameraRequest request)
+        {
+            var result = new PackageBACameraRespone();
+            try
+            {
+                string url = $"{ApiUri.POST_RESTREAM_CANCELUPLOAD}";
+                var respone = await requestProvider.PostAsync<PackageBACameraRequest, ResponseBaseV2<PackageBACameraRespone>>(url, request);
+                if (respone != null && respone.Data != null)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
     }
 }
