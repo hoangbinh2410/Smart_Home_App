@@ -286,6 +286,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     MediaPlayer.TimeChanged -= Media_TimeChanged;
                     MediaPlayer.EndReached -= Media_EndReached;
                     MediaPlayer.EncounteredError -= Media_EncounteredError;
+                    MediaPlayer.SnapshotTaken -= MediaPlayer_SnapshotTaken;
 
                     if (MediaPlayer.Media != null)
                     {
