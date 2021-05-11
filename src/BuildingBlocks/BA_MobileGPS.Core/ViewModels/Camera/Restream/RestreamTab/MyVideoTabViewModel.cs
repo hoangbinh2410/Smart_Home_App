@@ -69,7 +69,7 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnPageAppearingFirstTime();
             LibVLCSharp.Shared.Core.Initialize();
             LibVLC = new LibVLC();
-            InitVLC();
+            //InitVLC();
         }
 
         public override void OnDestroy()
@@ -251,19 +251,29 @@ namespace BA_MobileGPS.Core.ViewModels
             CloseVideo();
         }
 
-        private void InitVLC()
+        private void InitVLC(string url)
         {
             try
             {
-                MediaPlayer = new MediaPlayer(LibVLC) { EnableHardwareDecoding = true };
+                MediaPlayer = new MediaPlayer(LibVLC);
                 MediaPlayer.TimeChanged += Media_TimeChanged;
                 MediaPlayer.EndReached += Media_EndReached;
                 MediaPlayer.EncounteredError += Media_EncounteredError;
+                MediaPlayer.SnapshotTaken += MediaPlayer_SnapshotTaken;
+                MediaPlayer.Media = new Media(libVLC, new Uri(url));
                 MediaPlayer.Play();
             }
             catch (Exception ex)
             {
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
+
+        private void MediaPlayer_SnapshotTaken(object sender, MediaPlayerSnapshotTakenEventArgs e)
+        {
+            if (File.Exists(e.Filename))
+            {
+                DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(e.Filename);
             }
         }
 
@@ -357,9 +367,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         MediaPlayerVisible = true; // Bật layout media lên
                     });
                     // init ở đây :
-                    InitVLC();
-                    MediaPlayer.Media = new Media(libVLC, new Uri(obj.Link));
-                    MediaPlayer.Play();
+                    InitVLC(obj.Link);
+
                     VideoSlected = obj; // Set màu select cho item
                 });
             }
@@ -369,18 +378,17 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                var folderPath = DependencyService.Get<ICameraSnapShotServices>().GetFolderPath();
-                var current = DateTime.Now.ToString("yyyyMMddHHmmss");
-                var fileName = current + ".jpg";
-                var filePath = Path.Combine(folderPath, fileName);
-
                 if (VideoSlected != null)
                 {
-                    MediaPlayer.TakeSnapshot(0, filePath, 0, 0);
-                }
-                if (File.Exists(filePath))
-                {
-                    DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(filePath);
+                    var folderPath = DependencyService.Get<ICameraSnapShotServices>().GetFolderPath();
+                    var current = DateTime.Now.ToString("yyyyMMddHHmmss");
+                    var fileName = current + ".jpg";
+                    var filePath = Path.Combine(folderPath, fileName);
+                    bool result = MediaPlayer.TakeSnapshot(0, filePath, 0, 0);
+                    //if (File.Exists(filePath) && result)
+                    //{
+                    //    DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(filePath);
+                    //}
                 }
             }
             catch (Exception ex)

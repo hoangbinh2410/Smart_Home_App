@@ -393,11 +393,11 @@
                                         </icons:IconView.GestureRecognizers>
                                     </icons:IconView>
 
-                                    <icons:IconView
+                                    <!--<icons:IconView
                                         Foreground="{DynamicResource WhiteColor}"
                                         HeightRequest="20"
                                         Source="ic_star.png"
-                                        WidthRequest="20" />
+                                        WidthRequest="20" />-->
                                 </StackLayout>
                             </StackLayout>
                         </StackLayout>
@@ -434,13 +434,11 @@
                         <xforms:SfListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <pancake:PancakeView Padding="0" HeightRequest="270">
-                                        <pancake:PancakeView.Shadow>
-                                            <pancake:DropShadow
-                                                BlurRadius="1"
-                                                Offset="3,0"
-                                                Color="Black" />
-                                        </pancake:PancakeView.Shadow>
+                                    <Frame
+                                        Padding="0"
+                                        BorderColor="{StaticResource GrayColor}"
+                                        HasShadow="False"
+                                        HeightRequest="270">
                                         <Grid
                                             BackgroundColor="Transparent"
                                             RowDefinitions="*,Auto"
@@ -502,7 +500,7 @@
                                             </StackLayout>
 
                                         </Grid>
-                                    </pancake:PancakeView>
+                                    </Frame>
                                 </Grid>
                             </DataTemplate>
                         </xforms:SfListView.ItemTemplate>

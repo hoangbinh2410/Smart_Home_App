@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Extensions;
+using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Entities;
@@ -12,6 +13,7 @@ using Syncfusion.Data.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -27,6 +29,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand UploadToCloudTappedCommand { get; }
 
         public ICommand UploadToCloudInListTappedCommand { get; }
+
+        public ICommand ScreenShotTappedCommand { get; }
 
         public ICommand ReLoadCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
@@ -46,6 +50,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SearchCommand = new DelegateCommand(SearchData);
             VideoItemTapCommand = new DelegateCommand<ItemTappedEventArgs>(VideoSelectedChange);
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
+            ScreenShotTappedCommand = new DelegateCommand(TakeSnapShot);
             mediaPlayerVisible = false;
             videoItemsSource = new ObservableCollection<RestreamVideoModel>();
             InitDateTimeInSearch();
@@ -830,6 +835,29 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             GetListVideoDataFrom();
             CloseVideo();
+        }
+
+        private void TakeSnapShot()
+        {
+            try
+            {
+                if (VideoSlected != null)
+                {
+                    var folderPath = DependencyService.Get<ICameraSnapShotServices>().GetFolderPath();
+                    var current = DateTime.Now.ToString("yyyyMMddHHmmss");
+                    var fileName = current + ".jpg";
+                    var filePath = Path.Combine(folderPath, fileName);
+                    MediaPlayer.TakeSnapshot(0, filePath, 0, 0);
+                    if (File.Exists(filePath))
+                    {
+                        DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(filePath);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
         }
 
         #endregion PrivateMethod
