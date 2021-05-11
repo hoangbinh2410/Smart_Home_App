@@ -350,11 +350,11 @@
                                         </icons:IconView.GestureRecognizers>
                                     </icons:IconView>
 
-                                    <icons:IconView
+                                    <!--<icons:IconView
                                         Foreground="{DynamicResource WhiteColor}"
                                         HeightRequest="20"
                                         Source="ic_star.png"
-                                        WidthRequest="20" />
+                                        WidthRequest="20" />-->
                                 </StackLayout>
                             </StackLayout>
 
