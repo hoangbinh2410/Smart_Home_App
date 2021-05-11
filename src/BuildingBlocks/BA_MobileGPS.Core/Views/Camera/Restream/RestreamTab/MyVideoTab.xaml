@@ -403,7 +403,7 @@
                                                 BackgroundColor="Black"
                                                 HeightRequest="250"
                                                 VerticalOptions="FillAndExpand">
-                                                <ff:CachedImage Aspect="Fill" Source="bg_driver_header.png" />
+                                                <ff:CachedImage Aspect="Fill" Source="{Binding ImageUrl}" />
                                                 <icons:IconView
                                                     Foreground="{DynamicResource WhiteColor}"
                                                     HeightRequest="30"
