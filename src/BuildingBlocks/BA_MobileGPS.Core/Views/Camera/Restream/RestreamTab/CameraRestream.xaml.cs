@@ -74,7 +74,6 @@ namespace BA_MobileGPS.Core.Views
 
         private void OrientChangedToLanscape()
         {
-            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
             IsHidden = true;
             var param = new NavigationParameters()
             {
@@ -85,7 +84,6 @@ namespace BA_MobileGPS.Core.Views
 
         private void OrientChangedToVetical()
         {
-            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, true);
             IsHidden = false;
             var param = new NavigationParameters()
             {

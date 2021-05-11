@@ -97,6 +97,9 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("l")]
         public string Link { get; set; }
 
+        [JsonProperty("i")]
+        public string ImageUrl { get; set; }
+
         [JsonIgnore]
         public byte Channel { get; set; }
     }
