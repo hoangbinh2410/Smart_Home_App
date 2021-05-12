@@ -40,7 +40,7 @@
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal"
                     Spacing="8"
-                    VerticalOptions="CenterAndExpand">
+                    VerticalOptions="EndAndExpand">
                     <icons:IconView Source="ic_close.png" StyleClass="TopIconView">
                         <icons:IconView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
@@ -52,7 +52,7 @@
                     HorizontalOptions="Center"
                     Text="Xem lại video"
                     TextColor="White"
-                    VerticalOptions="Center" />
+                    VerticalOptions="End" />
             </Grid>
 
             <Grid
