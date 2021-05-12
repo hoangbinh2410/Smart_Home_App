@@ -170,6 +170,7 @@
                                 BorderColor="Transparent"
                                 DateSelectedCommand="{Binding DateSelectedCommand}"
                                 DateTime="{Binding DateStart}"
+                                FontSize="13"
                                 HorizontalOptions="FillAndExpand"
                                 IconColor="{DynamicResource PrimaryColor}"
                                 PickerMode="Popup"
@@ -193,6 +194,7 @@
                                 BorderColor="Transparent"
                                 DateSelectedCommand="{Binding DateSelectedCommand}"
                                 DateTime="{Binding DateEnd}"
+                                FontSize="13"
                                 HorizontalOptions="FillAndExpand"
                                 IconColor="{DynamicResource PrimaryColor}"
                                 PickerMode="Popup"
@@ -491,11 +493,11 @@
                                                         </icons:IconView.GestureRecognizers>
                                                     </icons:IconView>
 
-                                                    <icons:IconView
+                                                    <!--<icons:IconView
                                                         Foreground="#2F3542"
                                                         HeightRequest="20"
                                                         Source="ic_star.png"
-                                                        WidthRequest="20" />
+                                                        WidthRequest="20" />-->
                                                 </StackLayout>
                                             </StackLayout>
 
