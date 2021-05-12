@@ -137,7 +137,7 @@
                                 Grid.ColumnSpan="3"
                                 ErrorText="{Binding Notes.ErrorFirst}"
                                 HasError="{Binding Notes.IsNotValid}"
-                                OutlineCornerRadius="10">
+                                OutlineCornerRadius="20">
                                 <Entry Placeholder="Thêm ghi chú" Text="{Binding Note}" />
                             </input:SfTextInputLayout>
                         </Grid>
