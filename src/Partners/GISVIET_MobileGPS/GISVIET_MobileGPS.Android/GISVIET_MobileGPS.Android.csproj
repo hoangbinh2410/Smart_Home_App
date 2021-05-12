@@ -101,6 +101,7 @@
     <AndroidAsset Include="Assets\Roboto-Regular.ttf" />
     <AndroidAsset Include="Assets\Roboto-Bold.ttf" />
     <GoogleServicesJson Include="google-services.json" />
+    <AndroidAsset Include="Assets\Roboto-Italic.ttf" />
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
