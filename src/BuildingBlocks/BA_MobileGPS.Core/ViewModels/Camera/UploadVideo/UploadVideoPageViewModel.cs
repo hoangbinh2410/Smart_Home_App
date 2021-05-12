@@ -74,7 +74,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (result != null && result.Data != null && result.Data.Count > 0)
                 {
                     VideoRestreamInfo = result;
-                    ListVideo = result.Data.ToObservableCollection();
+                    ListVideo = result.Data.OrderByDescending(x => x.StartTime).ToObservableCollection();
                 }
             }, showLoading: true);
         }
@@ -83,7 +83,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                var lstvideoSelected = ListVideo.Where(x => x.IsSelected == true).ToList();
+                var lstvideoSelected = ListVideo.Where(x => x.IsSelected == true && x.IsUploaded == false).ToList();
                 if (lstvideoSelected != null && lstvideoSelected.Count > 0)
                 {
                     await PageDialog.DisplayAlertAsync("Thông báo", "Video đang được tải về server. Quý khách có thể xem các video đã tải trên tab Yêu cầu", "Đóng");
@@ -94,6 +94,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         VehicleName = VideoRestreamInfo.VehicleName
                     });
                     await NavigationService.GoBackAsync();
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo("Chọn 1 video để tải về server");
                 }
             });
         }

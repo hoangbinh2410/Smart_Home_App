@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:animation="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:checkbox="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
@@ -25,7 +26,7 @@
             <converter:TimeSecondConverter x:Key="TimeSecondConverter" />
         </ResourceDictionary>
     </pages:PopupPage.Resources>
-    <Grid RowDefinitions="Auto,Auto,*,Auto">
+    <Grid RowDefinitions="Auto,Auto,*,Auto" RowSpacing="5">
         <Grid Grid.Row="0" StyleClass="TitleBarGrid">
             <StackLayout
                 Margin="0"
@@ -78,72 +79,106 @@
             Grid.Row="2"
             Padding="10"
             Spacing="20">
-            <icons:HorizontalList
-                Grid.Row="0"
-                Margin="0"
-                Padding="0"
-                IsClippedToBounds="True"
-                ItemsSource="{Binding ListVideo, Mode=TwoWay}"
-                Spacing="10"
-                VerticalOptions="FillAndExpand">
-                <icons:HorizontalList.ItemTemplate>
-                    <DataTemplate>
-                        <Grid
-                            ColumnDefinitions="Auto,Auto,*"
-                            ColumnSpacing="20"
-                            RowDefinitions="Auto,Auto"
-                            RowSpacing="10">
-                            <CheckBox
+            <StackLayout HorizontalOptions="FillAndExpand">
+                <checkbox:SfCheckBox
+                    x:Name="checkAll"
+                    CheckedColor="{DynamicResource PrimaryColor}"
+                    ControlSize="25"
+                    CornerRadius="12"
+                    FontAttributes="Bold"
+                    Text="Tất cả" />
+                <BoxView
+                    BackgroundColor="{StaticResource TextPlaceHolderColor}"
+                    HeightRequest="1"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center" />
+            </StackLayout>
+            <ScrollView Margin="0" Padding="5">
+                <StackLayout
+                    x:Name="lstVideoUpload"
+                    BindableLayout.ItemsSource="{Binding ListVideo}"
+                    Spacing="10">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                ColumnDefinitions="40,Auto,*"
+                                ColumnSpacing="20"
+                                RowDefinitions="Auto,Auto"
+                                RowSpacing="10">
+                                <checkbox:SfCheckBox
+                                    x:Name="cboUploadVideo"
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    CheckedColor="{DynamicResource PrimaryColor}"
+                                    ControlSize="25"
+                                    CornerRadius="12"
+                                    IsChecked="{Binding IsSelected}"
+                                    IsVisible="{Binding IsUploaded, Converter={StaticResource InvertBooleanConverter}}"
+                                    StateChanged="cboUploadVideo_StateChanged" />
+                                <!--<CheckBox
                                 Grid.Row="0"
                                 Grid.Column="0"
-                                IsChecked="{Binding IsSelected}" />
-                            <ffImage:CachedImage
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                Source="ic_thumbnailupload.png"
-                                WidthRequest="40" />
-                            <StackLayout
-                                Grid.Row="0"
-                                Grid.Column="2"
-                                HorizontalOptions="Start">
-                                <Label
-                                    HorizontalOptions="Start"
-                                    HorizontalTextAlignment="Start"
-                                    Text="{Binding FileName}" />
-                                <StackLayout Orientation="Horizontal">
-                                    <Label
-                                        FontSize="12"
-                                        HorizontalOptions="Start"
-                                        HorizontalTextAlignment="Start"
-                                        Text="{Binding StartTime, Converter={StaticResource TimeSecondConverter}}"
-                                        TextColor="#18A0FB" />
-                                    <Label
-                                        FontSize="12"
-                                        HorizontalOptions="Start"
-                                        HorizontalTextAlignment="Start"
-                                        Text="-"
-                                        TextColor="#18A0FB" />
-                                    <Label
-                                        FontSize="12"
-                                        HorizontalOptions="Start"
-                                        HorizontalTextAlignment="Start"
-                                        Text="{Binding EndTime, Converter={StaticResource TimeSecondConverter}}"
-                                        TextColor="#18A0FB" />
+                                IsChecked="{Binding IsSelected}"
+                                IsVisible="{Binding IsUploaded, Converter={StaticResource InvertBooleanConverter}}" />-->
+                                <ffImage:CachedImage
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Source="ic_thumbnailupload.png"
+                                    WidthRequest="40" />
+                                <StackLayout
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    HorizontalOptions="Start">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label
+                                            HorizontalOptions="Start"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{Binding FileName}" />
+
+                                        <Label
+                                            HorizontalOptions="Start"
+                                            HorizontalTextAlignment="Start"
+                                            IsVisible="{Binding IsUploaded}"
+                                            Text="(Đã tải)"
+                                            TextColor="Green" />
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label
+                                            FontSize="12"
+                                            HorizontalOptions="Start"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{Binding StartTime, Converter={StaticResource TimeSecondConverter}}"
+                                            TextColor="#18A0FB" />
+                                        <Label
+                                            FontSize="12"
+                                            HorizontalOptions="Start"
+                                            HorizontalTextAlignment="Start"
+                                            Text="-"
+                                            TextColor="#18A0FB" />
+                                        <Label
+                                            FontSize="12"
+                                            HorizontalOptions="Start"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{Binding EndTime, Converter={StaticResource TimeSecondConverter}}"
+                                            TextColor="#18A0FB" />
+                                    </StackLayout>
                                 </StackLayout>
-                            </StackLayout>
-                            <input:SfTextInputLayout
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="3"
-                                ErrorText="{Binding Notes.ErrorFirst}"
-                                HasError="{Binding Notes.IsNotValid}"
-                                OutlineCornerRadius="20">
-                                <Entry Placeholder="Thêm ghi chú" Text="{Binding Note}" />
-                            </input:SfTextInputLayout>
-                        </Grid>
-                    </DataTemplate>
-                </icons:HorizontalList.ItemTemplate>
-            </icons:HorizontalList>
+                                <input:SfTextInputLayout
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3"
+                                    ErrorText="{Binding Notes.ErrorFirst}"
+                                    HasError="{Binding Notes.IsNotValid}"
+                                    OutlineCornerRadius="20">
+                                    <Entry Placeholder="Thêm ghi chú" Text="{Binding Note}" />
+                                </input:SfTextInputLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+
         </StackLayout>
         <StackLayout
             Grid.Row="3"

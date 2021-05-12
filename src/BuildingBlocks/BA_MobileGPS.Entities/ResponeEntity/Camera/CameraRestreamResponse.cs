@@ -56,6 +56,9 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("f")]
         public string FileName { get; set; }
 
+        [JsonProperty("u")]
+        public bool IsUploaded { get; set; }
+
         private bool isSelected = true;
 
         [JsonIgnore]
