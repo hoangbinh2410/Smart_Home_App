@@ -1002,34 +1002,76 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private async void UploadVideoRestream(VideoRestreamInfo obj)
+        private bool isSendUpload = false;
+
+        private void UploadVideoRestream(VideoRestreamInfo obj)
         {
             if (obj != null && obj.Data != null)
             {
-                foreach (var item in obj.Data)
-                {
-                    var result = await streamCameraService.UploadToCloud(new StartRestreamRequest()
-                    {
-                        Channel = obj.Channel,
-                        CustomerID = UserInfo.XNCode,
-                        StartTime = item.StartTime,
-                        EndTime = item.EndTime,
-                        VehicleName = obj.VehicleName
-                    });
-                    if (result != null && result.Data)
-                    {
-                        var isUploaded = await CheckStatusUploadFile(obj, item.FileName);
-                        if (isUploaded)
-                        {
-                            Device.BeginInvokeOnMainThread(() =>
-                            {
-                                DisplayMessage.ShowMessageInfo("File " + item.FileName + " đã được Upload thành công");
-                            });
-                            continue;
-                        }
-                    }
-                }
+                int index = 0;
+                Device.StartTimer(TimeSpan.FromSeconds(5), () =>
+                 {
+                     if (!isSendUpload && index <= obj.Data.Count)
+                     {
+                         isSendUpload = true;
+                         RunOnBackground(async () =>
+                         {
+                             return await streamCameraService.UploadToCloud(new StartRestreamRequest()
+                             {
+                                 Channel = obj.Channel,
+                                 CustomerID = UserInfo.XNCode,
+                                 StartTime = obj.Data[index].StartTime,
+                                 EndTime = obj.Data[index].EndTime,
+                                 VehicleName = obj.VehicleName
+                             });
+                         }, (result) =>
+                         {
+                             if (result != null && result.Data)
+                             {
+                                 UploadFileStatus(obj, obj.Data[index].FileName);
+                                 index++;
+                             }
+                         });
+                         if (index >= obj.Data.Count)
+                         {
+                             return false;
+                         }
+                         else
+                         {
+                             return true;
+                         }
+                     }
+                     else
+                     {
+                         if (index >= obj.Data.Count)
+                         {
+                             return false;
+                         }
+                         else
+                         {
+                             return true;
+                         }
+                     }
+                 });
             }
+        }
+
+        private void UploadFileStatus(VideoRestreamInfo obj, string filename)
+        {
+            RunOnBackground(async () =>
+            {
+                return await CheckStatusUploadFile(obj, filename);
+            }, (isUploaded) =>
+           {
+               if (isUploaded)
+               {
+                   isSendUpload = false;
+                   Device.BeginInvokeOnMainThread(() =>
+                   {
+                       DisplayMessage.ShowMessageInfo("File " + filename + " đã được Upload thành công");
+                   });
+               }
+           });
         }
 
         private async Task<bool> CheckStatusUploadFile(VideoRestreamInfo obj, string filename)
