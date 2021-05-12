@@ -53,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Developer: Phan Anh Tung (U38W3KPMDL)</CodesignKey>
+    <CodesignKey>iPhone Developer: QUANG TRUNG ĐÀO (Q4QWFP766P)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchInterpreter>-all</MtouchInterpreter>
@@ -71,7 +71,7 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer: Phan Anh Tung (U38W3KPMDL)</CodesignKey>
+    <CodesignKey>iPhone Developer: QUANG TRUNG ĐÀO (Q4QWFP766P)</CodesignKey>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <CodesignProvision>GISVIETDEV</CodesignProvision>
     <MtouchLink>SdkOnly</MtouchLink>
@@ -86,7 +86,7 @@
     <MtouchArch>ARM64</MtouchArch>
     <BuildIpa>True</BuildIpa>
     <CodesignProvision>GISVIETDIS</CodesignProvision>
-    <CodesignKey>iPhone Distribution: Phan Anh Tung (K7W379K359)</CodesignKey>
+    <CodesignKey>iPhone Distribution: QUANG TRUNG ĐÀO (9ATCPNC2KV)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchLink>SdkOnly</MtouchLink>
@@ -100,7 +100,7 @@
     <ConsolePause>False</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
     <CodesignProvision>GISVIETDIS</CodesignProvision>
-    <CodesignKey>iPhone Distribution: Phan Anh Tung (K7W379K359)</CodesignKey>
+    <CodesignKey>iPhone Distribution: QUANG TRUNG ĐÀO (9ATCPNC2KV)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchLink>SdkOnly</MtouchLink>
