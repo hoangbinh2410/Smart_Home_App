@@ -67,6 +67,12 @@
         Android="Roboto-Bold.ttf#Roboto-Bold"
         iOS="Roboto-Bold" />
 
+    <OnPlatform
+        x:Key="myFontRobotoItalic"
+        x:TypeArguments="x:String"
+        Android="Roboto-Italic.ttf#Roboto-Italic"
+        iOS="Roboto-Italic" />
+
     <!--  Font sizes  -->
     <x:Double x:Key="FontSize10">10</x:Double>
     <x:Double x:Key="FontSize11">11</x:Double>

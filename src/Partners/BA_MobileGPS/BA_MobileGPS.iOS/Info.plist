@@ -37,13 +37,9 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Lato-Italic.ttf</string>
-		<string>Lato-BlackItalic.ttf</string>
-		<string>Lato-Light.ttf</string>
-		<string>Lato-Regular.ttf</string>
-		<string>Lato-Medium.ttf</string>
-		<string>Lato-Semibold.ttf</string>
-		<string>Lato-Bold.ttf</string>
+		<string>Roboto-Bold.ttf</string>
+		<string>Roboto-Italic.ttf</string>
+		<string>Roboto-Regular.ttf</string>
 		<string>fa-brands-400.ttf</string>
 		<string>fa-regular-400.ttf</string>
 		<string>fa-solid-900.ttf</string>

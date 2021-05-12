@@ -56,7 +56,7 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("f")]
         public string FileName { get; set; }
 
-        private bool isSelected;
+        private bool isSelected = true;
 
         [JsonIgnore]
         public bool IsSelected { get => isSelected; set => SetProperty(ref isSelected, value); }
