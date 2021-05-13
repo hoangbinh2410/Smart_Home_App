@@ -1009,7 +1009,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (obj != null && obj.Data != null)
             {
                 GlobalResources.Current.TotalVideoUpload = obj.Data.Count;
-                GlobalResources.Current.TotalVideoUploaded = obj.Data.Count;
+                GlobalResources.Current.TotalVideoUploaded = 0;
                 int index = 0;
                 Device.StartTimer(TimeSpan.FromSeconds(5), () =>
                  {
@@ -1073,8 +1073,8 @@ namespace BA_MobileGPS.Core.ViewModels
                {
                    isSendUpload = false;
 
-                   GlobalResources.Current.TotalVideoUploaded--;
-                   if (GlobalResources.Current.TotalVideoUploaded == 0)
+                   GlobalResources.Current.TotalVideoUploaded++;
+                   if (GlobalResources.Current.TotalVideoUploaded == GlobalResources.Current.TotalVideoUpload)
                    {
                        GlobalResources.Current.TotalVideoUploaded = 0;
                        GlobalResources.Current.TotalVideoUpload = 0;

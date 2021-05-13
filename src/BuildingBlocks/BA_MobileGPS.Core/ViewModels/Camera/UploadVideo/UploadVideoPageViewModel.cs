@@ -21,6 +21,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             this.streamCameraService = streamCameraService;
             UploadVideoCommand = new Command(UploadVideo);
+            isCheckAll = true;
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -60,6 +61,20 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        private bool isCheckAll;
+
+        /// <summary>
+        /// Ảnh được focus
+        /// </summary>
+        public bool IsCheckAll
+        {
+            get => isCheckAll;
+            set
+            {
+                SetProperty(ref isCheckAll, value);
+            }
+        }
+
         private VideoRestreamInfo videoRestreamInfo = new VideoRestreamInfo();
         public VideoRestreamInfo VideoRestreamInfo { get => videoRestreamInfo; set => SetProperty(ref videoRestreamInfo, value); }
         private ObservableCollection<VideoUploadTimeInfo> listVideo = new ObservableCollection<VideoUploadTimeInfo>();
@@ -76,6 +91,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     VideoRestreamInfo = result;
                     ListVideo = result.Data.OrderByDescending(x => x.StartTime).ToObservableCollection();
+                    var ischeckall = result.Data.Where(x => x.IsSelected == true && x.IsUploaded == false).ToList();
+                    if (ischeckall != null && ischeckall.Count > 0)
+                    {
+                        IsCheckAll = true;
+                    }
+                    else
+                    {
+                        IsCheckAll = false;
+                    }
                 }
             }, showLoading: true);
         }
