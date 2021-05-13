@@ -60,7 +60,7 @@
 
                 <badge:SfBadgeView
                     Grid.Column="1"
-                    BadgeText="{Binding TotalVideoUpload, Source={x:Static local:GlobalResources.Current}}"
+                    BadgeText="{Binding TotalVideoUploaded, Source={x:Static local:GlobalResources.Current}}"
                     HorizontalOptions="EndAndExpand"
                     IsVisible="{Binding TotalVideoUpload, Source={x:Static local:GlobalResources.Current}, Converter={StaticResource ZeroBooleanConverter}}"
                     VerticalOptions="EndAndExpand">
