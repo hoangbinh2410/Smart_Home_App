@@ -3,6 +3,7 @@ using BA_MobileGPS.Service.IService;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -86,14 +87,34 @@ namespace BA_MobileGPS.Core.ViewModels
                 var lstvideoSelected = ListVideo.Where(x => x.IsSelected == true && x.IsUploaded == false).ToList();
                 if (lstvideoSelected != null && lstvideoSelected.Count > 0)
                 {
-                    await PageDialog.DisplayAlertAsync("Thông báo", "Video đang được tải về server. Quý khách có thể xem các video đã tải trên tab Yêu cầu", "Đóng");
-                    EventAggregator.GetEvent<UploadVideoEvent>().Publish(new VideoRestreamInfo()
+                    bool isvalid = true;
+                    foreach (var item in lstvideoSelected)
                     {
-                        Channel = VideoRestreamInfo.Channel,
-                        Data = lstvideoSelected,
-                        VehicleName = VideoRestreamInfo.VehicleName
-                    });
-                    await NavigationService.GoBackAsync();
+                        if (!string.IsNullOrEmpty(item.Note))
+                        {
+                            Regex regex = new Regex(string.Format("[{0}]", "['\"<>/&]"));
+                            Match match = regex.Match(item.Note);
+                            if (match.Success)
+                            {
+                                isvalid = false;
+                            }
+                        }
+                    }
+                    if (isvalid)
+                    {
+                        await PageDialog.DisplayAlertAsync("Thông báo", "Video đang được tải về server. Quý khách có thể xem các video đã tải trên tab Yêu cầu", "Đóng");
+                        EventAggregator.GetEvent<UploadVideoEvent>().Publish(new VideoRestreamInfo()
+                        {
+                            Channel = VideoRestreamInfo.Channel,
+                            Data = lstvideoSelected,
+                            VehicleName = VideoRestreamInfo.VehicleName
+                        });
+                        await NavigationService.GoBackAsync();
+                    }
+                    else
+                    {
+                        DisplayMessage.ShowMessageInfo("Bạn không được nhập các ký tự đặc biệt ['\"<>/&]");
+                    }
                 }
                 else
                 {
