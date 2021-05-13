@@ -223,6 +223,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ListIssuePage, ListIssuePageViewModel>("ListIssuePage");
             containerRegistry.RegisterForNavigation<IssuesDetailPage, IssuesDetailPageViewModel>("IssuesDetailPage");
             containerRegistry.RegisterForNavigation<UploadVideoPage, UploadVideoPageViewModel>("UploadVideoPage");
+            containerRegistry.RegisterForNavigation<UploadVideoProssessPage, UploadVideoProssessPageViewModel>("UploadVideoProssessPage");
         }
     }
 }

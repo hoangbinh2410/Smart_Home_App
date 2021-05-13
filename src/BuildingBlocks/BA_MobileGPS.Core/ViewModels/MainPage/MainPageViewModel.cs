@@ -1008,14 +1008,16 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (obj != null && obj.Data != null)
             {
+                GlobalResources.Current.TotalVideoUpload = obj.Data.Count;
+                GlobalResources.Current.TotalVideoUploaded = obj.Data.Count;
                 int index = 0;
                 Device.StartTimer(TimeSpan.FromSeconds(5), () =>
                  {
                      if (!isSendUpload && index <= obj.Data.Count)
                      {
-                         isSendUpload = true;
                          RunOnBackground(async () =>
                          {
+                             isSendUpload = true;
                              return await streamCameraService.UploadToCloud(new StartRestreamRequest()
                              {
                                  Channel = obj.Channel,
@@ -1030,6 +1032,10 @@ namespace BA_MobileGPS.Core.ViewModels
                              {
                                  UploadFileStatus(obj, obj.Data[index].FileName);
                                  index++;
+                             }
+                             else
+                             {
+                                 isSendUpload = false;
                              }
                          });
                          if (index >= obj.Data.Count)
@@ -1066,6 +1072,14 @@ namespace BA_MobileGPS.Core.ViewModels
                if (isUploaded)
                {
                    isSendUpload = false;
+
+                   GlobalResources.Current.TotalVideoUploaded--;
+                   if (GlobalResources.Current.TotalVideoUploaded == 0)
+                   {
+                       GlobalResources.Current.TotalVideoUploaded = 0;
+                       GlobalResources.Current.TotalVideoUpload = 0;
+                       EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(true);
+                   }
                    Device.BeginInvokeOnMainThread(() =>
                    {
                        DisplayMessage.ShowMessageInfo("File " + filename + " đã được Upload thành công");
