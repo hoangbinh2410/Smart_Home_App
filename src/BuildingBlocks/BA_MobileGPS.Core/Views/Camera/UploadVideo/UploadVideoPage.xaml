@@ -83,8 +83,8 @@
                 <checkbox:SfCheckBox
                     x:Name="checkAll"
                     CheckedColor="{DynamicResource PrimaryColor}"
-                    ControlSize="25"
-                    CornerRadius="12"
+                    ControlSize="20"
+                    CornerRadius="10"
                     FontAttributes="Bold"
                     Text="Tất cả" />
                 <BoxView
@@ -93,7 +93,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center" />
             </StackLayout>
-            <ScrollView Margin="0" Padding="5">
+            <ScrollView Margin="0">
                 <StackLayout
                     x:Name="lstVideoUpload"
                     BindableLayout.ItemsSource="{Binding ListVideo}"
@@ -101,7 +101,8 @@
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <Grid
-                                ColumnDefinitions="40,Auto,*"
+                                Padding="0,0,0,2"
+                                ColumnDefinitions="30,Auto,*"
                                 ColumnSpacing="20"
                                 RowDefinitions="Auto,Auto"
                                 RowSpacing="10">
@@ -110,8 +111,8 @@
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     CheckedColor="{DynamicResource PrimaryColor}"
-                                    ControlSize="25"
-                                    CornerRadius="12"
+                                    ControlSize="20"
+                                    CornerRadius="10"
                                     IsChecked="{Binding IsSelected}"
                                     IsVisible="{Binding IsUploaded, Converter={StaticResource InvertBooleanConverter}}"
                                     StateChanged="cboUploadVideo_StateChanged" />
