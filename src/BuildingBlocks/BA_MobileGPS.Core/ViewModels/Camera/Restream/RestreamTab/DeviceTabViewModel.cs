@@ -9,6 +9,7 @@ using BA_MobileGPS.Utilities;
 using LibVLCSharp.Shared;
 using Prism.Commands;
 using Prism.Navigation;
+using Rg.Plugins.Popup.Services;
 using Syncfusion.Data.Extensions;
 using System;
 using System.Collections.Generic;
@@ -538,18 +539,20 @@ namespace BA_MobileGPS.Core.ViewModels
                            if (result.StatusCode == StatusCodeCamera.ERROR_PLAYBACK_BY_STREAMING)
                            {
                                result.UserMessage = "";
-
-                               var action = await PageDialog.DisplayAlertAsync("Thông báo", "Thiết bị đang ở chế độ phát trực tiếp, quý khách vui lòng làm theo chỉ dẫn sau:\nCách 1: Tắt xem trực tiếp để chuyển sang chế độ xem lại video \nCách 2: Chuyển đến trang xem lại hình ảnh", "Xem hình ảnh", "Bỏ qua");
-                               if (action)
+                               if (PopupNavigation.Instance.PopupStack.Count <= 0)
                                {
-                                   var parameters = new NavigationParameters();
-                                   parameters.Add(ParameterKey.VehicleRoute, new Vehicle()
+                                   var action = await PageDialog.DisplayAlertAsync("Thông báo", "Thiết bị đang ở chế độ phát trực tiếp, quý khách vui lòng làm theo chỉ dẫn sau:\nCách 1: Tắt xem trực tiếp để chuyển sang chế độ xem lại video \nCách 2: Chuyển đến trang xem lại hình ảnh", "Xem hình ảnh", "Bỏ qua");
+                                   if (action)
                                    {
-                                       VehicleId = Vehicle.VehicleId,
-                                       VehiclePlate = Vehicle.VehiclePlate,
-                                       PrivateCode = Vehicle.PrivateCode
-                                   });
-                                   await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                                       var parameters = new NavigationParameters();
+                                       parameters.Add(ParameterKey.VehicleRoute, new Vehicle()
+                                       {
+                                           VehicleId = Vehicle.VehicleId,
+                                           VehiclePlate = Vehicle.VehiclePlate,
+                                           PrivateCode = Vehicle.PrivateCode
+                                       });
+                                       await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                                   }
                                }
                            }
                            ErrorMessenger = result.UserMessage;
