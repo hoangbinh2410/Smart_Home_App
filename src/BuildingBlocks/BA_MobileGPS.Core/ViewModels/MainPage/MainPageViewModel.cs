@@ -75,6 +75,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             StaticSettings.TimeServer = UserInfo.TimeServer.AddSeconds(1);
             SetTimeServer();
+            DisposeEventAggregator();
             EventAggregator.GetEvent<OnResumeEvent>().Subscribe(OnResumePage);
             EventAggregator.GetEvent<OnSleepEvent>().Subscribe(OnSleepPage);
             EventAggregator.GetEvent<SelectedCompanyEvent>().Subscribe(SelectedCompanyChanged);
@@ -129,27 +130,27 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnDestroy()
         {
             base.OnDestroy();
-            if (IsLoaded)
+            timer.Stop();
+            timer.Dispose();
+            timerSyncData.Stop();
+            timerSyncData.Dispose();
+            if (cts != null)
             {
-                base.OnDestroy();
-                timer.Stop();
-                timer.Dispose();
-                timerSyncData.Stop();
-                timerSyncData.Dispose();
-                if (cts != null)
-                {
-                    cts.Cancel();
-                    cts.Dispose();
-                }
-                EventAggregator.GetEvent<OnResumeEvent>().Unsubscribe(OnResumePage);
-                EventAggregator.GetEvent<OnSleepEvent>().Unsubscribe(OnSleepPage);
-                EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(SelectedCompanyChanged);
-                EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
-                EventAggregator.GetEvent<UploadVideoEvent>().Unsubscribe(UploadVideoRestream);
-                EventAggregator.GetEvent<UserBehaviorEvent>().Unsubscribe(OnUserBehavior);
-                DisconnectSignalR();
-                IsLoaded = false;
+                cts.Cancel();
+                cts.Dispose();
             }
+            DisposeEventAggregator();
+            DisconnectSignalR();
+        }
+
+        private void DisposeEventAggregator()
+        {
+            EventAggregator.GetEvent<OnResumeEvent>().Unsubscribe(OnResumePage);
+            EventAggregator.GetEvent<OnSleepEvent>().Unsubscribe(OnSleepPage);
+            EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(SelectedCompanyChanged);
+            EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
+            EventAggregator.GetEvent<UploadVideoEvent>().Unsubscribe(UploadVideoRestream);
+            EventAggregator.GetEvent<UserBehaviorEvent>().Unsubscribe(OnUserBehavior);
         }
 
         private void InitVehilceOnline()
@@ -244,7 +245,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Property
 
-        private bool IsLoaded { get; set; }
         private int SystemType { get; set; } = 51;
 
         #endregion Property
@@ -1088,6 +1088,13 @@ namespace BA_MobileGPS.Core.ViewModels
                else
                {
                    isSendUpload = false;
+                   GlobalResources.Current.TotalVideoUpload--;
+                   if (GlobalResources.Current.TotalVideoUploaded == GlobalResources.Current.TotalVideoUpload)
+                   {
+                       GlobalResources.Current.TotalVideoUploaded = 0;
+                       GlobalResources.Current.TotalVideoUpload = 0;
+                       EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(false);
+                   }
                    DisplayMessage.ShowMessageInfo("File " + filename + " không tải được lên server");
                }
            });
@@ -1111,32 +1118,36 @@ namespace BA_MobileGPS.Core.ViewModels
                             cts.Dispose();
                         }
                     }
-                    var respone = await streamCameraService.GetUploadProgress(UserInfo.XNCode, obj.VehicleName, obj.Channel);
-                    if (respone != null)
+                    else
                     {
-                        if (respone.FinishCount + respone.ErrorCount == respone.TotalCount
-                            && respone.TotalCount > 0 && respone.UploadedFiles != null && respone.UploadedFiles.Contains((filename.ToUpper() + ".mp4")) == true)
+                        var respone = await streamCameraService.GetUploadProgress(UserInfo.XNCode, obj.VehicleName, obj.Channel);
+                        if (respone != null)
                         {
-                            result = true;
+                            if (respone.FinishCount + respone.ErrorCount == respone.TotalCount
+                                && respone.TotalCount > 0 && respone.UploadedFiles != null && respone.UploadedFiles.Contains((filename.ToUpper() + ".mp4")) == true)
+                            {
+                                result = true;
+                                if (cts != null)
+                                {
+                                    cts.Cancel();
+                                    cts.Dispose();
+                                }
+                            }
+                            else
+                            {
+                                await Task.Delay(10000, cts.Token);
+                            }
+                        }
+                        else
+                        {
                             if (cts != null)
                             {
                                 cts.Cancel();
                                 cts.Dispose();
                             }
                         }
-                        else
-                        {
-                            await Task.Delay(10000, cts.Token);
-                        }
                     }
-                    else
-                    {
-                        if (cts != null)
-                        {
-                            cts.Cancel();
-                            cts.Dispose();
-                        }
-                    }
+
                 }
             }
             catch (Exception)

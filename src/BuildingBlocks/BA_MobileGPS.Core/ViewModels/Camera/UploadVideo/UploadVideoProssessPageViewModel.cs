@@ -33,5 +33,10 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get => totalVideoUploaded; set => SetProperty(ref totalVideoUploaded, value);
         }
+
+        public void Close()
+        {
+            NavigationService.GoBackAsync();
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace BA_MobileGPS.Core.Views
 
         private void PopupPage_BackgroundClicked(object sender, System.EventArgs e)
         {
-            ((UploadVideoProssessPageViewModel)BindingContext).ClosePageCommand.Execute(null);
+            ((UploadVideoProssessPageViewModel)BindingContext).Close();
         }
     }
 }
