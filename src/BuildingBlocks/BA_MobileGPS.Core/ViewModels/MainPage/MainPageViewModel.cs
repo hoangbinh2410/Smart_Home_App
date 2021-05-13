@@ -1009,7 +1009,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (obj != null && obj.Data != null)
             {
                 GlobalResources.Current.TotalVideoUpload = obj.Data.Count;
-                GlobalResources.Current.TotalVideoUploaded = obj.Data.Count;
+                GlobalResources.Current.TotalVideoUploaded = 0;
                 int index = 0;
                 Device.StartTimer(TimeSpan.FromSeconds(5), () =>
                  {
@@ -1073,8 +1073,8 @@ namespace BA_MobileGPS.Core.ViewModels
                {
                    isSendUpload = false;
 
-                   GlobalResources.Current.TotalVideoUploaded--;
-                   if (GlobalResources.Current.TotalVideoUploaded == 0)
+                   GlobalResources.Current.TotalVideoUploaded++;
+                   if (GlobalResources.Current.TotalVideoUploaded == GlobalResources.Current.TotalVideoUpload)
                    {
                        GlobalResources.Current.TotalVideoUploaded = 0;
                        GlobalResources.Current.TotalVideoUpload = 0;
@@ -1082,8 +1082,13 @@ namespace BA_MobileGPS.Core.ViewModels
                    }
                    Device.BeginInvokeOnMainThread(() =>
                    {
-                       DisplayMessage.ShowMessageInfo("File " + filename + " đã được Upload thành công");
+                       DisplayMessage.ShowMessageInfo("File " + filename + " đã được tải thành công");
                    });
+               }
+               else
+               {
+                   isSendUpload = false;
+                   DisplayMessage.ShowMessageInfo("File " + filename + " không tải được lên server");
                }
            });
         }
@@ -1094,8 +1099,18 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 cts = new System.Threading.CancellationTokenSource();
+                int indexwhile = 0;
                 while (!result && !cts.IsCancellationRequested)
                 {
+                    indexwhile++;
+                    if (indexwhile == 10)
+                    {
+                        if (cts != null)
+                        {
+                            cts.Cancel();
+                            cts.Dispose();
+                        }
+                    }
                     var respone = await streamCameraService.GetUploadProgress(UserInfo.XNCode, obj.VehicleName, obj.Channel);
                     if (respone != null)
                     {

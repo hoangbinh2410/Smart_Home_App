@@ -86,6 +86,7 @@
                     ControlSize="20"
                     CornerRadius="10"
                     FontAttributes="Bold"
+                    IsChecked="{Binding IsCheckAll}"
                     Text="Tất cả" />
                 <BoxView
                     BackgroundColor="{StaticResource TextPlaceHolderColor}"
@@ -169,8 +170,7 @@
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="3"
-                                    ErrorText="{Binding Notes.ErrorFirst}"
-                                    HasError="{Binding Notes.IsNotValid}"
+                                    IsVisible="{Binding IsUploaded, Converter={StaticResource InvertBooleanConverter}}"
                                     OutlineCornerRadius="20">
                                     <Entry Placeholder="Thêm ghi chú" Text="{Binding Note}" />
                                 </input:SfTextInputLayout>
