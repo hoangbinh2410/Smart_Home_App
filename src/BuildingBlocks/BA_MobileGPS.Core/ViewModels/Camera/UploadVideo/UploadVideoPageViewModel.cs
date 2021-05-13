@@ -129,6 +129,12 @@ namespace BA_MobileGPS.Core.ViewModels
                                     isvalid = false;
                                 }
                             }
+                            //nếu end-start nhỏ hơn 60s thì phải thêm s cho nó đủ 60s
+                            var totals = item.EndTime.Subtract(item.StartTime).TotalSeconds;
+                            if (item.EndTime.Subtract(item.StartTime).TotalSeconds < 60)
+                            {
+                                item.EndTime.AddSeconds(60 - totals);
+                            }
                         }
                         if (isvalid)
                         {
