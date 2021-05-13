@@ -3,6 +3,7 @@ using BA_MobileGPS.Service.IService;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -83,21 +84,48 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                var lstvideoSelected = ListVideo.Where(x => x.IsSelected == true && x.IsUploaded == false).ToList();
-                if (lstvideoSelected != null && lstvideoSelected.Count > 0)
+                if (GlobalResources.Current.TotalVideoUpload > 0)
                 {
-                    await PageDialog.DisplayAlertAsync("Thông báo", "Video đang được tải về server. Quý khách có thể xem các video đã tải trên tab Yêu cầu", "Đóng");
-                    EventAggregator.GetEvent<UploadVideoEvent>().Publish(new VideoRestreamInfo()
-                    {
-                        Channel = VideoRestreamInfo.Channel,
-                        Data = lstvideoSelected,
-                        VehicleName = VideoRestreamInfo.VehicleName
-                    });
-                    await NavigationService.GoBackAsync();
+                    DisplayMessage.ShowMessageInfo("Đang có video được tải. Bạn vui lòng đợi tải xong thì mới được tải tiêp");
                 }
                 else
                 {
-                    DisplayMessage.ShowMessageInfo("Chọn 1 video để tải về server");
+                    var lstvideoSelected = ListVideo.Where(x => x.IsSelected == true && x.IsUploaded == false).ToList();
+                    if (lstvideoSelected != null && lstvideoSelected.Count > 0)
+                    {
+                        bool isvalid = true;
+                        foreach (var item in lstvideoSelected)
+                        {
+                            if (!string.IsNullOrEmpty(item.Note))
+                            {
+                                Regex regex = new Regex(string.Format("[{0}]", "['\"<>/&]"));
+                                Match match = regex.Match(item.Note);
+                                if (match.Success)
+                                {
+                                    isvalid = false;
+                                }
+                            }
+                        }
+                        if (isvalid)
+                        {
+                            await PageDialog.DisplayAlertAsync("Thông báo", "Video đang được tải về server. Quý khách có thể xem các video đã tải trên tab Yêu cầu", "Đóng");
+                            EventAggregator.GetEvent<UploadVideoEvent>().Publish(new VideoRestreamInfo()
+                            {
+                                Channel = VideoRestreamInfo.Channel,
+                                Data = lstvideoSelected,
+                                VehicleName = VideoRestreamInfo.VehicleName
+                            });
+                            await NavigationService.GoBackAsync();
+                        }
+                        else
+                        {
+                            DisplayMessage.ShowMessageInfo("Bạn không được nhập các ký tự đặc biệt ['\"<>/&]");
+                        }
+                    }
+                    else
+                    {
+                        DisplayMessage.ShowMessageInfo("Chọn 1 video để tải về server");
+                    }
                 }
             });
         }
