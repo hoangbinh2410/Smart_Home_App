@@ -75,6 +75,20 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        private bool isShowBtnUpload = true;
+
+        /// <summary>
+        /// Ảnh được focus
+        /// </summary>
+        public bool IsShowBtnUpload
+        {
+            get => isShowBtnUpload;
+            set
+            {
+                SetProperty(ref isShowBtnUpload, value);
+            }
+        }
+
         private VideoRestreamInfo videoRestreamInfo = new VideoRestreamInfo();
         public VideoRestreamInfo VideoRestreamInfo { get => videoRestreamInfo; set => SetProperty(ref videoRestreamInfo, value); }
         private ObservableCollection<VideoUploadTimeInfo> listVideo = new ObservableCollection<VideoUploadTimeInfo>();
@@ -99,6 +113,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     else
                     {
                         IsCheckAll = false;
+                        IsShowBtnUpload = false;
                     }
                 }
             }, showLoading: true);
@@ -133,7 +148,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             var totals = item.EndTime.Subtract(item.StartTime).TotalSeconds;
                             if (item.EndTime.Subtract(item.StartTime).TotalSeconds < 60)
                             {
-                                item.EndTime.AddSeconds(60 - totals);
+                                item.EndTime = item.EndTime.AddSeconds(60 - totals + 1);
                             }
                         }
                         if (isvalid)

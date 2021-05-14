@@ -1,12 +1,12 @@
 ﻿using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
-using Rg.Plugins.Popup.Pages;
 using Syncfusion.XForms.Buttons;
 using System.Linq;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class UploadVideoPage : PopupPage
+    public partial class UploadVideoPage : ContentPage
     {
         public UploadVideoPage()
         {
