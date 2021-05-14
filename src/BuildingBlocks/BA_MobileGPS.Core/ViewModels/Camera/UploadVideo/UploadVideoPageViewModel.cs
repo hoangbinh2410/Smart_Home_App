@@ -158,7 +158,8 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 Channel = VideoRestreamInfo.Channel,
                                 Data = lstvideoSelected,
-                                VehicleName = VideoRestreamInfo.VehicleName
+                                VehicleName = VideoRestreamInfo.VehicleName,
+                                VehicleID = RequestInfo.VehicleID
                             });
                             await NavigationService.GoBackAsync();
                         }
