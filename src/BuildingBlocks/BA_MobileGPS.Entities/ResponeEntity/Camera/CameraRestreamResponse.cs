@@ -34,6 +34,9 @@ namespace BA_MobileGPS.Entities
 
         [JsonProperty("t")]
         public List<VideoUploadTimeInfo> Data { get; set; }
+
+        [JsonIgnore]
+        public long VehicleID { get; set; }
     }
 
     public class VideoTimeInfo

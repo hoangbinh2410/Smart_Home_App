@@ -1030,7 +1030,7 @@ namespace BA_MobileGPS.Core.ViewModels
                          {
                              if (result != null && result.Data)
                              {
-                                 UploadFileStatus(obj, obj.Data[index].FileName);
+                                 UploadFileStatus(obj, obj.Data[index]);
                                  index++;
                              }
                              else
@@ -1062,11 +1062,11 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private void UploadFileStatus(VideoRestreamInfo obj, string filename)
+        private void UploadFileStatus(VideoRestreamInfo info, VideoUploadTimeInfo video)
         {
             RunOnBackground(async () =>
             {
-                return await CheckStatusUploadFile(obj, filename);
+                return await CheckStatusUploadFile(info, video.FileName);
             }, (isUploaded) =>
            {
                if (isUploaded)
@@ -1080,9 +1080,12 @@ namespace BA_MobileGPS.Core.ViewModels
                        GlobalResources.Current.TotalVideoUpload = 0;
                        EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(true);
                    }
+
+                   InsertLogVideo(info, video);
+
                    Device.BeginInvokeOnMainThread(() =>
                    {
-                       DisplayMessage.ShowMessageInfo("File " + filename + " đã được tải thành công");
+                       DisplayMessage.ShowMessageInfo("File " + video.FileName + " đã được tải thành công");
                    });
                }
                else
@@ -1095,7 +1098,7 @@ namespace BA_MobileGPS.Core.ViewModels
                        GlobalResources.Current.TotalVideoUpload = 0;
                        EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(false);
                    }
-                   DisplayMessage.ShowMessageInfo("File " + filename + " không tải được lên server");
+                   DisplayMessage.ShowMessageInfo("File " + video.FileName + " không tải được lên server");
                }
            });
         }
@@ -1147,7 +1150,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                         }
                     }
-
                 }
             }
             catch (Exception)
@@ -1155,6 +1157,35 @@ namespace BA_MobileGPS.Core.ViewModels
                 return false;
             }
             return result;
+        }
+
+        private void InsertLogVideo(VideoRestreamInfo info, VideoUploadTimeInfo video)
+        {
+            var request = new SaveVideoByUserRequest()
+            {
+                Channel = info.Channel,
+                FK_VehicleID = info.VehicleID,
+                FK_CompanyID = CurrentComanyID,
+                StartTime = video.StartTime,
+                EndTime = video.EndTime,
+                Description = string.IsNullOrEmpty(video.Note) ? "" : video.Note,
+                IsFavorite = false,
+                IsSave = true,
+                Thumbnail = "",
+                VideoName = video.FileName,
+                CreatedUser = UserInfo.UserId,
+            };
+
+            RunOnBackground(async () =>
+            {
+                return await streamCameraService.InsertLogVideo(request);
+            },
+            (result) =>
+            {
+                if (result)
+                {
+                }
+            });
         }
 
         #endregion PrivateMethod

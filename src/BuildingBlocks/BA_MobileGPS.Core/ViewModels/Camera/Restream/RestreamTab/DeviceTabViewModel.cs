@@ -326,7 +326,8 @@ namespace BA_MobileGPS.Core.ViewModels
                                FromDate = VideoSlected.VideoStartTime,
                                ToDate = VideoSlected.VideoEndTime,
                                Channel = VideoSlected.Data.Channel,
-                               VehiclePlate =Vehicle.VehiclePlate
+                               VehiclePlate =Vehicle.VehiclePlate,
+                               VehicleID=Vehicle.VehicleId
                           } }
                      };
 
@@ -348,7 +349,8 @@ namespace BA_MobileGPS.Core.ViewModels
                                FromDate = obj.VideoStartTime,
                                ToDate = obj.VideoEndTime,
                                Channel = obj.Data.Channel,
-                               VehiclePlate =Vehicle.VehiclePlate
+                               VehiclePlate =Vehicle.VehiclePlate,
+                               VehicleID=Vehicle.VehicleId
                           } }
                      };
 

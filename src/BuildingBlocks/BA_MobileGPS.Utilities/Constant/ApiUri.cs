@@ -220,6 +220,8 @@
         public const string POST_CHART_DATA = "api/stream/chartdata";
         public const string GET_RESTREAM_DEVICETAB_VIDEO_INFOR = "api/v2/stream/restreamdevicetabvideo";
 
+        public const string INSERT_LOG_VIDEO = "api/stream/insertlogvideo";
+
         #endregion Camera
 
         #region Guide
