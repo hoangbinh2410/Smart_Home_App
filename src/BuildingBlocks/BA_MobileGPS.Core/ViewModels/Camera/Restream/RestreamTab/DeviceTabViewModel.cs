@@ -330,7 +330,7 @@ namespace BA_MobileGPS.Core.ViewModels
                           } }
                      };
 
-                    var a = await NavigationService.NavigateAsync("UploadVideoPage", parameters, true, true);
+                    var a = await NavigationService.NavigateAsync("BaseNavigationPage/UploadVideoPage", parameters, true, true);
                 }
             });
         }
@@ -352,7 +352,7 @@ namespace BA_MobileGPS.Core.ViewModels
                           } }
                      };
 
-                    var a = await NavigationService.NavigateAsync("UploadVideoPage", parameters, true, true);
+                    var a = await NavigationService.NavigateAsync("BaseNavigationPage/UploadVideoPage", parameters, true, true);
                 }
             });
         }
