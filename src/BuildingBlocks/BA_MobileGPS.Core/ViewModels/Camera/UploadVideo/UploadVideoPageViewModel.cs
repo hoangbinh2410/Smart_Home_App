@@ -104,7 +104,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (result != null && result.Data != null && result.Data.Count > 0)
                 {
                     VideoRestreamInfo = result;
-                    ListVideo = result.Data.OrderByDescending(x => x.StartTime).ToObservableCollection();
+                    ListVideo = result.Data.OrderBy(x => x.StartTime).ToObservableCollection();
                     var ischeckall = result.Data.Where(x => x.IsSelected == true && x.IsUploaded == false).ToList();
                     if (ischeckall != null && ischeckall.Count > 0)
                     {

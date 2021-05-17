@@ -56,6 +56,7 @@
                         ControlSize="20"
                         CornerRadius="10"
                         FontAttributes="Bold"
+                        HorizontalOptions="Start"
                         IsChecked="{Binding IsCheckAll}"
                         Text="Tất cả" />
                     <BoxView
