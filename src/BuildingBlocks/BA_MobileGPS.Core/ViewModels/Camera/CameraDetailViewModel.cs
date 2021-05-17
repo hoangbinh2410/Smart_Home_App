@@ -79,7 +79,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         IsDraggable = false,
                         Tag = "CAMERA" + VehiclePlate
                     });
-                    _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Lat, ImageCamera.Lng), 14), TimeSpan.FromMilliseconds(10));
+                    _  = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Lat, ImageCamera.Lng), 14), TimeSpan.FromMilliseconds(10));
                     SelectedPin = Pins[0];
                     return false;
                 });
