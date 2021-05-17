@@ -257,7 +257,7 @@
                                     MediaPlayer="{Binding MediaPlayer}"
                                     VerticalOptions="Fill">
                                     <vlc:MediaPlayerElement.PlaybackControls>
-                                        <vlc:PlaybackControls>
+                                        <vlc:PlaybackControls IsAudioTracksSelectionButtonVisible="True" IsSeekBarVisible="True">
                                             <vlc:PlaybackControls.ControlTemplate>
                                                 <ControlTemplate>
                                                     <StackLayout IsVisible="{TemplateBinding MediaPlayer, Converter={StaticResource ObjectToBoolConverter}}" Spacing="0">
@@ -269,13 +269,35 @@
                                                                 <StackLayout
                                                                     Margin="20,0,0,0"
                                                                     Orientation="Horizontal"
-                                                                    Spacing="0">
+                                                                    Spacing="10">
+                                                                    <Button
+                                                                        x:Name="RewindButton"
+                                                                        FontSize="20"
+                                                                        HeightRequest="30"
+                                                                        Style="{TemplateBinding RewindButtonStyle}"
+                                                                        VerticalOptions="CenterAndExpand"
+                                                                        WidthRequest="30" />
                                                                     <Button
                                                                         x:Name="PlayPauseButton"
                                                                         FontSize="20"
                                                                         HeightRequest="30"
                                                                         Style="{TemplateBinding PlayPauseButtonStyle}"
+                                                                        VerticalOptions="CenterAndExpand"
                                                                         WidthRequest="30" />
+
+                                                                    <Button
+                                                                        x:Name="SeekButton"
+                                                                        FontSize="20"
+                                                                        HeightRequest="30"
+                                                                        Style="{TemplateBinding SeekButtonStyle}"
+                                                                        VerticalOptions="CenterAndExpand"
+                                                                        WidthRequest="30" />
+
+                                                                    <Label
+                                                                        x:Name="RemainingTimeLabel"
+                                                                        Margin="0,-2,0,0"
+                                                                        Style="{TemplateBinding RemainingTimeLabelStyle}"
+                                                                        VerticalOptions="CenterAndExpand" />
                                                                 </StackLayout>
                                                                 <StackLayout
                                                                     Margin="0,0,20,0"
@@ -302,6 +324,7 @@
                                                                     </icons:IconView>
                                                                 </StackLayout>
                                                             </StackLayout>
+                                                            <Slider x:Name="SeekBar" Style="{TemplateBinding SeekBarStyle}" />
                                                         </StackLayout>
                                                     </StackLayout>
                                                 </ControlTemplate>
@@ -411,6 +434,11 @@
                             StyleClass="BoldText"
                             Text="Danh sách video"
                             VerticalOptions="Center" />
+
+                        <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+                            <Label Text="Phát tự động" VerticalOptions="Center" />
+                            <Switch IsToggled="{Binding AutoSwitch}" />
+                        </StackLayout>
                     </StackLayout>
 
                     <!--  Danh sách video  -->
@@ -490,7 +518,6 @@
                                                         WidthRequest="20" />-->
                                                 </StackLayout>
                                             </StackLayout>
-
                                         </Grid>
                                     </Frame>
                                 </Grid>

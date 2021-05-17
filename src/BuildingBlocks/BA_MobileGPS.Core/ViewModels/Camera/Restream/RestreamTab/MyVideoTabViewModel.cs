@@ -170,6 +170,14 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref _isDownloading, value); }
         }
 
+        private bool _autoSwitch;
+
+        public bool AutoSwitch
+        {
+            get { return _autoSwitch; }
+            set { SetProperty(ref _autoSwitch, value); }
+        }
+
         #endregion Property
 
         #region PrivateMethod
