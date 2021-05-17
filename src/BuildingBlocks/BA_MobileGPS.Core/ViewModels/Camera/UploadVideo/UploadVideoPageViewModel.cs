@@ -136,7 +136,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             if (!string.IsNullOrEmpty(item.Note))
                             {
-                                var DangerousChar = "['\"<>/&]";
+                                var DangerousChar = "^[^'\"<>%$/&]*$";
                                 var dangerList = DangerousChar.ToCharArray();
                                 foreach (var str in dangerList)
                                 {
