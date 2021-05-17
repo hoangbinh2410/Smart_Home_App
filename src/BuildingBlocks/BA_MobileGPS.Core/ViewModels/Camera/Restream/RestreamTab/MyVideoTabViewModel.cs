@@ -387,7 +387,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    isSelectPreOrNext = true;
+                    isSelectPreOrNext = false;
                 }
             }
         }
