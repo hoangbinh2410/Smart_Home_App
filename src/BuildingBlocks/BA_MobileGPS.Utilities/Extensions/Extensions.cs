@@ -174,6 +174,21 @@ namespace BA_MobileGPS.Utilities.Extensions
                 "$1 $2"
             );
         }
+
+
+        public static int FindIndex<T>(this List<T> list, T item)
+        {
+            EqualityComparer<T> comparer = EqualityComparer<T>.Default;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (comparer.Equals(list[i], item))
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
     }
 
     public class EnumValue

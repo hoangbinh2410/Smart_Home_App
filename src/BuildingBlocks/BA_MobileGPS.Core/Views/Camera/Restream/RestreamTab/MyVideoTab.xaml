@@ -271,7 +271,7 @@
                                                                     Orientation="Horizontal"
                                                                     Spacing="10">
                                                                     <Button
-                                                                        x:Name="RewindButton"
+                                                                        Command="{Binding Source={x:Reference root}, Path=BindingContext.PreviousVideoCommand}"
                                                                         FontSize="20"
                                                                         HeightRequest="30"
                                                                         Style="{TemplateBinding RewindButtonStyle}"
@@ -286,7 +286,7 @@
                                                                         WidthRequest="30" />
 
                                                                     <Button
-                                                                        x:Name="SeekButton"
+                                                                        Command="{Binding Source={x:Reference root}, Path=BindingContext.NextVideoCommand}"
                                                                         FontSize="20"
                                                                         HeightRequest="30"
                                                                         Style="{TemplateBinding SeekButtonStyle}"
@@ -324,7 +324,11 @@
                                                                     </icons:IconView>
                                                                 </StackLayout>
                                                             </StackLayout>
-                                                            <Slider x:Name="SeekBar" Style="{TemplateBinding SeekBarStyle}" />
+                                                            <Slider
+                                                                x:Name="SeekBar"
+                                                                Style="{TemplateBinding SeekBarStyle}"
+                                                                ValueChanged="SeekBar_ValueChanged"
+                                                                Value="{Binding SeekBarValue}" />
                                                         </StackLayout>
                                                     </StackLayout>
                                                 </ControlTemplate>

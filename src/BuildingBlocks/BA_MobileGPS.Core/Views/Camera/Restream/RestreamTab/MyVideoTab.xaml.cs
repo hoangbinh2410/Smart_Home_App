@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels;
 using Prism.Navigation;
 using Xamarin.Forms;
 
@@ -10,11 +11,13 @@ namespace BA_MobileGPS.Core.Views
                                                 Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Density;
 
         private readonly double videoHeightRatio = 3.2;
+        private MyVideoTabViewModel vm;
 
         public MyVideoTab()
         {
             InitializeComponent();
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
+            vm = (MyVideoTabViewModel)BindingContext;
         }
 
         protected override void OnAppearing()
@@ -47,6 +50,11 @@ namespace BA_MobileGPS.Core.Views
         private void OrientChangedToVetical()
         {
             mainTopLayout.HeightRequest = portraitHeight / videoHeightRatio;
+        }
+
+        private void SeekBar_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            vm.SeekBarValueChanged(e.NewValue);
         }
     }
 }
