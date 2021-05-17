@@ -30,6 +30,8 @@
         </Style>
         <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
         <converter:ValueProgressBarConverter x:Key="ValueProgressBarConverter" />
+        <converter:BackgroundSelectedVideoConverter x:Key="BackgroundSelectedVideoConverter" />
+
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*">
@@ -435,7 +437,7 @@
                         x:Name="listview"
                         Grid.Row="2"
                         Padding="5,0"
-                        ItemsSource="{Binding VideoItemsSource, Mode=OneWay}"
+                        ItemsSource="{Binding VideoItemsSource, Mode=TwoWay}"
                         SelectedCommand="{Binding VideoItemTapCommand}"
                         Spacing="10">
                         <icons:HorizontalList.ItemTemplate>
@@ -443,7 +445,7 @@
                                 <Grid>
                                     <Frame
                                         Padding="0"
-                                        BorderColor="{StaticResource GrayColor}"
+                                        BorderColor="{Binding IsSelected, Converter={StaticResource BackgroundSelectedVideoConverter}}"
                                         HasShadow="False"
                                         HeightRequest="270">
                                         <Grid
@@ -460,7 +462,15 @@
                                                     Foreground="{DynamicResource WhiteColor}"
                                                     HeightRequest="30"
                                                     HorizontalOptions="Center"
-                                                    Source="ic_play"
+                                                    IsVisible="{Binding IsSelected, Converter={StaticResource InvertBooleanConverter}}"
+                                                    Source="ic_play.png"
+                                                    VerticalOptions="Center" />
+                                                <icons:IconView
+                                                    Foreground="{DynamicResource WhiteColor}"
+                                                    HeightRequest="30"
+                                                    HorizontalOptions="Center"
+                                                    IsVisible="{Binding IsSelected}"
+                                                    Source="ic_pause.png"
                                                     VerticalOptions="Center" />
                                                 <Label
                                                     Margin="0,0,10,10"
