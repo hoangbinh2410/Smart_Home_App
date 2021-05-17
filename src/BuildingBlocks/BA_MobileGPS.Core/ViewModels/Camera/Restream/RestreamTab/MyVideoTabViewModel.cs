@@ -33,6 +33,8 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </summary>
         public ICommand DowloadVideoCommand { get; }
 
+        public ICommand DowloadVideoInListTappedCommand { get; }
+
         private readonly IDownloadVideoService _downloadService;
 
         public MyVideoTabViewModel(INavigationService navigationService,
@@ -43,6 +45,7 @@ namespace BA_MobileGPS.Core.ViewModels
             VideoItemTapCommand = new DelegateCommand<VideoUploadInfo>(VideoSelectedChange);
             ScreenShotTappedCommand = new DelegateCommand(TakeSnapShot);
             DowloadVideoCommand = new DelegateCommand(DowloadVideo);
+            DowloadVideoInListTappedCommand = new DelegateCommand<VideoUploadInfo>(DowloadVideoInListTapped);
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
             SearchCommand = new DelegateCommand(SearchData);
             vehicle = new CameraLookUpVehicleModel();
@@ -428,6 +431,28 @@ namespace BA_MobileGPS.Core.ViewModels
                 DisplayMessage.ShowMessageInfo("Đã tải video thành công");
                 IsDownloading = false;
             }
+        }
+
+        private void DowloadVideoInListTapped(VideoUploadInfo obj)
+        {
+            SafeExecute(async () =>
+            {
+                if (obj != null && !string.IsNullOrEmpty(obj.Link))
+                {
+                    var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bạn có muốn tải video này về điện thoại không ?", "Đồng ý", "Bỏ qua");
+                    if (action)
+                    {
+                        var progressIndicator = new Progress<double>(ReportProgress);
+                        var cts = new CancellationTokenSource();
+                        IsDownloading = true;
+                        var permissionStatus = await CrossPermissions.Current.RequestPermissionAsync<StoragePermission>();
+                        if (permissionStatus == Plugin.Permissions.Abstractions.PermissionStatus.Granted)
+                        {
+                            await _downloadService.DownloadFileAsync(obj.Link, progressIndicator, cts.Token);
+                        }
+                    }
+                }
+            });
         }
 
         #endregion PrivateMethod
