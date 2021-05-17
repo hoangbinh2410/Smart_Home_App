@@ -3,7 +3,6 @@ using BA_MobileGPS.Service.IService;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -137,11 +136,14 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             if (!string.IsNullOrEmpty(item.Note))
                             {
-                                Regex regex = new Regex(string.Format("[{0}]", "['\"<>/&]"));
-                                Match match = regex.Match(item.Note);
-                                if (match.Success)
+                                var DangerousChar = "['\"<>/&]";
+                                var dangerList = DangerousChar.ToCharArray();
+                                foreach (var str in dangerList)
                                 {
-                                    isvalid = false;
+                                    if (item.Note.Contains(str))
+                                    {
+                                        isvalid = false;
+                                    }
                                 }
                             }
                             //nếu end-start nhỏ hơn 60s thì phải thêm s cho nó đủ 60s

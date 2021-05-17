@@ -3,6 +3,7 @@ using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Utilities.Extensions;
 using LibVLCSharp.Shared;
 using Plugin.Permissions;
 using Prism.Commands;
@@ -33,6 +34,12 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </summary>
         public ICommand DowloadVideoCommand { get; }
 
+        public ICommand DowloadVideoInListTappedCommand { get; }
+
+        public ICommand PreviousVideoCommand { get; }
+
+        public ICommand NextVideoCommand { get; }
+
         private readonly IDownloadVideoService _downloadService;
 
         public MyVideoTabViewModel(INavigationService navigationService,
@@ -43,7 +50,10 @@ namespace BA_MobileGPS.Core.ViewModels
             VideoItemTapCommand = new DelegateCommand<VideoUploadInfo>(VideoSelectedChange);
             ScreenShotTappedCommand = new DelegateCommand(TakeSnapShot);
             DowloadVideoCommand = new DelegateCommand(DowloadVideo);
+            DowloadVideoInListTappedCommand = new DelegateCommand<VideoUploadInfo>(DowloadVideoInListTapped);
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
+            PreviousVideoCommand = new DelegateCommand(PreviousVideo);
+            NextVideoCommand = new DelegateCommand(NextVideo);
             SearchCommand = new DelegateCommand(SearchData);
             vehicle = new CameraLookUpVehicleModel();
         }
@@ -165,6 +175,22 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get { return _isDownloading; }
             set { SetProperty(ref _isDownloading, value); }
+        }
+
+        private bool _autoSwitch = true;
+
+        public bool AutoSwitch
+        {
+            get { return _autoSwitch; }
+            set { SetProperty(ref _autoSwitch, value); }
+        }
+
+        private double _seekBarValue;
+
+        public double SeekBarValue
+        {
+            get { return _seekBarValue; }
+            set { SetProperty(ref _seekBarValue, value); }
         }
 
         #endregion Property
@@ -336,6 +362,57 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        public void SeekBarValueChanged(double value)
+        {
+            if (value <= 0)
+            {
+                if (AutoSwitch && isSelectPreOrNext == false)
+                {
+                    NextVideo();
+                }
+                else
+                {
+                    isSelectPreOrNext = true;
+                }
+            }
+        }
+        private bool isSelectPreOrNext = false;
+        private void NextVideo()
+        {
+            if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
+            {
+                isSelectPreOrNext = true;
+                var index = VideoItemsSource.ToList().FindIndex(VideoSlected);
+                if (index >= VideoItemsSource.Count - 1)
+                {
+                    return;
+                }
+                else
+                {
+                    VideoSlected = VideoItemsSource[index + 1];
+                }
+                VideoSelectedChange(VideoSlected);
+            }
+        }
+
+        private void PreviousVideo()
+        {
+            if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
+            {
+                isSelectPreOrNext = true;
+                var index = VideoItemsSource.ToList().FindIndex(VideoSlected);
+                if (index == 0)
+                {
+                    return;
+                }
+                else
+                {
+                    VideoSlected = VideoItemsSource[index - 1];
+                }
+                VideoSelectedChange(VideoSlected);
+            }
+        }
+
         /// <summary>
         /// Đóng video : Đóng khi current tab thay đổi
         /// Chức năng trên player : không làm (đã confirm)
@@ -428,6 +505,28 @@ namespace BA_MobileGPS.Core.ViewModels
                 DisplayMessage.ShowMessageInfo("Đã tải video thành công");
                 IsDownloading = false;
             }
+        }
+
+        private void DowloadVideoInListTapped(VideoUploadInfo obj)
+        {
+            SafeExecute(async () =>
+            {
+                if (obj != null && !string.IsNullOrEmpty(obj.Link))
+                {
+                    var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bạn có muốn tải video này về điện thoại không ?", "Đồng ý", "Bỏ qua");
+                    if (action)
+                    {
+                        var progressIndicator = new Progress<double>(ReportProgress);
+                        var cts = new CancellationTokenSource();
+                        IsDownloading = true;
+                        var permissionStatus = await CrossPermissions.Current.RequestPermissionAsync<StoragePermission>();
+                        if (permissionStatus == Plugin.Permissions.Abstractions.PermissionStatus.Granted)
+                        {
+                            await _downloadService.DownloadFileAsync(obj.Link, progressIndicator, cts.Token);
+                        }
+                    }
+                }
+            });
         }
 
         #endregion PrivateMethod
