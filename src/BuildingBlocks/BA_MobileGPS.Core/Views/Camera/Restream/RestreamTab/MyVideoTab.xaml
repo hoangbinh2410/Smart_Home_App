@@ -30,6 +30,8 @@
         </Style>
         <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
         <converter:ValueProgressBarConverter x:Key="ValueProgressBarConverter" />
+        <converter:BackgroundSelectedVideoConverter x:Key="BackgroundSelectedVideoConverter" />
+
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*">
@@ -59,33 +61,19 @@
                     TextColor="White"
                     VerticalOptions="End" />
 
-                <badge:SfBadgeView
+                <icons:IconView
                     Grid.Column="1"
-                    BadgeText="{Binding TotalVideoUploaded, Source={x:Static local:GlobalResources.Current}}"
+                    Foreground="{DynamicResource WhiteColor}"
+                    HeightRequest="25"
                     HorizontalOptions="EndAndExpand"
                     IsVisible="{Binding TotalVideoUpload, Source={x:Static local:GlobalResources.Current}, Converter={StaticResource ZeroBooleanConverter}}"
-                    VerticalOptions="EndAndExpand">
-                    <badge:SfBadgeView.Content>
-                        <icons:IconView
-                            Foreground="{DynamicResource WhiteColor}"
-                            HeightRequest="25"
-                            Source="ic_dowload.png"
-                            WidthRequest="25">
-                            <icons:IconView.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ViewProssesUploadCommand}" />
-                            </icons:IconView.GestureRecognizers>
-                        </icons:IconView>
-                    </badge:SfBadgeView.Content>
-                    <badge:SfBadgeView.BadgeSettings>
-                        <badge:BadgeSetting
-                            BadgePosition="TopRight"
-                            BadgeType="Error"
-                            CornerRadius="10"
-                            FontSize="9"
-                            TextPadding="3"
-                            Offset="0,5" />
-                    </badge:SfBadgeView.BadgeSettings>
-                </badge:SfBadgeView>
+                    Source="ic_dowload.png"
+                    VerticalOptions="EndAndExpand"
+                    WidthRequest="25">
+                    <icons:IconView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ViewProssesUploadCommand}" />
+                    </icons:IconView.GestureRecognizers>
+                </icons:IconView>
             </Grid>
 
             <Grid
@@ -295,7 +283,6 @@
 
                                                                     <Label
                                                                         x:Name="RemainingTimeLabel"
-                                                                        Margin="0,-2,0,0"
                                                                         Style="{TemplateBinding RemainingTimeLabelStyle}"
                                                                         VerticalOptions="CenterAndExpand" />
                                                                 </StackLayout>
@@ -432,7 +419,7 @@
                     <!--  Tự động phát  -->
                     <StackLayout
                         Grid.Row="1"
-                        Padding="5,0"
+                        Padding="5,5"
                         Orientation="Horizontal">
                         <Label
                             StyleClass="BoldText"
@@ -450,7 +437,7 @@
                         x:Name="listview"
                         Grid.Row="2"
                         Padding="5,0"
-                        ItemsSource="{Binding VideoItemsSource, Mode=OneWay}"
+                        ItemsSource="{Binding VideoItemsSource, Mode=TwoWay}"
                         SelectedCommand="{Binding VideoItemTapCommand}"
                         Spacing="10">
                         <icons:HorizontalList.ItemTemplate>
@@ -458,7 +445,7 @@
                                 <Grid>
                                     <Frame
                                         Padding="0"
-                                        BorderColor="{StaticResource GrayColor}"
+                                        BorderColor="{Binding IsSelected, Converter={StaticResource BackgroundSelectedVideoConverter}}"
                                         HasShadow="False"
                                         HeightRequest="270">
                                         <Grid
@@ -475,7 +462,15 @@
                                                     Foreground="{DynamicResource WhiteColor}"
                                                     HeightRequest="30"
                                                     HorizontalOptions="Center"
-                                                    Source="ic_play"
+                                                    IsVisible="{Binding IsSelected, Converter={StaticResource InvertBooleanConverter}}"
+                                                    Source="ic_play.png"
+                                                    VerticalOptions="Center" />
+                                                <icons:IconView
+                                                    Foreground="{DynamicResource WhiteColor}"
+                                                    HeightRequest="30"
+                                                    HorizontalOptions="Center"
+                                                    IsVisible="{Binding IsSelected}"
+                                                    Source="ic_pause.png"
                                                     VerticalOptions="Center" />
                                                 <Label
                                                     Margin="0,0,10,10"

@@ -89,7 +89,7 @@ namespace BA_MobileGPS.Entities
         public List<VideoUploadInfo> Data { get; set; }
     }
 
-    public class VideoUploadInfo
+    public class VideoUploadInfo : BaseModel
     {
         [JsonProperty("s")]
         public DateTime StartTime { get; set; }
@@ -108,6 +108,11 @@ namespace BA_MobileGPS.Entities
 
         [JsonIgnore]
         public byte Channel { get; set; }
+
+        private bool isSelected = false;
+
+        [JsonIgnore]
+        public bool IsSelected { get => isSelected; set => SetProperty(ref isSelected, value); }
     }
 
     public class DeviceTabVideoInfoResponse : BaseResponse<List<RestreamVideoTimeInfo>>

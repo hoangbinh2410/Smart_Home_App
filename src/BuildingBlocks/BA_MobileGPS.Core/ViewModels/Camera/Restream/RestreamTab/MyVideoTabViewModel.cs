@@ -90,7 +90,22 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnSleep()
         {
+            if (MediaPlayer != null)
+            {
+                MediaPlayer.Pause();
+            }
             base.OnSleep();
+        }
+
+        public override void OnResume()
+        {
+            base.OnResume();
+            DependencyService.Get<IScreenOrientServices>().ForcePortrait();
+
+            if (MediaPlayer != null)
+            {
+                MediaPlayer.Play();
+            }
         }
 
         #endregion Lifecycle
@@ -258,7 +273,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             //var lstvideo = result.Where(x => x.VehicleName == Vehicle.VehiclePlate)?.Data;
                             if (lstvideo != null && lstvideo.Count > 0)
                             {
-                                var video = lstvideo.Where(x => x.StartTime >= DateStart && x.StartTime <= DateEnd).ToList();
+                                var video = lstvideo.Where(x => x.StartTime >= DateStart && x.StartTime <= DateEnd).OrderByDescending(x => x.StartTime).ToList();
                                 VideoItemsSource = video.ToObservableCollection();
                             }
                         }
@@ -376,12 +391,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
+
         private bool isSelectPreOrNext = false;
+
         private void NextVideo()
         {
             if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
             {
-                isSelectPreOrNext = true;
                 var index = VideoItemsSource.ToList().FindIndex(VideoSlected);
                 if (index >= VideoItemsSource.Count - 1)
                 {
@@ -399,7 +415,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
             {
-                isSelectPreOrNext = true;
                 var index = VideoItemsSource.ToList().FindIndex(VideoSlected);
                 if (index == 0)
                 {
@@ -433,11 +448,19 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 SafeExecute(() =>
                 {
+                    isSelectPreOrNext = true;
                     if (MediaPlayerVisible)
                     {
                         CloseVideo();
                     }
-
+                    foreach (var item in VideoItemsSource)
+                    {
+                        if (item.FileName == obj.FileName)
+                        {
+                            item.IsSelected = true;
+                        }
+                        else { item.IsSelected = false; }
+                    }
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         IsError = false;
