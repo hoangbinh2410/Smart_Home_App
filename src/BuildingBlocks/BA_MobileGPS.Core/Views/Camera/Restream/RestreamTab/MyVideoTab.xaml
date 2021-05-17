@@ -295,7 +295,6 @@
 
                                                                     <Label
                                                                         x:Name="RemainingTimeLabel"
-                                                                        Margin="0,-2,0,0"
                                                                         Style="{TemplateBinding RemainingTimeLabelStyle}"
                                                                         VerticalOptions="CenterAndExpand" />
                                                                 </StackLayout>
@@ -432,7 +431,7 @@
                     <!--  Tự động phát  -->
                     <StackLayout
                         Grid.Row="1"
-                        Padding="5,0"
+                        Padding="5,5"
                         Orientation="Horizontal">
                         <Label
                             StyleClass="BoldText"
