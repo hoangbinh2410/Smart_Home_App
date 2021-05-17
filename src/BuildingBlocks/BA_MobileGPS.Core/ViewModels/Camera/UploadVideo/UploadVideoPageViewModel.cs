@@ -167,7 +167,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         else
                         {
-                            DisplayMessage.ShowMessageInfo("Bạn không được nhập các ký tự đặc biệt ['\"<>/&]");
+                            DisplayMessage.ShowMessageInfo("Bạn không được nhập các ký tự đặc biệt [,',\",<,>,/, &,]");
                         }
                     }
                     else

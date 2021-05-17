@@ -258,7 +258,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             //var lstvideo = result.Where(x => x.VehicleName == Vehicle.VehiclePlate)?.Data;
                             if (lstvideo != null && lstvideo.Count > 0)
                             {
-                                var video = lstvideo.Where(x => x.StartTime >= DateStart && x.StartTime <= DateEnd).ToList();
+                                var video = lstvideo.Where(x => x.StartTime >= DateStart && x.StartTime <= DateEnd).OrderByDescending(x=>x.StartTime).ToList();
                                 VideoItemsSource = video.ToObservableCollection();
                             }
                         }

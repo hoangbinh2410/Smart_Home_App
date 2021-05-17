@@ -58,33 +58,19 @@
                     TextColor="White"
                     VerticalOptions="End" />
 
-                <badge:SfBadgeView
+                <icons:IconView
                     Grid.Column="1"
-                    BadgeText="{Binding TotalVideoUploaded, Source={x:Static local:GlobalResources.Current}}"
+                    Foreground="{DynamicResource WhiteColor}"
+                    HeightRequest="25"
                     HorizontalOptions="EndAndExpand"
                     IsVisible="{Binding TotalVideoUpload, Source={x:Static local:GlobalResources.Current}, Converter={StaticResource ZeroBooleanConverter}}"
-                    VerticalOptions="EndAndExpand">
-                    <badge:SfBadgeView.Content>
-                        <icons:IconView
-                            Foreground="{DynamicResource WhiteColor}"
-                            HeightRequest="25"
-                            Source="ic_dowload.png"
-                            WidthRequest="25">
-                            <icons:IconView.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ViewProssesUploadCommand}" />
-                            </icons:IconView.GestureRecognizers>
-                        </icons:IconView>
-                    </badge:SfBadgeView.Content>
-                    <badge:SfBadgeView.BadgeSettings>
-                        <badge:BadgeSetting
-                            BadgePosition="TopRight"
-                            BadgeType="Error"
-                            CornerRadius="10"
-                            FontSize="9"
-                            TextPadding="3"
-                            Offset="0,5" />
-                    </badge:SfBadgeView.BadgeSettings>
-                </badge:SfBadgeView>
+                    Source="ic_dowload.png"
+                    VerticalOptions="EndAndExpand"
+                    WidthRequest="25">
+                    <icons:IconView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ViewProssesUploadCommand}" />
+                    </icons:IconView.GestureRecognizers>
+                </icons:IconView>
             </Grid>
             <Grid
                 Grid.Row="1"

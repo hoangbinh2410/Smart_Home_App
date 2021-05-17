@@ -58,10 +58,12 @@
                     HorizontalOptions="FillAndExpand"
                     Orientation="Horizontal"
                     VerticalOptions="Center">
-                    <indicator:SfBusyIndicator
+                    <icons:IconView
+                        Foreground="{DynamicResource WhiteColor}"
                         HeightRequest="25"
-                        IsBusy="True"
-                        TextColor="{DynamicResource WhiteColor}"
+                        HorizontalOptions="EndAndExpand"
+                        Source="ic_dowload.png"
+                        VerticalOptions="EndAndExpand"
                         WidthRequest="25" />
 
                     <Label
