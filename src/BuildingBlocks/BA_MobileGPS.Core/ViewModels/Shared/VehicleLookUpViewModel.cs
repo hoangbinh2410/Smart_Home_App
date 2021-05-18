@@ -70,15 +70,7 @@ namespace BA_MobileGPS.Core.ViewModels
             Task.Run(() =>
             {
                 var currentCompany = Settings.CurrentCompany;
-
-                if (LookUpType == VehicleLookUpType.VehicleRoute)
-                {
-                    return GetListVehicle(SelectedVehicleGroups, true);
-                }
-                else
-                {
-                    return GetListVehicle(SelectedVehicleGroups);
-                }
+                return GetListVehicle(SelectedVehicleGroups);
             }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
                 if (task.Status == TaskStatus.RanToCompletion)
@@ -109,12 +101,12 @@ namespace BA_MobileGPS.Core.ViewModels
             }));
         }
 
-        public List<Vehicle> GetListVehicle(int[] groupids, bool isRoute = false)
+        public List<Vehicle> GetListVehicle(int[] groupids)
         {
             List<Vehicle> result = new List<Vehicle>();
             try
             {
-                if (!isRoute && ListVehicleStatus != null)
+                if (LookUpType == VehicleLookUpType.VehicleOnline && ListVehicleStatus != null)
                 {
                     foreach (var lst in ListVehicleStatus)
                     {
@@ -130,11 +122,36 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
-                        listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65
-                    && x.MessageId != 254
-                    && x.MessageId != 128
-                    && x.MessageId != 3
-                    && x.MessageId != 2).ToList();
+                        if (LookUpType == VehicleLookUpType.VehicleImage)
+                        {
+                            listOnline = (from a in StaticSettings.ListVehilceOnline
+                                          join b in StaticSettings.ListPackageVehicle on a.VehiclePlate.ToUpper() equals b.VehiclePlate.ToUpper()
+                                          where (b.ServerServiceInfoEnt?.HasImageCapture == true && a.MessageId != 65
+                                           && a.MessageId != 254
+                                           && a.MessageId != 128
+                                           && a.MessageId != 3
+                                           && a.MessageId != 2)
+                                          select a).Distinct().ToList();
+                        }
+                        else if (LookUpType == VehicleLookUpType.VehicleReport)
+                        {
+                            listOnline = (from a in StaticSettings.ListVehilceOnline
+                                          join b in StaticSettings.ListPackageVehicle on a.VehiclePlate.ToUpper() equals b.VehiclePlate.ToUpper()
+                                          where (b.ServerServiceInfoEnt?.IncludeQcvn31 == true && a.MessageId != 65
+                                           && a.MessageId != 254
+                                           && a.MessageId != 128
+                                           && a.MessageId != 3
+                                           && a.MessageId != 2)
+                                          select a).Distinct().ToList();
+                        }
+                        else
+                        {
+                            listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65
+                                     && x.MessageId != 254
+                                     && x.MessageId != 128
+                                     && x.MessageId != 3
+                                     && x.MessageId != 2).ToList();
+                        }
                     }
                     if (groupids != null && groupids.Length > 0)
                     {
@@ -231,7 +248,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (selected != null)
                         {
                             var navigationPara = new NavigationParameters();
-                            if (LookUpType == VehicleLookUpType.VehicleRoute)
+                            if (LookUpType == VehicleLookUpType.VehicleRoute || LookUpType == VehicleLookUpType.VehicleReport)
                             {
                                 navigationPara.Add(ParameterKey.VehicleRoute, selected);
                             }

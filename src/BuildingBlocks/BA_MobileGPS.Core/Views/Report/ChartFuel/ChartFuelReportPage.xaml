@@ -175,7 +175,7 @@
                         IsClippedToBounds="True"
                         VerticalOptions="Center">
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                            <TapGestureRecognizer Command="{Binding SelectVehicleReportCommand}" />
                         </Frame.GestureRecognizers>
                         <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
                             <Entry

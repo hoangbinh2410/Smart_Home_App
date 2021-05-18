@@ -1,24 +1,19 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
-using BA_MobileGPS.Utilities;
 
 using Prism.Commands;
 using Prism.Navigation;
 
 using Syncfusion.Data.Extensions;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
-using Exception = System.Exception;
 using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -31,15 +26,13 @@ namespace BA_MobileGPS.Core.ViewModels
         private CancellationTokenSource cts;
         private bool hasVehicle = true;
         public bool HasVehicle { get => hasVehicle; set => SetProperty(ref hasVehicle, value); }
-       
+
         private static List<CameraLookUpVehicleModel> ListVehicleOrigin = new List<CameraLookUpVehicleModel>();
 
         private List<CameraLookUpVehicleModel> listVehicle = new List<CameraLookUpVehicleModel>();
         public List<CameraLookUpVehicleModel> ListVehicle { get => listVehicle; set => SetProperty(ref listVehicle, value); }
 
         #endregion Property
-
-       
 
         public ICommand SearchVehicleCommand { get; private set; }
 
@@ -49,13 +42,13 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             this.cameraService = cameraService;
             SearchVehicleCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehicle);
-            TapListVehicleCommand = new DelegateCommand<ItemTappedEventArgs>(TapListVehicle);       
+            TapListVehicleCommand = new DelegateCommand<ItemTappedEventArgs>(TapListVehicle);
         }
 
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            GetVehicleCamera();         
+            GetVehicleCamera();
         }
 
         private void GetVehicleCamera()
@@ -85,6 +78,8 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             var listcam = (from a in lstcamera
                            join b in StaticSettings.ListVehilceOnline on a.VehiclePlate.ToUpper() equals b.VehiclePlate.ToUpper()
+                           join c in StaticSettings.ListPackageVehicle on a.VehiclePlate.ToUpper() equals c.VehiclePlate.ToUpper()
+                           where (c.ServerServiceInfoEnt?.HasVideoStream == true)
                            select new CameraLookUpVehicleModel()
                            {
                                CameraChannels = a.CameraChannels?.Select(x => x.Channel).ToList(),
@@ -151,6 +146,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     await NavigationService.GoBackAsync(navigationPara, useModalNavigation: true, true);
                 }
             });
-        }                
+        }
     }
 }

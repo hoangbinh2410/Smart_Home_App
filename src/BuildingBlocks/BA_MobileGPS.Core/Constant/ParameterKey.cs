@@ -39,6 +39,7 @@
         public const string RequestTime = "RequestTime";
         public const string Logout = "Logout";
         public const string VehicleStatusSelected = "VehicleStatusSelected";
+        public const string PageCallSelectVehicle = "PageCallSelectVehicle";
         public const string ChangeLanguge = "ChangeLanguge";
         public const string SelectRangeDateTime = "SelectRangeDateTime";
         public const string SelectDate = "SelectDate";

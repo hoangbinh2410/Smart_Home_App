@@ -25,6 +25,8 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IDisplayMessage displayMessage;
         public DelegateCommand<object> LoadMoreItemsCommand { get; set; }
 
+        public DelegateCommand SelectVehicleImageCommand { get; private set; }
+
         //thời gian bắt đầu
         private TimeSpan timeFrom = TimeSpan.Zero;
 
@@ -83,6 +85,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SearchCameraCommand = new Command(SearchCamera);
             ViewCameraDetailCommand = new Command<CaptureImageData>(ViewCameraDetail);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
+            SelectVehicleImageCommand = new DelegateCommand(SelectVehicleImage);
         }
 
         public int TotalCount { get; set; } = 0;
@@ -222,6 +225,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 };
 
                 await NavigationService.NavigateAsync("CameraDetail", parameters, useModalNavigation: false, true);
+            });
+        }
+
+        private void SelectVehicleImage()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", animated: true, useModalNavigation: true, parameters: new NavigationParameters
+                        {
+                            { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleImage },
+                            {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
+                            {  ParameterKey.VehicleStatusSelected, ListVehicleStatus}
+                        });
             });
         }
     }

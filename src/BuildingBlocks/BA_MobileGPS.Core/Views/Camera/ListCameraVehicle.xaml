@@ -159,7 +159,7 @@
                         Orientation="Horizontal"
                         VerticalOptions="Center">
                         <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SelectVehicleRouterCommand}" />
+                            <TapGestureRecognizer Command="{Binding SelectVehicleImageCommand}" />
                         </StackLayout.GestureRecognizers>
                         <Entry
                             FontSize="{StaticResource FontSize12}"

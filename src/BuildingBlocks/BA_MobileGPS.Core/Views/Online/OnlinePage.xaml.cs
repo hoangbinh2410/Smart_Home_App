@@ -18,6 +18,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Timers;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -111,20 +112,28 @@ namespace BA_MobileGPS.Core.Views
 
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
-                if (googleMap.ClusteredPins != null && googleMap.ClusteredPins.Count > 0)
+                var model = StaticSettings.ListPackageVehicle.FirstOrDefault(x => x.VehiclePlate == vehiclePlate.VehiclePlate);
+                if (model != null && model.ServerServiceInfoEnt != null && model.ServerServiceInfoEnt.IncludeQcvn31)
                 {
-                    var clusterpin = googleMap.ClusteredPins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
-                    if (clusterpin != null)
+                    if (googleMap.ClusteredPins != null && googleMap.ClusteredPins.Count > 0)
                     {
-                        var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehicleId == vehiclePlate.VehicleId);
-                        if (vehicleselect != null)
+                        var clusterpin = googleMap.ClusteredPins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
+                        if (clusterpin != null)
                         {
-                            vm.CarSearch = vehicleselect.PrivateCode;
-                            UpdateSelectVehicle(vehicleselect);
+                            var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehicleId == vehiclePlate.VehicleId);
+                            if (vehicleselect != null)
+                            {
+                                vm.CarSearch = vehicleselect.PrivateCode;
+                                UpdateSelectVehicle(vehicleselect);
+                            }
+                            else
+                            {
+                                pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
+                            }
                         }
                         else
                         {
-                            pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
+                            displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
                         }
                     }
                     else
@@ -134,7 +143,17 @@ namespace BA_MobileGPS.Core.Views
                 }
                 else
                 {
-                    displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var action = await DisplayAlert("Thông báo",
+                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng định vị \n Quý khách vui liên hệ tới số {1} để được hỗ trợ",
+                              vehiclePlate.PrivateCode, MobileSettingHelper.HotlineGps),
+                              "Liên hệ", "Bỏ qua");
+                        if (action)
+                        {
+                            PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                        }
+                    });
                 }
             }
             else if (parameters.ContainsKey(ParameterKey.Company) && parameters.GetValue<Company>(ParameterKey.Company) is Company company)

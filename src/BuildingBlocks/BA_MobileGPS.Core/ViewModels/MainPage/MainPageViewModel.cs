@@ -627,6 +627,9 @@ namespace BA_MobileGPS.Core.ViewModels
                         JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
                     });
 
+                    //Lấy danh sách gói cước của xe
+                    GetPackageByXnPlate();
+
                     // Lấy danh sách cảnh báo
                     GetCountAlert();
 
@@ -963,6 +966,27 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 }
             });
+        }
+
+        private void GetPackageByXnPlate()
+        {
+            if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+            {
+                RunOnBackground(async () =>
+                {
+                    return await streamCameraService.GetPackageByXnPlate(new PackageBACameraRequest()
+                    {
+                        XNCode = UserInfo.XNCode,
+                        LstPlate = StaticSettings.ListVehilceOnline.Select(x => x.VehiclePlate).ToList()
+                    });
+                }, (result) =>
+                {
+                    if (result != null && result.Data != null)
+                    {
+                        StaticSettings.ListPackageVehicle = result.Data;
+                    }
+                });
+            }
         }
 
         private void PushPageFileBase()

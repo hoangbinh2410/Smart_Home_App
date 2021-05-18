@@ -36,6 +36,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand RefeshCommand { get; set; }
 
+        public DelegateCommand SelectVehicleImageCommand { get; private set; }
+
         public ImageManagingPageViewModel(INavigationService navigationService,
             IStreamCameraService streamCameraService,
             IRealmBaseService<LastViewVehicleRealm, LastViewVehicleRespone> lastViewVehicleRepository) : base(navigationService)
@@ -50,6 +52,7 @@ namespace BA_MobileGPS.Core.ViewModels
             TapCommandListGroup = new DelegateCommand<ItemTappedEventArgs>(TapListGroup);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
             RefeshCommand = new DelegateCommand(RefeshImage);
+            SelectVehicleImageCommand = new DelegateCommand(SelectVehicleImage);
             CarSearch = string.Empty;
             PageCount = 5;
             PageIndex = 0;
@@ -600,6 +603,20 @@ namespace BA_MobileGPS.Core.ViewModels
                 respone[1] = count > 3 ? 80 : 40;
             }
             return respone;
+        }
+
+
+        private void SelectVehicleImage()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", animated: true, useModalNavigation: true, parameters: new NavigationParameters
+                        {
+                            { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleImage },
+                            {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
+                            {  ParameterKey.VehicleStatusSelected, ListVehicleStatus}
+                        });
+            });
         }
     }
 }

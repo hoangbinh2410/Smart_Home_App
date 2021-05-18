@@ -55,7 +55,7 @@
                 HeightRequest="40"
                 VerticalOptions="Center">
                 <pancake:PancakeView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                    <TapGestureRecognizer Command="{Binding SelectVehicleImageCommand}" />
                 </pancake:PancakeView.GestureRecognizers>
                 <pancake:PancakeView.Shadow>
                     <pancake:DropShadow
