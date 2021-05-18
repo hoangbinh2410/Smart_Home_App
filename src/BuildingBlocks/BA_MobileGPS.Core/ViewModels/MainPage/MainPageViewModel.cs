@@ -1010,6 +1010,12 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 GlobalResources.Current.TotalVideoUpload = obj.Data.Count;
                 GlobalResources.Current.TotalVideoUploaded = 0;
+
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    var a = await NavigationService.NavigateAsync("UploadVideoProssessPage", null, true, true);
+                });
+
                 int index = 0;
                 Device.StartTimer(TimeSpan.FromSeconds(5), () =>
                  {
