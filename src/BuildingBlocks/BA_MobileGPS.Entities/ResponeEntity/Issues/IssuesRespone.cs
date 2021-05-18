@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Entities.Enums;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace BA_MobileGPS.Entities.ResponeEntity.Issues
 {
@@ -14,17 +15,15 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Issues
 
         public string IssueCode { get; set; }
 
+        public DateTime DateRequest { get; set; }
+
         public IssuesStatusEnums Status { get; set; }
 
-        public string Content { get; set; }
-
-        public string Description { get; set; }
+        public string ContentRequest { get; set; }
 
         public DateTime DueDate { get; set; }
 
         public DateTime CreatedDate { get; set; }
-
-        public DateTime? UpdatedDate { get; set; }
 
         private bool isFavorites;
 
@@ -34,20 +33,26 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Issues
 
     public class IssuesDetailRespone : BaseModel
     {
-        public Guid Id { get; set; }
-
         public string IssueCode { get; set; }
 
-        public IssuesStatusEnums Status { get; set; }
+        public DateTime DateRequest { get; set; }
 
-        public string Description { get; set; }
+        public List<IssueStatusRespone> IssueStatus { get; set; }
+
+        public string ContentRequest { get; set; }
 
         public DateTime DueDate { get; set; }
 
         public DateTime CreatedDate { get; set; }
+    }
 
-        public DateTime? UpdatedDate { get; set; }
+    public class IssueStatusRespone
+    {
+        public IssuesStatusEnums Status { get; set; }
 
+        public DateTime DateChangeStatus { get; set; }
+
+        [JsonIgnore]
         public bool IsFinishStep { get; set; }
     }
 }

@@ -305,13 +305,13 @@
                                             FontSize="{StaticResource FontSize12}"
                                             HorizontalOptions="FillAndExpand"
                                             LineBreakMode="NoWrap"
-                                            Text="{Binding CreatedDate, Converter={StaticResource DateTimeConverter}}"
+                                            Text="{Binding DateRequest, Converter={StaticResource DateTimeConverter}}"
                                             VerticalOptions="Center" />
                                         <Label
                                             Grid.Column="2"
                                             HorizontalOptions="End"
                                             LineBreakMode="TailTruncation"
-                                            Text="{Binding Content}"
+                                            Text="{Binding ContentRequest}"
                                             VerticalOptions="Center" />
                                         <icons:IconView
                                             Grid.Column="3"

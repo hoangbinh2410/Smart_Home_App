@@ -272,7 +272,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     await Task.Delay(500, cts.Token);
                     if (cts.IsCancellationRequested)
                         return null;
-                    return ListIssueByOrigin.Where(x => (x.Content.ToUpper().Contains(keySearch) || string.IsNullOrEmpty(keySearch))
+                    return ListIssueByOrigin.Where(x => (x.ContentRequest.ToUpper().Contains(keySearch) || string.IsNullOrEmpty(keySearch))
                     && ((x.Status == (IssuesStatusEnums)StatusIssueSelected.Key)
                     || StatusIssueSelected.Key == 0
                     || StatusIssueSelected == null)
@@ -373,7 +373,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void FilterIssue()
         {
-            var lst = ListIssueByOrigin.Where(x => (x.Content.ToUpper().Contains(SearchedText) || string.IsNullOrEmpty(SearchedText))
+            var lst = ListIssueByOrigin.Where(x => (x.ContentRequest.ToUpper().Contains(SearchedText) || string.IsNullOrEmpty(SearchedText))
                                             && (x.Status == (IssuesStatusEnums)StatusIssueSelected.Key
                                             || StatusIssueSelected.Key == 0
                                             || StatusIssueSelected == null)

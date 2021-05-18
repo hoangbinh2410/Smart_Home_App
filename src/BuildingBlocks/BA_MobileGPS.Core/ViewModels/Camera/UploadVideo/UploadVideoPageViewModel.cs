@@ -156,6 +156,9 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (isvalid)
                         {
                             await PageDialog.DisplayAlertAsync("Thông báo", "Video đang được tải về server. Quý khách có thể xem các video đã tải trên tab Yêu cầu", "Đóng");
+                            
+                            await NavigationService.GoBackAsync();
+
                             EventAggregator.GetEvent<UploadVideoEvent>().Publish(new VideoRestreamInfo()
                             {
                                 Channel = VideoRestreamInfo.Channel,
@@ -163,7 +166,6 @@ namespace BA_MobileGPS.Core.ViewModels
                                 VehicleName = VideoRestreamInfo.VehicleName,
                                 VehicleID = RequestInfo.VehicleID
                             });
-                            await NavigationService.GoBackAsync();
                         }
                         else
                         {

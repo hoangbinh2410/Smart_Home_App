@@ -45,7 +45,7 @@ namespace BA_MobileGPS.Entities
         public string Code { get; set; }
         public string Network { get; set; }
         public int Capacity { get; set; }
-        public bool Bandwidth { get; set; }
+        public int Bandwidth { get; set; }
         public int SmsCount { get; set; }
         public string Notice { get; set; }
     }
