@@ -114,40 +114,42 @@ namespace BA_MobileGPS.Core.Views
             {
                 if (googleMap.ClusteredPins != null && googleMap.ClusteredPins.Count > 0)
                 {
-                    var clusterpin = googleMap.ClusteredPins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
-                    if (clusterpin != null)
+                    var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehicleId == vehiclePlate.VehicleId);
+                    if (vehicleselect != null)
                     {
-                        var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehicleId == vehiclePlate.VehicleId);
-                        if (vehicleselect != null)
+                        if (vehicleselect.IsQcvn31)
                         {
-                            if (vehicleselect.IsQcvn31)
+                            var clusterpin = googleMap.ClusteredPins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
+                            if (clusterpin != null)
                             {
                                 vm.CarSearch = vehicleselect.PrivateCode;
                                 UpdateSelectVehicle(vehicleselect);
                             }
                             else
                             {
-                                Device.BeginInvokeOnMainThread(async () =>
-                                {
-                                    var action = await DisplayAlert("Thông báo",
-                                          string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng định vị \n Quý khách vui liên hệ tới số {1} để được hỗ trợ",
-                                          vehiclePlate.PrivateCode, MobileSettingHelper.HotlineGps),
-                                          "Liên hệ", "Bỏ qua");
-                                    if (action)
-                                    {
-                                        PhoneDialer.Open(MobileSettingHelper.HotlineGps);
-                                    }
-                                });
+                                displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
                             }
+                            vm.CarSearch = vehicleselect.PrivateCode;
+                            UpdateSelectVehicle(vehicleselect);
                         }
                         else
                         {
-                            pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
+                            Device.BeginInvokeOnMainThread(async () =>
+                            {
+                                var action = await DisplayAlert("Thông báo",
+                                      string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng định vị \n Quý khách vui liên hệ tới số {1} để được hỗ trợ",
+                                      vehiclePlate.PrivateCode, MobileSettingHelper.HotlineGps),
+                                      "Liên hệ", "Bỏ qua");
+                                if (action)
+                                {
+                                    PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                                }
+                            });
                         }
                     }
                     else
                     {
-                        displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
+                        pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
                     }
                 }
                 else
@@ -560,7 +562,7 @@ namespace BA_MobileGPS.Core.Views
                                 list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65
                                 && x.MessageId != 254
                                 && x.MessageId != 128
-                                && x.MessageId != 3 ).ToList();
+                                && x.MessageId != 3).ToList();
                             }
                             else
                             {
