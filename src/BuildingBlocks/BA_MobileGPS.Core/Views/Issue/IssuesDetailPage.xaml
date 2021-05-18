@@ -46,7 +46,7 @@
                         Grid.Column="2"
                         FontSize="15"
                         HorizontalOptions="EndAndExpand"
-                        Text="{Binding Issue.CreatedDate, Converter={StaticResource DateTimeConverter}}"
+                        Text="{Binding Issue.DateRequest, Converter={StaticResource DateTimeConverter}}"
                         TextColor="{StaticResource WhiteColor}"
                         VerticalOptions="Center" />
                 </Grid>
@@ -56,7 +56,7 @@
                     FontSize="14"
                     HorizontalOptions="Start"
                     LineBreakMode="WordWrap"
-                    Text="{Binding Issue.Content}"
+                    Text="{Binding Issue.ContentRequest}"
                     TextColor="{StaticResource WhiteColor}"
                     VerticalOptions="Center" />
             </Grid>
@@ -149,7 +149,7 @@
                                                 WidthRequest="20" />
                                             <Label
                                                 FontAttributes="Bold"
-                                                Text="{Binding CreatedDate, Converter={StaticResource DateTimeConverter}}"
+                                                Text="{Binding DateChangeStatus, Converter={StaticResource DateTimeConverter}}"
                                                 TextColor="#2F3542" />
                                         </StackLayout>
                                         <BoxView

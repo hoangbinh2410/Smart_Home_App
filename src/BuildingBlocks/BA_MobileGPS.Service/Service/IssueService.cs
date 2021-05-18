@@ -37,13 +37,13 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<List<IssuesDetailRespone>> GetIssueByIssueCode(string issueCode)
+        public async Task<IssuesDetailRespone> GetIssueByIssueCode(string issueCode)
         {
-            List<IssuesDetailRespone> result = new List<IssuesDetailRespone>();
+            IssuesDetailRespone result = new IssuesDetailRespone();
             try
             {
                 string url = $"{ApiUri.GET_ISSUE_BYISSUECODE}?issueCode={issueCode}";
-                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<List<IssuesDetailRespone>>>(url);
+                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<IssuesDetailRespone>>(url);
                 if (response != null && response.Data != null)
                 {
                     result = response.Data;

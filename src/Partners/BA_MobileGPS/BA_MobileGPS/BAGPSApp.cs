@@ -22,11 +22,11 @@ namespace BA_MobileGPS
         protected async override void OnInitialized()
         {
             base.OnInitialized();
-            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerThat;
-            ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerThat;
-            ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerThat;
-            ServerConfig.ServerUserBehaviorHubType = ServerUserBehaviorHubTypes.ServerThat;
-            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerThat;
+            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerTest;
+            ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerTest;
+            ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerTest;
+            ServerConfig.ServerUserBehaviorHubType = ServerUserBehaviorHubTypes.ServerTest;
+            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerTest;
 
             Application.Current.Resources.MergedDictionaries.Add(new LightColor());
             Application.Current.Resources.MergedDictionaries.Add(new BA_MobileGPS.Core.Styles.Styles());

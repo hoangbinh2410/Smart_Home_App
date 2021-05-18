@@ -24,8 +24,8 @@ namespace BA_MobileGPS.Core.ViewModels
         private IssuesRespone issue;
         public IssuesRespone Issue { get => issue; set => SetProperty(ref issue, value); }
 
-        private ObservableCollection<IssuesDetailRespone> listIssue = new ObservableCollection<IssuesDetailRespone>();
-        public ObservableCollection<IssuesDetailRespone> ListIssue { get => listIssue; set => SetProperty(ref listIssue, value); }
+        private ObservableCollection<IssueStatusRespone> listIssue = new ObservableCollection<IssueStatusRespone>();
+        public ObservableCollection<IssueStatusRespone> ListIssue { get => listIssue; set => SetProperty(ref listIssue, value); }
 
         private bool isNotFinish;
         public bool IsNotFinish { get => isNotFinish; set => SetProperty(ref isNotFinish, value); }
@@ -46,7 +46,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Issue = new IssuesRespone();
                 Issue.IssueCode = issuecode;
-                GetListIssueActive(issuecode);
                 GetListIssue();
             }
         }
@@ -76,20 +75,30 @@ namespace BA_MobileGPS.Core.ViewModels
                 return await _issueService.GetIssueByIssueCode(Issue.IssueCode);
             }, (result) =>
             {
-                if (result != null && result.Count > 0)
+                if (result != null)
                 {
-                    var lst = result.OrderBy(x => x.CreatedDate).ToList();
-                    var isFinish = result.FirstOrDefault(x => x.Status == Entities.Enums.IssuesStatusEnums.Finish);
+                    Issue.ContentRequest = result.ContentRequest;
+                    Issue.DateRequest = result.DateRequest;
+                    Issue.DueDate = result.DueDate;
+                    Issue.IssueCode = result.IssueCode;
+                    var lst = result.IssueStatus.OrderBy(x => x.DateChangeStatus).ToList();
+                    var isFinish = lst.FirstOrDefault(x => x.Status == Entities.Enums.IssuesStatusEnums.Finish);
                     if (isFinish == null)
                     {
                         IsNotFinish = true;
                     }
                     for (int i = 0; i < lst.Count; i++)
                     {
-                        var lastitem = lst.Last();
-                        if (lastitem.Status != Entities.Enums.IssuesStatusEnums.Finish)
+                        if (i == lst.Count - 1)
                         {
-                            lst[i].IsFinishStep = false;
+                            if (lst[i].Status != Entities.Enums.IssuesStatusEnums.Finish)
+                            {
+                                lst[i].IsFinishStep = false;
+                            }
+                            else
+                            {
+                                lst[i].IsFinishStep = true;
+                            }
                         }
                         else
                         {
@@ -101,16 +110,16 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private void GetListIssueActive(string issueCode)
-        {
-            RunOnBackground(async () =>
-            {
-                return await _issueService.GetIssueByCompanyID(CurrentComanyID);
-            }, (result) =>
-            {
-                Issue = result.FirstOrDefault(x => x.IssueCode == issueCode);
-            });
-        }
+        //private void GetListIssueActive(string issueCode)
+        //{
+        //    RunOnBackground(async () =>
+        //    {
+        //        return await _issueService.GetIssueByCompanyID(CurrentComanyID);
+        //    }, (result) =>
+        //    {
+        //        Issue = result.FirstOrDefault(x => x.IssueCode == issueCode);
+        //    });
+        //}
 
         #endregion PrivateMethod
     }
