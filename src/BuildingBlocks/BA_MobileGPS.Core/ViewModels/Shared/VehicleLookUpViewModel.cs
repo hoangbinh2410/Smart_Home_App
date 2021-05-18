@@ -124,25 +124,19 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (LookUpType == VehicleLookUpType.VehicleImage)
                         {
-                            listOnline = (from a in StaticSettings.ListVehilceOnline
-                                          join b in StaticSettings.ListPackageVehicle on a.VehiclePlate.ToUpper() equals b.VehiclePlate.ToUpper()
-                                          where (b.ServerServiceInfoEnt?.HasImageCapture == true && a.MessageId != 65
-                                           && a.MessageId != 254
-                                           && a.MessageId != 128
-                                           && a.MessageId != 3
-                                           && a.MessageId != 2)
-                                          select a).Distinct().ToList();
+                            listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65
+                                     && x.MessageId != 254
+                                     && x.MessageId != 128
+                                     && x.MessageId != 3
+                                     && x.MessageId != 2 && x.HasImage == true).ToList();
                         }
                         else if (LookUpType == VehicleLookUpType.VehicleReport)
                         {
-                            listOnline = (from a in StaticSettings.ListVehilceOnline
-                                          join b in StaticSettings.ListPackageVehicle on a.VehiclePlate.ToUpper() equals b.VehiclePlate.ToUpper()
-                                          where (b.ServerServiceInfoEnt?.IncludeQcvn31 == true && a.MessageId != 65
-                                           && a.MessageId != 254
-                                           && a.MessageId != 128
-                                           && a.MessageId != 3
-                                           && a.MessageId != 2)
-                                          select a).Distinct().ToList();
+                            listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65
+                                      && x.MessageId != 254
+                                      && x.MessageId != 128
+                                      && x.MessageId != 3
+                                      && x.MessageId != 2 && x.IsQcvn31 == true).ToList();
                         }
                         else
                         {

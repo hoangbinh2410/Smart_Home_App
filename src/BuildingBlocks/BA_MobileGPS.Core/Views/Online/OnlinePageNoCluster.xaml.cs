@@ -101,28 +101,37 @@ namespace BA_MobileGPS.Core.Views
             }
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
-                var model = StaticSettings.ListPackageVehicle.FirstOrDefault(x => x.VehiclePlate == vehiclePlate.VehiclePlate);
-                if (model != null && model.ServerServiceInfoEnt != null && model.ServerServiceInfoEnt.IncludeQcvn31)
+                if (googleMap.Pins != null && googleMap.Pins.Count > 0)
                 {
-                    if (googleMap.Pins != null && googleMap.Pins.Count > 0)
+                    var clusterpin = googleMap.Pins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
+                    if (clusterpin != null)
                     {
-                        var clusterpin = googleMap.Pins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
-                        if (clusterpin != null)
+                        var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehicleId == vehiclePlate.VehicleId);
+                        if (vehicleselect != null)
                         {
-                            var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehicleId == vehiclePlate.VehicleId);
-                            if (vehicleselect != null)
+                            if (vehicleselect.IsQcvn31)
                             {
                                 vm.CarSearch = vehicleselect.PrivateCode;
                                 UpdateSelectVehicle(vehicleselect);
                             }
                             else
                             {
-                                pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
+                                Device.BeginInvokeOnMainThread(async () =>
+                                {
+                                    var action = await DisplayAlert("Thông báo",
+                                          string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng định vị \n Quý khách vui liên hệ tới số {1} để được hỗ trợ",
+                                          vehiclePlate.PrivateCode, MobileSettingHelper.HotlineGps),
+                                          "Liên hệ", "Bỏ qua");
+                                    if (action)
+                                    {
+                                        PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                                    }
+                                });
                             }
                         }
                         else
                         {
-                            displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
+                            pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
                         }
                     }
                     else
@@ -132,17 +141,7 @@ namespace BA_MobileGPS.Core.Views
                 }
                 else
                 {
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        var action = await DisplayAlert("Thông báo",
-                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng định vị \n Quý khách vui liên hệ tới số {1} để được hỗ trợ",
-                              vehiclePlate.PrivateCode, MobileSettingHelper.HotlineGps),
-                              "Liên hệ", "Bỏ qua");
-                        if (action)
-                        {
-                            PhoneDialer.Open(MobileSettingHelper.HotlineGps);
-                        }
-                    });
+                    displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
                 }
             }
             else if (parameters.ContainsKey(ParameterKey.Company) && parameters.GetValue<Company>(ParameterKey.Company) is Company company)
@@ -492,12 +491,12 @@ namespace BA_MobileGPS.Core.Views
                     item.Rotate(carInfo.Lat, carInfo.Lng, () =>
                     {
                         item.MarkerAnimation(itemLable, carInfo.Lat, carInfo.Lng, () =>
-                         {
-                             if (carActive)
-                             {
-                                 Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
-                             }
-                         });
+                        {
+                            if (carActive)
+                            {
+                                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
+                            }
+                        });
                     });
                 }
                 else
@@ -538,11 +537,16 @@ namespace BA_MobileGPS.Core.Views
                         }
                         else if (App.AppType == AppType.Viview)
                         {
-                            list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128 && x.MessageId != 3).ToList();
+                            list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65
+                            && x.MessageId != 254
+                            && x.MessageId != 128
+                            && x.MessageId != 3 && x.IsQcvn31 == true).ToList();
                         }
                         else
                         {
-                            list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                            list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65
+                            && x.MessageId != 254
+                            && x.MessageId != 128 && x.IsQcvn31 == true).ToList();
                         }
                         if (list != null && list.Count > 0)
                         {

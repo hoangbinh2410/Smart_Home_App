@@ -100,10 +100,10 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
                 {
-                    if (StaticSettings.ListPackageVehicle != null && StaticSettings.ListPackageVehicle.Count > 0)
+                    if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                     {
-                        var model = StaticSettings.ListPackageVehicle.FirstOrDefault(x => x.VehiclePlate == vehicle.VehiclePlate);
-                        if (model != null && model.ServerServiceInfoEnt != null && model.ServerServiceInfoEnt.IncludeQcvn31)
+                        var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == vehicle.VehiclePlate);
+                        if (model != null && model.IsQcvn31)
                         {
                             Vehicle = vehicle;
 

@@ -26,6 +26,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public DelegateCommand<object> LoadMoreItemsCommand { get; set; }
 
         public DelegateCommand SelectVehicleImageCommand { get; private set; }
+        public DelegateCommand HelpImageCommand { get; private set; }
 
         //thời gian bắt đầu
         private TimeSpan timeFrom = TimeSpan.Zero;
@@ -86,6 +87,7 @@ namespace BA_MobileGPS.Core.ViewModels
             ViewCameraDetailCommand = new Command<CaptureImageData>(ViewCameraDetail);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
             SelectVehicleImageCommand = new DelegateCommand(SelectVehicleImage);
+            HelpImageCommand = new DelegateCommand(HelpImage);
         }
 
         public int TotalCount { get; set; } = 0;
@@ -238,6 +240,14 @@ namespace BA_MobileGPS.Core.ViewModels
                             {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
                             {  ParameterKey.VehicleStatusSelected, ListVehicleStatus}
                         });
+            });
+        }
+
+        private void HelpImage()
+        {
+            SafeExecute(async () =>
+            {
+                await PageDialog.DisplayAlertAsync("Thông báo", "Các xe sử dụng gói cước không tích hợp tính năng xem hình ảnh sẽ không được hiển thị trên tính năng này", "Bỏ qua");
             });
         }
     }

@@ -39,6 +39,16 @@
                 Text="{i18n:TranslateResource CameraImage_Label_TitlelPage}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
+            <icons:IconView
+                Foreground="{DynamicResource WhiteColor}"
+                HeightRequest="25"
+                HorizontalOptions="End"
+                Source="ic_help.png"
+                VerticalOptions="Center">
+                <icons:IconView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding HelpImageCommand}" />
+                </icons:IconView.GestureRecognizers>
+            </icons:IconView>
         </Grid>
     </NavigationPage.TitleView>
     <Grid RowDefinitions="Auto,Auto,*" RowSpacing="2">

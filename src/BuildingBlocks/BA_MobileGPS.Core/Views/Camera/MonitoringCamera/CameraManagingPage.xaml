@@ -62,6 +62,17 @@
                 Text="{i18n:TranslateResource Camera_Title_Camera_Streaming}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
+
+            <icons:IconView
+                Foreground="{DynamicResource WhiteColor}"
+                HeightRequest="25"
+                HorizontalOptions="End"
+                Source="ic_help.png"
+                VerticalOptions="Center">
+                <icons:IconView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding HelpVideoCommand}" />
+                </icons:IconView.GestureRecognizers>
+            </icons:IconView>
         </Grid>
     </NavigationPage.TitleView>
     <Grid RowDefinitions="Auto,Auto,*,Auto" RowSpacing="0">
