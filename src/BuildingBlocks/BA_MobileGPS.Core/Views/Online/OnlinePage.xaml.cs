@@ -446,21 +446,24 @@ namespace BA_MobileGPS.Core.Views
             vm.ListVehicleStatus = lisVehicle;
             lisVehicle.ForEach(x =>
             {
-                listmarker.Add(new VehicleOnlineMarker()
+                if (x.IsQcvn31)
                 {
-                    VehicleId = x.VehicleId,
-                    VehiclePlate = x.VehiclePlate,
-                    Lat = x.Lat,
-                    Lng = x.Lng,
-                    State = x.State,
-                    Velocity = x.Velocity,
-                    GPSTime = x.GPSTime,
-                    VehicleTime = x.VehicleTime,
-                    IconCode = x.IconCode,
-                    PrivateCode = x.PrivateCode,
-                    IconImage = IconCodeHelper.GetMarkerResource(x),
-                    DoubleMarker = new DoubleMarker().DrawMarker(x),
-                });
+                    listmarker.Add(new VehicleOnlineMarker()
+                    {
+                        VehicleId = x.VehicleId,
+                        VehiclePlate = x.VehiclePlate,
+                        Lat = x.Lat,
+                        Lng = x.Lng,
+                        State = x.State,
+                        Velocity = x.Velocity,
+                        GPSTime = x.GPSTime,
+                        VehicleTime = x.VehicleTime,
+                        IconCode = x.IconCode,
+                        PrivateCode = x.PrivateCode,
+                        IconImage = IconCodeHelper.GetMarkerResource(x),
+                        DoubleMarker = new DoubleMarker().DrawMarker(x),
+                    });
+                }
             });
 
             return listmarker;
@@ -557,13 +560,13 @@ namespace BA_MobileGPS.Core.Views
                                 list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65
                                 && x.MessageId != 254
                                 && x.MessageId != 128
-                                && x.MessageId != 3 && x.IsQcvn31 == true).ToList();
+                                && x.MessageId != 3 ).ToList();
                             }
                             else
                             {
                                 list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65
                                 && x.MessageId != 254
-                                && x.MessageId != 128 && x.IsQcvn31 == true).ToList();
+                                && x.MessageId != 128).ToList();
                             }
                             if (list != null && list.Count > 0)
                             {
