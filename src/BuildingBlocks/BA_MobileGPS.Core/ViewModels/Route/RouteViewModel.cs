@@ -19,7 +19,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
 
@@ -100,9 +100,30 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
                 {
-                    Vehicle = vehicle;
+                    if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+                    {
+                        var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == vehicle.VehiclePlate);
+                        if (model != null && model.IsQcvn31)
+                        {
+                            Vehicle = vehicle;
 
-                    ValidateUserConfigGetHistoryRoute();
+                            ValidateUserConfigGetHistoryRoute();
+                        }
+                        else
+                        {
+                            Device.BeginInvokeOnMainThread(async () =>
+                            {
+                                var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                                      string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng định vị \n Quý khách vui liên hệ tới số {1} để được hỗ trợ",
+                                      vehicle.PrivateCode, MobileSettingHelper.HotlineGps),
+                                      "Liên hệ", "Bỏ qua");
+                                if (action)
+                                {
+                                    PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                                }
+                            });
+                        }
+                    }
                 }
                 else if (parameters.ContainsKey(ParameterKey.VehicleOnline) && parameters.GetValue<VehicleOnline>(ParameterKey.VehicleOnline) is VehicleOnline vehicleOnline)
                 {

@@ -359,7 +359,7 @@ namespace BA_MobileGPS.Service.Service
             var result = new PackageBACameraRespone();
             try
             {
-                string url = $"{ApiUri.POST_RESTREAM_CANCELUPLOAD}";
+                string url = $"{ApiUri.POST_GetPACKETBYXNPLATE}";
                 var respone = await requestProvider.PostAsync<PackageBACameraRequest, ResponseBaseV2<PackageBACameraRespone>>(url, request);
                 if (respone != null && respone.Data != null)
                 {

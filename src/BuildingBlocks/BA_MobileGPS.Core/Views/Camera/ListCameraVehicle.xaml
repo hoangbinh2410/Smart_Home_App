@@ -43,6 +43,17 @@
                 Text="{Binding Source={x:Reference this}, Path=Title}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
+
+            <controls:IconView
+                Foreground="{DynamicResource WhiteColor}"
+                HeightRequest="25"
+                HorizontalOptions="End"
+                Source="ic_help.png"
+                VerticalOptions="Center">
+                <controls:IconView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding HelpImageCommand}" />
+                </controls:IconView.GestureRecognizers>
+            </controls:IconView>
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
@@ -159,7 +170,7 @@
                         Orientation="Horizontal"
                         VerticalOptions="Center">
                         <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SelectVehicleRouterCommand}" />
+                            <TapGestureRecognizer Command="{Binding SelectVehicleImageCommand}" />
                         </StackLayout.GestureRecognizers>
                         <Entry
                             FontSize="{StaticResource FontSize12}"

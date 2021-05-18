@@ -78,7 +78,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 PushToFromDateTimePageCommand = new DelegateCommand(ExecuteToFromDateTime);
                 PushToEndDateTimePageCommand = new DelegateCommand(ExecuteToEndDateTime);
                 SaveComlumnHideCommand = new DelegateCommand(ExecuteSaveComlumnHide);
-
+                SelectVehicleReportCommand = new DelegateCommand(SelectVehicleReport);
                 // ẩn hiện button export excell theo quyền
                 //if (CheckPermision((int)PermissionKeyNames.ReportMachineStateExport))
                 //    IsEnableButtonExcell = true;
@@ -98,6 +98,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
+
+      
 
         #region Property
 
@@ -177,6 +179,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand LoadMoreDataCommand { get; private set; }
         public ICommand ExportExcellCommand { get; private set; }
         public ICommand SaveComlumnHideCommand { get; private set; }
+        public DelegateCommand SelectVehicleReportCommand { get; private set; }
 
         #endregion Command
 
@@ -604,6 +607,20 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public virtual void FillDataTableExcell(IList<TResult> data, ref IWorksheet worksheet)
         {
+        }
+
+
+        private void SelectVehicleReport()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", animated: true, useModalNavigation: true, parameters: new NavigationParameters
+                        {
+                            { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleReport },
+                            {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
+                            {  ParameterKey.VehicleStatusSelected, ListVehicleStatus}
+                        });
+            });
         }
 
         #endregion Funtion

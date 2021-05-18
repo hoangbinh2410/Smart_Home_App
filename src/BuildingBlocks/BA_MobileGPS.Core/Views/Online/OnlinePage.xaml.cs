@@ -18,6 +18,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Timers;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -119,8 +120,25 @@ namespace BA_MobileGPS.Core.Views
                         var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehicleId == vehiclePlate.VehicleId);
                         if (vehicleselect != null)
                         {
-                            vm.CarSearch = vehicleselect.PrivateCode;
-                            UpdateSelectVehicle(vehicleselect);
+                            if (vehicleselect.IsQcvn31)
+                            {
+                                vm.CarSearch = vehicleselect.PrivateCode;
+                                UpdateSelectVehicle(vehicleselect);
+                            }
+                            else
+                            {
+                                Device.BeginInvokeOnMainThread(async () =>
+                                {
+                                    var action = await DisplayAlert("Thông báo",
+                                          string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng định vị \n Quý khách vui liên hệ tới số {1} để được hỗ trợ",
+                                          vehiclePlate.PrivateCode, MobileSettingHelper.HotlineGps),
+                                          "Liên hệ", "Bỏ qua");
+                                    if (action)
+                                    {
+                                        PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                                    }
+                                });
+                            }
                         }
                         else
                         {
@@ -428,21 +446,24 @@ namespace BA_MobileGPS.Core.Views
             vm.ListVehicleStatus = lisVehicle;
             lisVehicle.ForEach(x =>
             {
-                listmarker.Add(new VehicleOnlineMarker()
+                if (x.IsQcvn31)
                 {
-                    VehicleId = x.VehicleId,
-                    VehiclePlate = x.VehiclePlate,
-                    Lat = x.Lat,
-                    Lng = x.Lng,
-                    State = x.State,
-                    Velocity = x.Velocity,
-                    GPSTime = x.GPSTime,
-                    VehicleTime = x.VehicleTime,
-                    IconCode = x.IconCode,
-                    PrivateCode = x.PrivateCode,
-                    IconImage = IconCodeHelper.GetMarkerResource(x),
-                    DoubleMarker = new DoubleMarker().DrawMarker(x),
-                });
+                    listmarker.Add(new VehicleOnlineMarker()
+                    {
+                        VehicleId = x.VehicleId,
+                        VehiclePlate = x.VehiclePlate,
+                        Lat = x.Lat,
+                        Lng = x.Lng,
+                        State = x.State,
+                        Velocity = x.Velocity,
+                        GPSTime = x.GPSTime,
+                        VehicleTime = x.VehicleTime,
+                        IconCode = x.IconCode,
+                        PrivateCode = x.PrivateCode,
+                        IconImage = IconCodeHelper.GetMarkerResource(x),
+                        DoubleMarker = new DoubleMarker().DrawMarker(x),
+                    });
+                }
             });
 
             return listmarker;
@@ -488,12 +509,12 @@ namespace BA_MobileGPS.Core.Views
                     item.Rotate(carInfo.Lat, carInfo.Lng, () =>
                     {
                         item.MarkerAnimation(itemLable, carInfo.Lat, carInfo.Lng, () =>
-                         {
-                             if (carActive)
-                             {
-                                 Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
-                             }
-                         });
+                        {
+                            if (carActive)
+                            {
+                                Getaddress(carInfo.Lat.ToString(), carInfo.Lng.ToString(), carInfo.VehicleId);
+                            }
+                        });
                     });
                 }
                 else
@@ -536,11 +557,16 @@ namespace BA_MobileGPS.Core.Views
                             }
                             else if (App.AppType == AppType.Viview)
                             {
-                                list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128 && x.MessageId != 3).ToList();
+                                list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65
+                                && x.MessageId != 254
+                                && x.MessageId != 128
+                                && x.MessageId != 3 ).ToList();
                             }
                             else
                             {
-                                list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
+                                list = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65
+                                && x.MessageId != 254
+                                && x.MessageId != 128).ToList();
                             }
                             if (list != null && list.Count > 0)
                             {
