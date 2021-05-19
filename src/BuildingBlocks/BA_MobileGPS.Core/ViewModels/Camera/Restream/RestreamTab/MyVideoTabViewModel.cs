@@ -384,11 +384,16 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (AutoSwitch && isSelectPreOrNext == false)
                 {
                     NextVideo();
+                    isSelectPreOrNext = false;
                 }
                 else
                 {
                     isSelectPreOrNext = false;
                 }
+            }
+            else
+            {
+                isSelectPreOrNext = false;
             }
         }
 
@@ -398,6 +403,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
             {
+                isSelectPreOrNext = true;
                 var index = VideoItemsSource.ToList().FindIndex(VideoSlected);
                 if (index >= VideoItemsSource.Count - 1)
                 {
@@ -407,7 +413,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     VideoSlected = VideoItemsSource[index + 1];
                 }
-                VideoSelectedChange(VideoSlected);
+                InitVideoVideo(VideoSlected);
+
+                isSelectPreOrNext = false;
             }
         }
 
@@ -415,6 +423,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
             {
+                isSelectPreOrNext = true;
                 var index = VideoItemsSource.ToList().FindIndex(VideoSlected);
                 if (index == 0)
                 {
@@ -424,8 +433,37 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     VideoSlected = VideoItemsSource[index - 1];
                 }
-                VideoSelectedChange(VideoSlected);
+
+                InitVideoVideo(VideoSlected);
+
+                isSelectPreOrNext = false;
             }
+        }
+
+        private void InitVideoVideo(VideoUploadInfo obj)
+        {
+            if (MediaPlayerVisible)
+            {
+                CloseVideo();
+            }
+            foreach (var item in VideoItemsSource)
+            {
+                if (item.FileName == obj.FileName)
+                {
+                    item.IsSelected = true;
+                }
+                else { item.IsSelected = false; }
+            }
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                IsError = false;
+                BusyIndicatorActive = true;
+                MediaPlayerVisible = true; // Bật layout media lên
+            });
+            // init ở đây :
+            InitVLC(obj.Link);
+
+            VideoSlected = obj; // Set màu select cho item
         }
 
         /// <summary>
@@ -449,28 +487,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 SafeExecute(() =>
                 {
                     isSelectPreOrNext = true;
-                    if (MediaPlayerVisible)
-                    {
-                        CloseVideo();
-                    }
-                    foreach (var item in VideoItemsSource)
-                    {
-                        if (item.FileName == obj.FileName)
-                        {
-                            item.IsSelected = true;
-                        }
-                        else { item.IsSelected = false; }
-                    }
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        IsError = false;
-                        BusyIndicatorActive = true;
-                        MediaPlayerVisible = true; // Bật layout media lên
-                    });
-                    // init ở đây :
-                    InitVLC(obj.Link);
-
-                    VideoSlected = obj; // Set màu select cho item
+                    InitVideoVideo(obj);
                 });
             }
         }
