@@ -584,6 +584,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             mCameraVehicle = deviceResponseData.CameraChannels;
                             var query = (from p in ChannelCamera
                                          join pts in deviceResponseData.CameraChannels on p.Channel equals pts.Channel
+                                         where pts.IsHasCamera == true
                                          select p).ToList();
                             ChannelCamera = query.ToObservableCollection();
                             SetItemsSource(listCam);
