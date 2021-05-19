@@ -135,17 +135,15 @@
                     </StackLayout>
 
                     <StackLayout
-                        IsVisible="{Binding IsQcvn31}"
+                        IsVisible="{Binding IsQcvn31, Converter={StaticResource InvertBooleanConverter}}"
                         Orientation="Horizontal"
                         Spacing="10">
                         <controls:IconView Source="ic_infor_light.png" />
                         <Label
                             FontSize="12"
-                            HeightRequest="30"
                             HorizontalOptions="Start"
                             HorizontalTextAlignment="Start"
-                            LineBreakMode="WordWrap"
-                            MaxLines="2"
+                            LineBreakMode="TailTruncation"
                             Text="Gói cước không tích hợp tính năng định vị"
                             TextColor="Red"
                             VerticalOptions="Center" />
