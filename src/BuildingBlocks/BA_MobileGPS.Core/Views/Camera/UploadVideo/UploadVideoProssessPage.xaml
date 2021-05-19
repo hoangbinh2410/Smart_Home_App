@@ -61,15 +61,16 @@
                     <icons:IconView
                         Foreground="{DynamicResource WhiteColor}"
                         HeightRequest="25"
-                        HorizontalOptions="EndAndExpand"
+                        HorizontalOptions="Start"
                         Source="ic_dowload.png"
-                        VerticalOptions="EndAndExpand"
+                        VerticalOptions="Center"
                         WidthRequest="25" />
 
                     <Label
                         HorizontalOptions="Start"
                         HorizontalTextAlignment="Start"
-                        TextColor="{DynamicResource WhiteColor}">
+                        TextColor="{DynamicResource WhiteColor}"
+                        VerticalOptions="Center">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Đang tải về server: Hoàn thành " />

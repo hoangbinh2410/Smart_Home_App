@@ -127,15 +127,36 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else if (parameters.ContainsKey(ParameterKey.VehicleOnline) && parameters.GetValue<VehicleOnline>(ParameterKey.VehicleOnline) is VehicleOnline vehicleOnline)
                 {
-                    Vehicle = new Vehicle()
+                    if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                     {
-                        GroupIDs = vehicleOnline.GroupIDs,
-                        PrivateCode = vehicleOnline.PrivateCode,
-                        VehicleId = vehicleOnline.VehicleId,
-                        VehiclePlate = vehicleOnline.VehiclePlate
-                    };
+                        var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == vehicleOnline.VehiclePlate);
+                        if (model != null && model.IsQcvn31)
+                        {
+                            Vehicle = new Vehicle()
+                            {
+                                GroupIDs = vehicleOnline.GroupIDs,
+                                PrivateCode = vehicleOnline.PrivateCode,
+                                VehicleId = vehicleOnline.VehicleId,
+                                VehiclePlate = vehicleOnline.VehiclePlate
+                            };
 
-                    ValidateUserConfigGetHistoryRoute();
+                            ValidateUserConfigGetHistoryRoute();
+                        }
+                        else
+                        {
+                            Device.BeginInvokeOnMainThread(async () =>
+                            {
+                                var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                                      string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng định vị \n Quý khách vui liên hệ tới số {1} để được hỗ trợ",
+                                      vehicleOnline.PrivateCode, MobileSettingHelper.HotlineGps),
+                                      "Liên hệ", "Bỏ qua");
+                                if (action)
+                                {
+                                    PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                                }
+                            });
+                        }
+                    }
                 }
             }
         }
