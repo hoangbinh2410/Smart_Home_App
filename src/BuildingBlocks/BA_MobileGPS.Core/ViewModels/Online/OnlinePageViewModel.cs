@@ -659,7 +659,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     Device.BeginInvokeOnMainThread(async () =>
                     {
                         var action = await PageDialog.DisplayAlertAsync("Thông báo",
-                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng hình ảnh \n Quý khách vui liên hệ tới số {1} để được hỗ trợ",
+                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng hình ảnh. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
                               CarActive.PrivateCode, MobileSettingHelper.HotlineGps),
                               "Liên hệ", "Bỏ qua");
                         if (action)
@@ -702,7 +702,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     Device.BeginInvokeOnMainThread(async () =>
                     {
                         var action = await PageDialog.DisplayAlertAsync("Thông báo",
-                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng video \n Quý khách vui liên hệ tới số {1} để được hỗ trợ",
+                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng video. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
                               CarActive.PrivateCode, MobileSettingHelper.HotlineGps),
                               "Liên hệ", "Bỏ qua");
                         if (action)
