@@ -65,6 +65,10 @@ namespace BA_MobileGPS.Entities
 
         public bool IsQcvn31 { set; get; }
 
+        public bool HasImage { set; get; }
+
+        public bool HasVideo { set; get; }
+
         private string currentAddress;
         public string CurrentAddress { get => currentAddress; set => SetProperty(ref currentAddress, value); }
 
