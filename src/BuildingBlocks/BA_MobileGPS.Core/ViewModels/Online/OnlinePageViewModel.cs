@@ -638,31 +638,9 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                var param = new Vehicle()
+                if (CarActive.HasImage)
                 {
-                    VehiclePlate = CarActive.VehiclePlate,
-                    VehicleId = CarActive.VehicleId,
-                    Imei = CarActive.Imei,
-                    PrivateCode = CarActive.PrivateCode
-                };
-                var parameters = new NavigationParameters
-                {
-                    { ParameterKey.Vehicle, param }
-                };
-
-                await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true, true);
-            });
-        }
-
-        public void GotoVideoPage()
-        {
-            SafeExecute(async () =>
-            {
-                var photoPermission = await PermissionHelper.CheckPhotoPermissions();
-                var storagePermission = await PermissionHelper.CheckStoragePermissions();
-                if (photoPermission && storagePermission)
-                {
-                    var param = new CameraLookUpVehicleModel()
+                    var param = new Vehicle()
                     {
                         VehiclePlate = CarActive.VehiclePlate,
                         VehicleId = CarActive.VehicleId,
@@ -670,12 +648,70 @@ namespace BA_MobileGPS.Core.ViewModels
                         PrivateCode = CarActive.PrivateCode
                     };
                     var parameters = new NavigationParameters
+                {
+                    { ParameterKey.Vehicle, param }
+                };
+
+                    await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true, true);
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng hình ảnh \n Quý khách vui liên hệ tới số {1} để được hỗ trợ",
+                              CarActive.PrivateCode, MobileSettingHelper.HotlineGps),
+                              "Liên hệ", "Bỏ qua");
+                        if (action)
+                        {
+                            PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                        }
+                    });
+                }
+
+            });
+        }
+
+        public void GotoVideoPage()
+        {
+            SafeExecute(async () =>
+            {
+                if (CarActive.HasVideo)
+                {
+                    var photoPermission = await PermissionHelper.CheckPhotoPermissions();
+                    var storagePermission = await PermissionHelper.CheckStoragePermissions();
+                    if (photoPermission && storagePermission)
+                    {
+                        var param = new CameraLookUpVehicleModel()
+                        {
+                            VehiclePlate = CarActive.VehiclePlate,
+                            VehicleId = CarActive.VehicleId,
+                            Imei = CarActive.Imei,
+                            PrivateCode = CarActive.PrivateCode
+                        };
+                        var parameters = new NavigationParameters
                       {
                           { ParameterKey.Vehicle, param }
                      };
 
-                    await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
+                        await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
+                    }
                 }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng video \n Quý khách vui liên hệ tới số {1} để được hỗ trợ",
+                              CarActive.PrivateCode, MobileSettingHelper.HotlineGps),
+                              "Liên hệ", "Bỏ qua");
+                        if (action)
+                        {
+                            PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                        }
+                    });
+                }
+                
             });
         }
 

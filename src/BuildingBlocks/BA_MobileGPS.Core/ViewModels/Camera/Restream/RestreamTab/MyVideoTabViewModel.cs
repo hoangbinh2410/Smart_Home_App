@@ -102,10 +102,10 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnResume();
             DependencyService.Get<IScreenOrientServices>().ForcePortrait();
 
-            if (MediaPlayer != null)
-            {
-                MediaPlayer.Play();
-            }
+            //if (MediaPlayer != null)
+            //{
+            //    MediaPlayer.Play();
+            //}
         }
 
         #endregion Lifecycle

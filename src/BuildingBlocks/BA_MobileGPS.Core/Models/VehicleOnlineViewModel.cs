@@ -63,6 +63,8 @@ namespace BA_MobileGPS.Entities
 
         public bool IsEnableAcc { set; get; }
 
+        public bool IsQcvn31 { set; get; }
+
         private string currentAddress;
         public string CurrentAddress { get => currentAddress; set => SetProperty(ref currentAddress, value); }
 
