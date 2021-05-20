@@ -9,6 +9,9 @@
     xmlns:prism="http://prismlibrary.com"
     Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding ReloadCommand}" IconImageSource="ic_refresh.png" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*" RowSpacing="0">
             <Grid
@@ -104,7 +107,7 @@
                                             IsVisible="{Binding IsLastItem, Converter={StaticResource InvertBooleanConverter}}"
                                             WidthRequest="5"
                                             Color="#00ADE5" />
-                                        
+
                                         <BoxView
                                             HeightRequest="120"
                                             HorizontalOptions="Center"
