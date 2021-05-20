@@ -155,7 +155,6 @@ namespace VMS_MobileGPS.ViewModels
         public ObservableCollection<Polygon> Boundaries { get; set; } = new ObservableCollection<Polygon>();
         private View view;
         private CancellationTokenSource ctsRouting = new CancellationTokenSource();
-        private CancellationTokenSource ctsAddress = new CancellationTokenSource();
 
         private RouteHistoryResponse RouteHistory;
 
@@ -372,9 +371,7 @@ namespace VMS_MobileGPS.ViewModels
                     if (ctsRouting != null)
                         ctsRouting.Cancel();
                     IsPlaying = false;
-                    if (ctsAddress != null)
-                        ctsAddress.Cancel();
-
+                   
                     GetHistoryRoute();
                 }
                 else
@@ -691,23 +688,7 @@ namespace VMS_MobileGPS.ViewModels
 
             args.Handled = false;
             StopWatchVehicle();
-            if (ctsAddress != null)
-                ctsAddress.Cancel();
-
-            ctsAddress = new CancellationTokenSource();
-
-            Task.Run(async () =>
-            {
-                if (ctsAddress.IsCancellationRequested)
-                    throw new Exception();
-                return await geocodeService.GetAddressByLatLng(CurrentComanyID, args.Pin.Position.Latitude.ToString(), args.Pin.Position.Longitude.ToString());
-            }, ctsAddress.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
-            {
-                if (task.Status == TaskStatus.RanToCompletion && !ctsAddress.IsCancellationRequested)
-                {
-                    args.Pin.Address = task.Result;
-                }
-            }));
+            args.Pin.Address = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(args.Pin.Position.Latitude), GeoHelper.LongitudeToDergeeMinSec(args.Pin.Position.Longitude));
 
             args.Handled = false;
         }
@@ -717,8 +698,7 @@ namespace VMS_MobileGPS.ViewModels
             if (ctsRouting != null)
                 ctsRouting.Cancel();
             IsPlaying = false;
-            if (ctsAddress != null)
-                ctsAddress.Cancel();
+            
 
             if (ListRoute != null)
                 ListRoute.Clear();
