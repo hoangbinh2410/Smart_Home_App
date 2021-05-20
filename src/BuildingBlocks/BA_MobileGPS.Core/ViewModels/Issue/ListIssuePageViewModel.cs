@@ -152,6 +152,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     DisplayMessage.ShowMessageInfo("Thời gian bắt đầu không được lớn hơn thời gian kết thúc");
                 }
+                else if (ToDate.Subtract(FromDate).TotalDays > 60)
+                {
+                    DisplayMessage.ShowMessageInfo("Hệ thống chỉ hỗ trợ tìm kiếm trong khoảng 60 ngày");
+                }
                 FilterIssue();
             }
         }
