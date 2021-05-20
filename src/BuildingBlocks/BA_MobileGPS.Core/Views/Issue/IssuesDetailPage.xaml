@@ -3,15 +3,31 @@
     x:Class="BA_MobileGPS.Core.Views.IssuesDetailPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:prism="http://prismlibrary.com"
     Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding ReloadCommand}" IconImageSource="ic_refresh.png" />
-    </ContentPage.ToolbarItems>
+    <NavigationPage.TitleView>
+        <Grid VerticalOptions="Center">
+            <Label
+                FontSize="16"
+                HorizontalOptions="Start"
+                Text="{Binding Title}"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+            <icons:IconView
+                Foreground="{DynamicResource WhiteColor}"
+                HeightRequest="25"
+                HorizontalOptions="End"
+                Source="ic_refresh.png"
+                VerticalOptions="Center">
+                <icons:IconView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ReloadCommand}" />
+                </icons:IconView.GestureRecognizers>
+            </icons:IconView>
+        </Grid>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*" RowSpacing="0">
             <Grid
