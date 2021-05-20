@@ -668,7 +668,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (selected.HasImage)
+                if (selected.HasImage || selected.IsQcvn31)
                 {
                     var param = _mapper.MapProperties<Vehicle>(selected);
                     var parameters = new NavigationParameters
