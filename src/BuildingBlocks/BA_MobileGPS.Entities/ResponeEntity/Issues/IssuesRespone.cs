@@ -1,5 +1,4 @@
-﻿using BA_MobileGPS.Entities.Enums;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +16,7 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Issues
 
         public DateTime DateRequest { get; set; }
 
-        public IssuesStatusEnums Status { get; set; }
+        public string Status { get; set; }
 
         public string ContentRequest { get; set; }
 
@@ -48,11 +47,11 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Issues
 
     public class IssueStatusRespone
     {
-        public IssuesStatusEnums Status { get; set; }
+        public string Status { get; set; }
 
         public DateTime DateChangeStatus { get; set; }
 
         [JsonIgnore]
-        public bool IsFinishStep { get; set; }
+        public bool IsLastItem { get; set; }
     }
 }

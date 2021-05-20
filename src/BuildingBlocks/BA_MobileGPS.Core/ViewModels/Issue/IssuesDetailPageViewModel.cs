@@ -16,7 +16,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             Title = "Danh sách yêu cầu hỗ trợ";
             _issueService = issueService;
-            isNotFinish = false;
         }
 
         #region Property
@@ -26,9 +25,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private ObservableCollection<IssueStatusRespone> listIssue = new ObservableCollection<IssueStatusRespone>();
         public ObservableCollection<IssueStatusRespone> ListIssue { get => listIssue; set => SetProperty(ref listIssue, value); }
-
-        private bool isNotFinish;
-        public bool IsNotFinish { get => isNotFinish; set => SetProperty(ref isNotFinish, value); }
 
         #endregion Property
 
@@ -82,44 +78,21 @@ namespace BA_MobileGPS.Core.ViewModels
                     Issue.DueDate = result.DueDate;
                     Issue.IssueCode = result.IssueCode;
                     var lst = result.IssueStatus.OrderBy(x => x.DateChangeStatus).ToList();
-                    var isFinish = lst.FirstOrDefault(x => x.Status == Entities.Enums.IssuesStatusEnums.Finish);
-                    if (isFinish == null)
-                    {
-                        IsNotFinish = true;
-                    }
                     for (int i = 0; i < lst.Count; i++)
                     {
                         if (i == lst.Count - 1)
                         {
-                            if (lst[i].Status != Entities.Enums.IssuesStatusEnums.Finish)
-                            {
-                                lst[i].IsFinishStep = false;
-                            }
-                            else
-                            {
-                                lst[i].IsFinishStep = true;
-                            }
+                            lst[i].IsLastItem = true;
                         }
                         else
                         {
-                            lst[i].IsFinishStep = true;
+                            lst[i].IsLastItem = false;
                         }
                     }
                     ListIssue = lst.ToObservableCollection();
                 }
             });
         }
-
-        //private void GetListIssueActive(string issueCode)
-        //{
-        //    RunOnBackground(async () =>
-        //    {
-        //        return await _issueService.GetIssueByCompanyID(CurrentComanyID);
-        //    }, (result) =>
-        //    {
-        //        Issue = result.FirstOrDefault(x => x.IssueCode == issueCode);
-        //    });
-        //}
 
         #endregion PrivateMethod
     }
