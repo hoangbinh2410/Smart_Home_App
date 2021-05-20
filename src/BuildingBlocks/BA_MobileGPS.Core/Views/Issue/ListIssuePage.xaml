@@ -6,7 +6,6 @@
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
-    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
@@ -35,11 +34,21 @@
                 </icons:IconView.GestureRecognizers>
             </icons:IconView>
             <Label
+                FontSize="16"
                 HorizontalOptions="Center"
-                StyleClass="GroupTitleLabel,BoldText"
                 Text="{Binding Title}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
+            <icons:IconView
+                Foreground="{DynamicResource WhiteColor}"
+                HeightRequest="25"
+                HorizontalOptions="End"
+                Source="ic_refresh.png"
+                VerticalOptions="Center">
+                <icons:IconView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ReloadCommand}" />
+                </icons:IconView.GestureRecognizers>
+            </icons:IconView>
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
@@ -92,7 +101,7 @@
                         </StackLayout>
                     </pancake:PancakeView>
 
-                    <pancake:PancakeView
+                    <!--<pancake:PancakeView
                         Padding="0"
                         BackgroundColor="{StaticResource WhiteColor}"
                         CornerRadius="20"
@@ -115,7 +124,7 @@
                             TextColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="Center"
                             WidthRequest="20" />
-                    </pancake:PancakeView>
+                    </pancake:PancakeView>-->
 
                     <pancake:PancakeView
                         Padding="0"
@@ -151,7 +160,6 @@
                                 VerticalOptions="Center"
                                 WidthRequest="25" />
                         </StackLayout>
-
                     </pancake:PancakeView>
                 </StackLayout>
 

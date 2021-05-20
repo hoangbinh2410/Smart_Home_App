@@ -4,17 +4,20 @@ using BA_MobileGPS.Service;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 using Xamarin.Forms.Extensions;
+using Prism.Commands;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class IssuesDetailPageViewModel : ViewModelBase
     {
         private readonly IIssueService _issueService;
-
+        public ICommand ReloadCommand { get; private set; }
         public IssuesDetailPageViewModel(INavigationService navigationService, IIssueService issueService) : base(navigationService)
         {
-            Title = "Danh sách yêu cầu hỗ trợ";
+            Title = "Chi tiết phản hồi";
+            ReloadCommand = new DelegateCommand(Reload);
             _issueService = issueService;
         }
 
@@ -91,6 +94,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     ListIssue = lst.ToObservableCollection();
                 }
+            });
+        }
+
+        private void Reload()
+        {
+            SafeExecute(() =>
+            {
+                GetListIssue();
             });
         }
 

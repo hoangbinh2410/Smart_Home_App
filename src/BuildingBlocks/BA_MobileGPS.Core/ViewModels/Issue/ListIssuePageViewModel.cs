@@ -1,6 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Entities.ResponeEntity.Issues;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -32,6 +31,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand NavigateCommand { get; private set; }
         public ICommand SetFavoriteIssueCommand { get; private set; }
         public ICommand LoadMoreItemsCommand { get; }
+        public ICommand ReloadCommand { get; private set; }
         private readonly IIssueService _issueService;
 
         public ListIssuePageViewModel(INavigationService navigationService, IIssueService issueService) : base(navigationService)
@@ -46,7 +46,7 @@ namespace BA_MobileGPS.Core.ViewModels
             LoadMoreItemsCommand = new DelegateCommand(LoadMoreItems, CanLoadMoreItems);
             SetFavoriteIssueCommand = new DelegateCommand<object>(SetFavoriteIssue);
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(Navigate);
-
+            ReloadCommand = new DelegateCommand(Reload);
             orderByIcon = FontAwesomeIcons.SortAmountUp;
             isSelectedFavorites = false;
             searchedText = "";
@@ -128,6 +128,14 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
+        private void Reload()
+        {
+            SafeExecute(() =>
+            {
+                GetListIssue();
+            });
+        }
+
         public void UpdateDateTime(PickerDateTimeResponse param)
         {
             if (param != null)
@@ -172,7 +180,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 };
                 await NavigationService.NavigateAsync("SelectDateTimeCalendar", parameters);
             });
-        } 
+        }
 
         private void SortIssue()
         {
