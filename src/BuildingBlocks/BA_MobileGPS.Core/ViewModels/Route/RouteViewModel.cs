@@ -347,26 +347,29 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void WatchVehicle()
         {
-            if (IsWatching)
+            SafeExecute(() =>
             {
-                BackgroundTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
-                ColorTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
-                IsWatching = false;
-            }
-            else
-            {
-                BackgroundTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
-                ColorTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
-                IsWatching = true;
-
-                if (CurrentRoute != null)
+                if (IsWatching)
                 {
-                    if (Device.RuntimePlatform == Device.iOS)
-                        MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(CurrentRoute.Latitude, CurrentRoute.Longitude), ZoomLevel)));
-                    else
-                        MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(new Position(CurrentRoute.Latitude, CurrentRoute.Longitude)));
+                    BackgroundTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
+                    ColorTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+                    IsWatching = false;
                 }
-            }
+                else
+                {
+                    BackgroundTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
+                    ColorTrackingCar = (Color)Prism.PrismApplicationBase.Current.Resources["WhiteColor"];
+                    IsWatching = true;
+
+                    if (CurrentRoute != null)
+                    {
+                        if (Device.RuntimePlatform == Device.iOS)
+                            MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(CurrentRoute.Latitude, CurrentRoute.Longitude), ZoomLevel)));
+                        else
+                            MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewPosition(new Position(CurrentRoute.Latitude, CurrentRoute.Longitude)));
+                    }
+                }
+            });
         }
 
         public void StopWatchVehicle()
@@ -809,24 +812,27 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                if (!IsPlaying)
+                SafeExecute(() =>
                 {
-                    if (PlayCurrent >= PlayMax)
-                        return;
+                    if (!IsPlaying)
+                    {
+                        if (PlayCurrent >= PlayMax)
+                            return;
 
-                    if (ctsRouting != null)
-                        ctsRouting.Cancel();
+                        if (ctsRouting != null)
+                            ctsRouting.Cancel();
 
-                    ctsRouting = new CancellationTokenSource();
+                        ctsRouting = new CancellationTokenSource();
 
-                    MoveToCurrent();
-                }
-                else
-                {
-                    StopRoute();
+                        MoveToCurrent();
+                    }
+                    else
+                    {
+                        StopRoute();
 
-                    IsPlaying = false;
-                }
+                        IsPlaying = false;
+                    }
+                });
             }
             catch (Exception ex)
             {
@@ -1026,48 +1032,63 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void IncreaseSpeed()
         {
-            if (PlaySpeed >= SPEED_MAX)
-                return;
+            SafeExecute(() =>
+            {
+                if (PlaySpeed >= SPEED_MAX)
+                    return;
 
-            PlaySpeed *= 2;
+                PlaySpeed *= 2;
+            });
         }
 
         private void DecreaseSpeed()
         {
-            if (PlaySpeed <= 1)
-                return;
+            SafeExecute(() =>
+            {
+                if (PlaySpeed <= 1)
+                    return;
 
-            PlaySpeed /= 2;
+                PlaySpeed /= 2;
+            });
         }
 
         private void FastStart()
         {
-            PlayCurrent = PlayMin;
+            SafeExecute(() =>
+            {
+                PlayCurrent = PlayMin;
 
-            MoveToCurrent();
+                MoveToCurrent();
+            });
         }
 
         private void FastEnd()
         {
-            PlayCurrent = PlayMax;
+            SafeExecute(() =>
+            {
+                PlayCurrent = PlayMax;
 
-            MoveToCurrent();
+                MoveToCurrent();
+            });
         }
 
-        private async void ChangeSpeed()
+        private void ChangeSpeed()
         {
-            if (PlaySpeed >= SPEED_MAX)
+            SafeExecute(async () =>
             {
-                PlaySpeed = 4;
-                await Task.Delay(1000);
-                PlaySpeed = 2;
-                await Task.Delay(1000);
-                PlaySpeed = 1;
-            }
-            else
-            {
-                PlaySpeed *= 2;
-            }
+                if (PlaySpeed >= SPEED_MAX)
+                {
+                    PlaySpeed = 4;
+                    await Task.Delay(1000);
+                    PlaySpeed = 2;
+                    await Task.Delay(1000);
+                    PlaySpeed = 1;
+                }
+                else
+                {
+                    PlaySpeed *= 2;
+                }
+            });
         }
 
         #endregion PrivateMethod
