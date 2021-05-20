@@ -311,7 +311,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             var lst = ListIssueByOrigin.Where(x => (x.ContentRequest.ToUpper().Contains(SearchedText) || string.IsNullOrEmpty(SearchedText))
                                             && (x.IsFavorites == IsSelectedFavorites || !IsSelectedFavorites)
-                                            && (x.CreatedDate >= FromDate && x.CreatedDate <= ToDate)).ToList();
+                                            && (x.DateRequest >= FromDate && x.DateRequest <= ToDate)).ToList();
             ListIssue = lst.ToObservableCollection();
             SetSortOrder();
         }
