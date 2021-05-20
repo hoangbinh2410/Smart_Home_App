@@ -489,11 +489,24 @@
                                                     <Label
                                                         HorizontalOptions="Start"
                                                         StyleClass="BoldText"
-                                                        Text="{Binding StartTime, Converter={StaticResource DateTimeViewConverter}}" />
+                                                        Text="{Binding FileName}" />
                                                     <Label
                                                         HorizontalOptions="Start"
-                                                        StyleClass="BoldText"
-                                                        Text="{Binding Channel, StringFormat='Kênh {0}'}" />
+                                                        HorizontalTextAlignment="Start"
+                                                        StyleClass="BoldText">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding StartTime, Converter={StaticResource DateTimeViewConverter}}" />
+                                                                <Span Text=" - " />
+                                                                <Span Text="{Binding Channel, StringFormat='Kênh {0}'}" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+
+                                                    <Label
+                                                        HorizontalOptions="Start"
+                                                        LineBreakMode="TailTruncation"
+                                                        Text="{Binding Description}" />
                                                 </StackLayout>
                                                 <StackLayout
                                                     HorizontalOptions="EndAndExpand"

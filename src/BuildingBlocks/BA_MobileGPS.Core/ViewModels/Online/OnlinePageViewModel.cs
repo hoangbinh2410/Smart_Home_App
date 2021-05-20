@@ -638,7 +638,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (CarActive.HasImage)
+                if (CarActive.HasImage || CarActive.IsQcvn31)
                 {
                     var param = new Vehicle()
                     {
@@ -711,7 +711,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                     });
                 }
-                
+
             });
         }
 

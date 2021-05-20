@@ -27,7 +27,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand PushToFromDateTimePageCommand { get; private set; }
         public ICommand PushToEndDateTimePageCommand { get; private set; }
         public ICommand SearchIssueCommand { get; private set; }
-        public ICommand PushStatusIssueCommand { get; private set; }
         public ICommand SortCommand { get; private set; }
         public ICommand SelectFavoriteIssueCommand { get; private set; }
         public ICommand NavigateCommand { get; private set; }
@@ -41,18 +40,13 @@ namespace BA_MobileGPS.Core.ViewModels
             _issueService = issueService;
             PushToFromDateTimePageCommand = new DelegateCommand(ExecuteToFromDateTime);
             PushToEndDateTimePageCommand = new DelegateCommand(ExecuteToEndDateTime);
-            PushStatusIssueCommand = new DelegateCommand(ExecuteStatusStatusIssueCombobox);
             SearchIssueCommand = new DelegateCommand<TextChangedEventArgs>(SearchIssuewithText);
             SortCommand = new DelegateCommand(SortIssue);
             SelectFavoriteIssueCommand = new DelegateCommand(SelectFavoriteIssue);
             LoadMoreItemsCommand = new DelegateCommand(LoadMoreItems, CanLoadMoreItems);
             SetFavoriteIssueCommand = new DelegateCommand<object>(SetFavoriteIssue);
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(Navigate);
-            StatusIssueSelected = new ComboboxResponse()
-            {
-                Key = 0,
-                Value = "Tất cả"
-            };
+
             orderByIcon = FontAwesomeIcons.SortAmountUp;
             isSelectedFavorites = false;
             searchedText = "";
@@ -71,9 +65,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public string searchedText;
         public string SearchedText { get => searchedText; set => SetProperty(ref searchedText, value); }
-
-        private ComboboxResponse statusIssueSelected;
-        public ComboboxResponse StatusIssueSelected { get => statusIssueSelected; set => SetProperty(ref statusIssueSelected, value); }
 
         private ObservableCollection<IssuesRespone> listIssue = new ObservableCollection<IssuesRespone>();
         public ObservableCollection<IssuesRespone> ListIssue { get => listIssue; set => SetProperty(ref listIssue, value); }
@@ -181,59 +172,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 };
                 await NavigationService.NavigateAsync("SelectDateTimeCalendar", parameters);
             });
-        }
-
-        private List<ComboboxRequest> LoadAllStatusIssue()
-        {
-            return new List<ComboboxRequest>() {
-                    new ComboboxRequest(){Key = 0 , Value = "Tất cả"},
-                    new ComboboxRequest(){Key = 1 , Value = "Đã gửi yêu cầu"},
-                    new ComboboxRequest(){Key = 2 , Value = "CSKH đã tiếp nhận"},
-                    new ComboboxRequest(){Key = 3 , Value = "Kỹ thuật đang xử lý"},
-                    new ComboboxRequest(){Key = 4 , Value = "Hoàn thành"},
-                };
-        }
-
-        public async void ExecuteStatusStatusIssueCombobox()
-        {
-            if (IsBusy)
-            {
-                return;
-            }
-            IsBusy = true;
-            try
-            {
-                var p = new NavigationParameters
-                {
-                    { "dataCombobox", LoadAllStatusIssue() },
-                    { "ComboboxType", ComboboxType.First },
-                    { "Title", "Trạng thái" }
-                };
-                await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true, true);
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        public override void UpdateCombobox(ComboboxResponse param)
-        {
-            base.UpdateCombobox(param);
-            if (param != null)
-            {
-                var dataResponse = param;
-                if (dataResponse.ComboboxType == (Int16)ComboboxType.First)
-                {
-                    StatusIssueSelected = dataResponse;
-                    FilterIssue();
-                }
-            }
-        }
+        } 
 
         private void SortIssue()
         {
@@ -273,9 +212,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (cts.IsCancellationRequested)
                         return null;
                     return ListIssueByOrigin.Where(x => (x.ContentRequest.ToUpper().Contains(keySearch) || string.IsNullOrEmpty(keySearch))
-                    && ((x.Status == (IssuesStatusEnums)StatusIssueSelected.Key)
-                    || StatusIssueSelected.Key == 0
-                    || StatusIssueSelected == null)
                     && (x.IsFavorites == IsSelectedFavorites || !IsSelectedFavorites)
                     && (x.CreatedDate >= FromDate && x.CreatedDate <= ToDate));
                 }, cts.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
@@ -374,11 +310,8 @@ namespace BA_MobileGPS.Core.ViewModels
         private void FilterIssue()
         {
             var lst = ListIssueByOrigin.Where(x => (x.ContentRequest.ToUpper().Contains(SearchedText) || string.IsNullOrEmpty(SearchedText))
-                                            && (x.Status == (IssuesStatusEnums)StatusIssueSelected.Key
-                                            || StatusIssueSelected.Key == 0
-                                            || StatusIssueSelected == null)
                                             && (x.IsFavorites == IsSelectedFavorites || !IsSelectedFavorites)
-                                            && (x.CreatedDate >= FromDate && x.CreatedDate <= ToDate)).ToList();
+                                            && (x.DateRequest >= FromDate && x.DateRequest <= ToDate)).ToList();
             ListIssue = lst.ToObservableCollection();
             SetSortOrder();
         }
