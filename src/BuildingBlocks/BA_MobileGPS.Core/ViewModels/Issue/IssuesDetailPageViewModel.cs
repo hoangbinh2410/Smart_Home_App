@@ -103,7 +103,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }); ;
                     ListIssue = lst.ToObservableCollection();
                 }
-            });
+            }, showLoading: true);
         }
 
         private void Reload()

@@ -49,8 +49,10 @@
                 VerticalOptions="Center">
                 <Label
                     FontAttributes="Bold"
+                    FontFamily="{StaticResource myFontLatoBold}"
                     FontSize="15"
                     HorizontalOptions="Start"
+                    HorizontalTextAlignment="Start"
                     Text="{Binding Status}"
                     TextColor="#57606F" />
             </StackLayout>
@@ -59,7 +61,7 @@
                     Foreground="#57606F"
                     HeightRequest="20"
                     HorizontalOptions="Center"
-                    Source="ic_time_black.png"
+                    Source="ic_date_range_black.png"
                     VerticalOptions="Center"
                     WidthRequest="20" />
                 <Label
