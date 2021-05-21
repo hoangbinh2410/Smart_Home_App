@@ -3,29 +3,49 @@
     x:Class="BA_MobileGPS.Core.Views.IssuesDetailPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:prism="http://prismlibrary.com"
+    x:Name="this"
     Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <NavigationPage.TitleView>
-        <Grid VerticalOptions="Center">
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="35" />
+            </Grid.ColumnDefinitions>
             <Label
-                FontSize="16"
+                Grid.ColumnSpan="3"
+                FontAttributes="Bold"
+                FontSize="20"
                 HorizontalOptions="Start"
+                LineBreakMode="TailTruncation"
                 Text="{Binding Title}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
-            <icons:IconView
-                Foreground="{DynamicResource WhiteColor}"
-                HeightRequest="25"
-                HorizontalOptions="End"
+
+            <ffImage:CachedImage
+                Grid.Column="2"
+                Margin="0,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
                 Source="ic_refresh.png"
                 VerticalOptions="Center">
-                <icons:IconView.GestureRecognizers>
+                <ffImage:CachedImage.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ReloadCommand}" />
-                </icons:IconView.GestureRecognizers>
-            </icons:IconView>
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
@@ -36,17 +56,10 @@
                 BackgroundColor="#0959A0"
                 RowDefinitions="Auto,Auto"
                 RowSpacing="10">
-                <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto,*">
-                    <BoxView
-                        Grid.Column="0"
-                        BackgroundColor="#FFA502"
-                        CornerRadius="9"
-                        HeightRequest="18"
-                        HorizontalOptions="Start"
-                        VerticalOptions="Center"
-                        WidthRequest="18" />
+                <Grid Grid.Row="0" ColumnDefinitions="Auto,*">
+
                     <Label
-                        Grid.Column="1"
+                        Grid.Column="0"
                         FontSize="15"
                         HorizontalOptions="Start"
                         Text="NỘI DUNG PHẢN HỒI"
@@ -54,10 +67,10 @@
                         VerticalOptions="Center" />
 
                     <Label
-                        Grid.Column="2"
+                        Grid.Column="1"
                         FontSize="15"
                         HorizontalOptions="EndAndExpand"
-                        Text="{Binding Issue.DateRequest, Converter={StaticResource DateTimeConverter}}"
+                        Text="{Binding Issue.DateRequest, Converter={StaticResource DateTimeViewConverter}}"
                         TextColor="{StaticResource WhiteColor}"
                         VerticalOptions="Center" />
                 </Grid>
@@ -118,14 +131,14 @@
                                             WidthRequest="20" />
 
                                         <BoxView
-                                            HeightRequest="120"
+                                            HeightRequest="50"
                                             HorizontalOptions="Center"
                                             IsVisible="{Binding IsLastItem, Converter={StaticResource InvertBooleanConverter}}"
                                             WidthRequest="5"
                                             Color="#00ADE5" />
 
                                         <BoxView
-                                            HeightRequest="120"
+                                            HeightRequest="50"
                                             HorizontalOptions="Center"
                                             IsVisible="{Binding IsLastItem}"
                                             WidthRequest="5"
@@ -167,7 +180,7 @@
                                                 WidthRequest="20" />
                                             <Label
                                                 FontAttributes="Bold"
-                                                Text="{Binding DateChangeStatus, Converter={StaticResource DateTimeConverter}}"
+                                                Text="{Binding DateChangeStatus, Converter={StaticResource DateTimeViewConverter}}"
                                                 TextColor="#2F3542" />
                                         </StackLayout>
                                         <BoxView
@@ -240,7 +253,7 @@
                                     WidthRequest="20" />
                                 <Label
                                     FontAttributes="Bold"
-                                    Text="{Binding Issue.DueDate, Converter={StaticResource DateTimeConverter}}"
+                                    Text="{Binding Issue.DueDate, Converter={StaticResource DateTimeViewConverter}}"
                                     TextColor="#2F3542" />
                             </StackLayout>
                         </StackLayout>
