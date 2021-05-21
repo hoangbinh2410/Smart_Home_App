@@ -92,6 +92,12 @@
 	  <Compile Update="Views\Driver\AddDriverInforPage.xaml.cs">
 	    <DependentUpon>AddDriverInforPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Issue\TemplateIssueStatus.xaml.cs">
+	    <DependentUpon>TemplateIssueStatus.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Issue\TemplateDueDate.xaml.cs">
+	    <DependentUpon>TemplateDueDate.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\ListVehicle\DetailVehiclePopup.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>

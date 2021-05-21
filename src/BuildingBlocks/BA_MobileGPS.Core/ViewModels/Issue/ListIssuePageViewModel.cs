@@ -225,7 +225,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         return null;
                     return ListIssueByOrigin.Where(x => (x.ContentRequest.ToUpper().Contains(keySearch) || string.IsNullOrEmpty(keySearch))
                     && (x.IsFavorites == IsSelectedFavorites || !IsSelectedFavorites)
-                    && (x.CreatedDate >= FromDate && x.CreatedDate <= ToDate));
+                    && (x.DateRequest >= FromDate && x.DateRequest <= ToDate)).OrderByDescending(x => x.DateRequest);
                 }, cts.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
                 {
                     if (task.Status == TaskStatus.RanToCompletion && !cts.IsCancellationRequested)
@@ -235,7 +235,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (task.Result != null && task.Result.Count() > 0)
                         {
                             ListIssue = task.Result.ToObservableCollection();
-                            SetSortOrder();
+                            //SetSortOrder();
                         }
                     }
                     else if (task.IsFaulted)
@@ -250,11 +250,11 @@ namespace BA_MobileGPS.Core.ViewModels
             switch (SortTypeSelected)
             {
                 case IssueSortOrderType.CreatedDateASC:
-                    ListIssue = ListIssue.OrderBy(x => x.CreatedDate).ToObservableCollection();
+                    ListIssue = ListIssue.OrderBy(x => x.DateRequest).ToObservableCollection();
                     break;
 
                 case IssueSortOrderType.CreatedDateDES:
-                    ListIssue = ListIssue.OrderByDescending(x => x.CreatedDate).ToObservableCollection();
+                    ListIssue = ListIssue.OrderByDescending(x => x.DateRequest).ToObservableCollection();
                     break;
             }
         }
@@ -295,7 +295,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             ListIssue.Add(source[i]);
                         }
-                        SetSortOrder();
+                        //SetSortOrder();
                     }
                 });
             }
@@ -323,9 +323,9 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             var lst = ListIssueByOrigin.Where(x => (x.ContentRequest.ToUpper().Contains(SearchedText) || string.IsNullOrEmpty(SearchedText))
                                             && (x.IsFavorites == IsSelectedFavorites || !IsSelectedFavorites)
-                                            && (x.DateRequest >= FromDate && x.DateRequest <= ToDate)).ToList();
+                                            && (x.DateRequest >= FromDate && x.DateRequest <= ToDate)).OrderByDescending(x => x.DateRequest).ToList();
             ListIssue = lst.ToObservableCollection();
-            SetSortOrder();
+            //SetSortOrder();
         }
 
         public void Navigate(ItemTappedEventArgs args)

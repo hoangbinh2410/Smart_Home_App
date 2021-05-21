@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
@@ -19,36 +20,51 @@
         <ResourceDictionary>
             <converter:FavoritesIssueColorConverter x:Key="FavoritesColorConverter" />
             <converter:StatusIssueColorConverter x:Key="StatusIssueColorConverter" />
+            <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <NavigationPage.TitleView>
-        <Grid VerticalOptions="Center">
-            <icons:IconView
-                Foreground="{DynamicResource WhiteColor}"
-                HeightRequest="25"
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="35" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                HeightRequest="27"
                 HorizontalOptions="Start"
                 Source="ic_close.png"
                 VerticalOptions="Center">
-                <icons:IconView.GestureRecognizers>
+                <ffImage:CachedImage.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
-                </icons:IconView.GestureRecognizers>
-            </icons:IconView>
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
             <Label
-                FontSize="16"
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="20"
                 HorizontalOptions="Center"
-                Text="{Binding Title}"
+                LineBreakMode="TailTruncation"
+                Text="{Binding Source={x:Reference this}, Path=Title}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
-            <icons:IconView
-                Foreground="{DynamicResource WhiteColor}"
-                HeightRequest="25"
-                HorizontalOptions="End"
+
+            <ffImage:CachedImage
+                Grid.Column="2"
+                Margin="0,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
                 Source="ic_refresh.png"
                 VerticalOptions="Center">
-                <icons:IconView.GestureRecognizers>
+                <ffImage:CachedImage.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ReloadCommand}" />
-                </icons:IconView.GestureRecognizers>
-            </icons:IconView>
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
@@ -191,7 +207,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
-                                Text="{Binding FromDate, Converter={StaticResource DateTimeConverter}}"
+                                Text="{Binding FromDate, Converter={StaticResource DateTimeViewConverter}}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
@@ -233,7 +249,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_ToDate}"
-                                Text="{Binding ToDate, Converter={StaticResource DateTimeConverter}}"
+                                Text="{Binding ToDate, Converter={StaticResource DateTimeViewConverter}}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
@@ -258,7 +274,7 @@
                 VerticalOptions="FillAndExpand">
                 <syncfusionList:SfListView
                     x:Name="listView"
-                    ItemSize="110"
+                    AutoFitMode="DynamicHeight"
                     ItemSpacing="5"
                     ItemsSource="{Binding ListIssue, Mode=TwoWay}"
                     LoadMoreCommand="{Binding LoadMoreItemsCommand}"
@@ -289,7 +305,7 @@
                                             FontSize="{StaticResource FontSize12}"
                                             HorizontalOptions="FillAndExpand"
                                             LineBreakMode="NoWrap"
-                                            Text="{Binding DateRequest, Converter={StaticResource DateTimeConverter}}"
+                                            Text="{Binding DateRequest, Converter={StaticResource DateTimeViewConverter}}"
                                             VerticalOptions="Center" />
                                         <Label
                                             Grid.Column="2"
@@ -341,13 +357,16 @@
                                         <Label
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding DueDate, Converter={StaticResource DateTimeConverter}}"
+                                            Text="{Binding DueDate, Converter={StaticResource DateTimeViewConverter}}"
                                             TextColor="#FF6348"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </Grid>
 
-                                    <Grid Grid.Row="0" RowSpacing="0">
+                                    <Grid
+                                        Grid.Row="0"
+                                        ColumnSpacing="10"
+                                        RowSpacing="0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
@@ -376,8 +395,10 @@
                                             FontAttributes="Bold"
                                             FontFamily="{StaticResource myFontLatoBold}"
                                             HorizontalOptions="EndAndExpand"
+                                            HorizontalTextAlignment="End"
                                             IsVisible="{Binding Status, Converter={StaticResource NullOrEmptyToBoolConverter}}"
-                                            Text="{Binding Status}"
+                                            LineBreakMode="WordWrap"
+                                            Text="nhân viên kĩ thuật đang chuẩn bị vật tư tư tư tư"
                                             TextColor="{StaticResource PrimaryColor}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
@@ -387,6 +408,7 @@
                                             FontFamily="{StaticResource myFontLatoBold}"
                                             HorizontalOptions="EndAndExpand"
                                             IsVisible="{Binding Status, Converter={StaticResource IsEmptyDataConverter}}"
+                                            LineBreakMode="WordWrap"
                                             Text="Chưa xử lý"
                                             TextColor="{StaticResource PrimaryColor}"
                                             VerticalOptions="Center"
