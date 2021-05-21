@@ -7,12 +7,25 @@
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:template="clr-namespace:BA_MobileGPS.Core.Views"
+    xmlns:templateSelector="clr-namespace:BA_MobileGPS.Core.DataTemplateSelectors"
     x:Name="this"
     Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
+            <DataTemplate x:Key="TemplateDueDate">
+                <template:TemplateDueDate />
+            </DataTemplate>
+            <DataTemplate x:Key="TemplateIssueStatus">
+                <template:TemplateIssueStatus />
+            </DataTemplate>
+            <templateSelector:IssueTemplateSelector
+                x:Key="IssueTemplateSelector"
+                TemplateDueDate="{StaticResource TemplateDueDate}"
+                TemplateIssueStatus="{StaticResource TemplateIssueStatus}" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <NavigationPage.TitleView>
@@ -103,161 +116,19 @@
                     RowDefinitions="*,Auto"
                     RowSpacing="0">
 
-                    <icons:HorizontalList
+                    <syncfusionList:SfListView
                         Grid.Row="0"
                         Margin="0"
                         Padding="0"
+                        AutoFitMode="DynamicHeight"
                         IsClippedToBounds="True"
+                        IsScrollBarVisible="True"
+                        IsScrollingEnabled="True"
+                        ItemSpacing="0"
+                        ItemTemplate="{StaticResource IssueTemplateSelector}"
                         ItemsSource="{Binding ListIssue, Mode=TwoWay}"
-                        VerticalOptions="FillAndExpand">
-                        <icons:HorizontalList.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout
-                                    Orientation="Horizontal"
-                                    Spacing="10"
-                                    VerticalOptions="Center">
-
-                                    <StackLayout
-                                        HorizontalOptions="Center"
-                                        Orientation="Vertical"
-                                        Spacing="0"
-                                        VerticalOptions="Start">
-
-                                        <BoxView
-                                            Margin="0,0,0,0"
-                                            BackgroundColor="#00ADE5"
-                                            CornerRadius="10"
-                                            HeightRequest="20"
-                                            WidthRequest="20" />
-
-                                        <BoxView
-                                            HeightRequest="50"
-                                            HorizontalOptions="Center"
-                                            IsVisible="{Binding IsLastItem, Converter={StaticResource InvertBooleanConverter}}"
-                                            WidthRequest="5"
-                                            Color="#00ADE5" />
-
-                                        <BoxView
-                                            HeightRequest="50"
-                                            HorizontalOptions="Center"
-                                            IsVisible="{Binding IsLastItem}"
-                                            WidthRequest="5"
-                                            Color="#CED6E0" />
-                                    </StackLayout>
-
-                                    <!--  MESSAGE  -->
-                                    <StackLayout
-                                        HorizontalOptions="FillAndExpand"
-                                        Orientation="Vertical"
-                                        Spacing="20"
-                                        VerticalOptions="StartAndExpand">
-                                        <StackLayout
-                                            HorizontalOptions="Start"
-                                            Orientation="Horizontal"
-                                            VerticalOptions="Center">
-                                            <icons:IconView
-                                                Foreground="{StaticResource PrimaryColor}"
-                                                HeightRequest="20"
-                                                HorizontalOptions="Center"
-                                                Source="ic_event.png"
-                                                VerticalOptions="Center"
-                                                WidthRequest="20" />
-                                            <Label
-                                                FontAttributes="Bold"
-                                                FontFamily="{StaticResource myFontLatoBold}"
-                                                FontSize="15"
-                                                HorizontalOptions="Start"
-                                                Text="{Binding Status}"
-                                                TextColor="{StaticResource PrimaryColor}" />
-                                        </StackLayout>
-                                        <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
-                                            <icons:IconView
-                                                Foreground="{StaticResource PrimaryColor}"
-                                                HeightRequest="20"
-                                                HorizontalOptions="Center"
-                                                Source="ic_date_range_black.png"
-                                                VerticalOptions="Center"
-                                                WidthRequest="20" />
-                                            <Label
-                                                FontAttributes="Bold"
-                                                Text="{Binding DateChangeStatus, Converter={StaticResource DateTimeViewConverter}}"
-                                                TextColor="#2F3542" />
-                                        </StackLayout>
-                                        <BoxView
-                                            Margin="0,10,0,0"
-                                            HeightRequest="1"
-                                            HorizontalOptions="FillAndExpand"
-                                            VerticalOptions="End"
-                                            Color="#CED6E0" />
-                                    </StackLayout>
-                                </StackLayout>
-                            </DataTemplate>
-                        </icons:HorizontalList.ItemTemplate>
-                    </icons:HorizontalList>
-
-                    <StackLayout
-                        Grid.Row="1"
-                        Orientation="Horizontal"
-                        Spacing="10"
-                        VerticalOptions="Start">
-
-                        <StackLayout
-                            HorizontalOptions="Center"
-                            Orientation="Vertical"
-                            Spacing="0"
-                            VerticalOptions="Start">
-
-                            <Frame
-                                Margin="0,0,0,0"
-                                Padding="0"
-                                BackgroundColor=" #FFFFFF"
-                                BorderColor="#CED6E0"
-                                CornerRadius="10"
-                                HasShadow="False"
-                                HeightRequest="20"
-                                WidthRequest="20" />
-                        </StackLayout>
-
-                        <!--  MESSAGE  -->
-                        <StackLayout
-                            HorizontalOptions="FillAndExpand"
-                            Orientation="Vertical"
-                            Spacing="20"
-                            VerticalOptions="StartAndExpand">
-                            <StackLayout
-                                HorizontalOptions="Start"
-                                Orientation="Horizontal"
-                                VerticalOptions="Center">
-                                <icons:IconView
-                                    Foreground="{StaticResource PrimaryColor}"
-                                    HeightRequest="20"
-                                    HorizontalOptions="Center"
-                                    Source="ic_event.png"
-                                    VerticalOptions="Center"
-                                    WidthRequest="20" />
-                                <Label
-                                    FontAttributes="Bold"
-                                    FontFamily="{StaticResource myFontLatoBold}"
-                                    FontSize="15"
-                                    HorizontalOptions="Start"
-                                    Text="Lịch hẹn hoàn thành"
-                                    TextColor="{StaticResource PrimaryColor}" />
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
-                                <icons:IconView
-                                    Foreground="{StaticResource PrimaryColor}"
-                                    HeightRequest="20"
-                                    HorizontalOptions="Center"
-                                    Source="ic_date_range_black.png"
-                                    VerticalOptions="Center"
-                                    WidthRequest="20" />
-                                <Label
-                                    FontAttributes="Bold"
-                                    Text="{Binding Issue.DueDate, Converter={StaticResource DateTimeViewConverter}}"
-                                    TextColor="#2F3542" />
-                            </StackLayout>
-                        </StackLayout>
-                    </StackLayout>
+                        SelectionBackgroundColor="Transparent"
+                        VerticalOptions="FillAndExpand" />
                 </Grid>
             </StackLayout>
         </Grid>

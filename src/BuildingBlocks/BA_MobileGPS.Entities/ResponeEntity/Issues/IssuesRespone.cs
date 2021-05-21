@@ -53,5 +53,8 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Issues
 
         [JsonIgnore]
         public bool IsLastItem { get; set; }
+
+        [JsonIgnore]
+        public bool IsDueDate { get; set; }
     }
 }

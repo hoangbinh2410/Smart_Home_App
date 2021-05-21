@@ -274,7 +274,7 @@
                 VerticalOptions="FillAndExpand">
                 <syncfusionList:SfListView
                     x:Name="listView"
-                    ItemSize="110"
+                    AutoFitMode="DynamicHeight"
                     ItemSpacing="5"
                     ItemsSource="{Binding ListIssue, Mode=TwoWay}"
                     LoadMoreCommand="{Binding LoadMoreItemsCommand}"
@@ -363,7 +363,10 @@
                                             VerticalTextAlignment="Center" />
                                     </Grid>
 
-                                    <Grid Grid.Row="0" RowSpacing="0">
+                                    <Grid
+                                        Grid.Row="0"
+                                        ColumnSpacing="10"
+                                        RowSpacing="0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
@@ -392,8 +395,10 @@
                                             FontAttributes="Bold"
                                             FontFamily="{StaticResource myFontLatoBold}"
                                             HorizontalOptions="EndAndExpand"
+                                            HorizontalTextAlignment="End"
                                             IsVisible="{Binding Status, Converter={StaticResource NullOrEmptyToBoolConverter}}"
-                                            Text="{Binding Status}"
+                                            LineBreakMode="WordWrap"
+                                            Text="nhân viên kĩ thuật đang chuẩn bị vật tư tư tư tư"
                                             TextColor="{StaticResource PrimaryColor}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
@@ -403,6 +408,7 @@
                                             FontFamily="{StaticResource myFontLatoBold}"
                                             HorizontalOptions="EndAndExpand"
                                             IsVisible="{Binding Status, Converter={StaticResource IsEmptyDataConverter}}"
+                                            LineBreakMode="WordWrap"
                                             Text="Chưa xử lý"
                                             TextColor="{StaticResource PrimaryColor}"
                                             VerticalOptions="Center"

@@ -1,12 +1,12 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities.ResponeEntity.Issues;
 using BA_MobileGPS.Service;
+using Prism.Commands;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms.Extensions;
-using Prism.Commands;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -14,6 +14,7 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         private readonly IIssueService _issueService;
         public ICommand ReloadCommand { get; private set; }
+
         public IssuesDetailPageViewModel(INavigationService navigationService, IIssueService issueService) : base(navigationService)
         {
             Title = "Chi tiết phản hồi";
@@ -81,6 +82,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     Issue.DueDate = result.DueDate;
                     Issue.IssueCode = result.IssueCode;
                     var lst = result.IssueStatus.OrderBy(x => x.DateChangeStatus).ToList();
+
                     for (int i = 0; i < lst.Count; i++)
                     {
                         if (i == lst.Count - 1)
@@ -92,6 +94,13 @@ namespace BA_MobileGPS.Core.ViewModels
                             lst[i].IsLastItem = false;
                         }
                     }
+                    lst.Add(new IssueStatusRespone()
+                    {
+                        DateChangeStatus = Issue.DueDate,
+                        IsLastItem = true,
+                        IsDueDate = true,
+                        Status = "Lịch hẹn hoàn thành"
+                    }); ;
                     ListIssue = lst.ToObservableCollection();
                 }
             });
