@@ -125,7 +125,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 ListIssueByOrigin = result;
                 FilterIssue();
-            });
+            }, showLoading: true);
         }
 
         private void Reload()
