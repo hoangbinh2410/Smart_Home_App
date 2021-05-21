@@ -105,6 +105,7 @@
                     Grid.Row="1"
                     FontSize="14"
                     HorizontalOptions="Start"
+                    HorizontalTextAlignment="Start"
                     LineBreakMode="WordWrap"
                     Text="{Binding Issue.ContentRequest}"
                     TextColor="{StaticResource WhiteColor}"
