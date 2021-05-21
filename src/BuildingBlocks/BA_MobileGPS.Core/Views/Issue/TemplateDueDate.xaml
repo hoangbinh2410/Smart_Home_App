@@ -49,15 +49,14 @@
                 VerticalOptions="Center">
                 <Label
                     FontAttributes="Bold"
-                    FontFamily="{StaticResource myFontLatoBold}"
                     FontSize="15"
                     HorizontalOptions="Start"
                     Text="{Binding Status}"
-                    TextColor="{StaticResource PrimaryColor}" />
+                    TextColor="#57606F" />
             </StackLayout>
             <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
                 <icons:IconView
-                    Foreground="{StaticResource PrimaryColor}"
+                    Foreground="#57606F"
                     HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_time_black.png"
@@ -66,7 +65,7 @@
                 <Label
                     FontAttributes="Bold"
                     Text="{Binding DateChangeStatus, Converter={StaticResource DateTimeViewConverter}}"
-                    TextColor="#2F3542" />
+                    TextColor="#57606F" />
             </StackLayout>
         </StackLayout>
 

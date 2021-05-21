@@ -62,11 +62,11 @@
                     FontSize="15"
                     HorizontalOptions="Start"
                     Text="{Binding Status}"
-                    TextColor="{StaticResource PrimaryColor}" />
+                    TextColor="#2F3542" />
             </StackLayout>
             <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
                 <icons:IconView
-                    Foreground="{StaticResource PrimaryColor}"
+                    Foreground="#2F3542"
                     HeightRequest="20"
                     HorizontalOptions="Center"
                     Source="ic_time_black.png"
