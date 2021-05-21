@@ -13,7 +13,7 @@ namespace BA_MobileGPS.Core.DataTemplateSelectors
         {
             if (item is IssueStatusRespone data)
             {
-                if (data.IsLastItem && data.IsDueDate)
+                if (data.IsDueDate)
                 {
                     return TemplateDueDate;
                 }
