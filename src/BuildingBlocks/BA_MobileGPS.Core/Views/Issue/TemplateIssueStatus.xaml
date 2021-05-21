@@ -61,6 +61,7 @@
                     FontFamily="{StaticResource myFontLatoBold}"
                     FontSize="15"
                     HorizontalOptions="Start"
+                    HorizontalTextAlignment="Start"
                     Text="{Binding Status}"
                     TextColor="#2F3542" />
             </StackLayout>
