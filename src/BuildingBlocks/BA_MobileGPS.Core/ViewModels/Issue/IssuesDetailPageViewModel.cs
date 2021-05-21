@@ -82,25 +82,32 @@ namespace BA_MobileGPS.Core.ViewModels
                     Issue.DueDate = result.DueDate;
                     Issue.IssueCode = result.IssueCode;
                     var lst = result.IssueStatus.OrderBy(x => x.DateChangeStatus).ToList();
-
+                    bool isShowDueDate = false;
                     for (int i = 0; i < lst.Count; i++)
                     {
                         if (i == lst.Count - 1)
                         {
-                            lst[i].IsLastItem = true;
+                            if (lst[i].DateChangeStatus < result.DueDate)
+                            {
+                                lst[i].IsShowLine = true;
+                                isShowDueDate = true;
+                            }
+                            else
+                            {
+                                lst[i].IsShowLine = false;
+                            }
                         }
                         else
                         {
-                            lst[i].IsLastItem = false;
+                            lst[i].IsShowLine = true;
                         }
                     }
-                    var lasitem = lst.FirstOrDefault(x => x.IsLastItem == true);
-                    if (lasitem != null && lasitem.DateChangeStatus < result.DueDate)
+                    if (isShowDueDate)
                     {
                         lst.Add(new IssueStatusRespone()
                         {
                             DateChangeStatus = Issue.DueDate,
-                            IsLastItem = true,
+                            IsShowLine = false,
                             IsDueDate = true,
                             Status = "Lịch hẹn hoàn thành"
                         });

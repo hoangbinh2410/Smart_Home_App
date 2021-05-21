@@ -34,14 +34,14 @@
             <BoxView
                 HeightRequest="100"
                 HorizontalOptions="Center"
-                IsVisible="{Binding IsLastItem, Converter={StaticResource InvertBooleanConverter}}"
+                IsVisible="{Binding IsShowLine}"
                 WidthRequest="5"
                 Color="#A2E8FF" />
 
             <BoxView
                 HeightRequest="100"
                 HorizontalOptions="Center"
-                IsVisible="{Binding IsLastItem}"
+                IsVisible="{Binding IsDueDate}"
                 WidthRequest="5"
                 Color="#CED6E0" />
         </StackLayout>

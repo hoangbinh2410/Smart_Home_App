@@ -52,7 +52,7 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Issues
         public DateTime DateChangeStatus { get; set; }
 
         [JsonIgnore]
-        public bool IsLastItem { get; set; }
+        public bool IsShowLine { get; set; }
 
         [JsonIgnore]
         public bool IsDueDate { get; set; }
