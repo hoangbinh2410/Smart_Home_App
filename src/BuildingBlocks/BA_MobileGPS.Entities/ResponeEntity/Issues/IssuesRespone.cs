@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Entities.ResponeEntity.Issues
 {
@@ -56,5 +57,8 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Issues
 
         [JsonIgnore]
         public bool IsDueDate { get; set; }
+
+        [JsonIgnore]
+        public Color LineColor { get; set; }
     }
 }

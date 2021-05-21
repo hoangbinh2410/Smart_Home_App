@@ -3,9 +3,11 @@ using BA_MobileGPS.Entities.ResponeEntity.Issues;
 using BA_MobileGPS.Service;
 using Prism.Commands;
 using Prism.Navigation;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -81,26 +83,43 @@ namespace BA_MobileGPS.Core.ViewModels
                     Issue.DateRequest = result.DateRequest;
                     Issue.DueDate = result.DueDate;
                     Issue.IssueCode = result.IssueCode;
+                    var lstStatus = new List<IssueStatusRespone>();
                     var lst = result.IssueStatus.OrderBy(x => x.DateChangeStatus).ToList();
-                    bool isShowDueDate = false;
-                    for (int i = 0; i < lst.Count; i++)
+                    bool isShowDueDate = true;
+                    var modelRequest = new IssueStatusRespone()
                     {
-                        if (i == lst.Count - 1)
+                        DateChangeStatus = Issue.DateRequest,
+                        IsShowLine = true,
+                        LineColor = Color.FromHex("#A2E8FF"),
+                        Status = "Đã gửi yêu cầu hỗ trợ"
+                    };
+                    if (lst != null && lst.Count > 0)
+                    {
+                        for (int i = 0; i < lst.Count; i++)
                         {
-                            if (lst[i].DateChangeStatus < result.DueDate)
+                            if (i == lst.Count - 1)
                             {
-                                lst[i].IsShowLine = true;
-                                isShowDueDate = true;
+                                if (lst[i].DateChangeStatus < result.DueDate)
+                                {
+                                    lst[i].IsShowLine = true;
+                                    lst[i].LineColor = Color.FromHex("#CED6E0");
+                                }
+                                else
+                                {
+                                    isShowDueDate = false;
+                                    lst[i].IsShowLine = false;
+                                }
                             }
                             else
                             {
-                                lst[i].IsShowLine = false;
+                                lst[i].IsShowLine = true;
+                                lst[i].LineColor = Color.FromHex("#A2E8FF");
                             }
                         }
-                        else
-                        {
-                            lst[i].IsShowLine = true;
-                        }
+                    }
+                    else
+                    {
+                        modelRequest.LineColor = Color.FromHex("#CED6E0");
                     }
                     if (isShowDueDate)
                     {
@@ -112,8 +131,9 @@ namespace BA_MobileGPS.Core.ViewModels
                             Status = "Lịch hẹn hoàn thành"
                         });
                     }
-
-                    ListIssue = lst.ToObservableCollection();
+                    lstStatus.Add(modelRequest);
+                    lstStatus.AddRange(lst);
+                    ListIssue = lstStatus.ToObservableCollection();
                 }
             }, showLoading: true);
         }

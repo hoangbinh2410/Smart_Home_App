@@ -36,14 +36,7 @@
                 HorizontalOptions="Center"
                 IsVisible="{Binding IsShowLine}"
                 WidthRequest="5"
-                Color="#A2E8FF" />
-
-            <BoxView
-                HeightRequest="100"
-                HorizontalOptions="Center"
-                IsVisible="{Binding IsDueDate}"
-                WidthRequest="5"
-                Color="#CED6E0" />
+                Color="{Binding LineColor}" />
         </StackLayout>
 
         <!--  MESSAGE  -->
@@ -82,7 +75,6 @@
                 Margin="0,10,0,0"
                 HeightRequest="1"
                 HorizontalOptions="FillAndExpand"
-                IsVisible="{Binding IsDueDate}"
                 VerticalOptions="End"
                 Color="#CED6E0" />
         </StackLayout>
