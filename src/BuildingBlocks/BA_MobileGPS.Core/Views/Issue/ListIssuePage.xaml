@@ -398,7 +398,7 @@
                                             HorizontalTextAlignment="End"
                                             IsVisible="{Binding Status, Converter={StaticResource NullOrEmptyToBoolConverter}}"
                                             LineBreakMode="WordWrap"
-                                            Text="nhân viên kĩ thuật đang chuẩn bị vật tư tư tư tư"
+                                            Text="{Binding Status}"
                                             TextColor="{StaticResource PrimaryColor}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
