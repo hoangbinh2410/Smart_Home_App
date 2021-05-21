@@ -94,13 +94,18 @@ namespace BA_MobileGPS.Core.ViewModels
                             lst[i].IsLastItem = false;
                         }
                     }
-                    lst.Add(new IssueStatusRespone()
+                    var lasitem = lst.FirstOrDefault(x => x.IsLastItem == true);
+                    if (lasitem != null && lasitem.DateChangeStatus < result.DueDate)
                     {
-                        DateChangeStatus = Issue.DueDate,
-                        IsLastItem = true,
-                        IsDueDate = true,
-                        Status = "Lịch hẹn hoàn thành"
-                    }); ;
+                        lst.Add(new IssueStatusRespone()
+                        {
+                            DateChangeStatus = Issue.DueDate,
+                            IsLastItem = true,
+                            IsDueDate = true,
+                            Status = "Lịch hẹn hoàn thành"
+                        });
+                    }
+
                     ListIssue = lst.ToObservableCollection();
                 }
             }, showLoading: true);
