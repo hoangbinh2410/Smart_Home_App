@@ -91,7 +91,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         DateChangeStatus = Issue.DateRequest,
                         IsShowLine = true,
                         LineColor = Color.FromHex("#A2E8FF"),
-                        Status = "Đã gửi yêu cầu hỗ trợ"
+                        Status = "Gửi yêu cầu hỗ trợ"
                     };
                     if (lst != null && lst.Count > 0)
                     {
