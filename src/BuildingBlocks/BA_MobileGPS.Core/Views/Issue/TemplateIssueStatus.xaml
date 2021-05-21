@@ -82,6 +82,7 @@
                 Margin="0,10,0,0"
                 HeightRequest="1"
                 HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding IsDueDate}"
                 VerticalOptions="End"
                 Color="#CED6E0" />
         </StackLayout>
