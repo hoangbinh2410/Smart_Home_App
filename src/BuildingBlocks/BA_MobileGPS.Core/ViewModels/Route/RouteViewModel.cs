@@ -265,7 +265,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public bool playControlEnabled;
         public bool PlayControlEnabled { get => !playControlEnabled; set => SetProperty(ref playControlEnabled, value); }
-        private double SPEED_MAX = 8;
+        private double SPEED_MAX = 16;
         private int BaseTimeMoving = 800;
         private int BaseTimeRotating = 250;
 
@@ -1078,6 +1078,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (PlaySpeed >= SPEED_MAX)
                 {
+                    PlaySpeed = 8;
+                    await Task.Delay(1000);
                     PlaySpeed = 4;
                     await Task.Delay(1000);
                     PlaySpeed = 2;
