@@ -22,7 +22,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Login_Lable_SelectLanguage => GetResourceNotDB(MobileResourceNames.Login_Lable_SelectLanguage, "Chọn ngôn ngữ", "Select Language");
 
-        public static string Login_Message_AccountPasswordIncorrect => GetResourceNotDB(MobileResourceNames.Login_Message_AccountPasswordIncorrect, "Tài khoản hoặc mật khẩu không chính xác", "Account or password is incorrect");
+        public static string Login_Message_AccountPasswordIncorrect => GetResourceNotDB(MobileResourceNames.Login_Message_AccountPasswordIncorrect, "Tài khoản hoặc mật khẩu không chính xác.Vui lòng kiểm tra lại", "Account or password is incorrect.Please check again");
         public static string Login_Message_AccountAllowedSystem => GetResourceNotDB(MobileResourceNames.Login_Message_AccountPasswordIncorrect, "Tài khoản của bạn không được phép đăng nhập hệ thống", "Your account is not allowed to log in to the system");
         public static string Login_Message_AccountLocked => GetResourceNotDB(MobileResourceNames.Login_Message_AccountLocked, "Tài khoản của bạn đang bị khóa", " Your account was locked");
         public static string Login_ForgotPassword_PopupTitle => GetResourceNotDB(MobileResourceNames.Login_ForgotPassword_PopupTitle, "Quên mật khẩu", " Forgot Password");
