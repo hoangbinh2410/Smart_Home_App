@@ -8,6 +8,7 @@ using Prism.Navigation;
 using System;
 using System.Reflection;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -16,17 +17,21 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         private readonly IAuthenticationService _authenticationService;
         public ICommand SendInfoCommand { get; }
+
         public ForgotPasswordPageViewModel(INavigationService navigationService, IAuthenticationService iAuthenticationService) : base(navigationService)
         {
             SendInfoCommand = new DelegateCommand(SendInfo);
             _authenticationService = iAuthenticationService;
         }
+
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
             InitValidation();
         }
+
         private ValidatableObject<string> accountName;
+
         public ValidatableObject<string> AccountName
         {
             get { return accountName; }
@@ -34,11 +39,13 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private ValidatableObject<string> phoneNumber;
+
         public ValidatableObject<string> PhoneNumber
         {
             get { return phoneNumber; }
             set { SetProperty(ref phoneNumber, value); }
         }
+
         private void InitValidation()
         {
             AccountName = new ValidatableObject<string>();
@@ -132,7 +139,20 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         else
                         {
-                            DisplayMessage.ShowMessageInfo(MobileResource.ForgotPassword_Message_ErrorCheckInforUser, 5000);
+                            Device.BeginInvokeOnMainThread(async () =>
+                            {
+                                var actioncall = await PageDialog.DisplayAlertAsync("Thông báo",
+                                       string.Format("Tài khoản và số điện thoại phải nhập đúng với tài khoản và số điện thoại khi tạo. Vui lòng kiểm tra lại hoặc gọi điện lên số {0} để hỗ trợ", MobileSettingHelper.HotlineGps),
+                                       "Liên hệ", "Bỏ qua");
+                                if (actioncall)
+                                {
+                                    if (!string.IsNullOrEmpty(MobileSettingHelper.HotlineGps))
+                                    {
+                                        PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                                    }
+                                }
+                            });
+                            //DisplayMessage.ShowMessageInfo(MobileResource.ForgotPassword_Message_ErrorCheckInforUser, 5000);
                         }
                     }
                 }
@@ -150,8 +170,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsBusy = false;
             }
         }
-
-
 
         private async void SendSMSCheckUser()
         {
@@ -202,7 +220,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             break;
                     }
                 }
-
             }
             catch (Exception ex)
             {
