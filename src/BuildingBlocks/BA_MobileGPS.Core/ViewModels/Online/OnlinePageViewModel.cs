@@ -617,7 +617,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     { ParameterKey.CarDetail, CarActive }
                 };
 
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true, true);
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailCameraPage", parameters, true, true);
             });
         }
 
