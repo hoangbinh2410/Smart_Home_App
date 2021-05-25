@@ -141,16 +141,16 @@
       <Version>0.1.4</Version>
     </PackageReference>
     <PackageReference Include="Prism.DryIoc.Forms">
-      <Version>8.0.0.1909</Version>
+      <Version>8.1.97</Version>
     </PackageReference>
     <PackageReference Include="Rg.Plugins.Popup">
       <Version>2.0.0.11</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfProgressBar">
-      <Version>19.1.0.64</Version>
+      <Version>19.1.0.65</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider">
-      <Version>19.1.0.64</Version>
+      <Version>19.1.0.65</Version>
     </PackageReference>
     <PackageReference Include="VideoLAN.LibVLC.Android">
       <Version>3.2.0</Version>
@@ -194,20 +194,20 @@
     <PackageReference Include="Sharpnado.Presentation.Forms">
       <Version>1.7.1</Version>
     </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.1.0.64" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.1.0.64" />
-    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.1.0.64" />
-    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.1.0.64" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.1.0.64" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.1.0.64" />
-    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.1.0.64" />
-    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.1.0.64" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.1.0.64" />
-    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.1.0.64" />
-    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.1.0.64" />
-    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.1.0.64" />
-    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.1.0.64" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.1.0.64" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.1.0.65" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.1.0.65" />
+    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.1.0.65" />
+    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.1.0.65" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.1.0.65" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.1.0.65" />
+    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.1.0.65" />
+    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.1.0.65" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.1.0.65" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.1.0.65" />
+    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.1.0.65" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.1.0.65" />
+    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.1.0.65" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.1.0.65" />
     <!--<PackageReference Include="Toasts.Forms.Plugin">
       <Version>3.3.2</Version>
     </PackageReference>-->
