@@ -1,0 +1,773 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="BA_MobileGPS.Core.Views.BACamDetailTab"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:busyIndicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:converters="clr-namespace:BA_MobileGPS.Core"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    BackgroundColor="White">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:NMConverter x:Key="NMConverter" />
+            <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
+        </ResourceDictionary>
+        <Style TargetType="busyIndicator:SfBusyIndicator">
+            <Setter Property="AnimationType" Value="Cupertino" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="EnableAnimation" Value="True" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="ViewBoxHeight" Value="50" />
+            <Setter Property="ViewBoxWidth" Value="50" />
+            <Setter Property="Duration" Value="0.8" />
+        </Style>
+    </ContentView.Resources>
+    <ScrollView
+        Orientation="Vertical"
+        VerticalOptions="StartAndExpand"
+        VerticalScrollBarVisibility="Never">
+        <StackLayout BackgroundColor="{StaticResource WhiteColor}" Spacing="0">
+            <StackLayout Spacing="0">
+
+
+                <!--  phần thông tin gói cước  -->
+                <StackLayout Spacing="0">
+                    <sharpnado:MaterialFrame
+                        Grid.Row="0"
+                        Padding="10"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        LightThemeBackgroundColor="{StaticResource GrayColor}"
+                        VerticalOptions="FillAndExpand">
+
+                        <sharpnado:MaterialFrame.Content>
+                            <Label
+                                HorizontalOptions="StartAndExpand"
+                                Text="Thông tin gói cước"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </sharpnado:MaterialFrame.Content>
+                    </sharpnado:MaterialFrame>
+                    <sharpnado:MaterialFrame
+                        Grid.Row="1"
+                        Padding="10,0,10,0"
+                        BackgroundColor="White"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                        <sharpnado:MaterialFrame.Content>
+                            <StackLayout Grid.Row="0" Spacing="0">
+
+                                <!--  Tên gói cước  -->
+                                <Grid RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_cloud.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="Tên gói cước"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="CAMTH31-1"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Nhà mạng  -->
+                                <Grid RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_rada.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="Nhà mạng"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="Unknown"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Dung lượng khả dụng  -->
+                                <Grid RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_storage.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="Dung lượng khả dụng "
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="50 GB"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Số ngày lưu trữ  -->
+                                <Grid RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_date_range_black.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="Số ngày lưu trữ"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="30 ngày"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Số kênh lưu trữ  -->
+                                <Grid RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_lstchannel.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="Số kênh lưu trữ"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="1"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Tính năng ảnh  -->
+                                <Grid RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_camera.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="Tính năng ảnh"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="Có"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Tính năng video  -->
+                                <Grid RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_videofill.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="Tính năng video "
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="Không"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+                            </StackLayout>
+                        </sharpnado:MaterialFrame.Content>
+                    </sharpnado:MaterialFrame>
+                </StackLayout>
+
+                <!--  phần thông tin thiết bị  -->
+                <StackLayout Spacing="0">
+                    <sharpnado:MaterialFrame
+                        Grid.Row="0"
+                        Padding="10"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        LightThemeBackgroundColor="{StaticResource GrayColor}"
+                        VerticalOptions="FillAndExpand">
+
+                        <sharpnado:MaterialFrame.Content>
+                            <Label
+                                HorizontalOptions="StartAndExpand"
+                                Text="Thông tin gói cước"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </sharpnado:MaterialFrame.Content>
+                    </sharpnado:MaterialFrame>
+                    <sharpnado:MaterialFrame
+                        Grid.Row="1"
+                        Padding="10,0,10,0"
+                        BackgroundColor="White"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                        <sharpnado:MaterialFrame.Content>
+                            <StackLayout Grid.Row="0" Spacing="0">
+
+                                <!--  Kênh lắp camera :  -->
+                                <Grid RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <ffImage:CachedImage
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_video.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="Kênh lắp camera :"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="1, 2, 3, 4"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Kênh hoạt động :  -->
+                                <Grid RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_videofill.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="Kênh hoạt động :"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="2, 3"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Lưu trữ :  -->
+                                <Grid RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_memory.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="Lưu trữ :"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="SSD"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Dung lượng ổ :  -->
+                                <Grid RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_storage.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="Dung lượng ổ :"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="30/50 GB"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Số khung hình/giây :  -->
+                                <Grid RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_fps.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="Số khung hình/giây :"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="20 fps"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Mạng kết nối :  -->
+                                <Grid RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_lte.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="Mạng kết nối : "
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="4G / LTE "
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <controls:IconView
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        Foreground="{StaticResource PrimaryColor}"
+                                        HeightRequest="20"
+                                        HorizontalOptions="End"
+                                        Source="ic_ltesignal.png"
+                                        VerticalOptions="Center"
+                                        WidthRequest="20" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="3"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <!--  Phiên bản app :  -->
+                                <Grid RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0,10,0,10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="ic_version.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+
+                                        <Label
+                                            Text="Tính năng video "
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                    </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="BTG.1005, CAM 1018"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource GrayColor}"
+                                        HeightRequest="0.5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Start" />
+                                </Grid>
+                            </StackLayout>
+                        </sharpnado:MaterialFrame.Content>
+                    </sharpnado:MaterialFrame>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentView>

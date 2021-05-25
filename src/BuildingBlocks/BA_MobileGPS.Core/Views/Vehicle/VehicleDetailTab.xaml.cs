@@ -6,16 +6,7 @@ namespace BA_MobileGPS.Core.Views
     {
         public VehicleDetailTab()
         {
-            try
-            {
-                InitializeComponent();
-            }
-            catch (System.Exception ex)
-            {
-
-                throw ex;
-            }
-           
+            InitializeComponent();
         }
     }
 }

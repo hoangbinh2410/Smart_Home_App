@@ -85,12 +85,7 @@
                 TitleFontColor="White"
                 TitleFontSize="14">
                 <tabView:SfTabItem.Content>
-                    <StackLayout
-                        Padding="10"
-                        BackgroundColor="{DynamicResource WhiteColor}"
-                        HorizontalOptions="FillAndExpand"
-                        Spacing="10"
-                        VerticalOptions="FillAndExpand" />
+                    <views:BACamDetailTab />
                 </tabView:SfTabItem.Content>
             </tabView:SfTabItem>
         </tabView:SfTabView>

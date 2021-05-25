@@ -150,6 +150,9 @@
 	  <Compile Update="Views\Vehicle\VehicleDetailPage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Vehicle\BACamDetailTab.xaml.cs">
+	    <DependentUpon>BACamDetailTab.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Update="App.xaml">
