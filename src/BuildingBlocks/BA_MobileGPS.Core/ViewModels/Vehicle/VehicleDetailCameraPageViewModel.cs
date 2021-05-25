@@ -75,6 +75,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     GetVehicleDetail();
                     IsCameraEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView);
                     GetPackageByXnPlate();
+                    GetCameraInfor();
                     // Nếu có quyền hiển thị ngày đăng kiểm => hiển thị ngày bảo hiểm
                     // Thông tin k cần update liên tục => vứt ở đây
                     if (CompanyConfigurationHelper.IsShowDateOfRegistration)
@@ -241,7 +242,9 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return serverServiceInfo; }
             set { SetProperty(ref serverServiceInfo, value); }
         }
+
         private CloudServiceInfoInfo cloudServiceInfo = new CloudServiceInfoInfo();
+
         public CloudServiceInfoInfo CloudServiceInfo
         {
             get { return cloudServiceInfo; }
@@ -249,12 +252,37 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private SimCardServiceInfo simCardServiceInfo = new SimCardServiceInfo();
+
         public SimCardServiceInfo SimCardServiceInfo
         {
             get { return simCardServiceInfo; }
             set { SetProperty(ref simCardServiceInfo, value); }
         }
-        
+
+        private Coreboard coreboard = new Coreboard();
+
+        public Coreboard Coreboard
+        {
+            get { return coreboard; }
+            set { SetProperty(ref coreboard, value); }
+        }
+
+        private StorageDevices storageDevices = new StorageDevices();
+
+        public StorageDevices StorageDevices
+        {
+            get { return storageDevices; }
+            set { SetProperty(ref storageDevices, value); }
+        }
+
+        private string channelString;
+
+        public string ChannelString { get => channelString; set => SetProperty(ref channelString, value); }
+
+        private string channelActive;
+
+        public string ChannelActive { get => channelActive; set => SetProperty(ref channelActive, value); }
+
         private ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
 
         public ObservableCollection<MenuItem> MenuItems
@@ -500,7 +528,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     var model = result.Data.FirstOrDefault(x => x.VehiclePlate == VehiclePlate);
                     if (model != null)
                     {
-                        if(model.ServerServiceInfoEnt != null)
+                        if (model.ServerServiceInfoEnt != null)
                         {
                             ServerServiceInfo = model.ServerServiceInfoEnt;
                         }
@@ -511,6 +539,40 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (model.SimCardServiceInfoEnt != null)
                         {
                             SimCardServiceInfo = model.SimCardServiceInfoEnt;
+                        }
+                    }
+                }
+            });
+        }
+
+        private void GetCameraInfor()
+        {
+            RunOnBackground(async () =>
+            {
+                return await streamCameraService.GetDevicesStatus(ConditionType.BKS, VehiclePlate);
+            }, (result) =>
+            {
+                if (result != null && result.Data != null)
+                {
+                    var model = result.Data.FirstOrDefault(x => x.VehiclePlate == VehiclePlate);
+                    if (model != null)
+                    {
+                        if (model.CameraChannels != null && model.CameraChannels.Count > 0)
+                        {
+                            ChannelString = string.Join(",", model.CameraChannels.Select(x => x.Channel));
+                            var channelActive = model.CameraChannels.Where(x => x.IsHasCamera = true).ToList();
+                            if (channelActive != null && channelActive.Count > 0)
+                            {
+                                ChannelActive = string.Join(",", channelActive.Select(x => x.Channel));
+                            }
+                        }
+                        if (model.Coreboard != null)
+                        {
+                            Coreboard = model.Coreboard;
+                        }
+                        if (model.StorageDevices != null)
+                        {
+                            StorageDevices = model.StorageDevices.FirstOrDefault();
                         }
                     }
                 }

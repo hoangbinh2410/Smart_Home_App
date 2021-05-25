@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <converters:BoolToStringConverter x:Key="BoolToStringConverter" />
             <converters:NetworkCamConverter x:Key="NetworkCamConverter" />
+            <converters:StorageTypeConverter x:Key="StorageTypeConverter" />
         </ResourceDictionary>
         <Style TargetType="busyIndicator:SfBusyIndicator">
             <Setter Property="AnimationType" Value="Cupertino" />
@@ -388,7 +389,6 @@
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Start" />
                                 </Grid>
-
                             </StackLayout>
                         </sharpnado:MaterialFrame.Content>
                     </sharpnado:MaterialFrame>
@@ -457,7 +457,7 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="1, 2, 3, 4"
+                                        Text="{Binding ChannelString}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
@@ -504,7 +504,7 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="2, 3"
+                                        Text="{Binding ChannelActive}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
@@ -551,7 +551,7 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="SSD"
+                                        Text="{Binding StorageDevices.Type, Converter={StaticResource StorageTypeConverter}}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
@@ -697,10 +697,9 @@
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
-                                    <controls:IconView
+                                    <ffImage:CachedImage
                                         Grid.Row="0"
                                         Grid.Column="2"
-                                        Foreground="{StaticResource PrimaryColor}"
                                         HeightRequest="20"
                                         HorizontalOptions="End"
                                         Source="ic_ltesignal.png"
