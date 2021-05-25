@@ -11,8 +11,8 @@
     BackgroundColor="White">
     <ContentView.Resources>
         <ResourceDictionary>
-            <converters:NMConverter x:Key="NMConverter" />
-            <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
+            <converters:BoolToStringConverter x:Key="BoolToStringConverter" />
+            <converters:NetworkCamConverter x:Key="NetworkCamConverter" />
         </ResourceDictionary>
         <Style TargetType="busyIndicator:SfBusyIndicator">
             <Setter Property="AnimationType" Value="Cupertino" />
@@ -30,8 +30,6 @@
         VerticalScrollBarVisibility="Never">
         <StackLayout BackgroundColor="{StaticResource WhiteColor}" Spacing="0">
             <StackLayout Spacing="0">
-
-
                 <!--  phần thông tin gói cước  -->
                 <StackLayout Spacing="0">
                     <sharpnado:MaterialFrame
@@ -96,7 +94,7 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="CAMTH31-1"
+                                        Text="{Binding ServerServiceInfo.Code, Converter={StaticResource NetworkCamConverter}}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
@@ -143,7 +141,7 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="Unknown"
+                                        Text="{Binding SimCardServiceInfo.Network, Converter={StaticResource NetworkCamConverter}}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
@@ -190,7 +188,7 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="50 GB"
+                                        Text="{Binding SimCardServiceInfo.Capacity, StringFormat='{0} GB'}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
@@ -237,7 +235,7 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="30 ngày"
+                                        Text="{Binding CloudServiceInfo.Days, StringFormat='{0} ngày'}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
@@ -284,7 +282,7 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="1"
+                                        Text="{Binding CloudServiceInfo.Channels}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
@@ -331,7 +329,7 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="Có"
+                                        Text="{Binding ServerServiceInfo.HasImageCapture, Converter={StaticResource BoolToStringConverter}}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
@@ -378,7 +376,7 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="Không"
+                                        Text="{Binding ServerServiceInfo.HasVideoStream, Converter={StaticResource BoolToStringConverter}}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
@@ -390,6 +388,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Start" />
                                 </Grid>
+
                             </StackLayout>
                         </sharpnado:MaterialFrame.Content>
                     </sharpnado:MaterialFrame>

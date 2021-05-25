@@ -27,15 +27,17 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IDetailVehicleService detailVehicleService;
         private readonly IPapersInforService papersInforService;
         private readonly IGeocodeService geocodeService;
+        private readonly IStreamCameraService streamCameraService;
         public ICommand GotoCameraPageComamnd { get; }
         public ICommand SelectedMenuCommand { get; }
 
         public VehicleDetailCameraPageViewModel(INavigationService navigationService, IGeocodeService geocodeService,
-            IDetailVehicleService detailVehicleService, IPapersInforService papersInforService) : base(navigationService)
+            IDetailVehicleService detailVehicleService, IPapersInforService papersInforService, IStreamCameraService streamCameraService) : base(navigationService)
         {
             this.geocodeService = geocodeService;
             this.detailVehicleService = detailVehicleService;
             this.papersInforService = papersInforService;
+            this.streamCameraService = streamCameraService;
             Title = MobileResource.DetailVehicle_Label_TilePage;
 
             MessageInforChargeMoney = string.Empty;
@@ -72,6 +74,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     Coordinates = cardetail.Lat.ToString().Replace(",", ".") + ", " + cardetail.Lng.ToString().Replace(",", ".");
                     GetVehicleDetail();
                     IsCameraEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView);
+                    GetPackageByXnPlate();
                     // Nếu có quyền hiển thị ngày đăng kiểm => hiển thị ngày bảo hiểm
                     // Thông tin k cần update liên tục => vứt ở đây
                     if (CompanyConfigurationHelper.IsShowDateOfRegistration)
@@ -231,6 +234,27 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref showPaperInfor, value); }
         }
 
+        private ServerServiceInfo serverServiceInfo = new ServerServiceInfo();
+
+        public ServerServiceInfo ServerServiceInfo
+        {
+            get { return serverServiceInfo; }
+            set { SetProperty(ref serverServiceInfo, value); }
+        }
+        private CloudServiceInfoInfo cloudServiceInfo = new CloudServiceInfoInfo();
+        public CloudServiceInfoInfo CloudServiceInfo
+        {
+            get { return cloudServiceInfo; }
+            set { SetProperty(ref cloudServiceInfo, value); }
+        }
+
+        private SimCardServiceInfo simCardServiceInfo = new SimCardServiceInfo();
+        public SimCardServiceInfo SimCardServiceInfo
+        {
+            get { return simCardServiceInfo; }
+            set { SetProperty(ref simCardServiceInfo, value); }
+        }
+        
         private ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
 
         public ObservableCollection<MenuItem> MenuItems
@@ -457,6 +481,39 @@ namespace BA_MobileGPS.Core.ViewModels
                     parameters.Add(ParameterKey.VehicleRoute, new Vehicle() { VehicleId = PK_VehicleID, VehiclePlate = VehiclePlate, PrivateCode = PrivateCode });
                 }
                 await NavigationService.NavigateAsync(obj.Url, parameters, useModalNavigation: true, true);
+            });
+        }
+
+        private void GetPackageByXnPlate()
+        {
+            RunOnBackground(async () =>
+            {
+                return await streamCameraService.GetPackageByXnPlate(new PackageBACameraRequest()
+                {
+                    XNCode = UserInfo.XNCode,
+                    LstPlate = new List<string>() { VehiclePlate }
+                });
+            }, (result) =>
+            {
+                if (result != null && result.Data != null)
+                {
+                    var model = result.Data.FirstOrDefault(x => x.VehiclePlate == VehiclePlate);
+                    if (model != null)
+                    {
+                        if(model.ServerServiceInfoEnt != null)
+                        {
+                            ServerServiceInfo = model.ServerServiceInfoEnt;
+                        }
+                        if (model.CloudServiceInfoInfoEnt != null)
+                        {
+                            CloudServiceInfo = model.CloudServiceInfoInfoEnt;
+                        }
+                        if (model.SimCardServiceInfoEnt != null)
+                        {
+                            SimCardServiceInfo = model.SimCardServiceInfoEnt;
+                        }
+                    }
+                }
             });
         }
 
