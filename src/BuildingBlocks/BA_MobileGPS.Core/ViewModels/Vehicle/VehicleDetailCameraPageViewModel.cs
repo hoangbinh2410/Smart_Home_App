@@ -437,7 +437,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     InitMenuItems();
                 }
-            });
+            }, showLoading: true);
         }
 
         private void OnReceiveSendCarSignalR(VehicleOnline carInfo)
