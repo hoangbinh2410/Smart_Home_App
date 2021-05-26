@@ -76,18 +76,18 @@ namespace BA_MobileGPS.Entities
     public class StorageDevices
     {
         public int ErrorCode { get; set; }
-        public object FreeSize { get; set; }
+        public long FreeSize { get; set; }
         public bool IsInserted { get; set; }
-        public object TotalSize { get; set; }
+        public long TotalSize { get; set; }
         public int Type { get; set; }
     }
 
     public class StreamStartResponse : ResponseStreamBase<List<StreamStart>>
     {
     }
+
     public class RestreamStartResponese : ResponseStreamBase<StreamStart>
     {
-
     }
 
     public class StreamStart
@@ -107,7 +107,6 @@ namespace BA_MobileGPS.Entities
 
     public class RestreamUploadResponse : ResponseStreamBase<bool>
     {
-
     }
 
     public class CaptureImageGroup
