@@ -787,7 +787,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await Task.Delay(500);
+                await Task.Delay(300);
                 if (!IsPlaying)
                 {
                     if (PlayCurrent >= PlayMax)
