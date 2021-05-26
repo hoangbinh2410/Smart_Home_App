@@ -74,9 +74,9 @@ namespace BA_MobileGPS.Core.ViewModels
             NavigateToSettingsCommand = new Command(NavigateToSettings);
             WatchVehicleCommand = new Command(WatchVehicle);
             PinClickedCommand = new Command<PinClickedEventArgs>(PinClicked);
-            DragStartedCommand = new Command(DragStarted);
-            DragCompletedCommand = new Command(DragCompleted);
-            PlayStopCommand = new Command(PlayStop);
+            DragStartedCommand = new DelegateCommand(DragStarted);
+            DragCompletedCommand = new DelegateCommand(DragCompleted);
+            PlayStopCommand = new DelegateCommand(PlayStop);
             ChangeSpeedCommand = new DelegateCommand(ChangeSpeed);
         }
 
@@ -782,12 +782,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 PageDialog.DisplayAlertAsync("", ex.Message, MobileResource.Common_Button_OK);
             }
         }
-
         private void PlayStop()
         {
             SafeExecute(async () =>
             {
-                await Task.Delay(300);
                 if (!IsPlaying)
                 {
                     if (PlayCurrent >= PlayMax)
@@ -799,6 +797,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     StopRoute();
                 }
+                await Task.Delay(500);
             });
         }
 
