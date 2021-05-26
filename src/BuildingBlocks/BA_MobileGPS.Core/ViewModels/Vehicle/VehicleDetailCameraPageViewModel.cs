@@ -259,7 +259,6 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref simCardServiceInfo, value); }
         }
 
-
         private StreamDevices streamDevices = new StreamDevices();
 
         public StreamDevices StreamDevices
@@ -267,6 +266,7 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return streamDevices; }
             set { SetProperty(ref streamDevices, value); }
         }
+
         private Coreboard coreboard = new Coreboard();
 
         public Coreboard Coreboard
@@ -437,7 +437,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     InitMenuItems();
                 }
-            }, showLoading: true);
+            });
         }
 
         private void OnReceiveSendCarSignalR(VehicleOnline carInfo)
@@ -499,9 +499,11 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(() =>
             {
+                Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("");
                 GetVehicleDetail();
                 GetCameraInfor();
                 GetPackageByXnPlate();
+                Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
             });
         }
 
