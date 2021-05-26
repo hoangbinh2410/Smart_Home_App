@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BA_MobileGPS.Utilities.Enums;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -37,6 +38,9 @@ namespace BA_MobileGPS.Entities
         public List<StorageDevices> StorageDevices { get; set; }
         public DateTime UpdatedTime { get; set; }
         public string VehicleName { get; set; }
+        public string CameraApp { get; set; }
+        public NetworkDataType NetType { get; set; }
+        public int NetBand { get; set; }
 
         public string VehiclePlate
         {
@@ -64,6 +68,7 @@ namespace BA_MobileGPS.Entities
         public int StreamingStatus { get; set; }
         public int StreamingTimeout { get; set; }
         public int StreamingTotal { get; set; }
+        public int FPS { get; set; }
     }
 
     public class Coreboard
