@@ -259,6 +259,14 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref simCardServiceInfo, value); }
         }
 
+
+        private StreamDevices streamDevices = new StreamDevices();
+
+        public StreamDevices StreamDevices
+        {
+            get { return streamDevices; }
+            set { SetProperty(ref streamDevices, value); }
+        }
         private Coreboard coreboard = new Coreboard();
 
         public Coreboard Coreboard
@@ -573,6 +581,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     var model = result.Data.FirstOrDefault(x => x.VehiclePlate == VehiclePlate);
                     if (model != null)
                     {
+                        StreamDevices = model;
                         if (model.CameraChannels != null && model.CameraChannels.Count > 0)
                         {
                             ChannelString = string.Join(",", model.CameraChannels.Select(x => x.Channel));
@@ -588,7 +597,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         if (model.StorageDevices != null)
                         {
-                            var storage = model.StorageDevices.FirstOrDefault(x => x.TotalSize > 0);
+                            var storage = model.StorageDevices.FirstOrDefault(x => x.IsInserted == true && x.TotalSize > 0);
                             if (storage != null)
                             {
                                 StorageDevices = storage;
