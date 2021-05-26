@@ -33,7 +33,7 @@ namespace BA_MobileGPS.Utilities.Enums
         NETWORK_TYPE_HSUPA = 9,
         [Description("iDen")]
         NETWORK_TYPE_IDEN = 11,
-        [Description("IWLAN")]
+        [Description("WIFI")]
         NETWORK_TYPE_IWLAN = 18,
         [Description("4G/LTE")]
         NETWORK_TYPE_LTE = 13,
