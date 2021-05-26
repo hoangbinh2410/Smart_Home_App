@@ -182,7 +182,7 @@
                                             WidthRequest="20" />
 
                                         <Label
-                                            Text="Dung lượng khả dụng "
+                                            Text="Dung lượng gói cước "
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
