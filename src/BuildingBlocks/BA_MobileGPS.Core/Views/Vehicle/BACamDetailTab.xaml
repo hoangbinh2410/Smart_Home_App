@@ -96,6 +96,7 @@
                                     <Label
                                         Grid.Row="0"
                                         Grid.Column="1"
+                                        FontFamily="{StaticResource myFontLatoBold}"
                                         HorizontalOptions="EndAndExpand"
                                         Text="{Binding ServerServiceInfo.Code, Converter={StaticResource NetworkCamConverter}}"
                                         VerticalOptions="Center"
@@ -331,6 +332,7 @@
                                     <Label
                                         Grid.Row="0"
                                         Grid.Column="1"
+                                        FontFamily="{StaticResource myFontLatoBold}"
                                         HorizontalOptions="EndAndExpand"
                                         Text="{Binding ServerServiceInfo.HasImageCapture, Converter={StaticResource BoolToStringConverter}}"
                                         VerticalOptions="Center"
@@ -378,6 +380,7 @@
                                     <Label
                                         Grid.Row="0"
                                         Grid.Column="1"
+                                        FontFamily="{StaticResource myFontLatoBold}"
                                         HorizontalOptions="EndAndExpand"
                                         Text="{Binding ServerServiceInfo.HasVideoStream, Converter={StaticResource BoolToStringConverter}}"
                                         VerticalOptions="Center"

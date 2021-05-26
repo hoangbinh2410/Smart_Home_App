@@ -607,8 +607,9 @@ namespace BA_MobileGPS.Core.ViewModels
                                 {
                                     var totalSize = Math.Round(StorageConverter.Convert(Differential.ByteToGiga, storage.TotalSize), 1);
                                     var freeSize = Math.Round(StorageConverter.Convert(Differential.ByteToGiga, storage.FreeSize), 1);
-                                    StorageProgress = 100 - ((freeSize / totalSize) * 100);
-                                    StorageValue = (totalSize - freeSize) + "/" + totalSize + " GB";
+                                    var useSize = totalSize - freeSize;
+                                    StorageProgress = (useSize / totalSize) * 100;
+                                    StorageValue = freeSize + "/" + totalSize + " GB";
                                 }
                             }
                         }
