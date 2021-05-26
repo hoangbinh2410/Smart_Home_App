@@ -45,7 +45,7 @@ namespace BA_MobileGPS.Core.ViewModels
             _engineState = MobileResource.Common_Label_TurnOff;
             IsShowCoordinates = CompanyConfigurationHelper.IsShowCoordinates;
 
-            RefeshCommand = new DelegateCommand(GetVehicleDetail);
+            RefeshCommand = new DelegateCommand(RefeshData);
             EventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(OnReceiveSendCarSignalR);
             EventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
             GotoCameraPageComamnd = new DelegateCommand<object>(GotoCameraPage);
@@ -487,6 +487,16 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Camera
 
+        private void RefeshData()
+        {
+            SafeExecute(() =>
+            {
+                GetVehicleDetail();
+                GetCameraInfor();
+                GetPackageByXnPlate();
+            });
+        }
+
         private async void GotoCameraPage(object obj)
         {
             var param = obj.ToString();
@@ -578,13 +588,17 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         if (model.StorageDevices != null)
                         {
-                            StorageDevices = model.StorageDevices[1];
-                            if (StorageDevices.TotalSize > 0)
+                            var storage = model.StorageDevices.FirstOrDefault(x => x.TotalSize > 0);
+                            if (storage != null)
                             {
-                                var totalSize = Math.Round(StorageConverter.Convert(Differential.ByteToGiga, StorageDevices.TotalSize), 1);
-                                var freeSize = Math.Round(StorageConverter.Convert(Differential.ByteToGiga, StorageDevices.FreeSize), 1);
-                                StorageProgress = 100 - ((freeSize / totalSize) * 100);
-                                StorageValue = (totalSize - freeSize) + "/" + totalSize + " GB";
+                                StorageDevices = storage;
+                                if (storage.TotalSize > 0)
+                                {
+                                    var totalSize = Math.Round(StorageConverter.Convert(Differential.ByteToGiga, storage.TotalSize), 1);
+                                    var freeSize = Math.Round(StorageConverter.Convert(Differential.ByteToGiga, storage.FreeSize), 1);
+                                    StorageProgress = 100 - ((freeSize / totalSize) * 100);
+                                    StorageValue = (totalSize - freeSize) + "/" + totalSize + " GB";
+                                }
                             }
                         }
                     }
